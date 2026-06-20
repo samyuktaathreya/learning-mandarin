@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Tone Trainer</title>
+<style>
+  :root{
+    --paper:#FAF6EE;
+    --ink:#221F1A;
+    --ink-soft:#5B564C;
+    --seal:#B8392B;
+    --seal-soft:#E8C9C2;
+    --jade:#3E6259;
+    --jade-soft:#D9E5E0;
+    --line:#E3DCCB;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    min-height:100vh;
+    padding:0 0 60px;
+  }
+  .wrap{max-width:480px;margin:0 auto;padding:24px 20px;}
+
+  header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;}
+  header h1{font-size:22px;margin:0 0 2px;letter-spacing:-0.01em;}
+  header p{margin:0;font-size:13px;color:var(--ink-soft);}
+  .score{
+    background:var(--jade-soft);
+    color:var(--jade);
+    font-weight:600;
+    font-size:13px;
+    padding:6px 12px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+
+  .segmented{
+    display:flex;
+    background:#F0EADA;
+    border-radius:999px;
+    padding:4px;
+    margin-bottom:20px;
+  }
+  .segmented button{
+    flex:1;
+    border:none;
+    background:transparent;
+    padding:10px 0;
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink-soft);
+    border-radius:999px;
+    cursor:pointer;
+  }
+  .segmented button.active{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  .stage{
+    background:white;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:28px 20px;
+    text-align:center;
+    margin-bottom:20px;
+  }
+  .play-btn{
+    width:84px;height:84px;
+    border-radius:50%;
+    border:none;
+    background:var(--seal);
+    color:white;
+    font-size:32px;
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 12px;
+    cursor:pointer;
+    box-shadow:0 6px 16px rgba(184,57,43,0.28);
+  }
+  .play-btn:active{transform:scale(0.96);}
+  .play-hint{font-size:12px;color:var(--ink-soft);}
+
+  label.field-label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+
+  input[type=text]{
+    width:100%;
+    font-size:18px;
+    padding:14px 16px;
+    border-radius:12px;
+    border:1px solid var(--line);
+    background:white;
+    margin-bottom:20px;
+  }
+  input[type=text]:focus{outline:2px solid var(--seal);outline-offset:1px;}
+  input[type=text]:disabled{background:#F3EFE3;color:var(--ink-soft);}
+
+  .tones{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    margin-bottom:24px;
+  }
+  .tone-btn{
+    background:white;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:10px 4px 8px;
+    cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+  }
+  .tone-btn:disabled{opacity:0.5;cursor:default;}
+  .tone-btn svg{width:32px;height:22px;}
+  .tone-btn path{stroke:var(--ink-soft);stroke-width:2.4;fill:none;stroke-linecap:round;}
+  .tone-btn span{font-size:12px;color:var(--ink-soft);font-weight:600;}
+  .tone-btn.selected{border-color:var(--seal);background:var(--seal-soft);}
+  .tone-btn.selected path{stroke:var(--seal);}
+  .tone-btn.selected span{color:var(--seal);}
+
+  .submit-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:var(--ink);
+    color:var(--paper);
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    margin-bottom:10px;
+  }
+  .skip-btn{
+    width:100%;
+    padding:12px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:transparent;
+    color:var(--ink-soft);
+    font-size:14px;
+    cursor:pointer;
+  }
+  .skip-btn:disabled{opacity:0.5;cursor:default;}
+
+  .hidden{display:none !important;}
+
+  .feedback{
+    margin-top:18px;
+    padding:16px;
+    border-radius:12px;
+    text-align:center;
+    display:none;
+  }
+  .feedback.correct{display:block;background:var(--jade-soft);color:var(--jade);}
+  .feedback.incorrect{display:block;background:var(--seal-soft);color:var(--seal);}
+  .feedback.reveal{display:block;background:#F0EADA;color:var(--ink-soft);}
+  .feedback .answer{
+    font-size:28px;
+    margin:6px 0 2px;
+    color:var(--ink);
+  }
+  .feedback .meaning{font-size:13px;color:var(--ink-soft);margin-bottom:10px;}
+  .feedback button{
+    border:none;
+    background:white;
+    padding:8px 14px;
+    border-radius:999px;
+    font-size:13px;
+    cursor:pointer;
+    color:var(--ink);
+  }
+
+  .syll-breakdown{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+    margin:10px 0;
+  }
+  .syll-chip{
+    border-radius:10px;
+    padding:6px 10px;
+    font-size:14px;
+    font-weight:700;
+    min-width:44px;
+  }
+  .syll-chip.correct{background:var(--jade-soft);color:var(--jade);}
+  .syll-chip.wrong{background:var(--seal-soft);color:var(--seal);}
+  .syll-chip.wrong .syll-guess{text-decoration:line-through;opacity:0.8;}
+  .syll-correct{font-size:12px;color:var(--ink);margin-top:2px;font-weight:700;}
+
+  .feedback-buttons{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    margin-top:8px;
+  }
+  .feedback-buttons button{flex:1;}
+  #nextBtn{
+    background:var(--ink);
+    color:var(--paper);
+    font-weight:700;
+  }
+
+  .voice-warning{
+    display:none;
+    font-size:12px;
+    color:var(--seal);
+    background:var(--seal-soft);
+    border-radius:10px;
+    padding:10px 12px;
+    margin-bottom:16px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1>Tone Trainer</h1>
+      <p>Listen, then type the pinyin and pick the tone</p>
+    </div>
+    <div class="score" id="score">0 / 0</div>
+  </header>
+
+  <div class="voice-warning" id="voiceWarning">
+    No Mandarin voice found on this device. Install a Chinese (zh-CN) voice in your phone's text-to-speech / accessibility settings.
+  </div>
+
+  <div class="segmented">
+    <button id="modeSounds" class="active">Single sounds</button>
+    <button id="modeWords">Real words</button>
+  </div>
+
+  <div class="stage">
+    <button class="play-btn" id="playBtn" aria-label="Play sound">🔊</button>
+    <div class="play-hint">Tap to hear it</div>
+  </div>
+
+  <form id="answerForm">
+    <label class="field-label" id="pinyinLabel" for="pinyinInput">Pinyin (no tone marks)</label>
+    <input type="text" id="pinyinInput" placeholder="e.g. ma" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+    <div id="pinyinHint" style="display:none;font-size:11px;color:var(--ink-soft);margin:-14px 0 18px;">Type ü as v (e.g. lü → lv)</div>
+
+    <div id="toneSection">
+      <label class="field-label">Tone</label>
+      <div class="tones" id="toneButtons">
+        <button type="button" class="tone-btn" data-tone="1">
+          <svg viewBox="0 0 40 30"><path d="M5,8 L35,8"/></svg>
+          <span>1</span>
+        </button>
+        <button type="button" class="tone-btn" data-tone="2">
+          <svg viewBox="0 0 40 30"><path d="M5,22 L35,6"/></svg>
+          <span>2</span>
+        </button>
+        <button type="button" class="tone-btn" data-tone="3">
+          <svg viewBox="0 0 40 30"><path d="M5,10 Q14,26 20,26 Q26,26 35,6"/></svg>
+          <span>3</span>
+        </button>
+        <button type="button" class="tone-btn" data-tone="4">
+          <svg viewBox="0 0 40 30"><path d="M5,6 L35,24"/></svg>
+          <span>4</span>
+        </button>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Check</button>
+  </form>
+  <button class="skip-btn" id="skipBtn">Skip / next sound</button>
+
+  <div class="feedback" id="feedback">
+    <div id="feedbackTitle"></div>
+    <div class="syll-breakdown" id="syllableBreakdown"></div>
+    <div class="answer" id="feedbackAnswer"></div>
+    <div class="meaning" id="feedbackMeaning"></div>
+    <div class="feedback-buttons">
+      <button type="button" id="hearAgainBtn">🔊 Hear it again</button>
+      <button type="button" id="nextBtn">Next →</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ---------- Data ----------
+// One combined pool. Every pinyin syllable below has at least 3 of its
+// 4 tones represented, so the syllable alone never gives away the tone.
+const DATA = [
+  {char:"妈",pinyin:"ma",tone:1,meaning:"mother"},
+  {char:"麻",pinyin:"ma",tone:2,meaning:"hemp / numb"},
+  {char:"马",pinyin:"ma",tone:3,meaning:"horse"},
+  {char:"骂",pinyin:"ma",tone:4,meaning:"to scold"},
+  {char:"八",pinyin:"ba",tone:1,meaning:"eight"},
+  {char:"拔",pinyin:"ba",tone:2,meaning:"to pull out"},
+  {char:"把",pinyin:"ba",tone:3,meaning:"to hold / handle"},
+  {char:"爸",pinyin:"ba",tone:4,meaning:"dad"},
+  {char:"趴",pinyin:"pa",tone:1,meaning:"to lie prone"},
+  {char:"爬",pinyin:"pa",tone:2,meaning:"to climb"},
+  {char:"怕",pinyin:"pa",tone:4,meaning:"to fear"},
+  {char:"搭",pinyin:"da",tone:1,meaning:"to build / take (a ride)"},
+  {char:"达",pinyin:"da",tone:2,meaning:"to reach"},
+  {char:"打",pinyin:"da",tone:3,meaning:"to hit"},
+  {char:"大",pinyin:"da",tone:4,meaning:"big"},
+  {char:"他",pinyin:"ta",tone:1,meaning:"he / him"},
+  {char:"塔",pinyin:"ta",tone:3,meaning:"tower / pagoda"},
+  {char:"踏",pinyin:"ta",tone:4,meaning:"to step on / tread"},
+  {char:"哥",pinyin:"ge",tone:1,meaning:"older brother"},
+  {char:"格",pinyin:"ge",tone:2,meaning:"style / grid"},
+  {char:"个",pinyin:"ge",tone:4,meaning:"measure word"},
+  {char:"科",pinyin:"ke",tone:1,meaning:"field of study"},
+  {char:"咳",pinyin:"ke",tone:2,meaning:"to cough"},
+  {char:"渴",pinyin:"ke",tone:3,meaning:"thirsty"},
+  {char:"课",pinyin:"ke",tone:4,meaning:"lesson / class"},
+  {char:"鸡",pinyin:"ji",tone:1,meaning:"chicken"},
+  {char:"急",pinyin:"ji",tone:2,meaning:"urgent"},
+  {char:"几",pinyin:"ji",tone:3,meaning:"how many"},
+  {char:"计",pinyin:"ji",tone:4,meaning:"to count / plan"},
+  {char:"七",pinyin:"qi",tone:1,meaning:"seven"},
+  {char:"骑",pinyin:"qi",tone:2,meaning:"to ride"},
+  {char:"起",pinyin:"qi",tone:3,meaning:"to rise / get up"},
+  {char:"气",pinyin:"qi",tone:4,meaning:"air / energy"},
+  {char:"西",pinyin:"xi",tone:1,meaning:"west"},
+  {char:"习",pinyin:"xi",tone:2,meaning:"to practice"},
+  {char:"洗",pinyin:"xi",tone:3,meaning:"to wash"},
+  {char:"戏",pinyin:"xi",tone:4,meaning:"play / drama"},
+  {char:"知",pinyin:"zhi",tone:1,meaning:"to know"},
+  {char:"直",pinyin:"zhi",tone:2,meaning:"straight"},
+  {char:"纸",pinyin:"zhi",tone:3,meaning:"paper"},
+  {char:"治",pinyin:"zhi",tone:4,meaning:"to govern / treat"},
+  {char:"吃",pinyin:"chi",tone:1,meaning:"to eat"},
+  {char:"池",pinyin:"chi",tone:2,meaning:"pond"},
+  {char:"尺",pinyin:"chi",tone:3,meaning:"ruler (length)"},
+  {char:"翅",pinyin:"chi",tone:4,meaning:"wing"},
+  {char:"师",pinyin:"shi",tone:1,meaning:"teacher / master"},
+  {char:"十",pinyin:"shi",tone:2,meaning:"ten"},
+  {char:"史",pinyin:"shi",tone:3,meaning:"history"},
+  {char:"是",pinyin:"shi",tone:4,meaning:"to be"},
+  {char:"资",pinyin:"zi",tone:1,meaning:"resources / capital"},
+  {char:"子",pinyin:"zi",tone:3,meaning:"child / seed"},
+  {char:"字",pinyin:"zi",tone:4,meaning:"character / word"},
+  {char:"词",pinyin:"ci",tone:2,meaning:"word / term"},
+  {char:"此",pinyin:"ci",tone:3,meaning:"this"},
+  {char:"次",pinyin:"ci",tone:4,meaning:"time / occurrence"},
+  {char:"思",pinyin:"si",tone:1,meaning:"to think"},
+  {char:"死",pinyin:"si",tone:3,meaning:"to die"},
+  {char:"四",pinyin:"si",tone:4,meaning:"four"},
+  {char:"泥",pinyin:"ni",tone:2,meaning:"mud"},
+  {char:"你",pinyin:"ni",tone:3,meaning:"you"},
+  {char:"腻",pinyin:"ni",tone:4,meaning:"greasy / sick of"},
+  {char:"离",pinyin:"li",tone:2,meaning:"to leave / away from"},
+  {char:"里",pinyin:"li",tone:3,meaning:"inside"},
+  {char:"力",pinyin:"li",tone:4,meaning:"strength"},
+  {char:"发",pinyin:"fa",tone:1,meaning:"hair / to send"},
+  {char:"罚",pinyin:"fa",tone:2,meaning:"to punish"},
+  {char:"法",pinyin:"fa",tone:3,meaning:"law / method"},
+  {char:"喝",pinyin:"he",tone:1,meaning:"to drink"},
+  {char:"河",pinyin:"he",tone:2,meaning:"river"},
+  {char:"贺",pinyin:"he",tone:4,meaning:"to congratulate"},
+  {char:"屋",pinyin:"wu",tone:1,meaning:"room / house"},
+  {char:"无",pinyin:"wu",tone:2,meaning:"without"},
+  {char:"五",pinyin:"wu",tone:3,meaning:"five"},
+  {char:"物",pinyin:"wu",tone:4,meaning:"thing"},
+  {char:"一",pinyin:"yi",tone:1,meaning:"one"},
+  {char:"移",pinyin:"yi",tone:2,meaning:"to move"},
+  {char:"椅",pinyin:"yi",tone:3,meaning:"chair"},
+  {char:"意",pinyin:"yi",tone:4,meaning:"meaning"},
+  {char:"弯",pinyin:"wan",tone:1,meaning:"bent / curved"},
+  {char:"玩",pinyin:"wan",tone:2,meaning:"to play"},
+  {char:"晚",pinyin:"wan",tone:3,meaning:"late / evening"},
+  {char:"万",pinyin:"wan",tone:4,meaning:"ten thousand"},
+  {char:"锅",pinyin:"guo",tone:1,meaning:"pot / wok"},
+  {char:"国",pinyin:"guo",tone:2,meaning:"country"},
+  {char:"果",pinyin:"guo",tone:3,meaning:"fruit / result"},
+  {char:"过",pinyin:"guo",tone:4,meaning:"to pass / cross"},
+  {char:"烟",pinyin:"yan",tone:1,meaning:"smoke / cigarette"},
+  {char:"言",pinyin:"yan",tone:2,meaning:"speech / words"},
+  {char:"眼",pinyin:"yan",tone:3,meaning:"eye"},
+  {char:"燕",pinyin:"yan",tone:4,meaning:"swallow (bird)"},
+  {char:"央",pinyin:"yang",tone:1,meaning:"center, as in 中央"},
+  {char:"羊",pinyin:"yang",tone:2,meaning:"sheep"},
+  {char:"养",pinyin:"yang",tone:3,meaning:"to raise / nurture"},
+  {char:"样",pinyin:"yang",tone:4,meaning:"kind / appearance"},
+  {char:"招",pinyin:"zhao",tone:1,meaning:"to recruit / wave"},
+  {char:"着",pinyin:"zhao",tone:2,meaning:"to catch (fire) / touch"},
+  {char:"找",pinyin:"zhao",tone:3,meaning:"to look for"},
+  {char:"照",pinyin:"zhao",tone:4,meaning:"to shine / photo"},
+  {char:"先",pinyin:"xian",tone:1,meaning:"first"},
+  {char:"咸",pinyin:"xian",tone:2,meaning:"salty"},
+  {char:"险",pinyin:"xian",tone:3,meaning:"danger, as in 危险"},
+  {char:"现",pinyin:"xian",tone:4,meaning:"now / to appear"},
+  {char:"埋",pinyin:"mai",tone:2,meaning:"to bury"},
+  {char:"买",pinyin:"mai",tone:3,meaning:"to buy"},
+  {char:"卖",pinyin:"mai",tone:4,meaning:"to sell"},
+  {char:"花",pinyin:"hua",tone:1,meaning:"flower"},
+  {char:"华",pinyin:"hua",tone:2,meaning:"China / splendid"},
+  {char:"话",pinyin:"hua",tone:4,meaning:"speech / words"},
+  {char:"凉",pinyin:"liang",tone:2,meaning:"cool"},
+  {char:"两",pinyin:"liang",tone:3,meaning:"two"},
+  {char:"亮",pinyin:"liang",tone:4,meaning:"bright"},
+  {char:"天",pinyin:"tian",tone:1,meaning:"sky / day"},
+  {char:"田",pinyin:"tian",tone:2,meaning:"field"},
+  {char:"舔",pinyin:"tian",tone:3,meaning:"to lick"},
+  {char:"消",pinyin:"xiao",tone:1,meaning:"to vanish, as in 消失"},
+  {char:"小",pinyin:"xiao",tone:3,meaning:"small"},
+  {char:"笑",pinyin:"xiao",tone:4,meaning:"to laugh / smile"},
+  {char:"交",pinyin:"jiao",tone:1,meaning:"to hand over"},
+  {char:"脚",pinyin:"jiao",tone:3,meaning:"foot"},
+  {char:"叫",pinyin:"jiao",tone:4,meaning:"to call / shout"},
+  {char:"捞",pinyin:"lao",tone:1,meaning:"to scoop / fish out"},
+  {char:"劳",pinyin:"lao",tone:2,meaning:"labor"},
+  {char:"老",pinyin:"lao",tone:3,meaning:"old"}
+];
+
+// ---------- Real words (multisyllable) ----------
+// pinyin already includes the tone number after each syllable,
+// e.g. "gong1yuan2" — this is exactly what the user types.
+const WORDS = [
+  {char:"爱",pinyin:"ai4",meaning:"to love"},
+  {char:"八",pinyin:"ba1",meaning:"eight"},
+  {char:"爸爸",pinyin:"ba4ba5",meaning:"dad"},
+  {char:"杯子",pinyin:"bei1zi5",meaning:"cup"},
+  {char:"北京",pinyin:"bei3jing1",meaning:"Beijing"},
+  {char:"本",pinyin:"ben3",meaning:"measure word for books"},
+  {char:"不客气",pinyin:"bu2ke4qi5",meaning:"you're welcome"},
+  {char:"不",pinyin:"bu4",meaning:"not"},
+  {char:"菜",pinyin:"cai4",meaning:"dish; vegetable"},
+  {char:"茶",pinyin:"cha2",meaning:"tea"},
+  {char:"吃",pinyin:"chi1",meaning:"to eat"},
+  {char:"出租车",pinyin:"chu1zu1che1",meaning:"taxi"},
+  {char:"打电话",pinyin:"da3dian4hua4",meaning:"to make a phone call"},
+  {char:"大",pinyin:"da4",meaning:"big"},
+  {char:"的",pinyin:"de5",meaning:"possessive particle"},
+  {char:"点",pinyin:"dian3",meaning:"o'clock; a little"},
+  {char:"电脑",pinyin:"dian4nao3",meaning:"computer"},
+  {char:"电视",pinyin:"dian4shi4",meaning:"television"},
+  {char:"电影",pinyin:"dian4ying3",meaning:"movie"},
+  {char:"东西",pinyin:"dong1xi5",meaning:"thing"},
+  {char:"都",pinyin:"dou1",meaning:"all"},
+  {char:"读",pinyin:"du2",meaning:"to read"},
+  {char:"对不起",pinyin:"dui4bu5qi3",meaning:"sorry"},
+  {char:"多",pinyin:"duo1",meaning:"many"},
+  {char:"多少",pinyin:"duo1shao3",meaning:"how many"},
+  {char:"儿子",pinyin:"er2zi5",meaning:"son"},
+  {char:"二",pinyin:"er4",meaning:"two"},
+  {char:"饭店",pinyin:"fan4dian4",meaning:"restaurant"},
+  {char:"飞机",pinyin:"fei1ji1",meaning:"airplane"},
+  {char:"分钟",pinyin:"fen1zhong1",meaning:"minute"},
+  {char:"高兴",pinyin:"gao1xing4",meaning:"happy"},
+  {char:"个",pinyin:"ge4",meaning:"measure word"},
+  {char:"工作",pinyin:"gong1zuo4",meaning:"work; job"},
+  {char:"狗",pinyin:"gou3",meaning:"dog"},
+  {char:"汉语",pinyin:"han4yu3",meaning:"Chinese language"},
+  {char:"好",pinyin:"hao3",meaning:"good"},
+  {char:"号",pinyin:"hao4",meaning:"number; date"},
+  {char:"喝",pinyin:"he1",meaning:"to drink"},
+  {char:"和",pinyin:"he2",meaning:"and"},
+  {char:"很",pinyin:"hen3",meaning:"very"},
+  {char:"后面",pinyin:"hou4mian4",meaning:"behind"},
+  {char:"回",pinyin:"hui2",meaning:"to return"},
+  {char:"会",pinyin:"hui4",meaning:"can; to be able to"},
+  {char:"几",pinyin:"ji3",meaning:"how many"},
+  {char:"家",pinyin:"jia1",meaning:"home; family"},
+  {char:"叫",pinyin:"jiao4",meaning:"to be called"},
+  {char:"今天",pinyin:"jin1tian1",meaning:"today"},
+  {char:"九",pinyin:"jiu3",meaning:"nine"},
+  {char:"开",pinyin:"kai1",meaning:"to open; to drive"},
+  {char:"看",pinyin:"kan4",meaning:"to look; to watch"},
+  {char:"看见",pinyin:"kan4jian4",meaning:"to see"},
+  {char:"块",pinyin:"kuai4",meaning:"yuan (unit of currency)"},
+  {char:"来",pinyin:"lai2",meaning:"to come"},
+  {char:"老师",pinyin:"lao3shi1",meaning:"teacher"},
+  {char:"了",pinyin:"le5",meaning:"completed action particle"},
+  {char:"冷",pinyin:"leng3",meaning:"cold"},
+  {char:"里",pinyin:"li3",meaning:"inside"},
+  {char:"六",pinyin:"liu4",meaning:"six"},
+  {char:"吗",pinyin:"ma5",meaning:"question particle"},
+  {char:"妈妈",pinyin:"ma1ma5",meaning:"mom"},
+  {char:"买",pinyin:"mai3",meaning:"to buy"},
+  {char:"猫",pinyin:"mao1",meaning:"cat"},
+  {char:"没关系",pinyin:"mei2guan1xi5",meaning:"it doesn't matter"},
+  {char:"没有",pinyin:"mei2you3",meaning:"to not have"},
+  {char:"米饭",pinyin:"mi3fan4",meaning:"cooked rice"},
+  {char:"名字",pinyin:"ming2zi5",meaning:"name"},
+  {char:"明天",pinyin:"ming2tian1",meaning:"tomorrow"},
+  {char:"哪",pinyin:"na3",meaning:"which"},
+  {char:"哪儿",pinyin:"na3er5",meaning:"where"},
+  {char:"那",pinyin:"na4",meaning:"that"},
+  {char:"呢",pinyin:"ne5",meaning:"question particle"},
+  {char:"能",pinyin:"neng2",meaning:"can; to be able to"},
+  {char:"你",pinyin:"ni3",meaning:"you"},
+  {char:"年",pinyin:"nian2",meaning:"year"},
+  {char:"女儿",pinyin:"nv3er2",meaning:"daughter"},
+  {char:"朋友",pinyin:"peng2you5",meaning:"friend"},
+  {char:"漂亮",pinyin:"piao4liang5",meaning:"pretty"},
+  {char:"苹果",pinyin:"ping2guo3",meaning:"apple"},
+  {char:"七",pinyin:"qi1",meaning:"seven"},
+  {char:"前面",pinyin:"qian2mian4",meaning:"in front"},
+  {char:"钱",pinyin:"qian2",meaning:"money"},
+  {char:"请",pinyin:"qing3",meaning:"please"},
+  {char:"去",pinyin:"qu4",meaning:"to go"},
+  {char:"热",pinyin:"re4",meaning:"hot"},
+  {char:"人",pinyin:"ren2",meaning:"person"},
+  {char:"认识",pinyin:"ren4shi5",meaning:"to know (someone)"},
+  {char:"三",pinyin:"san1",meaning:"three"},
+  {char:"商店",pinyin:"shang1dian4",meaning:"shop"},
+  {char:"上",pinyin:"shang4",meaning:"on; above"},
+  {char:"上午",pinyin:"shang4wu3",meaning:"morning"},
+  {char:"少",pinyin:"shao3",meaning:"few; little"},
+  {char:"谁",pinyin:"shei2",meaning:"who"},
+  {char:"什么",pinyin:"shen2me5",meaning:"what"},
+  {char:"十",pinyin:"shi2",meaning:"ten"},
+  {char:"时候",pinyin:"shi2hou5",meaning:"time"},
+  {char:"是",pinyin:"shi4",meaning:"to be"},
+  {char:"书",pinyin:"shu1",meaning:"book"},
+  {char:"水",pinyin:"shui3",meaning:"water"},
+  {char:"水果",pinyin:"shui3guo3",meaning:"fruit"},
+  {char:"睡觉",pinyin:"shui4jiao4",meaning:"to sleep"},
+  {char:"说",pinyin:"shuo1",meaning:"to speak"},
+  {char:"四",pinyin:"si4",meaning:"four"},
+  {char:"岁",pinyin:"sui4",meaning:"year (of age)"},
+  {char:"他",pinyin:"ta1",meaning:"he"},
+  {char:"她",pinyin:"ta1",meaning:"she"},
+  {char:"太",pinyin:"tai4",meaning:"too (much)"},
+  {char:"天气",pinyin:"tian1qi4",meaning:"weather"},
+  {char:"听",pinyin:"ting1",meaning:"to listen"},
+  {char:"同学",pinyin:"tong2xue2",meaning:"classmate"},
+  {char:"喂",pinyin:"wei4",meaning:"hello (on phone)"},
+  {char:"我",pinyin:"wo3",meaning:"I; me"},
+  {char:"我们",pinyin:"wo3men5",meaning:"we"},
+  {char:"五",pinyin:"wu3",meaning:"five"},
+  {char:"喜欢",pinyin:"xi3huan5",meaning:"to like"},
+  {char:"下",pinyin:"xia4",meaning:"down; below"},
+  {char:"下午",pinyin:"xia4wu3",meaning:"afternoon"},
+  {char:"下雨",pinyin:"xia4yu3",meaning:"to rain"},
+  {char:"先生",pinyin:"xian1sheng5",meaning:"mister; sir"},
+  {char:"现在",pinyin:"xian4zai4",meaning:"now"},
+  {char:"想",pinyin:"xiang3",meaning:"to want; to think"},
+  {char:"小",pinyin:"xiao3",meaning:"small"},
+  {char:"小姐",pinyin:"xiao3jie5",meaning:"miss"},
+  {char:"些",pinyin:"xie1",meaning:"some"},
+  {char:"写",pinyin:"xie3",meaning:"to write"},
+  {char:"谢谢",pinyin:"xie4xie5",meaning:"thank you"},
+  {char:"星期",pinyin:"xing1qi1",meaning:"week"},
+  {char:"学生",pinyin:"xue2sheng5",meaning:"student"},
+  {char:"学习",pinyin:"xue2xi2",meaning:"to study"},
+  {char:"学校",pinyin:"xue2xiao4",meaning:"school"},
+  {char:"一",pinyin:"yi1",meaning:"one"},
+  {char:"一点儿",pinyin:"yi1dian3er5",meaning:"a little"},
+  {char:"医生",pinyin:"yi1sheng1",meaning:"doctor"},
+  {char:"医院",pinyin:"yi1yuan4",meaning:"hospital"},
+  {char:"衣服",pinyin:"yi1fu5",meaning:"clothes"},
+  {char:"椅子",pinyin:"yi3zi5",meaning:"chair"},
+  {char:"有",pinyin:"you3",meaning:"to have"},
+  {char:"月",pinyin:"yue4",meaning:"month"},
+  {char:"再见",pinyin:"zai4jian4",meaning:"goodbye"},
+  {char:"在",pinyin:"zai4",meaning:"at; in"},
+  {char:"怎么",pinyin:"zen3me5",meaning:"how"},
+  {char:"怎么样",pinyin:"zen3me5yang4",meaning:"how is it"},
+  {char:"这",pinyin:"zhe4",meaning:"this"},
+  {char:"中国",pinyin:"zhong1guo2",meaning:"China"},
+  {char:"中午",pinyin:"zhong1wu3",meaning:"noon"},
+  {char:"住",pinyin:"zhu4",meaning:"to live"},
+  {char:"桌子",pinyin:"zhuo1zi5",meaning:"table"},
+  {char:"字",pinyin:"zi4",meaning:"character"},
+  {char:"昨天",pinyin:"zuo2tian1",meaning:"yesterday"},
+  {char:"做",pinyin:"zuo4",meaning:"to do; to make"},
+  {char:"坐",pinyin:"zuo4",meaning:"to sit"},
+  {char:"中国",pinyin:"zhong1guo2",meaning:"China"},
+  {char:"老师",pinyin:"lao3shi1",meaning:"teacher"},
+  {char:"现在",pinyin:"xian4zai4",meaning:"now"},
+  {char:"明天",pinyin:"ming2tian1",meaning:"tomorrow"},
+  {char:"昨天",pinyin:"zuo2tian1",meaning:"yesterday"},
+  {char:"今天",pinyin:"jin1tian1",meaning:"today"},
+  {char:"时间",pinyin:"shi2jian1",meaning:"time"},
+  {char:"苹果",pinyin:"ping2guo3",meaning:"apple"},
+  {char:"电脑",pinyin:"dian4nao3",meaning:"computer"},
+  {char:"电影",pinyin:"dian4ying3",meaning:"movie"},
+  {char:"火车",pinyin:"huo3che1",meaning:"train"},
+  {char:"飞机",pinyin:"fei1ji1",meaning:"airplane"},
+  {char:"汽车",pinyin:"qi4che1",meaning:"car"},
+  {char:"公园",pinyin:"gong1yuan2",meaning:"park"},
+  {char:"医院",pinyin:"yi1yuan4",meaning:"hospital"},
+  {char:"学校",pinyin:"xue2xiao4",meaning:"school"},
+  {char:"银行",pinyin:"yin2hang2",meaning:"bank"},
+  {char:"天气",pinyin:"tian1qi4",meaning:"weather"},
+  {char:"国家",pinyin:"guo2jia1",meaning:"country / nation"},
+  {char:"历史",pinyin:"li4shi3",meaning:"history"},
+  {char:"音乐",pinyin:"yin1yue4",meaning:"music"},
+  {char:"旅行",pinyin:"lv3xing2",meaning:"to travel"},
+  {char:"颜色",pinyin:"yan2se4",meaning:"color"},
+  {char:"报纸",pinyin:"bao4zhi3",meaning:"newspaper"},
+  {char:"自己",pinyin:"zi4ji3",meaning:"oneself"},
+  {char:"同学",pinyin:"tong2xue2",meaning:"classmate"},
+  {char:"考试",pinyin:"kao3shi4",meaning:"exam"},
+  {char:"工作",pinyin:"gong1zuo4",meaning:"work / job"},
+  {char:"旅游",pinyin:"lv3you2",meaning:"to travel / tourism"},
+  {char:"健康",pinyin:"jian4kang1",meaning:"health"},
+  {char:"快乐",pinyin:"kuai4le4",meaning:"happy"},
+  {char:"高兴",pinyin:"gao1xing4",meaning:"happy / glad"},
+  {char:"葡萄",pinyin:"pu2tao2",meaning:"grape"},
+  {char:"西瓜",pinyin:"xi1gua1",meaning:"watermelon"},
+  {char:"香蕉",pinyin:"xiang1jiao1",meaning:"banana"},
+  {char:"草莓",pinyin:"cao3mei2",meaning:"strawberry"},
+  {char:"咖啡",pinyin:"ka1fei1",meaning:"coffee"},
+  {char:"牛奶",pinyin:"niu2nai3",meaning:"milk"},
+  {char:"鸡蛋",pinyin:"ji1dan4",meaning:"egg"},
+  {char:"米饭",pinyin:"mi3fan4",meaning:"cooked rice"},
+  {char:"面包",pinyin:"mian4bao1",meaning:"bread"},
+  {char:"水果",pinyin:"shui3guo3",meaning:"fruit"},
+  {char:"蔬菜",pinyin:"shu1cai4",meaning:"vegetables"},
+  {char:"早饭",pinyin:"zao3fan4",meaning:"breakfast"},
+  {char:"午饭",pinyin:"wu3fan4",meaning:"lunch"},
+  {char:"晚饭",pinyin:"wan3fan4",meaning:"dinner"},
+  {char:"手机",pinyin:"shou3ji1",meaning:"phone"},
+  {char:"电视",pinyin:"dian4shi4",meaning:"television"},
+  {char:"自由",pinyin:"zi4you2",meaning:"freedom"},
+  {char:"城市",pinyin:"cheng2shi4",meaning:"city"},
+  {char:"海洋",pinyin:"hai3yang2",meaning:"ocean"},
+  {char:"太阳",pinyin:"tai4yang2",meaning:"sun"},
+  {char:"海边",pinyin:"hai3bian1",meaning:"seaside"},
+  {char:"公司",pinyin:"gong1si1",meaning:"company"},
+  {char:"经理",pinyin:"jing1li3",meaning:"manager"},
+  {char:"老板",pinyin:"lao3ban3",meaning:"boss"},
+  {char:"价格",pinyin:"jia4ge2",meaning:"price"},
+  {char:"商店",pinyin:"shang1dian4",meaning:"shop / store"},
+  {char:"超市",pinyin:"chao1shi4",meaning:"supermarket"},
+  {char:"宾馆",pinyin:"bin1guan3",meaning:"hotel"},
+  {char:"房间",pinyin:"fang2jian1",meaning:"room"},
+  {char:"图书馆",pinyin:"tu2shu1guan3",meaning:"library"},
+  {char:"自行车",pinyin:"zi4xing2che1",meaning:"bicycle"},
+  {char:"巧克力",pinyin:"qiao3ke4li4",meaning:"chocolate"},
+  {char:"音乐会",pinyin:"yin1yue4hui4",meaning:"concert"}
+];
+
+// ---------- State ----------
+let practiceMode = "sounds"; // "sounds" | "words"
+let current = null;
+let selectedTone = null;
+let correctCount = 0, totalCount = 0;
+let zhVoice = null;
+let inputsLocked = false;
+let revealTimeoutId = null;
+
+// ---------- Voice setup ----------
+function pickVoice(){
+  const voices = window.speechSynthesis.getVoices();
+  zhVoice = voices.find(v => v.lang && v.lang.toLowerCase().startsWith("zh")) || null;
+  document.getElementById('voiceWarning').style.display = zhVoice ? "none" : "block";
+}
+if ('speechSynthesis' in window) {
+  pickVoice();
+  window.speechSynthesis.onvoiceschanged = pickVoice;
+} else {
+  document.getElementById('voiceWarning').style.display = "block";
+  document.getElementById('voiceWarning').textContent = "This browser doesn't support text-to-speech. Try Chrome or Safari.";
+}
+
+function speak(text){
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "zh-CN";
+  if (zhVoice) u.voice = zhVoice;
+  u.rate = 0.85;
+  window.speechSynthesis.speak(u);
+}
+
+// ---------- Pinyin / syllable helpers ----------
+// Splits a continuous numbered-pinyin string like "gong1yuan2" into
+// ["gong1","yuan2"]. Works on any run of letters immediately followed
+// by a tone digit (1-5).
+function parseSyllables(str){
+  return (str.match(/[a-z]+[1-5]/g)) || [];
+}
+
+function superscriptTone(syll){
+  const m = syll.match(/^([a-z]+)([1-5])$/);
+  if (!m) return syll;
+  const supers = {'1':'¹','2':'²','3':'³','4':'⁴','5':'⁵'};
+  return m[1] + supers[m[2]];
+}
+
+function getGuessSyllables(){
+  if (practiceMode === 'sounds') {
+    const base = document.getElementById('pinyinInput').value.trim().toLowerCase().replace(/\s+/g, '');
+    if (!base) return [];
+    return [base + (selectedTone || '')];
+  }
+  const guess = document.getElementById('pinyinInput').value.trim().toLowerCase().replace(/\s+/g, '');
+  return parseSyllables(guess);
+}
+
+function getExpectedSyllables(){
+  if (practiceMode === 'sounds') {
+    return [current.pinyin + current.tone];
+  }
+  return parseSyllables(current.pinyin);
+}
+
+function formatFullAnswer(){
+  if (practiceMode === 'sounds') {
+    return superscriptTone(current.pinyin + current.tone);
+  }
+  return parseSyllables(current.pinyin).map(superscriptTone).join(' ');
+}
+
+// ---------- Game logic ----------
+function loadNew(){
+  const pool = practiceMode === "sounds" ? DATA : WORDS;
+  current = pool[Math.floor(Math.random() * pool.length)];
+  selectedTone = null;
+  document.getElementById('pinyinInput').value = "";
+  document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('feedback').className = "feedback";
+  document.getElementById('feedback').style.display = "none";
+  document.getElementById('syllableBreakdown').innerHTML = "";
+  lockInputs(false);
+  document.getElementById('pinyinInput').focus();
+}
+
+function updateScore(){
+  document.getElementById('score').textContent = `${correctCount} / ${totalCount}`;
+}
+
+document.getElementById('modeSounds').onclick = () => switchPracticeMode('sounds');
+document.getElementById('modeWords').onclick = () => switchPracticeMode('words');
+function switchPracticeMode(m){
+  practiceMode = m;
+  document.getElementById('modeSounds').classList.toggle('active', m === 'sounds');
+  document.getElementById('modeWords').classList.toggle('active', m === 'words');
+  document.getElementById('toneSection').style.display = m === 'sounds' ? '' : 'none';
+  document.getElementById('pinyinLabel').textContent = m === 'sounds' ? 'Pinyin (no tone marks)' : 'Pinyin with tone numbers';
+  document.getElementById('pinyinInput').placeholder = m === 'sounds' ? 'e.g. ma' : 'e.g. gong1yuan2';
+  document.getElementById('pinyinHint').style.display = m === 'sounds' ? 'none' : 'block';
+  correctCount = 0; totalCount = 0;
+  updateScore();
+  if (revealTimeoutId) { clearTimeout(revealTimeoutId); revealTimeoutId = null; }
+  loadNew();
+}
+
+document.getElementById('playBtn').onclick = () => speak(current.char);
+document.getElementById('hearAgainBtn').onclick = () => speak(current.char);
+document.getElementById('skipBtn').onclick = revealAndAdvance;
+document.getElementById('nextBtn').onclick = goToNext;
+
+// Locks/unlocks the answer controls while feedback is on screen,
+// swapping the Check/Skip buttons out for the Next button.
+function lockInputs(locked){
+  inputsLocked = locked;
+  document.getElementById('pinyinInput').disabled = locked;
+  document.querySelectorAll('.tone-btn').forEach(b => b.disabled = locked);
+  document.getElementById('answerForm').querySelector('.submit-btn').classList.toggle('hidden', locked);
+  document.getElementById('skipBtn').classList.toggle('hidden', locked);
+}
+
+function goToNext(){
+  if (revealTimeoutId) { clearTimeout(revealTimeoutId); revealTimeoutId = null; }
+  loadNew();
+}
+
+function revealAndAdvance(){
+  lockInputs(true);
+
+  const fb = document.getElementById('feedback');
+  fb.style.display = "block";
+  fb.className = "feedback reveal";
+  document.getElementById('feedbackTitle').textContent = "Answer";
+  document.getElementById('syllableBreakdown').innerHTML = "";
+  document.getElementById('feedbackAnswer').textContent = `${current.char}  ${formatFullAnswer()}`;
+  document.getElementById('feedbackMeaning').textContent = current.meaning;
+
+  revealTimeoutId = setTimeout(goToNext, 3000);
+}
+
+document.querySelectorAll('.tone-btn').forEach(btn => {
+  btn.onclick = () => {
+    selectedTone = parseInt(btn.dataset.tone, 10);
+    document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  };
+});
+
+// Builds the row of per-syllable chips for "real words" mode, marking
+// each syllable green (right) or red (wrong), and showing the correct
+// syllable underneath any wrong one.
+function buildSyllableRow(guessSylls, expectedSylls){
+  const len = Math.max(guessSylls.length, expectedSylls.length);
+  let html = '';
+  for (let i = 0; i < len; i++){
+    const g = guessSylls[i];
+    const ex = expectedSylls[i];
+    const ok = g !== undefined && g === ex;
+    html += `<div class="syll-chip ${ok ? 'correct' : 'wrong'}">`;
+    html += `<div class="syll-guess">${g ? superscriptTone(g) : '—'}</div>`;
+    if (!ok) {
+      html += `<div class="syll-correct">${ex ? superscriptTone(ex) : ''}</div>`;
+    }
+    html += `</div>`;
+  }
+  return html;
+}
+
+// For "single sounds" mode there's only one syllable, so instead of a
+// single pass/fail chip we break it into a pinyin chip and a tone chip
+// so the learner can see exactly which part was wrong.
+function buildSoundsBreakdown(){
+  const guessBase = document.getElementById('pinyinInput').value.trim().toLowerCase().replace(/\s+/g, '');
+  const pinyinOk = guessBase === current.pinyin;
+  const toneOk = selectedTone === current.tone;
+  let html = '';
+  html += `<div class="syll-chip ${pinyinOk ? 'correct' : 'wrong'}">`;
+  html += `<div class="syll-guess">${guessBase || '—'}</div>`;
+  if (!pinyinOk) html += `<div class="syll-correct">${current.pinyin}</div>`;
+  html += `</div>`;
+  html += `<div class="syll-chip ${toneOk ? 'correct' : 'wrong'}">`;
+  html += `<div class="syll-guess">tone ${selectedTone || '—'}</div>`;
+  if (!toneOk) html += `<div class="syll-correct">tone ${current.tone}</div>`;
+  html += `</div>`;
+  return html;
+}
+
+function showFeedback(isCorrect, guessSylls, expectedSylls){
+  lockInputs(true);
+  const fb = document.getElementById('feedback');
+  fb.style.display = 'block';
+  fb.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
+
+  document.getElementById('feedbackTitle').textContent = isCorrect
+    ? 'Correct! 🎉'
+    : 'Not quite — check the syllable(s) below';
+
+  const breakdownEl = document.getElementById('syllableBreakdown');
+  if (isCorrect) {
+    breakdownEl.innerHTML = '';
+  } else if (practiceMode === 'sounds') {
+    breakdownEl.innerHTML = buildSoundsBreakdown();
+  } else {
+    breakdownEl.innerHTML = buildSyllableRow(guessSylls, expectedSylls);
+  }
+
+  document.getElementById('feedbackAnswer').textContent = `${current.char}  ${formatFullAnswer()}`;
+  document.getElementById('feedbackMeaning').textContent = current.meaning;
+}
+
+document.getElementById('answerForm').onsubmit = (e) => {
+  e.preventDefault();
+  if (inputsLocked) return;
+
+  const needsToneSelection = practiceMode === "sounds";
+  const guessRaw = document.getElementById('pinyinInput').value.trim();
+
+  if (!guessRaw || (needsToneSelection && !selectedTone)) {
+    alert(needsToneSelection ? "Type the pinyin and pick a tone first." : "Type the pinyin with tone numbers first.");
+    return;
+  }
+
+  const guessSylls = getGuessSyllables();
+  const expectedSylls = getExpectedSyllables();
+  const isCorrect = guessSylls.length === expectedSylls.length &&
+                     guessSylls.every((s, i) => s === expectedSylls[i]);
+
+  totalCount++;
+  if (isCorrect) correctCount++;
+  updateScore();
+
+  showFeedback(isCorrect, guessSylls, expectedSylls);
+};
+
+// ---------- Init ----------
+loadNew();
+updateScore();
+</script>
+</body>
+</html>
