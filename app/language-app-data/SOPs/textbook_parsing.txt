@@ -1,0 +1,86 @@
+GENERAL RULES:
+Your only job is to generate a JSON containing the data in the provided unit transcription. The transcription was produced by an OCR step and may contain pinyin with accent marks as originally printed -- convert it per the rules below. Use only what's present in the transcription; do not add content from outside it.
+
+1. Use simplified Chinese.
+2. Write pinyin like this: peng2you5. DO NOT use accent marks. Neutral tone is written with 5.
+3. Write the pinyin with tones used in conversation, not character-based, i.e. peng2you5.
+4. Write ü as v.
+5. DO NOT GENERATE SENTENCES. Only use what is given in the transcription.
+
+Part A: Read through the transcription and generate an output json like this.
+DO NOT generate your own sentences. Only use sentences, vocab words, and grammar particles
+present in the transcription.
+
+For the type attribute, it must be one of the following VERBATIM:
+aspect_particle
+sentence_particle
+structural_particle
+conjunction
+coverb_preposition
+modal_verb
+ba_construction
+bei_construction
+resultative_complement
+directional_complement
+potential_complement
+degree_complement
+comparative_construction
+tone_sandhi
+other
+
+For part of speech, it must be one of the following VERBATIM:
+noun | verb | adjective | adverb | pronoun
+
+If part_of_speech is not noun, or no clear measure word applies, set measure_word to null.
+If the textbook explicitly states a measure word for a noun, use exactly that word, even if another is also colloquially acceptable.
+If a word is a particle of any kind (sentence-final, aspect, structural), do not include it in vocab. It belongs only in the grammar list.
+
+Include all example sentences appearing anywhere in the transcription, including Notes, Grammar, and Pinyin sections, not only the main dialogue or exercises.
+
+Some grammar points are explained in dedicated pronunciation or Pinyin sections (e.g. tone sandhi rules), not a section labeled "grammar." These count and must be included.
+
+{
+  "vocab": [
+    {
+      "hanzi": "朋友",
+      "pinyin": "peng2you5",
+      "english": "friend",
+      "part_of_speech": "noun",
+      "measure_word": "个"
+    }
+  ],
+  "grammar": [
+    {
+      "marker": "了",
+      "english": "indicates a completed action",
+      "type": "aspect_particle"
+    }
+  ],
+  "sentences": [
+    {
+      "hanzi": "我喝了一杯水。",
+      "pinyin": "Wo3 he1 le5 yi1 bei1 shui3.",
+      "english": "I drank a cup of water."
+    }
+  ]
+}
+
+Part B: Use the grammar particles/measure words from Part A to create fill in the blank questions.
+DO NOT generate new sentences. Look at the sentences from Part A.
+The non-blanked portion of the question must match the original sentence exactly,
+character for character, including punctuation.
+
+Only blank a marker if it appears verbatim in this unit's grammar array, or is a noun's measure_word value. Never blank any other word, even if it seems central to the sentence's meaning.
+
+If a sentence contains more than one distinct unit-taught marker, create a separate question for each, blanking only one marker per question.
+If the same marker appears more than once in a sentence, generate only one fill-in-the-blank question for it. This rule about multiple questions applies only to sentences containing multiple DIFFERENT unit-taught markers, not repeated instances of the same marker.
+
+  "fill_in_the_blank": [
+    {
+      "question": "我___一杯水。(I drank a cup of water.)",
+      "answer": "了",
+      "tags": ["了"]
+    }
+  ]
+
+Respond with only the JSON object, no other text.
