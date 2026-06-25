@@ -10,18 +10,33 @@ router = APIRouter()
 
 # ----------------------------- CONSTANTS -----------------------------
 
-MIN_UNIT = 3  # first unit with questions
+MIN_UNIT = 3
 NUM_OF_UNIT_TEST_QUESTIONS = 20
 PERCENTAGE_TO_PASS_UNIT_TEST = 0.80
 
-UNIT_TEST_QUESTION_TYPES = {
-    "translate english sentence to chinese",
-    "translate english word to chinese",
-    "transcribe word to pinyin",
+TIER_1_TYPES = {
     "listening vocab",
-    "listening sentence",
-    "fill in the blank"
+    "translate chinese word to english",
+    "fill in the blank",
+    "transcribe word to pinyin",
+    "speaking vocab",
 }
+
+TIER_2_TYPES = {
+    "translate chinese sentence to english",
+    "listening sentence",
+    "speaking sentence",
+    "translate english word to chinese",
+}
+
+TIER_3_TYPES = {
+    "translate english sentence to chinese",
+}
+
+TIER_2_STABILITY_THRESHOLD = 4    # got it right twice
+TIER_3_STABILITY_THRESHOLD = 16   # got it right four times total
+
+UNIT_TEST_QUESTION_TYPES = TIER_1_TYPES | TIER_2_TYPES | TIER_3_TYPES  # all types
 
 # ----------------------------- DB DEPENDENCY -----------------------------
 
@@ -61,11 +76,23 @@ def get_strength_scores_for_range(db: Session, user_id: int, unit_min: int, unit
 
     return scores
 
+
+def get_allowed_types_for_stability(stability: float) -> set:
+    if stability >= TIER_3_STABILITY_THRESHOLD:
+        return TIER_1_TYPES | TIER_2_TYPES | TIER_3_TYPES
+    elif stability >= TIER_2_STABILITY_THRESHOLD:
+        return TIER_1_TYPES | TIER_2_TYPES
+    else:
+        return TIER_1_TYPES
+
 # ----------------------------- SESSION GENERATORS -----------------------------
 
 def generate_questions(db: Session, user_id: int, num_questions: int, unit_min: int, unit_max: int):
     scores = get_strength_scores_for_range(db, user_id, unit_min, unit_max)
     scores.sort(key=lambda x: x["strength"])  # weakest first
+
+    # build a stability lookup so we can filter question types per tag
+    stability_lookup = {item["tag"]: item["stability"] for item in scores}
 
     question_set = []
     used_ids = set()
@@ -75,13 +102,19 @@ def generate_questions(db: Session, user_id: int, num_questions: int, unit_min: 
             break
 
         tag = item["tag"]
-        questions = inverted_index.get(tag, [])
-        questions = [q for q in questions if unit_min <= q.get("unit", 0) <= unit_max]
-        available = [q for q in questions if q["id"] not in used_ids]
+        allowed_types = get_allowed_types_for_stability(item["stability"])
 
-        if available:
-            random.shuffle(available)
-            for q in available:
+        questions = inverted_index.get(tag, [])
+        questions = [
+            q for q in questions
+            if unit_min <= q.get("unit", 0) <= unit_max
+            and q["question_type"] in allowed_types
+            and q["id"] not in used_ids
+        ]
+
+        if questions:
+            random.shuffle(questions)
+            for q in questions:
                 if len(question_set) >= num_questions:
                     break
                 question_set.append(q)
@@ -131,7 +164,6 @@ def generate_session(user_id: int, db: Session = Depends(get_db)):
     user = crud.get_user(db, user_id)
     user_unit = user.current_unit
 
-    # first real unit — no review possible
     if user_unit == MIN_UNIT:
         current_scores = get_strength_scores_for_range(db, user_id, MIN_UNIT, MIN_UNIT)
         weak = [s for s in current_scores if s["strength"] < 0.85]
@@ -139,14 +171,12 @@ def generate_session(user_id: int, db: Session = Depends(get_db)):
             return generate_questions(db, user_id, 10, MIN_UNIT, MIN_UNIT)
         return generate_unit_test(user_id, user_unit)
 
-    # check past stability
     past_scores = get_strength_scores_for_range(db, user_id, MIN_UNIT, user_unit - 1)
     if past_scores:
         avg_past = sum(s["strength"] for s in past_scores) / len(past_scores)
         if avg_past < 0.70:
             return generate_questions(db, user_id, 10, MIN_UNIT, user_unit - 1)
 
-    # check current unit
     current_scores = get_strength_scores_for_range(db, user_id, user_unit, user_unit)
     weak = [s for s in current_scores if s["strength"] < 0.85]
 
@@ -194,23 +224,21 @@ def debug(user_id: int, db: Session = Depends(get_db)):
         "current_unit": user.current_unit,
         "num_scores": len(scores),
         "unit_3_question_count": len(unit_questions.get("3", [])),
-        "unit_3_question_types": list(set(q["question_type"] for q in unit_questions.get("3", []))),
         "inverted_index_size": len(inverted_index),
-        "sample_tags_unit_3": list(unit_to_tags_dict.get(3, set()))[:10],
-        "sample_tag_mappings": {tag: tags_to_unit_dict.get(tag) for tag in ["speaking_vocab", "speaking_sentence", "unit_3", "什么", "你"]},
-        "sample_strength_records": [{"tag": r.tag, "stability": r.stability, "last_practice": str(r.last_practice)} for r in crud.get_progress_by_user(db, user_id)[:5]],
-        "raw_record_count": len(crud.get_progress_by_user(db, user_id)),
-        "tags_in_dict_count": sum(1 for r in crud.get_progress_by_user(db, user_id) if r.tag in tags_to_unit_dict),
-        "tags_in_unit_3": sum(1 for r in crud.get_progress_by_user(db, user_id) if tags_to_unit_dict.get(r.tag) == 3),
         "generate_questions_debug": {
-            "scores_count": len(get_strength_scores_for_range(db, user_id, MIN_UNIT, MIN_UNIT)),
             "questions_found": len(generate_questions(db, user_id, 10, MIN_UNIT, MIN_UNIT).question_set),
             "available_per_tag": [
                 {
                     "tag": item["tag"],
-                    "available": len([q for q in inverted_index.get(item["tag"], []) if q.get("unit") == MIN_UNIT])
+                    "stability": item["stability"],
+                    "allowed_tiers": list(get_allowed_types_for_stability(item["stability"])),
+                    "available": len([
+                        q for q in inverted_index.get(item["tag"], [])
+                        if q.get("unit") == MIN_UNIT
+                        and q["question_type"] in get_allowed_types_for_stability(item["stability"])
+                    ])
                 }
-                for item in sorted(get_strength_scores_for_range(db, user_id, MIN_UNIT, MIN_UNIT), key=lambda x: x["strength"])[:10]
+                for item in sorted(scores, key=lambda x: x["strength"])[:10]
             ]
         }
     }

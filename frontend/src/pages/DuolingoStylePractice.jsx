@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Header from '../Components/Header';
 import ChineseIMEInput from '../Components/ChineseIMEInput';
 
@@ -7,7 +7,7 @@ const USER_ID = 1;
 const clean = (str) => {
     return str
         .toLowerCase()
-        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()。？！、，：；""'']/g, "")  // added Chinese punctuation
+        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()。？！、，：；""'']/g, "")
         .replace(/\bim\b/g, "i am")
         .replace(/\byoure\b/g, "you are")
         .replace(/\bhes\b/g, "he is")
@@ -16,12 +16,6 @@ const clean = (str) => {
         .replace(/\s+/g, " ")
         .trim();
 };
-
-const needsIME = (question_type) => [
-    "translate english sentence to chinese",
-    "translate english word to chinese",
-    "fill in the blank"
-].includes(question_type);
 
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 
@@ -47,6 +41,12 @@ const isSpeakingQuestion = (question_type) =>
 const isListeningQuestion = (question_type) =>
     question_type === "listening vocab" || question_type === "listening sentence";
 
+const needsIME = (question_type) => [
+    "translate english sentence to chinese",
+    "translate english word to chinese",
+    "fill in the blank"
+].includes(question_type);
+
 const playAudio = async (text) => {
     try {
         const response = await fetch('/api/audio', {
@@ -67,26 +67,30 @@ export default function DuolingoStyleQuestions() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [userAnswer, setUserAnswer] = useState("");
     const [isWrong, setIsWrong] = useState(false);
+    const [isRetrying, setIsRetrying] = useState(false);
     const [isSessionStarted, setIsSessionStarted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [score, setScore] = useState(0);
     const [answerLog, setAnswerLog] = useState([]);
     const [sessionType, setSessionType] = useState("practice_session");
 
+    // recording state
+    const [isRecording, setIsRecording] = useState(false);
+    const [isTranscribing, setIsTranscribing] = useState(false);
+    const [transcriptionResult, setTranscriptionResult] = useState(null); // { transcription, is_correct }
+    const mediaRecorderRef = useRef(null);
+    const audioChunksRef = useRef([]);
+
     const currentQuestionObj = questions[currentIndex] ?? null;
 
-    // Auto-play audio when question changes
     useEffect(() => {
         if (!currentQuestionObj) return;
-
+        setTranscriptionResult(null);
         const { question, question_type } = currentQuestionObj;
         const shouldAutoPlay =
             question_type !== "fill in the blank" &&
             (hasChinese(question) || isListeningQuestion(question_type));
-
-        if (shouldAutoPlay) {
-            playAudio(question);
-        }
+        if (shouldAutoPlay) playAudio(question);
     }, [currentIndex, questions]);
 
     const startSession = async () => {
@@ -101,6 +105,8 @@ export default function DuolingoStyleQuestions() {
             setAnswerLog([]);
             setUserAnswer("");
             setIsWrong(false);
+            setIsRetrying(false);
+            setTranscriptionResult(null);
             setIsSessionStarted(true);
         } catch (error) {
             console.error("Failed to load questions", error);
@@ -126,7 +132,7 @@ export default function DuolingoStyleQuestions() {
         }
     };
 
-    const handleNewQuestion = (wasCorrect) => {
+    const advanceQuestion = (wasCorrect) => {
         const log = [
             ...answerLog,
             { question_data: currentQuestionObj, is_correct: wasCorrect }
@@ -135,31 +141,129 @@ export default function DuolingoStyleQuestions() {
         if (wasCorrect) setScore(s => s + 1);
 
         const nextIndex = currentIndex + 1;
-        if (nextIndex >= questions.length) {
-            submitSession(log);
-        }
+        if (nextIndex >= questions.length) submitSession(log);
+
         setCurrentIndex(nextIndex);
         setUserAnswer("");
         setIsWrong(false);
+        setIsRetrying(false);
+        setTranscriptionResult(null);
     };
 
-    const handleSubmit = (e) => {
+    const TRANSLATE_TO_ENGLISH_TYPES = new Set([
+        "translate chinese word to english",
+        "translate chinese sentence to english",
+        "listening sentence",
+    ]);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!currentQuestionObj) return;
 
-        if (isSpeakingQuestion(currentQuestionObj.question_type)) {
-            handleNewQuestion(true);
+        const question_type = currentQuestionObj.question_type;
+
+        // try clean match first
+        const cleanMatch = clean(userAnswer) === clean(currentQuestionObj.answer);
+
+        if (cleanMatch) {
+            if (isRetrying) {
+                advanceQuestion(false); // already logged wrong
+            } else {
+                advanceQuestion(true);
+            }
             return;
         }
 
-        if (clean(userAnswer) === clean(currentQuestionObj.answer)) {
-            handleNewQuestion(true);
-        } else {
-            setIsWrong(true);
+        // for translate-to-english types, ask Claude if clean match failed
+        if (!isRetrying && TRANSLATE_TO_ENGLISH_TYPES.has(question_type)) {
+            try {
+                const response = await fetch('/api/grade', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_answer: userAnswer,
+                        expected_answer: currentQuestionObj.answer
+                    }),
+                });
+                const { is_correct } = await response.json();
+                if (is_correct) {
+                    advanceQuestion(true);
+                    return;
+                }
+            } catch (err) {
+                console.error("Grading failed, marking wrong", err);
+            }
+        }
+
+        // wrong
+        if (!isRetrying) {
+            const log = [
+                ...answerLog,
+                { question_data: currentQuestionObj, is_correct: false }
+            ];
+            setAnswerLog(log);
+            if (currentIndex + 1 >= questions.length) submitSession(log);
+        }
+        setIsWrong(true);
+        setIsRetrying(true);
+        setUserAnswer("");
+    };
+
+    // ── Recording ──────────────────────────────────────────────────
+
+    const startRecording = async () => {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            audioChunksRef.current = [];
+            const mediaRecorder = new MediaRecorder(stream);
+            mediaRecorderRef.current = mediaRecorder;
+
+            mediaRecorder.ondataavailable = (e) => {
+                if (e.data.size > 0) audioChunksRef.current.push(e.data);
+            };
+
+            mediaRecorder.onstop = async () => {
+                stream.getTracks().forEach(t => t.stop());
+                const blob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+                await sendToWhisper(blob);
+            };
+
+            mediaRecorder.start();
+            setIsRecording(true);
+        } catch (err) {
+            console.error("Microphone access denied", err);
         }
     };
 
-    const handleSkip = () => handleNewQuestion(false);
+    const stopRecording = () => {
+        mediaRecorderRef.current?.stop();
+        setIsRecording(false);
+        setIsTranscribing(true);
+    };
+
+    const sendToWhisper = async (blob) => {
+        try {
+            const reader = new FileReader();
+            reader.onloadend = async () => {
+                const base64 = reader.result.split(',')[1];
+                const response = await fetch('/api/transcribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        audio: base64,
+                        expected: currentQuestionObj.answer
+                    }),
+                });
+                const data = await response.json();
+                setTranscriptionResult(data);
+                setIsTranscribing(false);
+            };
+            reader.readAsDataURL(blob);
+        } catch (err) {
+            console.error("Transcription failed", err);
+            setIsTranscribing(false);
+        }
+    };
 
     // ── Sub-components ──────────────────────────────────────────────
 
@@ -175,8 +279,53 @@ export default function DuolingoStyleQuestions() {
         return <div>Loading questions...</div>;
     }
 
+    function SpeakingQuestion() {
+        return (
+            <div>
+                <p>Question {currentIndex + 1} of {questions.length}</p>
+                {sessionType === "unit_test" && <p>Unit Test</p>}
+                <h2>{questionTypeToInstruction(currentQuestionObj.question_type)}</h2>
+                <h1>{currentQuestionObj.question}</h1>
+
+                <button type="button" onClick={() => playAudio(currentQuestionObj.question)}>
+                    🔊 Hear it
+                </button>
+
+                {!transcriptionResult && (
+                    <button
+                        type="button"
+                        onClick={isRecording ? stopRecording : startRecording}
+                        style={{ color: isRecording ? 'red' : 'inherit' }}
+                    >
+                        {isRecording ? '⏹ Stop' : '🎙 Record'}
+                    </button>
+                )}
+
+                {isTranscribing && <p>Transcribing...</p>}
+
+                {transcriptionResult && (
+                    <div>
+                        <p>You said: <strong>{transcriptionResult.transcription}</strong></p>
+                        <p>Expected: <strong>{currentQuestionObj.answer}</strong></p>
+                        {transcriptionResult.is_correct
+                            ? <p style={{ color: 'green' }}>✓ Correct!</p>
+                            : <p style={{ color: 'red' }}>✗ Not quite</p>
+                        }
+                        <button onClick={() => advanceQuestion(transcriptionResult.is_correct)}>
+                            Continue
+                        </button>
+                        <button onClick={() => {
+                            setTranscriptionResult(null);
+                        }}>
+                            Try Again
+                        </button>
+                    </div>
+                )}
+            </div>
+        );
+    }
+
     function Question() {
-        const speaking = isSpeakingQuestion(currentQuestionObj.question_type);
         const showReplayButton =
             currentQuestionObj.question_type !== "fill in the blank" &&
             (hasChinese(currentQuestionObj.question) || isListeningQuestion(currentQuestionObj.question_type));
@@ -194,32 +343,32 @@ export default function DuolingoStyleQuestions() {
                     </button>
                 )}
 
-                <form onSubmit={handleSubmit}>
-                    {!speaking && (
-                        needsIME(currentQuestionObj.question_type)
-                            ? <ChineseIMEInput
-                                value={userAnswer}
-                                onChange={(val) => { setUserAnswer(val); setIsWrong(false); }}
-                                autoFocus
-                            />
-                            : <input
-                                value={userAnswer}
-                                onChange={(e) => { setUserAnswer(e.target.value); setIsWrong(false); }}
-                                autoFocus
-                            />
-                    )}
-                    <button type="submit">
-                        {speaking ? "Done" : "Submit"}
-                    </button>
-                </form>
-
                 {isWrong && (
                     <div>
-                        <p style={{ color: "red" }}>Wrong! The answer was: {currentQuestionObj.answer}</p>
+                        <p style={{ color: "red" }}>
+                            Wrong! The correct answer was: <strong>{currentQuestionObj.answer}</strong>
+                        </p>
+                        <p>Type the correct answer to continue:</p>
                     </div>
                 )}
 
-                <button type="button" onClick={handleSkip}>Skip</button>
+                <form onSubmit={handleSubmit}>
+                    {needsIME(currentQuestionObj.question_type)
+                        ? <ChineseIMEInput
+                            value={userAnswer}
+                            onChange={(val) => setUserAnswer(val)}
+                            autoFocus
+                          />
+                        : <input
+                            value={userAnswer}
+                            onChange={(e) => setUserAnswer(e.target.value)}
+                            autoFocus
+                          />
+                    }
+                    <button type="submit">
+                        {isRetrying ? "Confirm" : "Submit"}
+                    </button>
+                </form>
             </div>
         );
     }
@@ -244,12 +393,11 @@ export default function DuolingoStyleQuestions() {
         );
     }
 
-    // ── Render ──────────────────────────────────────────────────────
-
     const renderContent = () => {
         if (!isSessionStarted)                    return <Menu />;
         if (isLoading || questions.length === 0)  return <LoadingSpinner />;
         if (currentIndex >= questions.length)     return <Results />;
+        if (isSpeakingQuestion(currentQuestionObj.question_type)) return <SpeakingQuestion />;
         return <Question />;
     };
 
