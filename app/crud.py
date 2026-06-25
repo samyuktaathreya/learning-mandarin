@@ -7,28 +7,29 @@ def get_progress_by_user(db: Session, user_id: int):
     return db.query(StrengthTable).filter(StrengthTable.user_id == user_id).all()
 
 
-def get_strength_row(db: Session, user_id: int, tag: str):
+def get_strength_row(db: Session, user_id: int, tag: str, question_type: str):
     return db.query(StrengthTable).filter(
         StrengthTable.user_id == user_id,
-        StrengthTable.tag == tag
+        StrengthTable.tag == tag,
+        StrengthTable.question_type == question_type,
     ).first()
 
 
-def update_stability(db: Session, user_id: int, tag: str, is_correct: bool):
-    row = get_strength_row(db, user_id, tag)
+def update_stability(db: Session, user_id: int, tag: str, question_type: str, is_correct: bool):
+    row = get_strength_row(db, user_id, tag, question_type)
 
     if not row:
-        return {"tag": tag, "error": "not found"}
+        return {"tag": tag, "question_type": question_type, "error": "not found"}
 
     if is_correct:
-        row.stability = min(row.stability * 2, 365)  # cap at 1 year
+        row.stability = min(row.stability * 2, 365)
     else:
-        row.stability = max(row.stability * 0.5, 1)  # floor at 1 day
+        row.stability = max(row.stability * 0.5, 1)
 
     row.last_practice = datetime.utcnow()
     db.commit()
     db.refresh(row)
-    return {"tag": tag, "new_stability": row.stability}
+    return {"tag": tag, "question_type": question_type, "new_stability": row.stability}
 
 
 def get_user(db: Session, user_id: int):
