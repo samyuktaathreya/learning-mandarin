@@ -10,7 +10,6 @@ engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-# meta-tags that should not be tracked in SRS
 META_TAGS = {
     "speaking_vocab", "speaking_sentence", "listening_vocab",
     "listening_sentence", "fill_in_the_blank", "transcribe_word_to_pinyin",
@@ -18,7 +17,6 @@ META_TAGS = {
     "translate_english_word_to_chinese", "translate_english_sentence_to_chinese",
 }
 
-# all question types we track strength for
 QUESTION_TYPES = [
     "listening sentence",
     "speaking sentence",
@@ -31,8 +29,6 @@ QUESTION_TYPES = [
     "translate chinese sentence to english",
     "translate chinese word to english",
 ]
-
-# ----------------------------- LOAD QUESTION BANK -----------------------------
 
 QUESTIONS_FILEPATH = './language-app-data/data/clean/unit_questions_hsk1.json'
 
@@ -47,12 +43,10 @@ except json.JSONDecodeError:
     print("Error: Failed to decode unit_questions_hsk1.json.")
     unit_questions = {}
 
-# ----------------------------- BUILD IN-MEMORY DICTS -----------------------------
-
 inverted_index = {}     # tag -> [question, ...]
 tags_to_unit_dict = {}  # tag -> unit (int)
 unit_to_tags_dict = {}  # unit (int) -> set of tags
-unique_vocab_tags = set()  # only real vocab/grammar tags, no meta-tags
+unique_vocab_tags = set()
 
 for unit_str, questions in unit_questions.items():
     unit = int(unit_str)
@@ -60,7 +54,6 @@ for unit_str, questions in unit_questions.items():
 
     for q in questions:
         for tag in q.get("tags", []):
-            # skip meta-tags and unit tags for SRS
             if tag in META_TAGS or tag.startswith("unit_"):
                 continue
 
@@ -80,7 +73,6 @@ print(f"Built tags_to_unit_dict: {len(tags_to_unit_dict)} vocab tags")
 print(f"Built unit_to_tags_dict: {len(unit_to_tags_dict)} units")
 print(f"Total unique vocab tags: {len(unique_vocab_tags)}")
 
-# ----------------------------- INIT DB -----------------------------
 
 def init_db():
     from models.user import StrengthTable, User
@@ -88,31 +80,26 @@ def init_db():
     db = SessionLocal()
     try:
         if not db.query(User).filter(User.id == 1).first():
-            db.add(User(id=1, current_unit=3))
+            db.add(User(id=1, current_unit=3, graduated_units=""))
             print("Default user created.")
 
-        # seed one row per (tag, question_type) combo
-        existing = {
-            (row.tag, row.question_type)
-            for row in db.query(StrengthTable.tag, StrengthTable.question_type)
-            .filter(StrengthTable.user_id == 1).all()
+        existing_tags = {
+            row.tag for row in
+            db.query(StrengthTable.tag).filter(StrengthTable.user_id == 1).all()
         }
+        new_tags = unique_vocab_tags - existing_tags
 
-        new_rows = 0
-        for tag in unique_vocab_tags:
-            for question_type in QUESTION_TYPES:
-                if (tag, question_type) not in existing:
-                    db.add(StrengthTable(
-                        tag=tag,
-                        question_type=question_type,
-                        user_id=1,
-                        stability=1.0,
-                        last_practice=datetime.utcnow() - timedelta(days=365)
-                    ))
-                    new_rows += 1
+        for tag in new_tags:
+            db.add(StrengthTable(
+                tag=tag,
+                user_id=1,
+                correct_count=0,
+                stability=1.0,
+                last_practice=datetime.utcnow() - timedelta(days=365)
+            ))
 
         db.commit()
-        print(f"Strength table seeded: {new_rows} new rows added.")
+        print(f"Strength table seeded: {len(new_tags)} new tags added.")
 
     finally:
         db.close()

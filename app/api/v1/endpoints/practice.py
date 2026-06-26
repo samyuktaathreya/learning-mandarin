@@ -13,26 +13,12 @@ router = APIRouter()
 MIN_UNIT = 3
 NUM_OF_UNIT_TEST_QUESTIONS = 20
 PERCENTAGE_TO_PASS_UNIT_TEST = 0.80
-MAX_SAME_TAG_PER_SESSION = 2  # cap same vocab tag appearing in one session
+MAX_SAME_TAG_PER_SESSION = 2
+GRADUATION_THRESHOLD = 3          # correct answers per tag to graduate
 
-# priority order — index 0 = highest priority
-QUESTION_TYPE_PRIORITY = [
-    "listening sentence",
-    "speaking sentence",
+SPEAKING_TYPES = {
     "speaking vocab",
-    "listening vocab",
-    "transcribe word to pinyin",
-    "translate english sentence to chinese",
-    "translate english word to chinese",
-    "fill in the blank",
-    "translate chinese sentence to english",
-    "translate chinese word to english",
-]
-
-# weights derived from priority — highest priority gets highest weight
-PRIORITY_WEIGHTS = {
-    qt: len(QUESTION_TYPE_PRIORITY) - i
-    for i, qt in enumerate(QUESTION_TYPE_PRIORITY)
+    "speaking sentence",
 }
 
 TIER_1_TYPES = {
@@ -52,8 +38,28 @@ TIER_3_TYPES = {
     "translate english sentence to chinese",
 }
 
-TIER_2_STABILITY_THRESHOLD = 4
-TIER_3_STABILITY_THRESHOLD = 16
+TIER_2_UNLOCK = 2   # correct_count on tag >= this -> unlock tier 2
+TIER_3_UNLOCK = 4   # correct_count on tag >= this -> unlock tier 3
+
+TIER_1_DEPRIORITY_THRESHOLD = 2  # once tag has this many correct, deprioritize tier 1
+
+QUESTION_TYPE_PRIORITY = [
+    "listening sentence",
+    "speaking sentence",
+    "speaking vocab",
+    "listening vocab",
+    "transcribe word to pinyin",
+    "translate english sentence to chinese",
+    "translate english word to chinese",
+    "fill in the blank",
+    "translate chinese sentence to english",
+    "translate chinese word to english",
+]
+
+PRIORITY_WEIGHTS = {
+    qt: len(QUESTION_TYPE_PRIORITY) - i
+    for i, qt in enumerate(QUESTION_TYPE_PRIORITY)
+}
 
 UNIT_TEST_QUESTION_TYPES = TIER_1_TYPES | TIER_2_TYPES | TIER_3_TYPES
 
@@ -66,86 +72,112 @@ def get_db():
     finally:
         db.close()
 
-# ----------------------------- SRS HELPERS -----------------------------
+# ----------------------------- TIER HELPERS -----------------------------
 
-def get_allowed_types_for_stability(stability: float) -> set:
-    if stability >= TIER_3_STABILITY_THRESHOLD:
+def get_allowed_types(correct_count: int) -> set:
+    """Return allowed question types based on how well the tag is known."""
+    if correct_count >= TIER_3_UNLOCK:
         return TIER_1_TYPES | TIER_2_TYPES | TIER_3_TYPES
-    elif stability >= TIER_2_STABILITY_THRESHOLD:
+    elif correct_count >= TIER_2_UNLOCK:
         return TIER_1_TYPES | TIER_2_TYPES
     else:
         return TIER_1_TYPES
 
 
-def get_strength_scores_for_range(db: Session, user_id: int, unit_min: int, unit_max: int):
+def is_unit_graduated(tag_records: list, unit_tags: set) -> bool:
     """
-    Returns one score entry per (tag, question_type) combo in the unit range.
-    Uses the tag's stability for that specific question type.
+    Unit graduates when every vocab tag has correct_count >= GRADUATION_THRESHOLD.
+    Speaking types don't block graduation.
     """
+    record_map = {r.tag: r for r in tag_records}
+
+    for tag in unit_tags:
+        record = record_map.get(tag)
+        if not record or record.correct_count < GRADUATION_THRESHOLD:
+            return False
+
+    return True
+
+# ----------------------------- SRS HELPERS (post-graduation) -----------------------------
+
+def get_srs_strength_scores(db: Session, user_id: int, unit_min: int, unit_max: int, graduated_units: set):
     records = crud.get_progress_by_user(db, user_id)
     now = datetime.utcnow()
     scores = []
 
     for record in records:
         tag = record.tag
-
         if tag not in tags_to_unit_dict:
             continue
 
         unit = tags_to_unit_dict[tag]
         if unit < unit_min or unit > unit_max:
             continue
-
-        # check tier unlock based on this specific (tag, question_type) stability
-        allowed = get_allowed_types_for_stability(record.stability)
-        if record.question_type not in allowed:
+        if unit not in graduated_units:
             continue
 
-        # learning phase: always show until stability >= 4 (2 correct answers)
-        if record.stability < 4:
-            strength = 0.0  # always weak, always comes up
-        else:
-            delta_t = (now - record.last_practice).total_seconds() / 86400
-            strength = 0.5 ** (delta_t / record.stability)
+        delta_t = (now - record.last_practice).total_seconds() / 86400
+        strength = 0.5 ** (delta_t / record.stability)
 
         scores.append({
             "tag": tag,
-            "question_type": record.question_type,
             "strength": strength,
             "stability": record.stability,
-            "priority_weight": PRIORITY_WEIGHTS.get(record.question_type, 1),
         })
 
     return scores
 
 # ----------------------------- SESSION GENERATORS -----------------------------
 
-def generate_questions(db: Session, user_id: int, num_questions: int, unit_min: int, unit_max: int):
-    scores = get_strength_scores_for_range(db, user_id, unit_min, unit_max)
+def generate_learning_session(db: Session, user_id: int, unit: int):
+    records = crud.get_progress_by_user(db, user_id)
 
-    # sort by strength ascending (weakest first), break ties by priority weight descending
-    scores.sort(key=lambda x: (x["strength"], -x["priority_weight"]))
+    unit_tags = unit_to_tags_dict.get(unit, set())
+    unit_records = [r for r in records if r.tag in unit_tags]
+    record_map = {r.tag: r for r in unit_records}
+
+    # build candidates: one entry per (tag, question_type) that's unlocked
+    candidates = []
+    for tag, record in record_map.items():
+        correct_count = record.correct_count
+        allowed = get_allowed_types(correct_count)
+
+        for qt in allowed:
+            # deprioritize tier 1 once tag has enough correct answers
+            if correct_count >= TIER_1_DEPRIORITY_THRESHOLD and qt in TIER_1_TYPES:
+                effective_count = max(correct_count, 10)
+            else:
+                effective_count = correct_count
+
+            candidates.append({
+                "tag": tag,
+                "question_type": qt,
+                "effective_count": effective_count,
+                "correct_count": correct_count,
+                "priority_weight": PRIORITY_WEIGHTS.get(qt, 1),
+            })
+
+    # sort: lowest effective_count first, break ties by priority weight descending
+    candidates.sort(key=lambda x: (x["effective_count"], -x["priority_weight"]))
 
     question_set = []
     used_ids = set()
-    tag_counts = {}  # track how many times each vocab tag appears
+    tag_counts = {}
 
-    for item in scores:
-        if len(question_set) >= num_questions:
+    for item in candidates:
+        if len(question_set) >= 10:
             break
 
         tag = item["tag"]
         question_type = item["question_type"]
 
-        # cap same vocab tag per session
         if tag_counts.get(tag, 0) >= MAX_SAME_TAG_PER_SESSION:
             continue
 
-        # find a matching question in the inverted index
         questions = inverted_index.get(tag, [])
         available = [
             q for q in questions
-            if unit_min <= q.get("unit", 0) <= unit_max
+            if q.get("unit") == unit
             and q["question_type"] == question_type
             and q["id"] not in used_ids
         ]
@@ -165,17 +197,43 @@ def generate_questions(db: Session, user_id: int, num_questions: int, unit_min: 
     )
 
 
-def generate_mixed_session(db: Session, user_id: int, user_unit: int):
-    review = generate_questions(db, user_id, 3, MIN_UNIT, user_unit - 1).question_set
-    current = generate_questions(db, user_id, 7, user_unit, user_unit).question_set
+def generate_srs_review_session(db: Session, user_id: int, graduated_units: set):
+    scores = get_srs_strength_scores(db, user_id, MIN_UNIT, 99, graduated_units)
+    scores.sort(key=lambda x: x["strength"])
 
-    combined = review + current
-    random.shuffle(combined)
+    question_set = []
+    used_ids = set()
+    tag_counts = {}
+
+    for item in scores:
+        if len(question_set) >= 10:
+            break
+
+        tag = item["tag"]
+        if tag_counts.get(tag, 0) >= MAX_SAME_TAG_PER_SESSION:
+            continue
+
+        # for SRS review use higher priority question types
+        for qt in QUESTION_TYPE_PRIORITY:
+            questions = inverted_index.get(tag, [])
+            available = [
+                q for q in questions
+                if q["question_type"] == qt
+                and q["id"] not in used_ids
+            ]
+            if available:
+                chosen = random.choice(available)
+                question_set.append(chosen)
+                used_ids.add(chosen["id"])
+                tag_counts[tag] = tag_counts.get(tag, 0) + 1
+                break
+
+    random.shuffle(question_set)
 
     return SessionResponse(
         user_id=user_id,
         session_type="practice_session",
-        question_set=combined
+        question_set=question_set
     )
 
 
@@ -197,27 +255,24 @@ def generate_unit_test(user_id: int, user_unit: int):
 def generate_session(user_id: int, db: Session = Depends(get_db)):
     user = crud.get_user(db, user_id)
     user_unit = user.current_unit
+    graduated_units = crud.get_graduated_units(db, user_id)
 
-    if user_unit == MIN_UNIT:
-        current_scores = get_strength_scores_for_range(db, user_id, MIN_UNIT, MIN_UNIT)
-        weak = [s for s in current_scores if s["strength"] < 0.85]
-        if weak:
-            return generate_questions(db, user_id, 10, MIN_UNIT, MIN_UNIT)
+    # check if past units need SRS review
+    if graduated_units:
+        srs_scores = get_srs_strength_scores(db, user_id, MIN_UNIT, user_unit - 1, graduated_units)
+        weak_srs = [s for s in srs_scores if s["strength"] < 0.70]
+        if weak_srs:
+            return generate_srs_review_session(db, user_id, graduated_units)
+
+    # check if current unit is ready to graduate
+    unit_tags = unit_to_tags_dict.get(user_unit, set())
+    all_records = crud.get_progress_by_user(db, user_id)
+    unit_records = [r for r in all_records if r.tag in unit_tags]
+
+    if is_unit_graduated(unit_records, unit_tags):
         return generate_unit_test(user_id, user_unit)
 
-    past_scores = get_strength_scores_for_range(db, user_id, MIN_UNIT, user_unit - 1)
-    if past_scores:
-        avg_past = sum(s["strength"] for s in past_scores) / len(past_scores)
-        if avg_past < 0.70:
-            return generate_questions(db, user_id, 10, MIN_UNIT, user_unit - 1)
-
-    current_scores = get_strength_scores_for_range(db, user_id, user_unit, user_unit)
-    weak = [s for s in current_scores if s["strength"] < 0.85]
-
-    if weak:
-        return generate_mixed_session(db, user_id, user_unit)
-
-    return generate_unit_test(user_id, user_unit)
+    return generate_learning_session(db, user_id, user_unit)
 
 
 @router.patch("/api/submit_session/{user_id}")
@@ -229,11 +284,10 @@ def submit_session(
     db: Session = Depends(get_db)
 ):
     for i, question_data in enumerate(list_of_question_data):
-        question_type = question_data.get("question_type", "")
         for tag in question_data.get("tags", []):
             if tag in META_TAGS or tag.startswith("unit_"):
                 continue
-            crud.update_stability(db, user_id, tag, question_type, is_correct[i])
+            crud.update_after_answer(db, user_id, tag, is_correct[i])
 
     unit_test_result = "unit test not taken"
 
@@ -242,7 +296,7 @@ def submit_session(
         needed = PERCENTAGE_TO_PASS_UNIT_TEST * NUM_OF_UNIT_TEST_QUESTIONS
         if num_correct >= needed:
             user_unit = crud.get_user(db, user_id).current_unit
-            crud.update_user_unit(db, user_id, user_unit + 1)
+            crud.graduate_unit(db, user_id, user_unit)
             unit_test_result = "unit test passed"
         else:
             unit_test_result = "unit test failed"
@@ -256,12 +310,22 @@ def submit_session(
 @router.get("/api/debug/{user_id}")
 def debug(user_id: int, db: Session = Depends(get_db)):
     user = crud.get_user(db, user_id)
-    scores = get_strength_scores_for_range(db, user_id, MIN_UNIT, MIN_UNIT)
+    unit_tags = unit_to_tags_dict.get(user.current_unit, set())
+    all_records = crud.get_progress_by_user(db, user_id)
+    unit_records = [r for r in all_records if r.tag in unit_tags]
+
+    graduated = is_unit_graduated(unit_records, unit_tags)
+    session = generate_learning_session(db, user_id, user.current_unit)
+
     return {
         "current_unit": user.current_unit,
-        "num_scores": len(scores),
-        "unit_3_question_count": len(unit_questions.get("3", [])),
-        "inverted_index_size": len(inverted_index),
-        "sample_scores": scores[:5],
-        "questions_found": len(generate_questions(db, user_id, 10, MIN_UNIT, MIN_UNIT).question_set),
+        "graduated_units": user.graduated_units,
+        "unit_tags_count": len(unit_tags),
+        "unit_ready_to_graduate": graduated,
+        "questions_found": len(session.question_set),
+        "sample_question_types": list(set(q["question_type"] for q in session.question_set)),
+        "sample_correct_counts": [
+            {"tag": r.tag, "correct_count": r.correct_count}
+            for r in unit_records
+        ]
     }

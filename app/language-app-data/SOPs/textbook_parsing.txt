@@ -84,3 +84,23 @@ If the same marker appears more than once in a sentence, generate only one fill-
   ]
 
 Respond with only the JSON object, no other text.
+
+Also include proper nouns (place names, personal names) that appear in the unit as a separate list. These should be drilled just like vocab words.
+
+"proper_nouns": [
+  {
+    "hanzi": "中国",
+    "pinyin": "Zhong1guo2",
+    "english": "China"
+  },
+  {
+    "hanzi": "美国",
+    "pinyin": "Mei3guo2",
+    "english": "the United States of America"
+  },
+  {
+    "hanzi": "李月",
+    "pinyin": "Li3 Yue4",
+    "english": "Li Yue (name)"
+  }
+]

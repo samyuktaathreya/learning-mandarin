@@ -9,13 +9,13 @@ class StrengthTable(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     tag = Column(TEXT, nullable=False)
-    question_type = Column(TEXT, nullable=False)
     user_id = Column(Integer, nullable=False)
+    correct_count = Column(Integer, default=0)
     stability = Column(Float, default=1.0)
     last_practice = Column(DateTime, default=datetime.utcnow)
 
     __table_args__ = (
-        UniqueConstraint('tag', 'question_type', 'user_id', name='_tag_qtype_user_uc'),
+        UniqueConstraint('tag', 'user_id', name='_tag_user_uc'),
     )
 
 
@@ -24,3 +24,4 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     current_unit = Column(Integer, default=1)
+    graduated_units = Column(TEXT, default="")

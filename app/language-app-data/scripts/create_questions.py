@@ -4,26 +4,24 @@ per unit, produced by parse_textbook.py) and generates the full practice
 question bank, written to data/clean/unit_questions_hsk1.json.
 
 Question generation per source item:
-  - vocab item   -> listening vocab, speaking vocab, translate english word
-                    to chinese, translate chinese word to english,
-                    transcribe word to pinyin
-  - sentence     -> listening sentence, speaking sentence, translate english
-                    sentence to chinese, translate chinese sentence to english
+  - vocab item        -> listening vocab, speaking vocab, translate english word
+                         to chinese, translate chinese word to english,
+                         transcribe word to pinyin
+  - proper noun item  -> listening vocab, speaking vocab, transcribe word to pinyin
+                         (no translate english->chinese since drilling that direction
+                         for proper nouns is not useful)
+  - sentence          -> listening sentence, speaking sentence, translate english
+                         sentence to chinese, translate chinese sentence to english
   - fill_in_the_blank -> reconstructed into its original full sentence (blank
-                    replaced with the answer, trailing English translation
-                    stripped) for tagging purposes, then passed through
+                         replaced with the answer, trailing English translation
+                         stripped) for tagging purposes, then passed through
 
-Every question is tagged with: every word jieba segments out of its source
-text (NOT filtered to known vocab/grammar -- so words encountered in
-sentences but never authored as standalone vocab, e.g. proper nouns, still
-get tracked), every individual hanzi character in that text, a tag for the
-question type, and a tag for the unit.
+Every question is tagged with: every vocab/grammar/proper noun item from this
+unit that appears in the source text, plus a question-type tag and a unit tag.
 """
 
 import os
-import re
 import json
-import jieba
 from enum import Enum
 
 # --------------------------------- QUESTION TYPES ---------------------------------
@@ -41,6 +39,7 @@ class QuestionType(str, Enum):
     TRANSCRIBE_WORD_TO_PINYIN = "transcribe word to pinyin"
 
 # --------------------------------- CONSTANTS ---------------------------------
+
 TESTING = False
 
 INPUT_FILEPATH = "../data/clean"
@@ -69,9 +68,6 @@ def save_questions(questions_dict: dict, filepath: str, filename: str):
 
 def make_question(unit_number: str, question_type: QuestionType, question_text: str,
                    answer_text: str, tags: list, counters: dict) -> dict:
-    """Builds a single question dict and assigns it a sequential id, scoped
-    per question_type within the unit (matches u1_fill_in_the_blank_1,
-    u1_fill_in_the_blank_2, ... convention)."""
     slug = question_type.value.replace(" ", "_")
     counters[slug] = counters.get(slug, 0) + 1
     n = counters[slug]
@@ -85,31 +81,17 @@ def make_question(unit_number: str, question_type: QuestionType, question_text: 
     }
 
 
-def is_hanzi_char(ch: str) -> bool:
-    return "\u4e00" <= ch <= "\u9fff"
-
-
-def contains_hanzi(token: str) -> bool:
-    return any(is_hanzi_char(c) for c in token)
-
-
-def build_tags(hanzi_text: str, question_type: QuestionType, unit_number: str) -> list:
+def build_tags(hanzi_text: str, question_type: QuestionType, unit_number: str,
+               vocab_hanzi_set: set, grammar_marker_set: set, proper_noun_set: set) -> list:
     """
-    Tags = every jieba-segmented word in hanzi_text + every individual hanzi
-    character in it + a question-type tag + a unit tag. Segmentation isn't
-    filtered to this unit's known vocab/grammar, so any word jieba finds
-    (e.g. a proper noun like 美国 that was never authored as standalone
-    vocab) still gets tracked.
+    Tags = every vocab/grammar/proper noun item from this unit that appears
+    in the source text + a question-type tag + a unit tag.
     """
     tags = []
 
-    for token in jieba.lcut(hanzi_text):
-        if contains_hanzi(token) and token not in tags:
-            tags.append(token)
-
-    for ch in hanzi_text:
-        if is_hanzi_char(ch) and ch not in tags:
-            tags.append(ch)
+    for word in vocab_hanzi_set | grammar_marker_set | proper_noun_set:
+        if word in hanzi_text and word not in tags:
+            tags.append(word)
 
     tags.append(question_type.value.replace(" ", "_"))
     tags.append(f"unit_{unit_number}")
@@ -118,12 +100,6 @@ def build_tags(hanzi_text: str, question_type: QuestionType, unit_number: str) -
 
 
 def reconstruct_fitb_sentence(question: str, answer: str) -> str:
-    """
-    fill_in_the_blank question text looks like '我___一杯水。(I drank a cup
-    of water.)'. Strips the trailing English translation and substitutes
-    the answer back into the blank, recovering the original full sentence
-    so it can be tagged the same way as everything else.
-    """
     paren_index = question.rfind("(")
     core = question[:paren_index].strip() if paren_index != -1 else question.strip()
     return core.replace("___", answer)
@@ -134,17 +110,14 @@ def generate_questions_for_unit(unit_number: str, unit_data: dict) -> list:
     counters = {}
 
     vocab_list = unit_data.get("vocab", [])
+    proper_noun_list = unit_data.get("proper_nouns", [])
     sentence_list = unit_data.get("sentences", [])
     grammar_list = unit_data.get("grammar", [])
     fitb_list = unit_data.get("fill_in_the_blank", [])
 
     vocab_hanzi_set = {item["hanzi"] for item in vocab_list}
     grammar_marker_set = {item["marker"] for item in grammar_list}
-
-    # Teach jieba this unit's vocab/grammar as single tokens before
-    # segmenting any sentences, so e.g. 朋友 isn't split into 朋 + 友
-    for term in vocab_hanzi_set | grammar_marker_set:
-        jieba.add_word(term)
+    proper_noun_set = {item["hanzi"] for item in proper_noun_list}
 
     # --- vocab-derived questions ---
     for item in vocab_list:
@@ -159,13 +132,25 @@ def generate_questions_for_unit(unit_number: str, unit_data: dict) -> list:
             (QuestionType.TRANSLATE_ZH_TO_EN_WORD, hanzi, english),
             (QuestionType.TRANSCRIBE_WORD_TO_PINYIN, hanzi, pinyin),
         ]:
-            tags = build_tags(hanzi, qtype, unit_number)
+            tags = build_tags(hanzi, qtype, unit_number, vocab_hanzi_set, grammar_marker_set, proper_noun_set)
+            questions.append(make_question(unit_number, qtype, q_text, a_text, tags, counters))
+
+    # --- proper noun-derived questions ---
+    # listening, speaking, transcribe only — no translate english->chinese
+    for item in proper_noun_list:
+        hanzi = item["hanzi"]
+        pinyin = item["pinyin"]
+        english = item["english"]
+
+        for qtype, q_text, a_text in [
+            (QuestionType.LISTENING_VOCAB, hanzi, pinyin),
+            (QuestionType.SPEAKING_VOCAB, hanzi, pinyin),
+            (QuestionType.TRANSCRIBE_WORD_TO_PINYIN, hanzi, pinyin),
+        ]:
+            tags = build_tags(hanzi, qtype, unit_number, vocab_hanzi_set, grammar_marker_set, proper_noun_set)
             questions.append(make_question(unit_number, qtype, q_text, a_text, tags, counters))
 
     # --- sentence-derived questions ---
-    # Dedup by hanzi text -- the same sentence can legitimately appear in
-    # multiple sections of a unit (dialogue + a grammar note reusing it),
-    # but should only become one set of questions
     seen_sentences = set()
     deduped_sentences = []
     for item in sentence_list:
@@ -179,16 +164,15 @@ def generate_questions_for_unit(unit_number: str, unit_data: dict) -> list:
         english = item["english"]
 
         for qtype, q_text, a_text in [
-            (QuestionType.LISTENING_SENTENCE, hanzi, english),
+            (QuestionType.LISTENING_SENTENCE, hanzi, hanzi),
             (QuestionType.SPEAKING_SENTENCE, hanzi, pinyin),
             (QuestionType.TRANSLATE_EN_TO_ZH_SENTENCE, english, hanzi),
             (QuestionType.TRANSLATE_ZH_TO_EN_SENTENCE, hanzi, english),
         ]:
-            tags = build_tags(hanzi, qtype, unit_number)
+            tags = build_tags(hanzi, qtype, unit_number, vocab_hanzi_set, grammar_marker_set, proper_noun_set)
             questions.append(make_question(unit_number, qtype, q_text, a_text, tags, counters))
 
     # --- fill in the blank ---
-    # Dedup by (question, answer) for the same reason as sentences above
     seen_fitb = set()
     for item in fitb_list:
         key = (item["question"], item["answer"])
@@ -197,7 +181,7 @@ def generate_questions_for_unit(unit_number: str, unit_data: dict) -> list:
         seen_fitb.add(key)
 
         full_sentence = reconstruct_fitb_sentence(item["question"], item["answer"])
-        tags = build_tags(full_sentence, QuestionType.FILL_IN_THE_BLANK, unit_number)
+        tags = build_tags(full_sentence, QuestionType.FILL_IN_THE_BLANK, unit_number, vocab_hanzi_set, grammar_marker_set, proper_noun_set)
 
         questions.append(make_question(
             unit_number, QuestionType.FILL_IN_THE_BLANK, item["question"], item["answer"], tags, counters
@@ -210,7 +194,6 @@ def generate_questions_for_unit(unit_number: str, unit_data: dict) -> list:
 
 def main():
     units_output = load_units_output(INPUT_FILEPATH, INPUT_FILENAME)
-
     all_questions = {}
 
     if TESTING:
@@ -219,18 +202,14 @@ def main():
             all_questions[unit_number] = questions
             print(f"Unit {unit_number}: {len(questions)} questions generated")
             break
-
-        save_questions(all_questions, OUTPUT_FILEPATH, OUTPUT_FILENAME)
-        print(f"\nWritten to {os.path.join(OUTPUT_FILEPATH, OUTPUT_FILENAME)}")
-
     else:
         for unit_number, unit_data in units_output.items():
             questions = generate_questions_for_unit(unit_number, unit_data)
             all_questions[unit_number] = questions
             print(f"Unit {unit_number}: {len(questions)} questions generated")
 
-        save_questions(all_questions, OUTPUT_FILEPATH, OUTPUT_FILENAME)
-        print(f"\nWritten to {os.path.join(OUTPUT_FILEPATH, OUTPUT_FILENAME)}")
+    save_questions(all_questions, OUTPUT_FILEPATH, OUTPUT_FILENAME)
+    print(f"\nWritten to {os.path.join(OUTPUT_FILEPATH, OUTPUT_FILENAME)}")
 
 
 if __name__ == "__main__":

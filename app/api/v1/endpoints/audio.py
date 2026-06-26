@@ -11,8 +11,8 @@ from pypinyin import pinyin, Style
 import re
 import anthropic as anthropic_sdk
 import azure.cognitiveservices.speech as speechsdk
-import tempfile
 import asyncio
+import time
 
 load_dotenv(os.path.join(os.path.dirname(__file__), '../../../language-app-data/.env'))
 
@@ -90,62 +90,157 @@ async def clear_audio():
     return {"deleted": count}
 
 
-# ----------------------------- STT (Azure) -----------------------------
+# ----------------------------- STT HELPERS -----------------------------
 
 def to_numbered_pinyin(text: str) -> str:
     result = pinyin(text, style=Style.TONE3, heteronym=False)
     return ''.join([syllable[0] for syllable in result]).lower()
 
 
-def tones_match(t_pinyin: str, e_pinyin: str) -> bool:
-    t_sylls = re.findall(r'[a-zü]+[1-5]?', t_pinyin)
-    e_sylls = re.findall(r'[a-zü]+[1-5]?', e_pinyin)
+# valid pinyin initials (longest first so zh/ch/sh matched before z/c/s)
+VALID_INITIALS = ['zh', 'ch', 'sh', 'b', 'p', 'm', 'f', 'd', 't', 'n', 'l',
+                   'g', 'k', 'h', 'j', 'q', 'x', 'r', 'z', 'c', 's', 'y', 'w']
 
-    t_sylls = [s for s in t_sylls if s]
-    e_sylls = [s for s in e_sylls if s]
+# valid pinyin finals (longest first for greedy matching)
+VALID_FINALS = ['iang', 'iong', 'uang', 'ueng', 'uan', 'uen', 'uai', 'ing',
+                'ang', 'eng', 'ong', 'ian', 'iao', 'ie', 'in', 'an', 'en',
+                'ao', 'ou', 'ai', 'ei', 'ia', 'ua', 'uo', 'ui', 'un', 'iu',
+                've', 'vn', 'a', 'o', 'e', 'i', 'u', 'v',
+                'er', 'ng']
+
+
+def split_pinyin_syllables(p: str) -> list:
+    """
+    Split a pinyin string (no spaces, with tone numbers) into syllables.
+    Uses a known-syllable dictionary approach to handle ambiguous splits
+    like 'shen2me5ming2zi5' -> [('shen','2'), ('me','5'), ('ming','2'), ('zi','5')]
+    """
+    result = []
+    i = 0
+    p = p.lower()
+
+    while i < len(p):
+        if not (p[i].isalpha() or p[i] == 'v'):
+            i += 1
+            continue
+
+        matched = False
+
+        # try two-letter initials first, then one-letter, then no initial
+        for init_len in [2, 1, 0]:
+            if matched:
+                break
+
+            initial = p[i:i + init_len] if init_len > 0 else ''
+
+            if init_len > 0 and (i + init_len > len(p) or initial not in VALID_INITIALS):
+                continue
+
+            rest_start = i + init_len
+
+            # try finals longest first
+            for final in sorted(VALID_FINALS, key=len, reverse=True):
+                end = rest_start + len(final)
+                if p[rest_start:end] == final:
+                    syllable = initial + final
+                    if end < len(p) and p[end] in '12345':
+                        result.append((syllable, p[end]))
+                        i = end + 1
+                    else:
+                        result.append((syllable, '5'))
+                        i = end
+                    matched = True
+                    break
+
+        if not matched:
+            i += 1  # skip unrecognized character
+
+    return result
+
+
+def apply_tone_sandhi(syllables: list) -> list:
+    """
+    Apply Mandarin tone sandhi rules to a list of (base, tone) tuples.
+    1. 不 (bu): tone 4 -> tone 2 before another tone 4
+    2. 一 (yi): tone 1 -> tone 2 before tone 4, tone 4 before tones 1/2/3
+    3. Third tone sandhi: tone 3 -> tone 2 before another tone 3
+    """
+    result = list(syllables)
+    for i in range(len(result) - 1):
+        base, tone = result[i]
+        _, next_tone = result[i + 1]
+
+        if base == 'bu' and tone == '4' and next_tone == '4':
+            result[i] = (base, '2')
+        elif base == 'yi' and tone == '1':
+            if next_tone == '4':
+                result[i] = (base, '2')
+            elif next_tone in ('1', '2', '3'):
+                result[i] = (base, '4')
+        elif tone == '3' and next_tone == '3':
+            result[i] = (base, '2')
+
+    return result
+
+
+def tones_match(t_pinyin: str, e_pinyin: str) -> bool:
+    t_sylls = split_pinyin_syllables(t_pinyin)
+    e_sylls = split_pinyin_syllables(e_pinyin)
 
     if len(t_sylls) != len(e_sylls):
         return False
 
-    for t, e in zip(t_sylls, e_sylls):
-        e_tone = e[-1] if e[-1].isdigit() else '5'
-        t_tone = t[-1] if t[-1].isdigit() else '5'
-        e_base = e[:-1] if e[-1].isdigit() else e
-        t_base = t[:-1] if t[-1].isdigit() else t
+    t_sandhi = apply_tone_sandhi(t_sylls)
+    e_sandhi = apply_tone_sandhi(e_sylls)
 
-        if e_base != t_base:
+    for (t_base, t_tone), (e_base, e_tone) in zip(t_sandhi, e_sandhi):
+        if t_base != e_base:
             return False
-        if e_tone != '5' and t_tone != e_tone:
+        # if expected tone is neutral (5), don't care what user said
+        if e_tone == '5':
+            continue
+        if t_tone != e_tone:
             return False
 
     return True
 
 
+# ----------------------------- STT (Azure) -----------------------------
+
 def transcribe_with_azure(audio_path: str) -> str:
-    """
-    Transcribe audio file using Azure Speech SDK.
-    Returns recognized text in Chinese characters.
-    """
     speech_config = speechsdk.SpeechConfig(
         subscription=AZURE_SPEECH_KEY,
         region=AZURE_SPEECH_REGION
     )
     speech_config.speech_recognition_language = "zh-CN"
-
     audio_config = speechsdk.audio.AudioConfig(filename=audio_path)
     recognizer = speechsdk.SpeechRecognizer(
         speech_config=speech_config,
         audio_config=audio_config
     )
 
-    result = recognizer.recognize_once()
+    results = []
+    done = False
 
-    if result.reason == speechsdk.ResultReason.RecognizedSpeech:
-        return result.text.strip()
-    elif result.reason == speechsdk.ResultReason.NoMatch:
-        return ""
-    else:
-        raise RuntimeError(f"Azure STT failed: {result.reason}")
+    def handle_result(evt):
+        if evt.result.text:
+            results.append(evt.result.text.strip())
+
+    def handle_stop(evt):
+        nonlocal done
+        done = True
+
+    recognizer.recognized.connect(handle_result)
+    recognizer.session_stopped.connect(handle_stop)
+    recognizer.canceled.connect(handle_stop)
+
+    recognizer.start_continuous_recognition()
+    start = time.time()
+    while not done and time.time() - start < 10:
+        time.sleep(0.1)
+    recognizer.stop_continuous_recognition()
+
+    return ''.join(results)
 
 
 @router.post("/api/transcribe")
@@ -157,8 +252,6 @@ async def transcribe(payload: dict):
         return JSONResponse({"error": "No audio provided"}, status_code=400)
 
     audio_bytes = base64.b64decode(audio_b64)
-
-    # Azure SDK needs a wav file — save webm then convert via ffmpeg
     webm_path = os.path.join(CACHE_DIR, "temp_recording.webm")
     wav_path = os.path.join(CACHE_DIR, "temp_recording.wav")
 
@@ -166,7 +259,6 @@ async def transcribe(payload: dict):
         f.write(audio_bytes)
 
     try:
-        # convert webm -> wav using ffmpeg (available in codespaces)
         proc = await asyncio.create_subprocess_exec(
             "ffmpeg", "-y", "-i", webm_path, "-ar", "16000", "-ac", "1", wav_path,
             stdout=asyncio.subprocess.DEVNULL,
@@ -177,14 +269,19 @@ async def transcribe(payload: dict):
         if not os.path.exists(wav_path):
             return JSONResponse({"error": "Audio conversion failed"}, status_code=500)
 
-        # run Azure STT in a thread so we don't block the event loop
         transcription_hanzi = await asyncio.to_thread(transcribe_with_azure, wav_path)
+
+        expected_pinyin = (
+            to_numbered_pinyin(expected)
+            if any('\u4e00' <= c <= '\u9fff' for c in expected)
+            else expected.lower().replace(' ', '').replace(',', '')
+        )
 
         if not transcription_hanzi:
             return JSONResponse({
                 "transcription": "",
                 "transcription_pinyin": "",
-                "expected_pinyin": to_numbered_pinyin(expected) if any('\u4e00' <= c <= '\u9fff' for c in expected) else expected.lower().replace(' ', ''),
+                "expected_pinyin": expected_pinyin,
                 "is_correct": False,
                 "hallucination": True
             })
@@ -196,17 +293,12 @@ async def transcribe(payload: dict):
             return JSONResponse({
                 "transcription": transcription_hanzi,
                 "transcription_pinyin": "",
-                "expected_pinyin": to_numbered_pinyin(expected) if any('\u4e00' <= c <= '\u9fff' for c in expected) else expected.lower().replace(' ', ''),
+                "expected_pinyin": expected_pinyin,
                 "is_correct": False,
                 "hallucination": True
             })
 
         transcription_pinyin = to_numbered_pinyin(transcription_hanzi)
-        expected_pinyin = (
-            to_numbered_pinyin(expected)
-            if any('\u4e00' <= c <= '\u9fff' for c in expected)
-            else expected.lower().replace(' ', '')
-        )
         is_correct = tones_match(transcription_pinyin, expected_pinyin)
 
         return JSONResponse({
