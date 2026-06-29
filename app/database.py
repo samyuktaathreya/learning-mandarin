@@ -103,3 +103,13 @@ def init_db():
 
     finally:
         db.close()
+
+DICTIONARY_FILEPATH = './language-app-data/data/clean/hsk1_dictionary.json'
+
+try:
+    with open(DICTIONARY_FILEPATH, 'r', encoding='utf-8') as f:
+        hsk1_dictionary = json.load(f)
+    print(f"Dictionary loaded! ({len(hsk1_dictionary)} entries)")
+except FileNotFoundError:
+    print(f"Error: {DICTIONARY_FILEPATH} not found.")
+    hsk1_dictionary = {}

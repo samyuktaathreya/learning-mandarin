@@ -17,6 +17,7 @@ Question generation per source item:
 
 import os
 import json
+import re
 from enum import Enum
 
 class QuestionType(str, Enum):
@@ -35,6 +36,8 @@ TESTING = False
 
 INPUT_FILEPATH = "../data/clean"
 INPUT_FILENAME = "units_output.json"
+BLOCKLIST_FILEPATH = "../remove_these_sentences"
+BLOCKLIST_FILENAME = "remove_these_sentences.txt"
 
 if TESTING:
     OUTPUT_FILEPATH = "../test_data"
@@ -47,6 +50,22 @@ else:
 def load_units_output(filepath, filename):
     with open(os.path.join(filepath, filename), 'r', encoding='utf-8') as f:
         return json.load(f)
+
+
+def normalize(hanzi: str) -> str:
+    """Strip punctuation for loose matching against the blocklist."""
+    return re.sub(r'[。？！，、；：""''…\.\?\!,]', '', hanzi).strip()
+
+
+def load_blocklist(filepath: str, filename: str) -> set:
+    path = os.path.join(filepath, filename)
+    if not os.path.exists(path):
+        print(f"No blocklist found at {path}, skipping.")
+        return set()
+    with open(path, 'r', encoding='utf-8') as f:
+        lines = [normalize(line.strip()) for line in f if line.strip()]
+    print(f"Loaded blocklist: {len(lines)} sentence(s) to exclude.")
+    return set(lines)
 
 
 def save_questions(questions_dict, filepath, filename):
@@ -82,7 +101,7 @@ def reconstruct_fitb_sentence(question, answer):
     return core.replace("___", answer)
 
 
-def generate_questions_for_unit(unit_number, unit_data):
+def generate_questions_for_unit(unit_number, unit_data, blocklist):
     questions = []
     counters = {}
 
@@ -143,6 +162,9 @@ def generate_questions_for_unit(unit_number, unit_data):
     deduped_sentences = []
     for item in sentence_list:
         if item["hanzi"] not in seen_sentences:
+            if normalize(item["hanzi"]) in blocklist:
+                print(f"  Skipping blocked sentence: {item['hanzi']}")
+                continue
             seen_sentences.add(item["hanzi"])
             deduped_sentences.append(item)
 
@@ -175,6 +197,7 @@ def generate_questions_for_unit(unit_number, unit_data):
 
 def main():
     units_output = load_units_output(INPUT_FILEPATH, INPUT_FILENAME)
+    blocklist = load_blocklist(BLOCKLIST_FILEPATH, BLOCKLIST_FILENAME)
     all_questions = {}
 
     units_to_process = list(units_output.items())
@@ -182,7 +205,7 @@ def main():
         units_to_process = units_to_process[:1]
 
     for unit_number, unit_data in units_to_process:
-        questions = generate_questions_for_unit(unit_number, unit_data)
+        questions = generate_questions_for_unit(unit_number, unit_data, blocklist)
         all_questions[unit_number] = questions
         print(f"Unit {unit_number}: {len(questions)} questions generated")
 

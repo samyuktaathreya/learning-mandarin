@@ -11,6 +11,13 @@ Part A: Read through the transcription and generate an output json like this.
 DO NOT generate your own sentences. Only use sentences, vocab words, and grammar particles
 present in the transcription.
 
+When extracting sentences, include ONLY complete, fully-formed sentences.
+Do NOT include exercise template sentences — sentences containing:
+- Blanks (______)
+- Ellipsis placeholders (……)
+- Slash alternatives (他/她, 同学／朋友)
+These will be handled by a separate template-filling step.
+
 For the type attribute, it must be one of the following VERBATIM:
 aspect_particle
 sentence_particle
@@ -52,6 +59,7 @@ Some grammar points are explained in dedicated pronunciation or Pinyin sections 
   "grammar": [
     {
       "marker": "了",
+      "pinyin": "le5",
       "english": "indicates a completed action",
       "type": "aspect_particle"
     }
@@ -64,6 +72,12 @@ Some grammar points are explained in dedicated pronunciation or Pinyin sections 
     }
   ]
 }
+
+Grammar rules:
+- Every grammar marker must include a "pinyin" field with the conversational pronunciation.
+- Use neutral tone (5) for particles that are unstressed in speech: 了 le5, 吗 ma5, 呢 ne5, 吧 ba5, 啊 a5, 的 de5, 地 de5, 得 de5, 着 zhe5, 过 guo5.
+- For 不, use bu4 as the citation form (tone sandhi to bu2 before tone 4 is handled automatically at runtime).
+- For measure words like 个, use ge4.
 
 Part B: Use the grammar particles/measure words from Part A to create fill in the blank questions.
 DO NOT generate new sentences. Look at the sentences from Part A.
@@ -82,8 +96,6 @@ If the same marker appears more than once in a sentence, generate only one fill-
       "tags": ["了"]
     }
   ]
-
-Respond with only the JSON object, no other text.
 
 Also include proper nouns (place names, personal names) that appear in the unit as a separate list. These should be drilled just like vocab words.
 
@@ -104,3 +116,5 @@ Also include proper nouns (place names, personal names) that appear in the unit 
     "english": "Li Yue (name)"
   }
 ]
+
+Respond with only the JSON object, no other text.

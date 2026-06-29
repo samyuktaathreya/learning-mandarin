@@ -56,18 +56,27 @@
         "english": "human, person",
         "part_of_speech": "noun",
         "measure_word": null
+      },
+      {
+        "hanzi": "不",
+        "pinyin": "bu4",
+        "english": "not, no (negative adverb)",
+        "part_of_speech": "adverb",
+        "measure_word": null
       }
     ],
     "grammar": [
       {
         "marker": "吗",
-        "english": "used at the end of a question to indicate an interrogative mood",
-        "type": "sentence_particle"
+        "english": "used at the end of a sentence to form a yes/no question",
+        "type": "sentence_particle",
+        "pinyin": "ma5"
       },
       {
         "marker": "不",
-        "english": "negative adverb; changes to second tone before a fourth-tone syllable",
-        "type": "tone_sandhi"
+        "english": "negative adverb placed before 是 to negate; tone changes to second tone before fourth-tone syllables",
+        "type": "tone_sandhi",
+        "pinyin": "bu4"
       }
     ],
     "sentences": [
@@ -89,7 +98,7 @@
       {
         "hanzi": "我不是老师，我是学生。",
         "pinyin": "Wo3 bu2 shi4 lao3shi1, wo3 shi4 xue2sheng5.",
-        "english": "I'm not a teacher, I'm a student."
+        "english": "I'm not a teacher. I'm a student."
       },
       {
         "hanzi": "你是中国人吗？",
@@ -99,7 +108,7 @@
       {
         "hanzi": "我不是中国人，我是美国人。",
         "pinyin": "Wo3 bu2 shi4 Zhong1guo2 ren2, wo3 shi4 Mei3guo2 ren2.",
-        "english": "I'm not Chinese, I'm American."
+        "english": "I'm not Chinese. I'm American."
       },
       {
         "hanzi": "这是什么？",
@@ -142,14 +151,76 @@
         "english": "Are you a teacher?"
       },
       {
-        "hanzi": "我叫李月。",
-        "pinyin": "Wo3 jiao4 Li3 Yue4.",
-        "english": "My name is Li Yue."
+        "hanzi": "你是学生吗？",
+        "pinyin": "Ni3 shi4 xue2sheng5 ma5?",
+        "english": "Are you a student?"
       },
       {
-        "hanzi": "我叫大卫。",
-        "pinyin": "Wo3 jiao4 Da4wei4.",
-        "english": "My name is David."
+        "hanzi": "我叫李月，我是中国人，我是老师。",
+        "pinyin": "Wo3 jiao4 Li3 Yue4, wo3 shi4 Zhong1guo2 ren2, wo3 shi4 lao3shi1.",
+        "english": "My name is Li Yue. I am Chinese. I am a teacher."
+      },
+      {
+        "hanzi": "我叫大卫，我是美国人，我是学生。",
+        "pinyin": "Wo3 jiao4 Da4wei4, wo3 shi4 Mei3guo2 ren2, wo3 shi4 xue2sheng5.",
+        "english": "My name is David. I am American. I am a student."
+      },
+      {
+        "hanzi": "他叫乔丹，他是美国人。",
+        "pinyin": "Ta1 jiao4 Qiao2dan1, ta1 shi4 Mei3guo2 ren2.",
+        "english": "His name is Jordan; he is American."
+      },
+      {
+        "hanzi": "他叫姚明，他是中国人。",
+        "pinyin": "Ta1 jiao4 Yao2 Ming2, ta1 shi4 Zhong1guo2 ren2.",
+        "english": "His name is Yao Ming; he is Chinese."
+      },
+      {
+        "hanzi": "他是美国人。",
+        "pinyin": "Ta1 shi4 Mei3guo2 ren2.",
+        "english": "He is American."
+      },
+      {
+        "hanzi": "他是中国人。",
+        "pinyin": "Ta1 shi4 Zhong1guo2 ren2.",
+        "english": "He is Chinese."
+      },
+      {
+        "hanzi": "我不是美国人，我是学生。",
+        "pinyin": "Wo3 bu2 shi4 Mei3guo2 ren2, wo3 shi4 xue2sheng5.",
+        "english": "I am not American; I am a student."
+      },
+      {
+        "hanzi": "我是中国人。",
+        "pinyin": "Wo3 shi4 Zhong1guo2 ren2.",
+        "english": "I am Chinese."
+      },
+      {
+        "hanzi": "我是老师，我不是学生，我是中国人。",
+        "pinyin": "Wo3 shi4 lao3shi1, wo3 bu4 shi4 xue2sheng5, wo3 shi4 Zhong1guo2 ren2.",
+        "english": "I am a teacher; I am not a student; I am Chinese."
+      },
+      {
+        "hanzi": "我是李月，我不是学生，我是中国人。",
+        "pinyin": "Wo3 shi4 Li3 Yue4, wo3 bu4 shi4 xue2sheng5, wo3 shi4 Zhong1guo2 ren2.",
+        "english": "I am Li Yue; I am not a student; I am Chinese."
+      }
+    ],
+    "proper_nouns": [
+      {
+        "hanzi": "李月",
+        "pinyin": "Li3 Yue4",
+        "english": "Li Yue (name of a person)"
+      },
+      {
+        "hanzi": "中国",
+        "pinyin": "Zhong1guo2",
+        "english": "China"
+      },
+      {
+        "hanzi": "美国",
+        "pinyin": "Mei3guo2",
+        "english": "the United States of America"
       }
     ],
     "fill_in_the_blank": [
@@ -161,7 +232,7 @@
         ]
       },
       {
-        "question": "我___是老师，我是学生。(I'm not a teacher, I'm a student.)",
+        "question": "我不是老师，我是学生。(I'm not a teacher. I'm a student.)",
         "answer": "不",
         "tags": [
           "不"
@@ -175,7 +246,7 @@
         ]
       },
       {
-        "question": "我___是中国人，我是美国人。(I'm not Chinese, I'm American.)",
+        "question": "我___是中国人，我是美国人。(I'm not Chinese. I'm American.)",
         "answer": "不",
         "tags": [
           "不"
@@ -203,10 +274,10 @@
         ]
       },
       {
-        "question": "我___是老师。(I am not a teacher.)",
-        "answer": "不",
+        "question": "你是学生___？(Are you a student?)",
+        "answer": "吗",
         "tags": [
-          "不"
+          "吗"
         ]
       }
     ]
@@ -246,7 +317,7 @@
         "pinyin": "guo2",
         "english": "country, nation",
         "part_of_speech": "noun",
-        "measure_word": null
+        "measure_word": "个"
       },
       {
         "hanzi": "他",
@@ -260,31 +331,34 @@
         "pinyin": "tong2xue2",
         "english": "classmate",
         "part_of_speech": "noun",
-        "measure_word": null
+        "measure_word": "个"
       },
       {
         "hanzi": "朋友",
         "pinyin": "peng2you5",
         "english": "friend",
         "part_of_speech": "noun",
-        "measure_word": null
+        "measure_word": "个"
       }
     ],
     "grammar": [
       {
         "marker": "的",
         "english": "structural particle used after an attribute to indicate possession",
-        "type": "structural_particle"
+        "type": "structural_particle",
+        "pinyin": "de5"
       },
       {
         "marker": "呢",
-        "english": "interrogative particle used at the end of a question to ask about a previously mentioned situation",
-        "type": "sentence_particle"
+        "english": "interrogative sentence particle used after a noun or pronoun to ask about a situation mentioned previously",
+        "type": "sentence_particle",
+        "pinyin": "ne5"
       },
       {
         "marker": "一",
         "english": "tone sandhi: changes to fourth tone before first, second, or third tone syllables; changes to second tone before fourth tone syllables",
-        "type": "tone_sandhi"
+        "type": "tone_sandhi",
+        "pinyin": "yi1"
       }
     ],
     "sentences": [
@@ -334,6 +408,31 @@
         "english": "No, she isn't. She is my friend."
       },
       {
+        "hanzi": "谁是李月？",
+        "pinyin": "Shei2 shi4 Li3 Yue4?",
+        "english": "Who is Li Yue?"
+      },
+      {
+        "hanzi": "她是谁？",
+        "pinyin": "Ta1 shi4 shei2?",
+        "english": "Who is she?"
+      },
+      {
+        "hanzi": "他是谁？",
+        "pinyin": "Ta1 shi4 shei2?",
+        "english": "Who is he?"
+      },
+      {
+        "hanzi": "哪个人？",
+        "pinyin": "Na3 ge5 ren2?",
+        "english": "Which person?"
+      },
+      {
+        "hanzi": "你是哪国人？",
+        "pinyin": "Ni3 shi4 na3 guo2 ren2?",
+        "english": "Which country are you from?"
+      },
+      {
         "hanzi": "李月是我的老师。",
         "pinyin": "Li3 Yue4 shi4 wo3 de5 lao3shi1.",
         "english": "Li Yue is my teacher."
@@ -344,9 +443,14 @@
         "english": "This is my book."
       },
       {
+        "hanzi": "她不是我同学，她是我朋友。",
+        "pinyin": "Ta1 bu2 shi4 wo3 tong2xue2, ta1 shi4 wo3 peng2you5.",
+        "english": "She is not my classmate; she is my friend."
+      },
+      {
         "hanzi": "我不是老师，我是学生。你呢？",
-        "pinyin": "Wo3 bu2 shi4 lao3shi1, wo3 shi4 xue2sheng1. Ni3 ne5?",
-        "english": "I am not a teacher, I am a student. What about you?"
+        "pinyin": "Wo3 bu4 shi4 lao3shi1, wo3 shi4 xue2sheng5. Ni3 ne5?",
+        "english": "I am not a teacher; I am a student. What about you?"
       },
       {
         "hanzi": "她叫李月。他呢？",
@@ -372,6 +476,111 @@
         "hanzi": "你的中国朋友是谁？",
         "pinyin": "Ni3 de5 Zhong1guo2 peng2you5 shi4 shei2?",
         "english": "Who is your Chinese friend?"
+      },
+      {
+        "hanzi": "他/她是我同学／朋友，他/她叫……，他/她是……",
+        "pinyin": "Ta1/Ta1 shi4 wo3 tong2xue2/peng2you5, ta1/ta1 jiao4..., ta1/ta1 shi4...",
+        "english": "He/She is my classmate/friend, his/her name is..., he/she is..."
+      },
+      {
+        "hanzi": "他是乔布斯，他是美国人。",
+        "pinyin": "Ta1 shi4 Qiao2bu4si1, ta1 shi4 Mei3guo2 ren2.",
+        "english": "He is Steve Jobs; he is American."
+      },
+      {
+        "hanzi": "他是乔布斯，他不是中国人，他是美国人。",
+        "pinyin": "Ta1 shi4 Qiao2bu4si1, ta1 bu4 shi4 Zhong1guo2 ren2, ta1 shi4 Mei3guo2 ren2.",
+        "english": "He is Steve Jobs; he is not Chinese, he is American."
+      },
+      {
+        "hanzi": "她是李娜，她是中国人。",
+        "pinyin": "Ta1 shi4 Li3 Na4, ta1 shi4 Zhong1guo2 ren2.",
+        "english": "She is Li Na; she is Chinese."
+      },
+      {
+        "hanzi": "她是李娜，她不是美国人，她是中国人。",
+        "pinyin": "Ta1 shi4 Li3 Na4, ta1 bu4 shi4 Mei3guo2 ren2, ta1 shi4 Zhong1guo2 ren2.",
+        "english": "She is Li Na; she is not American, she is Chinese."
+      },
+      {
+        "hanzi": "她叫玛丽，她不是我同学，",
+        "pinyin": "Ta1 jiao4 Ma3li4, ta1 bu4 shi4 wo3 tong2xue2,",
+        "english": "Her name is Mary; she is not my classmate,"
+      },
+      {
+        "hanzi": "她是我朋友。",
+        "pinyin": "ta1 shi4 wo3 peng2you5.",
+        "english": "she is my friend."
+      },
+      {
+        "hanzi": "他叫大卫，他是我们的汉语老师。",
+        "pinyin": "Ta1 jiao4 Da4wei4, ta1 shi4 wo3men5 de5 Han4yu3 lao3shi1.",
+        "english": "His name is David; he is our Chinese teacher."
+      },
+      {
+        "hanzi": "他叫大卫，他是我们的朋友。",
+        "pinyin": "Ta1 jiao4 Da4wei4, ta1 shi4 wo3men5 de5 peng2you5.",
+        "english": "His name is David; he is our friend."
+      },
+      {
+        "hanzi": "他是谁？他是李月。",
+        "pinyin": "Ta1 shi4 shei2? Ta1 shi4 Li3 Yue4.",
+        "english": "Who is he? He is Li Yue."
+      },
+      {
+        "hanzi": "她是谁？她是我的汉语老师。",
+        "pinyin": "Ta1 shi4 shei2? Ta1 shi4 wo3 de5 Han4yu3 lao3shi1.",
+        "english": "Who is she? She is my Chinese teacher."
+      },
+      {
+        "hanzi": "他是哪国人？他是美国人。",
+        "pinyin": "Ta1 shi4 na3 guo2 ren2? Ta1 shi4 Mei3guo2 ren2.",
+        "english": "Which country is he from? He is American."
+      },
+      {
+        "hanzi": "她是哪国人？她是中国人。",
+        "pinyin": "Ta1 shi4 na3 guo2 ren2? Ta1 shi4 Zhong1guo2 ren2.",
+        "english": "Which country is she from? She is Chinese."
+      },
+      {
+        "hanzi": "她是我朋友，她叫李月，她是中国人。",
+        "pinyin": "Ta1 shi4 wo3 peng2you5, ta1 jiao4 Li3 Yue4, ta1 shi4 Zhong1guo2 ren2.",
+        "english": "She is my friend; her name is Li Yue; she is Chinese."
+      },
+      {
+        "hanzi": "他是我同学，他叫大卫，他是美国人。",
+        "pinyin": "Ta1 shi4 wo3 tong2xue2, ta1 jiao4 Da4wei4, ta1 shi4 Mei3guo2 ren2.",
+        "english": "He is my classmate; his name is David; he is American."
+      },
+      {
+        "hanzi": "她叫玛丽，她不是我朋友，",
+        "pinyin": "Ta1 jiao4 Ma3li4, ta1 bu2 shi4 wo3 peng2you5,",
+        "english": "Her name is Mary; she is not my friend,"
+      },
+      {
+        "hanzi": "她是我同学。",
+        "pinyin": "ta1 shi4 wo3 tong2xue2.",
+        "english": "she is my classmate."
+      },
+      {
+        "hanzi": "他是谁？他是我同学。",
+        "pinyin": "Ta1 shi4 shei2? Ta1 shi4 wo3 tong2xue2.",
+        "english": "Who is he? He is my classmate."
+      },
+      {
+        "hanzi": "她是谁？她是我朋友。",
+        "pinyin": "Ta1 shi4 shei2? Ta1 shi4 wo3 peng2you5.",
+        "english": "Who is she? She is my friend."
+      },
+      {
+        "hanzi": "她是我同学，她叫李月，她是中国人。",
+        "pinyin": "Ta1 shi4 wo3 tong2xue2, ta1 jiao4 Li3 Yue4, ta1 shi4 Zhong1guo2 ren2.",
+        "english": "She is my classmate; her name is Li Yue; she is Chinese."
+      },
+      {
+        "hanzi": "他是我朋友，他叫大卫，他是美国人。",
+        "pinyin": "Ta1 shi4 wo3 peng2you5, ta1 jiao4 Da4wei4, ta1 shi4 Mei3guo2 ren2.",
+        "english": "He is my friend; his name is David; he is American."
       }
     ],
     "fill_in_the_blank": [
@@ -397,6 +606,20 @@
         ]
       },
       {
+        "question": "我不是老师，我是学生。你___？(I am not a teacher; I am a student. What about you?)",
+        "answer": "呢",
+        "tags": [
+          "呢"
+        ]
+      },
+      {
+        "question": "她叫李月。他___？(Her name is Li Yue. What about him?)",
+        "answer": "呢",
+        "tags": [
+          "呢"
+        ]
+      },
+      {
         "question": "李月是我___老师。(Li Yue is my teacher.)",
         "answer": "的",
         "tags": [
@@ -408,20 +631,6 @@
         "answer": "的",
         "tags": [
           "的"
-        ]
-      },
-      {
-        "question": "我不是老师，我是学生。你___？(I am not a teacher, I am a student. What about you?)",
-        "answer": "呢",
-        "tags": [
-          "呢"
-        ]
-      },
-      {
-        "question": "她叫李月。他___？(Her name is Li Yue. What about him?)",
-        "answer": "呢",
-        "tags": [
-          "呢"
         ]
       },
       {
@@ -445,6 +654,23 @@
           "的"
         ]
       }
+    ],
+    "proper_nouns": [
+      {
+        "hanzi": "李月",
+        "pinyin": "Li3 Yue4",
+        "english": "Li Yue (name)"
+      },
+      {
+        "hanzi": "美国",
+        "pinyin": "Mei3guo2",
+        "english": "the United States of America"
+      },
+      {
+        "hanzi": "中国",
+        "pinyin": "Zhong1guo2",
+        "english": "China"
+      }
     ]
   },
   "5": {
@@ -465,7 +691,7 @@
       },
       {
         "hanzi": "女儿",
-        "pinyin": "nv3er5",
+        "pinyin": "nv3er2",
         "english": "daughter",
         "part_of_speech": "noun",
         "measure_word": null
@@ -497,23 +723,88 @@
         "english": "(of age) old",
         "part_of_speech": "adjective",
         "measure_word": null
+      },
+      {
+        "hanzi": "爷爷",
+        "pinyin": "ye2ye5",
+        "english": "(paternal) grandpa",
+        "part_of_speech": "noun",
+        "measure_word": null
+      },
+      {
+        "hanzi": "奶奶",
+        "pinyin": "nai3nai5",
+        "english": "(paternal) grandma",
+        "part_of_speech": "noun",
+        "measure_word": null
+      },
+      {
+        "hanzi": "爸爸",
+        "pinyin": "ba4ba5",
+        "english": "father",
+        "part_of_speech": "noun",
+        "measure_word": null
+      },
+      {
+        "hanzi": "妈妈",
+        "pinyin": "ma1ma5",
+        "english": "mother",
+        "part_of_speech": "noun",
+        "measure_word": null
+      },
+      {
+        "hanzi": "哥哥",
+        "pinyin": "ge1ge5",
+        "english": "elder brother",
+        "part_of_speech": "noun",
+        "measure_word": null
+      },
+      {
+        "hanzi": "姐姐",
+        "pinyin": "jie3jie5",
+        "english": "elder sister",
+        "part_of_speech": "noun",
+        "measure_word": null
+      },
+      {
+        "hanzi": "弟弟",
+        "pinyin": "di4di5",
+        "english": "younger brother",
+        "part_of_speech": "noun",
+        "measure_word": null
+      },
+      {
+        "hanzi": "妹妹",
+        "pinyin": "mei4mei5",
+        "english": "younger sister",
+        "part_of_speech": "noun",
+        "measure_word": null
       }
     ],
     "grammar": [
       {
         "marker": "口",
-        "english": "a measure word for members of families, etc.",
-        "type": "other"
+        "english": "measure word for members of families",
+        "type": "other",
+        "pinyin": "kou3"
       },
       {
         "marker": "岁",
-        "english": "year (of age), measure word for age",
-        "type": "other"
+        "english": "measure word for years of age",
+        "type": "other",
+        "pinyin": "sui4"
       },
       {
         "marker": "了",
         "english": "used at the end of or in the middle of a sentence to indicate a change or a new circumstance",
-        "type": "sentence_particle"
+        "type": "sentence_particle",
+        "pinyin": "le5"
+      },
+      {
+        "marker": "多大",
+        "english": "interrogative phrase used to ask about one's age",
+        "type": "other",
+        "pinyin": "duo1da4"
       }
     ],
     "sentences": [
@@ -525,17 +816,17 @@
       {
         "hanzi": "我家有三口人。",
         "pinyin": "Wo3 jia1 you3 san1 kou3 ren2.",
-        "english": "There are three (people in my family)."
+        "english": "There are three people in my family."
       },
       {
         "hanzi": "你女儿几岁了？",
-        "pinyin": "Ni3 nv3er5 ji3 sui4 le5?",
+        "pinyin": "Ni3 nv3er2 ji3 sui4 le5?",
         "english": "How old is your daughter?"
       },
       {
         "hanzi": "她今年四岁了。",
         "pinyin": "Ta1 jin1nian2 si4 sui4 le5.",
-        "english": "She is four years old."
+        "english": "She is four years old this year."
       },
       {
         "hanzi": "李老师多大了？",
@@ -545,17 +836,17 @@
       {
         "hanzi": "她今年50岁了。",
         "pinyin": "Ta1 jin1nian2 wu3shi2 sui4 le5.",
-        "english": "She is 50 years old."
+        "english": "She is 50 years old this year."
       },
       {
         "hanzi": "她女儿呢？",
-        "pinyin": "Ta1 nv3er5 ne5?",
+        "pinyin": "Ta1 nv3er2 ne5?",
         "english": "What about her daughter?"
       },
       {
         "hanzi": "她女儿今年20岁。",
-        "pinyin": "Ta1 nv3er5 jin1nian2 er4shi2 sui4.",
-        "english": "Her daughter is 20."
+        "pinyin": "Ta1 nv3er2 jin1nian2 er4shi2 sui4.",
+        "english": "Her daughter is 20 this year."
       },
       {
         "hanzi": "你有几个汉语老师？",
@@ -565,7 +856,7 @@
       {
         "hanzi": "李老师家有几口人？",
         "pinyin": "Li3 lao3shi1 jia1 you3 ji3 kou3 ren2?",
-        "english": "How many people are there in Professor Li's family?"
+        "english": "How many people are in Professor Li's family?"
       },
       {
         "hanzi": "李老师今年50岁了。",
@@ -574,7 +865,7 @@
       },
       {
         "hanzi": "我朋友的女儿今年四岁了。",
-        "pinyin": "Wo3 peng2you5 de5 nv3er5 jin1nian2 si4 sui4 le5.",
+        "pinyin": "Wo3 peng2you5 de5 nv3er2 jin1nian2 si4 sui4 le5.",
         "english": "My friend's daughter is four years old this year."
       },
       {
@@ -584,8 +875,155 @@
       },
       {
         "hanzi": "你女儿今年多大了？",
-        "pinyin": "Ni3 nv3er5 jin1nian2 duo1 da4 le5?",
+        "pinyin": "Ni3 nv3er2 jin1nian2 duo1 da4 le5?",
         "english": "How old is your daughter this year?"
+      },
+      {
+        "hanzi": "你今年多大了？",
+        "pinyin": "Ni3 jin1nian2 duo1 da4 le5?",
+        "english": "How old are you this year?"
+      },
+      {
+        "hanzi": "你的汉语老师今年多大了？",
+        "pinyin": "Ni3 de5 Han4yu3 lao3shi1 jin1nian2 duo1 da4 le5?",
+        "english": "How old is your Chinese teacher this year?"
+      },
+      {
+        "hanzi": "你的中国朋友家有几口人？",
+        "pinyin": "Ni3 de5 Zhong1guo2 peng2you5 jia1 you3 ji3 kou3 ren2?",
+        "english": "How many people are in your Chinese friend's family?"
+      },
+      {
+        "hanzi": "你的中国朋友今年多大了？",
+        "pinyin": "Ni3 de5 Zhong1guo2 peng2you5 jin1nian2 duo1 da4 le5?",
+        "english": "How old is your Chinese friend this year?"
+      },
+      {
+        "hanzi": "他是学生，他今年二十岁了。",
+        "pinyin": "Ta1 shi4 xue2sheng5, ta1 jin1nian2 er4shi2 sui4 le5.",
+        "english": "He is a student; he is twenty years old this year."
+      },
+      {
+        "hanzi": "她是老师，她今年五十岁了。",
+        "pinyin": "Ta1 shi4 lao3shi1, ta1 jin1nian2 wu3shi2 sui4 le5.",
+        "english": "She is a teacher; she is fifty years old this year."
+      },
+      {
+        "hanzi": "她家有三口人。",
+        "pinyin": "Ta1 jia1 you3 san1 kou3 ren2.",
+        "english": "Her family has three people."
+      },
+      {
+        "hanzi": "她家有六口人。",
+        "pinyin": "Ta1 jia1 you3 liu4 kou3 ren2.",
+        "english": "Her family has six people."
+      },
+      {
+        "hanzi": "他是我们的汉语老师，",
+        "pinyin": "Ta1 shi4 wo3men5 de5 Han4yu3 lao3shi1,",
+        "english": "He is our Chinese language teacher,"
+      },
+      {
+        "hanzi": "他今年五十岁了。",
+        "pinyin": "Ta1 jin1nian2 wu3shi2 sui4 le5.",
+        "english": "he is fifty years old this year."
+      },
+      {
+        "hanzi": "他今年二十岁了。",
+        "pinyin": "Ta1 jin1nian2 er4shi2 sui4 le5.",
+        "english": "he is twenty years old this year."
+      },
+      {
+        "hanzi": "这是张老师的女儿，她今年二十岁了。",
+        "pinyin": "Zhe4 shi4 Zhang1 lao3shi1 de5 nv3'er2, ta1 jin1nian2 er4shi2 sui4 le5.",
+        "english": "This is Teacher Zhang's daughter; she is twenty years old this year."
+      },
+      {
+        "hanzi": "这是张老师的女儿，她今年四岁了。",
+        "pinyin": "Zhe4 shi4 Zhang1 lao3shi1 de5 nv3'er2, ta1 jin1nian2 si4 sui4 le5.",
+        "english": "This is Teacher Zhang's daughter; she is four years old this year."
+      },
+      {
+        "hanzi": "我家有六口人。",
+        "pinyin": "Wo3 jia1 you3 liu4 kou3 ren2.",
+        "english": "My family has six people."
+      },
+      {
+        "hanzi": "你妈妈今年多大了？",
+        "pinyin": "Ni3 ma1ma5 jin1nian2 duo1 da4 le5?",
+        "english": "How old is your mother this year?"
+      },
+      {
+        "hanzi": "你爸爸今年多大了？",
+        "pinyin": "Ni3 ba4ba5 jin1nian2 duo1 da4 le5?",
+        "english": "How old is your father this year?"
+      },
+      {
+        "hanzi": "我妈妈今年五十岁了。",
+        "pinyin": "Wo3 ma1ma5 jin1nian2 wu3shi2 sui4 le5.",
+        "english": "My mother is fifty years old this year."
+      },
+      {
+        "hanzi": "我爸爸今年七十岁了。",
+        "pinyin": "Wo3 ba4ba5 jin1nian2 qi1shi2 sui4 le5.",
+        "english": "My father is seventy years old this year."
+      },
+      {
+        "hanzi": "这是我女儿，这是我妈妈，这是我爸爸。",
+        "pinyin": "Zhe4 shi4 wo3 nv3'er2, zhe4 shi4 wo3 ma1ma5, zhe4 shi4 wo3 ba4ba5.",
+        "english": "This is my daughter, this is my mother, this is my father."
+      },
+      {
+        "hanzi": "这是我哥哥，这是我姐姐，这是我妹妹。",
+        "pinyin": "Zhe4 shi4 wo3 ge1ge5, zhe4 shi4 wo3 jie3jie5, zhe4 shi4 wo3 mei4mei5.",
+        "english": "This is my elder brother, this is my elder sister, this is my younger sister."
+      },
+      {
+        "hanzi": "她叫李老师，她是老师，她今年五十岁了。",
+        "pinyin": "Ta1 jiao4 Li3 lao3shi1, ta1 shi4 lao3shi1, ta1 jin1nian2 wu3shi2 sui4 le5.",
+        "english": "She is called Teacher Li; she is a teacher; she is fifty years old this year."
+      },
+      {
+        "hanzi": "她叫张老师，她是老师，她今年二十岁了。",
+        "pinyin": "Ta1 jiao4 Zhang1 lao3shi1, ta1 shi4 lao3shi1, ta1 jin1nian2 er4shi2 sui4 le5.",
+        "english": "She is called Teacher Zhang; she is a teacher; she is twenty years old this year."
+      },
+      {
+        "hanzi": "我爸爸今年五十岁了。",
+        "pinyin": "Wo3 ba4ba5 jin1nian2 wu3shi2 sui4 le5.",
+        "english": "My father is fifty years old this year."
+      },
+      {
+        "hanzi": "我妈妈今年四十岁了。",
+        "pinyin": "Wo3 ma1ma5 jin1nian2 si4shi2 sui4 le5.",
+        "english": "My mother is forty years old this year."
+      },
+      {
+        "hanzi": "这是我女儿，这是我爸爸，这是我妈妈。",
+        "pinyin": "Zhe4 shi4 wo3 nv3'er2, zhe4 shi4 wo3 ba4ba5, zhe4 shi4 wo3 ma1ma5.",
+        "english": "This is my daughter, this is my father, this is my mother."
+      }
+    ],
+    "proper_nouns": [
+      {
+        "hanzi": "中国",
+        "pinyin": "Zhong1guo2",
+        "english": "China"
+      },
+      {
+        "hanzi": "西安",
+        "pinyin": "Xi1'an1",
+        "english": "City of Xi'an"
+      },
+      {
+        "hanzi": "张老师",
+        "pinyin": "Zhang1 lao3shi1",
+        "english": "Teacher Zhang (name)"
+      },
+      {
+        "hanzi": "李老师",
+        "pinyin": "Li3 lao3shi1",
+        "english": "Professor/Teacher Li (name)"
       }
     ],
     "fill_in_the_blank": [
@@ -611,6 +1049,13 @@
         ]
       },
       {
+        "question": "她今年四___了。(She is four years old this year.)",
+        "answer": "岁",
+        "tags": [
+          "岁"
+        ]
+      },
+      {
         "question": "你女儿几岁___？(How old is your daughter?)",
         "answer": "了",
         "tags": [
@@ -618,35 +1063,28 @@
         ]
       },
       {
-        "question": "她今年四___了。(She is four years old.)",
-        "answer": "岁",
-        "tags": [
-          "岁"
-        ]
-      },
-      {
-        "question": "她今年四岁___。(She is four years old.)",
+        "question": "她今年四岁___。(She is four years old this year.)",
         "answer": "了",
         "tags": [
           "了"
         ]
       },
       {
-        "question": "李老师多大___？(How old is Professor Li?)",
-        "answer": "了",
+        "question": "李老师___了？(How old is Professor Li?)",
+        "answer": "多大",
         "tags": [
-          "了"
+          "多大"
         ]
       },
       {
-        "question": "她今年50___了。(She is 50 years old.)",
+        "question": "她今年50___了。(She is 50 years old this year.)",
         "answer": "岁",
         "tags": [
           "岁"
         ]
       },
       {
-        "question": "她今年50岁___。(She is 50 years old.)",
+        "question": "她今年50岁___。(She is 50 years old this year.)",
         "answer": "了",
         "tags": [
           "了"
@@ -681,10 +1119,24 @@
         ]
       },
       {
+        "question": "你___了？(How old are you?)",
+        "answer": "多大",
+        "tags": [
+          "多大"
+        ]
+      },
+      {
         "question": "你多大___？(How old are you?)",
         "answer": "了",
         "tags": [
           "了"
+        ]
+      },
+      {
+        "question": "你女儿今年___了？(How old is your daughter this year?)",
+        "answer": "多大",
+        "tags": [
+          "多大"
         ]
       },
       {
@@ -695,7 +1147,63 @@
         ]
       },
       {
-        "question": "李老师家有几___人？(How many people are there in Professor Li's family?)",
+        "question": "李老师___了？(How old is Professor Li?)",
+        "answer": "多大",
+        "tags": [
+          "多大"
+        ]
+      },
+      {
+        "question": "你今年___了？(How old are you this year?)",
+        "answer": "多大",
+        "tags": [
+          "多大"
+        ]
+      },
+      {
+        "question": "你今年多大___？(How old are you this year?)",
+        "answer": "了",
+        "tags": [
+          "了"
+        ]
+      },
+      {
+        "question": "你的汉语老师今年___了？(How old is your Chinese teacher this year?)",
+        "answer": "多大",
+        "tags": [
+          "多大"
+        ]
+      },
+      {
+        "question": "你的汉语老师今年多大___？(How old is your Chinese teacher this year?)",
+        "answer": "了",
+        "tags": [
+          "了"
+        ]
+      },
+      {
+        "question": "你的中国朋友家有几___人？(How many people are in your Chinese friend's family?)",
+        "answer": "口",
+        "tags": [
+          "口"
+        ]
+      },
+      {
+        "question": "你的中国朋友今年___了？(How old is your Chinese friend this year?)",
+        "answer": "多大",
+        "tags": [
+          "多大"
+        ]
+      },
+      {
+        "question": "你的中国朋友今年多大___？(How old is your Chinese friend this year?)",
+        "answer": "了",
+        "tags": [
+          "了"
+        ]
+      },
+      {
+        "question": "李老师家有几___人？(How many people are in Professor Li's family?)",
         "answer": "口",
         "tags": [
           "口"
@@ -766,14 +1274,14 @@
         "pinyin": "Han4zi4",
         "english": "Chinese character",
         "part_of_speech": "noun",
-        "measure_word": null
+        "measure_word": "个"
       },
       {
         "hanzi": "字",
         "pinyin": "zi4",
         "english": "character, word",
         "part_of_speech": "noun",
-        "measure_word": null
+        "measure_word": "个"
       },
       {
         "hanzi": "怎么",
@@ -793,23 +1301,26 @@
     "grammar": [
       {
         "marker": "会",
-        "english": "modal verb indicating ability acquired through learning",
-        "type": "modal_verb"
+        "english": "modal verb indicating ability acquired through learning; negative form is 不会",
+        "type": "modal_verb",
+        "pinyin": "hui4"
       },
       {
         "marker": "很",
         "english": "adverb of degree used before adjective in adjectival predicate sentences",
-        "type": "other"
+        "type": "degree_complement",
+        "pinyin": "hen3"
       },
       {
         "marker": "怎么",
         "english": "interrogative pronoun used before a verb to ask about the manner of an action",
-        "type": "other"
+        "type": "other",
+        "pinyin": "zen3me"
       }
     ],
     "sentences": [
       {
-        "hanzi": "你会说汉语吗?",
+        "hanzi": "你会说汉语吗？",
         "pinyin": "Ni3 hui4 shuo1 Han4yu3 ma5?",
         "english": "Can you speak Chinese?"
       },
@@ -819,7 +1330,7 @@
         "english": "Yes, I can."
       },
       {
-        "hanzi": "你妈妈会说汉语吗?",
+        "hanzi": "你妈妈会说汉语吗？",
         "pinyin": "Ni3 ma1ma5 hui4 shuo1 Han4yu3 ma5?",
         "english": "Can your mother speak Chinese?"
       },
@@ -829,8 +1340,8 @@
         "english": "No, she can't."
       },
       {
-        "hanzi": "中国菜好吃吗?",
-        "pinyin": "Zhong1guo2 cai4 hao3chi1 ma5?",
+        "hanzi": "中国菜好吃吗？",
+        "pinyin": "Zhong1guo2 cai4 hao3 chi1 ma5?",
         "english": "Is Chinese food delicious?"
       },
       {
@@ -839,7 +1350,7 @@
         "english": "Yes, quite delicious."
       },
       {
-        "hanzi": "你会做中国菜吗?",
+        "hanzi": "你会做中国菜吗？",
         "pinyin": "Ni3 hui4 zuo4 Zhong1guo2 cai4 ma5?",
         "english": "Can you cook Chinese food?"
       },
@@ -849,7 +1360,7 @@
         "english": "No, I can't."
       },
       {
-        "hanzi": "你会写汉字吗?",
+        "hanzi": "你会写汉字吗？",
         "pinyin": "Ni3 hui4 xie3 Han4zi4 ma5?",
         "english": "Can you write Chinese characters?"
       },
@@ -859,7 +1370,7 @@
         "english": "Yes, I can."
       },
       {
-        "hanzi": "这个字怎么写?",
+        "hanzi": "这个字怎么写？",
         "pinyin": "Zhe4ge5 zi4 zen3me5 xie3?",
         "english": "How do you write this character?"
       },
@@ -879,11 +1390,6 @@
         "english": "I can't cook Chinese food."
       },
       {
-        "hanzi": "你妈妈会说汉语吗?",
-        "pinyin": "Ni3 ma1ma5 hui4 shuo1 Han4yu3 ma5?",
-        "english": "Can your mother speak Chinese?"
-      },
-      {
         "hanzi": "我很好。",
         "pinyin": "Wo3 hen3 hao3.",
         "english": "I am very well."
@@ -899,64 +1405,29 @@
         "english": "Chinese food is very delicious."
       },
       {
-        "hanzi": "这个汉字怎么读?",
+        "hanzi": "这个汉字怎么读？",
         "pinyin": "Zhe4ge5 Han4zi4 zen3me5 du2?",
         "english": "How do you read this Chinese character?"
       },
       {
-        "hanzi": "你的汉语名字怎么写?",
+        "hanzi": "你的汉语名字怎么写？",
         "pinyin": "Ni3 de5 Han4yu3 ming2zi5 zen3me5 xie3?",
         "english": "How do you write your Chinese name?"
       },
       {
-        "hanzi": "你会说汉语吗?",
-        "pinyin": "Ni3 hui4 shuo1 Han4yu3 ma5?",
-        "english": "Can you speak Chinese?"
+        "hanzi": "我不会写汉字。",
+        "pinyin": "Wo3 bu4 hui4 xie3 Han4zi4.",
+        "english": "I cannot write Chinese characters."
       },
       {
-        "hanzi": "你会写汉字吗?",
-        "pinyin": "Ni3 hui4 xie3 Han4zi4 ma5?",
-        "english": "Can you write Chinese characters?"
-      },
-      {
-        "hanzi": "你会做中国菜吗?",
-        "pinyin": "Ni3 hui4 zuo4 Zhong1guo2 cai4 ma5?",
-        "english": "Can you cook Chinese food?"
-      },
-      {
-        "hanzi": "你有汉语名字吗?",
-        "pinyin": "Ni3 you3 Han4yu3 ming2zi5 ma5?",
-        "english": "Do you have a Chinese name?"
-      },
-      {
-        "hanzi": "你会写你的汉语名字吗?",
-        "pinyin": "Ni3 hui4 xie3 ni3 de5 Han4yu3 ming2zi5 ma5?",
-        "english": "Can you write your Chinese name?"
-      },
-      {
-        "hanzi": "你会说汉语吗?",
-        "pinyin": "Ni3 hui4 shuo1 Han4yu3 ma5?",
-        "english": "Can you speak Chinese?"
-      },
-      {
-        "hanzi": "你会写汉字吗?",
-        "pinyin": "Ni3 hui4 xie3 Han4zi4 ma5?",
-        "english": "Can you write Chinese characters?"
-      },
-      {
-        "hanzi": "你的汉语名字叫什么?",
-        "pinyin": "Ni3 de5 Han4yu3 ming2zi5 jiao4 shen2me5?",
-        "english": "What is your Chinese name?"
-      },
-      {
-        "hanzi": "你会写你的汉语名字吗?",
-        "pinyin": "Ni3 hui4 xie3 ni3 de5 Han4yu3 ming2zi5 ma5?",
-        "english": "Can you write your Chinese name?"
+        "hanzi": "我会做中国菜。",
+        "pinyin": "Wo3 hui4 zuo4 Zhong1guo2 cai4.",
+        "english": "I can cook Chinese food."
       }
     ],
     "fill_in_the_blank": [
       {
-        "question": "你___说汉语吗?(Can you speak Chinese?)",
+        "question": "你___说汉语吗？(Can you speak Chinese?)",
         "answer": "会",
         "tags": [
           "会"
@@ -970,7 +1441,7 @@
         ]
       },
       {
-        "question": "你妈妈___说汉语吗?(Can your mother speak Chinese?)",
+        "question": "你妈妈___说汉语吗？(Can your mother speak Chinese?)",
         "answer": "会",
         "tags": [
           "会"
@@ -991,7 +1462,7 @@
         ]
       },
       {
-        "question": "你___做中国菜吗?(Can you cook Chinese food?)",
+        "question": "你___做中国菜吗？(Can you cook Chinese food?)",
         "answer": "会",
         "tags": [
           "会"
@@ -1005,7 +1476,7 @@
         ]
       },
       {
-        "question": "你___写汉字吗?(Can you write Chinese characters?)",
+        "question": "你___写汉字吗？(Can you write Chinese characters?)",
         "answer": "会",
         "tags": [
           "会"
@@ -1019,7 +1490,7 @@
         ]
       },
       {
-        "question": "这个字___写?(How do you write this character?)",
+        "question": "这个字___写？(How do you write this character?)",
         "answer": "怎么",
         "tags": [
           "怎么"
@@ -1040,6 +1511,20 @@
         ]
       },
       {
+        "question": "我___写汉字。(I can write Chinese characters.)",
+        "answer": "会",
+        "tags": [
+          "会"
+        ]
+      },
+      {
+        "question": "我不___做中国菜。(I can't cook Chinese food.)",
+        "answer": "会",
+        "tags": [
+          "会"
+        ]
+      },
+      {
         "question": "我___好。(I am very well.)",
         "answer": "很",
         "tags": [
@@ -1054,18 +1539,50 @@
         ]
       },
       {
-        "question": "这个汉字___读?(How do you read this Chinese character?)",
+        "question": "这个汉字___读？(How do you read this Chinese character?)",
         "answer": "怎么",
         "tags": [
           "怎么"
         ]
       },
       {
-        "question": "你的汉语名字___写?(How do you write your Chinese name?)",
+        "question": "你的汉语名字___写？(How do you write your Chinese name?)",
         "answer": "怎么",
         "tags": [
           "怎么"
         ]
+      }
+    ],
+    "proper_nouns": [
+      {
+        "hanzi": "汉语",
+        "pinyin": "Han4yu3",
+        "english": "Chinese language"
+      },
+      {
+        "hanzi": "中国",
+        "pinyin": "Zhong1guo2",
+        "english": "China"
+      },
+      {
+        "hanzi": "大卫",
+        "pinyin": "Da4wei4",
+        "english": "David (name)"
+      },
+      {
+        "hanzi": "英语",
+        "pinyin": "Ying1yu3",
+        "english": "English (language)"
+      },
+      {
+        "hanzi": "法语",
+        "pinyin": "Fa3yu3",
+        "english": "French (language)"
+      },
+      {
+        "hanzi": "日语",
+        "pinyin": "Ri4yu3",
+        "english": "Japanese (language)"
       }
     ]
   },
@@ -1165,19 +1682,22 @@
     ],
     "grammar": [
       {
-        "marker": "去+地方+做什么",
-        "english": "serial verb construction: 去 + place + to do something, where the second verb indicates the purpose of going",
-        "type": "other"
-      },
-      {
         "marker": "名词谓语句",
-        "english": "sentence with a nominal predicate, used to express age, time, date, etc., without a verb",
-        "type": "other"
+        "english": "Sentence with a nominal predicate; used to express age, time, date, etc. No copula verb needed.",
+        "type": "other",
+        "pinyin": "ming2ci2wei4yu3ju4"
       },
       {
-        "marker": "二声+各声调",
-        "english": "tone sandhi: collocation of 2nd tone with 1st, 2nd, 3rd, and 4th tones in disyllabic words",
-        "type": "tone_sandhi"
+        "marker": "去+地方+做什么",
+        "english": "Serial verb construction: 去 + place + verb phrase; the second verb expresses the purpose of going",
+        "type": "other",
+        "pinyin": "qu4+di4fang1+zuo4shen2me"
+      },
+      {
+        "marker": "呢",
+        "english": "Sentence-final particle used to ask a follow-up question about a previously mentioned topic",
+        "type": "sentence_particle",
+        "pinyin": "ne5"
       }
     ],
     "sentences": [
@@ -1187,7 +1707,7 @@
         "english": "Excuse me, what's the date today?"
       },
       {
-        "hanzi": "今天９月１号。",
+        "hanzi": "今天9月1号。",
         "pinyin": "Jin1tian1 jiu3 yue4 yi1 hao4.",
         "english": "It's September 1st."
       },
@@ -1207,7 +1727,7 @@
         "english": "What was the date yesterday?"
       },
       {
-        "hanzi": "昨天是８月31号，星期二。",
+        "hanzi": "昨天是8月31号，星期二。",
         "pinyin": "Zuo2tian1 shi4 ba1 yue4 san1shi2yi1 hao4, xing1qi1 er4.",
         "english": "It was Tuesday, August 31st."
       },
@@ -1222,7 +1742,7 @@
         "english": "It's Thursday, September 2nd."
       },
       {
-        "hanzi": "明天星期六，你去学校吗?",
+        "hanzi": "明天星期六，你去学校吗？",
         "pinyin": "Ming2tian1 xing1qi1 liu4, ni3 qu4 xue2xiao4 ma5?",
         "english": "Tomorrow is Saturday. Will you go to school?"
       },
@@ -1277,9 +1797,39 @@
         "english": "What's the date today?"
       },
       {
+        "hanzi": "今天几月几号星期几？",
+        "pinyin": "Jin1tian1 ji3 yue4 ji3 hao4 xing1qi1 ji3?",
+        "english": "What is today's date and day of the week?"
+      },
+      {
+        "hanzi": "明天几月几号星期几？",
+        "pinyin": "Ming2tian1 ji3 yue4 ji3 hao4 xing1qi1 ji3?",
+        "english": "What is tomorrow's date and day of the week?"
+      },
+      {
+        "hanzi": "昨天几月几号星期几？",
+        "pinyin": "Zuo2tian1 ji3 yue4 ji3 hao4 xing1qi1 ji3?",
+        "english": "What was yesterday's date and day of the week?"
+      },
+      {
+        "hanzi": "明天你去哪儿做什么？",
+        "pinyin": "Ming2tian1 ni3 qu4 na3r5 zuo4 shen2me5?",
+        "english": "Where are you going tomorrow and what will you do?"
+      },
+      {
+        "hanzi": "星期日你去哪儿做什么？",
+        "pinyin": "Xing1qi1ri4 ni3 qu4 na3r5 zuo4 shen2me5?",
+        "english": "Where are you going on Sunday and what will you do?"
+      },
+      {
         "hanzi": "明天是几月几号？",
         "pinyin": "Ming2tian1 shi4 ji3 yue4 ji3 hao4?",
-        "english": "What's the date tomorrow?"
+        "english": "What is tomorrow's date?"
+      },
+      {
+        "hanzi": "明天星期几？",
+        "pinyin": "Ming2tian1 xing1qi1 ji3?",
+        "english": "What day is tomorrow?"
       },
       {
         "hanzi": "明天你做什么？",
@@ -1288,38 +1838,161 @@
       },
       {
         "hanzi": "明天我去……",
-        "pinyin": "Ming2tian1 wo3 qu4……",
-        "english": "Tomorrow I'll go to..."
+        "pinyin": "Ming2tian1 wo3 qu4...",
+        "english": "Tomorrow I'm going to..."
+      },
+      {
+        "hanzi": "今天是九月一号，",
+        "pinyin": "Jīntiān shì jiǔ yuè yī hào,",
+        "english": "Today is September 1st,"
+      },
+      {
+        "hanzi": "今天是八月三十一号，",
+        "pinyin": "Jīntiān shì bā yuè sānshíyī hào,",
+        "english": "Today is August 31st,"
+      },
+      {
+        "hanzi": "今天是九月二号，",
+        "pinyin": "Jīntiān shì jiǔ yuè èr hào,",
+        "english": "Today is September 2nd,"
+      },
+      {
+        "hanzi": "星期二。",
+        "pinyin": "Xīngqī èr.",
+        "english": "Tuesday."
+      },
+      {
+        "hanzi": "星期四。",
+        "pinyin": "Xīngqī sì.",
+        "english": "Thursday."
+      },
+      {
+        "hanzi": "今天九月一号。",
+        "pinyin": "Jīntiān jiǔ yuè yī hào.",
+        "english": "Today is September 1st."
+      },
+      {
+        "hanzi": "今天八月三十一号。",
+        "pinyin": "Jīntiān bā yuè sānshíyī hào.",
+        "english": "Today is August 31st."
+      },
+      {
+        "hanzi": "今天九月二号。",
+        "pinyin": "Jīntiān jiǔ yuè èr hào.",
+        "english": "Today is September 2nd."
+      },
+      {
+        "hanzi": "22号是星期六，",
+        "pinyin": "Èrshí'èr hào shì xīngqī liù,",
+        "english": "The 22nd is Saturday,"
+      },
+      {
+        "hanzi": "23号是星期日，",
+        "pinyin": "Èrshísān hào shì xīngqīrì,",
+        "english": "The 23rd is Sunday,"
+      },
+      {
+        "hanzi": "22号是星期三，",
+        "pinyin": "Èrshí'èr hào shì xīngqī sān,",
+        "english": "The 22nd is Wednesday,"
+      },
+      {
+        "hanzi": "明天我去学校看书。",
+        "pinyin": "Míngtiān wǒ qù xuéxiào kàn shū.",
+        "english": "Tomorrow I will go to school to read books."
+      },
+      {
+        "hanzi": "明天我去银行。",
+        "pinyin": "Míngtiān wǒ qù yínháng.",
+        "english": "Tomorrow I will go to the bank."
+      },
+      {
+        "hanzi": "二十二号是星期三，",
+        "pinyin": "Èrshí'èr hào shì xīngqī sān,",
+        "english": "The 22nd is Wednesday,"
+      },
+      {
+        "hanzi": "二十三号是星期四。",
+        "pinyin": "Èrshísān hào shì xīngqī sì.",
+        "english": "The 23rd is Thursday."
+      },
+      {
+        "hanzi": "二十二号是星期二，",
+        "pinyin": "Èrshí'èr hào shì xīngqī èr,",
+        "english": "The 22nd is Tuesday,"
+      },
+      {
+        "hanzi": "二十三号是星期三。",
+        "pinyin": "Èrshísān hào shì xīngqī sān.",
+        "english": "The 23rd is Wednesday."
+      },
+      {
+        "hanzi": "明天我去学校。",
+        "pinyin": "Míngtiān wǒ qù xuéxiào.",
+        "english": "Tomorrow I will go to school."
       }
     ],
     "fill_in_the_blank": [
       {
-        "question": "我___学校看书。(I'm going to school to read.)",
+        "question": "明天___？(What about tomorrow?)",
+        "answer": "呢",
+        "tags": [
+          "呢"
+        ]
+      },
+      {
+        "question": "我的汉语老师33岁。(My Chinese teacher is 33 years old.)",
+        "answer": "名词谓语句",
+        "tags": [
+          "名词谓语句"
+        ]
+      },
+      {
+        "question": "明天星期三。(Tomorrow is Wednesday.)",
+        "answer": "名词谓语句",
+        "tags": [
+          "名词谓语句"
+        ]
+      },
+      {
+        "question": "今天9月1号。(Today is September 1st.)",
+        "answer": "名词谓语句",
+        "tags": [
+          "名词谓语句"
+        ]
+      },
+      {
+        "question": "我___（学校）看书。(I'm going to school to read.)",
         "answer": "去",
         "tags": [
           "去+地方+做什么"
         ]
       },
       {
-        "question": "你___学校做什么？(What are you going to do at school?)",
+        "question": "我们___（中国饭馆儿）吃中国菜。(We're going to a Chinese restaurant to eat Chinese food.)",
         "answer": "去",
         "tags": [
           "去+地方+做什么"
         ]
       },
       {
-        "question": "明天___三。(Tomorrow is Wednesday.)",
-        "answer": "星期",
+        "question": "我去学校___书。(I'm going to school to read.)",
+        "answer": "看",
         "tags": [
-          "名词谓语句"
+          "去+地方+做什么"
         ]
+      }
+    ],
+    "proper_nouns": [
+      {
+        "hanzi": "中国",
+        "pinyin": "Zhong1guo2",
+        "english": "China"
       },
       {
-        "question": "今天9月1___。(Today is September 1st.)",
-        "answer": "号",
-        "tags": [
-          "名词谓语句"
-        ]
+        "hanzi": "李月",
+        "pinyin": "Li3 Yue4",
+        "english": "Li Yue (name)"
       }
     ]
   },
@@ -1372,7 +2045,7 @@
         "pinyin": "shang1dian4",
         "english": "shop, store",
         "part_of_speech": "noun",
-        "measure_word": "个"
+        "measure_word": null
       },
       {
         "hanzi": "买",
@@ -1410,13 +2083,6 @@
         "measure_word": null
       },
       {
-        "hanzi": "块",
-        "pinyin": "kuai4",
-        "english": "a unit of money, same as yuan",
-        "part_of_speech": "noun",
-        "measure_word": null
-      },
-      {
         "hanzi": "那",
         "pinyin": "na4",
         "english": "that",
@@ -1428,17 +2094,32 @@
       {
         "marker": "想",
         "english": "modal verb expressing a hope or plan: to want, would like",
-        "type": "modal_verb"
+        "type": "modal_verb",
+        "pinyin": "xiang3"
       },
       {
         "marker": "个",
-        "english": "general measure word, used before nouns without a specific measure word",
-        "type": "other"
+        "english": "a general measure word, used before nouns without a specific measure word",
+        "type": "other",
+        "pinyin": "ge4"
+      },
+      {
+        "marker": "块",
+        "english": "measure word for Chinese currency (yuan), used in spoken Chinese",
+        "type": "other",
+        "pinyin": "kuai4"
+      },
+      {
+        "marker": "多少",
+        "english": "interrogative pronoun used to ask about numbers larger than 10 or to inquire about prices",
+        "type": "other",
+        "pinyin": "duo1shao3"
       },
       {
         "marker": "口",
         "english": "measure word used for members of a family",
-        "type": "other"
+        "type": "other",
+        "pinyin": "kou3"
       }
     ],
     "sentences": [
@@ -1484,17 +2165,22 @@
       },
       {
         "hanzi": "你好！这个杯子多少钱？",
-        "pinyin": "Ni3 hao3! Zhe4 ge4 bei1zi5 duo1shao5 qian2?",
+        "pinyin": "Ni3 hao3! Zhe4 ge5 bei1zi5 duo1shao5 qian2?",
         "english": "Hello! How much is this cup?"
       },
       {
+        "hanzi": "28块。",
+        "pinyin": "Er4shi2ba1 kuai4.",
+        "english": "28 yuan."
+      },
+      {
         "hanzi": "那个杯子多少钱？",
-        "pinyin": "Na4 ge4 bei1zi5 duo1shao5 qian2?",
+        "pinyin": "Na4 ge5 bei1zi5 duo1shao5 qian2?",
         "english": "What about that one?"
       },
       {
         "hanzi": "那个杯子18块钱。",
-        "pinyin": "Na4 ge4 bei1zi5 shi2ba1 kuai4 qian2.",
+        "pinyin": "Na4 ge5 bei1zi5 shi2ba1 kuai4 qian2.",
         "english": "That one is 18 yuan."
       },
       {
@@ -1514,18 +2200,33 @@
       },
       {
         "hanzi": "你们学校有多少（个）学生？",
-        "pinyin": "Ni3men5 xue2xiao4 you3 duo1shao5 ge4 xue2sheng5?",
+        "pinyin": "Ni3men5 xue2xiao4 you3 duo1shao5 ge5 xue2sheng5?",
         "english": "How many students are there in your school?"
       },
       {
         "hanzi": "你有多少（个）汉语老师？",
-        "pinyin": "Ni3 you3 duo1shao5 ge4 han4yu3 lao3shi1?",
+        "pinyin": "Ni3 you3 duo1shao5 ge5 han4yu3 lao3shi1?",
         "english": "How many Chinese teachers do you have?"
       },
       {
         "hanzi": "这个杯子多少钱？",
-        "pinyin": "Zhe4 ge4 bei1zi5 duo1shao5 qian2?",
+        "pinyin": "Zhe4 ge5 bei1zi5 duo1shao5 qian2?",
         "english": "How much is this cup?"
+      },
+      {
+        "hanzi": "三个老师",
+        "pinyin": "san1 ge4 lao3shi1",
+        "english": "three teachers"
+      },
+      {
+        "hanzi": "五个学生",
+        "pinyin": "wu3 ge4 xue2sheng5",
+        "english": "five students"
+      },
+      {
+        "hanzi": "一个杯子",
+        "pinyin": "yi4 ge4 bei1zi5",
+        "english": "one cup"
       },
       {
         "hanzi": "李老师家有六口人。",
@@ -1563,14 +2264,54 @@
         "english": "How many teachers are in your school?"
       },
       {
-        "hanzi": "你去哪个商店买杯子？",
-        "pinyin": "Ni3 qu4 na3 ge4 shang1dian4 mai3 bei1zi5?",
-        "english": "Which store do you go to buy a cup?"
+        "hanzi": "明天下午我想去商店买杯子。",
+        "pinyin": "Ming2tian1 xia4wu3 wo3 xiang3 qu4 shang1dian4 mai3 bei1zi5.",
+        "english": "Tomorrow afternoon I'd like to go to the store to buy a cup."
       },
       {
-        "hanzi": "一个杯子多少钱？",
-        "pinyin": "Yi2 ge4 bei1zi5 duo1shao5 qian2?",
-        "english": "How much is a cup?"
+        "hanzi": "明天我想去商店买茶。",
+        "pinyin": "Ming2tian1 wo3 xiang3 qu4 shang1dian4 mai3 cha2.",
+        "english": "Tomorrow I'd like to go to the store to buy tea."
+      },
+      {
+        "hanzi": "今天我想吃米饭。",
+        "pinyin": "Jin1tian1 wo3 xiang3 chi1 mi3fan4.",
+        "english": "Today I'd like to eat rice."
+      },
+      {
+        "hanzi": "今天我想吃中国菜。",
+        "pinyin": "Jin1tian1 wo3 xiang3 chi1 Zhong1guo2 cai4.",
+        "english": "Today I'd like to eat Chinese food."
+      },
+      {
+        "hanzi": "下午我想去学校。",
+        "pinyin": "Xia4wu3 wo3 xiang3 qu4 xue2xiao4.",
+        "english": "This afternoon I'd like to go to school."
+      },
+      {
+        "hanzi": "看汉字。",
+        "pinyin": "Kan4 Han4zi4.",
+        "english": "Read Chinese characters."
+      },
+      {
+        "hanzi": "看书。",
+        "pinyin": "Kan4 shu1.",
+        "english": "Read books."
+      },
+      {
+        "hanzi": "你好，请问这个杯子多少钱？",
+        "pinyin": "Ni3 hao3, qing3wen4 zhe4ge5 bei1zi5 duo1shao5 qian2?",
+        "english": "Hello, excuse me, how much is this cup?"
+      },
+      {
+        "hanzi": "你好，请问这个杯子二十八块钱？",
+        "pinyin": "Ni3 hao3, qing3wen4 zhe4ge5 bei1zi5 er4shi2ba1 kuai4 qian2?",
+        "english": "Hello, excuse me, is this cup twenty-eight yuan?"
+      },
+      {
+        "hanzi": "明天下午我想去商店买茶。",
+        "pinyin": "Ming2tian1 xia4wu3 wo3 xiang3 qu4 shang1dian4 mai3 cha2.",
+        "english": "Tomorrow afternoon I'd like to go to the store to buy tea."
       }
     ],
     "fill_in_the_blank": [
@@ -1589,52 +2330,45 @@
         ]
       },
       {
-        "question": "你好！这___杯子多少钱？(Hello! How much is this cup?)",
-        "answer": "个",
+        "question": "下午我___去商店。(I'd like to go shopping this afternoon.)",
+        "answer": "想",
         "tags": [
-          "个"
+          "想"
         ]
       },
       {
-        "question": "那___杯子多少钱？(What about that one?)",
-        "answer": "个",
+        "question": "这个杯子___钱？(How much is this cup?)",
+        "answer": "多少",
         "tags": [
-          "个"
+          "多少"
         ]
       },
       {
-        "question": "那___杯子18块钱。(That one is 18 yuan.)",
-        "answer": "个",
+        "question": "那个杯子___钱？(How much is that cup?)",
+        "answer": "多少",
         "tags": [
-          "个"
+          "多少"
         ]
       },
       {
-        "question": "你们班有多少___学生？(How many students are in your class?)",
-        "answer": "个",
+        "question": "那个杯子18___钱。(That one is 18 yuan.)",
+        "answer": "块",
         "tags": [
-          "个"
+          "块"
         ]
       },
       {
-        "question": "你们学校有多少___老师？(How many teachers are in your school?)",
-        "answer": "个",
+        "question": "你们班有___个学生？(How many students are in your class?)",
+        "answer": "多少",
         "tags": [
-          "个"
+          "多少"
         ]
       },
       {
-        "question": "你去哪___商店买杯子？(Which store do you go to buy a cup?)",
-        "answer": "个",
+        "question": "你们学校有___个老师？(How many teachers are in your school?)",
+        "answer": "多少",
         "tags": [
-          "个"
-        ]
-      },
-      {
-        "question": "一___杯子多少钱？(How much is a cup?)",
-        "answer": "个",
-        "tags": [
-          "个"
+          "多少"
         ]
       },
       {
@@ -1659,10 +2393,43 @@
         ]
       },
       {
-        "question": "下午我___去商店。(I'd like to go shopping this afternoon.)",
-        "answer": "想",
+        "question": "你___班有多少个学生？(How many students are in your class?)",
+        "answer": "们",
+        "tags": []
+      },
+      {
+        "question": "三___老师(three teachers)",
+        "answer": "个",
         "tags": [
-          "想"
+          "个"
+        ]
+      },
+      {
+        "question": "五___学生(five students)",
+        "answer": "个",
+        "tags": [
+          "个"
+        ]
+      },
+      {
+        "question": "28___。(28 yuan.)",
+        "answer": "块",
+        "tags": [
+          "块"
+        ]
+      },
+      {
+        "question": "你们学校有多少___学生？(How many students are there in your school?)",
+        "answer": "个",
+        "tags": [
+          "个"
+        ]
+      },
+      {
+        "question": "你有多少___汉语老师？(How many Chinese teachers do you have?)",
+        "answer": "个",
+        "tags": [
+          "个"
         ]
       },
       {
@@ -1722,18 +2489,52 @@
         ]
       },
       {
-        "question": "今天下午你___做什么？(What would you like to do this afternoon?)",
-        "answer": "想",
+        "question": "你好！这___杯子多少钱？(Hello! How much is this cup?)",
+        "answer": "个",
         "tags": [
-          "想"
+          "个"
         ]
       },
       {
-        "question": "明天你___做什么？(What do you want to do tomorrow?)",
-        "answer": "想",
+        "question": "那___杯子多少钱？(How much is that cup?)",
+        "answer": "个",
         "tags": [
-          "想"
+          "个"
         ]
+      },
+      {
+        "question": "那___杯子18块钱。(That one is 18 yuan.)",
+        "answer": "个",
+        "tags": [
+          "个"
+        ]
+      }
+    ],
+    "proper_nouns": [
+      {
+        "hanzi": "中国",
+        "pinyin": "Zhong1guo2",
+        "english": "China"
+      },
+      {
+        "hanzi": "汉字",
+        "pinyin": "Han4zi4",
+        "english": "Chinese characters"
+      },
+      {
+        "hanzi": "汉语",
+        "pinyin": "Han4yu3",
+        "english": "Chinese language"
+      },
+      {
+        "hanzi": "谢朋",
+        "pinyin": "Xie4 Peng2",
+        "english": "Xie Peng (name)"
+      },
+      {
+        "hanzi": "人民币",
+        "pinyin": "Ren2min2bi4",
+        "english": "Renminbi (Chinese currency)"
       }
     ]
   },
@@ -1762,7 +2563,7 @@
       },
       {
         "hanzi": "那儿",
-        "pinyin": "na4r5",
+        "pinyin": "nar4",
         "english": "there",
         "part_of_speech": "pronoun",
         "measure_word": null
@@ -1783,14 +2584,14 @@
       },
       {
         "hanzi": "下面",
-        "pinyin": "xia4mian5",
+        "pinyin": "xia4mian4",
         "english": "under, below",
         "part_of_speech": "noun",
         "measure_word": null
       },
       {
         "hanzi": "哪儿",
-        "pinyin": "na3r5",
+        "pinyin": "nar3",
         "english": "where",
         "part_of_speech": "pronoun",
         "measure_word": null
@@ -1834,34 +2635,53 @@
     "grammar": [
       {
         "marker": "呢",
-        "english": "sentence-final particle used to ask about the location of somebody or something",
-        "type": "sentence_particle"
+        "english": "interrogative particle used at the end of a sentence to ask about the location of somebody or something",
+        "type": "sentence_particle",
+        "pinyin": "ne5"
+      },
+      {
+        "marker": "在",
+        "english": "verb indicating location of somebody or something",
+        "type": "other",
+        "pinyin": "zai4"
+      },
+      {
+        "marker": "在",
+        "english": "preposition introducing the place where an action or behavior takes place",
+        "type": "coverb_preposition",
+        "pinyin": "zai4"
+      },
+      {
+        "marker": "哪儿",
+        "english": "interrogative pronoun used to ask about the location of somebody or something",
+        "type": "other",
+        "pinyin": "na3er2"
       }
     ],
     "sentences": [
       {
-        "hanzi": "小猫在哪儿?",
-        "pinyin": "Xiao3 mao1 zai4 na3r5?",
+        "hanzi": "小猫在哪儿？",
+        "pinyin": "Xiao3 mao1 zai4 nar3?",
         "english": "Where is the kitty?"
       },
       {
         "hanzi": "小猫在那儿。",
-        "pinyin": "Xiao3 mao1 zai4 na4r5.",
+        "pinyin": "Xiao3 mao1 zai4 nar4.",
         "english": "The kitty is over there."
       },
       {
-        "hanzi": "小狗在哪儿?",
-        "pinyin": "Xiao3 gou3 zai4 na3r5?",
+        "hanzi": "小狗在哪儿？",
+        "pinyin": "Xiao3 gou3 zai4 nar3?",
         "english": "Where is the puppy?"
       },
       {
         "hanzi": "小狗在椅子下面。",
-        "pinyin": "Xiao3 gou3 zai4 yi3zi5 xia4mian5.",
+        "pinyin": "Xiao3 gou3 zai4 yi3zi5 xia4mian4.",
         "english": "The puppy is under the chair."
       },
       {
-        "hanzi": "你在哪儿工作?",
-        "pinyin": "Ni3 zai4 na3r5 gong1zuo4?",
+        "hanzi": "你在哪儿工作？",
+        "pinyin": "Ni3 zai4 nar3 gong1zuo4?",
         "english": "Where do you work?"
       },
       {
@@ -1870,8 +2690,8 @@
         "english": "I work in a school."
       },
       {
-        "hanzi": "你儿子在哪儿工作?",
-        "pinyin": "Ni3 er2zi5 zai4 na3r5 gong1zuo4?",
+        "hanzi": "你儿子在哪儿工作？",
+        "pinyin": "Ni3 er2zi5 zai4 nar3 gong1zuo4?",
         "english": "Where does your son work?"
       },
       {
@@ -1880,7 +2700,7 @@
         "english": "My son works in a hospital. He is a doctor."
       },
       {
-        "hanzi": "你爸爸在家吗?",
+        "hanzi": "你爸爸在家吗？",
         "pinyin": "Ni3 ba4ba5 zai4 jia1 ma5?",
         "english": "Is your father at home?"
       },
@@ -1890,8 +2710,8 @@
         "english": "No, he isn't."
       },
       {
-        "hanzi": "他在哪儿呢?",
-        "pinyin": "Ta1 zai4 na3r5 ne5?",
+        "hanzi": "他在哪儿呢？",
+        "pinyin": "Ta1 zai4 nar3 ne5?",
         "english": "Where is he?"
       },
       {
@@ -1902,90 +2722,325 @@
       {
         "hanzi": "我朋友在学校。",
         "pinyin": "Wo3 peng2you5 zai4 xue2xiao4.",
-        "english": "My friend is at school."
+        "english": "(My friend is at school.)"
       },
       {
         "hanzi": "我妈妈在家。",
         "pinyin": "Wo3 ma1ma5 zai4 jia1.",
-        "english": "My mother is at home."
+        "english": "(My mother is at home.)"
       },
       {
         "hanzi": "小狗在椅子下面。",
-        "pinyin": "Xiao3 gou3 zai4 yi3zi5 xia4mian5.",
-        "english": "The puppy is under the chair."
+        "pinyin": "Xiao3 gou3 zai4 yi3zi5 xia4mian4.",
+        "english": "(The puppy is under the chair.)"
       },
       {
-        "hanzi": "我的杯子在哪儿?",
-        "pinyin": "Wo3 de5 bei1zi5 zai4 na3r5?",
+        "hanzi": "我的杯子在哪儿？",
+        "pinyin": "Wo3 de5 bei1zi5 zai4 nar3?",
         "english": "Where is my cup?"
       },
       {
-        "hanzi": "你的中国朋友在哪儿?",
-        "pinyin": "Ni3 de5 Zhong1guo2 peng2you5 zai4 na3r5?",
+        "hanzi": "你的中国朋友在哪儿？",
+        "pinyin": "Ni3 de5 Zhong1guo2 peng2you5 zai4 nar3?",
         "english": "Where is your Chinese friend?"
       },
       {
-        "hanzi": "小猫在哪儿?",
-        "pinyin": "Xiao3 mao1 zai4 na3r5?",
+        "hanzi": "小猫在哪儿？",
+        "pinyin": "Xiao3 mao1 zai4 nar3?",
         "english": "Where is the kitty?"
       },
       {
         "hanzi": "我在朋友家喝茶。",
         "pinyin": "Wo3 zai4 peng2you5 jia1 he1 cha2.",
-        "english": "I drink tea at a friend's place."
+        "english": "(I drink tea at my friend's home.)"
       },
       {
         "hanzi": "他们在学校看书。",
         "pinyin": "Ta1men5 zai4 xue2xiao4 kan4 shu1.",
-        "english": "They read books at school."
+        "english": "(They read books at school.)"
       },
       {
         "hanzi": "我儿子在医院工作。",
         "pinyin": "Wo3 er2zi5 zai4 yi1yuan4 gong1zuo4.",
-        "english": "My son works in the hospital."
+        "english": "(My son works in a hospital.)"
       },
       {
-        "hanzi": "我的小猫呢?",
+        "hanzi": "我的小猫呢？",
         "pinyin": "Wo3 de5 xiao3 mao1 ne5?",
         "english": "Where is my kitty?"
       },
       {
-        "hanzi": "我的杯子呢?",
+        "hanzi": "我的杯子呢？",
         "pinyin": "Wo3 de5 bei1zi5 ne5?",
         "english": "Where is my cup?"
       },
       {
-        "hanzi": "他在哪儿呢?",
-        "pinyin": "Ta1 zai4 na3r5 ne5?",
+        "hanzi": "他在哪儿呢？",
+        "pinyin": "Ta1 zai4 nar3 ne5?",
         "english": "Where is he?"
+      },
+      {
+        "hanzi": "小狗在哪儿？",
+        "pinyin": "Xiao3 gou3 zai4 nar3?",
+        "english": "Where is the puppy?"
+      },
+      {
+        "hanzi": "他在哪儿工作？",
+        "pinyin": "Ta1 zai4 nar3 gong1zuo4?",
+        "english": "Where does he work?"
+      },
+      {
+        "hanzi": "他儿子在哪儿工作？",
+        "pinyin": "Ta1 er2zi5 zai4 nar3 gong1zuo4?",
+        "english": "Where does his son work?"
+      },
+      {
+        "hanzi": "她爸爸在家吗？",
+        "pinyin": "Ta1 ba4ba5 zai4 jia1 ma5?",
+        "english": "Is her father at home?"
+      },
+      {
+        "hanzi": "她爸爸在哪儿呢？",
+        "pinyin": "Ta1 ba4ba5 zai4 nar3 ne5?",
+        "english": "Where is her father?"
       },
       {
         "hanzi": "是医生，在医院工作。",
         "pinyin": "Shi4 yi1sheng1, zai4 yi1yuan4 gong1zuo4.",
-        "english": "Is a doctor, works in a hospital."
+        "english": "(He/She) is a doctor and works in a hospital."
+      },
+      {
+        "hanzi": "小猫在椅子下面。",
+        "pinyin": "Xiao3 mao1 zai4 yi3zi5 xia4mian5.",
+        "english": "The kitty is under the chair."
+      },
+      {
+        "hanzi": "小狗在那儿。",
+        "pinyin": "Xiao3 gou3 zai4 na4r5.",
+        "english": "The puppy is over there."
+      },
+      {
+        "hanzi": "爸爸在家。",
+        "pinyin": "Ba4ba5 zai4 jia1.",
+        "english": "Father is at home."
+      },
+      {
+        "hanzi": "我妈妈是医生，她在医院。",
+        "pinyin": "Wo3 ma1ma5 shi4 yi1sheng1, ta1 zai4 yi1yuan4.",
+        "english": "My mother is a doctor; she is at the hospital."
+      },
+      {
+        "hanzi": "我妈妈是医生，她在学校工作。",
+        "pinyin": "Wo3 ma1ma5 shi4 yi1sheng1, ta1 zai4 xue2xiao4 gong1zuo4.",
+        "english": "My mother is a doctor; she works at a school."
+      },
+      {
+        "hanzi": "我女儿是医生，她不在家。",
+        "pinyin": "Wo3 nv3'er2 shi4 yi1sheng1, ta1 bu4 zai4 jia1.",
+        "english": "My daughter is a doctor; she is not at home."
+      },
+      {
+        "hanzi": "我女儿是学生，她不在医院工作。",
+        "pinyin": "Wo3 nv3'er2 shi4 xue2sheng5, ta1 bu4 zai4 yi1yuan4 gong1zuo4.",
+        "english": "My daughter is a student; she does not work at the hospital."
+      },
+      {
+        "hanzi": "A: 小猫在哪儿？",
+        "pinyin": "A: Xiao3 mao1 zai4 na3r?",
+        "english": "A: Where is the kitty?"
+      },
+      {
+        "hanzi": "A: 爸爸在哪儿？",
+        "pinyin": "A: Ba4ba5 zai4 na3r?",
+        "english": "A: Where is father?"
+      },
+      {
+        "hanzi": "B: 小狗在那儿。",
+        "pinyin": "B: Xiao3 gou3 zai4 na4r5.",
+        "english": "B: The puppy is over there."
+      },
+      {
+        "hanzi": "B: 爸爸在医院。",
+        "pinyin": "B: Ba4ba5 zai4 yi1yuan4.",
+        "english": "B: Father is at the hospital."
+      },
+      {
+        "hanzi": "A: 你儿子在哪儿工作？",
+        "pinyin": "A: Ni3 er2zi5 zai4 na3r gong1zuo4?",
+        "english": "A: Where does your son work?"
+      },
+      {
+        "hanzi": "A: 你爸爸在哪儿工作？",
+        "pinyin": "A: Ni3 ba4ba5 zai4 na3r gong1zuo4?",
+        "english": "A: Where does your father work?"
+      },
+      {
+        "hanzi": "B: 我儿子在医院工作，他是医生。",
+        "pinyin": "B: Wo3 er2zi5 zai4 yi1yuan4 gong1zuo4, ta1 shi4 yi1sheng1.",
+        "english": "B: My son works at the hospital; he is a doctor."
+      },
+      {
+        "hanzi": "B: 我爸爸在学校工作，他是医生。",
+        "pinyin": "B: Wo3 ba4ba5 zai4 xue2xiao4 gong1zuo4, ta1 shi4 yi1sheng1.",
+        "english": "B: My father works at a school; he is a doctor."
+      },
+      {
+        "hanzi": "李朋是医生，在医院工作。",
+        "pinyin": "Li3 Peng2 shi4 yi1sheng1, zai4 yi1yuan4 gong1zuo4.",
+        "english": "Li Peng is a doctor and works at the hospital."
+      },
+      {
+        "hanzi": "我朋友在学校工作。",
+        "pinyin": "Wo3 peng2you5 zai4 xue2xiao4 gong1zuo4.",
+        "english": "My friend works at a school."
+      },
+      {
+        "hanzi": "B: 小猫在那儿。",
+        "pinyin": "B: Xiao3 mao1 zai4 nar4.",
+        "english": "B: The kitty is over there."
+      },
+      {
+        "hanzi": "A: 你在哪儿工作？",
+        "pinyin": "A: Ni3 zai4 nar3 gong1zuo4?",
+        "english": "A: Where do you work?"
+      },
+      {
+        "hanzi": "B: 我在学校工作，我是医生。",
+        "pinyin": "B: Wo3 zai4 xue2xiao4 gong1zuo4, wo3 shi4 yi1sheng1.",
+        "english": "B: I work at the school; I am a doctor."
+      },
+      {
+        "hanzi": "李朋在学校工作，他是医生。",
+        "pinyin": "Li3 Peng2 zai4 xue2xiao4 gong1zuo4, ta1 shi4 yi1sheng1.",
+        "english": "Li Peng works at a school; he is a doctor."
       }
     ],
     "fill_in_the_blank": [
       {
-        "question": "他在哪儿___?（Where is he?）",
+        "question": "小猫___那儿。(The kitty is over there.)",
+        "answer": "在",
+        "tags": [
+          "在"
+        ]
+      },
+      {
+        "question": "小狗___椅子下面。(The puppy is under the chair.)",
+        "answer": "在",
+        "tags": [
+          "在"
+        ]
+      },
+      {
+        "question": "你___哪儿工作？(Where do you work?)",
+        "answer": "在",
+        "tags": [
+          "在"
+        ]
+      },
+      {
+        "question": "我___学校工作。(I work in a school.)",
+        "answer": "在",
+        "tags": [
+          "在"
+        ]
+      },
+      {
+        "question": "你儿子___哪儿工作？(Where does your son work?)",
+        "answer": "在",
+        "tags": [
+          "在"
+        ]
+      },
+      {
+        "question": "我儿子___医院工作，他是医生。(My son works in a hospital. He is a doctor.)",
+        "answer": "在",
+        "tags": [
+          "在"
+        ]
+      },
+      {
+        "question": "你爸爸___家吗？(Is your father at home?)",
+        "answer": "在",
+        "tags": [
+          "在"
+        ]
+      },
+      {
+        "question": "他___医院。(He is in the hospital.)",
+        "answer": "在",
+        "tags": [
+          "在"
+        ]
+      },
+      {
+        "question": "小猫在___？(Where is the kitty?)",
+        "answer": "哪儿",
+        "tags": [
+          "哪儿"
+        ]
+      },
+      {
+        "question": "小狗在___？(Where is the puppy?)",
+        "answer": "哪儿",
+        "tags": [
+          "哪儿"
+        ]
+      },
+      {
+        "question": "你在___工作？(Where do you work?)",
+        "answer": "哪儿",
+        "tags": [
+          "哪儿"
+        ]
+      },
+      {
+        "question": "你儿子在___工作？(Where does your son work?)",
+        "answer": "哪儿",
+        "tags": [
+          "哪儿"
+        ]
+      },
+      {
+        "question": "他在___呢？(Where is he?)",
+        "answer": "哪儿",
+        "tags": [
+          "哪儿"
+        ]
+      },
+      {
+        "question": "他在哪儿___？(Where is he?)",
         "answer": "呢",
         "tags": [
           "呢"
         ]
       },
       {
-        "question": "我的小猫___?（Where is my kitty?）",
+        "question": "我的小猫___？(Where is my kitty?)",
         "answer": "呢",
         "tags": [
           "呢"
         ]
       },
       {
-        "question": "我的杯子___?（Where is my cup?）",
+        "question": "我的杯子___？(Where is my cup?)",
         "answer": "呢",
         "tags": [
           "呢"
         ]
+      },
+      {
+        "question": "她爸爸在哪儿___？(Where is her father?)",
+        "answer": "呢",
+        "tags": [
+          "呢"
+        ]
+      }
+    ],
+    "proper_nouns": [
+      {
+        "hanzi": "李朋",
+        "pinyin": "Li3 Peng2",
+        "english": "Li Peng (name)"
       }
     ]
   },
@@ -2000,7 +3055,7 @@
       },
       {
         "hanzi": "上",
-        "pinyin": "shang4",
+        "pinyin": "shang5",
         "english": "up, above",
         "part_of_speech": "noun",
         "measure_word": null
@@ -2016,26 +3071,26 @@
         "hanzi": "和",
         "pinyin": "he2",
         "english": "and",
-        "part_of_speech": "adjective",
+        "part_of_speech": "adverb",
         "measure_word": null
       },
       {
         "hanzi": "里",
-        "pinyin": "li3",
+        "pinyin": "li5",
         "english": "inner, inside, interior",
         "part_of_speech": "noun",
         "measure_word": null
       },
       {
         "hanzi": "前面",
-        "pinyin": "qian2mian4",
+        "pinyin": "qian2mian5",
         "english": "front",
         "part_of_speech": "noun",
         "measure_word": null
       },
       {
         "hanzi": "后面",
-        "pinyin": "hou4mian4",
+        "pinyin": "hou4mian5",
         "english": "back",
         "part_of_speech": "noun",
         "measure_word": null
@@ -2067,39 +3122,69 @@
         "english": "to sit, to be seated",
         "part_of_speech": "verb",
         "measure_word": null
+      },
+      {
+        "hanzi": "工作",
+        "pinyin": "gong1zuo4",
+        "english": "to work",
+        "part_of_speech": "verb",
+        "measure_word": null
+      },
+      {
+        "hanzi": "本",
+        "pinyin": "ben3",
+        "english": "a measure word for books",
+        "part_of_speech": "noun",
+        "measure_word": null
       }
     ],
     "grammar": [
       {
         "marker": "和",
-        "english": "connects two or more parallel elements",
-        "type": "conjunction"
+        "english": "connects two or more parallel elements, indicating a parallel relationship",
+        "type": "conjunction",
+        "pinyin": "he2"
       },
       {
         "marker": "能",
-        "english": "modal verb indicating ability or possibility; used in 能……吗 for requests or permission",
-        "type": "modal_verb"
+        "english": "modal verb indicating ability or possibility; used in 能……吗 to request permission",
+        "type": "modal_verb",
+        "pinyin": "neng2"
       },
       {
         "marker": "本",
         "english": "measure word for books",
-        "type": "other"
+        "type": "other",
+        "pinyin": "ben3"
       },
       {
-        "marker": "轻声",
-        "english": "neutral-tone syllables are read lower than the preceding syllable after 1st, 2nd, or 4th tone, and higher after 3rd tone",
-        "type": "tone_sandhi"
+        "marker": "个",
+        "english": "general measure word for people and things",
+        "type": "other",
+        "pinyin": "ge4"
+      },
+      {
+        "marker": "口",
+        "english": "measure word for family members",
+        "type": "other",
+        "pinyin": "kou3"
+      },
+      {
+        "marker": "块",
+        "english": "measure word for money (kuai)",
+        "type": "other",
+        "pinyin": "kuai4"
       }
     ],
     "sentences": [
       {
         "hanzi": "桌子上有什么？",
-        "pinyin": "Zhuo1zi5 shang4 you3 shen2me?",
+        "pinyin": "Zhuo1zi5 shang5 you3 shen2me?",
         "english": "What are there on the desk?"
       },
       {
         "hanzi": "桌子上有一个电脑和一本书。",
-        "pinyin": "Zhuo1zi5 shang4 you3 yi2 ge4 dian4nao3 he2 yi4 ben3 shu1.",
+        "pinyin": "Zhuo1zi5 shang5 you3 yi2 ge4 dian4nao3 he2 yi4 ben3 shu1.",
         "english": "There is a computer and a book on the desk."
       },
       {
@@ -2109,12 +3194,12 @@
       },
       {
         "hanzi": "杯子在桌子里。",
-        "pinyin": "Bei1zi5 zai4 zhuo1zi5 li3.",
+        "pinyin": "Bei1zi5 zai4 zhuo1zi5 li5.",
         "english": "The cup is in the desk."
       },
       {
         "hanzi": "前面那个人叫什么名字？",
-        "pinyin": "Qian2mian4 na4ge4 ren2 jiao4 shen2me ming2zi5?",
+        "pinyin": "Qian2mian5 na4ge5 ren2 jiao4 shen2me ming2zi5?",
         "english": "Who is the person in the front?"
       },
       {
@@ -2124,7 +3209,7 @@
       },
       {
         "hanzi": "后面那个人呢？他叫什么名字？",
-        "pinyin": "Hou4mian4 na4ge4 ren2 ne5? Ta1 jiao4 shen2me ming2zi5?",
+        "pinyin": "Hou4mian5 na4ge5 ren2 ne5? Ta1 jiao4 shen2me ming2zi5?",
         "english": "What about the person at the back? What's his name?"
       },
       {
@@ -2139,7 +3224,7 @@
       },
       {
         "hanzi": "没有。",
-        "pinyin": "Mei2you3.",
+        "pinyin": "Mei2 you3.",
         "english": "No, it isn't."
       },
       {
@@ -2154,38 +3239,38 @@
       },
       {
         "hanzi": "椅子下面有一只小狗。",
-        "pinyin": "Yi3zi5 xia4mian4 you3 yi4 zhi1 xiao3gou3.",
+        "pinyin": "Yi3zi5 xia4mian5 you3 yi4 zhi1 xiao3gou3.",
         "english": "There is a puppy under the chair."
       },
       {
         "hanzi": "学校里有一个商店。",
-        "pinyin": "Xue2xiao4 li3 you3 yi2 ge4 shang1dian4.",
+        "pinyin": "Xue2xiao4 li5 you3 yi2 ge4 shang1dian4.",
         "english": "There is a store in the school."
       },
       {
         "hanzi": "椅子下面没有小狗。",
-        "pinyin": "Yi3zi5 xia4mian4 mei2you3 xiao3gou3.",
+        "pinyin": "Yi3zi5 xia4mian5 mei2you3 xiao3gou3.",
         "english": "There is no puppy under the chair."
       },
       {
         "hanzi": "学校里没有商店。",
-        "pinyin": "Xue2xiao4 li3 mei2you3 shang1dian4.",
+        "pinyin": "Xue2xiao4 li5 mei2you3 shang1dian4.",
         "english": "There is no store in the school."
       },
       {
         "hanzi": "桌子上没有电脑和书。",
-        "pinyin": "Zhuo1zi5 shang4 mei2you3 dian4nao3 he2 shu1.",
-        "english": "There is no computer or book on the desk."
+        "pinyin": "Zhuo1zi5 shang5 mei2you3 dian4nao3 he2 shu1.",
+        "english": "There is no computer and book on the desk."
       },
       {
         "hanzi": "我有一个中国朋友和一个美国朋友。",
-        "pinyin": "Wo3 you3 yi2 ge4 zhong1guo2 peng2you5 he2 yi2 ge4 mei3guo2 peng2you5.",
+        "pinyin": "Wo3 you3 yi2 ge4 Zhong1guo2 peng2you5 he2 yi2 ge4 Mei3guo2 peng2you5.",
         "english": "I have a Chinese friend and an American friend."
       },
       {
         "hanzi": "我家有三口人，爸爸、妈妈和我。",
         "pinyin": "Wo3 jia1 you3 san1 kou3 ren2, ba4ba5, ma1ma5 he2 wo3.",
-        "english": "There are three people in my family: dad, mom, and me."
+        "english": "There are three people in my family: dad, mom and me."
       },
       {
         "hanzi": "明天下午我能去商店。",
@@ -2209,18 +3294,105 @@
       },
       {
         "hanzi": "你的桌子上面有什么？",
-        "pinyin": "Ni3 de5 zhuo1zi5 shang4mian4 you3 shen2me?",
+        "pinyin": "Ni3 de5 zhuo1zi5 shang4mian5 you3 shen2me?",
         "english": "What is on your desk?"
       },
       {
         "hanzi": "你的椅子下面有什么？",
-        "pinyin": "Ni3 de5 yi3zi5 xia4mian4 you3 shen2me?",
+        "pinyin": "Ni3 de5 yi3zi5 xia4mian5 you3 shen2me?",
         "english": "What is under your chair?"
       },
       {
-        "hanzi": "大卫在我左边。",
-        "pinyin": "Da4wei4 zai4 wo3 zuo3bian5.",
-        "english": "David is on my left."
+        "hanzi": "我家有三口人。",
+        "pinyin": "Wo3 jia1 you3 san1 kou3 ren2.",
+        "english": "There are three people in my family."
+      },
+      {
+        "hanzi": "我买一个杯子。",
+        "pinyin": "Wo3 mai3 yi2 ge4 bei1zi5.",
+        "english": "I buy a cup."
+      },
+      {
+        "hanzi": "我有五本汉语书。",
+        "pinyin": "Wo3 you3 wu3 ben3 Han4yu3 shu1.",
+        "english": "I have five Chinese books."
+      },
+      {
+        "hanzi": "椅子八十块钱。",
+        "pinyin": "Yi3zi5 ba1shi2 kuai4 qian2.",
+        "english": "The chair costs eighty yuan."
+      },
+      {
+        "hanzi": "桌子上有一个电脑。",
+        "pinyin": "Zhuōzi shang yǒu yí ge diànnǎo.",
+        "english": "There is a computer on the desk."
+      },
+      {
+        "hanzi": "我能在这儿写我的名字吗？",
+        "pinyin": "Wǒ néng zài zhèr xiě wǒ de míngzi ma?",
+        "english": "Can I write my name here?"
+      },
+      {
+        "hanzi": "我能去商店吗？",
+        "pinyin": "Wǒ néng qù shāngdiàn ma?",
+        "english": "Can I go to the store?"
+      },
+      {
+        "hanzi": "他在医院工作。",
+        "pinyin": "Tā zài yīyuàn gōngzuò.",
+        "english": "He works in a hospital."
+      },
+      {
+        "hanzi": "他在商店工作。",
+        "pinyin": "Tā zài shāngdiàn gōngzuò.",
+        "english": "He works in a store."
+      },
+      {
+        "hanzi": "我买一块杯子。",
+        "pinyin": "Wǒ mǎi yí kuài bēizi.",
+        "english": "I buy one cup."
+      },
+      {
+        "hanzi": "我有五个汉语书。",
+        "pinyin": "Wǒ yǒu wǔ ge Hànyǔ shū.",
+        "english": "I have five Chinese language books."
+      },
+      {
+        "hanzi": "椅子八十个钱。",
+        "pinyin": "Yǐzi bāshí ge qián.",
+        "english": "The chair costs eighty."
+      }
+    ],
+    "proper_nouns": [
+      {
+        "hanzi": "王方",
+        "pinyin": "Wang2 Fang1",
+        "english": "Wang Fang (name of a person)"
+      },
+      {
+        "hanzi": "谢朋",
+        "pinyin": "Xie4 Peng2",
+        "english": "Xie Peng (name of a person)"
+      },
+      {
+        "hanzi": "中国",
+        "pinyin": "Zhong1guo2",
+        "english": "China"
+      },
+      {
+        "hanzi": "美国",
+        "pinyin": "Mei3guo2",
+        "english": "the United States of America"
+      },
+      {
+        "hanzi": "大卫",
+        "pinyin": "Da4wei4",
+        "english": "David (name)"
+      },
+      {
+        "hanzi": "李月",
+        "pinyin": "Li3 Yue4",
+        "english": "Li Yue (name of a person)"
       }
     ],
     "fill_in_the_blank": [
@@ -2229,6 +3401,13 @@
         "answer": "和",
         "tags": [
           "和"
+        ]
+      },
+      {
+        "question": "桌子上有一___电脑和一本书。(There is a computer and a book on the desk.)",
+        "answer": "个",
+        "tags": [
+          "个"
         ]
       },
       {
@@ -2246,24 +3425,10 @@
         ]
       },
       {
-        "question": "我有一个中国朋友___一个美国朋友。(I have a Chinese friend and an American friend.)",
-        "answer": "和",
+        "question": "你___在这儿写你的名字吗？(Can you write your name here?)",
+        "answer": "能",
         "tags": [
-          "和"
-        ]
-      },
-      {
-        "question": "我家有三口人，爸爸、妈妈___我。(There are three people in my family: dad, mom, and me.)",
-        "answer": "和",
-        "tags": [
-          "和"
-        ]
-      },
-      {
-        "question": "桌子上没有电脑___书。(There is no computer or book on the desk.)",
-        "answer": "和",
-        "tags": [
-          "和"
+          "能"
         ]
       },
       {
@@ -2274,10 +3439,59 @@
         ]
       },
       {
-        "question": "你___在这儿写你的名字吗？(Can you write your name here?)",
-        "answer": "能",
+        "question": "我有一个中国朋友___一个美国朋友。(I have a Chinese friend and an American friend.)",
+        "answer": "和",
         "tags": [
-          "能"
+          "和"
+        ]
+      },
+      {
+        "question": "我家有三口人，爸爸、妈妈___我。(There are three people in my family: dad, mom and me.)",
+        "answer": "和",
+        "tags": [
+          "和"
+        ]
+      },
+      {
+        "question": "桌子上没有电脑___书。(There is no computer and book on the desk.)",
+        "answer": "和",
+        "tags": [
+          "和"
+        ]
+      },
+      {
+        "question": "我有一___中国朋友和一个美国朋友。(I have a Chinese friend and an American friend.)",
+        "answer": "个",
+        "tags": [
+          "个"
+        ]
+      },
+      {
+        "question": "我买一___杯子。(I buy a cup.)",
+        "answer": "个",
+        "tags": [
+          "个"
+        ]
+      },
+      {
+        "question": "我有五___汉语书。(I have five Chinese books.)",
+        "answer": "本",
+        "tags": [
+          "本"
+        ]
+      },
+      {
+        "question": "我家有三___人。(There are three people in my family.)",
+        "answer": "口",
+        "tags": [
+          "口"
+        ]
+      },
+      {
+        "question": "椅子八十___钱。(The chair costs eighty yuan.)",
+        "answer": "块",
+        "tags": [
+          "块"
         ]
       }
     ]
@@ -2360,18 +3574,35 @@
         "english": "before, earlier than",
         "part_of_speech": "noun",
         "measure_word": null
+      },
+      {
+        "hanzi": "东西",
+        "pinyin": "dong1xi5",
+        "english": "thing, stuff",
+        "part_of_speech": "noun",
+        "measure_word": null
+      },
+      {
+        "hanzi": "买卖",
+        "pinyin": "mai3mai5",
+        "english": "business",
+        "part_of_speech": "noun",
+        "measure_word": null
+      },
+      {
+        "hanzi": "大意",
+        "pinyin": "da4yi5",
+        "english": "careless",
+        "part_of_speech": "adjective",
+        "measure_word": null
       }
     ],
     "grammar": [
       {
         "marker": "前",
-        "english": "indicates a time prior to the present or a mentioned time",
-        "type": "other"
-      },
-      {
-        "marker": "轻声",
-        "english": "neutral tone used to distinguish word meanings, e.g. 东西 dōngxī (directions) vs. 东西 dōngxi (thing/stuff)",
-        "type": "tone_sandhi"
+        "english": "used after a time expression to indicate a period prior to that time",
+        "type": "other",
+        "pinyin": "qian2"
       }
     ],
     "sentences": [
@@ -2397,7 +3628,7 @@
       },
       {
         "hanzi": "爸爸什么时候回家？",
-        "pinyin": "Ba4ba5 shen2me shi2hou5 hui2 jia1?",
+        "pinyin": "Ba4ba5 shen2me5 shi2hou5 hui2 jia1?",
         "english": "When is father coming home?"
       },
       {
@@ -2407,7 +3638,7 @@
       },
       {
         "hanzi": "我们什么时候去看电影？",
-        "pinyin": "Wo3men5 shen2me shi2hou5 qu4 kan4 dian4ying3?",
+        "pinyin": "Wo3men5 shen2me5 shi2hou5 qu4 kan4 dian4ying3?",
         "english": "When are we going to see the movie?"
       },
       {
@@ -2417,7 +3648,7 @@
       },
       {
         "hanzi": "我星期一去北京。",
-        "pinyin": "Wo3 xing1qi1 yi1 qu4 Bei3jing1.",
+        "pinyin": "Wo3 xing1qi1yi1 qu4 Bei3jing1.",
         "english": "I'll go to Beijing next Monday."
       },
       {
@@ -2432,7 +3663,7 @@
       },
       {
         "hanzi": "星期五前能回家吗？",
-        "pinyin": "Xing1qi1 wu3 qian2 neng2 hui2 jia1 ma5?",
+        "pinyin": "Xing1qi1wu3 qian2 neng2 hui2 jia1 ma5?",
         "english": "Can you come back before Friday?"
       },
       {
@@ -2442,7 +3673,7 @@
       },
       {
         "hanzi": "妈妈六点做饭。",
-        "pinyin": "Ma1ma5 liu4 dian3 zuo4 fan4.",
+        "pinyin": "Ma1ma5 liu4 dian3 zuo4fan4.",
         "english": "Mom cooks at six o'clock."
       },
       {
@@ -2452,8 +3683,8 @@
       },
       {
         "hanzi": "我星期一去北京。",
-        "pinyin": "Wo3 xing1qi1 yi1 qu4 Bei3jing1.",
-        "english": "I go to Beijing on Monday."
+        "pinyin": "Wo3 xing1qi1yi1 qu4 Bei3jing1.",
+        "english": "I'll go to Beijing on Monday."
       },
       {
         "hanzi": "七点我吃饭。",
@@ -2472,7 +3703,7 @@
       },
       {
         "hanzi": "你什么时候去学校？",
-        "pinyin": "Ni3 shen2me shi2hou5 qu4 xue2xiao4?",
+        "pinyin": "Ni3 shen2me5 shi2hou5 qu4 xue2xiao4?",
         "english": "When do you go to school?"
       },
       {
@@ -2482,28 +3713,28 @@
       },
       {
         "hanzi": "你什么时候回北京？",
-        "pinyin": "Ni3 shen2me shi2hou5 hui2 Bei3jing1?",
+        "pinyin": "Ni3 shen2me5 shi2hou5 hui2 Bei3jing1?",
         "english": "When will you return to Beijing?"
       },
       {
         "hanzi": "星期六前。",
-        "pinyin": "Xing1qi1 liu4 qian2.",
+        "pinyin": "Xing1qi1liu4 qian2.",
         "english": "Before Saturday."
       },
       {
         "hanzi": "（你）星期五前能回家吗？",
-        "pinyin": "(Ni3) xing1qi1 wu3 qian2 neng2 hui2 jia1 ma5?",
+        "pinyin": "（Ni3）Xing1qi1wu3 qian2 neng2 hui2 jia1 ma5?",
         "english": "Can you come back home before Friday?"
       },
       {
         "hanzi": "现在几点？",
         "pinyin": "Xian4zai5 ji3 dian3?",
-        "english": "What time is it now?"
+        "english": "What's the time now?"
       },
       {
         "hanzi": "现在八点十八分。",
         "pinyin": "Xian4zai5 ba1 dian3 shi2ba1 fen1.",
-        "english": "It's now eight eighteen."
+        "english": "It's eight eighteen."
       },
       {
         "hanzi": "你几点吃早饭？",
@@ -2514,18 +3745,91 @@
         "hanzi": "我七点吃早饭。",
         "pinyin": "Wo3 qi1 dian3 chi1 zao3fan4.",
         "english": "I eat breakfast at seven o'clock."
+      },
+      {
+        "hanzi": "他们几点吃饭？",
+        "pinyin": "Ta1men5 ji3 dian3 chi1fan4?",
+        "english": "What time do they eat?"
+      },
+      {
+        "hanzi": "他们什么时候去看电影？",
+        "pinyin": "Ta1men5 shen2me5 shi2hou5 qu4 kan4 dian4ying3?",
+        "english": "When are they going to see the movie?"
+      },
+      {
+        "hanzi": "他去哪儿？什么时候能回家？",
+        "pinyin": "Ta1 qu4 na3r5? Shen2me5 shi2hou5 neng2 hui2 jia1?",
+        "english": "Where is he going? When can he come back home?"
+      },
+      {
+        "hanzi": "她八点在学校吃饭。",
+        "pinyin": "Ta1 ba1 dian3 zai4 xue2xiao4 chi1 fan4.",
+        "english": "She eats at school at eight o'clock."
+      },
+      {
+        "hanzi": "她上午十点在学校看书。",
+        "pinyin": "Ta1 shang4wu3 shi2 dian3 zai4 xue2xiao4 kan4 shu1.",
+        "english": "She reads at school at ten o'clock in the morning."
+      },
+      {
+        "hanzi": "王方中午十二点去商店。",
+        "pinyin": "Wang2 Fang1 zhong1wu3 shi2er4 dian3 qu4 shang1dian4.",
+        "english": "Wang Fang goes to the store at noon at twelve o'clock."
+      },
+      {
+        "hanzi": "王方中午去商店吃饭。",
+        "pinyin": "Wang2 Fang1 zhong1wu3 qu4 shang1dian4 chi1 fan4.",
+        "english": "Wang Fang goes to the store to eat at noon."
+      },
+      {
+        "hanzi": "他们很忙，星期六也回家。",
+        "pinyin": "Ta1men5 hen3 mang2, xing1qi1 liu4 ye3 hui2 jia1.",
+        "english": "They are very busy; they also go home on Saturday."
+      },
+      {
+        "hanzi": "他们很忙，星期六也吃饭。",
+        "pinyin": "Ta1men5 hen3 mang2, xing1qi1 liu4 ye3 chi1 fan4.",
+        "english": "They are very busy; they also eat on Saturday."
+      },
+      {
+        "hanzi": "她上午不喝茶，下午五点前喝茶。",
+        "pinyin": "Ta1 shang4wu3 bu4 he1 cha2, xia4wu3 wu3 dian3 qian2 he1 cha2.",
+        "english": "She doesn't drink tea in the morning; she drinks tea before five o'clock in the afternoon."
+      },
+      {
+        "hanzi": "她上午不喝茶，下午六点前喝茶。",
+        "pinyin": "Ta1 shang4wu3 bu4 he1 cha2, xia4wu3 liu4 dian3 qian2 he1 cha2.",
+        "english": "She doesn't drink tea in the morning; she drinks tea before six o'clock in the afternoon."
+      },
+      {
+        "hanzi": "现在三点三十分。",
+        "pinyin": "Xian4zai4 san1 dian3 san1shi2 fen1.",
+        "english": "It is now three thirty."
+      },
+      {
+        "hanzi": "现在十一点二十三分。",
+        "pinyin": "Xian4zai4 shi2yi1 dian3 er4shi2san1 fen1.",
+        "english": "It is now eleven twenty-three."
+      },
+      {
+        "hanzi": "现在两点三十四分。",
+        "pinyin": "Xian4zai4 liang3 dian3 san1shi2si4 fen1.",
+        "english": "It is now two thirty-four."
+      },
+      {
+        "hanzi": "他们很忙，星期六也去看电影。",
+        "pinyin": "Ta1men5 hen3 mang2, xing1qi1 liu4 ye3 qu4 kan4 dian4ying3.",
+        "english": "They are very busy; they also go to see a movie on Saturday."
+      },
+      {
+        "hanzi": "现在两点零五分。",
+        "pinyin": "Xian4zai4 liang3 dian3 ling2 wu3 fen1.",
+        "english": "It is now two oh five."
       }
     ],
     "fill_in_the_blank": [
       {
         "question": "星期五___能回家吗？(Can you come back before Friday?)",
-        "answer": "前",
-        "tags": [
-          "前"
-        ]
-      },
-      {
-        "question": "（你）星期五___能回家吗？(Can you come back home before Friday?)",
         "answer": "前",
         "tags": [
           "前"
@@ -2544,6 +3848,35 @@
         "tags": [
           "前"
         ]
+      },
+      {
+        "question": "（你）星期五___能回家吗？(Can you come back home before Friday?)",
+        "answer": "前",
+        "tags": [
+          "前"
+        ]
+      }
+    ],
+    "proper_nouns": [
+      {
+        "hanzi": "北京",
+        "pinyin": "Bei3jing1",
+        "english": "Beijing, capital of China"
+      },
+      {
+        "hanzi": "王方",
+        "pinyin": "Wang2 Fang1",
+        "english": "Wang Fang (name)"
+      },
+      {
+        "hanzi": "小王",
+        "pinyin": "Xiao3 Wang2",
+        "english": "Xiao Wang (name)"
+      },
+      {
+        "hanzi": "老子",
+        "pinyin": "Lao3zi3",
+        "english": "Lao-tzu, an ancient Chinese thinker"
       }
     ]
   },
@@ -2559,7 +3892,7 @@
       {
         "hanzi": "怎么样",
         "pinyin": "zen3me5yang4",
-        "english": "how (indicating nature, condition or manner)",
+        "english": "(indicating nature, condition or manner) how",
         "part_of_speech": "pronoun",
         "measure_word": null
       },
@@ -2630,7 +3963,7 @@
         "hanzi": "些",
         "pinyin": "xie1",
         "english": "some, a few",
-        "part_of_speech": "noun",
+        "part_of_speech": "adjective",
         "measure_word": null
       },
       {
@@ -2651,13 +3984,15 @@
     "grammar": [
       {
         "marker": "太……了",
-        "english": "indicates a high degree; 'too' or 'extremely'",
-        "type": "degree_complement"
+        "english": "indicates an excessive or extreme degree",
+        "type": "degree_complement",
+        "pinyin": "tai4……le"
       },
       {
         "marker": "会",
         "english": "indicates the possibility of a situation being realized",
-        "type": "modal_verb"
+        "type": "modal_verb",
+        "pinyin": "hui4"
       }
     ],
     "sentences": [
@@ -2688,7 +4023,7 @@
       },
       {
         "hanzi": "今天不会下雨。",
-        "pinyin": "Jin1tian1 bu4 hui4 xia4 yu3.",
+        "pinyin": "Jin1tian1 bu2 hui4 xia4 yu3.",
         "english": "No, it won't rain."
       },
       {
@@ -2698,7 +4033,7 @@
       },
       {
         "hanzi": "不会来，天气太冷了。",
-        "pinyin": "Bu4 hui4 lai2, tian1qi4 tai4 leng3 le5.",
+        "pinyin": "Bu2 hui4 lai2, tian1qi4 tai4 leng3 le5.",
         "english": "No, she won't. It's too cold."
       },
       {
@@ -2708,7 +4043,7 @@
       },
       {
         "hanzi": "我身体不太好。天气太热了，不爱吃饭。",
-        "pinyin": "Wo3 shen1ti3 bu4 tai4 hao3. Tian1qi4 tai4 re4 le5, bu4 ai4 chi1 fan4.",
+        "pinyin": "Wo3 shen1ti3 bu4 tai4 hao3. Tian1qi4 tai4 re4 le5, bu2 ai4 chi1 fan4.",
         "english": "Not very well. It's too hot. I have no appetite."
       },
       {
@@ -2737,19 +4072,34 @@
         "english": "What will the weather be like tomorrow?"
       },
       {
-        "hanzi": "天气太冷了。",
-        "pinyin": "Tian1qi4 tai4 leng3 le5.",
-        "english": "It's too cold."
-      },
-      {
         "hanzi": "我身体不太好。",
         "pinyin": "Wo3 shen1ti3 bu4 tai4 hao3.",
         "english": "I'm not very well."
       },
       {
+        "hanzi": "明天天气很好。",
+        "pinyin": "Ming2tian1 tian1qi4 hen3 hao3.",
+        "english": "Tomorrow the weather will be very good."
+      },
+      {
+        "hanzi": "你身体怎么样？",
+        "pinyin": "Ni3 shen1ti3 zen3me5yang4?",
+        "english": "How is your health?"
+      },
+      {
+        "hanzi": "太热了。",
+        "pinyin": "Tai4 re4 le5.",
+        "english": "Too hot."
+      },
+      {
+        "hanzi": "天气太冷了。",
+        "pinyin": "Tian1qi4 tai4 leng3 le5.",
+        "english": "The weather is too cold."
+      },
+      {
         "hanzi": "爸爸八点前会回家吗？",
         "pinyin": "Ba4ba5 ba1 dian3 qian2 hui4 hui2 jia1 ma5?",
-        "english": "Will Dad be back home before eight?"
+        "english": "Will Dad be home before eight o'clock?"
       },
       {
         "hanzi": "明天她会来吗？",
@@ -2762,9 +4112,34 @@
         "english": "She will come."
       },
       {
+        "hanzi": "今天会下雨吗？",
+        "pinyin": "Jin1tian1 hui4 xia4 yu3 ma5?",
+        "english": "Will it rain today?"
+      },
+      {
         "hanzi": "今天不会下雨。",
-        "pinyin": "Jin1tian1 bu4 hui4 xia4 yu3.",
+        "pinyin": "Jin1tian1 bu2 hui4 xia4 yu3.",
         "english": "It won't rain today."
+      },
+      {
+        "hanzi": "昨天北京天气好吗？",
+        "pinyin": "Zuo2tian1 Bei3jing1 tian1qi4 hao3 ma5?",
+        "english": "Was the weather in Beijing good yesterday?"
+      },
+      {
+        "hanzi": "昨天很好。不冷不热。",
+        "pinyin": "Zuo2tian1 hen3 hao3. Bu4 leng3 bu2 re4.",
+        "english": "Yesterday was very good. Neither cold nor hot."
+      },
+      {
+        "hanzi": "明天会下雨吗？",
+        "pinyin": "Ming2tian1 hui4 xia4 yu3 ma5?",
+        "english": "Will it rain tomorrow?"
+      },
+      {
+        "hanzi": "明天不会下雨。",
+        "pinyin": "Ming2tian1 bu2 hui4 xia4 yu3.",
+        "english": "It won't rain tomorrow."
       },
       {
         "hanzi": "她的汉语怎么样？",
@@ -2772,44 +4147,123 @@
         "english": "How is her Chinese?"
       },
       {
-        "hanzi": "不太好。",
-        "pinyin": "Bu4 tai4 hao3.",
-        "english": "Not very good."
+        "hanzi": "不太好／太好了。",
+        "pinyin": "Bu4 tai4 hao3 / Tai4 hao3 le5.",
+        "english": "Not very good / Excellent."
       },
       {
-        "hanzi": "太好了。",
-        "pinyin": "Tai4 hao3 le5.",
-        "english": "Excellent."
+        "hanzi": "妈妈身体不太好。",
+        "pinyin": "Ma1ma5 shen1ti3 bu4 tai4 hao3.",
+        "english": "Mom is not feeling very well."
       },
       {
-        "hanzi": "昨天很好。不冷不热。",
-        "pinyin": "Zuo2tian1 hen3 hao3. Bu4 leng3 bu2 re4.",
-        "english": "Yesterday was fine. Neither cold nor hot."
+        "hanzi": "妈妈天气不太好。",
+        "pinyin": "Ma1ma5 tian1qi4 bu4 tai4 hao3.",
+        "english": "Mom says the weather is not very good."
       },
       {
-        "hanzi": "明天不会下雨。",
-        "pinyin": "Ming2tian1 bu4 hui4 xia4 yu3.",
-        "english": "It won't rain tomorrow."
+        "hanzi": "明天天气很好，不会下雨。",
+        "pinyin": "Ming2tian1 tian1qi4 hen3 hao3, bu4 hui4 xia4 yu3.",
+        "english": "Tomorrow the weather will be fine; it won't rain."
+      },
+      {
+        "hanzi": "明天天气很好，不会冷。",
+        "pinyin": "Ming2tian1 tian1qi4 hen3 hao3, bu4 hui4 leng3.",
+        "english": "Tomorrow the weather will be fine; it won't be cold."
+      },
+      {
+        "hanzi": "王小姐爱吃水果，不爱吃饭。",
+        "pinyin": "Wang2 xiao3jie5 ai4 chi1 shui3guo3, bu4 ai4 chi1 fan4.",
+        "english": "Miss Wang likes to eat fruit; she doesn't like to eat meals."
+      },
+      {
+        "hanzi": "王小姐爱吃饭，不爱吃饭。",
+        "pinyin": "Wang2 xiao3jie5 ai4 chi1 shui3guo3, bu4 ai4 chi1 fan4.",
+        "english": "Miss Wang likes to eat fruit; she doesn't like to eat meals."
+      },
+      {
+        "hanzi": "今天天气太热了，你多喝水。",
+        "pinyin": "Jin1tian1 tian1qi4 tai4 re4 le5, ni3 duo1 he1 shui3.",
+        "english": "Today the weather is too hot; drink more water."
+      },
+      {
+        "hanzi": "今天天气太冷了，你多喝水。",
+        "pinyin": "Jin1tian1 tian1qi4 tai4 leng3 le5, ni3 duo1 he1 shui3.",
+        "english": "Today the weather is too cold; drink more water."
+      },
+      {
+        "hanzi": "今天天气太冷了。",
+        "pinyin": "Jin1tian1 tian1qi4 tai4 leng3 le5.",
+        "english": "Today's weather is too cold."
+      },
+      {
+        "hanzi": "北京的天气太热了。",
+        "pinyin": "Bei3jing1 de5 tian1qi4 tai4 re4 le5.",
+        "english": "Beijing's weather is too hot."
+      },
+      {
+        "hanzi": "中国菜太好吃了。",
+        "pinyin": "Zhong1guo2 cai4 tai4 hao3chi1 le5.",
+        "english": "Chinese food is extremely delicious."
+      },
+      {
+        "hanzi": "王小姐爱吃饭，不爱吃水果。",
+        "pinyin": "Wang2 xiao3jie3 ai4 chi1 fan4, bu4 ai4 chi1 shui3guo3.",
+        "english": "Miss Wang likes to eat rice; she doesn't like to eat fruit."
+      },
+      {
+        "hanzi": "今天天气不太好，你多喝水。",
+        "pinyin": "Jin1tian1 tian1qi4 bu4 tai4 hao3, ni3 duo1 he1 shui3.",
+        "english": "The weather is not very good today; drink more water."
+      },
+      {
+        "hanzi": "那个电影太好看了。",
+        "pinyin": "Na4ge5 dian4ying3 tai4 hao3kan4 le5.",
+        "english": "That movie is so great."
+      }
+    ],
+    "proper_nouns": [
+      {
+        "hanzi": "北京",
+        "pinyin": "Bei3jing1",
+        "english": "Beijing"
+      },
+      {
+        "hanzi": "王",
+        "pinyin": "Wang2",
+        "english": "Wang (surname)"
+      },
+      {
+        "hanzi": "中国",
+        "pinyin": "Zhong1guo2",
+        "english": "China"
       }
     ],
     "fill_in_the_blank": [
       {
-        "question": "___热了。(It was too hot.)",
+        "question": "太___了。(It was too hot.)",
+        "answer": "热",
+        "tags": [
+          "太……了"
+        ]
+      },
+      {
+        "question": "不会来，天气太冷___。(No, she won't. It's too cold.)",
+        "answer": "了",
+        "tags": [
+          "太……了"
+        ]
+      },
+      {
+        "question": "我身体不___好。天气太热了，不爱吃饭。(Not very well. It's too hot. I have no appetite.)",
         "answer": "太",
         "tags": [
           "太……了"
         ]
       },
       {
-        "question": "不会来，天气___冷了。(No, she won't. It's too cold.)",
-        "answer": "太",
-        "tags": [
-          "太……了"
-        ]
-      },
-      {
-        "question": "天气___热了，不爱吃饭。(It's too hot. I have no appetite.)",
-        "answer": "太",
+        "question": "天气太冷___。(The weather is too cold.)",
+        "answer": "了",
         "tags": [
           "太……了"
         ]
@@ -2843,7 +4297,7 @@
         ]
       },
       {
-        "question": "爸爸八点前___回家吗？(Will Dad be back home before eight?)",
+        "question": "爸爸八点前___回家吗？(Will Dad be home before eight o'clock?)",
         "answer": "会",
         "tags": [
           "会"
@@ -2864,7 +4318,7 @@
         ]
       },
       {
-        "question": "今天不___下雨。(It won't rain today.)",
+        "question": "明天___下雨吗？(Will it rain tomorrow?)",
         "answer": "会",
         "tags": [
           "会"
@@ -2885,7 +4339,7 @@
         "hanzi": "喂",
         "pinyin": "wei4",
         "english": "hello, hey",
-        "part_of_speech": "other",
+        "part_of_speech": "adverb",
         "measure_word": null
       },
       {
@@ -2934,7 +4388,7 @@
         "hanzi": "给",
         "pinyin": "gei3",
         "english": "to",
-        "part_of_speech": "other",
+        "part_of_speech": "verb",
         "measure_word": null
       },
       {
@@ -2949,12 +4403,20 @@
       {
         "marker": "在……呢",
         "english": "indicates an action in progress",
-        "type": "other"
+        "type": "other",
+        "pinyin": "zai4……ne"
+      },
+      {
+        "marker": "呢",
+        "english": "modal particle used at the end of a sentence to indicate an action in progress",
+        "type": "sentence_particle",
+        "pinyin": "ne5"
       },
       {
         "marker": "吧",
         "english": "modal particle used at the end of a sentence to indicate consultation, a suggestion, request or command",
-        "type": "sentence_particle"
+        "type": "sentence_particle",
+        "pinyin": "ba5"
       }
     ],
     "sentences": [
@@ -2994,6 +4456,11 @@
         "english": "I was watching TV at home."
       },
       {
+        "hanzi": "你喜欢看电视吗？",
+        "pinyin": "Ni3 xi3huan5 kan4 dian4shi4 ma5?",
+        "english": "Do you like watching TV?"
+      },
+      {
         "hanzi": "我不喜欢看电视，我喜欢看电影。",
         "pinyin": "Wo3 bu4 xi3huan5 kan4 dian4shi4, wo3 xi3huan5 kan4 dian4ying3.",
         "english": "No, I don't. I like seeing movies."
@@ -3011,7 +4478,7 @@
       {
         "hanzi": "喂，李老师在家吗？",
         "pinyin": "Wei4, Li3 lao3shi1 zai4 jia1 ma5?",
-        "english": "Hello, is Ms. Li at home?"
+        "english": "Hello, is Teacher Li at home?"
       },
       {
         "hanzi": "喂，你是张小姐吗？",
@@ -3026,12 +4493,7 @@
       {
         "hanzi": "我在睡觉呢。",
         "pinyin": "Wo3 zai4 shui4 jiao4 ne5.",
-        "english": "I am sleeping."
-      },
-      {
-        "hanzi": "你在做什么呢?",
-        "pinyin": "Ni3 zai4 zuo4 shen2me5 ne5?",
-        "english": "What are you doing?"
+        "english": "I'm sleeping."
       },
       {
         "hanzi": "小王在学习汉语。",
@@ -3041,7 +4503,7 @@
       {
         "hanzi": "我没在看电视。",
         "pinyin": "Wo3 mei2 zai4 kan4 dian4shi4.",
-        "english": "I am not watching TV."
+        "english": "I'm not watching TV."
       },
       {
         "hanzi": "他们没在工作。",
@@ -3055,8 +4517,8 @@
       },
       {
         "hanzi": "这儿没有人，请坐吧。",
-        "pinyin": "Zhe4r5 mei2you3 ren2, qing3 zuo4 ba5.",
-        "english": "There's no one here, please sit down."
+        "pinyin": "Zhe4r5 mei2 you3 ren2, qing3 zuo4 ba5.",
+        "english": "There's no one here, please have a seat."
       },
       {
         "hanzi": "今天我们在家吃饭吧。",
@@ -3071,55 +4533,162 @@
       {
         "hanzi": "昨天下午五点，你在做什么呢？",
         "pinyin": "Zuo2tian1 xia4wu3 wu3 dian3, ni3 zai4 zuo4 shen2me5 ne5?",
-        "english": "Yesterday afternoon at five o'clock, what were you doing?"
+        "english": "What were you doing at 5 o'clock yesterday afternoon?"
       },
       {
         "hanzi": "昨天下午五点，我在学习呢。",
         "pinyin": "Zuo2tian1 xia4wu3 wu3 dian3, wo3 zai4 xue2xi2 ne5.",
-        "english": "Yesterday afternoon at five o'clock, I was studying."
+        "english": "At 5 o'clock yesterday afternoon, I was studying."
+      },
+      {
+        "hanzi": "安妮在看书呢。",
+        "pinyin": "An1ni4 zai4 kan4 shu1 ne5.",
+        "english": "Anne is reading."
+      },
+      {
+        "hanzi": "安妮在学习呢。",
+        "pinyin": "An1ni4 zai4 xue2xi2 ne5.",
+        "english": "Anne is studying."
+      },
+      {
+        "hanzi": "安妮在看电视呢。",
+        "pinyin": "An1ni4 zai4 kan4 dian4shi4 ne5.",
+        "english": "Anne is watching television."
+      },
+      {
+        "hanzi": "妈妈在打电话。",
+        "pinyin": "Ma1ma5 zai4 da3 dian4hua4.",
+        "english": "Mom is making a phone call."
+      },
+      {
+        "hanzi": "妈妈在做饭。",
+        "pinyin": "Ma1ma5 zai4 zuo4 fan4.",
+        "english": "Mom is cooking."
+      },
+      {
+        "hanzi": "妈妈在睡觉。",
+        "pinyin": "Ma1ma5 zai4 shui4 jiao4.",
+        "english": "Mom is sleeping."
+      },
+      {
+        "hanzi": "他没看书，在学做中国菜。",
+        "pinyin": "Ta1 mei2 kan4 shu1, zai4 xue2 zuo4 Zhong1guo2 cai4.",
+        "english": "He is not reading; he is learning to cook Chinese food."
+      },
+      {
+        "hanzi": "他没看书，在打电话。",
+        "pinyin": "Ta1 mei2 kan4 shu1, zai4 da3 dian4hua4.",
+        "english": "He is not reading; he is making a phone call."
+      },
+      {
+        "hanzi": "他没看书，在看电视。",
+        "pinyin": "Ta1 mei2 kan4 shu1, zai4 kan4 dian4shi4.",
+        "english": "He is not reading; he is watching television."
+      },
+      {
+        "hanzi": "她没工作，睡觉呢。",
+        "pinyin": "Ta1 mei2 gong1zuo4, shui4 jiao4 ne5.",
+        "english": "She is not working; she is sleeping."
+      },
+      {
+        "hanzi": "她没工作，看电视呢。",
+        "pinyin": "Ta1 mei2 gong1zuo4, kan4 dian4shi4 ne5.",
+        "english": "She is not working; she is watching television."
+      },
+      {
+        "hanzi": "她没工作，学习呢。",
+        "pinyin": "Ta1 mei2 gong1zuo4, xue2xi2 ne5.",
+        "english": "She is not working; she is studying."
+      },
+      {
+        "hanzi": "昨天下午五点，我在看电视呢。",
+        "pinyin": "Zuo2tian1 xia4wu3 wu3 dian3, wo3 zai4 kan4 dian4shi4 ne5.",
+        "english": "Yesterday afternoon at five o'clock, I was watching television."
+      },
+      {
+        "hanzi": "昨天上午，我在打电话呢。",
+        "pinyin": "Zuo2tian1 shang4wu3, wo3 zai4 da3 dian4hua4 ne5.",
+        "english": "Yesterday morning, I was making a phone call."
+      },
+      {
+        "hanzi": "昨天下午五点，我在睡觉呢。",
+        "pinyin": "Zuo2tian1 xia4wu3 wu3 dian3, wo3 zai4 shui4 jiao4 ne5.",
+        "english": "Yesterday afternoon at five o'clock, I was sleeping."
+      },
+      {
+        "hanzi": "安妮在睡觉呢。",
+        "pinyin": "An1ni4 zai4 shui4 jiao4 ne5.",
+        "english": "Anne is sleeping."
+      },
+      {
+        "hanzi": "妈妈在看书。",
+        "pinyin": "Ma1ma5 zai4 kan4 shu1.",
+        "english": "Mom is reading."
+      },
+      {
+        "hanzi": "她没工作，看电影呢。",
+        "pinyin": "Ta1 mei2 gong1zuo4, kan4 dian4ying3 ne5.",
+        "english": "She is not working; she is watching a movie."
+      },
+      {
+        "hanzi": "昨天上午，我在睡觉呢。",
+        "pinyin": "Zuo2tian1 shang4wu3, wo3 zai4 shui4 jiao4 ne5.",
+        "english": "Yesterday morning, I was sleeping."
+      },
+      {
+        "hanzi": "昨天下午，我在打电话呢。",
+        "pinyin": "Zuo2tian1 xia4wu3, wo3 zai4 da3 dian4hua4 ne5.",
+        "english": "Yesterday afternoon, I was making a phone call."
       }
     ],
     "fill_in_the_blank": [
       {
-        "question": "喂，你___做什么呢？(Hello, what are you doing?)",
-        "answer": "在",
-        "tags": [
-          "在……呢"
-        ]
-      },
-      {
-        "question": "我___看书呢。(I'm reading.)",
-        "answer": "在",
-        "tags": [
-          "在……呢"
-        ]
-      },
-      {
-        "question": "他在学做中国菜___。(He is learning to cook Chinese food.)",
+        "question": "喂，你在做什么___？(Hello, what are you doing?)",
         "answer": "呢",
         "tags": [
-          "在……呢"
+          "呢"
+        ]
+      },
+      {
+        "question": "我在看书___。(I'm reading.)",
+        "answer": "呢",
+        "tags": [
+          "呢"
+        ]
+      },
+      {
+        "question": "他没看书，他在学做中国菜___。(No, he isn't. He is learning to cook Chinese food.)",
+        "answer": "呢",
+        "tags": [
+          "呢"
         ]
       },
       {
         "question": "昨天上午你在做什么___？(What were you doing yesterday morning?)",
         "answer": "呢",
         "tags": [
-          "在……呢"
+          "呢"
         ]
       },
       {
-        "question": "我___睡觉呢。(I was sleeping.)",
-        "answer": "在",
+        "question": "我在睡觉___。(I was sleeping.)",
+        "answer": "呢",
         "tags": [
-          "在……呢"
+          "呢"
         ]
       },
       {
         "question": "我在家看电视___。(I was watching TV at home.)",
         "answer": "呢",
         "tags": [
-          "在……呢"
+          "呢"
+        ]
+      },
+      {
+        "question": "她在工作___，你下午打吧。(She is working. Call her in the afternoon.)",
+        "answer": "呢",
+        "tags": [
+          "呢"
         ]
       },
       {
@@ -3130,14 +4699,7 @@
         ]
       },
       {
-        "question": "她___工作呢，你下午打吧。(She is working. Call her in the afternoon.)",
-        "answer": "在",
-        "tags": [
-          "在……呢"
-        ]
-      },
-      {
-        "question": "这儿没有人，请坐___。(There's no one here, please sit down.)",
+        "question": "这儿没有人，请坐___。(There's no one here, please have a seat.)",
         "answer": "吧",
         "tags": [
           "吧"
@@ -3151,318 +4713,45 @@
         ]
       },
       {
-        "question": "昨天下午五点，你在做什么___？(Yesterday afternoon at five o'clock, what were you doing?)",
+        "question": "昨天下午五点，我在学习___。(At 5 o'clock yesterday afternoon, I was studying.)",
         "answer": "呢",
         "tags": [
-          "在……呢"
+          "呢"
         ]
       },
       {
-        "question": "昨天下午五点，我___学习呢。(Yesterday afternoon at five o'clock, I was studying.)",
-        "answer": "在",
+        "question": "昨天下午五点，你在做什么___？(What were you doing at 5 o'clock yesterday afternoon?)",
+        "answer": "呢",
         "tags": [
-          "在……呢"
+          "呢"
         ]
-      }
-    ]
-  },
-  "15": {
-    "vocab": [
-      {
-        "hanzi": "认识",
-        "pinyin": "ren4shi5",
-        "english": "to meet, to know",
-        "part_of_speech": "verb",
-        "measure_word": null
-      },
-      {
-        "hanzi": "年",
-        "pinyin": "nian2",
-        "english": "year",
-        "part_of_speech": "noun",
-        "measure_word": null
-      },
-      {
-        "hanzi": "大学",
-        "pinyin": "da4xue2",
-        "english": "college, university",
-        "part_of_speech": "noun",
-        "measure_word": null
-      },
-      {
-        "hanzi": "饭店",
-        "pinyin": "fan4dian4",
-        "english": "hotel, restaurant",
-        "part_of_speech": "noun",
-        "measure_word": null
-      },
-      {
-        "hanzi": "出租车",
-        "pinyin": "chu1zu1che1",
-        "english": "taxi, cab",
-        "part_of_speech": "noun",
-        "measure_word": null
-      },
-      {
-        "hanzi": "一起",
-        "pinyin": "yi4qi3",
-        "english": "together",
-        "part_of_speech": "adverb",
-        "measure_word": null
-      },
-      {
-        "hanzi": "高兴",
-        "pinyin": "gao1xing4",
-        "english": "glad, happy",
-        "part_of_speech": "adjective",
-        "measure_word": null
-      },
-      {
-        "hanzi": "听",
-        "pinyin": "ting1",
-        "english": "to listen",
-        "part_of_speech": "verb",
-        "measure_word": null
-      },
-      {
-        "hanzi": "飞机",
-        "pinyin": "fei1ji1",
-        "english": "airplane",
-        "part_of_speech": "noun",
-        "measure_word": null
       }
     ],
-    "grammar": [
+    "proper_nouns": [
       {
-        "marker": "是……的",
-        "english": "used to emphasize time, place or manner of a known occurrence",
-        "type": "other"
-      }
-    ],
-    "sentences": [
-      {
-        "hanzi": "你和李小姐是什么时候认识的？",
-        "pinyin": "Ni3 he2 Li3 xiao3jie5 shi4 shen2me shi2hou4 ren4shi5 de5?",
-        "english": "When did you and Miss Li first meet?"
+        "hanzi": "大卫",
+        "pinyin": "Da4wei4",
+        "english": "David (name)"
       },
       {
-        "hanzi": "我们是2011年9月认识的。",
-        "pinyin": "Wo3men5 shi4 er4 ling2 yi1 yi1 nian2 jiu3 yue4 ren4shi5 de5.",
-        "english": "We met in September, 2011."
+        "hanzi": "中国",
+        "pinyin": "Zhong1guo2",
+        "english": "China"
       },
       {
-        "hanzi": "你们在哪儿认识的？",
-        "pinyin": "Ni3men5 zai4 na3r5 ren4shi5 de5?",
-        "english": "Where did you meet each other?"
+        "hanzi": "安妮",
+        "pinyin": "An1ni2",
+        "english": "Anne (name)"
       },
       {
-        "hanzi": "我们是在学校认识的，她是我大学同学。",
-        "pinyin": "Wo3men5 shi4 zai4 xue2xiao4 ren4shi5 de5, ta1 shi4 wo3 da4xue2 tong2xue2.",
-        "english": "We met in our university. She was my classmate."
+        "hanzi": "韩国",
+        "pinyin": "Han2guo2",
+        "english": "Korea"
       },
       {
-        "hanzi": "你们是怎么来饭店的？",
-        "pinyin": "Ni3men5 shi4 zen3me lai2 fan4dian4 de5?",
-        "english": "How did you come here?"
-      },
-      {
-        "hanzi": "我们是坐出租车来的。",
-        "pinyin": "Wo3men5 shi4 zuo4 chu1zu1che1 lai2 de5.",
-        "english": "We came by taxi."
-      },
-      {
-        "hanzi": "他是和朋友一起开车来的。",
-        "pinyin": "Ta1 shi4 he2 peng2you5 yi4qi3 kai1 che1 lai2 de5.",
-        "english": "He drove here with his friend."
-      },
-      {
-        "hanzi": "很高兴认识您！",
-        "pinyin": "Hen3 gao1xing4 ren4shi5 nin2!",
-        "english": "Nice to meet you."
-      },
-      {
-        "hanzi": "认识你我也很高兴！",
-        "pinyin": "Ren4shi5 ni3 wo3 ye3 hen3 gao1xing4!",
-        "english": "Nice to meet you too."
-      },
-      {
-        "hanzi": "听张先生说，您是坐飞机来北京的？",
-        "pinyin": "Ting1 Zhang1 xian1sheng5 shuo1, nin2 shi4 zuo4 fei1ji1 lai2 Bei3jing1 de5?",
-        "english": "Mr. Zhang said you came to Beijing by plane, didn't you?"
-      },
-      {
-        "hanzi": "我是昨天来的。",
-        "pinyin": "Wo3 shi4 zuo2tian1 lai2 de5.",
-        "english": "I came yesterday."
-      },
-      {
-        "hanzi": "这是在北京买的。",
-        "pinyin": "Zhe4 shi4 zai4 Bei3jing1 mai3 de5.",
-        "english": "This was bought in Beijing."
-      },
-      {
-        "hanzi": "你们是怎么来饭店的？",
-        "pinyin": "Ni3men5 shi4 zen3me lai2 fan4dian4 de5?",
-        "english": "How did you come to the hotel?"
-      },
-      {
-        "hanzi": "我不是昨天来的。",
-        "pinyin": "Wo3 bu4 shi4 zuo2tian1 lai2 de5.",
-        "english": "I did not come yesterday."
-      },
-      {
-        "hanzi": "这不是在北京买的。",
-        "pinyin": "Zhe4 bu4 shi4 zai4 Bei3jing1 mai3 de5.",
-        "english": "This was not bought in Beijing."
-      },
-      {
-        "hanzi": "我们不是坐出租车来的。",
-        "pinyin": "Wo3men5 bu4 shi4 zuo4 chu1zu1che1 lai2 de5.",
-        "english": "We did not come by taxi."
-      },
-      {
-        "hanzi": "明天是2014年5月11号。",
-        "pinyin": "Ming2tian1 shi4 er4 ling2 yi1 si4 nian2 wu3 yue4 shi2 yi1 hao4.",
-        "english": "Tomorrow is May 11th, 2014."
-      },
-      {
-        "hanzi": "今天几号？星期几？",
-        "pinyin": "Jin1tian1 ji3 hao4? Xing1qi1 ji3?",
-        "english": "What is today's date? What day of the week is it?"
-      },
-      {
-        "hanzi": "今天9月10号，星期三。",
-        "pinyin": "Jin1tian1 jiu3 yue4 shi2 hao4, xing1qi1 san1.",
-        "english": "Today is September 10th, Wednesday."
-      },
-      {
-        "hanzi": "我们是2011年9月认识的。",
-        "pinyin": "Wo3men5 shi4 er4 ling2 yi1 yi1 nian2 jiu3 yue4 ren4shi5 de5.",
-        "english": "We met in September, 2011."
-      },
-      {
-        "hanzi": "我们是在巴黎________的。",
-        "pinyin": "Wo3men5 shi4 zai4 Ba1li2 ________de5.",
-        "english": "We were in Paris ________."
-      },
-      {
-        "hanzi": "这些衣服不________今天________的，是昨天买的。",
-        "pinyin": "Zhe4xie1 yi1fu5 bu4 ________ jin1tian1 ________ de5, shi4 zuo2tian1 mai3 de5.",
-        "english": "These clothes were not bought today, they were bought yesterday."
-      },
-      {
-        "hanzi": "我们是一起________来的，我不喜欢坐出租车。",
-        "pinyin": "Wo3men5 shi4 yi4qi3 ________ lai2 de5, wo3 bu4 xi3huan1 zuo4 chu1zu1che1.",
-        "english": "We came together by ________, I don't like taking taxis."
-      },
-      {
-        "hanzi": "这个是在哪儿买的？",
-        "pinyin": "Zhe4ge5 shi4 zai4 na3r5 mai3 de5?",
-        "english": "Where was this bought?"
-      },
-      {
-        "hanzi": "在商店买的。",
-        "pinyin": "Zai4 shang1dian4 mai3 de5.",
-        "english": "It was bought at a store."
-      },
-      {
-        "hanzi": "什么时候买的？",
-        "pinyin": "Shen2me shi2hou4 mai3 de5?",
-        "english": "When was it bought?"
-      },
-      {
-        "hanzi": "昨天买的。",
-        "pinyin": "Zuo2tian1 mai3 de5.",
-        "english": "It was bought yesterday."
-      },
-      {
-        "hanzi": "你是什么时候开始学汉语的？",
-        "pinyin": "Ni3 shi4 shen2me shi2hou4 kai1shi3 xue2 Han4yu3 de5?",
-        "english": "When did you start learning Chinese?"
-      },
-      {
-        "hanzi": "你是在哪儿学的？",
-        "pinyin": "Ni3 shi4 zai4 na3r5 xue2 de5?",
-        "english": "Where did you learn it?"
-      }
-    ],
-    "fill_in_the_blank": [
-      {
-        "question": "你和李小姐___什么时候认识的？(When did you and Miss Li first meet?)",
-        "answer": "是",
-        "tags": [
-          "是……的"
-        ]
-      },
-      {
-        "question": "我们是2011年9月认识___。(We met in September, 2011.)",
-        "answer": "的",
-        "tags": [
-          "是……的"
-        ]
-      },
-      {
-        "question": "我们___在学校认识的，她是我大学同学。(We met in our university. She was my classmate.)",
-        "answer": "是",
-        "tags": [
-          "是……的"
-        ]
-      },
-      {
-        "question": "你们___怎么来饭店的？(How did you come here?)",
-        "answer": "是",
-        "tags": [
-          "是……的"
-        ]
-      },
-      {
-        "question": "我们是坐出租车来___。(We came by taxi.)",
-        "answer": "的",
-        "tags": [
-          "是……的"
-        ]
-      },
-      {
-        "question": "他___和朋友一起开车来的。(He drove here with his friend.)",
-        "answer": "是",
-        "tags": [
-          "是……的"
-        ]
-      },
-      {
-        "question": "听张先生说，您是坐飞机来北京___？(Mr. Zhang said you came to Beijing by plane, didn't you?)",
-        "answer": "的",
-        "tags": [
-          "是……的"
-        ]
-      },
-      {
-        "question": "我们不___坐出租车来的。(We did not come by taxi.)",
-        "answer": "是",
-        "tags": [
-          "是……的"
-        ]
-      },
-      {
-        "question": "这个___在哪儿买的？(Where was this bought?)",
-        "answer": "是",
-        "tags": [
-          "是……的"
-        ]
-      },
-      {
-        "question": "你___什么时候开始学汉语的？(When did you start learning Chinese?)",
-        "answer": "是",
-        "tags": [
-          "是……的"
-        ]
-      },
-      {
-        "question": "你___在哪儿学的？(Where did you learn it?)",
-        "answer": "是",
-        "tags": [
-          "是……的"
-        ]
+        "hanzi": "小王",
+        "pinyin": "Xiao3 Wang2",
+        "english": "Xiao Wang (name)"
       }
     ]
   },
@@ -3487,7 +4776,7 @@
         "pinyin": "ping2guo3",
         "english": "apple",
         "part_of_speech": "noun",
-        "measure_word": null
+        "measure_word": "个"
       },
       {
         "hanzi": "看见",
@@ -3515,7 +4804,7 @@
         "pinyin": "che1",
         "english": "car, vehicle",
         "part_of_speech": "noun",
-        "measure_word": null
+        "measure_word": "辆"
       },
       {
         "hanzi": "回来",
@@ -3543,7 +4832,7 @@
         "pinyin": "yi1fu5",
         "english": "clothes",
         "part_of_speech": "noun",
-        "measure_word": null
+        "measure_word": "件"
       },
       {
         "hanzi": "漂亮",
@@ -3585,12 +4874,14 @@
       {
         "marker": "了",
         "english": "indicates occurrence or completion of an action",
-        "type": "aspect_particle"
+        "type": "aspect_particle",
+        "pinyin": "le5"
       },
       {
         "marker": "啊",
         "english": "modal particle used at the end of a sentence as a sign of confirmation or defense",
-        "type": "sentence_particle"
+        "type": "sentence_particle",
+        "pinyin": "a5"
       }
     ],
     "sentences": [
@@ -3660,6 +4951,11 @@
         "english": "He has gone to a driving lesson."
       },
       {
+        "hanzi": "你买什么了？",
+        "pinyin": "Ni3 mai3 shen2me5 le5?",
+        "english": "What did you buy?"
+      },
+      {
         "hanzi": "她买了一点儿苹果。",
         "pinyin": "Ta1 mai3 le5 yi4dian3r5 ping2guo3.",
         "english": "She bought some apples."
@@ -3688,6 +4984,11 @@
         "hanzi": "我没看见张先生。",
         "pinyin": "Wo3 mei2 kan4jian4 Zhang1 xian1sheng5.",
         "english": "I didn't see Mr. Zhang."
+      },
+      {
+        "hanzi": "五点后。",
+        "pinyin": "Wu3 dian3 hou4.",
+        "english": "After five o'clock."
       },
       {
         "hanzi": "你几点去工作？",
@@ -3767,7 +5068,12 @@
       {
         "hanzi": "你去商店买什么了？",
         "pinyin": "Ni3 qu4 shang1dian4 mai3 shen2me5 le5?",
-        "english": "What did you go buy at the store?"
+        "english": "What did you go to the store to buy?"
+      },
+      {
+        "hanzi": "我买了……",
+        "pinyin": "Wo3 mai3 le5...",
+        "english": "I bought..."
       },
       {
         "hanzi": "星期一上午你做什么了？",
@@ -3788,6 +5094,51 @@
         "hanzi": "我看了一个中国电影。",
         "pinyin": "Wo3 kan4 le5 yi2 ge4 Zhong1guo2 dian4ying3.",
         "english": "I watched a Chinese movie."
+      },
+      {
+        "hanzi": "妈妈去商店买了一点儿苹果。",
+        "pinyin": "Ma1ma5 qu4 shang1dian4 mai3le5 yi2dian3r ping2guo3.",
+        "english": "Mom went to the store and bought some apples."
+      },
+      {
+        "hanzi": "妈妈去商店买了不少衣服。",
+        "pinyin": "Ma1ma5 qu4 shang1dian4 mai3le5 bu4shao3 yi1fu5.",
+        "english": "Mom went to the store and bought quite a few clothes."
+      },
+      {
+        "hanzi": "她下午去学开车了。",
+        "pinyin": "Ta1 xia4wu3 qu4 xue2 kai1 che1 le5.",
+        "english": "She went to take a driving lesson in the afternoon."
+      },
+      {
+        "hanzi": "桌子上都是张先生的东西。",
+        "pinyin": "Zhuo1zi5 shang4 dou1 shi4 Zhang1 xian1sheng5 de5 dong1xi5.",
+        "english": "Everything on the table is Mr. Zhang's stuff."
+      },
+      {
+        "hanzi": "桌子上这些是张先生的东西。",
+        "pinyin": "Zhuo1zi5 shang4 zhe4xie1 shi4 Zhang1 xian1sheng5 de5 dong1xi5.",
+        "english": "These things on the table are Mr. Zhang's stuff."
+      },
+      {
+        "hanzi": "丽丽买了不少衣服。",
+        "pinyin": "Li4li5 mai3le5 bu4shao3 yi1fu5.",
+        "english": "Lili bought quite a few clothes."
+      },
+      {
+        "hanzi": "丽丽买了一点儿衣服。",
+        "pinyin": "Li4li5 mai3le5 yi2dian3r yi1fu5.",
+        "english": "Lili bought a few clothes."
+      },
+      {
+        "hanzi": "我买了一点儿东西。",
+        "pinyin": "Wo3 mai3le5 yi2dian3r dong1xi5.",
+        "english": "I bought a few things."
+      },
+      {
+        "hanzi": "丽丽买了一点儿苹果。",
+        "pinyin": "Li4li5 mai3le5 yi1dian3r ping2guo3.",
+        "english": "Lili bought some apples."
       }
     ],
     "fill_in_the_blank": [
@@ -3827,7 +5178,7 @@
         ]
       },
       {
-        "question": "他去学开车___。(He has gone to a driving lesson.)",
+        "question": "看见了，他去学开车___。(Yes. He has gone to a driving lesson.)",
         "answer": "了",
         "tags": [
           "了"
@@ -3855,34 +5206,6 @@
         ]
       },
       {
-        "question": "我去商店___。(I went to the store.)",
-        "answer": "了",
-        "tags": [
-          "了"
-        ]
-      },
-      {
-        "question": "她买___一点儿苹果。(She bought some apples.)",
-        "answer": "了",
-        "tags": [
-          "了"
-        ]
-      },
-      {
-        "question": "我买___不少衣服。(I bought quite a few clothes.)",
-        "answer": "了",
-        "tags": [
-          "了"
-        ]
-      },
-      {
-        "question": "你看见___几个人？(How many people did you see?)",
-        "answer": "了",
-        "tags": [
-          "了"
-        ]
-      },
-      {
         "question": "是___。(Yes.)",
         "answer": "啊",
         "tags": [
@@ -3897,6 +5220,13 @@
         ]
       },
       {
+        "question": "我看___一个中国电影。(I watched a Chinese movie.)",
+        "answer": "了",
+        "tags": [
+          "了"
+        ]
+      },
+      {
         "question": "我去电影院___。(I went to the cinema.)",
         "answer": "了",
         "tags": [
@@ -3904,18 +5234,485 @@
         ]
       },
       {
-        "question": "你看什么___？(What did you watch?)",
-        "answer": "了",
+        "question": "这些___是王方的东西。(All these are Wang Fang's stuff.)",
+        "answer": "都",
         "tags": [
-          "了"
+          "都"
         ]
       },
       {
-        "question": "我看___一个中国电影。(I watched a Chinese movie.)",
-        "answer": "了",
+        "question": "我们___是中国人。(We are all Chinese.)",
+        "answer": "都",
         "tags": [
-          "了"
+          "都"
         ]
+      },
+      {
+        "question": "他们___喜欢喝茶。(They all like to drink tea.)",
+        "answer": "都",
+        "tags": [
+          "都"
+        ]
+      }
+    ],
+    "proper_nouns": [
+      {
+        "hanzi": "张",
+        "pinyin": "Zhang1",
+        "english": "Zhang, a Chinese family name"
+      },
+      {
+        "hanzi": "王方",
+        "pinyin": "Wang2 Fang1",
+        "english": "Wang Fang (name)"
+      },
+      {
+        "hanzi": "小王",
+        "pinyin": "Xiao3 Wang2",
+        "english": "Xiao Wang (name)"
+      },
+      {
+        "hanzi": "丽丽",
+        "pinyin": "Li4li5",
+        "english": "Lili (name)"
+      },
+      {
+        "hanzi": "中国",
+        "pinyin": "Zhong1guo2",
+        "english": "China"
+      }
+    ]
+  },
+  "15": {
+    "vocab": [
+      {
+        "hanzi": "认识",
+        "pinyin": "ren4shi5",
+        "english": "to meet, to know",
+        "part_of_speech": "verb",
+        "measure_word": null
+      },
+      {
+        "hanzi": "年",
+        "pinyin": "nian2",
+        "english": "year",
+        "part_of_speech": "noun",
+        "measure_word": null
+      },
+      {
+        "hanzi": "大学",
+        "pinyin": "da4xue2",
+        "english": "college, university",
+        "part_of_speech": "noun",
+        "measure_word": null
+      },
+      {
+        "hanzi": "饭店",
+        "pinyin": "fan4dian4",
+        "english": "hotel, restaurant",
+        "part_of_speech": "noun",
+        "measure_word": null
+      },
+      {
+        "hanzi": "出租车",
+        "pinyin": "chu1zu1che1",
+        "english": "taxi, cab",
+        "part_of_speech": "noun",
+        "measure_word": null
+      },
+      {
+        "hanzi": "一起",
+        "pinyin": "yi4qi3",
+        "english": "together",
+        "part_of_speech": "adverb",
+        "measure_word": null
+      },
+      {
+        "hanzi": "高兴",
+        "pinyin": "gao1xing4",
+        "english": "glad, happy",
+        "part_of_speech": "adjective",
+        "measure_word": null
+      },
+      {
+        "hanzi": "听",
+        "pinyin": "ting1",
+        "english": "to listen",
+        "part_of_speech": "verb",
+        "measure_word": null
+      },
+      {
+        "hanzi": "飞机",
+        "pinyin": "fei1ji1",
+        "english": "airplane",
+        "part_of_speech": "noun",
+        "measure_word": null
+      }
+    ],
+    "grammar": [
+      {
+        "marker": "是……的",
+        "english": "used to emphasize when, where, or in which manner a known event occurred",
+        "type": "other",
+        "pinyin": "shi4……de"
+      }
+    ],
+    "sentences": [
+      {
+        "hanzi": "你和李小姐是什么时候认识的？",
+        "pinyin": "Ni3 he2 Li3 xiao3jie5 shi4 shen2me shi2hou4 ren4shi5 de5?",
+        "english": "When did you and Miss Li first meet?"
+      },
+      {
+        "hanzi": "我们是2011年9月认识的。",
+        "pinyin": "Wo3men5 shi4 er4 ling2 yi1 yi1 nian2 jiu3 yue4 ren4shi5 de5.",
+        "english": "We met in September, 2011."
+      },
+      {
+        "hanzi": "你们在哪儿认识的？",
+        "pinyin": "Ni3men5 zai4 na3r5 ren4shi5 de5?",
+        "english": "Where did you meet each other?"
+      },
+      {
+        "hanzi": "我们是在学校认识的，她是我大学同学。",
+        "pinyin": "Wo3men5 shi4 zai4 xue2xiao4 ren4shi5 de5, ta1 shi4 wo3 da4xue2 tong2xue2.",
+        "english": "We met in our university. She was my classmate."
+      },
+      {
+        "hanzi": "你们是怎么来饭店的？",
+        "pinyin": "Ni3men5 shi4 zen3me lai2 fan4dian4 de5?",
+        "english": "How did you come here?"
+      },
+      {
+        "hanzi": "我们是坐出租车来的。",
+        "pinyin": "Wo3men5 shi4 zuo4 chu1zu1che1 lai2 de5.",
+        "english": "We came by taxi."
+      },
+      {
+        "hanzi": "他是和朋友一起开车来的。",
+        "pinyin": "Ta1 shi4 he2 peng2you5 yi4qi3 kai1 che1 lai2 de5.",
+        "english": "He drove here with his friend."
+      },
+      {
+        "hanzi": "听张先生说，您是坐飞机来北京的？",
+        "pinyin": "Ting1 Zhang1 xian1sheng5 shuo1, nin2 shi4 zuo4 fei1ji1 lai2 Bei3jing1 de5?",
+        "english": "Mr. Zhang said you came to Beijing by plane, didn't you?"
+      },
+      {
+        "hanzi": "我是昨天来的。",
+        "pinyin": "Wo3 shi4 zuo2tian1 lai2 de5.",
+        "english": "I came yesterday."
+      },
+      {
+        "hanzi": "这是在北京买的。",
+        "pinyin": "Zhe4 shi4 zai4 Bei3jing1 mai3 de5.",
+        "english": "This was bought in Beijing."
+      },
+      {
+        "hanzi": "你们是怎么来饭店的?",
+        "pinyin": "Ni3men5 shi4 zen3me lai2 fan4dian4 de5?",
+        "english": "How did you come to the hotel?"
+      },
+      {
+        "hanzi": "我不是昨天来的。",
+        "pinyin": "Wo3 bu4 shi4 zuo2tian1 lai2 de5.",
+        "english": "I did not come yesterday."
+      },
+      {
+        "hanzi": "这不是在北京买的。",
+        "pinyin": "Zhe4 bu4 shi4 zai4 Bei3jing1 mai3 de5.",
+        "english": "This was not bought in Beijing."
+      },
+      {
+        "hanzi": "我们不是坐出租车来的。",
+        "pinyin": "Wo3men5 bu4 shi4 zuo4 chu1zu1che1 lai2 de5.",
+        "english": "We did not come by taxi."
+      },
+      {
+        "hanzi": "明天是2014年5月11号。",
+        "pinyin": "Ming2tian1 shi4 er4 ling2 yi1 si4 nian2 wu3 yue4 shi2 yi1 hao4.",
+        "english": "Tomorrow is May 11th, 2014."
+      },
+      {
+        "hanzi": "今天几号？星期几？",
+        "pinyin": "Jin1tian1 ji3 hao4? Xing1qi1 ji3?",
+        "english": "What is today's date? What day of the week is it?"
+      },
+      {
+        "hanzi": "今天9月10号，星期三。",
+        "pinyin": "Jin1tian1 jiu3 yue4 shi2 hao4, xing1qi1 san1.",
+        "english": "Today is September 10th, Wednesday."
+      },
+      {
+        "hanzi": "我们是2011年9月认识的。",
+        "pinyin": "Wo3men5 shi4 er4 ling2 yi1 yi1 nian2 jiu3 yue4 ren4shi5 de5.",
+        "english": "We met in September, 2011."
+      },
+      {
+        "hanzi": "她们是什么时候认识的？",
+        "pinyin": "Ta1men5 shi4 shen2me shi2hou4 ren4shi5 de5?",
+        "english": "When did they first meet?"
+      },
+      {
+        "hanzi": "她们是在哪儿认识的？",
+        "pinyin": "Ta1men5 shi4 zai4 na3r5 ren4shi5 de5?",
+        "english": "Where did they meet each other?"
+      },
+      {
+        "hanzi": "他们是怎么去饭店的？",
+        "pinyin": "Ta1men5 shi4 zen3me qu4 fan4dian4 de5?",
+        "english": "How did they go to the hotel?"
+      },
+      {
+        "hanzi": "李先生是坐出租车去饭店的吗？",
+        "pinyin": "Li3 xian1sheng5 shi4 zuo4 chu1zu1che1 qu4 fan4dian4 de5 ma5?",
+        "english": "Did Mr. Li go to the hotel by taxi?"
+      },
+      {
+        "hanzi": "李小姐是怎么来北京的？",
+        "pinyin": "Li3 xiao3jie5 shi4 zen3me lai2 Bei3jing1 de5?",
+        "english": "How did Miss Li come to Beijing?"
+      },
+      {
+        "hanzi": "这个是在哪儿买的？",
+        "pinyin": "Zhe4ge5 shi4 zai4 na3r5 mai3 de5?",
+        "english": "Where was this bought?"
+      },
+      {
+        "hanzi": "在商店买的。",
+        "pinyin": "Zai4 shang1dian4 mai3 de5.",
+        "english": "It was bought at a shop."
+      },
+      {
+        "hanzi": "什么时候买的？",
+        "pinyin": "Shen2me shi2hou4 mai3 de5?",
+        "english": "When was it bought?"
+      },
+      {
+        "hanzi": "昨天买的。",
+        "pinyin": "Zuo2tian1 mai3 de5.",
+        "english": "It was bought yesterday."
+      },
+      {
+        "hanzi": "你是什么时候开始学汉语的？",
+        "pinyin": "Ni3 shi4 shen2me shi2hou4 kai1shi3 xue2 Han4yu3 de5?",
+        "english": "When did you start learning Chinese?"
+      },
+      {
+        "hanzi": "你是在哪儿学的？",
+        "pinyin": "Ni3 shi4 zai4 na3r5 xue2 de5?",
+        "english": "Where did you learn it?"
+      },
+      {
+        "hanzi": "我们是在巴黎认识的。",
+        "pinyin": "Wo3men5 shi4 zai4 Ba1li2 ren4shi5 de5.",
+        "english": "We met in Paris."
+      },
+      {
+        "hanzi": "我们是在巴黎买的。",
+        "pinyin": "Wo3men5 shi4 zai4 Ba1li2 mai3 de5.",
+        "english": "We bought it in Paris."
+      },
+      {
+        "hanzi": "我没看见李老师，她是什么时候来的？",
+        "pinyin": "Wo3 mei2 kan4jian4 Li3 lao3shi1, ta1 shi4 shen2me5 shi2hou5 lai2 de5?",
+        "english": "I didn't see Teacher Li. When did she come?"
+      },
+      {
+        "hanzi": "我没看见李老师，她是什么时候认识的？",
+        "pinyin": "Wo3 mei2 kan4jian4 Li3 lao3shi1, ta1 shi4 shen2me5 shi2hou5 ren4shi5 de5?",
+        "english": "I didn't see Teacher Li. When did she meet (them)?"
+      },
+      {
+        "hanzi": "这些衣服不是今天买的，是昨天买的。",
+        "pinyin": "Zhe4xie1 yi1fu5 bu4 shi4 jin1tian1 mai3 de5, shi4 zuo2tian1 mai3 de5.",
+        "english": "These clothes were not bought today; they were bought yesterday."
+      },
+      {
+        "hanzi": "这些衣服不是今天来的，是昨天买的。",
+        "pinyin": "Zhe4xie1 yi1fu5 bu4 shi4 jin1tian1 lai2 de5, shi4 zuo2tian1 mai3 de5.",
+        "english": "These clothes did not arrive today; they were bought yesterday."
+      },
+      {
+        "hanzi": "我们是一起坐飞机来的，我不喜欢坐出租车。",
+        "pinyin": "Wo3men5 shi4 yi4qi3 zuo4 fei1ji1 lai2 de5, wo3 bu4 xi3huan5 zuo4 chu1zu1che1.",
+        "english": "We came together by plane; I don't like taking taxis."
+      },
+      {
+        "hanzi": "我们是一起开车来的，我不喜欢坐出租车。",
+        "pinyin": "Wo3men5 shi4 yi4qi3 kai1 che1 lai2 de5, wo3 bu4 xi3huan5 zuo4 chu1zu1che1.",
+        "english": "We drove here together; I don't like taking taxis."
+      },
+      {
+        "hanzi": "我是2011年9月开始学汉语的。",
+        "pinyin": "Wo3 shi4 er4 ling2 yi1 yi1 nian2 jiu3 yue4 kai1shi3 xue2 Han4yu3 de5.",
+        "english": "I started learning Chinese in September 2011."
+      },
+      {
+        "hanzi": "我是在学校学的。",
+        "pinyin": "Wo3 shi4 zai4 xue2xiao4 xue2 de5.",
+        "english": "I studied at school."
+      },
+      {
+        "hanzi": "我是坐飞机来北京的。",
+        "pinyin": "Wo3 shi4 zuo4 fei1ji1 lai2 Bei3jing1 de5.",
+        "english": "I came to Beijing by plane."
+      }
+    ],
+    "fill_in_the_blank": [
+      {
+        "question": "你和李小姐___什么时候认识___？(When did you and Miss Li first meet?)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "我们___2011年9月认识___。(We met in September, 2011.)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "你们在哪儿认识___？(Where did you meet each other?)",
+        "answer": "的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "我们___在学校认识___，她是我大学同学。(We met in our university. She was my classmate.)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "你们___怎么来饭店___？(How did you come here?)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "我们___坐出租车来___。(We came by taxi.)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "他___和朋友一起开车来___。(He drove here with his friend.)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "您___坐飞机来北京___？(You came to Beijing by plane, didn't you?)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "我___昨天来___。(I came yesterday.)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "这___在北京买___。(This was bought in Beijing.)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "我不___昨天来___。(I did not come yesterday.)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "这不___在北京买___。(This was not bought in Beijing.)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "我们不___坐出租车来___。(We did not come by taxi.)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "这个___在哪儿买___？(Where was this bought?)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "你___什么时候开始学汉语___？(When did you start learning Chinese?)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      },
+      {
+        "question": "你___在哪儿学___？(Where did you learn it?)",
+        "answer": "是……的",
+        "tags": [
+          "是……的"
+        ]
+      }
+    ],
+    "proper_nouns": [
+      {
+        "hanzi": "北京",
+        "pinyin": "Bei3jing1",
+        "english": "Beijing"
+      },
+      {
+        "hanzi": "巴黎",
+        "pinyin": "Ba1li2",
+        "english": "Paris"
+      },
+      {
+        "hanzi": "李小姐",
+        "pinyin": "Li3 xiao3jie5",
+        "english": "Miss Li (name)"
+      },
+      {
+        "hanzi": "李先生",
+        "pinyin": "Li3 xian1sheng5",
+        "english": "Mr. Li (name)"
+      },
+      {
+        "hanzi": "张先生",
+        "pinyin": "Zhang1 xian1sheng5",
+        "english": "Mr. Zhang (name)"
+      },
+      {
+        "hanzi": "小王",
+        "pinyin": "Xiao3 Wang2",
+        "english": "Xiao Wang (name)"
+      },
+      {
+        "hanzi": "麦当劳",
+        "pinyin": "Mai4dang1lao2",
+        "english": "McDonald's"
+      },
+      {
+        "hanzi": "奥运会",
+        "pinyin": "Ao4yun4hui4",
+        "english": "Olympic Games"
       }
     ]
   }

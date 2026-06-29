@@ -186,7 +186,13 @@ Fill in each template 2-3 times using ONLY vocabulary, names, and numbers explic
     response = client.messages.create(
         model=MODEL,
         max_tokens=MAX_TOKENS,
-        system=sop,
+        system=[
+            {
+                "type": "text",
+                "text": sop,
+                "cache_control": {"type": "ephemeral"},
+            }
+        ],
         messages=[{"role": "user", "content": prompt}]
     )
 

@@ -25,6 +25,13 @@ else:
 def on_startup():
     Base.metadata.create_all(bind=engine)
     init_db()
+    # clear any leftover audio files from previous sessions
+    import shutil
+    cache_dir = "./audio_cache"
+    if os.path.exists(cache_dir):
+        shutil.rmtree(cache_dir)
+        os.makedirs(cache_dir)
+    print("Audio cache cleared on startup.")
 
 # TODO: include routers as you build them
 # from api.v1.endpoints.auth import router as auth_router

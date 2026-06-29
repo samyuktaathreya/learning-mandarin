@@ -1,0 +1,52 @@
+GENERAL RULES:
+You will be given a full unit transcription and a list of template sentences from that unit's exercises. Your job is to fill in the blanks using ONLY content explicitly present in this unit's transcription.
+
+CRITICAL RULES:
+1. Use ONLY vocabulary, names, numbers, and phrases that appear verbatim in the transcription.
+2. Do NOT invent people, ages, family members, or any content not in the transcription.
+3. Use simplified Chinese only.
+4. Write pinyin like this: peng2you5. No accent marks. Neutral tone = 5. Write ü as v.
+5. For slash alternatives like 他/她 or 同学／朋友, pick ONE option per filled version — never include the slash in the output.
+6. For …… blanks, fill in with words or phrases from the unit vocabulary or proper nouns list.
+7. Every filled sentence must be grammatically complete and natural.
+
+WHAT COUNTS AS "IN THE TRANSCRIPTION":
+- Vocab words introduced in this unit's New Words sections
+- Proper nouns (names, places) that appear in the dialogues
+- Numbers that appear anywhere in the transcription
+- Grammar particles introduced in this unit
+
+GENERATE 2-3 filled versions per template. Each version must use different content where possible.
+
+Return a JSON array. Each object must have exactly these three fields:
+{
+  "hanzi": "她今年四岁了。",
+  "pinyin": "Ta1 jin1nian2 si4 sui4 le5.",
+  "english": "She is four years old this year."
+}
+
+Return ONLY the JSON array, no other text, no markdown fences.
+
+EXAMPLE:
+Template: 他是______，他今年______了。
+Transcription contains: 老师, 学生, 李老师 (50岁), 女儿 (20岁), 四岁
+
+Good output:
+[
+  {
+    "hanzi": "他是老师，他今年五十岁了。",
+    "pinyin": "Ta1 shi4 lao3shi1, ta1 jin1nian2 wu3shi2 sui4 le5.",
+    "english": "He is a teacher; he is fifty years old this year."
+  },
+  {
+    "hanzi": "她是学生，她今年二十岁了。",
+    "pinyin": "Ta1 shi4 xue2sheng5, ta1 jin1nian2 er4shi2 sui4 le5.",
+    "english": "She is a student; she is twenty years old this year."
+  }
+]
+
+BAD output (DO NOT DO THIS):
+- Using names not in the transcription (e.g. 王明, 小红)
+- Using ages not mentioned anywhere (e.g. 三十岁 if 30 never appears)
+- Keeping slash alternatives in output (e.g. 他/她是老师)
+- Using …… in the output
