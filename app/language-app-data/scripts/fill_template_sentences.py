@@ -73,20 +73,21 @@ def has_chinese(text: str) -> bool:
     return bool(re.search(r'[\u4e00-\u9fff]', text))
 
 
+def has_parenthetical_hint_name(text: str) -> bool:
+    """
+    Detect templates with a name given only as a picture-description hint,
+    e.g. 他是乔布斯(Steve Jobs)，他是____人。
+    These test a name the student was never taught and should be skipped.
+    """
+    return bool(re.search(r'[\u4e00-\u9fff]+\([A-Za-z][A-Za-z\s]*\)', text))
+
+
 def is_template_sentence(text: str) -> bool:
-    """
-    A template sentence has Chinese characters AND at least one of:
-    - blanks (____)
-    - ellipsis placeholders (……)
-    - slash alternatives (他/她, 同学／朋友)
-    
-    Must be at least 4 characters to avoid single word warmup items.
-    Must NOT be a pure vocab/picture matching item (those are short and
-    have no grammatical structure).
-    """
     if not has_chinese(text):
         return False
     if len(text.strip()) < 4:
+        return False
+    if has_parenthetical_hint_name(text):
         return False
 
     has_blank = "______" in text or "___" in text
