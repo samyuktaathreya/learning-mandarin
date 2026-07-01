@@ -22,7 +22,7 @@ Skip the index step if index_output.json already exists:
 import sys
 import traceback
 
-UNITS_TO_PROCESS = [3]   # e.g. [3, 4, 5] or None for all
+UNITS_TO_PROCESS = [3,4,5]   # e.g. [3, 4, 5] or None for all
 SKIP_INDEX = False        # set True to skip parse_index.py if already done
 
 
