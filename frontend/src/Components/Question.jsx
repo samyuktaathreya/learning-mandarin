@@ -42,8 +42,9 @@ export default function Question({
     lastUserAnswer,
     onSubmit,
     onWrongContinue,
+    onMarkCorrect,
     onPlayAudio,
-    debug
+    debug,
 }) {
     const showReplayButton =
         currentQuestionObj.question_type !== "fill in the blank" &&
@@ -86,7 +87,7 @@ export default function Question({
                 <div>
                     <p>You answered: <strong>{lastUserAnswer}</strong></p>
                     <p>Correct answer: <strong>{currentQuestionObj.answer}</strong></p>
-                    {isListening && <p>Pinyin: <strong>{correctPinyin}</strong></p>}
+                    {isListening && correctPinyin && <p>Pinyin: <strong>{correctPinyin}</strong></p>}
                     <button type="button" onClick={onWrongContinue}>Continue</button>
                 </div>
             )}
@@ -101,10 +102,8 @@ export default function Question({
                 </form>
             )}
 
-            {debug && (
-                <button type="button" onClick={() => onWrongContinue(true)}>
-                    ✓ Mark correct (debug)
-                </button>
+            {debug && !isWrong && (
+                <button type="button" onClick={onMarkCorrect}>✓ Mark correct (debug)</button>
             )}
         </div>
     );

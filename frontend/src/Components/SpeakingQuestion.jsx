@@ -21,8 +21,10 @@ export default function SpeakingQuestion({
     onStartRecording,
     onStopRecording,
     onAdvanceQuestion,
+    onMarkCorrect,
     onTryAgain,
     onPlayAudio,
+    debug,
 }) {
     const isUnitTest = sessionType === "unit_test";
 
@@ -40,7 +42,6 @@ export default function SpeakingQuestion({
                 </>
             )}
 
-            {/* record button — hide once we have a result */}
             {!transcriptionResult && !recordingURL && (
                 <button type="button" onClick={isRecording ? onStopRecording : onStartRecording}
                     style={{ color: isRecording ? 'red' : 'inherit' }}>
@@ -50,7 +51,6 @@ export default function SpeakingQuestion({
 
             {isTranscribing && <p>Transcribing...</p>}
 
-            {/* playback + skip always available after recording */}
             {recordingURL && !isTranscribing && (
                 <>
                     <button type="button" onClick={() => new Audio(recordingURL).play()}>🎧 Hear yourself</button>
@@ -58,7 +58,6 @@ export default function SpeakingQuestion({
                 </>
             )}
 
-            {/* single syllable: self-grade */}
             {isSingleSyllable && recordingURL && !isTranscribing && (
                 <div>
                     <p>Did you say it right?</p>
@@ -67,18 +66,17 @@ export default function SpeakingQuestion({
                 </div>
             )}
 
-            {/* multi syllable: Azure grading */}
             {!isSingleSyllable && transcriptionResult && (
                 transcriptionResult.error
                     ? <div>
                         <p style={{ color: 'orange' }}>⚠️ Transcription failed — skip or try again</p>
                         <button onClick={onTryAgain}>Try Again</button>
-                    </div>
+                      </div>
                     : transcriptionResult.hallucination
                         ? <div>
                             <p style={{ color: 'orange' }}>⚠️ Couldn't understand — try again closer to the mic</p>
                             <button onClick={onTryAgain}>Try Again</button>
-                        </div>
+                          </div>
                         : <div>
                             <p>You said: <strong>{transcriptionResult.transcription}</strong> ({transcriptionResult.transcription_pinyin})</p>
                             <p>Expected: <strong>{currentQuestionObj.answer}</strong> ({transcriptionResult.expected_pinyin})</p>
@@ -87,7 +85,11 @@ export default function SpeakingQuestion({
                                 : <p style={{ color: 'red' }}>✗ Not quite — check your tones</p>}
                             <button onClick={() => onAdvanceQuestion(transcriptionResult.is_correct)}>Continue</button>
                             <button onClick={onTryAgain}>Try Again</button>
-                        </div>
+                          </div>
+            )}
+
+            {debug && (
+                <button type="button" onClick={onMarkCorrect}>✓ Mark correct (debug)</button>
             )}
         </div>
     );

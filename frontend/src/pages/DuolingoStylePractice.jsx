@@ -6,8 +6,6 @@ import Question from '../Components/Question';
 import SpeakingQuestion from '../Components/SpeakingQuestion';
 import Results from '../Components/Results';
 
-const DEBUG = true;
-
 const USER_ID = 1;
 
 const clean = (str) => {
@@ -31,6 +29,19 @@ const TRANSLATE_TO_ENGLISH_TYPES = new Set([
     "translate chinese sentence to english",
 ]);
 
+const playAudio = async (text, slow = false) => {
+    try {
+        const response = await fetch('/api/audio', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text, slow }),
+        });
+        const { audio } = await response.json();
+        new Audio(`data:audio/mpeg;base64,${audio}`).play();
+    } catch (error) {
+        console.error("Failed to play audio", error);
+    }
+};
 
 export default function DuolingoStyleQuestions() {
     const [questions, setQuestions] = useState([]);
@@ -45,30 +56,6 @@ export default function DuolingoStyleQuestions() {
     const [debugMode, setDebugMode] = useState(false);
     const [progress, setProgress] = useState(null);
     const [selectedUnit, setSelectedUnit] = useState(null);
-    const [lastUserAnswer, setLastUserAnswer] = useState("");
-
-    const currentAudioRef = useRef(null);
-
-    const playAudio = async (text, slow = false) => {
-        // stop any currently playing audio
-        if (currentAudioRef.current) {
-            currentAudioRef.current.pause();
-            currentAudioRef.current.currentTime = 0;
-        }
-        try {
-            const response = await fetch('/api/audio', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text, slow }),
-            });
-            const { audio } = await response.json();
-            const audioEl = new Audio(`data:audio/mpeg;base64,${audio}`);
-            currentAudioRef.current = audioEl;
-            audioEl.play();
-        } catch (error) {
-            console.error("Failed to play audio", error);
-        }
-    };
 
     // recording state
     const [isRecording, setIsRecording] = useState(false);
@@ -91,8 +78,6 @@ export default function DuolingoStyleQuestions() {
 
     useEffect(() => {
         if (!currentQuestionObj) return;
-        console.log('QUESTION:', JSON.stringify(currentQuestionObj, null, 2));
-
         setTranscriptionResult(null);
         setIsWrong(false);
         if (recordingURL) { URL.revokeObjectURL(recordingURL); setRecordingURL(null); }
@@ -198,7 +183,7 @@ export default function DuolingoStyleQuestions() {
                 if (is_correct) { advanceQuestion(true); return; }
             } catch (err) { console.error("Grading failed", err); }
         }
-        setLastUserAnswer(userAnswer);
+
         setIsWrong(true);
         setUserAnswer("");
     };
@@ -287,9 +272,9 @@ export default function DuolingoStyleQuestions() {
                         onStartRecording={startRecording}
                         onStopRecording={stopRecording}
                         onAdvanceQuestion={advanceQuestion}
+                        onMarkCorrect={() => advanceQuestion(true)}
                         onTryAgain={handleTryAgain}
                         onPlayAudio={playAudio}
-                        debug={DEBUG}
                       />
                     : <Question
                         currentQuestionObj={currentQuestionObj}
@@ -302,9 +287,8 @@ export default function DuolingoStyleQuestions() {
                         isWrong={isWrong}
                         onSubmit={handleSubmit}
                         onWrongContinue={() => advanceQuestion(false, true)}
+                        onMarkCorrect={() => advanceQuestion(true)}
                         onPlayAudio={playAudio}
-                        lastUserAnswer={lastUserAnswer}
-                        debug={DEBUG}
                       />
                 }
             </div>

@@ -1,0 +1,67 @@
+Your only job is to extract sentences and generate fill-in-the-blank questions from the provided unit transcription. You will also receive the grammar markers for this unit so you know which words to blank. Output nothing else — no vocab, no grammar markers.
+
+The transcription was produced by an OCR step and may contain pinyin with accent marks — convert per the rules below.
+
+PINYIN RULES:
+1. Write pinyin like this: peng2you5 — tone number trailing each syllable, no accent marks.
+2. Neutral tone = 5. Write ü as v. Every syllable must have exactly one tone number (1-5).
+3. Use conversational tones, not citation tones. 朋友 = peng2you5 (not peng2you3).
+4. Tone sandhi — apply these before writing pinyin:
+   - 不 before tone 4 → bu2. 不是 = bu2 shi4. 不去 = bu2 qu4. Before tones 1/2/3 stays bu4.
+   - 一 before tone 4 → yi2. 一 before tones 1/2/3 → yi4. Alone or final → yi1.
+   - Tone 3 + tone 3 → tone 2 + tone 3. 你好 = ni2 hao3.
+5. Examples: 什么 = shen2me5. 名字 = ming2zi5. 学生 = xue2sheng5. 同学 = tong2xue2.
+
+SENTENCE EXTRACTION RULES:
+- Include ALL complete sentences from the unit: dialogues, notes, grammar examples, pinyin sections.
+- SKIP any sentence containing: blanks (______), ellipsis (……), slash alternatives (他/她, A／B), or parenthetical English hints like 乔布斯(Steve Jobs).
+- Do not duplicate sentences.
+- Do NOT invent sentences. Only use what is in the transcription.
+
+FILL-IN-THE-BLANK RULES:
+- Use ONLY sentences from the sentences array above.
+- Only blank words that appear in the grammar_markers list provided to you.
+- The non-blanked text must match the original sentence character-for-character including punctuation.
+- Use ___ (three underscores) for the blank.
+- Append the English translation in parentheses after the sentence.
+- If a sentence contains multiple different grammar markers, create one question per marker.
+- If the same marker appears multiple times in one sentence, create only one question for it.
+- Never blank a word that is not in the grammar_markers list, even if it seems important.
+
+OUTPUT FORMAT — return only this JSON object, no other text:
+{
+  "sentences": [
+    {
+      "hanzi": "我不是老师，我是学生。",
+      "pinyin": "Wo3 bu2 shi4 lao3shi1, wo3 shi4 xue2sheng5.",
+      "english": "I am not a teacher, I am a student."
+    },
+    {
+      "hanzi": "她今年四岁了。",
+      "pinyin": "Ta1 jin1nian2 si4 sui4 le5.",
+      "english": "She is four years old this year."
+    },
+    {
+      "hanzi": "你家有几口人？",
+      "pinyin": "Ni3 jia1 you3 ji3 kou3 ren2?",
+      "english": "How many people are in your family?"
+    }
+  ],
+  "fill_in_the_blank": [
+    {
+      "question": "我不是老师，我是___。(I am not a teacher, I am a student.)",
+      "answer": "学生",
+      "tags": ["学生"]
+    },
+    {
+      "question": "她今年四岁___。(She is four years old this year.)",
+      "answer": "了",
+      "tags": ["了"]
+    },
+    {
+      "question": "你家有几___人？(How many people are in your family?)",
+      "answer": "口",
+      "tags": ["口"]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+Your job is to extract all entries from a Chinese textbook vocabulary index. 
+The index has two tables: "New Words" (生词) and "Proper Nouns" (专有名词). Extract every row from both tables.
+
+The index uses pinyin with accent marks. Convert all pinyin to tone-number format per the rules below.
+
+PINYIN RULES:
+1. Write pinyin like this: peng2you5 — tone number trailing each syllable, no accent marks.
+2. Neutral tone = 5. Write ü as v. Every syllable must have exactly one tone number (1-5).
+3. Use conversational tones, not citation tones. 朋友 = peng2you5 (not peng2you3).
+4. Tone sandhi — apply before writing:
+   - 不 before tone 4 → bu2. 不是 = bu2 shi4. Before tones 1/2/3 stays bu4.
+   - 一 before tone 4 → yi2. Before tones 1/2/3 → yi4. Alone or final → yi1.
+   - Tone 3 + tone 3 → tone 2 + tone 3. 你好 = ni2 hao3.
+5. Syllable-dividing apostrophe: when a syllable starting with a/o/e follows another syllable, insert an apostrophe. 西安 = Xi1'an1. 女儿 = nv3'er2.
+6. Examples: 什么 = shen2me5. 名字 = ming2zi5. 学生 = xue2sheng5. 同学 = tong2xue2. 爸爸 = ba4ba5. 杯子 = bei1zi5.
+
+PART OF SPEECH MAPPING (from index abbreviations):
+- n. → noun
+- v. → verb
+- adj. → adjective
+- adv. → adverb
+- pron. → pronoun
+- num. → numeral
+- m. → measure_word
+- part. → particle
+- (blank) → other
+
+TYPE RULES:
+- Entries from "New Words" with part of speech m. or part. → type: "grammar"
+- All other entries from "New Words" → type: "vocab"
+- All entries from "Proper Nouns" table → type: "proper_noun" (no part_of_speech field)
+- Lesson numbers like "5 (notes)" → use just the number: 5
+
+Never skip an entry. The alphabet divider rows (A, B, C...) are section headers, not entries — skip them.
+
+For proper_nouns, the "english" field is required. Always include the 
+meaning from the 词义/Meaning column. Never leave it empty or null.
+Examples: 大卫 → "David", 美国 → "the United States of America", 
+李月 → "Li Yue, name of a person"
+
+OUTPUT FORMAT — return only this JSON object, no other text:
+{
+  "vocab": [
+    {
+      "hanzi": "朋友",
+      "pinyin": "peng2you5",
+      "english": "friend",
+      "part_of_speech": "noun",
+      "unit": 4
+    },
+    {
+      "hanzi": "喝",
+      "pinyin": "he1",
+      "english": "to drink",
+      "part_of_speech": "verb",
+      "unit": 8
+    }
+  ],
+  "grammar": [
+    {
+      "hanzi": "了",
+      "pinyin": "le5",
+      "english": "indicates a completed action or change of state",
+      "part_of_speech": "particle",
+      "unit": 5
+    },
+    {
+      "hanzi": "个",
+      "pinyin": "ge4",
+      "english": "general measure word",
+      "part_of_speech": "measure_word",
+      "unit": 4
+    }
+  ],
+  "proper_nouns": [
+    {
+      "hanzi": "中国",
+      "pinyin": "Zhong1guo2",
+      "english": "China",
+      "unit": 3
+    },
+    {
+      "hanzi": "李月",
+      "pinyin": "Li3 Yue4",
+      "english": "Li Yue, name of a person",
+      "unit": 3
+    }
+  ]
+}
+
+Return only the JSON object. Do not write any explanation, preamble, or notes before or after it.

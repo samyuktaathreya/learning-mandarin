@@ -158,9 +158,9 @@ def generate_learning_session(db: Session, user_id: int, unit: int):
         questions = inverted_index.get(tag, [])
         available = [
             q for q in questions
-            if q["question_type"] == qt
+            if q.get("unit") == unit
+            and q["question_type"] == question_type
             and q["id"] not in used_ids
-            and q.get("unit") in graduated_units  # add this line
         ]
 
         if available:
@@ -190,7 +190,12 @@ def generate_srs_review_session(db: Session, user_id: int, graduated_units: set)
 
         for qt in QUESTION_TYPE_PRIORITY:
             questions = inverted_index.get(tag, [])
-            available = [q for q in questions if q["question_type"] == qt and q["id"] not in used_ids]
+            available = [
+                q for q in questions
+                if q["question_type"] == qt
+                and q["id"] not in used_ids
+                and q.get("unit") in graduated_units
+            ]
             if available:
                 chosen = random.choice(available)
                 question_set.append(chosen)

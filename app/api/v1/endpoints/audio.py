@@ -97,6 +97,9 @@ async def clear_audio():
 # ----------------------------- STT HELPERS -----------------------------
 
 def to_numbered_pinyin(text: str) -> str:
+    # strip punctuation before converting
+    text = re.sub(r'[。？！，、；：""''…\s]', '', text)
+    
     if text in PINYIN_OVERRIDES:
         return PINYIN_OVERRIDES[text]
 
@@ -109,7 +112,6 @@ def to_numbered_pinyin(text: str) -> str:
         else:
             parts.append(syllables[0])
     return ''.join(parts).lower()
-
 
 VALID_INITIALS = ['zh', 'ch', 'sh', 'b', 'p', 'm', 'f', 'd', 't', 'n', 'l',
                    'g', 'k', 'h', 'j', 'q', 'x', 'r', 'z', 'c', 's', 'y', 'w']

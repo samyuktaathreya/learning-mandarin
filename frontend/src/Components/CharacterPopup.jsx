@@ -3,9 +3,9 @@ import { useState, useEffect, useRef } from 'react';
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 
 /**
- * Wraps a string so every Chinese character is clickable.
- * When clicked, checks the question's tags to see if the character
- * belongs to a longer vocab word, then looks up that word.
+ * Wraps a string so every Chinese word is clickable, with a dotted
+ * underline spanning the whole word (not per-character) to signal
+ * that it's interactive.
  *
  * Usage: <ClickableText text="你好世界" tags={["你好", "世界"]} isUnitTest={false} />
  */
@@ -22,23 +22,16 @@ export function ClickableText({ text, tags = [], isUnitTest }) {
     if (!text) return null;
     if (isUnitTest) return <span>{text}</span>;
 
-    const findWordForChar = (char) => {
-        // find the longest tag that contains this character
-        const matches = tags
-            .filter(tag => hasChinese(tag) && tag.includes(char))
-            .sort((a, b) => b.length - a.length); // longest first
-        return matches[0] || char;
-    };
+    // sort tags longest-first so multi-char words are matched before single chars
+    const sortedTags = [...tags].filter(hasChinese).sort((a, b) => b.length - a.length);
 
-    const handleClick = async (e, char) => {
+    const handleClick = (e, word) => {
         e.stopPropagation();
-        const word = findWordForChar(char);
         const rect = e.target.getBoundingClientRect();
         const containerRect = containerRef.current.getBoundingClientRect();
         const x = rect.left - containerRect.left;
         const y = rect.bottom - containerRect.top + 4;
 
-        // if same word clicked again, close
         if (popup && popup.word === word) {
             setPopup(null);
             return;
@@ -46,45 +39,73 @@ export function ClickableText({ text, tags = [], isUnitTest }) {
 
         setPopup({ word, pinyin: '...', english: null, x, y });
 
-        try {
-            const res = await fetch(`/api/lookup/${encodeURIComponent(word)}`);
-            const data = await res.json();
-            setPopup({ word, pinyin: data.pinyin || '—', english: data.english || null, x, y });
-        } catch {
-            setPopup({ word, pinyin: '—', english: null, x, y });
-        }
+        fetch(`/api/lookup/${encodeURIComponent(word)}`)
+            .then(res => res.json())
+            .then(data => setPopup({ word, pinyin: data.pinyin || '—', english: data.english || null, x, y }))
+            .catch(() => setPopup({ word, pinyin: '—', english: null, x, y }));
     };
 
-    // split text into chinese/non-chinese segments
-    const segments = [];
-    let current = '';
-    let currentIsChinese = false;
+    // walk through the text and group characters into clickable units:
+    // - a run of characters matching a tag (longest match wins) becomes one unit
+    // - any character not covered by a tag becomes its own single-character unit
+    // - non-chinese characters are passed through as plain text
+    const units = [];
+    let i = 0;
+    while (i < text.length) {
+        const char = text[i];
 
-    for (const char of text) {
-        const isCh = hasChinese(char);
-        if (isCh !== currentIsChinese && current) {
-            segments.push({ text: current, isChinese: currentIsChinese });
-            current = '';
+        if (!hasChinese(char)) {
+            // accumulate consecutive non-chinese chars into one plain unit
+            let j = i;
+            let buf = '';
+            while (j < text.length && !hasChinese(text[j])) {
+                buf += text[j];
+                j++;
+            }
+            units.push({ text: buf, clickable: false });
+            i = j;
+            continue;
         }
-        currentIsChinese = isCh;
-        current += char;
+
+        // try to match the longest tag starting at position i
+        let matchedTag = null;
+        for (const tag of sortedTags) {
+            if (text.startsWith(tag, i)) {
+                matchedTag = tag;
+                break;
+            }
+        }
+
+        if (matchedTag) {
+            units.push({ text: matchedTag, clickable: true, word: matchedTag });
+            i += matchedTag.length;
+        } else {
+            units.push({ text: char, clickable: true, word: char });
+            i += 1;
+        }
     }
-    if (current) segments.push({ text: current, isChinese: currentIsChinese });
 
     return (
         <span ref={containerRef} style={{ position: 'relative', display: 'inline' }}>
-            {segments.map((seg, i) =>
-                seg.isChinese
-                    ? [...seg.text].map((char, j) => (
+            {units.map((unit, i) =>
+                unit.clickable
+                    ? (
                         <span
-                            key={`${i}-${j}`}
-                            onClick={(e) => handleClick(e, char)}
-                            style={{ cursor: 'pointer' }}
+                            key={i}
+                            onClick={(e) => handleClick(e, unit.word)}
+                            style={{
+                                cursor: 'pointer',
+                                textDecoration: 'underline',
+                                textDecorationStyle: 'dotted',
+                                textDecorationColor: 'currentColor',
+                                textUnderlineOffset: '3px',
+                                opacity: 0.95,
+                            }}
                         >
-                            {char}
+                            {unit.text}
                         </span>
-                    ))
-                    : <span key={i}>{seg.text}</span>
+                    )
+                    : <span key={i}>{unit.text}</span>
             )}
 
             {popup && (

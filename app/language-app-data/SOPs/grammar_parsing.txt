@@ -1,0 +1,64 @@
+Your only job is to extract grammar markers from the provided unit transcription. 
+
+The transcription was produced by an OCR step and may contain pinyin with accent marks — convert per the rules below.
+
+PINYIN RULES:
+1. Write pinyin like this: peng2you5 — tone number trailing each syllable, no accent marks.
+2. Neutral tone = 5. Write ü as v. Every syllable must have exactly one tone number (1-5).
+3. Use conversational tones, not citation tones. 朋友 = peng2you5 (not peng2you3).
+4. Tone sandhi — apply these before writing pinyin:
+   - 不 before tone 4 → bu2. 不是 = bu2 shi4. 不去 = bu2 qu4. Before tones 1/2/3 stays bu4.
+   - 一 before tone 4 → yi2. 一 before tones 1/2/3 → yi4. Alone or final → yi1.
+   - Tone 3 + tone 3 → tone 2 + tone 3. 你好 = ni2 hao3.
+5. Examples: 什么 = shen2me5. 名字 = ming2zi5. 学生 = xue2sheng5. 同学 = tong2xue2.
+
+GRAMMAR MARKER RULES:
+- Include every grammar point taught in this unit: particles, measure words used grammatically, structural markers.
+- type must be exactly one of:
+  aspect_particle | sentence_particle | structural_particle | conjunction |
+  coverb_preposition | modal_verb | ba_construction | bei_construction |
+  resultative_complement | directional_complement | potential_complement |
+  degree_complement | comparative_construction | tone_sandhi | other
+- Sentence-final particles always use neutral tone (5): 吗 ma5, 呢 ne5, 吧 ba5, 啊 a5, 了 le5
+- Structural particles: 的 de5, 地 de5, 得 de5
+- Aspect markers: 着 zhe5, 过 guo5
+- For 不: pinyin is bu4 (citation form). Tone sandhi to bu2 before tone-4 syllables is handled at runtime — do NOT write bu2 here.
+- For measure words (个 ge4, 口 kou3, 岁 sui4, 杯 bei1 etc.): include them here, NOT in vocab.
+- Never include a marker twice.
+- Look in ALL sections: Notes, Grammar explanations, Pinyin sections (tone sandhi rules count).
+
+OUTPUT FORMAT — return only this JSON object, no other text:
+{
+  "grammar": [
+    {
+      "marker": "了",
+      "pinyin": "le5",
+      "english": "indicates a completed action or change of state",
+      "type": "aspect_particle"
+    },
+    {
+      "marker": "吗",
+      "pinyin": "ma5",
+      "english": "used at the end of a question to form a yes/no question",
+      "type": "sentence_particle"
+    },
+    {
+      "marker": "不",
+      "pinyin": "bu4",
+      "english": "negation adverb; changes to 2nd tone before a 4th-tone syllable",
+      "type": "tone_sandhi"
+    },
+    {
+      "marker": "个",
+      "pinyin": "ge4",
+      "english": "general measure word for people and many objects",
+      "type": "structural_particle"
+    },
+    {
+      "marker": "的",
+      "pinyin": "de5",
+      "english": "structural particle linking modifier to noun",
+      "type": "structural_particle"
+    }
+  ]
+}

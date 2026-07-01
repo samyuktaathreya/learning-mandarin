@@ -74,12 +74,7 @@ def has_chinese(text: str) -> bool:
 
 
 def has_parenthetical_hint_name(text: str) -> bool:
-    """
-    Detect templates with a name given only as a picture-description hint,
-    e.g. 他是乔布斯(Steve Jobs)，他是____人。
-    These test a name the student was never taught and should be skipped.
-    """
-    return bool(re.search(r'[\u4e00-\u9fff]+\([A-Za-z][A-Za-z\s]*\)', text))
+    return bool(re.search(r'[\u4e00-\u9fff]+[（(][A-Za-z][A-Za-z\s]*[）)]', text))
 
 
 def is_template_sentence(text: str) -> bool:
