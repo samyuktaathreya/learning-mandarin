@@ -30,6 +30,7 @@ class QuestionType(str, Enum):
 BASE_DIR = Path(__file__).resolve().parent.parent
 INDEX_FILEPATH = BASE_DIR / "data" / "clean" / "index_output.json"
 UNITS_FILEPATH = BASE_DIR / "data" / "clean" / "units_output.json"
+LEGACY_UNITS_FILEPATH = BASE_DIR.parent / "language-app-data" / "data" / "clean" / "units_output.json"
 OUTPUT_FILEPATH = BASE_DIR / "data" / "clean" / "unit_questions_hsk1.json"
 BLOCKLIST_PATH = BASE_DIR / "remove_these_sentences" / "remove_these_sentences.txt"
 
@@ -166,7 +167,10 @@ def build_questions_for_unit(index_data, units_data, unit_number):
 
 def main():
     index_data = load_json(INDEX_FILEPATH)
-    units_data = load_json(UNITS_FILEPATH)
+    units_path = UNITS_FILEPATH if UNITS_FILEPATH.exists() else LEGACY_UNITS_FILEPATH
+    if not units_path.exists():
+        raise FileNotFoundError("Neither v2 nor legacy units_output.json exists")
+    units_data = load_json(units_path)
 
     all_questions = {}
     for unit_number in sorted({int(k) for k in units_data.keys()} | {item["unit"] for item in index_data.get("vocab", [])} | {item["unit"] for item in index_data.get("grammar", [])} | {item["unit"] for item in index_data.get("proper_nouns", [])}):

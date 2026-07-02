@@ -193,11 +193,15 @@ def _split_syllables(plain: str):
 
 
 def diacritic_to_numeric(pinyin: str) -> str:
-    """'Zhōngguó' -> 'Zhong1guo2'; 'péngyou' -> 'peng2you5'; neutral tone = 5."""
+    """Convert accented pinyin to the app's numeric form: 'Zhōngguó' -> 'Zhong1guo2'."""
+    pinyin = (pinyin or "").strip()
+    if not pinyin:
+        return ""
+    if re.search(r"[1-5]", pinyin):
+        return pinyin
     plain, tone_positions = _demark(pinyin)
     syllables = _split_syllables(plain)
     out, cursor = [], 0
-    # map absolute char positions (excluding separators) back onto syllables
     stripped = plain.replace(" ", "").replace("-", "").replace("'", "").replace("’", "")
     tones_stripped = {}
     j = 0

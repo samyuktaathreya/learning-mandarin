@@ -8,9 +8,14 @@ if SCRIPTS_DIR not in sys.path:
     sys.path.insert(0, SCRIPTS_DIR)
 
 import create_questions
+import vocab_index_parser
 
 
 class CreateQuestionsTests(unittest.TestCase):
+    def test_diacritic_to_numeric_preserves_numeric_input(self):
+        self.assertEqual(vocab_index_parser.diacritic_to_numeric("bu4"), "bu4")
+        self.assertEqual(vocab_index_parser.diacritic_to_numeric("péngyou"), "peng2you5")
+
     def test_build_questions_for_unit_uses_expected_schema(self):
         index_data = {
             "vocab": [

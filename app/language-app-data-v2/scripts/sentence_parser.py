@@ -67,6 +67,7 @@ SOURCES = {
 PINYIN_DICT_FILEPATH = BASE_DIR / "data" / "intermediate"
 PINYIN_DICT_FILENAME = "word_to_pinyin.json"
 UNIT_DICT_FILENAME = "word_to_unit.json"
+LEGACY_UNITS_OUTPUT_PATH = BASE_DIR.parent / "language-app-data" / "data" / "clean" / "units_output.json"
 
 OCR_CACHE_FILEPATH = BASE_DIR / "data" / "intermediate" / "OCR_cache"
 FORCE_OCR = False
@@ -523,6 +524,13 @@ def load_existing_source_output(source: str):
     return None
 
 
+def load_legacy_units_output():
+    if not LEGACY_UNITS_OUTPUT_PATH.exists():
+        return None
+    with open(LEGACY_UNITS_OUTPUT_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
 def run_source(source: str, word_to_pinyin: dict, word_to_unit: dict) -> list:
     cfg = SOURCES[source]
     sops = {
@@ -531,6 +539,19 @@ def run_source(source: str, word_to_pinyin: dict, word_to_unit: dict) -> list:
         "fitb_finder": load_sop(FITB_FINDER_FILENAME),
         "fitb_solver": load_sop(FITB_SOLVER_FILENAME),
     }
+    legacy = load_legacy_units_output()
+    if client is None and legacy is not None:
+        print(f"  [warning] {source}: using legacy units output because OCR is unavailable")
+        converted = []
+        for unit_key, unit_data in sorted(legacy.items(), key=lambda item: int(item[0])):
+            converted.append({
+                "unit": int(unit_key),
+                "sentences": unit_data.get("sentences", []),
+                "fill_in_the_blank": unit_data.get("fill_in_the_blank", []),
+                "counts": {"legacy": {"sentences_final": len(unit_data.get("sentences", [])), "fitb_questions_final": len(unit_data.get("fill_in_the_blank", []))}},
+            })
+        return converted
+
     pdf_path = os.path.join(str(cfg["PDF_FILEPATH"]), cfg["PDF_FILENAME"])
     if not os.path.exists(pdf_path):
         existing = load_existing_source_output(source)
