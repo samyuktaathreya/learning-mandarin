@@ -1,0 +1,326 @@
+## [Section: Unit Title]
+
+Nǐ érzi zài nǎr gōngzuò
+你儿子在哪儿工作
+Where does your son work
+
+## 热身 Warm-up
+
+给下面的词语选择对应的图片
+Match the pictures with the words.
+
+[illustration: row of pictures A-F showing a cat, dog, chair, hospital room, doctor, and father with child]
+
+bàba
+1 爸爸___
+
+yīshēng
+2 医生___
+
+yīyuàn
+3 医院___
+
+yǐzi
+4 椅子___
+
+māo
+5 猫___
+
+gǒu
+6 狗___
+
+## 课文 Text
+
+## 1 在家 At home (Audio: 09-1)
+
+Xiǎo māo zài nǎr?
+A: 小 猫 在 哪儿？
+
+Xiǎo māo zài nàr.
+B: 小 猫 在 那儿。
+
+Xiǎo gǒu zài nǎr?
+A: 小 狗 在 哪儿？
+
+Xiǎo gǒu zài yǐzi xiàmiàn.
+B: 小 狗 在椅子下面。
+
+[illustration: photo of a dog outdoors]
+
+*English Version*
+A: Where is the kitty?
+B: The kitty is over there.
+A: Where is the puppy?
+B: The puppy is under the chair.
+
+*New Words*
+
+| # | Character | Pinyin | Part of Speech | English |
+|---|-----------|--------|----------------|---------|
+| 1. | 小 | xiǎo | adj. | small, little |
+| 2. | 猫 | māo | n. | cat |
+| 3. | 在 | zài | v. | to be in/on/at |
+| 4. | 那儿 | nàr | pron. | there |
+| 5. | 狗 | gǒu | n. | dog |
+| 6. | 椅子 | yǐzi | n. | chair |
+| 7. | 下面（下） | xiàmiàn(xià) | n. | under, below |
+
+## 2 在车站 At the railway station (Audio: 09-2)
+
+[illustration: photo of a person in a white coat]
+
+Nǐ zài nǎr gōngzuò?
+A: 你在哪儿工作？
+
+Wǒ zài xuéxiào gōngzuò.
+B: 我 在 学校 工作。
+
+Nǐ érzi zài nǎr gōngzuò?
+A: 你儿子在哪儿工作？
+
+Wǒ érzi zài yīyuàn gōngzuò, tā shì yīshēng.
+B: 我儿子在医院 工作，他是 医生。
+
+*English Version*
+A: Where do you work?
+B: I work in a school.
+A: Where does your son work?
+B: My son works in a hospital. He is a doctor.
+
+*New Words*
+
+| # | Character | Pinyin | Part of Speech | English |
+|---|-----------|--------|----------------|---------|
+| 8. | 在 | zài | prep. | in/on/at |
+| 9. | 哪儿 | nǎr | pron. | where |
+| 10. | 工作 | gōngzuò | v./n. | to work; job |
+| 11. | 儿子 | érzi | n. | son |
+| 12. | 医院 | yīyuàn | n | hospital |
+| 13. | 医生 | yīshēng | n. | doctor |
+
+## 3 打电话 On the phone (Audio: 09-3)
+
+Nǐ bàba zài jiā ma?
+A: 你爸爸在家吗？
+
+Bú zài jiā.
+B: 不在家。
+
+Tā zài nǎr ne?
+A: 他在哪儿呢？
+
+Tā zài yīyuàn.
+B: 他 在 医院。
+
+[illustration: photo of people in a hospital room]
+
+*English Version*
+A: Is your father at home?
+B: No, he isn't.
+A: Where is he?
+B: He is in the hospital.
+
+*New Word*
+
+| # | Character | Pinyin | Part of Speech | English |
+|---|-----------|--------|----------------|---------|
+| 14. | 爸爸 | bàba | n. | father |
+
+## 注释 Notes
+
+## 1 动词"在" The Verb "在"
+
+"在"是动词，后边加上表示位置的词语做句子的谓语，用于指示人或者事物的位置。例如：
+
+"在" is a verb. When it is followed by a word of locality and acts as the predicate of a sentence, it indicates the location of somebody or something. For example:
+
+| Subject | Predicate | |
+|---------|-----------|--------------------------|
+| | 在 | Word of Locality/Direction |
+| 我朋友 | 在 | 学校。 |
+| 我妈妈 | 在 | 家。 |
+| 小狗 | 在 | 椅子下面。 |
+
+## 2 疑问代词"哪儿" The Interrogative Pronoun "哪儿"
+
+疑问代词"哪儿"用于疑问句中，询问人或事物的位置。例如：
+The interrogative pronoun "哪儿" is used to ask about the location of somebody or something. For example:
+
+1. （1）我的杯子在哪儿？
+2. （2）你的中国朋友在哪儿？
+3. （3）小猫在哪儿？
+
+## 3 介词"在" The Preposition "在"
+
+"在"也是介词，后边加上表示位置的词语，用于介绍动作行为发生的位置。例如：
+
+"在" can also act as a preposition, used before a word of locality to introduce the place where an action or behavior takes place. For example:
+
+| Subject | Predicate | | |
+|---------|-----------|--------------------------|------|
+| | 在 | Word of Locality/Direction | Verb |
+| 我 | 在 | 朋友家 | 喝茶。 |
+| 他们 | 在 | 学校 | 看书。 |
+| 我儿子 | 在 | 医院 | 工作。 |
+
+## 4 疑问助词"呢"（2） The Interrogative Particle "呢" (2)
+
+疑问助词"呢"用在句末，表示疑问，用于询问人或事物的位置。例如：
+Used at the end of a sentence, the interrogative particle "呢" asks about the location of somebody or something. For example:
+
+1. （1）我的小猫呢？
+2. （2）我的杯子呢？
+3. （3）他在哪儿呢？
+
+## 练习 Exercises
+
+## 1 分角色朗读课文 Role-play the dialogues.
+
+## 2 根据课文内容回答问题。 Answer the questions based on the dialogues.
+
+1 小狗在哪儿？Xiǎo gǒu zài nǎr?
+
+2 他在哪儿工作？Tā zài nǎr gōngzuò?
+
+3 他儿子在哪儿工作？Tā érzi zài nǎr gōngzuò?
+
+4 她爸爸在家吗？Tā bàba zài jiā ma?
+
+5 她爸爸在哪儿呢？Tā bàba zài nǎr ne?
+
+## 3 用本课新学的语言点和词语描述图片
+
+Describe the pictures using the newly-learned language points ard words.
+
+[illustration: picture of a cat sitting on a chair]
+
+zài
+___在___。
+
+[illustration: picture of a child on a chair]
+
+zài
+___在___。
+
+[illustration: picture of a doctor with a patient]
+
+Wǒ māma shì          tā zài
+我 妈妈是 ___，她在___。
+
+[illustration: picture of a young woman with books]
+
+Wǒ nǚ'ér shì          tā bù
+我 女儿是___，她不___。
+
+## 拼音 Pinyin
+
+双音节词语的声调搭配（4）：四声和各声调的搭配
+Tone Collocation in Disyllabic Words (4): 4th tone + 1st/2nd/3rd/4th tone
+
+[illustration: four tone diagrams showing tone combinations]
+
+miànbāo
+面包
+
+miàntiáo
+面条
+
+diànnǎo
+电脑
+
+diànhuà
+电话
+
+[illustration: photos of bread, noodles, computer, and telephone]
+
+听录音并跟读，注意声调的搭配 (Audio: 09-4)
+Listen to the recording and read after it. Pay attention to the collocation of tones.
+
+| | | | |
+|-----------|---------|----------|-----------|
+| xìatiān | qùnián | tiào wǔ | shuì jiào |
+| diàndēng | diànchí | diànyǐng | diànshì |
+| chàng gē | fùxí | Hànyǔ | Hànzì |
+| jiànkāng | dìtú | dìtiě | jiàn miàn |
+
+## 汉字 Characters
+
+## 1 认识独体字 Single-Component Characters
+
+（1）"在"，字形像草木初生于土上，现在意思是"存活、存在"。
+
+The original form of "在" is like grass sprouting from the earth. Now it means "to live/exist".
+
+[illustration: character evolution of 在 from ancient to modern form]
+
+zài
+十→扗→扗→在
+
+[illustration: stroke order table for 在]
+
+（2）"子"，本义是婴儿，现在意思很多，如"儿子"、"电子"。
+
+"子" originally meant "baby". Now it has many meanings, such as "儿子(son)" and "电子(electron)".
+
+[illustration: character evolution of 子 from ancient to modern form]
+
+zǐ
+[illustration: stroke order table for 子]
+
+（3）"工"，字形像工匠的曲尺，现在意思很多，如"工人"、"工作"。
+
+"工" was originally shaped like a craftsman's zigzag ruler. Now it has many meanings, such as "工人(worker)" and "工作(to work; job)".
+
+[illustration: character evolution of 工 from ancient to modern form]
+
+gōng
+[illustration: stroke order table for 工]
+
+## 2 汉字结构（4）：半包围结构 Structure of Chinese Characters (4): half-enclosure
+
+合体结构中还包括半包围结构和全包围结构（见第10课），本课的半包围结构又分为两面包围结构和三面包围结构。
+
+There are another two kinds of compound structures—the half-enclosure structure and the enclosure structure (see Lesson 10). The half-enclosure structure in this lesson includes the structure enclosed by two sides and the structure enclosed by three sides.
+
+| 结构 Structure | 例字 Example Characters | 图解 Illustrations |
+|----------------|------------------------|-------------------|
+| 半包围结构 half-enclosure | 店　diàn　store 习　xí　to study 这　zhè　this 同　tóng　same 凶　xiōng　fierce 医　yī　doctor | [illustration: example characters 店 习 这 同 凶 医] |
+
+## 3 汉字偏旁"辶"和"门" Chinese Radicals: "辶" and "门"
+
+| 偏旁 Radical | 解释 Explanation | 例字 Example Characters |
+|-------------|-----------------|------------------------|
+| 辶 | 走之旁，一般和走路有关系。 The radical "辶" is usually related to "walking". | 这　zhè　this 送　sòng　to send |
+| 门 | 门字框，一般和房间、房门有关。 The radical "门" is usually related to a room or a door. | 问　wèn　to ask 间　jiān　*a measure word for rooms* |
+
+## 运用 Application
+
+## 1 双人活动 Pair Work
+
+两人一组，根据实际情况进行问答练习。
+Work in pairs and ask and answer questions according to the actual situations.
+
+zài nǎr?
+例如：（1）A: ……在哪儿？
+
+zài
+B: ……在……
+
+zài nǎr gōngzuò?
+（2）A: ……在哪儿 工作？
+
+zài          gōngzuò，tā/tā shì
+B: ……在……工作，他/她是……
+
+## 2 小组活动 Group Work
+
+3~4人一组，互相介绍自己的朋友、同学的工作情况并记录，每组请一位同学报告情况。
+Work in groups of 3-4. Tell each other about the jobs of your friends or classmates and take notes Each group chooses one member to make a report.
+
+| | 朋友/同学 Friend/Classmate | 工作 Job |
+|---|--------------------------|---------|
+| 1 | 李朋 Lǐ Péng | 是医生，在医院工作。 Shì yīshēng，zài yīyuàn gōngzuò. |
+| | | |
+| | | |
+| | | |
+| | | |
