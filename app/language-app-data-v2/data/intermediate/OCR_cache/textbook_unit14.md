@@ -1,0 +1,322 @@
+## [Section: Unit Title]
+
+Tā măile bùshǎo yīfu
+她买了不少衣服
+She has bought quite a few clothes
+
+## 热身 Warm-up
+
+给下面的词语选择对应的图片
+Match the pictures with the words/phrases.
+
+[illustration: row 1, three photos labeled A, B, C — cars parked, clothes on hangers, books]
+
+[illustration: row 2, three photos labeled D, E, F — apples, bookstore interior, shopping mall interior]
+
+píngguǒ
+1 苹果___
+
+chē
+2 车___
+
+yīfu
+3 衣服___
+
+shāngdiàn
+4 商店___
+
+shūdiàn
+5 书店___
+
+Yīngyǔ shū
+6 英语 书___
+
+## 课文 Text
+
+## 1 在宿舍 In the dorm
+
+(Audio: 14-1)
+
+Zuótiān shàngwǔ nǐ qù nǎr le?
+A: 昨天 上午 你去哪儿了？
+Wǒ qù shāngdiàn mǎi dōngxi le.
+B: 我 去 商店 买东西了。
+Nǐ mǎi shénme le?
+A: 你买 什么 了？
+Wǒ mǎile yìdiǎnr píngguǒ.
+B: 我 买了一点儿苹果。
+
+[illustration: photo of woman shopping for produce]
+
+*English Version*
+A: Where did you go yesterday morning?
+B: I went shopping.
+A: What did you buy?
+B: I bought some apples.
+
+*New Words*
+1. 东西 dōngxi n. thing, stuff
+2. 一点儿 yìdiǎnr num.-m. a few, a little
+3. 苹果 píngguǒ n. apple
+
+## 2 在公司 In the company
+
+(Audio: 14-2)
+
+[illustration: photo of man driving a car]
+
+Nǐ kànjiàn Zhāng xiānsheng le ma?
+A: 你看见 张 先生 了吗？
+Kànjiàn le, tā qù xué kāi chē le.
+B: 看见 了，他去学开车了。
+Tā shénme shíhou néng huílai?
+A: 他 什么 时候 能 回来？
+Sìshí fēnzhōng hòu huílai.
+B: 40 分钟 后回来。
+
+*English Version*
+A: Have you seen Mr. Zhang?
+B: Yes. He has gone to a driving lesson.
+A: When can he come back?
+B: After 40 minutes.
+
+*New Words*
+4. 看见 kànjiàn v. to see
+5. 先生 xiānsheng n. Mr., sir
+6. 开 kāi v. to drive
+7. 车 chē n. car, vehicle
+8. 回来 huílai v. to come back
+9. 分钟 fēnzhōng n. minute
+10. 后 hòu n. after, afterwards, later
+
+*Proper Noun*
+张 Zhāng Zhang, a Chinese family name
+
+## 3 在商店门口 Outside a store
+
+(Audio: 14-3)
+
+Wáng Fāng de yīfu tài piàoliang le.
+A: 王 方 的衣服太 漂亮 了！
+Shì a, tā mǎile bùshǎo yīfu.
+B: 是啊，她买了 不少衣服。
+Nǐ mǎi shénme le?
+A: 你买 什么 了？
+Wǒ méi mǎi, zhèxiē dōu shì Wáng Fāng de dōngxi.
+B: 我 没买，这些都是 王 方 的东西。
+
+[illustration: photo of smiling woman with shopping bags]
+
+*English Version*
+A: Wang Fang's dress is so pretty!
+B: Yes. She has bought quite a few clothes.
+A: What did you buy?
+B: I bought nothing. All these are Wang Fang's stuff.
+
+*New Words*
+11. 衣服 yīfu n. clothes
+12. 漂亮 piàoliang adj. beautiful, pretty
+*13. 啊 a part.
+a modal particle used at the end of a sentence as a sign of confirmation or defense
+14. 少 shǎo adj. little, few
+不少 bùshǎo adj. quite a few, many
+15. 这些 zhèxiē pron. these
+16. 都 dōu adv. both, all
+
+## 注释 Notes
+
+## 1 "了"表发生或完成 "了" Indicating Occurrence or Completion
+
+"了"用于句尾。例如：
+"了" can be used at the end of a sentence. For example:
+
+| Subject | Predicate | 了 |
+|---|---|---|
+| 我 | 去商店 | 了。 |
+| 他 | 去学开车 | 了。 |
+| 你 | 买什么 | 了? |
+
+"了"用于动词后带宾语。动词后的宾语前面一般要有定语，如数量词或形容词、代词等。例如：
+"了" can also be used between a verb and its object. There is usually a modifier before the object of the verb, such as a numeral classifier, an adjective or a pronoun, etc. For example:
+
+| Subject | Predicate | | | |
+|---|---|---|---|---|
+| | Verb | 了 | Number-Measure Word/Adjective/Pronoun | Object |
+| 她 | 买 | 了 | 一点儿 | 苹果。 |
+| 我 | 买 | 了 | 不少 | 衣服。 |
+| 你 | 看见 | 了 | 几个 | 人? |
+
+上述两种用法的"了"的否定形式是：没+动词（+宾语），"了"要去掉。例如：
+The negative form of "了" in both cases above is "没 + verb + (object)". In the negative form, "了" should be omitted. For example:
+
+| Subject | 没 | Predicate |
+|---|---|---|
+| 她 | 没 | 去商店。 |
+| 我 | 没 | 买。 |
+| 我 | 没 | 看见张先生。 |
+
+## 2 名词"后" The Noun "后"
+
+名词"后"表示现在或者所说的某个时间以后的时间。例如：
+The noun "后" indicates a period after the present time or the time being mentioned. For example:
+
+（1）五点后　40分钟后　星期三后
+（2）A: 你几点去工作？
+B: 八点后。
+（3）A: 你什么时候回家？
+B: 五点后。
+（4）A: 他什么时候能回来？
+B: 40分钟后回来。
+
+## 3 语气助词"啊" The Modal Particle "啊"
+
+语气词"啊"用在陈述句末，使句子带上一层感情色彩。"啊"常受到前一字尾音的影响而发生不同的变音，书面上有时按变音写成不同的字。
+The modal particle "啊" is used at the end of a declarative sentence to set the mood. The pronunciation of "啊" varies with the finals of the syllables before it, and in written Chinese, the variants are represented by different characters sometimes.
+
+| The Final of the Syllable before It | The Pronunciation of "啊" |
+|---|---|
+| a　e　i　o　ü | a ——> ia |
+| u　ao　ou | a ——> ua |
+| -n | a ——> na |
+| -ng | a ——> nga |
+| -i（zi，ci，si 中） | a ——> za |
+| -i（zhi，chi，shi，ri 中） | a ——> ra |
+
+（1）A: 你是王小姐吗？
+B: 是啊。
+（2）A: 你想去吃中国菜吗？
+B: 好啊。
+（3）A: 王方的衣服太漂亮了！
+B: 是啊，她买了不少衣服。
+
+## 4 副词"都" The Adverb "都"
+
+"都"表示总括全部，所总括的对象必须放在"都"的前面。例如：
+"都" means "both/all". The people or objects included are put before "都". For example:
+
+（1）我们都是中国人。
+（2）他们都喜欢喝茶。
+（3）这些都是王方的东西。
+
+## 练习 Exercises
+
+## 1 分角色朗读课文 Role-play the dialogues.
+
+## 2 根据课文内容回答问题 Answer the questions based on the dialogues.
+
+1 昨天上午她去哪儿了？Zuótiān shàngwǔ tā qù nǎr le?
+
+2 她买什么了？Tā mǎi shénme le?
+
+3 张先生什么时候能回来？Zhāng xiānsheng shénme shíhou néng huílai?
+
+4 王方买什么了？Wáng Fāng mǎi shénme le?
+
+5 王方的朋友买什么了？Wáng Fāng de péngyou mǎi shénme le?
+
+## 3 用本课新学的语言点和词语描述图片
+
+Describe the pictures using the newly-learned language points and words.
+
+[illustration: photo of woman shopping at market stall]
+
+Māma qù shāngdiàn mǎile
+妈妈 去 商店 买了___。
+
+Tā xiàwǔ qù xué le.
+她 下午 去 学___了。
+
+[illustration: photo of woman driving a car]
+
+[illustration: photo of books and coffee cup on table]
+
+Zhuōzi shang shì Zhāng xiānsheng
+桌子 上___是 张 先生
+de dōngxi.
+的 东西。
+
+[illustration: photo of woman with shopping bags]
+
+Lìli mǎile yīfu.
+丽丽买了___衣服。
+
+## 拼音 Pinyin
+
+三音节词语的声调搭配（3）：三声音节开头 (Audio: 14-4)
+Tone Collocation in Trisyllabic Words (3): words starting with a third-tone syllable
+
+| 3+1+1 | 3+1+2 | 3+1+3 | 3+1+4 |
+|---|---|---|---|
+| xǐyījī | pǔtōng rén | zǒngjīnglǐ | huǒchē piào |
+| washing machine | common people | general manager | train ticket |
+| 3+2+1 | 3+2+2 | 3+2+3 | 3+2+4 |
+| shǐxuéjiā | jǐngchájú | měinánzǐ | měiróngyuàn |
+| historian | police station | handsome man | beauty salon |
+| 3+3+1 | 3+3+2 | 3+3+3 | 3+3+4 |
+| biǎoyǎnjiā | xiǎo yǎnyuán | Mǐlǎoshǔ | yǎnchànghuì |
+| performer | little actor | Mickey Mouse | concert |
+| 3+4+1 | 3+4+2 | 3+4+3 | 3+4+4 |
+| dǎzìjī | pǎobù xié | měishùguǎn | dǎ diànhuà |
+| tapewriter | running shoes | art gallery | to make a phone call |
+
+## 汉字 Characters
+
+## 1 认识独体字 Single-Component Characters
+
+（1）"开"，字形像一双手抽拉门栓。本义是抽掉门栓，启动关闭的门，现在意思很多，如"开车"、"开花"。
+Shaped like two hands pulling a door latch, the original meaning of "开" was to pull out the door latch and open the door. Now it has many meanings, such as "开车 (to drive a car)" and "开花 (to bloom)".
+
+[illustration: character evolution graphic for 开, showing ancient forms progressing to modern character, with stroke order]
+
+（2）"车"，字形像某种器械两边各有一个轮子，本义是有轮子、靠牛马拉动的战斗工具，现在泛指陆上运输、交通工具，如"出租车"、"火车"。
+"车", originally shaped like an equipment with a wheel on both sides, referred to a wheeled vehicle used in wars, pulled by an ox or a horse. Now it refers to all the vehicles on land for transportation, such as "出租车 (taxi)" and "火车 (train)".
+
+[illustration: character evolution graphic for 车, showing ancient forms progressing to modern character, with stroke order]
+
+（3）"回"，字形像水流回旋的样子，本义是"旋转"，后来表示"还、回来"。
+"回" is shaped like a whirling flow of water. It originally meant "to rotate", and now it means "to return".
+
+[illustration: character evolution graphic for 回, showing ancient forms progressing to modern character, with stroke order]
+
+## 2 汉字偏旁"月"和"扌" Chinese Radicals: "月" and "扌"
+
+| 偏旁 Radical | 解释 Explanation | 例字 Example Characters |
+|---|---|---|
+| 月 | 肉月旁，一般和人体、肉有关系。The radical "月" is usually related to human body or flesh. | 服 fú clothes 胖 pàng fat |
+| 扌 | 提手旁，一般表示和手有关的动作。The radical "扌" usually indicates an action related to a hand. | 打 dǎ to beat, to hit 找 zhǎo to look for |
+
+## 运用 Application
+
+## 1 双人活动 Pair Work
+
+两人一组，询问对方购买的物品。
+Work in pairs and ask about the things your partner has bought.
+
+Nǐ qù shāngdiàn mǎi shénme le?
+例如：A: 你去 商店 买 什么 了？
+Wǒ mǎile……
+B: 我 买了……
+
+píngguǒ　　yīfu　　bēizi　　zhuōzi　　shū
+苹果　　　衣服　　杯子　　桌子　　书
+
+## 2 小组活动 Group Work
+
+3~4人一组，互相询问并记录小组成员一天的活动，每组请一位同学报告情况。
+Work in groups of 3-4. Ask about what each of your group member did during a day in the past and take notes. Each group chooses one member to make a report.
+
+Xīngqī yī shàngwǔ nǐ zuò shénme le?
+例如：A: 星期 一 上午 你 做 什么 了？
+Wǒ qù diànyǐngyuàn le.
+B: 我 去 电影院 了。
+Nǐ kàn shénme le?
+A: 你 看 什么 了？
+Wǒ kànle yí ge Zhōngguó diànyǐng.
+B: 我 看了一个 中国 电影。
+
+| | 人名 Name | 时间 Time | 地方 Place | 做什么 Activity |
+|---|---|---|---|---|
+| 1 | 小王 Xiǎo Wáng | 星期一上午 xīngqī yī shàngwǔ | 电影院 diànyǐngyuàn | 看了一个电影 kànle yí ge diànyǐng |
+| | | | | |
+| | | | | |
+| | | | | |

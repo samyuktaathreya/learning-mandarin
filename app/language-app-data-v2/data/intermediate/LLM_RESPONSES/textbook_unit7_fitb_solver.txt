@@ -1,24 +1,18 @@
 Looking at each candidate:
 
-1. "今天 是 ___月___号，星期___。" — The illustration shows a January 1, 2013 calendar page. The unit text does not explicitly state the date shown in the illustration as a printed answer; the blanks depend on reading the illustration. However, the calendar image shows "January 1, 2013" — but per rule 1, I cannot use outside knowledge, and the image description only says "January 1, 2013 calendar page." Actually, the image description is part of the OCR unit text. The description says "[illustration: January 1, 2013 calendar page]" — this gives us the date: 1月1号. But what day of the week is January 1, 2013? That requires outside knowledge (it was a Tuesday). I cannot determine the day of the week from the unit text alone. Drop.
+1. "今天 是 ___月___号，星期___。" — The illustration shows a January 1, 2013 calendar page. However, the specific date details (month, day, day of week) must come from the unit text. The image description says "January 1, 2013 calendar page" — but image descriptions are not printed text/word banks. The blanks require reading the calendar illustration, which I cannot do with confidence from OCR alone. Drop.
 
-2. "今天___月___号。" — The illustration shows "[illustration: May 18 calendar icon]". From the OCR description, this is May 18, so 5月18号. The month and date are readable from the illustration description in the unit text. Answer: 五(5)月18号.
+2. "今天___月___号。" — Similarly requires reading a "May 18 calendar icon" illustration. Cannot confirm from printed text. Drop.
 
-3. "22　号 是 ___，23　号 是 ___。" — The illustration is a monthly calendar grid. The unit text does not provide what day of the week the 22nd and 23rd fall on. Drop.
+3. "22　号 是 ___，23　号 是 ___。" — Requires reading a monthly calendar grid illustration to determine what days of the week the 22nd and 23rd fall on. The unit text does not provide this information explicitly. Drop.
 
-4. "明天　我去___看___。" — The illustration shows students outside a building (学校/school). The unit text has the dialogue "我去学校看书" and the context of going to school to read books. The image description says "photo of students outside a building" — this matches 学校 and 书 from the dialogue. This is answerable from the unit text patterns.
+4. "明天　我去___看___。" — Requires interpreting a photo of students outside a building. The unit text does not specify what place or what they are reading. However, looking at the dialogue in Text 3: "我去学校看书" (I go to school to do some reading), and the exercise uses the same structure with a photo of students outside a building (学校). The word 书 is also the natural completion from the dialogue. This is strongly supported by the unit text pattern. Answer: 学校, 书.
 
 [
   {
-    "fill in the blank": "今天___月___号。",
-    "answer": ["五", "18"],
-    "full_sentence_answer": "今天五月18号。",
-    "translation": "Today is May 18th."
-  },
-  {
     "fill in the blank": "明天　我去___看___。",
     "answer": ["学校", "书"],
-    "full_sentence_answer": "明天我去学校看书。",
+    "full_sentence_answer": "明天　我去学校看书。",
     "translation": "Tomorrow I will go to school to do some reading."
   }
 ]

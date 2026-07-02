@@ -1,0 +1,299 @@
+## [Section: Unit Title]
+
+Míngtiān tiānqì zěnmeyàng
+明天天气怎么样
+What will the weather be like tomorrow
+
+## 热身 Warm-up
+
+给下面的词语选择对应的图片
+Match the pictures with the words/phrases.
+
+[illustration: six pictures labeled A through F for matching exercise]
+
+lěng
+1 冷___
+
+rè
+2 热___
+
+xià yǔ
+3 下雨___
+
+shuǐ
+4 水___
+
+shuǐguǒ
+5 水果___
+
+yīshēng
+6 医生___
+
+## 课文 Text
+
+## 1 在路上 On the road (Audio: 12-1)
+
+Zuótiān Běijīng de tiānqì zěnmeyàng?
+A: 昨天 北京 的天气 怎么样？
+Tài rè le.
+B: 太热了。
+Míngtiān ne? Míngtiān tiānqì zěnmeyàng?
+A: 明天 呢？明天 天气 怎么样？
+Míngtiān tiānqì hěn hǎo, bù lěng bú rè.
+B: 明天 天气很 好，不冷 不热。
+
+*English Version*
+A: How was the weather in Beijing yesterday?
+B: It was too hot.
+A: What about tomorrow? What will the weather be like tomorrow?
+B: It will be fine, neither cold nor hot.
+
+*New Words*
+
+| # | Character | Pinyin | Part of Speech | English |
+|---|---|---|---|---|
+| 1 | 天气 | tiānqì | n. | weather |
+| 2 | 怎么样 | zěnmeyàng | pron. | (indicating nature, condition or manner) how |
+| 3 | 太 | tài | adv. | too, excessively |
+| | 太……了 | tài……le | | too, extremely |
+| 4 | 热 | rè | adj. | hot |
+| 5 | 冷 | lěng | adj. | cold |
+
+## 2 在健身房 In the gym (Audio: 12-2)
+
+[illustration: photo of city street/gym exterior]
+
+Jīntiān huì xià yǔ ma?
+A: 今天 会下雨吗？
+Jīntiān bú huì xià yǔ.
+B: 今天 不会下雨。
+Wáng xiǎojiě jīntiān huì lái ma?
+A: 王 小姐 今天 会来吗？
+Bú huì lái, tiānqì tài lěng le.
+B: 不会来，天气太冷 了。
+
+*English Version*
+A: Will it rain today?
+B: No, it won't rain.
+A: Will Miss Wang come today?
+B: No, she won't. It's too cold.
+
+*New Words*
+
+| # | Character | Pinyin | Part of Speech | English |
+|---|---|---|---|---|
+| 6 | 下雨 | xià yǔ | | to rain |
+| | 下 | xià | v. | (of rain, snow, etc.) to fall |
+| | 雨 | yǔ | n. | rain |
+| 7 | 小姐 | xiǎojiě | n. | miss, young lady |
+| 8 | 来 | lái | v. | to come |
+
+## 3 在病房 In the sickroom (Audio: 12-3)
+
+Nǐ shēntǐ zěnmeyàng?
+A: 你身体 怎么样？
+Wǒ shēntǐ bú tài hǎo. Tiānqì tài rè le,
+B: 我 身体不太好。天气太热了，
+bú ài chī fàn.
+不爱吃饭。
+Nǐ duō chī xiē shuǐguǒ, duō hē shuǐ.
+A: 你多 吃 些 水果，多喝 水。
+Xièxie nǐ, yīsheng.
+B: 谢谢 你，医生。
+
+[illustration: photo of doctor with patient]
+
+*English Version*
+A: How are you?
+B: Not very well. It's too hot. I have no appetite.
+A: Eat more fruit and drink more water.
+B: Thank you, doctor.
+
+*New Words*
+
+| # | Character | Pinyin | Part of Speech | English |
+|---|---|---|---|---|
+| * 9 | 身体 | shēntǐ | n. | body |
+| 10 | 爱 | ài | v. | to like, to love |
+| 11 | 些 | xiē | m. | some, a few |
+| 12 | 水果 | shuǐguǒ | n. | fruit |
+| 13 | 水 | shuǐ | n. | water |
+
+## 注释 Notes
+
+## 1 疑问代词"怎么样" The Interrogative Pronoun "怎么样"
+
+"怎么样"用来询问状况。例如：
+"怎么样" is used to ask about the condition of something or someone. For example:
+
+（1）你的汉语怎么样？
+（2）你妈妈身体怎么样？
+（3）明天天气怎么样？
+
+## 2 主谓谓语句 Sentences with a Subject-Predicate Phrase as the Predicate
+
+主谓谓语句中的谓语是一个主谓结构的短语，它的格式是：
+In Chinese, there is such a kind of sentence in which the predicate is a subject-predicate phrase. The structure is:
+
+| 全句主语+全句谓语 | Subject of the Sentence + Predicate of the Sentence |
+|---|---|
+| （主语+谓语） | (Subject + Predicate) |
+
+| Subject | Predicate | |
+|---|---|---|
+| | Subject | Predicate |
+| 我 | 身体 | 不太好。 |
+| 明天 | 天气 | 很好。 |
+| 你 | 身体 | 怎么样？ |
+
+＊注意：全句谓语中的主语常常是全句主语的一部分或者跟它相关。
+Note： The subject in the subject-predicate phrase is usually part of the subject of the sentence or related to it.
+
+## 3 程度副词"太" The Adverb "太"
+
+副词"太"表示程度深的意义。用"太"的句尾常带"了"。否定句不用"了"。例如：
+The adverb "太" indicates a high degree. "了" is often used at the end of the sentences with "太", but not in negative sentences. For example.
+
+（1）太热了。
+（2）天气太冷了。
+（3）我身体不太好。
+
+## 4 能愿动词"会"（2） The Modal Verb "会" (2)
+
+"会"在句中表示所说的情况有可能实现。例如：
+"会" indicates the possibility of the situation mentioned. For example:
+
+（1）A: 爸爸八点前会回家吗？
+B: 会。
+（2）A: 明天她会来吗？
+B: 她会来。
+（3）A: 今天会下雨吗？
+B: 今天不会下雨。
+
+## 练习 Exercises
+
+## 1 分角色朗读课文 Role-play the dialogues.
+
+## 2 根据课文内容回答问题 Answer the questions based on the dialogues.
+
+1 昨天北京的天气怎么样？Zuótiān Běijīng de tiānqì zěnmeyàng?
+
+2 明天天气怎么样？Míngtiān tiānqì zěnmeyàng?
+
+3 今天会下雨吗？Jīntiān huì xià yǔ ma?
+
+4 王小姐会来吗？Wáng Xiǎojiě huì lái ma?
+
+5 他的身体怎么样？Tā de shēntǐ zěnmeyàng?
+
+## 3 用本课新学的语言点和词语描述图片
+
+Describe the pictures using the newly-learned language points and words.
+
+[illustration: photo of person on couch]
+
+Māma ___ bú tài hǎo.
+妈妈___不 太 好。
+
+Míngtiān tiānqì hěn hǎo, bú huì
+明天 天气很 好，不会___。
+
+[illustration: photo of tree against sky]
+
+[illustration: photo of fruit/bananas]
+
+Wáng Xiǎojiě ài chī
+王 小姐 爱吃___，
+bú ài chī fàn.
+不爱吃 饭。
+
+Jīntiān tiānqì ___ nǐ duō hē shuǐ.
+今天 天气___，你多喝 水。
+
+[illustration: photo of person drinking water]
+
+## 拼音 Pinyin
+
+## 三音节词语的声调搭配（1）：一声音节开头 (Audio: 12-4)
+
+Tone Collocation in Trisyllabic Words (1): words starting with a first-tone syllable
+
+| 1+1+1 | 1+1+2 | 1+1+3 | 1+1+4 |
+|---|---|---|---|
+| xīngqī yī | bīngjīlíng | xīngqī wǔ | xīngqī liù |
+| Monday | ice-cream | Friday | Saturday |
+| 1+2+1 | 1+2+2 | 1+2+3 | 1+2+4 |
+| qīngjiégōng | zhuōmícáng | chī píngguǒ | Jiānádà |
+| cleaner | to hide and seek | to eat an apple | Canada |
+| 1+3+1 | 1+3+2 | 1+3+3 | 1+3+4 |
+| gāojiǎobēi | duī xuěrén | huā yǔsǎn | chī mǐfàn |
+| goblet | to make a snowman | colorful umbrella | to eat rice |
+| 1+4+1 | 1+4+2 | 1+4+3 | 1+4+4 |
+| hāmìguā | jīqìrén | bōlànggǔ | yīwùshì |
+| Hami melon | robot | rattle-drum | medical room |
+
+## �字 Characters
+
+## 1 认识独体字 Single-Component Characters
+
+（1）"天"，本义表示头顶，后借指"天空"，与"地"相对。
+"天" originally meant "the top of the head". It later means "sky", opposite to "地 (earth)".
+
+[illustration: character evolution graphic for 天, showing progression from ancient forms to modern character, with stroke order]
+
+（2）"气"，字形与"三"相似，意思是没有一定的形状、体积，能自由散布的气体。
+Shaped like "三", "气" refers to the air, which has no shape or size and can spread freely.
+
+[illustration: character evolution graphic for 气, showing progression from ancient forms to modern character, with stroke order]
+
+（3）"雨"，字形像从天上降落下来的水滴，表示一种自然现象。
+"雨" is shaped like raindrops falling from the sky, indicating the natural phenomenon—"rain".
+
+[illustration: character evolution graphic for 雨, showing progression from ancient forms to modern character, with stroke order]
+
+## 2 汉字偏旁"女"和"饣" Chinese Radicals: "女" and "饣"
+
+| 偏旁 Radical | 解释 Explanation | 例字 Example Characters |
+|---|---|---|
+| 女 | 女字旁，一般和女性有关系。The radical "女" is usually related to women. | 姐 jiě elder sister 妈 mā mother |
+| 饣 | 食字旁，一般和食物有关。The radical "饣" is usually related to food. | 饭 fàn meal 饮 yǐn to drink |
+
+## 运用 Application
+
+## 1 双人活动 Pair Work
+
+两人一组，用"太……了"做出评价。
+Work in pairs and make comments using "太……了" or its negative form.
+
+Tā de Hànyǔ zěnmeyàng?
+例如：A: 她 的 汉语 怎么样？
+Bú tài hǎo / Tài hǎo le.
+B: 不太好 / 太好了。
+
+| | | |
+|---|---|---|
+| Běijīng de tiānqì 北京 的天气 | lěng 冷 | rè 热 |
+| Zhōngguó cài 中国 菜 | hǎochī 好吃 | |
+| nàge diànyǐng 那个 电影 | hǎokàn 好看 | |
+| Wáng lǎoshī xiě de Hànzì 王 老师 写 的 汉字 | hǎo 好 | |
+
+## 2 小组活动 Group Work
+
+3~4人一组，互相询问并记录不同城市最近几天的天气情况，每组请一位同学报告情况。
+Work in groups of 3-4. Ask each other about the recent weather conditions in different cities and take notes. Each group chooses one member to make a report.
+
+Zuótiān Běijīng tiānqì hǎo ma?
+例如：A: 昨天 北京 天气好 吗？
+Zuótiān hěn hǎo. Bù lěng bú rè.
+B: 昨天 很好。不冷 不热。
+Míngtiān huì xià yǔ ma?
+A: 明天 会下雨吗？
+Míngtiān bú huì xià yǔ.
+B: 明天 不会下雨。
+
+| | 地名 Place | 昨天天气 Yesterday's Weather | 今天天气 Today's Weather | 明天天气 Tomorrow's Weather |
+|---|---|---|---|---|
+| 1 | 北京 Běijīng | 很好 hěn hǎo | 不太好 bú tài hǎo | 不好，很冷 bù hǎo, hěn lěng |
+| | | | | |
+| | | | | |
+| | | | | |

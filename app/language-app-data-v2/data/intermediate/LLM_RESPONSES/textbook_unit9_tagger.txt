@@ -1,30 +1,24 @@
-I need to segment each sentence using only the allowed word list.
+I need to segment each sentence using only the allowed words.
 
-Let me check key words:
-- 小猫: "小" + "猫" ✓
-- 在: ✓
-- 哪儿: ✓
-- 那儿: "那" + "儿" — "儿" is not in the allowed list. Hmm. Let me check... "儿子" is there but "儿" alone is not listed. So "那儿" cannot be segmented → null
-- 小狗: "小" + "狗" ✓
-- 工作: ✓
-- 学校: ✓
-- 儿子: ✓
-- 医院: ✓
-- 医生: ✓
-- 爸爸: ✓
-- 家: ✓
-- 吗: ✓
-- 不在家: "不" + "在" + "家" ✓
-- 呢: ✓
-- 杯子: ✓
-- 中国: ✓
-- 朋友: ✓
+Let me work through each sentence:
 
-For "那儿" — "那" is in the list but "儿" is not. So "小猫在那儿。" → null.
+1. "小猫在哪儿？" → 小+猫+在+哪儿
+2. "小猫在那儿。" → 小+猫+在+那... "那儿" not in list, only "那". Can't segment "儿" alone... "儿" not in list. → null
+3. "小狗在哪儿？" → 小+狗+在+哪儿
+4. "你在哪儿工作？" → 你+在+哪儿+工作
+5. "我在学校工作。" → 我+在+学校+工作
+6. "你儿子在哪儿工作？" → 你+儿子+在+哪儿+工作
+7. "我儿子在医院工作，他是医生。" → 我+儿子+在+医院+工作+他+是+医生
+8. "你爸爸在家吗？" → 你+爸爸+在+家+吗
+9. "不在家。" → 不+在+家
+10. "他在哪儿呢？" → 他+在+哪儿+呢
+11. "他在医院。" → 他+在+医院
+12. "我的杯子在哪儿？" → 我+的+杯子+在+哪儿
+13. "你的中国朋友在哪儿？" → 你+的+中国+朋友+在+哪儿
+14. "我的小猫呢？" → 我+的+小+猫+呢
+15. "我的杯子呢？" → 我+的+杯子+呢
 
-Let me also check "他在哪儿呢" — "他"+"在"+"哪儿"+"呢" ✓
-
-"你的中国朋友在哪儿？" — "你"+"的"+"中国"+"朋友"+"在"+"哪儿" ✓
+For sentence 2: "那儿" - "那" is in the list but "儿" is not. → null
 
 ```json
 {

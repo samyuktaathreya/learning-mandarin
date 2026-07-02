@@ -1,0 +1,309 @@
+## [Section: Unit Title]
+
+Wǒ shì zuò fēijī lái de
+我 是 坐 飞 机 来 的
+I came here by air
+
+## 热身 Warm-up
+
+给下面的词语选择对应的图片
+Match the pictures with the words/phrases.
+
+[illustration: six pictures labeled A through F, showing groups of people, a person listening to music, a man driving, an airplane, a hotel, and a taxi]
+
+fēijī
+1 飞机___
+
+chūzūchē
+2 出租车___
+
+dàxué
+3 大学___
+
+fàndiàn
+4 饭店___
+
+tīng
+5 听 ___
+
+kāi chē
+6 开 车 ___
+
+## 课文 Text
+
+## 1 在餐桌旁 At the dining table (Audio: 15-1)
+
+Nǐ hé Lǐ xiǎojiě shì shénme shíhou rènshi de?
+A：你 和 李 小 姐 是 什 么 时 候 认 识 的？
+
+Wǒmen shì èr líng yī yī nián jiǔ yuè rènshi de.
+B：我们 是 　2011 年 9 月 认 识 的。
+
+Nímen zài nǎr rènshi de?
+A：你们 在 哪儿 认识 的？
+
+Wǒmen shì zài xuéxiào rènshi de，tā shì wǒ dàxué tóngxué.
+B：我们 是 在 学 校 认 识 的，她 是 我 大 学 同 学。
+
+*English Version*
+
+A: When did you and Miss Li first meet?
+B: We met in September, 2011.
+A: Where did you meet each other?
+B: We met in our university. She was
+　　my classmate.
+
+*New Words*
+
+1. 认识　rènshi　v.　to meet, to know
+2. 年　　nián　　n.　year
+3. 大学　dàxué　n.　college, university
+
+## 2 在饭店门口 Outside a hotel (Audio: 15-2)
+
+[illustration: photo of people near a taxi outside a hotel]
+
+Nímen shì zěnme lái fàndiàn de?
+A：你们 是 怎么 来 饭店 的？
+
+Wǒmen shì zuò chūzūchē lái de.
+B：我们 是 坐 出租车 来的。
+
+Lǐ xiānsheng ne?
+A：李 先生 呢？
+
+Tā shì hé péngyou yìqǐ kāi chē lái de.
+B：他 是 和 朋友 一起 开 车 来 的。
+
+*English Version*
+
+A: How did you come here?
+B: We came by taxi.
+A: What about Mr. Li?
+B: He drove here with his friend.
+
+*New Words*
+
+4. 饭店　　fàndiàn　　n.　hotel, restaurant
+5. 出租车　chūzūchē　n.　taxi, cab
+*6. 一起　　yìqǐ　　　adv.　together
+
+## 3 在公司 In the company (Audio: 15-3)
+
+Hěn gāoxìng rènshi nín！Lǐ xiǎojiě.
+A：很 高兴 认识 您！李 小姐 。
+
+Rènshi nǐ wǒ yě hěn gāoxìng!
+B：认识 你 我 也 很 高兴！
+
+Tīng Zhāng xiānsheng shuō，nín shì zuò
+A：听 　张 　先生 　说，您 是 坐
+
+fēijī 　lái Běijīng de?
+飞机 来 北京 的？
+
+Shì de.
+B：是 的。
+
+[illustration: photo of an airplane in the sky with a person standing below]
+
+*English Version*
+
+A: Nice to meet you, Miss Li.
+B: Nice to meet you too.
+A: Mr. Zhang said you came to Beijing
+　　by plane, didn't you?
+B: Yes, I did.
+
+*New Words*
+
+7. 高兴　gāoxìng　adj.　glad, happy
+8. 听　　tīng　　　v.　　to listen
+9. 飞机　fēijī　　　n.　　airplane
+
+## 注释 Notes
+
+## 1 "是……的"句：强调时间、地点、方式
+
+The Structure "是……的": used to emphasize time, place or manner
+
+在已经知道事情发生的情况下，可以用"是……的"强调事情发生的时间、地点、方式等。肯定句和疑问句中的"是"字可以省略，否定句中不能省略。
+
+When the occurrence of something is known, "是……的" can be used to emphasize when, where and in which manner it occurred. "是" can be omitted in positive and interrogative sentences, but not in negative sentences.
+
+| Subject | 是 | Time/Place/Manner | Verb | 的 |
+|---|---|---|---|---|
+| 我 | 是 | 昨天 | 来 | 的。 |
+| 这 | 是 | 在北京 | 买 | 的。 |
+| 你们 | 是 | 怎么 | 来饭店 | 的? |
+
+否定形式： The negative form:
+
+| Subject | 不 | 是 | Time/Place/Manner | Verb | 的 |
+|---|---|---|---|---|---|
+| 我 | 不 | 是 | 昨天 | 来 | 的。 |
+| 这 | 不 | 是 | 在北京 | 买 | 的。 |
+| 我们 | 不 | 是 | 坐出租车 | 来 | 的。 |
+
+## 2 日期的表达（2）：年、月、日/号、星期
+
+Expression of a Date (2): year, month, date, day of the week
+
+汉语中日期的写法和读法都是从大到小。年要分别读出每个数字，再加上"年"；月、日要读出整个数字，再加上"月"、"日/号"。星期的读法是"星期"加上数字。如"2008年8月8号，星期五"读法是"èr líng líng bā nián bā yuè bā hào，xīngqī wǔ"。
+
+Chinese dates are written and read from the bigger unit to the smaller. A year is read digit by digit, followed by the character "年". A month or date is read the whole number followed by "月" and "日/号" respectively. A day of the week is expressed by the word "星期" plus a specific number. For example, "August 8th of 2008, Friday" is read as "èr líng líng bā nián bā yuè bā hào, xīngqī wǔ".
+
+（1）明天是2014年5月11号。
+（2）A: 今天几号？星期几？
+　　B: 今天9月10号，星期三。
+（3）我们是2011年9月认识的。
+
+## 练习 Exercises
+
+## 1 分角色朗读课文　Role-play the dialogues.
+
+## 2 根据课文内容回答问题　Answer the questions based on the dialogues.
+
+1 她们是什么时候认识的？Tāmen shì shénme shíhou rènshi de?
+
+2 她们是在哪儿认识的？Tāmen shì zài nǎr rènshi de?
+
+3 他们是怎么去饭店的？Tāmen shì zěnme qù fàndiàn de?
+
+4 李先生是坐出租车去饭店的吗？
+Lǐ xiānsheng shì zuò chūzūchē qù fàndiàn de ma?
+
+5 李小姐是怎么来北京的？Lǐ xiǎojiě shì zěnme lái Běijīng de?
+
+## 3 用本课新学的语言点和词语描述图片
+
+Describe the pictures using the newly-learned language points and words.
+
+[illustration: photo of people with bicycles near the Eiffel Tower]
+
+Wǒmen shì zài Bālí　　　　　　　de.
+我们 　是 在 巴黎（Paris）___的。
+
+[illustration: photo of a woman waving]
+
+Wǒ méi kànjiàn Lǐ lǎoshī，tā shì shénme shíhou
+我 没 看见 李老师，她 是 什么 时候___？
+
+[illustration: photo of folded shirts/clothing]
+
+Zhèxiē yīfu bù　　　　jīntiān　　　　de，shì zuótiān mǎi de.
+这些 衣服 不___今天___的，是 昨天 买 的。
+
+[illustration: photo of two women in a car]
+
+Wǒmen shì yìqǐ　　　　lái de，wǒ bù xǐhuan zuò chūzūchē.
+我们 是 一起___来 的，我 不 喜欢 坐 出租车。
+
+## 拼音 Pinyin
+
+三音节词语的声调搭配（4）：四声音节开头 (Audio: 15-4)
+
+Tone Collocation in Trisyllabic Words (4): words starting with a fourth-tone syllable
+
+| 4+1+1 | 4+1+2 | 4+1+3 | 4+1+4 |
+|---|---|---|---|
+| diànbīngxiāng | Màidāngláo | jiànshēnguǎn | bàngōngshì |
+| refrigerator | McDonald's | gym | office |
+| 4+2+1 | 4+2+2 | 4+2+3 | 4+2+4 |
+| chàng guógē | kàn zúqiú | kuàngquánshuǐ | shuànyánròu |
+| to sing the national anthem | to watch football | mineral water | instant-boiled mutton |
+| 4+3+1 | 4+3+2 | 4+3+3 | 4+3+4 |
+| mìmǎxiāng | qìguǎnyán | dàshǐguǎn | mièhuǒqì |
+| code box | tracheitis | embassy | fire extinguisher |
+| 4+4+1 | 4+4+2 | 4+4+3 | 4+4+4 |
+| zhàoxiàngjī | zànzhùrén | diànhuàkǎ | Àoyùnhuì |
+| camera | sponsor | phone card | Olympic Games |
+
+## 汉字 Characters
+
+## 1 认识独体字　Single-Component Characters
+
+（1）"年"，本义是将收成的谷物运回家。现在是时间单位。
+"年" originally meant "to carry crops home". Now it means "year".
+
+[illustration: character evolution graphic for 年, showing ancient forms progressing to modern 年, with stroke order boxes]
+
+（2）"出"，字形像脚离开某地。现在是从里面到外面的意思。
+"出" originally referred to the germination and growth of a plant. Now it means "to come or go from inside to outside".
+
+[illustration: character evolution graphic for 出, showing ancient forms progressing to modern 出, with stroke order boxes]
+
+（3）"飞"，本义是鸟类或虫类等用翅膀在空中往来活动，现在泛指在天上飞、快等。
+Originally "飞" meant the activity of a bird or an insect flying in the sky with its wings, and now it generally means "to fly in the sky" or "being quick".
+
+[illustration: character evolution graphic for 飞, showing ancient forms progressing to modern 飞, with stroke order boxes]
+
+## 2 汉字偏旁"艹"和"宀"　Chinese Radicals: "艹" and "宀"
+
+| 偏旁 Radical | 解释 Explanation | 例字 Example Characters |
+|---|---|---|
+| 艹 | 草字头，一般和草木或者植物有关系。The radical "艹" is usually related to grass, trees or plants. | 茶　chá　tea 菜　cài　vegetable |
+| 宀 | 宝盖头，一般和房子有关系。The radical "宀" is usually related to houses. | 安　ān　to settle 家　jiā　home |
+
+## 运用 Application
+
+## 1 双人活动　Pair Work
+
+两人一组，选择对方的一样物品，询问具体购买情况。
+Work in pairs and ask each other about where and when something was bought.
+
+Zhège shì zài nǎr mǎi de?
+例如：A: 这个 是 在 哪儿 买 的？
+
+Zài shāngdiàn mǎi de.
+B: 在 　商店 　买 的。
+
+Shénme shíhou mǎi de?
+A: 什么 　时候 买 的？
+
+Zuótiān mǎi de.
+B: 昨天 　买 的。
+
+Hànyǔ shū　　　yīfu　　　bēizi　　　diànnǎo
+汉语 书　　　衣服　　　杯子　　　电脑
+
+## 2 小组活动　Group Work
+
+3~4人一组，互相询问并记录小组各成员会做什么，每组请一位同学报告情况。
+Work in groups of 3-4. Ask about the ability of each of your group members and take notes. Each group chooses one member to make a report.
+
+Nǐ huì shuō Hànyǔ ma?
+例如：A: 你 会 说 汉语 吗？
+
+Huì.
+B: 会。
+
+Nǐ shì shénme shíhou kāishǐ　　　　　xué Hànyǔ de?
+A: 你 是 什么 时候 开始（to start）学 汉语 的？
+
+Wǒ shì　　　de.
+B: 我 是……的。
+
+Nǐ shì zài nǎr xué de?
+A: 你 是 在 哪儿 学 的？
+
+Wǒ shì　　　de.
+B: 我 是……的。
+
+| | 姓名 Name | 会做什么 Ability | 时间 Time | 地方 Place |
+|---|---|---|---|---|
+| 1 | 小王 Xiǎo Wáng | 做中国菜 zuò Zhōngguó cài | 今年 jīnnián | 北京 Běijīng |
+| | | | | |
+| | | | | |
+| | | | | |
+
+## 文化 CULTURE
+
+中国人经常使用的通信工具
+Common Communication Tools of Chinese People
+
+[illustration: photo of a hand pressing telephone keypad buttons, with a globe and telephone in the background]
+
+在中国，常用的通信工具有电话机和手机两种。电话机号码一般为6–8位，比如2027816、82304156，不同地区的电话机号码位数不同。手机号码的位数没有地区的差别，都是11位，比如13576983311。由于手机号码位数较多，读时一般切分为"3–4–4"的停顿模式，比如139–0107–8866。其中号码中的"1"要读成"yāo"。
+
+In China, there are two kinds of common communication tools—telephones and cell phones. A telephone number usually has 6-8 digits, for example, 2027816, 82304156. Telephone numbers in different regions have different numbers of digits. Cell phone numbers, however, always have 11 digits regardless of region, as in 13576983311. Since a cell phone number has many digits, it is read with pauses following the pattern "3-4-4", such as 139-0107-8866. "1" is read as "yāo" in a phone number.
