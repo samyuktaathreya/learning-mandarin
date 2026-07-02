@@ -1,0 +1,21 @@
+```json
+{
+  "你女儿几岁了？": ["你", "女儿", "几", "岁", "了"],
+  "李老师多大了？": ["李", "老师", "多", "大", "了"],
+  "她女儿呢？": ["她", "女儿", "呢"],
+  "你多大了？": ["你", "多", "大", "了"]
+}
+```
+
+Wait, "李" is not in the allowed word list. Let me re-check.
+
+The allowed list does not contain "李" as a standalone character, but contains "李月". "李老师" cannot be segmented with allowed words.
+
+```json
+{
+  "你女儿几岁了？": ["你", "女儿", "几", "岁", "了"],
+  "李老师多大了？": null,
+  "她女儿呢？": ["她", "女儿", "呢"],
+  "你多大了？": ["你", "多", "大", "了"]
+}
+```

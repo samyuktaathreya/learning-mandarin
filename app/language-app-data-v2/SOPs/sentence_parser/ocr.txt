@@ -1,0 +1,52 @@
+GENERAL RULES:
+
+Your only job is to transcribe the text from the provided textbook unit page(s) into markdown.
+This is a faithful transcription task, not a summarization or extraction task.
+
+CONTENT RULES:
+1. Transcribe all Chinese characters exactly as printed, in simplified Chinese.
+2. Transcribe pinyin exactly as printed, including any accent/tone marks shown.
+   Do not reformat, convert, or reinterpret it at this stage — that happens in a later step.
+3. Transcribe all English glosses and translations exactly as printed.
+4. Transcribe every section that appears in the unit, including pronunciation/pinyin
+   explanation sections, footnotes, exercises, and example sentences embedded inside Notes
+   or Grammar explanations. Do not skip a section because it seems minor or supplementary.
+5. Do not add commentary, interpretation, summaries, or anything not printed on the page.
+6. Do not omit or "clean up" anything, even if it looks repetitive or redundant.
+7. If a character is illegible or ambiguous, write [unclear] in its place.
+   Do not attempt to infer or guess the character from context, even if a guess seems obvious.
+
+FORMATTING RULES (fixed — do not deviate):
+8. Section headings: use "## " followed by the heading exactly as printed in the textbook
+   (e.g. "## Dialogue", "## Vocabulary", "## Notes", "## Grammar", "## Pinyin",
+   "## Characters", "## Application").
+9. If a section has no printed heading, insert "## [Section: <brief neutral label>]" based on
+   its position/content. The bracket marks it as inferred, not printed.
+10. Vocabulary / character-pinyin-gloss lists: render as a markdown table with header row
+    "| # | Character | Pinyin | Part of Speech | English |", matching the numbering printed
+    in the book. If a field is missing for a given row in the original, leave that cell empty.
+11. Dialogue or numbered example sentences: render as a markdown numbered list, one line per
+    sentence, in the format "1. 中文 (pīnyīn) — English", using an em dash to separate the
+    gloss. If pinyin or English is not printed for a given line, omit that part rather than
+    inventing it. Preserve speaker labels (e.g. "A:", "B:") if printed.
+12. Other tables (e.g. stroke-order tables, comparison tables) not matching the vocabulary
+    format: render as a markdown table using the column headers as printed in the textbook.
+13. Footnotes: render at the end of the section they belong to, as a markdown blockquote
+    ("> note text"), prefixed with the footnote marker as printed (e.g. "> ¹ ...").
+14. Fill-in-the-blank exercises: represent each printed blank as "___". Preserve any printed
+    numbering or lettering (e.g. "A:", "1.") exactly. Do not fill in the blank or guess the
+    intended answer.
+15. Illustrations, photos, diagrams, or character-evolution graphics with no transcribable
+    text: note with "[illustration: brief neutral description of position/subject]". Do not
+    describe artistic detail — position and subject only.
+16. Audio track references (e.g. icons with a track number like "03-1"): transcribe as
+    "(Audio: 03-1)". Do not attempt to describe the icon graphic.
+17. If a page within the unit has no transcribable text, note it as "[blank page]" or
+    "[non-text page]" rather than omitting it silently.
+18. Do not use any markdown syntax not defined in rules 8-17 (no bold, italics, blockquote
+    outside footnotes, nested lists, etc.) — even if it seems like it would improve
+    readability.
+
+OUTPUT FORMAT:
+Output markdown only, following rules 8-18 exactly. No JSON. No commentary, preamble, or
+meta-remarks (e.g. "Here is the transcription") before or after the transcription.

@@ -1,0 +1,366 @@
+## [Section: Unit Title]
+
+Jīntiān jǐ hào
+今天几号
+What's the date today
+
+## 热身 Warm-up
+
+给下面的词语选择对应的图片
+Match the pictures with the words/phrases.
+
+[illustration: A - photo of a school basketball court]
+[illustration: B - photo of a young woman reading]
+[illustration: C - December 25 calendar image with Christmas decorations]
+[illustration: D - photo of Chinese food dish]
+[illustration: E - photo of stacked books]
+[illustration: F - monthly calendar grid]
+
+shū
+① 书___
+
+Zhōngguó cài
+② 中国　菜___
+
+xuéxiào
+③ 学校___
+
+èrshíwǔ hào
+④ 25　　号___
+
+yuè
+⑤ 月___
+
+kàn shū
+⑥ 看　书___
+
+## 课文 Text
+
+## 1　在银行　In a bank (Audio: 07-1)
+
+Qǐngwèn, jīntiān jǐ hào?
+A: 请问，　今天 几 号？
+
+Jīntiān jiǔ yuè yī hào.
+B: 今天 9 月 1号。
+
+Jīntiān xīngqī jǐ?
+A: 今天 星期几？
+
+Xīngqī sān.
+B: 星期 三。
+
+[illustration: photo of a number 1 tile or plaque]
+
+*English Version*
+
+A: Excuse me, what's the date today?
+B: It's September 1st.
+A: What day is it today?
+B: It's Wednesday.
+
+*New Words*
+
+| # | Character | Pinyin | Part of Speech | English |
+|---|---|---|---|---|
+| 1. | 请 | qǐng | v. | (*polite*) please |
+| *2. | 问 | wèn | v. | to ask, to inquire |
+| 3. | 今天 | jīntiān | n. | today |
+| 4. | 号 | hào | n. | (*for date of month*) number |
+| 5. | 月 | yuè | n. | month |
+| 6. | 星期 | xīngqī | n. | week |
+
+## 2　看日历　Look at the calendar (Audio: 07-2)
+
+[illustration: photo of a stack of calendars]
+
+Zuótiān shì　jǐ yuè jǐ hào?
+A: 昨天 是 几 月几号？
+
+Zuótiān shì bā yuè sānshíyī hào，xīngqī èr.
+B: 昨天 是 8 月　31　号，星期二。
+
+Míngtiān ne?
+A: 明天　呢？
+
+Míngtiān shì jiǔ yuè èr hào，xīngqī sì.
+B: 明天　是9 月 2 号，星期四。
+
+*English Version*
+
+A: What was the date yesterday?
+B: It was Tuesday, August 31st.
+A: What about tomorrow?
+B: It's Thursday, September 2nd.
+
+*New Words*
+
+| # | Character | Pinyin | Part of Speech | English |
+|---|---|---|---|---|
+| 7. | 昨天 | zuótiān | n. | yesterday |
+| 8. | 明天 | míngtiān | n. | tomorrow |
+
+## 3　在咖啡馆儿　In a coffee house (Audio: 07-3)
+
+Míngtiān xīngqī liù，nǐ qù xuéxiào ma?
+A: 明天　星期 六，你去 学校 吗？
+
+Wǒ qù xuéxiào.
+B: 我 去学校。
+
+Nǐ qù xuéxiào zuò shénme?
+A: 你去学校 做 什么？
+
+Wǒ qù xuéxiào kàn shū.
+B: 我 去 学校 看 书。
+
+[illustration: photo of two students studying at a table]
+
+*English Version*
+
+A: Tomorrow is Saturday. Will you go to school?
+B: Yes, I will.
+A: What are you going to do there?
+B: I'm going there to do some reading.
+
+*New Words*
+
+| # | Character | Pinyin | Part of Speech | English |
+|---|---|---|---|---|
+| 9. | 去 | qù | v. | to go |
+| 10. | 学校 | xuéxiào | n. | school |
+| 11. | 看 | kàn | v. | to look at, to watch, to read |
+| 12. | 书 | shū | n. | book |
+
+## 注释 Notes
+
+## 1　日期的表达（1）：月、日（rì, date）/号、星期
+
+Expression of a Date (1): month, date, day of the week
+
+汉语的日期表达方式遵循由大到小的原则，先说"月"，然后说"日/号"，最后说"星期"。口语一般常用"号"。例如：
+
+The way to say a date in Chinese observes the principle of "the bigger unit coming before the smaller one". The month is said first, then the date and finally the day of the week. In spoken Chinese, "号" is often used instead of "日" to express the date. For example:
+
+（1）9月1号，星期三。
+（2）9月2号，星期四。
+（3）8月31号，星期二。
+
+## 2　名词谓语句　Sentences with a Nominal Predicate
+
+名词谓语句是谓语部分由名词性成分充当的句子，一般用于表达年龄、时间、日期等。例如：
+
+A sentence with a nominal predicate is a sentence whose predicate is a nominal element. It is usually used to indicate age, time, date and so on. For example:
+
+| Subject | Predicate |
+|---|---|
+| 我的汉语老师 | 33岁。 |
+| 明天 | 星期三。 |
+| 今天 | 9月1号。 |
+
+## 3　连动句（1）：去+地方+做什么
+
+Sentences with a Serial Verb Construction (1): 去 + place + to do sth.
+
+连动句的谓语部分由两个或者两个以上动词构成，后一个动作可以表示前一个动作的目的。第一个动词后表示地点的宾语有时可以省略。例如：
+
+The predicate of a sentence with a serial verb construction consists of two or more verbs. The latter verb can be the purpose of the former. The object of the first verb, i.e. the place, can sometimes be omitted. For example:
+
+| Subject | Verb1 | | Verb2 |
+|---|---|---|---|
+| | 去 | （place） | to do sth. |
+| 我 | 去 | （中国） | 学习汉语。 |
+| 我们 | 去 | （中国饭馆儿） | 吃中国菜。 |
+| 我 | 去 | （学校） | 看书。 |
+
+## 练习 Exercises
+
+## 1　分角色朗读课文　Role-play the dialogues.
+
+## 2　朗读下列词语　Read the following words aloud.
+
+yī yuè　　èr yuè　　sān yuè　　sì yuè　　wǔ yuè　　liù yuè
+一月　　　二月　　　三月　　　四月　　　五月　　　六月
+January　February　March　　April　　May　　　June
+
+qī yuè　　bā yuè　　jiǔ yuè　　shí yuè　　shíyī yuè　　shí'èr yuè
+七月　　　八月　　　九月　　　十月　　　十一月　　　十二月
+July　　August　September　October　November　December
+
+xīngqī yī　　　xīngqī èr　　　xīngqī sān　　　xīngqī sì
+星期 一　　　　星期 二　　　　星期 三　　　　　星期 四
+Monday　　　Tuesday　　　Wednesday　　　Thursday
+
+xīngqī wǔ　　　xīngqī liù　　　xīngqīrì / xīngqītiān
+星期 五　　　　星期 六　　　　星期日 / 星期天
+Friday　　　　Saturday　　　Sunday
+
+## 3　根据实际情况回答问题　Answer the questions according to the actual situations.
+
+① 今天几月几号星期几？Jīntiān jǐ yuè jǐ hào xīngqī jǐ?
+
+② 明天几月几号星期几？Míngtiān jǐ yuè jǐ hào xīngqī jǐ?
+
+③ 昨天几月几号星期几？Zuótiān jǐ yuè jǐ hào xīngqī jǐ?
+
+④ 明天你去哪儿做什么？Míngtiān nǐ qù nǎr zuò shénme?
+
+⑤ 星期日你去哪儿做什么？Xīngqīrì nǐ qù nǎr zuò shénme?
+
+## 4　用本课新学的语言点和词语描述图片
+
+Describe the pictures using the newly-learned language points and words.
+
+[illustration: January 1, 2013 calendar page]
+
+Jīntiān shì　　　　yuè　　　　hào,
+今天 是 ___月___号，
+xīngqī
+星期___。
+
+[illustration: May 18 calendar icon]
+
+Jīntiān　　　　yuè　　　　hào.
+今天___月___号。
+
+[illustration: monthly calendar grid with dates]
+
+Èrshí'èr hào shì
+22　号 是 ___，
+èrshísān hào shì
+23　号 是 ___。
+
+[illustration: photo of students outside a building]
+
+Míngtiān wǒ qù　　　　kàn
+明天　我去___看___。
+
+## 拼音 Pinyin
+
+双音节词语的声调搭配（2）：二声和各声调的搭配
+Tone Collocation in Disyllabic Words (2): 2nd tone + 1st/2nd/3rd/4th tone
+
+[illustration: tone diagram for 2nd + 1st tone]
+[illustration: tone diagram for 2nd + 2nd tone]
+[illustration: tone diagram for 2nd + 3rd tone]
+[illustration: tone diagram for 2nd + 4th tone]
+
+shíjiān　　　yínháng　　　cídiǎn　　　lánsè
+时间　　　　银行　　　　词典　　　　蓝色
+
+[illustration: photo of a man]
+[illustration: photo of a bank building]
+[illustration: photo of dictionaries]
+[illustration: photo of blue color]
+
+听录音并跟读，注意声调的搭配 (Audio: 07-4)
+Listen to the recording and read after it. Pay attention to the collocation of tones.
+
+guójiā　　lóufáng　　píngguǒ　　huánjìng
+zuótiān　　lánqiú　　pí jiǔ　　hánjià
+míngtiān　　míngnián　　niúnǎi　　niú ròu
+niánqīng　　Chángchéng　　yóu yǒng　　yóuxì
+
+## 汉字 Characters
+
+## 1　认识独体字　Single-Component Characters
+
+（1）"四"，表示数量"4"。
+"四" means "four".
+
+[illustration: character evolution of 四, showing historical forms progressing to modern form]
+
+sì
+三 → 𠃊 → 囘 → 四
+
+[illustration: stroke order for 四]
+
+（2）"五"，表示数量"5"。
+"五" means "five".
+
+[illustration: character evolution of 五, showing historical forms progressing to modern form]
+
+wǔ
+[unclear] → [unclear] → [unclear] → 五
+
+[illustration: stroke order for 五]
+
+（3）"书"，本义是将毛笔放在墨池中蘸墨以便涂写，现在是"书写、书籍"等意思。
+"书" originally meant "to dip the writing brush into the ink and write with it", and now it means "writing" or "book", etc.
+
+[illustration: character evolution of 书, showing historical forms progressing to modern form]
+
+shū
+[unclear] → [unclear] → 书
+
+[illustration: stroke order for 书]
+
+## 2　汉字结构（2）：左右结构与左中右结构
+
+Structure of Chinese Characters (2): left-right and left-middle-right
+
+合体结构中包括左右结构和左中右结构。左右结构的结构图形为[unclear]，左中右结构的图形为[unclear]。
+
+Both the left-right structure and the left-middle-right structure are compound structures. The left-right structure is [unclear] and the left-middle-right structure is [unclear].
+
+| 结构 Structure | 例字 Example Characters | 图解 Illustrations |
+|---|---|---|
+| 左右结构 left-right | 你 nǐ　(*singular*) you 好 hǎo　good, fine | [illustration: characters 你 好 shown in structural boxes] |
+| 左中右结构 left-middle-right | 谢 xiè　to thank 树 shù　tree | [illustration: characters 谢 树 shown in structural boxes] |
+
+## 3　汉字偏旁"氵"和"讠" Chinese Radicals "氵" and "讠"
+
+| 偏旁 Radical | 解释 Explanation | 例字 Example Characters |
+|---|---|---|
+| 氵 | 三点水，一般和水有关系。Shaped like three drops of water, the radical "氵" is usually related to water. | 汉 hàn　Chinese 没 méi　to not have |
+| 讠 | 言字旁，一般和语言、说话有关系。The radical "讠" is usually related to language and speech. | 语 yǔ　language 谁 shéi　who, whom |
+
+## 运用 Application
+
+## 1　双人活动　Pair Work
+
+两人一组，根据实际情况进行问答练习。
+Work in pairs and ask and answer questions according to the actual situatious.
+
+Jīntiān shì jǐ yuè jǐ hào?
+例如：A: 今天　是 几 月 几 号？
+
+B: ……
+
+Jīntiān xīngqī jǐ?
+A: 今天 星期 几？
+
+B: ……
+
+Míngtiān shì　jǐ yuè jǐ hào?
+A: 明天　　是 几 月 几 号？
+
+B: ……
+
+Míngtiān xīngqī jǐ?
+A: 明天　星期 几？
+
+B: ……
+
+Míngtiān nǐ zuò shénme?
+A: 明天　你做 什么？
+
+Míngtiān wǒ qù……
+B: 明天　我去……
+
+## 2　小组活动　Group Work
+
+3~4人一组，互相询问出生日期并记录，每组请一位同学报告情况。
+Work in groups of 3-4. Ask about each other's birthdays and take notes. Each group chooses one member to make a report.
+
+shēngrì
+补充生词：生日
+Supplementary word: birthday
+
+| | 姓名 Name | 生日 Birthday |
+|---|---|---|
+| 1 | 李月 Lǐ Yuè | 8月31号 bā yuè sānshíyī hào |
+| | | |
+| | | |
+| | | |
+| | | |

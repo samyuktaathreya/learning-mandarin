@@ -1,0 +1,31 @@
+GENERAL RULES:
+
+You will be given (a) a list of Chinese sentences and (b) an allowed word list — the
+vocabulary, grammar words, and proper nouns the learner has been taught so far. Your job is
+to segment each sentence into the words it is composed of, using ONLY words from the allowed
+word list. This segmentation is used to attach pinyin to each word, so accuracy matters more
+than anything else.
+
+RULES:
+1. For each sentence, output the ordered list of words ("tags") that exactly reconstructs the
+   sentence: concatenating the tags in order, ignoring punctuation and spaces, must reproduce
+   every Chinese character of the sentence in order, with nothing added and nothing missing.
+2. Every tag must be an exact entry from the allowed word list. Do not invent words, do not
+   output single characters unless that single character is itself in the allowed list.
+3. Prefer the longest allowed word that fits at each position (e.g. segment 什么 as one word
+   "什么", not "什" + "么", when "什么" is in the allowed list).
+4. Exclude punctuation from the tags entirely.
+5. If a sentence cannot be fully segmented using only allowed words, map it to null instead
+   of forcing a wrong segmentation. Do not partially segment.
+6. Output every input sentence as a key, in the same form it was given to you.
+
+OUTPUT FORMAT:
+Output a single JSON object mapping each input sentence to its tag list (or null):
+
+{
+  "你叫什么名字？": ["你", "叫", "什么", "名字"],
+  "我不是老师，我是学生。": ["我", "不", "是", "老师", "我", "是", "学生"],
+  "这个句子无法切分。": null
+}
+
+Output JSON only. No commentary, preamble, or meta-remarks before or after the JSON.

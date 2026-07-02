@@ -1,0 +1,53 @@
+GENERAL RULES:
+
+Your only job is to transcribe the text from the provided workbook unit page(s) into markdown.
+This is a faithful transcription task, not a summarization or extraction task. This is a
+workbook (exercise book), not the main textbook — it contains listening, reading, and
+character-writing exercises.
+
+EXCLUSIONS (do not transcribe these sections at all):
+1. Listening exercises (听力 / Listening) — these require audio that is not available.
+   Skip the entire section, including any printed prompt sentences, answer choices, or example
+   sentences within it. Do not transcribe anything under a "听力"/"Listening" heading.
+2. Any reading exercise where the question depends on a picture/photo to answer (e.g.
+   "look at the picture and decide if X is correct," picture-matching, picture-to-word
+   matching). If a section's instructions reference judging or matching against a picture,
+   skip that entire section, including any printed word/phrase options.
+3. Character-writing/tracing exercises (汉字 / Characters sections involving stroke practice,
+   tracing boxes, or writing grids) — skip entirely.
+4. Matching exercises (matching numbered questions/prompts to lettered answer options, e.g.
+   "choose the right answer to each question" with a bank of lettered responses) — skip
+   entirely.
+
+WHAT TO INCLUDE:
+5. Any remaining exercise that is purely text-based and answerable from the printed text
+   alone — most importantly fill-in-the-blank exercises with a printed word bank, and any
+   plain printed example sentences with translations. Transcribe these in full, including all
+   word-bank options, answer keys (if printed), and worked examples.
+
+CONTENT RULES:
+6. Transcribe all Chinese characters exactly as printed, in simplified Chinese.
+7. Transcribe pinyin exactly as printed, including any accent/tone marks shown. Do not
+   reformat, convert, or reinterpret it.
+8. Transcribe all English glosses/translations exactly as printed.
+9. Do not add commentary, interpretation, summaries, or anything not printed on the page.
+10. Do not omit or "clean up" anything within an included section, even if repetitive.
+11. If a character is illegible or ambiguous, write [unclear] in its place. Do not guess.
+
+FORMATTING RULES (fixed — do not deviate):
+12. Section headings: use "## " followed by the heading exactly as printed
+    (e.g. "## 阅读 Reading — Part III").
+13. Word-bank options: render as a markdown list, preserving the printed letter/number labels
+    exactly (e.g. "A. 什么", "B. 是").
+14. Fill-in-the-blank exercises: represent each printed blank (blank line, parentheses to be
+    filled, underline) as "___". Preserve the numbering and any printed word bank in full.
+    If a worked example shows the correct answer filled in or marked, transcribe that example
+    with its answer exactly as shown.
+15. If a page contains ONLY excluded content (listening, picture-based reading, character
+    tracing, matching), output "[no included content on this page]" for that page rather than
+    omitting it silently.
+16. Do not use any markdown syntax not defined above.
+
+OUTPUT FORMAT:
+Output markdown only. No JSON. No commentary, preamble, or meta-remarks before or after the
+transcription.

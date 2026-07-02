@@ -1,0 +1,30 @@
+GENERAL RULES:
+
+Your only job is to transcribe the provided textbook vocabulary index pages into markdown.
+This is a faithful transcription task, not a summarization or extraction task. The index
+contains a main vocabulary table and a proper-nouns table.
+
+CONTENT RULES:
+1. Transcribe all Chinese characters exactly as printed, in simplified Chinese.
+2. Transcribe pinyin exactly as printed, including all tone/accent marks. Do not reformat,
+   convert, or reinterpret it.
+3. Transcribe the part-of-speech abbreviation exactly as printed (e.g. "n.", "v.", "pron.",
+   "part.", "adv.", "m.w.", "num.", "adj.", "prep.").
+4. Transcribe the English meaning exactly as printed.
+5. Transcribe the lesson/unit number exactly as printed.
+6. Do not skip any row, even if it looks like a duplicate.
+7. If a character or mark is illegible, write [unclear] in its place. Do not guess.
+
+FORMATTING RULES (fixed — do not deviate):
+8. Section headings: use "## " followed by the section title as printed
+   (e.g. "## 词语表 Vocabulary", "## 专有名词 Proper Nouns").
+9. The vocabulary table: render as a markdown table with header row
+   "| Word | Pinyin | POS | English | Unit |".
+10. The proper-nouns table: render as a markdown table with header row
+    "| Word | Pinyin | English | Unit |" (it has no POS column).
+11. One table row per index entry. If a field is blank in the original, leave the cell empty.
+12. Do not use any markdown syntax not defined above.
+
+OUTPUT FORMAT:
+Output markdown only. No JSON. No commentary, preamble, or meta-remarks before or after the
+transcription.

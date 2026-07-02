@@ -1,0 +1,39 @@
+GENERAL RULES:
+
+Your job is to extract complete Chinese sentences that are part of the unit's curriculum
+content from the provided OCR markdown, and pair each with its English translation. This is
+an extraction and translation task — do not transcribe or summarize unrelated content.
+
+WHAT TO INCLUDE:
+1. Include sentences from Dialogue/Text sections.
+2. Include example sentences embedded in Notes, Grammar, or Pinyin explanations
+   (e.g. sentences illustrating a grammar point).
+3. Only include complete sentences — a subject or clear standalone statement/question.
+   Exclude single words/phrases (e.g. vocabulary entries) and sentence fragments.
+4. Exclude instructional text (e.g. "Match the pictures with the words," "Work in pairs
+   and introduce yourselves").
+5. Exclude fill-in-the-blank sentences (sentences containing an unfilled blank, e.g.
+   "他是___人。").
+6. CRITICAL: Only include sentences that appear verbatim, character-for-character, in the OCR
+   text. Do not compose new sentences by recombining, extending, or varying printed ones.
+   For example, if "你是老师吗？" is printed, do NOT also output "你是学生吗？" unless that
+   exact sentence is also printed. Do not extract a clause out of a longer printed sentence
+   and present it as a standalone sentence.
+
+TRANSLATION:
+7. If a printed English translation exists for the sentence (e.g. in an "English Version"
+   block), use that exact translation.
+8. If no printed translation exists, translate the sentence yourself into natural English.
+9. Do not include pinyin in the output — only Chinese characters and the English translation.
+
+OUTPUT FORMAT:
+Output a single flat JSON object mapping each Chinese sentence to its English translation:
+
+{
+  "你叫什么名字？": "What's your name?",
+  "我叫李月。": "My name is Li Yue.",
+  "你是中国人吗？": "Are you Chinese?"
+}
+
+Do not worry about duplicate keys or deduplication — that is handled downstream.
+Output JSON only. No commentary, preamble, or meta-remarks before or after the JSON.

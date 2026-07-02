@@ -1,0 +1,72 @@
+GENERAL RULES:
+
+You will be given the full OCR markdown for a textbook unit, and a list of candidate
+fill-in-the-blank sentences found in that unit. Your job is to decide, for each candidate,
+whether its blank(s) can be answered with high confidence using only information present in
+the OCR'd unit text — and if so, provide the answer, the completed sentence, and its English
+translation.
+
+DECIDING WHETHER TO ANSWER:
+1. Use only information available in the provided unit text (surrounding dialogue, notes,
+   vocabulary, a printed word bank, or a printed answer key) to determine each blank's answer.
+   Do not use outside or general knowledge (e.g. real-world facts about people, places, or
+   public figures) to fill a blank, even if the answer seems obvious.
+2. If a sentence is open-ended (e.g. the student is meant to fill in their own name,
+   nationality, or personal information) and there is no single correct answer derivable
+   from the unit text, do not answer it — drop it.
+3. If a sentence has multiple blanks, every blank must be answerable with high confidence
+   from the unit text, or the entire sentence is dropped — do not partially fill a sentence.
+4. If you are not highly confident in the correct answer, drop the sentence entirely. An
+   omitted sentence is always better than a guessed one.
+5. Do not exclude a sentence just because it looks like a warm-up or minor exercise —
+   base the decision only on rules 1-4 (confidence and answerability), not on how important
+   the sentence seems.
+6. A printed word bank (a fixed set of lettered/numbered options printed with the exercise)
+   counts as unit text. If exactly one option fits a blank grammatically and semantically,
+   that blank is answerable with high confidence.
+
+WORKED EXAMPLE 1 (correct behavior — drop):
+Candidate: "他　叫　乔丹（Michael Jordan），他是___人。"
+This looks answerable ("美国") but the correct nationality is not stated anywhere in the
+unit text — it requires outside knowledge about who Michael Jordan is. Per rule 1, this must
+be dropped, even though a confident-sounding answer exists.
+
+WORKED EXAMPLE 2 (correct behavior — drop):
+Candidate: "他　叫　姚　明（Yao Ming），他是___人。"
+Identical situation with a different person: the answer ("中国") would come from real-world
+knowledge about Yao Ming, not from anything printed in the unit. Per rule 1, this must also
+be dropped. The rule applies to EVERY sentence whose answer depends on knowing facts about a
+named person or place, regardless of who the person is or how obvious the answer feels.
+
+WORKED EXAMPLE 3 (correct behavior — answer):
+Candidate: "李月（___）中国人，她是老师。" printed with word bank "A 什么 B 是 C 不 D 名字 E 吗"
+Only option B (是) fits the blank grammatically. The word bank is printed unit text, so per
+rule 6 this is answerable: answer ["是"], full sentence "李月是中国人，她是老师。".
+
+ANSWERING:
+7. "answer" is always a list of strings, in the order the blanks appear in the sentence —
+   even if there is only one blank.
+8. "full_sentence_answer" is the complete sentence with all blanks filled in correctly.
+9. "translation" is the English translation of the completed sentence — use a printed
+   translation from the unit text if one exists, otherwise translate it yourself.
+10. "fill in the blank" in the output must exactly match the candidate sentence as given
+    (with "___" placeholders), unchanged.
+11. Do your reasoning internally. Do not output your reasoning, analysis, or explanation for
+    each candidate — output only the final JSON array. The response must start with "[" and
+    contain nothing else.
+
+OUTPUT FORMAT:
+Output a JSON list of objects — one per candidate sentence you were able to confidently
+answer. Sentences you dropped must not appear in the output at all. If no candidates are
+answerable, output [].
+
+[
+  {
+    "fill in the blank": "李月（___）中国人，她是老师。",
+    "answer": ["是"],
+    "full_sentence_answer": "李月是中国人，她是老师。",
+    "translation": "Li Yue is Chinese. She is a teacher."
+  }
+]
+
+Output JSON only. No commentary, preamble, or meta-remarks before or after the JSON.

@@ -1,0 +1,30 @@
+GENERAL RULES:
+
+Your job is to find every fill-in-the-blank sentence in the provided OCR markdown. This is
+a pure extraction task — do not judge relevance, do not attempt to answer, do not filter
+based on whether the blank seems answerable or curriculum-relevant.
+
+WHAT TO INCLUDE:
+1. Include every sentence that contains a printed blank (e.g. underscores, blank lines, or
+   any placeholder standing in for missing text), regardless of section, context, or whether
+   it looks like a real exercise, a warm-up, an example, or anything else.
+2. Include the full sentence surrounding the blank(s) as printed — not just the blank itself.
+3. If a sentence has multiple blanks, keep it as a single entry (do not split blanks into
+   separate sentences).
+4. Do not exclude anything because it seems too simple, ambiguous, or unanswerable —
+   filtering happens in a later step, not here.
+5. Do not attempt to fill in, guess, or reason about the answer at this stage.
+
+FORMAT:
+6. Normalize every blank to the placeholder "___", regardless of how it was printed in the
+   OCR result (underscores, blank lines, full-width blanks, parentheses to be filled, etc.).
+
+OUTPUT FORMAT:
+Output a JSON list of strings, one per fill-in-the-blank sentence found:
+
+[
+  "他　叫　乔丹（Michael Jordan），他是___人。",
+  "我　不　是___，我　是　学生，我　是___人。"
+]
+
+Output JSON only. No commentary, preamble, or meta-remarks before or after the JSON.

@@ -1,0 +1,31 @@
+GENERAL RULES:
+
+You will be given the OCR markdown of a textbook vocabulary index (a vocabulary table and a
+proper-nouns table). Your job is to convert every row into a JSON entry. This is a conversion
+task — do not add, remove, merge, or reinterpret entries.
+
+RULES:
+1. Output one entry per table row.
+2. "hanzi" = the Word column, exactly as transcribed.
+3. "pinyin" = the Pinyin column, exactly as transcribed (keep tone marks; do NOT convert to
+   numbers — that happens in a later step).
+4. "english" = the English column, exactly as transcribed.
+5. "unit" = the Unit column as an integer.
+6. "section" = "vocab" for rows from the vocabulary table, "proper_noun" for rows from the
+   proper-nouns table.
+7. "pos" = the POS column exactly as transcribed for vocabulary rows; use "" for proper-noun
+   rows (they have no POS column).
+8. If any field contains [unclear], keep the [unclear] marker in that field — do not guess a
+   replacement.
+9. Do not skip rows, even if two rows look identical — duplicates are removed in a later step.
+
+OUTPUT FORMAT:
+Output a single JSON array of objects:
+
+[
+  {"hanzi": "爱", "pinyin": "ài", "pos": "v.", "english": "to love, to like", "unit": 8, "section": "vocab"},
+  {"hanzi": "吗", "pinyin": "ma", "pos": "part.", "english": "used at the end of a question", "unit": 3, "section": "vocab"},
+  {"hanzi": "中国", "pinyin": "Zhōngguó", "pos": "", "english": "China", "unit": 3, "section": "proper_noun"}
+]
+
+Output JSON only. No commentary, preamble, or meta-remarks before or after the JSON.
