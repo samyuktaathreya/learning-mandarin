@@ -8,9 +8,12 @@ Per source (textbook / workbook), per unit:
   2. sentence finder agent -> {hanzi: english}
   3. verbatim filter (code, line-scoped) -> drops hallucinated sentences
   4. vocab gate (code, char-level)      -> drops sentences using not-yet-taught vocab
+     (workbook only -- see VOCAB_GATED_SOURCES)
   5. FITB finder agent -> FITB solver agent -> verbatim filter -> vocab gate
   6. tagger agent segments sentences into known words -> code-validated, greedy
-     longest-match fallback -> word-to-pinyin lookup -> tone sandhi (不 / 一) -> pinyin
+     longest-match fallback -> word-to-pinyin lookup, with any words still
+     unmatched (workbook: dropped; textbook: kept and auto-pinyin'd via
+     pypinyin -- see UNKNOWN_WORD_FALLBACK_SOURCES) -> tone sandhi (不 / 一) -> pinyin
   7. per-unit record with counts
 
 Merge: textbook + workbook results per unit -> ../data/clean/units_output.json
@@ -35,6 +38,7 @@ from pathlib import Path
 import anthropic
 from pypdf import PdfReader, PdfWriter
 from dotenv import load_dotenv
+from pypinyin import pinyin as pypinyin_pinyin, Style as PypinyinStyle
 
 # --------------------------------- CONSTANTS ---------------------------------
 
@@ -89,7 +93,7 @@ SOURCES_TO_PROCESS = None        # e.g. ["textbook"]
 
 # --------------------------------- SETUP ---------------------------------
 
-load_dotenv()
+load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env")
 api_key = os.environ.get("CLAUDE_API_KEY")
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
 
@@ -103,11 +107,27 @@ def load_sop(filename: str) -> str:
         return f.read()
 
 
+ADDED_VOCAB_PATH = BASE_DIR.parent / "language-app-data" / "added_vocab" / "hsk1.txt"
+
+# words looked up (or attempted) but missing from word_to_pinyin, collected for
+# an end-of-run report so they can be added to ADDED_VOCAB_PATH by hand
+_missing_pinyin_words = set()
+
+
+def load_added_vocab() -> dict:
+    if not ADDED_VOCAB_PATH.exists():
+        return {}
+    with open(ADDED_VOCAB_PATH, encoding="utf-8") as f:
+        return json.load(f)
+
+
 def load_word_dicts():
     with open(os.path.join(str(PINYIN_DICT_FILEPATH), PINYIN_DICT_FILENAME), encoding="utf-8") as f:
         word_to_pinyin = json.load(f)
     with open(os.path.join(str(PINYIN_DICT_FILEPATH), UNIT_DICT_FILENAME), encoding="utf-8") as f:
         word_to_unit = json.load(f)
+    added = load_added_vocab()
+    word_to_pinyin.update(added)  # manual overrides fill pinyin gaps
     return word_to_pinyin, word_to_unit
 
 
@@ -238,6 +258,37 @@ def filter_verbatim_fitb(fitb_list: list, ocr_markdown: str, label: str):
     return verified, len(dropped)
 
 
+# The FITB solver SOP asks for "___" as the blank placeholder, but the model
+# doesn't always follow that -- it sometimes emits full-width parens like
+# "（　）" or "(　)" instead. Rather than relying on prompt compliance, we
+# normalize every variant we've seen to "___" as soon as entries come back
+# from the agent, so every downstream function (verbatim filter, vocab gate,
+# expand_fitb) only ever has to deal with one placeholder.
+_BLANK_PLACEHOLDER_RE = re.compile(
+    r"（\s*　*\s*）"   # full-width parens, possibly containing full-width space(s)
+    r"|\(\s*　*\s*\)"  # half-width parens, possibly containing full-width space(s)
+    r"|_{2,}"          # 2+ underscores (covers "__", "____", etc. -- not just exactly 3)
+)
+
+
+def normalize_fitb_blanks(fitb_list: list, label: str = "") -> list:
+    """Rewrite entry['fill in the blank'] so every blank placeholder variant
+    becomes exactly '___'. Logs when a non-standard placeholder was seen."""
+    normalized = []
+    n_fixed = 0
+    for entry in fitb_list:
+        blanked = entry.get("fill in the blank", "")
+        fixed, count = _BLANK_PLACEHOLDER_RE.subn("___", blanked)
+        if count and fixed != blanked:
+            n_fixed += 1
+        entry = {**entry, "fill in the blank": fixed}
+        normalized.append(entry)
+    if n_fixed and label:
+        print(f"  [fitb-normalize] {label}: rewrote non-'___' blank placeholder(s) "
+              f"in {n_fixed} entr(y/ies) to '___'")
+    return normalized
+
+
 def build_known_chars(word_to_unit: dict, unit_number: int) -> set:
     known = set()
     for word, unit in word_to_unit.items():
@@ -250,32 +301,75 @@ def passes_vocab_gate(text: str, known_chars: set) -> bool:
     return all(ch in known_chars for ch in cjk_only(text))
 
 
-def filter_vocab_gate_sentences(sentences: dict, known_chars: set, label: str):
+def unknown_chars_in(text: str, known_chars: set) -> list:
+    """Which specific characters in text are NOT in known_chars, in order,
+    de-duplicated. Used to make vocab-gate drop messages actionable instead
+    of just showing the sentence with no indication of what tripped it."""
+    seen = []
+    for ch in cjk_only(text):
+        if ch not in known_chars and ch not in seen:
+            seen.append(ch)
+    return seen
+
+
+# Sources where the vocab gate (dropping sentences/FITB that use not-yet-taught
+# vocab) should actually run. Workbook exercises are meant to drill only vocab
+# already taught by that point, so they're gated. Textbook sentences are the
+# vocab's original teaching context and often legitimately introduce vocab from
+# later in the same unit's presentation, so they're left ungated.
+VOCAB_GATED_SOURCES = {"workbook"}
+
+
+def filter_vocab_gate_sentences(sentences: dict, known_chars: set, label: str, source: str):
+    if source not in VOCAB_GATED_SOURCES:
+        return sentences, 0
     verified, dropped = {}, []
     for zh, en in sentences.items():
-        (verified.__setitem__(zh, en) if passes_vocab_gate(zh, known_chars)
-         else dropped.append(zh))
+        if passes_vocab_gate(zh, known_chars):
+            verified[zh] = en
+        else:
+            dropped.append((zh, unknown_chars_in(zh, known_chars)))
     if dropped:
         print(f"  [vocab-gate] {label}: dropped {len(dropped)} sentence(s) with un-taught vocab:")
-        for zh in dropped:
-            print(f"    - {zh}")
+        for zh, bad_chars in dropped:
+            print(f"    - {zh}  (not yet taught: {', '.join(bad_chars)})")
     return verified, len(dropped)
 
 
-def filter_vocab_gate_fitb(fitb_list: list, known_chars: set, label: str):
+def filter_vocab_gate_fitb(fitb_list: list, known_chars: set, label: str, source: str):
+    if source not in VOCAB_GATED_SOURCES:
+        return fitb_list, 0
     verified, dropped = [], []
     for entry in fitb_list:
         full = entry.get("full_sentence_answer", "")
-        (verified.append(entry) if passes_vocab_gate(full, known_chars)
-         else dropped.append(full))
+        if passes_vocab_gate(full, known_chars):
+            verified.append(entry)
+        else:
+            dropped.append((full, unknown_chars_in(full, known_chars)))
     if dropped:
         print(f"  [vocab-gate] {label}: dropped {len(dropped)} FITB entr(y/ies) with un-taught vocab:")
-        for f_ in dropped:
-            print(f"    - {f_}")
+        for f_, bad_chars in dropped:
+            print(f"    - {f_}  (not yet taught: {', '.join(bad_chars)})")
     return verified, len(dropped)
 
 
 # --------------------------------- TAGGING & PINYIN ---------------------------------
+
+# Sources allowed to fall back to auto-generated (pypinyin) pinyin for words
+# not in word_to_pinyin, instead of dropping the whole sentence. Workbook
+# content isn't perfectly unit-aligned with the textbook, so it keeps the
+# strict "drop if any word is unknown" behavior; textbook sentences are kept
+# and unknown words get auto-pinyin'd.
+UNKNOWN_WORD_FALLBACK_SOURCES = {"textbook"}
+
+
+def pypinyin_for_word(word: str) -> str:
+    """Auto-generate numeric-tone pinyin for a word not in word_to_pinyin,
+    e.g. '口' -> 'kou3'. Neutral tone renders as tone 5, matching our
+    convention (see diacritic_to_numeric in vocab_index_parser.py)."""
+    syllables = pypinyin_pinyin(word, style=PypinyinStyle.TONE3, neutral_tone_with_five=True)
+    return "".join(s[0] for s in syllables)
+
 
 def known_words_for_unit(word_to_unit: dict, unit_number: int) -> list:
     words = [w for w, u in word_to_unit.items() if u <= unit_number]
@@ -283,23 +377,35 @@ def known_words_for_unit(word_to_unit: dict, unit_number: int) -> list:
     return words
 
 
-def greedy_segment(sentence: str, allowed_words: list):
-    """Deterministic fallback: longest-match segmentation over CJK chars only."""
+def greedy_segment(sentence: str, allowed_words: list, allow_unknown: bool = False):
+    """
+    Deterministic fallback: longest-match segmentation over CJK chars only.
+    If allow_unknown is True, any run of characters that doesn't match a
+    known word is emitted character-by-character as "unknown" tags (still
+    real hanzi, just not in word_to_unit) instead of failing the whole
+    sentence. If allow_unknown is False (workbook), any unmatched character
+    fails the segmentation, same as before.
+    """
     target = cjk_only(sentence)
     tags, pos = [], 0
     while pos < len(target):
         match = next((w for w in allowed_words if target.startswith(cjk_only(w), pos)), None)
-        if match is None:
-            return None
-        tags.append(match)
-        pos += len(cjk_only(match))
+        if match is not None:
+            tags.append(match)
+            pos += len(cjk_only(match))
+            continue
+        if allow_unknown:
+            tags.append(target[pos])  # single unknown character as its own tag
+            pos += 1
+            continue
+        return None
     return tags
 
 
-def validate_tags(sentence: str, tags, allowed_set: set) -> bool:
+def validate_tags(sentence: str, tags, allowed_set: set, allow_unknown: bool = False) -> bool:
     if not isinstance(tags, list) or not tags:
         return False
-    if any(t not in allowed_set for t in tags):
+    if not allow_unknown and any(t not in allowed_set for t in tags):
         return False
     return "".join(cjk_only(t) for t in tags) == cjk_only(sentence)
 
@@ -352,7 +458,38 @@ def run_tagger(sentences: list, allowed_words: list, source: str, unit_number: i
         system=load_sop(TAGGER_FILENAME),
         messages=[{"role": "user", "content": payload}],
     )
-    return parse_json_response(extract_text_from_response(response), {}, source, unit_number, "tagger")
+    result = parse_json_response(extract_text_from_response(response), {}, source, unit_number, "tagger")
+
+    # The tagger SOP asks for a {sentence: [tags]} object, but the model
+    # occasionally emits a JSON array instead (e.g. a list of {sentence, tags}
+    # objects, or just a list of tag-lists in sentence order). Rather than
+    # crashing downstream on agent_tags.get(...), coerce known array shapes
+    # into the expected dict, and fall back to {} (which makes every sentence
+    # go through greedy_segment instead) for anything unrecognized.
+    if isinstance(result, dict):
+        return result
+
+    if isinstance(result, list):
+        coerced = {}
+        if len(result) == len(sentences) and all(isinstance(x, list) for x in result):
+            # list of tag-lists, same order as the input sentences
+            coerced = dict(zip(sentences, result))
+        else:
+            for item in result:
+                if isinstance(item, dict) and "sentence" in item and "tags" in item:
+                    coerced[item["sentence"]] = item["tags"]
+        if coerced:
+            print(f"  [tagger-warning] {source} unit {unit_number}: tagger returned a JSON "
+                  f"array instead of an object; coerced {len(coerced)}/{len(sentences)} "
+                  f"entr(y/ies) into the expected shape")
+            return coerced
+        print(f"  [tagger-warning] {source} unit {unit_number}: tagger returned a JSON array "
+              f"in an unrecognized shape; falling back to greedy_segment for all sentences")
+        return {}
+
+    print(f"  [tagger-warning] {source} unit {unit_number}: tagger returned unexpected type "
+          f"{type(result).__name__}; falling back to greedy_segment for all sentences")
+    return {}
 
 
 def tag_and_pinyin(sentences: dict, word_to_pinyin: dict, word_to_unit: dict,
@@ -360,19 +497,25 @@ def tag_and_pinyin(sentences: dict, word_to_pinyin: dict, word_to_unit: dict,
     """Returns (records, n_dropped). Each record: {hanzi, english, tags, pinyin}."""
     if not sentences:
         return [], 0
+    allow_unknown = source in UNKNOWN_WORD_FALLBACK_SOURCES
     allowed_words = known_words_for_unit(word_to_unit, unit_number)
     allowed_set = set(allowed_words)
     agent_tags = run_tagger(list(sentences.keys()), allowed_words, source, unit_number)
+    if not isinstance(agent_tags, dict):
+        agent_tags = {}
 
     records, dropped = [], []
     for zh, en in sentences.items():
         tags = agent_tags.get(zh)
-        if not validate_tags(zh, tags, allowed_set):
-            tags = greedy_segment(zh, allowed_words)  # deterministic fallback
-        if tags is None or not validate_tags(zh, tags, allowed_set):
+        if not validate_tags(zh, tags, allowed_set, allow_unknown):
+            tags = greedy_segment(zh, allowed_words, allow_unknown)  # deterministic fallback
+        if tags is None or not validate_tags(zh, tags, allowed_set, allow_unknown):
             dropped.append(zh)
             continue
-        pinyins = apply_sandhi(tags, [word_to_pinyin[t] for t in tags])
+        pinyins = apply_sandhi(
+            tags,
+            [word_to_pinyin[t] if t in word_to_pinyin else pypinyin_for_word(t) for t in tags],
+        )
         records.append({"hanzi": zh, "english": en, "tags": tags, "pinyin": " ".join(pinyins)})
     if dropped:
         print(f"  [tagging] {source} unit {unit_number}: dropped {len(dropped)} unsegmentable sentence(s):")
@@ -393,8 +536,16 @@ def expand_fitb(entry: dict) -> list:
     translation = (entry.get("translation") or "").strip()
     full = entry.get("full_sentence_answer", "")
     segments = blanked.split("___")
-    if len(segments) - 1 != len(answers) or not answers:
+    n_blanks_found = len(segments) - 1
+    if n_blanks_found != len(answers) or not answers:
         print(f"  [fitb-warning] blank/answer count mismatch, skipping: {blanked}")
+        print(f"      found {n_blanks_found} '___' blank(s) in the sentence, "
+              f"but {len(answers)} answer(s): {answers!r}")
+        if n_blanks_found == 0 and answers:
+            print(f"      likely cause: sentence has no literal '___' -- check what "
+                  f"placeholder the FITB agent actually used (e.g. '（　）', '(　)', "
+                  f"'____', full-width parens, etc.) and either fix the SOP prompt to "
+                  f"force '___' or update this split to match the real placeholder.")
         return []
     questions = []
     for i in range(len(answers)):
@@ -479,7 +630,8 @@ def process_unit(source: str, unit_number: int, start_page: int, end_page: int,
                                "sentence_finder", fallback={})
     counts["sentences_extracted"] = len(sentences)
     sentences, counts["sentences_dropped_verbatim"] = filter_verbatim_sentences(sentences, ocr_md, label)
-    sentences, counts["sentences_dropped_vocab_gate"] = filter_vocab_gate_sentences(sentences, known_chars, label)
+    sentences, counts["sentences_dropped_vocab_gate"] = filter_vocab_gate_sentences(
+        sentences, known_chars, label, source)
 
     fitb_candidates = run_text_agent(ocr_md, sops["fitb_finder"], source, unit_number,
                                      "fitb_finder", fallback=[])
@@ -492,8 +644,9 @@ def process_unit(source: str, unit_number: int, start_page: int, end_page: int,
     else:
         fitb = []
     counts["fitb_solved"] = len(fitb)
+    fitb = normalize_fitb_blanks(fitb, label)
     fitb, counts["fitb_dropped_verbatim"] = filter_verbatim_fitb(fitb, ocr_md, label)
-    fitb, counts["fitb_dropped_vocab_gate"] = filter_vocab_gate_fitb(fitb, known_chars, label)
+    fitb, counts["fitb_dropped_vocab_gate"] = filter_vocab_gate_fitb(fitb, known_chars, label, source)
 
     sentence_records, counts["sentences_dropped_tagging"] = tag_and_pinyin(
         sentences, word_to_pinyin, word_to_unit, unit_number, source)
@@ -625,7 +778,30 @@ def run_pipeline():
         m = merged[unit_str]["counts"]["merged"]
         print(f"  unit {unit_str}: {m['sentences_final']} sentences, "
               f"{m['fitb_questions_final']} FITB questions")
+
+    print_missing_vocab(word_to_unit)
     return merged
+
+
+def print_missing_vocab(word_to_unit: dict):
+    """
+    Scan every cached OCR markdown file for characters that never made it into
+    word_to_unit (i.e. not in the vocab index, and not manually added). Prints
+    them so they can be added to language-app-data/added_vocab/hsk1.txt.
+    """
+    if not OCR_CACHE_FILEPATH.exists():
+        return
+    known_chars = set()
+    for w in word_to_unit:
+        known_chars.update(cjk_only(w))
+
+    missing_chars = set()
+    for cache_file in OCR_CACHE_FILEPATH.glob("*.md"):
+        text = cache_file.read_text(encoding="utf-8")
+        for ch in cjk_only(text):
+            if ch not in known_chars:
+                missing_chars.add(ch)
+    print("length of missing characters: ", len(missing_chars))
 
 
 if __name__ == "__main__":

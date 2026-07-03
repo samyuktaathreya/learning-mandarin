@@ -30,9 +30,7 @@ class QuestionType(str, Enum):
 BASE_DIR = Path(__file__).resolve().parent.parent
 INDEX_FILEPATH = BASE_DIR / "data" / "clean" / "index_output.json"
 UNITS_FILEPATH = BASE_DIR / "data" / "clean" / "units_output.json"
-LEGACY_UNITS_FILEPATH = BASE_DIR.parent / "language-app-data" / "data" / "clean" / "units_output.json"
 OUTPUT_FILEPATH = BASE_DIR / "data" / "clean" / "unit_questions_hsk1.json"
-BLOCKLIST_PATH = BASE_DIR / "remove_these_sentences" / "remove_these_sentences.txt"
 
 
 def load_json(path: Path):
@@ -42,13 +40,6 @@ def load_json(path: Path):
 
 def normalize(text: str) -> str:
     return re.sub(r"[。？！，、；：\"\'\.\?\!,]", "", text).strip()
-
-
-def load_blocklist() -> set:
-    if not BLOCKLIST_PATH.exists():
-        return set()
-    with open(BLOCKLIST_PATH, "r", encoding="utf-8") as fh:
-        return {normalize(line.strip()) for line in fh if line.strip()}
 
 
 def make_question(unit_number, question_type, question_text, answer_text, tags, counters):
@@ -113,13 +104,20 @@ def build_questions_for_unit(index_data, units_data, unit_number):
         ]:
             questions.append(make_question(unit_str, qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), counters))
 
+    # Grammar words (particles like 吗/个) practice everything a normal vocab
+    # word does EXCEPT hanzi -> english translation (asking someone to define
+    # a bare particle in English is a bad question). English -> hanzi is kept
+    # since recognizing which particle a usage/context calls for is fine to
+    # practice via IME input.
     for item in grammar_by_unit.get(unit_number, []):
         hanzi = item["hanzi"]
         pinyin = item.get("pinyin", "")
+        english = item.get("english", "")
         for qtype, q_text, a_text in [
             (QuestionType.LISTENING_VOCAB.value, hanzi, pinyin),
             (QuestionType.SPEAKING_VOCAB.value, hanzi, pinyin),
             (QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, hanzi, pinyin),
+            (QuestionType.TRANSLATE_EN_TO_ZH_WORD.value, english, hanzi),
         ]:
             questions.append(make_question(unit_str, qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), counters))
 
@@ -140,8 +138,6 @@ def build_questions_for_unit(index_data, units_data, unit_number):
         english = item.get("english", "")
         if not hanzi or hanzi in seen_sentences:
             continue
-        if normalize(hanzi) in load_blocklist():
-            continue
         seen_sentences.add(hanzi)
         for qtype, q_text, a_text in [
             (QuestionType.LISTENING_SENTENCE.value, hanzi, hanzi),
@@ -158,8 +154,6 @@ def build_questions_for_unit(index_data, units_data, unit_number):
             continue
         seen_fitb.add(key)
         full_sentence = reconstruct_fitb_sentence(item.get("question", ""), item.get("answer", ""))
-        if normalize(full_sentence) in load_blocklist():
-            continue
         questions.append(make_question(unit_str, QuestionType.FILL_IN_THE_BLANK.value, item.get("question", ""), item.get("answer", ""), build_tags(full_sentence, QuestionType.FILL_IN_THE_BLANK.value, unit_str, all_hanzi), counters))
 
     return questions
@@ -167,10 +161,7 @@ def build_questions_for_unit(index_data, units_data, unit_number):
 
 def main():
     index_data = load_json(INDEX_FILEPATH)
-    units_path = UNITS_FILEPATH if UNITS_FILEPATH.exists() else LEGACY_UNITS_FILEPATH
-    if not units_path.exists():
-        raise FileNotFoundError("Neither v2 nor legacy units_output.json exists")
-    units_data = load_json(units_path)
+    units_data = load_json(UNITS_FILEPATH)
 
     all_questions = {}
     for unit_number in sorted({int(k) for k in units_data.keys()} | {item["unit"] for item in index_data.get("vocab", [])} | {item["unit"] for item in index_data.get("grammar", [])} | {item["unit"] for item in index_data.get("proper_nouns", [])}):

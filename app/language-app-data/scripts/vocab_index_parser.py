@@ -6,7 +6,11 @@ Pipeline:
   2. Extraction agent -> JSON entries {hanzi, pinyin, pos, english, unit, section}
   3. Code: classify type (vocab / grammar / proper_noun), convert diacritic pinyin
      to numeric (ai4, peng2you5, Zhong1guo2), dedupe (first-seen wins, lowest unit)
-  4. Write:
+  4. Merge in language-app-data/added_vocab/hsk1.txt -- hand-added entries for
+     words used in the textbook/workbook but missing from the printed index.
+     One JSON object per line, same shape as index entries, e.g.:
+       {"hanzi": "口", "pinyin": "kou3", "english": "measure word", "unit": 3}
+  5. Write:
        ../data/clean/index_output.json        (consumed by create_questions.py)
        ../data/intermediate/word_to_pinyin.json (consumed by sentence_parser.py)
 
@@ -33,6 +37,9 @@ SOP_FILEPATH = BASE_DIR / "SOPs"
 OCR_SOP_FILENAME = os.path.join("vocab", "ocr.txt")
 EXTRACTOR_SOP_FILENAME = os.path.join("vocab", "index_extractor.txt")
 
+# was: INDEX_PDF_FILEPATH = "../data/raw"  (bare relative string -- resolved
+# against cwd at runtime, silently pointed nowhere depending on how/where the
+# script was invoked). Anchored to BASE_DIR like every other path here.
 INDEX_PDF_FILEPATH = BASE_DIR / "data" / "raw"
 INDEX_PDF_FILENAME = "hsk1_textbook_index.pdf"
 
@@ -47,6 +54,8 @@ OUTPUT_INDEX_FILENAME = "index_output.json"
 OUTPUT_PINYIN_DICT_FILEPATH = BASE_DIR / "data" / "intermediate"
 OUTPUT_PINYIN_DICT_FILENAME = "word_to_pinyin.json"
 
+ADDED_VOCAB_FILEPATH = BASE_DIR / "added_vocab" / "hsk1.txt"
+
 MODEL = "claude-sonnet-4-6"
 OCR_MAX_TOKENS = 8192
 AGENT_MAX_TOKENS = 8192
@@ -56,7 +65,7 @@ GRAMMAR_POS_PREFIXES = ("part", "aux", "助")
 
 # --------------------------------- SETUP ---------------------------------
 
-load_dotenv()
+load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env")
 api_key = os.environ.get("CLAUDE_API_KEY")
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
 
@@ -100,6 +109,34 @@ def save_llm_response(call_name: str, raw_text: str) -> str:
     return path
 
 
+def load_added_vocab() -> list:
+    """
+    Load hand-added vocab entries from added_vocab/hsk1.txt: one JSON object
+    per line, same shape as index-extracted entries:
+      {"hanzi": "口", "pinyin": "kou3", "english": "measure word", "unit": 3}
+    Blank lines and lines starting with # are skipped. Malformed lines are
+    reported and skipped rather than crashing the run.
+    """
+    if not ADDED_VOCAB_FILEPATH.exists():
+        return []
+    entries = []
+    with open(ADDED_VOCAB_FILEPATH, "r", encoding="utf-8") as f:
+        for lineno, line in enumerate(f, start=1):
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            try:
+                entry = json.loads(line)
+            except json.JSONDecodeError as e:
+                print(f"  [warning] added_vocab/hsk1.txt line {lineno}: invalid JSON ({e}); skipping")
+                continue
+            entry["section"] = entry.get("section", "vocab")  # default classification
+            entries.append(entry)
+    if entries:
+        print(f"  [added-vocab] loaded {len(entries)} hand-added entr(y/ies) from {ADDED_VOCAB_FILEPATH}")
+    return entries
+
+
 # ------------------------- PINYIN: DIACRITIC -> NUMERIC -------------------------
 
 # accented char -> (base char, tone number)
@@ -113,7 +150,7 @@ for base, marks in {
 _TONE_TABLE["ü"] = ("v", 0)
 _TONE_TABLE["Ü"] = ("V", 0)
 
-_VOWELS = set("aeiouvAEIOUV")
+_VOWELS = "aeiouv"
 
 
 def _demark(word: str):
@@ -132,63 +169,44 @@ def _demark(word: str):
 
 def _split_syllables(plain: str):
     """
-    Split a plain (demarked) pinyin word into syllables.
-    Boundaries: spaces/hyphens/apostrophes are explicit breaks. Otherwise a new
-    syllable starts at a consonant that follows a vowel, keeping 'n'/'ng'/'r'
-    finals with the preceding syllable ('n'+'g'+vowel splits as n | g+vowel).
+    Split a plain (demarked) pinyin word into syllables using standard
+    Mandarin syllable structure: (initial?)(vowel-nucleus)(n|ng|r)?
+    See earlier fix notes: word-final n/ng no longer splits off as its own
+    bare syllable (e.g. "ben" -> ["ben"], not ["be", "n"]).
     """
-    syllables, current, seen_vowel = [], "", False
-    i = 0
-    while i < len(plain):
-        ch = plain[i]
-        low = ch.lower()
-        if ch in " -'’":
-            if current:
-                syllables.append(current)
-            current, seen_vowel = "", False
-            i += 1
+    tokens = re.split(r"([ \-'’])", plain)  # keep explicit separators
+    syllables = []
+    for tok in tokens:
+        if tok in (" ", "-", "'", "’", ""):
             continue
-        if low in "aeiouv":
-            current += ch
-            seen_vowel = True
-            i += 1
-            continue
-        # consonant
-        if not seen_vowel:
-            current += ch
-            i += 1
-            continue
-        if low == "r" and (i + 1 == len(plain) or plain[i + 1].lower() not in "aeiouv"):
-            current += ch  # erhua / syllable-final r
-            i += 1
-            continue
-        if low == "n":
-            nxt = plain[i + 1].lower() if i + 1 < len(plain) else ""
-            nxt2 = plain[i + 2].lower() if i + 2 < len(plain) else ""
-            if nxt == "g" and nxt2 in "aeiouv":
-                current += ch          # n is final, g starts next syllable
-                syllables.append(current)
-                current, seen_vowel = "", False
-                i += 1
-                continue
-            if nxt == "g":
-                current += ch + plain[i + 1]  # ng final
-                syllables.append(current)
-                current, seen_vowel = "", False
+        i = 0
+        n = len(tok)
+        while i < n:
+            start = i
+            two = tok[i:i + 2].lower()
+            if two in ("zh", "ch", "sh"):
                 i += 2
-                continue
-            if nxt not in "aeiouv":
-                current += ch          # n final before consonant / end
-                syllables.append(current)
-                current, seen_vowel = "", False
+            elif tok[i].lower() not in _VOWELS:
                 i += 1
+            vstart = i
+            while i < n and tok[i].lower() in _VOWELS:
+                i += 1
+            if i == vstart:
+                if i == start:
+                    i = start + 1
+                syllables.append(tok[start:i])
                 continue
-        # default: consonant begins a new syllable
-        syllables.append(current)
-        current, seen_vowel = ch, False
-        i += 1
-    if current:
-        syllables.append(current)
+            if i < n and tok[i].lower() == "n":
+                if i + 1 < n and tok[i + 1].lower() == "g":
+                    if i + 2 >= n or tok[i + 2].lower() not in _VOWELS:
+                        i += 2
+                    else:
+                        i += 1
+                elif i + 1 >= n or tok[i + 1].lower() not in _VOWELS:
+                    i += 1
+            elif i < n and tok[i].lower() == "r" and (i + 1 >= n or tok[i + 1].lower() not in _VOWELS):
+                i += 1
+            syllables.append(tok[start:i])
     return syllables
 
 
@@ -329,37 +347,22 @@ def process_entries(raw_entries: list):
     return list(by_hanzi.values())
 
 
-def load_fallback_index() -> list:
-    fallback_path = Path("/workspaces/learning-mandarin/app/language-app-data/data/clean/index_output.json")
-    if not fallback_path.exists():
-        return []
-    with open(fallback_path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    records = []
-    for category in ("vocab", "grammar", "proper_nouns"):
-        for item in data.get(category, []):
-            if item.get("hanzi"):
-                records.append({
-                    "hanzi": item["hanzi"],
-                    "pinyin": item.get("pinyin", ""),
-                    "english": item.get("english", ""),
-                    "unit": item.get("unit", 3),
-                    "section": "proper_noun" if category == "proper_nouns" else "vocab",
-                    "pos": item.get("part_of_speech", ""),
-                })
-    return records
-
-
 def main():
     print("Parsing vocabulary index...")
     ocr_md = run_index_ocr()
     raw_entries = run_extractor(ocr_md)
-    if not raw_entries:
-        raw_entries = load_fallback_index()
-        print("  using fallback vocabulary data from the legacy pipeline")
-    print(f"  extracted {len(raw_entries)} raw rows")
 
-    records = process_entries(raw_entries)
+    added_entries = load_added_vocab()
+
+    if not raw_entries and not added_entries:
+        print("  [warning] no raw entries extracted and no added vocab found; skipping index output")
+        return {}
+    print(f"  extracted {len(raw_entries)} raw rows from index")
+
+    # added_vocab entries go through the same pipeline (already-numeric pinyin
+    # like "kou3" passes straight through diacritic_to_numeric unchanged).
+    records = process_entries(raw_entries + added_entries)
+
     index_output = {
         "vocab": [r for r in records if r["type"] == "vocab"],
         "grammar": [r for r in records if r["type"] == "grammar"],
@@ -380,7 +383,6 @@ def main():
     with open(dict_path, "w", encoding="utf-8") as f:
         json.dump(word_to_pinyin, f, ensure_ascii=False, indent=2)
 
-    # units are also needed by sentence_parser's vocab gate -> keep alongside pinyin
     units_dict_path = os.path.join(str(OUTPUT_PINYIN_DICT_FILEPATH), "word_to_unit.json")
     with open(units_dict_path, "w", encoding="utf-8") as f:
         json.dump({r["hanzi"]: r["unit"] for r in records}, f, ensure_ascii=False, indent=2)
