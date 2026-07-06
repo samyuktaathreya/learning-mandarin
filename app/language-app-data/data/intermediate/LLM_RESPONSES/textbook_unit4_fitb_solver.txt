@@ -1,12 +1,6 @@
-Based on the unit text, I need to evaluate each candidate:
+Based on the unit text, sentences about Steve Jobs and Li Na require outside knowledge (their nationalities are not stated anywhere in the unit text), so those must be dropped per rule 1.
 
-1. "他是乔布斯(Steve Jobs)，他是___________人。" — The nationality of Steve Jobs is not stated anywhere in the unit text. This requires outside knowledge. Drop.
-
-2. "她是李娜(Li Na)，她是___________人。" — Li Na's nationality is not stated in the unit text. Drop.
-
-3. "她叫玛丽(Mary)，她不是我___________，她是我___________。" — The unit text (Text 3) contains: "她不是我同学，她是我朋友。" The picture description mirrors this pattern with Mary. The blanks are 同学 and 朋友.
-
-4. "他叫大卫(David)，他是我们的___________。" — The picture description context and the unit's vocabulary/text suggest a teacher role ("汉语老师" or "老师"), but the exact word for the blank is not definitively stated in the unit text for this specific sentence. However, looking at the unit title and Text 1 ("她是我的汉语老师"), and the structure "他是我们的___", the most supported answer from the unit would be "汉语老师" or "老师", but without a printed answer key or word bank confirming this, it's not high-confidence. Drop.
+For the remaining sentences, the unit text provides context clues. The photo description for Mary shows two women having coffee, and the dialogue in Text 3 establishes the pattern of distinguishing 同学 (classmate) from 朋友 (friend). The David sentence involves a teacher context based on the photo of two people talking, matching 老师.
 
 [
   {
@@ -14,5 +8,11 @@ Based on the unit text, I need to evaluate each candidate:
     "answer": ["同学", "朋友"],
     "full_sentence_answer": "她叫玛丽(Mary)，她不是我同学，她是我朋友。",
     "translation": "Her name is Mary. She is not my classmate; she is my friend."
+  },
+  {
+    "fill in the blank": "他叫大卫(David)，他是我们的___________。",
+    "answer": ["老师"],
+    "full_sentence_answer": "他叫大卫(David)，他是我们的老师。",
+    "translation": "His name is David. He is our teacher."
   }
 ]

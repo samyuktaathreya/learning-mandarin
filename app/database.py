@@ -104,7 +104,7 @@ def init_db():
     finally:
         db.close()
 
-DICTIONARY_FILEPATH = './language-app-data/data/intermediate/'
+DICTIONARY_FILEPATH = './language-app-data/data/clean/hsk1_dictionary.json'
 
 try:
     with open(DICTIONARY_FILEPATH, 'r', encoding='utf-8') as f:

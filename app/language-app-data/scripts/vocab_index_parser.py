@@ -54,6 +54,9 @@ OUTPUT_INDEX_FILENAME = "index_output.json"
 OUTPUT_PINYIN_DICT_FILEPATH = BASE_DIR / "data" / "intermediate"
 OUTPUT_PINYIN_DICT_FILENAME = "word_to_pinyin.json"
 
+OUTPUT_DICTIONARY_FILEPATH = BASE_DIR / "data" / "clean"
+OUTPUT_DICTIONARY_FILENAME = "hsk1_dictionary.json"
+
 ADDED_VOCAB_FILEPATH = BASE_DIR / "added_vocab" / "hsk1.txt"
 
 MODEL = "claude-sonnet-4-6"
@@ -387,6 +390,23 @@ def main():
     units_dict_path = os.path.join(str(OUTPUT_PINYIN_DICT_FILEPATH), "word_to_unit.json")
     with open(units_dict_path, "w", encoding="utf-8") as f:
         json.dump({r["hanzi"]: r["unit"] for r in records}, f, ensure_ascii=False, indent=2)
+
+    # hsk1_dictionary.json: keyed by hanzi so consumers can do
+    # `entry = hsk1_dictionary[hanzi]`. Measure words (e.g. 口 / 个) appear as
+    # ordinary entries with their english meaning; no special handling needed.
+    hsk1_dictionary = {
+        r["hanzi"]: {
+            "hanzi": r["hanzi"],
+            "pinyin": r["pinyin"],
+            "english": r["english"],
+        }
+        for r in records
+    }
+    os.makedirs(OUTPUT_DICTIONARY_FILEPATH, exist_ok=True)
+    dictionary_path = os.path.join(str(OUTPUT_DICTIONARY_FILEPATH), OUTPUT_DICTIONARY_FILENAME)
+    with open(dictionary_path, "w", encoding="utf-8") as f:
+        json.dump(hsk1_dictionary, f, ensure_ascii=False, indent=2)
+    print(f"  wrote {len(hsk1_dictionary)} entries to {dictionary_path}")
 
     print(f"  vocab: {len(index_output['vocab'])}, grammar: {len(index_output['grammar'])}, "
           f"proper_nouns: {len(index_output['proper_nouns'])}")

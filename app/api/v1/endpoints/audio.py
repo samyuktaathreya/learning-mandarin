@@ -5,7 +5,6 @@ import hashlib
 import os
 import random
 import base64
-from openai import OpenAI
 from dotenv import load_dotenv
 from pypinyin import pinyin, Style
 import re
@@ -34,11 +33,6 @@ PINYIN_OVERRIDES = {
 
 audio_cache = {}
 session_files = set()
-
-openai_client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
-anthropic_client = anthropic_sdk.Anthropic(
-    api_key=os.environ.get("CLAUDE_API_KEY") or os.environ.get("ANTHROPIC_API_KEY")
-)
 
 AZURE_SPEECH_KEY = os.environ.get("AZURE_SPEECH_KEY")
 AZURE_SPEECH_REGION = os.environ.get("AZURE_SPEECH_REGION", "eastus")
