@@ -71,6 +71,7 @@ export default function Question({
     return (
         <div className="session-view">
             <p>Question {currentIndex + 1} of {totalQuestions}</p>
+            {currentQuestionObj.unit != null && <p>Unit {currentQuestionObj.unit}</p>}
             {sessionType === "unit_test" && <p>Unit Test</p>}
             {debugMode && <p>⚡ Debug mode</p>}
             <h2>{questionTypeToInstruction(currentQuestionObj.question_type)}</h2>

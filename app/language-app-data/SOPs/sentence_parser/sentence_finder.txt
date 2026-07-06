@@ -21,10 +21,22 @@ WHAT TO INCLUDE:
    and present it as a standalone sentence.
 
 TRANSLATION:
-7. If a printed English translation exists for the sentence (e.g. in an "English Version"
-   block), use that exact translation.
-8. If no printed translation exists, translate the sentence yourself into natural English.
-9. Do not include pinyin in the output — only Chinese characters and the English translation.
+7. Each translation must stand on its own and be fully understandable without the
+   surrounding dialogue. Textbook dialogues are often printed as elliptical
+   conversational turns (e.g. a question "Are you a teacher?" followed by the answer
+   "No, I'm not. I'm a student.") — an elliptical answer like that is NOT usable as the
+   translation of the isolated Chinese sentence, since a learner will see only the
+   Chinese sentence and its translation, not the preceding question.
+8. If a printed English translation exists for the sentence (e.g. in an "English Version"
+   block) AND it is self-contained (understandable on its own, out of context), use that
+   exact translation.
+9. Otherwise — including when the only printed translation is an elliptical dialogue
+   answer — translate the sentence yourself into a natural, self-contained English
+   sentence that reflects its full literal meaning. For example, printed dialogue
+   "A: 你是老师吗？ Are you a teacher? / B: 我不是老师，我是学生。 No, I'm not. I'm a
+   student." must be output as: "我不是老师，我是学生。": "I am not a teacher, I am a
+   student." — not "No, I'm not. I'm a student."
+10. Do not include pinyin in the output — only Chinese characters and the English translation.
 
 OUTPUT FORMAT:
 Output a single flat JSON object mapping each Chinese sentence to its English translation:

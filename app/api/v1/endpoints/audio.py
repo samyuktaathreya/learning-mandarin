@@ -13,7 +13,7 @@ import azure.cognitiveservices.speech as speechsdk
 import asyncio
 import time
 
-load_dotenv(os.path.join(os.path.dirname(__file__), '../../../language-app-data/.env'))
+load_dotenv(os.path.join(os.path.dirname(__file__), '../../../.env'))
 
 router = APIRouter()
 
@@ -35,7 +35,8 @@ audio_cache = {}
 session_files = set()
 
 AZURE_SPEECH_KEY = os.environ.get("AZURE_SPEECH_KEY")
-AZURE_SPEECH_REGION = os.environ.get("AZURE_SPEECH_REGION", "eastus")
+AZURE_SPEECH_REGION = os.environ.get("AZURE_REGION", "eastus")
+anthropic_client = anthropic_sdk.Anthropic(api_key=os.environ.get("CLAUDE_API_KEY"))
 
 # ----------------------------- TTS -----------------------------
 
@@ -207,10 +208,15 @@ def transcribe_with_azure(audio_path: str, expected: str = "") -> str:
         audio_config=audio_config
     )
 
-    # use continuous recognition for multi-clause sentences, recognize_once otherwise
-    has_comma = '，' in expected or ',' in expected
+    # Decide based on the EXPECTED answer, which we know up front — not on what
+    # the user actually said (we can't know that until after transcribing).
+    # A mid-utterance pause only cuts you off in single-shot mode, so use
+    # continuous recognition whenever the expected answer is long enough to
+    # contain natural pauses: multiple words, or any comma.
+    expected_hanzi = re.sub(r'[。？！，、；：""''…\s]', '', expected)
+    is_long = ('，' in expected or ',' in expected or len(expected_hanzi) > 4)
 
-    if has_comma:
+    if is_long:
         import threading
         results = []
         done = threading.Event()
@@ -227,7 +233,7 @@ def transcribe_with_azure(audio_path: str, expected: str = "") -> str:
         recognizer.canceled.connect(handle_stop)
 
         recognizer.start_continuous_recognition()
-        done.wait(timeout=15)
+        done.wait(timeout=30)
         recognizer.stop_continuous_recognition()
 
         result_text = ''.join(results)
@@ -240,7 +246,7 @@ def transcribe_with_azure(audio_path: str, expected: str = "") -> str:
             print(f"NoMatch details: {result.no_match_details}")
             result_text = ""
         elif result.reason == speechsdk.ResultReason.Canceled:
-            details = speechsdk.CancellationDetails.from_result(result)
+            details = result.cancellation_details
             print(f"Canceled: {details.reason}, error: {details.error_details}")
             result_text = ""
         else:
@@ -334,6 +340,8 @@ async def transcribe(payload: dict):
 async def grade_answer(payload: dict):
     user_answer = payload.get("user_answer", "").strip()
     expected = payload.get("expected_answer", "").strip()
+    print(f"[grade] user_answer={user_answer!r}, expected={expected!r}")
+
 
     if not user_answer or not expected:
         return JSONResponse({"is_correct": False})

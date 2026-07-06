@@ -117,7 +117,6 @@ def build_questions_for_unit(index_data, units_data, unit_number):
             (QuestionType.LISTENING_VOCAB.value, hanzi, pinyin),
             (QuestionType.SPEAKING_VOCAB.value, hanzi, pinyin),
             (QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, hanzi, pinyin),
-            (QuestionType.TRANSLATE_EN_TO_ZH_WORD.value, english, hanzi),
         ]:
             questions.append(make_question(unit_str, qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), counters))
 

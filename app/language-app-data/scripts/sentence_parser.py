@@ -88,7 +88,7 @@ AGENT_MAX_TOKENS = 8192
 TEMPERATURE = 0
 
 # module-level overrides from main.py
-UNITS_TO_PROCESS = [4,5]      # e.g. [3, 4]
+UNITS_TO_PROCESS = [3]      # e.g. [3, 4]
 SOURCES_TO_PROCESS = None        # e.g. ["textbook"]
 
 # --------------------------------- SETUP ---------------------------------
@@ -204,9 +204,24 @@ _PUNCTUATION_EQUIVALENTS = {
     "　": " ",
 }
 
+# The OCR interleaves pinyin/English glosses into the Chinese prose, e.g.
+# "这（zhè, this）是什么？" or "我　叫　大卫（David），我是..." -- the sentence
+# itself (from the sentence finder) is pure hanzi, so a naive substring check
+# against the raw OCR line fails even though the sentence is printed verbatim
+# in the book. Strip parenthetical annotations, speaker labels (A:/B:), and
+# markdown table pipes before matching so only the actual printed text (plus
+# its punctuation) is compared.
+_PAREN_ANNOTATION_RE = re.compile(r"[（(][^）)]*[）)]")
+_LATIN_RUN_RE = re.compile(r"[A-Za-z0-9]+\s*[:：]?")
+
 
 def normalize_for_match(s: str) -> str:
-    """Unify punctuation width; strip spaces/tabs but keep newlines as hard boundaries."""
+    """Unify punctuation width; strip spaces/tabs but keep newlines as hard
+    boundaries; drop parenthetical pinyin/English annotations, speaker
+    labels, and table pipes that aren't actually part of the printed sentence."""
+    s = _PAREN_ANNOTATION_RE.sub("", s)
+    s = _LATIN_RUN_RE.sub("", s)
+    s = s.replace("|", "")
     for full, half in _PUNCTUATION_EQUIVALENTS.items():
         s = s.replace(full, half)
     return re.sub(r"[ \t]+", "", s)

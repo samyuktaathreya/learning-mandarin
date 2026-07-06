@@ -56,6 +56,7 @@ export default function DuolingoStyleQuestions() {
     const [debugMode, setDebugMode] = useState(false);
     const [progress, setProgress] = useState(null);
     const [selectedUnit, setSelectedUnit] = useState(null);
+    const [lastUserAnswer, setLastUserAnswer] = useState("");
 
     // recording state
     const [isRecording, setIsRecording] = useState(false);
@@ -77,11 +78,13 @@ export default function DuolingoStyleQuestions() {
     }, [progress]);
 
     useEffect(() => {
+
         if (!currentQuestionObj) return;
         setTranscriptionResult(null);
         setIsWrong(false);
+        setLastUserAnswer("");
         if (recordingURL) { URL.revokeObjectURL(recordingURL); setRecordingURL(null); }
-
+        
         if (debugMode) {
             const timer = setTimeout(() => advanceQuestion(true), 300);
             return () => clearTimeout(timer);
@@ -144,10 +147,12 @@ export default function DuolingoStyleQuestions() {
         setAnswerLog(log);
         if (wasCorrect) setScore(s => s + 1);
         if (requeue && !wasCorrect) setQuestions(prev => [...prev, currentQuestionObj]);
+
         const nextIndex = currentIndex + 1;
         if (nextIndex >= questions.length && !requeue) submitSession(log);
         setCurrentIndex(nextIndex);
         setUserAnswer("");
+        setLastUserAnswer("");
         setIsWrong(false);
         setTranscriptionResult(null);
     };
@@ -184,6 +189,7 @@ export default function DuolingoStyleQuestions() {
             } catch (err) { console.error("Grading failed", err); }
         }
 
+        setLastUserAnswer(userAnswer);
         setIsWrong(true);
         setUserAnswer("");
     };
@@ -285,6 +291,7 @@ export default function DuolingoStyleQuestions() {
                         userAnswer={userAnswer}
                         setUserAnswer={setUserAnswer}
                         isWrong={isWrong}
+                        lastUserAnswer={lastUserAnswer}
                         onSubmit={handleSubmit}
                         onWrongContinue={() => advanceQuestion(false, true)}
                         onMarkCorrect={() => advanceQuestion(true)}

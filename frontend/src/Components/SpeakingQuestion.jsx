@@ -31,6 +31,7 @@ export default function SpeakingQuestion({
     return (
         <div className="session-view">
             <p>Question {currentIndex + 1} of {totalQuestions}</p>
+            {currentQuestionObj.unit != null && <p>Unit {currentQuestionObj.unit}</p>}
             {isUnitTest && <p>Unit Test</p>}
             <h2>{questionTypeToInstruction(currentQuestionObj.question_type)}</h2>
             <h1><ClickableText text={currentQuestionObj.question} tags={currentQuestionObj.tags || []} isUnitTest={isUnitTest} /></h1>
