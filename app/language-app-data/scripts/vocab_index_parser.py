@@ -368,6 +368,7 @@ def main():
         "grammar": [r for r in records if r["type"] == "grammar"],
         "proper_nouns": [r for r in records if r["type"] == "proper_noun"],
     }
+    print("index output: ", index_output)
     for key in index_output:
         for r in index_output[key]:
             r.pop("type", None)
