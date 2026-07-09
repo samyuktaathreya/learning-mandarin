@@ -75,8 +75,13 @@ export default function Question({
             {sessionType === "unit_test" && <p>Unit Test</p>}
             {debugMode && <p>⚡ Debug mode</p>}
             <h2>{questionTypeToInstruction(currentQuestionObj.question_type)}</h2>
-            {!isListening && <h1><ClickableText text={currentQuestionObj.question} tags={currentQuestionObj.tags || []} isUnitTest={sessionType === "unit_test"} /></h1>}
 
+            {!isListening && (
+                <h1 className={currentQuestionObj.question.length > 12 ? "question-text question-text--long" : "question-text"}>
+                    <ClickableText text={currentQuestionObj.question} tags={currentQuestionObj.tags || []} isUnitTest={sessionType === "unit_test"} />
+                </h1>
+            )}
+            
             {showReplayButton && (
                 <>
                     <button type="button" onClick={() => onPlayAudio(currentQuestionObj.question)}>🔊 Replay</button>

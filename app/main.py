@@ -43,6 +43,9 @@ app.include_router(practice_router)
 from api.v1.endpoints.audio import router as audio_router
 app.include_router(audio_router)
 
+from api.v1.endpoints.test_pronounciation import router as test_router
+app.include_router(test_router)
+
 @app.get("/")
 def root():
     return {"message": "Server is running!"}

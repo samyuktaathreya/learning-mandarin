@@ -38,6 +38,19 @@ AZURE_SPEECH_KEY = os.environ.get("AZURE_SPEECH_KEY")
 AZURE_SPEECH_REGION = os.environ.get("AZURE_REGION", "eastus")
 anthropic_client = anthropic_sdk.Anthropic(api_key=os.environ.get("CLAUDE_API_KEY"))
 
+# --- Pronunciation assessment tuning ---
+# Empirically (see spike): correct tone scores highest, wrong tones drop 10-23
+# points, but the bands overlap across characters (correct 是 = 87, correct 岁 = 96).
+# So accuracy alone is a *soft* tone signal. We gate on BOTH a high accuracy
+# score (catches mangled consonants/vowels) AND tones_match (exact tone check).
+# Tune this after living with it: 90 is strict, 85 is forgiving.
+ACCURACY_THRESHOLD = 90
+
+# A "single word" answer goes through pronunciation assessment; longer answers
+# stay on the transcription path (sentence assessment needs zh-CN word
+# segmentation via get_reference_words, an extra service call we're skipping).
+ASSESSMENT_QUESTION_TYPES = {"speaking vocab"}
+
 # ----------------------------- TTS -----------------------------
 
 async def generate_and_cache_audio(text: str, slow: bool = False):
@@ -91,10 +104,14 @@ async def clear_audio():
 
 # ----------------------------- STT HELPERS -----------------------------
 
+def strip_punct(text: str) -> str:
+    return re.sub(r'[。？！，、；：""\'\'…\s]', '', text)
+
+
 def to_numbered_pinyin(text: str) -> str:
     # strip punctuation before converting
-    text = re.sub(r'[。？！，、；：""''…\s]', '', text)
-    
+    text = strip_punct(text)
+
     if text in PINYIN_OVERRIDES:
         return PINYIN_OVERRIDES[text]
 
@@ -186,10 +203,83 @@ def tones_match(t_pinyin: str, e_pinyin: str) -> bool:
             return False
     return True
 
+# --------------- PRONUNCIATION ASSESSMENT (single words) ---------------
+
+def assess_pronunciation_with_azure(audio_path: str, reference_text: str) -> dict:
+    """
+    Score the audio AGAINST the known reference text, rather than asking Azure
+    to guess what was said. This sidesteps homophone/near-homophone confusion
+    (ji vs zhi, sui vs shui) entirely: Azure can't hand back the wrong character
+    because it isn't choosing one.
+
+    Returns: {recognized, accuracy, phonemes: [{phoneme, accuracy}], error?}
+    """
+    speech_config = speechsdk.SpeechConfig(
+        subscription=AZURE_SPEECH_KEY,
+        region=AZURE_SPEECH_REGION,
+    )
+    speech_config.speech_recognition_language = "zh-CN"
+    # Assessment uses a longer end-silence timeout than plain STT (education
+    # scenarios have longer pauses).
+    speech_config.set_property(
+        speechsdk.PropertyId.SpeechServiceConnection_EndSilenceTimeoutMs, "3000"
+    )
+
+    audio_config = speechsdk.audio.AudioConfig(filename=audio_path)
+    recognizer = speechsdk.SpeechRecognizer(
+        speech_config=speech_config,
+        audio_config=audio_config,
+    )
+
+    reference_text = strip_punct(reference_text)
+
+    pron_config = speechsdk.PronunciationAssessmentConfig(
+        reference_text=reference_text,
+        grading_system=speechsdk.PronunciationAssessmentGradingSystem.HundredMark,
+        granularity=speechsdk.PronunciationAssessmentGranularity.Phoneme,
+        enable_miscue=False,  # miscue needs word segmentation; off for single words
+    )
+    pron_config.apply_to(recognizer)
+
+    result = recognizer.recognize_once_async().get()
+
+    if result.reason == speechsdk.ResultReason.Canceled:
+        details = result.cancellation_details
+        print(f"Assessment canceled: {details.reason}, error: {details.error_details}")
+        return {"error": "canceled"}
+
+    if result.reason != speechsdk.ResultReason.RecognizedSpeech:
+        print(f"Assessment: no speech recognized ({result.reason})")
+        return {"error": "no_speech"}
+
+    out = {"recognized": strip_punct(result.text or "")}
+
+    # The typed wrapper can KeyError on unexpected response shapes
+    # (Azure-Samples issue #1763), so guard it.
+    try:
+        pa = speechsdk.PronunciationAssessmentResult(result)
+        out["accuracy"] = pa.accuracy_score
+        out["phonemes"] = [
+            {"phoneme": p.phoneme, "accuracy": p.accuracy_score}
+            for w in (pa.words or [])
+            for p in (w.phonemes or [])
+        ]
+    except Exception as e:
+        print(f"Assessment wrapper error: {type(e).__name__}: {e}")
+        return {"error": "wrapper_failed", "recognized": out["recognized"]}
+
+    print(f"Assessment: ref={reference_text!r} heard={out['recognized']!r} "
+          f"accuracy={out['accuracy']}")
+    for p in out["phonemes"]:
+        print(f"  phoneme {p['phoneme']!r} acc={p['accuracy']}")
+
+    return out
+
 
 # ----------------------------- STT (Azure) -----------------------------
 
 def transcribe_with_azure(audio_path: str, expected: str = "") -> str:
+    """Transcription path — still used for multi-word / sentence answers."""
     speech_config = speechsdk.SpeechConfig(
         subscription=AZURE_SPEECH_KEY,
         region=AZURE_SPEECH_REGION
@@ -208,12 +298,10 @@ def transcribe_with_azure(audio_path: str, expected: str = "") -> str:
         audio_config=audio_config
     )
 
-    # Decide based on the EXPECTED answer, which we know up front — not on what
-    # the user actually said (we can't know that until after transcribing).
-    # A mid-utterance pause only cuts you off in single-shot mode, so use
-    # continuous recognition whenever the expected answer is long enough to
-    # contain natural pauses: multiple words, or any comma.
-    expected_hanzi = re.sub(r'[。？！，、；：""''…\s]', '', expected)
+    # Decide based on the EXPECTED answer, which we know up front. A mid-utterance
+    # pause only cuts you off in single-shot mode, so use continuous recognition
+    # whenever the expected answer is long enough to contain natural pauses.
+    expected_hanzi = strip_punct(expected)
     is_long = ('，' in expected or ',' in expected or len(expected_hanzi) > 4)
 
     if is_long:
@@ -259,7 +347,9 @@ def transcribe_with_azure(audio_path: str, expected: str = "") -> str:
 @router.post("/api/transcribe")
 async def transcribe(payload: dict):
     audio_b64 = payload.get("audio")
-    expected = payload.get("expected", "").strip()
+    expected = payload.get("expected", "").strip()        # pinyin
+    hanzi = payload.get("hanzi", "").strip()              # characters (assessment reference)
+    question_type = payload.get("question_type", "").strip()
 
     if not audio_b64:
         return JSONResponse({"error": "No audio provided"}, status_code=400)
@@ -286,13 +376,76 @@ async def transcribe(payload: dict):
         if not os.path.exists(wav_path):
             return JSONResponse({"error": "Audio conversion failed"}, status_code=500)
 
-        transcription_hanzi = await asyncio.to_thread(transcribe_with_azure, wav_path, expected)
-
         expected_pinyin = (
             to_numbered_pinyin(expected)
             if any('\u4e00' <= c <= '\u9fff' for c in expected)
             else expected.lower().replace(' ', '').replace(',', '')
         )
+
+        # ---------- SINGLE WORD: pronunciation assessment ----------
+        if question_type in ASSESSMENT_QUESTION_TYPES and hanzi:
+            assessment = await asyncio.to_thread(
+                assess_pronunciation_with_azure, wav_path, hanzi
+            )
+
+            if assessment.get("error") in ("canceled", "no_speech"):
+                return JSONResponse({
+                    "transcription": "",
+                    "transcription_pinyin": "",
+                    "expected_pinyin": expected_pinyin,
+                    "is_correct": False,
+                    "hallucination": True,
+                    "mode": "assessment",
+                })
+
+            if assessment.get("error") == "wrapper_failed":
+                return JSONResponse({
+                    "error": "Assessment failed",
+                    "mode": "assessment",
+                }, status_code=500)
+
+            accuracy = assessment.get("accuracy") or 0
+            recognized = assessment.get("recognized", "")
+            transcription_pinyin = to_numbered_pinyin(recognized) if recognized else ""
+
+            # Two gates. Accuracy catches mangled consonants/vowels; tones_match
+            # is the exact tone check (accuracy alone is only a soft tone signal).
+            accuracy_ok = accuracy >= ACCURACY_THRESHOLD
+            tone_ok = bool(transcription_pinyin) and tones_match(transcription_pinyin, expected_pinyin)
+            is_correct = accuracy_ok and tone_ok
+
+            # Tell the user WHICH gate failed — "check your tones" is wrong advice
+            # when the consonant was the problem.
+            if is_correct:
+                feedback = "correct"
+            elif not accuracy_ok and not tone_ok:
+                feedback = "sound_and_tone"
+            elif not accuracy_ok:
+                feedback = "sound"
+            else:
+                feedback = "tone"
+
+            # weakest phoneme, for pointing at the specific problem sound
+            phonemes = assessment.get("phonemes", [])
+            weakest = min(phonemes, key=lambda p: p["accuracy"]) if phonemes else None
+
+            return JSONResponse({
+                "transcription": recognized,
+                "transcription_pinyin": transcription_pinyin,
+                "expected_pinyin": expected_pinyin,
+                "is_correct": is_correct,
+                "mode": "assessment",
+                "accuracy": accuracy,
+                "accuracy_threshold": ACCURACY_THRESHOLD,
+                "accuracy_ok": accuracy_ok,
+                "tone_ok": tone_ok,
+                "feedback": feedback,
+                "phonemes": phonemes,
+                "weakest_phoneme": weakest,
+            })
+
+        # ---------- MULTI-WORD / SENTENCE: transcription path ----------
+        transcription_hanzi = await asyncio.to_thread(transcribe_with_azure, wav_path, expected)
 
         if not transcription_hanzi:
             return JSONResponse({
@@ -300,7 +453,8 @@ async def transcribe(payload: dict):
                 "transcription_pinyin": "",
                 "expected_pinyin": expected_pinyin,
                 "is_correct": False,
-                "hallucination": True
+                "hallucination": True,
+                "mode": "transcription",
             })
 
         expected_char_count = len(expected.replace(' ', ''))
@@ -311,7 +465,8 @@ async def transcribe(payload: dict):
                 "transcription_pinyin": "",
                 "expected_pinyin": expected_pinyin,
                 "is_correct": False,
-                "hallucination": True
+                "hallucination": True,
+                "mode": "transcription",
             })
 
         transcription_pinyin = to_numbered_pinyin(transcription_hanzi)
@@ -321,7 +476,8 @@ async def transcribe(payload: dict):
             "transcription": transcription_hanzi,
             "transcription_pinyin": transcription_pinyin,
             "expected_pinyin": expected_pinyin,
-            "is_correct": is_correct
+            "is_correct": is_correct,
+            "mode": "transcription",
         })
 
     except Exception as e:
@@ -341,7 +497,6 @@ async def grade_answer(payload: dict):
     user_answer = payload.get("user_answer", "").strip()
     expected = payload.get("expected_answer", "").strip()
     print(f"[grade] user_answer={user_answer!r}, expected={expected!r}")
-
 
     if not user_answer or not expected:
         return JSONResponse({"is_correct": False})
@@ -377,11 +532,6 @@ async def grade_chinese(payload: dict):
 
     if not user_answer or not expected:
         return JSONResponse({"is_correct": False})
-
-    # strip punctuation from both sides
-    import re
-    def strip_punct(s):
-        return re.sub(r'[。？！，、；：""''…]', '', s)
 
     user_pinyin = to_numbered_pinyin(strip_punct(user_answer))
     expected_pinyin = to_numbered_pinyin(strip_punct(expected))
