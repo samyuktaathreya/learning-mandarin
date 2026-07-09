@@ -227,11 +227,18 @@ export default function DuolingoStyleQuestions() {
             const reader = new FileReader();
             reader.onloadend = async () => {
                 const base64 = reader.result.split(',')[1];
+
                 const res = await fetch('/api/transcribe', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ audio: base64, expected: currentQuestionObj.answer }),
+                    body: JSON.stringify({
+                        audio: base64,
+                        expected: currentQuestionObj.answer,          // pinyin, for tones_match
+                        hanzi: currentQuestionObj.question,           // characters, for assessment
+                        question_type: currentQuestionObj.question_type,
+                    }),
                 });
+
                 setTranscriptionResult(await res.json());
                 setIsTranscribing(false);
             };
