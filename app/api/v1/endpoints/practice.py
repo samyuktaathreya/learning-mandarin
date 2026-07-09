@@ -1,11 +1,10 @@
 from fastapi import APIRouter, Depends, Body
 from sqlalchemy.orm import Session
-from database import SessionLocal, inverted_index, tags_to_unit_dict, unit_to_tags_dict, unit_questions, META_TAGS
+from database import SessionLocal, inverted_index, tags_to_unit_dict, unit_to_tags_dict, unit_questions, META_TAGS, hsk1_dictionary
 from schemas.user import SessionResponse
 import crud
 from datetime import datetime
 import random
-from database import SessionLocal, inverted_index, tags_to_unit_dict, unit_to_tags_dict, unit_questions, META_TAGS, hsk1_dictionary
 
 router = APIRouter()
 
@@ -63,6 +62,38 @@ PRIORITY_WEIGHTS = {
 
 UNIT_TEST_QUESTION_TYPES = TIER_1_TYPES | TIER_2_TYPES | TIER_3_TYPES
 
+# --- mixed-session tuning ---
+VARIETY_WEIGHT = 6.0            # how hard type-variety fights count-priority (higher = more varied)
+TYPE_DECAY = 0.6               # each pick of a type multiplies its variety bonus by this
+REVIEW_THRESHOLD = 0.70       # below this strength counts as reviewable for the random-seasoning pool
+REVIEW_WEAKEST_FRACTION = 0.8  # of review slots, this share goes to weakest-first; rest random-below-threshold
+SESSION_SIZE = 10
+
+# strength -> review fraction. Flat-ish in normal use, ramps to 1.0 only at
+# the catastrophic-decay extreme (user hasn't touched the app in a long time).
+_RATIO_ANCHORS = [
+    (0.00, 1.00),
+    (0.15, 0.90),
+    (0.30, 0.65),
+    (0.50, 0.40),
+    (0.80, 0.15),
+    (1.00, 0.15),
+]
+
+
+def review_fraction_from_strength(avg_strength: float) -> float:
+    """Piecewise-linear interpolation over the anchor points above."""
+    s = max(0.0, min(1.0, avg_strength))
+    for i in range(len(_RATIO_ANCHORS) - 1):
+        s0, f0 = _RATIO_ANCHORS[i]
+        s1, f1 = _RATIO_ANCHORS[i + 1]
+        if s0 <= s <= s1:
+            if s1 == s0:
+                return f0
+            t = (s - s0) / (s1 - s0)
+            return f0 + t * (f1 - f0)
+    return _RATIO_ANCHORS[-1][1]
+
 # ----------------------------- DB DEPENDENCY -----------------------------
 
 def get_db():
@@ -114,9 +145,153 @@ def get_srs_strength_scores(db: Session, user_id: int, unit_min: int, unit_max: 
 
     return scores
 
+# ----------------------------- VARIETY SELECTOR -----------------------------
+
+def _select_with_variety(candidates, n, unit_filter, used_ids, tag_counts):
+    """
+    Pick up to n questions, blending two goals:
+      - review weak words first (lower effective_count is better)
+      - keep question types varied (a fresh/underused type gets a bonus that
+        can override small count differences)
+
+    candidates: dicts with keys tag, question_type, effective_count, priority_weight
+    unit_filter: set of units a question may come from (None = any unit)
+    used_ids / tag_counts: shared mutable state so multiple calls (learning +
+      review pools) don't collide on the same question or overuse a tag.
+    """
+    picked = []
+    type_penalty = {}
+
+    while len(picked) < n:
+        best = None
+        best_score = None
+        best_avail = None
+
+        for item in candidates:
+            tag = item["tag"]
+            qt = item["question_type"]
+            if tag_counts.get(tag, 0) >= MAX_SAME_TAG_PER_SESSION:
+                continue
+
+            # variety bonus: full when the type is unused, decays each time it's picked
+            variety_bonus = VARIETY_WEIGHT * (TYPE_DECAY ** type_penalty.get(qt, 0))
+            # lower score wins: count drives it, variety pulls fresh types up,
+            # tiny priority term breaks ties toward sentences.
+            score = item["effective_count"] - variety_bonus - 0.001 * item["priority_weight"]
+
+            if best_score is None or score < best_score:
+                questions = inverted_index.get(tag, [])
+                avail = [
+                    q for q in questions
+                    if q["question_type"] == qt
+                    and q["id"] not in used_ids
+                    and (unit_filter is None or q.get("unit") in unit_filter)
+                ]
+                if avail:
+                    best, best_score, best_avail = item, score, avail
+
+        if best is None:
+            break
+
+        chosen = random.choice(best_avail)
+        picked.append(chosen)
+        used_ids.add(chosen["id"])
+        tag_counts[best["tag"]] = tag_counts.get(best["tag"], 0) + 1
+        type_penalty[best["question_type"]] = type_penalty.get(best["question_type"], 0) + 1
+
+    return picked
+
 # ----------------------------- SESSION GENERATORS -----------------------------
 
+def _build_learning_candidates(unit, record_map):
+    unit_tags = unit_to_tags_dict.get(unit, set())
+    candidates = []
+    for tag in unit_tags:
+        record = record_map.get(tag)
+        correct_count = record.correct_count if record else 0
+        for qt in get_allowed_types(correct_count):
+            if correct_count >= TIER_1_DEPRIORITY_THRESHOLD and qt in TIER_1_TYPES:
+                effective_count = max(correct_count, 10)
+            else:
+                effective_count = correct_count
+            candidates.append({
+                "tag": tag,
+                "question_type": qt,
+                "effective_count": effective_count,
+                "correct_count": correct_count,
+                "priority_weight": PRIORITY_WEIGHTS.get(qt, 1),
+            })
+    return candidates
+
+
+def generate_mixed_session(db: Session, user_id: int, unit: int, graduated_units: set):
+    """
+    Learning-mode session that blends current-unit material with review of
+    graduated units. The review share scales with how well previous units are
+    retained: strong retention -> mostly new material; long absence -> mostly
+    (or all) review.
+    """
+    records = crud.get_progress_by_user(db, user_id)
+    record_map = {r.tag: r for r in records}
+
+    # decide review fraction from average retention of graduated units
+    review_scores = get_srs_strength_scores(db, user_id, MIN_UNIT, 99, graduated_units)
+    if review_scores:
+        avg_strength = sum(s["strength"] for s in review_scores) / len(review_scores)
+        review_frac = review_fraction_from_strength(avg_strength)
+    else:
+        review_frac = 0.0  # nothing graduated yet -> all new material
+
+    n_review = round(SESSION_SIZE * review_frac)
+    n_review = min(n_review, len(review_scores))  # can't review more than exist
+    n_new = SESSION_SIZE - n_review
+
+    used_ids = set()
+    tag_counts = {}
+    question_set = []
+
+    # --- current-unit learning pool ---
+    learn_candidates = _build_learning_candidates(unit, record_map)
+    question_set += _select_with_variety(learn_candidates, n_new, {unit}, used_ids, tag_counts)
+
+    # --- review pool: weakest-first, seasoned with random below-threshold picks ---
+    if n_review > 0:
+        review_scores.sort(key=lambda x: x["strength"])
+        weakest = [s["tag"] for s in review_scores]
+        below = [s["tag"] for s in review_scores if s["strength"] < REVIEW_THRESHOLD]
+
+        n_weak = round(n_review * REVIEW_WEAKEST_FRACTION)
+        review_tag_order = weakest[:n_weak]
+        random.shuffle(below)
+        review_tag_order += [t for t in below if t not in review_tag_order][: n_review - len(review_tag_order)]
+
+        review_candidates = []
+        for tag in review_tag_order:
+            for qt in QUESTION_TYPE_PRIORITY:
+                review_candidates.append({
+                    "tag": tag,
+                    "question_type": qt,
+                    "effective_count": 0,
+                    "priority_weight": PRIORITY_WEIGHTS.get(qt, 1),
+                })
+        question_set += _select_with_variety(review_candidates, n_review, graduated_units, used_ids, tag_counts)
+
+    # backfill from the learning pool if review came up short, so sessions stay full
+    if len(question_set) < SESSION_SIZE:
+        question_set += _select_with_variety(
+            learn_candidates, SESSION_SIZE - len(question_set), {unit}, used_ids, tag_counts
+        )
+
+    random.shuffle(question_set)
+    return SessionResponse(user_id=user_id, session_type="practice_session", question_set=question_set)
+
+
 def generate_learning_session(db: Session, user_id: int, unit: int):
+    """
+    Original single-pool learning session. No longer used by the router (the
+    mixed session replaces it) but kept so you can revert by swapping the one
+    line in generate_session().
+    """
     records = crud.get_progress_by_user(db, user_id)
     unit_tags = unit_to_tags_dict.get(unit, set())
     unit_records = [r for r in records if r.tag in unit_tags]
@@ -148,7 +323,7 @@ def generate_learning_session(db: Session, user_id: int, unit: int):
     tag_counts = {}
 
     for item in candidates:
-        if len(question_set) >= 10:
+        if len(question_set) >= SESSION_SIZE:
             break
         tag = item["tag"]
         question_type = item["question_type"]
@@ -174,6 +349,10 @@ def generate_learning_session(db: Session, user_id: int, unit: int):
 
 
 def generate_srs_review_session(db: Session, user_id: int, graduated_units: set):
+    """
+    Original pure-review session. Superseded by generate_mixed_session, kept for
+    reference / manual use.
+    """
     scores = get_srs_strength_scores(db, user_id, MIN_UNIT, 99, graduated_units)
     scores.sort(key=lambda x: x["strength"])
 
@@ -181,27 +360,16 @@ def generate_srs_review_session(db: Session, user_id: int, graduated_units: set)
     used_ids = set()
     tag_counts = {}
 
+    review_candidates = []
     for item in scores:
-        if len(question_set) >= 10:
-            break
-        tag = item["tag"]
-        if tag_counts.get(tag, 0) >= MAX_SAME_TAG_PER_SESSION:
-            continue
-
         for qt in QUESTION_TYPE_PRIORITY:
-            questions = inverted_index.get(tag, [])
-            available = [
-                q for q in questions
-                if q["question_type"] == qt
-                and q["id"] not in used_ids
-                and q.get("unit") in graduated_units
-            ]
-            if available:
-                chosen = random.choice(available)
-                question_set.append(chosen)
-                used_ids.add(chosen["id"])
-                tag_counts[tag] = tag_counts.get(tag, 0) + 1
-                break
+            review_candidates.append({
+                "tag": item["tag"],
+                "question_type": qt,
+                "effective_count": 0,
+                "priority_weight": PRIORITY_WEIGHTS.get(qt, 1),
+            })
+    question_set = _select_with_variety(review_candidates, SESSION_SIZE, graduated_units, used_ids, tag_counts)
 
     random.shuffle(question_set)
     return SessionResponse(user_id=user_id, session_type="practice_session", question_set=question_set)
@@ -220,20 +388,16 @@ def generate_session(user_id: int, db: Session = Depends(get_db)):
     user_unit = user.current_unit
     graduated_units = crud.get_graduated_units(db, user_id)
 
-    if graduated_units:
-        srs_scores = get_srs_strength_scores(db, user_id, MIN_UNIT, user_unit - 1, graduated_units)
-        weak_srs = [s for s in srs_scores if s["strength"] < 0.70]
-        if weak_srs:
-            return generate_srs_review_session(db, user_id, graduated_units)
-
     unit_tags = unit_to_tags_dict.get(user_unit, set())
     all_records = crud.get_progress_by_user(db, user_id)
     unit_records = [r for r in all_records if r.tag in unit_tags]
 
+    # unit test stays exactly as-is: pure current unit, no review mixed in
     if is_unit_graduated(unit_records, unit_tags):
         return generate_unit_test(user_id, user_unit)
 
-    return generate_learning_session(db, user_id, user_unit)
+    # otherwise a learning session that folds in review proportional to retention
+    return generate_mixed_session(db, user_id, user_unit, graduated_units)
 
 
 @router.patch("/api/submit_session/{user_id}")
@@ -272,7 +436,8 @@ def debug(user_id: int, db: Session = Depends(get_db)):
     all_records = crud.get_progress_by_user(db, user_id)
     unit_records = [r for r in all_records if r.tag in unit_tags]
     graduated = is_unit_graduated(unit_records, unit_tags)
-    session = generate_learning_session(db, user_id, user.current_unit)
+    graduated_units = crud.get_graduated_units(db, user_id)
+    session = generate_mixed_session(db, user_id, user.current_unit, graduated_units)
     return {
         "current_unit": user.current_unit,
         "graduated_units": user.graduated_units,
@@ -280,6 +445,7 @@ def debug(user_id: int, db: Session = Depends(get_db)):
         "unit_ready_to_graduate": graduated,
         "questions_found": len(session.question_set),
         "sample_question_types": list(set(q["question_type"] for q in session.question_set)),
+        "sample_units": sorted(set(q.get("unit") for q in session.question_set)),
         "sample_correct_counts": [{"tag": r.tag, "correct_count": r.correct_count} for r in unit_records]
     }
 
@@ -343,7 +509,7 @@ def lookup(hanzi: str):
     if hanzi in hsk1_dictionary:
         entry = hsk1_dictionary[hanzi]
         return {"hanzi": hanzi, "pinyin": entry["pinyin"], "english": entry["english"]}
-    
+
     # fallback to pypinyin for unknown characters
     from pypinyin import pinyin, Style
     try:

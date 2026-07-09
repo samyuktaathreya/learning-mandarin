@@ -88,7 +88,7 @@ AGENT_MAX_TOKENS = 8192
 TEMPERATURE = 0
 
 # module-level overrides from main.py
-UNITS_TO_PROCESS = [3]      # e.g. [3, 4]
+UNITS_TO_PROCESS = [4,5,6,7]      # e.g. [3, 4]
 SOURCES_TO_PROCESS = None        # e.g. ["textbook"]
 
 # --------------------------------- SETUP ---------------------------------
@@ -737,12 +737,20 @@ def run_source(source: str, word_to_pinyin: dict, word_to_unit: dict) -> list:
     results = [process_unit(source, n, s, e, reader, sops, word_to_pinyin, word_to_unit)
                for n, s, e in unit_ranges]
 
+    # Merge into whatever's already cached for this source, keyed by unit, so
+    # reprocessing a subset of units (via UNITS_TO_PROCESS) doesn't drop the
+    # other units' cached results.
+    by_unit = {r["unit"]: r for r in (load_existing_source_output(source) or [])}
+    for r in results:
+        by_unit[r["unit"]] = r
+    combined_results = [by_unit[u] for u in sorted(by_unit)]
+
     os.makedirs(INTERMEDIATE_FILEPATH, exist_ok=True)
     out_path = os.path.join(str(INTERMEDIATE_FILEPATH), f"{source}_sentence_output.json")
     with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(results, f, ensure_ascii=False, indent=2)
-    print(f"Wrote {len(results)} {source} unit(s) to {out_path}")
-    return results
+        json.dump(combined_results, f, ensure_ascii=False, indent=2)
+    print(f"Wrote {len(combined_results)} {source} unit(s) to {out_path} ({len(results)} reprocessed)")
+    return combined_results
 
 
 def merge_sources(per_source_results: dict) -> dict:
@@ -786,16 +794,27 @@ def run_pipeline():
     merged = merge_sources(per_source)
     os.makedirs(UNITS_OUTPUT_FILEPATH, exist_ok=True)
     out_path = os.path.join(str(UNITS_OUTPUT_FILEPATH), UNITS_OUTPUT_FILENAME)
+
+    # UNITS_TO_PROCESS / SOURCES_TO_PROCESS mean `merged` only covers the
+    # unit(s) reprocessed this run -- load whatever's already on disk and
+    # only overwrite those specific units, so previously-generated units
+    # aren't wiped out.
+    combined = {}
+    if os.path.exists(out_path):
+        with open(out_path, "r", encoding="utf-8") as f:
+            combined = json.load(f)
+    combined.update(merged)
+
     with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(merged, f, ensure_ascii=False, indent=2)
-    print(f"Done. Merged {len(merged)} unit(s) into {out_path}")
+        json.dump(combined, f, ensure_ascii=False, indent=2)
+    print(f"Done. Merged {len(merged)} unit(s) into {out_path} ({len(combined)} unit(s) total on disk)")
     for unit_str in sorted(merged, key=int):
         m = merged[unit_str]["counts"]["merged"]
         print(f"  unit {unit_str}: {m['sentences_final']} sentences, "
               f"{m['fitb_questions_final']} FITB questions")
 
     print_missing_vocab(word_to_unit)
-    return merged
+    return combined
 
 
 def print_missing_vocab(word_to_unit: dict):

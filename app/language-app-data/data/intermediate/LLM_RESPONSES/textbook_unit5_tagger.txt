@@ -1,36 +1,21 @@
 I need to segment each sentence using only the allowed word list.
 
-Let me check each sentence carefully.
+Let me check each sentence carefully:
 
-Note: "口" is not in the allowed list, "今年" is not in the allowed list (neither "今" nor "年" individually), "年纪" is not in the allowed list, "50" and "20" are not in the allowed list.
-
-Wait, let me check numbers: "50" - "五" and "十" are in the list, but "50" as a numeral character isn't. Let me re-read: the sentences contain "50" and "20" as Arabic numerals. These aren't in the allowed word list.
-
-Also "口" is not in the allowed list.
-"今" is not in the allowed list.
-"年" is not in the allowed list.
-
-So sentences with "口", "今年", "50", "20", "年纪" cannot be segmented.
-
-Let me go through each:
-
-1. "你家有几口人？" - "口" not in list → null
-2. "我家有三口人。" - "口" not in list → null
-3. "你女儿几岁了？" - 你,女儿,几,岁,了 ✓
-4. "她今年四岁了。" - "今年" not in list → null
-5. "李老师多大了？" - "李" not in list (only "李月") → null
-6. "她今年50岁了。" - "今年" and "50" not in list → null
-7. "她女儿呢？" - 她,女儿,呢 ✓
-8. "她女儿今年20岁。" - "今年", "20" not in list → null
-9. "你有几个汉语老师？" - "个" not in list → null
-10. "李老师家有几口人？" - "李", "口" not in list → null
-11. "李老师今年50岁了。" - "李", "今年", "50" not in list → null
-12. "我朋友的女儿今年四岁了。" - "今年" not in list → null
-13. "你多大了？" - 你,多,大,了 ✓
-14. "你女儿今年多大了？" - "今年" not in list → null
-15. "你今年几岁了？" - "今年" not in list → null
-16. "你今年多大了？" - "今年" not in list → null
-17. "您今年多大年纪了？" - "您", "今年", "年纪" not in list → null
+- "你家有几口人？" - 你家有几口人 - "口" is not in the allowed list → null
+- "我家有三口人。" - "口" is not in the allowed list → null
+- "你女儿几岁了？" - 你/女儿/几/岁/了 ✓
+- "她今年四岁了。" - "今年" - "今" and "年" are not in the allowed list → null
+- "李老师多大了？" - 李/老师/多/大/了 - "李" is not in the allowed list as standalone, but "李月" is. "李" alone is not in the list → null
+- "她今年50岁了。" - "今年" not in list → null
+- "她女儿呢？" - 她/女儿/呢 ✓
+- "她女儿今年20岁。" - "今年" not in list → null
+- "你有几个汉语老师？" - "个" is not in the allowed list → null
+- "李老师家有几口人？" - "李" alone not in list, "口" not in list → null
+- "李老师今年50岁了。" - "李" alone not in list → null
+- "我朋友的女儿今年四岁了。" - "今年" not in list → null
+- "你多大了？" - 你/多/大/了 ✓
+- "你女儿今年多大了？" - "今年" not in list → null
 
 ```json
 {
@@ -47,9 +32,6 @@ Let me go through each:
   "李老师今年50岁了。": null,
   "我朋友的女儿今年四岁了。": null,
   "你多大了？": ["你", "多", "大", "了"],
-  "你女儿今年多大了？": null,
-  "你今年几岁了？": null,
-  "你今年多大了？": null,
-  "您今年多大年纪了？": null
+  "你女儿今年多大了？": null
 }
 ```
