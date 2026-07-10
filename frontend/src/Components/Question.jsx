@@ -7,6 +7,18 @@ const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 const isListeningQuestion = (qt) =>
     qt === "listening vocab" || qt === "listening sentence";
 
+// Question types whose question/answer pair never shows English anywhere
+// (pure audio/hanzi/pinyin drills) -- reveal the translation after submit.
+const TYPES_MISSING_ENGLISH = new Set([
+    "listening vocab",
+    "listening sentence",
+    "transcribe word to pinyin",
+]);
+
+// "listening vocab" is the only type here whose question (hanzi, hidden
+// while listening) and answer (pinyin) never show the characters at all.
+const TYPES_MISSING_CHINESE = new Set(["listening vocab"]);
+
 const needsIME = (qt) => [
     "translate english sentence to chinese",
     "translate english word to chinese",
@@ -38,10 +50,10 @@ export default function Question({
     debugMode,
     userAnswer,
     setUserAnswer,
-    isWrong,
+    answerState,
     lastUserAnswer,
     onSubmit,
-    onWrongContinue,
+    onNext,
     onMarkCorrect,
     onPlayAudio,
     debug,
@@ -50,6 +62,8 @@ export default function Question({
         currentQuestionObj.question_type !== "fill in the blank" &&
         (hasChinese(currentQuestionObj.question) || isListeningQuestion(currentQuestionObj.question_type));
     const isListening = isListeningQuestion(currentQuestionObj.question_type);
+    const hasAnswered = answerState !== null;
+    const isWrong = answerState === 'incorrect';
 
     const [correctPinyin, setCorrectPinyin] = useState("");
 
@@ -89,16 +103,28 @@ export default function Question({
                 </>
             )}
 
-            {isWrong && (
+            {hasAnswered && (
                 <div>
-                    <p>You answered: <strong>{lastUserAnswer}</strong></p>
-                    <p>Correct answer: <strong>{currentQuestionObj.answer}</strong></p>
-                    {isListening && correctPinyin && <p>Pinyin: <strong>{correctPinyin}</strong></p>}
-                    <button type="button" onClick={onWrongContinue}>Continue</button>
+                    {isWrong ? (
+                        <>
+                            <p>You answered: <strong>{lastUserAnswer}</strong></p>
+                            <p>Correct answer: <strong>{currentQuestionObj.answer}</strong></p>
+                            {isListening && correctPinyin && <p>Pinyin: <strong>{correctPinyin}</strong></p>}
+                        </>
+                    ) : (
+                        <p style={{ color: 'green' }}>✓ Correct!</p>
+                    )}
+                    {TYPES_MISSING_CHINESE.has(currentQuestionObj.question_type) && currentQuestionObj.hanzi && (
+                        <p>Characters: <strong>{currentQuestionObj.hanzi}</strong></p>
+                    )}
+                    {TYPES_MISSING_ENGLISH.has(currentQuestionObj.question_type) && currentQuestionObj.english && (
+                        <p>Translation: <strong>{currentQuestionObj.english}</strong></p>
+                    )}
+                    <button type="button" onClick={onNext}>Next</button>
                 </div>
             )}
 
-            {!isWrong && (
+            {!hasAnswered && (
                 <form onSubmit={onSubmit}>
                     {needsIME(currentQuestionObj.question_type)
                         ? <ChineseIMEInput value={userAnswer} onChange={(val) => setUserAnswer(val)} autoFocus />
@@ -108,7 +134,7 @@ export default function Question({
                 </form>
             )}
 
-            {debug && !isWrong && (
+            {debug && !hasAnswered && (
                 <button type="button" onClick={onMarkCorrect}>✓ Mark correct (debug)</button>
             )}
         </div>

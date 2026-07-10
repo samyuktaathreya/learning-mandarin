@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, Body
 from sqlalchemy.orm import Session
-from database import SessionLocal, inverted_index, tags_to_unit_dict, unit_to_tags_dict, unit_questions, META_TAGS, hsk1_dictionary
+from database import SessionLocal, inverted_index, tags_to_unit_dict, unit_to_tags_dict, unit_to_vocab_tags_dict, unit_questions, META_TAGS, hsk1_dictionary, word_to_pinyin
 from schemas.user import SessionResponse
+from api.v1.endpoints.audio import split_pinyin_sounds, GATED_INITIALS, GATED_FINALS
 import crud
 from datetime import datetime
 import random
@@ -115,6 +116,11 @@ def get_allowed_types(correct_count: int) -> set:
 
 
 def is_unit_graduated(tag_records: list, unit_tags: set) -> bool:
+    """unit_tags should be the unit's own vocab/grammar/proper-noun words
+    (unit_to_vocab_tags_dict), not unit_to_tags_dict -- the latter also
+    includes any word a sentence in this unit happens to contain as a
+    substring, even one taught in a later unit, which would make graduation
+    depend on words this unit never actually teaches."""
     record_map = {r.tag: r for r in tag_records}
     for tag in unit_tags:
         record = record_map.get(tag)
@@ -145,9 +151,84 @@ def get_srs_strength_scores(db: Session, user_id: int, unit_min: int, unit_max: 
 
     return scores
 
+# ----------------------------- SPEAKING-SENTENCE SOUND GATE -----------------------------
+# A sentence can contain a sound (zh/ch/sh/r/j/q/x/z/c, or the v/er/e finals --
+# see GATED_INITIALS/GATED_FINALS in audio.py) the user has never had to
+# pronounce in isolation, because the mixed-session generator no longer drills
+# every word as vocab before it can show up in a sentence. Block "speaking
+# sentence" candidates that contain a locked sound and surface the speaking
+# vocab question that teaches it instead, so the user always meets a new sound
+# in isolation before meeting it inside a sentence.
+
+def _tag_sounds(tag: str) -> set:
+    """The GATED sounds (initials/finals with no English equivalent) present
+    in a single word's pinyin, per word_to_pinyin.json."""
+    p = word_to_pinyin.get(tag)
+    if not p:
+        return set()
+    sounds = set()
+    for initial, final, _tone in split_pinyin_sounds(p):
+        if initial in GATED_INITIALS:
+            sounds.add(initial)
+        if final in GATED_FINALS:
+            sounds.add(final)
+    return sounds
+
+
+def _sentence_tag_sounds(question: dict) -> dict:
+    """tag -> gated sounds contributed by that tag, for every content tag in
+    the question (sentence questions carry every constituent word as a tag,
+    including words from earlier units, so this is the complete sound set --
+    the sentence string itself is never parsed)."""
+    result = {}
+    for tag in question.get("tags", []):
+        if tag in META_TAGS or tag.startswith("unit_"):
+            continue
+        sounds = _tag_sounds(tag)
+        if sounds:
+            result[tag] = sounds
+    return result
+
+
+def _gate_speaking_sentences(relevant_units: set, unlocked_sounds: set):
+    """Scans speaking-sentence questions in the units actually reachable this
+    session (current unit + graduated units -- matches the unit_filter used
+    by the learning/review pools) and returns:
+      blocked_ids: question ids that contain a sound not yet unlocked
+      prereq_tags: the words responsible, so their own speaking-vocab
+        question can be injected as a prerequisite
+    """
+    blocked_ids = set()
+    prereq_tags = set()
+    for unit_str, questions in unit_questions.items():
+        if int(unit_str) not in relevant_units:
+            continue
+        for q in questions:
+            if q["question_type"] != "speaking sentence":
+                continue
+            for tag, sounds in _sentence_tag_sounds(q).items():
+                if sounds - unlocked_sounds:
+                    blocked_ids.add(q["id"])
+                    prereq_tags.add(tag)
+    return blocked_ids, prereq_tags
+
+
+def _build_prereq_candidates(prereq_tags: set) -> list:
+    """One 'speaking vocab' candidate per word that's blocking a sentence,
+    scored to sort to the very front of the pool. If a tag has no eligible
+    speaking-vocab question in scope, _select_with_variety naturally skips it
+    (empty avail) -- the sentence just stays filtered out."""
+    return [{
+        "tag": tag,
+        "question_type": "speaking vocab",
+        "effective_count": -1000,
+        "priority_weight": PRIORITY_WEIGHTS.get("speaking vocab", 1),
+    } for tag in prereq_tags]
+
+
 # ----------------------------- VARIETY SELECTOR -----------------------------
 
-def _select_with_variety(candidates, n, unit_filter, used_ids, tag_counts):
+def _select_with_variety(candidates, n, unit_filter, used_ids, tag_counts, blocked_ids=frozenset()):
     """
     Pick up to n questions, blending two goals:
       - review weak words first (lower effective_count is better)
@@ -158,6 +239,11 @@ def _select_with_variety(candidates, n, unit_filter, used_ids, tag_counts):
     unit_filter: set of units a question may come from (None = any unit)
     used_ids / tag_counts: shared mutable state so multiple calls (learning +
       review pools) don't collide on the same question or overuse a tag.
+    blocked_ids: question ids that must never be picked regardless of score
+      (currently: speaking-sentence questions containing an unlocked sound --
+      see _gate_speaking_sentences). Excluding them here, rather than dropping
+      their candidate entries beforehand, keeps this the single place a
+      question becomes "unavailable," same as used_ids.
     """
     picked = []
     type_penalty = {}
@@ -185,6 +271,7 @@ def _select_with_variety(candidates, n, unit_filter, used_ids, tag_counts):
                     q for q in questions
                     if q["question_type"] == qt
                     and q["id"] not in used_ids
+                    and q["id"] not in blocked_ids
                     and (unit_filter is None or q.get("unit") in unit_filter)
                 ]
                 if avail:
@@ -250,9 +337,25 @@ def generate_mixed_session(db: Session, user_id: int, unit: int, graduated_units
     tag_counts = {}
     question_set = []
 
+    # --- speaking-sentence sound gate: never surface a sentence containing a
+    # sound the user hasn't unlocked; teach that sound as vocab first instead ---
+    unlocked_sounds = crud.get_unlocked_sounds(db, user_id)
+    blocked_ids, prereq_tags = _gate_speaking_sentences({unit} | graduated_units, unlocked_sounds)
+
+    if prereq_tags:
+        prereq_candidates = _build_prereq_candidates(prereq_tags)
+        # cap at the original new-material budget so a session can't balloon
+        # past SESSION_SIZE when several sounds are locked at once
+        injected = _select_with_variety(
+            prereq_candidates, min(len(prereq_candidates), n_new),
+            set(range(MIN_UNIT, unit + 1)), used_ids, tag_counts, blocked_ids,
+        )
+        question_set += injected
+        n_new = max(0, n_new - len(injected))
+
     # --- current-unit learning pool ---
     learn_candidates = _build_learning_candidates(unit, record_map)
-    question_set += _select_with_variety(learn_candidates, n_new, {unit}, used_ids, tag_counts)
+    question_set += _select_with_variety(learn_candidates, n_new, {unit}, used_ids, tag_counts, blocked_ids)
 
     # --- review pool: weakest-first, seasoned with random below-threshold picks ---
     if n_review > 0:
@@ -274,12 +377,12 @@ def generate_mixed_session(db: Session, user_id: int, unit: int, graduated_units
                     "effective_count": 0,
                     "priority_weight": PRIORITY_WEIGHTS.get(qt, 1),
                 })
-        question_set += _select_with_variety(review_candidates, n_review, graduated_units, used_ids, tag_counts)
+        question_set += _select_with_variety(review_candidates, n_review, graduated_units, used_ids, tag_counts, blocked_ids)
 
     # backfill from the learning pool if review came up short, so sessions stay full
     if len(question_set) < SESSION_SIZE:
         question_set += _select_with_variety(
-            learn_candidates, SESSION_SIZE - len(question_set), {unit}, used_ids, tag_counts
+            learn_candidates, SESSION_SIZE - len(question_set), {unit}, used_ids, tag_counts, blocked_ids
         )
 
     random.shuffle(question_set)
@@ -388,7 +491,7 @@ def generate_session(user_id: int, db: Session = Depends(get_db)):
     user_unit = user.current_unit
     graduated_units = crud.get_graduated_units(db, user_id)
 
-    unit_tags = unit_to_tags_dict.get(user_unit, set())
+    unit_tags = unit_to_vocab_tags_dict.get(user_unit, set())
     all_records = crud.get_progress_by_user(db, user_id)
     unit_records = [r for r in all_records if r.tag in unit_tags]
 
@@ -414,6 +517,13 @@ def submit_session(
                 continue
             crud.update_after_answer(db, user_id, tag, is_correct[i])
 
+        # speaking vocab is the only place a gated sound gets attempted in
+        # isolation -- record it so the sentence gate can unlock (see
+        # _gate_speaking_sentences / crud.get_unlocked_sounds)
+        if question_data.get("question_type") == "speaking vocab":
+            for sound in _tag_sounds(question_data.get("question", "")):
+                crud.record_sound_attempt(db, user_id, sound, is_correct[i])
+
     unit_test_result = "unit test not taken"
 
     if is_unit_test:
@@ -432,7 +542,7 @@ def submit_session(
 @router.get("/api/debug/{user_id}")
 def debug(user_id: int, db: Session = Depends(get_db)):
     user = crud.get_user(db, user_id)
-    unit_tags = unit_to_tags_dict.get(user.current_unit, set())
+    unit_tags = unit_to_vocab_tags_dict.get(user.current_unit, set())
     all_records = crud.get_progress_by_user(db, user_id)
     unit_records = [r for r in all_records if r.tag in unit_tags]
     graduated = is_unit_graduated(unit_records, unit_tags)
@@ -461,7 +571,7 @@ def get_progress(user_id: int, db: Session = Depends(get_db)):
     unit_progress = {}
     for unit_str in unit_questions.keys():
         unit = int(unit_str)
-        unit_tags = unit_to_tags_dict.get(unit, set())
+        unit_tags = unit_to_vocab_tags_dict.get(unit, set())
         if not unit_tags:
             continue
 
@@ -486,7 +596,7 @@ def get_progress(user_id: int, db: Session = Depends(get_db)):
         }
 
     # current unit word-level progress
-    current_unit_tags = unit_to_tags_dict.get(user_unit, set())
+    current_unit_tags = unit_to_vocab_tags_dict.get(user_unit, set())
     current_unit_words = sorted([
         {
             "tag": tag,

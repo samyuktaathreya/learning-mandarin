@@ -43,6 +43,25 @@ except json.JSONDecodeError:
     print("Error: Failed to decode unit_questions_hsk1.json.")
     unit_questions = {}
 
+# unit (int) -> set of words that unit actually *teaches* (its own
+# vocab/grammar/proper-noun entries). Narrower than unit_to_tags_dict below,
+# which also picks up any word a sentence in that unit happens to contain as
+# a substring, even if that word is taught in a later unit -- fine for
+# surfacing practice opportunities, wrong as a graduation requirement (see
+# is_unit_graduated in practice.py).
+UNIT_VOCAB_TAGS_FILEPATH = './language-app-data/data/clean/unit_vocab_tags.json'
+
+try:
+    with open(UNIT_VOCAB_TAGS_FILEPATH, 'r', encoding='utf-8') as f:
+        unit_to_vocab_tags_dict = {int(k): set(v) for k, v in json.load(f).items()}
+    print(f"Loaded unit_vocab_tags: {len(unit_to_vocab_tags_dict)} units")
+except FileNotFoundError:
+    print(f"Error: {UNIT_VOCAB_TAGS_FILEPATH} not found.")
+    unit_to_vocab_tags_dict = {}
+except json.JSONDecodeError:
+    print("Error: Failed to decode unit_vocab_tags.json.")
+    unit_to_vocab_tags_dict = {}
+
 inverted_index = {}     # tag -> [question, ...]
 tags_to_unit_dict = {}  # tag -> unit (int)
 unit_to_tags_dict = {}  # unit (int) -> set of tags
@@ -113,3 +132,19 @@ try:
 except FileNotFoundError:
     print(f"Error: {DICTIONARY_FILEPATH} not found.")
     hsk1_dictionary = {}
+
+# word (hanzi) -> numeric pinyin, e.g. "女儿": "nv3er2". Used to decompose a
+# sentence's constituent words into atomic sounds for the speaking-sentence
+# gate (see api/v1/endpoints/practice.py).
+WORD_TO_PINYIN_FILEPATH = './language-app-data/data/intermediate/word_to_pinyin.json'
+
+try:
+    with open(WORD_TO_PINYIN_FILEPATH, 'r', encoding='utf-8') as f:
+        word_to_pinyin = json.load(f)
+    print(f"word_to_pinyin loaded! ({len(word_to_pinyin)} entries)")
+except FileNotFoundError:
+    print(f"Error: {WORD_TO_PINYIN_FILEPATH} not found.")
+    word_to_pinyin = {}
+except json.JSONDecodeError:
+    print("Error: Failed to decode word_to_pinyin.json.")
+    word_to_pinyin = {}

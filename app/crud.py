@@ -1,6 +1,9 @@
 from sqlalchemy.orm import Session
-from models.user import StrengthTable, User
+from models.user import StrengthTable, User, SoundProgress
 from datetime import datetime
+
+SOUND_UNLOCK_SUCCESSES = 1
+SOUND_UNLOCK_ATTEMPTS_CAP = 5
 
 
 def get_progress_by_user(db: Session, user_id: int):
@@ -62,3 +65,34 @@ def get_graduated_units(db: Session, user_id: int) -> set:
     if not user or not user.graduated_units:
         return set()
     return {int(u) for u in user.graduated_units.split(",") if u}
+
+
+def get_sound_progress(db: Session, user_id: int):
+    return db.query(SoundProgress).filter(SoundProgress.user_id == user_id).all()
+
+
+def get_unlocked_sounds(db: Session, user_id: int) -> set:
+    """A sound with no row yet has never been attempted, so it stays locked."""
+    rows = get_sound_progress(db, user_id)
+    return {
+        r.sound for r in rows
+        if r.successes >= SOUND_UNLOCK_SUCCESSES or r.attempts >= SOUND_UNLOCK_ATTEMPTS_CAP
+    }
+
+
+def record_sound_attempt(db: Session, user_id: int, sound: str, is_correct: bool):
+    row = db.query(SoundProgress).filter(
+        SoundProgress.user_id == user_id,
+        SoundProgress.sound == sound,
+    ).first()
+    if not row:
+        row = SoundProgress(user_id=user_id, sound=sound, attempts=0, successes=0)
+        db.add(row)
+
+    row.attempts += 1
+    if is_correct:
+        row.successes += 1
+
+    db.commit()
+    db.refresh(row)
+    return row

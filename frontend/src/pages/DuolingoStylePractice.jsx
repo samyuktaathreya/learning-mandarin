@@ -47,7 +47,6 @@ export default function DuolingoStyleQuestions() {
     const [questions, setQuestions] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [userAnswer, setUserAnswer] = useState("");
-    const [isWrong, setIsWrong] = useState(false);
     const [isSessionStarted, setIsSessionStarted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [score, setScore] = useState(0);
@@ -57,6 +56,9 @@ export default function DuolingoStyleQuestions() {
     const [progress, setProgress] = useState(null);
     const [selectedUnit, setSelectedUnit] = useState(null);
     const [lastUserAnswer, setLastUserAnswer] = useState("");
+    // null while the user is still answering; 'correct' / 'incorrect' once
+    // they've submitted and are looking at the reveal (translation + Next)
+    const [answerState, setAnswerState] = useState(null);
 
     // recording state
     const [isRecording, setIsRecording] = useState(false);
@@ -81,7 +83,7 @@ export default function DuolingoStyleQuestions() {
 
         if (!currentQuestionObj) return;
         setTranscriptionResult(null);
-        setIsWrong(false);
+        setAnswerState(null);
         setLastUserAnswer("");
         if (recordingURL) { URL.revokeObjectURL(recordingURL); setRecordingURL(null); }
         
@@ -97,6 +99,22 @@ export default function DuolingoStyleQuestions() {
             (/[\u4e00-\u9fff]/.test(question) || isListening);
         if (shouldAutoPlay) playAudio(question);
     }, [currentIndex, questions]);
+
+    // Once an answer has been revealed (typed answer graded, or a speaking
+    // question's pronunciation result came back), Enter also triggers Next.
+    useEffect(() => {
+        const speakingReady = transcriptionResult && !transcriptionResult.error && !transcriptionResult.hallucination;
+        if (!answerState && !speakingReady) return;
+        const onKeyDown = (e) => {
+            if (e.key !== 'Enter') return;
+            e.preventDefault();
+            if (answerState === 'incorrect') advanceQuestion(false, true);
+            else if (answerState === 'correct') advanceQuestion(true);
+            else if (speakingReady) advanceQuestion(transcriptionResult.is_correct);
+        };
+        window.addEventListener('keydown', onKeyDown);
+        return () => window.removeEventListener('keydown', onKeyDown);
+    }, [answerState, transcriptionResult]);
 
     const fetchProgress = async () => {
         try {
@@ -117,7 +135,7 @@ export default function DuolingoStyleQuestions() {
             setScore(0);
             setAnswerLog([]);
             setUserAnswer("");
-            setIsWrong(false);
+            setAnswerState(null);
             setTranscriptionResult(null);
             setRecordingURL(null);
             setIsSessionStarted(true);
@@ -153,8 +171,21 @@ export default function DuolingoStyleQuestions() {
         setCurrentIndex(nextIndex);
         setUserAnswer("");
         setLastUserAnswer("");
-        setIsWrong(false);
+        setAnswerState(null);
         setTranscriptionResult(null);
+    };
+
+    // Reveals the outcome of a submitted answer (translation included) instead
+    // of advancing straight away -- advancing now happens via the Next button.
+    const revealAnswer = (correct, answerGiven) => {
+        if (!correct) setLastUserAnswer(answerGiven);
+        setAnswerState(correct ? 'correct' : 'incorrect');
+        setUserAnswer("");
+    };
+
+    const handleNext = () => {
+        if (answerState === 'incorrect') advanceQuestion(false, true);
+        else if (answerState === 'correct') advanceQuestion(true);
     };
 
     const handleSubmit = async (e) => {
@@ -162,7 +193,7 @@ export default function DuolingoStyleQuestions() {
         if (!currentQuestionObj) return;
         const question_type = currentQuestionObj.question_type;
         const expectedVariants = currentQuestionObj.answer.split(',').map(v => clean(v.trim()));
-        if (expectedVariants.some(v => v === clean(userAnswer))) { advanceQuestion(true); return; }
+        if (expectedVariants.some(v => v === clean(userAnswer))) { revealAnswer(true); return; }
 
         // for listening sentence, compare by pinyin to handle homophones like 他/她
         if (question_type === "listening sentence") {
@@ -173,7 +204,7 @@ export default function DuolingoStyleQuestions() {
                     body: JSON.stringify({ user_answer: userAnswer, expected_answer: currentQuestionObj.answer }),
                 });
                 const { is_correct } = await res.json();
-                if (is_correct) { advanceQuestion(true); return; }
+                if (is_correct) { revealAnswer(true); return; }
             } catch (err) { console.error("Chinese grading failed", err); }
         }
 
@@ -185,13 +216,11 @@ export default function DuolingoStyleQuestions() {
                     body: JSON.stringify({ user_answer: userAnswer, expected_answer: currentQuestionObj.answer }),
                 });
                 const { is_correct } = await res.json();
-                if (is_correct) { advanceQuestion(true); return; }
+                if (is_correct) { revealAnswer(true); return; }
             } catch (err) { console.error("Grading failed", err); }
         }
 
-        setLastUserAnswer(userAnswer);
-        setIsWrong(true);
-        setUserAnswer("");
+        revealAnswer(false, userAnswer);
     };
 
     // ── Recording ──────────────────────────────────────────────────
@@ -297,10 +326,10 @@ export default function DuolingoStyleQuestions() {
                         debugMode={debugMode}
                         userAnswer={userAnswer}
                         setUserAnswer={setUserAnswer}
-                        isWrong={isWrong}
+                        answerState={answerState}
                         lastUserAnswer={lastUserAnswer}
                         onSubmit={handleSubmit}
-                        onWrongContinue={() => advanceQuestion(false, true)}
+                        onNext={handleNext}
                         onMarkCorrect={() => advanceQuestion(true)}
                         onPlayAudio={playAudio}
                       />

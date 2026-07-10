@@ -133,9 +133,25 @@ VALID_FINALS = ['iang', 'iong', 'uang', 'ueng', 'uan', 'uen', 'uai', 'ing',
                 'ao', 'ou', 'ai', 'ei', 'ia', 'ua', 'uo', 'ui', 'un', 'iu',
                 've', 'vn', 'a', 'o', 'e', 'i', 'u', 'v', 'er', 'ng']
 
+# Sounds gated behind pronunciation practice because they have no English
+# equivalent (see api/v1/endpoints/practice.py's speaking-sentence gate).
+# Everything else is assumed learnable by ear/spelling alone.
+GATED_INITIALS = {'zh', 'ch', 'sh', 'r', 'j', 'q', 'x', 'z', 'c'}
+GATED_FINALS = {'v', 'er', 'e'}
+GATED_SOUNDS = GATED_INITIALS | GATED_FINALS
 
-def split_pinyin_syllables(p: str) -> list:
-    result = []
+# Initials after which numeric pinyin spells the u+00fc (ü) sound as a
+# plain "u" instead of "v" (e.g. "qu4", not "qv4") -- only these four take the
+# hidden-ü normalization. "nu"/"nv" (女 vs 努) are genuinely different
+# finals and must NOT be collapsed, which is why this list is narrow and the
+# swap below only fires for an exact bare "u" final.
+HIDDEN_V_INITIALS = {'j', 'q', 'x', 'y'}
+
+
+def _match_pinyin_syllables(p: str):
+    """Core longest-match segmentation shared by split_pinyin_syllables() and
+    split_pinyin_sounds(). Yields (initial, final, tone) per syllable; initial
+    is '' for syllables with no initial consonant."""
     i = 0
     p = p.lower()
 
@@ -155,18 +171,35 @@ def split_pinyin_syllables(p: str) -> list:
             for final in sorted(VALID_FINALS, key=len, reverse=True):
                 end = rest_start + len(final)
                 if p[rest_start:end] == final:
-                    syllable = initial + final
                     if end < len(p) and p[end] in '12345':
-                        result.append((syllable, p[end]))
+                        tone = p[end]
                         i = end + 1
                     else:
-                        result.append((syllable, '5'))
+                        tone = '5'
                         i = end
+                    yield initial, final, tone
                     matched = True
                     break
         if not matched:
             i += 1
 
+
+def split_pinyin_syllables(p: str) -> list:
+    return [(initial + final, tone) for initial, final, tone in _match_pinyin_syllables(p)]
+
+
+def split_pinyin_sounds(p: str) -> list:
+    """Like split_pinyin_syllables(), but keeps each syllable's initial and
+    final separate instead of concatenating them, and normalizes the hidden-ü
+    spelling: ju/qu/xu/yu are pronounced with ü even though numeric pinyin
+    spells the final as a bare "u" (nu vs nv stays contrastive -- only a final
+    that is *exactly* "u" after j/q/x/y gets swapped). Returns a list of
+    (initial, final, tone) tuples."""
+    result = []
+    for initial, final, tone in _match_pinyin_syllables(p):
+        if initial in HIDDEN_V_INITIALS and final == 'u':
+            final = 'v'
+        result.append((initial, final, tone))
     return result
 
 

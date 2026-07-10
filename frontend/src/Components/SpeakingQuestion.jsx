@@ -130,6 +130,10 @@ export default function SpeakingQuestion({
                                         : "✗ Not quite — compare what you said to the expected answer"}
                                   </p>}
 
+                            {currentQuestionObj.english && (
+                                <p>Translation: <strong>{currentQuestionObj.english}</strong></p>
+                            )}
+
                             <button onClick={() => onAdvanceQuestion(transcriptionResult.is_correct)}>Continue</button>
                             <button onClick={onTryAgain}>Try Again</button>
                           </div>
