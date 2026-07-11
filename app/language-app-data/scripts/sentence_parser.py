@@ -196,6 +196,16 @@ def cjk_only(s: str) -> str:
     return "".join(_CJK_RE.findall(s))
 
 
+_CONTENT_RE = re.compile(r"[一-鿿]|\d+")
+
+
+def content_only(s: str) -> str:
+    """Like cjk_only, but keeps Arabic-numeral runs too (as single units), so
+    numbers embedded in a sentence (e.g. the '50' in '...50岁了')
+    survive segmentation instead of being silently dropped from tags/pinyin."""
+    return "".join(_CONTENT_RE.findall(s))
+
+
 # --------------------------------- VALIDATION ---------------------------------
 
 _PUNCTUATION_EQUIVALENTS = {
@@ -386,24 +396,72 @@ def pypinyin_for_word(word: str) -> str:
     return "".join(s[0] for s in syllables)
 
 
+_DIGIT_HANZI = "零一二三四五六七八九"
+
+
+def _number_to_hanzi(n: int) -> str:
+    """Standard cardinal reading for a number, e.g. 50 -> '五十', 31 -> '三十一',
+    18 -> '十八' (leading yi1 dropped before shi2 in 10-19, per convention)."""
+    if n == 0:
+        return "零"
+    digits = str(n)
+    length = len(digits)
+    units = ["", "十", "百", "千"]
+    parts = []
+    for i, ch in enumerate(digits):
+        d = int(ch)
+        power = length - i - 1
+        if d == 0:
+            if power != 0 and any(c != "0" for c in digits[i + 1:]):
+                parts.append("零")
+            continue
+        if d == 1 and power == 1 and i == 0 and length == 2:
+            parts.append(units[power])
+        else:
+            parts.append(_DIGIT_HANZI[d] + units[power])
+    return "".join(parts)
+
+
+def digit_run_to_pinyin(run: str) -> str:
+    """Pinyin for a run of Arabic-numeral digits found verbatim in a sentence,
+    e.g. the '50' in '...50岁了' or the '2011' in '2011年...'. Longer runs
+    (years, phone numbers -- 4+ digits) are read digit-by-digit; shorter runs
+    (ages, dates, prices) use standard cardinal reading, matching how each is
+    actually read aloud."""
+    hanzi = ("".join(_DIGIT_HANZI[int(d)] for d in run) if len(run) >= 4
+             else _number_to_hanzi(int(run)))
+    return pypinyin_for_word(hanzi)
+
+
 def known_words_for_unit(word_to_unit: dict, unit_number: int) -> list:
     words = [w for w, u in word_to_unit.items() if u <= unit_number]
     words.sort(key=len, reverse=True)  # longest first for greedy matching
     return words
 
 
+_DIGIT_RUN_RE = re.compile(r"\d+")
+
+
 def greedy_segment(sentence: str, allowed_words: list, allow_unknown: bool = False):
     """
-    Deterministic fallback: longest-match segmentation over CJK chars only.
-    If allow_unknown is True, any run of characters that doesn't match a
+    Deterministic fallback: longest-match segmentation over CJK chars and
+    Arabic-numeral runs. A run of digits (e.g. the '50' in '...50岁了')
+    is always emitted as a single tag, regardless of allow_unknown, since
+    numbers aren't taught vocabulary and shouldn't be gated like it.
+    If allow_unknown is True, any run of CJK characters that doesn't match a
     known word is emitted character-by-character as "unknown" tags (still
     real hanzi, just not in word_to_unit) instead of failing the whole
     sentence. If allow_unknown is False (workbook), any unmatched character
     fails the segmentation, same as before.
     """
-    target = cjk_only(sentence)
+    target = content_only(sentence)
     tags, pos = [], 0
     while pos < len(target):
+        if target[pos].isdigit():
+            m = _DIGIT_RUN_RE.match(target, pos)
+            tags.append(m.group())
+            pos = m.end()
+            continue
         match = next((w for w in allowed_words if target.startswith(cjk_only(w), pos)), None)
         if match is not None:
             tags.append(match)
@@ -420,9 +478,10 @@ def greedy_segment(sentence: str, allowed_words: list, allow_unknown: bool = Fal
 def validate_tags(sentence: str, tags, allowed_set: set, allow_unknown: bool = False) -> bool:
     if not isinstance(tags, list) or not tags:
         return False
-    if not allow_unknown and any(t not in allowed_set for t in tags):
+    if not allow_unknown and any(t not in allowed_set and not t.isdigit() for t in tags):
         return False
-    return "".join(cjk_only(t) for t in tags) == cjk_only(sentence)
+    reconstructed = "".join(t if t.isdigit() else cjk_only(t) for t in tags)
+    return reconstructed == content_only(sentence)
 
 
 FIRST_TONE_RE = re.compile(r"\d")
@@ -527,10 +586,12 @@ def tag_and_pinyin(sentences: dict, word_to_pinyin: dict, word_to_unit: dict,
         if tags is None or not validate_tags(zh, tags, allowed_set, allow_unknown):
             dropped.append(zh)
             continue
-        pinyins = apply_sandhi(
-            tags,
-            [word_to_pinyin[t] if t in word_to_pinyin else pypinyin_for_word(t) for t in tags],
-        )
+        def pinyin_for_tag(t: str) -> str:
+            if t.isdigit():
+                return digit_run_to_pinyin(t)
+            return word_to_pinyin[t] if t in word_to_pinyin else pypinyin_for_word(t)
+
+        pinyins = apply_sandhi(tags, [pinyin_for_tag(t) for t in tags])
         records.append({"hanzi": zh, "english": en, "tags": tags, "pinyin": " ".join(pinyins)})
     if dropped:
         print(f"  [tagging] {source} unit {unit_number}: dropped {len(dropped)} unsegmentable sentence(s):")
