@@ -62,11 +62,48 @@ def make_question(unit_number, question_type, question_text, answer_text, tags, 
     }
 
 
+def content_tags_for(hanzi_text, all_hanzi):
+    return [w for w in all_hanzi if w in hanzi_text]
+
+
 def build_tags(hanzi_text, question_type, unit_number, all_hanzi):
-    tags = [w for w in all_hanzi if w in hanzi_text]
+    tags = content_tags_for(hanzi_text, all_hanzi)
     tags.append(question_type.replace(" ", "_"))
     tags.append(f"unit_{unit_number}")
     return tags
+
+
+def hanzi_home_units(index_data) -> dict:
+    """word (hanzi) -> earliest unit that teaches it, across vocab/grammar/
+    proper_nouns. Used to gate hanzi-production question types (see
+    TYPING_REQUIRED_TYPES) so a learner is never asked to type a word they
+    haven't been taught yet."""
+    home = {}
+    for section in ("vocab", "grammar", "proper_nouns"):
+        for item in index_data.get(section, []):
+            hanzi, unit = item["hanzi"], item["unit"]
+            if hanzi not in home or unit < home[hanzi]:
+                home[hanzi] = unit
+    return home
+
+
+# Question types where the learner must produce (type) Chinese characters,
+# as opposed to typing pinyin/English or just listening/speaking. A sentence
+# or word that pulls in vocab from a later unit is fine for these OTHER
+# question types (listening/speaking/translate-to-English just require
+# recognizing it), but not fair to ask someone to type out cold.
+TYPING_REQUIRED_TYPES = {
+    QuestionType.LISTENING_SENTENCE.value,
+    QuestionType.TRANSLATE_EN_TO_ZH_SENTENCE.value,
+    QuestionType.TRANSLATE_EN_TO_ZH_WORD.value,
+    QuestionType.FILL_IN_THE_BLANK.value,
+}
+
+
+def has_unlearned_vocab(content_tags, unit_number, home_unit) -> bool:
+    """True if any word in content_tags is first taught in a unit later than
+    unit_number -- i.e. the learner hasn't met it yet."""
+    return any(home_unit.get(tag, unit_number) > unit_number for tag in content_tags)
 
 
 def reconstruct_fitb_sentence(question, answer):
@@ -84,7 +121,7 @@ def extract_fitb_translation(question: str) -> str:
     return question[paren_index + 1:].rstrip(")").strip()
 
 
-def build_questions_for_unit(index_data, units_data, unit_number):
+def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
     unit_str = str(unit_number)
     counters = {}
     questions = []
@@ -111,6 +148,8 @@ def build_questions_for_unit(index_data, units_data, unit_number):
         hanzi = item["hanzi"]
         pinyin = item.get("pinyin", "")
         english = item.get("english", "")
+        content_tags = content_tags_for(hanzi, all_hanzi)
+        blocked = has_unlearned_vocab(content_tags, unit_number, home_unit)
         for qtype, q_text, a_text in [
             (QuestionType.LISTENING_VOCAB.value, hanzi, pinyin),
             (QuestionType.SPEAKING_VOCAB.value, hanzi, pinyin),
@@ -118,6 +157,8 @@ def build_questions_for_unit(index_data, units_data, unit_number):
             (QuestionType.TRANSLATE_ZH_TO_EN_WORD.value, hanzi, english),
             (QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, hanzi, pinyin),
         ]:
+            if qtype in TYPING_REQUIRED_TYPES and blocked:
+                continue
             question = make_question(unit_str, qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), counters)
             question["hanzi"] = hanzi
             question["english"] = english
@@ -164,12 +205,16 @@ def build_questions_for_unit(index_data, units_data, unit_number):
         if not hanzi or hanzi in seen_sentences:
             continue
         seen_sentences.add(hanzi)
+        content_tags = content_tags_for(hanzi, all_hanzi)
+        blocked = has_unlearned_vocab(content_tags, unit_number, home_unit)
         for qtype, q_text, a_text in [
             (QuestionType.LISTENING_SENTENCE.value, hanzi, hanzi),
             (QuestionType.SPEAKING_SENTENCE.value, hanzi, pinyin),
             (QuestionType.TRANSLATE_EN_TO_ZH_SENTENCE.value, english, hanzi),
             (QuestionType.TRANSLATE_ZH_TO_EN_SENTENCE.value, hanzi, english),
         ]:
+            if qtype in TYPING_REQUIRED_TYPES and blocked:
+                continue
             question = make_question(unit_str, qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), counters)
             question["hanzi"] = hanzi
             question["english"] = english
@@ -182,6 +227,9 @@ def build_questions_for_unit(index_data, units_data, unit_number):
             continue
         seen_fitb.add(key)
         full_sentence = reconstruct_fitb_sentence(item.get("question", ""), item.get("answer", ""))
+        content_tags = content_tags_for(full_sentence, all_hanzi)
+        if has_unlearned_vocab(content_tags, unit_number, home_unit):
+            continue
         question = make_question(unit_str, QuestionType.FILL_IN_THE_BLANK.value, item.get("question", ""), item.get("answer", ""), build_tags(full_sentence, QuestionType.FILL_IN_THE_BLANK.value, unit_str, all_hanzi), counters)
         question["hanzi"] = full_sentence
         question["english"] = extract_fitb_translation(item.get("question", ""))
@@ -213,11 +261,12 @@ def vocab_tags_for_unit(index_data, unit_number) -> list:
 def main():
     index_data = load_json(INDEX_FILEPATH)
     units_data = load_json(UNITS_FILEPATH)
+    home_unit = hanzi_home_units(index_data)
 
     all_questions = {}
     all_vocab_tags = {}
     for unit_number in sorted({int(k) for k in units_data.keys()} | {item["unit"] for item in index_data.get("vocab", [])} | {item["unit"] for item in index_data.get("grammar", [])} | {item["unit"] for item in index_data.get("proper_nouns", [])}):
-        all_questions[str(unit_number)] = build_questions_for_unit(index_data, units_data, unit_number)
+        all_questions[str(unit_number)] = build_questions_for_unit(index_data, units_data, unit_number, home_unit)
         all_vocab_tags[str(unit_number)] = vocab_tags_for_unit(index_data, unit_number)
 
     OUTPUT_FILEPATH.parent.mkdir(parents=True, exist_ok=True)

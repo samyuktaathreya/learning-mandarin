@@ -89,6 +89,10 @@ export default function Question({
             {sessionType === "unit_test" && <p>Unit Test</p>}
             {debugMode && <p>⚡ Debug mode</p>}
             <h2>{questionTypeToInstruction(currentQuestionObj.question_type)}</h2>
+            {["translate english sentence to chinese", "translate english word to chinese", "fill in the blank"].includes(currentQuestionObj.question_type)
+                && /\d/.test(currentQuestionObj.answer) && (
+                <p className="digit-hint">Write numbers as digits (e.g. 50, not 五十)</p>
+            )}
 
             {!isListening && (
                 <h1 className={currentQuestionObj.question.length > 12 ? "question-text question-text--long" : "question-text"}>

@@ -213,7 +213,11 @@ export default function DuolingoStyleQuestions() {
                 const res = await fetch('/api/grade', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ user_answer: userAnswer, expected_answer: currentQuestionObj.answer }),
+                    body: JSON.stringify({
+                        user_answer: userAnswer,
+                        expected_answer: currentQuestionObj.answer,
+                        question: currentQuestionObj.question,   // the Chinese
+                    }),
                 });
                 const { is_correct } = await res.json();
                 if (is_correct) { revealAnswer(true); return; }
@@ -262,8 +266,8 @@ export default function DuolingoStyleQuestions() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         audio: base64,
-                        expected: currentQuestionObj.answer,          // pinyin, for tones_match
-                        hanzi: currentQuestionObj.question,           // characters, for assessment
+                        expected: currentQuestionObj.answer,
+                        hanzi: currentQuestionObj.question,          // <-- add this
                         question_type: currentQuestionObj.question_type,
                     }),
                 });

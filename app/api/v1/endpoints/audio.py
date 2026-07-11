@@ -12,6 +12,7 @@ import anthropic as anthropic_sdk
 import azure.cognitiveservices.speech as speechsdk
 import asyncio
 import time
+import json
 
 load_dotenv(os.path.join(os.path.dirname(__file__), '../../../.env'))
 
@@ -30,6 +31,65 @@ MANDARIN_VOICES = [
 PINYIN_OVERRIDES = {
     "谁": "shei2",
 }
+
+# Single-character pinyin from the curated index. Word-keyed multi-char entries
+# are skipped — per-character grading only needs single characters, and pypinyin
+# handles those correctly as a fallback.
+CHAR_PINYIN = {}
+try:
+    _index_path = os.path.join(os.path.dirname(__file__), '../../../language-app-data/data/clean/index_output.json')
+    with open(_index_path, 'r', encoding='utf-8') as f:
+        _index = json.load(f)
+    for _section in _index.values():          # vocab, grammar, proper_nouns
+        for _entry in _section:
+            _h = _entry.get("hanzi", "")
+            if len(_h) == 1:                   # single characters only
+                CHAR_PINYIN[_h] = _entry["pinyin"]
+    print(f"Loaded {len(CHAR_PINYIN)} single-char pinyin entries")
+except Exception as e:
+    print(f"Could not load index_output.json ({e}); using pypinyin only")
+
+def char_to_pinyin(ch: str) -> str:
+    """Single character -> numeric pinyin. Curated dict first, pypinyin fallback."""
+    if ch in CHAR_PINYIN:
+        return CHAR_PINYIN[ch]
+    return to_numbered_pinyin(ch)
+
+
+def _base_tone(syllable: str):
+    """'ta1' -> ('ta','1'); bare 'de' -> ('de','5')."""
+    if syllable and syllable[-1] in '12345':
+        return syllable[:-1], syllable[-1]
+    return syllable, '5'
+
+def grade_speaking_sentence(transcription: str, expected_hanzi: str) -> bool:
+    """
+    Grade a speaking-sentence attempt by comparing HANZI first, dropping to
+    per-character pinyin only where characters differ. Avoids round-tripping
+    the whole sentence through pinyin (which mis-segments run-together
+    syllables). Homophones (他/她 both ta1) get credit since this is a spoken
+    exercise; tones always count; neutral tone is forgiven as a last resort.
+    """
+    t = strip_punct(transcription)
+    e = strip_punct(expected_hanzi)
+
+    if t == e:
+        return True                      # exact match, no pinyin needed
+    if len(t) != len(e):
+        return False                     # can't align; wrong
+
+    for tc, ec in zip(t, e):
+        if tc == ec:
+            continue
+        tb, tt = _base_tone(char_to_pinyin(tc))
+        eb, et = _base_tone(char_to_pinyin(ec))
+        if tb != eb:
+            return False                 # different sound
+        if tt != et:
+            if tt == '5' or et == '5':
+                continue                 # neutral-tone forgiveness
+            return False                 # tones count
+    return True
 
 audio_cache = {}
 session_files = set()
@@ -502,8 +562,17 @@ async def transcribe(payload: dict):
                 "mode": "transcription",
             })
 
-        transcription_pinyin = to_numbered_pinyin(transcription_hanzi)
-        is_correct = tones_match(transcription_pinyin, expected_pinyin)
+        transcription_pinyin = to_numbered_pinyin(transcription_hanzi)  # for display
+
+        # Grade by comparing HANZI first (falls to per-char pinyin only where
+        # characters differ), which avoids the run-together syllable
+        # mis-segmentation that breaks whole-sentence pinyin comparison.
+        # Needs the expected hanzi from the frontend; falls back to the old
+        # pinyin comparison if it wasn't sent.
+        if hanzi:
+            is_correct = grade_speaking_sentence(transcription_hanzi, hanzi)
+        else:
+            is_correct = tones_match(transcription_pinyin, expected_pinyin)
 
         return JSONResponse({
             "transcription": transcription_hanzi,
@@ -529,7 +598,8 @@ async def transcribe(payload: dict):
 async def grade_answer(payload: dict):
     user_answer = payload.get("user_answer", "").strip()
     expected = payload.get("expected_answer", "").strip()
-    print(f"[grade] user_answer={user_answer!r}, expected={expected!r}")
+    question = payload.get("question", "").strip()
+    print(f"[grade] q={question!r} user={user_answer!r} expected={expected!r}")
 
     if not user_answer or not expected:
         return JSONResponse({"is_correct": False})
@@ -540,15 +610,24 @@ async def grade_answer(payload: dict):
             max_tokens=5,
             messages=[{
                 "role": "user",
-                "content": f'Does this student answer mean the same thing as the expected answer? Reply only YES or NO.\n\nExpected: {expected}\nStudent: {user_answer}'
+                "content": (
+                    "You are grading a Chinese-to-English translation exercise for a beginner learner. "
+                    "The learner sees a Chinese word or sentence and types an English translation. "
+                    "Mark the answer CORRECT if it conveys the meaning of the Chinese, even if the wording, "
+                    "articles, punctuation, or phrasing differ from the reference. Be lenient about minor "
+                    "grammar, synonyms, and word order. Mark INCORRECT only if the meaning is wrong or missing.\n\n"
+                    f"Chinese: {question}\n"
+                    f"Reference translation: {expected}\n"
+                    f"Learner's answer: {user_answer}\n\n"
+                    "Reply with only YES (correct) or NO (incorrect)."
+                )
             }]
         )
         result = response.content[0].text.strip().upper()
-        return JSONResponse({"is_correct": result == "YES"})
+        return JSONResponse({"is_correct": result.startswith("YES")})
     except Exception as e:
         print(f"Grading error: {e}")
         return JSONResponse({"is_correct": False})
-
 
 # ----------------------------- CHINESE ANSWER GRADING -----------------------------
 
