@@ -30,6 +30,11 @@ QUESTION_TYPES = [
     "translate chinese word to english",
 ]
 
+# The two facets each vocab word is tracked on. Kept here (not imported from
+# crud) so init_db has no dependency on the crud/models layer beyond the model
+# classes themselves.
+FACETS = ("character", "pinyin")
+
 QUESTIONS_FILEPATH = './language-app-data/data/clean/unit_questions_hsk1.json'
 
 try:
@@ -42,6 +47,25 @@ except FileNotFoundError:
 except json.JSONDecodeError:
     print("Error: Failed to decode unit_questions_hsk1.json.")
     unit_questions = {}
+
+# unit (int) -> set of words that unit actually *teaches* (its own
+# vocab/grammar/proper-noun entries). Narrower than unit_to_tags_dict below,
+# which also picks up any word a sentence in that unit happens to contain as
+# a substring, even if that word is taught in a later unit -- fine for
+# surfacing practice opportunities, wrong as a graduation requirement (see
+# is_unit_graduated in practice.py).
+UNIT_VOCAB_TAGS_FILEPATH = './language-app-data/data/clean/unit_vocab_tags.json'
+
+try:
+    with open(UNIT_VOCAB_TAGS_FILEPATH, 'r', encoding='utf-8') as f:
+        unit_to_vocab_tags_dict = {int(k): set(v) for k, v in json.load(f).items()}
+    print(f"Loaded unit_vocab_tags: {len(unit_to_vocab_tags_dict)} units")
+except FileNotFoundError:
+    print(f"Error: {UNIT_VOCAB_TAGS_FILEPATH} not found.")
+    unit_to_vocab_tags_dict = {}
+except json.JSONDecodeError:
+    print("Error: Failed to decode unit_vocab_tags.json.")
+    unit_to_vocab_tags_dict = {}
 
 inverted_index = {}     # tag -> [question, ...]
 tags_to_unit_dict = {}  # tag -> unit (int)
@@ -80,26 +104,35 @@ def init_db():
     db = SessionLocal()
     try:
         if not db.query(User).filter(User.id == 1).first():
-            db.add(User(id=1, current_unit=3, graduated_units=""))
+            db.add(User(id=1, current_unit=3, graduated_units="", unit_phase="listening"))
             print("Default user created.")
 
-        existing_tags = {
-            row.tag for row in
-            db.query(StrengthTable.tag).filter(StrengthTable.user_id == 1).all()
+        # Seed one row per (tag, facet). A tag is considered seeded only when
+        # BOTH facet rows exist, so a partially seeded tag (e.g. from an older
+        # single-facet DB) gets its missing facet filled in.
+        existing = {
+            (row.tag, row.facet) for row in
+            db.query(StrengthTable.tag, StrengthTable.facet)
+              .filter(StrengthTable.user_id == 1).all()
         }
-        new_tags = unique_vocab_tags - existing_tags
-
-        for tag in new_tags:
-            db.add(StrengthTable(
-                tag=tag,
-                user_id=1,
-                correct_count=0,
-                stability=1.0,
-                last_practice=datetime.utcnow() - timedelta(days=365)
-            ))
+        added = 0
+        for tag in unique_vocab_tags:
+            for facet in FACETS:
+                if (tag, facet) in existing:
+                    continue
+                db.add(StrengthTable(
+                    tag=tag,
+                    user_id=1,
+                    facet=facet,
+                    correct_count=0,
+                    stability=1.0,
+                    last_practice=datetime.utcnow() - timedelta(days=365),
+                ))
+                added += 1
 
         db.commit()
-        print(f"Strength table seeded: {len(new_tags)} new tags added.")
+        print(f"Strength table seeded: {added} new (tag, facet) rows added "
+              f"across {len(unique_vocab_tags)} tags x {len(FACETS)} facets.")
 
     finally:
         db.close()
@@ -113,3 +146,19 @@ try:
 except FileNotFoundError:
     print(f"Error: {DICTIONARY_FILEPATH} not found.")
     hsk1_dictionary = {}
+
+# word (hanzi) -> numeric pinyin, e.g. "女儿": "nv3er2". Used to decompose a
+# sentence's constituent words into atomic sounds for the speaking-sentence
+# gate (see api/v1/endpoints/practice.py).
+WORD_TO_PINYIN_FILEPATH = './language-app-data/data/intermediate/word_to_pinyin.json'
+
+try:
+    with open(WORD_TO_PINYIN_FILEPATH, 'r', encoding='utf-8') as f:
+        word_to_pinyin = json.load(f)
+    print(f"word_to_pinyin loaded! ({len(word_to_pinyin)} entries)")
+except FileNotFoundError:
+    print(f"Error: {WORD_TO_PINYIN_FILEPATH} not found.")
+    word_to_pinyin = {}
+except json.JSONDecodeError:
+    print("Error: Failed to decode word_to_pinyin.json.")
+    word_to_pinyin = {}
