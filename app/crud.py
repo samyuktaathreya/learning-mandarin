@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models.user import StrengthTable, User, SoundProgress
+from models.user import StrengthTable, User, SoundProgress, CharacterExposure
 from datetime import datetime, timedelta
 
 SOUND_UNLOCK_SUCCESSES = 1
@@ -54,6 +54,7 @@ def get_strength_row(db: Session, user_id: int, tag: str, facet: str):
 
 
 def _apply_answer_to_row(row, is_correct: bool):
+    row.times_seen = (row.times_seen or 0) + 1   # every answer counts as "seen"
     if is_correct:
         row.correct_count += 1
         row.stability = min(row.stability * 2, 365)
@@ -89,6 +90,18 @@ def update_after_answer_for_question(db: Session, user_id: int, tag: str,
 
 
 # ----------------------------- USER -----------------------------
+
+def get_seen_tags(db: Session, user_id: int, facet: str) -> set:
+    """Tags the user has been SHOWN at least once for a given facet
+    (times_seen >= 1). "Shown", not "answered correctly" -- used for phase
+    coverage."""
+    rows = db.query(StrengthTable).filter(
+        StrengthTable.user_id == user_id,
+        StrengthTable.facet == facet,
+        StrengthTable.times_seen >= 1,
+    ).all()
+    return {r.tag for r in rows}
+
 
 def get_user(db: Session, user_id: int):
     return db.query(User).filter(User.id == user_id).first()
@@ -170,3 +183,27 @@ def record_sound_attempt(db: Session, user_id: int, sound: str, is_correct: bool
     db.commit()
     db.refresh(row)
     return row
+
+# ----------------------------- CHARACTER EXPOSURE -----------------------------
+def record_character_exposure(db, user_id, tag):
+    """Idempotent: mark a word as shown on c2e."""
+    exists = db.query(CharacterExposure).filter_by(user_id=user_id, tag=tag).first()
+    if not exists:
+        db.add(CharacterExposure(user_id=user_id, tag=tag))
+        db.commit()
+
+def get_c2e_seen_tags(db, user_id) -> set:
+    rows = db.query(CharacterExposure.tag).filter_by(user_id=user_id).all()
+    return {r[0] for r in rows}
+
+def get_e2c_seen_tags(db, user_id, facet="character") -> set:
+    """Words shown on e→c at least once: character.times_seen >= 2 (1 from the
+    guaranteed prior c→e exposure, +1 from the first e→c). Valid because
+    sentence review — the only other writer to this facet — is locked until
+    after e2c completes."""
+    rows = db.query(StrengthTable).filter(
+        StrengthTable.user_id == user_id,
+        StrengthTable.facet == facet,
+        StrengthTable.times_seen >= 2,
+    ).all()
+    return {r.tag for r in rows}

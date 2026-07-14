@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, DateTime, UniqueConstraint
+from sqlalchemy import Column, Integer, Float, DateTime, UniqueConstraint, String
 from sqlalchemy.dialects.sqlite import TEXT
 from database import Base
 from datetime import datetime
@@ -17,6 +17,7 @@ class StrengthTable(Base):
     # types update which facet.
     facet = Column(TEXT, nullable=False, default="character")
     correct_count = Column(Integer, default=0)
+    times_seen = Column(Integer, default=0)
     stability = Column(Float, default=1.0)
     last_practice = Column(DateTime, default=datetime.utcnow)
 
@@ -52,3 +53,13 @@ class SoundProgress(Base):
     __table_args__ = (
         UniqueConstraint('user_id', 'sound', name='_user_sound_uc'),
     )
+
+class CharacterExposure(Base):
+    """One row = 'this word was shown on the c2e (chinese→english) card.'
+    c2e coverage reads this. Not an SRS item — no strength/stability. e2c
+    coverage does NOT need a table (it uses character.times_seen >= 2)."""
+    __tablename__ = "character_exposure"
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, index=True)
+    tag = Column(String, index=True)
+    __table_args__ = (UniqueConstraint("user_id", "tag", name="uq_char_exposure"),)

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import Header from '../Components/Header';
 import UnitSidebar from '../Components/UnitSidebar';
 import UnitCenter from '../Components/UnitCenter';
+import PhaseTabs from '../Components/PhaseTabs';
 import Question from '../Components/Question';
 import SpeakingQuestion from '../Components/SpeakingQuestion';
 import Results from '../Components/Results';
@@ -52,6 +53,9 @@ export default function DuolingoStyleQuestions() {
     const [score, setScore] = useState(0);
     const [answerLog, setAnswerLog] = useState([]);
     const [sessionType, setSessionType] = useState("practice_session");
+    // the mode the active session was generated with; sent back on submit so
+    // the backend can advance the unit phase (listening -> character, etc.)
+    const [sessionMode, setSessionMode] = useState("sentence");
     const [debugMode, setDebugMode] = useState(false);
     const [progress, setProgress] = useState(null);
     const [selectedUnit, setSelectedUnit] = useState(null);
@@ -67,6 +71,11 @@ export default function DuolingoStyleQuestions() {
     const [recordingURL, setRecordingURL] = useState(null);
     const mediaRecorderRef = useRef(null);
     const audioChunksRef = useRef([]);
+    // Re-entrancy lock: mashing Enter can fire advanceQuestion multiple times
+    // before React commits the state reset, double-advancing and corrupting
+    // answerLog/currentIndex. This ref blocks a second advance until the next
+    // question's reveal re-arms it.
+    const advancingRef = useRef(false);
 
     const currentQuestionObj = questions[currentIndex] ?? null;
     const isSingleSyllable = currentQuestionObj
@@ -82,6 +91,7 @@ export default function DuolingoStyleQuestions() {
     useEffect(() => {
 
         if (!currentQuestionObj) return;
+        advancingRef.current = false;   // new question rendered -- re-arm advance
         setTranscriptionResult(null);
         setAnswerState(null);
         setLastUserAnswer("");
@@ -123,14 +133,25 @@ export default function DuolingoStyleQuestions() {
         } catch (e) { console.error("Failed to fetch progress", e); }
     };
 
-    const startSession = async (debug = false) => {
+    const startSession = async (mode = "sentence", debug = false) => {
         setIsLoading(true);
         setDebugMode(debug);
         try {
-            const response = await fetch(`/api/generate_session/${USER_ID}`);
+            const response = await fetch(`/api/generate_session/${USER_ID}?mode=${mode}`);
+            if (!response.ok) {
+                // 409 = phase locked. The buttons should already prevent this,
+                // but the server rejects out-of-phase requests as a backstop.
+                if (response.status === 409) {
+                    console.warn(`Phase '${mode}' is locked`);
+                    await fetchProgress();   // resync in case our view was stale
+                }
+                setIsLoading(false);
+                return;
+            }
             const data = await response.json();
             setQuestions(data.question_set);
             setSessionType(data.session_type);
+            setSessionMode(mode);
             setCurrentIndex(0);
             setScore(0);
             setAnswerLog([]);
@@ -152,6 +173,7 @@ export default function DuolingoStyleQuestions() {
                     list_of_question_data: finalAnswerLog.map(e => e.question_data),
                     is_correct: finalAnswerLog.map(e => e.is_correct),
                     is_unit_test: sessionType === "unit_test",
+                    mode: sessionMode,
                 }),
             });
             await fetch('/api/audio/clear', { method: 'POST' });
@@ -160,6 +182,10 @@ export default function DuolingoStyleQuestions() {
     };
 
     const advanceQuestion = (wasCorrect, requeue = false) => {
+        // block duplicate fires from mashed Enter / racing submit+listener
+        if (advancingRef.current) return;
+        advancingRef.current = true;
+
         if (recordingURL) { URL.revokeObjectURL(recordingURL); setRecordingURL(null); }
         const log = [...answerLog, { question_data: currentQuestionObj, is_correct: wasCorrect }];
         setAnswerLog(log);
@@ -191,6 +217,9 @@ export default function DuolingoStyleQuestions() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!currentQuestionObj) return;
+        // blank input is never correct -- fall through to the wrong path
+        // rather than matching an answer variant that also cleans to empty
+        if (!userAnswer || !userAnswer.trim()) { revealAnswer(false, "(no answer)"); return; }
         const question_type = currentQuestionObj.question_type;
         const expectedVariants = currentQuestionObj.answer.split(',').map(v => clean(v.trim()));
         if (expectedVariants.some(v => v === clean(userAnswer))) { revealAnswer(true); return; }
@@ -198,7 +227,7 @@ export default function DuolingoStyleQuestions() {
         // for listening sentence, compare by pinyin to handle homophones like 他/她
         if (question_type === "listening sentence") {
             try {
-                const res = await fetch('/api/grade_chinese', {
+                const res = await fetch('/api/grade_english_to_chinese', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ user_answer: userAnswer, expected_answer: currentQuestionObj.answer }),
@@ -210,7 +239,7 @@ export default function DuolingoStyleQuestions() {
 
         if (TRANSLATE_TO_ENGLISH_TYPES.has(question_type)) {
             try {
-                const res = await fetch('/api/grade', {
+                const res = await fetch('/api/grade_chinese_to_english', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -287,7 +316,22 @@ export default function DuolingoStyleQuestions() {
     // ── Render ──────────────────────────────────────────────────────
 
     if (isSessionStarted) {
-        if (isLoading || questions.length === 0) return <div className="website-page"><Header /><div>Loading...</div></div>;
+        // still fetching
+        if (isLoading) return <div className="website-page"><Header /><div>Loading...</div></div>;
+
+        // fetch finished but the session came back empty -- nothing new to
+        // learn and nothing due right now. Show a real message with a way out
+        // instead of an indistinguishable "Loading..." that never resolves.
+        if (questions.length === 0) return (
+            <div className="website-page">
+                <Header />
+                <div className="session-view">
+                    <h2>All caught up</h2>
+                    <p>Nothing to practice here right now — you've covered everything available for this phase. Check back later for review, or try another tab.</p>
+                    <button onClick={() => { setIsSessionStarted(false); setDebugMode(false); }}>Back</button>
+                </div>
+            </div>
+        );
 
         if (currentIndex >= questions.length) return (
             <div className="website-page">
@@ -351,11 +395,23 @@ export default function DuolingoStyleQuestions() {
                     selectedUnit={selectedUnit}
                     onSelectUnit={setSelectedUnit}
                 />
-                <UnitCenter
-                    progress={progress}
-                    selectedUnit={selectedUnit}
-                    onStartSession={startSession}
-                />
+                <div className="unit-center-column">
+                    {progress && selectedUnit === progress.current_unit && (
+                        <PhaseTabs
+                            unlockedPhases={progress.unlocked_phases}
+                            currentPhase={progress.unit_phase}
+                            coverage={progress.coverage}
+                            onStartSession={(mode) => startSession(mode, false)}
+                            onDebug={() => startSession("sentence", true)}
+                            disabled={isLoading}
+                        />
+                    )}
+                    <UnitCenter
+                        progress={progress}
+                        selectedUnit={selectedUnit}
+                        onStartSession={startSession}
+                    />
+                </div>
             </div>
         </div>
     );
