@@ -104,7 +104,7 @@ def init_db():
     db = SessionLocal()
     try:
         if not db.query(User).filter(User.id == 1).first():
-            db.add(User(id=1, current_unit=3, graduated_units="", unit_phase="listening"))
+            db.add(User(id=1, current_unit=3, graduated_units=""))
             print("Default user created.")
 
         # Seed one row per (tag, facet). A tag is considered seeded only when

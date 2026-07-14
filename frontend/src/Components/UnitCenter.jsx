@@ -40,6 +40,7 @@ export default function UnitCenter({ progress, selectedUnit, onStartSession }) {
                         <div key={w.tag} className="word-progress-item">
                             <span style={{ fontFamily: 'monospace' }}>{wordBar(w.correct_count)}</span>
                             <span>{w.tag}</span>
+                            <span className="word-tier-badge">Tier {w.tier}</span>
                         </div>
                     ))}
                 </div>

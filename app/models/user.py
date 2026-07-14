@@ -32,10 +32,6 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     current_unit = Column(Integer, default=1)
     graduated_units = Column(TEXT, default="")
-    # Phase within the current unit, gating which activity/tab is available:
-    # "listening" -> "character" -> "sentences". A freshly unlocked unit
-    # starts at "listening".
-    unit_phase = Column(TEXT, default="listening")
 
 
 class SoundProgress(Base):
@@ -54,12 +50,13 @@ class SoundProgress(Base):
         UniqueConstraint('user_id', 'sound', name='_user_sound_uc'),
     )
 
-class CharacterExposure(Base):
-    """One row = 'this word was shown on the c2e (chinese→english) card.'
-    c2e coverage reads this. Not an SRS item — no strength/stability. e2c
-    coverage does NOT need a table (it uses character.times_seen >= 2)."""
-    __tablename__ = "character_exposure"
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, index=True)
-    tag = Column(String, index=True)
-    __table_args__ = (UniqueConstraint("user_id", "tag", name="uq_char_exposure"),)
+class WordTierProgress(Base):
+    """Per-user, per-word tier in the current unit's skill progression.
+    tier 1..4 (see tier map in session.py). Advances one step when the word
+    is answered on a question type belonging to its current tier."""
+    __tablename__ = "word_tier_progress"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, nullable=False)
+    tag = Column(TEXT, nullable=False)
+    tier = Column(Integer, default=1)
+    __table_args__ = (UniqueConstraint("user_id", "tag", name="_user_tag_tier_uc"),)

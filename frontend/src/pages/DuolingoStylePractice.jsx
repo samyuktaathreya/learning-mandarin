@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import Header from '../Components/Header';
 import UnitSidebar from '../Components/UnitSidebar';
 import UnitCenter from '../Components/UnitCenter';
-import PhaseTabs from '../Components/PhaseTabs';
+import SessionControls from '../Components/PhaseTabs';
 import Question from '../Components/Question';
 import SpeakingQuestion from '../Components/SpeakingQuestion';
 import Results from '../Components/Results';
@@ -53,9 +53,6 @@ export default function DuolingoStyleQuestions() {
     const [score, setScore] = useState(0);
     const [answerLog, setAnswerLog] = useState([]);
     const [sessionType, setSessionType] = useState("practice_session");
-    // the mode the active session was generated with; sent back on submit so
-    // the backend can advance the unit phase (listening -> character, etc.)
-    const [sessionMode, setSessionMode] = useState("sentence");
     const [debugMode, setDebugMode] = useState(false);
     const [progress, setProgress] = useState(null);
     const [selectedUnit, setSelectedUnit] = useState(null);
@@ -133,25 +130,18 @@ export default function DuolingoStyleQuestions() {
         } catch (e) { console.error("Failed to fetch progress", e); }
     };
 
-    const startSession = async (mode = "sentence", debug = false) => {
+    const startSession = async (debug = false) => {
         setIsLoading(true);
         setDebugMode(debug);
         try {
-            const response = await fetch(`/api/generate_session/${USER_ID}?mode=${mode}`);
+            const response = await fetch(`/api/generate_session/${USER_ID}`);
             if (!response.ok) {
-                // 409 = phase locked. The buttons should already prevent this,
-                // but the server rejects out-of-phase requests as a backstop.
-                if (response.status === 409) {
-                    console.warn(`Phase '${mode}' is locked`);
-                    await fetchProgress();   // resync in case our view was stale
-                }
                 setIsLoading(false);
                 return;
             }
             const data = await response.json();
             setQuestions(data.question_set);
             setSessionType(data.session_type);
-            setSessionMode(mode);
             setCurrentIndex(0);
             setScore(0);
             setAnswerLog([]);
@@ -173,7 +163,6 @@ export default function DuolingoStyleQuestions() {
                     list_of_question_data: finalAnswerLog.map(e => e.question_data),
                     is_correct: finalAnswerLog.map(e => e.is_correct),
                     is_unit_test: sessionType === "unit_test",
-                    mode: sessionMode,
                 }),
             });
             await fetch('/api/audio/clear', { method: 'POST' });
@@ -327,7 +316,7 @@ export default function DuolingoStyleQuestions() {
                 <Header />
                 <div className="session-view">
                     <h2>All caught up</h2>
-                    <p>Nothing to practice here right now — you've covered everything available for this phase. Check back later for review, or try another tab.</p>
+                    <p>Nothing to practice here right now — check back later for review.</p>
                     <button onClick={() => { setIsSessionStarted(false); setDebugMode(false); }}>Back</button>
                 </div>
             </div>
@@ -397,12 +386,9 @@ export default function DuolingoStyleQuestions() {
                 />
                 <div className="unit-center-column">
                     {progress && selectedUnit === progress.current_unit && (
-                        <PhaseTabs
-                            unlockedPhases={progress.unlocked_phases}
-                            currentPhase={progress.unit_phase}
-                            coverage={progress.coverage}
-                            onStartSession={(mode) => startSession(mode, false)}
-                            onDebug={() => startSession("sentence", true)}
+                        <SessionControls
+                            onStartSession={() => startSession(false)}
+                            onDebug={() => startSession(true)}
                             disabled={isLoading}
                         />
                     )}
