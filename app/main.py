@@ -21,11 +21,11 @@ if os.path.exists("../frontend/public"):
 else:
     print("Warning: ../frontend/public not found. Static files bypassed.")
 
+
 @app.on_event("startup")
 def on_startup():
     Base.metadata.create_all(bind=engine)
     init_db()
-    # clear any leftover audio files from previous sessions
     import shutil
     cache_dir = "./audio_cache"
     if os.path.exists(cache_dir):
@@ -33,18 +33,19 @@ def on_startup():
         os.makedirs(cache_dir)
     print("Audio cache cleared on startup.")
 
-# TODO: include routers as you build them
-# from api.v1.endpoints.auth import router as auth_router
-# app.include_router(auth_router)
 
-from api.v1.endpoints.practice import router as practice_router
-app.include_router(practice_router)
+from api.v1.endpoints.session import router as session_router
+app.include_router(session_router)
 
 from api.v1.endpoints.audio import router as audio_router
 app.include_router(audio_router)
 
-from api.v1.endpoints.test_pronounciation import router as test_router
-app.include_router(test_router)
+from api.v1.endpoints.grading import router as grading_router
+app.include_router(grading_router)
+
+from api.v1.endpoints.tools import router as tools_router
+app.include_router(tools_router)
+
 
 @app.get("/")
 def root():

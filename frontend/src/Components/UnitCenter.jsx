@@ -34,15 +34,6 @@ export default function UnitCenter({ progress, selectedUnit, onStartSession }) {
                 </div>
             )}
 
-            {isCurrentUnit && (
-                <div className="unit-center-actions">
-                    <button onClick={() => onStartSession(false)}>Start Session</button>
-                    <button onClick={() => onStartSession(true)} style={{ marginLeft: 8, opacity: 0.5, fontSize: '0.8rem' }}>
-                        Debug
-                    </button>
-                </div>
-            )}
-
             {isCurrentUnit && words && (
                 <div className="word-progress-list">
                     {words.map(w => (
