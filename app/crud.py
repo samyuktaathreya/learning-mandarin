@@ -1,9 +1,10 @@
 from sqlalchemy.orm import Session
-from models.user import StrengthTable, User, SoundProgress, CharacterExposure
+from models.user import StrengthTable, User, SoundProgress, WordTierProgress
 from datetime import datetime, timedelta
 
 SOUND_UNLOCK_SUCCESSES = 1
 SOUND_UNLOCK_ATTEMPTS_CAP = 5
+MAX_TIER = 4
 
 # The two facets a word's strength is tracked on.
 FACETS = ("character", "pinyin")
@@ -116,20 +117,6 @@ def update_user_unit(db: Session, user_id: int, new_unit: int):
     return user
 
 
-def get_unit_phase(db: Session, user_id: int) -> str:
-    user = get_user(db, user_id)
-    return user.unit_phase if user else "listening"
-
-
-def set_unit_phase(db: Session, user_id: int, phase: str):
-    user = get_user(db, user_id)
-    if user:
-        user.unit_phase = phase
-        db.commit()
-        db.refresh(user)
-    return user
-
-
 def graduate_unit(db: Session, user_id: int, unit: int):
     user = db.query(User).filter(User.id == user_id).first()
     if user:
@@ -138,8 +125,6 @@ def graduate_unit(db: Session, user_id: int, unit: int):
         graduated.add(str(unit))
         user.graduated_units = ",".join(graduated)
         user.current_unit = unit + 1
-        # a newly entered unit always starts in the listening phase
-        user.unit_phase = "listening"
         db.commit()
         db.refresh(user)
     return user
@@ -184,26 +169,39 @@ def record_sound_attempt(db: Session, user_id: int, sound: str, is_correct: bool
     db.refresh(row)
     return row
 
-# ----------------------------- CHARACTER EXPOSURE -----------------------------
-def record_character_exposure(db, user_id, tag):
-    """Idempotent: mark a word as shown on c2e."""
-    exists = db.query(CharacterExposure).filter_by(user_id=user_id, tag=tag).first()
-    if not exists:
-        db.add(CharacterExposure(user_id=user_id, tag=tag))
-        db.commit()
 
-def get_c2e_seen_tags(db, user_id) -> set:
-    rows = db.query(CharacterExposure.tag).filter_by(user_id=user_id).all()
-    return {r[0] for r in rows}
+# ----------------------------- WORD TIER -----------------------------
 
-def get_e2c_seen_tags(db, user_id, facet="character") -> set:
-    """Words shown on e→c at least once: character.times_seen >= 2 (1 from the
-    guaranteed prior c→e exposure, +1 from the first e→c). Valid because
-    sentence review — the only other writer to this facet — is locked until
-    after e2c completes."""
-    rows = db.query(StrengthTable).filter(
-        StrengthTable.user_id == user_id,
-        StrengthTable.facet == facet,
-        StrengthTable.times_seen >= 2,
+def get_tier(db: Session, user_id: int, tag: str) -> int:
+    """A word with no row yet hasn't started the tier progression, so it's tier 1."""
+    row = db.query(WordTierProgress).filter(
+        WordTierProgress.user_id == user_id,
+        WordTierProgress.tag == tag,
+    ).first()
+    return row.tier if row else 1
+
+
+def get_tiers_for_tags(db: Session, user_id: int, tags) -> dict:
+    """Batch tier lookup -> {tag: tier}, defaulting to 1 for tags with no row."""
+    rows = db.query(WordTierProgress).filter(
+        WordTierProgress.user_id == user_id,
+        WordTierProgress.tag.in_(list(tags)),
     ).all()
-    return {r.tag for r in rows}
+    tiers = {r.tag: r.tier for r in rows}
+    return {tag: tiers.get(tag, 1) for tag in tags}
+
+
+def advance_tier(db: Session, user_id: int, tag: str):
+    """Bump a word's tier by one, capped at MAX_TIER. Creates the row at
+    tier 1 first if missing, then bumps it."""
+    row = db.query(WordTierProgress).filter(
+        WordTierProgress.user_id == user_id,
+        WordTierProgress.tag == tag,
+    ).first()
+    if not row:
+        row = WordTierProgress(user_id=user_id, tag=tag, tier=1)
+        db.add(row)
+    row.tier = min(row.tier + 1, MAX_TIER)
+    db.commit()
+    db.refresh(row)
+    return row
