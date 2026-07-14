@@ -1,5 +1,3 @@
 # learning-mandarin
-a little quiz website to practice pinyin at the gym 
-
-to access claude in terminal:
-export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc"
+building an app to teach myself mandarin
+greatest crossover of duolingo, anki, hsk textbook, and azure STT of all time
