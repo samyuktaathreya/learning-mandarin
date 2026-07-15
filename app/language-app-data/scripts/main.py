@@ -14,12 +14,13 @@ def run_script(module_name: str):
     if result != 0:
         raise RuntimeError(f"{module_name} exited with status {result}")
 
-
 def main():
     print("Running vocabulary index parser...")
     run_script("vocab_index_parser")
     print("Running sentence parser...")
     run_script("sentence_parser")
+    print("Generating number sentences...")
+    run_script("number_sentences")
     print("Running question generator...")
     run_script("create_questions")
     print("Pipeline completed")

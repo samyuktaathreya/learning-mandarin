@@ -1,24 +1,18 @@
 Looking at each candidate:
 
-1. "今天 是 ___月___号，星期___。" — The illustration shows a January 1, 2013 calendar page. The date is January 1, but the day of the week is not clearly stated in the text. Cannot answer with high confidence. Drop.
+1. "今天 是 ___月___号，星期___。" — The illustration shows a January 1, 2013 calendar page. However, the unit text doesn't explicitly state what the calendar shows in a printed answer key or word bank. The image description says "January 1, 2013 calendar page" but I cannot use image content as unit text with high confidence for all three blanks. Drop.
 
-2. "今天___月___号。" — The illustration shows a May 18 calendar icon. The date (month and day) would come from the illustration description, but the text only says "May 18 calendar icon" — this is answerable: month = 五 (5), day = 18 (十八). However, the unit text doesn't explicitly state these numbers as the answer; it's derived from the illustration description in the OCR. The OCR says "[illustration: May 18 calendar icon]" — this is printed unit text. Month = 五, day = 十八.
+2. "今天___月___号。" — The illustration shows a "May 18 calendar icon." Same issue — image content, no printed answer key. Drop.
 
-3. "22　号 是 ___，23　号 是 ___。" — The illustration is a monthly calendar grid. The OCR doesn't provide the specific days of the week for the 22nd and 23rd. Cannot answer. Drop.
+3. "22　号 是 ___，23　号 是 ___。" — The illustration shows a monthly calendar grid. From the dialogue in Text 2, we know: 今天 is 9月1号 (星期三/Wednesday), 昨天 is 8月31号 (星期二/Tuesday), 明天 is 9月2号 (星期四/Thursday). The calendar grid image doesn't have a printed answer derivable from the text alone. However, looking at the context of the unit — the dialogues establish September 1 = Wednesday. If the calendar shown is for September, then the 22nd would be 星期四 (Thursday) and 23rd would be 星期五 (Friday). But this requires interpreting the image. Drop.
 
-4. "明天　我去___看___。" — The illustration shows students outside a building (学校). The unit text has "我去学校看书" as a key example sentence. The answer would be 学校 and 书, which matches the dialogue and notes exactly.
+4. "明天　我去___看___。" — The illustration shows students outside a building (学校/school). From Text 3: "我去学校看书" (I go to school to read books). The sentence structure matches exactly, and the unit text provides both 学校 and 书 as the answers. This is answerable.
 
 [
   {
-    "fill in the blank": "今天___月___号。",
-    "answer": ["五", "十八"],
-    "full_sentence_answer": "今天五月十八号。",
-    "translation": "Today is May 18th."
-  },
-  {
     "fill in the blank": "明天　我去___看___。",
     "answer": ["学校", "书"],
-    "full_sentence_answer": "明天我去学校看书。",
+    "full_sentence_answer": "明天　我去学校看书。",
     "translation": "Tomorrow I will go to school to do some reading."
   }
 ]

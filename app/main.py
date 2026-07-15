@@ -5,6 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from database import engine, Base, init_db
 import models.user  # registers models with Base.metadata before create_all()
+from session_log import reset_log
+from coverage_check import check_coverage
 
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
 
@@ -27,6 +29,8 @@ def on_startup():
     Base.metadata.create_all(bind=engine)
     init_db()
     import shutil
+    reset_log()
+    check_coverage()
     cache_dir = "./audio_cache"
     if os.path.exists(cache_dir):
         shutil.rmtree(cache_dir)

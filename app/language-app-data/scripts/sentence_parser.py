@@ -88,7 +88,7 @@ AGENT_MAX_TOKENS = 8192
 TEMPERATURE = 0
 
 # module-level overrides from main.py
-UNITS_TO_PROCESS = [4,5,6,7]      # e.g. [3, 4]
+UNITS_TO_PROCESS = [3, 4,5,6,7]      # e.g. [3, 4]
 SOURCES_TO_PROCESS = None        # e.g. ["textbook"]
 
 # --------------------------------- SETUP ---------------------------------
@@ -115,10 +115,25 @@ _missing_pinyin_words = set()
 
 
 def load_added_vocab() -> dict:
+    """hanzi -> pinyin from added_vocab/hsk1.txt (JSONL: one entry object per
+    line, same shape as index entries). Only the pinyin is needed here --
+    vocab_index_parser reads the same file for the full records."""
     if not ADDED_VOCAB_PATH.exists():
         return {}
+    out = {}
     with open(ADDED_VOCAB_PATH, encoding="utf-8") as f:
-        return json.load(f)
+        for lineno, line in enumerate(f, start=1):
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            try:
+                entry = json.loads(line)
+            except json.JSONDecodeError as e:
+                print(f"  [warning] added_vocab line {lineno}: invalid JSON ({e}); skipping")
+                continue
+            if entry.get("hanzi") and entry.get("pinyin"):
+                out[entry["hanzi"]] = entry["pinyin"]
+    return out
 
 
 def load_word_dicts():
@@ -432,6 +447,72 @@ def digit_run_to_pinyin(run: str) -> str:
              else _number_to_hanzi(int(run)))
     return pypinyin_for_word(hanzi)
 
+def digit_run_to_hanzi(run: str) -> str:
+    """The hanzi a digit run is READ as, e.g. '50' -> '五十', '2011' -> '二零一一'.
+    Same split as digit_run_to_pinyin: 4+ digits are read digit-by-digit
+    (years, phone numbers), shorter runs use standard cardinal reading."""
+    if len(run) >= 4:
+        return "".join(_DIGIT_HANZI[int(d)] for d in run)
+    return _number_to_hanzi(int(run))
+
+def expand_digit_tags(tags: list, pinyins: list):
+    """Rewrite digit tags into the hanzi they're read as, one tag per
+    character, with matching per-character pinyin.
+
+      tags   ['她','今','年','50','岁','了']
+      ->     ['她','今','年','五','十','岁','了']
+      pinyin [...,'wu3shi2',...] -> [...,'wu3','shi2',...]
+
+    The sentence's displayed hanzi is NOT touched -- '她今年50岁了' stays as
+    written, and the answer-in-digits convention is unaffected. This only
+    fixes the TAGS so number words get credit for the sentences they appear
+    in; without it '五'/'十' are tagged as the opaque string '50' and can
+    never reach the sentence-level tiers.
+
+    Also returns origin_runs, parallel to the output tags: the digit run each
+    tag was expanded from (None if it wasn't). fix_liang needs this to tell a
+    bare 2 from the 二 inside 二十.
+    """
+    out_tags, out_pinyins, origin_runs = [], [], []
+    for tag, py in zip(tags, pinyins):
+        if not tag.isdigit():
+            out_tags.append(tag)
+            out_pinyins.append(py)
+            origin_runs.append(None)
+            continue
+        hanzi = digit_run_to_hanzi(tag)
+        chars = list(hanzi)
+        out_tags.extend(chars)
+        out_pinyins.extend(pypinyin_for_word(c) for c in chars)
+        origin_runs.extend(tag for _ in chars)
+    return out_tags, out_pinyins, origin_runs
+
+# Measure words / counters that a bare 2 reads as 两 in front of, e.g.
+# 两个人, 两口人, 两块钱. Multi-digit runs are unaffected (二十, 十二) --
+# only a standalone '2' immediately preceding one of these is 两.
+_MEASURE_WORDS = {
+    "个", "口", "岁", "块", "本", "杯子", "张", "分钟", "点", "些", "年",
+}
+
+
+def fix_liang(tags: list, pinyins: list, original_runs: list):
+    """二 -> 两 where a BARE digit 2 precedes a measure word.
+
+    Only applies to a 2 that came from its own single-digit run: inside a
+    multi-digit number 二 is always correct (二十 = 20, 十二 = 12), so this
+    checks the run each tag was expanded from, not just the character.
+    original_runs is parallel to tags: the digit run a tag came from, or None
+    for tags that weren't expanded from digits.
+    """
+    out_tags, out_pinyins = list(tags), list(pinyins)
+    for i, tag in enumerate(out_tags):
+        if tag != "二" or original_runs[i] != "2":
+            continue
+        nxt = out_tags[i + 1] if i + 1 < len(out_tags) else None
+        if nxt in _MEASURE_WORDS:
+            out_tags[i] = "两"
+            out_pinyins[i] = "liang3"
+    return out_tags, out_pinyins
 
 def known_words_for_unit(word_to_unit: dict, unit_number: int) -> list:
     words = [w for w, u in word_to_unit.items() if u <= unit_number]
@@ -592,7 +673,11 @@ def tag_and_pinyin(sentences: dict, word_to_pinyin: dict, word_to_unit: dict,
             return word_to_pinyin[t] if t in word_to_pinyin else pypinyin_for_word(t)
 
         pinyins = apply_sandhi(tags, [pinyin_for_tag(t) for t in tags])
+        # after validation/sandhi: '50' -> '五','十' so number words get tagged
+        tags, pinyins, origin_runs = expand_digit_tags(tags, pinyins)
+        tags, pinyins = fix_liang(tags, pinyins, origin_runs)
         records.append({"hanzi": zh, "english": en, "tags": tags, "pinyin": " ".join(pinyins)})
+
     if dropped:
         print(f"  [tagging] {source} unit {unit_number}: dropped {len(dropped)} unsegmentable sentence(s):")
         for zh in dropped:

@@ -72,6 +72,55 @@ def build_tags(hanzi_text, question_type, unit_number, all_hanzi):
     tags.append(f"unit_{unit_number}")
     return tags
 
+def build_tags_from_precomputed(content_tags, question_type, unit_number):
+    """Same shape as build_tags(), but takes the content tags computed
+    upstream by sentence_parser's tag_and_pinyin() instead of re-deriving
+    them by substring scan.
+
+    This matters because the upstream tags are the real segmentation: LLM
+    tagger + validation + greedy fallback + digit expansion ('50' -> 五,十).
+    content_tags_for() can't reproduce any of that -- it substring-matches
+    against the displayed hanzi, and the displayed hanzi still reads '50',
+    so number words would never be tagged."""
+    tags = list(content_tags)
+    tags.append(question_type.replace(" ", "_"))
+    tags.append(f"unit_{unit_number}")
+    return tags
+
+def first_appearance_units(units_data) -> dict:
+    """word (hanzi) -> earliest unit whose extracted sentences actually USE it.
+
+    The printed vocabulary index says where a word is formally *introduced*,
+    which isn't always where it's first *used* -- the textbook happily puts 个
+    in a unit-5 dialogue and indexes it at unit 8, 年 in unit 5 and indexes it
+    at 15. Trusting the index alone makes has_unlearned_vocab() drop the
+    typing-required questions for any sentence that does this, silently
+    deleting tier-4 coverage.
+
+    Reads the per-sentence `tags` written by sentence_parser's tag_and_pinyin(),
+    which are the real segmentation (LLM tagger + validation + greedy fallback
+    + digit expansion), so no substring matching is needed here.
+    """
+    first_seen = {}
+    for unit_str, unit_data in units_data.items():
+        unit = int(unit_str)
+        for sentence in unit_data.get("sentences", []):
+            for tag in sentence.get("tags", []):
+                if tag not in first_seen or unit < first_seen[tag]:
+                    first_seen[tag] = unit
+    return first_seen
+
+
+def effective_home_units(index_data, units_data) -> dict:
+    """min(index unit, first-use unit) per word -- what has_unlearned_vocab
+    should actually gate on. A word is 'known' from the earlier of where the
+    book indexes it and where the book first uses it."""
+    home = hanzi_home_units(index_data)
+    first_use = first_appearance_units(units_data)
+    for word, unit in first_use.items():
+        if word not in home or unit < home[word]:
+            home[word] = unit
+    return home
 
 def hanzi_home_units(index_data) -> dict:
     """word (hanzi) -> earliest unit that teaches it, across vocab/grammar/
@@ -191,6 +240,7 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
             (QuestionType.LISTENING_VOCAB.value, hanzi, pinyin),
             (QuestionType.SPEAKING_VOCAB.value, hanzi, pinyin),
             (QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, hanzi, pinyin),
+            (QuestionType.TRANSLATE_ZH_TO_EN_WORD.value, hanzi, english),
         ]:
             question = make_question(unit_str, qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), counters)
             question["hanzi"] = hanzi
@@ -205,7 +255,10 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
         if not hanzi or hanzi in seen_sentences:
             continue
         seen_sentences.add(hanzi)
-        content_tags = content_tags_for(hanzi, all_hanzi)
+        # sentence_parser already segmented this properly -- use its tags
+        # rather than re-deriving by substring (which misses digit-expanded
+        # number words, since the displayed hanzi still reads '50').
+        content_tags = item.get("tags") or content_tags_for(hanzi, all_hanzi)
         blocked = has_unlearned_vocab(content_tags, unit_number, home_unit)
         for qtype, q_text, a_text in [
             (QuestionType.LISTENING_SENTENCE.value, hanzi, hanzi),
@@ -215,7 +268,8 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
         ]:
             if qtype in TYPING_REQUIRED_TYPES and blocked:
                 continue
-            question = make_question(unit_str, qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), counters)
+            question = make_question(unit_str, qtype, q_text, a_text,
+                                     build_tags_from_precomputed(content_tags, qtype, unit_str), counters)
             question["hanzi"] = hanzi
             question["english"] = english
             questions.append(question)
@@ -261,7 +315,9 @@ def vocab_tags_for_unit(index_data, unit_number) -> list:
 def main():
     index_data = load_json(INDEX_FILEPATH)
     units_data = load_json(UNITS_FILEPATH)
-    home_unit = hanzi_home_units(index_data)
+    # index unit OR first actual use, whichever is earlier -- see
+    # effective_home_units() for why the index alone isn't enough
+    home_unit = effective_home_units(index_data, units_data)
 
     all_questions = {}
     all_vocab_tags = {}

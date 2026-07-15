@@ -43,7 +43,19 @@
     "unit": 5,
     "start_page": 23,
     "end_page": 30,
-    "sentences": [],
+    "sentences": [
+      {
+        "hanzi": "我是美国人。",
+        "english": "I am American.",
+        "tags": [
+          "我",
+          "是",
+          "美国",
+          "人"
+        ],
+        "pinyin": "wo3 shi4 Mei3guo2 ren2"
+      }
+    ],
     "fill_in_the_blank": [
       {
         "question": "他不是我同学，他是我___中国朋友。 (He is not my classmate; he is my Chinese friend.)",
@@ -77,7 +89,7 @@
       }
     ],
     "counts": {
-      "sentences_extracted": 1,
+      "sentences_extracted": 2,
       "sentences_dropped_verbatim": 1,
       "sentences_dropped_vocab_gate": 0,
       "fitb_candidates": 8,
@@ -85,7 +97,7 @@
       "fitb_dropped_verbatim": 0,
       "fitb_dropped_vocab_gate": 2,
       "sentences_dropped_tagging": 0,
-      "sentences_final": 0,
+      "sentences_final": 1,
       "fitb_questions_final": 6
     }
   },
@@ -93,23 +105,22 @@
     "unit": 6,
     "start_page": 31,
     "end_page": 38,
-    "sentences": [
-      {
-        "hanzi": "你叫什么？",
-        "english": "What is your name?",
-        "tags": [
-          "你",
-          "叫",
-          "什么"
-        ],
-        "pinyin": "ni3 jiao4 shen2me5"
-      }
-    ],
+    "sentences": [],
     "fill_in_the_blank": [
+      {
+        "question": "我的 中国 朋友 家有三___人。 (My Chinese friend's family has three people.)",
+        "answer": "口",
+        "full_sentence": "我的中国朋友家有三口人。"
+      },
       {
         "question": "我是美国人，我是学生，我 19___。 (I am American, I am a student, I am 19 years old.)",
         "answer": "岁",
         "full_sentence": "我是美国人，我是学生，我19岁。"
+      },
+      {
+        "question": "你家有___口人？ (How many people are in your family?)",
+        "answer": "几",
+        "full_sentence": "你家有几口人？"
       },
       {
         "question": "他是___国人？ (What nationality is he?)",
@@ -119,15 +130,15 @@
     ],
     "counts": {
       "sentences_extracted": 3,
-      "sentences_dropped_verbatim": 0,
-      "sentences_dropped_vocab_gate": 2,
+      "sentences_dropped_verbatim": 3,
+      "sentences_dropped_vocab_gate": 0,
       "fitb_candidates": 8,
       "fitb_solved": 8,
       "fitb_dropped_verbatim": 0,
-      "fitb_dropped_vocab_gate": 6,
+      "fitb_dropped_vocab_gate": 4,
       "sentences_dropped_tagging": 0,
-      "sentences_final": 1,
-      "fitb_questions_final": 2
+      "sentences_final": 0,
+      "fitb_questions_final": 4
     }
   },
   {

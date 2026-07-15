@@ -1,40 +1,66 @@
 I need to segment each sentence using only the allowed word list.
 
 Let me check key words:
-- 请问: "请" is allowed, but "问" is not → can't use 请问 as one word; "问" alone not in list
-- 几号: "几" and "号" are separate allowed words
-- 星期几: "星期" + "几"
-- 星期三: "星期" + "三"
-- 星期二: "星期" + "二"
-- 星期四: "星期" + "四"
-- 星期六: "星期" + "六"
-- 学习: "学" not in list, "习" not in list → null
-- 饭馆儿: not in list → null
-- 吃: not in list → null
-- 看书: "看" + "书"
-- 做什么: "做" + "什么"
-- 33岁: "三" + "三" + "岁"
-- 我的汉语老师: "我" + "的" + "汉语" + "老师"
-- 请问: "问" not in list → null
+- "请问" - not in list, but "请" is. "问" is not in list.
+- "问" - not in list
+- "星期几" - not as one word, but "星期" and "几" are separate
+- "星期三" - "星期" + "三"
+- "星期二" - "星期" + "二"
+- "星期四" - "星期" + "四"... wait, "四" is in list
+- "星期六" - "星期" + "六"
+- "星期三" - "星期" + "三"
+- "饭馆儿" - not in list
+- "我们" - not in list
+- "吃" - not in list
+- "学习" - not in list
+- "看书" - "看" + "书"
+- "做什么" - "做" + "什么"
+- "33岁" - "三" + "三" + "岁"... digits: "3" and "3" are not Chinese characters, they're numerals. The sentence has "33岁" with Arabic numerals. "33" can't be segmented from the word list.
+- "9月1号" - "九"? No, these are Arabic numerals "9", "1". They're not in the word list as Chinese characters.
+
+Wait, Arabic numerals like "9", "1", "8", "2", "31", "33" are not in the allowed word list. But the sentences contain them. Since punctuation is excluded but numerals are part of the sentence characters... I need to check if they can be mapped. They cannot be segmented using the allowed word list, so those sentences would be null.
+
+Let me re-examine: "今天9月1号" contains "9" and "1" which are not in the word list → null.
+
+Sentences with Arabic numerals: "今天9月1号。", "昨天是8月31号，星期二。", "明天是9月2号，星期四。", "9月1号，星期三。", "9月2号，星期四。", "8月31号，星期二。", "我的汉语老师33岁。" → all null.
+
+"请问，今天几号？" - "请" is in list, "问" is not → null.
+
+"明天呢？" - "明天" + "呢" ✓
+"我去学校。" - "我" + "去" + "学校" ✓
+"你去学校做什么？" - "你" + "去" + "学校" + "做" + "什么" ✓
+"我去学校看书。" - "我" + "去" + "学校" + "看" + "书" ✓
+"今天星期几？" - "今天" + "星期" + "几" ✓
+"星期三。" - "星期" + "三" ✓
+"昨天是几月几号？" - "昨天" + "是" + "几" + "月" + "几" + "号" ✓
+"明天星期六，你去学校吗？" - "明天" + "星期" + "六" + "你" + "去" + "学校" + "吗" ✓
+"我去（中国）学习汉语。" - "学习" not in list → null
+"我们去（中国饭馆儿）吃中国菜。" - "我们", "吃", "饭馆儿" not in list → null
+"我去（学校）看书。" - "我" + "去" + "学校" + "看" + "书" ✓ (parentheses are punctuation)
+"今天是几月几号？" - "今天" + "是" + "几" + "月" + "几" + "号" ✓
+"明天是几月几号？" - "明天" + "是" + "几" + "月" + "几" + "号" ✓
+"明天星期几？" - "明天" + "星期" + "几" ✓
+"明天你做什么？" - "明天" + "你" + "做" + "什么" ✓
+"明天星期三。" - "明天" + "星期" + "三" ✓
 
 ```json
 {
   "请问，今天几号？": null,
-  "今天9月1号。": ["今天", "九", "月", "一", "号"],
+  "今天9月1号。": null,
   "今天星期几？": ["今天", "星期", "几"],
   "星期三。": ["星期", "三"],
   "昨天是几月几号？": ["昨天", "是", "几", "月", "几", "号"],
-  "昨天是8月31号，星期二。": ["昨天", "是", "八", "月", "三", "十", "一", "号", "星期", "二"],
+  "昨天是8月31号，星期二。": null,
   "明天呢？": ["明天", "呢"],
-  "明天是9月2号，星期四。": ["明天", "是", "九", "月", "二", "号", "星期", "四"],
+  "明天是9月2号，星期四。": null,
   "明天星期六，你去学校吗？": ["明天", "星期", "六", "你", "去", "学校", "吗"],
   "我去学校。": ["我", "去", "学校"],
   "你去学校做什么？": ["你", "去", "学校", "做", "什么"],
   "我去学校看书。": ["我", "去", "学校", "看", "书"],
-  "9月1号，星期三。": ["九", "月", "一", "号", "星期", "三"],
-  "9月2号，星期四。": ["九", "月", "二", "号", "星期", "四"],
-  "8月31号，星期二。": ["八", "月", "三", "十", "一", "号", "星期", "二"],
-  "我的汉语老师33岁。": ["我", "的", "汉语", "老师", "三", "三", "岁"],
+  "9月1号，星期三。": null,
+  "9月2号，星期四。": null,
+  "8月31号，星期二。": null,
+  "我的汉语老师33岁。": null,
   "明天星期三。": ["明天", "星期", "三"],
   "我去（中国）学习汉语。": null,
   "我们去（中国饭馆儿）吃中国菜。": null,
