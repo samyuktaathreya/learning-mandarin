@@ -6,6 +6,8 @@ from pinyin_utils import split_pinyin_sounds, GATED_INITIALS, GATED_FINALS
 import crud
 from datetime import datetime
 import random
+import math
+from session_log import log_session
 
 router = APIRouter()
 
@@ -17,7 +19,6 @@ GRADUATION_THRESHOLD = 3          # collapsed (min-facet) correct_count needed t
 SESSION_SIZE = 10                 # number of current-unit tier questions per session (review is appended on top)
 REVIEW_THRESHOLD = 0.80           # below this decayed strength, a graduated word is "due" for review
 MAX_SAME_TAG_PER_SESSION = 2      # per-tag cap within the tier-question portion of a session
-MAX_SAME_TYPE_PER_SESSION = 3     # per-question-type cap within the tier-question portion of a session
 
 # A word's tier gates which question types it can be served on. Tiers only
 # move forward (see crud.advance_tier) -- a word's current tier IS its
@@ -106,17 +107,6 @@ def is_unit_graduated(tag_records: list, unit_tags: set) -> bool:
             return False
     return True
 
-
-def _tag_facet_counts(db: Session, user_id: int, tag: str) -> tuple:
-    """(character_count, pinyin_count) of correct_count for a tag, read
-    straight from the two per-facet StrengthTable rows."""
-    char_row = crud.get_strength_row(db, user_id, tag, "character")
-    pin_row = crud.get_strength_row(db, user_id, tag, "pinyin")
-    char_c = char_row.correct_count if char_row else 0
-    pin_c = pin_row.correct_count if pin_row else 0
-    return char_c, pin_c
-
-
 # ----------------------------- SOUND TAGGING -----------------------------
 # A word's pinyin may contain a sound (zh/ch/sh/r/j/q/x/z/c, or the v/er/e
 # finals -- see GATED_INITIALS/GATED_FINALS in audio.py) with no English
@@ -142,6 +132,10 @@ def _tag_sounds(tag: str) -> set:
 
 # ----------------------------- TIER SESSION (current-unit words) -----------------------------
 
+def _tier_types_for_facet(tier: int, facet: str) -> list:
+    return [qt for qt in TIER_QUESTION_TYPES[tier]
+            if facet in crud.QUESTION_TYPE_FACETS.get(qt, [])]
+
 def _active_tier_for_serve(tier: int, final_push: bool) -> int:
     """The tier a word is actually served on for one pick. Tiers 1-3 serve as
     themselves. Tier 4 downshifts to tier 3 TIER4_DOWNSHIFT_PROBABILITY of the
@@ -152,66 +146,121 @@ def _active_tier_for_serve(tier: int, final_push: bool) -> int:
         return 3 if random.random() < TIER4_DOWNSHIFT_PROBABILITY else 4
     return tier
 
+def _type_cap_for_tier(tier: int) -> int:
+    """Per-type cap for a draw served on `tier`, proportional to how many
+    types that tier has: ceil(SESSION_SIZE / n_types). Tiers with 2 types cap
+    at 5, tiers with 3 cap at 4 -- so the cap can never itself make a full
+    session impossible (2*5 and 3*4 both >= SESSION_SIZE). It's a variety
+    preference, not a wall: the relaxed second pass ignores it entirely."""
+    n_types = len(TIER_QUESTION_TYPES[tier])
+    return math.ceil(SESSION_SIZE / n_types)
 
-def generate_tier_questions(db: Session, user_id: int, unit: int) -> list:
-    """SESSION_SIZE questions drawn from the current unit's words. Weaker
-    words (lower min-facet correct_count) are weighted to surface more often.
-    Each serve: pick a word (weighted), pick a random question type from its
-    active tier, respecting per-type and per-tag caps."""
+def generate_tier_questions(db: Session, user_id: int, unit: int, tiers: dict):
+    """Returns (picks, stop_reason, min_counts).
+    picks = [(question, served_for_tag), ...] -- the tag is recorded because
+    it's the generator's INTENT and is unrecoverable from the question later.
+
+    Type choice within a tier PREFERS the word's weaker facet. Graduation is
+    min(character, pinyin) >= GRADUATION_THRESHOLD, so a word whose weak facet
+    never gets served stays pinned at its min forever regardless of how much
+    the strong facet climbs -- the selector has to close that gap explicitly.
+    """
     unit_tags = unit_to_vocab_tags_dict.get(unit, set())
     if not unit_tags:
-        return []
+        return [], "no_unit_tags", {}
 
-    tiers = crud.get_tiers_for_tags(db, user_id, unit_tags)
+    # per-facet counts, not the collapsed min -- we need to know WHICH facet
+    # is weak, which the collapse throws away. One query; min falls out free.
+    facet_counts = {t: {"character": 0, "pinyin": 0} for t in unit_tags}
+    for r in crud.get_progress_by_user(db, user_id):
+        if r.tag in facet_counts and r.facet in facet_counts[r.tag]:
+            facet_counts[r.tag][r.facet] = r.correct_count
 
-    min_counts = {}
-    ungraduated = 0
-    for tag in unit_tags:
-        char_c, pin_c = _tag_facet_counts(db, user_id, tag)
-        min_count = min(char_c, pin_c)
-        min_counts[tag] = min_count
-        if min_count < GRADUATION_THRESHOLD:
-            ungraduated += 1
+    min_counts = {t: min(facet_counts[t]["character"], facet_counts[t]["pinyin"])
+                  for t in unit_tags}
+
+    ungraduated = sum(1 for t in unit_tags if min_counts[t] < GRADUATION_THRESHOLD)
     final_push = ungraduated < FINAL_PUSH_UNGRADUATED_THRESHOLD
-
-    tag_pool = list(unit_tags)
-    weights = [1.0 / (min_counts[t] + 1) for t in tag_pool]
 
     used_ids = set()
     tag_counts = {}
     type_counts = {}
-    question_set = []
+    picks = []
+
+    def _ordered_types(tag: str, tier: int) -> list:
+        """The tier's types, weak-facet ones first. Ties (equal counts) ->
+        the whole tier shuffled; whichever facet gets served becomes the
+        stronger one, so the next draw self-corrects to the other."""
+        char_c = facet_counts[tag]["character"]
+        pin_c = facet_counts[tag]["pinyin"]
+        if char_c == pin_c:
+            types = list(TIER_QUESTION_TYPES[tier])
+            random.shuffle(types)
+            return types
+        weak = "character" if char_c < pin_c else "pinyin"
+        preferred = _tier_types_for_facet(tier, weak)
+        rest = [qt for qt in TIER_QUESTION_TYPES[tier] if qt not in preferred]
+        random.shuffle(preferred)
+        random.shuffle(rest)
+        return preferred + rest        # fall back to the other facet if the
+                                       # weak one has nothing available
+
+    def _draw(respect_type_cap: bool) -> bool:
+        pool = [t for t in unit_tags if tag_counts.get(t, 0) < MAX_SAME_TAG_PER_SESSION]
+        if not pool:
+            return False
+        weights = [1.0 / (min_counts[t] + 1) for t in pool]
+        tag = random.choices(pool, weights=weights, k=1)[0]
+
+        serve_tier = _active_tier_for_serve(tiers.get(tag, 1), final_push)
+        cap = _type_cap_for_tier(serve_tier)
+
+        for qt in _ordered_types(tag, serve_tier):
+            if respect_type_cap and type_counts.get(qt, 0) >= cap:
+                continue
+            avail = [
+                q for q in inverted_index.get(tag, [])
+                if q["question_type"] == qt
+                and q["id"] not in used_ids
+                and q.get("unit") == unit
+            ]
+            if not avail:
+                continue
+            chosen = random.choice(avail)
+            picks.append((chosen, tag))
+            used_ids.add(chosen["id"])
+            tag_counts[tag] = tag_counts.get(tag, 0) + 1
+            type_counts[qt] = type_counts.get(qt, 0) + 1
+            # keep facet counts live within the session so a word's second
+            # draw prefers the facet the first draw didn't serve
+            for f in crud.QUESTION_TYPE_FACETS.get(qt, []):
+                if f in facet_counts[tag]:
+                    facet_counts[tag][f] += 1
+            return True
+        return False
 
     max_attempts = SESSION_SIZE * 25
+
     attempts = 0
-    while len(question_set) < SESSION_SIZE and attempts < max_attempts:
+    while len(picks) < SESSION_SIZE and attempts < max_attempts:
         attempts += 1
-        tag = random.choices(tag_pool, weights=weights, k=1)[0]
-        if tag_counts.get(tag, 0) >= MAX_SAME_TAG_PER_SESSION:
-            continue
+        _draw(respect_type_cap=True)
 
-        active_tier = _active_tier_for_serve(tiers.get(tag, 1), final_push)
-        qt = random.choice(list(TIER_QUESTION_TYPES[active_tier]))
-        if type_counts.get(qt, 0) >= MAX_SAME_TYPE_PER_SESSION:
-            continue
+    if len(picks) >= SESSION_SIZE:
+        return picks, "filled", min_counts
 
-        pool = [
-            q for q in inverted_index.get(tag, [])
-            if q["question_type"] == qt
-            and q["id"] not in used_ids
-            and q.get("unit") == unit
-        ]
-        if not pool:
-            continue
+    attempts = 0
+    while len(picks) < SESSION_SIZE and attempts < max_attempts:
+        attempts += 1
+        _draw(respect_type_cap=False)
 
-        chosen = random.choice(pool)
-        question_set.append(chosen)
-        used_ids.add(chosen["id"])
-        tag_counts[tag] = tag_counts.get(tag, 0) + 1
-        type_counts[qt] = type_counts.get(qt, 0) + 1
-
-    return question_set
-
+    if len(picks) >= SESSION_SIZE:
+        stop = "filled_after_relax"
+    elif not [t for t in unit_tags if tag_counts.get(t, 0) < MAX_SAME_TAG_PER_SESSION]:
+        stop = "short_pool_exhausted"
+    else:
+        stop = "short_no_questions"
+    return picks, stop, min_counts
 
 # ----------------------------- REVIEW (graduated-unit words) -----------------------------
 
@@ -250,27 +299,30 @@ def _pick_review_question(tag: str, graduated_units: set, used_ids: set):
     return None
 
 
-def generate_review_questions(db: Session, user_id: int, graduated_units: set, used_ids: set) -> list:
-    review_questions = []
+def generate_review_questions(db, user_id, graduated_units, used_ids):
+    """Returns [(question, tag), ...]."""
+    picks = []
     for tag in _due_review_tags(db, user_id, graduated_units):
         q = _pick_review_question(tag, graduated_units, used_ids)
         if q:
-            review_questions.append(q)
+            picks.append((q, tag))
             used_ids.add(q["id"])
-    return review_questions
+    return picks
 
 
-def generate_practice_session(db: Session, user_id: int, unit: int, graduated_units: set) -> SessionResponse:
-    """SESSION_SIZE tier questions from the current unit, plus every currently
-    due review question appended on top."""
-    tier_questions = generate_tier_questions(db, user_id, unit)
-    used_ids = {q["id"] for q in tier_questions}
-    review_questions = generate_review_questions(db, user_id, graduated_units, used_ids)
+def generate_practice_session(db, user_id, unit, graduated_units) -> SessionResponse:
+    unit_tags = unit_to_vocab_tags_dict.get(unit, set())
+    tiers = crud.get_tiers_for_tags(db, user_id, unit_tags)
 
-    question_set = tier_questions + review_questions
+    tier_picks, stop_reason, min_counts = generate_tier_questions(db, user_id, unit, tiers)
+    used_ids = {q["id"] for q, _ in tier_picks}
+    review_picks = generate_review_questions(db, user_id, graduated_units, used_ids)
+
+    log_session(user_id, unit, tier_picks, review_picks, tiers, min_counts, stop_reason)
+
+    question_set = [q for q, _ in tier_picks] + [q for q, _ in review_picks]
     random.shuffle(question_set)
     return SessionResponse(user_id=user_id, session_type="practice_session", question_set=question_set)
-
 
 def generate_unit_test(user_id: int, unit: int) -> SessionResponse:
     eligible = [q for q in unit_questions.get(str(unit), []) if q["question_type"] in ALL_TIER_QUESTION_TYPES]

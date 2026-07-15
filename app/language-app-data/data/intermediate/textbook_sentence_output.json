@@ -144,6 +144,17 @@
         "pinyin": "ni3 shi4 Mei3guo2 ren2 ma5"
       },
       {
+        "hanzi": "你是学生吗？",
+        "english": "Are you a student?",
+        "tags": [
+          "你",
+          "是",
+          "学生",
+          "吗"
+        ],
+        "pinyin": "ni3 shi4 xue2sheng5 ma5"
+      },
+      {
         "hanzi": "我叫李月，我是中国人，我是老师。",
         "english": "My name is Li Yue, I am Chinese, and I am a teacher.",
         "tags": [
@@ -192,7 +203,7 @@
       }
     ],
     "counts": {
-      "sentences_extracted": 14,
+      "sentences_extracted": 15,
       "sentences_dropped_verbatim": 0,
       "sentences_dropped_vocab_gate": 0,
       "fitb_candidates": 4,
@@ -200,7 +211,7 @@
       "fitb_dropped_verbatim": 1,
       "fitb_dropped_vocab_gate": 0,
       "sentences_dropped_tagging": 0,
-      "sentences_final": 14,
+      "sentences_final": 15,
       "fitb_questions_final": 2
     }
   },
@@ -463,11 +474,12 @@
           "她",
           "今",
           "年",
-          "50",
+          "五",
+          "十",
           "岁",
           "了"
         ],
-        "pinyin": "ta1 jin1 nian2 wu3shi2 sui4 le5"
+        "pinyin": "ta1 jin1 nian2 wu3 shi2 sui4 le5"
       },
       {
         "hanzi": "她女儿呢？",
@@ -487,10 +499,11 @@
           "女儿",
           "今",
           "年",
-          "20",
+          "二",
+          "十",
           "岁"
         ],
-        "pinyin": "ta1 nv3er2 jin1 nian2 er4shi2 sui4"
+        "pinyin": "ta1 nv3er2 jin1 nian2 er4 shi2 sui4"
       },
       {
         "hanzi": "你有几个汉语老师？",
@@ -527,11 +540,12 @@
           "老师",
           "今",
           "年",
-          "50",
+          "五",
+          "十",
           "岁",
           "了"
         ],
-        "pinyin": "li3 lao3shi1 jin1 nian2 wu3shi2 sui4 le5"
+        "pinyin": "li3 lao3shi1 jin1 nian2 wu3 shi2 sui4 le5"
       },
       {
         "hanzi": "我朋友的女儿今年四岁了。",
@@ -573,11 +587,52 @@
           "了"
         ],
         "pinyin": "ni3 nv3er2 jin1 nian2 duo1 da4 le5"
+      },
+      {
+        "hanzi": "你今年几岁了？",
+        "english": "How old are you this year?",
+        "tags": [
+          "你",
+          "今",
+          "年",
+          "几",
+          "岁",
+          "了"
+        ],
+        "pinyin": "ni3 jin1 nian2 ji3 sui4 le5"
+      },
+      {
+        "hanzi": "你今年多大了？",
+        "english": "How old are you this year?",
+        "tags": [
+          "你",
+          "今",
+          "年",
+          "多",
+          "大",
+          "了"
+        ],
+        "pinyin": "ni3 jin1 nian2 duo1 da4 le5"
+      },
+      {
+        "hanzi": "您今年多大年纪了？",
+        "english": "What is your age this year?",
+        "tags": [
+          "您",
+          "今",
+          "年",
+          "多",
+          "大",
+          "年",
+          "纪",
+          "了"
+        ],
+        "pinyin": "nin2 jin1 nian2 duo1 da4 nian2 ji4 le5"
       }
     ],
     "fill_in_the_blank": [],
     "counts": {
-      "sentences_extracted": 14,
+      "sentences_extracted": 17,
       "sentences_dropped_verbatim": 0,
       "sentences_dropped_vocab_gate": 0,
       "fitb_candidates": 4,
@@ -585,7 +640,7 @@
       "fitb_dropped_verbatim": 0,
       "fitb_dropped_vocab_gate": 0,
       "sentences_dropped_tagging": 0,
-      "sentences_final": 14,
+      "sentences_final": 17,
       "fitb_questions_final": 0
     }
   },
@@ -818,27 +873,47 @@
     ],
     "fill_in_the_blank": [
       {
-        "question": "中国　　菜 很___。 (Chinese food is very delicious.)",
-        "answer": "好吃",
-        "full_sentence": "中国菜很好吃。"
+        "question": "妈妈___ (mother - B)",
+        "answer": "B",
+        "full_sentence": "妈妈B"
       },
       {
-        "question": "他 会 做___。 (He can cook Chinese food.)",
-        "answer": "中国菜",
-        "full_sentence": "他会做中国菜。"
+        "question": "汉字___ (Chinese character - A)",
+        "answer": "A",
+        "full_sentence": "汉字A"
+      },
+      {
+        "question": "中国　菜___ (Chinese food - C)",
+        "answer": "C",
+        "full_sentence": "中国菜C"
+      },
+      {
+        "question": "说　汉语___ (speak Chinese - D)",
+        "answer": "D",
+        "full_sentence": "说汉语D"
+      },
+      {
+        "question": "写汉字___ (write Chinese characters - F)",
+        "answer": "F",
+        "full_sentence": "写汉字F"
+      },
+      {
+        "question": "做　中国　菜___ (cook Chinese food - E)",
+        "answer": "E",
+        "full_sentence": "做中国菜E"
       }
     ],
     "counts": {
       "sentences_extracted": 18,
       "sentences_dropped_verbatim": 0,
       "sentences_dropped_vocab_gate": 0,
-      "fitb_candidates": 4,
-      "fitb_solved": 3,
+      "fitb_candidates": 10,
+      "fitb_solved": 7,
       "fitb_dropped_verbatim": 1,
       "fitb_dropped_vocab_gate": 0,
       "sentences_dropped_tagging": 0,
       "sentences_final": 18,
-      "fitb_questions_final": 2
+      "fitb_questions_final": 6
     }
   },
   {
@@ -863,9 +938,9 @@
         "english": "Today is September 1st.",
         "tags": [
           "今天",
-          "9",
+          "九",
           "月",
-          "1",
+          "一",
           "号"
         ],
         "pinyin": "jin1tian1 jiu3 yue4 yi1 hao4"
@@ -908,14 +983,16 @@
         "tags": [
           "昨天",
           "是",
-          "8",
+          "八",
           "月",
-          "31",
+          "三",
+          "十",
+          "一",
           "号",
           "星期",
           "二"
         ],
-        "pinyin": "zuo2tian1 shi4 ba1 yue4 san1shi2yi1 hao4 xing1qi1 er4"
+        "pinyin": "zuo2tian1 shi4 ba1 yue4 san1 shi2 yi1 hao4 xing1qi1 er4"
       },
       {
         "hanzi": "明天呢？",
@@ -932,9 +1009,9 @@
         "tags": [
           "明天",
           "是",
-          "9",
+          "九",
           "月",
-          "2",
+          "二",
           "号",
           "星期",
           "四"
@@ -993,9 +1070,9 @@
         "hanzi": "9月1号，星期三。",
         "english": "September 1st, Wednesday.",
         "tags": [
-          "9",
+          "九",
           "月",
-          "1",
+          "一",
           "号",
           "星期",
           "三"
@@ -1006,9 +1083,9 @@
         "hanzi": "9月2号，星期四。",
         "english": "September 2nd, Thursday.",
         "tags": [
-          "9",
+          "九",
           "月",
-          "2",
+          "二",
           "号",
           "星期",
           "四"
@@ -1019,14 +1096,16 @@
         "hanzi": "8月31号，星期二。",
         "english": "August 31st, Tuesday.",
         "tags": [
-          "8",
+          "八",
           "月",
-          "31",
+          "三",
+          "十",
+          "一",
           "号",
           "星期",
           "二"
         ],
-        "pinyin": "ba1 yue4 san1shi2yi1 hao4 xing1qi1 er4"
+        "pinyin": "ba1 yue4 san1 shi2 yi1 hao4 xing1qi1 er4"
       },
       {
         "hanzi": "我的汉语老师33岁。",
@@ -1036,10 +1115,12 @@
           "的",
           "汉语",
           "老师",
-          "33",
+          "三",
+          "十",
+          "三",
           "岁"
         ],
-        "pinyin": "wo3 de5 Han4yu3 lao3shi1 san1shi2san1 sui4"
+        "pinyin": "wo3 de5 Han4yu3 lao3shi1 san1 shi2 san1 sui4"
       },
       {
         "hanzi": "明天星期三。",
@@ -1141,18 +1222,29 @@
         "pinyin": "ming2tian1 ni3 zuo4 shen2me5"
       }
     ],
-    "fill_in_the_blank": [],
+    "fill_in_the_blank": [
+      {
+        "question": "明天　我去___看书。 (Tomorrow I will go to school to do some reading.)",
+        "answer": "学校",
+        "full_sentence": "明天　我去学校看书。"
+      },
+      {
+        "question": "明天　我去学校看___。 (Tomorrow I will go to school to do some reading.)",
+        "answer": "书",
+        "full_sentence": "明天　我去学校看书。"
+      }
+    ],
     "counts": {
       "sentences_extracted": 24,
       "sentences_dropped_verbatim": 0,
       "sentences_dropped_vocab_gate": 0,
       "fitb_candidates": 4,
-      "fitb_solved": 0,
+      "fitb_solved": 1,
       "fitb_dropped_verbatim": 0,
       "fitb_dropped_vocab_gate": 0,
       "sentences_dropped_tagging": 0,
       "sentences_final": 24,
-      "fitb_questions_final": 0
+      "fitb_questions_final": 2
     }
   }
 ]
