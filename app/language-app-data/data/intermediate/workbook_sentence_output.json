@@ -43,19 +43,7 @@
     "unit": 5,
     "start_page": 23,
     "end_page": 30,
-    "sentences": [
-      {
-        "hanzi": "我是美国人。",
-        "english": "I am American.",
-        "tags": [
-          "我",
-          "是",
-          "美国",
-          "人"
-        ],
-        "pinyin": "wo3 shi4 Mei3guo2 ren2"
-      }
-    ],
+    "sentences": [],
     "fill_in_the_blank": [
       {
         "question": "他不是我同学，他是我___中国朋友。 (He is not my classmate; he is my Chinese friend.)",
@@ -89,7 +77,7 @@
       }
     ],
     "counts": {
-      "sentences_extracted": 2,
+      "sentences_extracted": 1,
       "sentences_dropped_verbatim": 1,
       "sentences_dropped_vocab_gate": 0,
       "fitb_candidates": 8,
@@ -97,7 +85,7 @@
       "fitb_dropped_verbatim": 0,
       "fitb_dropped_vocab_gate": 2,
       "sentences_dropped_tagging": 0,
-      "sentences_final": 1,
+      "sentences_final": 0,
       "fitb_questions_final": 6
     }
   },
@@ -105,7 +93,51 @@
     "unit": 6,
     "start_page": 31,
     "end_page": 38,
-    "sentences": [],
+    "sentences": [
+      {
+        "hanzi": "你叫什么？",
+        "english": "What is your name?",
+        "tags": [
+          "你",
+          "叫",
+          "什么"
+        ],
+        "pinyin": "ni3 jiao4 shen2me5"
+      },
+      {
+        "hanzi": "我今年29岁。",
+        "english": "I am 29 years old this year.",
+        "tags": [
+          "我",
+          "今",
+          "年",
+          "二",
+          "十",
+          "九",
+          "岁"
+        ],
+        "pinyin": "wo3 jin1 nian2 er4 shi2 jiu3 sui4"
+      },
+      {
+        "hanzi": "他是我的好朋友，他今年30岁。",
+        "english": "He is my good friend, and he is 30 years old this year.",
+        "tags": [
+          "他",
+          "是",
+          "我",
+          "的",
+          "好",
+          "朋友",
+          "他",
+          "今",
+          "年",
+          "三",
+          "十",
+          "岁"
+        ],
+        "pinyin": "ta1 shi4 wo3 de5 hao3 peng2you5 ta1 jin1 nian2 san1 shi2 sui4"
+      }
+    ],
     "fill_in_the_blank": [
       {
         "question": "我的 中国 朋友 家有三___人。 (My Chinese friend's family has three people.)",
@@ -126,26 +158,48 @@
         "question": "他是___国人？ (What nationality is he?)",
         "answer": "哪",
         "full_sentence": "他是哪国人？"
+      },
+      {
+        "question": "我今年 29 岁。你___？ (I am 29 years old this year. What about you?)",
+        "answer": "呢",
+        "full_sentence": "我今年29岁。你呢？"
+      },
+      {
+        "question": "他是我的好朋友，他今年 30 岁___。 (He is my good friend, he is 30 years old this year.)",
+        "answer": "了",
+        "full_sentence": "他是我的好朋友，他今年30岁了。"
       }
     ],
     "counts": {
       "sentences_extracted": 3,
-      "sentences_dropped_verbatim": 3,
+      "sentences_dropped_verbatim": 0,
       "sentences_dropped_vocab_gate": 0,
       "fitb_candidates": 8,
       "fitb_solved": 8,
       "fitb_dropped_verbatim": 0,
-      "fitb_dropped_vocab_gate": 4,
+      "fitb_dropped_vocab_gate": 2,
       "sentences_dropped_tagging": 0,
-      "sentences_final": 0,
-      "fitb_questions_final": 4
+      "sentences_final": 3,
+      "fitb_questions_final": 6
     }
   },
   {
     "unit": 7,
     "start_page": 39,
     "end_page": 46,
-    "sentences": [],
+    "sentences": [
+      {
+        "hanzi": "我会说汉语。",
+        "english": "I can speak Chinese.",
+        "tags": [
+          "我",
+          "会",
+          "说",
+          "汉语"
+        ],
+        "pinyin": "wo3 hui4 shuo1 Han4yu3"
+      }
+    ],
     "fill_in_the_blank": [
       {
         "question": "我___会写我的汉语名字。 (I cannot write my Chinese name.)",
@@ -184,15 +238,15 @@
       }
     ],
     "counts": {
-      "sentences_extracted": 1,
-      "sentences_dropped_verbatim": 1,
+      "sentences_extracted": 5,
+      "sentences_dropped_verbatim": 4,
       "sentences_dropped_vocab_gate": 0,
       "fitb_candidates": 8,
       "fitb_solved": 8,
       "fitb_dropped_verbatim": 0,
       "fitb_dropped_vocab_gate": 1,
       "sentences_dropped_tagging": 0,
-      "sentences_final": 0,
+      "sentences_final": 1,
       "fitb_questions_final": 7
     }
   }

@@ -86,15 +86,16 @@ export default function DuolingoStyleQuestions() {
     }, [progress]);
 
     useEffect(() => {
-
         if (!currentQuestionObj) return;
-        advancingRef.current = false;   // new question rendered -- re-arm advance
+        advancingRef.current = false;   // new question rendered -- re-arm
         setTranscriptionResult(null);
         setAnswerState(null);
+
         setLastUserAnswer("");
         if (recordingURL) { URL.revokeObjectURL(recordingURL); setRecordingURL(null); }
         
         if (debugMode) {
+            advancingRef.current = false;   // debug auto-answers; no reveal to re-arm us
             const timer = setTimeout(() => advanceQuestion(true), 300);
             return () => clearTimeout(timer);
         }
@@ -193,12 +194,14 @@ export default function DuolingoStyleQuestions() {
     // Reveals the outcome of a submitted answer (translation included) instead
     // of advancing straight away -- advancing now happens via the Next button.
     const revealAnswer = (correct, answerGiven) => {
+        advancingRef.current = false;
         if (!correct) setLastUserAnswer(answerGiven);
         setAnswerState(correct ? 'correct' : 'incorrect');
         setUserAnswer("");
     };
 
     const handleNext = () => {
+        if (advancingRef.current) return;
         if (answerState === 'incorrect') advanceQuestion(false, true);
         else if (answerState === 'correct') advanceQuestion(true);
     };
@@ -206,6 +209,8 @@ export default function DuolingoStyleQuestions() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!currentQuestionObj) return;
+        if (advancingRef.current) return;
+
         // blank input is never correct -- fall through to the wrong path
         // rather than matching an answer variant that also cleans to empty
         if (!userAnswer || !userAnswer.trim()) { revealAnswer(false, "(no answer)"); return; }
@@ -291,6 +296,7 @@ export default function DuolingoStyleQuestions() {
                 });
 
                 setTranscriptionResult(await res.json());
+                advancingRef.current = false;
                 setIsTranscribing(false);
             };
             reader.readAsDataURL(blob);

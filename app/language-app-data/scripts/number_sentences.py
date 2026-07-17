@@ -72,7 +72,7 @@ TEMPLATES = [
         "after": ["口", "人"],
         "pinyin_before": ["wo3", "jia1", "you3"],
         "pinyin_after": ["kou3", "ren2"],
-        "range": (1, 9),
+        "range": (2, 9),
     },
     {
         "hanzi": "她今年{n}岁了。",
@@ -81,7 +81,7 @@ TEMPLATES = [
         "after": ["岁", "了"],
         "pinyin_before": ["ta1", "jin1", "nian2"],
         "pinyin_after": ["sui4", "le5"],
-        "range": (1, 99),
+        "range": (2, 99),
     },
     {
         "hanzi": "我有{n}个朋友。",
@@ -90,7 +90,7 @@ TEMPLATES = [
         "after": ["个", "朋友"],
         "pinyin_before": ["wo3", "you3"],
         "pinyin_after": ["ge4", "peng2you5"],
-        "range": (1, 9),
+        "range": (2, 9),
     },
 ]
 

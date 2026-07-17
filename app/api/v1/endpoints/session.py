@@ -324,11 +324,32 @@ def generate_practice_session(db, user_id, unit, graduated_units) -> SessionResp
     random.shuffle(question_set)
     return SessionResponse(user_id=user_id, session_type="practice_session", question_set=question_set)
 
-def generate_unit_test(user_id: int, unit: int) -> SessionResponse:
-    eligible = [q for q in unit_questions.get(str(unit), []) if q["question_type"] in ALL_TIER_QUESTION_TYPES]
-    selected = random.sample(eligible, min(NUM_OF_UNIT_TEST_QUESTIONS, len(eligible)))
-    return SessionResponse(user_id=user_id, session_type="unit_test", question_set=selected)
+# unit test composition: by the time a unit tests, every word is at tier 4
+# (it took 4+ answers to get there), so tier-1/2 recognition questions are
+# free points that inflate the pass rate. Weight the test toward the tiers
+# the learner has actually proven.
+UNIT_TEST_TIER_WEIGHTS = {1: 1, 2: 1, 3: 4, 4: 4}
 
+
+def generate_unit_test(user_id: int, unit: int) -> SessionResponse:
+    eligible = [q for q in unit_questions.get(str(unit), [])
+                if q["question_type"] in ALL_TIER_QUESTION_TYPES]
+    if not eligible:
+        return SessionResponse(user_id=user_id, session_type="unit_test", question_set=[])
+
+    weights = []
+    for q in eligible:
+        tier = next((t for t, types in TIER_QUESTION_TYPES.items()
+                     if q["question_type"] in types), 1)
+        weights.append(UNIT_TEST_TIER_WEIGHTS[tier])
+
+    selected, pool, pool_weights = [], list(eligible), list(weights)
+    for _ in range(min(NUM_OF_UNIT_TEST_QUESTIONS, len(pool))):
+        pick = random.choices(range(len(pool)), weights=pool_weights, k=1)[0]
+        selected.append(pool.pop(pick))
+        pool_weights.pop(pick)
+
+    return SessionResponse(user_id=user_id, session_type="unit_test", question_set=selected)
 
 # ----------------------------- ENDPOINTS -----------------------------
 
