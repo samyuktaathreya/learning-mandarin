@@ -1,54 +1,18 @@
-I need to segment each sentence using only the allowed word list.
-
-Let me check key words:
-- 年 is NOT in the allowed list
-- 今 is NOT in the allowed list
-- 年纪 is NOT in the allowed list
-- 李 is NOT in the allowed list (only "李月" is)
-- 50 - "5" and "0" are not in the list, but "五" and "十" are... "50" as digits isn't in the list
-- 20 - same issue
-- 您 is NOT in the allowed list
-
-So sentences with 今年, 李老师 (李 alone not in list), 50, 20, 您 will be null.
-
-Wait, let me re-check: "李月" is in the list but "李" alone is not. "李老师" cannot be segmented.
-
-- "你家有几口人？" → 你,家,有,几,口,人 ✓
-- "我家有三口人。" → 我,家,有,三,口,人 ✓
-- "你女儿几岁了？" → 你,女儿,几,岁,了 ✓
-- "她今年四岁了。" → 今 not in list → null
-- "李老师多大了？" → 李 not in list → null
-- "她今年50岁了。" → 今 not in list → null
-- "她女儿呢？" → 她,女儿,呢 ✓
-- "她女儿今年20岁。" → 今 not in list → null
-- "你有几个汉语老师？" → 你,有,几,个,汉语,老师 ✓
-- "李老师家有几口人？" → 李 not in list → null
-- "李老师今年50岁了。" → null
-- "我朋友的女儿今年四岁了。" → 今 not in list → null
-- "你多大了？" → 你,多,大,了 ✓
-- "你女儿今年多大了？" → 今 not in list → null
-- "你今年几岁了？" → 今 not in list → null
-- "你今年多大了？" → 今 not in list → null
-- "您今年多大年纪了？" → 您 not in list → null
-
 ```json
 {
   "你家有几口人？": ["你", "家", "有", "几", "口", "人"],
   "我家有三口人。": ["我", "家", "有", "三", "口", "人"],
   "你女儿几岁了？": ["你", "女儿", "几", "岁", "了"],
-  "她今年四岁了。": null,
-  "李老师多大了？": null,
-  "她今年50岁了。": null,
+  "她今年四岁了。": ["她", "今", "年", "四", "岁", "了"],
+  "李老师多大了？": ["李", "老师", "多", "大", "了"],
+  "她今年50岁了。": ["她", "今", "年", "五", "十", "岁", "了"],
   "她女儿呢？": ["她", "女儿", "呢"],
-  "她女儿今年20岁。": null,
+  "她女儿今年20岁。": ["她", "女儿", "今", "年", "二", "十", "岁"],
   "你有几个汉语老师？": ["你", "有", "几", "个", "汉语", "老师"],
-  "李老师家有几口人？": null,
-  "李老师今年50岁了。": null,
-  "我朋友的女儿今年四岁了。": null,
+  "李老师家有几口人？": ["李", "老师", "家", "有", "几", "口", "人"],
+  "李老师今年50岁了。": ["李", "老师", "今", "年", "五", "十", "岁", "了"],
+  "我朋友的女儿今年四岁了。": ["我", "朋友", "的", "女儿", "今", "年", "四", "岁", "了"],
   "你多大了？": ["你", "多", "大", "了"],
-  "你女儿今年多大了？": null,
-  "你今年几岁了？": null,
-  "你今年多大了？": null,
-  "您今年多大年纪了？": null
+  "你女儿今年多大了？": ["你", "女儿", "今", "年", "多", "大", "了"]
 }
 ```

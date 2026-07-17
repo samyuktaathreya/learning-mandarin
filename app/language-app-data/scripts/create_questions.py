@@ -122,6 +122,55 @@ def effective_home_units(index_data, units_data) -> dict:
             home[word] = unit
     return home
 
+def sentence_home_unit(content_tags, home_unit, default_unit) -> int:
+    """The earliest unit a sentence could legitimately be taught in: the
+    LATEST home unit among its words. A sentence only needs vocab the learner
+    already has, so it belongs wherever its hardest word is introduced.
+
+    Textbooks review earlier material -- unit 5's pages contain 我是美国人,
+    whose words are all unit 3 -- and the sentence finder extracts it into
+    unit 5 because that's the page it was printed on. That makes it a unit-5
+    question, so it shows up in unit 5's practice and unit test even though it
+    teaches nothing unit 5 covers.
+    """
+    units = [home_unit.get(tag, default_unit) for tag in content_tags]
+    return max(units) if units else default_unit
+
+
+def rehome_sentences(units_data, home_unit) -> dict:
+    """Move each sentence to max(home unit of its tags) when that's EARLIER
+    than the unit it was extracted from. Deletes rather than duplicates if the
+    target unit already has it -- the extracted copy is redundant.
+
+    Only ever moves sentences earlier: a sentence whose words are all unit 3
+    belongs in unit 3. It never moves later, since a sentence printed in unit
+    5 can't require vocab from unit 9 (has_unlearned_vocab already gates that).
+    """
+    by_unit = {int(k): v for k, v in units_data.items()}
+    seen = {u: {s["hanzi"] for s in data.get("sentences", [])}
+            for u, data in by_unit.items()}
+
+    moved, deleted = 0, 0
+    for unit in sorted(by_unit):
+        keep = []
+        for sentence in by_unit[unit].get("sentences", []):
+            target = sentence_home_unit(sentence.get("tags", []), home_unit, unit)
+            if target >= unit:
+                keep.append(sentence)
+                continue
+            if sentence["hanzi"] in seen.get(target, set()):
+                deleted += 1          # target unit already has it
+                continue
+            by_unit.setdefault(target, {"sentences": [], "fill_in_the_blank": [], "counts": {}})
+            by_unit[target]["sentences"].append(sentence)
+            seen.setdefault(target, set()).add(sentence["hanzi"])
+            moved += 1
+        by_unit[unit]["sentences"] = keep
+
+    print(f"  [rehome] moved {moved} sentence(s) to an earlier unit, "
+          f"deleted {deleted} duplicate(s)")
+    return {str(u): v for u, v in by_unit.items()}
+
 def hanzi_home_units(index_data) -> dict:
     """word (hanzi) -> earliest unit that teaches it, across vocab/grammar/
     proper_nouns. Used to gate hanzi-production question types (see
@@ -315,9 +364,10 @@ def vocab_tags_for_unit(index_data, unit_number) -> list:
 def main():
     index_data = load_json(INDEX_FILEPATH)
     units_data = load_json(UNITS_FILEPATH)
-    # index unit OR first actual use, whichever is earlier -- see
-    # effective_home_units() for why the index alone isn't enough
     home_unit = effective_home_units(index_data, units_data)
+    # a sentence belongs where its hardest word is taught, not where the book
+    # happened to print it -- must run AFTER home units are derived
+    units_data = rehome_sentences(units_data, home_unit)
 
     all_questions = {}
     all_vocab_tags = {}

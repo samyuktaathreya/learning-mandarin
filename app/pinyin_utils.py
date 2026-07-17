@@ -18,6 +18,54 @@ PINYIN_OVERRIDES = {
     "谁": "shei2",
 }
 
+# Azure STT normalizes spoken numbers to Arabic digits -- say 一三四六五 and it
+# transcribes "13465", say 五十 and it writes "50". Rather than fight that, we
+# convert the EXPECTED hanzi into the same digit form before comparing, so both
+# sides speak Azure's dialect.
+_NUMBER_HANZI = {
+    "零": 0, "一": 1, "二": 2, "三": 3, "四": 4,
+    "五": 5, "六": 6, "七": 7, "八": 8, "九": 9,
+}
+_NUMBER_UNITS = {"十": 10, "百": 100, "千": 1000}
+_NUMBER_CHARS = set(_NUMBER_HANZI) | set(_NUMBER_UNITS)
+
+
+def _number_run_to_int(run: str) -> int:
+    """Cardinal reading of a number-character run: 五十 -> 50, 二十五 -> 25,
+    十五 -> 15, 一百 -> 100."""
+    total, current = 0, 0
+    for ch in run:
+        if ch in _NUMBER_HANZI:
+            current = _NUMBER_HANZI[ch]
+        else:
+            unit = _NUMBER_UNITS[ch]
+            total += (current or 1) * unit    # 十五 has an implicit leading 一
+            current = 0
+    return total + current
+
+
+def hanzi_numbers_to_digits(text: str) -> str:
+    """Rewrite runs of number characters as the Arabic digits Azure would
+    return. A run containing 十/百/千 is a cardinal number (五十 -> "50");
+    a run of bare digit characters is read digit-by-digit (一三四六五 ->
+    "13465"), matching how each is actually spoken."""
+    out, i = [], 0
+    while i < len(text):
+        if text[i] not in _NUMBER_CHARS:
+            out.append(text[i])
+            i += 1
+            continue
+        j = i
+        while j < len(text) and text[j] in _NUMBER_CHARS:
+            j += 1
+        run = text[i:j]
+        if any(ch in _NUMBER_UNITS for ch in run):
+            out.append(str(_number_run_to_int(run)))
+        else:
+            out.append("".join(str(_NUMBER_HANZI[ch]) for ch in run))
+        i = j
+    return "".join(out)
+
 # Single-character pinyin from the curated index. Word-keyed multi-char entries
 # are skipped -- per-character grading only needs single characters, and
 # pypinyin handles those correctly as a fallback.
@@ -187,19 +235,26 @@ def tones_match(t_pinyin: str, e_pinyin: str) -> bool:
 # ----------------------------- SPEAKING-SENTENCE GRADING -----------------------------
 
 def grade_speaking_sentence(transcription: str, expected_hanzi: str) -> bool:
+
     """
     Grade a speaking-sentence attempt by comparing HANZI first, dropping to
     per-character pinyin only where characters differ. Homophones (他/她 both
     ta1) get credit since this is a spoken exercise; tones always count;
     neutral tone is forgiven as a last resort.
+
+    Number characters in the expected text are normalized to Arabic digits
+    first, since that's what Azure hands back for spoken numbers -- otherwise
+    a number-only sentence (一三四六五) could never match its transcription
+    ("13465"), and the per-character fallback would try to pinyin-ify digits.
     """
-    t = strip_punct(transcription)
-    e = strip_punct(expected_hanzi)
+    t = strip_punct(hanzi_numbers_to_digits(transcription))
+    e = strip_punct(hanzi_numbers_to_digits(expected_hanzi))
 
     if t == e:
         return True
     if len(t) != len(e):
         return False
+    
 
     for tc, ec in zip(t, e):
         if tc == ec:
