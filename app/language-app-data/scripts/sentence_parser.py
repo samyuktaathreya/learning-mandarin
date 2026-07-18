@@ -88,7 +88,7 @@ AGENT_MAX_TOKENS = 8192
 TEMPERATURE = 0
 
 # module-level overrides from main.py
-UNITS_TO_PROCESS = [3, 4,5,6,7]      # e.g. [3, 4]
+UNITS_TO_PROCESS = [6]      # e.g. [3, 4]
 SOURCES_TO_PROCESS = None        # e.g. ["textbook"]
 
 # --------------------------------- SETUP ---------------------------------
@@ -687,6 +687,28 @@ def tag_and_pinyin(sentences: dict, word_to_pinyin: dict, word_to_unit: dict,
 
 # --------------------------------- FITB -> QUESTIONS ---------------------------------
 
+def _answers_are_words(answers: list, full: str, blanked: str) -> bool:
+    """Guard against the FITB solver emitting a word-bank LABEL (e.g. "H", "I")
+    instead of the WORD it points at. Per the solver SOP, every answer must be
+    the actual word filling the blank, which means it must literally appear in
+    full_sentence_answer. A lone letter/digit that isn't in the completed
+    sentence is a leaked bank label -- if we expanded it, it would be
+    substituted into the OTHER blanks as literal text (e.g. "不I写 汉字"),
+    corrupting the hanzi. Drop the whole entry instead.
+    """
+    for a in answers:
+        a_str = (a or "").strip()
+        if not a_str:
+            return False
+        # cjk_only strips spaces/punctuation so spacing differences between the
+        # answer and full_sentence_answer don't cause false drops; a real word
+        # answer's characters must still be present in the completed sentence.
+        needle = cjk_only(a_str) or a_str
+        if needle not in cjk_only(full) and a_str not in full:
+            return False
+    return True
+
+
 def expand_fitb(entry: dict) -> list:
     """
     One single-blank question per blank; other blanks filled with their answers.
@@ -708,6 +730,15 @@ def expand_fitb(entry: dict) -> list:
                   f"'____', full-width parens, etc.) and either fix the SOP prompt to "
                   f"force '___' or update this split to match the real placeholder.")
         return []
+    # Guard: an answer that isn't present in full_sentence_answer is a leaked
+    # word-bank label (e.g. "H"/"I"), not a real word. Expanding it would inject
+    # the letter into the other blanks as literal hanzi -- drop the entry.
+    if not _answers_are_words(answers, full, blanked):
+        print(f"  [fitb-warning] answer not found in full sentence (likely a leaked "
+              f"word-bank label, not a word); dropping: {blanked}")
+        print(f"      answers: {answers!r}")
+        print(f"      full_sentence_answer: {full!r}")
+        return []
     questions = []
     for i in range(len(answers)):
         parts = []
@@ -720,7 +751,6 @@ def expand_fitb(entry: dict) -> list:
             q_text += f" ({translation})"
         questions.append({"question": q_text, "answer": answers[i], "full_sentence": full})
     return questions
-
 
 # --------------------------------- AGENT CALLS ---------------------------------
 

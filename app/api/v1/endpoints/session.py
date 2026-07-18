@@ -16,8 +16,8 @@ router = APIRouter()
 NUM_OF_UNIT_TEST_QUESTIONS = 20
 PERCENTAGE_TO_PASS_UNIT_TEST = 0.80
 GRADUATION_THRESHOLD = 3          # collapsed (min-facet) correct_count needed to consider a word graduated
-SESSION_SIZE = 10                 # number of current-unit tier questions per session (review is appended on top)
-REVIEW_THRESHOLD = 0.80           # below this decayed strength, a graduated word is "due" for review
+SESSION_SIZE = 10                 # target session length; review can push it higher (see generate_practice_session)
+REVIEW_THRESHOLD = 0.80           # below this decayed strength, a review-eligible word is "due" for review
 MAX_SAME_TAG_PER_SESSION = 2      # per-tag cap within the tier-question portion of a session
 
 # A word's tier gates which question types it can be served on. Tiers only
@@ -41,6 +41,21 @@ TIER4_DOWNSHIFT_PROBABILITY = 0.20
 # is in its "final push" -- tier-4 words stop downshifting so every serve
 # pushes directly toward graduation.
 FINAL_PUSH_UNGRADUATED_THRESHOLD = 5
+
+# The tier a word must reach before it can enter per-word review. == crud.MAX_TIER.
+MAX_TIER_FOR_REVIEW = 4
+
+# Tier 3/4 question types, split by the facet they exercise (derived from
+# crud.QUESTION_TYPE_FACETS). Review is sentence-level only, so tier 1/2 types
+# never appear here. "listening sentence" trains both facets, so it's in both
+# lists. Used by the review picker for weak-facet-first selection.
+REVIEW_TYPES_BY_FACET = {
+    "pinyin":    ["speaking sentence", "listening sentence"],
+    "character": ["translate chinese sentence to english",
+                  "translate english sentence to chinese",
+                  "fill in the blank",
+                  "listening sentence"],
+}
 
 # ----------------------------- DB DEPENDENCY -----------------------------
 
@@ -262,65 +277,128 @@ def generate_tier_questions(db: Session, user_id: int, unit: int, tiers: dict):
         stop = "short_no_questions"
     return picks, stop, min_counts
 
-# ----------------------------- REVIEW (graduated-unit words) -----------------------------
+# ----------------------------- REVIEW (per-word, unit-agnostic) -----------------------------
+# Review is decoupled from units entirely. A word becomes review-eligible on
+# its OWN merits -- once it has climbed to tier 4 AND its weaker facet has hit
+# the graduation bar -- not when its unit graduates. Unit graduation now only
+# gates new-word introduction and unlocks the unit test.
 
-def _due_review_tags(db: Session, user_id: int, graduated_units: set) -> list:
-    """Graduated-unit words whose collapsed strength has decayed below
-    REVIEW_THRESHOLD, weakest first."""
+def is_facet_review_eligible(tier: int, facet_count: int) -> bool:
+    """A single FACET of a word graduates into review once (a) the word has
+    climbed the tier ladder to tier 4, AND (b) that facet has been answered
+    correctly enough -- facet_count >= GRADUATION_THRESHOLD. Per-facet: a
+    word's character facet can enter review while its pinyin facet is still
+    learning. Tier is a per-WORD property (the ladder is shared); the count bar
+    is per-facet.
+
+    Note this is safe from orphaning because unit graduation still requires
+    BOTH facets past the bar (is_unit_graduated uses the min-collapsed count),
+    so a lagging facet always finishes learning while its unit's questions are
+    still available -- it can't get stranded past its unit."""
+    return tier >= MAX_TIER_FOR_REVIEW and facet_count >= GRADUATION_THRESHOLD
+
+
+def _all_review_eligible_facets(db: Session, user_id: int) -> list:
+    """Every (word, facet) pair that is now review-eligible, with the raw
+    StrengthTable row for that facet. Returns [(tag, facet, row), ...]. No
+    collapse -- review is per-facet now, so each facet's own count, stability,
+    and last_practice drive its own review timing."""
+    progress = crud.get_progress_by_user(db, user_id)
+    if not progress:
+        return []
+
+    tags = {r.tag for r in progress}
+    tiers = crud.get_tiers_for_tags(db, user_id, tags)
+
+    eligible = []
+    for r in progress:
+        if r.facet not in ("character", "pinyin"):
+            continue
+        if is_facet_review_eligible(tiers.get(r.tag, 1), r.correct_count):
+            eligible.append((r.tag, r.facet, r))
+    return eligible
+
+
+def _due_review_facets(db: Session, user_id: int) -> list:
+    """Per-(word, facet) review, NOT unit-gated. Any review-eligible facet
+    whose decayed strength has dropped below REVIEW_THRESHOLD is due, weakest
+    first. Returns [(tag, facet), ...]. A word can be due on character but not
+    pinyin, or vice versa -- each facet reviews at its own pace."""
     now = datetime.utcnow()
     scored = []
-    for r in get_collapsed_progress(db, user_id):
-        unit = tags_to_unit_dict.get(r.tag)
-        if unit is None or unit not in graduated_units:
-            continue
+    for tag, facet, r in _all_review_eligible_facets(db, user_id):
         strength = 0.5 ** ((now - r.last_practice).total_seconds() / 86400 / r.stability)
         if strength < REVIEW_THRESHOLD:
-            scored.append((r.tag, strength))
-    scored.sort(key=lambda x: x[1])
-    return [tag for tag, _ in scored]
+            scored.append((tag, facet, strength))
+    scored.sort(key=lambda x: x[2])
+    return [(tag, facet) for tag, facet, _ in scored]
 
 
-def _pick_review_question(tag: str, graduated_units: set, used_ids: set):
-    """Review is sentence-level only: recognition-level tier-1/2 review is too
-    easy to be worth it. Try tier 4 then tier 3; if neither has an available
-    question for this word, return None -- the word stays due for next time."""
-    for tier in (4, 3):
-        types = list(TIER_QUESTION_TYPES[tier])
-        random.shuffle(types)
-        for qt in types:
-            pool = [
-                q for q in inverted_index.get(tag, [])
-                if q["question_type"] == qt
-                and q["id"] not in used_ids
-                and q.get("unit") in graduated_units
-            ]
-            if pool:
-                return random.choice(pool)
+def _pick_review_question(tag: str, facet: str, used_ids: set):
+    """Pick a tier-3/4 question that exercises THIS facet for this word. No
+    weak-facet logic and no downshift -- the due facet is already known, so we
+    just serve a sentence-level question that trains it. If none exists for
+    this word/facet, return None (the facet stays due).
+
+    Unit-agnostic: a due facet can be reviewed with a question from ANY unit
+    that teaches this word."""
+    types = list(REVIEW_TYPES_BY_FACET[facet])
+    random.shuffle(types)
+    for qt in types:
+        pool = [
+            q for q in inverted_index.get(tag, [])
+            if q["question_type"] == qt
+            and q["id"] not in used_ids
+        ]
+        if pool:
+            return random.choice(pool)
     return None
 
 
-def generate_review_questions(db, user_id, graduated_units, used_ids):
-    """Returns [(question, tag), ...]."""
+def generate_review_questions(db, user_id, used_ids):
+    """[(question, tag), ...] for every due (word, facet) we can find a
+    question for. No cap -- all due facets are served (Anki-style).
+
+    A single question can cover a facet for a word; if the same word is due on
+    both facets, it may yield two questions (one per facet), which is correct:
+    the two facets are independent review items."""
     picks = []
-    for tag in _due_review_tags(db, user_id, graduated_units):
-        q = _pick_review_question(tag, graduated_units, used_ids)
+    for tag, facet in _due_review_facets(db, user_id):
+        q = _pick_review_question(tag, facet, used_ids)
         if q:
             picks.append((q, tag))
             used_ids.add(q["id"])
     return picks
 
 
-def generate_practice_session(db, user_id, unit, graduated_units) -> SessionResponse:
-    unit_tags = unit_to_vocab_tags_dict.get(unit, set())
-    tiers = crud.get_tiers_for_tags(db, user_id, unit_tags)
+def generate_practice_session(db, user_id, unit) -> SessionResponse:
+    """Due-first, uncapped review; learning fills the remainder up to
+    SESSION_SIZE.
 
-    tier_picks, stop_reason, min_counts = generate_tier_questions(db, user_id, unit, tiers)
-    used_ids = {q["id"] for q, _ in tier_picks}
-    review_picks = generate_review_questions(db, user_id, graduated_units, used_ids)
+      - All due review words are served (session can exceed SESSION_SIZE).
+      - remaining = SESSION_SIZE - len(due); if > 0, fill with that many
+        learning words from the current unit (tier ladder, weak-facet-first).
+      - >= SESSION_SIZE due words -> pure review session, no learning.
 
-    log_session(user_id, unit, tier_picks, review_picks, tiers, min_counts, stop_reason)
+    Review is per-word and unit-agnostic; units only gate which learning words
+    are available to fill the remainder."""
+    # 1. review first -- all due words, no cap
+    used_ids = set()
+    review_picks = generate_review_questions(db, user_id, used_ids)
 
-    question_set = [q for q, _ in tier_picks] + [q for q, _ in review_picks]
+    # 2. remaining slots -> learning words from the current unit
+    remaining = SESSION_SIZE - len(review_picks)
+    tier_picks, stop_reason, min_counts = [], "pure_review", {}
+    if remaining > 0:
+        tiers = crud.get_tiers_for_tags(db, user_id, unit_to_vocab_tags_dict.get(unit, set()))
+        tier_picks, stop_reason, min_counts = generate_tier_questions(db, user_id, unit, tiers)
+        # generate_tier_questions fills up to SESSION_SIZE; we only want
+        # `remaining`, so trim (and drop any that collide with review ids).
+        tier_picks = [p for p in tier_picks if p[0]["id"] not in used_ids][:remaining]
+
+    log_session(user_id, unit, tier_picks, review_picks, {}, min_counts, stop_reason)
+
+    question_set = [q for q, _ in review_picks] + [q for q, _ in tier_picks]
     random.shuffle(question_set)
     return SessionResponse(user_id=user_id, session_type="practice_session", question_set=question_set)
 
@@ -357,15 +435,16 @@ def generate_unit_test(user_id: int, unit: int) -> SessionResponse:
 def generate_session(user_id: int, mode: str = "sentence", db: Session = Depends(get_db)):
     user = crud.get_user(db, user_id)
     user_unit = user.current_unit
-    graduated_units = crud.get_graduated_units(db, user_id)
 
     unit_tags = unit_to_vocab_tags_dict.get(user_unit, set())
     all_records = get_collapsed_progress(db, user_id)
     unit_records = [r for r in all_records if r.tag in unit_tags]
 
+    # unit graduation now ONLY decides "is this unit's test unlocked" -- it no
+    # longer has anything to do with review, which is per-word.
     if is_unit_graduated(unit_records, unit_tags):
         return generate_unit_test(user_id, user_unit)
-    return generate_practice_session(db, user_id, user_unit, graduated_units)
+    return generate_practice_session(db, user_id, user_unit)
 
 
 @router.patch("/api/submit_session/{user_id}")
@@ -388,12 +467,35 @@ def submit_session(
     starting_tiers = crud.get_tiers_for_tags(db, user_id, submit_tags) if submit_tags else {}
     advanced_this_submit = set()
 
+    # per-FACET review-eligibility as of the START of this submission. Option C:
+    # stability only grows once a facet is review-eligible, so we compute each
+    # (word, facet)'s phase from the pre-submit snapshot (same fixed-snapshot
+    # logic as tier advancement) and pass it down. Eligibility is per-facet now:
+    # {tag: {"character": bool, "pinyin": bool}}. The answer that CROSSES a
+    # facet into eligibility still uses learning-phase (floor) rules for that
+    # one answer; subsequent submits then grow that facet's stability.
+    starting_facet_counts = {t: {"character": 0, "pinyin": 0} for t in submit_tags}
+    for r in crud.get_progress_by_user(db, user_id):
+        if r.tag in starting_facet_counts and r.facet in starting_facet_counts[r.tag]:
+            starting_facet_counts[r.tag][r.facet] = r.correct_count
+    starting_facet_eligible = {
+        t: {
+            facet: is_facet_review_eligible(starting_tiers.get(t, 1),
+                                            starting_facet_counts[t][facet])
+            for facet in ("character", "pinyin")
+        }
+        for t in submit_tags
+    }
+
     for i, question_data in enumerate(list_of_question_data):
         question_type = question_data.get("question_type", "")
         for tag in question_data.get("tags", []):
             if tag in META_TAGS or tag.startswith("unit_"):
                 continue
-            crud.update_after_answer_for_question(db, user_id, tag, question_type, is_correct[i])
+            crud.update_after_answer_for_question(
+                db, user_id, tag, question_type, is_correct[i],
+                facet_eligible=starting_facet_eligible.get(tag, {}),
+            )
 
             # exposure on the word's current tier's own question types
             # advances it one tier, right or wrong; a lower-tier (downshifted)
@@ -430,14 +532,22 @@ def debug(user_id: int, db: Session = Depends(get_db)):
     all_records = get_collapsed_progress(db, user_id)
     unit_records = [r for r in all_records if r.tag in unit_tags]
     graduated = is_unit_graduated(unit_records, unit_tags)
-    graduated_units = crud.get_graduated_units(db, user_id)
-    session = generate_practice_session(db, user_id, user.current_unit, graduated_units)
+    session = generate_practice_session(db, user_id, user.current_unit)
     tiers = crud.get_tiers_for_tags(db, user_id, unit_tags)
+
+    # per-facet review visibility: how many (word, facet) items are
+    # review-eligible and how many are currently due. Counts are per-facet now,
+    # so a word contributes up to 2 (character + pinyin).
+    eligible = _all_review_eligible_facets(db, user_id)
+    due = _due_review_facets(db, user_id)
+
     return {
         "current_unit": user.current_unit,
         "graduated_units": user.graduated_units,
         "unit_tags_count": len(unit_tags),
         "unit_ready_to_graduate": graduated,
+        "review_eligible_facet_count": len(eligible),
+        "review_due_facet_count": len(due),
         "questions_found": len(session.question_set),
         "sample_question_types": list(set(q["question_type"] for q in session.question_set)),
         "sample_units": sorted(set(q.get("unit") for q in session.question_set)),

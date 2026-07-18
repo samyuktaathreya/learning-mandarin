@@ -6,6 +6,12 @@ SOUND_UNLOCK_SUCCESSES = 1
 SOUND_UNLOCK_ATTEMPTS_CAP = 5
 MAX_TIER = 4
 
+# The floor stability sits at during the learning phase. A word only starts
+# growing (or losing) stability once it is review-eligible -- see
+# _apply_answer_to_row and Option C in session.py's review design. Keeping
+# this named makes the "stability does nothing during learning" rule explicit.
+STABILITY_FLOOR = 1.0
+
 # The two facets a word's strength is tracked on.
 FACETS = ("character", "pinyin")
 
@@ -54,39 +60,77 @@ def get_strength_row(db: Session, user_id: int, tag: str, facet: str):
     ).first()
 
 
-def _apply_answer_to_row(row, is_correct: bool):
+def _apply_answer_to_row(row, is_correct: bool, grow_stability: bool):
+    """Apply one answer to a single (tag, facet) strength row.
+
+    OPTION C -- stability is purely a REVIEW mechanism and does nothing during
+    learning:
+      - grow_stability=False (word not yet review-eligible): correct_count and
+        last_practice still update, but stability is pinned to STABILITY_FLOOR.
+        This means a word ENTERS review at floor stability, so its first
+        review comes ~1-2 days out (tight), then the doubling stretches it.
+      - grow_stability=True (word is review-eligible): normal SRS -- double on
+        correct (cap 365), halve on wrong (floor STABILITY_FLOOR).
+
+    last_practice always updates: even a learning-phase answer is a real
+    exposure, and once the word becomes review-eligible we want its decay
+    clock measured from its most recent contact, not from whenever it
+    graduated."""
     row.times_seen = (row.times_seen or 0) + 1   # every answer counts as "seen"
     if is_correct:
         row.correct_count += 1
-        row.stability = min(row.stability * 2, 365)
+
+    if grow_stability:
+        if is_correct:
+            row.stability = min(row.stability * 2, 365)
+        else:
+            row.stability = max(row.stability * 0.5, STABILITY_FLOOR)
     else:
-        row.stability = max(row.stability * 0.5, 1)
+        # learning phase: stability is inert, held at the floor
+        row.stability = STABILITY_FLOOR
+
     row.last_practice = datetime.utcnow()
 
 
-def update_after_answer(db: Session, user_id: int, tag: str, facet: str, is_correct: bool):
+def update_after_answer(db: Session, user_id: int, tag: str, facet: str,
+                        is_correct: bool, grow_stability: bool = False):
     """Update a single (tag, facet) strength row. Creates the row if missing
-    so a word first met in a session still gets tracked."""
+    so a word first met in a session still gets tracked. grow_stability
+    defaults False -- callers that know the word is review-eligible pass True
+    (see update_after_answer_for_question)."""
     row = get_strength_row(db, user_id, tag, facet)
     if not row:
         row = StrengthTable(
             tag=tag, user_id=user_id, facet=facet,
-            correct_count=0, stability=1.0, last_practice=datetime.utcnow(),
+            correct_count=0, stability=STABILITY_FLOOR, last_practice=datetime.utcnow(),
         )
         db.add(row)
-    _apply_answer_to_row(row, is_correct)
+    _apply_answer_to_row(row, is_correct, grow_stability)
     db.commit()
     db.refresh(row)
     return {"tag": tag, "facet": facet, "correct_count": row.correct_count, "stability": row.stability}
 
 
 def update_after_answer_for_question(db: Session, user_id: int, tag: str,
-                                     question_type: str, is_correct: bool):
+                                     question_type: str, is_correct: bool,
+                                     facet_eligible: dict = None):
     """Update whichever facet(s) the question type exercises (see
-    QUESTION_TYPE_FACETS). This is what submit_session calls."""
+    QUESTION_TYPE_FACETS). This is what submit_session calls.
+
+    facet_eligible is a per-FACET phase map for this word AS OF THE START of
+    the submit, e.g. {"character": True, "pinyin": False} -- computed by the
+    caller from the pre-submit snapshot. Eligibility is per-facet now: a word's
+    character facet can be in review while its pinyin facet is still learning.
+    Option C: stability grows/decays only for a facet that's already
+    review-eligible; a still-learning facet stays pinned to the floor.
+
+    A question type like 'listening sentence' touches both facets, so each
+    facet grows or stays inert according to its OWN eligibility."""
+    facet_eligible = facet_eligible or {}
     results = []
     for facet in facets_for_question_type(question_type):
-        results.append(update_after_answer(db, user_id, tag, facet, is_correct))
+        results.append(update_after_answer(db, user_id, tag, facet, is_correct,
+                                            grow_stability=facet_eligible.get(facet, False)))
     return results
 
 
