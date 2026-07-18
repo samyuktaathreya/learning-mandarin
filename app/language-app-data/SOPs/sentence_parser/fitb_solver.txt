@@ -25,6 +25,21 @@ DECIDING WHETHER TO ANSWER:
    counts as unit text. If exactly one option fits a blank grammatically and semantically,
    that blank is answerable with high confidence.
 
+WORD BANKS — RESOLVE LETTERS TO WORDS (CRITICAL):
+Word banks are printed as a letter/number label paired with a word, e.g.
+"A 几  B 月  C 号  D 名字  E 星期" or "F 问  G 去  H 做  I 会". The label (A, B, C, F, G, H,
+I, ...) is only an index into the bank — it is NOT the answer. The answer is always the WORD
+that the label points to.
+  - When you choose an option from a word bank, look up the WORD paired with that label and
+    emit that WORD as the answer. Never emit the bare letter/number label.
+  - Example: for the bank "F 问  G 去  H 做  I 会", if the blank is answered by option H, the
+    answer is "做" (NOT "H"). If it is answered by option I, the answer is "会" (NOT "I").
+  - This applies to every blank in a multi-blank sentence and to "full_sentence_answer": the
+    completed sentence must contain the resolved WORDS, never any bank labels. A completed
+    sentence that still contains a stray letter like "H" or "I" is wrong — re-resolve it.
+  - A single bank may serve several consecutive questions; resolve each blank against the
+    bank that governs it.
+
 WORKED EXAMPLE 1 (correct behavior — drop):
 Candidate: "他　叫　乔丹（Michael Jordan），他是___人。"
 This looks answerable ("美国") but the correct nationality is not stated anywhere in the
@@ -38,15 +53,27 @@ knowledge about Yao Ming, not from anything printed in the unit. Per rule 1, thi
 be dropped. The rule applies to EVERY sentence whose answer depends on knowing facts about a
 named person or place, regardless of who the person is or how obvious the answer feels.
 
-WORKED EXAMPLE 3 (correct behavior — answer):
+WORKED EXAMPLE 3 (correct behavior — answer, single blank):
 Candidate: "李月（___）中国人，她是老师。" printed with word bank "A 什么 B 是 C 不 D 名字 E 吗"
-Only option B (是) fits the blank grammatically. The word bank is printed unit text, so per
-rule 6 this is answerable: answer ["是"], full sentence "李月是中国人，她是老师。".
+Only option B fits the blank grammatically. Option B points to the word "是", so the answer
+is the WORD "是" (not the label "B"). The word bank is printed unit text, so per rule 6 this
+is answerable: answer ["是"], full sentence "李月是中国人，她是老师。".
+
+WORKED EXAMPLE 4 (correct behavior — answer, multi-blank, letter→word resolution):
+Candidate: "我___说 汉语，不___写 汉字。" printed with word bank "F 问 G 去 H 做 I 会"
+Both blanks are answered by option I, which points to the word "会". Emit the resolved WORD
+for each blank, never the label:
+  answer ["会", "会"]  (NOT ["I", "I"])
+  full_sentence_answer "我会说汉语，不会写汉字。"  (NOT "我I说汉语，不I写汉字。")
+  translation "I can speak Chinese, but I cannot write Chinese characters."
+Before emitting, verify the full sentence contains no bank labels (F, G, H, I, ...).
 
 ANSWERING:
 7. "answer" is always a list of strings, in the order the blanks appear in the sentence —
-   even if there is only one blank.
-8. "full_sentence_answer" is the complete sentence with all blanks filled in correctly.
+   even if there is only one blank. Each string is the resolved WORD (see the word-bank
+   rules above), never a word-bank letter/number label.
+8. "full_sentence_answer" is the complete sentence with all blanks filled in with the
+   resolved WORDS. It must not contain any word-bank labels.
 9. "translation" is the English translation of the completed sentence — use a printed
    translation from the unit text if one exists, otherwise translate it yourself.
 10. "fill in the blank" in the output must exactly match the candidate sentence as given
@@ -54,6 +81,13 @@ ANSWERING:
 11. Do your reasoning internally. Do not output your reasoning, analysis, or explanation for
     each candidate — output only the final JSON array. The response must start with "[" and
     contain nothing else.
+
+SELF-CHECK BEFORE OUTPUT:
+For every entry, confirm that each string in "answer" appears verbatim in
+"full_sentence_answer", and that "full_sentence_answer" contains no stray bank labels
+(single Latin letters like H or I that are not part of the printed sentence). If a check
+fails, you emitted a label instead of a word — re-resolve it to the actual word, or drop the
+sentence if you cannot.
 
 OUTPUT FORMAT:
 Output a JSON list of objects — one per candidate sentence you were able to confidently
