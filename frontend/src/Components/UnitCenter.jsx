@@ -1,14 +1,4 @@
-const GRADUATION_THRESHOLD = 3;
-
-function wordBar(correctCount) {
-    const filled = Math.min(correctCount, GRADUATION_THRESHOLD);
-    return '█'.repeat(filled) + '░'.repeat(GRADUATION_THRESHOLD - filled);
-}
-
-function strengthBar(pct) {
-    const filled = Math.round(pct / 100 * 5);
-    return '█'.repeat(filled) + '░'.repeat(5 - filled);
-}
+import UnitDetail from './UnitDetail';
 
 export default function UnitCenter({ progress, selectedUnit, onStartSession }) {
     if (!progress || selectedUnit === null) return null;
@@ -19,7 +9,6 @@ export default function UnitCenter({ progress, selectedUnit, onStartSession }) {
     const isCurrentUnit = unitData.is_current;
     const isGraduated = unitData.is_graduated;
     const isLocked = !isCurrentUnit && !isGraduated;
-    const words = isCurrentUnit ? (progress.current_unit_words || []) : null;
 
     return (
         <div className="unit-center">
@@ -27,24 +16,12 @@ export default function UnitCenter({ progress, selectedUnit, onStartSession }) {
 
             {isLocked && <p>🔒 Complete Unit {selectedUnit - 1} to unlock</p>}
 
-            {isGraduated && (
-                <div>
-                    <p>✓ Graduated</p>
-                    <p>Retention: {strengthBar(unitData.progress_pct)}</p>
-                </div>
-            )}
+            {isGraduated && <p>✓ Graduated</p>}
 
-            {isCurrentUnit && words && (
-                <div className="word-progress-list">
-                    {words.map(w => (
-                        <div key={w.tag} className="word-progress-item">
-                            <span style={{ fontFamily: 'monospace' }}>{wordBar(w.correct_count)}</span>
-                            <span>{w.tag}</span>
-                            <span className="word-tier-badge">Tier {w.tier}</span>
-                        </div>
-                    ))}
-                </div>
-            )}
+            {/* current + graduated units show the per-facet detail view (the
+                review-debugging window). Locked units show nothing but the
+                message above. */}
+            {(isCurrentUnit || isGraduated) && <UnitDetail unit={selectedUnit} />}
         </div>
     );
 }
