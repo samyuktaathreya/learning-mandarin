@@ -71,6 +71,10 @@ export default function DuolingoStyleQuestions() {
     // null while the user is still answering; 'correct' / 'incorrect' once
     // they've submitted and are looking at the reveal (translation + Next)
     const [answerState, setAnswerState] = useState(null);
+    // UI-only mirror of gradingRef, so the input/submit button can visibly
+    // disable while an AI/grading fetch is in flight (gradingRef itself is a
+    // ref and won't trigger a re-render).
+    const [isGrading, setIsGrading] = useState(false);
     // skip-review warning modal
     const [showSkipWarning, setShowSkipWarning] = useState(false);
 
@@ -86,6 +90,16 @@ export default function DuolingoStyleQuestions() {
     // answerLog/currentIndex. This ref blocks a second advance until the next
     // question's reveal re-arms it.
     const advancingRef = useRef(false);
+    // Guards handleSubmit itself: while an AI/grading fetch is in flight for
+    // the CURRENT question, a second Enter/submit must be ignored outright --
+    // advancingRef alone doesn't cover this, since nothing sets it until the
+    // fetch resolves and calls revealAnswer.
+    const gradingRef = useRef(false);
+    // Bumped every time the displayed question changes. Async grading callbacks
+    // capture the token at fetch-start and compare it on resolve; if the user
+    // has since moved to a new question (token changed), the result is stale
+    // and discarded instead of being applied to the wrong question.
+    const questionTokenRef = useRef(0);
 
     const currentQuestionObj = questions[currentIndex] ?? null;
     const isSingleSyllable = currentQuestionObj
@@ -101,6 +115,9 @@ export default function DuolingoStyleQuestions() {
     useEffect(() => {
         if (!currentQuestionObj) return;
         advancingRef.current = false;   // new question rendered -- re-arm
+        gradingRef.current = false;     // any prior grading fetch is now moot
+        questionTokenRef.current += 1;  // invalidate any in-flight grading callbacks
+        setIsGrading(false);
         setTranscriptionResult(null);
         setAnswerState(null);
 
@@ -233,52 +250,75 @@ export default function DuolingoStyleQuestions() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!currentQuestionObj) return;
-        if (advancingRef.current) return;
+        // Blocks: a second Enter/submit while advancing, AND while a grading
+        // fetch for THIS question is already in flight (advancingRef alone
+        // doesn't cover the latter -- nothing sets it until the fetch resolves).
+        if (advancingRef.current || gradingRef.current) return;
 
         // blank input is never correct -- fall through to the wrong path
         // rather than matching an answer variant that also cleans to empty
         if (!userAnswer || !userAnswer.trim()) { revealAnswer(false, "(no answer)"); return; }
-        const question_type = currentQuestionObj.question_type;
-        const expectedVariants = currentQuestionObj.answer.split(',').map(v => clean(v.trim()));
-        if (expectedVariants.some(v => v === clean(userAnswer))) { revealAnswer(true); return; }
 
-        // Route to /api/grade_english_to_chinese for listening (pinyin branch)
-        // and english->chinese translation (AI branch). The backend picks the
-        // branch from question_type.
-        if (GRADE_ENGLISH_TO_CHINESE_TYPES.has(question_type)) {
-            try {
-                const res = await fetch('/api/grade_english_to_chinese', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        user_answer: userAnswer,
-                        expected_answer: currentQuestionObj.answer,
-                        question_type: currentQuestionObj.question_type,
-                        question: currentQuestionObj.question,
-                    }),
-                });
-                const { is_correct } = await res.json();
-                if (is_correct) { revealAnswer(true); return; }
-            } catch (err) { console.error("Chinese grading failed", err); }
+        // Snapshot everything this submit is FOR, before any await. If the
+        // question changes while a fetch is in flight (token mismatch on
+        // resolve), the result is stale and must be discarded rather than
+        // applied to whatever question is now on screen.
+        const questionAtSubmit = currentQuestionObj;
+        const tokenAtSubmit = questionTokenRef.current;
+        const answerAtSubmit = userAnswer;
+        const isStale = () => questionTokenRef.current !== tokenAtSubmit;
+
+        const question_type = questionAtSubmit.question_type;
+        const expectedVariants = questionAtSubmit.answer.split(',').map(v => clean(v.trim()));
+        if (expectedVariants.some(v => v === clean(answerAtSubmit))) { revealAnswer(true); return; }
+
+        gradingRef.current = true;
+        setIsGrading(true);
+        try {
+            // Route to /api/grade_english_to_chinese for listening (pinyin branch)
+            // and english->chinese translation (AI branch). The backend picks the
+            // branch from question_type.
+            if (GRADE_ENGLISH_TO_CHINESE_TYPES.has(question_type)) {
+                try {
+                    const res = await fetch('/api/grade_english_to_chinese', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            user_answer: answerAtSubmit,
+                            expected_answer: questionAtSubmit.answer,
+                            question_type: questionAtSubmit.question_type,
+                            question: questionAtSubmit.question,
+                        }),
+                    });
+                    const { is_correct } = await res.json();
+                    if (isStale()) return;   // user moved on while this was in flight
+                    if (is_correct) { revealAnswer(true); return; }
+                } catch (err) { console.error("Chinese grading failed", err); }
+            }
+
+            if (TRANSLATE_TO_ENGLISH_TYPES.has(question_type)) {
+                try {
+                    const res = await fetch('/api/grade_chinese_to_english', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            user_answer: answerAtSubmit,
+                            expected_answer: questionAtSubmit.answer,
+                            question: questionAtSubmit.question,   // the Chinese
+                        }),
+                    });
+                    const { is_correct } = await res.json();
+                    if (isStale()) return;   // user moved on while this was in flight
+                    if (is_correct) { revealAnswer(true); return; }
+                } catch (err) { console.error("Grading failed", err); }
+            }
+
+            if (isStale()) return;
+            revealAnswer(false, answerAtSubmit);
+        } finally {
+            gradingRef.current = false;
+            setIsGrading(false);
         }
-
-        if (TRANSLATE_TO_ENGLISH_TYPES.has(question_type)) {
-            try {
-                const res = await fetch('/api/grade_chinese_to_english', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        user_answer: userAnswer,
-                        expected_answer: currentQuestionObj.answer,
-                        question: currentQuestionObj.question,   // the Chinese
-                    }),
-                });
-                const { is_correct } = await res.json();
-                if (is_correct) { revealAnswer(true); return; }
-            } catch (err) { console.error("Grading failed", err); }
-        }
-
-        revealAnswer(false, userAnswer);
     };
 
     // ── Recording ──────────────────────────────────────────────────
@@ -407,6 +447,7 @@ export default function DuolingoStyleQuestions() {
                         setUserAnswer={setUserAnswer}
                         answerState={answerState}
                         lastUserAnswer={lastUserAnswer}
+                        isGrading={isGrading}
                         onSubmit={handleSubmit}
                         onNext={handleNext}
                         onMarkCorrect={() => advanceQuestion(true)}
