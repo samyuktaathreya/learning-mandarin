@@ -6,6 +6,8 @@ import SessionControls from '../Components/PhaseTabs';
 import Question from '../Components/Question';
 import SpeakingQuestion from '../Components/SpeakingQuestion';
 import Results from '../Components/Results';
+import Modal from '../Components/Modal';
+import ReviewCounter from '../Components/ReviewCounter';
 
 const USER_ID = 1;
 
@@ -28,6 +30,15 @@ const isSpeakingQuestion = (qt) => qt === "speaking vocab" || qt === "speaking s
 const TRANSLATE_TO_ENGLISH_TYPES = new Set([
     "translate chinese word to english",
     "translate chinese sentence to english",
+]);
+
+// Types that POST to /api/grade_english_to_chinese. The backend branches on
+// question_type: listening -> strict pinyin (order enforced, homophones ok),
+// translation -> AI meaning-grading (cached). Both come through this one call.
+const GRADE_ENGLISH_TO_CHINESE_TYPES = new Set([
+    "listening sentence",
+    "translate english sentence to chinese",
+    "translate english word to chinese",
 ]);
 
 const playAudio = async (text, slow = false) => {
@@ -60,6 +71,8 @@ export default function DuolingoStyleQuestions() {
     // null while the user is still answering; 'correct' / 'incorrect' once
     // they've submitted and are looking at the reveal (translation + Next)
     const [answerState, setAnswerState] = useState(null);
+    // skip-review warning modal
+    const [showSkipWarning, setShowSkipWarning] = useState(false);
 
     // recording state
     const [isRecording, setIsRecording] = useState(false);
@@ -93,7 +106,7 @@ export default function DuolingoStyleQuestions() {
 
         setLastUserAnswer("");
         if (recordingURL) { URL.revokeObjectURL(recordingURL); setRecordingURL(null); }
-        
+
         if (debugMode) {
             advancingRef.current = false;   // debug auto-answers; no reveal to re-arm us
             const timer = setTimeout(() => advanceQuestion(true), 300);
@@ -131,11 +144,12 @@ export default function DuolingoStyleQuestions() {
         } catch (e) { console.error("Failed to fetch progress", e); }
     };
 
-    const startSession = async (debug = false) => {
+    const startSession = async (debug = false, skipReview = false) => {
         setIsLoading(true);
         setDebugMode(debug);
         try {
-            const response = await fetch(`/api/generate_session/${USER_ID}`);
+            const url = `/api/generate_session/${USER_ID}` + (skipReview ? '?skip_review=true' : '');
+            const response = await fetch(url);
             if (!response.ok) {
                 setIsLoading(false);
                 return;
@@ -154,6 +168,16 @@ export default function DuolingoStyleQuestions() {
         } catch (error) { console.error("Failed to load questions", error); }
         finally { setIsLoading(false); }
     };
+
+    // "Start" button. If review is due, the backend would serve a review
+    // session -- that's the default and needs no special handling. The skip
+    // path is only reached via the warning modal below.
+    const handleStart = () => startSession(false, false);
+
+    // User asked to skip review -> confirm hard first.
+    const requestSkipReview = () => setShowSkipWarning(true);
+    const confirmSkipReview = () => { setShowSkipWarning(false); startSession(false, true); };
+    const cancelSkipReview = () => setShowSkipWarning(false);
 
     const submitSession = async (finalAnswerLog) => {
         try {
@@ -218,13 +242,20 @@ export default function DuolingoStyleQuestions() {
         const expectedVariants = currentQuestionObj.answer.split(',').map(v => clean(v.trim()));
         if (expectedVariants.some(v => v === clean(userAnswer))) { revealAnswer(true); return; }
 
-        // for listening sentence, compare by pinyin to handle homophones like 他/她
-        if (question_type === "listening sentence") {
+        // Route to /api/grade_english_to_chinese for listening (pinyin branch)
+        // and english->chinese translation (AI branch). The backend picks the
+        // branch from question_type.
+        if (GRADE_ENGLISH_TO_CHINESE_TYPES.has(question_type)) {
             try {
                 const res = await fetch('/api/grade_english_to_chinese', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ user_answer: userAnswer, expected_answer: currentQuestionObj.answer }),
+                    body: JSON.stringify({
+                        user_answer: userAnswer,
+                        expected_answer: currentQuestionObj.answer,
+                        question_type: currentQuestionObj.question_type,
+                        question: currentQuestionObj.question,
+                    }),
                 });
                 const { is_correct } = await res.json();
                 if (is_correct) { revealAnswer(true); return; }
@@ -343,6 +374,11 @@ export default function DuolingoStyleQuestions() {
         return (
             <div className="website-page">
                 <Header />
+                {sessionType === "review_session" && (
+                    <div className="session-banner" style={{ textAlign: 'center', opacity: 0.7, fontSize: '0.85rem' }}>
+                        Review session · {questions.length - currentIndex} left
+                    </div>
+                )}
                 {isSpeakingQuestion(currentQuestionObj.question_type)
                     ? <SpeakingQuestion
                         currentQuestionObj={currentQuestionObj}
@@ -381,6 +417,8 @@ export default function DuolingoStyleQuestions() {
         );
     }
 
+    const dueNow = progress?.review_due_word_count ?? 0;
+
     return (
         <div className="website-page">
             <Header />
@@ -392,11 +430,20 @@ export default function DuolingoStyleQuestions() {
                 />
                 <div className="unit-center-column">
                     {progress && selectedUnit === progress.current_unit && (
-                        <SessionControls
-                            onStartSession={() => startSession(false)}
-                            onDebug={() => startSession(true)}
-                            disabled={isLoading}
-                        />
+                        <>
+                            <SessionControls
+                                onStartSession={handleStart}
+                                onDebug={() => startSession(true)}
+                                disabled={isLoading}
+                            />
+                            {dueNow > 0 && (
+                                <div className="skip-review-row" style={{ marginTop: '0.5rem' }}>
+                                    <button onClick={requestSkipReview} disabled={isLoading}>
+                                        Skip review ({dueNow} due)
+                                    </button>
+                                </div>
+                            )}
+                        </>
                     )}
                     <UnitCenter
                         progress={progress}
@@ -405,6 +452,26 @@ export default function DuolingoStyleQuestions() {
                     />
                 </div>
             </div>
+
+            <ReviewCounter progress={progress} />
+
+            <Modal
+                open={showSkipWarning}
+                onClose={cancelSkipReview}
+                title="Skip today’s review?"
+                actions={
+                    <>
+                        <button onClick={cancelSkipReview}>Do the review</button>
+                        <button onClick={confirmSkipReview} style={{ color: '#c0392b' }}>
+                            Skip anyway
+                        </button>
+                    </>
+                }
+            >
+                You have <strong>{dueNow}</strong> word{dueNow === 1 ? '' : 's'} due for review.
+                Skipping means you’ll likely forget them — spaced review is what moves words
+                into long-term memory. Only skip if you already know this material cold.
+            </Modal>
         </div>
     );
 }
