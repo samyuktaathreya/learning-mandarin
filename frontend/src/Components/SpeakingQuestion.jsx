@@ -1,4 +1,5 @@
 import { ClickableText } from './CharacterPopup';
+import { useState, useEffect } from 'react';
 
 const questionTypeToInstruction = (question_type) => {
     switch (question_type) {
@@ -45,6 +46,37 @@ export default function SpeakingQuestion({
 }) {
     const isUnitTest = sessionType === "unit_test";
     const isAssessment = transcriptionResult?.mode === "assessment";
+
+    // ── Tip UI state ──────────────────────────────────────────────
+    const [showTipForm, setShowTipForm] = useState(false);
+    const [tipKeyType, setTipKeyType] = useState("answer");
+    const [tipDraft, setTipDraft] = useState("");
+    const [tipSaveState, setTipSaveState] = useState(null); // null | 'saving' | 'saved' | 'error'
+
+    // reset the tip form whenever the question changes
+    useEffect(() => {
+        setShowTipForm(false);
+        setTipKeyType("answer");
+        setTipDraft("");
+        setTipSaveState(null);
+    }, [currentQuestionObj]);
+
+    const saveTip = async () => {
+        const keyValue = tipKeyType === "question" ? currentQuestionObj.question : currentQuestionObj.answer;
+        if (!tipDraft.trim() || !keyValue) return;
+        setTipSaveState('saving');
+        try {
+            await fetch('/api/tips', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ key_type: tipKeyType, key_value: keyValue, tip: tipDraft.trim() }),
+            });
+            setTipSaveState('saved');
+        } catch (err) {
+            console.error("Failed to save tip", err);
+            setTipSaveState('error');
+        }
+    };
 
     return (
         <div className="session-view">
@@ -133,6 +165,53 @@ export default function SpeakingQuestion({
                             {currentQuestionObj.english && (
                                 <p>Translation: <strong>{currentQuestionObj.english}</strong></p>
                             )}
+
+                            {currentQuestionObj.tip && (
+                                <p className="question-tip">💡 Tip: {currentQuestionObj.tip}</p>
+                            )}
+
+                            <div className="tip-editor" style={{ marginTop: '0.75rem', fontSize: '0.85rem', opacity: 0.85 }}>
+                                {!showTipForm ? (
+                                    <button type="button" onClick={() => setShowTipForm(true)}>
+                                        {currentQuestionObj.tip ? 'Edit tip' : '+ Add a tip'}
+                                    </button>
+                                ) : (
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', maxWidth: 420 }}>
+                                        <div>
+                                            <label style={{ marginRight: '1rem' }}>
+                                                <input
+                                                    type="radio"
+                                                    checked={tipKeyType === "answer"}
+                                                    onChange={() => setTipKeyType("answer")}
+                                                /> Tip about the answer
+                                            </label>
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    checked={tipKeyType === "question"}
+                                                    onChange={() => setTipKeyType("question")}
+                                                /> Tip about the question
+                                            </label>
+                                        </div>
+                                        <textarea
+                                            value={tipDraft}
+                                            onChange={(e) => setTipDraft(e.target.value)}
+                                            placeholder="e.g. the 儿 here is a rhotic suffix, blend it into the vowel rather than pronouncing it separately"
+                                            rows={3}
+                                        />
+                                        <div>
+                                            <button type="button" onClick={saveTip} disabled={tipSaveState === 'saving'}>
+                                                {tipSaveState === 'saving' ? 'Saving…' : 'Save tip'}
+                                            </button>
+                                            <button type="button" onClick={() => setShowTipForm(false)} style={{ marginLeft: '0.5rem' }}>
+                                                Cancel
+                                            </button>
+                                            {tipSaveState === 'saved' && <span style={{ marginLeft: '0.5rem', color: 'green' }}>Saved ✓</span>}
+                                            {tipSaveState === 'error' && <span style={{ marginLeft: '0.5rem', color: '#c0392b' }}>Failed to save</span>}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
 
                             <button onClick={() => onAdvanceQuestion(transcriptionResult.is_correct)}>Continue</button>
                             <button onClick={onTryAgain}>Try Again</button>

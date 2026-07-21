@@ -52,6 +52,7 @@ export default function Question({
     setUserAnswer,
     answerState,
     lastUserAnswer,
+    isGrading,
     onSubmit,
     onNext,
     onMarkCorrect,
@@ -66,6 +67,37 @@ export default function Question({
     const isWrong = answerState === 'incorrect';
 
     const [correctPinyin, setCorrectPinyin] = useState("");
+
+    // ── Tip UI state ──────────────────────────────────────────────
+    const [showTipForm, setShowTipForm] = useState(false);
+    const [tipKeyType, setTipKeyType] = useState("answer");
+    const [tipDraft, setTipDraft] = useState("");
+    const [tipSaveState, setTipSaveState] = useState(null); // null | 'saving' | 'saved' | 'error'
+
+    // reset the tip form whenever the question changes
+    useEffect(() => {
+        setShowTipForm(false);
+        setTipKeyType("answer");
+        setTipDraft("");
+        setTipSaveState(null);
+    }, [currentQuestionObj]);
+
+    const saveTip = async () => {
+        const keyValue = tipKeyType === "question" ? currentQuestionObj.question : currentQuestionObj.answer;
+        if (!tipDraft.trim() || !keyValue) return;
+        setTipSaveState('saving');
+        try {
+            await fetch('/api/tips', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ key_type: tipKeyType, key_value: keyValue, tip: tipDraft.trim() }),
+            });
+            setTipSaveState('saved');
+        } catch (err) {
+            console.error("Failed to save tip", err);
+            setTipSaveState('error');
+        }
+    };
 
     useEffect(() => {
         if (isWrong && isListening) {
@@ -99,11 +131,11 @@ export default function Question({
                     <ClickableText text={currentQuestionObj.question} tags={currentQuestionObj.tags || []} isUnitTest={sessionType === "unit_test"} />
                 </h1>
             )}
-            
+
             {showReplayButton && (
                 <>
-                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.question)}>🔊 Replay</button>
-                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.question, true)}>🐢 Slow</button>
+                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.question)} disabled={isGrading}>🔊 Replay</button>
+                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.question, true)} disabled={isGrading}>🐢 Slow</button>
                 </>
             )}
 
@@ -124,6 +156,54 @@ export default function Question({
                     {TYPES_MISSING_ENGLISH.has(currentQuestionObj.question_type) && currentQuestionObj.english && (
                         <p>Translation: <strong>{currentQuestionObj.english}</strong></p>
                     )}
+
+                    {currentQuestionObj.tip && (
+                        <p className="question-tip">💡 Tip: {currentQuestionObj.tip}</p>
+                    )}
+
+                    <div className="tip-editor" style={{ marginTop: '0.75rem', fontSize: '0.85rem', opacity: 0.85 }}>
+                        {!showTipForm ? (
+                            <button type="button" onClick={() => setShowTipForm(true)}>
+                                {currentQuestionObj.tip ? 'Edit tip' : '+ Add a tip'}
+                            </button>
+                        ) : (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', maxWidth: 420 }}>
+                                <div>
+                                    <label style={{ marginRight: '1rem' }}>
+                                        <input
+                                            type="radio"
+                                            checked={tipKeyType === "answer"}
+                                            onChange={() => setTipKeyType("answer")}
+                                        /> Tip about the answer
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            checked={tipKeyType === "question"}
+                                            onChange={() => setTipKeyType("question")}
+                                        /> Tip about the question
+                                    </label>
+                                </div>
+                                <textarea
+                                    value={tipDraft}
+                                    onChange={(e) => setTipDraft(e.target.value)}
+                                    placeholder="e.g. 他在哪儿呢 adds a softening/curious tone vs plain 他在哪儿"
+                                    rows={3}
+                                />
+                                <div>
+                                    <button type="button" onClick={saveTip} disabled={tipSaveState === 'saving'}>
+                                        {tipSaveState === 'saving' ? 'Saving…' : 'Save tip'}
+                                    </button>
+                                    <button type="button" onClick={() => setShowTipForm(false)} style={{ marginLeft: '0.5rem' }}>
+                                        Cancel
+                                    </button>
+                                    {tipSaveState === 'saved' && <span style={{ marginLeft: '0.5rem', color: 'green' }}>Saved ✓</span>}
+                                    {tipSaveState === 'error' && <span style={{ marginLeft: '0.5rem', color: '#c0392b' }}>Failed to save</span>}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
                     <button type="button" onClick={onNext}>Next</button>
                 </div>
             )}
@@ -131,15 +211,17 @@ export default function Question({
             {!hasAnswered && (
                 <form onSubmit={onSubmit}>
                     {needsIME(currentQuestionObj.question_type)
-                        ? <ChineseIMEInput value={userAnswer} onChange={(val) => setUserAnswer(val)} autoFocus />
-                        : <input value={userAnswer} onChange={(e) => setUserAnswer(e.target.value)} autoFocus />
+                        ? <ChineseIMEInput value={userAnswer} onChange={(val) => setUserAnswer(val)} autoFocus disabled={isGrading} />
+                        : <input value={userAnswer} onChange={(e) => setUserAnswer(e.target.value)} autoFocus disabled={isGrading} />
                     }
-                    <button type="submit">Submit</button>
+                    <button type="submit" disabled={isGrading}>
+                        {isGrading ? "Checking…" : "Submit"}
+                    </button>
                 </form>
             )}
 
             {debug && !hasAnswered && (
-                <button type="button" onClick={onMarkCorrect}>✓ Mark correct (debug)</button>
+                <button type="button" onClick={onMarkCorrect} disabled={isGrading}>✓ Mark correct (debug)</button>
             )}
         </div>
     );

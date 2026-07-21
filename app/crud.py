@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models.user import StrengthTable, User, SoundProgress, WordTierProgress
+from models.user import StrengthTable, User, SoundProgress, WordTierProgress, SeenQuestion
 from datetime import datetime, timedelta
 
 SOUND_UNLOCK_SUCCESSES = 1
@@ -109,6 +109,29 @@ def update_after_answer(db: Session, user_id: int, tag: str, facet: str,
     db.commit()
     db.refresh(row)
     return {"tag": tag, "facet": facet, "correct_count": row.correct_count, "stability": row.stability}
+
+
+def update_miss_count(db: Session, user_id: int, tag: str, facet: str,
+                      delta: int, attempts: int = 0):
+    """Adjust a (tag, facet) row's recent-struggle signal (Option B).
+
+    miss_count is a single integer of RECENT net struggle: a submit with misses
+    adds them (delta = +misses), a clean submit forgives one (delta = -1). It's
+    floored at 0, so demonstrated success decays struggle -- no timestamps, no
+    time-based decay. attempt_count accumulates total question appearances for a
+    true rate later if wanted. Creates the row if missing."""
+    row = get_strength_row(db, user_id, tag, facet)
+    if not row:
+        row = StrengthTable(
+            tag=tag, user_id=user_id, facet=facet,
+            correct_count=0, stability=STABILITY_FLOOR, last_practice=datetime.utcnow(),
+        )
+        db.add(row)
+    row.miss_count = max((row.miss_count or 0) + delta, 0)
+    row.attempt_count = (row.attempt_count or 0) + attempts
+    db.commit()
+    db.refresh(row)
+    return row
 
 
 def update_after_answer_for_question(db: Session, user_id: int, tag: str,
@@ -249,3 +272,35 @@ def advance_tier(db: Session, user_id: int, tag: str):
     db.commit()
     db.refresh(row)
     return row
+
+
+# ----------------------------- PER-QUESTION EXPOSURE -----------------------------
+# Tag-level correct_count/tier tell the selector WHICH tag to pick, but a tag
+# can have many question variants -- these track WHICH SPECIFIC questions a
+# user has actually been shown, so selection can prefer variety over uniform
+# random choice (see generate_tier_questions in session.py).
+
+def get_seen_question_counts(db: Session, user_id: int) -> dict:
+    """{question_id: times_shown} for every question this user has ever been
+    shown. One query, used once per session-generation call."""
+    rows = db.query(SeenQuestion).filter(SeenQuestion.user_id == user_id).all()
+    return {r.question_id: r.times_shown for r in rows}
+
+
+def record_question_shown(db: Session, user_id: int, question_id: str):
+    """Increment exposure for one question ID. Called from submit_session for
+    every question actually completed (right or wrong -- a missed, requeued
+    question was still SEEN each time it appeared, which is the correct
+    exposure count even though it's not what advances tier/strength)."""
+    if not question_id:
+        return
+    row = db.query(SeenQuestion).filter(
+        SeenQuestion.user_id == user_id,
+        SeenQuestion.question_id == question_id,
+    ).first()
+    if not row:
+        row = SeenQuestion(user_id=user_id, question_id=question_id, times_shown=0)
+        db.add(row)
+    row.times_shown = (row.times_shown or 0) + 1
+    row.last_shown = datetime.utcnow()
+    db.commit()

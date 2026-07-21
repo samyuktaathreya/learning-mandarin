@@ -1,8 +1,9 @@
-from fastapi import APIRouter, Depends, Body
+from fastapi import APIRouter, Depends, Body, HTTPException
 from sqlalchemy.orm import Session
 from database import SessionLocal, inverted_index, tags_to_unit_dict, unit_to_vocab_tags_dict, unit_questions, META_TAGS, hsk1_dictionary, word_to_pinyin
 from schemas.user import SessionResponse
 from pinyin_utils import split_pinyin_sounds, GATED_INITIALS, GATED_FINALS
+from models.user import QuestionTip
 import crud
 from datetime import datetime
 import random
@@ -41,6 +42,17 @@ TIER4_DOWNSHIFT_PROBABILITY = 0.20
 # is in its "final push" -- tier-4 words stop downshifting so every serve
 # pushes directly toward graduation.
 FINAL_PUSH_UNGRADUATED_THRESHOLD = 5
+
+# Struggle-based selection (uses StrengthTable.miss_count, the Option-B recent
+# struggle signal). A word's selection weight gets a bonus proportional to its
+# collapsed (max across facets) miss_count, so words you keep missing surface
+# more often. And a struggling word (miss >= MISS_DOWNSHIFT_THRESHOLD) is always
+# served one tier EASIER, so it gets consistent gentle practice. It can't advance
+# while downshifted (advancement needs a clean answer AT the word's real tier),
+# so the only way out is answering cleanly until miss_count decays back below the
+# threshold -- at which point downshift stops and it sees its real tier again.
+MISS_WEIGHT_FACTOR = 1.0            # added weight per point of miss_count
+MISS_DOWNSHIFT_THRESHOLD = 2        # miss_count at/above which the word is downshifted
 
 # The tier a word must reach before it can enter per-word review. == crud.MAX_TIER.
 MAX_TIER_FOR_REVIEW = 4
@@ -109,16 +121,28 @@ def get_collapsed_progress(db: Session, user_id: int):
     return collapse_facets(crud.get_progress_by_user(db, user_id))
 
 
-def is_unit_graduated(tag_records: list, unit_tags: set) -> bool:
+def is_unit_graduated(db: Session, user_id: int, tag_records: list, unit_tags: set) -> bool:
     """unit_tags should be the unit's own vocab/grammar/proper-noun words
     (unit_to_vocab_tags_dict), not unit_to_tags_dict -- the latter also
     includes any word a sentence in this unit happens to contain as a
     substring, even one taught in a later unit, which would make graduation
-    depend on words this unit never actually teaches."""
+    depend on words this unit never actually teaches.
+
+    Requires BOTH: correct_count >= GRADUATION_THRESHOLD (min across facets)
+    AND tier == MAX_TIER for every word. These used to move together roughly,
+    but the struggle-downshift system decouples them -- a word can rack up a
+    high correct_count while the miss-based downshift holds its tier down (see
+    MISS_DOWNSHIFT_THRESHOLD). Without the tier check, a unit could be marked
+    ready-to-test while a word is still stuck being served easy questions,
+    which is wrong: the unit test should only unlock once every word has
+    actually climbed back to tier 4, proving the struggle was resolved."""
     record_map = {r.tag: r for r in tag_records}
+    tiers = crud.get_tiers_for_tags(db, user_id, unit_tags)
     for tag in unit_tags:
         record = record_map.get(tag)
         if not record or record.correct_count < GRADUATION_THRESHOLD:
+            return False
+        if tiers.get(tag, 1) < MAX_TIER_FOR_REVIEW:
             return False
     return True
 
@@ -186,16 +210,30 @@ def generate_tier_questions(db: Session, user_id: int, unit: int, tiers: dict):
 
     # per-facet counts, not the collapsed min -- we need to know WHICH facet
     # is weak, which the collapse throws away. One query; min falls out free.
+    # Same pass grabs miss_count per facet for the struggle signal.
     facet_counts = {t: {"character": 0, "pinyin": 0} for t in unit_tags}
+    facet_miss = {t: {"character": 0, "pinyin": 0} for t in unit_tags}
     for r in crud.get_progress_by_user(db, user_id):
         if r.tag in facet_counts and r.facet in facet_counts[r.tag]:
             facet_counts[r.tag][r.facet] = r.correct_count
+            facet_miss[r.tag][r.facet] = r.miss_count or 0
 
     min_counts = {t: min(facet_counts[t]["character"], facet_counts[t]["pinyin"])
                   for t in unit_tags}
+    # collapse miss to the MAX across facets -- a word is "struggling" if EITHER
+    # facet is being missed, so we surface/downshift on the worse facet.
+    miss_counts = {t: max(facet_miss[t]["character"], facet_miss[t]["pinyin"])
+                   for t in unit_tags}
 
     ungraduated = sum(1 for t in unit_tags if min_counts[t] < GRADUATION_THRESHOLD)
     final_push = ungraduated < FINAL_PUSH_UNGRADUATED_THRESHOLD
+
+    # per-question exposure -- lets the choice WITHIN a (tag, type) prefer
+    # variety instead of uniform random.choice every time. A tag's selection
+    # weight drops fast as its correct_count climbs, so without this a tag can
+    # stop being drawn long before all its question variants have been shown
+    # (see SeenQuestion in models/user.py).
+    seen_counts = crud.get_seen_question_counts(db, user_id)
 
     used_ids = set()
     tag_counts = {}
@@ -224,10 +262,20 @@ def generate_tier_questions(db: Session, user_id: int, unit: int, tiers: dict):
         pool = [t for t in unit_tags if tag_counts.get(t, 0) < MAX_SAME_TAG_PER_SESSION]
         if not pool:
             return False
-        weights = [1.0 / (min_counts[t] + 1) for t in pool]
+        # base weight favors low min_count (struggling-to-graduate words); the
+        # miss term adds pull for words being answered wrong recently.
+        weights = [1.0 / (min_counts[t] + 1) + MISS_WEIGHT_FACTOR * miss_counts[t]
+                   for t in pool]
         tag = random.choices(pool, weights=weights, k=1)[0]
 
         serve_tier = _active_tier_for_serve(tiers.get(tag, 1), final_push)
+        # struggle downshift: a word missed recently (miss >= threshold) is
+        # always served one tier easier for consistent gentle practice. It
+        # can't advance while downshifted (advancement needs a clean answer at
+        # the real tier), so it must answer cleanly until miss_count decays
+        # below the threshold, then it sees its real tier again. Never below 1.
+        if miss_counts[tag] >= MISS_DOWNSHIFT_THRESHOLD and serve_tier > 1:
+            serve_tier -= 1
         cap = _type_cap_for_tier(serve_tier)
 
         for qt in _ordered_types(tag, serve_tier):
@@ -241,7 +289,16 @@ def generate_tier_questions(db: Session, user_id: int, unit: int, tiers: dict):
             ]
             if not avail:
                 continue
-            chosen = random.choice(avail)
+            # variety-first: never-shown variants win outright; once every
+            # variant has been shown at least once, fall back to the
+            # least-shown among them (uniform random within that tier).
+            unseen = [q for q in avail if q["id"] not in seen_counts]
+            if unseen:
+                chosen = random.choice(unseen)
+            else:
+                min_shown = min(seen_counts.get(q["id"], 0) for q in avail)
+                least_shown = [q for q in avail if seen_counts.get(q["id"], 0) == min_shown]
+                chosen = random.choice(least_shown)
             picks.append((chosen, tag))
             used_ids.add(chosen["id"])
             tag_counts[tag] = tag_counts.get(tag, 0) + 1
@@ -334,17 +391,23 @@ def _due_review_facets(db: Session, user_id: int) -> list:
     return [(tag, facet) for tag, facet, _ in scored]
 
 
-def _pick_review_question(tag: str, facet: str, used_ids: set, max_unit: int):
+def _pick_review_question(tag: str, facet: str, used_ids: set, max_unit: int, seen_counts: dict):
     """Pick a tier-3/4 question that exercises THIS facet for this word. No
     weak-facet logic and no downshift -- the due facet is already known, so we
     just serve a sentence-level question that trains it. If none exists for
     this word/facet, return None (the facet stays due).
 
-    Unit-bounded: a due facet can be reviewed with a question from any unit the
-    learner has REACHED (unit <= max_unit), but never from a unit they haven't
-    unlocked yet. A review sentence from a future unit could contain words the
-    learner hasn't learned, so those are excluded even if the due word appears
-    in them."""
+    Unit-bounded to COMPLETED units (q.unit <= max_unit, where max_unit is
+    current_unit - 1). The current unit is still being learned, so its
+    sentences can contain words the learner hasn't reached yet -- reviewing via
+    such a sentence would surface unknown material. So review draws only from
+    units strictly before the current one.
+
+    Variety-first, same as generate_tier_questions: never-shown variants win
+    outright; once every variant of this (tag, type) has been shown at least
+    once, fall back to the least-shown among them. Without this a review word
+    can get the same 1-2 sentences repeated indefinitely while other variants
+    of it never surface."""
     types = list(REVIEW_TYPES_BY_FACET[facet])
     random.shuffle(types)
     for qt in types:
@@ -354,8 +417,14 @@ def _pick_review_question(tag: str, facet: str, used_ids: set, max_unit: int):
             and q["id"] not in used_ids
             and q.get("unit", 0) <= max_unit
         ]
-        if pool:
-            return random.choice(pool)
+        if not pool:
+            continue
+        unseen = [q for q in pool if q["id"] not in seen_counts]
+        if unseen:
+            return random.choice(unseen)
+        min_shown = min(seen_counts.get(q["id"], 0) for q in pool)
+        least_shown = [q for q in pool if seen_counts.get(q["id"], 0) == min_shown]
+        return random.choice(least_shown)
     return None
 
 
@@ -367,14 +436,16 @@ def generate_review_questions(db, user_id, used_ids, limit=None):
     questions (one per facet). We stop once `limit` questions have been picked,
     so the weakest items are always served first. limit=None means uncapped.
 
-    Review questions are bounded to units the learner has reached (<= current
-    unit) -- never a future, unlocked unit."""
-    max_unit = crud.get_user(db, user_id).current_unit
+    Review questions come only from COMPLETED units (strictly before the
+    current unit) -- never the current unit (still being learned) or any future
+    unit, since those can contain words the learner hasn't reached yet."""
+    max_unit = crud.get_user(db, user_id).current_unit - 1
+    seen_counts = crud.get_seen_question_counts(db, user_id)
     picks = []
     for tag, facet in _due_review_facets(db, user_id):
         if limit is not None and len(picks) >= limit:
             break
-        q = _pick_review_question(tag, facet, used_ids, max_unit)
+        q = _pick_review_question(tag, facet, used_ids, max_unit, seen_counts)
         if q:
             picks.append((q, tag))
             used_ids.add(q["id"])
@@ -481,6 +552,39 @@ def generate_unit_test(user_id: int, unit: int) -> SessionResponse:
 
     return SessionResponse(user_id=user_id, session_type="unit_test", question_set=selected)
 
+# ----------------------------- TIPS -----------------------------
+# Learner-authored notes attached to a question's TEXT (question or answer
+# string), shown after submit. See QuestionTip in models/user.py.
+
+def attach_tips(db: Session, session_response: SessionResponse) -> SessionResponse:
+    """Mutates each question dict in session_response.question_set, adding a
+    'tip' key when a matching QuestionTip exists. Checks the question's own
+    'question' text first, then its 'answer' text -- whichever matches first
+    wins (a question having tips keyed on BOTH its question and answer text is
+    unlikely enough not to special-case; see the design discussion). One bulk
+    query per session rather than one per question."""
+    texts = set()
+    for q in session_response.question_set:
+        if q.get("question"):
+            texts.add(q["question"])
+        if q.get("answer"):
+            texts.add(q["answer"])
+    if not texts:
+        return session_response
+
+    rows = db.query(QuestionTip).filter(QuestionTip.key_value.in_(texts)).all()
+    tip_map = {(r.key_type, r.key_value): r.tip for r in rows}
+
+    for q in session_response.question_set:
+        tip = tip_map.get(("question", q.get("question")))
+        if tip is None:
+            tip = tip_map.get(("answer", q.get("answer")))
+        if tip is not None:
+            q["tip"] = tip
+
+    return session_response
+
+
 # ----------------------------- ENDPOINTS -----------------------------
 
 @router.get("/api/generate_session/{user_id}", response_model=SessionResponse)
@@ -503,15 +607,21 @@ def generate_session(user_id: int, mode: str = "sentence", skip_review: bool = F
     unit_records = [r for r in all_records if r.tag in unit_tags]
 
     # unit graduation only decides whether the unit test is unlocked.
-    if is_unit_graduated(unit_records, unit_tags):
-        return generate_unit_test(user_id, user_unit)
+    if is_unit_graduated(db, user_id, unit_records, unit_tags):
+        return attach_tips(db, generate_unit_test(user_id, user_unit))
 
     # review-first gate: if anything is due and the user hasn't opted out,
-    # serve review only.
+    # serve review only -- BUT only if review actually produces questions. Due
+    # facets can be unservable (e.g. their only questions were already used this
+    # cycle), in which case we must fall through to learning rather than return
+    # an empty session. A session should never be empty while learning material
+    # remains.
     if not skip_review and review_due_word_count(db, user_id) > 0:
-        return generate_review_session(db, user_id)
+        review_session = generate_review_session(db, user_id)
+        if review_session.question_set:
+            return attach_tips(db, review_session)
 
-    return generate_practice_session(db, user_id, user_unit)
+    return attach_tips(db, generate_practice_session(db, user_id, user_unit))
 
 
 @router.patch("/api/submit_session/{user_id}")
@@ -532,7 +642,6 @@ def submit_session(
     # matched against this fixed snapshot for every question below, which is
     # what makes the per-(submit, tag) dedupe correct.
     starting_tiers = crud.get_tiers_for_tags(db, user_id, submit_tags) if submit_tags else {}
-    advanced_this_submit = set()
 
     # per-FACET review-eligibility as of the START of this submission. Option C:
     # stability only grows once a facet is review-eligible, so we compute each
@@ -554,28 +663,78 @@ def submit_session(
         for t in submit_tags
     }
 
+    # per-(tag, facet) tallies for THIS submit -- attempts and misses. A
+    # requeued question appears multiple times in the log (wrong, then later
+    # right); each appearance is one attempt, each is_correct=False is one miss.
+    # We tally across the whole submit first, then apply consequences after the
+    # loop, because "clean" (zero misses) can only be judged once every
+    # appearance of a tag has been seen.
+    facet_attempts = {}   # (tag, facet) -> int
+    facet_misses = {}     # (tag, facet) -> int
+    tag_misses = {}       # tag -> int  (across all facets; gates tier advance)
+
     for i, question_data in enumerate(list_of_question_data):
         question_type = question_data.get("question_type", "")
+        correct = is_correct[i]
+
+        # per-question exposure -- once per appearance (right or wrong; a
+        # missed, requeued question really was shown again each time). This is
+        # what lets learning-phase selection prefer unseen variants over a
+        # uniform random pick, so coverage doesn't quietly narrow to a handful
+        # of favorites before a tag's selection weight drops off.
+        crud.record_question_shown(db, user_id, question_data.get("id"))
+
         for tag in question_data.get("tags", []):
             if tag in META_TAGS or tag.startswith("unit_"):
                 continue
             crud.update_after_answer_for_question(
-                db, user_id, tag, question_type, is_correct[i],
+                db, user_id, tag, question_type, correct,
                 facet_eligible=starting_facet_eligible.get(tag, {}),
             )
 
-            # exposure on the word's current tier's own question types
-            # advances it one tier, right or wrong; a lower-tier (downshifted)
-            # question never advances it. At most one advance per tag here.
-            if tag not in advanced_this_submit:
-                current_tier = starting_tiers.get(tag, 1)
-                if question_type in TIER_QUESTION_TYPES.get(current_tier, set()):
-                    crud.advance_tier(db, user_id, tag)
-                    advanced_this_submit.add(tag)
+            # tally attempts/misses per facet this question exercises
+            for facet in crud.facets_for_question_type(question_type):
+                key = (tag, facet)
+                facet_attempts[key] = facet_attempts.get(key, 0) + 1
+                if not correct:
+                    facet_misses[key] = facet_misses.get(key, 0) + 1
+            if not correct:
+                tag_misses[tag] = tag_misses.get(tag, 0) + 1
 
         if question_type == "speaking vocab":
             for sound in _tag_sounds(question_data.get("question", "")):
                 crud.record_sound_attempt(db, user_id, sound, is_correct[i])
+
+    # ---- after the loop: apply per-submit consequences ----
+
+    # tier advancement, now gated on CLEAN (zero misses on the tag this submit).
+    # A word only levels up if it was answered right first-try every time it
+    # appeared; any miss holds it at its tier for more practice. Still requires
+    # the tag to have been served a question of its CURRENT tier (a downshifted
+    # / lower-tier question never advances it). One advance per tag max.
+    tags_served_at_current_tier = set()
+    for question_data in list_of_question_data:
+        qt = question_data.get("question_type", "")
+        for tag in question_data.get("tags", []):
+            if tag in META_TAGS or tag.startswith("unit_"):
+                continue
+            if qt in TIER_QUESTION_TYPES.get(starting_tiers.get(tag, 1), set()):
+                tags_served_at_current_tier.add(tag)
+
+    for tag in submit_tags:
+        if tag in tags_served_at_current_tier and tag_misses.get(tag, 0) == 0:
+            crud.advance_tier(db, user_id, tag)
+
+    # Option-B miss_count update, per (tag, facet):
+    #   clean facet this submit (attempts > 0, zero misses) -> miss_count -= 1
+    #   any miss on the facet                              -> miss_count += misses
+    # Struggle "decays" through demonstrated success, not through time.
+    seen_facets = set(facet_attempts.keys())
+    for (tag, facet) in seen_facets:
+        misses = facet_misses.get((tag, facet), 0)
+        delta = misses if misses > 0 else -1
+        crud.update_miss_count(db, user_id, tag, facet, delta,
+                               attempts=facet_attempts[(tag, facet)])
 
     unit_test_result = "unit test not taken"
 
@@ -598,7 +757,7 @@ def debug(user_id: int, db: Session = Depends(get_db)):
     unit_tags = unit_to_vocab_tags_dict.get(user.current_unit, set())
     all_records = get_collapsed_progress(db, user_id)
     unit_records = [r for r in all_records if r.tag in unit_tags]
-    graduated = is_unit_graduated(unit_records, unit_tags)
+    graduated = is_unit_graduated(db, user_id, unit_records, unit_tags)
     session = generate_practice_session(db, user_id, user.current_unit)
     tiers = crud.get_tiers_for_tags(db, user_id, unit_tags)
 
@@ -742,6 +901,36 @@ def unit_detail(user_id: int, unit: int, db: Session = Depends(get_db)):
         "is_graduated": unit in graduated_units,
         "words": words,
     }
+
+
+@router.post("/api/tips")
+def save_tip(payload: dict = Body(...), db: Session = Depends(get_db)):
+    """Save (or overwrite) a learner-authored tip keyed on a question's or
+    answer's exact text. Body: { key_type: "question"|"answer", key_value: str,
+    tip: str }. Overwrites any existing tip for the same (key_type, key_value)
+    rather than erroring or duplicating."""
+    key_type = payload.get("key_type")
+    key_value = (payload.get("key_value") or "").strip()
+    tip_text = (payload.get("tip") or "").strip()
+
+    if key_type not in ("question", "answer"):
+        raise HTTPException(status_code=400, detail="key_type must be 'question' or 'answer'")
+    if not key_value or not tip_text:
+        raise HTTPException(status_code=400, detail="key_value and tip are required")
+
+    row = db.query(QuestionTip).filter(
+        QuestionTip.key_type == key_type,
+        QuestionTip.key_value == key_value,
+    ).first()
+    if row:
+        row.tip = tip_text
+        row.updated_at = datetime.utcnow()
+    else:
+        row = QuestionTip(key_type=key_type, key_value=key_value, tip=tip_text)
+        db.add(row)
+    db.commit()
+
+    return {"key_type": key_type, "key_value": key_value, "tip": tip_text}
 
 
 @router.get("/api/lookup/{hanzi}")
