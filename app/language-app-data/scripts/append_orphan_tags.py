@@ -62,16 +62,19 @@ def parse_dictionary_response(api_data):
 
 def find_example_sentence(units_data, unit, word):
     """
-    Looks up a sentence for `word` within the given unit, using the
-    units_output.json schema:
-        units_data[unit]["sentences"] -> [{"hanzi", "english", "tags", "pinyin"}, ...]
+    Looks up a sentence for `word` within the given unit, checking two
+    sources in units_output.json:
+        units_data[unit]["sentences"]          -> [{"hanzi", "tags", ...}, ...]
+        units_data[unit]["fill_in_the_blank"]   -> [{"answer", "full_sentence", ...}, ...]
 
-    Each sentence explicitly lists the vocab words it contains in "tags",
-    so we match on that rather than substring-searching "hanzi" (substring
-    matching could false-positive, e.g. matching '你' inside '你们').
+    "sentences" entries explicitly list their vocab words in "tags", so we
+    match on that rather than substring-searching "hanzi" (substring matching
+    could false-positive, e.g. matching '你' inside '你们'). "fill_in_the_blank"
+    entries have no "tags" field, but "answer" IS the word itself, so an exact
+    match against "answer" plays the same role.
 
-    Prefers the shortest matching sentence (simpler context = cleaner
-    definition for a first introduction of the word).
+    Prefers the shortest matching sentence across both sources (simpler
+    context = cleaner definition for a first introduction of the word).
     """
     unit_data = units_data.get(str(unit)) or units_data.get(unit)
     if not unit_data:
@@ -82,6 +85,12 @@ def find_example_sentence(units_data, unit, word):
         for s in unit_data.get("sentences", [])
         if word in s.get("tags", []) and s.get("hanzi")
     ]
+    candidates += [
+        fitb["full_sentence"]
+        for fitb in unit_data.get("fill_in_the_blank", [])
+        if fitb.get("answer") == word and fitb.get("full_sentence")
+    ]
+
     if not candidates:
         return None
 
@@ -198,29 +207,42 @@ def sync_index_definitions():
                 valid_indexed_words.add(hanzi)
 
     # 2. Build the full set of (word, unit) pairs that SHOULD be indexed.
-    # This has to come from two places:
+    # This has to come from three places:
     #   - unit_vocab_tags.json: your curated vocab list
-    #   - units_output.json sentence "tags": the words that actually appear
-    #     in sentences, which is the ground truth for "what will the learner
-    #     be asked about." A word can appear in a sentence's tags without
-    #     ever having been added to unit_vocab_tags.json (e.g. '分'), and
-    #     the old version of this script had no way of catching that since
-    #     it only ever looked at unit_vocab_tags.json.
+    #   - units_output.json "sentences[].tags": words that actually appear in
+    #     sentences -- ground truth for what a learner will be tested on
+    #   - units_output.json "fill_in_the_blank[].answer": the blanked-out word
+    #     itself. These have no "tags" field, but "answer" IS the word, and a
+    #     word can appear ONLY here (e.g. '身体' in a fill-in-the-blank) without
+    #     ever showing up in a sentence's tags or unit_vocab_tags.json -- the
+    #     old version of this script had no way of catching that.
+    #
+    # Units are walked in ascending numeric order (not dict/insertion order)
+    # so "first unit a word is seen in" is actually its earliest unit, since a
+    # word can recur across many later units once introduced.
     word_units = {}  # word -> unit (first unit it's seen in)
 
-    sorted_units = sorted([int(u) for u in vocab_data.keys() if u.isdigit()])
-    for unit in sorted_units:
+    all_unit_numbers = sorted({
+        int(u) for u in set(vocab_data.keys()) | set(units_data.keys())
+        if u.isdigit()
+    })
+
+    for unit in all_unit_numbers:
         unit_str = str(unit)
+
         for tag in vocab_data.get(unit_str, []):
             word_units.setdefault(tag, unit)
 
-    for unit_str, unit_data in units_data.items():
-        if not unit_str.isdigit():
-            continue
-        unit = int(unit_str)
+        unit_data = units_data.get(unit_str, {})
+
         for sentence in unit_data.get("sentences", []):
             for tag in sentence.get("tags", []):
                 word_units.setdefault(tag, unit)
+
+        for fitb in unit_data.get("fill_in_the_blank", []):
+            answer = fitb.get("answer")
+            if answer:
+                word_units.setdefault(answer, unit)
 
     # 3. Diff against what's already validly indexed
     missing_by_unit = []
