@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, DateTime, UniqueConstraint, String
+from sqlalchemy import Column, Integer, Float, DateTime, UniqueConstraint, String, Text
 from sqlalchemy.dialects.sqlite import TEXT
 from database import Base
 from datetime import datetime
@@ -95,6 +95,37 @@ class AcceptedAnswer(Base):
     )
 
 
+class FlaggedMismatch(Base):
+    """A (question, expected_answer) pair the AI grader flagged as NOT actually
+    matching -- e.g. OCR/pipeline produced an 'expected' translation that
+    doesn't correspond to the Chinese question shown (see the '六点三十分'
+    bug: expected was a whole different sentence's translation).
+
+    This is a detection log, not a fix: grading routes around a flagged pair
+    live (grades the learner against the question's real meaning instead of
+    the bad expected), and this table lets you batch-reprocess the underlying
+    OCR/data pipeline for the affected sentences instead of hand-fixing them
+    one at a time as they're discovered.
+
+    Unique on (question, expected_answer) so repeated hits on the same bad
+    pair don't spam duplicate rows -- flagged_count tracks how often it
+    recurs, which doubles as a rough severity/frequency signal for triage."""
+    __tablename__ = "flagged_mismatches"
+
+    id = Column(Integer, primary_key=True, index=True)
+    question = Column(TEXT, nullable=False)
+    expected_answer = Column(TEXT, nullable=False)
+    direction = Column(TEXT, nullable=False)  # "ch->en" or "en->ch"
+    reasoning = Column(Text, nullable=True)
+    flagged_count = Column(Integer, default=1)
+    first_flagged_at = Column(DateTime, default=datetime.utcnow)
+    last_flagged_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    __table_args__ = (
+        UniqueConstraint('question', 'expected_answer', name='_question_expected_uc'),
+    )
+
+
 class QuestionTip(Base):
     """A learner-authored note attached to a question's TEXT (either its
     'question' string or its 'answer' string), shown to future learners after
@@ -141,3 +172,11 @@ class SeenQuestion(Base):
         UniqueConstraint('user_id', 'question_id', name='_user_question_uc'),
     )
  
+class DictionaryEntry(Base):
+    __tablename__ = "dictionary_entries"
+
+    id = Column(Integer, primary_key=True, index=True)
+    traditional = Column(String, index=True)
+    simplified = Column(String, index=True) # Indexed for fast lookups
+    pinyin = Column(String)
+    english = Column(Text) # Stores definition string/JSON

@@ -49,7 +49,14 @@ const playAudio = async (text, slow = false) => {
             body: JSON.stringify({ text, slow }),
         });
         const { audio } = await response.json();
-        new Audio(`data:audio/mpeg;base64,${audio}`).play();
+        const audioElement = new Audio(`data:audio/mpeg;base64,${audio}`);
+        
+        // Return a promise that resolves ONLY when the audio is done playing
+        return new Promise((resolve) => {
+            audioElement.onended = resolve;
+            audioElement.onerror = resolve; // resolve on error so user isn't stuck
+            audioElement.play().catch(resolve);
+        });
     } catch (error) {
         console.error("Failed to play audio", error);
     }
@@ -132,9 +139,13 @@ export default function DuolingoStyleQuestions() {
 
         const { question, question_type } = currentQuestionObj;
         const isListening = question_type === "listening vocab" || question_type === "listening sentence";
+        
+        // Exclude fill in the blank and speaking questions from auto-play
         const shouldAutoPlay =
             question_type !== "fill in the blank" &&
+            !isSpeakingQuestion(question_type) && 
             (/[\u4e00-\u9fff]/.test(question) || isListening);
+            
         if (shouldAutoPlay) playAudio(question);
     }, [currentIndex, questions]);
 
