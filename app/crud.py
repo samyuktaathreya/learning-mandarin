@@ -364,3 +364,24 @@ def get_flagged_mismatches(db: Session, min_flagged_count: int = 1, limit: int =
         .limit(limit)
         .all()
     )
+
+def get_known_vocab_tags(db: Session, user_id: int, min_correct: int = 1) -> list[str]:
+    rows = (
+        db.query(StrengthTable.tag)
+        .filter(
+            StrengthTable.user_id == user_id,
+            StrengthTable.facet == "character",
+            StrengthTable.correct_count >= min_correct,
+        )
+        .distinct()
+        .all()
+    )
+    return [r.tag for r in rows]
+
+def build_vocab_block(db: Session, tags: list[str]) -> str:
+    entries = (
+        db.query(DictionaryEntry)
+        .filter(DictionaryEntry.simplified.in_(tags))
+        .all()
+    )
+    return "\n".join(f"{e.simplified} ({e.pinyin}) - {e.english}" for e in entries)
