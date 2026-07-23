@@ -11,6 +11,7 @@ BASE_DIR = "/Users/spanishatlas/Documents/GitHub/learning-mandarin/app/language-
 UNITS_FILE = os.path.join(BASE_DIR, "data/clean/units_output.json")
 VOCAB_FILE = os.path.join(BASE_DIR, "data/clean/unit_vocab_tags.json")
 INDEX_FILE = os.path.join(BASE_DIR, "data/clean/index_output.json")
+REJECTED_VOCAB_CACHE_FILE = os.path.join(BASE_DIR, "data/intermediate/hsk1-rejected-vocab-cache.txt")
 
 API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:8000")
 DICTIONARY_API_URL = f"{API_BASE_URL}/dictionary/"
@@ -26,12 +27,185 @@ client = anthropic.Anthropic(api_key=api_key) if api_key else None
 MODEL = os.getenv("CLAUDE_MODEL", "claude-haiku-4-5-20251001")
 
 
+def load_rejected_vocab_cache() -> dict:
+    """Loads previously-rejected (non-standalone) words so they're never sent
+    to Claude again. Format: one tab-separated line per word:
+        word<TAB>unit<TAB>parent_word<TAB>reasoning
+    Returns {word: {"unit": str, "parent_word": str, "reasoning": str}}.
+    Missing file (first run) just means an empty cache -- not an error."""
+    if not os.path.exists(REJECTED_VOCAB_CACHE_FILE):
+        return {}
+
+    cache = {}
+    with open(REJECTED_VOCAB_CACHE_FILE, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.rstrip("\n")
+            if not line.strip():
+                continue
+            parts = line.split("\t")
+            # Tolerate short/malformed lines rather than crashing the whole run
+            word = parts[0] if len(parts) > 0 else ""
+            unit = parts[1] if len(parts) > 1 else ""
+            parent_word = parts[2] if len(parts) > 2 else ""
+            reasoning = parts[3] if len(parts) > 3 else ""
+            if word:
+                cache[word] = {"unit": unit, "parent_word": parent_word, "reasoning": reasoning}
+    return cache
+
+
+def append_rejected_vocab_entry(word: str, unit, parent_word: str, reasoning: str):
+    """Appends one rejected word to the cache file. Replaces newlines/tabs in
+    reasoning so the tab-separated format doesn't break."""
+    os.makedirs(os.path.dirname(REJECTED_VOCAB_CACHE_FILE), exist_ok=True)
+    safe_reasoning = (reasoning or "").replace("\t", " ").replace("\n", " ").strip()
+    safe_parent = (parent_word or "").replace("\t", " ").replace("\n", " ").strip()
+    with open(REJECTED_VOCAB_CACHE_FILE, "a", encoding="utf-8") as f:
+        f.write(f"{word}\t{unit}\t{safe_parent}\t{safe_reasoning}\n")
+
+
+def try_recover_parent_word(parent: str, unit, existing_vocab_map: dict, valid_indexed_words: set, index_data: dict) -> bool:
+    """When a tag is rejected as a sub-character of `parent` (e.g. tagging
+    split '早饭' into '早' + '饭' separately), `parent` is often the word that
+    SHOULD have been tagged. If the dictionary confirms `parent` is a real
+    headword and it isn't already indexed, add it now instead of silently
+    losing the word entirely.
+
+    Must be called on EVERY rejection -- both a freshly-Claude-rejected tag
+    and a cache-hit rejection -- otherwise a run that hits the rejected-vocab
+    cache for every tag never attempts recovery at all and silently no-ops.
+
+    IMPORTANT: a recovered word like '早饭' never appears as a "tag" anywhere
+    in units_output.json/unit_vocab_tags.json (only its split characters '早'
+    and '饭' do), so it can NEVER re-enter the normal missing_by_unit /
+    needs_retry loop once it's been added once. This function is the only
+    code path that ever looks at it again -- so if it's already indexed, this
+    re-normalizes its pinyin/english in place (e.g. fixing stale
+    'zao3 fan4' -> 'zao3fan4' spacing or stripping CC-CEDICT 'CL:' junk from
+    an entry written by an older version of this script) rather than assuming
+    "already there" means "already correct".
+
+    Returns True if the index was newly added OR changed by normalization, so
+    the caller can bump its updated_count."""
+    if not parent:
+        return False
+
+    if parent in existing_vocab_map:
+        entry = existing_vocab_map[parent]
+        normalized_pinyin = clean_pinyin(entry.get("pinyin", ""))
+        normalized_english = clean_dictionary_english(entry.get("english", ""))
+        if normalized_pinyin != entry.get("pinyin") or normalized_english != entry.get("english"):
+            print(f"  [normalized] '{parent}' had stale formatting -- "
+                  f"pinyin '{entry.get('pinyin')}' -> '{normalized_pinyin}', "
+                  f"english '{entry.get('english')}' -> '{normalized_english}'.")
+            entry["pinyin"] = normalized_pinyin
+            entry["english"] = normalized_english
+            return True
+        return False
+
+    if parent in valid_indexed_words:
+        # Indexed under grammar/proper_nouns rather than vocab, or otherwise
+        # tracked outside existing_vocab_map -- nothing for us to normalize.
+        return False
+
+    parent_pinyin, parent_english = fetch_dictionary_entry(parent)
+    if parent_pinyin == "UNKNOWN_PINYIN":
+        print(f"  [note] parent word '{parent}' isn't in the dictionary either "
+              f"-- not added. Worth checking the OCR/tagging for unit {unit} manually.")
+        return False
+
+    recovered_entry = {
+        "hanzi": parent,
+        "pinyin": parent_pinyin,
+        "english": parent_english,
+        "unit": unit,
+    }
+    index_data["vocab"].append(recovered_entry)
+    existing_vocab_map[parent] = recovered_entry
+    valid_indexed_words.add(parent)
+    print(f"  [recovered] '{parent}' is a real dictionary word (tagging had split it) "
+          f"-- added as vocab entry ({parent_pinyin}) -> {parent_english} [Unit {unit}].")
+    return True
+
+
+def fetch_dictionary_entry(word: str):
+    """Single dictionary API call for one word/character. Returns (pinyin, english),
+    both possibly the UNKNOWN_* placeholders on any failure."""
+    try:
+        response = requests.get(f"{DICTIONARY_API_URL}{word}", timeout=5)
+        if response.status_code == 200:
+            return parse_dictionary_response(response.json())
+        print(f"  [API {response.status_code}] Could not fetch definition for '{word}'")
+        return "UNKNOWN_PINYIN", "UNKNOWN_ENGLISH"
+    except requests.RequestException as e:
+        print(f"  [Connection Error] API request failed for '{word}': {e}")
+        return "UNKNOWN_PINYIN", "UNKNOWN_ENGLISH"
+
+
+def fetch_pinyin_with_char_fallback(word: str):
+    """Looks up `word` as a whole first. If the dictionary doesn't have it as
+    a single entry (common for multi-character phrases like '太热了' that
+    aren't themselves a dictionary headword), falls back to looking up each
+    character individually and joining their pinyin together -- better than
+    leaving the whole word as UNKNOWN_PINYIN.
+
+    Returns (pinyin, english). `english` is only ever the whole-word dictionary
+    definition (there's no sane way to combine per-character definitions into
+    one), so on fallback it stays whatever the whole-word lookup returned --
+    that's fine here since sync_index_definitions prefers the Claude
+    contextual definition over this anyway and only uses it when Claude's
+    definition is unavailable.
+    """
+    pinyin, english = fetch_dictionary_entry(word)
+    if pinyin != "UNKNOWN_PINYIN":
+        return pinyin, english
+
+    if len(word) <= 1:
+        return pinyin, english  # nothing smaller to fall back to
+
+    char_pinyins = []
+    any_unknown = False
+    for ch in word:
+        ch_pinyin, _ = fetch_dictionary_entry(ch)
+        if ch_pinyin == "UNKNOWN_PINYIN":
+            any_unknown = True
+            char_pinyins.append("?")
+        else:
+            char_pinyins.append(ch_pinyin)
+
+    combined_pinyin = "".join(char_pinyins)
+    if any_unknown:
+        print(f"  [warning] Could not find pinyin for every character in '{word}' "
+              f"(got '{combined_pinyin}') -- review manually.")
+    else:
+        print(f"  [fallback] '{word}' not found as a whole word; assembled pinyin "
+              f"from individual characters: '{combined_pinyin}'")
+
+    return combined_pinyin, english
+
+
+_CL_SEGMENT_RE = re.compile(r"^CL:", re.IGNORECASE)
+
+
+def clean_dictionary_english(english) -> str:
+    """CC-CEDICT often bundles a measure-word/classifier segment into the same
+    string, e.g. 'breakfast / CL:份[fen4],頓|顿[dun4],次[ci4],餐[can1]'. That's
+    correct dictionary data but not something a beginner learner needs to see
+    as their vocab definition, so strip any segment that's purely a
+    classifier note, keeping the real definition(s)."""
+    if not isinstance(english, str) or not english:
+        return english
+    parts = [p.strip() for p in english.split(" / ")]
+    kept = [p for p in parts if p and not _CL_SEGMENT_RE.match(p)]
+    return " / ".join(kept) if kept else english  # never return an empty string
+
+
 def clean_pinyin(pinyin: str) -> str:
     """Defensive cleanup for stray bracket characters coming back from the
-    dictionary API (e.g. 'fan4]' -> 'fan4')."""
+    dictionary API (e.g. 'fan4]' -> 'fan4') and removes all spaces so pinyin
+    is stored in one consistent format (e.g. 'zao3fan4', not 'zao3 fan4')."""
     if not isinstance(pinyin, str):
         return pinyin
-    return pinyin.strip().strip("[]").strip()
+    return pinyin.strip().strip("[]").replace(" ", "")
 
 
 def parse_dictionary_response(api_data):
@@ -56,6 +230,7 @@ def parse_dictionary_response(api_data):
         english = " / ".join(raw_english)
     else:
         english = raw_english
+    english = clean_dictionary_english(english)
 
     return pinyin, english
 
@@ -258,6 +433,11 @@ def sync_index_definitions():
 
     print(f"Found {len(missing_by_unit)} words needing definition lookup/repair.\n")
 
+    rejected_cache = load_rejected_vocab_cache()
+    if rejected_cache:
+        print(f"Loaded {len(rejected_cache)} previously-rejected word(s) from "
+              f"{REJECTED_VOCAB_CACHE_FILE} -- these will be skipped without an AI call.\n")
+
     if "vocab" not in index_data:
         index_data["vocab"] = []
 
@@ -267,17 +447,20 @@ def sync_index_definitions():
 
     # 3. Fetch pinyin + contextual definition for each missing/retry word
     for tag, unit in missing_by_unit:
-        # --- pinyin: still from the dictionary API, as before ---
-        try:
-            response = requests.get(f"{DICTIONARY_API_URL}{tag}", timeout=5)
-            if response.status_code == 200:
-                pinyin, dictionary_english = parse_dictionary_response(response.json())
-            else:
-                print(f"  [API {response.status_code}] Could not fetch definition for '{tag}'")
-                pinyin, dictionary_english = "UNKNOWN_PINYIN", "UNKNOWN_ENGLISH"
-        except requests.RequestException as e:
-            print(f"  [Connection Error] API request failed for '{tag}': {e}")
-            pinyin, dictionary_english = "UNKNOWN_PINYIN", "UNKNOWN_ENGLISH"
+        # Already known (from a prior run) to be a sub-character of a larger
+        # word rather than standalone vocab -- skip immediately, no dictionary
+        # call, no Claude call.
+        if tag in rejected_cache:
+            cached = rejected_cache[tag]
+            print(f"  [skip-cached] '{tag}' was previously rejected as a sub-character "
+                  f"of '{cached['parent_word']}' ({cached['reasoning']}) — not adding.")
+            skipped_non_standalone.append((tag, unit, cached["parent_word"]))
+            if try_recover_parent_word(cached["parent_word"], unit, existing_vocab_map, valid_indexed_words, index_data):
+                updated_count += 1
+            continue
+
+        # --- pinyin: dictionary API, falling back to per-character lookup ---
+        pinyin, dictionary_english = fetch_pinyin_with_char_fallback(tag)
 
         # --- contextual definition: find the sentence, ask Claude ---
         sentence = find_example_sentence(units_data, unit, tag)
@@ -288,10 +471,17 @@ def sync_index_definitions():
 
             if not analysis.get("is_standalone", True):
                 parent = analysis.get("parent_word")
+                reasoning = analysis.get("reasoning", "")
                 print(f"  [skip] '{tag}' looks like a sub-character of "
                       f"'{parent}' in unit {unit}, not standalone vocab "
-                      f"({analysis.get('reasoning', '')}) — not adding.")
+                      f"({reasoning}) — not adding.")
                 skipped_non_standalone.append((tag, unit, parent))
+                append_rejected_vocab_entry(tag, unit, parent, reasoning)
+                rejected_cache[tag] = {"unit": str(unit), "parent_word": parent, "reasoning": reasoning}
+
+                if try_recover_parent_word(parent, unit, existing_vocab_map, valid_indexed_words, index_data):
+                    updated_count += 1
+
                 continue
 
             if analysis.get("definition"):
