@@ -27,6 +27,8 @@ const scoreColor = (score) => {
     return 'red';
 };
 
+
+
 export default function SpeakingQuestion({
     currentQuestionObj,
     currentIndex,
@@ -52,14 +54,33 @@ export default function SpeakingQuestion({
     const [tipKeyType, setTipKeyType] = useState("answer");
     const [tipDraft, setTipDraft] = useState("");
     const [tipSaveState, setTipSaveState] = useState(null); // null | 'saving' | 'saved' | 'error'
+    const [audioCompleted, setAudioCompleted] = useState(false); // <-- Add this
 
     // reset the tip form whenever the question changes
+    // reset the tip form and audio state whenever the question changes
     useEffect(() => {
         setShowTipForm(false);
         setTipKeyType("answer");
         setTipDraft("");
         setTipSaveState(null);
+        setAudioCompleted(false); // <-- Reset audio state
     }, [currentQuestionObj]);
+
+    // Play target audio automatically after submission/transcription completes
+    useEffect(() => {
+        if (transcriptionResult && !transcriptionResult.error && !transcriptionResult.hallucination) {
+            let isMounted = true;
+            
+            const playTarget = async () => {
+                await onPlayAudio(currentQuestionObj.question);
+                if (isMounted) setAudioCompleted(true);
+            };
+            
+            playTarget();
+            
+            return () => { isMounted = false; };
+        }
+    }, [transcriptionResult, currentQuestionObj.question, onPlayAudio]);
 
     const saveTip = async () => {
         const keyValue = tipKeyType === "question" ? currentQuestionObj.question : currentQuestionObj.answer;
@@ -86,13 +107,6 @@ export default function SpeakingQuestion({
             <h2>{questionTypeToInstruction(currentQuestionObj.question_type)}</h2>
             <h1><ClickableText text={currentQuestionObj.question} tags={currentQuestionObj.tags || []} isUnitTest={isUnitTest} /></h1>
 
-            {!isUnitTest && (
-                <>
-                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.question)}>🔊 Hear it</button>
-                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.question, true)}>🐢 Slow</button>
-                </>
-            )}
-
             {!transcriptionResult && !recordingURL && (
                 <button type="button" onClick={isRecording ? onStopRecording : onStartRecording}
                     style={{ color: isRecording ? 'red' : 'inherit' }}>
@@ -102,7 +116,7 @@ export default function SpeakingQuestion({
 
             {isTranscribing && <p>Checking your pronunciation...</p>}
 
-            {recordingURL && !isTranscribing && (
+            {recordingURL && !isTranscribing && !transcriptionResult && (
                 <>
                     <button type="button" onClick={() => new Audio(recordingURL).play()}>🎧 Hear yourself</button>
                     <button type="button" onClick={() => onAdvanceQuestion(false)}>Skip</button>
@@ -121,6 +135,15 @@ export default function SpeakingQuestion({
                             <button onClick={onTryAgain}>Try Again</button>
                           </div>
                         : <div>
+                            {/* Replay buttons available after submitting */}
+                            <div style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem' }}>
+                                {recordingURL && (
+                                    <button type="button" onClick={() => new Audio(recordingURL).play()}>🎧 Hear yourself</button>
+                                )}
+                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.question)}>🔊 Hear target</button>
+                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.question, true)}>🐢 Slow</button>
+                            </div>
+
                             <p>You said: <strong>{transcriptionResult.transcription}</strong> ({transcriptionResult.transcription_pinyin})</p>
                             <p>Expected: <strong>{currentQuestionObj.answer}</strong> ({transcriptionResult.expected_pinyin})</p>
 
@@ -213,7 +236,12 @@ export default function SpeakingQuestion({
                                 )}
                             </div>
 
-                            <button onClick={() => onAdvanceQuestion(transcriptionResult.is_correct)}>Continue</button>
+                            <button 
+                                onClick={() => onAdvanceQuestion(transcriptionResult.is_correct)}
+                                disabled={!audioCompleted}
+                            >
+                                {audioCompleted ? "Continue" : "Playing audio..."}
+                            </button>
                             <button onClick={onTryAgain}>Try Again</button>
                           </div>
             )}

@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
-from models.user import StrengthTable, User, SoundProgress, WordTierProgress, SeenQuestion
+from models.user import StrengthTable, User, SoundProgress, WordTierProgress, SeenQuestion, DictionaryEntry, FlaggedMismatch
 from datetime import datetime, timedelta
+
 
 SOUND_UNLOCK_SUCCESSES = 1
 SOUND_UNLOCK_ATTEMPTS_CAP = 5
@@ -304,3 +305,62 @@ def record_question_shown(db: Session, user_id: int, question_id: str):
     row.times_shown = (row.times_shown or 0) + 1
     row.last_shown = datetime.utcnow()
     db.commit()
+
+# ----------------------------- MANDARIN DICTIONARY -----------------------------
+def get_dictionary_entries(db: Session, word: str):
+    """
+    Look up a word in the CC-CEDICT dictionary.
+    Matches against both Simplified and Traditional characters.
+    """
+    return db.query(DictionaryEntry).filter(
+        (DictionaryEntry.simplified == word) | (DictionaryEntry.traditional == word)
+    ).all()
+
+
+# ----------------------------- FLAGGED MISMATCHES -----------------------------
+# Detection log for (question, expected_answer) pairs where the AI grader
+# determined 'expected' doesn't actually match 'question' -- almost always an
+# upstream OCR/data-pipeline bug (see FlaggedMismatch docstring). This does
+# NOT fix grading itself; the route grades the learner against the question's
+# real meaning regardless of what's in here. This table exists purely so you
+# can query it later and batch-reprocess the affected sentences instead of
+# discovering and hand-fixing them one at a time.
+
+def log_mismatch(db: Session, question: str, expected_answer: str, direction: str, reasoning: str = ""):
+    """Insert a new flagged pair, or bump flagged_count/last_flagged_at if this
+    exact (question, expected_answer) pair has been flagged before. Best-effort:
+    a failure here should never take down grading, so callers should wrap this
+    in try/except and just log on failure."""
+    row = db.query(FlaggedMismatch).filter(
+        FlaggedMismatch.question == question,
+        FlaggedMismatch.expected_answer == expected_answer,
+    ).first()
+
+    if row:
+        row.flagged_count = (row.flagged_count or 1) + 1
+        row.last_flagged_at = datetime.utcnow()
+    else:
+        row = FlaggedMismatch(
+            question=question,
+            expected_answer=expected_answer,
+            direction=direction,
+            reasoning=reasoning,
+        )
+        db.add(row)
+
+    db.commit()
+    return row
+
+
+def get_flagged_mismatches(db: Session, min_flagged_count: int = 1, limit: int = 200):
+    """Pairs flagged at least `min_flagged_count` times, most-recurring first.
+    Meant to drive a batch reprocessing script over units_output.json /
+    index_output.json -- min_flagged_count lets you filter out one-off AI
+    misjudgments and focus on pairs that are consistently wrong."""
+    return (
+        db.query(FlaggedMismatch)
+        .filter(FlaggedMismatch.flagged_count >= min_flagged_count)
+        .order_by(FlaggedMismatch.flagged_count.desc())
+        .limit(limit)
+        .all()
+    )

@@ -226,6 +226,7 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
     unit_data = units_data.get(unit_str, {})
 
     all_vocab = index_data.get("vocab", [])
+    print("unit : ", unit_str)
     all_grammar = index_data.get("grammar", [])
     all_proper_nouns = index_data.get("proper_nouns", [])
 
@@ -241,6 +242,9 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
         grammar_by_unit[item["unit"]].append(item)
     for item in all_proper_nouns:
         proper_by_unit[item["unit"]].append(item)
+
+    print("vocab by unit: ", vocab_by_unit[unit_number])
+    print("--------")
 
     for item in vocab_by_unit.get(unit_number, []):
         hanzi = item["hanzi"]

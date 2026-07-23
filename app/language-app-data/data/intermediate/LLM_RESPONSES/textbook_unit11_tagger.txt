@@ -1,29 +1,38 @@
 I need to segment each sentence using only the allowed word list.
 
-Let me check key words:
-- "几点" = "几" + "点" ✓
-- "什么时候" = "什么" + "时候" ✓
-- "星期一" = "星期" + "一" ✓
-- "星期五" = "星期" + "五" ✓
-- "星期六" = "星期" + "六" ✓
-- "前" - not in list, but "前面" is. "八点前" needs "前" alone - not in list. Let me check... "前面" is in list but "前" alone is not.
-- "星期五前" - "前" not in allowed list → null
-- "八点前" - "前" not in allowed list → null
-- "星期六前" - "前" not in allowed list → null
-- "他们" - not in list. "他" and "们" - "们" not in list → null for sentences with "他们"
-- "天" - not in list. "三天" needs "天" → null
-- "住三天" → null
-- "你想在北京住几天？" → "天" not in list → null
-- "什么时候能回家？" = "什么" + "时候" + "能" + "回" + "家" ✓
+Let me work through each sentence:
+
+1. "现在几点？" → 现在,几,点
+2. "现在十点十分。" → 现在,十,点,十,分? "分" not in list → null
+3. "中午几点吃饭？" → 中午,几,点,吃,饭? "饭" not in list → null
+4. "十二点吃饭。" → 十,二,点,吃,饭? "饭" not in list → null
+5. "爸爸什么时候回家？" → 爸爸,什么,时候,回,家
+6. "下午五点。" → 下午,五,点
+7. "我们什么时候去看电影？" → 我们,什么,时候,去,看,电影
+8. "六点三十分。" → 六,点,三,十,分? "分" not in list → null
+9. "我星期一去北京。" → 我,星期,一,去,北京
+10. "你想在北京住几天？" → 你,想,在,北京,住,几,天? "天" not in list → null
+11. "住三天。" → 住,三,天? "天" not in list → null
+12. "星期五前能回家吗？" → 星期,五,前? "前" alone - is it in list? Yes "前" is in list as single char... wait, let me check. The list has "前面" but not "前" alone. → null
+13. "能。" → 能
+14. "你什么时候去学校？" → 你,什么,时候,去,学校
+15. "八点前。" → 八,点,前? "前" not in list as single char → null
+16. "你什么时候回北京？" → 你,什么,时候,回,北京
+17. "星期六前。" → 星期,六,前? "前" not in list → null
+18. "现在八点十八分。" → 现在,八,点,十,八,分? "分" not in list → null
+19. "你几点吃早饭？" → 你,几,点,吃,早? "早" not in list, "早饭" not in list → null
+20. "我七点吃早饭。" → null (same issue)
 
 ```json
 {
   "现在几点？": ["现在", "几", "点"],
-  "中午几点吃饭？": ["中午", "几", "点", "吃", "饭"],
+  "现在十点十分。": null,
+  "中午几点吃饭？": null,
   "十二点吃饭。": null,
   "爸爸什么时候回家？": ["爸爸", "什么", "时候", "回", "家"],
   "下午五点。": ["下午", "五", "点"],
   "我们什么时候去看电影？": ["我们", "什么", "时候", "去", "看", "电影"],
+  "六点三十分。": null,
   "我星期一去北京。": ["我", "星期", "一", "去", "北京"],
   "你想在北京住几天？": null,
   "住三天。": null,
@@ -33,9 +42,8 @@ Let me check key words:
   "八点前。": null,
   "你什么时候回北京？": ["你", "什么", "时候", "回", "北京"],
   "星期六前。": null,
-  "他们几点吃饭？": null,
-  "他们什么时候去看电影？": null,
-  "他去哪儿？": ["他", "去", "哪儿"],
-  "什么时候能回家？": ["什么", "时候", "能", "回", "家"]
+  "现在八点十八分。": null,
+  "你几点吃早饭？": null,
+  "我七点吃早饭。": null
 }
 ```

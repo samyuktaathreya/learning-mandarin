@@ -278,19 +278,30 @@ def is_facet_review_eligible(tier: int, facet_count: int) -> bool:
 
 
 def _all_review_eligible_facets(db: Session, user_id: int) -> list:
+    """Every (word, facet) pair that is SERVING-eligible for review: tier 4 +
+    facet_count >= GRADUATION_THRESHOLD, AND the word's teaching unit is
+    strictly before the current unit. A word still being learned in the current
+    unit is never review-eligible -- review is for consolidated, past-unit
+    material only, and its sentences are guaranteed to contain only known
+    words."""
     progress = crud.get_progress_by_user(db, user_id)
     if not progress:
         return []
-
+ 
     tags = {r.tag for r in progress}
     tiers = crud.get_tiers_for_tags(db, user_id, tags)
-
+    current_unit = crud.get_user(db, user_id).current_unit
+ 
     eligible = []
     for r in progress:
         if r.facet not in ("character", "pinyin"):
             continue
-        if is_facet_review_eligible(tiers.get(r.tag, 1), r.correct_count):
-            eligible.append((r.tag, r.facet, r))
+        if not is_facet_review_eligible(tiers.get(r.tag, 1), r.correct_count):
+            continue
+        teaching_unit = tags_to_unit_dict.get(r.tag)
+        if teaching_unit is None or teaching_unit >= current_unit:
+            continue  # word's own unit isn't finished -- not review-eligible yet
+        eligible.append((r.tag, r.facet, r))
     return eligible
 
 
@@ -306,9 +317,29 @@ def _due_review_facets(db: Session, user_id: int) -> list:
 
 
 def _pick_review_question(tag: str, facet: str, used_ids: set, max_unit: int, seen_counts: dict):
-    types = list(REVIEW_TYPES_BY_FACET[facet])
-    random.shuffle(types)
-    for qt in types:
+    # The 20% "everything else" bucket. 
+    # EXCLUDED: "speaking vocab", "translate chinese word to english", "translate chinese sentence to english".
+    # INCLUDED: Only types where the answer is produced in Pinyin, Characters, or Spoken Chinese.
+    other_types = [
+        "translate english word to chinese",
+        "translate english sentence to chinese",
+        "speaking sentence",
+        "fill in the blank",
+        "listening sentence",
+        "listening vocab"
+    ]
+    
+    # Enforce the 80/20 split
+    if random.random() < 0.80:
+        random.shuffle(other_types)
+        # 80% chance: Try Pinyin transcription first. If none exist for this word, fallback to others.
+        ordered_types = ["transcribe word to pinyin"] + other_types
+    else:
+        random.shuffle(other_types)
+        # 20% chance: Try the other output-based types first. Fallback to Pinyin if none exist.
+        ordered_types = other_types + ["transcribe word to pinyin"]
+
+    for qt in ordered_types:
         pool = [
             q for q in inverted_index.get(tag, [])
             if q["question_type"] == qt
@@ -317,12 +348,15 @@ def _pick_review_question(tag: str, facet: str, used_ids: set, max_unit: int, se
         ]
         if not pool:
             continue
+            
         unseen = [q for q in pool if q["id"] not in seen_counts]
         if unseen:
             return random.choice(unseen)
+            
         min_shown = min(seen_counts.get(q["id"], 0) for q in pool)
         least_shown = [q for q in pool if seen_counts.get(q["id"], 0) == min_shown]
         return random.choice(least_shown)
+        
     return None
 
 
@@ -364,13 +398,13 @@ def generate_practice_session(db, user_id, unit) -> SessionResponse:
 
     remaining = SESSION_SIZE - len(review_picks)
     tier_picks, stop_reason, min_counts = [], "pure_review", {}
+    tiers = {}
     if remaining > 0:
         tiers = crud.get_tiers_for_tags(db, user_id, unit_to_vocab_tags_dict.get(unit, set()))
         tier_picks, stop_reason, min_counts = generate_tier_questions(db, user_id, unit, tiers)
         tier_picks = [p for p in tier_picks if p[0]["id"] not in used_ids][:remaining]
 
-    log_session(user_id, unit, tier_picks, review_picks, {}, min_counts, stop_reason)
-
+    log_session(user_id, unit, tier_picks, review_picks, tiers, min_counts, stop_reason)
     question_set = [q for q, _ in review_picks] + [q for q, _ in tier_picks]
     random.shuffle(question_set)
     return SessionResponse(user_id=user_id, session_type="practice_session", question_set=question_set)
@@ -523,13 +557,15 @@ def submit_session(
     tags_served_at_current_tier = set()
     for question_data in list_of_question_data:
         qt = question_data.get("question_type", "")
-        q_tier = QUESTION_TYPE_TO_TIER.get(qt, 1)
         for tag in question_data.get("tags", []):
             if tag in META_TAGS or tag.startswith("unit_"):
                 continue
-            if q_tier >= starting_tiers.get(tag, 1):
+            # EXACT tier match: the question type must belong to this tag's
+            # own current tier. A higher-tier question (e.g. a sentence the tag
+            # is merely a bystander in) does NOT advance it.
+            if qt in TIER_QUESTION_TYPES.get(starting_tiers.get(tag, 1), set()):
                 tags_served_at_current_tier.add(tag)
-
+ 
     for tag in submit_tags:
         if tag in tags_served_at_current_tier and tag_misses.get(tag, 0) == 0:
             crud.advance_tier(db, user_id, tag)
@@ -660,6 +696,7 @@ def unit_detail(user_id: int, unit: int, db: Session = Depends(get_db)):
             rows[(r.tag, r.facet)] = r
 
     now = datetime.utcnow()
+    is_current = unit == user.current_unit
 
     def facet_detail(tag, facet):
         r = rows.get((tag, facet))
@@ -667,7 +704,10 @@ def unit_detail(user_id: int, unit: int, db: Session = Depends(get_db)):
             return {"correct_count": 0, "stability": None, "strength": None,
                     "is_review_eligible": False, "is_due": False}
         strength = 0.5 ** ((now - r.last_practice).total_seconds() / 86400 / r.stability)
-        eligible = is_facet_review_eligible(tiers.get(tag, 1), r.correct_count)
+        # a current-unit word is never review-eligible regardless of tier/count,
+        # since its own unit isn't finished (mirrors _all_review_eligible_facets)
+        eligible = (not is_current) and is_facet_review_eligible(
+            tiers.get(tag, 1), r.correct_count)
         return {
             "correct_count": r.correct_count,
             "stability": round(r.stability, 2),

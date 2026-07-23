@@ -112,7 +112,21 @@ export default function Question({
         } else {
             setCorrectPinyin("");
         }
-    }, [isWrong]);
+    }, [isWrong, isListening, currentQuestionObj.answer]);
+
+    // Helper to wrap Chinese text with the clickable dictionary popup
+    const renderChineseText = (text) => {
+        if (!text || typeof text !== 'string') return text;
+        return hasChinese(text) ? (
+            <ClickableText 
+                text={text} 
+                tags={currentQuestionObj.tags || []} 
+                isUnitTest={sessionType === "unit_test"} 
+            />
+        ) : (
+            text
+        );
+    };
 
     return (
         <div className="session-view">
@@ -143,15 +157,22 @@ export default function Question({
                 <div>
                     {isWrong ? (
                         <>
-                            <p>You answered: <strong>{lastUserAnswer}</strong></p>
-                            <p>Correct answer: <strong>{currentQuestionObj.answer}</strong></p>
+                            <p>You answered: <strong>{renderChineseText(lastUserAnswer)}</strong></p>
+                            <p>Correct answer: <strong>{renderChineseText(currentQuestionObj.answer)}</strong></p>
                             {isListening && correctPinyin && <p>Pinyin: <strong>{correctPinyin}</strong></p>}
                         </>
                     ) : (
-                        <p style={{ color: 'green' }}>✓ Correct!</p>
+                        <>
+                            <p style={{ color: 'green' }}>✓ Correct!</p>
+                            {/* Show the correct answer again if it's Chinese so they can inspect characters */}
+                            {hasChinese(lastUserAnswer || "") && (
+                                <p>You answered: <strong>{renderChineseText(lastUserAnswer)}</strong></p>
+                            )}
+                        </>
                     )}
+                    
                     {TYPES_MISSING_CHINESE.has(currentQuestionObj.question_type) && currentQuestionObj.hanzi && (
-                        <p>Characters: <strong>{currentQuestionObj.hanzi}</strong></p>
+                        <p>Characters: <strong>{renderChineseText(currentQuestionObj.hanzi)}</strong></p>
                     )}
                     {TYPES_MISSING_ENGLISH.has(currentQuestionObj.question_type) && currentQuestionObj.english && (
                         <p>Translation: <strong>{currentQuestionObj.english}</strong></p>

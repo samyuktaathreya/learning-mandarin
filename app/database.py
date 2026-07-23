@@ -1,8 +1,10 @@
+import json
+from datetime import datetime, timedelta
+from pathlib import Path
+
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from datetime import datetime, timedelta
-import json
+from sqlalchemy.orm import Session, sessionmaker
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./mandarin_app.db"
 
@@ -30,11 +32,9 @@ QUESTION_TYPES = [
     "translate chinese word to english",
 ]
 
-# The two facets each vocab word is tracked on. Kept here (not imported from
-# crud) so init_db has no dependency on the crud/models layer beyond the model
-# classes themselves.
 FACETS = ("character", "pinyin")
 
+# JSON File Loaders
 QUESTIONS_FILEPATH = './language-app-data/data/clean/unit_questions_hsk1.json'
 
 try:
@@ -48,12 +48,6 @@ except json.JSONDecodeError:
     print("Error: Failed to decode unit_questions_hsk1.json.")
     unit_questions = {}
 
-# unit (int) -> set of words that unit actually *teaches* (its own
-# vocab/grammar/proper-noun entries). Narrower than unit_to_tags_dict below,
-# which also picks up any word a sentence in that unit happens to contain as
-# a substring, even if that word is taught in a later unit -- fine for
-# surfacing practice opportunities, wrong as a graduation requirement (see
-# is_unit_graduated in practice.py).
 UNIT_VOCAB_TAGS_FILEPATH = './language-app-data/data/clean/unit_vocab_tags.json'
 
 try:
@@ -97,19 +91,89 @@ print(f"Built tags_to_unit_dict: {len(tags_to_unit_dict)} vocab tags")
 print(f"Built unit_to_tags_dict: {len(unit_to_tags_dict)} units")
 print(f"Total unique vocab tags: {len(unique_vocab_tags)}")
 
+DICTIONARY_FILEPATH = './language-app-data/data/clean/hsk1_dictionary.json'
+
+try:
+    with open(DICTIONARY_FILEPATH, 'r', encoding='utf-8') as f:
+        hsk1_dictionary = json.load(f)
+    print(f"Dictionary loaded! ({len(hsk1_dictionary)} entries)")
+except FileNotFoundError:
+    print(f"Error: {DICTIONARY_FILEPATH} not found.")
+    hsk1_dictionary = {}
+
+WORD_TO_PINYIN_FILEPATH = './language-app-data/data/intermediate/word_to_pinyin.json'
+
+try:
+    with open(WORD_TO_PINYIN_FILEPATH, 'r', encoding='utf-8') as f:
+        word_to_pinyin = json.load(f)
+    print(f"word_to_pinyin loaded! ({len(word_to_pinyin)} entries)")
+except FileNotFoundError:
+    print(f"Error: {WORD_TO_PINYIN_FILEPATH} not found.")
+    word_to_pinyin = {}
+except json.JSONDecodeError:
+    print("Error: Failed to decode word_to_pinyin.json.")
+    word_to_pinyin = {}
+
+# CC-CEDICT Path setup (Adjust .parent logic if needed relative to app/)
+BASE_DIR = Path(__file__).resolve().parent
+DICT_PATH = BASE_DIR / "language-app-data" / "data" / "raw" / "cedict_ts.u8"
+
+
+def seed_cedict(db: Session):
+    from models.user import DictionaryEntry
+    """Bulk inserts CC-CEDICT file into database if dictionary_entries is empty."""
+    if db.query(DictionaryEntry).first():
+        return
+
+    print("Seeding CC-CEDICT dictionary into database...")
+    if not DICT_PATH.exists():
+        print(f"Warning: CC-CEDICT file not found at {DICT_PATH}")
+        return
+
+    entries = []
+    with open(DICT_PATH, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+
+            parts = line.split('/')
+            if len(parts) <= 1:
+                continue
+
+            english_defs = " / ".join([p for p in parts[1:] if p])
+
+            char_and_pinyin = parts[0].split('[')
+            if len(char_and_pinyin) < 2:
+                continue
+
+            characters = char_and_pinyin[0].split()
+            traditional = characters[0]
+            simplified = characters[1] if len(characters) > 1 else traditional
+            pinyin = char_and_pinyin[1].rstrip(']').strip()
+
+            entries.append({
+                "traditional": traditional,
+                "simplified": simplified,
+                "pinyin": pinyin,
+                "english": english_defs
+            })
+
+    if entries:
+        db.bulk_insert_mappings(DictionaryEntry, entries)
+        db.commit()
+        print(f"CC-CEDICT seeding complete! ({len(entries)} entries added)")
+
 
 def init_db():
+    # Models
     from models.user import StrengthTable, User
-
     db = SessionLocal()
     try:
         if not db.query(User).filter(User.id == 1).first():
             db.add(User(id=1, current_unit=3, graduated_units=""))
             print("Default user created.")
 
-        # Seed one row per (tag, facet). A tag is considered seeded only when
-        # BOTH facet rows exist, so a partially seeded tag (e.g. from an older
-        # single-facet DB) gets its missing facet filled in.
         existing = {
             (row.tag, row.facet) for row in
             db.query(StrengthTable.tag, StrengthTable.facet)
@@ -134,31 +198,8 @@ def init_db():
         print(f"Strength table seeded: {added} new (tag, facet) rows added "
               f"across {len(unique_vocab_tags)} tags x {len(FACETS)} facets.")
 
+        # Seed Cedict
+        seed_cedict(db)
+
     finally:
         db.close()
-
-DICTIONARY_FILEPATH = './language-app-data/data/clean/hsk1_dictionary.json'
-
-try:
-    with open(DICTIONARY_FILEPATH, 'r', encoding='utf-8') as f:
-        hsk1_dictionary = json.load(f)
-    print(f"Dictionary loaded! ({len(hsk1_dictionary)} entries)")
-except FileNotFoundError:
-    print(f"Error: {DICTIONARY_FILEPATH} not found.")
-    hsk1_dictionary = {}
-
-# word (hanzi) -> numeric pinyin, e.g. "女儿": "nv3er2". Used to decompose a
-# sentence's constituent words into atomic sounds for the speaking-sentence
-# gate (see api/v1/endpoints/practice.py).
-WORD_TO_PINYIN_FILEPATH = './language-app-data/data/intermediate/word_to_pinyin.json'
-
-try:
-    with open(WORD_TO_PINYIN_FILEPATH, 'r', encoding='utf-8') as f:
-        word_to_pinyin = json.load(f)
-    print(f"word_to_pinyin loaded! ({len(word_to_pinyin)} entries)")
-except FileNotFoundError:
-    print(f"Error: {WORD_TO_PINYIN_FILEPATH} not found.")
-    word_to_pinyin = {}
-except json.JSONDecodeError:
-    print("Error: Failed to decode word_to_pinyin.json.")
-    word_to_pinyin = {}
