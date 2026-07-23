@@ -6,7 +6,6 @@ import re
 import json
 from dotenv import load_dotenv
 import anthropic as anthropic_sdk
-
 from pinyin_utils import strip_punct, to_numbered_pinyin, tones_match
 from database import SessionLocal
 from models.user import AcceptedAnswer
