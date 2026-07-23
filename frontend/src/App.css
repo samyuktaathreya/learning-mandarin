@@ -185,7 +185,7 @@
 
 .progress-layout {
     display: flex;
-    height: calc(100vh - 60px); /* adjust 60px to your header height */
+    height: calc(100vh - 60px); 
 }
 
 .unit-sidebar {
@@ -240,4 +240,88 @@
 
 .question-text--long {
     font-size: clamp(1.25rem, 3vw, 2rem);
+}
+
+/* =========================================
+   Mandarin Voice Practice UI 
+   ========================================= */
+
+.voice-practice-container {
+  padding: 24px;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.voice-practice-container h2 {
+  margin-bottom: 24px;
+}
+
+.btn-start,
+.btn-end {
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.btn-start:hover,
+.btn-end:hover {
+  opacity: 0.9;
+}
+
+.btn-start {
+  background-color: #22c55e;
+}
+
+.btn-end {
+  background-color: #ef4444;
+}
+
+.chat-box {
+  overflow-y: auto;
+  height: 256px; /* ~16rem */
+  border: 1px solid var(--border);
+  padding: 16px;
+  margin-top: 24px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.msg-row {
+  width: 100%;
+}
+
+.msg-row.user {
+  text-align: right;
+}
+
+.msg-row.assistant {
+  text-align: left;
+}
+
+.msg-bubble {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 8px;
+  max-width: 85%;
+  margin: 0;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.msg-bubble.user {
+  background-color: #bfdbfe; /* Light blue */
+  color: #1e3a8a;
+}
+
+.msg-bubble.assistant {
+  background-color: #e5e7eb; /* Light gray */
+  color: #1f2937;
 }

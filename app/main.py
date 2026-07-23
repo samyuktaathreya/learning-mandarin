@@ -50,6 +50,8 @@ app.include_router(grading_router)
 from api.v1.endpoints.tools import router as tools_router
 app.include_router(tools_router)
 
+from api.v1.endpoints.voice_agent import router as voice_agent_router
+app.include_router(voice_agent_router)
 
 @app.get("/")
 def root():
