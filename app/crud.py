@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 SOUND_UNLOCK_SUCCESSES = 1
 SOUND_UNLOCK_ATTEMPTS_CAP = 5
 MAX_TIER = 4
+MAX_MISS_COUNT = 5
 
 # The floor stability sits at during the learning phase. A word only starts
 # growing (or losing) stability once it is review-eligible -- see
@@ -31,6 +32,7 @@ QUESTION_TYPE_FACETS = {
     "translate chinese sentence to english":["character"],
     "translate english sentence to chinese":["character"],
     "fill in the blank":                    ["character"],
+    "transcribe character to pinyin":       ["pinyin"],
 }
 
 
@@ -129,6 +131,7 @@ def update_miss_count(db: Session, user_id: int, tag: str, facet: str,
         )
         db.add(row)
     row.miss_count = max((row.miss_count or 0) + delta, 0)
+    row.miss_count = min(row.miss_count, MAX_MISS_COUNT)
     row.attempt_count = (row.attempt_count or 0) + attempts
     db.commit()
     db.refresh(row)
@@ -385,3 +388,12 @@ def build_vocab_block(db: Session, tags: list[str]) -> str:
         .all()
     )
     return "\n".join(f"{e.simplified} ({e.pinyin}) - {e.english}" for e in entries)
+
+def reset_miss_count(db: Session, user_id: int, tag: str, facet: str):
+    """Hard-reset a (tag, facet)'s miss_count to 0."""
+    row = get_strength_row(db, user_id, tag, facet)
+    if row:
+        row.miss_count = 0
+        db.commit()
+        db.refresh(row)
+    return row

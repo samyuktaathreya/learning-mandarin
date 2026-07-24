@@ -204,32 +204,95 @@ def _maybe_log_mismatch(db: Session, direction: str, question: str, expected: st
     except Exception as e:
         print(f"[log_mismatch] skipped: {e}")
 
+def _ai_grade_chinese_to_english(question: str, user_answer: str) -> bool:
+    """Grade: is this a valid English translation of the Chinese?"""
+    response = anthropic_client.messages.create(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=5,
+        messages=[{
+            "role": "user",
+            "content": (
+                "You are grading a Chinese-to-English translation exercise. The learner "
+                "sees a Chinese sentence and types an English translation.\n\n"
+                "Judge whether the learner's answer is a valid, reasonable translation of "
+                "the Chinese. Accept if it conveys the core meaning — be lenient with "
+                "wording, phrasing, articles, and synonyms. Reject only if the meaning is "
+                "actually wrong or missing.\n\n"
+                f"Chinese: {question}\n"
+                f"Learner's answer: {user_answer}\n\n"
+                "Reply with only YES or NO."
+            )
+        }]
+    )
+    return response.content[0].text.strip().upper().startswith("YES")
+
+def _ai_grade_english_to_chinese(question: str, user_answer: str) -> bool:
+    """Grade: is this a valid Chinese translation of the English?"""
+    response = anthropic_client.messages.create(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=5,
+        messages=[{
+            "role": "user",
+            "content": (
+                "You are grading an English-to-Chinese translation exercise. The learner "
+                "sees an English sentence and types a Chinese translation.\n\n"
+                "Judge whether the learner's answer is a valid, reasonable translation of "
+                "the English. Accept if it conveys the core meaning — be lenient with "
+                "wording, phrasing, particles, and synonyms. Reject only if the meaning is "
+                "actually wrong or missing.\n\n"
+                f"English: {question}\n"
+                f"Learner's answer: {user_answer}\n\n"
+                "Reply with only YES or NO."
+            )
+        }]
+    )
+    return response.content[0].text.strip().upper().startswith("YES")
+
+def cache_lookup_by_question(db: Session, question: str, cleaned: str) -> bool:
+    """True iff we've AI-accepted this (question, cleaned_answer) pair before."""
+    return db.query(AcceptedAnswer).filter(
+        AcceptedAnswer.question == question,
+        AcceptedAnswer.cleaned_answer == cleaned,
+    ).first() is not None
+
+
+def cache_store_by_question(db: Session, question: str, cleaned: str):
+    """Record an AI-accepted answer keyed on the question."""
+    if not cleaned or not question:
+        return
+    if cache_lookup_by_question(db, question, cleaned):
+        return
+    try:
+        db.add(AcceptedAnswer(question=question, cleaned_answer=cleaned))
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        print(f"[cache_store_by_question] skipped: {e}")
+
 
 # ----------------------------- CHINESE -> ENGLISH -----------------------------
 
 @router.post("/api/grade_chinese_to_english")
 async def grade_chinese_to_english(payload: dict, db: Session = Depends(get_db)):
-    """Meaning-based grading of an English translation of a Chinese prompt,
-    judged by Claude against the question itself. Cached: an identical
-    (expected, cleaned answer) pair that was accepted before skips the AI call."""
+    """Grade: is this a valid English translation of the Chinese?
+    Ignore the expected_answer entirely — compare against the question itself."""
     user_answer = payload.get("user_answer", "").strip()
-    expected = payload.get("expected_answer", "").strip()
     question = payload.get("question", "").strip()
 
-    if not user_answer or not expected:
+    if not user_answer or not question:
         return JSONResponse({"is_correct": False})
 
     cleaned = clean(user_answer)
 
-    if cache_lookup(db, expected, cleaned):
+    # Cache: (question, cleaned_answer) pairs we've already accepted
+    if cache_lookup_by_question(db, question, cleaned):
         return JSONResponse({"is_correct": True, "cached": True})
 
     try:
-        result = _ai_grade_with_mismatch_check("ch->en", question, expected, user_answer)
-        _maybe_log_mismatch(db, "ch->en", question, expected, result)
-        if result["is_correct"]:
-            cache_store(db, expected, cleaned)
-        return JSONResponse({"is_correct": result["is_correct"]})
+        is_correct = _ai_grade_chinese_to_english(question, user_answer)
+        if is_correct:
+            cache_store_by_question(db, question, cleaned)
+        return JSONResponse({"is_correct": is_correct})
     except Exception as e:
         print(f"Grading error: {e}")
         return JSONResponse({"is_correct": False})
@@ -295,21 +358,17 @@ async def grade_english_to_chinese(payload: dict, db: Session = Depends(get_db))
             "expected_pinyin": expected_pinyin,
         })
 
-    # ---- translation branch: AI meaning grade against the question, cached ----
-    # For zh answers, clean() mostly normalizes whitespace/punctuation (the
-    # English-specific rules simply don't fire on Chinese text), which is fine
-    # as a cache key.
+    # ---- translation branch: AI grade against question only, cached ----
     cleaned = clean(user_answer)
 
-    if cache_lookup(db, expected, cleaned):
+    if cache_lookup_by_question(db, question, cleaned):
         return JSONResponse({"is_correct": True, "cached": True})
 
     try:
-        result = _ai_grade_with_mismatch_check("en->ch", question, expected, user_answer)
-        _maybe_log_mismatch(db, "en->ch", question, expected, result)
-        if result["is_correct"]:
-            cache_store(db, expected, cleaned)
-        return JSONResponse({"is_correct": result["is_correct"]})
+        is_correct = _ai_grade_english_to_chinese(question, user_answer)
+        if is_correct:
+            cache_store_by_question(db, question, cleaned)
+        return JSONResponse({"is_correct": is_correct})
     except Exception as e:
         print(f"Grading error: {e}")
         return JSONResponse({"is_correct": False})

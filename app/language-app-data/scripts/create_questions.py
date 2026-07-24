@@ -21,6 +21,7 @@ class QuestionType(str, Enum):
     TRANSLATE_EN_TO_ZH_WORD = "translate english word to chinese"
     TRANSLATE_ZH_TO_EN_WORD = "translate chinese word to english"
     TRANSCRIBE_WORD_TO_PINYIN = "transcribe word to pinyin"
+    TRANSCRIBE_HANZI_TO_PINYIN = "transcribe hanzi to pinyin"
 
     @classmethod
     def values(cls):
@@ -258,6 +259,7 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
             (QuestionType.TRANSLATE_EN_TO_ZH_WORD.value, english, hanzi),
             (QuestionType.TRANSLATE_ZH_TO_EN_WORD.value, hanzi, english),
             (QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, hanzi, pinyin),
+            (QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value, hanzi, pinyin),
         ]:
             if qtype in TYPING_REQUIRED_TYPES and blocked:
                 continue
@@ -279,6 +281,7 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
             (QuestionType.LISTENING_VOCAB.value, hanzi, pinyin),
             (QuestionType.SPEAKING_VOCAB.value, hanzi, pinyin),
             (QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, hanzi, pinyin),
+            (QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value, hanzi, pinyin),
         ]:
             question = make_question(unit_str, qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), counters)
             question["hanzi"] = hanzi
@@ -294,6 +297,7 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
             (QuestionType.SPEAKING_VOCAB.value, hanzi, pinyin),
             (QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, hanzi, pinyin),
             (QuestionType.TRANSLATE_ZH_TO_EN_WORD.value, hanzi, english),
+            (QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value, hanzi, pinyin),
         ]:
             question = make_question(unit_str, qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), counters)
             question["hanzi"] = hanzi

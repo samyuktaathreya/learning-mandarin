@@ -9,8 +9,6 @@ const questionTypeToInstruction = (question_type) => {
     }
 };
 
-// Which gate failed determines the advice. Telling someone to "check your
-// tones" when they actually mispronounced the consonant is misleading.
 const feedbackMessage = (feedback) => {
     switch (feedback) {
         case "tone":            return "✗ Right sounds, but your tone was off";
@@ -20,14 +18,12 @@ const feedbackMessage = (feedback) => {
     }
 };
 
-const scoreColor = (score) => {
-    if (score == null) return 'inherit';
-    if (score >= 90) return 'green';
-    if (score >= 75) return 'orange';
-    return 'red';
+const getScoreClass = (score) => {
+    if (score == null) return 'score-inherit';
+    if (score >= 90) return 'score-green';
+    if (score >= 75) return 'score-orange';
+    return 'score-red';
 };
-
-
 
 export default function SpeakingQuestion({
     currentQuestionObj,
@@ -48,22 +44,28 @@ export default function SpeakingQuestion({
 }) {
     const isUnitTest = sessionType === "unit_test";
     const isAssessment = transcriptionResult?.mode === "assessment";
+    
+    // Check if the current question requires the shadowing phase
+    const requiresShadowing = currentQuestionObj.question_type === "speaking sentence";
 
-    // ── Tip UI state ──────────────────────────────────────────────
+    // ── Tip UI & Logic state ──────────────────────────────────────
     const [showTipForm, setShowTipForm] = useState(false);
     const [tipKeyType, setTipKeyType] = useState("answer");
     const [tipDraft, setTipDraft] = useState("");
-    const [tipSaveState, setTipSaveState] = useState(null); // null | 'saving' | 'saved' | 'error'
-    const [audioCompleted, setAudioCompleted] = useState(false); // <-- Add this
+    const [tipSaveState, setTipSaveState] = useState(null); 
+    const [audioCompleted, setAudioCompleted] = useState(false); 
+    
+    // Track if we are in the shadowing phase
+    const [hasPassedFirstTry, setHasPassedFirstTry] = useState(false);
 
-    // reset the tip form whenever the question changes
-    // reset the tip form and audio state whenever the question changes
+    // reset forms and logic state whenever the question changes
     useEffect(() => {
         setShowTipForm(false);
         setTipKeyType("answer");
         setTipDraft("");
         setTipSaveState(null);
-        setAudioCompleted(false); // <-- Reset audio state
+        setAudioCompleted(false); 
+        setHasPassedFirstTry(false); 
     }, [currentQuestionObj]);
 
     // Play target audio automatically after submission/transcription completes
@@ -103,40 +105,54 @@ export default function SpeakingQuestion({
         <div className="session-view">
             <p>Question {currentIndex + 1} of {totalQuestions}</p>
             {currentQuestionObj.unit != null && <p>Unit {currentQuestionObj.unit}</p>}
-            {isUnitTest && <p>Unit Test</p>}
+            {isUnitTest && <p className="unit-test-label">Unit Test</p>}
             <h2>{questionTypeToInstruction(currentQuestionObj.question_type)}</h2>
             <h1><ClickableText text={currentQuestionObj.question} tags={currentQuestionObj.tags || []} isUnitTest={isUnitTest} /></h1>
 
             {!transcriptionResult && !recordingURL && (
-                <button type="button" onClick={isRecording ? onStopRecording : onStartRecording}
-                    style={{ color: isRecording ? 'red' : 'inherit' }}>
-                    {isRecording ? '⏹ Stop' : '🎙 Record'}
-                </button>
+                <div className="recording-controls">
+                    {hasPassedFirstTry && requiresShadowing && (
+                        <div className="shadow-alert">
+                            <strong>Shadowing Phase:</strong> Match the native speaker's speed and rhythm!
+                            <div className="shadow-listen-wrapper">
+                                <button type="button" className="shadow-listen-btn" onClick={() => onPlayAudio(currentQuestionObj.question)}>
+                                    🔊 Listen again
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                    <button 
+                        type="button" 
+                        className={`record-btn ${isRecording ? 'is-recording' : ''}`}
+                        onClick={isRecording ? onStopRecording : onStartRecording}
+                    >
+                        {isRecording ? '⏹ Stop' : '🎙 Record'}
+                    </button>
+                </div>
             )}
 
-            {isTranscribing && <p>Checking your pronunciation...</p>}
+            {isTranscribing && <p className="status-message">Checking your pronunciation...</p>}
 
             {recordingURL && !isTranscribing && !transcriptionResult && (
-                <>
+                <div className="preview-controls">
                     <button type="button" onClick={() => new Audio(recordingURL).play()}>🎧 Hear yourself</button>
                     <button type="button" onClick={() => onAdvanceQuestion(false)}>Skip</button>
-                </>
+                </div>
             )}
 
             {transcriptionResult && (
                 transcriptionResult.error
-                    ? <div>
-                        <p style={{ color: 'orange' }}>⚠️ Couldn't check that — skip or try again</p>
+                    ? <div className="error-container">
+                        <p className="warning-text">⚠️ Couldn't check that — skip or try again</p>
                         <button onClick={onTryAgain}>Try Again</button>
                       </div>
                     : transcriptionResult.hallucination
-                        ? <div>
-                            <p style={{ color: 'orange' }}>⚠️ Couldn't hear you — try again closer to the mic</p>
+                        ? <div className="error-container">
+                            <p className="warning-text">⚠️ Couldn't hear you — try again closer to the mic</p>
                             <button onClick={onTryAgain}>Try Again</button>
                           </div>
-                        : <div>
-                            {/* Replay buttons available after submitting */}
-                            <div style={{ marginBottom: '1rem', display: 'flex', gap: '0.5rem' }}>
+                        : <div className="result-container">
+                            <div className="replay-buttons">
                                 {recordingURL && (
                                     <button type="button" onClick={() => new Audio(recordingURL).play()}>🎧 Hear yourself</button>
                                 )}
@@ -144,32 +160,36 @@ export default function SpeakingQuestion({
                                 <button type="button" onClick={() => onPlayAudio(currentQuestionObj.question, true)}>🐢 Slow</button>
                             </div>
 
-                            <p>You said: <strong>{transcriptionResult.transcription}</strong> ({transcriptionResult.transcription_pinyin})</p>
-                            <p>Expected: <strong>{currentQuestionObj.answer}</strong> ({transcriptionResult.expected_pinyin})</p>
+                            <p className="transcription-text">
+                                You said: <strong>{transcriptionResult.transcription}</strong> ({transcriptionResult.transcription_pinyin})
+                            </p>
+                            <p className="expected-text">
+                                Expected: <strong>{currentQuestionObj.answer}</strong> ({transcriptionResult.expected_pinyin})
+                            </p>
 
                             {isAssessment && (
-                                <div style={{ margin: '12px 0', padding: 12, border: '1px solid #ddd', borderRadius: 6 }}>
-                                    <p style={{ margin: 0 }}>
+                                <div className="assessment-stats">
+                                    <p className="score-container">
                                         Pronunciation score:{' '}
-                                        <strong style={{ fontSize: 24, color: scoreColor(transcriptionResult.accuracy) }}>
+                                        <strong className={`main-score ${getScoreClass(transcriptionResult.accuracy)}`}>
                                             {transcriptionResult.accuracy}
                                         </strong>
-                                        <span style={{ color: '#888' }}> / 100 (need {transcriptionResult.accuracy_threshold})</span>
+                                        <span className="score-max"> / 100 (need {transcriptionResult.accuracy_threshold})</span>
                                     </p>
 
                                     {transcriptionResult.phonemes?.length > 0 && (
-                                        <p style={{ marginTop: 8, marginBottom: 0 }}>
+                                        <p className="phoneme-list">
                                             {transcriptionResult.phonemes.map((p, i) => (
-                                                <span key={i} style={{ marginRight: 16 }}>
+                                                <span key={i} className="phoneme-item">
                                                     <code>{p.phoneme}</code>{' '}
-                                                    <strong style={{ color: scoreColor(p.accuracy) }}>{p.accuracy}</strong>
+                                                    <strong className={getScoreClass(p.accuracy)}>{p.accuracy}</strong>
                                                 </span>
                                             ))}
                                         </p>
                                     )}
 
                                     {!transcriptionResult.is_correct && transcriptionResult.weakest_phoneme && (
-                                        <p style={{ marginTop: 8, marginBottom: 0, color: '#666' }}>
+                                        <p className="weakest-phoneme">
                                             Weakest sound: <code>{transcriptionResult.weakest_phoneme.phoneme}</code>
                                             {' '}({transcriptionResult.weakest_phoneme.accuracy})
                                         </p>
@@ -177,38 +197,61 @@ export default function SpeakingQuestion({
                                 </div>
                             )}
 
-                            {transcriptionResult.is_correct
-                                ? <p style={{ color: 'green' }}>✓ Correct!</p>
-                                : <p style={{ color: 'red' }}>
+                            {transcriptionResult.is_correct ? (
+                                requiresShadowing ? (
+                                    !hasPassedFirstTry ? (
+                                        <div className="shadow-pass-box">
+                                            <p className="shadow-pass-title">✓ First pass correct!</p>
+                                            <p className="shadow-pass-prompt">Now listen to the target audio and repeat it to build muscle memory.</p>
+                                            <button 
+                                                className="start-shadow-btn"
+                                                onClick={() => {
+                                                    setHasPassedFirstTry(true);
+                                                    onTryAgain(); 
+                                                }}
+                                                disabled={!audioCompleted}
+                                            >
+                                                {audioCompleted ? "🎙️ Start Shadowing" : "Playing audio..."}
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <p className="shadow-complete-text">✓ Shadowing Complete!</p>
+                                    )
+                                ) : (
+                                    <p className="correct-text">✓ Correct!</p>
+                                )
+                            ) : (
+                                <p className="incorrect-text">
                                     {isAssessment
                                         ? feedbackMessage(transcriptionResult.feedback)
                                         : "✗ Not quite — compare what you said to the expected answer"}
-                                  </p>}
+                                </p>
+                            )}
 
                             {currentQuestionObj.english && (
-                                <p>Translation: <strong>{currentQuestionObj.english}</strong></p>
+                                <p className="translation-text">Translation: <strong>{currentQuestionObj.english}</strong></p>
                             )}
 
                             {currentQuestionObj.tip && (
                                 <p className="question-tip">💡 Tip: {currentQuestionObj.tip}</p>
                             )}
 
-                            <div className="tip-editor" style={{ marginTop: '0.75rem', fontSize: '0.85rem', opacity: 0.85 }}>
+                            <div className="tip-editor">
                                 {!showTipForm ? (
-                                    <button type="button" onClick={() => setShowTipForm(true)}>
+                                    <button type="button" className="tip-toggle-btn" onClick={() => setShowTipForm(true)}>
                                         {currentQuestionObj.tip ? 'Edit tip' : '+ Add a tip'}
                                     </button>
                                 ) : (
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', maxWidth: 420 }}>
-                                        <div>
-                                            <label style={{ marginRight: '1rem' }}>
+                                    <div className="tip-form-container">
+                                        <div className="tip-radio-group">
+                                            <label className="radio-label">
                                                 <input
                                                     type="radio"
                                                     checked={tipKeyType === "answer"}
                                                     onChange={() => setTipKeyType("answer")}
                                                 /> Tip about the answer
                                             </label>
-                                            <label>
+                                            <label className="radio-label">
                                                 <input
                                                     type="radio"
                                                     checked={tipKeyType === "question"}
@@ -217,37 +260,45 @@ export default function SpeakingQuestion({
                                             </label>
                                         </div>
                                         <textarea
+                                            className="tip-textarea"
                                             value={tipDraft}
                                             onChange={(e) => setTipDraft(e.target.value)}
                                             placeholder="e.g. the 儿 here is a rhotic suffix, blend it into the vowel rather than pronouncing it separately"
                                             rows={3}
                                         />
-                                        <div>
-                                            <button type="button" onClick={saveTip} disabled={tipSaveState === 'saving'}>
+                                        <div className="tip-actions">
+                                            <button type="button" className="save-tip-btn" onClick={saveTip} disabled={tipSaveState === 'saving'}>
                                                 {tipSaveState === 'saving' ? 'Saving…' : 'Save tip'}
                                             </button>
-                                            <button type="button" onClick={() => setShowTipForm(false)} style={{ marginLeft: '0.5rem' }}>
+                                            <button type="button" className="cancel-tip-btn" onClick={() => setShowTipForm(false)}>
                                                 Cancel
                                             </button>
-                                            {tipSaveState === 'saved' && <span style={{ marginLeft: '0.5rem', color: 'green' }}>Saved ✓</span>}
-                                            {tipSaveState === 'error' && <span style={{ marginLeft: '0.5rem', color: '#c0392b' }}>Failed to save</span>}
+                                            {tipSaveState === 'saved' && <span className="tip-status saved">Saved ✓</span>}
+                                            {tipSaveState === 'error' && <span className="tip-status error">Failed to save</span>}
                                         </div>
                                     </div>
                                 )}
                             </div>
 
-                            <button 
-                                onClick={() => onAdvanceQuestion(transcriptionResult.is_correct)}
-                                disabled={!audioCompleted}
-                            >
-                                {audioCompleted ? "Continue" : "Playing audio..."}
-                            </button>
-                            <button onClick={onTryAgain}>Try Again</button>
+                            <div className="action-buttons">
+                                {(!transcriptionResult.is_correct || !requiresShadowing || hasPassedFirstTry) && (
+                                    <>
+                                        <button 
+                                            className="continue-btn"
+                                            onClick={() => onAdvanceQuestion(transcriptionResult.is_correct)}
+                                            disabled={transcriptionResult.is_correct && !audioCompleted}
+                                        >
+                                            {transcriptionResult.is_correct && !audioCompleted ? "Playing audio..." : "Continue"}
+                                        </button>
+                                        <button className="try-again-btn" onClick={onTryAgain}>Try Again</button>
+                                    </>
+                                )}
+                            </div>
                           </div>
             )}
 
             {debug && (
-                <button type="button" onClick={onMarkCorrect}>✓ Mark correct (debug)</button>
+                <button type="button" className="debug-btn" onClick={onMarkCorrect}>✓ Mark correct (debug)</button>
             )}
         </div>
     );
