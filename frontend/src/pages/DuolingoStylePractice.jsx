@@ -140,12 +140,17 @@ export default function DuolingoStyleQuestions() {
         const { question, question_type } = currentQuestionObj;
         const isListening = question_type === "listening vocab" || question_type === "listening sentence";
         
-        // Exclude fill in the blank and speaking questions from auto-play
+        const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
+        const isListeningType = (qt) => qt === "listening vocab" || qt === "listening sentence";
+
+        const isReview = sessionType === "review_session";
+
         const shouldAutoPlay =
             question_type !== "fill in the blank" &&
-            !isSpeakingQuestion(question_type) && 
-            (/[\u4e00-\u9fff]/.test(question) || isListening);
-            
+            !isSpeakingQuestion(question_type) &&
+            (hasChinese(question) || isListening) &&
+            (!isReview || isListening);   // <-- in review, only listening types play on load
+
         if (shouldAutoPlay) playAudio(question);
     }, [currentIndex, questions]);
 
@@ -250,6 +255,13 @@ export default function DuolingoStyleQuestions() {
         if (!correct) setLastUserAnswer(answerGiven);
         setAnswerState(correct ? 'correct' : 'incorrect');
         setUserAnswer("");
+
+        // review sentences that didn't autoplay on load get their audio now
+        if (sessionType === 'review_session' &&
+            !isListeningType(currentQuestionObj.question_type) &&
+            hasChinese(currentQuestionObj.question)) {
+            playAudio(currentQuestionObj.question);
+        }
     };
 
     const handleNext = () => {
@@ -280,8 +292,16 @@ export default function DuolingoStyleQuestions() {
         const isStale = () => questionTokenRef.current !== tokenAtSubmit;
 
         const question_type = questionAtSubmit.question_type;
-        const expectedVariants = questionAtSubmit.answer.split(',').map(v => clean(v.trim()));
-        if (expectedVariants.some(v => v === clean(answerAtSubmit))) { revealAnswer(true); return; }
+        
+        // Remove spaces for pinyin question types to make it space-insensitive
+        const isPinyinType = ["listening vocab", "transcribe word to pinyin", "transcribe hanzi to pinyin"].includes(question_type);
+        const normalizeMatch = (str) => {
+            const cleaned = clean(str.trim());
+            return isPinyinType ? cleaned.replace(/\s+/g, "") : cleaned;
+        };
+
+        const expectedVariants = questionAtSubmit.answer.split(',').map(v => normalizeMatch(v));
+        if (expectedVariants.some(v => v === normalizeMatch(answerAtSubmit))) { revealAnswer(true); return; }
 
         gradingRef.current = true;
         setIsGrading(true);
@@ -314,8 +334,7 @@ export default function DuolingoStyleQuestions() {
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             user_answer: answerAtSubmit,
-                            expected_answer: questionAtSubmit.answer,
-                            question: questionAtSubmit.question,   // the Chinese
+                            question: questionAtSubmit.question,   // just the Chinese
                         }),
                     });
                     const { is_correct } = await res.json();

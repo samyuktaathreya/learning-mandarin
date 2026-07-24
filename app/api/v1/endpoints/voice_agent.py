@@ -5,9 +5,17 @@ import httpx
 import crud
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, Body, HTTPException
+from database import SessionLocal
 # from openai import OpenAI  <- You don't actually need this if you are using httpx to make the web request
 
 router = APIRouter()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 load_dotenv(os.path.join(os.path.dirname(__file__), '../../../.env'))
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")

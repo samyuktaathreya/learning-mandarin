@@ -38,6 +38,7 @@ const questionTypeToInstruction = (question_type) => {
         case "translate english word to chinese":       return "Translate to Chinese:";
         case "translate chinese word to english":       return "Translate to English:";
         case "transcribe word to pinyin":               return "Write the pinyin (with tones) for:";
+        case "transcribe hanzi to pinyin":              return "Write the pinyin for the character";
         default:                                        return "Answer the question:";
     }
 };
@@ -62,7 +63,14 @@ export default function Question({
     const showReplayButton =
         currentQuestionObj.question_type !== "fill in the blank" &&
         (hasChinese(currentQuestionObj.question) || isListeningQuestion(currentQuestionObj.question_type));
+    
     const isListening = isListeningQuestion(currentQuestionObj.question_type);
+    
+    // Check if it's a transcription question where dictionary lookups would give away the answer
+    const isTranscriptionToPinyin = 
+        currentQuestionObj.question_type === "transcribe word to pinyin" || 
+        currentQuestionObj.question_type === "transcribe hanzi to pinyin";
+
     const hasAnswered = answerState !== null;
     const isWrong = answerState === 'incorrect';
 
@@ -142,7 +150,12 @@ export default function Question({
 
             {!isListening && (
                 <h1 className={currentQuestionObj.question.length > 12 ? "question-text question-text--long" : "question-text"}>
-                    <ClickableText text={currentQuestionObj.question} tags={currentQuestionObj.tags || []} isUnitTest={sessionType === "unit_test"} />
+                    {/* Render plain text instead of ClickableText if we need to hide the pinyin/meaning */}
+                    {isTranscriptionToPinyin && !hasAnswered ? (
+                        currentQuestionObj.question
+                    ) : (
+                        <ClickableText text={currentQuestionObj.question} tags={currentQuestionObj.tags || []} isUnitTest={sessionType === "unit_test"} />
+                    )}
                 </h1>
             )}
 
