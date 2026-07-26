@@ -1,6 +1,8 @@
 import ChineseIMEInput from './ChineseIMEInput';
 import { ClickableText } from './CharacterPopup';
 import { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 
@@ -38,6 +40,7 @@ const questionTypeToInstruction = (question_type) => {
         case "translate english word to chinese":       return "Translate to Chinese:";
         case "translate chinese word to english":       return "Translate to English:";
         case "transcribe word to pinyin":               return "Write the pinyin (with tones) for:";
+        case "transcribe hanzi to pinyin":              return "Write the pinyin for the character";
         default:                                        return "Answer the question:";
     }
 };
@@ -62,24 +65,35 @@ export default function Question({
     const showReplayButton =
         currentQuestionObj.question_type !== "fill in the blank" &&
         (hasChinese(currentQuestionObj.question) || isListeningQuestion(currentQuestionObj.question_type));
+    
     const isListening = isListeningQuestion(currentQuestionObj.question_type);
+    
+    // Check if it's a transcription question where dictionary lookups would give away the answer
+    const isTranscriptionToPinyin = 
+        currentQuestionObj.question_type === "transcribe word to pinyin" || 
+        currentQuestionObj.question_type === "transcribe hanzi to pinyin";
+
     const hasAnswered = answerState !== null;
     const isWrong = answerState === 'incorrect';
 
     const [correctPinyin, setCorrectPinyin] = useState("");
 
-    // ── Tip UI state ──────────────────────────────────────────────
+    // ── Grammar Tip UI state ──────────────────────────────────────
+    const [isGrammarTipOpen, setIsGrammarTipOpen] = useState(false);
+
+    // ── User Tip UI state ─────────────────────────────────────────
     const [showTipForm, setShowTipForm] = useState(false);
     const [tipKeyType, setTipKeyType] = useState("answer");
     const [tipDraft, setTipDraft] = useState("");
     const [tipSaveState, setTipSaveState] = useState(null); // null | 'saving' | 'saved' | 'error'
 
-    // reset the tip form whenever the question changes
+    // reset forms and sidebars whenever the question changes
     useEffect(() => {
         setShowTipForm(false);
         setTipKeyType("answer");
         setTipDraft("");
         setTipSaveState(null);
+        setIsGrammarTipOpen(false); // Close the sidebar on next question
     }, [currentQuestionObj]);
 
     const saveTip = async () => {
@@ -130,19 +144,55 @@ export default function Question({
 
     return (
         <div className="session-view">
+            {/* ── GRAMMAR TIP SIDEBAR ── */}
+            {isGrammarTipOpen && currentQuestionObj.grammar_tips?.length > 0 && (
+                <div className="grammar-tip-sidebar">
+                    <div className="grammar-tip-header">
+                        <h3>Grammar Tip{currentQuestionObj.grammar_tips.length > 1 ? "s" : ""}</h3>
+                        <button type="button" onClick={() => setIsGrammarTipOpen(false)}>Close</button>
+                    </div>
+                    <div className="grammar-tip-content">
+                        {currentQuestionObj.grammar_tips.map((tip, i) => (
+                            <div key={i} className="grammar-tip-entry">
+                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                    {tip}
+                                </ReactMarkdown>
+                                {i < currentQuestionObj.grammar_tips.length - 1 && <hr />}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
             <p>Question {currentIndex + 1} of {totalQuestions}</p>
             {currentQuestionObj.unit != null && <p>Unit {currentQuestionObj.unit}</p>}
             {sessionType === "unit_test" && <p>Unit Test</p>}
             {debugMode && <p>⚡ Debug mode</p>}
+            
             <h2>{questionTypeToInstruction(currentQuestionObj.question_type)}</h2>
+            
             {["translate english sentence to chinese", "translate english word to chinese", "fill in the blank"].includes(currentQuestionObj.question_type)
                 && /\d/.test(currentQuestionObj.answer) && (
                 <p className="digit-hint">Write numbers as digits (e.g. 50, not 五十)</p>
             )}
 
+            {currentQuestionObj.grammar_tips?.length > 0 && (
+                <button 
+                    type="button" 
+                    className="grammar-tip-toggle"
+                    onClick={() => setIsGrammarTipOpen(true)}
+                >
+                    Show grammar tip{currentQuestionObj.grammar_tips.length > 1 ? "s" : ""}
+                </button>
+            )}
+
             {!isListening && (
                 <h1 className={currentQuestionObj.question.length > 12 ? "question-text question-text--long" : "question-text"}>
-                    <ClickableText text={currentQuestionObj.question} tags={currentQuestionObj.tags || []} isUnitTest={sessionType === "unit_test"} />
+                    {/* Render plain text instead of ClickableText if we need to hide the pinyin/meaning */}
+                    {isTranscriptionToPinyin && !hasAnswered ? (
+                        currentQuestionObj.question
+                    ) : (
+                        <ClickableText text={currentQuestionObj.question} tags={currentQuestionObj.tags || []} isUnitTest={sessionType === "unit_test"} />
+                    )}
                 </h1>
             )}
 

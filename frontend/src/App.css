@@ -325,3 +325,90 @@
   background-color: #e5e7eb; /* Light gray */
   color: #1f2937;
 }
+
+/* --- Grammar Tip Styles --- */
+
+/* --- Split Layout for Session + Sidebar --- */
+.session-layout-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 1rem;
+}
+
+.session-main-content {
+    flex: 1;
+    max-width: 700px; /* Adjust this if you want the question wider/narrower */
+    width: 100%;
+}
+
+.grammar-tip-sidebar {
+    width: 400px;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    
+    /* This makes it float nicely down the page if they scroll! */
+    position: sticky;
+    top: 2rem; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.grammar-tip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.75rem;
+}
+
+.grammar-tip-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #2c3e50;
+}
+
+.grammar-tip-header button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #999;
+}
+
+.grammar-tip-header button:hover {
+    color: #333;
+}
+
+.grammar-tip-content {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #333;
+}
+
+.grammar-tip-entry hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 1.5rem 0;
+}
+
+/* Ensure markdown tables look decent inside the sidebar */
+.grammar-tip-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+.grammar-tip-content th, .grammar-tip-content td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.grammar-tip-content th {
+    background-color: #f2f2f2;
+}

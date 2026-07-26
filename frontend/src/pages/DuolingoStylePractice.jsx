@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import Header from '../Components/Header';
 import UnitSidebar from '../Components/UnitSidebar';
 import UnitCenter from '../Components/UnitCenter';
@@ -32,9 +34,6 @@ const TRANSLATE_TO_ENGLISH_TYPES = new Set([
     "translate chinese sentence to english",
 ]);
 
-// Types that POST to /api/grade_english_to_chinese. The backend branches on
-// question_type: listening -> strict pinyin (order enforced, homophones ok),
-// translation -> AI meaning-grading (cached). Both come through this one call.
 const GRADE_ENGLISH_TO_CHINESE_TYPES = new Set([
     "listening sentence",
     "translate english sentence to chinese",
@@ -51,10 +50,9 @@ const playAudio = async (text, slow = false) => {
         const { audio } = await response.json();
         const audioElement = new Audio(`data:audio/mpeg;base64,${audio}`);
         
-        // Return a promise that resolves ONLY when the audio is done playing
         return new Promise((resolve) => {
             audioElement.onended = resolve;
-            audioElement.onerror = resolve; // resolve on error so user isn't stuck
+            audioElement.onerror = resolve; 
             audioElement.play().catch(resolve);
         });
     } catch (error) {
@@ -75,37 +73,21 @@ export default function DuolingoStyleQuestions() {
     const [progress, setProgress] = useState(null);
     const [selectedUnit, setSelectedUnit] = useState(null);
     const [lastUserAnswer, setLastUserAnswer] = useState("");
-    // null while the user is still answering; 'correct' / 'incorrect' once
-    // they've submitted and are looking at the reveal (translation + Next)
     const [answerState, setAnswerState] = useState(null);
-    // UI-only mirror of gradingRef, so the input/submit button can visibly
-    // disable while an AI/grading fetch is in flight (gradingRef itself is a
-    // ref and won't trigger a re-render).
     const [isGrading, setIsGrading] = useState(false);
-    // skip-review warning modal
     const [showSkipWarning, setShowSkipWarning] = useState(false);
 
-    // recording state
+    // ── Grammar Tip State ──
+    const [isGrammarTipOpen, setIsGrammarTipOpen] = useState(false);
+
     const [isRecording, setIsRecording] = useState(false);
     const [isTranscribing, setIsTranscribing] = useState(false);
     const [transcriptionResult, setTranscriptionResult] = useState(null);
     const [recordingURL, setRecordingURL] = useState(null);
     const mediaRecorderRef = useRef(null);
     const audioChunksRef = useRef([]);
-    // Re-entrancy lock: mashing Enter can fire advanceQuestion multiple times
-    // before React commits the state reset, double-advancing and corrupting
-    // answerLog/currentIndex. This ref blocks a second advance until the next
-    // question's reveal re-arms it.
     const advancingRef = useRef(false);
-    // Guards handleSubmit itself: while an AI/grading fetch is in flight for
-    // the CURRENT question, a second Enter/submit must be ignored outright --
-    // advancingRef alone doesn't cover this, since nothing sets it until the
-    // fetch resolves and calls revealAnswer.
     const gradingRef = useRef(false);
-    // Bumped every time the displayed question changes. Async grading callbacks
-    // capture the token at fetch-start and compare it on resolve; if the user
-    // has since moved to a new question (token changed), the result is stale
-    // and discarded instead of being applied to the wrong question.
     const questionTokenRef = useRef(0);
 
     const currentQuestionObj = questions[currentIndex] ?? null;
@@ -121,18 +103,19 @@ export default function DuolingoStyleQuestions() {
 
     useEffect(() => {
         if (!currentQuestionObj) return;
-        advancingRef.current = false;   // new question rendered -- re-arm
-        gradingRef.current = false;     // any prior grading fetch is now moot
-        questionTokenRef.current += 1;  // invalidate any in-flight grading callbacks
+        advancingRef.current = false;   
+        gradingRef.current = false;     
+        questionTokenRef.current += 1;  
         setIsGrading(false);
         setTranscriptionResult(null);
         setAnswerState(null);
+        setIsGrammarTipOpen(false); // <-- Close sidebar automatically on next question
 
         setLastUserAnswer("");
         if (recordingURL) { URL.revokeObjectURL(recordingURL); setRecordingURL(null); }
 
         if (debugMode) {
-            advancingRef.current = false;   // debug auto-answers; no reveal to re-arm us
+            advancingRef.current = false;   
             const timer = setTimeout(() => advanceQuestion(true), 300);
             return () => clearTimeout(timer);
         }
@@ -140,17 +123,19 @@ export default function DuolingoStyleQuestions() {
         const { question, question_type } = currentQuestionObj;
         const isListening = question_type === "listening vocab" || question_type === "listening sentence";
         
-        // Exclude fill in the blank and speaking questions from auto-play
+        const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
+        const isListeningType = (qt) => qt === "listening vocab" || qt === "listening sentence";
+        const isReview = sessionType === "review_session";
+
         const shouldAutoPlay =
             question_type !== "fill in the blank" &&
-            !isSpeakingQuestion(question_type) && 
-            (/[\u4e00-\u9fff]/.test(question) || isListening);
-            
+            !isSpeakingQuestion(question_type) &&
+            (hasChinese(question) || isListening) &&
+            (!isReview || isListening);   
+
         if (shouldAutoPlay) playAudio(question);
     }, [currentIndex, questions]);
 
-    // Once an answer has been revealed (typed answer graded, or a speaking
-    // question's pronunciation result came back), Enter also triggers Next.
     useEffect(() => {
         const speakingReady = transcriptionResult && !transcriptionResult.error && !transcriptionResult.hallucination;
         if (!answerState && !speakingReady) return;
@@ -197,12 +182,7 @@ export default function DuolingoStyleQuestions() {
         finally { setIsLoading(false); }
     };
 
-    // "Start" button. If review is due, the backend would serve a review
-    // session -- that's the default and needs no special handling. The skip
-    // path is only reached via the warning modal below.
     const handleStart = () => startSession(false, false);
-
-    // User asked to skip review -> confirm hard first.
     const requestSkipReview = () => setShowSkipWarning(true);
     const confirmSkipReview = () => { setShowSkipWarning(false); startSession(false, true); };
     const cancelSkipReview = () => setShowSkipWarning(false);
@@ -224,7 +204,6 @@ export default function DuolingoStyleQuestions() {
     };
 
     const advanceQuestion = (wasCorrect, requeue = false) => {
-        // block duplicate fires from mashed Enter / racing submit+listener
         if (advancingRef.current) return;
         advancingRef.current = true;
 
@@ -243,13 +222,17 @@ export default function DuolingoStyleQuestions() {
         setTranscriptionResult(null);
     };
 
-    // Reveals the outcome of a submitted answer (translation included) instead
-    // of advancing straight away -- advancing now happens via the Next button.
     const revealAnswer = (correct, answerGiven) => {
         advancingRef.current = false;
         if (!correct) setLastUserAnswer(answerGiven);
         setAnswerState(correct ? 'correct' : 'incorrect');
         setUserAnswer("");
+
+        if (sessionType === 'review_session' &&
+            !isListeningType(currentQuestionObj.question_type) &&
+            hasChinese(currentQuestionObj.question)) {
+            playAudio(currentQuestionObj.question);
+        }
     };
 
     const handleNext = () => {
@@ -261,34 +244,29 @@ export default function DuolingoStyleQuestions() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!currentQuestionObj) return;
-        // Blocks: a second Enter/submit while advancing, AND while a grading
-        // fetch for THIS question is already in flight (advancingRef alone
-        // doesn't cover the latter -- nothing sets it until the fetch resolves).
         if (advancingRef.current || gradingRef.current) return;
 
-        // blank input is never correct -- fall through to the wrong path
-        // rather than matching an answer variant that also cleans to empty
         if (!userAnswer || !userAnswer.trim()) { revealAnswer(false, "(no answer)"); return; }
 
-        // Snapshot everything this submit is FOR, before any await. If the
-        // question changes while a fetch is in flight (token mismatch on
-        // resolve), the result is stale and must be discarded rather than
-        // applied to whatever question is now on screen.
         const questionAtSubmit = currentQuestionObj;
         const tokenAtSubmit = questionTokenRef.current;
         const answerAtSubmit = userAnswer;
         const isStale = () => questionTokenRef.current !== tokenAtSubmit;
 
         const question_type = questionAtSubmit.question_type;
-        const expectedVariants = questionAtSubmit.answer.split(',').map(v => clean(v.trim()));
-        if (expectedVariants.some(v => v === clean(answerAtSubmit))) { revealAnswer(true); return; }
+        
+        const isPinyinType = ["listening vocab", "transcribe word to pinyin", "transcribe hanzi to pinyin"].includes(question_type);
+        const normalizeMatch = (str) => {
+            const cleaned = clean(str.trim());
+            return isPinyinType ? cleaned.replace(/\s+/g, "") : cleaned;
+        };
+
+        const expectedVariants = questionAtSubmit.answer.split(',').map(v => normalizeMatch(v));
+        if (expectedVariants.some(v => v === normalizeMatch(answerAtSubmit))) { revealAnswer(true); return; }
 
         gradingRef.current = true;
         setIsGrading(true);
         try {
-            // Route to /api/grade_english_to_chinese for listening (pinyin branch)
-            // and english->chinese translation (AI branch). The backend picks the
-            // branch from question_type.
             if (GRADE_ENGLISH_TO_CHINESE_TYPES.has(question_type)) {
                 try {
                     const res = await fetch('/api/grade_english_to_chinese', {
@@ -302,7 +280,7 @@ export default function DuolingoStyleQuestions() {
                         }),
                     });
                     const { is_correct } = await res.json();
-                    if (isStale()) return;   // user moved on while this was in flight
+                    if (isStale()) return;   
                     if (is_correct) { revealAnswer(true); return; }
                 } catch (err) { console.error("Chinese grading failed", err); }
             }
@@ -314,12 +292,11 @@ export default function DuolingoStyleQuestions() {
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             user_answer: answerAtSubmit,
-                            expected_answer: questionAtSubmit.answer,
-                            question: questionAtSubmit.question,   // the Chinese
+                            question: questionAtSubmit.question,
                         }),
                     });
                     const { is_correct } = await res.json();
-                    if (isStale()) return;   // user moved on while this was in flight
+                    if (isStale()) return;   
                     if (is_correct) { revealAnswer(true); return; }
                 } catch (err) { console.error("Grading failed", err); }
             }
@@ -331,8 +308,6 @@ export default function DuolingoStyleQuestions() {
             setIsGrading(false);
         }
     };
-
-    // ── Recording ──────────────────────────────────────────────────
 
     const startRecording = async () => {
         try {
@@ -365,14 +340,13 @@ export default function DuolingoStyleQuestions() {
             const reader = new FileReader();
             reader.onloadend = async () => {
                 const base64 = reader.result.split(',')[1];
-
                 const res = await fetch('/api/transcribe', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         audio: base64,
                         expected: currentQuestionObj.answer,
-                        hanzi: currentQuestionObj.question,          // <-- add this
+                        hanzi: currentQuestionObj.question,          
                         question_type: currentQuestionObj.question_type,
                     }),
                 });
@@ -390,15 +364,9 @@ export default function DuolingoStyleQuestions() {
         if (recordingURL) { URL.revokeObjectURL(recordingURL); setRecordingURL(null); }
     };
 
-    // ── Render ──────────────────────────────────────────────────────
-
     if (isSessionStarted) {
-        // still fetching
         if (isLoading) return <div className="website-page"><Header /><div>Loading...</div></div>;
 
-        // fetch finished but the session came back empty -- nothing new to
-        // learn and nothing due right now. Show a real message with a way out
-        // instead of an indistinguishable "Loading..." that never resolves.
         if (questions.length === 0) return (
             <div className="website-page">
                 <Header />
@@ -425,46 +393,75 @@ export default function DuolingoStyleQuestions() {
         return (
             <div className="website-page">
                 <Header />
-                {sessionType === "review_session" && (
-                    <div className="session-banner" style={{ textAlign: 'center', opacity: 0.7, fontSize: '0.85rem' }}>
-                        Review session · {questions.length - currentIndex} left
+                {/* ── SIDE-BY-SIDE LAYOUT ── */}
+                <div className="session-layout-wrapper">
+                    
+                    {/* LEFT COLUMN: Main Question */}
+                    <div className="session-main-content">
+                        {sessionType === "review_session" && (
+                            <div className="session-banner" style={{ textAlign: 'center', opacity: 0.7, fontSize: '0.85rem' }}>
+                                Review session · {questions.length - currentIndex} left
+                            </div>
+                        )}
+                        {isSpeakingQuestion(currentQuestionObj.question_type)
+                            ? <SpeakingQuestion
+                                currentQuestionObj={currentQuestionObj}
+                                currentIndex={currentIndex}
+                                totalQuestions={questions.length}
+                                sessionType={sessionType}
+                                isSingleSyllable={isSingleSyllable}
+                                isRecording={isRecording}
+                                isTranscribing={isTranscribing}
+                                transcriptionResult={transcriptionResult}
+                                recordingURL={recordingURL}
+                                onStartRecording={startRecording}
+                                onStopRecording={stopRecording}
+                                onAdvanceQuestion={advanceQuestion}
+                                onMarkCorrect={() => advanceQuestion(true)}
+                                onTryAgain={handleTryAgain}
+                                onPlayAudio={playAudio}
+                                onToggleGrammar={() => setIsGrammarTipOpen(!isGrammarTipOpen)}
+                              />
+                            : <Question
+                                currentQuestionObj={currentQuestionObj}
+                                currentIndex={currentIndex}
+                                totalQuestions={questions.length}
+                                sessionType={sessionType}
+                                debugMode={debugMode}
+                                userAnswer={userAnswer}
+                                setUserAnswer={setUserAnswer}
+                                answerState={answerState}
+                                lastUserAnswer={lastUserAnswer}
+                                isGrading={isGrading}
+                                onSubmit={handleSubmit}
+                                onNext={handleNext}
+                                onMarkCorrect={() => advanceQuestion(true)}
+                                onPlayAudio={playAudio}
+                                onToggleGrammar={() => setIsGrammarTipOpen(!isGrammarTipOpen)}
+                              />
+                        }
                     </div>
-                )}
-                {isSpeakingQuestion(currentQuestionObj.question_type)
-                    ? <SpeakingQuestion
-                        currentQuestionObj={currentQuestionObj}
-                        currentIndex={currentIndex}
-                        totalQuestions={questions.length}
-                        sessionType={sessionType}
-                        isSingleSyllable={isSingleSyllable}
-                        isRecording={isRecording}
-                        isTranscribing={isTranscribing}
-                        transcriptionResult={transcriptionResult}
-                        recordingURL={recordingURL}
-                        onStartRecording={startRecording}
-                        onStopRecording={stopRecording}
-                        onAdvanceQuestion={advanceQuestion}
-                        onMarkCorrect={() => advanceQuestion(true)}
-                        onTryAgain={handleTryAgain}
-                        onPlayAudio={playAudio}
-                      />
-                    : <Question
-                        currentQuestionObj={currentQuestionObj}
-                        currentIndex={currentIndex}
-                        totalQuestions={questions.length}
-                        sessionType={sessionType}
-                        debugMode={debugMode}
-                        userAnswer={userAnswer}
-                        setUserAnswer={setUserAnswer}
-                        answerState={answerState}
-                        lastUserAnswer={lastUserAnswer}
-                        isGrading={isGrading}
-                        onSubmit={handleSubmit}
-                        onNext={handleNext}
-                        onMarkCorrect={() => advanceQuestion(true)}
-                        onPlayAudio={playAudio}
-                      />
-                }
+
+                    {/* RIGHT COLUMN: Grammar Tip */}
+                    {isGrammarTipOpen && currentQuestionObj.grammar_tips?.length > 0 && (
+                        <div className="grammar-tip-sidebar">
+                            <div className="grammar-tip-header">
+                                <h3>Grammar Tip{currentQuestionObj.grammar_tips.length > 1 ? "s" : ""}</h3>
+                                <button type="button" onClick={() => setIsGrammarTipOpen(false)}>✕</button>
+                            </div>
+                            <div className="grammar-tip-content">
+                                {currentQuestionObj.grammar_tips.map((tip, i) => (
+                                    <div key={i} className="grammar-tip-entry">
+                                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                            {tip}
+                                        </ReactMarkdown>
+                                        {i < currentQuestionObj.grammar_tips.length - 1 && <hr />}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         );
     }

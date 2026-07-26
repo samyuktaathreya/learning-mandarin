@@ -36,10 +36,13 @@ TIER_QUESTION_TYPES = {
 }
 ALL_TIER_QUESTION_TYPES = set().union(*TIER_QUESTION_TYPES.values())
 
+SPEAKING_TYPES = {"speaking vocab", "speaking sentence"}
+
 QUESTION_TYPE_TO_TIER = {
     qt: tier for tier, qtypes in TIER_QUESTION_TYPES.items() for qt in qtypes
 }
 
+REVIEW_ONLY_TYPES = {"transcribe hanzi to pinyin"}
 # A tier-4 word is served a tier-3 question this fraction of the time (a
 # "downshift" back to sentence-adjacent practice) instead of tier 4.
 # Answering on the downshifted (lower-tier) type does NOT advance the word --
@@ -51,16 +54,15 @@ TIER4_DOWNSHIFT_PROBABILITY = 0.20
 # pushes directly toward graduation.
 FINAL_PUSH_UNGRADUATED_THRESHOLD = 5
 
-# Struggle-based selection (uses StrengthTable.miss_count, the Option-B recent
-# struggle signal). A word's selection weight gets a bonus proportional to its
-# collapsed (max across facets) miss_count, so words you keep missing surface
-# more often. And a struggling word (miss >= MISS_DOWNSHIFT_THRESHOLD) is always
-# served one tier EASIER, so it gets consistent gentle practice. It can't advance
-# while downshifted (advancement needs a clean answer AT the word's real tier),
-# so the only way out is answering cleanly until miss_count decays back below the
-# threshold -- at which point downshift stops and it sees its real tier again.
-MISS_WEIGHT_FACTOR = 1.0            # added weight per point of miss_count
-MISS_DOWNSHIFT_THRESHOLD = 2        # miss_count at/above which the word is downshifted
+# A struggling word (miss_count >= 1 for either facet) is served one tier
+# EASIER as a single-miss safety net -- given MAX_SAME_TAG_PER_SESSION=2, a
+# tag can't rack up multiple misses in one session anyway, so any miss at all
+# is enough to warrant an easier serve next time. It exits probation the
+# moment it answers correctly at that easier tier (see reset_miss_count in
+# submit_session) -- not via gradual -1 decay, which could take several
+# sessions to actually clear even after the learner clearly knows it.
+MISS_DOWNSHIFT_THRESHOLD = 1
+MISS_WEIGHT_FACTOR = 0.5            # added weight per point of miss_count
 
 # The tier a word must reach before it can enter per-word review. == crud.MAX_TIER.
 MAX_TIER_FOR_REVIEW = 4
@@ -70,11 +72,9 @@ MAX_TIER_FOR_REVIEW = 4
 # never appear here. "listening sentence" trains both facets, so it's in both
 # lists. Used by the review picker for weak-facet-first selection.
 REVIEW_TYPES_BY_FACET = {
-    "pinyin":    ["speaking sentence", "listening sentence"],
-    "character": ["translate chinese sentence to english",
-                  "translate english sentence to chinese",
-                  "fill in the blank",
-                  "listening sentence"],
+    "pinyin":    ["listening sentence", "speaking sentence"],
+    "character": ["translate english sentence to chinese",
+                  "fill in the blank"],
 }
 
 # ----------------------------- DB DEPENDENCY -----------------------------
@@ -317,27 +317,35 @@ def _due_review_facets(db: Session, user_id: int) -> list:
 
 
 def _pick_review_question(tag: str, facet: str, used_ids: set, max_unit: int, seen_counts: dict):
-    # The 20% "everything else" bucket. 
-    # EXCLUDED: "speaking vocab", "translate chinese word to english", "translate chinese sentence to english".
-    # INCLUDED: Only types where the answer is produced in Pinyin, Characters, or Spoken Chinese.
-    other_types = [
-        "translate english word to chinese",
-        "translate english sentence to chinese",
-        "speaking sentence",
-        "fill in the blank",
-        "listening sentence",
-        "listening vocab"
-    ]
-    
-    # Enforce the 80/20 split
+    """Review picker, routed by which facet is actually due.
+
+    pinyin facet due: 80% "transcribe hanzi to pinyin" (isolated recall --
+        character shown, no meaning/audio cue, learner must produce tones cold).
+        20% other types that still exercise pinyin production/recognition
+        (listening sentence, speaking sentence), as a fallback/variety pool.
+
+    character facet due: 80% "translate english word to chinese" (meaning ->
+        character via IME -- the closest thing to isolated character recall
+        this format allows). 20% other types that still require producing/
+        reading the character in context (translate english sentence to
+        chinese, fill in the blank).
+
+    Note: "transcribe hanzi to pinyin" only advances the pinyin facet
+    (see QUESTION_TYPE_FACETS in crud.py) -- it shows the character already,
+    so it doesn't test character recall.
+    """
+    if facet == "pinyin":
+        primary = "transcribe hanzi to pinyin"
+        fallback_pool = list(REVIEW_TYPES_BY_FACET["pinyin"])
+    else:  # facet == "character"
+        primary = "translate english word to chinese"
+        fallback_pool = list(REVIEW_TYPES_BY_FACET["character"])
+
+    random.shuffle(fallback_pool)
     if random.random() < 0.80:
-        random.shuffle(other_types)
-        # 80% chance: Try Pinyin transcription first. If none exist for this word, fallback to others.
-        ordered_types = ["transcribe word to pinyin"] + other_types
+        ordered_types = [primary] + fallback_pool
     else:
-        random.shuffle(other_types)
-        # 20% chance: Try the other output-based types first. Fallback to Pinyin if none exist.
-        ordered_types = other_types + ["transcribe word to pinyin"]
+        ordered_types = fallback_pool + [primary]
 
     for qt in ordered_types:
         pool = [
@@ -348,15 +356,15 @@ def _pick_review_question(tag: str, facet: str, used_ids: set, max_unit: int, se
         ]
         if not pool:
             continue
-            
+
         unseen = [q for q in pool if q["id"] not in seen_counts]
         if unseen:
             return random.choice(unseen)
-            
+
         min_shown = min(seen_counts.get(q["id"], 0) for q in pool)
         least_shown = [q for q in pool if seen_counts.get(q["id"], 0) == min_shown]
         return random.choice(least_shown)
-        
+
     return None
 
 
@@ -500,6 +508,10 @@ def submit_session(
     mode: str = Body("sentence"),
     db: Session = Depends(get_db)
 ):
+    graded_correct = [
+        True if q.get("question_type") in SPEAKING_TYPES else is_correct[i]
+        for i, q in enumerate(list_of_question_data)
+    ]
     submit_tags = set()
     for question_data in list_of_question_data:
         for tag in question_data.get("tags", []):
@@ -524,6 +536,7 @@ def submit_session(
     facet_attempts = {}
     facet_misses = {}
     tag_misses = {}
+    facet_probation_clears = set()   # (tag, facet) pairs to hard-reset this submit
 
     for i, question_data in enumerate(list_of_question_data):
         question_type = question_data.get("question_type", "")
@@ -546,6 +559,15 @@ def submit_session(
                     facet_misses[key] = facet_misses.get(key, 0) + 1
             if not correct:
                 tag_misses[tag] = tag_misses.get(tag, 0) + 1
+
+            # Probation clear check: this tag's real tier is starting_tiers[tag].
+            # If this question was served at exactly one tier below that, and
+            # answered correctly, the learner just proved they know it -- clear
+            # struggle for whichever facet(s) this question exercised.
+            real_tier = starting_tiers.get(tag, 1)
+            if correct and real_tier > 1 and question_type in TIER_QUESTION_TYPES.get(real_tier - 1, set()):
+                for facet in crud.facets_for_question_type(question_type):
+                    facet_probation_clears.add((tag, facet))
 
         if question_type == "speaking vocab":
             for sound in _tag_sounds(question_data.get("question", "")):
@@ -572,15 +594,16 @@ def submit_session(
 
     seen_facets = set(facet_attempts.keys())
     for (tag, facet) in seen_facets:
+        if (tag, facet) in facet_probation_clears:
+            crud.reset_miss_count(db, user_id, tag, facet)
+            continue
         misses = facet_misses.get((tag, facet), 0)
         delta = misses if misses > 0 else -1
         crud.update_miss_count(db, user_id, tag, facet, delta,
                                attempts=facet_attempts[(tag, facet)])
 
-    unit_test_result = "unit test not taken"
-
     if is_unit_test:
-        num_correct = sum(is_correct)
+        num_correct = sum(graded_correct)
         needed = PERCENTAGE_TO_PASS_UNIT_TEST * NUM_OF_UNIT_TEST_QUESTIONS
         if num_correct >= needed:
             user_unit = crud.get_user(db, user_id).current_unit
