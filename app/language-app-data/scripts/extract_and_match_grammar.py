@@ -21,6 +21,7 @@ sop_dir = script_dir.parent / "SOPs"
 ocr_cache_dir = data_dir / "intermediate" / "OCR_cache"
 units_output_path = data_dir / "clean" / "units_output.json"
 sop_path = sop_dir / "grammar_tip" / "grammar_tip.txt"
+reformat_sop_path = sop_dir / "grammar_tip" / "reformat_grammar_tip.txt"
 
 # Load environment variables
 load_dotenv(script_dir.parent.parent / ".env")
@@ -49,9 +50,6 @@ def remove_grammar_tips(json_file_path: Union[str, Path]) -> None:
         
     print(f"Successfully removed grammar tips from {path.name}")
 
-# ---------------------------------------------------------
-# Step 1: Extract Grammar Tips from Markdown
-# ---------------------------------------------------------
 # ---------------------------------------------------------
 # Step 1: Extract Grammar Tips from Markdown
 # ---------------------------------------------------------
@@ -130,11 +128,37 @@ def parse_grammar_tips() -> dict:
     return output_data
 
 # ---------------------------------------------------------
-# Step 2: Claude API Matching
+# Step 2: Claude API Reformatting & Matching
 # ---------------------------------------------------------
-def get_matching_sentences(sop_text: str, grammar_tip: str, hanzi_list: list) -> list:
+def reformat_grammar_tip_text(reformat_sop_text: str, raw_tip: str) -> str:
     if client is None:
         print(" [error] CLAUDE_API_KEY not configured; skipping API call.")
+        return raw_tip
+
+    user_content = (
+        f"Here is the raw grammar tip:\n\n{raw_tip}\n\n"
+        f"Please reformat this grammar tip according to the system instructions."
+    )
+
+    try:
+        response = client.messages.create(
+            model=MODEL,
+            max_tokens=MAX_TOKENS,
+            temperature=TEMPERATURE,
+            system=reformat_sop_text,
+            messages=[{
+                "role": "user",
+                "content": [{"type": "text", "text": user_content}],
+            }],
+        )
+        return response.content[0].text.strip()
+    except Exception as e:
+        print(f" [error] API call failed during reformatting: {e}")
+        return raw_tip  # fallback to raw tip on error
+
+
+def get_matching_sentences(sop_text: str, grammar_tip: str, hanzi_list: list) -> list:
+    if client is None:
         return []
 
     # Format the prompt carefully so Claude returns ONLY a valid JSON list
@@ -169,7 +193,7 @@ def get_matching_sentences(sop_text: str, grammar_tip: str, hanzi_list: list) ->
             return []
             
     except Exception as e:
-        print(f" [error] API call failed: {e}")
+        print(f" [error] API call failed during matching: {e}")
         return []
 
 # ---------------------------------------------------------
@@ -184,24 +208,26 @@ def main():
         print("No grammar tips extracted. Exiting.")
         return
 
-    print("2. Loading SOP and clean sentences data...")
+    print("2. Loading SOPs and clean sentences data...")
     if not sop_path.exists():
-        print(f" [error] SOP file not found at {sop_path}")
+        print(f" [error] Matching SOP file not found at {sop_path}")
         return
-        
     with open(sop_path, 'r', encoding='utf-8') as f:
         sop_text = f.read()
+
+    if not reformat_sop_path.exists():
+        print(f" [error] Reformat SOP file not found at {reformat_sop_path}")
+        return
+    with open(reformat_sop_path, 'r', encoding='utf-8') as f:
+        reformat_sop_text = f.read()
 
     if not units_output_path.exists():
         print(f" [error] Clean sentences file not found at {units_output_path}")
         return
-
     with open(units_output_path, 'r', encoding='utf-8') as f:
         units_data = json.load(f)
 
-    
-
-    print("3. Matching grammar tips to sentences via Claude...")
+    print("3. Reformatting tips and matching to sentences via Claude...")
     for unit_str, tips in unit_tips.items():
         if unit_str not in units_data:
             print(f" [warning] Unit {unit_str} not found in units_output.json. Skipping.")
@@ -216,8 +242,13 @@ def main():
         print(f"\nProcessing Unit {unit_str} ({len(tips)} tips, {len(hanzi_list)} sentences)...")
         
         for idx, tip in enumerate(tips, 1):
-            print(f"  -> Calling Claude for Tip {idx}...")
-            matched_hanzi = get_matching_sentences(sop_text, tip, hanzi_list)
+            print(f"  -> Calling Claude to Reformat Tip {idx}...")
+            # 1. Reformat the raw tip
+            reformatted_tip = reformat_grammar_tip_text(reformat_sop_text, tip)
+
+            print(f"  -> Calling Claude to Match Tip {idx}...")
+            # 2. Use the reformatted tip to match sentences
+            matched_hanzi = get_matching_sentences(sop_text, reformatted_tip, hanzi_list)
             
             if matched_hanzi:
                 print(f"     Found {len(matched_hanzi)} matching sentence(s).")
@@ -227,9 +258,9 @@ def main():
                         if s_obj["hanzi"] == matched_sentence:
                             # If multiple tips apply to one sentence, this string concatenation handles it
                             if "grammar_tip" in s_obj and s_obj["grammar_tip"]:
-                                s_obj["grammar_tip"] += f"\n\n{tip}"
+                                s_obj["grammar_tip"] += f"\n\n{reformatted_tip}"
                             else:
-                                s_obj["grammar_tip"] = tip
+                                s_obj["grammar_tip"] = reformatted_tip
             else:
                 print("     No matches found.")
 
