@@ -17,6 +17,7 @@ META_TAGS = {
     "listening_sentence", "fill_in_the_blank", "transcribe_word_to_pinyin",
     "translate_chinese_word_to_english", "translate_chinese_sentence_to_english",
     "translate_english_word_to_chinese", "translate_english_sentence_to_chinese",
+    "transcribe_hanzi_to_pinyin",
 }
 
 QUESTION_TYPES = [
@@ -30,6 +31,7 @@ QUESTION_TYPES = [
     "fill in the blank",
     "translate chinese sentence to english",
     "translate chinese word to english",
+    "transcribe hanzi to pinyin"
 ]
 
 FACETS = ("character", "pinyin")
@@ -116,7 +118,7 @@ except json.JSONDecodeError:
 
 # CC-CEDICT Path setup (Adjust .parent logic if needed relative to app/)
 BASE_DIR = Path(__file__).resolve().parent
-DICT_PATH = BASE_DIR / "language-app-data" / "data" / "raw" / "cedict_ts.u8"
+DICT_PATH = BASE_DIR / "language-app-data" / "data" / "raw" / "chinese_english_dictionary.u8"
 
 
 def seed_cedict(db: Session):

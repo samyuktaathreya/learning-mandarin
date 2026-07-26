@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 
 class QuestionBase(BaseModel):
@@ -8,6 +8,7 @@ class QuestionBase(BaseModel):
     question: str
     answer: str
     tags: List[str]
+    grammar_tip: Optional[str] = None
 
 
 class SessionSubmission(BaseModel):

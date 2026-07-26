@@ -69,15 +69,13 @@ class WordTierProgress(Base):
     __table_args__ = (UniqueConstraint("user_id", "tag", name="_user_tag_tier_uc"),)
 
 class AcceptedAnswer(Base):
-    """Cache of learner answers that Claude judged CORRECT for a chinese->english
-    translation, so an identical (expected_answer, cleaned_answer) pair skips the
-    AI call next time.
+    """Cache of learner answers that Claude judged CORRECT, so an identical 
+    (question, cleaned_answer) pair skips the AI call next time.
 
-    Global (not per-user): whether an English rendering is an acceptable
-    translation of an expected answer doesn't depend on who typed it. Keyed on
-    the EXPECTED answer + the CLEANED user answer only -- not the question
-    sentence -- because the same expected answer accepts the same responses
-    regardless of which prompt produced it.
+    Global (not per-user): whether an answer is acceptable for a question 
+    doesn't depend on who typed it. Keyed on the question + the CLEANED user 
+    answer so the cache works regardless of which expected_answer reference was 
+    stored (which may be wrong/mismatched to the question).
 
     Accepted-only: we never cache rejections, so a cache miss simply falls
     through to the AI (a cached row can only ever let an answer through, never
@@ -86,12 +84,13 @@ class AcceptedAnswer(Base):
     __tablename__ = "accepted_answers"
 
     id = Column(Integer, primary_key=True, index=True)
-    expected_answer = Column(TEXT, nullable=False)
+    question = Column(TEXT, nullable=False)
     cleaned_answer = Column(TEXT, nullable=False)
+    expected_answer = Column(TEXT, nullable=True)  # Legacy field, kept for reference only
     created_at = Column(DateTime, default=datetime.utcnow)
 
     __table_args__ = (
-        UniqueConstraint('expected_answer', 'cleaned_answer', name='_expected_cleaned_uc'),
+        UniqueConstraint('question', 'cleaned_answer', name='_question_cleaned_uc'),
     )
 
 
