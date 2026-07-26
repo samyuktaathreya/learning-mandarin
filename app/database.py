@@ -118,7 +118,7 @@ except json.JSONDecodeError:
 
 # CC-CEDICT Path setup (Adjust .parent logic if needed relative to app/)
 BASE_DIR = Path(__file__).resolve().parent
-DICT_PATH = BASE_DIR / "language-app-data" / "data" / "raw" / "cedict_ts.u8"
+DICT_PATH = BASE_DIR / "language-app-data" / "data" / "raw" / "chinese_english_dictionary.u8"
 
 
 def seed_cedict(db: Session):

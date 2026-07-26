@@ -21,6 +21,8 @@ def main():
     run_script("sentence_parser")
     print("Generating number sentences...")
     run_script("number_sentences")
+    print("Matching grammar tips to sentences...")
+    run_script("extract_and_match_grammar")
     print("Running question generator...")
     run_script("create_questions")
     print("Pipeline completed")
