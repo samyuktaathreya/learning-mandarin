@@ -32,7 +32,7 @@ QUESTION_TYPE_FACETS = {
     "translate chinese sentence to english":["character"],
     "translate english sentence to chinese":["character"],
     "fill in the blank":                    ["character"],
-    "transcribe character to pinyin":       ["pinyin"],
+    "transcribe hanzi to pinyin":       ["pinyin"],
 }
 
 

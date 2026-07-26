@@ -40,6 +40,16 @@ OUTPUT_FILEPATH = BASE_DIR / "data" / "clean" / "unit_questions_hsk1.json"
 # vocab_tags_for_unit().
 UNIT_VOCAB_TAGS_FILEPATH = BASE_DIR / "data" / "clean" / "unit_vocab_tags.json"
 
+GRAMMAR_TIP_SEPARATOR = "\n\n"
+
+def split_grammar_tips(raw_tip: str) -> list:
+    """units_output.json stores possibly-multiple tips joined by a blank
+    line (see grammar_tip_matcher.py). Split back into a clean list so
+    consumers (frontend, submit_session) don't need to know the delimiter."""
+    if not raw_tip:
+        return []
+    return [t.strip() for t in raw_tip.split(GRAMMAR_TIP_SEPARATOR) if t.strip()]
+
 
 def load_json(path: Path):
     with open(path, "r", encoding="utf-8") as fh:
@@ -312,11 +322,9 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
         if not hanzi or hanzi in seen_sentences:
             continue
         seen_sentences.add(hanzi)
-        # sentence_parser already segmented this properly -- use its tags
-        # rather than re-deriving by substring (which misses digit-expanded
-        # number words, since the displayed hanzi still reads '50').
         content_tags = item.get("tags") or content_tags_for(hanzi, all_hanzi)
         blocked = has_unlearned_vocab(content_tags, unit_number, home_unit)
+        grammar_tips = split_grammar_tips(item.get("grammar_tip", ""))
         for qtype, q_text, a_text in [
             (QuestionType.LISTENING_SENTENCE.value, hanzi, hanzi),
             (QuestionType.SPEAKING_SENTENCE.value, hanzi, pinyin),
@@ -329,6 +337,8 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
                                      build_tags_from_precomputed(content_tags, qtype, unit_str), counters)
             question["hanzi"] = hanzi
             question["english"] = english
+            if grammar_tips:
+                question["grammar_tips"] = grammar_tips
             questions.append(question)
 
     seen_fitb = set()
