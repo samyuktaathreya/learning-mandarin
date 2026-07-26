@@ -1,0 +1,23 @@
+Reformat this grammar tip for an English-only speaker learning Chinese.
+
+Return ONLY valid JSON, no markdown fences, no commentary. Schema:
+
+{
+  "sections": [
+    {
+      "title": "string, e.g. 'The Verb 在' — omit leading numbers that don't make sense",
+      "body": "string, plain English explanation, no markdown tables",
+      "table": {
+        "headers": ["string", ...],
+        "rows": [["string", ...], ...]
+      } | null
+    }
+  ]
+}
+
+Rules:
+- One entry in "sections" per distinct grammar point in the tip (a tip may cover more than one).
+- Put example sentences in "table" as rows: one row per example, one column per sentence part (e.g. Subject / Verb / Location), plus a final column for the English translation. Every row must have the same number of columns as "headers".
+- If there are no example sentences worth tabulating, set "table" to null and put examples in "body" as plain sentences.
+- Never leave a row entirely blank. Never split one logical row across two rows.
+- "body" must be plain prose — no "|", no markdown table syntax anywhere in the output.
