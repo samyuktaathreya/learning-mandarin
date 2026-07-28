@@ -1,6 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import Header from '../Components/Header';
 import UnitSidebar from '../Components/UnitSidebar';
 import UnitCenter from '../Components/UnitCenter';
@@ -28,6 +26,8 @@ const clean = (str) => {
 };
 
 const isSpeakingQuestion = (qt) => qt === "speaking vocab" || qt === "speaking sentence";
+const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
+const isListeningType = (qt) => qt === "listening vocab" || qt === "listening sentence";
 
 const TRANSLATE_TO_ENGLISH_TYPES = new Set([
     "translate chinese word to english",
@@ -58,6 +58,77 @@ const playAudio = async (text, slow = false) => {
     } catch (error) {
         console.error("Failed to play audio", error);
     }
+};
+
+// Renders one structured grammar tip: { sections: [{ title, body, table }] }
+// Logs to console if the shape looks wrong so it's obvious in devtools
+// why a tip isn't showing content.
+const renderGrammarTip = (tip, tipIndex) => {
+    if (!tip) {
+        console.warn(`[GrammarTip debug] tip at index ${tipIndex} is null/undefined`);
+        return null;
+    }
+    if (typeof tip === 'string') {
+        console.warn(
+            `[GrammarTip debug] tip at index ${tipIndex} is a raw string, not the expected ` +
+            `{ sections: [...] } object -- this data is stale (old markdown format). ` +
+            `Re-run the pipeline or check the API response shape.`,
+            tip
+        );
+        return <p style={{ color: '#c0392b' }}>⚠ Malformed grammar tip data (raw string, see console)</p>;
+    }
+    if (!Array.isArray(tip.sections)) {
+        console.warn(`[GrammarTip debug] tip at index ${tipIndex} has no "sections" array:`, tip);
+        return <p style={{ color: '#c0392b' }}>⚠ Malformed grammar tip data (see console)</p>;
+    }
+    if (tip.sections.length === 0) {
+        console.warn(`[GrammarTip debug] tip at index ${tipIndex} has an empty "sections" array`);
+    }
+
+    return tip.sections.map((section, sIdx) => {
+        if (!section || (!section.title && !section.body && !section.table)) {
+            console.warn(`[GrammarTip debug] tip ${tipIndex}, section ${sIdx} is empty:`, section);
+        }
+        return (
+            <div key={sIdx} style={{ marginBottom: '16px' }}>
+                <h4 style={{ margin: '0 0 6px 0' }}>{section.title}</h4>
+                <p style={{ whiteSpace: 'pre-wrap', margin: '0 0 10px 0' }}>{section.body}</p>
+
+                {section.table && (
+                    <table style={{ borderCollapse: 'collapse', width: '100%', margin: '8px 0' }}>
+                        <thead>
+                            <tr>
+                                {section.table.headers.map((h, hIdx) => (
+                                    <th
+                                        key={hIdx}
+                                        style={{
+                                            border: '1px solid #ccc',
+                                            padding: '8px',
+                                            backgroundColor: '#f0f0f0',
+                                            textAlign: 'left',
+                                        }}
+                                    >
+                                        {h}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {section.table.rows.map((row, rIdx) => (
+                                <tr key={rIdx}>
+                                    {row.map((cell, cIdx) => (
+                                        <td key={cIdx} style={{ border: '1px solid #ccc', padding: '8px' }}>
+                                            {cell}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
+            </div>
+        );
+    });
 };
 
 export default function DuolingoStyleQuestions() {
@@ -91,6 +162,7 @@ export default function DuolingoStyleQuestions() {
     const questionTokenRef = useRef(0);
 
     const currentQuestionObj = questions[currentIndex] ?? null;
+    useEffect(() => { console.log('currentQuestionObj:', currentQuestionObj); }, [currentQuestionObj]);
     const isSingleSyllable = currentQuestionObj
         ? currentQuestionObj.answer.replace(/[^a-z0-9\u4e00-\u9fff]/gi, '').length <= 2
         : false;
@@ -100,6 +172,16 @@ export default function DuolingoStyleQuestions() {
     useEffect(() => {
         if (progress && selectedUnit === null) setSelectedUnit(progress.current_unit);
     }, [progress]);
+
+    // Debug: log grammar_tips shape whenever the sidebar is opened for a question
+    useEffect(() => {
+        if (isGrammarTipOpen && currentQuestionObj) {
+            console.log(
+                '[GrammarTip debug] grammar_tips for current question:',
+                currentQuestionObj.grammar_tips
+            );
+        }
+    }, [isGrammarTipOpen, currentQuestionObj]);
 
     useEffect(() => {
         if (!currentQuestionObj) return;
@@ -122,9 +204,6 @@ export default function DuolingoStyleQuestions() {
 
         const { question, question_type } = currentQuestionObj;
         const isListening = question_type === "listening vocab" || question_type === "listening sentence";
-        
-        const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
-        const isListeningType = (qt) => qt === "listening vocab" || qt === "listening sentence";
         const isReview = sessionType === "review_session";
 
         const shouldAutoPlay =
@@ -443,21 +522,47 @@ export default function DuolingoStyleQuestions() {
                     </div>
 
                     {/* RIGHT COLUMN: Grammar Tip */}
-                    {isGrammarTipOpen && currentQuestionObj.grammar_tips?.length > 0 && (
+                    {isGrammarTipOpen && (
                         <div className="grammar-tip-sidebar">
                             <div className="grammar-tip-header">
-                                <h3>Grammar Tip{currentQuestionObj.grammar_tips.length > 1 ? "s" : ""}</h3>
+                                <h3>Grammar Tips</h3>
                                 <button type="button" onClick={() => setIsGrammarTipOpen(false)}>✕</button>
                             </div>
                             <div className="grammar-tip-content">
-                                {currentQuestionObj.grammar_tips.map((tip, i) => (
-                                    <div key={i} className="grammar-tip-entry">
-                                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                                            {tip}
-                                        </ReactMarkdown>
-                                        {i < currentQuestionObj.grammar_tips.length - 1 && <hr />}
+
+                                {/* ── VISIBLE DEBUG PANEL ── remove once working ── */}
+                                <div style={{ background: '#1a1a2e', border: '1px solid #e74c3c', borderRadius: 6, padding: 12, marginBottom: 16, fontSize: 12, fontFamily: 'monospace', color: '#e74c3c' }}>
+                                    <strong>DEBUG — raw question keys:</strong>
+                                    <div style={{ color: '#f39c12', marginTop: 4 }}>
+                                        {Object.keys(currentQuestionObj).join(', ')}
                                     </div>
-                                ))}
+                                    <strong style={{ marginTop: 8, display: 'block' }}>grammar_tip (singular):</strong>
+                                    <div style={{ color: '#2ecc71', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+                                        {JSON.stringify(currentQuestionObj.grammar_tip, null, 2)}
+                                    </div>
+                                    <strong style={{ marginTop: 8, display: 'block' }}>grammar_tips (plural):</strong>
+                                    <div style={{ color: '#2ecc71', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>
+                                        {JSON.stringify(currentQuestionObj.grammar_tips, null, 2)}
+                                    </div>
+                                </div>
+                                {/* ── END DEBUG PANEL ── */}
+
+                                {/* Render whichever field actually has data */}
+                                {(() => {
+                                    // Support both field names until we confirm which the API uses
+                                    const tips = currentQuestionObj.grammar_tips ?? currentQuestionObj.grammar_tip;
+                                    if (!tips || (Array.isArray(tips) && tips.length === 0)) {
+                                        return <p style={{ opacity: 0.6 }}>No grammar tips for this question.</p>;
+                                    }
+                                    // Normalise: could be a single object, array of objects, or legacy string
+                                    const tipArray = Array.isArray(tips) ? tips : [tips];
+                                    return tipArray.map((tip, i) => (
+                                        <div key={i} className="grammar-tip-entry">
+                                            {renderGrammarTip(tip, i)}
+                                            {i < tipArray.length - 1 && <hr />}
+                                        </div>
+                                    ));
+                                })()}
                             </div>
                         </div>
                     )}
