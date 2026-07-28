@@ -1,8 +1,6 @@
 import ChineseIMEInput from './ChineseIMEInput';
 import { ClickableText } from './CharacterPopup';
 import { useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 
@@ -128,7 +126,10 @@ export default function Question({
         }
     }, [isWrong, isListening, currentQuestionObj.answer]);
 
-    // Helper to wrap Chinese text with the clickable dictionary popup
+    // Helper to wrap Chinese text with the clickable dictionary popup.
+    // ClickableText handles finding/underlining just the Chinese runs even
+    // inside a string that mixes English and Chinese, so it's safe to hand
+    // it any string -- tip prose, table cells, question/answer text, etc.
     const renderChineseText = (text) => {
         if (!text || typeof text !== 'string') return text;
         return hasChinese(text) ? (
@@ -140,6 +141,54 @@ export default function Question({
         ) : (
             text
         );
+    };
+
+    // Renders one structured grammar tip: { sections: [{ title, body, table }] }
+    // with any Chinese in title/body/table cells made clickable.
+    const renderGrammarTip = (tip) => {
+        if (!tip || !Array.isArray(tip.sections)) return null;
+
+        return tip.sections.map((section, sIdx) => (
+            <div key={sIdx} style={{ marginBottom: '16px' }}>
+                <h4 style={{ margin: '0 0 6px 0' }}>{renderChineseText(section.title)}</h4>
+                <p style={{ whiteSpace: 'pre-wrap', margin: '0 0 10px 0' }}>
+                    {renderChineseText(section.body)}
+                </p>
+
+                {section.table && (
+                    <table style={{ borderCollapse: 'collapse', width: '100%', margin: '8px 0' }}>
+                        <thead>
+                            <tr>
+                                {section.table.headers.map((h, hIdx) => (
+                                    <th
+                                        key={hIdx}
+                                        style={{
+                                            border: '1px solid #ccc',
+                                            padding: '8px',
+                                            backgroundColor: '#f0f0f0',
+                                            textAlign: 'left',
+                                        }}
+                                    >
+                                        {renderChineseText(h)}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {section.table.rows.map((row, rIdx) => (
+                                <tr key={rIdx}>
+                                    {row.map((cell, cIdx) => (
+                                        <td key={cIdx} style={{ border: '1px solid #ccc', padding: '8px' }}>
+                                            {renderChineseText(cell)}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
+            </div>
+        ));
     };
 
     return (
@@ -154,9 +203,7 @@ export default function Question({
                     <div className="grammar-tip-content">
                         {currentQuestionObj.grammar_tips.map((tip, i) => (
                             <div key={i} className="grammar-tip-entry">
-                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                                    {tip}
-                                </ReactMarkdown>
+                                {renderGrammarTip(tip)}
                                 {i < currentQuestionObj.grammar_tips.length - 1 && <hr />}
                             </div>
                         ))}
