@@ -40,19 +40,45 @@ const GRADE_ENGLISH_TO_CHINESE_TYPES = new Set([
     "translate english word to chinese",
 ]);
 
-const playAudio = async (text, slow = false) => {
+const playAudio = async (text, slow = false, currentAudioRef = null, tokenRef = null, expectedToken = null) => {
+    // Stop anything already playing — this call is newer, so it wins immediately.
+    if (currentAudioRef?.current) {
+        currentAudioRef.current.pause();
+        currentAudioRef.current = null;
+    }
+
     try {
         const response = await fetch('/api/audio', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text, slow }),
         });
+
+        // Bail if the question changed while we were waiting on the network.
+        if (tokenRef && tokenRef.current !== expectedToken) return;
+
         const { audio } = await response.json();
+
+        if (tokenRef && tokenRef.current !== expectedToken) return;
+
+        // Something else may have started playing while we were waiting
+        // (another playAudio call that resolved first) — stop it too.
+        if (currentAudioRef?.current) {
+            currentAudioRef.current.pause();
+        }
+
         const audioElement = new Audio(`data:audio/mpeg;base64,${audio}`);
-        
+        if (currentAudioRef) currentAudioRef.current = audioElement;
+
         return new Promise((resolve) => {
-            audioElement.onended = resolve;
-            audioElement.onerror = resolve; 
+            audioElement.onended = () => {
+                if (currentAudioRef?.current === audioElement) currentAudioRef.current = null;
+                resolve();
+            };
+            audioElement.onerror = () => {
+                if (currentAudioRef?.current === audioElement) currentAudioRef.current = null;
+                resolve();
+            };
             audioElement.play().catch(resolve);
         });
     } catch (error) {
@@ -160,6 +186,7 @@ export default function DuolingoStyleQuestions() {
     const advancingRef = useRef(false);
     const gradingRef = useRef(false);
     const questionTokenRef = useRef(0);
+    const currentAudioRef = useRef(null);
 
     const currentQuestionObj = questions[currentIndex] ?? null;
     useEffect(() => { console.log('currentQuestionObj:', currentQuestionObj); }, [currentQuestionObj]);
@@ -185,19 +212,24 @@ export default function DuolingoStyleQuestions() {
 
     useEffect(() => {
         if (!currentQuestionObj) return;
-        advancingRef.current = false;   
-        gradingRef.current = false;     
-        questionTokenRef.current += 1;  
+        advancingRef.current = false;
+        gradingRef.current = false;
+        questionTokenRef.current += 1;
+
+        // Stop whatever was playing from the previous question, immediately.
+        if (currentAudioRef.current) {
+            currentAudioRef.current.pause();
+            currentAudioRef.current = null;
+        }
+
         setIsGrading(false);
         setTranscriptionResult(null);
         setAnswerState(null);
-        setIsGrammarTipOpen(false); // <-- Close sidebar automatically on next question
-
+        setIsGrammarTipOpen(false);
         setLastUserAnswer("");
         if (recordingURL) { URL.revokeObjectURL(recordingURL); setRecordingURL(null); }
 
         if (debugMode) {
-            advancingRef.current = false;   
             const timer = setTimeout(() => advanceQuestion(true), 300);
             return () => clearTimeout(timer);
         }
@@ -210,9 +242,11 @@ export default function DuolingoStyleQuestions() {
             question_type !== "fill in the blank" &&
             !isSpeakingQuestion(question_type) &&
             (hasChinese(question) || isListening) &&
-            (!isReview || isListening);   
+            (!isReview || isListening);
 
-        if (shouldAutoPlay) playAudio(question);
+        if (shouldAutoPlay) {
+            playAudio(question, false, currentAudioRef, questionTokenRef, questionTokenRef.current);
+        }
     }, [currentIndex, questions]);
 
     useEffect(() => {
@@ -310,7 +344,7 @@ export default function DuolingoStyleQuestions() {
         if (sessionType === 'review_session' &&
             !isListeningType(currentQuestionObj.question_type) &&
             hasChinese(currentQuestionObj.question)) {
-            playAudio(currentQuestionObj.question);
+            playAudio(currentQuestionObj.question, false, currentAudioRef, questionTokenRef, questionTokenRef.current)
         }
     };
 

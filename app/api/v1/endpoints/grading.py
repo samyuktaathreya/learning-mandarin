@@ -52,6 +52,46 @@ def clean(s: str) -> str:
     s = _WS_RE.sub(" ", s)
     return s.strip()
 
+def _strip_tones(pinyin_str: str) -> str:
+    """Drop tone digits so we can compare base pinyin syllables only —
+    this is what lets a correct-sound-but-wrong-character homophone
+    (or a slightly mis-marked tone) through to the grammar check below,
+    while still blocking answers that are missing or add words."""
+    return re.sub(r"\d", "", pinyin_str)
+
+def _ai_listening_leniency_grade(expected: str, user_answer: str, question: str = "") -> bool:
+    """Fallback used only when strict pinyin comparison fails but the base
+    pinyin (ignoring tones) matches, OR a digit is involved. This is where we
+    forgive things a listener genuinely can't distinguish by ear alone --
+    homophone pronoun/character swaps (他/她/它), a mismarked tone, digit vs.
+    hanzi numerals -- while still rejecting a transcription that's missing
+    words, has extra words, or changes the meaning. This is listening
+    transcription, not translation: word order and content must still match,
+    only the specific homophone/tone/numeral choice is forgiven."""
+    response = anthropic_client.messages.create(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=10,
+        messages=[{
+            "role": "user",
+            "content": (
+                "You are checking a Chinese listening-transcription exercise. The learner heard "
+                "Mandarin audio and transcribed what they heard.\n\n"
+                "The learner's transcription sounds the same or very close to the reference. Decide "
+                "whether it should still be marked CORRECT. Mark correct ONLY if the difference is "
+                "something a listener genuinely cannot distinguish by ear alone -- e.g. a homophone "
+                "character swap (他/她/它, 在/再, etc.), a minor/ambiguous tone marking, or writing a "
+                "number as a digit instead of a hanzi numeral (8 vs 八). Mark INCORRECT if the "
+                "learner's version is missing a word, adds a word, changes word order, or changes "
+                "the meaning -- those are real transcription errors, not just spelling-by-ear choices.\n\n"
+                f"Reference transcription: {expected}\n"
+                f"Learner's transcription: {user_answer}\n"
+                + (f"Reference meaning: {question}\n" if question else "") +
+                "\nReply with only YES (forgivable, mark correct) or NO (real error, mark incorrect)."
+            )
+        }]
+    )
+    return response.content[0].text.strip().upper().startswith("YES")
+
 
 # ----------------------------- ACCEPTED-ANSWER CACHE -----------------------------
 # Global, accepted-only cache keyed on (expected_answer, cleaned_answer). Shared
@@ -80,40 +120,6 @@ def cache_store(db: Session, expected: str, cleaned: str):
     except Exception as e:
         db.rollback()
         print(f"[cache_store] skipped: {e}")
-
-
-def _ai_listening_numeral_grade(expected: str, user_answer: str) -> bool:
-    """Fallback used only when strict pinyin comparison fails AND a digit
-    appears in either string. to_numbered_pinyin has no rule for converting a
-    bare Arabic digit ('8') into its spoken pinyin ('ba1'), so a learner who
-    correctly transcribes a sentence using digits instead of hanzi numerals
-    (e.g. '8\u70b918\u5206' vs '\u516b\u70b9\u5341\u516b\u5206') fails the strict check as a false
-    negative even though the transcription is right. This treats Arabic
-    numerals as valid stand-ins for their hanzi numeral equivalents, but
-    otherwise still requires an exact transcription match -- this is
-    listening/transcription, not translation, so wording/word-order
-    differences beyond numeral style should still fail."""
-    response = anthropic_client.messages.create(
-        model="claude-haiku-4-5-20251001",
-        max_tokens=5,
-        messages=[{
-            "role": "user",
-            "content": (
-                "You are checking a Chinese listening-transcription exercise. The learner heard "
-                "Mandarin audio and transcribed what they heard.\n\n"
-                "Treat Arabic numerals (8, 18) as fully valid stand-ins for their hanzi numeral "
-                "equivalents (\u516b, \u5341\u516b) -- either way of writing a number is acceptable. Ignore "
-                "punctuation differences. Otherwise the transcription must match exactly in wording "
-                "and word order: this is transcription, not translation, so do NOT accept "
-                "paraphrases, synonyms, or reordering beyond numeral style.\n\n"
-                f"Reference: {expected}\n"
-                f"Learner's transcription: {user_answer}\n\n"
-                "Reply with only YES (same, only numeral style differs) or NO (actually different)."
-            )
-        }]
-    )
-    return response.content[0].text.strip().upper().startswith("YES")
-
 
 # ----------------------------- AI GRADER (shared) -----------------------------
 # Grades the learner's answer against the QUESTION's actual meaning (not just
@@ -332,25 +338,29 @@ async def grade_english_to_chinese(payload: dict, db: Session = Depends(get_db))
         expected_pinyin = to_numbered_pinyin(strip_punct(expected))
         is_correct = tones_match(user_pinyin, expected_pinyin)
 
-        # Known false-negative: to_numbered_pinyin can't convert bare Arabic
-        # digits to pinyin, so a digit-written answer (8点18分) fails the
-        # strict comparison against a hanzi-numeral reference (八点十八分)
-        # even when it's the same transcription. Only pay for an AI call when
-        # the strict check already failed AND a digit is actually involved --
-        # normal listening grading stays free and instant.
-        if not is_correct and (re.search(r"\d", user_answer) or re.search(r"\d", expected)):
+        if not is_correct:
             cleaned = clean(user_answer)
+
             if cache_lookup(db, expected, cleaned):
                 return JSONResponse({
                     "is_correct": True, "cached": True,
                     "user_pinyin": user_pinyin, "expected_pinyin": expected_pinyin,
                 })
-            try:
-                if _ai_listening_numeral_grade(expected, user_answer):
-                    is_correct = True
-                    cache_store(db, expected, cleaned)
-            except Exception as e:
-                print(f"Listening numeral grading error: {e}")
+
+            same_base_pinyin = _strip_tones(user_pinyin) == _strip_tones(expected_pinyin)
+            has_digit = bool(re.search(r"\d", user_answer) or re.search(r"\d", expected))
+
+            # Only worth an AI call if the pinyin is at least in the right
+            # ballpark (same syllables minus tones) or a digit/numeral is
+            # involved -- otherwise this is a genuinely different sentence
+            # and there's no point asking.
+            if same_base_pinyin or has_digit:
+                try:
+                    if _ai_listening_leniency_grade(expected, user_answer, question):
+                        is_correct = True
+                        cache_store(db, expected, cleaned)
+                except Exception as e:
+                    print(f"Listening leniency grading error: {e}")
 
         return JSONResponse({
             "is_correct": is_correct,
