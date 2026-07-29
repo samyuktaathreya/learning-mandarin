@@ -246,6 +246,10 @@ def generate_tier_questions(db: Session, user_id: int, unit: int, tiers: dict):
                 if f in facet_counts[tag]:
                     facet_counts[tag][f] += 1
             return True
+        
+        print(f"[generate_tier_questions] WARNING: tag '{tag}' has NO available "
+          f"question at tier {serve_tier} (unit {unit}) -- content gap, "
+          f"this tag cannot advance until data is added")
         return False
 
     max_attempts = SESSION_SIZE * 25
