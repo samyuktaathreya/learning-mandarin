@@ -9,6 +9,8 @@ from datetime import datetime
 import random
 import math
 from session_log import log_session
+from characters.database import get_characters_db
+from characters.services import generate_character_questions
 
 router = APIRouter()
 
@@ -484,23 +486,35 @@ def attach_tips(db: Session, session_response: SessionResponse) -> SessionRespon
 
 @router.get("/api/generate_session/{user_id}", response_model=SessionResponse)
 def generate_session(user_id: int, mode: str = "sentence", skip_review: bool = False,
-                     db: Session = Depends(get_db)):
+                     db: Session = Depends(get_db),
+                     characters_db: Session = Depends(get_characters_db)):
+    
     user = crud.get_user(db, user_id)
     user_unit = user.current_unit
 
     unit_tags = unit_to_vocab_tags_dict.get(user_unit, set())
     all_records = get_collapsed_progress(db, user_id)
     unit_records = [r for r in all_records if r.tag in unit_tags]
-
+    
+    # 1. Check for graduation (returns early if true)
     if is_unit_graduated(db, user_id, unit_records, unit_tags):
         return attach_tips(db, generate_unit_test(user_id, user_unit))
 
+    # 2. Check for reviews (returns early if true)
     if not skip_review and review_due_word_count(db, user_id) > 0:
         review_session = generate_review_session(db, user_id)
         if review_session.question_set:
             return attach_tips(db, review_session)
 
-    return attach_tips(db, generate_practice_session(db, user_id, user_unit))
+    # 3. Standard practice session: generate, attach tips, add character questions, shuffle, and return
+    session = attach_tips(db, generate_practice_session(db, user_id, user_unit))
+    
+    character_qs = generate_character_questions(db, characters_db, user_id, num_questions=2)
+    session.question_set.extend(character_qs)
+    
+    random.shuffle(session.question_set)
+    
+    return session
 
 
 @router.patch("/api/submit_session/{user_id}")
