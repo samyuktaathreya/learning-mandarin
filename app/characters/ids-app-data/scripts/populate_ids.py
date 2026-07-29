@@ -35,7 +35,7 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 SCRIPT_DIR = Path(__file__).resolve().parent
 IDS_APP_DATA_DIR = SCRIPT_DIR.parent  # ids-app-data/
-REPO_ROOT = IDS_APP_DATA_DIR.parent   # learning-mandarin/
+REPO_ROOT = IDS_APP_DATA_DIR.parent.parent   # learning-mandarin/
 
 RAW_IDS_PATH = IDS_APP_DATA_DIR / "data" / "raw" / "ids.txt"
 VOCAB_JSON_PATH = REPO_ROOT / "language-app-data" / "data" / "clean" / "unit_vocab_tags.json"
