@@ -9,10 +9,10 @@ Three query families:
   2. get_similar_by_components — IDS-derived structural similarity
   3. get_confusibles           — human-curated confusion pairs
 """
-
+from __future__ import annotations
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from models.characters import Character, CharacterComponent, ConfusionPair
+from characters.models import Character, CharacterComponent, ConfusionPair
 
 
 # ---------------------------------------------------------------------------
