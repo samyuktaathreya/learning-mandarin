@@ -1,13 +1,8 @@
 import sqlite3
 from pathlib import Path
+from app.core.config import OUTPUT_DB_PATH
 
-# Path to your clean DB
-SCRIPT_DIR = Path(__file__).resolve().parent
-TOP_DIR = SCRIPT_DIR.parent.parent.parent # learning-mandarin
-
-DB_PATH = TOP_DIR / "data" / "characters" / "characters.db"
-
-conn = sqlite3.connect(DB_PATH)
+conn = sqlite3.connect(OUTPUT_DB_PATH)
 cursor = conn.cursor()
 
 print("--- TABLE ROW COUNTS ---")

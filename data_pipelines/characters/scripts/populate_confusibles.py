@@ -16,20 +16,16 @@ Confusibles file format:
     - Relationships are bidirectional: (A, B) implies (B, A)
 """
 
-import sqlite3
 from pathlib import Path
+import sys
+from pathlib import Path
+
+# Ensure script can find config.py one level up if executing directly
+import sqlite3
 from itertools import combinations
 
-# ---------------------------------------------------------------------------
-# PATHS — must match populate_characters.py layout
-# ---------------------------------------------------------------------------
-SCRIPT_DIR      = Path(__file__).resolve().parent
-IDS_APP_DATA_DIR = SCRIPT_DIR.parent # data-pipelines/characters
-
-RAW_CONFUSIBLES_PATH = IDS_APP_DATA_DIR / "data" / "raw" / "hanzi_confusibles.txt"
-
-TOP_DIR = SCRIPT_DIR.parent.parent.parent # learning-mandarin
-OUTPUT_DB_PATH = TOP_DIR / "data" / "characters" / "characters.db"
+# Clean, direct import from the sibling config.py
+from app.core.config import RAW_CONFUSIBLES_PATH, OUTPUT_DB_PATH
 
 # ---------------------------------------------------------------------------
 # Schema

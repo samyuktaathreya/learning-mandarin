@@ -28,6 +28,7 @@ import csv
 import re
 import sqlite3
 from pathlib import Path
+from app.core.config import OUTPUT_DB_PATH, RAW_RADICALS_PATH
 
 # ---------------------------------------------------------------------------
 # PATHS — must match populate_characters.py layout
