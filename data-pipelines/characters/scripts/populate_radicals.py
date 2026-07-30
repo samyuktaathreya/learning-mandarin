@@ -34,9 +34,11 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 SCRIPT_DIR = Path(__file__).resolve().parent
 IDS_APP_DATA_DIR = SCRIPT_DIR.parent
+TOP_DIR = SCRIPT_DIR.parent.parent.parent # learning-mandarin
+
+OUTPUT_DB_PATH = TOP_DIR / "data" / "characters" / "characters.db"
 
 RAW_RADICALS_PATH = IDS_APP_DATA_DIR / "data" / "raw" / "radical-data.csv"
-OUTPUT_DB_PATH = IDS_APP_DATA_DIR / "data" / "clean" / "characters.db"
 
 # Matches a single CJK character, used to pull just the glyph out of entries
 # like "乀 (fu2)" or "乁(yi2)" in the variants column.
