@@ -33,6 +33,18 @@ class SimilarByPositionSchema(BaseModel):
     position: str
 
 
+class DecompositionComponentSchema(BaseModel):
+    component_char: str
+    depth: int
+    position: str | None
+
+
+class DecompositionSchema(BaseModel):
+    char: str
+    ids_raw: str | None
+    components: list[DecompositionComponentSchema]
+
+
 class ConfusiblesSchema(BaseModel):
     char: str
     confusibles: list[str]

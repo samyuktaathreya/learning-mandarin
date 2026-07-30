@@ -3,7 +3,7 @@ Generates character-recognition and radical-recognition quiz questions.
 
 Reads strength data from mandarin_app.db (via crud.py / StrengthTable, same
 facet="character" used everywhere else) and similarity/confusible data from
-characters.db (via crud.py) to build distractors.
+characters.db (via characters.crud.py) to build distractors.
 
 Two question shapes for characters (see pedagogical discussion):
   - "character_spot_difference": show N similar-looking options, pick the
@@ -26,12 +26,13 @@ Both radical and character questions update the SAME "character" facet in
 StrengthTable -- there is no separate radical facet. The tag stored is the
 radical/word actually being tested, not the distractor characters.
 """
-from __future__ import annotations
+
 import random
 from datetime import datetime
 
 from sqlalchemy.orm import Session
 
+import crud
 from models.user import StrengthTable
 from characters.models import Character, RadicalMeta
 import characters.crud
@@ -191,8 +192,26 @@ def _build_word_distractor(word: str, characters_db: Session) -> str | None:
 # Question builders
 # ---------------------------------------------------------------------------
 
-def build_spot_the_difference_question(tag: str, characters_db: Session) -> dict | None:
-    """Show N options, ask the user to pick the one matching `tag`."""
+def _get_english_meaning(db: Session, tag: str) -> str | None:
+    """Look up an English gloss for `tag` from the CC-CEDICT dictionary table
+    (mandarin_app.db), so quiz questions can anchor on meaning instead of
+    showing the hanzi answer itself. Takes the first entry's first definition
+    if multiple entries/definitions exist."""
+    entries = crud.get_dictionary_entries(db, tag)
+    if not entries:
+        return None
+    first_def = entries[0].english.split("/")[0].strip()
+    return first_def or None
+
+
+def build_spot_the_difference_question(tag: str, db: Session, characters_db: Session) -> dict | None:
+    """Show N options, ask the user to pick the one meaning `tag`'s English
+    definition -- NOT the tag itself, since writing the hanzi in the question
+    text would give away the answer."""
+    meaning = _get_english_meaning(db, tag)
+    if not meaning:
+        return None  # no dictionary entry -- can't build a safe non-giveaway question
+
     options = {tag}
 
     if len(tag) == 1:
@@ -214,7 +233,7 @@ def build_spot_the_difference_question(tag: str, characters_db: Session) -> dict
     return {
         "id": f"charquiz_spot_{tag}_{random.randint(0, 999999)}",
         "question_type": "character_spot_difference",
-        "question": f"Which one is '{tag}'?",
+        "question": f"Which one means '{meaning}'?",
         "options": options,
         "answer": tag,
         "tags": [tag],
@@ -329,13 +348,13 @@ def generate_character_questions(
 
             # ~70% spot-the-difference, ~30% pinyin -> character
             if random.random() < 0.70:
-                q = build_spot_the_difference_question(tag, characters_db)
+                q = build_spot_the_difference_question(tag, db, characters_db)
                 if not q:
                     q = build_pinyin_to_character_question(tag, characters_db)
             else:
                 q = build_pinyin_to_character_question(tag, characters_db)
                 if not q:
-                    q = build_spot_the_difference_question(tag, characters_db)
+                    q = build_spot_the_difference_question(tag, db, characters_db)
 
             if q:
                 questions.append(q)

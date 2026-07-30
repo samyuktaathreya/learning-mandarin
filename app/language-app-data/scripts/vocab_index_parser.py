@@ -177,10 +177,10 @@ def _split_syllables(plain: str):
     See earlier fix notes: word-final n/ng no longer splits off as its own
     bare syllable (e.g. "ben" -> ["ben"], not ["be", "n"]).
     """
-    tokens = re.split(r"([ \-'’])", plain)  # keep explicit separators
+    tokens = re.split(r"([ \-''])", plain)  # keep explicit separators
     syllables = []
     for tok in tokens:
-        if tok in (" ", "-", "'", "’", ""):
+        if tok in (" ", "-", "'", "'", ""):
             continue
         i = 0
         n = len(tok)
@@ -210,7 +210,22 @@ def _split_syllables(plain: str):
             elif i < n and tok[i].lower() == "r" and (i + 1 >= n or tok[i + 1].lower() not in _VOWELS):
                 i += 1
             syllables.append(tok[start:i])
-    return syllables
+    
+    # POST-PROCESSING: merge erhua "r" with previous syllable
+    merged = []
+    for syl in syllables:
+        if syl.lower() == "r" and merged:
+            prev = merged[-1]
+            # erhua absorbs a trailing n/ng from the base syllable: dian+r -> diar
+            if prev.lower().endswith("ng"):
+                prev = prev[:-2]
+            elif prev.lower().endswith("n"):
+                prev = prev[:-1]
+            merged[-1] = prev + syl
+        else:
+            merged.append(syl)
+
+    return merged
 
 
 def diacritic_to_numeric(pinyin: str) -> str:

@@ -40,6 +40,13 @@ const GRADE_ENGLISH_TO_CHINESE_TYPES = new Set([
     "translate english word to chinese",
 ]);
 
+// ADDED: Set containing the character quiz types
+const CHARACTER_QUIZ_TYPES = new Set([
+    "character_spot_difference",
+    "character_pinyin_to_char",
+    "radical_meaning",
+]);
+
 const playAudio = async (text, slow = false, currentAudioRef = null, tokenRef = null, expectedToken = null) => {
     // Stop anything already playing — this call is newer, so it wins immediately.
     if (currentAudioRef?.current) {
@@ -238,9 +245,11 @@ export default function DuolingoStyleQuestions() {
         const isListening = question_type === "listening vocab" || question_type === "listening sentence";
         const isReview = sessionType === "review_session";
 
+        // ADDED: !CHARACTER_QUIZ_TYPES.has(question_type)
         const shouldAutoPlay =
             question_type !== "fill in the blank" &&
             !isSpeakingQuestion(question_type) &&
+            !CHARACTER_QUIZ_TYPES.has(question_type) && 
             (hasChinese(question) || isListening) &&
             (!isReview || isListening);
 

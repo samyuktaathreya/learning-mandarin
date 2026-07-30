@@ -3,6 +3,8 @@ from sqlalchemy.orm import Session
 from characters.services import generate_character_questions
 from characters.database import get_characters_db
 from database import SessionLocal
+import characters.schemas
+import characters.crud
 
 def get_db():
     db = SessionLocal()
@@ -21,3 +23,14 @@ def character_practice(user_id: int, num_questions: int = 10,
                        characters_db: Session = Depends(get_characters_db)):
     questions = generate_character_questions(db, characters_db, user_id, num_questions)
     return {"user_id": user_id, "question_set": questions}
+
+@router.get("/api/characters/decompose")
+def decompose_text(text: str, recursive: bool = False, characters_db: Session = Depends(get_characters_db)):
+    """Breaks down each character in `text` into its IDS.
+    If recursive=False, only returns the top-level IDS string (no sub-component expansion)."""
+    results = []
+    for ch in text:
+        d = characters.crud.get_decomposition(characters_db, ch, recursive=recursive)
+        if d:
+            results.append(d)
+    return results
