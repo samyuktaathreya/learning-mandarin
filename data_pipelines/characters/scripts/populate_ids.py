@@ -28,20 +28,9 @@ import json
 import re
 import sqlite3
 from pathlib import Path
+from app.core.config import OUTPUT_DB_PATH, VOCAB_JSON_PATH, RAW_IDS_PATH
 #from __future__ import annotations
 
-# ---------------------------------------------------------------------------
-# PATHS — adjust here if your folder layout differs
-# ---------------------------------------------------------------------------
-SCRIPT_DIR = Path(__file__).resolve().parent
-IDS_APP_DATA_DIR = SCRIPT_DIR.parent  # data-pipelines/characters/
-REPO_ROOT = IDS_APP_DATA_DIR.parent.parent   # learning-mandarin/
-
-RAW_IDS_PATH = IDS_APP_DATA_DIR / "data" / "raw" / "ids.txt"
-VOCAB_JSON_PATH = REPO_ROOT / "app" / "language-app-data" / "data" / "clean" / "unit_vocab_tags.json"
-
-TOP_DIR = SCRIPT_DIR.parent.parent.parent # learning-mandarin
-OUTPUT_DB_PATH = TOP_DIR / "data" / "characters" / "characters.db"
 
 MAX_DEPTH = 2  # per discussion: depth > 2 stops looking visually similar
 

@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "learning_mandarin"
+version = "0.1.0"
+description = "Learning Mandarin app and data pipelines"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*", "data_pipelines*"]
