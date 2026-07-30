@@ -34,12 +34,14 @@ from pathlib import Path
 # PATHS — adjust here if your folder layout differs
 # ---------------------------------------------------------------------------
 SCRIPT_DIR = Path(__file__).resolve().parent
-IDS_APP_DATA_DIR = SCRIPT_DIR.parent  # ids-app-data/
+IDS_APP_DATA_DIR = SCRIPT_DIR.parent  # data-pipelines/characters/
 REPO_ROOT = IDS_APP_DATA_DIR.parent.parent   # learning-mandarin/
 
 RAW_IDS_PATH = IDS_APP_DATA_DIR / "data" / "raw" / "ids.txt"
-VOCAB_JSON_PATH = REPO_ROOT / "language-app-data" / "data" / "clean" / "unit_vocab_tags.json"
-OUTPUT_DB_PATH = IDS_APP_DATA_DIR / "data" / "clean" / "characters.db"
+VOCAB_JSON_PATH = REPO_ROOT / "app" / "language-app-data" / "data" / "clean" / "unit_vocab_tags.json"
+
+TOP_DIR = SCRIPT_DIR.parent.parent.parent # learning-mandarin
+OUTPUT_DB_PATH = TOP_DIR / "data" / "characters" / "characters.db"
 
 MAX_DEPTH = 2  # per discussion: depth > 2 stops looking visually similar
 

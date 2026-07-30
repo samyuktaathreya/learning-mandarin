@@ -24,10 +24,12 @@ from itertools import combinations
 # PATHS — must match populate_characters.py layout
 # ---------------------------------------------------------------------------
 SCRIPT_DIR      = Path(__file__).resolve().parent
-IDS_APP_DATA_DIR = SCRIPT_DIR.parent
+IDS_APP_DATA_DIR = SCRIPT_DIR.parent # data-pipelines/characters
 
 RAW_CONFUSIBLES_PATH = IDS_APP_DATA_DIR / "data" / "raw" / "hanzi_confusibles.txt"
-OUTPUT_DB_PATH       = IDS_APP_DATA_DIR / "data" / "clean" / "characters.db"
+
+TOP_DIR = SCRIPT_DIR.parent.parent.parent # learning-mandarin
+OUTPUT_DB_PATH = TOP_DIR / "data" / "characters" / "characters.db"
 
 # ---------------------------------------------------------------------------
 # Schema
