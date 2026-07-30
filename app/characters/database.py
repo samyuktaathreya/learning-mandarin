@@ -15,12 +15,7 @@ the repo root. Adjust CHARACTERS_DB_PATH if your layout differs.
 from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-
-# Find the absolute path to this file's folder (app/characters/)
-CHARACTERS_DIR = Path(__file__).resolve().parent
-
-# Build the absolute path directly to your clean characters.db file
-DB_PATH = CHARACTERS_DIR / "ids-app-data" / "data" / "clean" / "characters.db"
+from app.core.config import OUTPUT_DB_PATH as DB_PATH
 
 # Create the SQLite URL
 DATABASE_URL = f"sqlite:///{DB_PATH}"

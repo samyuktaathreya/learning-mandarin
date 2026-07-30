@@ -462,3 +462,76 @@
 .mc-option:disabled {
     cursor: default;
 }
+
+/* ── Character Decomposition (IDS tree) ─────────────────────────── */
+
+.decomposition-section {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.decomposition-section h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #495057;
+}
+
+.decomposition-equation {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.3rem;
+    padding: 0.75rem;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.decomposition-equation + .decomposition-equation {
+    margin-top: 0.5rem;
+}
+
+.decomposition-equation-char {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #212529;
+    min-width: 2rem;
+    text-align: center;
+}
+
+.decomposition-equation-operator {
+    color: #6c757d;
+    font-weight: bold;
+}
+
+.decomposition-equation-component {
+    font-size: 1.5rem;
+    color: #495057;
+    padding: 0 0.2rem;
+}
+
+.decomposition-equation-placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    font-size: 1rem;
+    color: #868e96;
+    border: 1px dashed #adb5bd;
+    border-radius: 4px;
+    background-color: #f1f3f5;
+    cursor: help;
+}
+
+.decomposition-equation-label {
+    font-size: 0.75rem;
+    color: #adb5bd;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-left: 0.5rem;
+}

@@ -9,10 +9,11 @@ Three query families:
   2. get_similar_by_components — IDS-derived structural similarity
   3. get_confusibles           — human-curated confusion pairs
 """
-from __future__ import annotations
+
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from characters.models import Character, CharacterComponent, ConfusionPair
+import re
 
 
 # ---------------------------------------------------------------------------
@@ -24,6 +25,85 @@ def get_character(db: Session, char: str) -> Character | None:
     return db.query(Character).filter(Character.char == char).first()
 
 
+
+# Matches CHISE's "unencoded variant" placeholder convention, e.g.
+# "{hkcs-821f-v01}" -- the hex portion is the Unicode codepoint of the
+# *standard* character this is a variant glyph of. We can't recover the
+# exact historical/variant glyph (it has no codepoint), but decoding the
+# hex gives us the real, standard-form character, which is far more useful
+# to show a learner than a raw code string or a "?" placeholder.
+_HKCS_PLACEHOLDER_RE = re.compile(r"\{hkcs-([0-9a-fA-F]+)-v\d+\}")
+ 
+ 
+def _resolve_hkcs_placeholders(ids_raw: str) -> str:
+    """
+    Replace every "{hkcs-XXXX-vNN}" placeholder in an IDS string with the
+    real Unicode character at codepoint XXXX.
+ 
+    Example:
+        "⿰{hkcs-821f-v01}𠬝"  ->  "⿰舟𠬝"
+ 
+    If the hex portion doesn't decode to a valid codepoint for some reason,
+    the original placeholder text is left untouched rather than raising --
+    decomposition display should degrade gracefully, not break the page.
+    """
+    def _replace(match: re.Match) -> str:
+        hex_code = match.group(1)
+        try:
+            codepoint = int(hex_code, 16)
+            return chr(codepoint)
+        except (ValueError, OverflowError):
+            return match.group(0)  # leave the placeholder as-is
+ 
+    return _HKCS_PLACEHOLDER_RE.sub(_replace, ids_raw)
+ 
+ 
+def get_decomposition(db, char: str, recursive: bool = True, max_depth: int = 1):
+    """
+    Full breakdown of a single character for display purposes.
+ 
+    hkcs-coded unencoded-variant placeholders in ids_raw are resolved to
+    their standard-form Unicode equivalent before returning (see
+    _resolve_hkcs_placeholders) -- callers/frontend never see raw
+    "{hkcs-...}" strings.
+    """
+    character = get_character(db, char)
+    if not character:
+        return None
+ 
+    resolved_ids_raw = _resolve_hkcs_placeholders(character.ids_raw)
+ 
+    if not recursive:
+        return {
+            "char": char,
+            "ids_raw": resolved_ids_raw,
+            "components": [],
+        }
+ 
+    components = (
+        db.query(CharacterComponent)
+        .filter(
+            CharacterComponent.char == char,
+            CharacterComponent.depth <= max_depth,
+        )
+        .order_by(CharacterComponent.depth, CharacterComponent.position)
+        .all()
+    )
+ 
+    return {
+        "char": char,
+        "ids_raw": resolved_ids_raw,
+        "components": [
+            {
+                "component_char": _resolve_hkcs_placeholders(c.component_char),
+                "depth": c.depth,
+                "position": c.position,
+            }
+            for c in components
+        ],
+    }
+
+ 
 # ---------------------------------------------------------------------------
 # 2. IDS-derived structural similarity
 # ---------------------------------------------------------------------------

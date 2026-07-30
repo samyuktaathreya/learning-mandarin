@@ -2,23 +2,26 @@ import ChineseIMEInput from './ChineseIMEInput';
 import { ClickableText } from './CharacterPopup';
 import MultipleChoice from './MultipleChoice';
 import { useState, useEffect } from 'react';
+import CharacterDecomposition from './CharacterDecomposition'
 
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 
 const isListeningQuestion = (qt) =>
     qt === "listening vocab" || qt === "listening sentence";
 
-// Question types whose question/answer pair never shows English anywhere
-// (pure audio/hanzi/pinyin drills) -- reveal the translation after submit.
 const TYPES_MISSING_ENGLISH = new Set([
     "listening vocab",
     "listening sentence",
     "transcribe word to pinyin",
 ]);
 
-// "listening vocab" is the only type here whose question (hanzi, hidden
-// while listening) and answer (pinyin) never show the characters at all.
 const TYPES_MISSING_CHINESE = new Set(["listening vocab"]);
+
+const CHARACTER_QUIZ_TYPES = new Set([
+    "character_spot_difference",
+    "character_pinyin_to_char",
+    "radical_meaning",
+]);
 
 const needsIME = (qt) => [
     "translate english sentence to chinese",
@@ -64,13 +67,14 @@ export default function Question({
     onPlayAudio,
     debug,
 }) {
+
     const showReplayButton =
+        !CHARACTER_QUIZ_TYPES.has(currentQuestionObj.question_type) &&
         currentQuestionObj.question_type !== "fill in the blank" &&
         (hasChinese(currentQuestionObj.question) || isListeningQuestion(currentQuestionObj.question_type));
-    
+
     const isListening = isListeningQuestion(currentQuestionObj.question_type);
     
-    // Check if it's a transcription question where dictionary lookups would give away the answer
     const isTranscriptionToPinyin = 
         currentQuestionObj.question_type === "transcribe word to pinyin" || 
         currentQuestionObj.question_type === "transcribe hanzi to pinyin";
@@ -80,6 +84,7 @@ export default function Question({
     const isMultipleChoice = Array.isArray(currentQuestionObj.options) && currentQuestionObj.options.length > 0;
 
     const [correctPinyin, setCorrectPinyin] = useState("");
+    const [decompositionData, setDecompositionData] = useState(null);
 
     // ── Grammar Tip UI state ──────────────────────────────────────
     const [isGrammarTipOpen, setIsGrammarTipOpen] = useState(false);
@@ -88,16 +93,44 @@ export default function Question({
     const [showTipForm, setShowTipForm] = useState(false);
     const [tipKeyType, setTipKeyType] = useState("answer");
     const [tipDraft, setTipDraft] = useState("");
-    const [tipSaveState, setTipSaveState] = useState(null); // null | 'saving' | 'saved' | 'error'
+    const [tipSaveState, setTipSaveState] = useState(null); 
 
-    // reset forms and sidebars whenever the question changes
+    // reset forms, sidebars, and decompositions whenever the question changes
     useEffect(() => {
         setShowTipForm(false);
         setTipKeyType("answer");
         setTipDraft("");
         setTipSaveState(null);
-        setIsGrammarTipOpen(false); // Close the sidebar on next question
+        setIsGrammarTipOpen(false);
+        setDecompositionData(null);
     }, [currentQuestionObj]);
+
+    // Fetch character decomposition when a character quiz is answered
+// Fetch decomposition for the correct answer, and also the user's wrong
+// answer (if incorrect) so they can compare both breakdowns
+// Fetch decomposition for the correct answer, and also the user's wrong
+// answer (if incorrect) so they can compare both breakdowns
+    useEffect(() => {
+        if (hasAnswered && CHARACTER_QUIZ_TYPES.has(currentQuestionObj.question_type)) {
+            const chars = [currentQuestionObj.answer];
+            if (answerState === 'incorrect' && lastUserAnswer && lastUserAnswer !== currentQuestionObj.answer) {
+                chars.push(lastUserAnswer);
+            }
+            // Dedupe individual characters across both strings (e.g. 衣服 vs 衣脑
+            // both contain 衣 -- we only want to fetch/show it once)
+            const uniqueChars = Array.from(new Set(chars.join("").split(""))).join("");
+
+            console.debug("[decomposition] fetching for:", uniqueChars, "from chars:", chars);
+
+            fetch(`/api/characters/decompose?text=${encodeURIComponent(uniqueChars)}&recursive=false`)
+                .then(res => res.json())
+                .then(data => {
+                    console.debug("[decomposition] API response:", data);
+                    setDecompositionData(data);
+                })
+                .catch(err => console.error("Failed to fetch character decomposition", err));
+        }
+    }, [hasAnswered, currentQuestionObj, answerState, lastUserAnswer]);
 
     const saveTip = async () => {
         const keyValue = tipKeyType === "question" ? currentQuestionObj.question : currentQuestionObj.answer;
@@ -131,7 +164,6 @@ export default function Question({
         }
     }, [isWrong, isListening, currentQuestionObj.answer]);
 
-    // Helper to wrap Chinese text with the clickable dictionary popup.
     const renderChineseText = (text) => {
         if (!text || typeof text !== 'string') return text;
         return hasChinese(text) ? (
@@ -149,20 +181,16 @@ export default function Question({
         if (!tip || !Array.isArray(tip.sections)) return null;
 
         return tip.sections.map((section, sIdx) => (
-            <div key={sIdx} style={{ marginBottom: '16px' }}>
-                <h4 style={{ margin: '0 0 6px 0' }}>{renderChineseText(section.title)}</h4>
-                <p style={{ whiteSpace: 'pre-wrap', margin: '0 0 10px 0' }}>
-                    {renderChineseText(section.body)}
-                </p>
+            <div key={sIdx} className="grammar-tip-section">
+                <h4>{renderChineseText(section.title)}</h4>
+                <p>{renderChineseText(section.body)}</p>
 
                 {section.table && (
-                    <table style={{ borderCollapse: 'collapse', width: '100%', margin: '8px 0' }}>
+                    <table className="grammar-tip-table">
                         <thead>
                             <tr>
                                 {section.table.headers.map((h, hIdx) => (
-                                    <th key={hIdx} style={{ border: '1px solid #ccc', padding: '8px', backgroundColor: '#f0f0f0', textAlign: 'left' }}>
-                                        {renderChineseText(h)}
-                                    </th>
+                                    <th key={hIdx}>{renderChineseText(h)}</th>
                                 ))}
                             </tr>
                         </thead>
@@ -170,9 +198,7 @@ export default function Question({
                             {section.table.rows.map((row, rIdx) => (
                                 <tr key={rIdx}>
                                     {row.map((cell, cIdx) => (
-                                        <td key={cIdx} style={{ border: '1px solid #ccc', padding: '8px' }}>
-                                            {renderChineseText(cell)}
-                                        </td>
+                                        <td key={cIdx}>{renderChineseText(cell)}</td>
                                     ))}
                                 </tr>
                             ))}
@@ -202,6 +228,7 @@ export default function Question({
                     </div>
                 </div>
             )}
+            
             <p>Question {currentIndex + 1} of {totalQuestions}</p>
             {currentQuestionObj.unit != null && <p>Unit {currentQuestionObj.unit}</p>}
             {sessionType === "unit_test" && <p>Unit Test</p>}
@@ -262,12 +289,15 @@ export default function Question({
                         </>
                     ) : (
                         <>
-                            <p style={{ color: 'green' }}>✓ Correct!</p>
-                            {/* Always show the correct answer character string if it has Chinese, so they can hover/inspect it */}
+                            <p className="correct-text">✓ Correct!</p>
                             {hasChinese(lastUserAnswer || "") && (
                                 <p>You answered: <strong>{renderChineseText(lastUserAnswer)}</strong></p>
                             )}
                         </>
+                    )}
+
+                    {decompositionData && decompositionData.length > 0 && (
+                        <CharacterDecomposition data={decompositionData} />
                     )}
                     
                     {TYPES_MISSING_CHINESE.has(currentQuestionObj.question_type) && currentQuestionObj.hanzi && (
@@ -281,15 +311,15 @@ export default function Question({
                         <p className="question-tip">💡 Tip: {currentQuestionObj.tip}</p>
                     )}
 
-                    <div className="tip-editor" style={{ marginTop: '0.75rem', fontSize: '0.85rem', opacity: 0.85 }}>
+                    <div className="tip-editor">
                         {!showTipForm ? (
                             <button type="button" onClick={() => setShowTipForm(true)}>
                                 {currentQuestionObj.tip ? 'Edit tip' : '+ Add a tip'}
                             </button>
                         ) : (
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', maxWidth: 420 }}>
+                            <div className="tip-form-container">
                                 <div>
-                                    <label style={{ marginRight: '1rem' }}>
+                                    <label className="tip-radio-label">
                                         <input type="radio" checked={tipKeyType === "answer"} onChange={() => setTipKeyType("answer")} /> Tip about the answer
                                     </label>
                                     <label>
@@ -306,15 +336,15 @@ export default function Question({
                                     <button type="button" onClick={saveTip} disabled={tipSaveState === 'saving'}>
                                         {tipSaveState === 'saving' ? 'Saving…' : 'Save tip'}
                                     </button>
-                                    <button type="button" onClick={() => setShowTipForm(false)} style={{ marginLeft: '0.5rem' }}>Cancel</button>
-                                    {tipSaveState === 'saved' && <span style={{ marginLeft: '0.5rem', color: 'green' }}>Saved ✓</span>}
-                                    {tipSaveState === 'error' && <span style={{ marginLeft: '0.5rem', color: '#c0392b' }}>Failed to save</span>}
+                                    <button type="button" onClick={() => setShowTipForm(false)} className="btn-cancel">Cancel</button>
+                                    {tipSaveState === 'saved' && <span className="tip-status-success">Saved ✓</span>}
+                                    {tipSaveState === 'error' && <span className="tip-status-error">Failed to save</span>}
                                 </div>
                             </div>
                         )}
                     </div>
 
-                    <button type="button" onClick={onNext} style={{ marginTop: '1rem' }}>Next</button>
+                    <button type="button" onClick={onNext} className="btn-next">Next</button>
                 </div>
             )}
 
@@ -333,14 +363,14 @@ export default function Question({
                         <input value={userAnswer} onChange={(e) => setUserAnswer(e.target.value)} autoFocus disabled={isGrading} />
                     )}
                     
-                    <button type="submit" disabled={isGrading || (isMultipleChoice && !userAnswer)} style={{ marginTop: '1rem' }}>
+                    <button type="submit" disabled={isGrading || (isMultipleChoice && !userAnswer)} className="btn-submit">
                         {isGrading ? "Checking…" : "Submit"}
                     </button>
                 </form>
             )}
 
             {debug && !hasAnswered && (
-                <button type="button" onClick={onMarkCorrect} disabled={isGrading} style={{ marginTop: '1rem' }}>✓ Mark correct (debug)</button>
+                <button type="button" onClick={onMarkCorrect} disabled={isGrading} className="btn-debug">✓ Mark correct (debug)</button>
             )}
         </div>
     );
