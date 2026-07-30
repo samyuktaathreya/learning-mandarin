@@ -34,7 +34,7 @@ from sqlalchemy.orm import Session
 
 from models.user import StrengthTable
 from characters.models import Character, RadicalMeta
-import crud
+import characters.crud
 from database import word_to_pinyin, META_TAGS
 
 REVIEW_STRENGTH_THRESHOLD = 0.80  # matches REVIEW_THRESHOLD in session.py
@@ -133,10 +133,10 @@ def _get_similar_chars(characters_db: Session, char: str, limit: int = 5) -> lis
     """Best-effort similar-looking characters for a single char: confusibles
     first (human-curated, most reliable), then IDS structural similarity as
     fallback, then random other characters if we still don't have enough."""
-    similar = crud.get_confusibles(characters_db, char)
+    similar = characters.crud.get_confusibles(characters_db, char)
 
     if len(similar) < limit:
-        ids_matches = crud.get_similar_by_components(
+        ids_matches = characters.crud.get_similar_by_components(
             characters_db, char, depth=0, max_frequency=50, limit=limit
         )
         for m in ids_matches:

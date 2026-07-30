@@ -1,5 +1,6 @@
 import ChineseIMEInput from './ChineseIMEInput';
 import { ClickableText } from './CharacterPopup';
+import MultipleChoice from './MultipleChoice';
 import { useState, useEffect } from 'react';
 
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
@@ -39,6 +40,9 @@ const questionTypeToInstruction = (question_type) => {
         case "translate chinese word to english":       return "Translate to English:";
         case "transcribe word to pinyin":               return "Write the pinyin (with tones) for:";
         case "transcribe hanzi to pinyin":              return "Write the pinyin for the character";
+        case "character_spot_difference":               return "Spot the character:";
+        case "character_pinyin_to_char":                return "Match pinyin to character:";
+        case "radical_meaning":                         return "Identify the radical:";
         default:                                        return "Answer the question:";
     }
 };
@@ -73,6 +77,7 @@ export default function Question({
 
     const hasAnswered = answerState !== null;
     const isWrong = answerState === 'incorrect';
+    const isMultipleChoice = Array.isArray(currentQuestionObj.options) && currentQuestionObj.options.length > 0;
 
     const [correctPinyin, setCorrectPinyin] = useState("");
 
@@ -127,9 +132,6 @@ export default function Question({
     }, [isWrong, isListening, currentQuestionObj.answer]);
 
     // Helper to wrap Chinese text with the clickable dictionary popup.
-    // ClickableText handles finding/underlining just the Chinese runs even
-    // inside a string that mixes English and Chinese, so it's safe to hand
-    // it any string -- tip prose, table cells, question/answer text, etc.
     const renderChineseText = (text) => {
         if (!text || typeof text !== 'string') return text;
         return hasChinese(text) ? (
@@ -143,8 +145,6 @@ export default function Question({
         );
     };
 
-    // Renders one structured grammar tip: { sections: [{ title, body, table }] }
-    // with any Chinese in title/body/table cells made clickable.
     const renderGrammarTip = (tip) => {
         if (!tip || !Array.isArray(tip.sections)) return null;
 
@@ -160,15 +160,7 @@ export default function Question({
                         <thead>
                             <tr>
                                 {section.table.headers.map((h, hIdx) => (
-                                    <th
-                                        key={hIdx}
-                                        style={{
-                                            border: '1px solid #ccc',
-                                            padding: '8px',
-                                            backgroundColor: '#f0f0f0',
-                                            textAlign: 'left',
-                                        }}
-                                    >
+                                    <th key={hIdx} style={{ border: '1px solid #ccc', padding: '8px', backgroundColor: '#f0f0f0', textAlign: 'left' }}>
                                         {renderChineseText(h)}
                                     </th>
                                 ))}
@@ -234,7 +226,6 @@ export default function Question({
 
             {!isListening && (
                 <h1 className={currentQuestionObj.question.length > 12 ? "question-text question-text--long" : "question-text"}>
-                    {/* Render plain text instead of ClickableText if we need to hide the pinyin/meaning */}
                     {isTranscriptionToPinyin && !hasAnswered ? (
                         currentQuestionObj.question
                     ) : (
@@ -252,16 +243,27 @@ export default function Question({
 
             {hasAnswered && (
                 <div>
+                    {isMultipleChoice && (
+                        <MultipleChoice 
+                            options={currentQuestionObj.options}
+                            userAnswer={lastUserAnswer}
+                            setUserAnswer={() => {}}
+                            hasAnswered={true}
+                            correctAnswer={currentQuestionObj.answer}
+                        />
+                    )}
+
                     {isWrong ? (
                         <>
                             <p>You answered: <strong>{renderChineseText(lastUserAnswer)}</strong></p>
                             <p>Correct answer: <strong>{renderChineseText(currentQuestionObj.answer)}</strong></p>
+                            
                             {isListening && correctPinyin && <p>Pinyin: <strong>{correctPinyin}</strong></p>}
                         </>
                     ) : (
                         <>
                             <p style={{ color: 'green' }}>✓ Correct!</p>
-                            {/* Show the correct answer again if it's Chinese so they can inspect characters */}
+                            {/* Always show the correct answer character string if it has Chinese, so they can hover/inspect it */}
                             {hasChinese(lastUserAnswer || "") && (
                                 <p>You answered: <strong>{renderChineseText(lastUserAnswer)}</strong></p>
                             )}
@@ -288,18 +290,10 @@ export default function Question({
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', maxWidth: 420 }}>
                                 <div>
                                     <label style={{ marginRight: '1rem' }}>
-                                        <input
-                                            type="radio"
-                                            checked={tipKeyType === "answer"}
-                                            onChange={() => setTipKeyType("answer")}
-                                        /> Tip about the answer
+                                        <input type="radio" checked={tipKeyType === "answer"} onChange={() => setTipKeyType("answer")} /> Tip about the answer
                                     </label>
                                     <label>
-                                        <input
-                                            type="radio"
-                                            checked={tipKeyType === "question"}
-                                            onChange={() => setTipKeyType("question")}
-                                        /> Tip about the question
+                                        <input type="radio" checked={tipKeyType === "question"} onChange={() => setTipKeyType("question")} /> Tip about the question
                                     </label>
                                 </div>
                                 <textarea
@@ -312,9 +306,7 @@ export default function Question({
                                     <button type="button" onClick={saveTip} disabled={tipSaveState === 'saving'}>
                                         {tipSaveState === 'saving' ? 'Saving…' : 'Save tip'}
                                     </button>
-                                    <button type="button" onClick={() => setShowTipForm(false)} style={{ marginLeft: '0.5rem' }}>
-                                        Cancel
-                                    </button>
+                                    <button type="button" onClick={() => setShowTipForm(false)} style={{ marginLeft: '0.5rem' }}>Cancel</button>
                                     {tipSaveState === 'saved' && <span style={{ marginLeft: '0.5rem', color: 'green' }}>Saved ✓</span>}
                                     {tipSaveState === 'error' && <span style={{ marginLeft: '0.5rem', color: '#c0392b' }}>Failed to save</span>}
                                 </div>
@@ -322,24 +314,33 @@ export default function Question({
                         )}
                     </div>
 
-                    <button type="button" onClick={onNext}>Next</button>
+                    <button type="button" onClick={onNext} style={{ marginTop: '1rem' }}>Next</button>
                 </div>
             )}
 
             {!hasAnswered && (
                 <form onSubmit={onSubmit}>
-                    {needsIME(currentQuestionObj.question_type)
-                        ? <ChineseIMEInput value={userAnswer} onChange={(val) => setUserAnswer(val)} autoFocus disabled={isGrading} />
-                        : <input value={userAnswer} onChange={(e) => setUserAnswer(e.target.value)} autoFocus disabled={isGrading} />
-                    }
-                    <button type="submit" disabled={isGrading}>
+                    {isMultipleChoice ? (
+                        <MultipleChoice 
+                            options={currentQuestionObj.options}
+                            userAnswer={userAnswer}
+                            setUserAnswer={setUserAnswer}
+                            hasAnswered={false}
+                        />
+                    ) : needsIME(currentQuestionObj.question_type) ? (
+                        <ChineseIMEInput value={userAnswer} onChange={(val) => setUserAnswer(val)} autoFocus disabled={isGrading} />
+                    ) : (
+                        <input value={userAnswer} onChange={(e) => setUserAnswer(e.target.value)} autoFocus disabled={isGrading} />
+                    )}
+                    
+                    <button type="submit" disabled={isGrading || (isMultipleChoice && !userAnswer)} style={{ marginTop: '1rem' }}>
                         {isGrading ? "Checking…" : "Submit"}
                     </button>
                 </form>
             )}
 
             {debug && !hasAnswered && (
-                <button type="button" onClick={onMarkCorrect} disabled={isGrading}>✓ Mark correct (debug)</button>
+                <button type="button" onClick={onMarkCorrect} disabled={isGrading} style={{ marginTop: '1rem' }}>✓ Mark correct (debug)</button>
             )}
         </div>
     );

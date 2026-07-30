@@ -412,3 +412,53 @@
 .grammar-tip-content th {
     background-color: #f2f2f2;
 }
+
+/* Multiple Choice Layout */
+.mc-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+    max-width: 500px;
+}
+
+.mc-option {
+    padding: 16px;
+    font-size: 1.25rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+    color: #333;
+}
+
+.mc-option:hover:not(:disabled) {
+    background-color: #f5f5f5;
+    border-color: #aaa;
+}
+
+/* Selected prior to submission */
+.mc-option.mc-selected {
+    border-color: #007bff;
+    background-color: #e6f2ff;
+    color: #004085;
+}
+
+/* Post-submission grading states */
+.mc-option.mc-correct {
+    border-color: #28a745 !important;
+    background-color: #d4edda !important;
+    color: #155724 !important;
+}
+
+.mc-option.mc-wrong {
+    border-color: #dc3545 !important;
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
+}
+
+.mc-option:disabled {
+    cursor: default;
+}
