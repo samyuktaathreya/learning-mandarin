@@ -2,7 +2,7 @@ from datetime import datetime
 
 from sqlalchemy.orm import Session
 
-from models.user import QuestionTip
+from session.models import QuestionTip
 from session.schemas import SessionResponse
 
 

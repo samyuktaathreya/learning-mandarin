@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from characters.services import generate_character_questions
 from characters.database import get_characters_db
-from database import SessionLocal
+from core.database import SessionLocal
 import characters.schemas
 import characters.crud
 

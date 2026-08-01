@@ -6,11 +6,10 @@ from core.database import SessionLocal
 from core.config.textbook import DICT_PATH
 
 # Import required parsed data and constants from services
-from app.textbook.services import unique_vocab_tags, FACETS
-
+from textbook.services import unique_vocab_tags, FACETS
 
 def seed_cedict(db: Session):
-    from models.user import DictionaryEntry
+    from shared.models import DictionaryEntry
     """Bulk inserts CC-CEDICT file into database if dictionary_entries is empty."""
     if db.query(DictionaryEntry).first():
         return

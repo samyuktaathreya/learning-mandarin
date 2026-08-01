@@ -10,8 +10,6 @@ import edge_tts
 
 from pinyin_utils import strip_punct, to_numbered_pinyin, tones_match, grade_speaking_sentence
 
-load_dotenv(os.path.join(os.path.dirname(__file__), '../../../.env'))
-
 CACHE_DIR = "audio_cache"
 os.makedirs(CACHE_DIR, exist_ok=True)
 
