@@ -158,7 +158,8 @@ def seed_cedict(db: Session):
 
 
 def init_db():
-    from models.user import StrengthTable, User
+    from session.models import StrengthTable
+    from auth.models import User
     db = SessionLocal()
     try:
         if not db.query(User).filter(User.id == 1).first():

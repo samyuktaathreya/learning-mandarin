@@ -33,7 +33,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 
 import crud
-from models.user import StrengthTable
+from session.models import StrengthTable
 from characters.models import Character, RadicalMeta
 import characters.crud
 from database import word_to_pinyin, META_TAGS

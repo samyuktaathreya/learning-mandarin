@@ -1,5 +1,7 @@
 from sqlalchemy.orm import Session
-from models.user import StrengthTable, User, SoundProgress, WordTierProgress, SeenQuestion, DictionaryEntry, FlaggedMismatch
+from models.user import DictionaryEntry
+from session.models import StrengthTable, SoundProgress, WordTierProgress, SeenQuestion, FlaggedMismatch
+from auth.models import User
 from datetime import datetime, timedelta
 
 
