@@ -25,7 +25,7 @@ import sqlite3
 from itertools import combinations
 
 # Clean, direct import from the sibling config.py
-from app.core.config import RAW_CONFUSIBLES_PATH, OUTPUT_DB_PATH
+from app.core.config_characters import RAW_CONFUSIBLES_PATH, OUTPUT_DB_PATH
 
 # ---------------------------------------------------------------------------
 # Schema

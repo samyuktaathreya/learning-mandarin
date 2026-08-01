@@ -28,7 +28,7 @@ import json
 import re
 import sqlite3
 from pathlib import Path
-from app.core.config import OUTPUT_DB_PATH, VOCAB_JSON_PATH, RAW_IDS_PATH
+from app.core.config_characters import OUTPUT_DB_PATH, VOCAB_JSON_PATH, RAW_IDS_PATH
 #from __future__ import annotations
 
 

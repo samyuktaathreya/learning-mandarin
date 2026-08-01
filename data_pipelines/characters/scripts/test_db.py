@@ -1,6 +1,6 @@
 import sqlite3
 from pathlib import Path
-from app.core.config import OUTPUT_DB_PATH
+from app.core.config_characters import OUTPUT_DB_PATH
 
 conn = sqlite3.connect(OUTPUT_DB_PATH)
 cursor = conn.cursor()
