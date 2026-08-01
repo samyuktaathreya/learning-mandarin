@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, Body, HTTPException
 from sqlalchemy.orm import Session
-from database import SessionLocal, inverted_index, tags_to_unit_dict, unit_to_vocab_tags_dict, unit_questions, META_TAGS, hsk1_dictionary, word_to_pinyin
+from database import SessionLocal
+from textbook.services import inverted_index, tags_to_unit_dict, unit_to_vocab_tags_dict, unit_questions, META_TAGS, hsk1_dictionary, word_to_pinyin
 from schemas.user import SessionResponse
 from pinyin_utils import split_pinyin_sounds, GATED_INITIALS, GATED_FINALS
 from models.user import QuestionTip

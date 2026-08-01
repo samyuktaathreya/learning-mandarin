@@ -1,6 +1,6 @@
 # check_stability.py
 from database import SessionLocal
-from models.user import StrengthTable, WordTierProgress
+from session.models import StrengthTable, WordTierProgress
 from datetime import datetime
 
 db = SessionLocal()
