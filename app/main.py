@@ -3,10 +3,9 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from database import engine, Base, init_db
+from core.database import engine, Base, init_db
 import models.user  # registers models with Base.metadata before create_all()
 from session_log import reset_log
-from coverage_check import check_coverage
 
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
 
