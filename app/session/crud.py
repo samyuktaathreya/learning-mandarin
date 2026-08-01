@@ -30,6 +30,7 @@ from session.constants import (
     SOUND_UNLOCK_SUCCESSES,
     SOUND_UNLOCK_ATTEMPTS_CAP,
 )
+from app.core.config.shared import OUTPUT_DB_PATH
 
 
 def facets_for_question_type(question_type: str) -> list:
@@ -274,6 +275,7 @@ def get_tier(db: Session, user_id: int, tag: str) -> int:
 
 def get_tiers_for_tags(db: Session, user_id: int, tags) -> dict:
     """Batch tier lookup -> {tag: tier}, defaulting to 1 for tags with no row."""
+    print(OUTPUT_DB_PATH)
     rows = db.query(WordTierProgress).filter(
         WordTierProgress.user_id == user_id,
         WordTierProgress.tag.in_(list(tags)),

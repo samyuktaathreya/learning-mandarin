@@ -15,7 +15,7 @@ the repo root. Adjust CHARACTERS_DB_PATH if your layout differs.
 from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from app.core.config_characters import OUTPUT_DB_PATH as DB_PATH
+from core.config.characters import CHARACTER_DB_PATH as DB_PATH
 
 # Create the SQLite URL
 DATABASE_URL = f"sqlite:///{DB_PATH}"

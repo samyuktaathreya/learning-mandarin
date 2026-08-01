@@ -149,3 +149,25 @@ class FlaggedMismatch(Base):
     __table_args__ = (
         UniqueConstraint('question', 'expected_answer', name='_question_expected_uc'),
     )
+
+class QuestionTip(Base):
+    """A learner-authored note attached to a question's TEXT (either its
+    'question' string or its 'answer' string), shown to future learners after
+    they submit that question. Keyed on (key_type, key_value) so the same tip
+    applies everywhere that exact text appears (a question or answer can recur
+    across multiple question objects/units).
+ 
+    Global (not per-user) and overwrite-on-resave: re-adding a tip for the same
+    (key_type, key_value) replaces the old text rather than erroring or
+    duplicating -- it's editing your own note, not adding a second one."""
+    __tablename__ = "question_tips"
+ 
+    id = Column(Integer, primary_key=True, index=True)
+    key_type = Column(TEXT, nullable=False)     # "question" or "answer"
+    key_value = Column(TEXT, nullable=False)    # the exact question/answer text
+    tip = Column(TEXT, nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+ 
+    __table_args__ = (
+        UniqueConstraint('key_type', 'key_value', name='_tip_keytype_keyvalue_uc'),
+    )

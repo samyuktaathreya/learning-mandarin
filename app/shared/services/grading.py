@@ -6,8 +6,8 @@ from sqlalchemy.orm import Session
 from dotenv import load_dotenv
 
 from pinyin_utils import strip_punct, to_numbered_pinyin, tones_match
-from models.user import AcceptedAnswer
-import crud
+from session.models import AcceptedAnswer
+from session.crud import log_mismatch
 
 load_dotenv(os.path.join(os.path.dirname(__file__), '../../../.env'))
 
@@ -205,7 +205,7 @@ def _maybe_log_mismatch(db: Session, direction: str, question: str, expected: st
     if result.get("expected_matches_question", True):
         return
     try:
-        crud.log_mismatch(
+        log_mismatch(
             db,
             question=question,
             expected_answer=expected,

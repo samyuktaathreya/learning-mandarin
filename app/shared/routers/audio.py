@@ -2,7 +2,7 @@ import base64
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
-from shared.services import (
+from shared.services.audio import (
     generate_and_cache_audio,
     clear_session_audio,
     process_spoken_audio

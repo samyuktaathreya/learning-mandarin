@@ -4,8 +4,7 @@ session/crud.py. These two only touch DictionaryEntry, which isn't a session
 model, so they don't belong in the session package.
 """
 from sqlalchemy.orm import Session
-from models.user import DictionaryEntry
-
+from shared.models import DictionaryEntry
 
 def get_dictionary_entries(db: Session, word: str):
     """

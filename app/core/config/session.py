@@ -1,4 +1,3 @@
 from pathlib import Path
-from .shared import DATA_DIR
+from app.core.config.shared import ROOT_DIR
 
-OUTPUT_DB_PATH = DATA_DIR / "mandarin_app.db"

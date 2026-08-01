@@ -2,10 +2,11 @@ import os
 from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException
 import httpx
-import crud
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, Body, HTTPException
-from database import SessionLocal
+from core.database import SessionLocal
+from shared.crud import build_vocab_block
+from session.crud import get_known_vocab_tags
 # from openai import OpenAI  <- You don't actually need this if you are using httpx to make the web request
 
 router = APIRouter()
@@ -25,8 +26,8 @@ OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 @router.post("/api/voice-session")
 async def create_voice_session(user_id: int = Body(...), db: Session = Depends(get_db)):
-    tags = crud.get_known_vocab_tags(db, user_id)
-    vocab_block = crud.build_vocab_block(db, tags)
+    tags = get_known_vocab_tags(db, user_id)
+    vocab_block = build_vocab_block(db, tags)
 
     instructions = f"""You are a friendly, patient Mandarin conversation partner.
 Speak only in Mandarin. Keep responses to 1-2 sentences.

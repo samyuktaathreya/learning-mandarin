@@ -1,7 +1,7 @@
 # auth/models.py
 from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from sqlalchemy.dialects.sqlite import TEXT
-from database import Base
+from core.database import Base
 
 class User(Base):
     __tablename__ = "users"

@@ -7,9 +7,11 @@ from datetime import datetime, timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE_DIR))
 
-from database import SessionLocal, unique_vocab_tags, FACETS
+from core.database import SessionLocal
+from textbook.database import unique_vocab_tags, FACETS
 from auth.models import User
-from session.models import StrengthTable, DictionaryEntry
+from session.models import StrengthTable
+from shared.models import DictionaryEntry
 
 # Data path is relative to the project root
 DICT_PATH = BASE_DIR / "language-app-data" / "data" / "raw" / "chinese_english_dictionary.u8"

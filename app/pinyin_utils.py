@@ -11,6 +11,7 @@ import os
 import re
 import json
 from pypinyin import pinyin, Style
+from core.config.textbook import INDEX_OUTPUT_JSON
 
 # ----------------------------- OVERRIDES / DICT -----------------------------
 
@@ -71,10 +72,7 @@ def hanzi_numbers_to_digits(text: str) -> str:
 # pypinyin handles those correctly as a fallback.
 CHAR_PINYIN = {}
 try:
-    _index_path = os.path.join(
-        os.path.dirname(__file__),
-        'language-app-data/data/clean/index_output.json'
-    )
+    _index_path = INDEX_OUTPUT_JSON
     with open(_index_path, 'r', encoding='utf-8') as f:
         _index = json.load(f)
     for _section in _index.values():          # vocab, grammar, proper_nouns
