@@ -4,7 +4,7 @@ from sqlalchemy.dialects.sqlite import TEXT
 from datetime import datetime
 
 # Assuming Base is defined in your main database.py file
-from database import Base
+from core.database import Base
 
 
 class StrengthTable(Base):
@@ -58,12 +58,12 @@ class WordTierProgress(Base):
     tier 1..4 (see tier map in session.py). Advances one step when the word
     is answered on a question type belonging to its current tier."""
     __tablename__ = "word_tier_progress"
-    
+
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, nullable=False)
     tag = Column(TEXT, nullable=False)
     tier = Column(Integer, default=1)
-    
+
     __table_args__ = (
         UniqueConstraint("user_id", "tag", name="_user_tag_tier_uc"),
     )
@@ -75,32 +75,32 @@ class SeenQuestion(Base):
     them apart). Used to make question CHOICE within a (tag, type) prefer
     variety: never-shown variants first, then least-shown, instead of a
     uniform random pick every time.
- 
+
     Without this, a tag's selection WEIGHT drops fast as its correct_count
     climbs (see MISS_WEIGHT_FACTOR / min_count weighting in session.py), so a
     tag stops being drawn long before every one of its question variants has
     been sampled -- leaving some variants completely unseen until they turn up
     cold on the unit test."""
     __tablename__ = "seen_questions"
- 
+
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, nullable=False)
     question_id = Column(TEXT, nullable=False)
     times_shown = Column(Integer, default=0)
     last_shown = Column(DateTime, default=datetime.utcnow)
- 
+
     __table_args__ = (
         UniqueConstraint('user_id', 'question_id', name='_user_question_uc'),
     )
 
 
 class AcceptedAnswer(Base):
-    """Cache of learner answers that Claude judged CORRECT, so an identical 
+    """Cache of learner answers that Claude judged CORRECT, so an identical
     (question, cleaned_answer) pair skips the AI call next time.
 
-    Global (not per-user): whether an answer is acceptable for a question 
-    doesn't depend on who typed it. Keyed on the question + the CLEANED user 
-    answer so the cache works regardless of which expected_answer reference was 
+    Global (not per-user): whether an answer is acceptable for a question
+    doesn't depend on who typed it. Keyed on the question + the CLEANED user
+    answer so the cache works regardless of which expected_answer reference was
     stored (which may be wrong/mismatched to the question).
 
     Accepted-only: we never cache rejections, so a cache miss simply falls
