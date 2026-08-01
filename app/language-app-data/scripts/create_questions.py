@@ -1,5 +1,6 @@
 """
 Generate the per-unit question bank from the cleaned vocab and sentence outputs.
+Merges with existing questions to preserve IDs, custom tags, and manual additions.
 """
 
 import json
@@ -36,26 +37,18 @@ UNIT_VOCAB_TAGS_FILEPATH = BASE_DIR / "data" / "clean" / "unit_vocab_tags.json"
 
 
 def get_grammar_tips(raw_tip) -> list:
-    """Return a clean list of structured grammar tip objects from whatever
-    shape grammar_tip is stored as in units_output.json.
-
-    New format (after pipeline rewrite): a list of { sections: [...] } objects.
-    Legacy format (old markdown pipeline): a newline-joined string.
-    Either way, return a list so callers don't need to care.
-    """
     if not raw_tip:
         return []
-    # New format: already a list of structured objects
     if isinstance(raw_tip, list):
         return [tip for tip in raw_tip if tip]
-    # Legacy format: concatenated markdown string -- split and wrap so the
-    # frontend at least gets something renderable until the pipeline is re-run
     if isinstance(raw_tip, str):
         return [t.strip() for t in raw_tip.split("\n\n") if t.strip()]
     return []
 
 
 def load_json(path: Path):
+    if not path.exists():
+        return {}
     with open(path, "r", encoding="utf-8") as fh:
         return json.load(fh)
 
@@ -179,18 +172,6 @@ def extract_fitb_translation(question: str) -> str:
 
 
 def enrich_content_tags(hanzi, segmentation_tags, all_hanzi, unit_number, home_unit):
-    """Segmentation is non-overlapping, and the LLM tagger doesn't reliably
-    prefer the longest match -- so a compound the learner is plainly reading
-    (好吃, 中国菜, or 电话 inside 打电话) often never appears as a tag at all,
-    and can never accumulate sentence-level tier-3/4 progress.
-
-    Add any known word that literally appears in the sentence AND is already
-    taught by this unit. The already-taught filter is what keeps this from
-    repeating the earlier regression: a coincidental cross-boundary match
-    (请问, from adjacent 请 + 问) or a component character taught later than
-    its compound (天, from 今天) is excluded, so enrichment can never push a
-    later-unit word into the tag list.
-    """
     enriched = set(segmentation_tags)
     for w in content_tags_for(hanzi, all_hanzi):
         if home_unit.get(w, unit_number) <= unit_number:
@@ -198,11 +179,46 @@ def enrich_content_tags(hanzi, segmentation_tags, all_hanzi, unit_number, home_u
     return sorted(enriched)
 
 
-def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
+def build_questions_for_unit(index_data, units_data, unit_number, home_unit, existing_unit_qs):
     unit_str = str(unit_number)
-    counters = {}
-    questions = []
     unit_data = units_data.get(unit_str, {})
+    
+    # 1. Parse existing questions to preserve state and avoid ID collisions
+    counters = {}
+    final_questions_dict = {}
+    
+    for eq in existing_unit_qs:
+        sig = (eq.get("question_type"), eq.get("question"), eq.get("answer"))
+        final_questions_dict[sig] = eq
+        
+        # Advance the ID counter so new questions don't duplicate existing IDs
+        q_id = eq.get("id", "")
+        match = re.search(r'_(\d+)$', q_id)
+        if match:
+            slug = eq.get("question_type", "").replace(" ", "_")
+            val = int(match.group(1))
+            if val > counters.get(slug, 0):
+                counters[slug] = val
+
+    def process_question(qtype, q_text, a_text, tags, hanzi, english, grammar_tips=None):
+        """Helper to merge or append a question safely."""
+        sig = (qtype, q_text, a_text)
+        if sig in final_questions_dict:
+            # Merge: Keep existing ID, combine tags, update text
+            q = final_questions_dict[sig]
+            q["tags"] = sorted(list(set(q.get("tags", []) + tags)))
+            q["hanzi"] = hanzi
+            q["english"] = english
+            if grammar_tips:
+                q["grammar_tips"] = grammar_tips
+        else:
+            # Insert: Generate new ID and append
+            q = make_question(unit_str, qtype, q_text, a_text, tags, counters)
+            q["hanzi"] = hanzi
+            q["english"] = english
+            if grammar_tips:
+                q["grammar_tips"] = grammar_tips
+            final_questions_dict[sig] = q
 
     all_vocab = index_data.get("vocab", [])
     print("unit : ", unit_str)
@@ -231,13 +247,7 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
         english = item.get("english", "")
         segmentation_tags = item.get("tags") or content_tags_for(hanzi, all_hanzi)
 
-        # Gate on the REAL segmentation only. Enrichment exists to hand out tag
-        # credit; it must never widen the not-yet-taught check, or one component
-        # character taught later than its compound silently strips the typing
-        # question types (and therefore the whole character facet) off every
-        # sentence that uses that compound.
         blocked = has_unlearned_vocab(segmentation_tags, unit_number, home_unit)
-
         content_tags = enrich_content_tags(hanzi, segmentation_tags, all_hanzi,
                                         unit_number, home_unit)
         for qtype, q_text, a_text in [
@@ -250,10 +260,8 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
         ]:
             if qtype in TYPING_REQUIRED_TYPES and blocked:
                 continue
-            question = make_question(unit_str, qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), counters)
-            question["hanzi"] = hanzi
-            question["english"] = english
-            questions.append(question)
+            
+            process_question(qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), hanzi, english)
 
     for item in grammar_by_unit.get(unit_number, []):
         hanzi = item["hanzi"]
@@ -265,10 +273,7 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
             (QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, hanzi, pinyin),
             (QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value, hanzi, pinyin),
         ]:
-            question = make_question(unit_str, qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), counters)
-            question["hanzi"] = hanzi
-            question["english"] = english
-            questions.append(question)
+            process_question(qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), hanzi, english)
 
     for item in proper_by_unit.get(unit_number, []):
         hanzi = item["hanzi"]
@@ -281,10 +286,7 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
             (QuestionType.TRANSLATE_ZH_TO_EN_WORD.value, hanzi, english),
             (QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value, hanzi, pinyin),
         ]:
-            question = make_question(unit_str, qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), counters)
-            question["hanzi"] = hanzi
-            question["english"] = english
-            questions.append(question)
+            process_question(qtype, q_text, a_text, build_tags(hanzi, qtype, unit_str, all_hanzi), hanzi, english)
 
     seen_sentences = set()
     for item in unit_data.get("sentences", []):
@@ -296,17 +298,11 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
         seen_sentences.add(hanzi)
         segmentation_tags = item.get("tags") or content_tags_for(hanzi, all_hanzi)
 
-        # Gate on the REAL segmentation only -- same reasoning as the vocab
-        # loop above. Enrichment must never widen what counts as "used
-        # vocab" for the not-yet-taught check, or a later-taught embedded
-        # word (or a coincidental cross-tag-boundary match) would silently
-        # strip typing-required question types off a sentence that's
-        # actually fine.
         blocked = has_unlearned_vocab(segmentation_tags, unit_number, home_unit)
-
         content_tags = enrich_content_tags(hanzi, segmentation_tags, all_hanzi,
                                            unit_number, home_unit)
         grammar_tips = get_grammar_tips(item.get("grammar_tip"))
+        
         for qtype, q_text, a_text in [
             (QuestionType.LISTENING_SENTENCE.value, hanzi, hanzi),
             (QuestionType.SPEAKING_SENTENCE.value, hanzi, pinyin),
@@ -315,13 +311,8 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
         ]:
             if qtype in TYPING_REQUIRED_TYPES and blocked:
                 continue
-            question = make_question(unit_str, qtype, q_text, a_text,
-                                     build_tags_from_precomputed(content_tags, qtype, unit_str), counters)
-            question["hanzi"] = hanzi
-            question["english"] = english
-            if grammar_tips:
-                question["grammar_tips"] = grammar_tips
-            questions.append(question)
+            
+            process_question(qtype, q_text, a_text, build_tags_from_precomputed(content_tags, qtype, unit_str), hanzi, english, grammar_tips)
 
     seen_fitb = set()
     for item in unit_data.get("fill_in_the_blank", []):
@@ -331,29 +322,20 @@ def build_questions_for_unit(index_data, units_data, unit_number, home_unit):
         seen_fitb.add(key)
         full_sentence = reconstruct_fitb_sentence(item.get("question", ""), item.get("answer", ""))
 
-        # FITB entries have no independent segmentation of their own, so
-        # content_tags_for's raw substring scan is the only source of tags
-        # here -- but used unfiltered for gating it's the same cross-boundary
-        # trap as before (e.g. adjacent 请 + 问 spelling 请问 by coincidence).
-        # Split into "tags for credit" (all substring matches, same as
-        # always) vs. "tags for the not-yet-taught gate" (only genuinely
-        # embedded compounds matter there, and a compound is only a real
-        # signal if it's not simply two already-known neighboring words).
         raw_tags = content_tags_for(full_sentence, all_hanzi)
         if has_unlearned_vocab(raw_tags, unit_number, home_unit):
             continue
-        content_tags = raw_tags
-        question = make_question(
-            unit_str, QuestionType.FILL_IN_THE_BLANK.value,
-            item.get("question", ""), item.get("answer", ""),
-            build_tags_from_precomputed(content_tags, QuestionType.FILL_IN_THE_BLANK.value, unit_str),
-            counters,
+            
+        process_question(
+            QuestionType.FILL_IN_THE_BLANK.value, 
+            item.get("question", ""), 
+            item.get("answer", ""), 
+            build_tags_from_precomputed(raw_tags, QuestionType.FILL_IN_THE_BLANK.value, unit_str), 
+            full_sentence, 
+            extract_fitb_translation(item.get("question", ""))
         )
-        question["hanzi"] = full_sentence
-        question["english"] = extract_fitb_translation(item.get("question", ""))
-        questions.append(question)
 
-    return questions
+    return list(final_questions_dict.values())
 
 
 def vocab_tags_for_unit(index_data, unit_number) -> list:
@@ -373,17 +355,42 @@ def vocab_tags_for_unit(index_data, unit_number) -> list:
 
 
 def main():
-    index_data = load_json(INDEX_FILEPATH)
-    units_data = load_json(UNITS_FILEPATH)
+    # 1. Read Inputs
+    # We gracefully handle missing output files via a modified load_json
+    index_data = load_json(INDEX_FILEPATH) if INDEX_FILEPATH.exists() else {}
+    units_data = load_json(UNITS_FILEPATH) if UNITS_FILEPATH.exists() else {}
+    
+    # 2. Read Existing Outputs
+    existing_questions = load_json(OUTPUT_FILEPATH)
+    existing_vocab_tags = load_json(UNIT_VOCAB_TAGS_FILEPATH)
+
     home_unit = effective_home_units(index_data, units_data)
     units_data = rehome_sentences(units_data, home_unit)
 
     all_questions = {}
     all_vocab_tags = {}
-    for unit_number in sorted({int(k) for k in units_data.keys()} | {item["unit"] for item in index_data.get("vocab", [])} | {item["unit"] for item in index_data.get("grammar", [])} | {item["unit"] for item in index_data.get("proper_nouns", [])}):
-        all_questions[str(unit_number)] = build_questions_for_unit(index_data, units_data, unit_number, home_unit)
-        all_vocab_tags[str(unit_number)] = vocab_tags_for_unit(index_data, unit_number)
+    
+    # Calculate complete list of units across indices and outputs
+    units_set = {int(k) for k in units_data.keys()} 
+    units_set |= {item["unit"] for item in index_data.get("vocab", [])} 
+    units_set |= {item["unit"] for item in index_data.get("grammar", [])} 
+    units_set |= {item["unit"] for item in index_data.get("proper_nouns", [])}
+    
+    for unit_number in sorted(units_set):
+        unit_str = str(unit_number)
+        
+        # Merge Questions
+        existing_unit_qs = existing_questions.get(unit_str, [])
+        all_questions[unit_str] = build_questions_for_unit(
+            index_data, units_data, unit_number, home_unit, existing_unit_qs
+        )
+        
+        # Merge Vocab Tags
+        new_tags = vocab_tags_for_unit(index_data, unit_number)
+        existing_tags = set(existing_vocab_tags.get(unit_str, []))
+        all_vocab_tags[unit_str] = sorted(list(existing_tags | set(new_tags)))
 
+    # Ensure files exist before dumping
     OUTPUT_FILEPATH.parent.mkdir(parents=True, exist_ok=True)
     with open(OUTPUT_FILEPATH, "w", encoding="utf-8") as fh:
         json.dump(all_questions, fh, ensure_ascii=False, indent=2)
@@ -391,8 +398,8 @@ def main():
     with open(UNIT_VOCAB_TAGS_FILEPATH, "w", encoding="utf-8") as fh:
         json.dump(all_vocab_tags, fh, ensure_ascii=False, indent=2)
 
-    print(f"Wrote {OUTPUT_FILEPATH}")
-    print(f"Wrote {UNIT_VOCAB_TAGS_FILEPATH}")
+    print(f"Wrote/Merged {OUTPUT_FILEPATH}")
+    print(f"Wrote/Merged {UNIT_VOCAB_TAGS_FILEPATH}")
     return all_questions
 
 

@@ -48,6 +48,7 @@ const CHARACTER_QUIZ_TYPES = new Set([
 ]);
 
 const playAudio = async (text, slow = false, currentAudioRef = null, tokenRef = null, expectedToken = null) => {
+    if (!hasChinese(text)) return;
     // Stop anything already playing — this call is newer, so it wins immediately.
     if (currentAudioRef?.current) {
         currentAudioRef.current.pause();
@@ -218,6 +219,15 @@ export default function DuolingoStyleQuestions() {
     }, [isGrammarTipOpen, currentQuestionObj]);
 
     useEffect(() => {
+        advancingRef.current = false;
+        gradingRef.current = false;
+        questionTokenRef.current += 1;
+
+        if (currentAudioRef.current) {
+            currentAudioRef.current.pause();
+            currentAudioRef.current = null;
+        }
+
         if (!currentQuestionObj) return;
         advancingRef.current = false;
         gradingRef.current = false;
