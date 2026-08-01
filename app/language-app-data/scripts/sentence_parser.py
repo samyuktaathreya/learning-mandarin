@@ -88,7 +88,7 @@ AGENT_MAX_TOKENS = 8192
 TEMPERATURE = 0
 
 # module-level overrides from main.py
-UNITS_TO_PROCESS = [11,12,13]      # e.g. [3, 4]
+UNITS_TO_PROCESS = [14, 15]      # e.g. [3, 4]
 SOURCES_TO_PROCESS = None        # e.g. ["textbook"]
 
 # --------------------------------- SETUP ---------------------------------
