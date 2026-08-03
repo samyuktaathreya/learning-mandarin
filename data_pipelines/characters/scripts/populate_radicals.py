@@ -28,18 +28,8 @@ import csv
 import re
 import sqlite3
 from pathlib import Path
-from app.core.config import OUTPUT_DB_PATH, RAW_RADICALS_PATH
+from app.core.config.characters import CHARACTER_DB_PATH, RAW_RADICALS_PATH
 
-# ---------------------------------------------------------------------------
-# PATHS — must match populate_characters.py layout
-# ---------------------------------------------------------------------------
-SCRIPT_DIR = Path(__file__).resolve().parent
-IDS_APP_DATA_DIR = SCRIPT_DIR.parent
-TOP_DIR = SCRIPT_DIR.parent.parent.parent # learning-mandarin
-
-OUTPUT_DB_PATH = TOP_DIR / "data" / "characters" / "characters.db"
-
-RAW_RADICALS_PATH = IDS_APP_DATA_DIR / "data" / "raw" / "radical-data.csv"
 
 # Matches a single CJK character, used to pull just the glyph out of entries
 # like "乀 (fu2)" or "乁(yi2)" in the variants column.
@@ -179,7 +169,7 @@ def main():
     radicals = parse_radical_csv(RAW_RADICALS_PATH)
     print(f"Found {len(radicals)} radicals.")
 
-    n_chars, n_meta, n_confusions = populate(radicals, OUTPUT_DB_PATH)
+    n_chars, n_meta, n_confusions = populate(radicals, CHARACTER_DB_PATH)
     print(f"Upserted {n_chars} character rows (radicals + variants).")
     print(f"Inserted {n_meta} radical_meta rows.")
     print(f"Inserted {n_confusions} radical_variant confusion pairs.")

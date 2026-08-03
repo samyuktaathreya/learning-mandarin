@@ -28,7 +28,8 @@ import json
 import re
 import sqlite3
 from pathlib import Path
-from app.core.config import OUTPUT_DB_PATH, VOCAB_JSON_PATH, RAW_IDS_PATH
+from app.core.config.characters import CHARACTER_DB_PATH, RAW_IDS_PATH
+from app.core.config.textbook import UNIT_VOCAB_TAGS_JSON
 #from __future__ import annotations
 
 
@@ -249,8 +250,8 @@ def build_database(
 # Main
 # ---------------------------------------------------------------------------
 def main():
-    print(f"Loading vocab from: {VOCAB_JSON_PATH}")
-    target_chars = load_target_characters(VOCAB_JSON_PATH)
+    print(f"Loading vocab from: {UNIT_VOCAB_TAGS_JSON}")
+    target_chars = load_target_characters(UNIT_VOCAB_TAGS_JSON)
     print(f"Found {len(target_chars)} unique characters across vocab list.")
 
     print(f"Loading IDS table from: {RAW_IDS_PATH}")
@@ -258,7 +259,7 @@ def main():
     print(f"IDS table has {len(ids_table)} total entries.")
 
     char_rows, component_rows, missing = build_database(
-        target_chars, ids_table, OUTPUT_DB_PATH, MAX_DEPTH
+        target_chars, ids_table, CHARACTER_DB_PATH, MAX_DEPTH
     )
 
     print(f"Inserted {len(char_rows)} characters.")
@@ -268,7 +269,7 @@ def main():
         print(f"\nWARNING: {len(missing)} characters from vocab had no IDS entry:")
         print(" ".join(missing))
 
-    print(f"\nDatabase written to: {OUTPUT_DB_PATH}")
+    print(f"\nDatabase written to: {CHARACTER_DB_PATH}")
 
 
 if __name__ == "__main__":

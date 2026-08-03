@@ -1,8 +1,8 @@
 import sqlite3
 from pathlib import Path
-from app.core.config import OUTPUT_DB_PATH
+from app.core.config.characters import CHARACTER_DB_PATH
 
-conn = sqlite3.connect(OUTPUT_DB_PATH)
+conn = sqlite3.connect(CHARACTER_DB_PATH)
 cursor = conn.cursor()
 
 print("--- TABLE ROW COUNTS ---")

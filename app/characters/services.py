@@ -32,11 +32,11 @@ from datetime import datetime
 
 from sqlalchemy.orm import Session
 
-import crud
-from models.user import StrengthTable
+from shared.crud import get_dictionary_entries
+from session.models import StrengthTable
 from characters.models import Character, RadicalMeta
 import characters.crud
-from database import word_to_pinyin, META_TAGS
+from textbook.services import word_to_pinyin, META_TAGS
 
 REVIEW_STRENGTH_THRESHOLD = 0.80  # matches REVIEW_THRESHOLD in session.py
 NUM_OPTIONS = 4                   # multiple-choice option count for all quiz types
@@ -197,7 +197,7 @@ def _get_english_meaning(db: Session, tag: str) -> str | None:
     (mandarin_app.db), so quiz questions can anchor on meaning instead of
     showing the hanzi answer itself. Takes the first entry's first definition
     if multiple entries/definitions exist."""
-    entries = crud.get_dictionary_entries(db, tag)
+    entries = get_dictionary_entries(db, tag)
     if not entries:
         return None
     first_def = entries[0].english.split("/")[0].strip()

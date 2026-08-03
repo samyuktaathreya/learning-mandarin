@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
-import crud
-from database import SessionLocal
+from core.database import SessionLocal
 from pinyin_utils import to_numbered_pinyin
+from shared.crud import get_dictionary_entries
 
 # ----------------------------- DB DEPENDENCY -----------------------------
 
@@ -27,7 +27,7 @@ async def get_translation(word: str, db: Session = Depends(get_db)):
     RESTful GET endpoint to query a Chinese word translation from SQLite.
     Checks both Simplified and Traditional indexes via crud.py.
     """
-    results = crud.get_dictionary_entries(db, word=word)
+    results = get_dictionary_entries(db, word=word)
 
     if not results:
         raise HTTPException(status_code=404, detail="Word not found in dictionary")
