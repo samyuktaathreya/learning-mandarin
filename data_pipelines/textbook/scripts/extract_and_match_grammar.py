@@ -5,6 +5,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 import anthropic
 from typing import Union, Optional
+from app.core.config.textbook import OCR_PATH, UNITS_OUTPUT_JSON, GRAMMAR_TIP_SOP, REFORMAT_GRAMMAR_TIP_SOP
+from app.core.config.shared import ENV_FILE
 
 # ---------------------------------------------------------
 # Configuration & Setup
@@ -14,16 +16,7 @@ MAX_TOKENS = 1024
 TEMPERATURE = 0
 MAX_RETRIES = 2  # retries for malformed JSON / bad table shape
 
-script_dir = Path(__file__).parent
-data_dir = script_dir.parent / "data"
-sop_dir = script_dir.parent / "SOPs"
-
-ocr_cache_dir = data_dir / "intermediate" / "OCR_cache"
-units_output_path = data_dir / "clean" / "units_output.json"
-sop_path = sop_dir / "grammar_tip" / "grammar_tip.txt"
-reformat_sop_path = sop_dir / "grammar_tip" / "reformat_grammar_tip.txt"
-
-load_dotenv(script_dir.parent.parent / ".env")
+load_dotenv(ENV_FILE)
 api_key = os.environ.get("CLAUDE_API_KEY")
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
 
@@ -63,7 +56,7 @@ def parse_grammar_tips() -> dict:
     heading_pattern = re.compile(r'(?m)^(?:##\s*)?(\d+)\s+(?=[^\s\d:])')
 
     for unit in range(3, 16):
-        file_path = ocr_cache_dir / f"textbook_unit{unit}.md"
+        file_path = OCR_PATH / f"textbook_unit{unit}.md"
         if not file_path.exists():
             print(f" [warning] File not found: {file_path.name}")
             continue
@@ -241,7 +234,7 @@ def get_matching_sentences(sop_text: str, structured_tip: dict, hanzi_list: list
 # Step 3: Main Execution Flow
 # ---------------------------------------------------------
 def main():
-    remove_grammar_tips(units_output_path)
+    remove_grammar_tips(UNITS_OUTPUT_JSON)
     print("1. Extracting grammar tips from OCR cache...")
     unit_tips = parse_grammar_tips()
 
@@ -250,22 +243,22 @@ def main():
         return
 
     print("2. Loading SOPs and clean sentences data...")
-    if not sop_path.exists():
-        print(f" [error] Matching SOP file not found at {sop_path}")
+    if not GRAMMAR_TIP_SOP.exists():
+        print(f" [error] Matching SOP file not found at {GRAMMAR_TIP_SOP}")
         return
-    with open(sop_path, 'r', encoding='utf-8') as f:
+    with open(GRAMMAR_TIP_SOP, 'r', encoding='utf-8') as f:
         sop_text = f.read()
 
-    if not reformat_sop_path.exists():
-        print(f" [error] Reformat SOP file not found at {reformat_sop_path}")
+    if not REFORMAT_GRAMMAR_TIP_SOP.exists():
+        print(f" [error] Reformat SOP file not found at {REFORMAT_GRAMMAR_TIP_SOP}")
         return
-    with open(reformat_sop_path, 'r', encoding='utf-8') as f:
+    with open(REFORMAT_GRAMMAR_TIP_SOP, 'r', encoding='utf-8') as f:
         reformat_sop_text = f.read()
 
-    if not units_output_path.exists():
-        print(f" [error] Clean sentences file not found at {units_output_path}")
+    if not UNITS_OUTPUT_JSON.exists():
+        print(f" [error] Clean sentences file not found at {UNITS_OUTPUT_JSON}")
         return
-    with open(units_output_path, 'r', encoding='utf-8') as f:
+    with open(UNITS_OUTPUT_JSON, 'r', encoding='utf-8') as f:
         units_data = json.load(f)
 
     print("3. Reformatting tips and matching to sentences via Claude...")
@@ -306,10 +299,10 @@ def main():
                 print("     No matches found.")
 
     print("\n4. Saving updated sentences back to units_output.json...")
-    with open(units_output_path, 'w', encoding='utf-8') as f:
+    with open(UNITS_OUTPUT_JSON, 'w', encoding='utf-8') as f:
         json.dump(units_data, f, ensure_ascii=False, indent=2)
 
-    print(f"✅ Done! Updated {units_output_path.name} successfully.")
+    print(f"✅ Done! Updated {UNITS_OUTPUT_JSON.name} successfully.")
 
 
 if __name__ == "__main__":

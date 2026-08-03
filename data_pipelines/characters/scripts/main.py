@@ -2,12 +2,11 @@ import json
 import os
 import sys
 from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent.parent
+from app.core.config.characters import CHARACTER_SCRIPTS_DIR
 
 
 def run_script(module_name: str):
-    script_path = BASE_DIR / "scripts" / f"{module_name}.py"
+    script_path = CHARACTER_SCRIPTS_DIR / f"{module_name}.py"
     if not script_path.exists():
         raise FileNotFoundError(script_path)
     result = os.system(f"python3 {script_path}")

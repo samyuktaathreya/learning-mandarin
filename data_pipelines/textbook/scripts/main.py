@@ -2,12 +2,13 @@ import json
 import os
 import sys
 from pathlib import Path
+from app.core.config.textbook import PIPELINE_SCRIPTS_DIR
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 def run_script(module_name: str):
-    script_path = BASE_DIR / "scripts" / f"{module_name}.py"
+    script_path = PIPELINE_SCRIPTS_DIR / f"{module_name}.py"
     if not script_path.exists():
         raise FileNotFoundError(script_path)
     result = os.system(f"python3 {script_path}")

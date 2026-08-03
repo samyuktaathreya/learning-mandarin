@@ -29,35 +29,39 @@ from pathlib import Path
 
 import anthropic
 from dotenv import load_dotenv
+from app.core.config.shared import ENV_FILE
+from app.core.config.textbook import (
+    TEXTBOOK_RAW_DIR,
+    TEXTBOOK_INTERMEDIATE_DIR,
+    TEXTBOOK_APP_DATA_DIR,
+    SOP_PATH,
+    OCR_PATH,
+)
 
 # --------------------------------- CONSTANTS ---------------------------------
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-SOP_FILEPATH = BASE_DIR / "SOPs"
+SOP_FILEPATH = SOP_PATH
 OCR_SOP_FILENAME = os.path.join("vocab", "ocr.txt")
 EXTRACTOR_SOP_FILENAME = os.path.join("vocab", "index_extractor.txt")
 
-# was: INDEX_PDF_FILEPATH = "../data/raw"  (bare relative string -- resolved
-# against cwd at runtime, silently pointed nowhere depending on how/where the
-# script was invoked). Anchored to BASE_DIR like every other path here.
-INDEX_PDF_FILEPATH = BASE_DIR / "data" / "raw"
+INDEX_PDF_FILEPATH = TEXTBOOK_RAW_DIR
 INDEX_PDF_FILENAME = "hsk1_textbook_index.pdf"
 
-OCR_CACHE_FILEPATH = BASE_DIR / "data" / "intermediate" / "OCR_cache"
+OCR_CACHE_FILEPATH = OCR_PATH
 OCR_CACHE_FILENAME = "vocab_index.md"
 FORCE_OCR = False
 
-LLM_RESPONSES_FILEPATH = BASE_DIR / "data" / "intermediate" / "LLM_RESPONSES"
+LLM_RESPONSES_FILEPATH = TEXTBOOK_INTERMEDIATE_DIR / "LLM_RESPONSES"
 
-OUTPUT_INDEX_FILEPATH = BASE_DIR / "data" / "clean"
+OUTPUT_INDEX_FILEPATH = TEXTBOOK_APP_DATA_DIR
 OUTPUT_INDEX_FILENAME = "index_output.json"
-OUTPUT_PINYIN_DICT_FILEPATH = BASE_DIR / "data" / "intermediate"
+OUTPUT_PINYIN_DICT_FILEPATH = TEXTBOOK_INTERMEDIATE_DIR
 OUTPUT_PINYIN_DICT_FILENAME = "word_to_pinyin.json"
 
-OUTPUT_DICTIONARY_FILEPATH = BASE_DIR / "data" / "clean"
+OUTPUT_DICTIONARY_FILEPATH = TEXTBOOK_APP_DATA_DIR
 OUTPUT_DICTIONARY_FILENAME = "hsk1_dictionary.json"
 
-ADDED_VOCAB_FILEPATH = BASE_DIR / "added_vocab" / "hsk1.txt"
+ADDED_VOCAB_FILEPATH = TEXTBOOK_APP_DATA_DIR.parent / "language-app-data" / "added_vocab" / "hsk1.txt"
 
 MODEL = "claude-sonnet-4-6"
 OCR_MAX_TOKENS = 8192
@@ -68,7 +72,7 @@ GRAMMAR_POS_PREFIXES = ("part", "aux", "助")
 
 # --------------------------------- SETUP ---------------------------------
 
-load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env")
+load_dotenv(ENV_FILE)
 api_key = os.environ.get("CLAUDE_API_KEY")
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
 
@@ -105,7 +109,7 @@ def extract_json_block(text: str) -> str:
 
 
 def save_llm_response(call_name: str, raw_text: str) -> str:
-    os.makedirs(LLM_RESPONSES_FILEPATH, exist_ok=True)
+    os.makedirs(str(LLM_RESPONSES_FILEPATH), exist_ok=True)
     path = os.path.join(str(LLM_RESPONSES_FILEPATH), f"vocab_index_{call_name}.txt")
     with open(path, "w", encoding="utf-8") as f:
         f.write(raw_text)
@@ -210,7 +214,7 @@ def _split_syllables(plain: str):
             elif i < n and tok[i].lower() == "r" and (i + 1 >= n or tok[i + 1].lower() not in _VOWELS):
                 i += 1
             syllables.append(tok[start:i])
-    
+
     # POST-PROCESSING: merge erhua "r" with previous syllable
     merged = []
     for syl in syllables:
@@ -264,7 +268,7 @@ def diacritic_to_numeric(pinyin: str) -> str:
 # --------------------------------- AGENT CALLS ---------------------------------
 
 def run_index_ocr() -> str:
-    os.makedirs(OCR_CACHE_FILEPATH, exist_ok=True)
+    os.makedirs(str(OCR_CACHE_FILEPATH), exist_ok=True)
     cache_path = os.path.join(str(OCR_CACHE_FILEPATH), OCR_CACHE_FILENAME)
     if not FORCE_OCR and os.path.exists(cache_path):
         print(f"  [cache] using cached index OCR: {cache_path}")
@@ -391,13 +395,13 @@ def main():
         for r in index_output[key]:
             r.pop("type", None)
 
-    os.makedirs(OUTPUT_INDEX_FILEPATH, exist_ok=True)
+    os.makedirs(str(OUTPUT_INDEX_FILEPATH), exist_ok=True)
     index_path = os.path.join(str(OUTPUT_INDEX_FILEPATH), OUTPUT_INDEX_FILENAME)
     with open(index_path, "w", encoding="utf-8") as f:
         json.dump(index_output, f, ensure_ascii=False, indent=2)
 
     word_to_pinyin = {r["hanzi"]: r["pinyin"] for r in records}
-    os.makedirs(OUTPUT_PINYIN_DICT_FILEPATH, exist_ok=True)
+    os.makedirs(str(OUTPUT_PINYIN_DICT_FILEPATH), exist_ok=True)
     dict_path = os.path.join(str(OUTPUT_PINYIN_DICT_FILEPATH), OUTPUT_PINYIN_DICT_FILENAME)
     with open(dict_path, "w", encoding="utf-8") as f:
         json.dump(word_to_pinyin, f, ensure_ascii=False, indent=2)
@@ -417,7 +421,7 @@ def main():
         }
         for r in records
     }
-    os.makedirs(OUTPUT_DICTIONARY_FILEPATH, exist_ok=True)
+    os.makedirs(str(OUTPUT_DICTIONARY_FILEPATH), exist_ok=True)
     dictionary_path = os.path.join(str(OUTPUT_DICTIONARY_FILEPATH), OUTPUT_DICTIONARY_FILENAME)
     with open(dictionary_path, "w", encoding="utf-8") as f:
         json.dump(hsk1_dictionary, f, ensure_ascii=False, indent=2)

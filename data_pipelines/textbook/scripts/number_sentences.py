@@ -20,10 +20,7 @@ Runs after sentence_parser, before create_questions.
 import json
 import random
 from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-UNITS_FILEPATH = BASE_DIR / "data" / "clean" / "units_output.json"
-PINYIN_DICT_FILEPATH = BASE_DIR / "data" / "intermediate" / "word_to_pinyin.json"
+from app.core.config.textbook import UNITS_OUTPUT_JSON
 
 NUMBER_UNIT = 5          # the unit that teaches 一-十
 SEED = 20260715          # deterministic output across runs
@@ -151,7 +148,7 @@ def generate(rng: random.Random) -> list:
 def main():
     rng = random.Random(SEED)
 
-    with open(UNITS_FILEPATH, encoding="utf-8") as f:
+    with open(UNITS_OUTPUT_JSON, encoding="utf-8") as f:
         units_data = json.load(f)
 
     unit_key = str(NUMBER_UNIT)
@@ -165,7 +162,7 @@ def main():
 
     bucket["sentences"] = existing + generated
 
-    with open(UNITS_FILEPATH, "w", encoding="utf-8") as f:
+    with open(UNITS_OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(units_data, f, ensure_ascii=False, indent=2)
 
     print(f"Added {len(generated)} generated number sentence(s) to unit {NUMBER_UNIT}")

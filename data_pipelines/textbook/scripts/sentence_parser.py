@@ -38,28 +38,35 @@ from pathlib import Path
 import anthropic
 from pypdf import PdfReader, PdfWriter
 from dotenv import load_dotenv
+from app.core.config.shared import ENV_FILE
+from app.core.config.textbook import (
+    TEXTBOOK_RAW_DIR,
+    TEXTBOOK_INTERMEDIATE_DIR,
+    TEXTBOOK_APP_DATA_DIR,
+    SOP_PATH,
+    OCR_PATH,
+)
 from pypinyin import pinyin as pypinyin_pinyin, Style as PypinyinStyle
 
 # --------------------------------- CONSTANTS ---------------------------------
+SENTENCE_PARSER_SOP_FILEPATH = SOP_PATH / "sentence_parser"
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-SOP_FILEPATH = BASE_DIR / "SOPs"
-SENTENCE_FINDER_FILENAME = os.path.join("sentence_parser", "sentence_finder.txt")
-FITB_FINDER_FILENAME = os.path.join("sentence_parser", "fitb_finder.txt")
-FITB_SOLVER_FILENAME = os.path.join("sentence_parser", "fitb_solver.txt")
-TAGGER_FILENAME = os.path.join("sentence_parser", "tagger.txt")
+SENTENCE_FINDER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "sentence_finder.txt" 
+FITB_FINDER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "fitb_finder.txt"
+FITB_SOLVER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "fitb_solver.txt"
+TAGGER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "tagger.txt"
 
 SOURCES = {
     "textbook": {
-        "PDF_FILEPATH": BASE_DIR / "data" / "raw",
+        "PDF_FILEPATH": TEXTBOOK_RAW_DIR,
         "PDF_FILENAME": "hsk1_textbook.pdf",
-        "OCR_SOP_FILENAME": os.path.join("sentence_parser", "ocr.txt"),
+        "OCR_SOP_FILENAME": SOP_PATH / "sentence_parser" / "ocr.txt",
         "UNIT_STARTS": [34, 42, 50, 60, 68, 76, 84, 92, 102, 110, 118, 124, 132],
         "LAST_UNIT_END_PAGE": 139,
         "FIRST_UNIT_NUMBER": 3,
     },
     "workbook": {
-        "PDF_FILEPATH": BASE_DIR / "data" / "raw",
+        "PDF_FILEPATH": TEXTBOOK_RAW_DIR,
         "PDF_FILENAME": "hsk1_workbook.pdf",
         "OCR_SOP_FILENAME": os.path.join("workbook_parser", "ocr.txt"),
         "UNIT_STARTS": [15, 23, 31, 39, 47, 55, 63, 71, 87, 96, 105, 113],
@@ -68,18 +75,18 @@ SOURCES = {
     },
 }
 
-PINYIN_DICT_FILEPATH = BASE_DIR / "data" / "intermediate"
+PINYIN_DICT_FILEPATH = TEXTBOOK_INTERMEDIATE_DIR
 PINYIN_DICT_FILENAME = "word_to_pinyin.json"
 UNIT_DICT_FILENAME = "word_to_unit.json"
-LEGACY_UNITS_OUTPUT_PATH = BASE_DIR.parent / "language-app-data" / "data" / "clean" / "units_output.json"
+LEGACY_UNITS_OUTPUT_PATH = TEXTBOOK_APP_DATA_DIR.parent / "language-app-data" / "data" / "clean" / "units_output.json"
 
-OCR_CACHE_FILEPATH = BASE_DIR / "data" / "intermediate" / "OCR_cache"
+OCR_CACHE_FILEPATH = OCR_PATH
 FORCE_OCR = False
 
-LLM_RESPONSES_FILEPATH = BASE_DIR / "data" / "intermediate" / "LLM_RESPONSES"
+LLM_RESPONSES_FILEPATH = TEXTBOOK_INTERMEDIATE_DIR / "LLM_RESPONSES"
 
-INTERMEDIATE_FILEPATH = BASE_DIR / "data" / "intermediate"      # per-source outputs land here
-UNITS_OUTPUT_FILEPATH = BASE_DIR / "data" / "clean"
+INTERMEDIATE_FILEPATH = TEXTBOOK_INTERMEDIATE_DIR
+UNITS_OUTPUT_FILEPATH = TEXTBOOK_APP_DATA_DIR
 UNITS_OUTPUT_FILENAME = "units_output.json"
 
 MODEL = "claude-sonnet-4-6"
@@ -88,12 +95,12 @@ AGENT_MAX_TOKENS = 8192
 TEMPERATURE = 0
 
 # module-level overrides from main.py
-UNITS_TO_PROCESS = [14, 15]      # e.g. [3, 4]
+UNITS_TO_PROCESS = []    # e.g. [3, 4]
 SOURCES_TO_PROCESS = None        # e.g. ["textbook"]
 
 # --------------------------------- SETUP ---------------------------------
 
-load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env")
+load_dotenv(ENV_FILE)
 api_key = os.environ.get("CLAUDE_API_KEY")
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
 
@@ -103,11 +110,11 @@ _CJK_RE = re.compile(r"[\u4e00-\u9fff]")
 # --------------------------------- HELPERS ---------------------------------
 
 def load_sop(filename: str) -> str:
-    with open(SOP_FILEPATH / filename, "r", encoding="utf-8") as f:
+    with open(SOP_PATH / filename, "r", encoding="utf-8") as f:
         return f.read()
 
 
-ADDED_VOCAB_PATH = BASE_DIR.parent / "language-app-data" / "added_vocab" / "hsk1.txt"
+ADDED_VOCAB_PATH = TEXTBOOK_APP_DATA_DIR.parent / "language-app-data" / "added_vocab" / "hsk1.txt"
 
 # words looked up (or attempted) but missing from word_to_pinyin, collected for
 # an end-of-run report so they can be added to ADDED_VOCAB_PATH by hand
@@ -190,8 +197,8 @@ def extract_json_block(text: str) -> str:
 
 
 def save_llm_response(source: str, unit_number: int, call_name: str, raw_text: str) -> str:
-    os.makedirs(LLM_RESPONSES_FILEPATH, exist_ok=True)
-    path = os.path.join(LLM_RESPONSES_FILEPATH, f"{source}_unit{unit_number}_{call_name}.txt")
+    os.makedirs(str(LLM_RESPONSES_FILEPATH), exist_ok=True)
+    path = os.path.join(str(LLM_RESPONSES_FILEPATH), f"{source}_unit{unit_number}_{call_name}.txt")
     with open(path, "w", encoding="utf-8") as f:
         f.write(raw_text)
     return path
@@ -225,7 +232,7 @@ def content_only(s: str) -> str:
 
 _PUNCTUATION_EQUIVALENTS = {
     "，": ",", "。": ".", "？": "?", "！": "!", "：": ":", "；": ";",
-    "（": "(", "）": ")", "“": '"', "”": '"', "‘": "'", "’": "'",
+    "（": "(", "）": ")", """: '"', """: '"', "'": "'", "'": "'",
     "　": " ",
 }
 
@@ -755,7 +762,7 @@ def expand_fitb(entry: dict) -> list:
 # --------------------------------- AGENT CALLS ---------------------------------
 
 def run_ocr(pdf_bytes: bytes, ocr_sop: str, source: str, unit_number: int) -> str:
-    os.makedirs(OCR_CACHE_FILEPATH, exist_ok=True)
+    os.makedirs(str(OCR_CACHE_FILEPATH), exist_ok=True)
     cache_path = os.path.join(str(OCR_CACHE_FILEPATH), f"{source}_unit{unit_number}.md")
     if not FORCE_OCR and os.path.exists(cache_path):
         print(f"  [cache] using cached OCR: {cache_path}")
@@ -921,7 +928,7 @@ def run_source(source: str, word_to_pinyin: dict, word_to_unit: dict) -> list:
         by_unit[r["unit"]] = r
     combined_results = [by_unit[u] for u in sorted(by_unit)]
 
-    os.makedirs(INTERMEDIATE_FILEPATH, exist_ok=True)
+    os.makedirs(str(INTERMEDIATE_FILEPATH), exist_ok=True)
     out_path = os.path.join(str(INTERMEDIATE_FILEPATH), f"{source}_sentence_output.json")
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(combined_results, f, ensure_ascii=False, indent=2)
@@ -968,7 +975,7 @@ def run_pipeline():
     per_source = {s: run_source(s, word_to_pinyin, word_to_unit) for s in sources}
 
     merged = merge_sources(per_source)
-    os.makedirs(UNITS_OUTPUT_FILEPATH, exist_ok=True)
+    os.makedirs(str(UNITS_OUTPUT_FILEPATH), exist_ok=True)
     out_path = os.path.join(str(UNITS_OUTPUT_FILEPATH), UNITS_OUTPUT_FILENAME)
 
     # UNITS_TO_PROCESS / SOURCES_TO_PROCESS mean `merged` only covers the

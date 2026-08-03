@@ -6,18 +6,14 @@ from pathlib import Path
 import anthropic
 import requests
 from dotenv import load_dotenv
-
-BASE_DIR = "/Users/spanishatlas/Documents/GitHub/learning-mandarin/app/language-app-data"
-UNITS_FILE = os.path.join(BASE_DIR, "data/clean/units_output.json")
-VOCAB_FILE = os.path.join(BASE_DIR, "data/clean/unit_vocab_tags.json")
-INDEX_FILE = os.path.join(BASE_DIR, "data/clean/index_output.json")
-REJECTED_VOCAB_CACHE_FILE = os.path.join(BASE_DIR, "data/intermediate/hsk1-rejected-vocab-cache.txt")
+from app.core.config.shared import ENV_FILE
+from app.core.config.textbook import UNITS_OUTPUT_JSON, INDEX_OUTPUT_JSON, UNIT_VOCAB_TAGS_JSON, REJECTED_VOCAB_CACHE
 
 API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:8000")
 DICTIONARY_API_URL = f"{API_BASE_URL}/dictionary/"
 
 # --- Claude client setup (mirrors your OCR script) ---
-load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env")
+load_dotenv(ENV_FILE)
 api_key = os.environ.get("CLAUDE_API_KEY")
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
 # Haiku is plenty for this — it's a short word+sentence -> JSON classification
@@ -33,11 +29,11 @@ def load_rejected_vocab_cache() -> dict:
         word<TAB>unit<TAB>parent_word<TAB>reasoning
     Returns {word: {"unit": str, "parent_word": str, "reasoning": str}}.
     Missing file (first run) just means an empty cache -- not an error."""
-    if not os.path.exists(REJECTED_VOCAB_CACHE_FILE):
+    if not os.path.exists(REJECTED_VOCAB_CACHE):
         return {}
 
     cache = {}
-    with open(REJECTED_VOCAB_CACHE_FILE, "r", encoding="utf-8") as f:
+    with open(REJECTED_VOCAB_CACHE, "r", encoding="utf-8") as f:
         for line in f:
             line = line.rstrip("\n")
             if not line.strip():
@@ -56,10 +52,10 @@ def load_rejected_vocab_cache() -> dict:
 def append_rejected_vocab_entry(word: str, unit, parent_word: str, reasoning: str):
     """Appends one rejected word to the cache file. Replaces newlines/tabs in
     reasoning so the tab-separated format doesn't break."""
-    os.makedirs(os.path.dirname(REJECTED_VOCAB_CACHE_FILE), exist_ok=True)
+    os.makedirs(os.path.dirname(REJECTED_VOCAB_CACHE), exist_ok=True)
     safe_reasoning = (reasoning or "").replace("\t", " ").replace("\n", " ").strip()
     safe_parent = (parent_word or "").replace("\t", " ").replace("\n", " ").strip()
-    with open(REJECTED_VOCAB_CACHE_FILE, "a", encoding="utf-8") as f:
+    with open(REJECTED_VOCAB_CACHE, "a", encoding="utf-8") as f:
         f.write(f"{word}\t{unit}\t{safe_parent}\t{safe_reasoning}\n")
 
 
@@ -345,24 +341,24 @@ def sync_index_definitions():
     print("Checking for missing or incomplete definitions in index_output.json...\n")
 
     try:
-        with open(INDEX_FILE, "r", encoding="utf-8") as f:
+        with open(INDEX_OUTPUT_JSON, "r", encoding="utf-8") as f:
             index_data = json.load(f)
     except FileNotFoundError:
-        print(f"Error: Could not find {INDEX_FILE}")
+        print(f"Error: Could not find {INDEX_OUTPUT_JSON}")
         return
 
     try:
-        with open(VOCAB_FILE, "r", encoding="utf-8") as f:
+        with open(UNIT_VOCAB_TAGS_JSON, "r", encoding="utf-8") as f:
             vocab_data = json.load(f)
     except FileNotFoundError:
-        print(f"Error: Could not find {VOCAB_FILE}")
+        print(f"Error: Could not find {UNIT_VOCAB_TAGS_JSON}")
         return
 
     try:
-        with open(UNITS_FILE, "r", encoding="utf-8") as f:
+        with open(UNITS_OUTPUT_JSON, "r", encoding="utf-8") as f:
             units_data = json.load(f)
     except FileNotFoundError:
-        print(f"[warning] Could not find {UNITS_FILE} — will fall back to "
+        print(f"[warning] Could not find {UNITS_OUTPUT_JSON} — will fall back to "
               f"dictionary-only definitions (no sentence context available).")
         units_data = {}
 
@@ -436,7 +432,7 @@ def sync_index_definitions():
     rejected_cache = load_rejected_vocab_cache()
     if rejected_cache:
         print(f"Loaded {len(rejected_cache)} previously-rejected word(s) from "
-              f"{REJECTED_VOCAB_CACHE_FILE} -- these will be skipped without an AI call.\n")
+              f"{REJECTED_VOCAB_CACHE} -- these will be skipped without an AI call.\n")
 
     if "vocab" not in index_data:
         index_data["vocab"] = []
@@ -515,11 +511,11 @@ def sync_index_definitions():
             index_data["vocab"], key=lambda x: x.get("pinyin", "")
         )
 
-        with open(INDEX_FILE, "w", encoding="utf-8") as f:
+        with open(INDEX_OUTPUT_JSON, "w", encoding="utf-8") as f:
             json.dump(index_data, f, ensure_ascii=False, indent=2)
 
         print("-" * 30)
-        print(f"Successfully processed {updated_count} entries in {INDEX_FILE}.")
+        print(f"Successfully processed {updated_count} entries in {INDEX_OUTPUT_JSON}.")
 
     if skipped_non_standalone:
         print("-" * 30)

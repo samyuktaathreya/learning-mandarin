@@ -4,7 +4,6 @@ import random
 import asyncio
 import base64
 import uuid
-from dotenv import load_dotenv
 import azure.cognitiveservices.speech as speechsdk
 import edge_tts
 
