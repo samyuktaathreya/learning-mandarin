@@ -9,6 +9,7 @@ import re
 from collections import defaultdict
 from enum import Enum
 from pathlib import Path
+from app.core.config.textbook import INDEX_OUTPUT_JSON, UNITS_OUTPUT_JSON, QUESTIONS_FILEPATH, UNIT_VOCAB_TAGS_JSON
 
 
 class QuestionType(str, Enum):
@@ -30,10 +31,6 @@ class QuestionType(str, Enum):
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-INDEX_FILEPATH = BASE_DIR / "data" / "clean" / "index_output.json"
-UNITS_FILEPATH = BASE_DIR / "data" / "clean" / "units_output.json"
-OUTPUT_FILEPATH = BASE_DIR / "data" / "clean" / "unit_questions_hsk1.json"
-UNIT_VOCAB_TAGS_FILEPATH = BASE_DIR / "data" / "clean" / "unit_vocab_tags.json"
 
 
 def get_grammar_tips(raw_tip) -> list:
@@ -357,12 +354,12 @@ def vocab_tags_for_unit(index_data, unit_number) -> list:
 def main():
     # 1. Read Inputs
     # We gracefully handle missing output files via a modified load_json
-    index_data = load_json(INDEX_FILEPATH) if INDEX_FILEPATH.exists() else {}
-    units_data = load_json(UNITS_FILEPATH) if UNITS_FILEPATH.exists() else {}
+    index_data = load_json(INDEX_OUTPUT_JSON) if INDEX_OUTPUT_JSON.exists() else {}
+    units_data = load_json(UNITS_OUTPUT_JSON) if UNITS_OUTPUT_JSON.exists() else {}
     
     # 2. Read Existing Outputs
-    existing_questions = load_json(OUTPUT_FILEPATH)
-    existing_vocab_tags = load_json(UNIT_VOCAB_TAGS_FILEPATH)
+    existing_questions = load_json(QUESTIONS_FILEPATH)
+    existing_vocab_tags = load_json(UNIT_VOCAB_TAGS_JSON)
 
     home_unit = effective_home_units(index_data, units_data)
     units_data = rehome_sentences(units_data, home_unit)
@@ -391,15 +388,15 @@ def main():
         all_vocab_tags[unit_str] = sorted(list(existing_tags | set(new_tags)))
 
     # Ensure files exist before dumping
-    OUTPUT_FILEPATH.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUTPUT_FILEPATH, "w", encoding="utf-8") as fh:
+    QUESTIONS_FILEPATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(QUESTIONS_FILEPATH, "w", encoding="utf-8") as fh:
         json.dump(all_questions, fh, ensure_ascii=False, indent=2)
 
-    with open(UNIT_VOCAB_TAGS_FILEPATH, "w", encoding="utf-8") as fh:
+    with open(UNIT_VOCAB_TAGS_JSON, "w", encoding="utf-8") as fh:
         json.dump(all_vocab_tags, fh, ensure_ascii=False, indent=2)
 
-    print(f"Wrote/Merged {OUTPUT_FILEPATH}")
-    print(f"Wrote/Merged {UNIT_VOCAB_TAGS_FILEPATH}")
+    print(f"Wrote/Merged {QUESTIONS_FILEPATH}")
+    print(f"Wrote/Merged {UNIT_VOCAB_TAGS_JSON}")
     return all_questions
 
 

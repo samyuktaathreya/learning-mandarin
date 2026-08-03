@@ -1,11 +1,9 @@
 import json
 from pathlib import Path
-
-DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "clean" / "unit_questions_hsk1.json"
-
+from app.core.config.textbook import QUESTIONS_FILEPATH
 
 def main():
-    with open(DATA_PATH, encoding="utf-8") as f:
+    with open(QUESTIONS_FILEPATH, encoding="utf-8") as f:
         data = json.load(f)
 
     for unit in sorted(data, key=int):

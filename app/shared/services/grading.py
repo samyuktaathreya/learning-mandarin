@@ -4,12 +4,13 @@ import json
 import anthropic as anthropic_sdk
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
+from core.config.shared import ENV_FILE
 
 from pinyin_utils import strip_punct, to_numbered_pinyin, tones_match
 from session.models import AcceptedAnswer
 from session.crud import log_mismatch
 
-load_dotenv(os.path.join(os.path.dirname(__file__), '../../../.env'))
+load_dotenv(ENV_FILE)
 
 anthropic_client = anthropic_sdk.Anthropic(api_key=os.environ.get("CLAUDE_API_KEY"))
 
