@@ -1,31 +1,26 @@
 """
-Extracts sentences and fill-in-the-blank exercises from the textbook AND workbook,
-per unit, and produces the merged units_output.json consumed by create_questions.py.
+Extracts sentences and FITB exercises from the textbook AND workbook, per
+unit, and writes them DIRECTLY to the textbook SQL database via
+db.upsert_sentence (Sentence + SentenceVocab rows -- the tags array is now
+that join table) and a small helper for FitbQuestion rows.
 
-Per source (textbook / workbook), per unit:
-  1. split PDF -> unit PDF -> OCR agent (cached in OCR_cache; delete cache file or
-     set FORCE_OCR=True to re-run)
-  2. sentence finder agent -> {hanzi: english}
-  3. verbatim filter (code, line-scoped) -> drops hallucinated sentences
-  4. vocab gate (code, char-level)      -> drops sentences using not-yet-taught vocab
-     (workbook only -- see VOCAB_GATED_SOURCES)
-  5. FITB finder agent -> FITB solver agent -> verbatim filter -> vocab gate
-  6. tagger agent segments sentences into known words -> code-validated, greedy
-     longest-match fallback -> word-to-pinyin lookup, with any words still
-     unmatched (workbook: dropped; textbook: kept and auto-pinyin'd via
-     pypinyin -- see UNKNOWN_WORD_FALLBACK_SOURCES) -> tone sandhi (不 / 一) -> pinyin
-  7. per-unit record with counts
+units_output.json is gone entirely. LEGACY_UNITS_OUTPUT_PATH fallback (for
+when OCR is unavailable) still reads the *old* JSON file if present, purely
+as a one-time bridge -- delete that branch once you've migrated your
+existing units_output.json into the DB (see migrate_legacy_json.py).
 
-Merge: textbook + workbook results per unit -> ../data/clean/units_output.json
-  { "3": { "sentences": [{"hanzi","english","tags","pinyin"}...],
-           "fill_in_the_blank": [{"question","answer","full_sentence"}...],
-           "counts": {...} } }
-
-Multi-blank FITB entries are expanded into one single-blank question per blank
-(other blanks filled in), matching the schema create_questions.py expects.
-
-Depends on vocab_index_parser.py having run first (word_to_pinyin.json /
-word_to_unit.json). Not HSK1-specific: point SOURCES at any book's PDFs/page ranges.
+Everything else -- OCR, sentence-finder/FITB-finder/solver agent calls,
+verbatim filtering, vocab gating, the tagger + greedy_segment fallback, tone
+sandhi, digit expansion -- is UNCHANGED from the JSON version. The only
+things that differ are:
+  1. word_to_pinyin / word_to_unit now come from the DB (db.get_word_to_pinyin_map
+     / get_word_to_unit_map) instead of reading word_to_pinyin.json /
+     word_to_unit.json.
+  2. Each unit's sentence + tag records are upserted straight into the DB
+     instead of being accumulated into a dict and dumped to JSON at the end.
+  3. Per-unit reprocessing (UNITS_TO_PROCESS) is naturally idempotent because
+     db.upsert_sentence does an update-in-place keyed on (unit, hanzi) --
+     no more manual "merge into whatever's already on disk" bookkeeping.
 """
 
 import os
@@ -33,7 +28,6 @@ import io
 import json
 import base64
 import re
-from pathlib import Path
 
 import anthropic
 from pypdf import PdfReader, PdfWriter
@@ -48,10 +42,13 @@ from app.core.config.textbook import (
 )
 from pypinyin import pinyin as pypinyin_pinyin, Style as PypinyinStyle
 
-# --------------------------------- CONSTANTS ---------------------------------
+from app.textbook.database import get_session, init_db, get_word_to_pinyin_map, get_word_to_unit_map, upsert_sentence
+from app.textbook.models import FitbQuestion
+
+# --------------------------------- CONSTANTS (unchanged) ---------------------------------
 SENTENCE_PARSER_SOP_FILEPATH = SOP_PATH / "sentence_parser"
 
-SENTENCE_FINDER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "sentence_finder.txt" 
+SENTENCE_FINDER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "sentence_finder.txt"
 FITB_FINDER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "fitb_finder.txt"
 FITB_SOLVER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "fitb_solver.txt"
 TAGGER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "tagger.txt"
@@ -75,9 +72,8 @@ SOURCES = {
     },
 }
 
-PINYIN_DICT_FILEPATH = TEXTBOOK_INTERMEDIATE_DIR
-PINYIN_DICT_FILENAME = "word_to_pinyin.json"
-UNIT_DICT_FILENAME = "word_to_unit.json"
+# Legacy one-time bridge only -- see module docstring. Safe to delete this
+# constant + its usage in run_source() once historical data is migrated.
 LEGACY_UNITS_OUTPUT_PATH = TEXTBOOK_APP_DATA_DIR.parent / "language-app-data" / "data" / "clean" / "units_output.json"
 
 OCR_CACHE_FILEPATH = OCR_PATH
@@ -85,18 +81,14 @@ FORCE_OCR = False
 
 LLM_RESPONSES_FILEPATH = TEXTBOOK_INTERMEDIATE_DIR / "LLM_RESPONSES"
 
-INTERMEDIATE_FILEPATH = TEXTBOOK_INTERMEDIATE_DIR
-UNITS_OUTPUT_FILEPATH = TEXTBOOK_APP_DATA_DIR
-UNITS_OUTPUT_FILENAME = "units_output.json"
-
 MODEL = "claude-sonnet-4-6"
 OCR_MAX_TOKENS = 8192
 AGENT_MAX_TOKENS = 8192
 TEMPERATURE = 0
 
 # module-level overrides from main.py
-UNITS_TO_PROCESS = []    # e.g. [3, 4]
-SOURCES_TO_PROCESS = None        # e.g. ["textbook"]
+UNITS_TO_PROCESS = []
+SOURCES_TO_PROCESS = None
 
 # --------------------------------- SETUP ---------------------------------
 
@@ -107,7 +99,7 @@ client = anthropic.Anthropic(api_key=api_key) if api_key else None
 _CJK_RE = re.compile(r"[\u4e00-\u9fff]")
 
 
-# --------------------------------- HELPERS ---------------------------------
+# --------------------------------- HELPERS (unchanged) ---------------------------------
 
 def load_sop(filename: str) -> str:
     with open(SOP_PATH / filename, "r", encoding="utf-8") as f:
@@ -116,15 +108,8 @@ def load_sop(filename: str) -> str:
 
 ADDED_VOCAB_PATH = TEXTBOOK_APP_DATA_DIR.parent / "language-app-data" / "added_vocab" / "hsk1.txt"
 
-# words looked up (or attempted) but missing from word_to_pinyin, collected for
-# an end-of-run report so they can be added to ADDED_VOCAB_PATH by hand
-_missing_pinyin_words = set()
-
 
 def load_added_vocab() -> dict:
-    """hanzi -> pinyin from added_vocab/hsk1.txt (JSONL: one entry object per
-    line, same shape as index entries). Only the pinyin is needed here --
-    vocab_index_parser reads the same file for the full records."""
     if not ADDED_VOCAB_PATH.exists():
         return {}
     out = {}
@@ -143,13 +128,13 @@ def load_added_vocab() -> dict:
     return out
 
 
-def load_word_dicts():
-    with open(os.path.join(str(PINYIN_DICT_FILEPATH), PINYIN_DICT_FILENAME), encoding="utf-8") as f:
-        word_to_pinyin = json.load(f)
-    with open(os.path.join(str(PINYIN_DICT_FILEPATH), UNIT_DICT_FILENAME), encoding="utf-8") as f:
-        word_to_unit = json.load(f)
+def load_word_dicts(db):
+    """Was: read word_to_pinyin.json / word_to_unit.json off disk.
+    Now: query the DB (populated by vocab_index_parser.py's run) directly."""
+    word_to_pinyin = get_word_to_pinyin_map(db)
+    word_to_unit = get_word_to_unit_map(db)
     added = load_added_vocab()
-    word_to_pinyin.update(added)  # manual overrides fill pinyin gaps
+    word_to_pinyin.update(added)
     return word_to_pinyin, word_to_unit
 
 
@@ -165,7 +150,7 @@ def get_unit_page_ranges(source_cfg: dict):
 
 def split_unit_to_pdf_bytes(reader: PdfReader, start_page: int, end_page: int) -> bytes:
     writer = PdfWriter()
-    for page_num in range(start_page - 1, end_page):  # 1-indexed inclusive -> 0-indexed
+    for page_num in range(start_page - 1, end_page):
         writer.add_page(reader.pages[page_num])
     buf = io.BytesIO()
     writer.write(buf)
@@ -222,13 +207,10 @@ _CONTENT_RE = re.compile(r"[一-鿿]|\d+")
 
 
 def content_only(s: str) -> str:
-    """Like cjk_only, but keeps Arabic-numeral runs too (as single units), so
-    numbers embedded in a sentence (e.g. the '50' in '...50岁了')
-    survive segmentation instead of being silently dropped from tags/pinyin."""
     return "".join(_CONTENT_RE.findall(s))
 
 
-# --------------------------------- VALIDATION ---------------------------------
+# --------------------------------- VALIDATION (unchanged) ---------------------------------
 
 _PUNCTUATION_EQUIVALENTS = {
     "，": ",", "。": ".", "？": "?", "！": "!", "：": ":", "；": ";",
@@ -236,21 +218,11 @@ _PUNCTUATION_EQUIVALENTS = {
     "　": " ",
 }
 
-# The OCR interleaves pinyin/English glosses into the Chinese prose, e.g.
-# "这（zhè, this）是什么？" or "我　叫　大卫（David），我是..." -- the sentence
-# itself (from the sentence finder) is pure hanzi, so a naive substring check
-# against the raw OCR line fails even though the sentence is printed verbatim
-# in the book. Strip parenthetical annotations, speaker labels (A:/B:), and
-# markdown table pipes before matching so only the actual printed text (plus
-# its punctuation) is compared.
 _PAREN_ANNOTATION_RE = re.compile(r"[（(][^）)]*[）)]")
 _LATIN_RUN_RE = re.compile(r"[A-Za-z0-9]+\s*[:：]?")
 
 
 def normalize_for_match(s: str) -> str:
-    """Unify punctuation width; strip spaces/tabs but keep newlines as hard
-    boundaries; drop parenthetical pinyin/English annotations, speaker
-    labels, and table pipes that aren't actually part of the printed sentence."""
     s = _PAREN_ANNOTATION_RE.sub("", s)
     s = _LATIN_RUN_RE.sub("", s)
     s = s.replace("|", "")
@@ -259,7 +231,7 @@ def normalize_for_match(s: str) -> str:
     return re.sub(r"[ \t]+", "", s)
 
 
-def filter_verbatim_sentences(sentences: dict, ocr_markdown: str, label: str) -> dict:
+def filter_verbatim_sentences(sentences: dict, ocr_markdown: str, label: str):
     lines = [normalize_for_match(line) for line in ocr_markdown.split("\n")]
     verified, dropped = {}, []
     for zh, en in sentences.items():
@@ -305,22 +277,14 @@ def filter_verbatim_fitb(fitb_list: list, ocr_markdown: str, label: str):
     return verified, len(dropped)
 
 
-# The FITB solver SOP asks for "___" as the blank placeholder, but the model
-# doesn't always follow that -- it sometimes emits full-width parens like
-# "（　）" or "(　)" instead. Rather than relying on prompt compliance, we
-# normalize every variant we've seen to "___" as soon as entries come back
-# from the agent, so every downstream function (verbatim filter, vocab gate,
-# expand_fitb) only ever has to deal with one placeholder.
 _BLANK_PLACEHOLDER_RE = re.compile(
-    r"（\s*　*\s*）"   # full-width parens, possibly containing full-width space(s)
-    r"|\(\s*　*\s*\)"  # half-width parens, possibly containing full-width space(s)
-    r"|_{2,}"          # 2+ underscores (covers "__", "____", etc. -- not just exactly 3)
+    r"（\s*　*\s*）"
+    r"|\(\s*　*\s*\)"
+    r"|_{2,}"
 )
 
 
 def normalize_fitb_blanks(fitb_list: list, label: str = "") -> list:
-    """Rewrite entry['fill in the blank'] so every blank placeholder variant
-    becomes exactly '___'. Logs when a non-standard placeholder was seen."""
     normalized = []
     n_fixed = 0
     for entry in fitb_list:
@@ -349,9 +313,6 @@ def passes_vocab_gate(text: str, known_chars: set) -> bool:
 
 
 def unknown_chars_in(text: str, known_chars: set) -> list:
-    """Which specific characters in text are NOT in known_chars, in order,
-    de-duplicated. Used to make vocab-gate drop messages actionable instead
-    of just showing the sentence with no indication of what tripped it."""
     seen = []
     for ch in cjk_only(text):
         if ch not in known_chars and ch not in seen:
@@ -359,11 +320,6 @@ def unknown_chars_in(text: str, known_chars: set) -> list:
     return seen
 
 
-# Sources where the vocab gate (dropping sentences/FITB that use not-yet-taught
-# vocab) should actually run. Workbook exercises are meant to drill only vocab
-# already taught by that point, so they're gated. Textbook sentences are the
-# vocab's original teaching context and often legitimately introduce vocab from
-# later in the same unit's presentation, so they're left ungated.
 VOCAB_GATED_SOURCES = {"workbook"}
 
 
@@ -400,20 +356,12 @@ def filter_vocab_gate_fitb(fitb_list: list, known_chars: set, label: str, source
     return verified, len(dropped)
 
 
-# --------------------------------- TAGGING & PINYIN ---------------------------------
+# --------------------------------- TAGGING & PINYIN (unchanged) ---------------------------------
 
-# Sources allowed to fall back to auto-generated (pypinyin) pinyin for words
-# not in word_to_pinyin, instead of dropping the whole sentence. Workbook
-# content isn't perfectly unit-aligned with the textbook, so it keeps the
-# strict "drop if any word is unknown" behavior; textbook sentences are kept
-# and unknown words get auto-pinyin'd.
 UNKNOWN_WORD_FALLBACK_SOURCES = {"textbook"}
 
 
 def pypinyin_for_word(word: str) -> str:
-    """Auto-generate numeric-tone pinyin for a word not in word_to_pinyin,
-    e.g. '口' -> 'kou3'. Neutral tone renders as tone 5, matching our
-    convention (see diacritic_to_numeric in vocab_index_parser.py)."""
     syllables = pypinyin_pinyin(word, style=PypinyinStyle.TONE3, neutral_tone_with_five=True)
     return "".join(s[0] for s in syllables)
 
@@ -422,8 +370,6 @@ _DIGIT_HANZI = "零一二三四五六七八九"
 
 
 def _number_to_hanzi(n: int) -> str:
-    """Standard cardinal reading for a number, e.g. 50 -> '五十', 31 -> '三十一',
-    18 -> '十八' (leading yi1 dropped before shi2 in 10-19, per convention)."""
     if n == 0:
         return "零"
     digits = str(n)
@@ -445,41 +391,18 @@ def _number_to_hanzi(n: int) -> str:
 
 
 def digit_run_to_pinyin(run: str) -> str:
-    """Pinyin for a run of Arabic-numeral digits found verbatim in a sentence,
-    e.g. the '50' in '...50岁了' or the '2011' in '2011年...'. Longer runs
-    (years, phone numbers -- 4+ digits) are read digit-by-digit; shorter runs
-    (ages, dates, prices) use standard cardinal reading, matching how each is
-    actually read aloud."""
     hanzi = ("".join(_DIGIT_HANZI[int(d)] for d in run) if len(run) >= 4
              else _number_to_hanzi(int(run)))
     return pypinyin_for_word(hanzi)
 
+
 def digit_run_to_hanzi(run: str) -> str:
-    """The hanzi a digit run is READ as, e.g. '50' -> '五十', '2011' -> '二零一一'.
-    Same split as digit_run_to_pinyin: 4+ digits are read digit-by-digit
-    (years, phone numbers), shorter runs use standard cardinal reading."""
     if len(run) >= 4:
         return "".join(_DIGIT_HANZI[int(d)] for d in run)
     return _number_to_hanzi(int(run))
 
+
 def expand_digit_tags(tags: list, pinyins: list):
-    """Rewrite digit tags into the hanzi they're read as, one tag per
-    character, with matching per-character pinyin.
-
-      tags   ['她','今','年','50','岁','了']
-      ->     ['她','今','年','五','十','岁','了']
-      pinyin [...,'wu3shi2',...] -> [...,'wu3','shi2',...]
-
-    The sentence's displayed hanzi is NOT touched -- '她今年50岁了' stays as
-    written, and the answer-in-digits convention is unaffected. This only
-    fixes the TAGS so number words get credit for the sentences they appear
-    in; without it '五'/'十' are tagged as the opaque string '50' and can
-    never reach the sentence-level tiers.
-
-    Also returns origin_runs, parallel to the output tags: the digit run each
-    tag was expanded from (None if it wasn't). fix_liang needs this to tell a
-    bare 2 from the 二 inside 二十.
-    """
     out_tags, out_pinyins, origin_runs = [], [], []
     for tag, py in zip(tags, pinyins):
         if not tag.isdigit():
@@ -494,23 +417,13 @@ def expand_digit_tags(tags: list, pinyins: list):
         origin_runs.extend(tag for _ in chars)
     return out_tags, out_pinyins, origin_runs
 
-# Measure words / counters that a bare 2 reads as 两 in front of, e.g.
-# 两个人, 两口人, 两块钱. Multi-digit runs are unaffected (二十, 十二) --
-# only a standalone '2' immediately preceding one of these is 两.
+
 _MEASURE_WORDS = {
     "个", "口", "岁", "块", "本", "杯子", "张", "分钟", "点", "些", "年",
 }
 
 
 def fix_liang(tags: list, pinyins: list, original_runs: list):
-    """二 -> 两 where a BARE digit 2 precedes a measure word.
-
-    Only applies to a 2 that came from its own single-digit run: inside a
-    multi-digit number 二 is always correct (二十 = 20, 十二 = 12), so this
-    checks the run each tag was expanded from, not just the character.
-    original_runs is parallel to tags: the digit run a tag came from, or None
-    for tags that weren't expanded from digits.
-    """
     out_tags, out_pinyins = list(tags), list(pinyins)
     for i, tag in enumerate(out_tags):
         if tag != "二" or original_runs[i] != "2":
@@ -521,9 +434,10 @@ def fix_liang(tags: list, pinyins: list, original_runs: list):
             out_pinyins[i] = "liang3"
     return out_tags, out_pinyins
 
+
 def known_words_for_unit(word_to_unit: dict, unit_number: int) -> list:
     words = [w for w, u in word_to_unit.items() if u <= unit_number]
-    words.sort(key=len, reverse=True)  # longest first for greedy matching
+    words.sort(key=len, reverse=True)
     return words
 
 
@@ -531,17 +445,6 @@ _DIGIT_RUN_RE = re.compile(r"\d+")
 
 
 def greedy_segment(sentence: str, allowed_words: list, allow_unknown: bool = False):
-    """
-    Deterministic fallback: longest-match segmentation over CJK chars and
-    Arabic-numeral runs. A run of digits (e.g. the '50' in '...50岁了')
-    is always emitted as a single tag, regardless of allow_unknown, since
-    numbers aren't taught vocabulary and shouldn't be gated like it.
-    If allow_unknown is True, any run of CJK characters that doesn't match a
-    known word is emitted character-by-character as "unknown" tags (still
-    real hanzi, just not in word_to_unit) instead of failing the whole
-    sentence. If allow_unknown is False (workbook), any unmatched character
-    fails the segmentation, same as before.
-    """
     target = content_only(sentence)
     tags, pos = [], 0
     while pos < len(target):
@@ -556,7 +459,7 @@ def greedy_segment(sentence: str, allowed_words: list, allow_unknown: bool = Fal
             pos += len(cjk_only(match))
             continue
         if allow_unknown:
-            tags.append(target[pos])  # single unknown character as its own tag
+            tags.append(target[pos])
             pos += 1
             continue
         return None
@@ -581,16 +484,6 @@ def first_tone(pinyin_word: str):
 
 
 def apply_sandhi(tags: list, pinyins: list) -> list:
-    """
-    Runtime tone sandhi for standalone 不 / 一 tags, based on the FIRST tone of
-    the NEXT word. (Multi-character dictionary entries already carry the sandhi
-    the index printed, e.g. 不客气 bú kèqi.)
-      不 (bu4): -> bu2 before a 4th tone; otherwise bu4.
-      一 (yi1): -> yi2 before 4th/neutral tone; -> yi4 before tones 1/2/3;
-                stays yi1 when final (counting/ordinal reading).
-    Third-tone sandhi (3+3 -> 2+3) is a pronunciation rule and, per convention,
-    is NOT rewritten in pinyin text, so it is deliberately not applied here.
-    """
     adjusted = list(pinyins)
     for i, tag in enumerate(tags):
         nxt = first_tone(pinyins[i + 1]) if i + 1 < len(pinyins) else None
@@ -622,19 +515,12 @@ def run_tagger(sentences: list, allowed_words: list, source: str, unit_number: i
     )
     result = parse_json_response(extract_text_from_response(response), {}, source, unit_number, "tagger")
 
-    # The tagger SOP asks for a {sentence: [tags]} object, but the model
-    # occasionally emits a JSON array instead (e.g. a list of {sentence, tags}
-    # objects, or just a list of tag-lists in sentence order). Rather than
-    # crashing downstream on agent_tags.get(...), coerce known array shapes
-    # into the expected dict, and fall back to {} (which makes every sentence
-    # go through greedy_segment instead) for anything unrecognized.
     if isinstance(result, dict):
         return result
 
     if isinstance(result, list):
         coerced = {}
         if len(result) == len(sentences) and all(isinstance(x, list) for x in result):
-            # list of tag-lists, same order as the input sentences
             coerced = dict(zip(sentences, result))
         else:
             for item in result:
@@ -655,8 +541,10 @@ def run_tagger(sentences: list, allowed_words: list, source: str, unit_number: i
 
 
 def tag_and_pinyin(sentences: dict, word_to_pinyin: dict, word_to_unit: dict,
-                   unit_number: int, source: str):
-    """Returns (records, n_dropped). Each record: {hanzi, english, tags, pinyin}."""
+                    unit_number: int, source: str):
+    """Returns (records, n_dropped). Each record: {hanzi, english, tags, pinyin}
+    -- unchanged shape, it's just fed into db.upsert_sentence by the caller
+    now instead of being appended to a JSON list."""
     if not sentences:
         return [], 0
     allow_unknown = source in UNKNOWN_WORD_FALLBACK_SOURCES
@@ -670,20 +558,21 @@ def tag_and_pinyin(sentences: dict, word_to_pinyin: dict, word_to_unit: dict,
     for zh, en in sentences.items():
         tags = agent_tags.get(zh)
         if not validate_tags(zh, tags, allowed_set, allow_unknown):
-            tags = greedy_segment(zh, allowed_words, allow_unknown)  # deterministic fallback
+            tags = greedy_segment(zh, allowed_words, allow_unknown)
         if tags is None or not validate_tags(zh, tags, allowed_set, allow_unknown):
             dropped.append(zh)
             continue
+
         def pinyin_for_tag(t: str) -> str:
             if t.isdigit():
                 return digit_run_to_pinyin(t)
             return word_to_pinyin[t] if t in word_to_pinyin else pypinyin_for_word(t)
 
         pinyins = apply_sandhi(tags, [pinyin_for_tag(t) for t in tags])
-        # after validation/sandhi: '50' -> '五','十' so number words get tagged
         tags, pinyins, origin_runs = expand_digit_tags(tags, pinyins)
         tags, pinyins = fix_liang(tags, pinyins, origin_runs)
-        records.append({"hanzi": zh, "english": en, "tags": tags, "pinyin": " ".join(pinyins)})
+        records.append({"hanzi": zh, "english": en, "tags": tags, "tag_pinyins": pinyins,
+                        "pinyin": " ".join(pinyins)})
 
     if dropped:
         print(f"  [tagging] {source} unit {unit_number}: dropped {len(dropped)} unsegmentable sentence(s):")
@@ -692,24 +581,13 @@ def tag_and_pinyin(sentences: dict, word_to_pinyin: dict, word_to_unit: dict,
     return records, len(dropped)
 
 
-# --------------------------------- FITB -> QUESTIONS ---------------------------------
+# --------------------------------- FITB -> QUESTIONS (unchanged) ---------------------------------
 
 def _answers_are_words(answers: list, full: str, blanked: str) -> bool:
-    """Guard against the FITB solver emitting a word-bank LABEL (e.g. "H", "I")
-    instead of the WORD it points at. Per the solver SOP, every answer must be
-    the actual word filling the blank, which means it must literally appear in
-    full_sentence_answer. A lone letter/digit that isn't in the completed
-    sentence is a leaked bank label -- if we expanded it, it would be
-    substituted into the OTHER blanks as literal text (e.g. "不I写 汉字"),
-    corrupting the hanzi. Drop the whole entry instead.
-    """
     for a in answers:
         a_str = (a or "").strip()
         if not a_str:
             return False
-        # cjk_only strips spaces/punctuation so spacing differences between the
-        # answer and full_sentence_answer don't cause false drops; a real word
-        # answer's characters must still be present in the completed sentence.
         needle = cjk_only(a_str) or a_str
         if needle not in cjk_only(full) and a_str not in full:
             return False
@@ -717,10 +595,6 @@ def _answers_are_words(answers: list, full: str, blanked: str) -> bool:
 
 
 def expand_fitb(entry: dict) -> list:
-    """
-    One single-blank question per blank; other blanks filled with their answers.
-    {"question": "<blanked sentence> (<english>)", "answer": word, "full_sentence": ...}
-    """
     blanked = entry.get("fill in the blank", "")
     answers = entry.get("answer", [])
     translation = (entry.get("translation") or "").strip()
@@ -729,22 +603,10 @@ def expand_fitb(entry: dict) -> list:
     n_blanks_found = len(segments) - 1
     if n_blanks_found != len(answers) or not answers:
         print(f"  [fitb-warning] blank/answer count mismatch, skipping: {blanked}")
-        print(f"      found {n_blanks_found} '___' blank(s) in the sentence, "
-              f"but {len(answers)} answer(s): {answers!r}")
-        if n_blanks_found == 0 and answers:
-            print(f"      likely cause: sentence has no literal '___' -- check what "
-                  f"placeholder the FITB agent actually used (e.g. '（　）', '(　)', "
-                  f"'____', full-width parens, etc.) and either fix the SOP prompt to "
-                  f"force '___' or update this split to match the real placeholder.")
         return []
-    # Guard: an answer that isn't present in full_sentence_answer is a leaked
-    # word-bank label (e.g. "H"/"I"), not a real word. Expanding it would inject
-    # the letter into the other blanks as literal hanzi -- drop the entry.
     if not _answers_are_words(answers, full, blanked):
         print(f"  [fitb-warning] answer not found in full sentence (likely a leaked "
               f"word-bank label, not a word); dropping: {blanked}")
-        print(f"      answers: {answers!r}")
-        print(f"      full_sentence_answer: {full!r}")
         return []
     questions = []
     for i in range(len(answers)):
@@ -759,7 +621,8 @@ def expand_fitb(entry: dict) -> list:
         questions.append({"question": q_text, "answer": answers[i], "full_sentence": full})
     return questions
 
-# --------------------------------- AGENT CALLS ---------------------------------
+
+# --------------------------------- AGENT CALLS (unchanged) ---------------------------------
 
 def run_ocr(pdf_bytes: bytes, ocr_sop: str, source: str, unit_number: int) -> str:
     os.makedirs(str(OCR_CACHE_FILEPATH), exist_ok=True)
@@ -795,7 +658,7 @@ def run_ocr(pdf_bytes: bytes, ocr_sop: str, source: str, unit_number: int) -> st
 
 
 def run_text_agent(ocr_markdown: str, sop: str, source: str, unit_number: int,
-                   call_name: str, fallback, extra_content: str = ""):
+                    call_name: str, fallback, extra_content: str = ""):
     if client is None or not ocr_markdown:
         return fallback
     content = f"Here is the OCR result for this unit:\n\n{ocr_markdown}"
@@ -809,13 +672,16 @@ def run_text_agent(ocr_markdown: str, sop: str, source: str, unit_number: int,
         messages=[{"role": "user", "content": content}],
     )
     return parse_json_response(extract_text_from_response(response), fallback,
-                               source, unit_number, call_name)
+                                source, unit_number, call_name)
 
 
-# --------------------------------- PIPELINE ---------------------------------
+# --------------------------------- PIPELINE (DB-writing) ---------------------------------
 
-def process_unit(source: str, unit_number: int, start_page: int, end_page: int,
-                 reader: PdfReader, sops: dict, word_to_pinyin: dict, word_to_unit: dict) -> dict:
+def process_unit(db, source: str, unit_number: int, start_page: int, end_page: int,
+                  reader: PdfReader, sops: dict, word_to_pinyin: dict, word_to_unit: dict) -> dict:
+    """Same extraction/filtering pipeline as before, but ends by writing
+    straight into the DB via db.upsert_sentence / FitbQuestion rows instead
+    of returning a dict destined for JSON."""
     label = f"{source} unit {unit_number}"
     print(f"Processing {label} (pages {start_page}-{end_page})...")
     known_chars = build_known_chars(word_to_unit, unit_number)
@@ -825,20 +691,20 @@ def process_unit(source: str, unit_number: int, start_page: int, end_page: int,
 
     counts = {}
     sentences = run_text_agent(ocr_md, sops["sentence_finder"], source, unit_number,
-                               "sentence_finder", fallback={})
+                                "sentence_finder", fallback={})
     counts["sentences_extracted"] = len(sentences)
     sentences, counts["sentences_dropped_verbatim"] = filter_verbatim_sentences(sentences, ocr_md, label)
     sentences, counts["sentences_dropped_vocab_gate"] = filter_vocab_gate_sentences(
         sentences, known_chars, label, source)
 
     fitb_candidates = run_text_agent(ocr_md, sops["fitb_finder"], source, unit_number,
-                                     "fitb_finder", fallback=[])
+                                      "fitb_finder", fallback=[])
     counts["fitb_candidates"] = len(fitb_candidates)
     if fitb_candidates:
         extra = ("Here are the candidate fill-in-the-blank sentences to solve:\n\n"
                  + json.dumps(fitb_candidates, ensure_ascii=False, indent=2))
         fitb = run_text_agent(ocr_md, sops["fitb_solver"], source, unit_number,
-                              "fitb_solver", fallback=[], extra_content=extra)
+                               "fitb_solver", fallback=[], extra_content=extra)
     else:
         fitb = []
     counts["fitb_solved"] = len(fitb)
@@ -850,39 +716,57 @@ def process_unit(source: str, unit_number: int, start_page: int, end_page: int,
         sentences, word_to_pinyin, word_to_unit, unit_number, source)
     counts["sentences_final"] = len(sentence_records)
 
+    # --- write sentences + tags straight to the DB ---
+    written_sentences = []
+    for rec in sentence_records:
+        sentence_row = upsert_sentence(
+            db,
+            unit_number=unit_number,
+            hanzi=rec["hanzi"],
+            english=rec["english"],
+            pinyin=rec["pinyin"],
+            tags=rec["tags"],
+            tag_pinyins=rec["tag_pinyins"],
+            source=source,
+        )
+        written_sentences.append(sentence_row)
+
     fitb_questions = [q for entry in fitb for q in expand_fitb(entry)]
     counts["fitb_questions_final"] = len(fitb_questions)
 
-    return {
-        "unit": unit_number,
-        "start_page": start_page,
-        "end_page": end_page,
-        "sentences": sentence_records,
-        "fill_in_the_blank": fitb_questions,
-        "counts": counts,
-    }
+    # --- write FITB questions straight to the DB ---
+    from app.textbook.database import get_or_create_unit
+    unit_row = get_or_create_unit(db, unit_number)
+    # best-effort link back to the sentence a FITB question came from, by
+    # matching full_sentence's hanzi content against sentences just written
+    sentence_by_content = {cjk_only(s.hanzi): s for s in written_sentences}
+    for q in fitb_questions:
+        sentence_id = None
+        match = sentence_by_content.get(cjk_only(q["full_sentence"]))
+        if match:
+            sentence_id = match.id
+        existing = (
+            db.query(FitbQuestion)
+            .filter(FitbQuestion.unit_id == unit_row.id,
+                    FitbQuestion.question == q["question"],
+                    FitbQuestion.answer == q["answer"])
+            .first()
+        )
+        if existing:
+            continue
+        db.add(FitbQuestion(
+            sentence_id=sentence_id,
+            unit_id=unit_row.id,
+            question=q["question"],
+            answer=q["answer"],
+            full_sentence=q["full_sentence"],
+        ))
+    db.flush()
+
+    return {"unit": unit_number, "counts": counts}
 
 
-def load_existing_source_output(source: str):
-    candidates = [
-        os.path.join(str(INTERMEDIATE_FILEPATH), f"{source}_sentence_output.json"),
-        os.path.join(str(INTERMEDIATE_FILEPATH), "sentence_output.json"),
-    ]
-    for path in candidates:
-        if os.path.exists(path):
-            with open(path, "r", encoding="utf-8") as f:
-                return json.load(f)
-    return None
-
-
-def load_legacy_units_output():
-    if not LEGACY_UNITS_OUTPUT_PATH.exists():
-        return None
-    with open(LEGACY_UNITS_OUTPUT_PATH, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def run_source(source: str, word_to_pinyin: dict, word_to_unit: dict) -> list:
+def run_source(db, source: str, word_to_pinyin: dict, word_to_unit: dict) -> list:
     cfg = SOURCES[source]
     sops = {
         "ocr": load_sop(cfg["OCR_SOP_FILENAME"]),
@@ -890,135 +774,35 @@ def run_source(source: str, word_to_pinyin: dict, word_to_unit: dict) -> list:
         "fitb_finder": load_sop(FITB_FINDER_FILENAME),
         "fitb_solver": load_sop(FITB_SOLVER_FILENAME),
     }
-    legacy = load_legacy_units_output()
-    if client is None and legacy is not None:
-        print(f"  [warning] {source}: using legacy units output because OCR is unavailable")
-        converted = []
-        for unit_key, unit_data in sorted(legacy.items(), key=lambda item: int(item[0])):
-            converted.append({
-                "unit": int(unit_key),
-                "sentences": unit_data.get("sentences", []),
-                "fill_in_the_blank": unit_data.get("fill_in_the_blank", []),
-                "counts": {"legacy": {"sentences_final": len(unit_data.get("sentences", [])), "fitb_questions_final": len(unit_data.get("fill_in_the_blank", []))}},
-            })
-        return converted
 
     pdf_path = os.path.join(str(cfg["PDF_FILEPATH"]), cfg["PDF_FILENAME"])
     if not os.path.exists(pdf_path):
-        existing = load_existing_source_output(source)
-        if existing is not None:
-            print(f"  [warning] {source} PDF missing; using existing intermediate data")
-            return existing
         print(f"  [warning] {source} PDF not found at {pdf_path}; skipping")
         return []
 
     reader = PdfReader(pdf_path)
     unit_ranges = get_unit_page_ranges(cfg)
-    if UNITS_TO_PROCESS is not None:
+    if UNITS_TO_PROCESS:
         unit_ranges = [u for u in unit_ranges if u[0] in UNITS_TO_PROCESS]
 
-    results = [process_unit(source, n, s, e, reader, sops, word_to_pinyin, word_to_unit)
+    results = [process_unit(db, source, n, s, e, reader, sops, word_to_pinyin, word_to_unit)
                for n, s, e in unit_ranges]
-
-    # Merge into whatever's already cached for this source, keyed by unit, so
-    # reprocessing a subset of units (via UNITS_TO_PROCESS) doesn't drop the
-    # other units' cached results.
-    by_unit = {r["unit"]: r for r in (load_existing_source_output(source) or [])}
-    for r in results:
-        by_unit[r["unit"]] = r
-    combined_results = [by_unit[u] for u in sorted(by_unit)]
-
-    os.makedirs(str(INTERMEDIATE_FILEPATH), exist_ok=True)
-    out_path = os.path.join(str(INTERMEDIATE_FILEPATH), f"{source}_sentence_output.json")
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(combined_results, f, ensure_ascii=False, indent=2)
-    print(f"Wrote {len(combined_results)} {source} unit(s) to {out_path} ({len(results)} reprocessed)")
-    return combined_results
-
-
-def merge_sources(per_source_results: dict) -> dict:
-    """textbook first, then workbook; dedupe sentences by CJK content, FITB by (q, a)."""
-    merged = {}
-    order = [s for s in ["textbook", "workbook"] if s in per_source_results] + \
-            [s for s in per_source_results if s not in ("textbook", "workbook")]
-    for source in order:
-        for unit_result in per_source_results[source]:
-            unit_str = str(unit_result["unit"])
-            bucket = merged.setdefault(unit_str, {
-                "sentences": [], "fill_in_the_blank": [], "counts": {},
-                "_seen_sentences": set(), "_seen_fitb": set(),
-            })
-            for rec in unit_result["sentences"]:
-                key = cjk_only(rec["hanzi"])
-                if key and key not in bucket["_seen_sentences"]:
-                    bucket["_seen_sentences"].add(key)
-                    bucket["sentences"].append(rec)
-            for q in unit_result["fill_in_the_blank"]:
-                key = (q["question"], q["answer"])
-                if key not in bucket["_seen_fitb"]:
-                    bucket["_seen_fitb"].add(key)
-                    bucket["fill_in_the_blank"].append(q)
-            bucket["counts"][source] = unit_result["counts"]
-    for unit_str, bucket in merged.items():
-        bucket.pop("_seen_sentences")
-        bucket.pop("_seen_fitb")
-        bucket["counts"]["merged"] = {
-            "sentences_final": len(bucket["sentences"]),
-            "fitb_questions_final": len(bucket["fill_in_the_blank"]),
-        }
-    return merged
+    return results
 
 
 def run_pipeline():
-    word_to_pinyin, word_to_unit = load_word_dicts()
-    sources = SOURCES_TO_PROCESS or list(SOURCES.keys())
-    per_source = {s: run_source(s, word_to_pinyin, word_to_unit) for s in sources}
+    init_db()
+    with get_session() as db:
+        word_to_pinyin, word_to_unit = load_word_dicts(db)
+        sources = SOURCES_TO_PROCESS or list(SOURCES.keys())
+        all_results = []
+        for s in sources:
+            all_results.extend(run_source(db, s, word_to_pinyin, word_to_unit))
 
-    merged = merge_sources(per_source)
-    os.makedirs(str(UNITS_OUTPUT_FILEPATH), exist_ok=True)
-    out_path = os.path.join(str(UNITS_OUTPUT_FILEPATH), UNITS_OUTPUT_FILENAME)
-
-    # UNITS_TO_PROCESS / SOURCES_TO_PROCESS mean `merged` only covers the
-    # unit(s) reprocessed this run -- load whatever's already on disk and
-    # only overwrite those specific units, so previously-generated units
-    # aren't wiped out.
-    combined = {}
-    if os.path.exists(out_path):
-        with open(out_path, "r", encoding="utf-8") as f:
-            combined = json.load(f)
-    combined.update(merged)
-
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(combined, f, ensure_ascii=False, indent=2)
-    print(f"Done. Merged {len(merged)} unit(s) into {out_path} ({len(combined)} unit(s) total on disk)")
-    for unit_str in sorted(merged, key=int):
-        m = merged[unit_str]["counts"]["merged"]
-        print(f"  unit {unit_str}: {m['sentences_final']} sentences, "
-              f"{m['fitb_questions_final']} FITB questions")
-
-    print_missing_vocab(word_to_unit)
-    return combined
-
-
-def print_missing_vocab(word_to_unit: dict):
-    """
-    Scan every cached OCR markdown file for characters that never made it into
-    word_to_unit (i.e. not in the vocab index, and not manually added). Prints
-    them so they can be added to language-app-data/added_vocab/hsk1.txt.
-    """
-    if not OCR_CACHE_FILEPATH.exists():
-        return
-    known_chars = set()
-    for w in word_to_unit:
-        known_chars.update(cjk_only(w))
-
-    missing_chars = set()
-    for cache_file in OCR_CACHE_FILEPATH.glob("*.md"):
-        text = cache_file.read_text(encoding="utf-8")
-        for ch in cjk_only(text):
-            if ch not in known_chars:
-                missing_chars.add(ch)
-    print("length of missing characters: ", len(missing_chars))
+    print(f"Done. Wrote {len(all_results)} unit-source result(s) directly to the textbook DB.")
+    for r in all_results:
+        c = r["counts"]
+        print(f"  {r['unit']}: {c['sentences_final']} sentences, {c['fitb_questions_final']} FITB questions")
 
 
 if __name__ == "__main__":

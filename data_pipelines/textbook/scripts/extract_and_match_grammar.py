@@ -1,12 +1,37 @@
+"""
+Extracts grammar tips from the OCR'd unit markdown (unchanged: same regex-based
+section splitting as before -- that logic only touches OCR cache files, not
+JSON, so nothing there needed to change) and matches each tip to the
+sentences that demonstrate it.
+
+What changed vs. the JSON version:
+  - No more `remove_grammar_tips(units_output.json)` reset step -- there's no
+    JSON to clear. Re-running this script is naturally idempotent:
+    get_or_create_grammar_tip() is keyed on (unit, raw_text), so re-extracting
+    the same tip text doesn't create a duplicate row or re-spend an API call
+    reformatting it (see the `content_json in ("{}","", None)` guard), and
+    link_sentence_grammar() is a no-op if the (sentence, tip) link already
+    exists.
+  - Sentences to match against come from db.get_sentences_for_unit(unit_number)
+    instead of units_output.json[unit]["sentences"].
+  - A tip's matches are written as SentenceGrammar rows -- explicitly
+    many-to-many, so one tip can attach to many sentences AND one sentence
+    can carry many tips, exactly like the old `grammar_tip: [tip, tip, ...]`
+    list per sentence, just normalized instead of duplicated per sentence.
+"""
+
 import os
 import json
 import re
 from pathlib import Path
 from dotenv import load_dotenv
 import anthropic
-from typing import Union, Optional
-from app.core.config.textbook import OCR_PATH, UNITS_OUTPUT_JSON, GRAMMAR_TIP_SOP, REFORMAT_GRAMMAR_TIP_SOP
+from typing import Optional
+
+from app.core.config.textbook import OCR_PATH, GRAMMAR_TIP_SOP, REFORMAT_GRAMMAR_TIP_SOP
 from app.core.config.shared import ENV_FILE
+
+from app.textbook.database import get_session, init_db, get_sentences_for_unit, get_or_create_grammar_tip, link_sentence_grammar
 
 # ---------------------------------------------------------
 # Configuration & Setup
@@ -14,31 +39,11 @@ from app.core.config.shared import ENV_FILE
 MODEL = "claude-haiku-4-5"
 MAX_TOKENS = 1024
 TEMPERATURE = 0
-MAX_RETRIES = 2  # retries for malformed JSON / bad table shape
+MAX_RETRIES = 2
 
 load_dotenv(ENV_FILE)
 api_key = os.environ.get("CLAUDE_API_KEY")
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
-
-
-def remove_grammar_tips(json_file_path: Union[str, Path]) -> None:
-    path = Path(json_file_path)
-    if not path.exists():
-        print(f"Error: File not found at {path}")
-        return
-
-    with open(path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-
-    for unit_id, unit_data in data.items():
-        if "sentences" in unit_data:
-            for sentence in unit_data["sentences"]:
-                sentence.pop("grammar_tip", None)
-
-    with open(path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-
-    print(f"Successfully removed grammar tips from {path.name}")
 
 
 # ---------------------------------------------------------
@@ -104,10 +109,9 @@ def parse_grammar_tips() -> dict:
 
 
 # ---------------------------------------------------------
-# Step 2: Claude API Reformatting (structured JSON) & Matching
+# Step 2: Claude API Reformatting (structured JSON) & Matching (unchanged)
 # ---------------------------------------------------------
 def _validate_reformatted(obj) -> bool:
-    """Check the JSON has the expected shape and no malformed tables."""
     if not isinstance(obj, dict) or "sections" not in obj:
         return False
     if not isinstance(obj["sections"], list) or len(obj["sections"]) == 0:
@@ -119,7 +123,7 @@ def _validate_reformatted(obj) -> bool:
         if "title" not in sec or "body" not in sec:
             return False
         if "|" in sec.get("body", ""):
-            return False  # model leaked markdown table syntax into prose
+            return False
 
         table = sec.get("table")
         if table is not None:
@@ -134,12 +138,11 @@ def _validate_reformatted(obj) -> bool:
                 if not isinstance(row, list) or len(row) != ncols:
                     return False
                 if all((cell is None or str(cell).strip() == "") for cell in row):
-                    return False  # fully blank row -> reject
+                    return False
     return True
 
 
 def reformat_grammar_tip_text(reformat_sop_text: str, raw_tip: str) -> Optional[dict]:
-    """Returns a structured dict: {"sections": [{"title","body","table"}]}."""
     if client is None:
         print(" [error] CLAUDE_API_KEY not configured; skipping API call.")
         return None
@@ -156,22 +159,14 @@ def reformat_grammar_tip_text(reformat_sop_text: str, raw_tip: str) -> Optional[
                 max_tokens=MAX_TOKENS,
                 temperature=TEMPERATURE,
                 system=reformat_sop_text,
-                messages=[{
-                    "role": "user",
-                    "content": [{"type": "text", "text": user_content}],
-                }],
+                messages=[{"role": "user", "content": [{"type": "text", "text": user_content}]}],
             )
             raw_text = response.content[0].text.strip()
-
-            # Strip accidental code fences just in case
             raw_text = re.sub(r'^```(?:json)?\s*|\s*```$', '', raw_text.strip())
-
             parsed = json.loads(raw_text)
             if _validate_reformatted(parsed):
                 return parsed
-
             print(f"  [retry {attempt}/{MAX_RETRIES}] malformed structure, retrying...")
-
         except (json.JSONDecodeError, IndexError) as e:
             print(f"  [retry {attempt}/{MAX_RETRIES}] parse error: {e}")
         except Exception as e:
@@ -186,7 +181,6 @@ def get_matching_sentences(sop_text: str, structured_tip: dict, hanzi_list: list
     if client is None:
         return []
 
-    # Flatten to plain text for the matching prompt (tables included as simple text)
     plain_text_parts = []
     for sec in structured_tip["sections"]:
         plain_text_parts.append(sec["title"])
@@ -211,30 +205,24 @@ def get_matching_sentences(sop_text: str, structured_tip: dict, hanzi_list: list
             max_tokens=MAX_TOKENS,
             temperature=TEMPERATURE,
             system=sop_text,
-            messages=[{
-                "role": "user",
-                "content": [{"type": "text", "text": user_content}],
-            }],
+            messages=[{"role": "user", "content": [{"type": "text", "text": user_content}]}],
         )
         response_text = response.content[0].text
-
         match = re.search(r'\[.*\]', response_text, re.DOTALL)
         if match:
             return json.loads(match.group(0))
-        else:
-            print(f" [warning] Could not parse JSON from response: {response_text}")
-            return []
-
+        print(f" [warning] Could not parse JSON from response: {response_text}")
+        return []
     except Exception as e:
         print(f" [error] API call failed during matching: {e}")
         return []
 
 
 # ---------------------------------------------------------
-# Step 3: Main Execution Flow
+# Step 3: Main Execution Flow (DB-writing)
 # ---------------------------------------------------------
 def main():
-    remove_grammar_tips(UNITS_OUTPUT_JSON)
+    init_db()
     print("1. Extracting grammar tips from OCR cache...")
     unit_tips = parse_grammar_tips()
 
@@ -242,7 +230,7 @@ def main():
         print("No grammar tips extracted. Exiting.")
         return
 
-    print("2. Loading SOPs and clean sentences data...")
+    print("2. Loading SOPs...")
     if not GRAMMAR_TIP_SOP.exists():
         print(f" [error] Matching SOP file not found at {GRAMMAR_TIP_SOP}")
         return
@@ -255,54 +243,44 @@ def main():
     with open(REFORMAT_GRAMMAR_TIP_SOP, 'r', encoding='utf-8') as f:
         reformat_sop_text = f.read()
 
-    if not UNITS_OUTPUT_JSON.exists():
-        print(f" [error] Clean sentences file not found at {UNITS_OUTPUT_JSON}")
-        return
-    with open(UNITS_OUTPUT_JSON, 'r', encoding='utf-8') as f:
-        units_data = json.load(f)
-
     print("3. Reformatting tips and matching to sentences via Claude...")
-    for unit_str, tips in unit_tips.items():
-        if unit_str not in units_data:
-            print(f" [warning] Unit {unit_str} not found in units_output.json. Skipping.")
-            continue
+    with get_session() as db:
+        for unit_str, tips in unit_tips.items():
+            unit_number = int(unit_str)
+            sentence_rows = get_sentences_for_unit(db, unit_number)
+            if not sentence_rows:
+                print(f" [warning] Unit {unit_str}: no sentences in DB yet "
+                      f"(run sentence_parser.py first). Skipping.")
+                continue
 
-        sentences_list = units_data[unit_str].get("sentences", [])
-        if not sentences_list:
-            continue
+            hanzi_list = [s.hanzi for s in sentence_rows]
+            sentence_by_hanzi = {s.hanzi: s for s in sentence_rows}
+            print(f"\nProcessing Unit {unit_str} ({len(tips)} tips, {len(hanzi_list)} sentences)...")
 
-        hanzi_list = [s["hanzi"] for s in sentences_list]
-        print(f"\nProcessing Unit {unit_str} ({len(tips)} tips, {len(hanzi_list)} sentences)...")
+            for idx, raw_tip in enumerate(tips, 1):
+                print(f"  -> Reformatting Tip {idx}...")
+                structured_tip = reformat_grammar_tip_text(reformat_sop_text, raw_tip)
+                if structured_tip is None:
+                    continue
 
-        for idx, tip in enumerate(tips, 1):
-            print(f"  -> Calling Claude to Reformat Tip {idx}...")
-            structured_tip = reformat_grammar_tip_text(reformat_sop_text, tip)
-            if structured_tip is None:
-                continue  # already logged; skip this tip entirely rather than save garbage
+                tip_row = get_or_create_grammar_tip(db, unit_number, raw_tip, structured_tip)
 
-            print(f"  -> Calling Claude to Match Tip {idx}...")
-            matched_hanzi = get_matching_sentences(sop_text, structured_tip, hanzi_list)
+                print(f"  -> Matching Tip {idx}...")
+                matched_hanzi = get_matching_sentences(sop_text, structured_tip, hanzi_list)
 
-            if matched_hanzi:
+                if not matched_hanzi:
+                    print("     No matches found.")
+                    continue
+
                 print(f"     Found {len(matched_hanzi)} matching sentence(s).")
                 for matched_sentence in matched_hanzi:
-                    for s_obj in sentences_list:
-                        if s_obj["hanzi"] == matched_sentence:
-                            # grammar_tip is now a list of structured tip objects,
-                            # so multiple tips per sentence just append cleanly --
-                            # no more string concatenation.
-                            if "grammar_tip" in s_obj and s_obj["grammar_tip"]:
-                                s_obj["grammar_tip"].append(structured_tip)
-                            else:
-                                s_obj["grammar_tip"] = [structured_tip]
-            else:
-                print("     No matches found.")
+                    sentence_row = sentence_by_hanzi.get(matched_sentence)
+                    if sentence_row is None:
+                        # agent hallucinated a sentence not in the list we gave it
+                        continue
+                    link_sentence_grammar(db, sentence_row.id, tip_row.id)
 
-    print("\n4. Saving updated sentences back to units_output.json...")
-    with open(UNITS_OUTPUT_JSON, 'w', encoding='utf-8') as f:
-        json.dump(units_data, f, ensure_ascii=False, indent=2)
-
-    print(f"✅ Done! Updated {UNITS_OUTPUT_JSON.name} successfully.")
+    print("\n✅ Done! Grammar tips and sentence links written directly to the DB.")
 
 
 if __name__ == "__main__":

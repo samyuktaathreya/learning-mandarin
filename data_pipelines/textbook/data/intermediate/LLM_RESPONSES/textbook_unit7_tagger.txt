@@ -1,50 +1,47 @@
 I need to segment each sentence using only the allowed word list.
 
-Let me work through each sentence carefully.
+Let me work through each sentence:
 
-Key observations:
-- "请问" = "请" + "问"? "问" is not in the list. So "请问" cannot be segmented → null
-- "星期几" = "星期" + "几" ✓
-- "星期三" = "星期" + "三" ✓
-- "星期二" = "星期" + "二" ✓
-- "星期四" = "星期" + "四" ✓
-- "星期六" = "星期" + "六" ✓
-- "星期三" = "星期" + "三" ✓
-- "几号" = "几" + "号" ✓
-- "几月" = "几" + "月" ✓
-- "9月" = "九" + "月"? No, "9" is a digit character, not "九". So "9月1号" cannot be segmented → null
-- "8月31号" similarly → null
-- "饭馆儿" not in list → null
-- "学习" not in list → null
-- "33岁" = "三" + "三" + "岁" ✓
-- "做什么" = "做" + "什么" ✓
+- "请问" - "请" is allowed, but "问" is not. So "请问" cannot be segmented... wait, let me check. "问" is not in the list. So "请问" → null? Let me re-examine. Only "请" is in the list, not "问". So sentences with "问" cannot be segmented.
+
+- Numbers like "9", "1", "8", "31", "2", "33" - these are Arabic numerals, not Chinese characters. They're not in the word list. Let me check if they should be excluded as punctuation or if they cause null. The rule says concatenating tags must reproduce every character. Arabic numerals are not in the word list, so sentences with them would be null... unless they count as punctuation to exclude. Rule 4 says exclude punctuation. Arabic numerals are not punctuation. So sentences with Arabic numerals → null.
+
+- "星期三" - "星期" is in the list, "三" is in the list → ["星期", "三"]
+- "星期二" - ["星期", "二"]
+- "星期四" - "四" is in the list → ["星期", "四"]
+- "星期六" - "六" is in the list → ["星期", "六"]
+- "星期几" - "几" is in the list → ["星期", "几"]
+
+- "饭馆儿" - not in the list → null
+- "吃" - not in the list → null
+- "学习" - not in the list → null
+- "看书" - "看" + "书" both in list → ["看", "书"]
+
+- "做什么" - "做" + "什么" → ["做", "什么"]
 
 Let me go through each:
 
 1. "请问，今天几号？" - "问" not in list → null
-2. "今天9月1号。" - "9" not segmentable → null
-3. "今天星期几？" - 今天+星期+几 ✓
-4. "星期三。" - 星期+三 ✓
-5. "昨天是几月几号？" - 昨天+是+几+月+几+号 ✓
-6. "昨天是8月31号，星期二。" - "8" not segmentable → null
-7. "明天呢？" - 明天+呢 ✓
-8. "明天是9月2号，星期四。" - "9" → null
-9. "明天星期六，你去学校吗？" - 明天+星期+六+你+去+学校+吗 ✓
-10. "我去学校。" - 我+去+学校 ✓
-11. "你去学校做什么？" - 你+去+学校+做+什么 ✓
-12. "我去学校看书。" - 我+去+学校+看+书 ✓
-13. "9月1号，星期三。" - null
-14. "9月2号，星期四。" - null
-15. "8月31号，星期二。" - null
-16. "我的汉语老师33岁。" - 我+的+汉语+老师+三+三+岁 ✓
-17. "明天星期三。" - 明天+星期+三 ✓
-18. "我去（中国）学习汉语。" - "学习" not in list → null
-19. "我们去（中国饭馆儿）吃中国菜。" - "我们","饭馆儿","吃" not in list → null
-20. "我去（学校）看书。" - 我+去+学校+看+书 ✓
-21. "今天是几月几号？" - 今天+是+几+月+几+号 ✓
-22. "明天是几月几号？" - 明天+是+几+月+几+号 ✓
-23. "明天星期几？" - 明天+星期+几 ✓
-24. "明天你做什么？" - 明天+你+做+什么 ✓
+2. "今天9月1号。" - "9", "1" not in list → null
+3. "今天星期几？" - ["今天", "星期", "几"]
+4. "星期三。" - ["星期", "三"]
+5. "昨天是几月几号？" - ["昨天", "是", "几", "月", "几", "号"]
+6. "昨天是8月31号，星期二。" - "8", "31" not in list → null
+7. "明天呢？" - ["明天", "呢"]
+8. "明天是9月2号，星期四。" - "9", "2" not in list → null
+9. "明天星期六，你去学校吗？" - ["明天", "星期", "六", "你", "去", "学校", "吗"]
+10. "我去学校。" - ["我", "去", "学校"]
+11. "你去学校做什么？" - ["你", "去", "学校", "做", "什么"]
+12. "我去学校看书。" - ["我", "去", "学校", "看", "书"]
+13. "我的汉语老师33岁。" - "33" not in list → null
+14. "明天星期三。" - ["明天", "星期", "三"]
+15. "我去（中国）学习汉语。" - "学习" not in list → null
+16. "我们去（中国饭馆儿）吃中国菜。" - "我们", "吃", "饭馆儿" not in list → null
+17. "我去（学校）看书。" - ["我", "去", "学校", "看", "书"]
+18. "今天是几月几号？" - ["今天", "是", "几", "月", "几", "号"]
+19. "明天是几月几号？" - ["明天", "是", "几", "月", "几", "号"]
+20. "明天星期几？" - ["明天", "星期", "几"]
+21. "明天你做什么？" - ["明天", "你", "做", "什么"]
 
 ```json
 {
@@ -60,10 +57,7 @@ Let me go through each:
   "我去学校。": ["我", "去", "学校"],
   "你去学校做什么？": ["你", "去", "学校", "做", "什么"],
   "我去学校看书。": ["我", "去", "学校", "看", "书"],
-  "9月1号，星期三。": null,
-  "9月2号，星期四。": null,
-  "8月31号，星期二。": null,
-  "我的汉语老师33岁。": ["我", "的", "汉语", "老师", "三", "三", "岁"],
+  "我的汉语老师33岁。": null,
   "明天星期三。": ["明天", "星期", "三"],
   "我去（中国）学习汉语。": null,
   "我们去（中国饭馆儿）吃中国菜。": null,

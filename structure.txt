@@ -1,0 +1,430 @@
+.
+├── README.md
+├── app
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── coverage_check.cpython-312.pyc
+│   │   ├── crud.cpython-312.pyc
+│   │   ├── database.cpython-312.pyc
+│   │   ├── main.cpython-312.pyc
+│   │   ├── pinyin_utils.cpython-312.pyc
+│   │   └── session_log.cpython-312.pyc
+│   ├── api
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   └── __init__.cpython-312.pyc
+│   │   └── v1
+│   │       ├── __init__.py
+│   │       ├── __pycache__
+│   │       │   └── __init__.cpython-312.pyc
+│   │       └── endpoints
+│   │           ├── __init__.py
+│   │           ├── __pycache__
+│   │           │   ├── __init__.cpython-312.pyc
+│   │           │   ├── audio.cpython-312.pyc
+│   │           │   ├── grading.cpython-312.pyc
+│   │           │   ├── practice.cpython-312.pyc
+│   │           │   ├── session.cpython-312.pyc
+│   │           │   ├── tools.cpython-312.pyc
+│   │           │   └── voice_agent.cpython-312.pyc
+│   │           ├── tools.py
+│   │           └── voice_agent.py
+│   ├── audio_cache
+│   ├── auth
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   └── models.cpython-312.pyc
+│   │   └── models.py
+│   ├── characters
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── crud.cpython-312.pyc
+│   │   │   ├── database.cpython-312.pyc
+│   │   │   ├── models.cpython-312.pyc
+│   │   │   ├── router.cpython-312.pyc
+│   │   │   ├── schemas.cpython-312.pyc
+│   │   │   └── services.cpython-312.pyc
+│   │   ├── crud.py
+│   │   ├── data
+│   │   │   └── characters.db
+│   │   ├── database.py
+│   │   ├── models.py
+│   │   ├── router.py
+│   │   ├── schemas.py
+│   │   └── services.py
+│   ├── core
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── config.cpython-312.pyc
+│   │   │   ├── config_characters.cpython-312.pyc
+│   │   │   ├── config_old.cpython-312.pyc
+│   │   │   └── database.cpython-312.pyc
+│   │   ├── config
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   ├── characters.cpython-312.pyc
+│   │   │   │   ├── session.cpython-312.pyc
+│   │   │   │   ├── shared.cpython-312.pyc
+│   │   │   │   └── textbook.cpython-312.pyc
+│   │   │   ├── characters.py
+│   │   │   ├── session.py
+│   │   │   ├── shared.py
+│   │   │   └── textbook.py
+│   │   └── database.py
+│   ├── language-app-data
+│   │   ├── added_vocab
+│   │   │   └── hsk1.txt
+│   │   ├── data
+│   │   │   └── clean
+│   │   ├── test.py
+│   │   └── tests
+│   │       ├── __pycache__
+│   │       │   └── test_pipeline.cpython-312.pyc
+│   │       └── test_pipeline.py
+│   ├── main.py
+│   ├── pinyin_utils.py
+│   ├── repo_structure.txt
+│   ├── requirements.txt
+│   ├── scripts
+│   │   ├── __pycache__
+│   │   │   └── seed.cpython-312.pyc
+│   │   └── seed.py
+│   ├── session
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── constants.cpython-312.pyc
+│   │   │   ├── crud.cpython-312.pyc
+│   │   │   ├── database.cpython-312.pyc
+│   │   │   ├── models.cpython-312.pyc
+│   │   │   ├── router.cpython-312.pyc
+│   │   │   └── schemas.cpython-312.pyc
+│   │   ├── constants.py
+│   │   ├── crud.py
+│   │   ├── data
+│   │   ├── database.py
+│   │   ├── models.py
+│   │   ├── router.py
+│   │   ├── schemas.py
+│   │   └── services
+│   │       ├── __init__.py
+│   │       ├── __pycache__
+│   │       │   ├── __init__.cpython-312.pyc
+│   │       │   ├── progress.cpython-312.pyc
+│   │       │   ├── review_engine.cpython-312.pyc
+│   │       │   ├── session_builder.cpython-312.pyc
+│   │       │   ├── sound.cpython-312.pyc
+│   │       │   ├── tier_engine.cpython-312.pyc
+│   │       │   └── tips.cpython-312.pyc
+│   │       ├── progress.py
+│   │       ├── review_engine.py
+│   │       ├── session_builder.py
+│   │       ├── sound.py
+│   │       ├── tier_engine.py
+│   │       └── tips.py
+│   ├── session_log.jsonl
+│   ├── session_log.py
+│   ├── shared
+│   │   ├── __pycache__
+│   │   │   ├── crud.cpython-312.pyc
+│   │   │   └── models.cpython-312.pyc
+│   │   ├── crud.py
+│   │   ├── database.py
+│   │   ├── models.py
+│   │   ├── routers
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   ├── audio.cpython-312.pyc
+│   │   │   │   └── grading.cpython-312.pyc
+│   │   │   ├── audio.py
+│   │   │   └── grading.py
+│   │   └── services
+│   │       ├── __init__.py
+│   │       ├── __pycache__
+│   │       │   ├── __init__.cpython-312.pyc
+│   │       │   ├── audio.cpython-312.pyc
+│   │       │   └── grading.cpython-312.pyc
+│   │       ├── audio.py
+│   │       └── grading.py
+│   └── textbook
+│       ├── __init__.py
+│       ├── __pycache__
+│       │   ├── __init__.cpython-312.pyc
+│       │   ├── database.cpython-312.pyc
+│       │   └── services.cpython-312.pyc
+│       ├── data
+│       │   ├── external_mandarin_sentences.json
+│       │   ├── hsk1_dictionary.json
+│       │   ├── index_output.json
+│       │   ├── json_data.md
+│       │   ├── unit_questions_hsk1.json
+│       │   ├── unit_vocab_tags.json
+│       │   └── units_output.json
+│       ├── database.py
+│       ├── models.py
+│       └── services.py
+├── data_pipelines
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-312.pyc
+│   ├── characters
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   └── __init__.cpython-312.pyc
+│   │   ├── data
+│   │   │   ├── clean
+│   │   │   │   └── characters.db
+│   │   │   ├── intermediate
+│   │   │   └── raw
+│   │   │       ├── hanzi_confusibles.txt
+│   │   │       ├── ids.txt
+│   │   │       └── radical-data.csv
+│   │   └── scripts
+│   │       ├── __init__.py
+│   │       ├── main.py
+│   │       ├── populate_confusibles.py
+│   │       ├── populate_ids.py
+│   │       ├── populate_radicals.py
+│   │       └── test_db.py
+│   └── textbook
+│       ├── SOPs
+│       │   ├── grammar_tip
+│       │   │   ├── grammar_tip.txt
+│       │   │   └── reformat_grammar_tip.txt
+│       │   ├── sentence_parser
+│       │   │   ├── fitb_finder.txt
+│       │   │   ├── fitb_solver.txt
+│       │   │   ├── ocr.txt
+│       │   │   ├── sentence_finder.txt
+│       │   │   └── tagger.txt
+│       │   ├── vocab
+│       │   │   ├── index_extractor.txt
+│       │   │   └── ocr.txt
+│       │   └── workbook_parser
+│       │       └── ocr.txt
+│       ├── data
+│       │   ├── intermediate
+│       │   │   ├── LLM_RESPONSES
+│       │   │   │   ├── textbook_unit10_fitb_finder.txt
+│       │   │   │   ├── textbook_unit10_fitb_solver.txt
+│       │   │   │   ├── textbook_unit10_sentence_finder.txt
+│       │   │   │   ├── textbook_unit10_tagger.txt
+│       │   │   │   ├── textbook_unit11_fitb_finder.txt
+│       │   │   │   ├── textbook_unit11_fitb_solver.txt
+│       │   │   │   ├── textbook_unit11_sentence_finder.txt
+│       │   │   │   ├── textbook_unit11_tagger.txt
+│       │   │   │   ├── textbook_unit12_fitb_finder.txt
+│       │   │   │   ├── textbook_unit12_fitb_solver.txt
+│       │   │   │   ├── textbook_unit12_sentence_finder.txt
+│       │   │   │   ├── textbook_unit12_tagger.txt
+│       │   │   │   ├── textbook_unit13_fitb_finder.txt
+│       │   │   │   ├── textbook_unit13_fitb_solver.txt
+│       │   │   │   ├── textbook_unit13_sentence_finder.txt
+│       │   │   │   ├── textbook_unit13_tagger.txt
+│       │   │   │   ├── textbook_unit14_fitb_finder.txt
+│       │   │   │   ├── textbook_unit14_fitb_solver.txt
+│       │   │   │   ├── textbook_unit14_sentence_finder.txt
+│       │   │   │   ├── textbook_unit14_tagger.txt
+│       │   │   │   ├── textbook_unit15_fitb_finder.txt
+│       │   │   │   ├── textbook_unit15_fitb_solver.txt
+│       │   │   │   ├── textbook_unit15_sentence_finder.txt
+│       │   │   │   ├── textbook_unit15_tagger.txt
+│       │   │   │   ├── textbook_unit3_fitb_finder.txt
+│       │   │   │   ├── textbook_unit3_fitb_solver.txt
+│       │   │   │   ├── textbook_unit3_sentence_finder.txt
+│       │   │   │   ├── textbook_unit3_tagger.txt
+│       │   │   │   ├── textbook_unit4_fitb_finder.txt
+│       │   │   │   ├── textbook_unit4_fitb_solver.txt
+│       │   │   │   ├── textbook_unit4_sentence_finder.txt
+│       │   │   │   ├── textbook_unit4_tagger.txt
+│       │   │   │   ├── textbook_unit5_fitb_finder.txt
+│       │   │   │   ├── textbook_unit5_fitb_solver.txt
+│       │   │   │   ├── textbook_unit5_sentence_finder.txt
+│       │   │   │   ├── textbook_unit5_tagger.txt
+│       │   │   │   ├── textbook_unit6_fitb_finder.txt
+│       │   │   │   ├── textbook_unit6_fitb_solver.txt
+│       │   │   │   ├── textbook_unit6_sentence_finder.txt
+│       │   │   │   ├── textbook_unit6_tagger.txt
+│       │   │   │   ├── textbook_unit7_fitb_finder.txt
+│       │   │   │   ├── textbook_unit7_fitb_solver.txt
+│       │   │   │   ├── textbook_unit7_sentence_finder.txt
+│       │   │   │   ├── textbook_unit7_tagger.txt
+│       │   │   │   ├── textbook_unit8_fitb_finder.txt
+│       │   │   │   ├── textbook_unit8_fitb_solver.txt
+│       │   │   │   ├── textbook_unit8_sentence_finder.txt
+│       │   │   │   ├── textbook_unit8_tagger.txt
+│       │   │   │   ├── textbook_unit9_fitb_finder.txt
+│       │   │   │   ├── textbook_unit9_fitb_solver.txt
+│       │   │   │   ├── textbook_unit9_sentence_finder.txt
+│       │   │   │   ├── textbook_unit9_tagger.txt
+│       │   │   │   ├── unit3_fitb_finder.txt
+│       │   │   │   ├── unit3_fitb_finder_20260701_201949_923024.txt
+│       │   │   │   ├── unit3_fitb_finder_20260701_202219_347307.txt
+│       │   │   │   ├── unit3_fitb_finder_20260701_215011_619555.txt
+│       │   │   │   ├── unit3_fitb_finder_20260701_215504_722072.txt
+│       │   │   │   ├── unit3_fitb_solver.txt
+│       │   │   │   ├── unit3_ocr.txt
+│       │   │   │   ├── unit3_sentence_finder.txt
+│       │   │   │   ├── unit4_fitb_finder.txt
+│       │   │   │   ├── unit4_fitb_solver.txt
+│       │   │   │   ├── unit4_ocr.txt
+│       │   │   │   ├── unit4_sentence_finder.txt
+│       │   │   │   ├── vocab_index_extractor.txt
+│       │   │   │   ├── workbook_unit10_fitb_finder.txt
+│       │   │   │   ├── workbook_unit10_fitb_solver.txt
+│       │   │   │   ├── workbook_unit10_sentence_finder.txt
+│       │   │   │   ├── workbook_unit10_tagger.txt
+│       │   │   │   ├── workbook_unit11_fitb_finder.txt
+│       │   │   │   ├── workbook_unit11_fitb_solver.txt
+│       │   │   │   ├── workbook_unit11_sentence_finder.txt
+│       │   │   │   ├── workbook_unit12_fitb_finder.txt
+│       │   │   │   ├── workbook_unit12_fitb_solver.txt
+│       │   │   │   ├── workbook_unit12_sentence_finder.txt
+│       │   │   │   ├── workbook_unit13_fitb_finder.txt
+│       │   │   │   ├── workbook_unit13_fitb_solver.txt
+│       │   │   │   ├── workbook_unit13_sentence_finder.txt
+│       │   │   │   ├── workbook_unit13_tagger.txt
+│       │   │   │   ├── workbook_unit14_fitb_finder.txt
+│       │   │   │   ├── workbook_unit14_fitb_solver.txt
+│       │   │   │   ├── workbook_unit14_sentence_finder.txt
+│       │   │   │   ├── workbook_unit15_fitb_finder.txt
+│       │   │   │   ├── workbook_unit15_fitb_solver.txt
+│       │   │   │   ├── workbook_unit15_sentence_finder.txt
+│       │   │   │   ├── workbook_unit4_fitb_finder.txt
+│       │   │   │   ├── workbook_unit4_fitb_solver.txt
+│       │   │   │   ├── workbook_unit4_sentence_finder.txt
+│       │   │   │   ├── workbook_unit5_fitb_finder.txt
+│       │   │   │   ├── workbook_unit5_fitb_solver.txt
+│       │   │   │   ├── workbook_unit5_sentence_finder.txt
+│       │   │   │   ├── workbook_unit5_tagger.txt
+│       │   │   │   ├── workbook_unit6_fitb_finder.txt
+│       │   │   │   ├── workbook_unit6_fitb_solver.txt
+│       │   │   │   ├── workbook_unit6_sentence_finder.txt
+│       │   │   │   ├── workbook_unit6_tagger.txt
+│       │   │   │   ├── workbook_unit7_fitb_finder.txt
+│       │   │   │   ├── workbook_unit7_fitb_solver.txt
+│       │   │   │   ├── workbook_unit7_sentence_finder.txt
+│       │   │   │   ├── workbook_unit7_tagger.txt
+│       │   │   │   ├── workbook_unit8_fitb_finder.txt
+│       │   │   │   ├── workbook_unit8_fitb_solver.txt
+│       │   │   │   ├── workbook_unit8_sentence_finder.txt
+│       │   │   │   ├── workbook_unit9_fitb_finder.txt
+│       │   │   │   ├── workbook_unit9_fitb_solver.txt
+│       │   │   │   └── workbook_unit9_sentence_finder.txt
+│       │   │   ├── OCR_cache
+│       │   │   │   ├── textbook_unit10.md
+│       │   │   │   ├── textbook_unit11.md
+│       │   │   │   ├── textbook_unit12.md
+│       │   │   │   ├── textbook_unit13.md
+│       │   │   │   ├── textbook_unit14.md
+│       │   │   │   ├── textbook_unit15.md
+│       │   │   │   ├── textbook_unit3.md
+│       │   │   │   ├── textbook_unit4.md
+│       │   │   │   ├── textbook_unit5.md
+│       │   │   │   ├── textbook_unit6.md
+│       │   │   │   ├── textbook_unit7.md
+│       │   │   │   ├── textbook_unit8.md
+│       │   │   │   ├── textbook_unit9.md
+│       │   │   │   ├── vocab_index.md
+│       │   │   │   ├── workbook_unit10.md
+│       │   │   │   ├── workbook_unit11.md
+│       │   │   │   ├── workbook_unit12.md
+│       │   │   │   ├── workbook_unit13.md
+│       │   │   │   ├── workbook_unit14.md
+│       │   │   │   ├── workbook_unit15.md
+│       │   │   │   ├── workbook_unit4.md
+│       │   │   │   ├── workbook_unit5.md
+│       │   │   │   ├── workbook_unit6.md
+│       │   │   │   ├── workbook_unit7.md
+│       │   │   │   ├── workbook_unit8.md
+│       │   │   │   └── workbook_unit9.md
+│       │   │   ├── hsk1-rejected-vocab-cache.txt
+│       │   │   ├── sentence_output.json
+│       │   │   ├── textbook_sentence_output.json
+│       │   │   ├── word_to_pinyin.json
+│       │   │   ├── word_to_unit.json
+│       │   │   └── workbook_sentence_output.json
+│       │   └── raw
+│       │       ├── chinese_english_dictionary.u8
+│       │       ├── extracted-500-sentences-mandarin.csv
+│       │       ├── hsk1_textbook.pdf
+│       │       ├── hsk1_textbook_index.pdf
+│       │       └── hsk1_workbook.pdf
+│       └── scripts
+│           ├── README.md
+│           ├── __pycache__
+│           │   ├── create_questions.cpython-312.pyc
+│           │   └── vocab_index_parser.cpython-312.pyc
+│           ├── append_orphan_tags.py
+│           ├── create_questions.py
+│           ├── extract_and_match_grammar.py
+│           ├── main.py
+│           ├── pinyin_utils.py
+│           ├── requirements.txt
+│           ├── sentence_parser.py
+│           └── vocab_index_parser.py
+├── frontend
+│   ├── README.md
+│   ├── dist
+│   │   ├── assets
+│   │   │   ├── index-NqiDNvQv.js
+│   │   │   └── index-xVPFEfBa.css
+│   │   ├── favicon.svg
+│   │   ├── icons.svg
+│   │   └── index.html
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── src
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   ├── Components
+│   │   │   ├── CharacterDecomposition.jsx
+│   │   │   ├── CharacterPopup.jsx
+│   │   │   ├── ChineseIMEInput.jsx
+│   │   │   ├── Header.jsx
+│   │   │   ├── Modal.jsx
+│   │   │   ├── MultipleChoice.jsx
+│   │   │   ├── PhaseTabs.jsx
+│   │   │   ├── Question.jsx
+│   │   │   ├── Results.jsx
+│   │   │   ├── ReviewCounter.jsx
+│   │   │   ├── SpeakingQuestion.jsx
+│   │   │   ├── UnitCenter.jsx
+│   │   │   ├── UnitDetail.jsx
+│   │   │   └── UnitSidebar.jsx
+│   │   ├── assets
+│   │   │   ├── hero.png
+│   │   │   ├── react.svg
+│   │   │   └── vite.svg
+│   │   ├── index.css
+│   │   ├── main.jsx
+│   │   └── pages
+│   │       ├── DuolingoStylePractice.jsx
+│   │       ├── MandarinVoicePractice.jsx
+│   │       └── TestPronounciation.jsx
+│   └── vite.config.js
+├── language-app-data
+│   └── data
+│       ├── clean
+│       ├── intermediate
+│       └── raw
+├── learning_mandarin.egg-info
+│   ├── PKG-INFO
+│   ├── SOURCES.txt
+│   ├── dependency_links.txt
+│   └── top_level.txt
+├── mandarin_app.db
+├── package-lock.json
+├── package.json
+├── pinyin_listening_practice.html
+├── pyproject.toml
+├── repo_structure.txt
+└── structure.txt
+
+76 directories, 352 files
