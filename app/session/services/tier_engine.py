@@ -17,7 +17,7 @@ from session.constants import (
     GRADUATION_THRESHOLD,
     FINAL_PUSH_UNGRADUATED_THRESHOLD,
 )
-from textbook.services import inverted_index, unit_to_vocab_tags_dict
+from textbook import services
 
 
 def _tier_types_for_facet(tier: int, facet: str) -> list:
@@ -36,8 +36,30 @@ def _type_cap_for_tier(tier: int) -> int:
     return math.ceil(SESSION_SIZE / n_types)
 
 
-def generate_tier_questions(db: Session, user_id: int, unit: int, tiers: dict):
-    unit_tags = unit_to_vocab_tags_dict.get(unit, set())
+def generate_tier_questions(db: Session, textbook_db: Session, user_id: int, unit: int, tiers: dict):
+    """
+    Unchanged selection logic (weighting, tier downshift, type caps, variety
+    preference for unseen question variants) -- only the DATA SOURCE changed:
+
+      unit_to_vocab_tags_dict.get(unit, set())  -> services.get_unit_vocab_tags(textbook_db, unit)
+      inverted_index.get(tag, [])               -> services.get_questions_for_tag(textbook_db, tag, unit)
+
+    Both crud.py lookups are cached (see textbook/crud.py's _TTLCache), so
+    calling get_questions_for_tag once per _draw() attempt -- which the old
+    code effectively did too, just against a dict instead of a query -- is
+    not a new cost; the cache absorbs repeated calls for the same
+    (tag, unit, question_type) within the TTL window.
+
+    `db` and `textbook_db` are now BOTH required and are two DIFFERENT
+    databases: `db` is the session/progress DB (StrengthTable, SeenQuestion
+    -- via session.crud), `textbook_db` is the curriculum DB (Vocab,
+    Question -- via textbook.services). This function originally only took
+    one `db` and (incorrectly, in an earlier pass of this migration) passed
+    it to both; that would break the moment textbook data lives in a
+    genuinely separate database/engine, since `db` has no Vocab/Question
+    tables bound to it. Callers (session_builder.py) need to pass both.
+    """
+    unit_tags = services.get_unit_vocab_tags(textbook_db, unit)
     if not unit_tags:
         return [], "no_unit_tags", {}
 
@@ -100,11 +122,13 @@ def generate_tier_questions(db: Session, user_id: int, unit: int, tiers: dict):
         for qt in _ordered_types(tag, serve_tier):
             if respect_type_cap and type_counts.get(qt, 0) >= cap:
                 continue
+            # was: [q for q in inverted_index.get(tag, []) if q["question_type"] == qt
+            #       and q["id"] not in used_ids and q.get("unit") == unit]
+            # get_questions_for_tag is already unit- and (optionally) type-filtered,
+            # so only the used_ids exclusion still needs to happen here.
             avail = [
-                q for q in inverted_index.get(tag, [])
-                if q["question_type"] == qt
-                and q["id"] not in used_ids
-                and q.get("unit") == unit
+                q for q in services.get_questions_for_tag(textbook_db, tag, unit, question_type=qt)
+                if q["id"] not in used_ids
             ]
             if not avail:
                 continue

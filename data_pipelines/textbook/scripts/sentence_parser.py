@@ -36,13 +36,12 @@ from app.core.config.shared import ENV_FILE
 from app.core.config.textbook import (
     TEXTBOOK_RAW_DIR,
     TEXTBOOK_INTERMEDIATE_DIR,
-    TEXTBOOK_APP_DATA_DIR,
     SOP_PATH,
     OCR_PATH,
 )
 from pypinyin import pinyin as pypinyin_pinyin, Style as PypinyinStyle
 
-from app.textbook.database import get_session, init_db, get_word_to_pinyin_map, get_word_to_unit_map, upsert_sentence
+from app.textbook.db_utils import get_session, init_db, get_word_to_pinyin_map, get_word_to_unit_map, upsert_sentence
 from app.textbook.models import FitbQuestion
 
 # --------------------------------- CONSTANTS (unchanged) ---------------------------------
@@ -72,10 +71,6 @@ SOURCES = {
     },
 }
 
-# Legacy one-time bridge only -- see module docstring. Safe to delete this
-# constant + its usage in run_source() once historical data is migrated.
-LEGACY_UNITS_OUTPUT_PATH = TEXTBOOK_APP_DATA_DIR.parent / "language-app-data" / "data" / "clean" / "units_output.json"
-
 OCR_CACHE_FILEPATH = OCR_PATH
 FORCE_OCR = False
 
@@ -104,11 +99,7 @@ _CJK_RE = re.compile(r"[\u4e00-\u9fff]")
 def load_sop(filename: str) -> str:
     with open(SOP_PATH / filename, "r", encoding="utf-8") as f:
         return f.read()
-
-
-ADDED_VOCAB_PATH = TEXTBOOK_APP_DATA_DIR.parent / "language-app-data" / "added_vocab" / "hsk1.txt"
-
-
+'''
 def load_added_vocab() -> dict:
     if not ADDED_VOCAB_PATH.exists():
         return {}
@@ -126,6 +117,8 @@ def load_added_vocab() -> dict:
             if entry.get("hanzi") and entry.get("pinyin"):
                 out[entry["hanzi"]] = entry["pinyin"]
     return out
+'''
+
 
 
 def load_word_dicts(db):
@@ -133,8 +126,8 @@ def load_word_dicts(db):
     Now: query the DB (populated by vocab_index_parser.py's run) directly."""
     word_to_pinyin = get_word_to_pinyin_map(db)
     word_to_unit = get_word_to_unit_map(db)
-    added = load_added_vocab()
-    word_to_pinyin.update(added)
+    # added = load_added_vocab()
+    # word_to_pinyin.update(added)
     return word_to_pinyin, word_to_unit
 
 
@@ -735,7 +728,7 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
     counts["fitb_questions_final"] = len(fitb_questions)
 
     # --- write FITB questions straight to the DB ---
-    from app.textbook.database import get_or_create_unit
+    from app.textbook.db_utils import get_or_create_unit
     unit_row = get_or_create_unit(db, unit_number)
     # best-effort link back to the sentence a FITB question came from, by
     # matching full_sentence's hanzi content against sentences just written

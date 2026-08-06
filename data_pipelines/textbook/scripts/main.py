@@ -30,7 +30,7 @@ from typing import Optional
 from app.core.config.textbook import PIPELINE_SCRIPTS_DIR
 
 # Import the DB module to initialize and query
-from app.textbook.database import init_db, get_session
+from app.textbook.db_utils import init_db, get_session
 from app.textbook.models import Unit, Vocab, Sentence, FitbQuestion, Question
 
 

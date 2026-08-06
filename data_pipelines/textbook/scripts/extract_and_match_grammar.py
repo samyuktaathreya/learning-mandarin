@@ -31,7 +31,7 @@ from typing import Optional
 from app.core.config.textbook import OCR_PATH, GRAMMAR_TIP_SOP, REFORMAT_GRAMMAR_TIP_SOP
 from app.core.config.shared import ENV_FILE
 
-from app.textbook.database import get_session, init_db, get_sentences_for_unit, get_or_create_grammar_tip, link_sentence_grammar
+from app.textbook.db_utils import get_session, init_db, get_sentences_for_unit, get_or_create_grammar_tip, link_sentence_grammar
 
 # ---------------------------------------------------------
 # Configuration & Setup

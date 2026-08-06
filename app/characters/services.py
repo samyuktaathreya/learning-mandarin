@@ -36,7 +36,7 @@ from shared.crud import get_dictionary_entries
 from session.models import StrengthTable
 from characters.models import Character, RadicalMeta
 import characters.crud
-from textbook.services import word_to_pinyin, META_TAGS
+from textbook.services import get_pinyin, META_TAGS
 
 REVIEW_STRENGTH_THRESHOLD = 0.80  # matches REVIEW_THRESHOLD in session.py
 NUM_OPTIONS = 4                   # multiple-choice option count for all quiz types
@@ -240,10 +240,8 @@ def build_spot_the_difference_question(tag: str, db: Session, characters_db: Ses
     }
 
 
-def build_pinyin_to_character_question(tag: str, characters_db: Session) -> dict | None:
-    """Show the pinyin for `tag`, ask the user to pick the matching character/
-    word from similar-looking options."""
-    pinyin = word_to_pinyin.get(tag)
+def build_pinyin_to_character_question(db: Session, tag: str, characters_db: Session) -> dict | None:
+    pinyin = get_pinyin(db, tag)
     if not pinyin:
         return None  # can't ask this type without a known pinyin reading
 
@@ -350,12 +348,11 @@ def generate_character_questions(
             if random.random() < 0.70:
                 q = build_spot_the_difference_question(tag, db, characters_db)
                 if not q:
-                    q = build_pinyin_to_character_question(tag, characters_db)
+                    q = build_pinyin_to_character_question(db, tag, characters_db)
             else:
-                q = build_pinyin_to_character_question(tag, characters_db)
+                q = build_pinyin_to_character_question(db, tag, characters_db)
                 if not q:
                     q = build_spot_the_difference_question(tag, db, characters_db)
-
             if q:
                 questions.append(q)
                 used_tags.add(tag)

@@ -23,22 +23,24 @@ from session.services.review_engine import (
 from session.services.tips import attach_tips
 from session.services.sound import _tag_sounds
 from session_log import log_session
-from textbook.services import unit_to_vocab_tags_dict, unit_questions, META_TAGS
+from textbook import services as textbook_services
+from textbook.services import META_TAGS
 from characters.services import generate_character_questions
 
 # ----------------------------- SESSION GENERATION -----------------------------
 
 
-def generate_practice_session(db: Session, user_id, unit) -> SessionResponse:
+def generate_practice_session(db: Session, textbook_db: Session, user_id, unit) -> SessionResponse:
     used_ids = set()
-    review_picks = generate_review_questions(db, user_id, used_ids, limit=SESSION_SIZE)
+    review_picks = generate_review_questions(db, textbook_db, user_id, used_ids, limit=SESSION_SIZE)
 
     remaining = SESSION_SIZE - len(review_picks)
     tier_picks, stop_reason, min_counts = [], "pure_review", {}
     tiers = {}
     if remaining > 0:
-        tiers = crud.get_tiers_for_tags(db, user_id, unit_to_vocab_tags_dict.get(unit, set()))
-        tier_picks, stop_reason, min_counts = generate_tier_questions(db, user_id, unit, tiers)
+        unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, unit)
+        tiers = crud.get_tiers_for_tags(db, user_id, unit_tags)
+        tier_picks, stop_reason, min_counts = generate_tier_questions(db, textbook_db, user_id, unit, tiers)
         tier_picks = [p for p in tier_picks if p[0]["id"] not in used_ids][:remaining]
 
     log_session(user_id, unit, tier_picks, review_picks, tiers, min_counts, stop_reason)
@@ -47,9 +49,9 @@ def generate_practice_session(db: Session, user_id, unit) -> SessionResponse:
     return SessionResponse(user_id=user_id, session_type="practice_session", question_set=question_set)
 
 
-def generate_review_session(db: Session, user_id) -> SessionResponse:
+def generate_review_session(db: Session, textbook_db: Session, user_id) -> SessionResponse:
     used_ids = set()
-    review_picks = generate_review_questions(db, user_id, used_ids, limit=SESSION_SIZE)
+    review_picks = generate_review_questions(db, textbook_db, user_id, used_ids, limit=SESSION_SIZE)
 
     log_session(user_id, None, [], review_picks, {}, {}, "review_session")
 
@@ -58,8 +60,13 @@ def generate_review_session(db: Session, user_id) -> SessionResponse:
     return SessionResponse(user_id=user_id, session_type="review_session", question_set=question_set)
 
 
-def generate_unit_test(user_id: int, unit: int) -> SessionResponse:
-    eligible = [q for q in unit_questions.get(str(unit), [])
+def generate_unit_test(textbook_db: Session, user_id: int, unit: int) -> SessionResponse:
+    # was: unit_questions.get(str(unit), []) against a module-level dict
+    # loaded from unit_questions_hsk1.json at import time. Now:
+    # textbook_services.get_all_questions_for_unit, a DB query (see
+    # textbook/crud.py's get_all_questions_for_unit) -- every question row
+    # in the unit, filtered here exactly as before.
+    eligible = [q for q in textbook_services.get_all_questions_for_unit(textbook_db, unit)
                 if q["question_type"] in ALL_TIER_QUESTION_TYPES]
     if not eligible:
         return SessionResponse(user_id=user_id, session_type="unit_test", question_set=[])
@@ -79,30 +86,35 @@ def generate_unit_test(user_id: int, unit: int) -> SessionResponse:
     return SessionResponse(user_id=user_id, session_type="unit_test", question_set=selected)
 
 
-def generate_full_session(db: Session, characters_db: Session, user_id: int,
+def generate_full_session(db: Session, characters_db: Session, textbook_db: Session, user_id: int,
                            mode: str = "sentence", skip_review: bool = False) -> SessionResponse:
     """Full composition used by GET /api/generate_session/{user_id}:
     graduation check -> review check -> standard practice session (+ character
-    questions)."""
+    questions).
+
+    Gained a `textbook_db` parameter -- callers (router.py) need to inject
+    it via Depends(get_textbook_db) alongside `db` and `characters_db`,
+    same pattern already used for characters_db.
+    """
     user = crud.get_user(db, user_id)
     user_unit = user.current_unit
 
-    unit_tags = unit_to_vocab_tags_dict.get(user_unit, set())
+    unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, user_unit)
     all_records = get_collapsed_progress(db, user_id)
     unit_records = [r for r in all_records if r.tag in unit_tags]
 
     # 1. Check for graduation (returns early if true)
     if is_unit_graduated(db, user_id, unit_records, unit_tags):
-        return attach_tips(db, generate_unit_test(user_id, user_unit))
+        return attach_tips(db, generate_unit_test(textbook_db, user_id, user_unit))
 
     # 2. Check for reviews (returns early if true)
-    if not skip_review and review_due_word_count(db, user_id) > 0:
-        review_session = generate_review_session(db, user_id)
+    if not skip_review and review_due_word_count(db, textbook_db, user_id) > 0:
+        review_session = generate_review_session(db, textbook_db, user_id)
         if review_session.question_set:
             return attach_tips(db, review_session)
 
     # 3. Standard practice session: generate, attach tips, add character questions, shuffle
-    session = attach_tips(db, generate_practice_session(db, user_id, user_unit))
+    session = attach_tips(db, generate_practice_session(db, textbook_db, user_id, user_unit))
 
     character_qs = generate_character_questions(db, characters_db, user_id, num_questions=2)
     session.question_set.extend(character_qs)
@@ -113,6 +125,10 @@ def generate_full_session(db: Session, characters_db: Session, user_id: int,
 
 
 # ----------------------------- SUBMISSION -----------------------------
+# process_submission is UNCHANGED below -- it never touched
+# unit_to_vocab_tags_dict/unit_questions/inverted_index, only META_TAGS
+# (still a plain constant, still importable directly from textbook.services)
+# and session-DB-only crud calls.
 
 
 def process_submission(

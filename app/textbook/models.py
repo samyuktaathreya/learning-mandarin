@@ -88,9 +88,21 @@ class Sentence(Base):
 
 
 class SentenceVocab(Base):
+    """Replaces the old `tags: [str]` array. Ordered (position) so the
+    original tag sequence -- needed for anything display-order-sensitive --
+    is recoverable, not just an unordered set.
+
+    NOTE: a word can legitimately appear more than once in the same sentence
+    (e.g. "我不是老师，我是学生，我是中国人" tags 是 three times), so this
+    canNOT be keyed on (sentence_id, vocab_id) -- that would reject the
+    second occurrence as a duplicate. It's keyed on (sentence_id, position)
+    instead: one row per TAG OCCURRENCE, not per unique word. A surrogate id
+    is still simplest for FK/ORM ergonomics, but the real uniqueness
+    constraint is what prevents accidental double-inserts of the exact same
+    slot on a rerun."""
     __tablename__ = "sentence_vocab"
 
-    id = Column(Integer, primary_key=True)          # surrogate PK
+    id = Column(Integer, primary_key=True)
     sentence_id = Column(Integer, ForeignKey("sentences.id"), nullable=False)
     vocab_id = Column(Integer, ForeignKey("vocab.id"), nullable=False)
     position = Column(Integer, nullable=False, default=0)
@@ -101,6 +113,7 @@ class SentenceVocab(Base):
     __table_args__ = (
         UniqueConstraint("sentence_id", "position", name="_sentence_position_uc"),
     )
+
 
 class FitbQuestion(Base):
     """Fill-in-the-blank questions, previously the `fill_in_the_blank` array
@@ -170,16 +183,29 @@ class SentenceGrammar(Base):
 
 
 class Question(Base):
-    """create_questions.py's output -- unit_questions_hsk1.json equivalent."""
+    """create_questions.py's output -- unit_questions_hsk1.json equivalent.
+
+    vocab_id: set for WORD-level questions (listening vocab, translate word,
+    etc.) -- the single word being tested.
+    sentence_id: set for SENTENCE-level questions (listening sentence,
+    translate sentence, etc.) -- lets us recover the FULL list of vocab tags
+    a sentence question exercises (via Sentence -> SentenceVocab), which the
+    old JSON's per-question `tags: [...]` array used to carry directly. A
+    sentence question is "about" every word in that sentence, not just one,
+    so this can't be collapsed into vocab_id the way word questions can.
+    FITB questions may have neither (best-effort match to a sentence at
+    creation time; nullable if unmatched).
+    """
     __tablename__ = "questions"
 
     id = Column(Integer, primary_key=True)
-    legacy_id = Column(Text, nullable=True)  # e.g. "u3_speaking_vocab_2", kept for backward compat if referenced elsewhere
+    legacy_id = Column(Text, nullable=True)
     question_type = Column(Text, nullable=False)
     question = Column(Text, nullable=False)
     answer = Column(Text, nullable=False)
     unit_id = Column(Integer, ForeignKey("units.id"), nullable=False)
-    vocab_id = Column(Integer, ForeignKey("vocab.id"), nullable=True)  # the word being tested, if applicable
+    vocab_id = Column(Integer, ForeignKey("vocab.id"), nullable=True)
+    sentence_id = Column(Integer, ForeignKey("sentences.id"), nullable=True)
 
     __table_args__ = (
         UniqueConstraint("legacy_id", name="_legacy_id_uc"),

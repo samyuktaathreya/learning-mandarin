@@ -27,12 +27,11 @@ from dotenv import load_dotenv
 from app.core.config.shared import ENV_FILE
 from app.core.config.textbook import (
     TEXTBOOK_RAW_DIR,
-    TEXTBOOK_APP_DATA_DIR,
     SOP_PATH,
     OCR_PATH,
 )
 
-from app.textbook.database import get_session, init_db, upsert_vocab
+from app.textbook.db_utils import get_session, init_db, upsert_vocab
 from app.textbook.models import WordType
 
 # --------------------------------- CONSTANTS ---------------------------------
@@ -51,8 +50,6 @@ FORCE_OCR = False
 # of the app's data model, just crash forensics, so they're untouched.
 from app.core.config.textbook import TEXTBOOK_INTERMEDIATE_DIR
 LLM_RESPONSES_FILEPATH = TEXTBOOK_INTERMEDIATE_DIR / "LLM_RESPONSES"
-
-ADDED_VOCAB_FILEPATH = TEXTBOOK_APP_DATA_DIR.parent / "language-app-data" / "added_vocab" / "hsk1.txt"
 
 MODEL = "claude-sonnet-4-6"
 OCR_MAX_TOKENS = 8192
@@ -107,12 +104,14 @@ def save_llm_response(call_name: str, raw_text: str) -> str:
         f.write(raw_text)
     return path
 
+'''
 
 def load_added_vocab() -> list:
     """Unchanged: still reads the hand-maintained JSONL override file --
     that file is source-controlled input, not generated output, so there's
     nothing to migrate here."""
     import json
+    
     if not ADDED_VOCAB_FILEPATH.exists():
         return []
     entries = []
@@ -131,6 +130,7 @@ def load_added_vocab() -> list:
     if entries:
         print(f"  [added-vocab] loaded {len(entries)} hand-added entr(y/ies) from {ADDED_VOCAB_FILEPATH}")
     return entries
+'''
 
 
 # ------------------------- PINYIN: DIACRITIC -> NUMERIC (unchanged) -------------------------
@@ -138,7 +138,7 @@ def load_added_vocab() -> list:
 # diacritic_to_numeric. Copy verbatim from the original file -- no data-model
 # implications, pure string transform. Omitted here for brevity; paste the
 # same block from vocab_index_parser.py unchanged.
-from pinyin_utils import diacritic_to_numeric  # see note below
+from data_pipelines.textbook.scripts.vocab_pinyin_utils import diacritic_to_numeric  # see note below
 
 
 # --------------------------------- AGENT CALLS (unchanged) ---------------------------------
@@ -257,14 +257,14 @@ def main():
     print("Parsing vocabulary index...")
     ocr_md = run_index_ocr()
     raw_entries = run_extractor(ocr_md)
-    added_entries = load_added_vocab()
+    # added_entries = load_added_vocab()
 
-    if not raw_entries and not added_entries:
+    if not raw_entries:
         print("  [warning] no raw entries extracted and no added vocab found; nothing to write")
         return
 
     print(f"  extracted {len(raw_entries)} raw rows from index")
-    records = process_entries(raw_entries + added_entries)
+    records = process_entries(raw_entries)
 
     with get_session() as db:
         counts = {WordType.vocab: 0, WordType.grammar: 0, WordType.proper_noun: 0}

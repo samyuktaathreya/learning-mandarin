@@ -1,6 +1,8 @@
 import random
 from datetime import datetime
 
+from sqlalchemy.orm import Session
+
 from session import crud
 from session.constants import (
     MAX_TIER,
@@ -8,20 +10,24 @@ from session.constants import (
     REVIEW_THRESHOLD,
     REVIEW_TYPES_BY_FACET,
 )
-from textbook.services import inverted_index, tags_to_unit_dict
-
+from textbook import services as textbook_services
 
 def is_facet_review_eligible(tier: int, facet_count: int) -> bool:
     return tier >= MAX_TIER and facet_count >= GRADUATION_THRESHOLD
 
 
-def _all_review_eligible_facets(db, user_id: int) -> list:
+def _all_review_eligible_facets(db: Session, textbook_db: Session, user_id: int) -> list:
     """Every (word, facet) pair that is SERVING-eligible for review: tier 4 +
     facet_count >= GRADUATION_THRESHOLD, AND the word's teaching unit is
     strictly before the current unit. A word still being learned in the current
     unit is never review-eligible -- review is for consolidated, past-unit
     material only, and its sentences are guaranteed to contain only known
-    words."""
+    words.
+
+    Now takes `textbook_db` -- was: `tags_to_unit_dict.get(r.tag)` against a
+    module-level dict loaded from unit_vocab_tags.json at import time; now:
+    `textbook_services.get_tag_home_unit(textbook_db, r.tag)`, a cached DB
+    lookup (see textbook/crud.py's get_tags_to_unit_map)."""
     progress = crud.get_progress_by_user(db, user_id)
     if not progress:
         return []
@@ -36,17 +42,17 @@ def _all_review_eligible_facets(db, user_id: int) -> list:
             continue
         if not is_facet_review_eligible(tiers.get(r.tag, 1), r.correct_count):
             continue
-        teaching_unit = tags_to_unit_dict.get(r.tag)
+        teaching_unit = textbook_services.get_tag_home_unit(textbook_db, r.tag)
         if teaching_unit is None or teaching_unit >= current_unit:
             continue  # word's own unit isn't finished -- not review-eligible yet
         eligible.append((r.tag, r.facet, r))
     return eligible
 
 
-def _due_review_facets(db, user_id: int) -> list:
+def _due_review_facets(db: Session, textbook_db: Session, user_id: int) -> list:
     now = datetime.utcnow()
     scored = []
-    for tag, facet, r in _all_review_eligible_facets(db, user_id):
+    for tag, facet, r in _all_review_eligible_facets(db, textbook_db, user_id):
         strength = 0.5 ** ((now - r.last_practice).total_seconds() / 86400 / r.stability)
         if strength < REVIEW_THRESHOLD:
             scored.append((tag, facet, strength))
@@ -54,7 +60,8 @@ def _due_review_facets(db, user_id: int) -> list:
     return [(tag, facet) for tag, facet, _ in scored]
 
 
-def _pick_review_question(tag: str, facet: str, used_ids: set, max_unit: int, seen_counts: dict):
+def _pick_review_question(textbook_db: Session, tag: str, facet: str, used_ids: set,
+                          max_unit: int, seen_counts: dict):
     """Review picker, routed by which facet is actually due.
 
     pinyin facet due: 80% "transcribe hanzi to pinyin" (isolated recall --
@@ -69,8 +76,16 @@ def _pick_review_question(tag: str, facet: str, used_ids: set, max_unit: int, se
         chinese, fill in the blank).
 
     Note: "transcribe hanzi to pinyin" only advances the pinyin facet
-    (see QUESTION_TYPE_FACETS in crud.py) -- it shows the character already,
-    so it doesn't test character recall.
+    (see QUESTION_TYPE_FACETS in session/constants.py) -- it shows the
+    character already, so it doesn't test character recall.
+
+    Was: `inverted_index.get(tag, [])` filtered inline by question_type,
+    used_ids, and `q.get("unit", 0) <= max_unit`. Now:
+    `textbook_services.get_questions_for_tag_up_to_unit(textbook_db, tag,
+    max_unit, question_type=qt)`, which does the unit-range filtering as
+    part of the query itself -- see textbook/crud.py's
+    get_questions_for_tag_up_to_unit. Only the used_ids exclusion still
+    needs to happen here.
     """
     if facet == "pinyin":
         primary = "transcribe hanzi to pinyin"
@@ -87,10 +102,10 @@ def _pick_review_question(tag: str, facet: str, used_ids: set, max_unit: int, se
 
     for qt in ordered_types:
         pool = [
-            q for q in inverted_index.get(tag, [])
-            if q["question_type"] == qt
-            and q["id"] not in used_ids
-            and q.get("unit", 0) <= max_unit
+            q for q in textbook_services.get_questions_for_tag_up_to_unit(
+                textbook_db, tag, max_unit, question_type=qt
+            )
+            if q["id"] not in used_ids
         ]
         if not pool:
             continue
@@ -106,14 +121,14 @@ def _pick_review_question(tag: str, facet: str, used_ids: set, max_unit: int, se
     return None
 
 
-def generate_review_questions(db, user_id, used_ids, limit=None):
+def generate_review_questions(db: Session, textbook_db: Session, user_id, used_ids, limit=None):
     max_unit = crud.get_user(db, user_id).current_unit - 1
     seen_counts = crud.get_seen_question_counts(db, user_id)
     picks = []
-    for tag, facet in _due_review_facets(db, user_id):
+    for tag, facet in _due_review_facets(db, textbook_db, user_id):
         if limit is not None and len(picks) >= limit:
             break
-        q = _pick_review_question(tag, facet, used_ids, max_unit, seen_counts)
+        q = _pick_review_question(textbook_db, tag, facet, used_ids, max_unit, seen_counts)
         if q:
             picks.append((q, tag))
             used_ids.add(q["id"])
@@ -126,13 +141,13 @@ def _project_strength(r, days_ahead: float) -> float:
     return 0.5 ** (elapsed_days / r.stability)
 
 
-def review_due_word_count(db, user_id) -> int:
-    return len({tag for tag, _facet in _due_review_facets(db, user_id)})
+def review_due_word_count(db: Session, textbook_db: Session, user_id) -> int:
+    return len({tag for tag, _facet in _due_review_facets(db, textbook_db, user_id)})
 
 
-def review_due_tomorrow_word_count(db, user_id) -> int:
+def review_due_tomorrow_word_count(db: Session, textbook_db: Session, user_id) -> int:
     tags = set()
-    for tag, facet, r in _all_review_eligible_facets(db, user_id):
+    for tag, facet, r in _all_review_eligible_facets(db, textbook_db, user_id):
         if _project_strength(r, 1.0) < REVIEW_THRESHOLD:
             tags.add(tag)
     return len(tags)

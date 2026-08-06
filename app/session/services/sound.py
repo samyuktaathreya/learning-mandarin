@@ -1,9 +1,9 @@
-from textbook.services import word_to_pinyin
+from textbook.services import get_pinyin
 from pinyin_utils import split_pinyin_sounds, GATED_INITIALS, GATED_FINALS
+from sqlalchemy.orm import Session
 
-
-def _tag_sounds(tag: str) -> set:
-    p = word_to_pinyin.get(tag)
+def _tag_sounds(db: Session, tag: str) -> set:
+    p = get_pinyin(db, tag)
     if not p:
         return set()
     sounds = set()

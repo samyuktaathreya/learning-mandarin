@@ -28,7 +28,7 @@ import re
 from collections import defaultdict
 from enum import Enum
 
-from app.textbook.database import (
+from app.textbook.db_utils import (
     get_session, init_db, get_vocab_for_unit, get_all_vocab_hanzi,
     get_sentences_for_unit, get_tags_for_sentence, get_grammar_tips_for_sentence,
     rehome_sentences, upsert_question, get_word_to_unit_map,
@@ -151,7 +151,7 @@ def build_questions_for_unit(db, unit_number: int, all_hanzi: list[str], home_un
         ]:
             if qtype in TYPING_REQUIRED_TYPES and blocked:
                 continue
-            upsert_question(db, unit_number, qtype, q_text, a_text)
+            upsert_question(db, unit_number, qtype, q_text, a_text, sentence_id=sentence.id)
 
     # --- FITB questions ---
     unit_row = db.query(Unit).filter(Unit.unit_number == unit_number).first()
@@ -163,7 +163,7 @@ def build_questions_for_unit(db, unit_number: int, all_hanzi: list[str], home_un
             if has_unlearned_vocab(raw_tags, unit_number, home_unit):
                 continue
             upsert_question(db, unit_number, QuestionType.FILL_IN_THE_BLANK.value,
-                             fq.question, fq.answer)
+                             fq.question, fq.answer, sentence_id=fq.sentence_id)
 
 
 def main():
