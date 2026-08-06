@@ -55,7 +55,8 @@ def submit_session(
 def debug(user_id: int, db: Session = Depends(get_db),
           textbook_db: Session = Depends(get_textbook_db)):
     user = get_user(db, user_id)
-    unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, user.current_unit)
+    hsk_level = getattr(user, "hsk_level", 1)
+    unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, user.current_unit, hsk_level)
     all_records = get_collapsed_progress(db, user_id)
     unit_records = [r for r in all_records if r.tag in unit_tags]
     graduated = is_unit_graduated(db, user_id, unit_records, unit_tags)
@@ -63,8 +64,8 @@ def debug(user_id: int, db: Session = Depends(get_db),
     tiers = get_tiers_for_tags(db, user_id, unit_tags)
 
     from session.services.review_engine import _all_review_eligible_facets, _due_review_facets
-    eligible = _all_review_eligible_facets(db, textbook_db, user_id)
-    due = _due_review_facets(db, textbook_db, user_id)
+    eligible = _all_review_eligible_facets(db, textbook_db, user_id, hsk_level)
+    due = _due_review_facets(db, textbook_db, user_id, hsk_level)
 
     return {
         "current_unit": user.current_unit,
@@ -98,7 +99,7 @@ def get_progress(user_id: int, db: Session = Depends(get_db),
         entry["is_graduated"] = entry["unit"] in graduated_units
         entry["is_current"] = entry["unit"] == user_unit
 
-    current_unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, user_unit)
+    current_unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, user_unit, getattr(user, "hsk_level", 1))
     current_unit_tiers = get_tiers_for_tags(db, user_id, current_unit_tags)
     all_records = get_collapsed_progress(db, user_id)
     record_map = {r.tag: r for r in all_records}

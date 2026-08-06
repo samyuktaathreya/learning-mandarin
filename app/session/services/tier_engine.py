@@ -36,7 +36,8 @@ def _type_cap_for_tier(tier: int) -> int:
     return math.ceil(SESSION_SIZE / n_types)
 
 
-def generate_tier_questions(db: Session, textbook_db: Session, user_id: int, unit: int, tiers: dict):
+def generate_tier_questions(db: Session, textbook_db: Session, user_id: int, unit: int, tiers: dict,
+                            hsk_level: int = 1):
     """
     Unchanged selection logic (weighting, tier downshift, type caps, variety
     preference for unseen question variants) -- only the DATA SOURCE changed:
@@ -59,7 +60,7 @@ def generate_tier_questions(db: Session, textbook_db: Session, user_id: int, uni
     genuinely separate database/engine, since `db` has no Vocab/Question
     tables bound to it. Callers (session_builder.py) need to pass both.
     """
-    unit_tags = services.get_unit_vocab_tags(textbook_db, unit)
+    unit_tags = services.get_unit_vocab_tags(textbook_db, unit, hsk_level)
     if not unit_tags:
         return [], "no_unit_tags", {}
 
@@ -127,7 +128,8 @@ def generate_tier_questions(db: Session, textbook_db: Session, user_id: int, uni
             # get_questions_for_tag is already unit- and (optionally) type-filtered,
             # so only the used_ids exclusion still needs to happen here.
             avail = [
-                q for q in services.get_questions_for_tag(textbook_db, tag, unit, question_type=qt)
+                q for q in services.get_questions_for_tag(textbook_db, tag, unit, question_type=qt,
+                                                          hsk_level=hsk_level)
                 if q["id"] not in used_ids
             ]
             if not avail:

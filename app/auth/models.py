@@ -11,3 +11,4 @@ class User(Base):
     # Existing learning profile fields
     current_unit = Column(Integer, default=1)
     graduated_units = Column(TEXT, default="")
+    hsk_level = Column(Integer, default=1, nullable=False)

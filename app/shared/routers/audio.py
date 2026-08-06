@@ -1,12 +1,14 @@
 import base64
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
+from sqlalchemy.orm import Session
 
 from shared.services.audio import (
     generate_and_cache_audio,
     clear_session_audio,
     process_spoken_audio
 )
+from textbook.database import get_textbook_db
 
 router = APIRouter()
 
@@ -30,7 +32,7 @@ async def clear_audio():
 
 
 @router.post("/api/transcribe")
-async def transcribe(payload: dict):
+async def transcribe(payload: dict, textbook_db: Session = Depends(get_textbook_db)):
     audio_b64 = payload.get("audio")
     expected = payload.get("expected", "").strip()
     hanzi = payload.get("hanzi", "").strip()
@@ -42,7 +44,7 @@ async def transcribe(payload: dict):
     audio_bytes = base64.b64decode(audio_b64)
 
     try:
-        result = await process_spoken_audio(audio_bytes, expected, hanzi, question_type)
+        result = await process_spoken_audio(audio_bytes, expected, hanzi, question_type, textbook_db)
         return JSONResponse(result)
     except Exception as e:
         import traceback

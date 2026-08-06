@@ -28,8 +28,8 @@ import csv
 import re
 import sqlite3
 from pathlib import Path
-from app.core.config.characters import CHARACTER_DB_PATH, RAW_RADICALS_PATH
-
+from app.core.config.characters import RAW_RADICALS_PATH
+from app.core.config.data import CHARACTERS_DB
 
 # Matches a single CJK character, used to pull just the glyph out of entries
 # like "乀 (fu2)" or "乁(yi2)" in the variants column.
@@ -169,7 +169,7 @@ def main():
     radicals = parse_radical_csv(RAW_RADICALS_PATH)
     print(f"Found {len(radicals)} radicals.")
 
-    n_chars, n_meta, n_confusions = populate(radicals, CHARACTER_DB_PATH)
+    n_chars, n_meta, n_confusions = populate(radicals, CHARACTERS_DB)
     print(f"Upserted {n_chars} character rows (radicals + variants).")
     print(f"Inserted {n_meta} radical_meta rows.")
     print(f"Inserted {n_confusions} radical_variant confusion pairs.")

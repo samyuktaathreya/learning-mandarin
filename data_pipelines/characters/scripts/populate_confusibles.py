@@ -25,8 +25,8 @@ import sqlite3
 from itertools import combinations
 
 # Clean, direct import from the sibling config.py
-from app.core.config.characters import RAW_CONFUSIBLES_PATH, CHARACTER_DB_PATH
-
+from app.core.config.characters import RAW_CONFUSIBLES_PATH
+from app.core.config.data import CHARACTERS_DB
 # ---------------------------------------------------------------------------
 # Schema
 # ---------------------------------------------------------------------------
@@ -110,8 +110,8 @@ def main():
     pairs = parse_confusibles(RAW_CONFUSIBLES_PATH)
     print(f"Found {len(pairs)} unique bidirectional pairs.")
 
-    print(f"Writing to: {CHARACTER_DB_PATH}")
-    in_vocab, both_in = populate(pairs, CHARACTER_DB_PATH)
+    print(f"Writing to: {CHARACTERS_DB}")
+    in_vocab, both_in = populate(pairs, CHARACTERS_DB)
 
     print(f"\n{len(both_in)} pairs where BOTH characters are in your vocab.")
     print(f"{len(in_vocab)} pairs where AT LEAST ONE character is in your vocab.")

@@ -6,7 +6,7 @@ import base64
 import uuid
 import azure.cognitiveservices.speech as speechsdk
 import edge_tts
-
+from sqlalchemy.orm import Session
 from pinyin_utils import strip_punct, to_numbered_pinyin, tones_match, grade_speaking_sentence
 
 CACHE_DIR = "audio_cache"
@@ -289,7 +289,7 @@ async def process_spoken_audio(audio_bytes: bytes, expected: str, hanzi: str, qu
         transcription_pinyin = to_numbered_pinyin(transcription_hanzi)
 
         if hanzi:
-            is_correct = grade_speaking_sentence(transcription_hanzi, hanzi)
+            is_correct = grade_speaking_sentence(transcription_hanzi, hanzi, db)
         else:
             is_correct = tones_match(transcription_pinyin, expected_pinyin)
 

@@ -10,7 +10,7 @@ import argparse
 import sqlite3
 import sys
 
-from app.core.config.textbook import DATABASE_FILEPATH
+from app.core.config.data import TEXTBOOK_DB
 
 
 def show_incomplete_vocab(conn):
@@ -77,7 +77,7 @@ def main():
     parser.add_argument("--questions", action="store_true", help="Show only the orphan questions list")
     args = parser.parse_args()
 
-    db_path = str(DATABASE_FILEPATH)
+    db_path = str(TEXTBOOK_DB)
     conn = sqlite3.connect(db_path)
     print(f"Database: {db_path}\n")
 

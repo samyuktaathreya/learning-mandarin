@@ -9,7 +9,6 @@ ROOT_DIR = APP_DIR.parent                                 # learning-mandarin (R
 
 # Paths
 ENV_FILE = APP_DIR / ".env"
-OUTPUT_DB_PATH = ROOT_DIR / "mandarin_app.db"
 PIPELINE_DIR = ROOT_DIR / "data_pipelines"
 
 # Load environment variables automatically when this config module is imported

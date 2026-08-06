@@ -28,7 +28,8 @@ import json
 import re
 import sqlite3
 from pathlib import Path
-from app.core.config.characters import CHARACTER_DB_PATH, RAW_IDS_PATH
+from app.core.config.characters import RAW_IDS_PATH
+from app.core.config.data import CHARACTERS_DB
 from app.core.config.textbook import UNIT_VOCAB_TAGS_JSON
 #from __future__ import annotations
 
@@ -259,7 +260,7 @@ def main():
     print(f"IDS table has {len(ids_table)} total entries.")
 
     char_rows, component_rows, missing = build_database(
-        target_chars, ids_table, CHARACTER_DB_PATH, MAX_DEPTH
+        target_chars, ids_table, CHARACTERS_DB, MAX_DEPTH
     )
 
     print(f"Inserted {len(char_rows)} characters.")
@@ -269,7 +270,7 @@ def main():
         print(f"\nWARNING: {len(missing)} characters from vocab had no IDS entry:")
         print(" ".join(missing))
 
-    print(f"\nDatabase written to: {CHARACTER_DB_PATH}")
+    print(f"\nDatabase written to: {CHARACTERS_DB}")
 
 
 if __name__ == "__main__":

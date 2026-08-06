@@ -14,6 +14,7 @@ from auth.models import User
 from session.models import StrengthTable
 from shared.models import DictionaryEntry
 
+'''
 # Data path is relative to the project root
 DICT_PATH = BASE_DIR / "language-app-data" / "data" / "raw" / "chinese_english_dictionary.u8"
 
@@ -60,7 +61,7 @@ def seed_cedict(db):
         db.bulk_insert_mappings(DictionaryEntry, entries)
         db.commit()
         print(f"CC-CEDICT seeding complete! ({len(entries)} entries added)")
-
+'''
 
 def init_db():
     db = SessionLocal()
@@ -102,7 +103,7 @@ def init_db():
               f"across {len(vocab_tags)} tags x {len(FACETS)} facets.")
 
         # Seed Cedict
-        seed_cedict(db)
+        # seed_cedict(db)
 
     finally:
         db.close()

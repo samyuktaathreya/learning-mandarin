@@ -31,6 +31,7 @@ from characters.services import generate_character_questions
 
 
 def generate_practice_session(db: Session, textbook_db: Session, user_id, unit) -> SessionResponse:
+    hsk_level = getattr(crud.get_user(db, user_id), "hsk_level", 1)
     used_ids = set()
     review_picks = generate_review_questions(db, textbook_db, user_id, used_ids, limit=SESSION_SIZE)
 
@@ -38,9 +39,10 @@ def generate_practice_session(db: Session, textbook_db: Session, user_id, unit) 
     tier_picks, stop_reason, min_counts = [], "pure_review", {}
     tiers = {}
     if remaining > 0:
-        unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, unit)
+        unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, unit, hsk_level)
         tiers = crud.get_tiers_for_tags(db, user_id, unit_tags)
-        tier_picks, stop_reason, min_counts = generate_tier_questions(db, textbook_db, user_id, unit, tiers)
+        tier_picks, stop_reason, min_counts = generate_tier_questions(
+            db, textbook_db, user_id, unit, tiers, hsk_level)
         tier_picks = [p for p in tier_picks if p[0]["id"] not in used_ids][:remaining]
 
     log_session(user_id, unit, tier_picks, review_picks, tiers, min_counts, stop_reason)
@@ -60,13 +62,13 @@ def generate_review_session(db: Session, textbook_db: Session, user_id) -> Sessi
     return SessionResponse(user_id=user_id, session_type="review_session", question_set=question_set)
 
 
-def generate_unit_test(textbook_db: Session, user_id: int, unit: int) -> SessionResponse:
+def generate_unit_test(textbook_db: Session, user_id: int, unit: int, hsk_level: int = 1) -> SessionResponse:
     # was: unit_questions.get(str(unit), []) against a module-level dict
     # loaded from unit_questions_hsk1.json at import time. Now:
     # textbook_services.get_all_questions_for_unit, a DB query (see
     # textbook/crud.py's get_all_questions_for_unit) -- every question row
     # in the unit, filtered here exactly as before.
-    eligible = [q for q in textbook_services.get_all_questions_for_unit(textbook_db, unit)
+    eligible = [q for q in textbook_services.get_all_questions_for_unit(textbook_db, unit, hsk_level)
                 if q["question_type"] in ALL_TIER_QUESTION_TYPES]
     if not eligible:
         return SessionResponse(user_id=user_id, session_type="unit_test", question_set=[])
@@ -98,14 +100,15 @@ def generate_full_session(db: Session, characters_db: Session, textbook_db: Sess
     """
     user = crud.get_user(db, user_id)
     user_unit = user.current_unit
+    hsk_level = getattr(user, "hsk_level", 1)
 
-    unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, user_unit)
+    unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, user_unit, hsk_level)
     all_records = get_collapsed_progress(db, user_id)
     unit_records = [r for r in all_records if r.tag in unit_tags]
 
     # 1. Check for graduation (returns early if true)
     if is_unit_graduated(db, user_id, unit_records, unit_tags):
-        return attach_tips(db, generate_unit_test(textbook_db, user_id, user_unit))
+        return attach_tips(db, generate_unit_test(textbook_db, user_id, user_unit, hsk_level))
 
     # 2. Check for reviews (returns early if true)
     if not skip_review and review_due_word_count(db, textbook_db, user_id) > 0:

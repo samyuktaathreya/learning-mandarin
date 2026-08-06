@@ -5,6 +5,10 @@ from textbook.services import get_unit_vocab_tags, get_all_unit_numbers
 from session.crud import get_tiers_for_tags, get_progress_by_user
 from session.constants import GRADUATION_THRESHOLD, REVIEW_THRESHOLD
 from session.services.review_engine import is_facet_review_eligible
+from session.crud import get_tiers_for_tags, get_progress_by_user, get_user
+from session.constants import GRADUATION_THRESHOLD, REVIEW_THRESHOLD
+from textbook import services as textbook_services
+from session.services.review_engine import is_facet_review_eligible
 
 
 class _CollapsedRecord:
@@ -136,3 +140,98 @@ def build_unit_words_detail(db: Session, textbook_db: Session, user_id: int, uni
         }
         for tag in unit_tags
     ], key=lambda w: w["tag"])
+
+ 
+def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int) -> dict:
+    """Replaces the per-unit loop that used to live directly in
+    router.py's /api/progress, walking `unit_questions.keys()` and
+    `unit_to_vocab_tags_dict`. Same output shape as before: {unit_str: {...}}.
+ 
+    Reads hsk_level off the User row (assumed present -- see auth/models.py)
+    rather than taking it as a parameter, since every caller already has
+    only a user_id to work with here."""
+    from session.services.progress import get_collapsed_progress  # avoid circular import at module load
+ 
+    user = get_user(db, user_id)
+    hsk_level = getattr(user, "hsk_level", 1)
+ 
+    all_records = get_collapsed_progress(db, user_id)
+    record_map = {r.tag: r for r in all_records}
+ 
+    unit_progress = {}
+    for unit in textbook_services.get_all_unit_numbers(textbook_db, hsk_level):
+        unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, unit, hsk_level)
+        if not unit_tags:
+            continue
+ 
+        total = len(unit_tags)
+        graduated_tags = sum(
+            1 for tag in unit_tags
+            if record_map.get(tag) and record_map[tag].correct_count >= GRADUATION_THRESHOLD
+        )
+        avg_correct = (
+            sum(record_map[tag].correct_count for tag in unit_tags if tag in record_map) / total
+            if total > 0 else 0
+        )
+ 
+        unit_progress[str(unit)] = {
+            "unit": unit,
+            "total_tags": total,
+            "graduated_tags": graduated_tags,
+            "progress_pct": round(graduated_tags / total * 100) if total > 0 else 0,
+            "avg_correct_count": round(avg_correct, 1),
+        }
+ 
+    return unit_progress
+ 
+ 
+def build_unit_words_detail(db: Session, textbook_db: Session, user_id: int, unit: int,
+                             is_current: bool) -> list:
+    """Replaces the facet_detail closure + word-list assembly that used to
+    live directly in router.py's /api/unit_detail. Returns the sorted list
+    of per-word {tag, tier, character, pinyin} dicts; the router still owns
+    locked/is_graduated framing since that needs `user.current_unit` and
+    `graduated_units`, which are request-shaped, not curriculum-shaped.
+ 
+    is_current is passed in (rather than recomputed here) because a
+    current-unit word is never review-eligible regardless of tier/count --
+    same rule the original inline closure used -- and the router already
+    knows whether this unit == user.current_unit, so there's no need to
+    duplicate that check inside the service function.
+    """
+    unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, unit, getattr(get_user(db, user_id), "hsk_level", 1))
+    tiers = get_tiers_for_tags(db, user_id, unit_tags)
+ 
+    rows = {}
+    for r in get_progress_by_user(db, user_id):
+        if r.tag in unit_tags and r.facet in ("character", "pinyin"):
+            rows[(r.tag, r.facet)] = r
+ 
+    now = datetime.utcnow()
+ 
+    def facet_detail(tag: str, facet: str) -> dict:
+        r = rows.get((tag, facet))
+        if not r:
+            return {"correct_count": 0, "stability": None, "strength": None,
+                    "is_review_eligible": False, "is_due": False}
+        strength = 0.5 ** ((now - r.last_practice).total_seconds() / 86400 / r.stability)
+        eligible = (not is_current) and is_facet_review_eligible(
+            tiers.get(tag, 1), r.correct_count)
+        return {
+            "correct_count": r.correct_count,
+            "stability": round(r.stability, 2),
+            "strength": round(strength, 3),
+            "is_review_eligible": eligible,
+            "is_due": eligible and strength < REVIEW_THRESHOLD,
+        }
+ 
+    return sorted([
+        {
+            "tag": tag,
+            "tier": tiers.get(tag, 1),
+            "character": facet_detail(tag, "character"),
+            "pinyin": facet_detail(tag, "pinyin"),
+        }
+        for tag in unit_tags
+    ], key=lambda w: w["tag"])
+ 

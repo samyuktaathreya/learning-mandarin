@@ -10,12 +10,12 @@ import os
 import sqlite3
 import sys
 
-from app.core.config.textbook import DATABASE_FILEPATH
+from app.core.config.data import TEXTBOOK_DB
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--db", default=str(DATABASE_FILEPATH), help="Path to the SQLite database")
+    parser.add_argument("--db", default=str(TEXTBOOK_DB), help="Path to the SQLite database")
     args = parser.parse_args()
 
     if not os.path.exists(args.db):

@@ -10,15 +10,15 @@ from sqlalchemy import create_engine, func
 from sqlalchemy.orm import sessionmaker, Session
 from contextlib import contextmanager
 
-from models import (
+from .models import (
     Base, Unit, Vocab, Sentence, SentenceVocab, WordType,
     GrammarTip, SentenceGrammar, Question, FitbQuestion,
 )
 import json
-from app.core.config.textbook import DATABASE_URL
+from app.core.config.data import TEXTBOOK_DB
 
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+engine = create_engine(f"sqlite:///{TEXTBOOK_DB}", connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
 

@@ -17,7 +17,7 @@ import sqlite3
 import sys
 import os
 
-from app.core.config.textbook import DATABASE_FILEPATH
+from app.core.config.data import TEXTBOOK_DB
 
 
 def has_column(conn, table: str, column: str) -> bool:
@@ -56,7 +56,7 @@ def main():
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument("--db", default=DATABASE_FILEPATH, help="Path to SQLite database file")
+    parser.add_argument("--db", default=TEXTBOOK_DB, help="Path to SQLite database file")
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
 

@@ -15,10 +15,10 @@ the repo root. Adjust CHARACTERS_DB_PATH if your layout differs.
 from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from core.config.characters import CHARACTER_DB_PATH as DB_PATH
+from core.config.data import CHARACTERS_DB
 
 # Create the SQLite URL
-DATABASE_URL = f"sqlite:///{DB_PATH}"
+DATABASE_URL = f"sqlite:///{CHARACTERS_DB}"
 
 engine = create_engine(
     DATABASE_URL, connect_args={"check_same_thread": False}

@@ -7,11 +7,10 @@ these *down* from one place instead of reaching laterally into each other.
 No FastAPI, no Azure, no network -- pure text logic.
 """
 
-import os
 import re
-import json
 from pypinyin import pinyin, Style
-from core.config.textbook import INDEX_OUTPUT_JSON
+from sqlalchemy.orm import Session
+from textbook import crud
 
 # ----------------------------- OVERRIDES / DICT -----------------------------
 
@@ -67,22 +66,6 @@ def hanzi_numbers_to_digits(text: str) -> str:
         i = j
     return "".join(out)
 
-# Single-character pinyin from the curated index. Word-keyed multi-char entries
-# are skipped -- per-character grading only needs single characters, and
-# pypinyin handles those correctly as a fallback.
-CHAR_PINYIN = {}
-try:
-    _index_path = INDEX_OUTPUT_JSON
-    with open(_index_path, 'r', encoding='utf-8') as f:
-        _index = json.load(f)
-    for _section in _index.values():          # vocab, grammar, proper_nouns
-        for _entry in _section:
-            _h = _entry.get("hanzi", "")
-            if len(_h) == 1:
-                CHAR_PINYIN[_h] = _entry["pinyin"]
-    print(f"Loaded {len(CHAR_PINYIN)} single-char pinyin entries")
-except Exception as e:
-    print(f"Could not load index_output.json ({e}); using pypinyin only")
 
 # ----------------------------- PUNCTUATION / PINYIN -----------------------------
 
@@ -106,10 +89,13 @@ def to_numbered_pinyin(text: str) -> str:
     return ''.join(parts).lower()
 
 
-def char_to_pinyin(ch: str) -> str:
-    """Single character -> numeric pinyin. Curated dict first, pypinyin fallback."""
-    if ch in CHAR_PINYIN:
-        return CHAR_PINYIN[ch]
+def char_to_pinyin(db: Session, ch: str) -> str:
+    """Single character -> numeric pinyin. DB lookup first (crud.py's
+    cached get_pinyin_for_word), pypinyin fallback for characters not in
+    Vocab (e.g. punctuation-adjacent or never-taught chars)."""
+    pinyin = crud.get_pinyin_for_word(db, ch)
+    if pinyin:
+        return pinyin
     return to_numbered_pinyin(ch)
 
 
@@ -232,18 +218,9 @@ def tones_match(t_pinyin: str, e_pinyin: str) -> bool:
 
 # ----------------------------- SPEAKING-SENTENCE GRADING -----------------------------
 
-def grade_speaking_sentence(transcription: str, expected_hanzi: str) -> bool:
-
+def grade_speaking_sentence(transcription: str, expected_hanzi: str, db: Session) -> bool:
     """
-    Grade a speaking-sentence attempt by comparing HANZI first, dropping to
-    per-character pinyin only where characters differ. Homophones (他/她 both
-    ta1) get credit since this is a spoken exercise; tones always count;
-    neutral tone is forgiven as a last resort.
-
-    Number characters in the expected text are normalized to Arabic digits
-    first, since that's what Azure hands back for spoken numbers -- otherwise
-    a number-only sentence (一三四六五) could never match its transcription
-    ("13465"), and the per-character fallback would try to pinyin-ify digits.
+    ... (docstring unchanged) ...
     """
     t = strip_punct(hanzi_numbers_to_digits(transcription))
     e = strip_punct(hanzi_numbers_to_digits(expected_hanzi))
@@ -252,13 +229,12 @@ def grade_speaking_sentence(transcription: str, expected_hanzi: str) -> bool:
         return True
     if len(t) != len(e):
         return False
-    
 
     for tc, ec in zip(t, e):
         if tc == ec:
             continue
-        tb, tt = _base_tone(char_to_pinyin(tc))
-        eb, et = _base_tone(char_to_pinyin(ec))
+        tb, tt = _base_tone(char_to_pinyin(db, tc))
+        eb, et = _base_tone(char_to_pinyin(db, ec))
         if tb != eb:
             return False
         if tt != et:

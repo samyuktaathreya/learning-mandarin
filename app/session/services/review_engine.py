@@ -16,7 +16,7 @@ def is_facet_review_eligible(tier: int, facet_count: int) -> bool:
     return tier >= MAX_TIER and facet_count >= GRADUATION_THRESHOLD
 
 
-def _all_review_eligible_facets(db: Session, textbook_db: Session, user_id: int) -> list:
+def _all_review_eligible_facets(db: Session, textbook_db: Session, user_id: int, hsk_level: int = 1) -> list:
     """Every (word, facet) pair that is SERVING-eligible for review: tier 4 +
     facet_count >= GRADUATION_THRESHOLD, AND the word's teaching unit is
     strictly before the current unit. A word still being learned in the current
@@ -42,17 +42,17 @@ def _all_review_eligible_facets(db: Session, textbook_db: Session, user_id: int)
             continue
         if not is_facet_review_eligible(tiers.get(r.tag, 1), r.correct_count):
             continue
-        teaching_unit = textbook_services.get_tag_home_unit(textbook_db, r.tag)
+        teaching_unit = textbook_services.get_tag_home_unit(textbook_db, r.tag, hsk_level)
         if teaching_unit is None or teaching_unit >= current_unit:
             continue  # word's own unit isn't finished -- not review-eligible yet
         eligible.append((r.tag, r.facet, r))
     return eligible
 
 
-def _due_review_facets(db: Session, textbook_db: Session, user_id: int) -> list:
+def _due_review_facets(db: Session, textbook_db: Session, user_id: int, hsk_level: int = 1) -> list:
     now = datetime.utcnow()
     scored = []
-    for tag, facet, r in _all_review_eligible_facets(db, textbook_db, user_id):
+    for tag, facet, r in _all_review_eligible_facets(db, textbook_db, user_id, hsk_level):
         strength = 0.5 ** ((now - r.last_practice).total_seconds() / 86400 / r.stability)
         if strength < REVIEW_THRESHOLD:
             scored.append((tag, facet, strength))
@@ -61,7 +61,7 @@ def _due_review_facets(db: Session, textbook_db: Session, user_id: int) -> list:
 
 
 def _pick_review_question(textbook_db: Session, tag: str, facet: str, used_ids: set,
-                          max_unit: int, seen_counts: dict):
+                          max_unit: int, seen_counts: dict, hsk_level: int = 1):
     """Review picker, routed by which facet is actually due.
 
     pinyin facet due: 80% "transcribe hanzi to pinyin" (isolated recall --
@@ -103,7 +103,7 @@ def _pick_review_question(textbook_db: Session, tag: str, facet: str, used_ids: 
     for qt in ordered_types:
         pool = [
             q for q in textbook_services.get_questions_for_tag_up_to_unit(
-                textbook_db, tag, max_unit, question_type=qt
+                textbook_db, tag, max_unit, question_type=qt, hsk_level=hsk_level
             )
             if q["id"] not in used_ids
         ]
@@ -122,13 +122,15 @@ def _pick_review_question(textbook_db: Session, tag: str, facet: str, used_ids: 
 
 
 def generate_review_questions(db: Session, textbook_db: Session, user_id, used_ids, limit=None):
-    max_unit = crud.get_user(db, user_id).current_unit - 1
+    user = crud.get_user(db, user_id)
+    hsk_level = getattr(user, "hsk_level", 1)
+    max_unit = user.current_unit - 1
     seen_counts = crud.get_seen_question_counts(db, user_id)
     picks = []
-    for tag, facet in _due_review_facets(db, textbook_db, user_id):
+    for tag, facet in _due_review_facets(db, textbook_db, user_id, hsk_level):
         if limit is not None and len(picks) >= limit:
             break
-        q = _pick_review_question(textbook_db, tag, facet, used_ids, max_unit, seen_counts)
+        q = _pick_review_question(textbook_db, tag, facet, used_ids, max_unit, seen_counts, hsk_level)
         if q:
             picks.append((q, tag))
             used_ids.add(q["id"])
@@ -142,12 +144,14 @@ def _project_strength(r, days_ahead: float) -> float:
 
 
 def review_due_word_count(db: Session, textbook_db: Session, user_id) -> int:
-    return len({tag for tag, _facet in _due_review_facets(db, textbook_db, user_id)})
+    hsk_level = getattr(crud.get_user(db, user_id), "hsk_level", 1)
+    return len({tag for tag, _facet in _due_review_facets(db, textbook_db, user_id, hsk_level)})
 
 
 def review_due_tomorrow_word_count(db: Session, textbook_db: Session, user_id) -> int:
+    hsk_level = getattr(crud.get_user(db, user_id), "hsk_level", 1)
     tags = set()
-    for tag, facet, r in _all_review_eligible_facets(db, textbook_db, user_id):
+    for tag, facet, r in _all_review_eligible_facets(db, textbook_db, user_id, hsk_level):
         if _project_strength(r, 1.0) < REVIEW_THRESHOLD:
             tags.add(tag)
     return len(tags)
