@@ -89,11 +89,11 @@ def to_numbered_pinyin(text: str) -> str:
     return ''.join(parts).lower()
 
 
-def char_to_pinyin(db: Session, ch: str) -> str:
+def char_to_pinyin(textbook_db: Session, ch: str) -> str:
     """Single character -> numeric pinyin. DB lookup first (crud.py's
     cached get_pinyin_for_word), pypinyin fallback for characters not in
     Vocab (e.g. punctuation-adjacent or never-taught chars)."""
-    pinyin = crud.get_pinyin_for_word(db, ch)
+    pinyin = crud.get_pinyin_for_word(textbook_db, ch)
     if pinyin:
         return pinyin
     return to_numbered_pinyin(ch)
@@ -218,10 +218,8 @@ def tones_match(t_pinyin: str, e_pinyin: str) -> bool:
 
 # ----------------------------- SPEAKING-SENTENCE GRADING -----------------------------
 
-def grade_speaking_sentence(transcription: str, expected_hanzi: str, db: Session) -> bool:
-    """
-    ... (docstring unchanged) ...
-    """
+def grade_speaking_sentence(transcription: str, expected_hanzi: str, textbook_db: Session) -> bool:
+
     t = strip_punct(hanzi_numbers_to_digits(transcription))
     e = strip_punct(hanzi_numbers_to_digits(expected_hanzi))
 
@@ -233,8 +231,8 @@ def grade_speaking_sentence(transcription: str, expected_hanzi: str, db: Session
     for tc, ec in zip(t, e):
         if tc == ec:
             continue
-        tb, tt = _base_tone(char_to_pinyin(db, tc))
-        eb, et = _base_tone(char_to_pinyin(db, ec))
+        tb, tt = _base_tone(char_to_pinyin(textbook_db, tc))
+        eb, et = _base_tone(char_to_pinyin(textbook_db, ec))
         if tb != eb:
             return False
         if tt != et:

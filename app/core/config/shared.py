@@ -6,6 +6,7 @@ CONFIG_DIR = Path(__file__).resolve().parent              # app/core/config
 CORE_DIR = CONFIG_DIR.parent                              # app/core
 APP_DIR = CORE_DIR.parent                                 # app
 ROOT_DIR = APP_DIR.parent                                 # learning-mandarin (Repo Root)
+BASE_DIR = ROOT_DIR  # ... sometimes i forget whether it's called BASE_DIR or ROOT_DIR...
 
 # Paths
 ENV_FILE = APP_DIR / ".env"

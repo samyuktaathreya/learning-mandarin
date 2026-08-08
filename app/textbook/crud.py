@@ -86,13 +86,11 @@ def clear_cache():
 # Replaces unit_to_vocab_tags_dict[unit] (built once from unit_vocab_tags.json
 # at import). One row per unit's set of taught vocab hanzi.
 
-def get_vocab_tags_for_unit(db: Session, unit_number: int) -> set:
-    """Which vocab hanzi are taught in this unit. Mirrors the old
-    unit_to_vocab_tags_dict.get(unit, set()) -- includes vocab/grammar/
-    proper_noun word_types (everything EXCEPT "auto" fallback words, which
-    were never in unit_vocab_tags.json either since they have no real home
-    unit)."""
-    cache_key = ("vocab_tags_for_unit", unit_number)
+def get_vocab_tags_for_unit(db: Session, unit_number: int, hsk_level: int = 1) -> set:
+    """Which vocab hanzi are taught in this unit. unit_number alone no
+    longer uniquely identifies a Unit row -- (unit_number, hsk_level)
+    together do, since numbering restarts per level."""
+    cache_key = ("vocab_tags_for_unit", unit_number, hsk_level)
     cached, hit = _cache.get(cache_key)
     if hit:
         return cached
@@ -100,7 +98,11 @@ def get_vocab_tags_for_unit(db: Session, unit_number: int) -> set:
     rows = (
         db.query(Vocab.hanzi)
         .join(Unit, Vocab.unit_id == Unit.id)
-        .filter(Unit.unit_number == unit_number, Vocab.word_type != WordType.auto)
+        .filter(
+            Unit.unit_number == unit_number,
+            Unit.hsk_level == hsk_level,
+            Vocab.word_type != WordType.auto,
+        )
         .all()
     )
     result = {r.hanzi for r in rows}
@@ -186,7 +188,7 @@ def _question_to_dict(db: Session, q: Question, unit_number: int) -> dict:
     }
 
 
-def get_questions_for_tag(db: Session, tag: str, unit_number: int,
+def get_questions_for_tag(db: Session, tag: str, unit_number: int, hsk_level: int = 1,
                           question_type: Optional[str] = None) -> list:
     """Replaces inverted_index.get(tag, []), filtered to a specific unit
     (the old code did `q.get("unit") == unit` as a separate filter step
@@ -196,7 +198,7 @@ def get_questions_for_tag(db: Session, tag: str, unit_number: int,
     word question, tag must equal the tested word; for a sentence question,
     tag must be any word IN that sentence. This matches the old inverted
     index's construction (indexed under every tag in q["tags"])."""
-    cache_key = ("questions_for_tag", tag, unit_number, question_type)
+    cache_key = ("questions_for_tag", tag, unit_number, hsk_level, question_type)
     cached, hit = _cache.get(cache_key)
     if hit:
         return cached
@@ -206,7 +208,10 @@ def get_questions_for_tag(db: Session, tag: str, unit_number: int,
         _cache.set(cache_key, [])
         return []
 
-    unit = db.query(Unit).filter(Unit.unit_number == unit_number).first()
+    unit = db.query(Unit).filter(
+        Unit.unit_number == unit_number,
+        Unit.hsk_level == hsk_level,
+    ).first()
     if unit is None:
         _cache.set(cache_key, [])
         return []
@@ -233,8 +238,6 @@ def get_questions_for_tag(db: Session, tag: str, unit_number: int,
         sentence_q = sentence_q.filter(Question.question_type == question_type)
 
     all_questions = list(word_q.all()) + list(sentence_q.all())
-    # de-dupe (a sentence question could theoretically double-match if a
-    # word appears twice in one sentence -- SentenceVocab now allows that)
     seen_ids = set()
     deduped = []
     for q in all_questions:
@@ -247,15 +250,18 @@ def get_questions_for_tag(db: Session, tag: str, unit_number: int,
     return result
 
 
-def get_questions_for_tag_up_to_unit(db: Session, tag: str, max_unit: int,
+def get_questions_for_tag_up_to_unit(db: Session, tag: str, max_unit: int, max_hsk_level: int = 1,
                                      question_type: Optional[str] = None) -> list:
-    """Like get_questions_for_tag, but across every unit <= max_unit rather
-    than one exact unit. This is what review needs: a review question for a
-    word taught in unit 2 can legitimately come from unit 2, 3, or 4's
-    question bank (any unit the learner has already reached), not just the
-    word's home unit. Replaces the old `q.get("unit", 0) <= max_unit` filter
-    that used to run over inverted_index.get(tag, []) in review_engine.py."""
-    cache_key = ("questions_for_tag_up_to_unit", tag, max_unit, question_type)
+    """Like get_questions_for_tag, but across every unit the user has
+    already passed -- ALL units in every hsk_level strictly below
+    max_hsk_level, plus units <= max_unit within max_hsk_level itself.
+    e.g. a user on hsk_level=3, unit=2 can review from all of hsk_level 1,
+    all of hsk_level 2, and hsk_level 3's unit 1 (not unit 2, their current
+    unit -- that's still being learned, not yet review-eligible).
+
+    Replaces the old `q.get("unit", 0) <= max_unit` filter that used to run
+    over inverted_index.get(tag, []) in review_engine.py."""
+    cache_key = ("questions_for_tag_up_to_unit", tag, max_unit, max_hsk_level, question_type)
     cached, hit = _cache.get(cache_key)
     if hit:
         return cached
@@ -265,9 +271,16 @@ def get_questions_for_tag_up_to_unit(db: Session, tag: str, max_unit: int,
         _cache.set(cache_key, [])
         return []
 
+    from sqlalchemy import or_, and_
+
     unit_ids_subq = (
         db.query(Unit.id, Unit.unit_number)
-        .filter(Unit.unit_number <= max_unit)
+        .filter(
+            or_(
+                Unit.hsk_level < max_hsk_level,
+                and_(Unit.hsk_level == max_hsk_level, Unit.unit_number <= max_unit),
+            )
+        )
         .subquery()
     )
 
@@ -297,24 +310,34 @@ def get_questions_for_tag_up_to_unit(db: Session, tag: str, max_unit: int,
             seen_ids.add(q.id)
             deduped.append(q)
 
-    # unit number per question, needed for _question_to_dict's "unit" field
-    unit_number_by_id = {u.id: u.unit_number for u in db.query(Unit).filter(Unit.unit_number <= max_unit).all()}
+    unit_number_by_id = {
+        u.id: u.unit_number
+        for u in db.query(Unit).filter(
+            or_(
+                Unit.hsk_level < max_hsk_level,
+                and_(Unit.hsk_level == max_hsk_level, Unit.unit_number <= max_unit),
+            )
+        ).all()
+    }
     result = [_question_to_dict(db, q, unit_number_by_id.get(q.unit_id)) for q in deduped]
     _cache.set(cache_key, result)
     return result
 
 
-def get_all_questions_for_unit(db: Session, unit_number: int) -> list:
+def get_all_questions_for_unit(db: Session, unit_number: int, hsk_level: int = 1) -> list:
     """Replaces `unit_questions.get(str(unit), [])` -- every Question row in
     a unit, regardless of tag/type. Used by generate_unit_test, which then
     filters down to ALL_TIER_QUESTION_TYPES itself; unlike
     get_questions_for_tag, this isn't scoped to one word at all."""
-    cache_key = ("all_questions_for_unit", unit_number)
+    cache_key = ("all_questions_for_unit", unit_number, hsk_level)
     cached, hit = _cache.get(cache_key)
     if hit:
         return cached
 
-    unit = db.query(Unit).filter(Unit.unit_number == unit_number).first()
+    unit = db.query(Unit).filter(
+        Unit.unit_number == unit_number,
+        Unit.hsk_level == hsk_level,
+    ).first()
     if unit is None:
         _cache.set(cache_key, [])
         return []
@@ -323,7 +346,6 @@ def get_all_questions_for_unit(db: Session, unit_number: int) -> list:
     result = [_question_to_dict(db, q, unit_number) for q in questions]
     _cache.set(cache_key, result)
     return result
-
 
 def get_question_by_id(db: Session, question_db_id: int, unit_number: Optional[int] = None) -> Optional[dict]:
     """Fetch a single question by its real DB id (not legacy_id -- use a
@@ -387,26 +409,26 @@ def get_all_vocab_hanzi(db: Session) -> set:
     return result
 
 
-def get_all_unit_numbers(db: Session) -> list:
-    """Replaces `unit_questions.keys()` -- the old code iterated
-    unit_questions.json's top-level keys to get "every unit that has
-    questions." Same intent here: every unit that has at least one Question
-    row, ascending. (Not just every Unit row -- a unit could exist as a row
-    with, say, only vocab extracted so far and no questions generated yet;
-    /api/progress's loop specifically wants units that are ready to show
-    progress for.)"""
-    cache_key = ("all_unit_numbers",)
+def get_all_unit_numbers(db: Session, hsk_level: Optional[int] = None) -> list:
+    """Replaces `unit_questions.keys()` -- every unit that has at least one
+    Question row, ascending. Optionally filtered to a single hsk_level so a
+    user only sees units belonging to their current HSK track (all units are
+    hsk_level=1 today, but this keeps the door open as more levels are
+    loaded)."""
+    cache_key = ("all_unit_numbers", hsk_level)
     cached, hit = _cache.get(cache_key)
     if hit:
         return cached
 
-    rows = (
+    query = (
         db.query(Unit.unit_number)
         .join(Question, Question.unit_id == Unit.id)
         .distinct()
-        .order_by(Unit.unit_number)
-        .all()
     )
-    result = [r.unit_number for r in rows]
+    if hsk_level is not None:
+        query = query.filter(Unit.hsk_level == hsk_level)
+    query = query.order_by(Unit.unit_number)
+
+    result = [r.unit_number for r in query.all()]
     _cache.set(cache_key, result)
     return result

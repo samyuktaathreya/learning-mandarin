@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from characters.services import generate_character_questions
 from characters.database import get_characters_db
+from textbook.database import get_textbook_db
 from core.database import SessionLocal
 import characters.schemas
 import characters.crud
@@ -20,8 +21,9 @@ router = APIRouter()
 @router.get("/api/character_practice/{user_id}")
 def character_practice(user_id: int, num_questions: int = 10,
                        db: Session = Depends(get_db),
-                       characters_db: Session = Depends(get_characters_db)):
-    questions = generate_character_questions(db, characters_db, user_id, num_questions)
+                       characters_db: Session = Depends(get_characters_db),
+                       textbook_db: Session = Depends(get_textbook_db)):
+    questions = generate_character_questions(db, characters_db, textbook_db, user_id, num_questions)
     return {"user_id": user_id, "question_set": questions}
 
 @router.get("/api/characters/decompose")

@@ -180,7 +180,7 @@ def transcribe_with_azure(audio_path: str, expected: str = "") -> str:
 
 # ------------------------- FULL PIPELINE -------------------------
 
-async def process_spoken_audio(audio_bytes: bytes, expected: str, hanzi: str, question_type: str) -> dict:
+async def process_spoken_audio(audio_bytes: bytes, expected: str, hanzi: str, question_type: str, db: Session) -> dict:
     """Handles FFmpeg conversion, decides between assessment/transcription, and grades the result."""
     # Use unique filenames to prevent concurrency overwrites
     temp_id = uuid.uuid4().hex
@@ -292,7 +292,7 @@ async def process_spoken_audio(audio_bytes: bytes, expected: str, hanzi: str, qu
             is_correct = grade_speaking_sentence(transcription_hanzi, hanzi, db)
         else:
             is_correct = tones_match(transcription_pinyin, expected_pinyin)
-
+            
         return {
             "transcription": transcription_hanzi,
             "transcription_pinyin": transcription_pinyin,

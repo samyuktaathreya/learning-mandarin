@@ -9,6 +9,10 @@ from core.database import engine, Base
 from scripts.seed import init_db
 from session_log import reset_log
 
+from textbook.models import Base as TextbookBase
+from textbook.db_utils import engine as textbook_engine
+from scripts.seed import init_db
+
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
 
 app.add_middleware(
@@ -24,10 +28,14 @@ if os.path.exists("../frontend/public"):
 else:
     print("Warning: ../frontend/public not found. Static files bypassed.")
 
-
 @app.on_event("startup")
 def on_startup():
+    # Core/session database
     Base.metadata.create_all(bind=engine)
+    
+    # Textbook database (vocab, sentences, questions, etc.)
+    TextbookBase.metadata.create_all(bind=textbook_engine)
+    
     init_db()
     reset_log()
     cache_dir = "./audio_cache"
@@ -35,7 +43,6 @@ def on_startup():
         shutil.rmtree(cache_dir)
     os.makedirs(cache_dir, exist_ok=True)
     print("Audio cache cleared on startup.")
-
 
 # --- Feature-Based Routers ---
 

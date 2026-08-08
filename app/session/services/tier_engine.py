@@ -128,8 +128,8 @@ def generate_tier_questions(db: Session, textbook_db: Session, user_id: int, uni
             # get_questions_for_tag is already unit- and (optionally) type-filtered,
             # so only the used_ids exclusion still needs to happen here.
             avail = [
-                q for q in services.get_questions_for_tag(textbook_db, tag, unit, question_type=qt,
-                                                          hsk_level=hsk_level)
+                q for q in services.get_questions_for_tag(textbook_db, tag, unit, hsk_level=hsk_level, 
+                                                          question_type=qt,)
                 if q["id"] not in used_ids
             ]
             if not avail:

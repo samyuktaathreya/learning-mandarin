@@ -42,7 +42,7 @@ def _all_review_eligible_facets(db: Session, textbook_db: Session, user_id: int,
             continue
         if not is_facet_review_eligible(tiers.get(r.tag, 1), r.correct_count):
             continue
-        teaching_unit = textbook_services.get_tag_home_unit(textbook_db, r.tag, hsk_level)
+        teaching_unit = textbook_services.get_tag_home_unit(textbook_db, r.tag)
         if teaching_unit is None or teaching_unit >= current_unit:
             continue  # word's own unit isn't finished -- not review-eligible yet
         eligible.append((r.tag, r.facet, r))
@@ -103,7 +103,7 @@ def _pick_review_question(textbook_db: Session, tag: str, facet: str, used_ids: 
     for qt in ordered_types:
         pool = [
             q for q in textbook_services.get_questions_for_tag_up_to_unit(
-                textbook_db, tag, max_unit, question_type=qt, hsk_level=hsk_level
+                textbook_db, tag, max_unit, hsk_level=hsk_level, question_type=qt
             )
             if q["id"] not in used_ids
         ]

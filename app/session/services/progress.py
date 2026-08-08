@@ -9,6 +9,7 @@ from session.crud import get_tiers_for_tags, get_progress_by_user, get_user
 from session.constants import GRADUATION_THRESHOLD, REVIEW_THRESHOLD
 from textbook import services as textbook_services
 from session.services.review_engine import is_facet_review_eligible
+from session import crud as session_crud
 
 
 class _CollapsedRecord:
@@ -54,22 +55,23 @@ def is_unit_graduated(db: Session, user_id: int, tag_records: list, unit_tags: s
             return False
     return True
 
+from session import crud as session_crud
+
 def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int) -> dict:
-    """Replaces the per-unit loop that used to live directly in
-    router.py's /api/progress, walking `unit_questions.keys()` and
-    `unit_to_vocab_tags_dict`. Same output shape as before: {unit_str: {...}}.
-    """
     from session.services.progress import get_collapsed_progress  # avoid circular import at module load
- 
+
+    user = session_crud.get_user(db, user_id)
+    hsk_level = user.hsk_level if user else 1
+
     all_records = get_collapsed_progress(db, user_id)
     record_map = {r.tag: r for r in all_records}
- 
+
     unit_progress = {}
-    for unit in get_all_unit_numbers(textbook_db):
+    for unit in get_all_unit_numbers(textbook_db, hsk_level):
         unit_tags = get_unit_vocab_tags(textbook_db, unit)
         if not unit_tags:
             continue
- 
+
         total = len(unit_tags)
         graduated_tags = sum(
             1 for tag in unit_tags
@@ -79,7 +81,7 @@ def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int)
             sum(record_map[tag].correct_count for tag in unit_tags if tag in record_map) / total
             if total > 0 else 0
         )
- 
+
         unit_progress[str(unit)] = {
             "unit": unit,
             "total_tags": total,
@@ -87,7 +89,7 @@ def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int)
             "progress_pct": round(graduated_tags / total * 100) if total > 0 else 0,
             "avg_correct_count": round(avg_correct, 1),
         }
- 
+
     return unit_progress
  
  

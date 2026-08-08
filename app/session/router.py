@@ -2,7 +2,7 @@ from datetime import datetime
 
 from fastapi import APIRouter, Depends, Body, HTTPException
 from sqlalchemy.orm import Session
-
+from textbook.database import get_textbook_db
 from session.database import get_db
 from session.schemas import SessionResponse
 from session.crud import get_user, get_tiers_for_tags, get_graduated_units, get_progress_by_user
@@ -46,9 +46,10 @@ def submit_session(
     is_correct: list[bool] = Body(...),
     is_unit_test: bool = Body(...),
     mode: str = Body("sentence"),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    textbook_db: Session = Depends(get_textbook_db),
 ):
-    return process_submission(db, user_id, list_of_question_data, is_correct, is_unit_test, mode)
+    return process_submission(db, textbook_db, user_id, list_of_question_data, is_correct, is_unit_test, mode)
 
 
 @router.get("/api/debug/{user_id}")

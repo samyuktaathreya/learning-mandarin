@@ -119,7 +119,7 @@ def generate_full_session(db: Session, characters_db: Session, textbook_db: Sess
     # 3. Standard practice session: generate, attach tips, add character questions, shuffle
     session = attach_tips(db, generate_practice_session(db, textbook_db, user_id, user_unit))
 
-    character_qs = generate_character_questions(db, characters_db, user_id, num_questions=2)
+    character_qs = generate_character_questions(db, characters_db, textbook_db, user_id, num_questions=2)
     session.question_set.extend(character_qs)
 
     random.shuffle(session.question_set)
@@ -136,6 +136,7 @@ def generate_full_session(db: Session, characters_db: Session, textbook_db: Sess
 
 def process_submission(
     db: Session,
+    textbook_db: Session,
     user_id: int,
     list_of_question_data: list,
     is_correct: list,
@@ -205,8 +206,11 @@ def process_submission(
                     facet_probation_clears.add((tag, facet))
 
         if question_type == "speaking vocab":
-            for sound in _tag_sounds(question_data.get("question", "")):
-                crud.record_sound_attempt(db, user_id, sound, is_correct[i])
+            for tag in question_data.get("tags", []):
+                if tag in META_TAGS or tag.startswith("unit_"):
+                    continue
+                for sound in _tag_sounds(textbook_db, tag):
+                    crud.record_sound_attempt(db, user_id, sound, is_correct[i])
 
     # Passive Tier Advancement Check:
     # A tag qualifies for advancement if it appears in a question whose tier meets or

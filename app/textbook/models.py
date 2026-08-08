@@ -45,13 +45,18 @@ class Unit(Base):
     __tablename__ = "units"
 
     id = Column(Integer, primary_key=True)
-    unit_number = Column(Integer, nullable=False, unique=True)
+    unit_number = Column(Integer, nullable=False)
     title = Column(Text, nullable=True)
+    hsk_level = Column(Integer, nullable=False, default=1, server_default="1")
 
     vocab = relationship("Vocab", back_populates="unit", cascade="all, delete-orphan")
     sentences = relationship("Sentence", back_populates="unit", cascade="all, delete-orphan")
     grammar_tips = relationship("GrammarTip", back_populates="unit", cascade="all, delete-orphan")
 
+    __table_args__ = (
+        UniqueConstraint("unit_number", "hsk_level", name="_unit_number_hsk_level_uc"),
+    )
+    
 
 class Vocab(Base):
     __tablename__ = "vocab"

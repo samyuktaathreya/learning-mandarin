@@ -73,9 +73,9 @@ QUESTION_TYPE_FACETS = crud.QUESTION_TYPE_FACETS  # re-exported; crud.py itself 
 # New code should probably just import crud directly instead of going
 # through this indirection layer.
 
-def get_unit_vocab_tags(db: Session, unit: int) -> set:
+def get_unit_vocab_tags(db: Session, unit: int, hsk_level: int = 1) -> set:
     """Replaces unit_to_vocab_tags_dict.get(unit, set())."""
-    return crud.get_vocab_tags_for_unit(db, unit)
+    return crud.get_vocab_tags_for_unit(db, unit, hsk_level)
 
 
 def get_tag_home_unit(db: Session, tag: str) -> int | None:
@@ -88,19 +88,22 @@ def get_unit_tags(db: Session, unit: int) -> set:
     return crud.get_unit_to_tags_map(db).get(unit, set())
 
 
-def get_questions_for_tag(db: Session, tag: str, unit: int, question_type: str = None) -> list:
+def get_questions_for_tag(db: Session, tag: str, unit: int, hsk_level: int, question_type: str = None) -> list:
     """Replaces inverted_index.get(tag, []) (already unit-filtered, unlike
     the old inverted_index which needed a separate `q.get("unit") == unit`
     filter step at the call site -- see crud.get_questions_for_tag)."""
-    return crud.get_questions_for_tag(db, tag, unit, question_type)
+    return crud.get_questions_for_tag(db, tag, unit, hsk_level, question_type)
 
 
-def get_questions_for_tag_up_to_unit(db: Session, tag: str, max_unit: int, question_type: str = None) -> list:
+def get_questions_for_tag_up_to_unit(db: Session, tag: str, max_unit: int, question_type: str = None, hsk_level: int = 1) -> list:
     """Replaces the old `inverted_index.get(tag, [])` filtered inline by
     `q.get("unit", 0) <= max_unit` -- used by review_engine.py, where a due
     review word can be quizzed using ANY unit's question bank up to the
-    learner's current unit, not just its home unit."""
-    return crud.get_questions_for_tag_up_to_unit(db, tag, max_unit, question_type)
+    learner's current unit (and any HSK level strictly below it), not just
+    its home unit."""
+    return crud.get_questions_for_tag_up_to_unit(
+        db, tag, max_unit, max_hsk_level=hsk_level, question_type=question_type
+    )
 
 
 def get_all_questions_for_unit(db: Session, unit_number: int) -> list:
@@ -125,9 +128,9 @@ def get_all_vocab_tags(db: Session) -> set:
     return crud.get_all_vocab_hanzi(db)
 
 
-def get_all_unit_numbers(db: Session) -> list:
+def get_all_unit_numbers(db: Session, hsk_level) -> list:
     """Replaces iterating unit_questions.keys()."""
-    return crud.get_all_unit_numbers(db)
+    return crud.get_all_unit_numbers(db, hsk_level)
 
 
 def lookup_word(db: Session, hanzi: str) -> dict:

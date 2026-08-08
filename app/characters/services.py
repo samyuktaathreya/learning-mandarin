@@ -310,6 +310,7 @@ def build_radical_meaning_question(radical_char: str, characters_db: Session) ->
 def generate_character_questions(
     db: Session,
     characters_db: Session,
+    textbook_db: Session,
     user_id: int,
     num_questions: int = 2,
 ) -> list[dict]:
@@ -348,9 +349,9 @@ def generate_character_questions(
             if random.random() < 0.70:
                 q = build_spot_the_difference_question(tag, db, characters_db)
                 if not q:
-                    q = build_pinyin_to_character_question(db, tag, characters_db)
+                    q = build_pinyin_to_character_question(textbook_db, tag, characters_db)
             else:
-                q = build_pinyin_to_character_question(db, tag, characters_db)
+                q = build_pinyin_to_character_question(textbook_db, tag, characters_db)
                 if not q:
                     q = build_spot_the_difference_question(tag, db, characters_db)
             if q:
