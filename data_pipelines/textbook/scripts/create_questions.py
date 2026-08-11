@@ -24,6 +24,7 @@ app might reference directly; if nothing external depends on that string
 anymore, it can be dropped -- included here for parity.
 """
 
+import os
 import re
 from collections import defaultdict
 from enum import Enum
@@ -34,6 +35,10 @@ from app.textbook.db_utils import (
     rehome_sentences, upsert_question, get_word_to_unit_map,
 )
 from app.textbook.models import WordType, FitbQuestion, Unit
+
+# HSK level being processed this run (threaded the same way main.py already
+# threads UNITS_TO_PROCESS / SOURCES_TO_PROCESS to sentence_parser.py).
+HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
 
 
 class QuestionType(str, Enum):
@@ -65,8 +70,24 @@ def content_tags_for(hanzi_text: str, all_hanzi: list[str]) -> list[str]:
     return [w for w in all_hanzi if w in hanzi_text]
 
 
-def has_unlearned_vocab(tags: list[str], unit_number: int, home_unit: dict) -> bool:
-    return any(home_unit.get(t, unit_number) > unit_number for t in tags)
+def _word_location_after(word_location, hsk_level: int, unit_number: int) -> bool:
+    """True if a word's home unit is STRICTLY LATER than (hsk_level, unit_number)
+    -- i.e. not yet taught. home_unit's values need to be (unit_number,
+    hsk_level) tuples now that unit_number alone is ambiguous across levels
+    (see db.get_word_to_unit_map). HSK levels are sequential, so tuple
+    comparison is correct. Falls back to treating a bare int as hsk_level 1
+    for backward compatibility if db_utils hasn't been updated yet."""
+    if isinstance(word_location, tuple):
+        word_unit_number, word_hsk_level = word_location
+    else:
+        word_unit_number, word_hsk_level = word_location, 1
+    return (word_hsk_level, word_unit_number) > (hsk_level, unit_number)
+
+
+def has_unlearned_vocab(tags: list[str], unit_number: int, home_unit: dict,
+                         hsk_level: int = HSK_LEVEL) -> bool:
+    return any(_word_location_after(home_unit.get(t, (unit_number, hsk_level)), hsk_level, unit_number)
+               for t in tags)
 
 
 def reconstruct_fitb_sentence(question: str, answer: str) -> str:
@@ -83,7 +104,7 @@ def extract_fitb_translation(question: str) -> str:
 
 
 def build_vocab_style_questions(db, items, unit_number: int, all_hanzi: list[str],
-                                 home_unit: dict, qtypes: list[str]):
+                                 home_unit: dict, qtypes: list[str], hsk_level: int = HSK_LEVEL):
     """Shared body for vocab / grammar / proper-noun word questions -- same
     (qtype, question, answer) triples the original code emitted per section,
     just parameterized by which qtypes each section allows."""
@@ -92,7 +113,7 @@ def build_vocab_style_questions(db, items, unit_number: int, all_hanzi: list[str
         pinyin = item.pinyin or ""
         english = item.english or ""
         tags = content_tags_for(hanzi, all_hanzi)
-        blocked = has_unlearned_vocab(tags, unit_number, home_unit)
+        blocked = has_unlearned_vocab(tags, unit_number, home_unit, hsk_level=hsk_level)
 
         candidates = {
             QuestionType.LISTENING_VOCAB.value: (hanzi, pinyin),
@@ -108,36 +129,37 @@ def build_vocab_style_questions(db, items, unit_number: int, all_hanzi: list[str
             if qtype in TYPING_REQUIRED_TYPES and blocked:
                 continue
             q_text, a_text = candidates[qtype]
-            upsert_question(db, unit_number, qtype, q_text, a_text, vocab_id=item.id)
+            upsert_question(db, unit_number, qtype, q_text, a_text, vocab_id=item.id, hsk_level=hsk_level)
 
 
-def build_questions_for_unit(db, unit_number: int, all_hanzi: list[str], home_unit: dict):
+def build_questions_for_unit(db, unit_number: int, all_hanzi: list[str], home_unit: dict,
+                              hsk_level: int = HSK_LEVEL):
     # --- vocab / grammar / proper-noun word questions ---
-    vocab_items = get_vocab_for_unit(db, unit_number, word_types=[WordType.vocab])
+    vocab_items = get_vocab_for_unit(db, unit_number, word_types=[WordType.vocab], hsk_level=hsk_level)
     build_vocab_style_questions(db, vocab_items, unit_number, all_hanzi, home_unit, qtypes=[
         QuestionType.LISTENING_VOCAB.value, QuestionType.SPEAKING_VOCAB.value,
         QuestionType.TRANSLATE_EN_TO_ZH_WORD.value, QuestionType.TRANSLATE_ZH_TO_EN_WORD.value,
         QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value,
-    ])
+    ], hsk_level=hsk_level)
 
-    grammar_items = get_vocab_for_unit(db, unit_number, word_types=[WordType.grammar])
+    grammar_items = get_vocab_for_unit(db, unit_number, word_types=[WordType.grammar], hsk_level=hsk_level)
     build_vocab_style_questions(db, grammar_items, unit_number, all_hanzi, home_unit, qtypes=[
         QuestionType.LISTENING_VOCAB.value, QuestionType.SPEAKING_VOCAB.value,
         QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value,
-    ])
+    ], hsk_level=hsk_level)
 
-    proper_items = get_vocab_for_unit(db, unit_number, word_types=[WordType.proper_noun])
+    proper_items = get_vocab_for_unit(db, unit_number, word_types=[WordType.proper_noun], hsk_level=hsk_level)
     build_vocab_style_questions(db, proper_items, unit_number, all_hanzi, home_unit, qtypes=[
         QuestionType.LISTENING_VOCAB.value, QuestionType.SPEAKING_VOCAB.value,
         QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, QuestionType.TRANSLATE_ZH_TO_EN_WORD.value,
         QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value,
-    ])
+    ], hsk_level=hsk_level)
 
     # --- sentence questions (real DB tags, no recomputation) ---
-    for sentence in get_sentences_for_unit(db, unit_number):
+    for sentence in get_sentences_for_unit(db, unit_number, hsk_level=hsk_level):
         hanzi, pinyin, english = sentence.hanzi, sentence.pinyin, sentence.english
         tags = get_tags_for_sentence(db, sentence.id)
-        blocked = has_unlearned_vocab(tags, unit_number, home_unit)
+        blocked = has_unlearned_vocab(tags, unit_number, home_unit, hsk_level=hsk_level)
         # grammar tips ride along for display purposes; not stored on
         # Question itself (they belong to the sentence via SentenceGrammar --
         # fetch them at read-time in your API layer via
@@ -151,35 +173,49 @@ def build_questions_for_unit(db, unit_number: int, all_hanzi: list[str], home_un
         ]:
             if qtype in TYPING_REQUIRED_TYPES and blocked:
                 continue
-            upsert_question(db, unit_number, qtype, q_text, a_text, sentence_id=sentence.id)
+            upsert_question(db, unit_number, qtype, q_text, a_text, sentence_id=sentence.id,
+                             hsk_level=hsk_level)
 
     # --- FITB questions ---
-    unit_row = db.query(Unit).filter(Unit.unit_number == unit_number).first()
+    # Unit lookup now needs BOTH unit_number and hsk_level -- see migration
+    # doc section 3. Without the hsk_level filter this grabs whichever row
+    # SQLite happens to return first once more than one level's units exist.
+    unit_row = (
+        db.query(Unit)
+        .filter(Unit.unit_number == unit_number, Unit.hsk_level == hsk_level)
+        .first()
+    )
     if unit_row:
         fitb_rows = db.query(FitbQuestion).filter(FitbQuestion.unit_id == unit_row.id).all()
         for fq in fitb_rows:
             full_sentence = fq.full_sentence or reconstruct_fitb_sentence(fq.question, fq.answer)
             raw_tags = content_tags_for(full_sentence, all_hanzi)
-            if has_unlearned_vocab(raw_tags, unit_number, home_unit):
+            if has_unlearned_vocab(raw_tags, unit_number, home_unit, hsk_level=hsk_level):
                 continue
             upsert_question(db, unit_number, QuestionType.FILL_IN_THE_BLANK.value,
-                             fq.question, fq.answer, sentence_id=fq.sentence_id)
+                             fq.question, fq.answer, sentence_id=fq.sentence_id,
+                             hsk_level=hsk_level)
 
 
 def main():
     init_db()
     with get_session() as db:
-        print("1. Rehoming sentences to their earliest legitimate unit...")
-        rehome_sentences(db)
+        print(f"1. Rehoming sentences to their earliest legitimate unit (HSK level {HSK_LEVEL})...")
+        # Must stay within this one hsk_level -- a sentence using only HSK1
+        # words shouldn't get rehomed to an HSK2 unit just because the
+        # unit_number happens to be lower there (see migration doc section 3).
+        rehome_sentences(db, hsk_level=HSK_LEVEL)
 
         home_unit = get_word_to_unit_map(db)
         all_hanzi = get_all_vocab_hanzi(db)
 
-        unit_numbers = sorted(u.unit_number for u in db.query(Unit).all())
-        print(f"2. Building questions for {len(unit_numbers)} unit(s)...")
+        unit_numbers = sorted(
+            u.unit_number for u in db.query(Unit).filter(Unit.hsk_level == HSK_LEVEL).all()
+        )
+        print(f"2. Building questions for {len(unit_numbers)} unit(s) in HSK level {HSK_LEVEL}...")
         for unit_number in unit_numbers:
             print(f"  -> unit {unit_number}")
-            build_questions_for_unit(db, unit_number, all_hanzi, home_unit)
+            build_questions_for_unit(db, unit_number, all_hanzi, home_unit, hsk_level=HSK_LEVEL)
 
     print("✅ Done! Questions written directly to the DB.")
 

@@ -18,12 +18,14 @@ Usage:
     python main.py --from-sentences         # Start from sentence_parser (vocab already done)
     python main.py --units 3 4 5            # Selective: only reprocess units 3, 4, 5 in sentence_parser
     python main.py --sources textbook       # Only process textbook (not workbook)
+    python main.py --hsk-level 2            # Process HSK2's raw PDFs/units instead of HSK1 (default)
 """
 
 import json
 import os
 import sys
 import argparse
+from collections import defaultdict
 from pathlib import Path
 from typing import Optional
 
@@ -40,7 +42,7 @@ def run_script(script_name: str, env_overrides: dict = None) -> bool:
     Args:
         script_name: Name of the script (e.g., "vocab_index_parser")
         env_overrides: Dict of environment variable overrides for the script
-            (e.g., {"UNITS_TO_PROCESS": "3,4,5"})
+            (e.g., {"UNITS_TO_PROCESS": "3,4,5", "HSK_LEVEL": "2"})
     
     Returns:
         True if successful, False if failed (errors logged to stderr).
@@ -53,10 +55,16 @@ def run_script(script_name: str, env_overrides: dict = None) -> bool:
     env = os.environ.copy()
     if env_overrides:
         env.update(env_overrides)
-    
-    result = os.system(f"python3 {script_path}")
-    if result != 0:
-        print(f"❌ {script_name} exited with status {result}", file=sys.stderr)
+
+    # NOTE: previously this called os.system(f"python3 {script_path}") without
+    # ever passing `env` through, so env_overrides (UNITS_TO_PROCESS,
+    # SOURCES_TO_PROCESS, and now HSK_LEVEL) were silently ignored by every
+    # subprocess run -- switched to subprocess.run(..., env=env) so overrides
+    # actually reach the child script.
+    import subprocess
+    result = subprocess.run([sys.executable, str(script_path)], env=env)
+    if result.returncode != 0:
+        print(f"❌ {script_name} exited with status {result.returncode}", file=sys.stderr)
         return False
     
     return True
@@ -80,6 +88,17 @@ def print_stats():
             print(f"  Sentences:   {sentences_count}")
             print(f"  FITB Qs:     {fitb_count}")
             print(f"  Questions:   {questions_count}")
+
+            # Units per hsk_level -- flat totals above can't distinguish an
+            # HSK1 gap from an HSK2 gap once more than one level is loaded
+            # (see migration doc section 7, item 5).
+            level_counts = defaultdict(int)
+            for u in db.query(Unit).all():
+                level_counts[u.hsk_level] += 1
+            if len(level_counts) > 1:
+                print("  --- by hsk_level ---")
+                for level in sorted(level_counts):
+                    print(f"    HSK{level}: {level_counts[level]} unit(s)")
             print("=" * 50 + "\n")
     except Exception as e:
         print(f"⚠️  Could not fetch stats: {e}", file=sys.stderr)
@@ -97,6 +116,7 @@ Examples:
   python main.py --units 3 4 5            # Reprocess only units 3, 4, 5
   python main.py --sources textbook       # Only process textbook PDFs
   python main.py --units 3 4 --sources workbook # Units 3, 4 from workbook only
+  python main.py --hsk-level 2                  # Full pipeline for HSK2 raw PDFs
         """
     )
     
@@ -124,6 +144,15 @@ Examples:
         "--from-sync",
         action="store_true",
         help="Run only sync_index_definitions (all other scripts already done)."
+    )
+    parser.add_argument(
+        "--hsk-level",
+        type=int,
+        default=1,
+        help="HSK level to process (e.g., --hsk-level 2). Defaults to 1 to "
+             "match prior behavior. Threaded to every pipeline script via the "
+             "HSK_LEVEL env var, since raw PDFs, OCR caches, and every Unit "
+             "lookup/upsert are now keyed on (unit_number, hsk_level)."
     )
     parser.add_argument(
         "--units",
@@ -168,13 +197,20 @@ Examples:
     elif args.from_sync:
         pipeline = ["sync_index_definitions"]  # only sync
     
-    # Prepare environment overrides for sentence_parser
-    env_overrides = {}
+    # HSK_LEVEL is threaded to EVERY script (raw PDF/OCR paths and every Unit
+    # lookup/upsert now depend on it) -- unlike UNITS_TO_PROCESS/SOURCES_TO_PROCESS,
+    # which stay sentence_parser-only.
+    common_env_overrides = {"HSK_LEVEL": str(args.hsk_level)}
+
+    # Prepare additional environment overrides for sentence_parser
+    sentence_parser_env_overrides = {}
     if args.units:
-        env_overrides["UNITS_TO_PROCESS"] = ",".join(str(u) for u in args.units)
+        sentence_parser_env_overrides["UNITS_TO_PROCESS"] = ",".join(str(u) for u in args.units)
     if args.sources:
-        env_overrides["SOURCES_TO_PROCESS"] = ",".join(args.sources)
+        sentence_parser_env_overrides["SOURCES_TO_PROCESS"] = ",".join(args.sources)
     
+    print(f"🎯 HSK level: {args.hsk_level}")
+
     # Initialize the database (all scripts call init_db themselves, but explicit
     # init here ensures tables exist before we start)
     print("🗄️  Initializing database...")
@@ -190,7 +226,9 @@ Examples:
     for i, script_name in enumerate(pipeline, start=1):
         print(f"[{i}/{len(pipeline)}] Running {script_name}...")
         
-        script_env = env_overrides if script_name == "sentence_parser" else {}
+        script_env = dict(common_env_overrides)
+        if script_name == "sentence_parser":
+            script_env.update(sentence_parser_env_overrides)
         if not run_script(script_name, script_env):
             failed_scripts.append(script_name)
             # Continue to next script rather than failing hard, so partial progress is saved

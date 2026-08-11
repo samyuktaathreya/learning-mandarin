@@ -52,18 +52,25 @@ FITB_FINDER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "fitb_finder.txt"
 FITB_SOLVER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "fitb_solver.txt"
 TAGGER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "tagger.txt"
 
+# NOTE: UNIT_STARTS/LAST_UNIT_END_PAGE/FIRST_UNIT_NUMBER below are HSK1's
+# page layout. Once HSK2+ PDFs are loaded, these will almost certainly
+# differ per level (different books, different page counts) -- this config
+# will need to become per-hsk-level (e.g. a dict keyed by HSK_LEVEL) rather
+# than a single flat literal per source. Left as-is structurally for now
+# since only the file *paths* are known to have changed; flagging this so
+# it isn't missed when HSK2 data actually gets loaded.
 SOURCES = {
     "textbook": {
-        "PDF_FILEPATH": TEXTBOOK_RAW_DIR,
-        "PDF_FILENAME": "hsk1_textbook.pdf",
+        # Raw PDFs are now split per level: .../data/raw/hsk_textbook/{level}.pdf
+        "RAW_SUBDIR": "hsk_textbook",
         "OCR_SOP_FILENAME": SOP_PATH / "sentence_parser" / "ocr.txt",
         "UNIT_STARTS": [34, 42, 50, 60, 68, 76, 84, 92, 102, 110, 118, 124, 132],
         "LAST_UNIT_END_PAGE": 139,
         "FIRST_UNIT_NUMBER": 3,
     },
     "workbook": {
-        "PDF_FILEPATH": TEXTBOOK_RAW_DIR,
-        "PDF_FILENAME": "hsk1_workbook.pdf",
+        # .../data/raw/hsk_workbook/{level}.pdf
+        "RAW_SUBDIR": "hsk_workbook",
         "OCR_SOP_FILENAME": os.path.join("workbook_parser", "ocr.txt"),
         "UNIT_STARTS": [15, 23, 31, 39, 47, 55, 63, 71, 87, 96, 105, 113],
         "LAST_UNIT_END_PAGE": 120,
@@ -84,6 +91,9 @@ TEMPERATURE = 0
 # module-level overrides from main.py
 UNITS_TO_PROCESS = []
 SOURCES_TO_PROCESS = None
+# HSK level being processed this run (main.py passes this the same way it
+# already passes UNITS_TO_PROCESS / SOURCES_TO_PROCESS -- via env override).
+HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
 
 # --------------------------------- SETUP ---------------------------------
 
@@ -123,7 +133,13 @@ def load_added_vocab() -> dict:
 
 def load_word_dicts(db):
     """Was: read word_to_pinyin.json / word_to_unit.json off disk.
-    Now: query the DB (populated by vocab_index_parser.py's run) directly."""
+    Now: query the DB (populated by vocab_index_parser.py's run) directly.
+
+    word_to_pinyin stays a flat {hanzi: pinyin} map (pinyin doesn't depend
+    on hsk_level). word_to_unit needs to become {hanzi: (unit_number,
+    hsk_level)} in db_utils.get_word_to_unit_map -- see _word_is_known_by()
+    above -- since "unit 3" alone is ambiguous once more than one level's
+    units exist."""
     word_to_pinyin = get_word_to_pinyin_map(db)
     word_to_unit = get_word_to_unit_map(db)
     # added = load_added_vocab()
@@ -175,8 +191,11 @@ def extract_json_block(text: str) -> str:
 
 
 def save_llm_response(source: str, unit_number: int, call_name: str, raw_text: str) -> str:
-    os.makedirs(str(LLM_RESPONSES_FILEPATH), exist_ok=True)
-    path = os.path.join(str(LLM_RESPONSES_FILEPATH), f"{source}_unit{unit_number}_{call_name}.txt")
+    # .../LLM_RESPONSES/hsk_textbook/{level}/unit{n}_{call}.txt
+    # .../LLM_RESPONSES/hsk_workbook/{level}/unit{n}_{call}.txt
+    responses_dir = LLM_RESPONSES_FILEPATH / f"hsk_{source}" / str(HSK_LEVEL)
+    os.makedirs(str(responses_dir), exist_ok=True)
+    path = os.path.join(str(responses_dir), f"unit{unit_number}_{call_name}.txt")
     with open(path, "w", encoding="utf-8") as f:
         f.write(raw_text)
     return path
@@ -293,10 +312,30 @@ def normalize_fitb_blanks(fitb_list: list, label: str = "") -> list:
     return normalized
 
 
-def build_known_chars(word_to_unit: dict, unit_number: int) -> set:
+def _word_is_known_by(word_location, target_hsk_level: int, target_unit_number: int) -> bool:
+    """A word counts as already-taught by the time we reach
+    (target_hsk_level, target_unit_number) if its home unit is in an earlier
+    hsk_level entirely, or the same hsk_level at an earlier-or-equal unit.
+    HSK levels are sequential curricula (all of HSK1 precedes all of HSK2),
+    so (hsk_level, unit_number) tuples compare correctly with plain <=.
+
+    word_to_unit's values now need to carry hsk_level alongside unit_number
+    (db.get_word_to_unit_map must return {hanzi: (unit_number, hsk_level)}
+    tuples rather than a bare unit_number) -- otherwise "unit 3" is
+    ambiguous once more than one level exists. Falls back to treating a bare
+    int as hsk_level 1 for backward compatibility if db_utils hasn't been
+    updated yet."""
+    if isinstance(word_location, tuple):
+        word_unit_number, word_hsk_level = word_location
+    else:
+        word_unit_number, word_hsk_level = word_location, 1
+    return (word_hsk_level, word_unit_number) <= (target_hsk_level, target_unit_number)
+
+
+def build_known_chars(word_to_unit: dict, unit_number: int, hsk_level: int = HSK_LEVEL) -> set:
     known = set()
-    for word, unit in word_to_unit.items():
-        if unit <= unit_number:
+    for word, location in word_to_unit.items():
+        if _word_is_known_by(location, hsk_level, unit_number):
             known.update(cjk_only(word))
     return known
 
@@ -428,8 +467,8 @@ def fix_liang(tags: list, pinyins: list, original_runs: list):
     return out_tags, out_pinyins
 
 
-def known_words_for_unit(word_to_unit: dict, unit_number: int) -> list:
-    words = [w for w, u in word_to_unit.items() if u <= unit_number]
+def known_words_for_unit(word_to_unit: dict, unit_number: int, hsk_level: int = HSK_LEVEL) -> list:
+    words = [w for w, loc in word_to_unit.items() if _word_is_known_by(loc, hsk_level, unit_number)]
     words.sort(key=len, reverse=True)
     return words
 
@@ -618,8 +657,12 @@ def expand_fitb(entry: dict) -> list:
 # --------------------------------- AGENT CALLS (unchanged) ---------------------------------
 
 def run_ocr(pdf_bytes: bytes, ocr_sop: str, source: str, unit_number: int) -> str:
-    os.makedirs(str(OCR_CACHE_FILEPATH), exist_ok=True)
-    cache_path = os.path.join(str(OCR_CACHE_FILEPATH), f"{source}_unit{unit_number}.md")
+    # .../OCR_cache/hsk_textbook/{level}_unit{n}.md or .../hsk_workbook/{level}_unit{n}.md
+    # .../OCR_cache/hsk_textbook/{level}/unit{n}.md
+    # .../OCR_cache/hsk_workbook/{level}/unit{n}.md
+    cache_dir = OCR_CACHE_FILEPATH / f"hsk_{source}" / str(HSK_LEVEL)
+    os.makedirs(str(cache_dir), exist_ok=True)
+    cache_path = os.path.join(str(cache_dir), f"unit{unit_number}.md")
     if not FORCE_OCR and os.path.exists(cache_path):
         print(f"  [cache] using cached OCR: {cache_path}")
         with open(cache_path, "r", encoding="utf-8") as f:
@@ -715,6 +758,7 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
         sentence_row = upsert_sentence(
             db,
             unit_number=unit_number,
+            hsk_level=HSK_LEVEL,
             hanzi=rec["hanzi"],
             english=rec["english"],
             pinyin=rec["pinyin"],
@@ -729,7 +773,7 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
 
     # --- write FITB questions straight to the DB ---
     from app.textbook.db_utils import get_or_create_unit
-    unit_row = get_or_create_unit(db, unit_number)
+    unit_row = get_or_create_unit(db, unit_number, hsk_level=HSK_LEVEL)
     # best-effort link back to the sentence a FITB question came from, by
     # matching full_sentence's hanzi content against sentences just written
     sentence_by_content = {cjk_only(s.hanzi): s for s in written_sentences}
@@ -768,7 +812,7 @@ def run_source(db, source: str, word_to_pinyin: dict, word_to_unit: dict) -> lis
         "fitb_solver": load_sop(FITB_SOLVER_FILENAME),
     }
 
-    pdf_path = os.path.join(str(cfg["PDF_FILEPATH"]), cfg["PDF_FILENAME"])
+    pdf_path = os.path.join(str(TEXTBOOK_RAW_DIR), cfg["RAW_SUBDIR"], f"{HSK_LEVEL}.pdf")
     if not os.path.exists(pdf_path):
         print(f"  [warning] {source} PDF not found at {pdf_path}; skipping")
         return []
@@ -792,7 +836,8 @@ def run_pipeline():
         for s in sources:
             all_results.extend(run_source(db, s, word_to_pinyin, word_to_unit))
 
-    print(f"Done. Wrote {len(all_results)} unit-source result(s) directly to the textbook DB.")
+    print(f"Done. Wrote {len(all_results)} unit-source result(s) directly to the textbook DB "
+          f"(HSK level {HSK_LEVEL}).")
     for r in all_results:
         c = r["counts"]
         print(f"  {r['unit']}: {c['sentences_final']} sentences, {c['fitb_questions_final']} FITB questions")

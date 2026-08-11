@@ -41,6 +41,10 @@ MAX_TOKENS = 1024
 TEMPERATURE = 0
 MAX_RETRIES = 2
 
+# HSK level being processed this run (threaded the same way main.py already
+# threads UNITS_TO_PROCESS / SOURCES_TO_PROCESS to sentence_parser.py).
+HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
+
 load_dotenv(ENV_FILE)
 api_key = os.environ.get("CLAUDE_API_KEY")
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
@@ -49,6 +53,21 @@ client = anthropic.Anthropic(api_key=api_key) if api_key else None
 # ---------------------------------------------------------
 # Step 1: Extract Grammar Tips from Markdown (unchanged)
 # ---------------------------------------------------------
+def discover_textbook_units(level_dir: Path) -> list:
+    """Which unit numbers actually have cached textbook OCR for this
+    hsk_level. Scans .../OCR_cache/hsk_textbook/{level}/ for unit{n}.md
+    files. Replaces the old hardcoded range(3, 16), which was HSK1's
+    specific unit numbering and won't hold for other levels."""
+    if not level_dir.exists():
+        return []
+    units = []
+    for f in level_dir.glob("unit*.md"):
+        m = re.match(r"^unit(\d+)\.md$", f.name)
+        if m:
+            units.append(int(m.group(1)))
+    return sorted(units)
+
+
 def parse_grammar_tips() -> dict:
     output_data = {}
     problem_units = []
@@ -60,8 +79,16 @@ def parse_grammar_tips() -> dict:
     section_marker_pattern = re.compile(r'##\s*\[Section:\s*Note\s*\d+\]\s*\n*')
     heading_pattern = re.compile(r'(?m)^(?:##\s*)?(\d+)\s+(?=[^\s\d:])')
 
-    for unit in range(3, 16):
-        file_path = OCR_PATH / f"textbook_unit{unit}.md"
+    # Cached textbook OCR lives under .../OCR_cache/hsk_textbook/{level}/unit{n}.md
+    # matching sentence_parser.py's run_ocr() cache path
+    textbook_ocr_dir = OCR_PATH / "hsk_textbook" / str(HSK_LEVEL)
+    unit_numbers = discover_textbook_units(textbook_ocr_dir)
+    if not unit_numbers:
+        print(f" [warning] No cached textbook OCR found under {textbook_ocr_dir} "
+              f"-- run sentence_parser.py first.")
+
+    for unit in unit_numbers:
+        file_path = textbook_ocr_dir / f"unit{unit}.md"
         if not file_path.exists():
             print(f" [warning] File not found: {file_path.name}")
             continue
@@ -223,7 +250,7 @@ def get_matching_sentences(sop_text: str, structured_tip: dict, hanzi_list: list
 # ---------------------------------------------------------
 def main():
     init_db()
-    print("1. Extracting grammar tips from OCR cache...")
+    print(f"1. Extracting grammar tips from OCR cache (HSK level {HSK_LEVEL})...")
     unit_tips = parse_grammar_tips()
 
     if not unit_tips:
@@ -247,9 +274,9 @@ def main():
     with get_session() as db:
         for unit_str, tips in unit_tips.items():
             unit_number = int(unit_str)
-            sentence_rows = get_sentences_for_unit(db, unit_number)
+            sentence_rows = get_sentences_for_unit(db, unit_number, hsk_level=HSK_LEVEL)
             if not sentence_rows:
-                print(f" [warning] Unit {unit_str}: no sentences in DB yet "
+                print(f" [warning] Unit {unit_str} (HSK{HSK_LEVEL}): no sentences in DB yet "
                       f"(run sentence_parser.py first). Skipping.")
                 continue
 
@@ -263,7 +290,8 @@ def main():
                 if structured_tip is None:
                     continue
 
-                tip_row = get_or_create_grammar_tip(db, unit_number, raw_tip, structured_tip)
+                tip_row = get_or_create_grammar_tip(db, unit_number, raw_tip, structured_tip,
+                                                     hsk_level=HSK_LEVEL)
 
                 print(f"  -> Matching Tip {idx}...")
                 matched_hanzi = get_matching_sentences(sop_text, structured_tip, hanzi_list)

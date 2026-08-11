@@ -39,11 +39,22 @@ from app.textbook.models import WordType
 OCR_SOP_FILENAME = os.path.join("vocab", "ocr.txt")
 EXTRACTOR_SOP_FILENAME = os.path.join("vocab", "index_extractor.txt")
 
-INDEX_PDF_FILEPATH = TEXTBOOK_RAW_DIR
-INDEX_PDF_FILENAME = "hsk1_textbook_index.pdf"
+# HSK level being processed this run. Raw PDFs are now split per level under
+# .../data/raw/hsk_textbook_index/{hsk_level}.pdf (see main.py, which sets
+# HSK_LEVEL as an env override the same way it already does for
+# UNITS_TO_PROCESS / SOURCES_TO_PROCESS). Defaults to 1 to match prior behavior.
+HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
 
-OCR_CACHE_FILEPATH = OCR_PATH
-OCR_CACHE_FILENAME = "vocab_index.md"
+# Raw index PDFs now live one level deeper, split by HSK level:
+#   .../data/raw/hsk_textbook_index/1.pdf, .../hsk_textbook_index/2.pdf, ...
+INDEX_PDF_FILEPATH = TEXTBOOK_RAW_DIR / "hsk_textbook_index"
+INDEX_PDF_FILENAME = f"{HSK_LEVEL}.pdf"
+
+# OCR cache is likewise split by level so hsk2's index OCR doesn't clobber
+# hsk1's cached markdown: .../OCR_cache/hsk_textbook_index/{hsk_level}.md
+# .../OCR_cache/hsk_textbook_index/{level}/index.md
+OCR_CACHE_FILEPATH = OCR_PATH / "hsk_textbook_index" / str(HSK_LEVEL)
+OCR_CACHE_FILENAME = "index.md"
 FORCE_OCR = False
 
 # LLM raw-response dumps stay on disk for debugging -- these were never part
@@ -98,8 +109,11 @@ def extract_json_block(text: str) -> str:
 
 
 def save_llm_response(call_name: str, raw_text: str) -> str:
-    os.makedirs(str(LLM_RESPONSES_FILEPATH), exist_ok=True)
-    path = os.path.join(str(LLM_RESPONSES_FILEPATH), f"vocab_index_{call_name}.txt")
+    # .../LLM_RESPONSES/hsk_textbook_index/vocab_index_hsk{level}_{call_name}.txt
+    # .../LLM_RESPONSES/hsk_textbook_index/{level}/{call_name}.txt
+    responses_dir = LLM_RESPONSES_FILEPATH / "hsk_textbook_index" / str(HSK_LEVEL)
+    os.makedirs(str(responses_dir), exist_ok=True)
+    path = os.path.join(str(responses_dir), f"{call_name}.txt")
     with open(path, "w", encoding="utf-8") as f:
         f.write(raw_text)
     return path
@@ -214,13 +228,23 @@ def classify_type(entry: dict) -> WordType:
 
 
 def process_entries(raw_entries: list) -> list[dict]:
-    """Classify + convert pinyin. Dedup-by-hanzi (lowest unit wins) now
-    happens implicitly in db.upsert_vocab, called once per record in
-    caller order -- so records must still be produced in a stable order
-    (first-seen-in-source), same as before, for that rule to behave
-    identically. We keep an in-memory dedup pass here too so a single
+    """Classify + convert pinyin. Dedup-by-hanzi (lowest unit wins, within
+    THIS run's hsk_level) happens implicitly in db.upsert_vocab, called once
+    per record in caller order -- so records must still be produced in a
+    stable order (first-seen-in-source), same as before, for that rule to
+    behave identically. We keep an in-memory dedup pass here too so a single
     call to main() doesn't do N redundant DB round-trips for the same word
-    appearing twice in one run."""
+    appearing twice in one run.
+
+    NOTE: this in-run pass only dedups within the current hsk_level's index
+    (each run only ever processes one level's PDF now). The CROSS-level
+    question -- if a word already has a home unit from HSK1 and shows up
+    again while loading HSK2, does it stay put or move -- is not decided
+    here. Per the migration doc, the recommendation is "first hsk_level
+    wins, regardless of a later/higher level's unit_number", but that needs
+    to be implemented inside db.upsert_vocab (which has to compare against
+    the word's *existing* Vocab row across all levels, not just this run's
+    in-memory batch) and confirmed against product intent before HSK2 loads."""
     by_hanzi = {}
     skipped = []
     for entry in raw_entries:
@@ -254,7 +278,7 @@ def process_entries(raw_entries: list) -> list[dict]:
 
 def main():
     init_db()
-    print("Parsing vocabulary index...")
+    print(f"Parsing vocabulary index (HSK level {HSK_LEVEL})...")
     ocr_md = run_index_ocr()
     raw_entries = run_extractor(ocr_md)
     # added_entries = load_added_vocab()
@@ -276,12 +300,13 @@ def main():
                 english=r["english"],
                 unit_number=r["unit"],
                 word_type=r["type"],
+                hsk_level=HSK_LEVEL,
             )
             counts[r["type"]] += 1
 
     print(f"  vocab: {counts[WordType.vocab]}, grammar: {counts[WordType.grammar]}, "
           f"proper_nouns: {counts[WordType.proper_noun]}")
-    print(f"Done. Wrote {len(records)} record(s) directly to the textbook DB.")
+    print(f"Done. Wrote {len(records)} record(s) directly to the textbook DB (HSK level {HSK_LEVEL}).")
 
 
 if __name__ == "__main__":

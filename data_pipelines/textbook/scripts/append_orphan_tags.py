@@ -45,6 +45,10 @@ api_key = os.environ.get("CLAUDE_API_KEY")
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
 MODEL = os.getenv("CLAUDE_MODEL", "claude-haiku-4-5-20251001")
 
+# HSK level being processed this run (threaded the same way main.py already
+# threads UNITS_TO_PROCESS / SOURCES_TO_PROCESS to sentence_parser.py).
+HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
+
 
 # --- Rejected Vocab Cache ---
 
@@ -197,7 +201,7 @@ def try_recover_parent_word(db, parent: str, unit, vocab_map: dict, valid_indexe
               f"-- not added. Worth checking the tagging for unit {unit} manually.")
         return False
 
-    update_vocab_entry(db, parent, parent_pinyin, parent_english, unit)
+    update_vocab_entry(db, parent, parent_pinyin, parent_english, unit, hsk_level=HSK_LEVEL)
     vocab_map[parent] = db.query(Vocab).filter(Vocab.hanzi == parent).first()
     valid_indexed_words.add(parent)
     print(f"  [recovered] '{parent}' is a valid word (tagging had split it) "
@@ -208,7 +212,7 @@ def try_recover_parent_word(db, parent: str, unit, vocab_map: dict, valid_indexe
 # --- Main ---
 
 def sync_index_definitions():
-    print("Checking for missing or incomplete definitions in Vocab table...\n")
+    print(f"Checking for missing or incomplete definitions in Vocab table (HSK level {HSK_LEVEL})...\n")
 
     init_db()
     with get_session() as db:
@@ -217,7 +221,9 @@ def sync_index_definitions():
         valid_indexed_words = set(vocab_map.keys())
 
         # 2. Build the full set of (word, unit) pairs that SHOULD be indexed
-        word_units = get_all_taught_words(db)
+        # for this hsk_level. Repairing HSK1 shouldn't pull in HSK2's
+        # not-yet-loaded curriculum as "gaps".
+        word_units = get_all_taught_words(db, hsk_level=HSK_LEVEL)
 
         # 3. Diff against what's already validly indexed
         missing_by_unit = [
@@ -251,7 +257,7 @@ def sync_index_definitions():
                     updated_count += 1
                 continue
 
-            sentence = find_example_sentence(db, unit, tag)
+            sentence = find_example_sentence(db, unit, tag, hsk_level=HSK_LEVEL)
             if not sentence:
                 print(f"  [warning] No example sentence found for '{tag}' in unit {unit}; "
                       f"asking Claude for a general definition.")
@@ -278,7 +284,7 @@ def sync_index_definitions():
             english = analysis.get("definition", "UNKNOWN_ENGLISH")
 
             # Update or create the vocab entry
-            if update_vocab_entry(db, tag, pinyin, english, unit):
+            if update_vocab_entry(db, tag, pinyin, english, unit, hsk_level=HSK_LEVEL):
                 vocab_map[tag] = db.query(Vocab).filter(Vocab.hanzi == tag).first()
                 if tag in vocab_map and vocab_map[tag]:
                     print(f"  Added/Updated: {tag} ({pinyin}) -> {english} [Unit {unit}]")

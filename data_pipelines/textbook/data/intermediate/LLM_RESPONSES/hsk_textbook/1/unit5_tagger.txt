@@ -1,0 +1,45 @@
+I need to segment each sentence using only the allowed word list.
+
+Let me check each sentence carefully.
+
+Note: "口" is not in the allowed list, "今年" is not in the allowed list, "年" is not in the allowed list, "纪" is not in the allowed list, "个" is not in the allowed list, "50" and "20" need checking (digits, not in list), "您" is not in the allowed list.
+
+- "你家有几口人？": "口" not in allowed list → null
+- "我家有三口人。": "口" not in allowed list → null
+- "你女儿几岁了？": ["你", "女儿", "几", "岁", "了"] ✓
+- "她今年四岁了。": "今年" not in list, "今" not in list → null
+- "李老师多大了？": "李" not in list (only "李月" is) → null
+- "她今年50岁了。": "今年" not in list → null
+- "她女儿呢？": ["她", "女儿", "呢"] ✓
+- "她女儿今年20岁。": "今年" not in list → null
+- "你有几个汉语老师？": "个" not in list → null
+- "李老师家有几口人？": "李" not in list, "口" not in list → null
+- "李老师今年50岁了。": "李" not in list → null
+- "我朋友的女儿今年四岁了。": "今年" not in list → null
+- "你多大了？": ["你", "多", "大", "了"] ✓
+- "你女儿今年多大了？": "今年" not in list → null
+- "你今年几岁了？": "今年" not in list → null
+- "你今年多大了？": "今年" not in list → null
+- "您今年多大年纪了？": "您" not in list → null
+
+```json
+{
+  "你家有几口人？": null,
+  "我家有三口人。": null,
+  "你女儿几岁了？": ["你", "女儿", "几", "岁", "了"],
+  "她今年四岁了。": null,
+  "李老师多大了？": null,
+  "她今年50岁了。": null,
+  "她女儿呢？": ["她", "女儿", "呢"],
+  "她女儿今年20岁。": null,
+  "你有几个汉语老师？": null,
+  "李老师家有几口人？": null,
+  "李老师今年50岁了。": null,
+  "我朋友的女儿今年四岁了。": null,
+  "你多大了？": ["你", "多", "大", "了"],
+  "你女儿今年多大了？": null,
+  "你今年几岁了？": null,
+  "你今年多大了？": null,
+  "您今年多大年纪了？": null
+}
+```
