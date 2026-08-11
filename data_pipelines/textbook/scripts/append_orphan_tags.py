@@ -38,6 +38,7 @@ from app.textbook.db_utils import (
 )
 from app.textbook.models import WordType
 from app.textbook.models import Vocab
+from data_pipelines.textbook.scripts.vocab_pinyin_utils import diacritic_to_numeric
 
 # --- Configuration ---
 load_dotenv(ENV_FILE)
@@ -84,10 +85,25 @@ def append_rejected_vocab_entry(word: str, unit, parent_word: str, reasoning: st
 # --- Utils ---
 
 def clean_pinyin(pinyin: str) -> str:
-    """Normalizes pinyin formatting to ensure consistency (e.g. removing stray spaces)."""
+    """Normalizes pinyin formatting to ensure consistency: strips stray
+    whitespace/brackets, THEN converts to the app's numeric-tone storage
+    format (diacritic_to_numeric is a no-op if the string already has a
+    digit in it, so this is safe to call unconditionally regardless of
+    which format Claude happened to return).
+
+    BUGFIX: this used to only strip whitespace/brackets and never actually
+    normalized tone notation, so any pinyin Claude returned in diacritic
+    form (e.g. "tàirelè") went straight into the DB unconverted -- the
+    prompt below asks for "standard Pinyin" without specifying numeric
+    tones, so Claude reasonably defaults to diacritics (the more common
+    convention outside this app). Words extracted from the printed index by
+    vocab_index_parser.py were never affected (it already calls
+    diacritic_to_numeric explicitly); only words filled in here, by this
+    script's Claude-backed gap-filling, were."""
     if not isinstance(pinyin, str):
         return pinyin
-    return pinyin.strip().strip("[]").replace(" ", "")
+    stripped = pinyin.strip().strip("[]").replace(" ", "")
+    return diacritic_to_numeric(stripped)
 
 
 # --- Claude Vocab Analysis ---
@@ -128,7 +144,7 @@ Output ONLY valid JSON matching this exact format. No markdown, no preambles:
 {{
     "is_standalone": true or false,
     "parent_word": "The larger compound word if false, otherwise null",
-    "pinyin": "The pinyin for the word (do not include spaces between syllables for a single compound word)",
+    "pinyin": "Pinyin in NUMERIC TONE format, e.g. 'tai4re4le5' -- NOT diacritic format like 'tàirelè'. Tone 5 (neutral tone) still gets a '5' suffix (e.g. 'le5', 'ma5'). Do not include spaces between syllables for a single compound word.",
     "definition": "A concise, natural English definition for the target word (null if is_standalone is false)",
     "reasoning": "Brief 1-sentence explanation"
 }}
