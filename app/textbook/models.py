@@ -93,24 +93,18 @@ class Sentence(Base):
 
 
 class SentenceVocab(Base):
-    """Replaces the old `tags: [str]` array. Ordered (position) so the
-    original tag sequence -- needed for anything display-order-sensitive --
-    is recoverable, not just an unordered set.
-
-    NOTE: a word can legitimately appear more than once in the same sentence
-    (e.g. "我不是老师，我是学生，我是中国人" tags 是 three times), so this
-    canNOT be keyed on (sentence_id, vocab_id) -- that would reject the
-    second occurrence as a duplicate. It's keyed on (sentence_id, position)
-    instead: one row per TAG OCCURRENCE, not per unique word. A surrogate id
-    is still simplest for FK/ORM ergonomics, but the real uniqueness
-    constraint is what prevents accidental double-inserts of the exact same
-    slot on a rerun."""
     __tablename__ = "sentence_vocab"
 
     id = Column(Integer, primary_key=True)
     sentence_id = Column(Integer, ForeignKey("sentences.id"), nullable=False)
     vocab_id = Column(Integer, ForeignKey("vocab.id"), nullable=False)
     position = Column(Integer, nullable=False, default=0)
+    # NULL = not yet checked against this sentence's context.
+    # ""   = checked, default Vocab.english is accurate here, no override needed.
+    # non-empty string = the corrected definition for THIS occurrence only.
+    # Using "" as a distinct sentinel from NULL means "checked, no override"
+    # doesn't get re-sent to Claude on every future pipeline run.
+    context_definition = Column(Text, nullable=True)
 
     sentence = relationship("Sentence", back_populates="vocab_links")
     vocab = relationship("Vocab", back_populates="sentence_links")

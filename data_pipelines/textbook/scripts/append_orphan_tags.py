@@ -37,8 +37,9 @@ from app.textbook.db_utils import (
     find_example_sentence, update_vocab_entry,
 )
 from app.textbook.models import WordType
-from app.textbook.models import Vocab
-from data_pipelines.textbook.scripts.vocab_pinyin_utils import diacritic_to_numeric
+from app.textbook.models import Vocab, Sentence, SentenceVocab, Question
+from data_pipelines.textbook.scripts.vocab_pinyin_utils import diacritic_to_numeric, cross_check_pinyin
+from data_pipelines.textbook.scripts.cedict_utils import lookup_word, segment_into_words
 
 # --- Configuration ---
 load_dotenv(ENV_FILE)
@@ -182,7 +183,43 @@ Output ONLY valid JSON matching this exact format. No markdown, no preambles:
         "reasoning": "Fallback due to error",
     }
 
+def resolve_primary_definition(word: str, cedict_english: str, sentence: Optional[str]) -> str:
+    """CEDICT entries can list/return an obscure or narrow sense for a
+    polysemous word (e.g. '老' -> a surname-prefix sense instead of 'old
+    (of people)', even though the curriculum only ever teaches the latter).
+    Blindly trusting the raw CEDICT string as Vocab.english can surface the
+    wrong sense as if it were the word's meaning. If we have a real
+    curriculum sentence for this word, ask Claude to pick/write the
+    definition that actually matches how it's taught here."""
+    if not sentence or client is None:
+        return cedict_english  # nothing to disambiguate against
 
+    prompt = f"""You are a Chinese curriculum editor. A dictionary lookup
+returned this definition for the word "{word}":
+"{cedict_english}"
+
+Example sentence from the curriculum where "{word}" is taught:
+"{sentence}"
+
+Write ONE concise English definition for "{word}" that reflects how it's
+actually used in this sentence -- the primary sense a beginner should
+learn here, not an obscure dictionary sense, unless that IS the sense used.
+
+Output ONLY the definition text. No quotes, no markdown, no preamble.
+"""
+    try:
+        response = client.messages.create(
+            model=MODEL,
+            max_tokens=64,
+            system="You are a precise bilingual dictionary editor for a Chinese-learning app.",
+            messages=[{"role": "user", "content": prompt}],
+        )
+        raw = response.content[0].text.strip()
+        return raw or cedict_english
+    except Exception as e:
+        print(f"  [warning] primary-definition resolution failed for '{word}': {e}")
+        return cedict_english
+    
 # --- Parent Word Recovery ---
 
 def try_recover_parent_word(db, parent: str, unit, vocab_map: dict, valid_indexed_words: set) -> bool:
@@ -195,7 +232,6 @@ def try_recover_parent_word(db, parent: str, unit, vocab_map: dict, valid_indexe
     if parent in vocab_map:
         existing = vocab_map[parent]
         normalized_pinyin = clean_pinyin(existing.pinyin or "")
-        # Just check for formatting staleness
         if normalized_pinyin != (existing.pinyin or ""):
             print(f"  [normalized] '{parent}' had stale formatting -- "
                   f"pinyin '{existing.pinyin}' -> '{normalized_pinyin}'.")
@@ -207,6 +243,28 @@ def try_recover_parent_word(db, parent: str, unit, vocab_map: dict, valid_indexe
     if parent in valid_indexed_words:
         return False
 
+    # --- NEW: is `parent` a real single dictionary word, or a productive
+    # multi-word construction (surname + title, e.g. "李老师", "王小姐") that
+    # isn't itself lexicalized? Same CEDICT+jieba guard resegment_bad_tag()
+    # already uses for bad original tags -- without it here, Claude will
+    # happily "define" a two-word phrase as if it were one atomic vocab
+    # item, and we'd write a bogus compound like "李老师" into Vocab instead
+    # of registering the real underlying words (李 + 老师).
+    if not lookup_word(parent) and len(parent) > 1:
+        segments = segment_into_words(parent)
+        if len(segments) > 1:
+            print(f"  [multi-word-parent] '{parent}' isn't a single CEDICT word -- "
+                  f"splits into {segments}. Registering the individual words "
+                  f"instead of '{parent}' as one compound.")
+            modified = False
+            for seg in segments:
+                if seg not in vocab_map and seg not in valid_indexed_words:
+                    ensure_word_registered(db, seg, unit)
+                    vocab_map[seg] = db.query(Vocab).filter(Vocab.hanzi == seg).first()
+                    valid_indexed_words.add(seg)
+                    modified = True
+            return modified
+
     # Call Claude for the parent word (without a specific sentence context)
     analysis = analyze_vocab(parent)
     parent_pinyin = analysis.get("pinyin", "UNKNOWN_PINYIN")
@@ -217,12 +275,124 @@ def try_recover_parent_word(db, parent: str, unit, vocab_map: dict, valid_indexe
               f"-- not added. Worth checking the tagging for unit {unit} manually.")
         return False
 
+    warning = cross_check_pinyin(parent, parent_pinyin)
+    if warning:
+        print(f"  [pinyin-warning] {warning}")
+
     update_vocab_entry(db, parent, parent_pinyin, parent_english, unit, hsk_level=HSK_LEVEL)
     vocab_map[parent] = db.query(Vocab).filter(Vocab.hanzi == parent).first()
     valid_indexed_words.add(parent)
     print(f"  [recovered] '{parent}' is a valid word (tagging had split it) "
           f"-- added as vocab entry ({parent_pinyin}) -> {parent_english} [Unit {unit}].")
     return True
+
+
+# --- Multi-word Tag Detection & Repair ---
+#
+# Some upstream tagging bug (in sentence_parser.py, import_sentences.py, or
+# the Claude tagger they call) can let a multi-word span through as if it
+# were a single SentenceVocab tag -- e.g. "太热了" (太 + 热 + 了, three
+# separate words) getting tagged as one "word" with a made-up combined
+# pronunciation. CEDICT + jieba catch this BEFORE any Claude call: if the
+# dictionary doesn't recognize the tag as one word, segment it and register
+# each real word individually instead of trusting whatever Claude would
+# have said about the combined (nonexistent) "word".
+
+def ensure_word_registered(db, word: str, unit) -> None:
+    """Makes sure `word` has a proper Vocab row. CEDICT first (authoritative,
+    free, no API call) -- Claude only as a fallback for words CEDICT
+    doesn't have (names, very colloquial terms, genuine textbook-specific
+    compounds)."""
+    existing = db.query(Vocab).filter(Vocab.hanzi == word).first()
+    if (existing and existing.pinyin and existing.pinyin != "UNKNOWN_PINYIN"
+            and existing.english and existing.english != "UNKNOWN_ENGLISH"):
+        return  # already properly registered, nothing to do
+
+    cedict_entry = lookup_word(word)
+    if cedict_entry:
+        pinyin, raw_english = cedict_entry["pinyin"], cedict_entry["english"]
+        warning = cross_check_pinyin(word, pinyin)
+        if warning:
+            print(f"  [pinyin-warning] {warning}")
+
+        sentence_for_def = find_example_sentence(db, unit, word, hsk_level=HSK_LEVEL)
+        english = resolve_primary_definition(word, raw_english, sentence_for_def)
+        if english != raw_english:
+            print(f"  [definition-refined] '{word}': CEDICT said '{raw_english}' -> "
+                  f"using '{english}' based on curriculum sentence.")
+
+        update_vocab_entry(db, word, pinyin, english, unit, hsk_level=HSK_LEVEL)
+        print(f"  [cedict] registered '{word}' ({pinyin}) -> {english}")
+        return
+
+    sentence = find_example_sentence(db, unit, word, hsk_level=HSK_LEVEL)
+    analysis = analyze_vocab(word, sentence)
+    pinyin = analysis.get("pinyin", "UNKNOWN_PINYIN")
+    english = analysis.get("definition", "UNKNOWN_ENGLISH")
+    warning = cross_check_pinyin(word, pinyin)
+    if warning:
+        print(f"  [pinyin-warning] {warning}")
+    update_vocab_entry(db, word, pinyin, english, unit, hsk_level=HSK_LEVEL)
+    print(f"  [claude] registered '{word}' ({pinyin}) -> {english}")
+
+def resegment_bad_tag(db, bad_hanzi: str, segments: list[str], unit) -> None:
+    """`bad_hanzi` isn't a real word (CEDICT doesn't know it and jieba splits
+    it into `segments`), but it may already exist as a bogus Vocab row and/or
+    be tagged onto one or more sentences as if it were one word. This:
+      1. Makes sure each real word in `segments` has its own proper Vocab row.
+      2. Rewrites every sentence's tag list that referenced the bad combined
+         tag, splicing in the individual words in its place.
+      3. Deletes Question rows that tested the bogus combined "word" (they'll
+         regenerate correctly for the real words on the next
+         create_questions.py run).
+      4. Removes the bad Vocab row itself.
+    """
+    for seg in segments:
+        ensure_word_registered(db, seg, unit)
+
+    bad_vocab = db.query(Vocab).filter(Vocab.hanzi == bad_hanzi).first()
+    if bad_vocab is None:
+        return  # was never actually created as a Vocab row -- just a phantom gap entry
+
+    affected_links = db.query(SentenceVocab).filter(SentenceVocab.vocab_id == bad_vocab.id).all()
+    affected_sentence_ids = {link.sentence_id for link in affected_links}
+
+    for sentence_id in affected_sentence_ids:
+        old_links = (
+            db.query(SentenceVocab)
+            .filter(SentenceVocab.sentence_id == sentence_id)
+            .order_by(SentenceVocab.position)
+            .all()
+        )
+        new_tags = []
+        for link in old_links:
+            if link.vocab_id == bad_vocab.id:
+                new_tags.extend(segments)
+            else:
+                tag_vocab = db.query(Vocab).filter(Vocab.id == link.vocab_id).first()
+                if tag_vocab:
+                    new_tags.append(tag_vocab.hanzi)
+
+        # delete-then-reinsert avoids any (sentence_id, position) collision
+        # mid-transaction from shifting positions in place
+        db.query(SentenceVocab).filter(SentenceVocab.sentence_id == sentence_id).delete()
+        db.flush()
+
+        for position, tag in enumerate(new_tags):
+            tag_vocab = db.query(Vocab).filter(Vocab.hanzi == tag).first()
+            if tag_vocab is None:
+                continue  # shouldn't happen -- ensure_word_registered ran above for `segments`
+            db.add(SentenceVocab(sentence_id=sentence_id, vocab_id=tag_vocab.id, position=position))
+        db.flush()
+        print(f"  [resegmented] sentence {sentence_id}: replaced '{bad_hanzi}' with {segments}")
+
+    deleted_questions = db.query(Question).filter(Question.vocab_id == bad_vocab.id).delete()
+    if deleted_questions:
+        print(f"  [cleanup] removed {deleted_questions} question(s) that tested the bogus word '{bad_hanzi}'")
+
+    db.delete(bad_vocab)
+    db.flush()
+    print(f"  [removed] '{bad_hanzi}' was not a real word -- removed from vocab")
 
 
 # --- Main ---
@@ -273,6 +443,45 @@ def sync_index_definitions():
                     updated_count += 1
                 continue
 
+            # --- Check CEDICT first: authoritative, free, no API call, and
+            # correctly stores compound pronunciations (e.g. 学生 ->
+            # xue2sheng5) that a character-by-character source like
+            # pypinyin would get wrong. ---
+            cedict_entry = lookup_word(tag)
+            if cedict_entry:
+                pinyin, raw_english = cedict_entry["pinyin"], cedict_entry["english"]
+                warning = cross_check_pinyin(tag, pinyin)
+                if warning:
+                    print(f"  [pinyin-warning] {warning}")
+
+                sentence_for_def = find_example_sentence(db, unit, tag, hsk_level=HSK_LEVEL)
+                english = resolve_primary_definition(tag, raw_english, sentence_for_def)
+                if english != raw_english:
+                    print(f"  [definition-refined] '{tag}': CEDICT said '{raw_english}' -> "
+                          f"using '{english}' based on curriculum sentence.")
+
+                if update_vocab_entry(db, tag, pinyin, english, unit, hsk_level=HSK_LEVEL):
+                    vocab_map[tag] = db.query(Vocab).filter(Vocab.hanzi == tag).first()
+                    print(f"  [cedict] Added/Updated: {tag} ({pinyin}) -> {english} "
+                          f"[Unit {unit}] (no AI call needed)")
+                    updated_count += 1
+                continue
+
+            # --- Not a dictionary word -- is it actually MULTIPLE words? ---
+            # This is the failure mode that let "太热了" (太 + 热 + 了, three
+            # words) get treated as one vocab entry with a made-up combined
+            # pronunciation. Catch it here, before ever asking Claude to
+            # "define" something that isn't a real word.
+            if len(tag) > 1:
+                segments = segment_into_words(tag)
+                if len(segments) > 1:
+                    print(f"  [multi-word] '{tag}' isn't a single CEDICT word -- "
+                          f"splits into {segments}. Re-pointing sentence tags to "
+                          f"the individual words instead of defining '{tag}' as one word.")
+                    resegment_bad_tag(db, tag, segments, unit)
+                    skipped_non_standalone.append((tag, unit, "+".join(segments)))
+                    continue
+
             sentence = find_example_sentence(db, unit, tag, hsk_level=HSK_LEVEL)
             if not sentence:
                 print(f"  [warning] No example sentence found for '{tag}' in unit {unit}; "
@@ -298,6 +507,17 @@ def sync_index_definitions():
 
             pinyin = analysis.get("pinyin", "UNKNOWN_PINYIN")
             english = analysis.get("definition", "UNKNOWN_ENGLISH")
+
+            # Cross-check Claude's pinyin against an independent source
+            # before writing it. Advisory only -- Claude might be right and
+            # pypinyin wrong for a context-dependent reading -- but this
+            # surfaces a disagreement in the pipeline's own output instead
+            # of it being discovered by a student later. See
+            # vocab_pinyin_utils.cross_check_pinyin's docstring for the
+            # specific failure mode this catches.
+            warning = cross_check_pinyin(tag, pinyin)
+            if warning:
+                print(f"  [pinyin-warning] {warning}")
 
             # Update or create the vocab entry
             if update_vocab_entry(db, tag, pinyin, english, unit, hsk_level=HSK_LEVEL):

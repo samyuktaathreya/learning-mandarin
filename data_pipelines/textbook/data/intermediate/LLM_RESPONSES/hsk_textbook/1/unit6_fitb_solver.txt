@@ -1,29 +1,32 @@
-The warm-up matching exercise asks students to match pictures A-F with the words, but the unit text does not provide the answer key for which picture letter corresponds to which word. So those six candidates (妈妈___, 汉字___, 中国菜___, 说汉语___, 写汉字___, 做中国菜___) cannot be answered from the unit text.
+Looking at the candidates:
 
-For the picture description exercise (Exercise 3), the blanks must be filled based on the pictures and context. Let me analyze:
+1. "妈妈___", "汉字___", "中国　菜___", "说　汉语___", "写汉字___", "做　中国　菜___" — These are matching exercises where students match words to pictures labeled A-F. The correct picture labels are not derivable from the text alone (we don't know which picture letter corresponds to which word from the OCR description alone). Drop all six.
 
-- "我们都会___。" — The picture shows a group of people, and the context of the unit is about speaking Chinese. The sentence is open-ended (students describe what they can do), so no single correct answer is derivable.
-- "中国菜很___。" — From Text 2: "中国菜很好吃" — the answer is 好吃.
-- "他会做___。" — The picture shows a chef cooking. From the unit context, the answer would be 中国菜, as that's the dish discussed throughout.
-- "这个汉字我会___，不会___。" — From Text 3: "这个字我会读，不会写" — the answers are 读 and 写.
+2. "我们　都 会___。" — The picture shows a group of people, and the context suggests speaking Chinese (说汉语), but there's no single correct answer derivable from the text — it's an open-ended description exercise. Drop.
+
+3. "中国　　菜 很___。" — The text explicitly states "中国菜很好吃" in Dialogue 2. This is answerable.
+
+4. "他 会 做___。" — The picture shows a chef cooking, and the unit's vocabulary includes "做中国菜". The text repeatedly uses "做中国菜" as the example. This is answerable.
+
+5. "这个 汉字 我 会___，不 会___。" — Dialogue 3 explicitly states "这个字我会读，不会写." This is answerable.
 
 [
   {
     "fill in the blank": "中国　　菜 很___。",
     "answer": ["好吃"],
-    "full_sentence_answer": "中国菜很好吃。",
-    "translation": "Chinese food is delicious."
+    "full_sentence_answer": "中国　　菜 很好吃。",
+    "translation": "Chinese food is very delicious."
   },
   {
     "fill in the blank": "他 会 做___。",
     "answer": ["中国菜"],
-    "full_sentence_answer": "他会做中国菜。",
+    "full_sentence_answer": "他 会 做中国菜。",
     "translation": "He can cook Chinese food."
   },
   {
     "fill in the blank": "这个 汉字 我 会___，不 会___。",
     "answer": ["读", "写"],
-    "full_sentence_answer": "这个汉字我会读，不会写。",
-    "translation": "I can read this Chinese character, but I can't write it."
+    "full_sentence_answer": "这个 汉字 我 会读，不 会写。",
+    "translation": "I can read this Chinese character, but I cannot write it."
   }
 ]

@@ -47,30 +47,49 @@ const CHARACTER_QUIZ_TYPES = new Set([
     "radical_meaning",
 ]);
 
+// Cache of in-flight/resolved audio fetches, keyed by "text::slow"
+const audioCache = new Map();
+
+const fetchAudioData = (text, slow = false) => {
+    const key = `${text}::${slow}`;
+    if (audioCache.has(key)) return audioCache.get(key);
+
+    const promise = fetch('/api/audio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, slow }),
+    })
+        .then(res => res.json())
+        .then(data => data.audio)
+        .catch(err => {
+            audioCache.delete(key); // don't cache a failure — allow retry
+            throw err;
+        });
+
+    audioCache.set(key, promise);
+    return promise;
+};
+
+// Fetches and caches audio without playing it.
+const preloadAudio = (text, slow = false) => {
+    if (!hasChinese(text)) return;
+    fetchAudioData(text, slow).catch(err => console.error("Failed to preload audio", err));
+};
+
+const clearAudioCache = () => audioCache.clear();
+
 const playAudio = async (text, slow = false, currentAudioRef = null, tokenRef = null, expectedToken = null) => {
     if (!hasChinese(text)) return;
-    // Stop anything already playing — this call is newer, so it wins immediately.
     if (currentAudioRef?.current) {
         currentAudioRef.current.pause();
         currentAudioRef.current = null;
     }
 
     try {
-        const response = await fetch('/api/audio', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text, slow }),
-        });
-
-        // Bail if the question changed while we were waiting on the network.
-        if (tokenRef && tokenRef.current !== expectedToken) return;
-
-        const { audio } = await response.json();
+        const audio = await fetchAudioData(text, slow); // instant if preloaded
 
         if (tokenRef && tokenRef.current !== expectedToken) return;
 
-        // Something else may have started playing while we were waiting
-        // (another playAudio call that resolved first) — stop it too.
         if (currentAudioRef?.current) {
             currentAudioRef.current.pause();
         }
@@ -259,12 +278,21 @@ export default function DuolingoStyleQuestions() {
         const shouldAutoPlay =
             question_type !== "fill in the blank" &&
             !isSpeakingQuestion(question_type) &&
-            !CHARACTER_QUIZ_TYPES.has(question_type) && 
+            !CHARACTER_QUIZ_TYPES.has(question_type) &&
             (hasChinese(question) || isListening) &&
             (!isReview || isListening);
 
         if (shouldAutoPlay) {
             playAudio(question, false, currentAudioRef, questionTokenRef, questionTokenRef.current);
+        } else if (
+            hasChinese(question) &&
+            question_type !== "fill in the blank" &&
+            !isSpeakingQuestion(question_type) &&
+            !CHARACTER_QUIZ_TYPES.has(question_type)
+        ) {
+            // Review-session case: don't autoplay, but fetch now so revealAnswer's
+            // playAudio call later is instant instead of waiting on the network.
+            preloadAudio(question);
         }
     }, [currentIndex, questions]);
 
@@ -331,6 +359,7 @@ export default function DuolingoStyleQuestions() {
                 }),
             });
             await fetch('/api/audio/clear', { method: 'POST' });
+            clearAudioCache();
             fetchProgress();
         } catch (error) { console.error("Failed to submit session", error); }
     };

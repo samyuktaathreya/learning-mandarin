@@ -96,12 +96,10 @@ from app.textbook.db_utils import (
     get_all_vocab_hanzi, upsert_vocab, upsert_sentence, upsert_question,
 )
 from app.textbook.models import Unit, WordType
-from data_pipelines.textbook.scripts.vocab_pinyin_utils import diacritic_to_numeric
-
-try:
-    from pypinyin import pinyin as pypinyin_pinyin, Style as PypinyinStyle
-except ImportError:
-    pypinyin_pinyin = None
+from data_pipelines.textbook.scripts.vocab_pinyin_utils import (
+    diacritic_to_numeric, pypinyin_numeric, cross_check_pinyin,
+)
+from data_pipelines.textbook.scripts.cedict_utils import lookup_word, segment_into_words
 
 SOURCE_LABEL = "hsk_sentences_audio"
 
@@ -128,26 +126,72 @@ def content_only(s: str) -> str:
 
 
 def greedy_segment(content: str, allowed_words: list[str]) -> list[str]:
-    """Longest-match-first segmentation. `allowed_words` must already be
-    sorted longest-first. Unmatched characters become single-char tags."""
+    """Longest-match-first segmentation against `allowed_words` (our own
+    vocab + the external card's own token hints, sorted longest-first).
+
+    Any run of characters that doesn't match anything in `allowed_words`
+    gets handed to segment_into_words() (CEDICT-validated jieba) instead of
+    falling back to single characters -- that's exactly the failure mode
+    that let a three-word phrase like "太热了" get registered as if it were
+    one single vocab entry: nothing in our vocab or the card's tokens
+    matched it as a whole, so it fell back to unknown single characters
+    (or, worse, got treated as one unmatched multi-char run and registered
+    whole)."""
     tags, pos = [], 0
     n = len(content)
+    unmatched_run: list[str] = []
+
+    def flush_unmatched():
+        if not unmatched_run:
+            return
+        run_text = "".join(unmatched_run)
+        unmatched_run.clear()
+        tags.extend(w for w in segment_into_words(run_text) if w)
+
     while pos < n:
         match = next((w for w in allowed_words if content.startswith(w, pos)), None)
         if match:
+            flush_unmatched()
             tags.append(match)
             pos += len(match)
         else:
-            tags.append(content[pos])
+            unmatched_run.append(content[pos])
             pos += 1
+    flush_unmatched()
     return tags
 
 
-def pypinyin_for_word(word: str) -> str:
-    if pypinyin_pinyin is None:
-        return "UNKNOWN_PINYIN"
-    syllables = pypinyin_pinyin(word, style=PypinyinStyle.TONE3, neutral_tone_with_five=True)
-    return "".join(s[0] for s in syllables)
+def resolve_new_word_pinyin(tag: str, tok: dict | None) -> str:
+    """This only runs for words CEDICT doesn't know (see process_card,
+    which checks CEDICT first) -- so there's no authoritative compound
+    pronunciation available, just the external card's own token pinyin
+    (if any) and pypinyin as a last resort.
+
+    TRUST THE TOKEN SOURCE over pypinyin when both are available and they
+    disagree. pypinyin computes pinyin character-by-character with no
+    knowledge of compounds, so it's frequently wrong for real multi-char
+    words (e.g. 学生 -> pypinyin would give the base reading for 生,
+    sheng1, when the word actually takes sheng5) -- CEDICT already
+    corrects for this when it has the word, but for a word CEDICT
+    doesn't have, the source's own annotated pinyin is still a better bet
+    than a character-by-character guess. Still logs a mismatch either way,
+    since it COULD also be the tone-mark-on-wrong-syllable bug from before
+    -- just doesn't silently overwrite with pypinyin anymore."""
+    py_pinyin = pypinyin_numeric(tag)  # "" if pypinyin isn't installed
+
+    if not (tok and tok.get("pinyin")):
+        return py_pinyin or "UNKNOWN_PINYIN"
+
+    token_pinyin = diacritic_to_numeric(tok["pinyin"])
+    if not py_pinyin:
+        return token_pinyin  # can't cross-check, best we've got
+
+    if token_pinyin != py_pinyin:
+        print(f"  [pinyin-note] '{tag}': source says '{token_pinyin}', pypinyin says "
+              f"'{py_pinyin}' -- using source (pypinyin isn't compound-aware; "
+              f"if this looks wrong, check manually -- see resolve_new_word_pinyin docstring)")
+
+    return token_pinyin
 
 
 def resolve_target(tags: list[str], word_to_unit: dict):
@@ -210,12 +254,17 @@ def process_card(db, card: dict, known_hanzi: set, word_to_unit: dict, word_to_p
         }
 
     for tag in dict.fromkeys(unregistered):  # de-dup, preserve first-seen order
-        tok = token_info.get(tag)
-        if tok and tok.get("pinyin"):
-            pinyin = diacritic_to_numeric(tok["pinyin"])
+        cedict_entry = lookup_word(tag)
+        if cedict_entry:
+            # CEDICT is authoritative for BOTH pinyin (correct compound
+            # tones, e.g. 学生 -> xue2sheng5) and definition -- prefer it
+            # over the external card's token info or pypinyin whenever
+            # it's available.
+            pinyin, english = cedict_entry["pinyin"], cedict_entry["english"]
         else:
-            pinyin = pypinyin_for_word(tag)
-        english = (tok.get("gloss_en") if tok else "") or "UNKNOWN_ENGLISH"
+            tok = token_info.get(tag)
+            pinyin = resolve_new_word_pinyin(tag, tok)
+            english = (tok.get("gloss_en") if tok else "") or "UNKNOWN_ENGLISH"
 
         vocab_row = upsert_vocab(
             db, hanzi=tag, pinyin=pinyin, english=english,
@@ -233,7 +282,11 @@ def process_card(db, card: dict, known_hanzi: set, word_to_unit: dict, word_to_p
 
     tag_pinyins = [word_to_pinyin.get(t, "UNKNOWN_PINYIN") for t in tags]
     english_full = (card.get("translation") or {}).get("en", "")
-    pinyin_full = card.get("pinyin_numbered") or ""
+    # card["pinyin_numbered"] is already numeric per the source's own field
+    # name/format, so diacritic_to_numeric() is normally a no-op here (its
+    # digit short-circuit fires immediately) -- this call is just a safety
+    # net in case that assumption is ever wrong for some card.
+    pinyin_full = diacritic_to_numeric(card.get("pinyin_numbered") or "")
 
     upsert_sentence(
         db,

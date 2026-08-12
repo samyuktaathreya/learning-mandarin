@@ -54,6 +54,7 @@ export default function SpeakingQuestion({
     const [tipDraft, setTipDraft] = useState("");
     const [tipSaveState, setTipSaveState] = useState(null); 
     const [audioCompleted, setAudioCompleted] = useState(false); 
+    const [sentenceTagMetadata, setSentenceTagMetadata] = useState({});
     
     // Track if we are in the shadowing phase
     const [hasPassedFirstTry, setHasPassedFirstTry] = useState(false);
@@ -67,6 +68,22 @@ export default function SpeakingQuestion({
         setAudioCompleted(false); 
         setHasPassedFirstTry(false); 
     }, [currentQuestionObj]);
+
+    // Fetch sentence tags with context-aware definitions
+    useEffect(() => {
+        if (!currentQuestionObj || !currentQuestionObj.sentence_id) {
+            setSentenceTagMetadata({});
+            return;
+        }
+        
+        fetch(`/api/sentence_tags/${currentQuestionObj.sentence_id}`)
+            .then(res => res.json())
+            .then(data => setSentenceTagMetadata(data.tags || {}))
+            .catch(err => {
+                console.error("Failed to fetch sentence tags", err);
+                setSentenceTagMetadata({});
+            });
+    }, [currentQuestionObj?.sentence_id]);
 
     // Play target audio automatically after submission/transcription completes
     useEffect(() => {
@@ -107,7 +124,14 @@ export default function SpeakingQuestion({
             {currentQuestionObj.unit != null && <p>Unit {currentQuestionObj.unit}</p>}
             {isUnitTest && <p className="unit-test-label">Unit Test</p>}
             <h2>{questionTypeToInstruction(currentQuestionObj.question_type)}</h2>
-            <h1><ClickableText text={currentQuestionObj.question} tags={currentQuestionObj.tags || []} isUnitTest={isUnitTest} /></h1>
+            <h1>
+                <ClickableText 
+                    text={currentQuestionObj.question} 
+                    tags={currentQuestionObj.tags || []} 
+                    tagMetadata={sentenceTagMetadata}
+                    isUnitTest={isUnitTest} 
+                />
+            </h1>
 
             {!transcriptionResult && !recordingURL && (
                 <div className="recording-controls">

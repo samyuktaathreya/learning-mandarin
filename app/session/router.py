@@ -164,3 +164,40 @@ def lookup(hanzi: str, textbook_db: Session = Depends(get_textbook_db)):
     # moved to textbook/services.py (see lookup_word), since dictionary
     # lookup is a textbook-data concern, not a routing concern.
     return textbook_services.lookup_word(textbook_db, hanzi)
+
+@router.get("/api/sentence_tags/{sentence_id}")
+def get_sentence_tags(sentence_id: int, textbook_db: Session = Depends(get_textbook_db)):
+    """Returns all vocab tags for a sentence with their definitions,
+    preferring context_definition if available."""
+    from textbook.models import Sentence, SentenceVocab
+    
+    sentence = textbook_db.query(Sentence).filter(Sentence.id == sentence_id).first()
+    if not sentence:
+        return {"sentence_id": sentence_id, "tags": {}}
+    
+    # Get all SentenceVocab links for this sentence
+    links = (
+        textbook_db.query(SentenceVocab)
+        .filter(SentenceVocab.sentence_id == sentence_id)
+        .order_by(SentenceVocab.position)
+        .all()
+    )
+    
+    tags = {}
+    for link in links:
+        vocab = link.vocab
+        if not vocab:
+            continue
+        
+        # Prefer context_definition if it's non-empty, otherwise use english
+        english = vocab.english or "UNKNOWN_ENGLISH"
+        if link.context_definition and link.context_definition.strip():
+            english = link.context_definition
+        
+        tags[vocab.hanzi] = {
+            "pinyin": vocab.pinyin or "UNKNOWN_PINYIN",
+            "english": english,
+            "context_definition": link.context_definition,  # expose it if the frontend wants to see both
+        }
+    
+    return {"sentence_id": sentence_id, "tags": tags}

@@ -112,3 +112,47 @@ def diacritic_to_numeric(pinyin: str) -> str:
     if stripped != "".join(syllables):
         print(f"  [pinyin-warning] syllabification mismatch for '{pinyin}' -> '{result}'")
     return result
+
+
+try:
+    from pypinyin import pinyin as _pypinyin_fn, Style as _PypinyinStyle
+except ImportError:
+    _pypinyin_fn = None
+
+
+def pypinyin_numeric(word: str) -> str:
+    """Independently computed numeric pinyin, straight from hanzi -- no
+    diacritic-string parsing involved, so it can't inherit a misplaced tone
+    mark from someone else's diacritic text. Used both as a primary source
+    for brand-new words and as a cross-check against diacritic-derived
+    pinyin from external sources. Returns "" if pypinyin isn't installed."""
+    if _pypinyin_fn is None:
+        return ""
+    syllables = _pypinyin_fn(word, style=_PypinyinStyle.TONE3, neutral_tone_with_five=True)
+    return "".join(s[0] for s in syllables)
+
+
+def cross_check_pinyin(hanzi: str, candidate_pinyin: str) -> str | None:
+    """Compares a candidate pinyin (from wherever -- Claude, an external
+    diacritic string, etc.) against pypinyin's independent computation.
+
+    Returns a human-readable warning string if they disagree, or None if
+    they match (or pypinyin isn't installed / can't be checked). This
+    exists specifically for the failure mode where a diacritic source
+    string has a tone mark on the WRONG syllable: diacritic_to_numeric()
+    converts it "successfully" (valid-looking numeric output, right digit
+    COUNT) but the result is semantically wrong, and nothing about the
+    output alone looks broken. Comparing against an independently-computed
+    source is the only way to catch that class of error.
+
+    This is advisory, not authoritative -- pypinyin can be wrong too
+    (polyphonic characters, context-dependent readings), so callers should
+    log/print the warning rather than silently overwrite with pypinyin's
+    version. See validate_pinyin.py for a batch version of this same check."""
+    if not candidate_pinyin or candidate_pinyin == "UNKNOWN_PINYIN":
+        return None
+    expected = pypinyin_numeric(hanzi)
+    if not expected or expected == candidate_pinyin:
+        return None
+    return (f"pinyin mismatch for '{hanzi}': got '{candidate_pinyin}', "
+            f"pypinyin expects '{expected}' -- please verify")

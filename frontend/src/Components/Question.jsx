@@ -66,6 +66,7 @@ export default function Question({
     onMarkCorrect,
     onPlayAudio,
     debug,
+    onPreloadAudio
 }) {
 
     const showReplayButton =
@@ -85,6 +86,7 @@ export default function Question({
 
     const [correctPinyin, setCorrectPinyin] = useState("");
     const [decompositionData, setDecompositionData] = useState(null);
+    const [sentenceTagMetadata, setSentenceTagMetadata] = useState({});
 
     // ── Grammar Tip UI state ──────────────────────────────────────
     const [isGrammarTipOpen, setIsGrammarTipOpen] = useState(false);
@@ -105,19 +107,34 @@ export default function Question({
         setDecompositionData(null);
     }, [currentQuestionObj]);
 
-    // Fetch character decomposition when a character quiz is answered
-// Fetch decomposition for the correct answer, and also the user's wrong
-// answer (if incorrect) so they can compare both breakdowns
-// Fetch decomposition for the correct answer, and also the user's wrong
-// answer (if incorrect) so they can compare both breakdowns
+    // Fetch sentence tags with context-aware definitions
+    useEffect(() => {
+        if (!currentQuestionObj || !currentQuestionObj.sentence_id) {
+            setSentenceTagMetadata({});
+            return;
+        }
+        
+        fetch(`/api/sentence_tags/${currentQuestionObj.sentence_id}`)
+            .then(res => res.json())
+            .then(data => setSentenceTagMetadata(data.tags || {}))
+            .catch(err => {
+                console.error("Failed to fetch sentence tags", err);
+                setSentenceTagMetadata({});
+            });
+    }, [currentQuestionObj?.sentence_id]);
+
+    useEffect(() => {
+        if (showReplayButton && onPreloadAudio) {
+            onPreloadAudio(currentQuestionObj.question);
+        }
+    }, [currentQuestionObj]);
+
     useEffect(() => {
         if (hasAnswered && CHARACTER_QUIZ_TYPES.has(currentQuestionObj.question_type)) {
             const chars = [currentQuestionObj.answer];
             if (answerState === 'incorrect' && lastUserAnswer && lastUserAnswer !== currentQuestionObj.answer) {
                 chars.push(lastUserAnswer);
             }
-            // Dedupe individual characters across both strings (e.g. 衣服 vs 衣脑
-            // both contain 衣 -- we only want to fetch/show it once)
             const uniqueChars = Array.from(new Set(chars.join("").split(""))).join("");
 
             console.debug("[decomposition] fetching for:", uniqueChars, "from chars:", chars);
@@ -170,6 +187,7 @@ export default function Question({
             <ClickableText 
                 text={text} 
                 tags={currentQuestionObj.tags || []} 
+                tagMetadata={sentenceTagMetadata}
                 isUnitTest={sessionType === "unit_test"} 
             />
         ) : (
@@ -256,7 +274,12 @@ export default function Question({
                     {isTranscriptionToPinyin && !hasAnswered ? (
                         currentQuestionObj.question
                     ) : (
-                        <ClickableText text={currentQuestionObj.question} tags={currentQuestionObj.tags || []} isUnitTest={sessionType === "unit_test"} />
+                        <ClickableText 
+                            text={currentQuestionObj.question} 
+                            tags={currentQuestionObj.tags || []} 
+                            tagMetadata={sentenceTagMetadata}
+                            isUnitTest={sessionType === "unit_test"} 
+                        />
                     )}
                 </h1>
             )}
