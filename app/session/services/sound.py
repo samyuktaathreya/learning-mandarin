@@ -28,7 +28,7 @@ call sites won't have this context, so defaults are fine.
 from typing import Optional
 from sqlalchemy.orm import Session
 
-from pinyin_utils import split_pinyin_sounds, GATED_INITIALS, GATED_FINALS, get_pinyin
+from app.pinyin_utils import split_pinyin_sounds, GATED_INITIALS, GATED_FINALS
 from textbook import crud
 
 # Minimum required sounds per practicefor pronunciation practice to be viable
@@ -40,7 +40,7 @@ def _tag_sounds(db: Session, tag: str, unit_number: Optional[int] = None, hsk_le
     present in `tag`'s pronunciation. unit_number/hsk_level are optional: pass
     them if you know the curriculum context so a multi-sense word resolves to
     its relevant taught meaning."""
-    p = get_pinyin(db, tag, unit_number=unit_number, hsk_level=hsk_level)
+    p = crud.get_pinyin_for_word(db, tag, unit_number=unit_number, hsk_level=hsk_level)
     if not p:
         return set()
     sounds = set()

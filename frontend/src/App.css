@@ -535,3 +535,102 @@
     letter-spacing: 0.02em;
     margin-left: 0.5rem;
 }
+
+/* Container & Interactive Word */
+.clickable-text-container {
+  position: relative;
+  display: inline;
+}
+
+.clickable-word {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: currentColor;
+  text-underline-offset: 3px;
+  opacity: 0.95;
+}
+
+/* Definition Popup */
+.vocab-popup {
+  position: absolute;
+  background: var(--code-bg, #1e1e1e);
+  border: 1px solid var(--border, #333);
+  border-radius: 6px;
+  padding: 8px 12px;
+  z-index: 100;
+  white-space: normal;
+  max-width: 280px;
+  min-width: 180px;
+  font-family: var(--mono, monospace);
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.vocab-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.vocab-popup-title {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.vocab-popup-close {
+  cursor: pointer;
+  opacity: 0.6;
+  padding-left: 8px;
+  user-select: none;
+}
+
+.vocab-popup-close:hover {
+  opacity: 1;
+}
+
+/* Primary Definition */
+.vocab-primary-def {
+  margin-bottom: 2px;
+}
+
+.vocab-pinyin {
+  font-weight: 600;
+}
+
+.vocab-unit-tag {
+  opacity: 0.6;
+  font-size: 0.75rem;
+  margin-left: 6px;
+}
+
+/* Collapsible "Other Meanings" Dropdown */
+.vocab-others-details {
+  border-top: 1px solid var(--border, #333);
+  padding-top: 6px;
+  margin-top: 6px;
+}
+
+.vocab-others-summary {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 4px;
+}
+
+.vocab-others-summary:hover {
+  opacity: 1;
+}
+
+.vocab-others-list {
+  margin: 4px 0 0 0;
+  padding-left: 14px;
+  list-style-type: disc;
+}
+
+.vocab-others-item {
+  margin-bottom: 3px;
+}

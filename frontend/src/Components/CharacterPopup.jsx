@@ -1,21 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
-
+import '../App.css'
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 
 /**
- * Wraps a string so every Chinese word is clickable, with a dotted
- * underline spanning the whole word (not per-character) to signal
- * that it's interactive.
- *
- * Props:
- * - text: string
- * - tags: string[]
- * - isUnitTest: boolean
- * - unitId: number | string (optional) - unit context for lookup
- * - hskLevel: number (optional, default 1) - HSK level context for lookup
+ * Wraps a string so every Chinese word is clickable with a dotted underline.
+ * Clicking a word opens a popup showing context-aware primary definitions
+ * and a collapsible dropdown for alternative meanings.
  */
 export function ClickableText({ text, tags = [], isUnitTest, unitId, hskLevel = 1 }) {
-    // popup holds word details including multi-sense data
     const [popup, setPopup] = useState(null); // { word, pinyin, english, unit, other_definitions, x, y }
     const containerRef = useRef(null);
 
@@ -28,7 +20,6 @@ export function ClickableText({ text, tags = [], isUnitTest, unitId, hskLevel = 
     if (!text) return null;
     if (isUnitTest) return <span>{text}</span>;
 
-    // Sort tags longest-first so multi-char words are matched before single chars
     const sortedTags = [...tags].filter(hasChinese).sort((a, b) => b.length - a.length);
 
     const handleClick = (e, word) => {
@@ -43,10 +34,8 @@ export function ClickableText({ text, tags = [], isUnitTest, unitId, hskLevel = 
             return;
         }
 
-        // Set initial loading state
         setPopup({ word, pinyin: '...', english: null, unit: null, other_definitions: [], x, y });
 
-        // Build query string with unit context if available
         let url = `/api/lookup/${encodeURIComponent(word)}`;
         const queryParams = new URLSearchParams();
         if (unitId != null) queryParams.append('unit', unitId);
@@ -109,86 +98,63 @@ export function ClickableText({ text, tags = [], isUnitTest, unitId, hskLevel = 
     }
 
     return (
-        <span ref={containerRef} style={{ position: 'relative', display: 'inline' }}>
-            {units.map((unit, i) =>
-                unit.clickable
-                    ? (
-                        <span
-                            key={i}
-                            onClick={(e) => handleClick(e, unit.word)}
-                            style={{
-                                cursor: 'pointer',
-                                textDecoration: 'underline',
-                                textDecorationStyle: 'dotted',
-                                textDecorationColor: 'currentColor',
-                                textUnderlineOffset: '3px',
-                                opacity: 0.95,
-                            }}
-                        >
-                            {unit.text}
-                        </span>
-                    )
-                    : <span key={i}>{unit.text}</span>
+        <span ref={containerRef} className="clickable-text-container">
+            {units.map((unit, idx) =>
+                unit.clickable ? (
+                    <span
+                        key={idx}
+                        onClick={(e) => handleClick(e, unit.word)}
+                        className="clickable-word"
+                    >
+                        {unit.text}
+                    </span>
+                ) : (
+                    <span key={idx}>{unit.text}</span>
+                )
             )}
 
             {popup && (
                 <span
-                    style={{
-                        position: 'absolute',
-                        left: popup.x,
-                        top: popup.y,
-                        background: 'var(--code-bg, #1e1e1e)',
-                        border: '1px solid var(--border, #333)',
-                        borderRadius: 6,
-                        padding: '8px 12px',
-                        zIndex: 100,
-                        whiteSpace: 'normal',
-                        maxWidth: '280px',
-                        fontFamily: 'var(--mono, monospace)',
-                        fontSize: '0.85rem',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                    }}
+                    className="vocab-popup"
+                    style={{ left: popup.x, top: popup.y }}
                     onClick={(e) => e.stopPropagation()}
                 >
-                    {/* Header bar */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                        <strong style={{ fontSize: '1rem' }}>{popup.word}</strong>
-                        <span
-                            onClick={() => setPopup(null)}
-                            style={{ cursor: 'pointer', opacity: 0.6, paddingLeft: 8 }}
-                        >
+                    {/* Header */}
+                    <div className="vocab-popup-header">
+                        <span className="vocab-popup-title">{popup.word}</span>
+                        <span className="vocab-popup-close" onClick={() => setPopup(null)}>
                             ✕
                         </span>
                     </div>
 
-                    {/* Primary Sense Definition */}
-                    <div style={{ marginBottom: popup.other_definitions?.length ? 6 : 0 }}>
-                        <span style={{ fontWeight: '600' }}>{popup.pinyin}</span>
+                    {/* Primary Sense */}
+                    <div className="vocab-primary-def">
+                        <span className="vocab-pinyin">{popup.pinyin}</span>
                         {popup.english && <span> — {popup.english}</span>}
                         {popup.unit != null && (
-                            <span style={{ opacity: 0.6, fontSize: '0.75rem', marginLeft: 6 }}>
-                                [Unit {popup.unit}]
-                            </span>
+                            <span className="vocab-unit-tag">[Unit {popup.unit}]</span>
                         )}
                     </div>
 
-                    {/* Alternative Senses Section */}
+                    {/* Collapsible Dropdown for Alternative Senses */}
                     {popup.other_definitions && popup.other_definitions.length > 0 && (
-                        <div style={{ borderTop: '1px solid var(--border, #333)', paddingTop: 6, marginTop: 6 }}>
-                            <div style={{ fontSize: '0.75rem', opacity: 0.6, marginBottom: 4, fontWeight: 'bold' }}>
-                                Other Meanings:
-                            </div>
-                            <ul style={{ margin: 0, paddingLeft: 14, listStyleType: 'disc' }}>
+                        <details className="vocab-others-details">
+                            <summary className="vocab-others-summary">
+                                Other Meanings ({popup.other_definitions.length})
+                            </summary>
+                            <ul className="vocab-others-list">
                                 {popup.other_definitions.map((def, idx) => (
-                                    <li key={idx} style={{ marginBottom: 2 }}>
-                                        <span><strong>{def.pinyin}</strong> — {def.english}</span>
-                                        <span style={{ opacity: 0.6, fontSize: '0.75rem', marginLeft: 4 }}>
+                                    <li key={idx} className="vocab-others-item">
+                                        <span>
+                                            <strong className="vocab-pinyin">{def.pinyin}</strong> — {def.english}
+                                        </span>
+                                        <span className="vocab-unit-tag">
                                             {def.unit ? `[Unit ${def.unit}]` : '[reference]'}
                                         </span>
                                     </li>
                                 ))}
                             </ul>
-                        </div>
+                        </details>
                     )}
                 </span>
             )}
