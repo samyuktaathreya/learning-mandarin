@@ -13,8 +13,13 @@ Design notes:
   hanzi -> pinyin/unit for ANY taught token. Splitting them into separate
   tables would just re-introduce a 3-way UNION every time something needs
   "all known tokens up to unit N".
-- `unit` on Vocab is the unit the word is FIRST introduced in (lowest-unit-wins,
-  same dedup rule as the old process_entries()).
+- `unit` on Vocab is now just a CACHE of the primary sense's home unit --
+  see VocabSense for the real per-meaning home units. A word can be
+  genuinely retaught with a different meaning in a later unit/hsk_level
+  (e.g. 还 "still" in HSK1 vs. 还 "to return (something)" in HSK3); each
+  such meaning gets its own VocabSense row instead of being collapsed by
+  the old "lowest unit wins" rule, which silently discarded every meaning
+  but the first one ever seen.
 - `Sentence.tags` from the old JSON becomes the `sentence_vocab` join table.
   Every tag must resolve to a `Vocab.hanzi` row -- including the
   "unknown word" fallback tags that sentence_parser's greedy_segment /
@@ -59,6 +64,17 @@ class Unit(Base):
     
 
 class Vocab(Base):
+    """The hanzi IDENTITY row -- one per unique string, e.g. one row for
+    "还" no matter how many different meanings it's taught with.
+
+    pinyin/english/unit_id/word_type here are now a CACHED SNAPSHOT of this
+    word's primary sense (see VocabSense.is_primary), kept in sync by
+    db_utils whenever the primary sense changes. They exist so code that
+    hasn't been migrated to be sense-aware yet (old queries, the app layer)
+    keeps returning a reasonable single definition instead of breaking.
+    New code should prefer VocabSense rows via `senses` / db_utils sense
+    helpers -- a word can have several taught meanings, each introduced in
+    its own unit, and Vocab alone can no longer represent that."""
     __tablename__ = "vocab"
 
     id = Column(Integer, primary_key=True)
@@ -70,6 +86,50 @@ class Vocab(Base):
 
     unit = relationship("Unit", back_populates="vocab")
     sentence_links = relationship("SentenceVocab", back_populates="vocab", cascade="all, delete-orphan")
+    senses = relationship("VocabSense", back_populates="vocab", cascade="all, delete-orphan",
+                           order_by="VocabSense.id")
+
+
+class VocabSense(Base):
+    """One taught MEANING of a Vocab hanzi. A hanzi can carry several senses
+    across the curriculum -- e.g. 还 as "still/also" (introduced HSK1) vs.
+    "to return (something)" (introduced HSK3) -- and each gets its own row
+    here instead of being collapsed into a single (pinyin, english,
+    unit_id) the way Vocab alone used to force.
+
+    unit_id is this SENSE's home unit (first taught here) -- nullable only
+    for senses discovered by append_orphan_tags.py before a confident home
+    unit is resolved.
+
+    is_primary marks the sense used as the word's default/fallback
+    definition wherever no sentence context is available (flashcard review,
+    any reader not yet updated to be sense-aware). Exactly one sense per
+    vocab_id should be primary at a time -- enforced by db_utils (which
+    clears the old primary before setting a new one), not a DB constraint.
+
+    Uniqueness is on (vocab_id, unit_id, english) rather than just
+    (vocab_id, unit_id): a unit can legitimately re-teach a word with the
+    SAME meaning it already had (plain review) without that becoming a
+    second sense -- only a genuinely different `english` for that
+    (word, unit) pair creates a new row."""
+    __tablename__ = "vocab_senses"
+
+    id = Column(Integer, primary_key=True)
+    vocab_id = Column(Integer, ForeignKey("vocab.id"), nullable=False)
+    unit_id = Column(Integer, ForeignKey("units.id"), nullable=True)
+    pinyin = Column(Text, nullable=False, default="")
+    english = Column(Text, nullable=False, default="")
+    word_type = Column(Enum(WordType), nullable=False, default=WordType.vocab)
+    is_primary = Column(Integer, nullable=False, default=0, server_default="0")  # SQLite: 0/1 in place of Boolean
+
+    vocab = relationship("Vocab", back_populates="senses")
+    unit = relationship("Unit")
+    sentence_links = relationship("SentenceVocab", back_populates="sense")
+    question_links = relationship("Question", back_populates="sense")
+
+    __table_args__ = (
+        UniqueConstraint("vocab_id", "unit_id", "english", name="_vocab_unit_english_uc"),
+    )
 
 
 class Sentence(Base):
@@ -98,16 +158,25 @@ class SentenceVocab(Base):
     id = Column(Integer, primary_key=True)
     sentence_id = Column(Integer, ForeignKey("sentences.id"), nullable=False)
     vocab_id = Column(Integer, ForeignKey("vocab.id"), nullable=False)
+    # Which taught MEANING this occurrence demonstrates -- resolved at write
+    # time (see db_utils.resolve_sense_for_sentence) by picking the sense of
+    # `vocab_id` whose home unit is the latest one already <= this sentence's
+    # own unit. Nullable for legacy rows written before senses existed, and
+    # for "auto" words that were never given a real sense.
+    vocab_sense_id = Column(Integer, ForeignKey("vocab_senses.id"), nullable=True)
     position = Column(Integer, nullable=False, default=0)
-    # NULL = not yet checked against this sentence's context.
-    # ""   = checked, default Vocab.english is accurate here, no override needed.
-    # non-empty string = the corrected definition for THIS occurrence only.
-    # Using "" as a distinct sentinel from NULL means "checked, no override"
-    # doesn't get re-sent to Claude on every future pipeline run.
+    # Fine-grained override for the RARE case where even the resolved
+    # sense's wording doesn't fit this specific sentence (e.g. a sense's
+    # definition is technically right but awkwardly phrased for this
+    # context). This is no longer the primary mechanism for "different unit,
+    # different meaning" -- that's now VocabSense's job. NULL = not yet
+    # checked. "" = checked, the resolved sense's english is fine as-is.
+    # non-empty = a corrected wording for THIS occurrence only.
     context_definition = Column(Text, nullable=True)
 
     sentence = relationship("Sentence", back_populates="vocab_links")
     vocab = relationship("Vocab", back_populates="sentence_links")
+    sense = relationship("VocabSense", back_populates="sentence_links")
 
     __table_args__ = (
         UniqueConstraint("sentence_id", "position", name="_sentence_position_uc"),
@@ -204,7 +273,15 @@ class Question(Base):
     answer = Column(Text, nullable=False)
     unit_id = Column(Integer, ForeignKey("units.id"), nullable=False)
     vocab_id = Column(Integer, ForeignKey("vocab.id"), nullable=True)
+    # Which specific sense this word-question tested, e.g. so a wrong-answer
+    # review screen can show the exact definition the question was built
+    # from rather than falling back to Vocab's (possibly different-sense)
+    # cached snapshot. Nullable: sentence-level questions don't test one
+    # word/sense, and legacy rows predate this column.
+    vocab_sense_id = Column(Integer, ForeignKey("vocab_senses.id"), nullable=True)
     sentence_id = Column(Integer, ForeignKey("sentences.id"), nullable=True)
+
+    sense = relationship("VocabSense", back_populates="question_links")
 
     __table_args__ = (
         UniqueConstraint("legacy_id", name="_legacy_id_uc"),

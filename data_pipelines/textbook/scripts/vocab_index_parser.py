@@ -13,7 +13,12 @@ Pipeline (unchanged from the JSON version):
   3. Code: classify type (vocab / grammar / proper_noun), convert diacritic
      pinyin to numeric, dedupe (first-seen wins, lowest unit)
   4. Merge in language-app-data/added_vocab/hsk1.txt -- hand-added entries
-  5. Upsert every record into `vocab` (+ implicitly `units`) via db.upsert_vocab
+  5. Upsert every record into `vocab_senses` (+ implicitly `vocab`, `units`)
+     via db.upsert_vocab_sense -- each distinct (hanzi, unit, english)
+     listing in the printed index becomes its own taught SENSE rather than
+     being collapsed to a single row per hanzi, so a word retaught later
+     with a genuinely different meaning keeps both meanings on file instead
+     of the earlier one silently overwriting the later one (or vice versa).
 
 NOTE ON GRAMMAR CLASSIFICATION: unchanged -- see classify_type().
 """
@@ -31,7 +36,7 @@ from app.core.config.textbook import (
     OCR_PATH,
 )
 
-from app.textbook.db_utils import get_session, init_db, upsert_vocab
+from app.textbook.db_utils import get_session, init_db, upsert_vocab_sense
 from app.textbook.models import WordType
 
 # --------------------------------- CONSTANTS ---------------------------------
@@ -227,25 +232,44 @@ def classify_type(entry: dict) -> WordType:
     return WordType.vocab
 
 
-def process_entries(raw_entries: list) -> list[dict]:
-    """Classify + convert pinyin. Dedup-by-hanzi (lowest unit wins, within
-    THIS run's hsk_level) happens implicitly in db.upsert_vocab, called once
-    per record in caller order -- so records must still be produced in a
-    stable order (first-seen-in-source), same as before, for that rule to
-    behave identically. We keep an in-memory dedup pass here too so a single
-    call to main() doesn't do N redundant DB round-trips for the same word
-    appearing twice in one run.
+_GLOSS_NORM_RE = re.compile(r"[^\w]+")
 
-    NOTE: this in-run pass only dedups within the current hsk_level's index
-    (each run only ever processes one level's PDF now). The CROSS-level
-    question -- if a word already has a home unit from HSK1 and shows up
-    again while loading HSK2, does it stay put or move -- is not decided
-    here. Per the migration doc, the recommendation is "first hsk_level
-    wins, regardless of a later/higher level's unit_number", but that needs
-    to be implemented inside db.upsert_vocab (which has to compare against
-    the word's *existing* Vocab row across all levels, not just this run's
-    in-memory batch) and confirmed against product intent before HSK2 loads."""
-    by_hanzi = {}
+
+def _normalize_gloss(english: str) -> str:
+    """Loose normalization for comparing two glosses -- punctuation/case/
+    whitespace differences shouldn't count as "a different meaning", only a
+    substantively different english string should."""
+    return _GLOSS_NORM_RE.sub(" ", (english or "").strip().lower()).strip()
+
+
+def process_entries(raw_entries: list) -> list[dict]:
+    """Classify + convert pinyin, and decide which raw index rows become
+    separate SENSES vs. which are just the same meaning re-listed at a
+    later unit.
+
+    SENSE POLICY: the printed index gives real text on both sides of every
+    comparison this function makes, so it TRUSTS THAT TEXT DIRECTLY (no
+    Claude call): if a hanzi's `english` here doesn't (loosely) match a
+    gloss already captured for it, that's trusted as a genuinely new taught
+    sense and kept as its own record, homed at ITS OWN unit. If the gloss
+    DOES match one already captured, it's the same meaning being re-listed
+    (e.g. a review unit) -- that occurrence is folded into the existing
+    record rather than creating a duplicate sense, and the record's unit is
+    pulled earlier if this listing turns out to be the earlier one.
+
+    (Definitions found OUTSIDE the printed index -- CEDICT gap-fills,
+    Claude-authored definitions in append_orphan_tags.py -- can't compare
+    real index text against real index text, so THAT code asks Claude to
+    judge same-vs-new-sense instead; see db_utils.get_nearest_sense /
+    append_orphan_tags.register_word_sense.)
+
+    NOTE: this only dedups within the current hsk_level's index (each run
+    processes one level's PDF). Cross-level sense identity (does an HSK2
+    listing of a word already-sensed in HSK1 count as the same sense) isn't
+    decided here -- upsert_vocab_sense keys sense identity on
+    (vocab, unit, english), so an HSK2 occurrence with a genuinely different
+    gloss still correctly becomes its own new sense either way."""
+    by_hanzi: dict[str, list[dict]] = {}
     skipped = []
     for entry in raw_entries:
         hanzi = (entry.get("hanzi") or "").strip()
@@ -265,15 +289,35 @@ def process_entries(raw_entries: list) -> list[dict]:
             "unit": unit,
             "type": classify_type(entry),
         }
-        existing = by_hanzi.get(hanzi)
-        if existing is None or unit < existing["unit"]:
-            by_hanzi[hanzi] = record
+
+        existing_records = by_hanzi.setdefault(hanzi, [])
+        norm = _normalize_gloss(record["english"])
+        dup = next((r for r in existing_records if _normalize_gloss(r["english"]) == norm), None)
+        if dup is not None:
+            # Same meaning already captured for this hanzi -- keep the
+            # EARLIEST unit's listing as this sense's home; don't let a
+            # later re-listing move it later.
+            if unit < dup["unit"]:
+                dup["unit"] = unit
+            if record["pinyin"] and not dup["pinyin"]:
+                dup["pinyin"] = record["pinyin"]
+            continue
+
+        # A genuinely different gloss (or first time seeing this hanzi) --
+        # trust the index text and keep it as its own sense candidate.
+        existing_records.append(record)
 
     if skipped:
         print(f"  [warning] skipped {len(skipped)} unusable index row(s) (unclear/invalid unit):")
         for e in skipped:
             print(f"    - {e}")
-    return list(by_hanzi.values())
+
+    records = [r for recs in by_hanzi.values() for r in recs]
+    # Sort by unit so the earliest-taught sense of each word is written
+    # FIRST -- upsert_vocab_sense makes a hanzi's first-ever-written sense
+    # its primary one, and that should be the earliest-taught meaning.
+    records.sort(key=lambda r: r["unit"])
+    return records
 
 
 def main():
@@ -292,8 +336,9 @@ def main():
 
     with get_session() as db:
         counts = {WordType.vocab: 0, WordType.grammar: 0, WordType.proper_noun: 0}
+        senses_created = 0
         for r in records:
-            upsert_vocab(
+            sense = upsert_vocab_sense(
                 db,
                 hanzi=r["hanzi"],
                 pinyin=r["pinyin"],
@@ -302,11 +347,13 @@ def main():
                 word_type=r["type"],
                 hsk_level=HSK_LEVEL,
             )
+            senses_created += 1
             counts[r["type"]] += 1
 
     print(f"  vocab: {counts[WordType.vocab]}, grammar: {counts[WordType.grammar]}, "
           f"proper_nouns: {counts[WordType.proper_noun]}")
-    print(f"Done. Wrote {len(records)} record(s) directly to the textbook DB (HSK level {HSK_LEVEL}).")
+    print(f"Done. Wrote {senses_created} sense record(s) directly to the textbook DB "
+          f"(HSK level {HSK_LEVEL}).")
 
 
 if __name__ == "__main__":

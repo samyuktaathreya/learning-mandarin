@@ -8,6 +8,17 @@ Every function here takes `db: Session` explicitly rather than reading a
 module-level global -- callers (tier_questions.py etc.) now need to thread a
 session through, same as every other crud module in this app already does.
 
+SENSE-AWARE UPDATE: Vocab is now just the hanzi IDENTITY row -- a word's
+actual taught meaning(s) live on VocabSense rows (see textbook.models.
+VocabSense), each with its own pinyin/english/home unit, since a word can
+be taught with a genuinely different meaning at a later unit (or hsk_level)
+than the one it was first introduced in. Vocab.pinyin/english/unit_id stay
+as a cached snapshot of the word's PRIMARY sense for anything that doesn't
+need per-meaning precision, but every function here that used to filter on
+Vocab.unit_id now queries VocabSense directly instead -- the old
+Vocab.unit_id-only queries would silently miss a word introduced with a
+NEW sense in a unit that isn't its primary sense's home.
+
 CACHING: curriculum data (vocab, questions, sentences) changes only when the
 data pipeline reruns, not per-request, so the hot-path functions here
 (get_vocab_tags_for_unit, get_questions_for_tag) are cached in-process with a
@@ -24,16 +35,18 @@ callers that used to do q["tags"], q["id"], q.get("unit") on inverted_index
 entries need minimal changes -- "tags" is computed on the fly (see
 _tags_for_question) since sentence questions test EVERY word in their
 sentence, not just one (this is exactly why Question.sentence_id was added
-to the schema).
+to the schema). A new "definition" key carries the specific taught meaning
+a word-level question tests (via Question.vocab_sense_id), for callers that
+want to show it.
 """
 import time
 from threading import Lock
 from typing import Optional
 
 from sqlalchemy.orm import Session
-from sqlalchemy import func
+from sqlalchemy import func, or_, and_
 
-from textbook.models import Unit, Vocab, Sentence, SentenceVocab, Question, WordType
+from textbook.models import Unit, Vocab, VocabSense, Sentence, SentenceVocab, Question, WordType
 from session.constants import QUESTION_TYPE_FACETS  # single source of truth -- see note below
 
 DEFAULT_CACHE_TTL_SECONDS = 3600  # 1 hour; curriculum data changes rarely
@@ -82,14 +95,61 @@ def clear_cache():
     _cache.clear()
 
 
+# --------------------------------- SENSE RESOLUTION ---------------------------------
+# Shared helpers every definition-lookup function below goes through, so
+# "which meaning is relevant right now" is decided in exactly one place.
+
+def _senses_taught_by(vocab: Vocab, unit_number: int, hsk_level: int) -> list:
+    return [
+        s for s in vocab.senses
+        if s.unit is not None and (s.unit.hsk_level, s.unit.unit_number) <= (hsk_level, unit_number)
+    ]
+
+
+def _resolve_relevant_sense(vocab: Optional[Vocab], unit_number: Optional[int],
+                             hsk_level: int) -> Optional[VocabSense]:
+    """Which sense of `vocab` is most relevant right now: if unit_number is
+    given, the LATEST sense already taught by that point in the curriculum
+    (mirrors the data pipeline's resolve_sense_for_sentence -- the most
+    recently introduced meaning a student at that point would know);
+    otherwise the word's overall primary sense. Falls back to the primary
+    sense (then to any sense at all) if nothing is homed early enough.
+    None if the word doesn't exist or has no senses yet."""
+    if vocab is None or not vocab.senses:
+        return None
+    if unit_number is not None:
+        candidates = _senses_taught_by(vocab, unit_number, hsk_level)
+        if candidates:
+            return max(candidates, key=lambda s: (s.unit.hsk_level, s.unit.unit_number))
+    primary = next((s for s in vocab.senses if s.is_primary), None)
+    return primary or vocab.senses[0]
+
+
+def _sense_to_dict(sense: VocabSense) -> dict:
+    word_type = sense.word_type
+    return {
+        "hanzi": sense.vocab.hanzi,
+        "pinyin": sense.pinyin,
+        "english": sense.english,
+        "unit": sense.unit.unit_number if sense.unit else None,
+        "hsk_level": sense.unit.hsk_level if sense.unit else None,
+        "word_type": word_type.value if hasattr(word_type, "value") else word_type,
+    }
+
+
 # --------------------------------- VOCAB TAGS PER UNIT ---------------------------------
 # Replaces unit_to_vocab_tags_dict[unit] (built once from unit_vocab_tags.json
 # at import). One row per unit's set of taught vocab hanzi.
 
 def get_vocab_tags_for_unit(db: Session, unit_number: int, hsk_level: int = 1) -> set:
-    """Which vocab hanzi are taught in this unit. unit_number alone no
-    longer uniquely identifies a Unit row -- (unit_number, hsk_level)
-    together do, since numbering restarts per level."""
+    """Which vocab hanzi have a sense INTRODUCED in this unit -- i.e. this
+    unit taught (at least one meaning of) this word. Sourced from
+    VocabSense, not Vocab.unit_id (which only reflects the word's PRIMARY
+    sense's home) -- a word can gain a brand-new sense in a unit that
+    isn't where it was originally taught, and that unit should still show
+    the word as "introduced here." unit_number alone no longer uniquely
+    identifies a Unit row -- (unit_number, hsk_level) together do, since
+    numbering restarts per level."""
     cache_key = ("vocab_tags_for_unit", unit_number, hsk_level)
     cached, hit = _cache.get(cache_key)
     if hit:
@@ -97,12 +157,14 @@ def get_vocab_tags_for_unit(db: Session, unit_number: int, hsk_level: int = 1) -
 
     rows = (
         db.query(Vocab.hanzi)
-        .join(Unit, Vocab.unit_id == Unit.id)
+        .join(VocabSense, VocabSense.vocab_id == Vocab.id)
+        .join(Unit, VocabSense.unit_id == Unit.id)
         .filter(
             Unit.unit_number == unit_number,
             Unit.hsk_level == hsk_level,
-            Vocab.word_type != WordType.auto,
+            VocabSense.word_type != WordType.auto,
         )
+        .distinct()
         .all()
     )
     result = {r.hanzi for r in rows}
@@ -111,8 +173,18 @@ def get_vocab_tags_for_unit(db: Session, unit_number: int, hsk_level: int = 1) -
 
 
 def get_tags_to_unit_map(db: Session) -> dict:
-    """Replaces tags_to_unit_dict (tag -> earliest unit). Global map, cached
-    as a whole since it's small and queried as a single lookup table."""
+    """Replaces tags_to_unit_dict (tag -> EARLIEST unit it's taught in). A
+    word can now have senses homed at several different units -- this
+    keeps the old single-unit-per-word contract by taking the earliest one
+    (a word counts as "known" as soon as any of its meanings has been
+    introduced), matching the data pipeline's own get_word_to_unit_map.
+
+    NOTE: like the original version of this function, this ignores
+    hsk_level entirely when comparing unit_numbers -- fine while only one
+    level is loaded, but once a word can have senses across different
+    hsk_levels, "unit_number" alone stops being unambiguous. Flagging this
+    rather than silently fixing it, since it's a pre-existing limitation
+    of this specific map, not something the sense refactor introduced."""
     cache_key = ("tags_to_unit_map",)
     cached, hit = _cache.get(cache_key)
     if hit:
@@ -120,19 +192,25 @@ def get_tags_to_unit_map(db: Session) -> dict:
 
     rows = (
         db.query(Vocab.hanzi, Unit.unit_number)
-        .join(Unit, Vocab.unit_id == Unit.id)
-        .filter(Vocab.word_type != WordType.auto)
+        .join(VocabSense, VocabSense.vocab_id == Vocab.id)
+        .join(Unit, VocabSense.unit_id == Unit.id)
+        .filter(VocabSense.word_type != WordType.auto)
         .all()
     )
-    result = {hanzi: unit_number for hanzi, unit_number in rows}
+    result = {}
+    for hanzi, unit_number in rows:
+        if hanzi not in result or unit_number < result[hanzi]:
+            result[hanzi] = unit_number
     _cache.set(cache_key, result)
     return result
 
 
 def get_unit_to_tags_map(db: Session) -> dict:
-    """Replaces unit_to_tags_dict (unit -> {tags}). Built from the same
-    query as get_tags_to_unit_map, just grouped the other way -- cached
-    separately since callers may want one or the other."""
+    """Replaces unit_to_tags_dict (unit -> {tags}). Unlike
+    get_tags_to_unit_map (which collapses each word down to its single
+    earliest unit), this lists a word under EVERY unit that has a sense
+    homed there -- a word retaught with a genuinely new sense shows up in
+    that later unit's set too, not just its first appearance."""
     cache_key = ("unit_to_tags_map",)
     cached, hit = _cache.get(cache_key)
     if hit:
@@ -140,8 +218,9 @@ def get_unit_to_tags_map(db: Session) -> dict:
 
     rows = (
         db.query(Vocab.hanzi, Unit.unit_number)
-        .join(Unit, Vocab.unit_id == Unit.id)
-        .filter(Vocab.word_type != WordType.auto)
+        .join(VocabSense, VocabSense.vocab_id == Vocab.id)
+        .join(Unit, VocabSense.unit_id == Unit.id)
+        .filter(VocabSense.word_type != WordType.auto)
         .all()
     )
     result = {}
@@ -177,6 +256,11 @@ def _tags_for_question(db: Session, q: Question) -> list:
 
 
 def _question_to_dict(db: Session, q: Question, unit_number: int) -> dict:
+    definition = None
+    if q.vocab_sense_id is not None:
+        sense = db.query(VocabSense).filter(VocabSense.id == q.vocab_sense_id).first()
+        if sense:
+            definition = sense.english
     return {
         "id": q.legacy_id or f"q{q.id}",
         "db_id": q.id,  # real PK, in case a caller needs it distinctly from legacy_id
@@ -185,6 +269,7 @@ def _question_to_dict(db: Session, q: Question, unit_number: int) -> dict:
         "answer": q.answer,
         "unit": unit_number,
         "tags": _tags_for_question(db, q),
+        "definition": definition,  # the specific taught meaning this question tests, if any (word-level only)
     }
 
 
@@ -197,7 +282,11 @@ def get_questions_for_tag(db: Session, tag: str, unit_number: int, hsk_level: in
     A question reaches this list if `tag` is ANY of its tags -- i.e. for a
     word question, tag must equal the tested word; for a sentence question,
     tag must be any word IN that sentence. This matches the old inverted
-    index's construction (indexed under every tag in q["tags"])."""
+    index's construction (indexed under every tag in q["tags"]). Question
+    rows are already scoped to a single unit at creation time (see
+    create_questions.py), so this doesn't need to separately check WHICH
+    sense of `tag` a given question tests -- it just needs to find
+    questions unit_id points at."""
     cache_key = ("questions_for_tag", tag, unit_number, hsk_level, question_type)
     cached, hit = _cache.get(cache_key)
     if hit:
@@ -270,8 +359,6 @@ def get_questions_for_tag_up_to_unit(db: Session, tag: str, max_unit: int, max_h
     if vocab is None:
         _cache.set(cache_key, [])
         return []
-
-    from sqlalchemy import or_, and_
 
     unit_ids_subq = (
         db.query(Unit.id, Unit.unit_number)
@@ -363,47 +450,102 @@ def get_question_by_id(db: Session, question_db_id: int, unit_number: Optional[i
 # Replaces hsk1_dictionary (hanzi -> {hanzi, pinyin, english}) and
 # word_to_pinyin (hanzi -> pinyin), both previously loaded whole into RAM.
 
-def get_vocab_definition(db: Session, hanzi: str) -> Optional[dict]:
-    """Replaces hsk1_dictionary.get(hanzi). Returns None if not found
-    (old code would KeyError or return None depending on call site --
-    returning None here and letting callers handle it explicitly)."""
-    cache_key = ("vocab_definition", hanzi)
+def get_vocab_definition(db: Session, hanzi: str, unit_number: Optional[int] = None,
+                          hsk_level: int = 1) -> Optional[dict]:
+    """Replaces hsk1_dictionary.get(hanzi). Returns the single MOST
+    RELEVANT definition for `hanzi` given where the user is in the
+    curriculum: if unit_number is given, whichever sense was most recently
+    taught by that point (e.g. click a word inside a specific sentence);
+    otherwise the word's overall primary sense (e.g. a plain flashcard
+    lookup with no context). None if the word isn't in the vocab table, or
+    has no senses yet.
+
+    For a word with MULTIPLE taught (or dictionary) meanings, this
+    intentionally returns only ONE -- see get_word_definitions for the
+    "relevant one first, everything else underneath" view."""
+    cache_key = ("vocab_definition", hanzi, unit_number, hsk_level)
     cached, hit = _cache.get(cache_key)
     if hit:
         return cached
 
     vocab = db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
-    if vocab is None:
-        _cache.set(cache_key, None)
-        return None
-
-    result = {"hanzi": vocab.hanzi, "pinyin": vocab.pinyin, "english": vocab.english}
+    sense = _resolve_relevant_sense(vocab, unit_number, hsk_level)
+    result = _sense_to_dict(sense) if sense else None
     _cache.set(cache_key, result)
     return result
 
 
-def get_pinyin_for_word(db: Session, hanzi: str) -> Optional[str]:
-    """Replaces word_to_pinyin.get(hanzi)."""
-    cache_key = ("pinyin_for_word", hanzi)
+def get_word_definitions(db: Session, hanzi: str, unit_number: Optional[int] = None,
+                          hsk_level: int = 1) -> dict:
+    """The full "relevant definition first, everything else underneath"
+    view for a word -- what a word-lookup / dictionary-popup UI should use
+    instead of get_vocab_definition. `primary` is exactly what
+    get_vocab_definition returns; `others` is every OTHER sense the word
+    has, ordered taught-in-this-hsk_level first (earliest unit first),
+    then taught-in-other-hsk_levels, then untaught CEDICT reference senses
+    (words CEDICT knows a meaning for that the curriculum hasn't taught
+    yet -- see append_orphan_tags.register_cedict_word) last. Never
+    returns more than one definition as "the" definition -- callers
+    control whether/how `others` gets shown."""
+    cache_key = ("word_definitions", hanzi, unit_number, hsk_level)
     cached, hit = _cache.get(cache_key)
     if hit:
         return cached
 
-    vocab = db.query(Vocab.pinyin).filter(Vocab.hanzi == hanzi).first()
-    result = vocab.pinyin if vocab else None
+    vocab = db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
+    if vocab is None or not vocab.senses:
+        result = {"primary": None, "others": []}
+        _cache.set(cache_key, result)
+        return result
+
+    primary = _resolve_relevant_sense(vocab, unit_number, hsk_level)
+
+    def sort_key(s: VocabSense):
+        if s.unit is None:
+            return (2, 0, 0)  # untaught reference sense -- sorts last
+        same_level = 0 if s.unit.hsk_level == hsk_level else 1
+        return (same_level, s.unit.hsk_level, s.unit.unit_number)
+
+    others = sorted(
+        (s for s in vocab.senses if primary is None or s.id != primary.id),
+        key=sort_key,
+    )
+    result = {
+        "primary": _sense_to_dict(primary) if primary else None,
+        "others": [_sense_to_dict(s) for s in others],
+    }
     _cache.set(cache_key, result)
     return result
 
 
+def get_pinyin_for_word(db: Session, hanzi: str, unit_number: Optional[int] = None,
+                         hsk_level: int = 1) -> Optional[str]:
+    """Replaces word_to_pinyin.get(hanzi). Same relevance rule as
+    get_vocab_definition -- pinyin can differ by sense too (e.g. 还 hai2
+    vs. huan2), so this isn't a fixed per-word fact once a word has
+    multiple readings."""
+    definition = get_vocab_definition(db, hanzi, unit_number=unit_number, hsk_level=hsk_level)
+    return definition["pinyin"] if definition else None
+
+
 def get_all_vocab_hanzi(db: Session) -> set:
     """Replaces `unique_vocab_tags` (the full set of every taught vocab
-    word across all units)."""
+    word across all units). Sourced from VocabSense rather than Vocab
+    directly -- a word only counts as "taught" if it has at least one
+    non-auto sense, regardless of what Vocab's (possibly still-blank,
+    cache-lag) primary snapshot currently says."""
     cache_key = ("all_vocab_hanzi",)
     cached, hit = _cache.get(cache_key)
     if hit:
         return cached
 
-    rows = db.query(Vocab.hanzi).filter(Vocab.word_type != WordType.auto).all()
+    rows = (
+        db.query(Vocab.hanzi)
+        .join(VocabSense, VocabSense.vocab_id == Vocab.id)
+        .filter(VocabSense.word_type != WordType.auto)
+        .distinct()
+        .all()
+    )
     result = {r.hanzi for r in rows}
     _cache.set(cache_key, result)
     return result

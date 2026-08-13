@@ -33,11 +33,12 @@ from app.core.config.shared import ENV_FILE
 from app.core.config.textbook import REJECTED_VOCAB_CACHE
 
 from app.textbook.db_utils import (
-    get_session, init_db, get_all_vocab_with_status, get_all_taught_words,
-    find_example_sentence, update_vocab_entry,
+    get_session, init_db, get_all_vocab_senses_with_status, get_uncovered_word_units,
+    find_example_sentence, get_nearest_sense, rehome_sense, fill_sense_pinyin,
+    update_incomplete_sense, upsert_vocab_sense, get_senses_for_vocab, resolve_sense_for_sentence,
 )
 from app.textbook.models import WordType
-from app.textbook.models import Vocab, Sentence, SentenceVocab, Question
+from app.textbook.models import Vocab, VocabSense, Sentence, SentenceVocab, Question
 from data_pipelines.textbook.scripts.vocab_pinyin_utils import diacritic_to_numeric, cross_check_pinyin
 from data_pipelines.textbook.scripts.cedict_utils import lookup_word, segment_into_words
 
@@ -219,26 +220,197 @@ Output ONLY the definition text. No quotes, no markdown, no preamble.
     except Exception as e:
         print(f"  [warning] primary-definition resolution failed for '{word}': {e}")
         return cedict_english
-    
+
+
+def is_same_sense(word: str, existing_english: str, candidate_english: str,
+                   sentence: Optional[str] = None) -> bool:
+    """Asks Claude whether `candidate_english` describes the SAME taught
+    meaning as an existing sense's `existing_english`, or a genuinely
+    different one. Used ONLY for definitions coming from OUTSIDE the
+    printed index (CEDICT gap-fills, Claude-authored definitions) -- the
+    printed index itself is trusted directly by vocab_index_parser.py,
+    without an AI call, since it has real text on both sides of every
+    comparison it makes. Here, at least one side of the comparison didn't
+    come from the index, so the text alone isn't trustworthy enough to
+    diff directly.
+
+    Defaults to True (assume same meaning, don't fragment into a spurious
+    new sense) if Claude is unavailable or the call fails -- a missed new
+    sense is a smaller, easier-to-notice problem than the vocab list
+    silently accumulating near-duplicate senses for the same word."""
+    if client is None:
+        return True
+
+    prompt = f"""You are a Chinese curriculum editor. A word may have more
+than one taught meaning across a curriculum.
+
+Word: "{word}"
+Meaning already on file: "{existing_english}"
+Candidate meaning for a new appearance: "{candidate_english}"
+{f'Example sentence for the new appearance: "{sentence}"' if sentence else ""}
+
+Are these describing the SAME core meaning (possibly just worded
+differently), or are they genuinely DIFFERENT senses of "{word}" that a
+learner would need to learn separately (e.g. 老 as "old" vs. 老 as a
+surname-prefix, or 还 "still/also" vs. 还 "to return something")?
+
+Output ONLY one word: SAME or DIFFERENT.
+"""
+    try:
+        response = client.messages.create(
+            model=MODEL,
+            max_tokens=8,
+            system="You are a precise bilingual dictionary editor.",
+            messages=[{"role": "user", "content": prompt}],
+        )
+        raw = response.content[0].text.strip().upper()
+        return raw.startswith("SAME")
+    except Exception as e:
+        print(f"  [warning] sense-match check failed for '{word}': {e}")
+        return True
+
+
+def register_word_sense(db, hanzi: str, unit: int, pinyin: str, english: str,
+                         word_type: WordType = WordType.vocab,
+                         sentence: Optional[str] = None) -> VocabSense:
+    """Registers `english` as a taught meaning of `hanzi`, sense-aware. This
+    is the single funnel every gap-filling path in this script goes
+    through (CEDICT hits, Claude-authored definitions, recovered parent
+    words) -- per the pipeline's sense-matching policy: the printed index
+    is trusted directly (vocab_index_parser.py), but anything sourced from
+    OUTSIDE the index asks Claude to compare against the nearest existing
+    sense before deciding to fragment into a new one.
+
+    - No existing senses at all -> this becomes the (primary) first sense.
+    - Existing sense(s) -> compare against the nearest one by home unit;
+      if Claude says SAME, reuse it (re-homing it earlier if this
+      appearance turns out to be earlier, filling in pinyin if it was
+      blank) instead of creating a duplicate; if DIFFERENT, create a new
+      sense homed at `unit`."""
+    nearest = get_nearest_sense(db, hanzi, unit, hsk_level=HSK_LEVEL)
+    if nearest is None:
+        return upsert_vocab_sense(db, hanzi, pinyin, english, unit, word_type, hsk_level=HSK_LEVEL)
+
+    if is_same_sense(hanzi, nearest.english, english, sentence):
+        rehome_sense(db, nearest, unit, hsk_level=HSK_LEVEL)
+        fill_sense_pinyin(db, nearest, pinyin)
+        return nearest
+
+    return upsert_vocab_sense(db, hanzi, pinyin, english, unit, word_type, hsk_level=HSK_LEVEL)
+
+
+def select_best_cedict_sense(word: str, candidates: list, sentence: Optional[str]) -> int:
+    """Which CEDICT candidate (index into `candidates`, each a
+    {"pinyin", "english"} dict from cedict_utils.lookup_word) best matches
+    how `word` is actually used in `sentence`. Falls back to index 0
+    (CEDICT's own listed order, which generally puts the most common sense
+    first) when there's only one candidate, no sentence to compare
+    against, or Claude is unavailable/fails."""
+    if len(candidates) < 2 or not sentence or client is None:
+        return 0
+
+    options = "\n".join(f"{i + 1}. ({c['pinyin']}) {c['english']}" for i, c in enumerate(candidates))
+    prompt = f"""You are a Chinese-English dictionary editor. The word
+"{word}" has multiple dictionary meanings/readings. Which one is used in
+this sentence?
+
+Sentence: "{sentence}"
+
+Candidate meanings:
+{options}
+
+Output ONLY the number of the matching candidate. No explanation.
+"""
+    try:
+        response = client.messages.create(
+            model=MODEL,
+            max_tokens=8,
+            system="You are a precise bilingual dictionary editor.",
+            messages=[{"role": "user", "content": prompt}],
+        )
+        raw = response.content[0].text.strip()
+        m = re.match(r"\d+", raw)
+        if not m:
+            return 0
+        idx = int(m.group()) - 1
+        return idx if 0 <= idx < len(candidates) else 0
+    except Exception as e:
+        print(f"  [warning] cedict sense-selection failed for '{word}': {e}")
+        return 0
+
+
+def register_cedict_word(db, hanzi: str, unit: int, incomplete_here: Optional[VocabSense] = None) -> None:
+    """Registers a word found in CEDICT. CEDICT usually returns SEVERAL
+    candidates for one hanzi (different glosses and/or different
+    readings) -- picks whichever one best fits this unit's usage as the
+    TAUGHT sense (sense-matched against any existing senses via
+    register_word_sense, same as every other outside-the-index
+    definition), and stores every OTHER candidate as an UNTAUGHT
+    reference sense (unit_number=None) so the word's full dictionary
+    entry stays available -- e.g. for an app-side "other definitions"
+    list -- without cluttering the curriculum-facing taught senses.
+
+    If `incomplete_here` is given (an existing incomplete sense already
+    homed at `unit`), fills it in rather than registering a new sense on
+    top of it."""
+    candidates = lookup_word(hanzi)
+    if not candidates:
+        return
+
+    sentence_for_def = find_example_sentence(db, unit, hanzi, hsk_level=HSK_LEVEL)
+    best_idx = select_best_cedict_sense(hanzi, candidates, sentence_for_def)
+    best = candidates[best_idx]
+
+    warning = cross_check_pinyin(hanzi, best["pinyin"])
+    if warning:
+        print(f"  [pinyin-warning] {warning}")
+
+    english = resolve_primary_definition(hanzi, best["english"], sentence_for_def)
+    if english != best["english"]:
+        print(f"  [definition-refined] '{hanzi}': CEDICT said '{best['english']}' -> "
+              f"using '{english}' based on curriculum sentence.")
+
+    if incomplete_here is not None:
+        update_incomplete_sense(db, incomplete_here, best["pinyin"], english)
+        print(f"  [cedict] Filled in: {hanzi} ({best['pinyin']}) -> {english} [Unit {unit}]")
+    else:
+        register_word_sense(db, hanzi, unit, best["pinyin"], english, sentence=sentence_for_def)
+        print(f"  [cedict] Added: {hanzi} ({best['pinyin']}) -> {english} [Unit {unit}]")
+
+    if len(candidates) > 1:
+        print(f"  [cedict] '{hanzi}' has {len(candidates) - 1} other dictionary "
+              f"meaning(s) -- storing as untaught reference sense(s).")
+    for i, cand in enumerate(candidates):
+        if i == best_idx:
+            continue
+        # unit_number=None: a real dictionary meaning, just not (yet)
+        # taught anywhere in the curriculum. upsert_vocab_sense's
+        # (vocab, unit_id=None, english) uniqueness keeps this idempotent
+        # across reruns.
+        upsert_vocab_sense(db, hanzi, cand["pinyin"], cand["english"],
+                            unit_number=None, hsk_level=HSK_LEVEL)
+
+
 # --- Parent Word Recovery ---
 
-def try_recover_parent_word(db, parent: str, unit, vocab_map: dict, valid_indexed_words: set) -> bool:
+def try_recover_parent_word(db, parent: str, unit, senses_map: dict, valid_indexed_words: set) -> bool:
     """When a tag is rejected as a sub-character of `parent`, try to add the
     parent word to the index if it's a real word and not already indexed.
     Returns True if the index was modified."""
     if not parent:
         return False
 
-    if parent in vocab_map:
-        existing = vocab_map[parent]
-        normalized_pinyin = clean_pinyin(existing.pinyin or "")
-        if normalized_pinyin != (existing.pinyin or ""):
-            print(f"  [normalized] '{parent}' had stale formatting -- "
-                  f"pinyin '{existing.pinyin}' -> '{normalized_pinyin}'.")
-            existing.pinyin = normalized_pinyin
-            db.flush()
-            return True
-        return False
+    if parent in senses_map:
+        modified = False
+        for sense in senses_map[parent]:
+            normalized_pinyin = clean_pinyin(sense.pinyin or "")
+            if normalized_pinyin != (sense.pinyin or ""):
+                print(f"  [normalized] '{parent}' had stale formatting -- "
+                      f"pinyin '{sense.pinyin}' -> '{normalized_pinyin}'.")
+                sense.pinyin = normalized_pinyin
+                db.flush()
+                modified = True
+        return modified
 
     if parent in valid_indexed_words:
         return False
@@ -258,12 +430,22 @@ def try_recover_parent_word(db, parent: str, unit, vocab_map: dict, valid_indexe
                   f"instead of '{parent}' as one compound.")
             modified = False
             for seg in segments:
-                if seg not in vocab_map and seg not in valid_indexed_words:
+                if seg not in senses_map and seg not in valid_indexed_words:
                     ensure_word_registered(db, seg, unit)
-                    vocab_map[seg] = db.query(Vocab).filter(Vocab.hanzi == seg).first()
+                    senses_map[seg] = get_senses_for_vocab(db, seg)
                     valid_indexed_words.add(seg)
                     modified = True
             return modified
+
+    # Call CEDICT first for the parent word (before falling back to Claude),
+    # same as everywhere else in this script.
+    if lookup_word(parent):
+        register_cedict_word(db, parent, unit)
+        senses_map[parent] = get_senses_for_vocab(db, parent)
+        valid_indexed_words.add(parent)
+        print(f"  [recovered] '{parent}' is a valid CEDICT word (tagging had split it) "
+              f"-- added as vocab entry [Unit {unit}].")
+        return True
 
     # Call Claude for the parent word (without a specific sentence context)
     analysis = analyze_vocab(parent)
@@ -279,8 +461,8 @@ def try_recover_parent_word(db, parent: str, unit, vocab_map: dict, valid_indexe
     if warning:
         print(f"  [pinyin-warning] {warning}")
 
-    update_vocab_entry(db, parent, parent_pinyin, parent_english, unit, hsk_level=HSK_LEVEL)
-    vocab_map[parent] = db.query(Vocab).filter(Vocab.hanzi == parent).first()
+    register_word_sense(db, parent, unit, parent_pinyin, parent_english)
+    senses_map[parent] = get_senses_for_vocab(db, parent)
     valid_indexed_words.add(parent)
     print(f"  [recovered] '{parent}' is a valid word (tagging had split it) "
           f"-- added as vocab entry ({parent_pinyin}) -> {parent_english} [Unit {unit}].")
@@ -299,30 +481,19 @@ def try_recover_parent_word(db, parent: str, unit, vocab_map: dict, valid_indexe
 # have said about the combined (nonexistent) "word".
 
 def ensure_word_registered(db, word: str, unit) -> None:
-    """Makes sure `word` has a proper Vocab row. CEDICT first (authoritative,
-    free, no API call) -- Claude only as a fallback for words CEDICT
-    doesn't have (names, very colloquial terms, genuine textbook-specific
-    compounds)."""
-    existing = db.query(Vocab).filter(Vocab.hanzi == word).first()
-    if (existing and existing.pinyin and existing.pinyin != "UNKNOWN_PINYIN"
-            and existing.english and existing.english != "UNKNOWN_ENGLISH"):
-        return  # already properly registered, nothing to do
+    """Makes sure `word` has at least one COMPLETE sense. CEDICT first
+    (authoritative, free, no API call) -- Claude only as a fallback for
+    words CEDICT doesn't have (names, very colloquial terms, genuine
+    textbook-specific compounds). Routed through register_word_sense so a
+    word that already has a sense elsewhere doesn't get a spurious
+    duplicate if this appearance turns out to mean the same thing."""
+    existing_senses = get_senses_for_vocab(db, word)
+    if any(s.pinyin and s.pinyin != "UNKNOWN_PINYIN" and s.english and s.english != "UNKNOWN_ENGLISH"
+           for s in existing_senses):
+        return  # already has at least one properly registered sense
 
-    cedict_entry = lookup_word(word)
-    if cedict_entry:
-        pinyin, raw_english = cedict_entry["pinyin"], cedict_entry["english"]
-        warning = cross_check_pinyin(word, pinyin)
-        if warning:
-            print(f"  [pinyin-warning] {warning}")
-
-        sentence_for_def = find_example_sentence(db, unit, word, hsk_level=HSK_LEVEL)
-        english = resolve_primary_definition(word, raw_english, sentence_for_def)
-        if english != raw_english:
-            print(f"  [definition-refined] '{word}': CEDICT said '{raw_english}' -> "
-                  f"using '{english}' based on curriculum sentence.")
-
-        update_vocab_entry(db, word, pinyin, english, unit, hsk_level=HSK_LEVEL)
-        print(f"  [cedict] registered '{word}' ({pinyin}) -> {english}")
+    if lookup_word(word):
+        register_cedict_word(db, word, unit)
         return
 
     sentence = find_example_sentence(db, unit, word, hsk_level=HSK_LEVEL)
@@ -332,7 +503,7 @@ def ensure_word_registered(db, word: str, unit) -> None:
     warning = cross_check_pinyin(word, pinyin)
     if warning:
         print(f"  [pinyin-warning] {warning}")
-    update_vocab_entry(db, word, pinyin, english, unit, hsk_level=HSK_LEVEL)
+    register_word_sense(db, word, unit, pinyin, english, sentence=sentence)
     print(f"  [claude] registered '{word}' ({pinyin}) -> {english}")
 
 def resegment_bad_tag(db, bad_hanzi: str, segments: list[str], unit) -> None:
@@ -378,11 +549,17 @@ def resegment_bad_tag(db, bad_hanzi: str, segments: list[str], unit) -> None:
         db.query(SentenceVocab).filter(SentenceVocab.sentence_id == sentence_id).delete()
         db.flush()
 
+        sentence_row = db.query(Sentence).filter(Sentence.id == sentence_id).first()
         for position, tag in enumerate(new_tags):
             tag_vocab = db.query(Vocab).filter(Vocab.hanzi == tag).first()
             if tag_vocab is None:
                 continue  # shouldn't happen -- ensure_word_registered ran above for `segments`
-            db.add(SentenceVocab(sentence_id=sentence_id, vocab_id=tag_vocab.id, position=position))
+            sense = None
+            if sentence_row is not None:
+                sense = resolve_sense_for_sentence(
+                    db, tag_vocab.id, sentence_row.unit.unit_number, sentence_row.unit.hsk_level)
+            db.add(SentenceVocab(sentence_id=sentence_id, vocab_id=tag_vocab.id,
+                                  vocab_sense_id=sense.id if sense else None, position=position))
         db.flush()
         print(f"  [resegmented] sentence {sentence_id}: replaced '{bad_hanzi}' with {segments}")
 
@@ -398,30 +575,28 @@ def resegment_bad_tag(db, bad_hanzi: str, segments: list[str], unit) -> None:
 # --- Main ---
 
 def sync_index_definitions():
-    print(f"Checking for missing or incomplete definitions in Vocab table (HSK level {HSK_LEVEL})...\n")
+    print(f"Checking for missing or incomplete senses (HSK level {HSK_LEVEL})...\n")
 
     init_db()
     with get_session() as db:
-        # 1. Map existing vocab and identify needs_retry entries
-        vocab_map, needs_retry = get_all_vocab_with_status(db)
-        valid_indexed_words = set(vocab_map.keys())
+        # 1. Map existing senses and identify which are incomplete
+        senses_map, incomplete_ids = get_all_vocab_senses_with_status(db)
+        valid_indexed_words = {
+            hanzi for hanzi, senses in senses_map.items()
+            if any(s.id not in incomplete_ids for s in senses)
+        }
 
-        # 2. Build the full set of (word, unit) pairs that SHOULD be indexed
-        # for this hsk_level. Repairing HSK1 shouldn't pull in HSK2's
-        # not-yet-loaded curriculum as "gaps".
-        word_units = get_all_taught_words(db, hsk_level=HSK_LEVEL)
+        # 2. Every (word, unit) pair actually used in this hsk_level's
+        # curriculum that has no COMPLETE sense homed at or before that unit
+        # yet -- a word can need coverage at several units now (once per
+        # sense it's genuinely taught with), not just its first appearance.
+        gaps = get_uncovered_word_units(db, hsk_level=HSK_LEVEL)
 
-        # 3. Diff against what's already validly indexed
-        missing_by_unit = [
-            (tag, unit) for tag, unit in word_units.items()
-            if tag not in valid_indexed_words or tag in needs_retry
-        ]
-
-        if not missing_by_unit:
-            print("All taught words are already present and fully defined in Vocab!")
+        if not gaps:
+            print("All taught words are already covered by a complete sense!")
             return
 
-        print(f"Found {len(missing_by_unit)} words needing AI definition lookup/repair.\n")
+        print(f"Found {len(gaps)} (word, unit) gap(s) needing AI definition lookup/repair.\n")
 
         rejected_cache = load_rejected_vocab_cache()
         if rejected_cache:
@@ -431,40 +606,41 @@ def sync_index_definitions():
         updated_count = 0
         skipped_non_standalone = []
 
-        # 4. Fetch pinyin + contextual definition for each missing/retry word via Claude
-        for tag, unit in missing_by_unit:
+        # 3. Fetch pinyin + contextual definition for each gap via CEDICT/Claude
+        for tag, unit in gaps:
+            # If an INCOMPLETE sense is already homed exactly at this unit,
+            # this gap is that sense waiting to be filled in -- repair it in
+            # place rather than registering a brand-new sense on top of it.
+            incomplete_here = next(
+                (s for s in senses_map.get(tag, [])
+                 if s.id in incomplete_ids and s.unit is not None
+                 and s.unit.unit_number == unit and s.unit.hsk_level == HSK_LEVEL),
+                None,
+            )
+
             # Already known to be a sub-character -- skip immediately
             if tag in rejected_cache:
                 cached = rejected_cache[tag]
                 print(f"  [skip-cached] '{tag}' was previously rejected as a sub-character "
                       f"of '{cached['parent_word']}' ({cached['reasoning']}) — not adding.")
                 skipped_non_standalone.append((tag, unit, cached["parent_word"]))
-                if try_recover_parent_word(db, cached["parent_word"], unit, vocab_map, valid_indexed_words):
+                if try_recover_parent_word(db, cached["parent_word"], unit, senses_map, valid_indexed_words):
                     updated_count += 1
                 continue
 
-            # --- Check CEDICT first: authoritative, free, no API call, and
-            # correctly stores compound pronunciations (e.g. 学生 ->
-            # xue2sheng5) that a character-by-character source like
-            # pypinyin would get wrong. ---
-            cedict_entry = lookup_word(tag)
-            if cedict_entry:
-                pinyin, raw_english = cedict_entry["pinyin"], cedict_entry["english"]
-                warning = cross_check_pinyin(tag, pinyin)
-                if warning:
-                    print(f"  [pinyin-warning] {warning}")
-
-                sentence_for_def = find_example_sentence(db, unit, tag, hsk_level=HSK_LEVEL)
-                english = resolve_primary_definition(tag, raw_english, sentence_for_def)
-                if english != raw_english:
-                    print(f"  [definition-refined] '{tag}': CEDICT said '{raw_english}' -> "
-                          f"using '{english}' based on curriculum sentence.")
-
-                if update_vocab_entry(db, tag, pinyin, english, unit, hsk_level=HSK_LEVEL):
-                    vocab_map[tag] = db.query(Vocab).filter(Vocab.hanzi == tag).first()
-                    print(f"  [cedict] Added/Updated: {tag} ({pinyin}) -> {english} "
-                          f"[Unit {unit}] (no AI call needed)")
-                    updated_count += 1
+            # --- Check CEDICT first: authoritative, free, no API call for
+            # the pinyin, and correctly stores compound pronunciations
+            # (e.g. 学生 -> xue2sheng5) that a character-by-character
+            # source like pypinyin would get wrong. CEDICT often returns
+            # SEVERAL candidates (different glosses and/or readings) --
+            # register_cedict_word picks whichever fits this unit's
+            # sentence as the taught sense and stores the rest as untaught
+            # reference senses. ---
+            if lookup_word(tag):
+                register_cedict_word(db, tag, unit, incomplete_here=incomplete_here)
+                senses_map[tag] = get_senses_for_vocab(db, tag)
+                valid_indexed_words.add(tag)
+                updated_count += 1
                 continue
 
             # --- Not a dictionary word -- is it actually MULTIPLE words? ---
@@ -500,7 +676,7 @@ def sync_index_definitions():
                 append_rejected_vocab_entry(tag, unit, parent, reasoning)
                 rejected_cache[tag] = {"unit": str(unit), "parent_word": parent, "reasoning": reasoning}
 
-                if try_recover_parent_word(db, parent, unit, vocab_map, valid_indexed_words):
+                if try_recover_parent_word(db, parent, unit, senses_map, valid_indexed_words):
                     updated_count += 1
 
                 continue
@@ -519,16 +695,19 @@ def sync_index_definitions():
             if warning:
                 print(f"  [pinyin-warning] {warning}")
 
-            # Update or create the vocab entry
-            if update_vocab_entry(db, tag, pinyin, english, unit, hsk_level=HSK_LEVEL):
-                vocab_map[tag] = db.query(Vocab).filter(Vocab.hanzi == tag).first()
-                if tag in vocab_map and vocab_map[tag]:
-                    print(f"  Added/Updated: {tag} ({pinyin}) -> {english} [Unit {unit}]")
-                    updated_count += 1
+            if incomplete_here is not None:
+                update_incomplete_sense(db, incomplete_here, pinyin, english)
+                print(f"  Filled in: {tag} ({pinyin}) -> {english} [Unit {unit}]")
+            else:
+                register_word_sense(db, tag, unit, pinyin, english, sentence=sentence)
+                print(f"  Added: {tag} ({pinyin}) -> {english} [Unit {unit}]")
+            senses_map[tag] = get_senses_for_vocab(db, tag)
+            valid_indexed_words.add(tag)
+            updated_count += 1
 
         if updated_count > 0:
             print("-" * 30)
-            print(f"Successfully processed {updated_count} entries in Vocab table.")
+            print(f"Successfully processed {updated_count} sense(s).")
 
         if skipped_non_standalone:
             print("-" * 30)

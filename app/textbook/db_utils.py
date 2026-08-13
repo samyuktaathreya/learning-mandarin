@@ -20,10 +20,11 @@ from sqlalchemy.orm import sessionmaker, Session
 from contextlib import contextmanager
 
 from .models import (
-    Base, Unit, Vocab, Sentence, SentenceVocab, WordType,
+    Base, Unit, Vocab, VocabSense, Sentence, SentenceVocab, WordType,
     GrammarTip, SentenceGrammar, Question, FitbQuestion,
 )
 import json
+from collections import defaultdict
 from app.core.config.data import TEXTBOOK_DB
 
 
@@ -68,87 +69,341 @@ def get_or_create_unit(db: Session, unit_number: int, hsk_level: int = 1) -> Uni
 
 
 # --------------------------------- VOCAB ---------------------------------
+#
+# TERMINOLOGY: a "sense" (VocabSense row) is one distinct taught MEANING of
+# a hanzi -- its own pinyin/english/home-unit. A hanzi (Vocab row) can have
+# several senses (e.g. 还 "still" homed at HSK1 unit 5, vs. 还 "to return
+# (something)" homed at HSK3 unit 20). Vocab.pinyin/english/unit_id/word_type
+# remain as a CACHED SNAPSHOT of the word's PRIMARY sense (see
+# VocabSense.is_primary) -- kept in sync here, purely for callers that
+# haven't been migrated to be sense-aware. New code should go through the
+# sense functions below rather than reading/writing Vocab's cache fields
+# directly.
+#
+# SENSE-MATCHING POLICY (decides whether a new definition is a NEW sense or
+# just a restatement of one already on file):
+#   - vocab_index_parser.py has real printed-index text on both sides for
+#     every comparison it makes, so it trusts that text directly (handled
+#     entirely in vocab_index_parser.py, via upsert_vocab_sense below).
+#   - Every OTHER source of a definition (CEDICT gap-fills, Claude-authored
+#     definitions, parent-word recovery -- i.e. anything append_orphan_tags.py
+#     does) is, by definition, a case where the printed index didn't cover
+#     this appearance. Those callers should use register_word_sense()
+#     instead, which asks Claude to compare against the nearest existing
+#     sense before deciding to fragment into a new one.
 
-def upsert_vocab(db: Session, hanzi: str, pinyin: str, english: str,
-                  unit_number: int | None, word_type: WordType = WordType.vocab,
-                  hsk_level: int = 1) -> Vocab:
+def _is_placeholder_sense(sense: VocabSense) -> bool:
+    """A bare unknown-word placeholder (sentence_parser.upsert_vocab_auto's
+    output) -- auto word_type AND blank english. Distinct from a genuinely
+    complete "auto" classification, which can't happen (auto is only ever
+    used for placeholders), but checking both keeps this from ever
+    misfiring on legitimate data."""
+    return sense.word_type == WordType.auto and not (sense.english or "").strip()
+
+
+def upsert_vocab_sense(db: Session, hanzi: str, pinyin: str, english: str,
+                        unit_number: int | None, word_type: WordType = WordType.vocab,
+                        hsk_level: int = 1, make_primary: bool | None = None) -> VocabSense:
     """
-    Insert or update a single vocab row. Mirrors the old process_entries()
-    dedup rule: first-seen / LOWEST unit wins if the word already exists with
-    a different (non-null) unit -- now extended across HSK levels: a word's
-    home unit is compared as an (hsk_level, unit_number) pair, so an earlier
-    hsk_level always wins regardless of unit_number, and within the same
-    hsk_level the lower unit_number wins (i.e. HSK1 material is always
-    "more introductory" than HSK2+, matching how the levels are actually
-    sequenced for learners). word_type is only ever upgraded from "auto" to
-    something more specific, never downgraded -- an unknown-word tag later
-    confirmed to be real vocab shouldn't be clobbered by a second "auto" hit
-    from another sentence.
+    Insert-or-reuse ONE taught meaning of `hanzi`. Creates the Vocab
+    identity row if this is a brand-new hanzi.
+
+    Idempotency: if a sense already exists for (vocab, unit, hsk_level,
+    english) -- literally the same meaning already recorded at this exact
+    home -- that row is reused rather than duplicated, so reruns of
+    vocab_index_parser.py stay idempotent. A DIFFERENT `english` for a
+    hanzi that already has senses ALWAYS creates a new VocabSense row here
+    -- this function trusts whatever sense identity the caller has already
+    resolved; it does NOT do same-vs-new-sense disambiguation itself (see
+    register_word_sense for that).
+
+    make_primary: None (default) = primary iff this is the very first
+    sense ever recorded for this word, OR the word's current primary is
+    still just sentence_parser's blank unknown-word placeholder (created
+    before any real definition existed) and this new sense is a real one
+    -- promoting a placeholder as soon as real content arrives, rather
+    than leaving Vocab's cache permanently blank because something else
+    tagged this word in a sentence before vocab_index_parser.py or
+    append_orphan_tags.py ever got to it. True/False forces it explicitly.
     """
-    row = db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
+    vocab = get_or_create_vocab(db, hanzi)
     unit = get_or_create_unit(db, unit_number, hsk_level) if unit_number is not None else None
+    unit_id = unit.id if unit else None
 
+    existing = (
+        db.query(VocabSense)
+        .filter(VocabSense.vocab_id == vocab.id, VocabSense.unit_id == unit_id,
+                VocabSense.english == english)
+        .first()
+    )
+    if existing is not None:
+        if pinyin and not existing.pinyin:
+            existing.pinyin = pinyin
+            db.flush()
+        if make_primary:
+            set_primary_sense(db, vocab, existing)
+        return existing
+
+    is_first_sense = len(vocab.senses) == 0
+    current_primary = next((s for s in vocab.senses if s.is_primary), None)
+    promotes_placeholder = (
+        make_primary is None and not is_first_sense
+        and current_primary is not None and _is_placeholder_sense(current_primary)
+        and word_type != WordType.auto and (english or "").strip()
+    )
+    sense = VocabSense(
+        vocab_id=vocab.id, unit_id=unit_id, pinyin=pinyin, english=english,
+        word_type=word_type,
+        is_primary=1 if (make_primary or (make_primary is None and is_first_sense) or promotes_placeholder) else 0,
+    )
+    db.add(sense)
+    db.flush()
+    if sense.is_primary:
+        set_primary_sense(db, vocab, sense)  # clears any other primary, syncs Vocab's cache
+    return sense
+
+
+def get_word_definitions(db: Session, hanzi: str, unit_number: int = None, hsk_level: int = 1):
+    """Returns (primary, others) for `hanzi`, ready for a "definition +
+    other meanings underneath" display:
+    - primary: the single most RELEVANT sense -- if unit_number is given,
+      whichever sense resolve_sense_for_sentence would pick for that point
+      in the curriculum (the latest one already taught by then); otherwise
+      the word's overall primary sense. None if the word has no senses.
+    - others: every other sense, ordered taught-in-this-hsk_level first
+      (earliest unit first), then taught-in-other-hsk_levels, then
+      untaught CEDICT reference senses (unit=None) last -- so a curious
+      user sees "meanings you've been taught" before "other dictionary
+      meanings you haven't gotten to yet."
+    """
+    vocab = db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
+    if vocab is None or not vocab.senses:
+        return None, []
+
+    if unit_number is not None:
+        primary = resolve_sense_for_sentence(db, vocab.id, unit_number, hsk_level)
+    else:
+        primary = next((s for s in vocab.senses if s.is_primary), vocab.senses[0])
+
+    def sort_key(s: VocabSense):
+        if s.unit is None:
+            return (2, 0, 0)  # untaught reference sense -- sorts last
+        same_level = 0 if s.unit.hsk_level == hsk_level else 1
+        return (same_level, s.unit.hsk_level, s.unit.unit_number)
+
+    others = sorted((s for s in vocab.senses if primary is None or s.id != primary.id), key=sort_key)
+    return primary, others
+
+
+def get_or_create_vocab(db: Session, hanzi: str) -> Vocab:
+    """Just the hanzi IDENTITY row -- no definition here, that lives on
+    VocabSense. Direct callers should be rare; most code wants
+    upsert_vocab_sense or register_word_sense instead."""
+    row = db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
     if row is None:
-        row = Vocab(
-            hanzi=hanzi,
-            pinyin=pinyin,
-            english=english,
-            word_type=word_type,
-            unit_id=unit.id if unit else None,
-        )
+        row = Vocab(hanzi=hanzi, pinyin="", english="", word_type=WordType.auto, unit_id=None)
         db.add(row)
         db.flush()
-        return row
-
-    # existing row: apply "lowest (hsk_level, unit) wins" + never overwrite good data with blanks
-    if unit is not None:
-        existing_key = (row.unit.hsk_level, row.unit.unit_number) if row.unit else None
-        new_key = (unit.hsk_level, unit.unit_number)
-        if existing_key is None or new_key < existing_key:
-            row.unit_id = unit.id
-    if pinyin and not row.pinyin:
-        row.pinyin = pinyin
-    if english and not row.english:
-        row.english = english
-    if row.word_type == WordType.auto and word_type != WordType.auto:
-        row.word_type = word_type
-    db.flush()
     return row
+
+
+def set_primary_sense(db: Session, vocab: Vocab, sense: VocabSense):
+    """Marks `sense` as the primary sense for `vocab`, clearing any other
+    sense's primary flag, then syncs Vocab's legacy cache columns to match.
+    Exactly one primary per vocab_id is an app-level invariant (enforced
+    here), not a DB constraint."""
+    for s in vocab.senses:
+        if s.id != sense.id and s.is_primary:
+            s.is_primary = 0
+    sense.is_primary = 1
+    db.flush()
+    refresh_primary_cache(db, vocab)
+
+
+def refresh_primary_cache(db: Session, vocab: Vocab):
+    """Re-copies the current primary sense's fields onto Vocab's cache
+    columns. Call this after anything that might change what the primary
+    sense's data looks like (e.g. re-homing a primary sense to an earlier
+    unit) without going through set_primary_sense itself."""
+    primary = next((s for s in vocab.senses if s.is_primary), None)
+    if primary is None:
+        return
+    vocab.pinyin = primary.pinyin
+    vocab.english = primary.english
+    vocab.word_type = primary.word_type
+    vocab.unit_id = primary.unit_id
+    db.flush()
 
 
 def upsert_vocab_auto(db: Session, hanzi: str, pinyin: str) -> Vocab:
     """Convenience wrapper for sentence_parser's unknown-word fallback tags:
-    creates a bare Vocab row (unit=None, word_type=auto) if one doesn't
-    already exist, so a tag never dangles without a Vocab row to point at.
-    No hsk_level needed -- unit_number is None either way."""
+    creates a bare Vocab row + a bare placeholder sense (unit=None,
+    word_type=auto) if one doesn't already exist, so a tag always has both
+    a Vocab row AND a sense to attach to (SentenceVocab.vocab_sense_id needs
+    something to resolve to). No hsk_level needed -- unit_number is None
+    either way."""
     existing = db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
     if existing:
         return existing
-    return upsert_vocab(db, hanzi, pinyin, english="", unit_number=None, word_type=WordType.auto)
+    upsert_vocab_sense(db, hanzi, pinyin, english="", unit_number=None,
+                        word_type=WordType.auto, make_primary=True)
+    return db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
+
+
+def get_senses_for_vocab(db: Session, hanzi: str) -> list[VocabSense]:
+    vocab = db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
+    return list(vocab.senses) if vocab else []
+
+
+def get_senses_for_unit(db: Session, unit_number: int, word_types: list[WordType] = None,
+                         hsk_level: int = 1) -> list[VocabSense]:
+    """The sense-aware replacement for get_vocab_for_unit: returns the
+    SENSES homed at this unit, not Vocab rows -- a unit can introduce a new
+    sense of a word whose Vocab.unit_id cache (the PRIMARY sense's home)
+    points somewhere else entirely."""
+    q = (
+        db.query(VocabSense)
+        .join(Unit, VocabSense.unit_id == Unit.id)
+        .filter(Unit.unit_number == unit_number, Unit.hsk_level == hsk_level)
+    )
+    if word_types:
+        q = q.filter(VocabSense.word_type.in_(word_types))
+    return q.all()
+
+
+def get_senses_taught_by(db: Session, vocab_id: int, unit_number: int,
+                          hsk_level: int = 1) -> list[VocabSense]:
+    """Every sense of `vocab_id` already taught by (hsk_level, unit_number)
+    -- i.e. every meaning a student would plausibly know by this point.
+    Length 0 = a genuine coverage gap (append_orphan_tags.py's job).
+    Length 1 = unambiguous. Length > 1 = real disambiguation is needed
+    (which of several known meanings does THIS sentence use) -- that's a
+    text-comparison problem for the caller (create_questions.py), not
+    something resolvable from unit numbers alone."""
+    senses = db.query(VocabSense).filter(VocabSense.vocab_id == vocab_id).all()
+
+    def home_key(s: VocabSense):
+        return None if s.unit is None else (s.unit.hsk_level, s.unit.unit_number)
+
+    return [s for s in senses if (hk := home_key(s)) is not None and hk <= (hsk_level, unit_number)]
+
+
+def resolve_sense_for_sentence(db: Session, vocab_id: int, unit_number: int,
+                                hsk_level: int = 1) -> VocabSense | None:
+    """Picks which sense a sentence in (unit_number, hsk_level) is most
+    likely demonstrating: the LATEST-homed sense already taught by that
+    point (the most recently introduced meaning a student would know by
+    now) -- a reasonable default when a word has exactly one candidate, and
+    still the best guess when it has several (real per-sentence
+    disambiguation among multiple candidates needs sentence text + Claude;
+    see create_questions.resolve_sentence_sense_ambiguity). Falls back to the
+    word's primary sense if nothing is homed early enough, then to
+    whatever sense exists at all. Returns None only if the word has no
+    senses whatsoever yet."""
+    candidates = get_senses_taught_by(db, vocab_id, unit_number, hsk_level)
+    if candidates:
+        return max(candidates, key=lambda s: (s.unit.hsk_level, s.unit.unit_number))
+
+    all_senses = db.query(VocabSense).filter(VocabSense.vocab_id == vocab_id).all()
+    if not all_senses:
+        return None
+    primary = next((s for s in all_senses if s.is_primary), None)
+    return primary or all_senses[0]
 
 
 def get_word_to_pinyin_map(db: Session) -> dict:
-    """Replaces reading word_to_pinyin.json. Pinyin doesn't depend on
-    hsk_level (Vocab.hanzi is globally unique), so this stays a flat map."""
+    """Replaces reading word_to_pinyin.json. Now sourced from each word's
+    PRIMARY sense via Vocab's cache columns -- fine for sentence_parser's
+    use (picking a reasonable pinyin to display before any sense has been
+    resolved for a brand-new sentence); sense-specific pinyin is looked up
+    later via the sense itself once tags are written."""
     return {v.hanzi: v.pinyin for v in db.query(Vocab.hanzi, Vocab.pinyin).all()}
 
 
 def get_word_to_unit_map(db: Session) -> dict:
-    """Replaces reading word_to_unit.json. Only includes words that DO have
-    a known unit (auto/unknown-unit words are absent, matching how the old
-    JSON -- built only from index entries -- never had them either).
-
-    Returns {hanzi: (unit_number, hsk_level)} tuples rather than a bare
-    unit_number -- once more than one hsk_level exists, "unit 3" alone is
-    ambiguous, so every caller comparing against these values needs both
-    numbers. Global (not scoped to one level) since a word's single home
-    unit can be in any level."""
+    """Replaces reading word_to_unit.json. Returns each word's EARLIEST
+    known home across all its senses (not just the primary sense) --
+    sentence_parser's vocab-gate logic ("has this word been taught by unit
+    N yet") should treat a word as known as soon as ANY of its meanings has
+    been introduced, not only its primary one. Returns {hanzi:
+    (unit_number, hsk_level)} tuples since "unit 3" alone is ambiguous once
+    more than one hsk_level exists."""
     rows = (
         db.query(Vocab.hanzi, Unit.unit_number, Unit.hsk_level)
-        .join(Unit, Vocab.unit_id == Unit.id)
+        .join(VocabSense, VocabSense.vocab_id == Vocab.id)
+        .join(Unit, VocabSense.unit_id == Unit.id)
         .all()
     )
-    return {hanzi: (unit_number, hsk_level) for hanzi, unit_number, hsk_level in rows}
+    earliest = {}
+    for hanzi, unit_number, hsk_level in rows:
+        key = (hsk_level, unit_number)
+        if hanzi not in earliest or key < earliest[hanzi]:
+            earliest[hanzi] = key
+    return {hanzi: (unit_number, hsk_level) for hanzi, (hsk_level, unit_number) in earliest.items()}
+
+
+def get_word_usage_units(db: Session, hsk_level: int = 1) -> dict:
+    """{hanzi: {unit_number, ...}} -- EVERY unit (within this hsk_level)
+    where the word is actually used: sense homes + sentence tags + FITB
+    answers. Multi-valued (unlike get_word_to_unit_map's single earliest
+    home), because sense-coverage gap detection needs to know about every
+    appearance, not just the first."""
+    usage = defaultdict(set)
+
+    for hanzi, unit_num in (
+        db.query(Vocab.hanzi, Unit.unit_number)
+        .join(VocabSense, VocabSense.vocab_id == Vocab.id)
+        .join(Unit, VocabSense.unit_id == Unit.id)
+        .filter(Unit.hsk_level == hsk_level)
+        .all()
+    ):
+        usage[hanzi].add(unit_num)
+
+    for hanzi, unit_num in (
+        db.query(Vocab.hanzi, Unit.unit_number)
+        .join(SentenceVocab, SentenceVocab.vocab_id == Vocab.id)
+        .join(Sentence, SentenceVocab.sentence_id == Sentence.id)
+        .join(Unit, Sentence.unit_id == Unit.id)
+        .filter(Unit.hsk_level == hsk_level)
+        .all()
+    ):
+        usage[hanzi].add(unit_num)
+
+    for answer, unit_num in (
+        db.query(FitbQuestion.answer, Unit.unit_number)
+        .join(Unit, FitbQuestion.unit_id == Unit.id)
+        .filter(Unit.hsk_level == hsk_level)
+        .all()
+    ):
+        if answer:
+            usage[answer].add(unit_num)
+
+    return dict(usage)
+
+
+def get_uncovered_word_units(db: Session, hsk_level: int = 1) -> list:
+    """[(hanzi, unit_number), ...] -- every place a word is actually used in
+    this hsk_level's curriculum where no COMPLETE sense homed at or before
+    that unit exists to explain it yet. This is the real per-appearance gap
+    list append_orphan_tags.py fills, replacing the old single
+    {word: earliest_unit} "missing" map -- a word can need coverage at
+    several different units now (once per sense it's actually taught
+    with), not just its first appearance."""
+    usage = get_word_usage_units(db, hsk_level=hsk_level)
+    _, incomplete_ids = get_all_vocab_senses_with_status(db)
+
+    gaps = []
+    for hanzi, units in usage.items():
+        vocab = db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
+        senses = vocab.senses if vocab else []
+        complete_homed = sorted(
+            s.unit.unit_number for s in senses
+            if s.unit is not None and s.unit.hsk_level == hsk_level and s.id not in incomplete_ids
+        )
+        for u in sorted(units):
+            if not any(h <= u for h in complete_homed):
+                gaps.append((hanzi, u))
+    return gaps
 
 
 # --------------------------------- SENTENCE ---------------------------------
@@ -190,7 +445,14 @@ def upsert_sentence(db: Session, unit_number: int, hanzi: str, english: str,
         vocab_row = db.query(Vocab).filter(Vocab.hanzi == tag).first()
         if vocab_row is None:
             vocab_row = upsert_vocab_auto(db, tag, tag_pinyin)
-        db.add(SentenceVocab(sentence_id=sentence.id, vocab_id=vocab_row.id, position=position))
+        # Resolve which taught MEANING this occurrence uses -- the latest
+        # sense already introduced by (unit_number, hsk_level). See
+        # resolve_sense_for_sentence's docstring for the tie-breaking rule
+        # when a word has several candidate senses already taught.
+        sense = resolve_sense_for_sentence(db, vocab_row.id, unit_number, hsk_level)
+        db.add(SentenceVocab(sentence_id=sentence.id, vocab_id=vocab_row.id,
+                              vocab_sense_id=sense.id if sense else None,
+                              position=position))
 
     db.flush()
     return sentence
@@ -272,15 +534,16 @@ def get_sentences_for_unit(db: Session, unit_number: int, hsk_level: int = 1) ->
 # --------------------------------- QUESTIONS ---------------------------------
 
 def upsert_question(db: Session, unit_number: int, question_type: str, question_text: str,
-                     answer_text: str, vocab_id: int = None, sentence_id: int = None,
-                     legacy_id: str = None, hsk_level: int = 1) -> Question:
+                     answer_text: str, vocab_id: int = None, vocab_sense_id: int = None,
+                     sentence_id: int = None, legacy_id: str = None, hsk_level: int = 1) -> Question:
     """Keyed on (question_type, question, answer) within a unit -- mirrors
     the old create_questions.py signature-based merge (`sig = (question_type,
     question, answer)`), which is what let reruns preserve IDs/tags instead
     of duplicating. legacy_id lets you carry over an old "u3_speaking_vocab_2"
     style ID if something else in the app still references it directly.
 
-    Pass vocab_id for word-level questions, sentence_id for sentence-level
+    Pass vocab_id (+ vocab_sense_id, when the question tests one specific
+    taught meaning) for word-level questions, sentence_id for sentence-level
     questions -- see Question model docstring for why sentence questions
     need this (recovering their full multi-word tag list at read time)."""
     unit = get_or_create_unit(db, unit_number, hsk_level)
@@ -299,6 +562,7 @@ def upsert_question(db: Session, unit_number: int, question_type: str, question_
             question=question_text,
             answer=answer_text,
             vocab_id=vocab_id,
+            vocab_sense_id=vocab_sense_id,
             sentence_id=sentence_id,
             legacy_id=legacy_id,
         )
@@ -307,6 +571,8 @@ def upsert_question(db: Session, unit_number: int, question_type: str, question_
     else:
         if vocab_id is not None and row.vocab_id is None:
             row.vocab_id = vocab_id
+        if vocab_sense_id is not None and row.vocab_sense_id is None:
+            row.vocab_sense_id = vocab_sense_id
         if sentence_id is not None and row.sentence_id is None:
             row.sentence_id = sentence_id
         db.flush()
@@ -315,6 +581,12 @@ def upsert_question(db: Session, unit_number: int, question_type: str, question_
 
 def get_vocab_for_unit(db: Session, unit_number: int, word_types: list[WordType] = None,
                         hsk_level: int = 1) -> list[Vocab]:
+    """LEGACY: returns Vocab rows filtered by their cached PRIMARY sense's
+    home unit -- a word retaught with a NEW sense at this unit won't show
+    up here if its primary sense lives elsewhere. Prefer
+    get_senses_for_unit for anything building per-meaning content (question
+    generation, etc.); kept for callers that only need "which words have
+    their earliest/primary meaning here" (e.g. simple word lists)."""
     q = (
         db.query(Vocab)
         .join(Unit, Vocab.unit_id == Unit.id)
@@ -436,31 +708,27 @@ def get_tags_for_sentence(db: Session, sentence_id: int) -> list[str]:
     return [r.hanzi for r in rows]
 
 
-# --------------------------------- SYNC HELPERS (for sync_index_definitions.py) ---------------------------------
+# --------------------------------- SYNC HELPERS (for append_orphan_tags.py) ---------------------------------
 
-def get_all_vocab_with_status(db: Session) -> tuple[dict[str, Vocab], set[str]]:
-    """Returns (vocab_map, needs_retry_set) where:
-    - vocab_map is {hanzi: Vocab row} for all vocab in the DB
-    - needs_retry_set is {hanzi} for any word with UNKNOWN_PINYIN/UNKNOWN_ENGLISH
-      placeholder text, OR a genuinely blank pinyin/english field.
+def get_all_vocab_senses_with_status(db: Session) -> tuple:
+    """Returns (senses_by_hanzi, incomplete_sense_ids):
+    - senses_by_hanzi: {hanzi: [VocabSense, ...]} for every hanzi that has
+      at least one sense.
+    - incomplete_sense_ids: {VocabSense.id, ...} for any sense with a blank
+      or UNKNOWN_* placeholder pinyin/english.
 
-    Global across hsk_levels -- Vocab has no hsk_level column of its own
-    (see models.py), so there's nothing to filter by here.
+    This is the sense-level replacement for the old (vocab_map,
+    needs_retry) pair -- "needs retry" is now evaluated per SENSE, since a
+    word can have one perfectly complete sense and another still-blank one
+    at the same time."""
+    all_senses = db.query(VocabSense).all()
+    by_hanzi = defaultdict(list)
+    for s in all_senses:
+        by_hanzi[s.vocab.hanzi].append(s)
 
-    BUGFIX: originally only checked for the literal placeholder strings
-    "UNKNOWN_PINYIN"/"UNKNOWN_ENGLISH". Words auto-created during sentence
-    tagging (word_type="auto") get real pinyin but an EMPTY english field
-    ("" or None) -- not the placeholder text -- so they silently passed this
-    check and were never queued for repair by sync_index_definitions.py.
-    Blank/None now counts as needing retry too.
-
-    Used by sync_index_definitions.py to find gaps."""
-    all_vocab = db.query(Vocab).all()
-    vocab_map = {v.hanzi: v for v in all_vocab}
-
-    def _is_incomplete(v: Vocab) -> bool:
-        pinyin = v.pinyin or ""
-        english = v.english or ""
+    def _is_incomplete(s: VocabSense) -> bool:
+        pinyin = s.pinyin or ""
+        english = s.english or ""
         return (
             "UNKNOWN_PINYIN" in pinyin
             or "UNKNOWN_ENGLISH" in english
@@ -468,12 +736,71 @@ def get_all_vocab_with_status(db: Session) -> tuple[dict[str, Vocab], set[str]]:
             or not english.strip()
         )
 
-    needs_retry = {v.hanzi for v in all_vocab if _is_incomplete(v)}
-    return vocab_map, needs_retry
+    incomplete = {s.id for s in all_senses if _is_incomplete(s)}
+    return dict(by_hanzi), incomplete
+
+
+def get_nearest_sense(db: Session, hanzi: str, unit_number: int, hsk_level: int = 1) -> VocabSense | None:
+    """The existing sense of `hanzi` whose home is CLOSEST to (unit_number,
+    hsk_level) -- the natural comparison point when a new definition comes
+    from OUTSIDE the printed index (CEDICT, Claude) and we need to ask
+    "is this the same meaning as something already on file, or different?"
+    Senses in an earlier hsk_level sort before ones in a later hsk_level
+    regardless of raw distance (they're "further away" in curriculum
+    order); a sense with no home unit at all sorts last. Returns None if
+    the word has no senses yet."""
+    senses = get_senses_for_vocab(db, hanzi)
+    if not senses:
+        return None
+
+    def sort_key(s: VocabSense):
+        if s.unit is None:
+            return (2, 0)
+        if s.unit.hsk_level < hsk_level:
+            return (0, hsk_level - s.unit.hsk_level)
+        if s.unit.hsk_level > hsk_level:
+            return (1, s.unit.hsk_level - hsk_level)
+        return (0, abs(s.unit.unit_number - unit_number))
+
+    return min(senses, key=sort_key)
+
+
+def rehome_sense(db: Session, sense: VocabSense, unit_number: int, hsk_level: int = 1):
+    """Moves `sense`'s home EARLIER, to (unit_number, hsk_level), if that's
+    genuinely earlier than its current home -- used when the same meaning
+    turns out to have been used earlier than previously recorded. Never
+    moves a sense later. Re-syncs Vocab's cache if this is the primary
+    sense."""
+    new_key = (hsk_level, unit_number)
+    current_key = (sense.unit.hsk_level, sense.unit.unit_number) if sense.unit else None
+    if current_key is not None and new_key >= current_key:
+        return
+    sense.unit_id = get_or_create_unit(db, unit_number, hsk_level).id
+    db.flush()
+    if sense.is_primary:
+        refresh_primary_cache(db, sense.vocab)
+
+
+def fill_sense_pinyin(db: Session, sense: VocabSense, pinyin: str):
+    """Fills in a sense's pinyin only if it's currently blank -- never
+    overwrites a real reading with a guess."""
+    if pinyin and not (sense.pinyin or "").strip():
+        sense.pinyin = pinyin
+        db.flush()
+        if sense.is_primary:
+            refresh_primary_cache(db, sense.vocab)
 
 
 def get_all_taught_words(db: Session, hsk_level: int = 1) -> dict[str, int]:
-    """Returns {word: unit_number} for every word that appears in the
+    """LEGACY: {word: earliest_unit_number} -- collapses a word to its
+    single earliest appearance, which is exactly the granularity the sense
+    refactor moved away from for gap-detection purposes. Use
+    get_uncovered_word_units / get_word_usage_units instead for anything
+    that needs to know about EVERY appearance of a word, not just the
+    first. Kept for any remaining caller that only needs "earliest unit
+    per word" semantics.
+
+    Returns {word: unit_number} for every word that appears in the
     curriculum FOR THIS HSK LEVEL, combining three sources (in unit order,
     so first-appearance unit wins):
     - Vocab rows (word_type != auto)
@@ -558,25 +885,24 @@ def find_example_sentence(db: Session, unit_number: int, word: str, hsk_level: i
     return None
 
 
-def update_vocab_entry(db: Session, hanzi: str, pinyin: str, english: str, unit_number: int,
-                        hsk_level: int = 1) -> bool:
-    """Updates an existing vocab entry OR creates one if missing.
-    Returns True if an update/insert happened."""
-    vocab = db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
-    if vocab is None:
-        unit = get_or_create_unit(db, unit_number, hsk_level)
-        vocab = Vocab(hanzi=hanzi, pinyin=pinyin, english=english, unit_id=unit.id, word_type=WordType.vocab)
-        db.add(vocab)
+def update_incomplete_sense(db: Session, sense: VocabSense, pinyin: str, english: str) -> bool:
+    """Fills in pinyin/english on an existing sense ONLY where it's
+    currently blank/placeholder -- never overwrites good data. This is for
+    RETRYING a sense already known to be incomplete (see
+    get_all_vocab_senses_with_status), not for registering a new meaning --
+    use register_word_sense (append_orphan_tags.py) for that, since
+    deciding whether a definition is "the same sense, just filled in" vs.
+    "actually a different sense" needs the Claude comparison there.
+    Returns True if anything changed."""
+    changed = False
+    if (not sense.pinyin or "UNKNOWN_PINYIN" in sense.pinyin) and pinyin and "UNKNOWN_PINYIN" not in pinyin:
+        sense.pinyin = pinyin
+        changed = True
+    if (not sense.english or "UNKNOWN_ENGLISH" in sense.english) and english and "UNKNOWN_ENGLISH" not in english:
+        sense.english = english
+        changed = True
+    if changed:
         db.flush()
-        return True
-
-    # Only update if we're improving incomplete data
-    if (not vocab.pinyin or "UNKNOWN_PINYIN" in vocab.pinyin) and pinyin and "UNKNOWN_PINYIN" not in pinyin:
-        vocab.pinyin = pinyin
-    if (not vocab.english or "UNKNOWN_ENGLISH" in vocab.english) and english and "UNKNOWN_ENGLISH" not in english:
-        vocab.english = english
-    if vocab.unit_id is None:
-        vocab.unit_id = get_or_create_unit(db, unit_number, hsk_level).id
-
-    db.flush()
-    return True
+        if sense.is_primary:
+            refresh_primary_cache(db, sense.vocab)
+    return changed

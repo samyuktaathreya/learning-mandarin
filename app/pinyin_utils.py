@@ -89,11 +89,15 @@ def to_numbered_pinyin(text: str) -> str:
     return ''.join(parts).lower()
 
 
-def char_to_pinyin(textbook_db: Session, ch: str) -> str:
+def char_to_pinyin(textbook_db: Session, ch: str, unit_number: int = None, hsk_level: int = 1) -> str:
     """Single character -> numeric pinyin. DB lookup first (crud.py's
-    cached get_pinyin_for_word), pypinyin fallback for characters not in
-    Vocab (e.g. punctuation-adjacent or never-taught chars)."""
-    pinyin = crud.get_pinyin_for_word(textbook_db, ch)
+    cached get_pinyin_for_word, sense-aware if unit_number is given),
+    pypinyin fallback for characters not in Vocab (e.g. punctuation-adjacent
+    or never-taught chars). unit_number/hsk_level are optional: pass them
+    if you want to resolve to the relevant meaning at a specific point in
+    the curriculum (e.g. inside a specific sentence); omit for a general
+    pinyin lookup."""
+    pinyin = crud.get_pinyin_for_word(textbook_db, ch, unit_number=unit_number, hsk_level=hsk_level)
     if pinyin:
         return pinyin
     return to_numbered_pinyin(ch)

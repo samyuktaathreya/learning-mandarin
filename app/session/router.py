@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from fastapi import APIRouter, Depends, Body, HTTPException
 from sqlalchemy.orm import Session
@@ -159,11 +160,44 @@ def save_tip_endpoint(payload: dict = Body(...), db: Session = Depends(get_db)):
 
 
 @router.get("/api/lookup/{hanzi}")
-def lookup(hanzi: str, textbook_db: Session = Depends(get_textbook_db)):
-    # was: inline `if hanzi in hsk1_dictionary: ... else: pypinyin fallback` --
-    # moved to textbook/services.py (see lookup_word), since dictionary
-    # lookup is a textbook-data concern, not a routing concern.
-    return textbook_services.lookup_word(textbook_db, hanzi)
+def lookup(
+    hanzi: str,
+    unit: Optional[int] = None,
+    hsk_level: int = 1,
+    textbook_db: Session = Depends(get_textbook_db),
+):
+    """
+    Was: `inline `if hanzi in hsk1_dictionary: ... else: pypinyin
+    fallback`` -- moved to textbook/services.py (see lookup_word), since
+    dictionary lookup is a textbook-data concern, not a routing concern.
+
+    NOW SENSE-AWARE: a word can have several taught meanings (see
+    textbook.models.VocabSense), so this endpoint accepts optional `unit`
+    (and `hsk_level`) query params -- pass the caller's current position in
+    the curriculum (e.g. `current_user.current_unit`, or the unit the
+    sentence being read belongs to) so a multi-sense word resolves to
+    whichever meaning is actually relevant there, rather than always the
+    word's overall primary sense. Omit them for a plain "what does this
+    word generally mean" lookup.
+
+    The response now also carries `other_definitions` -- every OTHER
+    taught (or dictionary) meaning the word has, beyond the relevant one
+    already in `pinyin`/`english`, so the frontend can show the relevant
+    definition first and the rest underneath instead of picking one and
+    hiding everything else, or dumping every definition on the learner at
+    once. Empty for the common single-sense word.
+
+    Example response for a multi-sense word:
+        {
+          "hanzi": "还", "pinyin": "hai2", "english": "still/also",
+          "unit": 5, "hsk_level": 1,
+          "other_definitions": [
+            {"hanzi": "还", "pinyin": "huan2", "english": "to return (something)",
+             "unit": 20, "hsk_level": 1, "word_type": "vocab"}
+          ]
+        }
+    """
+    return textbook_services.lookup_word(textbook_db, hanzi, unit_number=unit, hsk_level=hsk_level)
 
 @router.get("/api/sentence_tags/{sentence_id}")
 def get_sentence_tags(sentence_id: int, textbook_db: Session = Depends(get_textbook_db)):

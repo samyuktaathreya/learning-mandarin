@@ -25,6 +25,11 @@ Radical gating (see design discussion): only ask a radical question if
 Both radical and character questions update the SAME "character" facet in
 StrengthTable -- there is no separate radical facet. The tag stored is the
 radical/word actually being tested, not the distractor characters.
+
+SENSE-AWARE UPDATE: optional unit_number/hsk_level parameters threaded through
+so that if a character quiz is asked within a curriculum context (e.g. after a
+specific unit), it can resolve to the relevant taught meaning rather than always
+the primary sense. Most callers won't have this context, so defaults are fine.
 """
 
 import random
@@ -240,8 +245,12 @@ def build_spot_the_difference_question(tag: str, db: Session, characters_db: Ses
     }
 
 
-def build_pinyin_to_character_question(db: Session, tag: str, characters_db: Session) -> dict | None:
-    pinyin = get_pinyin(db, tag)
+def build_pinyin_to_character_question(db: Session, tag: str, characters_db: Session,
+                                       unit_number: int = None, hsk_level: int = 1) -> dict | None:
+    """Build a pinyin -> character question. unit_number/hsk_level are optional:
+    pass them if this question is being asked in a specific curriculum context
+    so that a multi-sense word resolves to its relevant taught meaning."""
+    pinyin = get_pinyin(db, tag, unit_number=unit_number, hsk_level=hsk_level)
     if not pinyin:
         return None  # can't ask this type without a known pinyin reading
 
@@ -313,6 +322,8 @@ def generate_character_questions(
     textbook_db: Session,
     user_id: int,
     num_questions: int = 2,
+    unit_number: int = None,
+    hsk_level: int = 1,
 ) -> list[dict]:
     """
     Generates up to `num_questions` character/radical quiz questions.
@@ -320,6 +331,11 @@ def generate_character_questions(
     Called from generate_session (appends a small fixed portion to every
     session) and can also be called directly with a larger num_questions for
     a standalone character-practice page/endpoint.
+
+    unit_number/hsk_level are optional: pass them if this character quiz is
+    being generated within a specific curriculum context (e.g. after
+    completing a unit), so that multi-sense words resolve to their relevant
+    taught meaning. Omit for a general character-practice call.
     """
     questions: list[dict] = []
     used_tags: set[str] = set()
@@ -349,9 +365,11 @@ def generate_character_questions(
             if random.random() < 0.70:
                 q = build_spot_the_difference_question(tag, db, characters_db)
                 if not q:
-                    q = build_pinyin_to_character_question(textbook_db, tag, characters_db)
+                    q = build_pinyin_to_character_question(textbook_db, tag, characters_db,
+                                                            unit_number=unit_number, hsk_level=hsk_level)
             else:
-                q = build_pinyin_to_character_question(textbook_db, tag, characters_db)
+                q = build_pinyin_to_character_question(textbook_db, tag, characters_db,
+                                                        unit_number=unit_number, hsk_level=hsk_level)
                 if not q:
                     q = build_spot_the_difference_question(tag, db, characters_db)
             if q:

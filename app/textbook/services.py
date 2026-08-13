@@ -9,6 +9,18 @@ Now: all of that data lives in the DB and is queried on demand through
 crud.py, which handles its own caching (see crud._TTLCache) so this module
 doesn't need to hold anything in RAM at import time.
 
+SENSE-AWARE UPDATE: a word can now have several taught meanings (see
+textbook.models.VocabSense), each with its own pinyin/english/home unit --
+crud.py resolves "which meaning is relevant" per call rather than a word
+having one fixed definition forever. The lookup functions here take an
+optional `unit_number`/`hsk_level` so a caller who knows WHERE in the
+curriculum the lookup is happening (a specific sentence, a specific
+learner's current unit) gets back whichever meaning is actually relevant
+there, instead of always the word's overall primary sense. lookup_word in
+particular now also returns `other_definitions`, so a dictionary-style UI
+can show the relevant meaning first and the rest underneath rather than
+picking exactly one and hiding everything else.
+
 What's KEPT here: the constants that had nothing to do with JSON loading
 (META_TAGS, QUESTION_TYPES, FACETS) -- these describe the domain, not the
 data source, so they don't move.
@@ -33,6 +45,8 @@ This module re-exports the crud functions under their old-ish names (see
 below) purely so the diff in calling code is smaller -- direct crud imports
 are equally fine and arguably clearer going forward.
 """
+from typing import Optional
+
 from sqlalchemy.orm import Session
 
 from textbook import crud
@@ -113,14 +127,31 @@ def get_all_questions_for_unit(db: Session, unit_number: int) -> list:
     return crud.get_all_questions_for_unit(db, unit_number)
 
 
-def get_dictionary_entry(db: Session, hanzi: str) -> dict | None:
-    """Replaces hsk1_dictionary.get(hanzi)."""
-    return crud.get_vocab_definition(db, hanzi)
+def get_dictionary_entry(db: Session, hanzi: str, unit_number: Optional[int] = None,
+                          hsk_level: int = 1) -> dict | None:
+    """Replaces hsk1_dictionary.get(hanzi). Returns the single most
+    RELEVANT definition: pass unit_number when you know where in the
+    curriculum this lookup is happening (e.g. a word clicked inside a
+    specific sentence) so a multi-sense word resolves to whichever meaning
+    was actually taught by that point, rather than always its overall
+    primary sense."""
+    return crud.get_vocab_definition(db, hanzi, unit_number=unit_number, hsk_level=hsk_level)
 
 
-def get_pinyin(db: Session, hanzi: str) -> str | None:
-    """Replaces word_to_pinyin.get(hanzi)."""
-    return crud.get_pinyin_for_word(db, hanzi)
+def get_word_definitions(db: Session, hanzi: str, unit_number: Optional[int] = None,
+                          hsk_level: int = 1) -> dict:
+    """New capability, not a replacement for anything old: the full
+    "relevant definition first, other meanings underneath" view for a
+    word -- {"primary": {...} | None, "others": [{...}, ...]}. Use this
+    (or lookup_word below, which flattens it into one dict) for any
+    dictionary-popup / word-detail UI. See crud.get_word_definitions."""
+    return crud.get_word_definitions(db, hanzi, unit_number=unit_number, hsk_level=hsk_level)
+
+
+def get_pinyin(db: Session, hanzi: str, unit_number: Optional[int] = None, hsk_level: int = 1) -> str | None:
+    """Replaces word_to_pinyin.get(hanzi). Pinyin can differ by sense too
+    (e.g. 还 hai2 vs. huan2) -- same relevance rule as get_dictionary_entry."""
+    return crud.get_pinyin_for_word(db, hanzi, unit_number=unit_number, hsk_level=hsk_level)
 
 
 def get_all_vocab_tags(db: Session) -> set:
@@ -133,22 +164,42 @@ def get_all_unit_numbers(db: Session, hsk_level) -> list:
     return crud.get_all_unit_numbers(db, hsk_level)
 
 
-def lookup_word(db: Session, hanzi: str) -> dict:
+def lookup_word(db: Session, hanzi: str, unit_number: Optional[int] = None, hsk_level: int = 1) -> dict:
     """Replaces the inline dictionary-lookup-with-pypinyin-fallback logic
     that used to live directly in router.py's /api/lookup endpoint (moved
     here since it's fundamentally a textbook-data concern, not a routing
     concern -- see the router.py rewrite for the corresponding thin
     endpoint).
 
-    Looks up `hanzi` in the Vocab table first (fast, exact, has an English
-    definition). Falls back to pypinyin's auto-generated reading if not
-    found in Vocab -- same fallback the old code did against
-    hsk1_dictionary, just against the DB now. english is None on the
-    fallback path since pypinyin has no definitions, same as before.
+    Looks up `hanzi`'s taught senses first (fast, exact, has real English
+    definitions). Pass unit_number/hsk_level when you know where in the
+    curriculum this lookup is happening -- e.g. the learner's current unit
+    -- so a word with multiple taught (or dictionary) meanings resolves to
+    whichever one is actually relevant there. Falls back to pypinyin's
+    auto-generated reading if the word has no senses at all (not in Vocab
+    yet), same fallback the old code did against hsk1_dictionary, just
+    against the DB now -- `english` is None on that fallback path since
+    pypinyin has no definitions.
+
+    UNLIKE the old version, this ALSO returns `other_definitions`: every
+    other taught (or untaught CEDICT reference) meaning the word has,
+    beyond the one picked as `pinyin`/`english` above -- so a lookup UI can
+    show the relevant meaning first and the rest underneath, rather than
+    either hiding them entirely or dumping every definition on the learner
+    at once. Empty list for a single-sense word (the common case) or an
+    unknown word.
     """
-    entry = crud.get_vocab_definition(db, hanzi)
-    if entry:
-        return {"hanzi": hanzi, "pinyin": entry["pinyin"], "english": entry["english"]}
+    definitions = crud.get_word_definitions(db, hanzi, unit_number=unit_number, hsk_level=hsk_level)
+    primary = definitions["primary"]
+    if primary:
+        return {
+            "hanzi": hanzi,
+            "pinyin": primary["pinyin"],
+            "english": primary["english"],
+            "unit": primary["unit"],
+            "hsk_level": primary["hsk_level"],
+            "other_definitions": definitions["others"],
+        }
 
     from pypinyin import pinyin, Style
     try:
@@ -156,7 +207,14 @@ def lookup_word(db: Session, hanzi: str) -> dict:
         py = "".join([s[0] for s in result]).lower()
     except Exception:
         py = None
-    return {"hanzi": hanzi, "pinyin": py, "english": None}
+    return {
+        "hanzi": hanzi,
+        "pinyin": py,
+        "english": None,
+        "unit": None,
+        "hsk_level": None,
+        "other_definitions": [],
+    }
 
 
 def clear_cache():

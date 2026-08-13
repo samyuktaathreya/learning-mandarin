@@ -29,12 +29,12 @@ import re
 from collections import defaultdict
 from enum import Enum
 
-from app.textbook.models import Vocab
+from app.textbook.models import Vocab, VocabSense
 
 from app.textbook.db_utils import (
-    get_session, init_db, get_vocab_for_unit, get_all_vocab_hanzi,
+    get_session, init_db, get_senses_for_unit, get_all_vocab_hanzi,
     get_sentences_for_unit, get_tags_for_sentence, get_grammar_tips_for_sentence,
-    rehome_sentences, upsert_question, get_word_to_unit_map,
+    rehome_sentences, upsert_question, get_word_to_unit_map, get_senses_taught_by,
 )
 from app.textbook.models import WordType, FitbQuestion, Unit
 from vocab_pinyin_utils import diacritic_to_numeric
@@ -84,74 +84,84 @@ def content_tags_for(hanzi_text: str, all_hanzi: list[str]) -> list[str]:
     their real DB tags instead; see module docstring."""
     return [w for w in all_hanzi if w in hanzi_text]
 
-def resolve_context_definition(word: str, default_english: str, sentence_hanzi: str) -> Optional[str]:
-    """Checks whether `word`'s default Vocab definition actually fits its
-    usage in `sentence_hanzi`. Returns None if the default is fine (caller
-    stores "" to mark it checked). Returns a corrected definition string if
-    the default is misleading for this specific sentence -- e.g. 告诉's
-    default "to press charges" being wrong for "请告诉我你的电话", where it
-    just means "to tell/inform"."""
-    if client is None:
+
+def resolve_ambiguous_sense(word: str, candidates: list, sentence_hanzi: str) -> Optional[object]:
+    """When `word` has SEVERAL senses already taught by the time
+    `sentence_hanzi` appears, asks Claude which of `candidates`
+    (VocabSense rows) this specific occurrence actually uses. Returns the
+    matching VocabSense, or None if Claude is unavailable or doesn't
+    clearly pick one -- callers keep whichever sense
+    resolve_sense_for_sentence already guessed (the most-recently-taught
+    candidate) in that case."""
+    if client is None or len(candidates) < 2:
         return None
 
-    prompt = f"""You are a Chinese-English dictionary editor fixing word
-definitions that will be shown to a student who clicks on a specific word
-inside a specific sentence.
+    options = "\n".join(f"{i + 1}. {c.english}" for i, c in enumerate(candidates))
+    prompt = f"""You are a Chinese-English dictionary editor. The word "{word}"
+has more than one taught meaning by this point in the curriculum. Which
+meaning is actually used in this sentence?
 
-Word: "{word}"
-Default dictionary definition on file: "{default_english}"
-Sentence it appears in: "{sentence_hanzi}"
+Sentence: "{sentence_hanzi}"
 
-Does the default definition accurately describe how "{word}" is used in THIS
-sentence? If yes, respond with exactly: SAME
-If the default definition is misleading or wrong for this specific sentence,
-respond with ONLY a corrected, concise English definition that fits this
-sentence (a few words, no explanation, no quotes, no markdown).
+Candidate meanings:
+{options}
+
+Output ONLY the number of the matching candidate. No explanation.
 """
     try:
         response = client.messages.create(
             model=MODEL,
-            max_tokens=64,
+            max_tokens=8,
             system="You are a precise bilingual dictionary editor.",
             messages=[{"role": "user", "content": prompt}],
         )
         raw = response.content[0].text.strip()
-        if not raw or raw.upper() == "SAME":
+        m = re.match(r"\d+", raw)
+        if not m:
             return None
-        return raw
+        idx = int(m.group()) - 1
+        return candidates[idx] if 0 <= idx < len(candidates) else None
     except Exception as e:
-        print(f"  [warning] context-definition check failed for '{word}': {e}")
+        print(f"  [warning] sense-disambiguation failed for '{word}': {e}")
         return None
 
 
-def backfill_context_definitions(db, sentence) -> int:
-    """For every word tagged in `sentence`, checks whether the word's default
-    Vocab.english fits THIS sentence's usage, and if not, stores a corrected
-    per-occurrence definition on the SentenceVocab link. Idempotent: rows
-    already checked (context_definition is not None, including the ""
-    sentinel for "checked, default is fine") are skipped, so re-running the
-    pipeline doesn't re-spend API calls on words already resolved. Runs here
-    -- not in sentence_parser.py or sync_index_definitions.py -- because this
-    is the one place every sentence passes through regardless of source
-    (textbook or any external DB feeding into create_questions.py)."""
+def resolve_sentence_sense_ambiguity(db, sentence) -> int:
+    """For every word tagged in `sentence` that has MULTIPLE senses already
+    taught by this sentence's unit (real ambiguity -- resolve_sense_for_
+    sentence's unit-based default is just a guess in that case), asks
+    Claude which sense this occurrence actually uses and re-points the
+    SentenceVocab link at it if that disagrees with the default guess.
+
+    Idempotent: links already checked (context_definition is not None) are
+    skipped, so reruns don't re-spend API calls. Unlike the old per-word
+    Claude check this replaces, the common single-sense case is FREE --
+    this only calls Claude when a word genuinely has more than one
+    candidate meaning to choose between. context_definition is now purely
+    a "have I checked this occurrence" marker ("" = checked, no ambiguity
+    or couldn't resolve) rather than free-text override storage, since the
+    actual correction happens by pointing at the right VocabSense row."""
     links = db.query(SentenceVocab).filter(SentenceVocab.sentence_id == sentence.id).all()
     updated = 0
     for link in links:
         if link.context_definition is not None:
-            continue  # already checked this occurrence, one way or the other
+            continue  # already checked this occurrence
 
         vocab = link.vocab
-        if not vocab or not vocab.english or vocab.english == "UNKNOWN_ENGLISH":
+        if not vocab:
             continue
 
-        corrected = resolve_context_definition(vocab.hanzi, vocab.english, sentence.hanzi)
-        if corrected:
-            link.context_definition = corrected
+        candidates = get_senses_taught_by(db, vocab.id, sentence.unit.unit_number, sentence.unit.hsk_level)
+        if len(candidates) < 2:
+            link.context_definition = ""  # nothing ambiguous here
+            continue
+
+        chosen = resolve_ambiguous_sense(vocab.hanzi, candidates, sentence.hanzi)
+        if chosen is not None and chosen.id != link.vocab_sense_id:
+            link.vocab_sense_id = chosen.id
             updated += 1
-            print(f"  [context-def] '{vocab.hanzi}' in \"{sentence.hanzi}\" -> "
-                  f"'{corrected}' (default was '{vocab.english}')")
-        else:
-            link.context_definition = ""  # mark checked, default definition is fine
+            print(f"  [sense-disambig] '{vocab.hanzi}' in \"{sentence.hanzi}\" -> using sense '{chosen.english}'")
+        link.context_definition = ""  # checked either way
 
     if updated:
         db.flush()
@@ -195,13 +205,19 @@ def build_vocab_style_questions(db, items, unit_number: int, all_hanzi: list[str
                                  home_unit: dict, qtypes: list[str], hsk_level: int = HSK_LEVEL):
     """Shared body for vocab / grammar / proper-noun word questions -- same
     (qtype, question, answer) triples the original code emitted per section,
-    just parameterized by which qtypes each section allows."""
-    for item in items:
-        hanzi = item.hanzi
-        pinyin = (item.pinyin or "").strip()
+    just parameterized by which qtypes each section allows.
+
+    `items` are now VocabSense rows (one per taught MEANING homed at this
+    unit), not Vocab rows -- a word that's retaught here with a NEW sense
+    gets its own question set using that sense's own pinyin/english, even
+    if the word's cached "primary" definition (Vocab.english) is a
+    different, earlier-taught meaning."""
+    for sense in items:
+        hanzi = sense.vocab.hanzi
+        pinyin = (sense.pinyin or "").strip()
         if pinyin and pinyin != "UNKNOWN_PINYIN":
             pinyin = diacritic_to_numeric(pinyin)  # defensive: normalize regardless
-        english = item.english or ""
+        english = sense.english or ""
         tags = content_tags_for(hanzi, all_hanzi)
         blocked = has_unlearned_vocab(tags, unit_number, home_unit, hsk_level=hsk_level)
 
@@ -219,27 +235,28 @@ def build_vocab_style_questions(db, items, unit_number: int, all_hanzi: list[str
             if qtype in TYPING_REQUIRED_TYPES and blocked:
                 continue
             q_text, a_text = candidates[qtype]
-            upsert_question(db, unit_number, qtype, q_text, a_text, vocab_id=item.id, hsk_level=hsk_level)
+            upsert_question(db, unit_number, qtype, q_text, a_text,
+                             vocab_id=sense.vocab_id, vocab_sense_id=sense.id, hsk_level=hsk_level)
 
 
 def build_questions_for_unit(db, unit_number: int, all_hanzi: list[str], home_unit: dict,
                               hsk_level: int = HSK_LEVEL):
-    # --- vocab / grammar / proper-noun word questions ---
-    vocab_items = get_vocab_for_unit(db, unit_number, word_types=[WordType.vocab], hsk_level=hsk_level)
-    build_vocab_style_questions(db, vocab_items, unit_number, all_hanzi, home_unit, qtypes=[
+    # --- vocab / grammar / proper-noun word questions (per SENSE homed here) ---
+    vocab_senses = get_senses_for_unit(db, unit_number, word_types=[WordType.vocab], hsk_level=hsk_level)
+    build_vocab_style_questions(db, vocab_senses, unit_number, all_hanzi, home_unit, qtypes=[
         QuestionType.LISTENING_VOCAB.value, QuestionType.SPEAKING_VOCAB.value,
         QuestionType.TRANSLATE_EN_TO_ZH_WORD.value, QuestionType.TRANSLATE_ZH_TO_EN_WORD.value,
         QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value,
     ], hsk_level=hsk_level)
 
-    grammar_items = get_vocab_for_unit(db, unit_number, word_types=[WordType.grammar], hsk_level=hsk_level)
-    build_vocab_style_questions(db, grammar_items, unit_number, all_hanzi, home_unit, qtypes=[
+    grammar_senses = get_senses_for_unit(db, unit_number, word_types=[WordType.grammar], hsk_level=hsk_level)
+    build_vocab_style_questions(db, grammar_senses, unit_number, all_hanzi, home_unit, qtypes=[
         QuestionType.LISTENING_VOCAB.value, QuestionType.SPEAKING_VOCAB.value,
         QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value,
     ], hsk_level=hsk_level)
 
-    proper_items = get_vocab_for_unit(db, unit_number, word_types=[WordType.proper_noun], hsk_level=hsk_level)
-    build_vocab_style_questions(db, proper_items, unit_number, all_hanzi, home_unit, qtypes=[
+    proper_senses = get_senses_for_unit(db, unit_number, word_types=[WordType.proper_noun], hsk_level=hsk_level)
+    build_vocab_style_questions(db, proper_senses, unit_number, all_hanzi, home_unit, qtypes=[
         QuestionType.LISTENING_VOCAB.value, QuestionType.SPEAKING_VOCAB.value,
         QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, QuestionType.TRANSLATE_ZH_TO_EN_WORD.value,
         QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value,
@@ -247,7 +264,7 @@ def build_questions_for_unit(db, unit_number: int, all_hanzi: list[str], home_un
 
     # --- sentence questions (real DB tags, no recomputation) ---
     for sentence in get_sentences_for_unit(db, unit_number, hsk_level=hsk_level):
-        backfill_context_definitions(db, sentence)
+        resolve_sentence_sense_ambiguity(db, sentence)
         hanzi, pinyin, english = sentence.hanzi, sentence.pinyin, sentence.english
         tags = get_tags_for_sentence(db, sentence.id)
         blocked = has_unlearned_vocab(tags, unit_number, home_unit, hsk_level=hsk_level)
@@ -292,13 +309,14 @@ def main():
     init_db()
     with get_session() as db:
         print(f"0. Make sure there is no bad pinyin.")
-        bad_pinyin = db.query(Vocab).filter(
-            Vocab.pinyin.notlike('%[1-5]%'),  # no digit 1-5
-            Vocab.pinyin != "UNKNOWN_PINYIN",
-            Vocab.pinyin.isnot(None),
+        bad_pinyin = db.query(VocabSense).filter(
+            VocabSense.pinyin.notlike('%[1-5]%'),  # no digit 1-5
+            VocabSense.pinyin != "UNKNOWN_PINYIN",
+            VocabSense.pinyin.isnot(None),
+            VocabSense.pinyin != "",
         ).all()
         if bad_pinyin:
-            print(f"⚠️  WARNING: Found {len(bad_pinyin)} vocab rows with un-converted pinyin. "
+            print(f"⚠️  WARNING: Found {len(bad_pinyin)} vocab sense(s) with un-converted pinyin. "
                 f"Run repair_diacritic_pinyin.py first.")
             return
         print(f"1. Rehoming sentences to their earliest legitimate unit (HSK level {HSK_LEVEL})...")

@@ -33,7 +33,7 @@ from app.core.config.textbook import PIPELINE_SCRIPTS_DIR
 
 # Import the DB module to initialize and query
 from app.textbook.db_utils import init_db, get_session
-from app.textbook.models import Unit, Vocab, Sentence, FitbQuestion, Question
+from app.textbook.models import Unit, Vocab, VocabSense, Sentence, FitbQuestion, Question
 
 
 def run_script(script_name: str, env_overrides: dict = None) -> bool:
@@ -76,6 +76,7 @@ def print_stats():
         with get_session() as db:
             units_count = db.query(Unit).count()
             vocab_count = db.query(Vocab).count()
+            sense_count = db.query(VocabSense).count()
             sentences_count = db.query(Sentence).count()
             fitb_count = db.query(FitbQuestion).count()
             questions_count = db.query(Question).count()
@@ -84,7 +85,7 @@ def print_stats():
             print("📊 DATABASE SUMMARY")
             print("=" * 50)
             print(f"  Units:       {units_count}")
-            print(f"  Vocab:       {vocab_count}")
+            print(f"  Vocab:       {vocab_count}  ({sense_count} sense(s) across them)")
             print(f"  Sentences:   {sentences_count}")
             print(f"  FITB Qs:     {fitb_count}")
             print(f"  Questions:   {questions_count}")
