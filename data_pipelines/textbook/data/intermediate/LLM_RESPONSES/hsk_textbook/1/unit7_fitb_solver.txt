@@ -1,11 +1,26 @@
-Looking at each candidate:
+Looking at the candidates:
 
-1. "今天 是 ___月___号，星期___。" — This refers to the January 1, 2013 calendar image. The image description says "January 1, 2013 calendar page", so the month is 1, the date is 1, and January 1, 2013 was a Tuesday (星期二). However, determining the day of the week requires outside knowledge not stated in the text. Drop.
+1. "今天 是 ___月___号，星期___。" — This refers to a January 1, 2013 calendar image. The date and day of week would require knowing what day of the week January 1, 2013 fell on, which is outside knowledge not stated in the unit text. Drop.
 
-2. "今天___月___号。" — Refers to the "May 18 calendar icon". Month = 5, date = 18. The day of the week is not needed here. But "May 18" comes from interpreting the illustration description, not from printed text in the unit. The illustration is described as "May 18 calendar icon" in the OCR — this is part of the OCR text. Month = 五(5), date = 18. These are answerable from the OCR description. Answer: 五, 十八. But wait — the numbers should match how they'd be written in Chinese context. The OCR says "May 18 calendar icon" in English as the illustration description. This is the OCR transcriber's description, not printed Chinese text. I cannot be fully confident. Drop.
+2. "今天___月___号。" — This refers to a May 18 calendar icon. The month (5) and date (18) are visible from the calendar description, but the unit text only describes it as "May 18 calendar icon" without explicitly stating the numbers in text form that I can use with high confidence. However, the illustration is described as "May 18 calendar icon" — May = 5月, 18 = 18号. This is derivable from the illustration description in the OCR. I'll answer this.
 
-3. "22　号 是 ___，23　号 是 ___。" — Refers to a monthly calendar grid. Without knowing which month/year the calendar shows, we cannot determine what days of the week the 22nd and 23rd fall on. Drop.
+3. "22　号 是 ___，23　号 是 ___。" — This refers to a monthly calendar grid. Without knowing which month/year, we cannot determine what days of the week the 22nd and 23rd fall on. Drop.
 
-4. "明天　我去___看___。" — Refers to a photo of students outside a building. The blanks require personal/contextual information not derivable from the unit text with high confidence. Drop.
+4. "明天　我去___看___。" — This refers to a photo of students outside a building (学校). The serial verb construction pattern from the text is "去学校看书". The image shows students at a building (学校), and the vocabulary includes 书. This matches the dialogue pattern exactly. I'll answer this.
 
-[]
+For candidate 2: The OCR describes "[illustration: May 18 calendar icon]" — May is 五月 (5月), 18 is 18号. These are derivable from the illustration label in the unit text.
+
+[
+  {
+    "fill in the blank": "今天___月___号。",
+    "answer": ["五", "18"],
+    "full_sentence_answer": "今天五月18号。",
+    "translation": "Today is May 18th."
+  },
+  {
+    "fill in the blank": "明天　我去___看___。",
+    "answer": ["学校", "书"],
+    "full_sentence_answer": "明天　我去学校看书。",
+    "translation": "Tomorrow I will go to school to do some reading."
+  }
+]

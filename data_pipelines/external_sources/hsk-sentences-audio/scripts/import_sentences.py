@@ -1,105 +1,79 @@
 """
 data_pipelines/external_sources/hsk_sentences_audio/import_sentences.py
 
-Imports supplementary sentences from the `hsk_sentences_audio` package into
-textbook.db, placing each sentence in the unit of its OWN highest-unit word
--- not the unit ordering the external package uses (it doesn't have units,
-only a per-card hsk_level).
+Pipeline stage 4: imports supplementary sentences from the `hsk_sentences_audio`
+package into textbook.db.
 
-No schema changes: this writes only through the existing Sentence/Vocab/
-SentenceVocab/Question tables and columns, nothing new. Any sentence
-metadata the external package offers that doesn't fit the current schema
-(audio, topic, traditional characters, grammar_tags) is intentionally
-dropped -- add columns later if/when that's actually wanted.
+REWRITE: no more greedy_segment against known vocab -- HanLP segments every
+external sentence directly (tag_sentences.segment_sentence, the SAME
+function stage 3 uses), and sense resolution goes through the SAME
+resolve_word_sense() stage 3 uses (cache -> new-word Haiku call -> ambiguous
+compare Haiku call -> rehome-earlier-if-warranted). There is now exactly one
+place in the whole pipeline that decides "what does this word mean here,"
+and this script and tag_sentences.py both call it.
 
-Why this lives OUTSIDE data_pipelines/textbook/: this is a fundamentally
-different kind of ingestion (a structured Python package, not PDF+OCR+LLM
-extraction), so it gets its own folder -- but it still writes to the SAME
-textbook.db through the SAME app/textbook/db_utils.py / models.py the
-textbook pipeline uses, so placement/tagging/idempotency rules don't drift
-between the two ingestion paths.
+PLACEMENT ALGORITHM
+--------------------
+Must run AFTER vocab_index_parser / sentence_parser / tag_sentences have
+fully completed for this HSK level (see main.py's per-level ordering) --
+placement depends on which words are already known.
 
-ALGORITHM
----------
-1. Find the highest hsk_level currently loaded in textbook.db
-   (MAX(units.hsk_level)). Only external cards with hsk_level <= that are
-   considered candidates at all -- this is a coarse relevance filter so a
-   sentence the source itself calls "HSK6" doesn't get processed just
-   because it happens to contain one simple, already-known word (see step 3
-   for why that would otherwise be a problem).
+For each card (already labeled with its own hsk_level by the source):
+  1. Segment with HanLP.
+  2. If EVERY word already has at least one VocabSense (nothing
+     unregistered): place the sentence at the HIGHEST (unit_number) among
+     those words' EARLIEST known homes (get_word_to_unit_map) -- i.e. the
+     sentence goes wherever its hardest already-known word was introduced.
+     Then resolve_word_sense() for every tag AT THAT unit -- this is what
+     "make sure the word definition matches the word's sense for that
+     unit" means: resolve_word_sense() itself checks cache / compares
+     against existing senses via AI when ambiguous, so a word already known
+     with a DIFFERENT meaning than what's taught by that unit gets a new
+     sense created rather than silently mislabeled.
+  3. If ANY word has NO senses at all (genuinely new, no textbook anchor):
+     skip the "highest known word" placement entirely -- the sentence AND
+     every unregistered word go to the HIGHEST unit_number that exists for
+     this card's own hsk_level (get_highest_unit_number). This is a
+     deliberate simplification: there's no reliable signal for WHEN in the
+     curriculum an externally-sourced new word belongs, so it goes at the
+     end of the level rather than guessing.
+  4. Whichever placement was chosen, resolve_word_sense() is called for
+     EVERY tag (known or new) at that (unit_number, hsk_level) -- this
+     creates senses for new words, matches/creates senses for known words,
+     and rehomes any sense that turns out to belong earlier.
+  5. Word-level questions for any NEWLY created sense are generated the
+     same simplified way as before (still a stand-in for
+     create_questions.py's full builder -- rerun that afterward).
 
-2. For each candidate card, segment its `chinese` text against the UNION of
-   (a) our own vocab hanzi and (b) the card's own `tokens` word boundaries.
-   (b) matters because our vocab alone would greedy-match compound words we
-   don't know yet down into individual, wrong-grained characters; the
-   source's own token boundaries tell us where a not-yet-taught compound
-   word (e.g. "高兴") actually starts and ends.
-
-3. Sentence placement = the unit of the HIGHEST-unit word among tags that
-   ARE already in our vocab index (compared as (hsk_level, unit_number)
-   tuples, since unit_number alone restarts per level). Tags NOT yet in our
-   vocab index are ignored for this step and don't block placement -- per
-   spec: "if there is a word in the sentence that isn't in the vocab index,
-   ignore it and take the next highest unit word." If NO tag is in our
-   vocab index at all, there's nothing to anchor placement to, so the card
-   is skipped.
-
-4. Every tag that WASN'T already in our vocab index (including a
-   previously "auto"/no-unit word) gets registered as a real vocab word
-   (word_type="vocab", not "auto") at the SAME unit the sentence itself
-   just got placed in -- per spec: "assign the word in the sentence that
-   isn't registered yet to be in that unit." Pinyin/gloss for these come
-   from the card's own `tokens` entry when the word matches one; otherwise
-   pypinyin for pronunciation and an UNKNOWN_ENGLISH placeholder (same
-   placeholder convention append_orphan_tags.py already repairs).
-
-5. Each newly-registered vocab word immediately gets the same standard set
-   of word-level questions create_questions.py generates for any vocab
-   word (listening/speaking/translate/transcribe), using the exact same
-   question_type strings so a later create_questions.py rerun's
-   (unit, type, question, answer) upsert key lines up and doesn't
-   duplicate. This is a simplified stand-in for create_questions.py's full
-   build_vocab_style_questions (skips its "blocked" gating check for
-   compound words with not-yet-taught sub-parts) -- the recommended
-   create_questions.py rerun afterward reconciles this properly.
-
-6. The sentence itself is written via db_utils.upsert_sentence() -- same
-   idempotent upsert the textbook pipeline uses, keyed on (unit, hanzi).
-
-WHAT'S EXCLUDED
-----------------
-- grammar_tags: not matched against GrammarTip rows (per instructions).
-- audio, topic, traditional characters, sentence_type: not stored -- no
-  columns for them, and none are being added right now.
-
-AFTER RUNNING THIS SCRIPT
---------------------------
-New sentences have tags and their new vocab words have basic questions, but
-sentence-level questions (listening/speaking/translate SENTENCE, not word)
-and grammar-tip links don't exist yet. Re-run, for each hsk_level touched:
-    python data_pipelines/textbook/scripts/main.py --from-grammar --hsk-level <N>
+WHAT'S GONE FROM THE OLD VERSION: greedy_segment/resolve_new_word_pinyin/
+CEDICT-first pinyin-vs-token-source cross-checking, and the old two-tier
+"registered vs unregistered" split that only ever registered NEW words at
+the sentence's own placement unit. All of that is now resolve_word_sense's
+job (shared with tag_sentences.py), and CEDICT is used only inside
+get_reading_for_word for the deterministic cache-key reading, not for
+picking a definition.
 
 USAGE
 -----
-    python import_sentences.py                  # HSK level 1..MAX, all topics
-    python import_sentences.py --topic food      # only a specific topic
-    python import_sentences.py --dry-run         # print what WOULD be written, no DB writes
+    python import_sentences.py --hsk-level 1          # required: scope to one level
+    python import_sentences.py --hsk-level 1 --topic food
+    python import_sentences.py --hsk-level 1 --dry-run
 """
 import argparse
-import re
 from collections import defaultdict
 
 from hsk_sentences_audio import iter_sentences
 
 from app.textbook.db_utils import (
-    get_session, init_db, get_word_to_unit_map, get_word_to_pinyin_map,
-    get_all_vocab_hanzi, upsert_vocab, upsert_sentence, upsert_question,
+    get_session, init_db, get_word_to_unit_map, get_highest_unit_number,
+    get_or_create_vocab, get_senses_for_vocab, upsert_sentence_bare,
+    set_sentence_tags, upsert_question,
 )
-from app.textbook.models import Unit, WordType
-from data_pipelines.textbook.scripts.vocab_pinyin_utils import (
-    diacritic_to_numeric, pypinyin_numeric, cross_check_pinyin,
+from app.textbook.models import Unit
+
+from data_pipelines.textbook.scripts.tag_sentences import (
+    segment_sentence, resolve_word_sense,
 )
-from data_pipelines.textbook.scripts.cedict_utils import lookup_word, segment_into_words
 
 SOURCE_LABEL = "hsk_sentences_audio"
 
@@ -116,197 +90,117 @@ VOCAB_QUESTION_TYPES = [
     "transcribe hanzi to pinyin",
 ]
 
-_CONTENT_RE = re.compile(r"[\u4e00-\u9fff]|\d+")
+
+def resolve_placement(db, tags: list[tuple[str, str]], card_hsk_level: int, word_to_unit: dict):
+    """Returns (unit_number, hsk_level, all_words_known: bool).
+
+    all_words_known=False means at least one tag has zero VocabSense rows
+    -- placement falls back to "end of this hsk_level" per the module
+    docstring's step 3."""
+    unregistered = [w for w, _pos in tags if not get_senses_for_vocab(db, w)]
+
+    if unregistered:
+        target_unit = get_highest_unit_number(db, card_hsk_level)
+        return target_unit, card_hsk_level, False
+
+    known = [(w, word_to_unit[w]) for w, _pos in tags if w in word_to_unit]
+    if not known:
+        # every word technically has senses, but none are in the earliest-
+        # known map (shouldn't normally happen -- would mean a sense with
+        # no unit at all for every tag). Treat like "nothing known" and
+        # fall back to end-of-level rather than guessing.
+        target_unit = get_highest_unit_number(db, card_hsk_level)
+        return target_unit, card_hsk_level, False
+
+    _, (unit_number, hsk_level) = max(known, key=lambda item: (item[1][1], item[1][0]))
+    return unit_number, hsk_level, True
 
 
-def content_only(s: str) -> str:
-    """Strip everything except hanzi/digits so punctuation doesn't break
-    segmentation -- same filter sentence_parser.py uses."""
-    return "".join(_CONTENT_RE.findall(s or ""))
-
-
-def greedy_segment(content: str, allowed_words: list[str]) -> list[str]:
-    """Longest-match-first segmentation against `allowed_words` (our own
-    vocab + the external card's own token hints, sorted longest-first).
-
-    Any run of characters that doesn't match anything in `allowed_words`
-    gets handed to segment_into_words() (CEDICT-validated jieba) instead of
-    falling back to single characters -- that's exactly the failure mode
-    that let a three-word phrase like "太热了" get registered as if it were
-    one single vocab entry: nothing in our vocab or the card's tokens
-    matched it as a whole, so it fell back to unknown single characters
-    (or, worse, got treated as one unmatched multi-char run and registered
-    whole)."""
-    tags, pos = [], 0
-    n = len(content)
-    unmatched_run: list[str] = []
-
-    def flush_unmatched():
-        if not unmatched_run:
-            return
-        run_text = "".join(unmatched_run)
-        unmatched_run.clear()
-        tags.extend(w for w in segment_into_words(run_text) if w)
-
-    while pos < n:
-        match = next((w for w in allowed_words if content.startswith(w, pos)), None)
-        if match:
-            flush_unmatched()
-            tags.append(match)
-            pos += len(match)
-        else:
-            unmatched_run.append(content[pos])
-            pos += 1
-    flush_unmatched()
-    return tags
-
-
-def resolve_new_word_pinyin(tag: str, tok: dict | None) -> str:
-    """This only runs for words CEDICT doesn't know (see process_card,
-    which checks CEDICT first) -- so there's no authoritative compound
-    pronunciation available, just the external card's own token pinyin
-    (if any) and pypinyin as a last resort.
-
-    TRUST THE TOKEN SOURCE over pypinyin when both are available and they
-    disagree. pypinyin computes pinyin character-by-character with no
-    knowledge of compounds, so it's frequently wrong for real multi-char
-    words (e.g. 学生 -> pypinyin would give the base reading for 生,
-    sheng1, when the word actually takes sheng5) -- CEDICT already
-    corrects for this when it has the word, but for a word CEDICT
-    doesn't have, the source's own annotated pinyin is still a better bet
-    than a character-by-character guess. Still logs a mismatch either way,
-    since it COULD also be the tone-mark-on-wrong-syllable bug from before
-    -- just doesn't silently overwrite with pypinyin anymore."""
-    py_pinyin = pypinyin_numeric(tag)  # "" if pypinyin isn't installed
-
-    if not (tok and tok.get("pinyin")):
-        return py_pinyin or "UNKNOWN_PINYIN"
-
-    token_pinyin = diacritic_to_numeric(tok["pinyin"])
-    if not py_pinyin:
-        return token_pinyin  # can't cross-check, best we've got
-
-    if token_pinyin != py_pinyin:
-        print(f"  [pinyin-note] '{tag}': source says '{token_pinyin}', pypinyin says "
-              f"'{py_pinyin}' -- using source (pypinyin isn't compound-aware; "
-              f"if this looks wrong, check manually -- see resolve_new_word_pinyin docstring)")
-
-    return token_pinyin
-
-
-def resolve_target(tags: list[str], word_to_unit: dict):
-    """Among tags already in our vocab index, pick the one with the highest
-    (hsk_level, unit_number). Returns (unit_number, hsk_level) or (None, None)
-    if nothing in the sentence is registered yet."""
-    registered = [(t, word_to_unit[t]) for t in tags if t in word_to_unit]
-    if not registered:
-        return None, None
-    # word_to_unit values are (unit_number, hsk_level) -- sort by hsk_level first
-    _, (unit_number, hsk_level) = max(registered, key=lambda item: (item[1][1], item[1][0]))
-    return unit_number, hsk_level
-
-
-def generate_vocab_questions(db, vocab_row, hanzi: str, pinyin: str, english: str,
-                              unit_number: int, hsk_level: int):
-    """Simplified stand-in for create_questions.py's build_vocab_style_questions
-    for exactly this one newly-registered word -- see module docstring, step 5."""
+def generate_vocab_questions(db, vocab_id: int, sense, hanzi: str, unit_number: int, hsk_level: int):
+    """Simplified stand-in for create_questions.py's full word-question
+    builder, for a sense that was JUST newly created by this run. Not
+    sense-ambiguity-aware (that's create_questions.py's job on the next
+    full pipeline run) -- just enough coverage that a brand new word isn't
+    completely un-quizzable until then."""
     candidates = {
-        "listening vocab": (hanzi, pinyin),
-        "speaking vocab": (hanzi, pinyin),
-        "translate english word to chinese": (english, hanzi),
-        "translate chinese word to english": (hanzi, english),
-        "transcribe word to pinyin": (hanzi, pinyin),
-        "transcribe hanzi to pinyin": (hanzi, pinyin),
+        "listening vocab": (hanzi, sense.pinyin),
+        "speaking vocab": (hanzi, sense.pinyin),
+        "translate english word to chinese": (sense.english, hanzi),
+        "translate chinese word to english": (hanzi, sense.english),
+        "transcribe word to pinyin": (hanzi, sense.pinyin),
+        "transcribe hanzi to pinyin": (hanzi, sense.pinyin),
     }
     for qtype in VOCAB_QUESTION_TYPES:
         q_text, a_text = candidates[qtype]
-        upsert_question(db, unit_number, qtype, q_text, a_text, vocab_id=vocab_row.id, hsk_level=hsk_level)
+        upsert_question(db, unit_number, qtype, q_text, a_text,
+                         vocab_id=vocab_id, vocab_sense_id=sense.id, hsk_level=hsk_level)
 
 
-def process_card(db, card: dict, known_hanzi: set, word_to_unit: dict, word_to_pinyin: dict,
-                  dry_run: bool) -> dict:
+def process_card(db, card: dict, word_to_unit: dict, dry_run: bool) -> dict:
     hanzi = card.get("chinese", "")
     if not hanzi:
         return {"status": "skipped", "reason": "no chinese text"}
 
-    token_info = {
-        tok["word"]: tok for tok in (card.get("tokens") or []) if tok.get("word")
-    }
-    combined_words = sorted(known_hanzi | set(token_info.keys()), key=len, reverse=True)
-    tags = greedy_segment(content_only(hanzi), combined_words)
+    card_hsk_level = card.get("hsk_level") or card.get("level")
+    if card_hsk_level is None:
+        return {"status": "skipped", "reason": "no hsk_level on card", "hanzi": hanzi}
 
-    target_unit, target_hsk_level = resolve_target(tags, word_to_unit)
+    tags = segment_sentence(hanzi)
+    if not tags:
+        return {"status": "skipped", "reason": "HanLP produced no tags", "hanzi": hanzi}
+
+    target_unit, target_hsk_level, all_known = resolve_placement(db, tags, card_hsk_level, word_to_unit)
     if target_unit is None:
-        return {"status": "skipped", "reason": "no word in this sentence is in the vocab index yet",
+        return {"status": "skipped",
+                "reason": f"no units exist yet for hsk_level {card_hsk_level} -- run the textbook pipeline for it first",
                 "hanzi": hanzi}
-
-    unregistered = [t for t in tags if t not in word_to_unit]
-    new_words = []
 
     if dry_run:
         return {
-            "status": "would_write",
-            "hanzi": hanzi,
-            "target_unit": target_unit,
-            "hsk_level": target_hsk_level,
-            "tags": tags,
-            "new_words": sorted(set(unregistered)),
+            "status": "would_write", "hanzi": hanzi,
+            "target_unit": target_unit, "hsk_level": target_hsk_level,
+            "tags": [w for w, _ in tags], "all_known": all_known,
         }
 
-    for tag in dict.fromkeys(unregistered):  # de-dup, preserve first-seen order
-        cedict_entry = lookup_word(tag)
-        if cedict_entry:
-            # CEDICT is authoritative for BOTH pinyin (correct compound
-            # tones, e.g. 学生 -> xue2sheng5) and definition -- prefer it
-            # over the external card's token info or pypinyin whenever
-            # it's available.
-            pinyin, english = cedict_entry["pinyin"], cedict_entry["english"]
-        else:
-            tok = token_info.get(tag)
-            pinyin = resolve_new_word_pinyin(tag, tok)
-            english = (tok.get("gloss_en") if tok else "") or "UNKNOWN_ENGLISH"
+    resolved = []
+    new_sense_count = 0
+    for word, pos_tag in tags:
+        vocab = get_or_create_vocab(db, word)
+        had_senses_before = bool(get_senses_for_vocab(db, word))
+        sense = resolve_word_sense(db, word, pos_tag, hanzi, target_unit, target_hsk_level)
+        if not had_senses_before:
+            new_sense_count += 1
+            generate_vocab_questions(db, vocab.id, sense, word, target_unit, target_hsk_level)
+        resolved.append((vocab.id, sense.id if sense else None))
+        # keep the placement map current so a later card in this same run
+        # sees this word (and its now-established unit) as known
+        if sense and sense.unit:
+            key = word
+            candidate = (sense.unit.unit_number, sense.unit.hsk_level)
+            if key not in word_to_unit or candidate < word_to_unit[key]:
+                word_to_unit[key] = candidate
 
-        vocab_row = upsert_vocab(
-            db, hanzi=tag, pinyin=pinyin, english=english,
-            unit_number=target_unit, word_type=WordType.vocab, hsk_level=target_hsk_level,
-        )
-        # keep local maps in sync so this card's own tag_pinyins lookup below
-        # (and the next card's segmentation) sees this word as known
-        word_to_unit[tag] = (target_unit, target_hsk_level)
-        word_to_pinyin[tag] = pinyin
-        known_hanzi.add(tag)
-        new_words.append((vocab_row, tag, pinyin, english))
+    english_full = (card.get("translation") or {}).get("en", "") or card.get("english", "")
+    pinyin_full = card.get("pinyin_numbered") or card.get("pinyin", "")
 
-    for vocab_row, tag, pinyin, english in new_words:
-        generate_vocab_questions(db, vocab_row, tag, pinyin, english, target_unit, target_hsk_level)
-
-    tag_pinyins = [word_to_pinyin.get(t, "UNKNOWN_PINYIN") for t in tags]
-    english_full = (card.get("translation") or {}).get("en", "")
-    # card["pinyin_numbered"] is already numeric per the source's own field
-    # name/format, so diacritic_to_numeric() is normally a no-op here (its
-    # digit short-circuit fires immediately) -- this call is just a safety
-    # net in case that assumption is ever wrong for some card.
-    pinyin_full = diacritic_to_numeric(card.get("pinyin_numbered") or "")
-
-    upsert_sentence(
-        db,
-        unit_number=target_unit,
-        hsk_level=target_hsk_level,
-        hanzi=hanzi,
-        english=english_full,
-        pinyin=pinyin_full,
-        tags=tags,
-        tag_pinyins=tag_pinyins,
-        source=SOURCE_LABEL,
+    sentence = upsert_sentence_bare(
+        db, unit_number=target_unit, hanzi=hanzi, english=english_full,
+        pinyin=pinyin_full, source=SOURCE_LABEL, hsk_level=target_hsk_level,
     )
+    set_sentence_tags(db, sentence, resolved)
+
     return {
         "status": "written", "hanzi": hanzi, "target_unit": target_unit,
-        "hsk_level": target_hsk_level, "new_words": [t for _, t, _, _ in new_words],
+        "hsk_level": target_hsk_level, "new_senses": new_sense_count, "all_known": all_known,
     }
 
 
 def main():
     parser = argparse.ArgumentParser(description="Import hsk_sentences_audio sentences into textbook.db")
+    parser.add_argument("--hsk-level", type=int, required=True,
+                         help="Only import cards at this HSK level. Must be run AFTER the textbook "
+                              "pipeline (vocab_index_parser -> sentence_parser -> tag_sentences) has "
+                              "fully completed for this level -- placement depends on it.")
     parser.add_argument("--topic", type=str, default=None,
                          help="Only import cards matching this topic (e.g. 'food').")
     parser.add_argument("--dry-run", action="store_true",
@@ -315,45 +209,41 @@ def main():
 
     init_db()
     with get_session() as db:
-        from sqlalchemy import func
-        max_hsk_level = db.query(func.max(Unit.hsk_level)).scalar()
-        if max_hsk_level is None:
-            print("❌ No units found in textbook.db -- run the textbook pipeline first.")
+        units_exist = db.query(Unit).filter(Unit.hsk_level == args.hsk_level).count() > 0
+        if not units_exist:
+            print(f"❌ No units found for HSK level {args.hsk_level} -- run the textbook pipeline "
+                  f"(vocab_index_parser, sentence_parser, tag_sentences) for this level first.")
             return
-        print(f"Highest HSK level currently loaded: {max_hsk_level}")
 
-        word_to_unit = get_word_to_unit_map(db)      # {hanzi: (unit_number, hsk_level)}
-        word_to_pinyin = get_word_to_pinyin_map(db)   # {hanzi: pinyin}
-        known_hanzi = set(get_all_vocab_hanzi(db))    # every Vocab row, incl. word_type="auto"
+        word_to_unit = get_word_to_unit_map(db)
 
         results = defaultdict(list)
         total_considered = 0
 
-        for level in range(1, max_hsk_level + 1):
-            kwargs = {"level": level}
-            if args.topic:
-                kwargs["topic"] = args.topic
-            for card in iter_sentences(**kwargs):
-                total_considered += 1
-                result = process_card(db, card, known_hanzi, word_to_unit, word_to_pinyin, args.dry_run)
-                results[result["status"]].append(result)
+        kwargs = {"level": args.hsk_level}
+        if args.topic:
+            kwargs["topic"] = args.topic
+        for card in iter_sentences(**kwargs):
+            total_considered += 1
+            result = process_card(db, card, word_to_unit, args.dry_run)
+            results[result["status"]].append(result)
 
         written = results.get("written", [])
         would_write = results.get("would_write", [])
         skipped = results.get("skipped", [])
 
-        print(f"\nConsidered {total_considered} card(s) at HSK level <= {max_hsk_level}.")
+        print(f"\nConsidered {total_considered} card(s) at HSK level {args.hsk_level}.")
         if args.dry_run:
             print(f"Would write: {len(would_write)}")
             for r in would_write[:20]:
-                new_words_note = f" new_words={r['new_words']}" if r["new_words"] else ""
+                known_note = "" if r["all_known"] else " (has NEW word -> end-of-level placement)"
                 print(f"  [HSK{r['hsk_level']} unit {r['target_unit']}] {r['hanzi']}  "
-                      f"tags={r['tags']}{new_words_note}")
+                      f"tags={r['tags']}{known_note}")
             if len(would_write) > 20:
                 print(f"  ... and {len(would_write) - 20} more")
         else:
-            new_word_count = sum(len(r["new_words"]) for r in written)
-            print(f"Written: {len(written)} sentence(s), {new_word_count} new vocab word(s) registered")
+            new_sense_total = sum(r["new_senses"] for r in written)
+            print(f"Written: {len(written)} sentence(s), {new_sense_total} new vocab sense(s) registered")
 
         if skipped:
             print(f"Skipped: {len(skipped)}")
@@ -363,13 +253,11 @@ def main():
                 print(f"  ... and {len(skipped) - 20} more")
 
     if not args.dry_run and written:
-        levels_touched = sorted({r["hsk_level"] for r in written})
         print(
             "\n⚠️  Reminder: sentence-level questions and grammar-tip links "
-            "still need the full pipeline stage. For each HSK level just touched, run:"
+            "still need the full pipeline stage. Run:"
         )
-        for lv in levels_touched:
-            print(f"    python data_pipelines/textbook/scripts/main.py --from-grammar --hsk-level {lv}")
+        print(f"    python data_pipelines/textbook/scripts/main.py --from-grammar --hsk-level {args.hsk_level}")
 
 
 if __name__ == "__main__":

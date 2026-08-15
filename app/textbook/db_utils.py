@@ -21,7 +21,7 @@ from contextlib import contextmanager
 
 from .models import (
     Base, Unit, Vocab, VocabSense, Sentence, SentenceVocab, WordType,
-    GrammarTip, SentenceGrammar, Question, FitbQuestion,
+    GrammarTip, SentenceGrammar, Question, FitbQuestion, SenseCache,
 )
 import json
 from collections import defaultdict
@@ -144,8 +144,12 @@ def upsert_vocab_sense(db: Session, hanzi: str, pinyin: str, english: str,
             set_primary_sense(db, vocab, existing)
         return existing
 
-    is_first_sense = len(vocab.senses) == 0
-    current_primary = next((s for s in vocab.senses if s.is_primary), None)
+    is_first_sense = db.query(VocabSense).filter(VocabSense.vocab_id == vocab.id).count() == 0
+    current_primary = (
+        db.query(VocabSense)
+        .filter(VocabSense.vocab_id == vocab.id, VocabSense.is_primary == 1)
+        .first()
+    )
     promotes_placeholder = (
         make_primary is None and not is_first_sense
         and current_primary is not None and _is_placeholder_sense(current_primary)
@@ -211,8 +215,16 @@ def set_primary_sense(db: Session, vocab: Vocab, sense: VocabSense):
     """Marks `sense` as the primary sense for `vocab`, clearing any other
     sense's primary flag, then syncs Vocab's legacy cache columns to match.
     Exactly one primary per vocab_id is an app-level invariant (enforced
-    here), not a DB constraint."""
-    for s in vocab.senses:
+    here), not a DB constraint.
+
+    Queries VocabSense directly rather than iterating vocab.senses --
+    that in-memory relationship collection can be stale (SQLAlchemy
+    doesn't auto-sync a parent's collection when a child row is created via
+    its FK column, e.g. `VocabSense(vocab_id=vocab.id, ...)`, only when
+    assigned through the `.vocab`/`.senses` relationship itself), so
+    trusting it here could clear a primary flag on a sense that's no
+    longer actually in the collection, or miss the sense being un-primaried."""
+    for s in db.query(VocabSense).filter(VocabSense.vocab_id == vocab.id).all():
         if s.id != sense.id and s.is_primary:
             s.is_primary = 0
     sense.is_primary = 1
@@ -224,8 +236,15 @@ def refresh_primary_cache(db: Session, vocab: Vocab):
     """Re-copies the current primary sense's fields onto Vocab's cache
     columns. Call this after anything that might change what the primary
     sense's data looks like (e.g. re-homing a primary sense to an earlier
-    unit) without going through set_primary_sense itself."""
-    primary = next((s for s in vocab.senses if s.is_primary), None)
+    unit) without going through set_primary_sense itself.
+
+    Queries VocabSense directly (see set_primary_sense's docstring for why
+    -- vocab.senses can be stale mid-transaction for a just-created sense)."""
+    primary = (
+        db.query(VocabSense)
+        .filter(VocabSense.vocab_id == vocab.id, VocabSense.is_primary == 1)
+        .first()
+    )
     if primary is None:
         return
     vocab.pinyin = primary.pinyin
@@ -252,7 +271,14 @@ def upsert_vocab_auto(db: Session, hanzi: str, pinyin: str) -> Vocab:
 
 def get_senses_for_vocab(db: Session, hanzi: str) -> list[VocabSense]:
     vocab = db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
-    return list(vocab.senses) if vocab else []
+    if vocab is None:
+        return []
+    # Direct query rather than vocab.senses -- this is called repeatedly
+    # within tag_sentences.py's per-word resolution loop, often right after
+    # a sense was just created for this same vocab_id earlier in the same
+    # transaction; vocab.senses can be stale in that situation (see
+    # set_primary_sense's docstring).
+    return db.query(VocabSense).filter(VocabSense.vocab_id == vocab.id).order_by(VocabSense.id).all()
 
 
 def get_senses_for_unit(db: Session, unit_number: int, word_types: list[WordType] = None,
@@ -311,7 +337,22 @@ def resolve_sense_for_sentence(db: Session, vocab_id: int, unit_number: int,
     return primary or all_senses[0]
 
 
-def get_word_to_pinyin_map(db: Session) -> dict:
+def get_highest_unit_number(db: Session, hsk_level: int = 1) -> int | None:
+    """Highest unit_number that exists for `hsk_level` -- used by
+    import_sentences.py to place external sentences/vocab that introduce a
+    genuinely new word with no textbook anchor: rather than guessing a
+    placement, they go at the END of the level (the learner is assumed to
+    already know everything else the level covers by that point). Returns
+    None if this hsk_level has no units yet (i.e. the textbook pipeline
+    hasn't been run for it)."""
+    return (
+        db.query(func.max(Unit.unit_number))
+        .filter(Unit.hsk_level == hsk_level)
+        .scalar()
+    )
+
+
+
     """Replaces reading word_to_pinyin.json. Now sourced from each word's
     PRIMARY sense via Vocab's cache columns -- fine for sentence_parser's
     use (picking a reasonable pinyin to display before any sense has been
@@ -408,18 +449,66 @@ def get_uncovered_word_units(db: Session, hsk_level: int = 1) -> list:
 
 # --------------------------------- SENTENCE ---------------------------------
 
+def upsert_sentence_bare(db: Session, unit_number: int, hanzi: str, english: str,
+                          pinyin: str, source: str = None, hsk_level: int = 1) -> Sentence:
+    """Writes/updates just the Sentence row -- no tags. Used by
+    sentence_parser.py now that tagging is tag_sentences.py's job (a
+    separate pipeline stage run afterward, once HanLP + sense-resolution
+    are available). A sentence written here has no SentenceVocab rows yet
+    -- set_sentence_tags() adds those in the next stage.
+
+    Re-running for the same (unit, hanzi) updates english/pinyin/source
+    in place rather than duplicating, matching upsert_sentence's old
+    idempotency contract (just without the tag side of it)."""
+    unit = get_or_create_unit(db, unit_number, hsk_level)
+
+    sentence = (
+        db.query(Sentence)
+        .filter(Sentence.unit_id == unit.id, Sentence.hanzi == hanzi)
+        .first()
+    )
+    if sentence is None:
+        sentence = Sentence(unit_id=unit.id, hanzi=hanzi, english=english,
+                            pinyin=pinyin, source=source)
+        db.add(sentence)
+        db.flush()
+    else:
+        sentence.english = english or sentence.english
+        sentence.pinyin = pinyin or sentence.pinyin
+        sentence.source = source or sentence.source
+        db.flush()
+    return sentence
+
+
+def set_sentence_tags(db: Session, sentence: Sentence, resolved_tags: list[tuple[int, int | None]]):
+    """Replaces a sentence's SentenceVocab rows wholesale, given tags
+    tag_sentences.py has ALREADY resolved to (vocab_id, vocab_sense_id)
+    pairs -- this function does no sense resolution itself, it just writes
+    what it's told. `resolved_tags` is ordered (position = index in list).
+
+    Re-running for a sentence that already has tags clears the old links
+    first, so reprocessing a unit's tagging doesn't leave stale/duplicate
+    SentenceVocab rows behind."""
+    db.query(SentenceVocab).filter(SentenceVocab.sentence_id == sentence.id).delete()
+    db.flush()
+    for position, (vocab_id, sense_id) in enumerate(resolved_tags):
+        db.add(SentenceVocab(sentence_id=sentence.id, vocab_id=vocab_id,
+                              vocab_sense_id=sense_id, position=position))
+    db.flush()
+
+
 def upsert_sentence(db: Session, unit_number: int, hanzi: str, english: str,
                      pinyin: str, tags: list[str], tag_pinyins: list[str],
                      source: str = None, hsk_level: int = 1) -> Sentence:
-    """
-    Insert or update a sentence and its full tag list in one call. Any tag
-    not already in `vocab` is created via upsert_vocab_auto so the FK never
-    fails -- this is what replaces the old inline `tags: [...]` array.
-
-    Re-running for the same (unit, hanzi) replaces its tag links rather than
-    duplicating them, so reprocessing a subset of units (the old
-    UNITS_TO_PROCESS override) stays idempotent like the merge-by-unit logic
-    in the old run_pipeline().
+    """LEGACY all-in-one path (sentence + auto-tags with no real sense
+    resolution beyond resolve_sense_for_sentence's existing-senses-only
+    lookup) -- kept only for import_sentences.py's external-sentence flow,
+    which resolves/creates senses itself via the sense-cache helpers BEFORE
+    calling this, so by the time this runs every tag already has a real
+    Vocab row. New textbook-pipeline code should use upsert_sentence_bare +
+    set_sentence_tags instead (see tag_sentences.py), since tagging is now
+    a distinct pipeline stage with its own HanLP + AI-assisted sense
+    resolution that this function doesn't do.
     """
     unit = get_or_create_unit(db, unit_number, hsk_level)
 
@@ -738,6 +827,55 @@ def get_all_vocab_senses_with_status(db: Session) -> tuple:
 
     incomplete = {s.id for s in all_senses if _is_incomplete(s)}
     return dict(by_hanzi), incomplete
+
+
+def get_cached_sense(db: Session, hanzi: str, pos_tag: str, pinyin: str) -> VocabSense | None:
+    """Deterministic SenseCache lookup -- (hanzi, pos_tag, pinyin) already
+    resolved to a specific sense before. Zero AI calls when this hits.
+    Returns None on a miss (new word, or a POS+reading combo not seen
+    before for this word)."""
+    if not (hanzi and pos_tag and pinyin):
+        return None
+    entry = (
+        db.query(SenseCache)
+        .filter(SenseCache.hanzi == hanzi, SenseCache.pos_tag == pos_tag, SenseCache.pinyin == pinyin)
+        .first()
+    )
+    return entry.sense if entry else None
+
+
+def write_sense_cache(db: Session, hanzi: str, pos_tag: str, pinyin: str, sense: VocabSense):
+    """Records a (hanzi, pos_tag, pinyin) -> sense resolution so the next
+    sentence using this exact word/POS/reading combo skips straight to this
+    sense with no AI call. Idempotent: re-pointing an existing cache row to
+    a different sense_id (e.g. if a sense got merged/rehomed under a new
+    id) overwrites rather than erroring."""
+    if not (hanzi and pos_tag and pinyin):
+        return
+    entry = (
+        db.query(SenseCache)
+        .filter(SenseCache.hanzi == hanzi, SenseCache.pos_tag == pos_tag, SenseCache.pinyin == pinyin)
+        .first()
+    )
+    if entry is None:
+        entry = SenseCache(hanzi=hanzi, pos_tag=pos_tag, pinyin=pinyin, vocab_sense_id=sense.id)
+        db.add(entry)
+    else:
+        entry.vocab_sense_id = sense.id
+    db.flush()
+
+
+def get_senses_matching_pos_pinyin(db: Session, hanzi: str, pos_tag: str, pinyin: str) -> list[VocabSense]:
+    """Existing senses of `hanzi` that already share this exact (pos_tag,
+    pinyin) combo -- checked as a fallback when SenseCache itself has no
+    entry yet (e.g. a sense was created by vocab_index_parser.py, which
+    doesn't populate pos_tag, before tag_sentences.py ever saw this word).
+    If this finds a match, it's used directly (and the cache backfilled)
+    with no AI call; an empty result means a genuine AI comparison is
+    needed."""
+    senses = get_senses_for_vocab(db, hanzi)
+    return [s for s in senses if s.pos_tag == pos_tag and s.pinyin == pinyin]
+
 
 
 def get_nearest_sense(db: Session, hanzi: str, unit_number: int, hsk_level: int = 1) -> VocabSense | None:

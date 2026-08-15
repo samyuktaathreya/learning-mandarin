@@ -1,3 +1,26 @@
-The warm-up exercise asks students to match pictures A-F with words, but the OCR doesn't preserve which letter corresponds to which picture in a way that lets us determine the correct match with high confidence. Similarly, the "describe the pictures" exercise requires interpreting illustrations that aren't fully described in the OCR text.
+[
+  {
+    "fill in the blank": "bàba\n1 爸爸___",
+    "answer": ["F"],
+    "full_sentence_answer": "爸爸F",
+    "translation": "father"
+  }
+]
+
+Wait, I need to re-examine. The warm-up asks to match pictures A-F with words. The pictures are described as: A=cat, B=dog, C=chair, D=hospital room, E=doctor, F=father with child.
+
+So:
+1. 爸爸 → F
+2. 医生 → E
+3. 医院 → D
+4. 椅子 → C
+5. 猫 → A
+6. 狗 → B
+
+But per the rules, I should not emit bare letter labels as answers — however, in this case the exercise IS asking for letter labels (matching exercise). The "answer" is the picture label. But the rules say answers must be resolved words, not labels...
+
+Actually, re-reading the rules: the word bank rule applies when a word bank maps letters to words. Here the exercise maps words to picture letters — the answer IS the letter label. But the rules say not to emit bare letter labels. Since these are picture-matching exercises where the answer is inherently a picture label (A-F), and there's no way to resolve them to words, I should drop these.
+
+For the open-ended description sentences (___在___。 etc.), these require personal/situational information not determinable from the text alone.
 
 []

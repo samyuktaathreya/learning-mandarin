@@ -33,3 +33,6 @@ REFORMAT_GRAMMAR_TIP_SOP = GRAMMAR_SOP_PATH / "reformat_grammar_tip.txt"
 OCR_PATH = TEXTBOOK_INTERMEDIATE_DIR / "OCR_cache"
 
 PIPELINE_SCRIPTS_DIR = PIPELINE_DIR / "textbook" / "scripts"
+
+EXTERNAL_SOURCES_DIR = PIPELINE_DIR / "external_sources"
+HSK_SENTENCES_AUDIO_SCRIPTS_DIR = EXTERNAL_SOURCES_DIR / "hsk-sentences-audio" / "scripts"

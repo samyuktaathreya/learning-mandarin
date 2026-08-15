@@ -121,6 +121,11 @@ class VocabSense(Base):
     english = Column(Text, nullable=False, default="")
     word_type = Column(Enum(WordType), nullable=False, default=WordType.vocab)
     is_primary = Column(Integer, nullable=False, default=0, server_default="0")  # SQLite: 0/1 in place of Boolean
+    # HanLP's POS tag for this specific sense, e.g. "n" (noun), "v" (verb).
+    # Nullable for senses created before tagging existed (index-parser-only
+    # senses, pre-HanLP migration rows). Combined with `pinyin`, this is the
+    # SenseCache lookup key -- see SenseCache below for why.
+    pos_tag = Column(Text, nullable=True)
 
     vocab = relationship("Vocab", back_populates="senses")
     unit = relationship("Unit")
@@ -129,6 +134,46 @@ class VocabSense(Base):
 
     __table_args__ = (
         UniqueConstraint("vocab_id", "unit_id", "english", name="_vocab_unit_english_uc"),
+    )
+
+
+class SenseCache(Base):
+    """Deterministic (hanzi, pos_tag, pinyin_reading) -> VocabSense lookup,
+    so tag_sentences.py doesn't have to make an AI call every time it sees
+    a word it's already resolved before -- only the FIRST time a given
+    (word, POS, reading) combination is encountered does it need Haiku (new
+    word) or a same/different-sense comparison call (word exists, but this
+    exact POS+reading combo hasn't been seen yet). Every subsequent sentence
+    using the same word with the same POS+reading hits this table instead
+    and costs nothing.
+
+    This is a cache in the sense that it's fully derivable from VocabSense
+    (pos_tag, pinyin) -- but keeping it as its own table with a clean unique
+    index makes the lookup a single indexed query instead of a scan-and-
+    compare over every sense of a word, and gives tag_sentences.py one place
+    to write to that doesn't also need to touch VocabSense.is_primary /
+    unit rehoming logic.
+
+    NOTE: pos_tag+pinyin is a strong but not perfect proxy for "same sense"
+    -- two genuinely different meanings CAN share both (rare, e.g. 老 as
+    adjective "old" vs adjective "always/constantly", both lao3). This
+    table only shortcuts the COMMON case; tag_sentences.py still falls
+    through to an AI comparison whenever a word's existing senses don't
+    already have a cache entry for the exact (pos_tag, pinyin) it just
+    encountered.
+    """
+    __tablename__ = "sense_cache"
+
+    id = Column(Integer, primary_key=True)
+    hanzi = Column(Text, nullable=False)
+    pos_tag = Column(Text, nullable=False)
+    pinyin = Column(Text, nullable=False)
+    vocab_sense_id = Column(Integer, ForeignKey("vocab_senses.id"), nullable=False)
+
+    sense = relationship("VocabSense")
+
+    __table_args__ = (
+        UniqueConstraint("hanzi", "pos_tag", "pinyin", name="_hanzi_pos_pinyin_uc"),
     )
 
 
