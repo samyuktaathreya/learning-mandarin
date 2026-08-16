@@ -89,6 +89,56 @@ _CONTENT_RE = re.compile(r"[\u4e00-\u9fff]|\d+")
 
 _hanlp_pipeline = None
 
+# Numeral character class: cardinal digits (零-九), positional units
+# (十百千万亿), and 两 ("two", used before measure words instead of 二).
+# 第 is included ONLY as an ordinal prefix directly attached to a
+# following numeral run (第二 "second", 第一百 "the hundredth").
+#
+# ONLY runs of length >= 2 (or 第-prefixed, any length) are extracted --
+# a BARE SINGLE numeral character is left untouched, glued to its
+# neighbors, so HanLP sees the whole original span and can decide for
+# itself whether it's one cohesive real word. This matters a lot: single
+# numeral characters are extremely common inside ordinary FIXED
+# vocabulary that has nothing to do with counting -- 星期二 (Tuesday),
+# 一样 (same/alike), 一定 (certainly), 一起 (together), 一下 (briefly),
+# 十字路口 (crossroads), 十分 (very) -- extracting the numeral char out of
+# any of these would wrongly shred a real word into a fake "NUM" span
+# plus a meaningless leftover fragment. A length-2+ run (十二, 二零一一,
+# 一百, ...) or an explicit 第-prefixed ordinal (第二, 第一百, ...) is
+# reliably compositional/unbounded (you can construct infinitely many),
+# which is genuinely never worth treating as a fixed vocabulary item --
+# that boundary is where extraction is safe.
+_NUMERAL_CHARS = "零一二三四五六七八九十百千万亿两"
+_NUMERAL_RUN_RE = re.compile(rf"第[{_NUMERAL_CHARS}]+|[{_NUMERAL_CHARS}]{{2,}}")
+
+# Small manual exception list: real, closed-set FIXED words that happen to
+# be built entirely from numeral characters and would otherwise match the
+# length>=2 rule above. Extend this set if more are found -- it's meant to
+# stay short (most 2+-char numeral-only runs genuinely are numbers).
+_NUMERAL_LOOKING_FIXED_WORDS = {"万一"}  # "in case / what if", not "10,001"
+
+
+def extract_numeral_runs(text: str) -> list[tuple[str, bool]]:
+    """Splits `text` into ordered (segment, is_numeral) pieces. Numeral
+    runs (dates, ages, counts, durations -- 二零一一年九月, 十二个月, 一百块钱,
+    第二次, ...) are isolated as their own pieces so they never get handed
+    to HanLP glued to adjacent real words; everything else is returned as
+    plain non-numeral segments for normal segmentation. An empty non-
+    numeral segment can occur between two adjacent numeral runs or at the
+    string's edges -- callers should skip empty segments."""
+    pieces = []
+    pos = 0
+    for m in _NUMERAL_RUN_RE.finditer(text):
+        if m.start() > pos:
+            pieces.append((text[pos:m.start()], False))
+        matched = m.group()
+        is_numeral = matched not in _NUMERAL_LOOKING_FIXED_WORDS
+        pieces.append((matched, is_numeral))
+        pos = m.end()
+    if pos < len(text):
+        pieces.append((text[pos:], False))
+    return pieces
+
 
 def _get_hanlp():
     """Lazy-load HanLP's tokenizer + POS tagger once per process -- these
@@ -96,33 +146,54 @@ def _get_hanlp():
     global _hanlp_pipeline
     if _hanlp_pipeline is None:
         import hanlp
-        # Chain models safely into a unified pipeline
-        _hanlp_pipeline = hanlp.pipeline() \
-            .append(hanlp.load(hanlp.pretrained.tok.COARSE_ELECTRA_SMALL_ZH), output_key='tok') \
-            .append(hanlp.load(hanlp.pretrained.pos.CTB9_POS_ELECTRA_SMALL), input_key='tok', output_key='pos')
+        tok = hanlp.load(hanlp.pretrained.tok.COARSE_ELECTRA_SMALL_ZH)
+        pos = hanlp.load(hanlp.pretrained.pos.CTB9_POS_ELECTRA_SMALL)
+        _hanlp_pipeline = (tok, pos)
     return _hanlp_pipeline
 
 
 def segment_sentence(hanzi: str) -> list[tuple[str, str]]:
-    """HanLP's word segmentation + POS tagging, trusted directly -- no
-    greedy-match-against-known-vocab step. Returns [(word, pos_tag), ...]
-    in sentence order. Punctuation/whitespace tokens are dropped (POS tag
-    'PU' in CTB9's tagset); content_only() isn't applied to the INPUT since
-    HanLP's tokenizer wants real sentence punctuation for accurate
-    boundaries, but the OUTPUT is filtered to drop punctuation tokens."""
-    pipeline = _get_hanlp()
-    
-    # The pipeline outputs a dict-like Document natively mapping your keys
-    doc = pipeline(hanzi)
-    words = doc['tok']
-    tags = doc['pos']
-    
-    # Flatten just in case HanLP auto-segments a long string into a list-of-lists
-    if words and isinstance(words[0], list):
-        words = [w for sent in words for w in sent]
-        tags = [t for sent in tags for t in sent]
-        
-    return [(w, t) for w, t in zip(words, tags) if t != "PU" and w.strip()]
+    """Numeral runs (dates, ages, quantities, durations -- see
+    extract_numeral_runs) are pulled out and pre-split BEFORE HanLP ever
+    sees the sentence, then HanLP's word segmentation + POS tagging is
+    trusted directly for everything else -- no greedy-match-against-known-
+    vocab step. Returns [(word, pos_tag), ...] in sentence order, with
+    numeral runs tagged "NUM" (a synthetic tag, not a real HanLP/CTB9
+    category -- see resolve_word_sense and tag_sentence, which both treat
+    "NUM" as "don't register this as vocabulary, it's a generated string
+    not a taught word").
+
+    WHY PRE-SPLIT RATHER THAN POST-FILTER ON HANLP'S OWN POS OUTPUT:
+    real CTB9 tagging of numeral phrases is inconsistent -- a short date
+    like 六岁 splits cleanly into 六/CD + 岁/M (fine either way, both are
+    legitimate closed-set vocab), but a longer date like 二零一一年九月
+    gets coalesced into ONE token tagged CD, swallowing 年 and 月 (both
+    legitimate, likely-already-taught vocab) into the numeral blob instead
+    of leaving them separately taggable. Stripping the numeral run out of
+    the TEXT first (see extract_numeral_runs -- only length>=2 or
+    第-prefixed runs are extracted; a bare single numeral character is
+    left alone so real fixed vocabulary like 星期二/一样/一定/一起 is never
+    wrongly shredded) means HanLP only ever has to segment the genuinely-
+    word parts, and never has the opportunity to over-coalesce a number
+    with adjacent real vocabulary.
+
+    Punctuation/whitespace tokens are dropped (POS tag 'PU' in CTB9's
+    tagset); content_only() isn't applied to the INPUT since HanLP's
+    tokenizer wants real sentence punctuation for accurate boundaries, but
+    the OUTPUT is filtered to drop punctuation tokens."""
+    tok, pos = _get_hanlp()
+    results = []
+    for segment, is_numeral in extract_numeral_runs(hanzi):
+        if not segment:
+            continue
+        if is_numeral:
+            results.append((segment, "NUM"))
+            continue
+        words = tok(segment)
+        tags = pos(words)
+        results.extend((w, t) for w, t in zip(words, tags) if t != "PU" and w.strip())
+    return results
+
 
 def get_reading_for_word(word: str) -> str:
     """CEDICT first (compound-aware, correct tone sandhi for real words) --
@@ -289,13 +360,28 @@ def tag_sentence(db, sentence: Sentence, hsk_level: int) -> int:
     joining each resolved tag's own reading -- this is the first point in
     the pipeline where a real, sense-resolved reading is known for every
     word in the sentence, so it's the right place to compute it rather
-    than guessing per-character before tagging existed."""
+    than guessing per-character before tagging existed.
+
+    Tokens tagged "NUM" by segment_sentence (numeral runs -- dates, ages,
+    counts, durations) are NEVER registered as vocabulary: no
+    get_or_create_vocab, no resolve_word_sense, no SentenceVocab row.
+    They're generated/compositional strings, not taught words -- a
+    specific date like 二零一一年九月 only ever appears once and would
+    otherwise mint a permanent, never-reused "vocabulary" entry every
+    single time. They're still included in the sentence's pinyin (via
+    pypinyin, since there's no VocabSense reading to draw from), and since
+    they're simply absent from the SentenceVocab tag list, the frontend
+    (ClickableText) naturally renders them as plain non-clickable text --
+    exactly right, since there's nothing to define."""
     unit_number = sentence.unit.unit_number
     words_and_pos = segment_sentence(sentence.hanzi)
 
     resolved_tags = []
     readings = []
     for word, pos_tag in words_and_pos:
+        if pos_tag == "NUM":
+            readings.append(pypinyin_numeric(word) or word)
+            continue
         vocab = get_or_create_vocab(db, word)
         sense = resolve_word_sense(db, word, pos_tag, sentence.hanzi, unit_number, hsk_level)
         resolved_tags.append((vocab.id, sense.id if sense else None))

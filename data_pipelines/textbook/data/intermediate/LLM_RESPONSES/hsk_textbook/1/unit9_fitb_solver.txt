@@ -1,26 +1,63 @@
+The warm-up exercise asks students to match pictures A-F with the words. The pictures are described as "a cat, dog, chair, hospital room, doctor, and father with child" in order A-F. So:
+- 爸爸 (father with child) = F
+- 医生 (doctor) = E
+- 医院 (hospital room) = D
+- 椅子 (chair) = C
+- 猫 (cat) = A
+- 狗 (dog) = B
+
+For the "describe the pictures" exercise, the blanks are open-ended (students fill in based on pictures they see), and without being able to see the actual pictures clearly enough to determine exact answers, these are not confidently answerable. The third picture shows a doctor with a patient, and the fourth shows a young woman with books — but the specific answers for the last two blanks in those sentences would require personal/open-ended responses.
+
+For the picture description sentences with "在", the blanks depend on what's in the pictures which are illustrations not fully described in text.
+
 [
   {
     "fill in the blank": "bàba\n1 爸爸___",
     "answer": ["F"],
     "full_sentence_answer": "爸爸F",
-    "translation": "father"
+    "translation": "father - F"
   }
 ]
 
-Wait, I need to re-examine. The warm-up asks to match pictures A-F with words. The pictures are described as: A=cat, B=dog, C=chair, D=hospital room, E=doctor, F=father with child.
+Wait, I need to re-examine. The labels A-F are picture labels, not word bank labels with associated words. The answer IS the letter label here (it's a matching exercise where the answer is the picture letter). But per the rules, I should only answer if I can do so with high confidence from the text.
 
-So:
-1. 爸爸 → F
-2. 医生 → E
-3. 医院 → D
-4. 椅子 → C
-5. 猫 → A
-6. 狗 → B
+The OCR describes the pictures as "a cat, dog, chair, hospital room, doctor, and father with child" in order A-F. So the matches are determinable.
 
-But per the rules, I should not emit bare letter labels as answers — however, in this case the exercise IS asking for letter labels (matching exercise). The "answer" is the picture label. But the rules say answers must be resolved words, not labels...
-
-Actually, re-reading the rules: the word bank rule applies when a word bank maps letters to words. Here the exercise maps words to picture letters — the answer IS the letter label. But the rules say not to emit bare letter labels. Since these are picture-matching exercises where the answer is inherently a picture label (A-F), and there's no way to resolve them to words, I should drop these.
-
-For the open-ended description sentences (___在___。 etc.), these require personal/situational information not determinable from the text alone.
-
-[]
+[
+  {
+    "fill in the blank": "bàba\n1 爸爸___",
+    "answer": ["F"],
+    "full_sentence_answer": "爸爸F",
+    "translation": "father - F"
+  },
+  {
+    "fill in the blank": "yīshēng\n2 医生___",
+    "answer": ["E"],
+    "full_sentence_answer": "医生E",
+    "translation": "doctor - E"
+  },
+  {
+    "fill in the blank": "yīyuàn\n3 医院___",
+    "answer": ["D"],
+    "full_sentence_answer": "医院D",
+    "translation": "hospital - D"
+  },
+  {
+    "fill in the blank": "yǐzi\n4 椅子___",
+    "answer": ["C"],
+    "full_sentence_answer": "椅子C",
+    "translation": "chair - C"
+  },
+  {
+    "fill in the blank": "māo\n5 猫___",
+    "answer": ["A"],
+    "full_sentence_answer": "猫A",
+    "translation": "cat - A"
+  },
+  {
+    "fill in the blank": "gǒu\n6 狗___",
+    "answer": ["B"],
+    "full_sentence_answer": "狗B",
+    "translation": "dog - B"
+  }
+]

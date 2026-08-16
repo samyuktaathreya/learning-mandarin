@@ -123,35 +123,6 @@ def save_llm_response(call_name: str, raw_text: str) -> str:
         f.write(raw_text)
     return path
 
-'''
-
-def load_added_vocab() -> list:
-    """Unchanged: still reads the hand-maintained JSONL override file --
-    that file is source-controlled input, not generated output, so there's
-    nothing to migrate here."""
-    import json
-    
-    if not ADDED_VOCAB_FILEPATH.exists():
-        return []
-    entries = []
-    with open(ADDED_VOCAB_FILEPATH, "r", encoding="utf-8") as f:
-        for lineno, line in enumerate(f, start=1):
-            line = line.strip()
-            if not line or line.startswith("#"):
-                continue
-            try:
-                entry = json.loads(line)
-            except json.JSONDecodeError as e:
-                print(f"  [warning] added_vocab/hsk1.txt line {lineno}: invalid JSON ({e}); skipping")
-                continue
-            entry["section"] = entry.get("section", "vocab")
-            entries.append(entry)
-    if entries:
-        print(f"  [added-vocab] loaded {len(entries)} hand-added entr(y/ies) from {ADDED_VOCAB_FILEPATH}")
-    return entries
-'''
-
-
 # ------------------------- PINYIN: DIACRITIC -> NUMERIC (unchanged) -------------------------
 # ... identical to the JSON version: _TONE_TABLE, _demark, _split_syllables,
 # diacritic_to_numeric. Copy verbatim from the original file -- no data-model
@@ -203,8 +174,12 @@ def run_index_ocr() -> str:
 
 def run_extractor(ocr_markdown: str) -> list:
     import json
-    if client is None or not ocr_markdown:
-        return []
+
+    if client is None:
+        raise RuntimeError("CLAUDE_API_KEY not set — extractor cannot run")
+    if not ocr_markdown:
+        raise RuntimeError("OCR markdown is empty — nothing to extract from")
+    
     response = client.messages.create(
         model=MODEL,
         max_tokens=AGENT_MAX_TOKENS,

@@ -1,0 +1,65 @@
+# -*- coding:utf-8 -*-
+# Author: hankcs
+# Date: 2020-12-22 13:16
+from hanlp_common.constant import HANLP_URL
+
+OPEN_TOK_POS_NER_SRL_DEP_SDP_CON_ELECTRA_SMALL_ZH = HANLP_URL + 'mtl/open_tok_pos_ner_srl_dep_sdp_con_electra_small_20201223_035557.zip'
+"Electra (:cite:`clark2020electra`) small version of joint tok, pos, ner, srl, dep, sdp and con model trained on open-source Chinese corpus."
+OPEN_TOK_POS_NER_SRL_DEP_SDP_CON_ELECTRA_BASE_ZH = HANLP_URL + 'mtl/open_tok_pos_ner_srl_dep_sdp_con_electra_base_20201223_201906.zip'
+"Electra (:cite:`clark2020electra`) base version of joint tok, pos, ner, srl, dep, sdp and con model trained on open-source Chinese corpus."
+CLOSE_TOK_POS_NER_SRL_DEP_SDP_CON_ELECTRA_SMALL_ZH = HANLP_URL + 'mtl/close_tok_pos_ner_srl_dep_sdp_con_electra_small_20210111_124159.zip'
+"Electra (:cite:`clark2020electra`) small version of joint tok, pos, ner, srl, dep (SD Standard), sdp and con model trained on close-source Chinese corpus."
+CLOSE_TOK_POS_NER_SRL_UDEP_SDP_CON_ELECTRA_SMALL_ZH = HANLP_URL + 'mtl/close_tok_pos_ner_srl_dep_sdp_con_electra_small_20220626_175100.zip'
+'''
+Electra (:cite:`clark2020electra`) small version of joint tok, pos, ner, srl, dep (UD Standard), sdp and con model trained on close-source Chinese corpus.
+Performance: ``{con UCM: 39.33% LCM: 35.69% UP: 90.24% UR: 90.28% UF: 90.26% LP: 87.55% LR: 87.59% LF: 87.57%}{dep UAS: 86.80% LAS: 82.82%}{ner/msra P: 95.45% R: 96.65% F1: 96.05%}{ner/ontonotes P: 75.98% R: 79.09% F1: 77.50%}{ner/pku P: 95.77% R: 96.75% F1: 96.26%}{pos/863 Accuracy:94.83%}{pos/ctb Accuracy:96.57%}{pos/pku Accuracy:97.54%}{sdp UF: 85.55% LF: 73.67%}{srl P: 75.71% R: 74.25% F1: 74.97%}{tok/coarse P: 97.77% R: 97.70% F1: 97.74%}{tok/fine P: 97.44% R: 97.32% F1: 97.38%}``.
+'''
+CLOSE_TOK_POS_NER_SRL_DEP_SDP_CON_ELECTRA_BASE_ZH = HANLP_URL + 'mtl/close_tok_pos_ner_srl_dep_sdp_con_electra_base_20210111_124519.zip'
+"Electra (:cite:`clark2020electra`) base version of joint tok, pos, ner, srl, dep, sdp and con model trained on close-source Chinese corpus."
+CLOSE_TOK_POS_NER_SRL_DEP_SDP_CON_ERNIE_GRAM_ZH = HANLP_URL + 'mtl/close_tok_pos_ner_srl_dep_sdp_con_ernie_gram_base_aug_20210904_145403.zip'
+"ERNIE (:cite:`xiao-etal-2021-ernie`) base version of joint tok, pos, ner, srl, dep, sdp and con model trained on close-source Chinese corpus."
+KYOTO_EVAHAN_TOK_LEM_POS_UDEP_LZH = HANLP_URL + 'mtl/kyoto_evahan_tok_lem_pos_udep_bert-ancient-chinese_lr_1_aug_dict_20250112_154422.zip'
+'''
+Ancient Chinese tokenizer, lemmatizer, part-of-speech tagger, dependency parser with bert-ancient-chinese (:cite:`wang2022uncertainty`) encoder trained on Classical Chinese 
+Universal Dependencies Treebank (:cite:`yasuoka2019universal`) and EvaHan corpus (:cite:`li-etal-2022-first`).
+Performance: ``{tok/fine P: 98.91% R: 99.11% F1: 99.01%}{tok/coarse P: 94.71% R: 92.51% F1: 93.60%}{lem Accuracy:98.86%}{pos/upos Accuracy:94.91%}{pos/xpos Accuracy:93.79%}{pos/pku Accuracy:91.91%}{dep UAS: 88.70% LAS: 83.89%}``
+'''
+
+UD_ONTONOTES_TOK_POS_LEM_FEA_NER_SRL_DEP_SDP_CON_MMINILMV2L6 = HANLP_URL + 'mtl/ud_ontonotes_tok_pos_lem_fea_ner_srl_dep_sdp_con_mMiniLMv2L6_no_space_20220731_161526.zip'
+'''
+mMiniLMv2 (:cite:`wang-etal-2021-minilmv2`) L6xH384 small version of joint tok, pos, lem, fea, ner, srl, dep, sdp and con model trained on UD 2.10 and OntoNotes5 corpora.
+The following 130 languages are supported: ``Afrikaans, Akkadian, Akuntsu, Albanian, Amharic, AncientGreek (to 1453), Ancient Hebrew, Apurinã, Arabic, Armenian, AssyrianNeo-Aramaic, Bambara, Basque, Beja, Belarusian, Bengali, Bhojpuri, Breton, Bulgarian, Catalan, Cebuano, Central Siberian Yupik, Chinese, Chukot, ChurchSlavic, Coptic, Croatian, Czech, Danish, Dutch, Emerillon, English, Erzya, Estonian, Faroese, Finnish, French, Galician, German, Gothic, Guajajára, Guarani, Hebrew, Hindi, Hittite, Hungarian, Icelandic, Indonesian, Irish, Italian, Japanese, Javanese, K\'iche\', Kangri, Karelian, Karo(Brazil), Kazakh, Khunsari, Komi-Permyak, Komi-Zyrian, Korean, Latin, Latvian, Ligurian, LiteraryChinese, Lithuanian, Livvi, LowGerman, Madi, Makuráp, Maltese, Manx, Marathi, MbyáGuaraní, Modern Greek (1453-), Moksha, Mundurukú, Nayini, Neapolitan, Nigerian Pidgin, NorthernKurdish, Northern Sami, Norwegian, OldFrench (842-ca. 1400), OldRussian, Old Turkish, Persian, Polish, Portuguese, Romanian, Russia Buriat, Russian, Sanskrit, ScottishGaelic, Serbian, SkoltSami, Slovak, Slovenian, Soi, South Levantine Arabic, Spanish, Swedish, SwedishSign Language, SwissGerman, Tagalog, Tamil, Tatar, Telugu, Thai, Tupinambá, Turkish, Uighur, Ukrainian, Umbrian, UpperSorbian, Urdu, Urubú-Kaapor, Vietnamese, Warlpiri, Welsh, Western Armenian, WesternFrisian, Wolof, Xibe, Yakut, Yoruba, YueChinese``.
+Performance: ``{con UCM: 15.48% LCM: 11.45% UP: 68.92% UR: 66.88% UF: 67.88% LP: 61.19% LR: 59.38% LF: 60.27%}{ner P: 76.06% R: 77.83% F1: 76.93%}{sdp/dm UF: 91.84% LF: 91.00%}{sdp/pas UF: 95.46% LF: 93.90%}{sdp/psd UF: 91.94% LF: 81.26%}{srl [predicate P: 91.71% R: 74.51% F1: 82.22%][e2e P: 77.48% R: 55.28% F1: 64.52%]}{tok P: 93.17% R: 93.53% F1: 93.35%}{ud [lemmas Accuracy:81.74%][upos Accuracy:85.94%][deps UAS: 80.60% LAS: 71.21%][feats Accuracy:77.17%]}``.
+'''
+UD_ONTONOTES_TOK_POS_LEM_FEA_NER_SRL_DEP_SDP_CON_MMINILMV2L12 = HANLP_URL + 'mtl/ud_ontonotes_tok_pos_lem_fea_ner_srl_dep_sdp_con_mMiniLMv2L12_no_space_20220807_133143.zip'
+'''
+mMiniLMv2 (:cite:`wang-etal-2021-minilmv2`) L6xH384 base version of joint tok, pos, lem, fea, ner, srl, dep, sdp and con model trained on UD 2.10 and OntoNotes5 corpora.
+The following 130 languages are supported: ``Afrikaans, Akkadian, Akuntsu, Albanian, Amharic, AncientGreek (to 1453), Ancient Hebrew, Apurinã, Arabic, Armenian, AssyrianNeo-Aramaic, Bambara, Basque, Beja, Belarusian, Bengali, Bhojpuri, Breton, Bulgarian, Catalan, Cebuano, Central Siberian Yupik, Chinese, Chukot, ChurchSlavic, Coptic, Croatian, Czech, Danish, Dutch, Emerillon, English, Erzya, Estonian, Faroese, Finnish, French, Galician, German, Gothic, Guajajára, Guarani, Hebrew, Hindi, Hittite, Hungarian, Icelandic, Indonesian, Irish, Italian, Japanese, Javanese, K\'iche\', Kangri, Karelian, Karo(Brazil), Kazakh, Khunsari, Komi-Permyak, Komi-Zyrian, Korean, Latin, Latvian, Ligurian, LiteraryChinese, Lithuanian, Livvi, LowGerman, Madi, Makuráp, Maltese, Manx, Marathi, MbyáGuaraní, Modern Greek (1453-), Moksha, Mundurukú, Nayini, Neapolitan, Nigerian Pidgin, NorthernKurdish, Northern Sami, Norwegian, OldFrench (842-ca. 1400), OldRussian, Old Turkish, Persian, Polish, Portuguese, Romanian, Russia Buriat, Russian, Sanskrit, ScottishGaelic, Serbian, SkoltSami, Slovak, Slovenian, Soi, South Levantine Arabic, Spanish, Swedish, SwedishSign Language, SwissGerman, Tagalog, Tamil, Tatar, Telugu, Thai, Tupinambá, Turkish, Uighur, Ukrainian, Umbrian, UpperSorbian, Urdu, Urubú-Kaapor, Vietnamese, Warlpiri, Welsh, Western Armenian, WesternFrisian, Wolof, Xibe, Yakut, Yoruba, YueChinese``.
+Performance: ``{con UCM: 17.32% LCM: 13.28% UP: 70.53% UR: 68.73% UF: 69.62% LP: 63.03% LR: 61.42% LF: 62.22%}{ner P: 76.91% R: 78.72% F1: 77.80%}{sdp/dm UF: 92.78% LF: 92.02%}{sdp/pas UF: 96.43% LF: 95.02%}{sdp/psd UF: 92.75% LF: 81.86%}{srl [predicate P: 91.82% R: 77.57% F1: 84.10%][e2e P: 78.33% R: 59.14% F1: 67.40%]}{tok P: 93.69% R: 94.34% F1: 94.02%}{ud [lemmas Accuracy:82.48%][upos Accuracy:87.09%][deps UAS: 82.41% LAS: 73.69%][feats Accuracy:78.58%]}``.
+'''
+UD_ONTONOTES_TOK_POS_LEM_FEA_NER_SRL_DEP_SDP_CON_XLMR_BASE = HANLP_URL + 'mtl/ud_ontonotes_tok_pos_lem_fea_ner_srl_dep_sdp_con_xlm_base_20220608_003435.zip'
+'''
+XLM-R (:cite:`conneau-etal-2020-unsupervised`) base version of joint tok, pos, lem, fea, ner, srl, dep, sdp and con model trained on UD 2.10 and OntoNotes5 corpora.
+The following 130 languages are supported: ``Afrikaans, Akkadian, Akuntsu, Albanian, Amharic, AncientGreek (to 1453), Ancient Hebrew, Apurinã, Arabic, Armenian, AssyrianNeo-Aramaic, Bambara, Basque, Beja, Belarusian, Bengali, Bhojpuri, Breton, Bulgarian, Catalan, Cebuano, Central Siberian Yupik, Chinese, Chukot, ChurchSlavic, Coptic, Croatian, Czech, Danish, Dutch, Emerillon, English, Erzya, Estonian, Faroese, Finnish, French, Galician, German, Gothic, Guajajára, Guarani, Hebrew, Hindi, Hittite, Hungarian, Icelandic, Indonesian, Irish, Italian, Japanese, Javanese, K\'iche\', Kangri, Karelian, Karo(Brazil), Kazakh, Khunsari, Komi-Permyak, Komi-Zyrian, Korean, Latin, Latvian, Ligurian, LiteraryChinese, Lithuanian, Livvi, LowGerman, Madi, Makuráp, Maltese, Manx, Marathi, MbyáGuaraní, Modern Greek (1453-), Moksha, Mundurukú, Nayini, Neapolitan, Nigerian Pidgin, NorthernKurdish, Northern Sami, Norwegian, OldFrench (842-ca. 1400), OldRussian, Old Turkish, Persian, Polish, Portuguese, Romanian, Russia Buriat, Russian, Sanskrit, ScottishGaelic, Serbian, SkoltSami, Slovak, Slovenian, Soi, South Levantine Arabic, Spanish, Swedish, SwedishSign Language, SwissGerman, Tagalog, Tamil, Tatar, Telugu, Thai, Tupinambá, Turkish, Uighur, Ukrainian, Umbrian, UpperSorbian, Urdu, Urubú-Kaapor, Vietnamese, Warlpiri, Welsh, Western Armenian, WesternFrisian, Wolof, Xibe, Yakut, Yoruba, YueChinese``.
+Performance: ``{con UCM: 20.31% LCM: 16.82% UP: 77.50% UR: 76.63% UF: 77.06% LP: 71.25% LR: 70.46% LF: 70.85%}{ner P: 79.93% R: 80.76% F1: 80.34%}{sdp/dm UF: 93.71% LF: 93.00%}{sdp/pas UF: 97.63% LF: 96.37%}{sdp/psd UF: 93.08% LF: 80.95%}{srl [predicate P: 90.95% R: 84.25% F1: 87.47%][e2e P: 78.89% R: 67.32% F1: 72.65%]}{tok P: 98.50% R: 98.70% F1: 98.60%}{ud [lemmas Accuracy:85.95%][upos Accuracy:89.95%][deps UAS: 85.78% LAS: 78.51%][feats Accuracy:82.18%]}``.
+'''
+
+NPCMJ_UD_KYOTO_TOK_POS_CON_BERT_BASE_CHAR_JA = HANLP_URL + 'mtl/npcmj_ud_kyoto_tok_pos_ner_dep_con_srl_bert_base_char_ja_20210914_133742.zip'
+'BERT (:cite:`devlin-etal-2019-bert`) base char encoder trained on NPCMJ/UD/Kyoto corpora with decoders including tok, pos, ner, dep, con, srl.'
+
+EN_TOK_LEM_POS_NER_SRL_UDEP_SDP_CON_MODERNBERT_BASE = HANLP_URL + 'mtl/en_tok_lem_pos_ner_srl_udep_sdp_con_modernbert_base_prepend_false_20241229_053838.zip'
+'''
+ModernBERT (:cite:`warner2024smarter`) base encoder, joint tok, lem, pos, ner, srl, dep (UD Standard), sdp (DM, PAS, PSD) and con decoders trained on English corpora.
+Performance: ``{con UCM: 58.47% LCM: 53.16% UP: 91.01% UR: 91.10% UF: 91.05% LP: 88.67% LR: 88.76% LF: 88.71%}{dep UAS: 95.09% LAS: 93.21%}{lem Accuracy:99.52%}{ner P: 89.22% R: 80.55% F1: 84.67%}{pos Accuracy:98.00%}{sdp/dm UF: 93.78% LF: 93.08%}{sdp/pas UF: 96.26% LF: 94.65%}{sdp/psd UF: 93.87% LF: 83.36%}{srl [predicate P: 97.77% R: 97.93% F1: 97.85%][e2e P: 94.45% R: 90.75% F1: 92.57%]}{tok P: 99.84% R: 99.90% F1: 99.87%}``
+Requirement: ``transformers>=4.48`` 
+'''
+
+EN_TOK_LEM_POS_NER_SRL_UDEP_SDP_CON_MODERNBERT_LARGE = HANLP_URL + 'mtl/en_tok_lem_pos_ner_srl_udep_sdp_con_modernbert_large_prepend_false_20250107_181612.zip'
+'''
+ModernBERT (:cite:`warner2024smarter`) large encoder, joint tok, lem, pos, ner, srl, dep (UD Standard), sdp (DM, PAS, PSD) and con decoders trained on English corpora.
+Performance: ``{con UCM: 59.47% LCM: 54.31% UP: 91.62% UR: 92.37% UF: 91.99% LP: 89.40% LR: 90.13% LF: 89.76%}{dep UAS: 95.35% LAS: 93.50%}{lem Accuracy:99.46%}{ner P: 89.69% R: 84.67% F1: 87.11%}{pos Accuracy:98.08%}{sdp/dm UF: 94.04% LF: 93.35%}{sdp/pas UF: 96.33% LF: 94.80%}{sdp/psd UF: 94.12% LF: 83.71%}{srl [predicate P: 99.15% R: 98.66% F1: 98.91%][e2e P: 97.16% R: 94.60% F1: 95.86%]}{tok P: 99.83% R: 99.90% F1: 99.87%}``
+Requirement: ``transformers>=4.48`` 
+'''
+
+# Will be filled up during runtime
+ALL = {}
