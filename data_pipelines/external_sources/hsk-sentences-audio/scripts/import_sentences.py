@@ -72,8 +72,18 @@ from app.textbook.db_utils import (
 from app.textbook.models import Unit
 
 from data_pipelines.textbook.scripts.tag_sentences import (
-    segment_sentence, resolve_word_sense,
+    _get_hanlp, resolve_word_sense,
 )
+
+import json
+
+from data_pipelines.textbook.scripts.tag_sentences import (
+    _get_hanlp, resolve_word_sense, get_reading_for_word,
+)
+from data_pipelines.textbook.scripts.vocab_pinyin_utils import diacritic_to_numeric
+from app.textbook.db_utils import upsert_vocab_sense, write_sense_cache
+from app.textbook.models import WordType
+from app.core.config.external_sources import VOCAB_LIST_JSON
 
 SOURCE_LABEL = "hsk_sentences_audio"
 
@@ -91,30 +101,78 @@ VOCAB_QUESTION_TYPES = [
 ]
 
 
-def resolve_placement(db, tags: list[tuple[str, str]], card_hsk_level: int, word_to_unit: dict):
-    """Returns (unit_number, hsk_level, all_words_known: bool).
+def load_hsk_vocab_list() -> dict[int, dict[str, dict]]:
+    """Loads the official per-hsk-level vocab JSON (id/category/pinyin/
+    english per hanzi word), keyed by hsk_level (int) -> {hanzi: {...}}.
+    This is the SAME source vocab_index_parser.py reads from -- the
+    authoritative list of what's actually taught at each level."""
+    with open(VOCAB_LIST_JSON, encoding="utf-8") as f:
+        raw = json.load(f)
+    return {int(level): words for level, words in raw.items()}
 
-    all_words_known=False means at least one tag has zero VocabSense rows
-    -- placement falls back to "end of this hsk_level" per the module
-    docstring's step 3."""
-    unregistered = [w for w, _pos in tags if not get_senses_for_vocab(db, w)]
+def get_vocab_list_entry(word: str, hsk_level: int, vocab_list: dict) -> dict | None:
+    """Returns the vocab list entry for `word` at `hsk_level`, or None if
+    the word isn't part of that level's official vocab list."""
+    return vocab_list.get(hsk_level, {}).get(word)
 
-    if unregistered:
+def resolve_placement(db, tags: list[tuple[str, str]], card_hsk_level: int,
+                       word_to_unit: dict, vocab_list: dict):
+    print(f"\n  resolve_placement: {card_hsk_level}, {len(tags)} raw tags")
+    
+    taggable = []
+    unregistered_words = set()
+    dropped_words = []
+    
+    for word, pos_tag in tags:
+        has_senses = bool(get_senses_for_vocab(db, word))
+        in_vocab_list = bool(get_vocab_list_entry(word, card_hsk_level, vocab_list))
+        
+        if has_senses:
+            taggable.append((word, pos_tag))
+            print(f"    ✓ {word}: already has senses")
+        elif in_vocab_list:
+            taggable.append((word, pos_tag))
+            unregistered_words.add(word)
+            print(f"    + {word}: in vocab list, will register")
+        else:
+            dropped_words.append(word)
+            print(f"    ✗ {word}: NOT in vocab list, dropping")
+
+    print(f"  → taggable: {len(taggable)}, unregistered: {len(unregistered_words)}, dropped: {len(dropped_words)}")
+    
+    if not taggable:
+        return None, None, False, []
+
+    if unregistered_words:
         target_unit = get_highest_unit_number(db, card_hsk_level)
-        return target_unit, card_hsk_level, False
+        print(f"  → placement: end-of-level unit {target_unit} (has new words)")
+        return target_unit, card_hsk_level, False, taggable
 
-    known = [(w, word_to_unit[w]) for w, _pos in tags if w in word_to_unit]
+    known = [(w, word_to_unit[w]) for w, _pos in taggable if w in word_to_unit]
     if not known:
-        # every word technically has senses, but none are in the earliest-
-        # known map (shouldn't normally happen -- would mean a sense with
-        # no unit at all for every tag). Treat like "nothing known" and
-        # fall back to end-of-level rather than guessing.
         target_unit = get_highest_unit_number(db, card_hsk_level)
-        return target_unit, card_hsk_level, False
+        print(f"  → placement: end-of-level unit {target_unit} (no words in word_to_unit)")
+        return target_unit, card_hsk_level, False, taggable
 
     _, (unit_number, hsk_level) = max(known, key=lambda item: (item[1][1], item[1][0]))
-    return unit_number, hsk_level, True
+    print(f"  → placement: unit {unit_number}, HSK{hsk_level} (known words)")
+    return unit_number, hsk_level, True, taggable
 
+def create_sense_from_vocab_list(db, word: str, pos_tag: str, entry: dict,
+                                  unit_number: int, hsk_level: int):
+    """Creates a VocabSense straight from the official HSK vocab list entry
+    -- no AI call, unlike tag_sentences.py's brand-new-word path, since the
+    vocab list's pinyin/english IS the authoritative definition, not a
+    guess from a single sentence's context."""
+    pinyin = diacritic_to_numeric(entry["pinyin"])
+    sense = upsert_vocab_sense(
+        db, word, pinyin, entry["english"], unit_number,
+        word_type=WordType.vocab, hsk_level=hsk_level, make_primary=True,
+    )
+    sense.pos_tag = pos_tag
+    db.flush()
+    write_sense_cache(db, word, pos_tag, pinyin, sense)
+    return sense
 
 def generate_vocab_questions(db, vocab_id: int, sense, hanzi: str, unit_number: int, hsk_level: int):
     """Simplified stand-in for create_questions.py's full word-question
@@ -135,8 +193,24 @@ def generate_vocab_questions(db, vocab_id: int, sense, hanzi: str, unit_number: 
         upsert_question(db, unit_number, qtype, q_text, a_text,
                          vocab_id=vocab_id, vocab_sense_id=sense.id, hsk_level=hsk_level)
 
+def get_pos_for_tokens(hanzi: str, tokens: list[dict]) -> list[tuple[str, str]]:
+    tok, pos = _get_hanlp()
+    hanlp_words = tok(hanzi)
+    hanlp_tags = pos(hanlp_words)
+    result = []
+    hanlp_idx = 0
+    for token in tokens:
+        token_word = token.get("word", "").strip()
+        if not token_word:
+            continue
+        if hanlp_idx < len(hanlp_words) and hanlp_words[hanlp_idx] == token_word:
+            result.append((token_word, hanlp_tags[hanlp_idx]))
+            hanlp_idx += 1
+        else:
+            result.append((token_word, "UNK"))
+    return result
 
-def process_card(db, card: dict, word_to_unit: dict, dry_run: bool) -> dict:
+def process_card(db, card: dict, word_to_unit: dict, vocab_list: dict, dry_run: bool) -> dict:
     hanzi = card.get("chinese", "")
     if not hanzi:
         return {"status": "skipped", "reason": "no chinese text"}
@@ -145,14 +219,28 @@ def process_card(db, card: dict, word_to_unit: dict, dry_run: bool) -> dict:
     if card_hsk_level is None:
         return {"status": "skipped", "reason": "no hsk_level on card", "hanzi": hanzi}
 
-    tags = segment_sentence(hanzi)
-    if not tags:
-        return {"status": "skipped", "reason": "HanLP produced no tags", "hanzi": hanzi}
+    tokens = card.get("tokens")
+    if not tokens:
+        return {"status": "skipped", "reason": "no tokens on card", "hanzi": hanzi}
+    
+    print(f"\n📝 Card: {hanzi} (HSK{card_hsk_level})")
+    print(f"   tokens: {[t.get('word') for t in tokens]}")
+    
+    raw_tags = get_pos_for_tokens(hanzi, tokens)
+    print(f"   raw_tags after HanLP: {raw_tags}")
+    
+    if not raw_tags:
+        return {"status": "skipped", "reason": "tokens produced no usable words", "hanzi": hanzi}
 
-    target_unit, target_hsk_level, all_known = resolve_placement(db, tags, card_hsk_level, word_to_unit)
+    target_unit, target_hsk_level, all_known, tags = resolve_placement(
+        db, raw_tags, card_hsk_level, word_to_unit, vocab_list
+    )
+    
+    print(f"   final tags to write: {tags}")
+    
     if target_unit is None:
         return {"status": "skipped",
-                "reason": f"no units exist yet for hsk_level {card_hsk_level} -- run the textbook pipeline for it first",
+                "reason": f"no words in tokens are known or in HSK{card_hsk_level} vocab list",
                 "hanzi": hanzi}
 
     if dry_run:
@@ -167,13 +255,18 @@ def process_card(db, card: dict, word_to_unit: dict, dry_run: bool) -> dict:
     for word, pos_tag in tags:
         vocab = get_or_create_vocab(db, word)
         had_senses_before = bool(get_senses_for_vocab(db, word))
-        sense = resolve_word_sense(db, word, pos_tag, hanzi, target_unit, target_hsk_level)
-        if not had_senses_before:
+        
+        if had_senses_before:
+            print(f"     {word}: resolving existing sense")
+            sense = resolve_word_sense(db, word, pos_tag, hanzi, target_unit, target_hsk_level)
+        else:
+            vocab_entry = get_vocab_list_entry(word, card_hsk_level, vocab_list)
+            print(f"     {word}: creating sense from vocab list: {vocab_entry.get('english')}")
+            sense = create_sense_from_vocab_list(db, word, pos_tag, vocab_entry, target_unit, target_hsk_level)
             new_sense_count += 1
             generate_vocab_questions(db, vocab.id, sense, word, target_unit, target_hsk_level)
+        
         resolved.append((vocab.id, sense.id if sense else None))
-        # keep the placement map current so a later card in this same run
-        # sees this word (and its now-established unit) as known
         if sense and sense.unit:
             key = word
             candidate = (sense.unit.unit_number, sense.unit.hsk_level)
@@ -188,12 +281,13 @@ def process_card(db, card: dict, word_to_unit: dict, dry_run: bool) -> dict:
         pinyin=pinyin_full, source=SOURCE_LABEL, hsk_level=target_hsk_level,
     )
     set_sentence_tags(db, sentence, resolved)
+    
+    print(f"   ✓ Written: unit {target_unit}, {new_sense_count} new sense(s)")
 
     return {
         "status": "written", "hanzi": hanzi, "target_unit": target_unit,
         "hsk_level": target_hsk_level, "new_senses": new_sense_count, "all_known": all_known,
     }
-
 
 def main():
     parser = argparse.ArgumentParser(description="Import hsk_sentences_audio sentences into textbook.db")
@@ -208,6 +302,11 @@ def main():
     args = parser.parse_args()
 
     init_db()
+    print(f"📚 Loading vocab list from {VOCAB_LIST_JSON}...")
+    vocab_list = load_hsk_vocab_list()
+    for level, words in vocab_list.items():
+        print(f"   HSK{level}: {len(words)} words")
+
     with get_session() as db:
         units_exist = db.query(Unit).filter(Unit.hsk_level == args.hsk_level).count() > 0
         if not units_exist:
@@ -225,12 +324,34 @@ def main():
             kwargs["topic"] = args.topic
         for card in iter_sentences(**kwargs):
             total_considered += 1
-            result = process_card(db, card, word_to_unit, args.dry_run)
+            result = process_card(db, card, word_to_unit, vocab_list, args.dry_run)
             results[result["status"]].append(result)
-
+            
         written = results.get("written", [])
         would_write = results.get("would_write", [])
         skipped = results.get("skipped", [])
+
+        print(f"\n{'='*60}")
+        print(f"Considered {total_considered} card(s) at HSK level {args.hsk_level}.")
+        
+        new_sense_total = sum(r["new_senses"] for r in written)
+        print(f"Written: {len(written)} sentence(s), {new_sense_total} new vocab sense(s)")
+        
+        # Break down by all_known vs has new words
+        all_known_count = sum(1 for r in written if r["all_known"])
+        has_new_words_count = sum(1 for r in written if not r["all_known"])
+        print(f"  - {all_known_count} sentences with all words already known")
+        print(f"  - {has_new_words_count} sentences that added new words")
+
+        if skipped:
+            print(f"Skipped: {len(skipped)}")
+            skip_reasons = defaultdict(int)
+            for r in skipped:
+                skip_reasons[r["reason"]] += 1
+            for reason, count in sorted(skip_reasons.items(), key=lambda x: -x[1]):
+                print(f"  - {count}x: {reason}")
+        
+        print(f"{'='*60}\n")
 
         print(f"\nConsidered {total_considered} card(s) at HSK level {args.hsk_level}.")
         if args.dry_run:
