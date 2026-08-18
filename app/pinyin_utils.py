@@ -43,7 +43,6 @@ def _number_run_to_int(run: str) -> int:
             current = 0
     return total + current
 
-
 def hanzi_numbers_to_digits(text: str) -> str:
     """Rewrite runs of number characters as the Arabic digits Azure would
     return. A run containing 十/百/千 is a cardinal number (五十 -> "50");
@@ -72,6 +71,67 @@ def hanzi_numbers_to_digits(text: str) -> str:
 def strip_punct(text: str) -> str:
     return re.sub(r'[。？！，、；：""\'\'…\s]', '', text)
 
+def get_tone_number(syllable: str) -> int:
+    """Return the trailing tone digit (1–5) of a TONE3 syllable, or 0 if absent."""
+    m = re.search(r'([1-5])$', syllable)
+    return int(m.group(1)) if m else 0
+
+def set_tone_number(syllable: str, tone: int) -> str:
+    """Strip any existing tone digit and append the new one."""
+    return re.sub(r'[1-5]$', '', syllable) + str(tone)
+
+def apply_tone_sandhi_chars(parts: list[str], chars: list[str]) -> list[str]:
+    """
+    Apply the three standard Mandarin tone-sandhi rules to a TONE3 pinyin list,
+    driven by the underlying hanzi (needed to spot 不 / 一 specifically).
+
+    Rules applied in order:
+      1. Third-tone sandhi  — in a run of consecutive 3rd-tone syllables every
+                              syllable except the last becomes 2nd tone.
+      2. 不 (bù) sandhi    — 不 becomes 2nd tone (bú) immediately before a 4th-tone syllable.
+      3. 一 (yī) sandhi    — before 4th tone → 2nd (yí);
+                              before 1st/2nd/3rd tone → 4th (yì);
+                              standalone or before neutral → unchanged (yī).
+
+    NOTE: this is distinct from apply_tone_sandhi(syllables) below, which
+    operates on (base, tone) tuples without hanzi context and is used by
+    tones_match(). Do not merge/rename these into the same name -- pypinyin's
+    result ordering and the tuple-based matcher both depend on the split.
+    """
+    parts = list(parts)   # work on a copy
+    n = len(parts)
+
+    # ── Rule 1: third-tone sandhi ──────────────────────────────────────────
+    i = 0
+    while i < n:
+        if get_tone_number(parts[i]) == 3:
+            # Find the end of this maximal run of 3rd tones
+            j = i + 1
+            while j < n and get_tone_number(parts[j]) == 3:
+                j += 1
+            # Every syllable in parts[i:j] except the last one → 2nd tone
+            for k in range(i, j - 1):
+                parts[k] = set_tone_number(parts[k], 2)
+            i = j
+        else:
+            i += 1
+
+    # ── Rule 2: 不 sandhi ──────────────────────────────────────────────────
+    for i in range(n - 1):
+        if chars[i] == '不' and get_tone_number(parts[i + 1]) == 4:
+            parts[i] = set_tone_number(parts[i], 2)
+
+    # ── Rule 3: 一 sandhi ──────────────────────────────────────────────────
+    for i in range(n):
+        if chars[i] == '一' and i + 1 < n:
+            next_tone = get_tone_number(parts[i + 1])
+            if next_tone == 4:
+                parts[i] = set_tone_number(parts[i], 2)       # yí
+            elif next_tone in (1, 2, 3):
+                parts[i] = set_tone_number(parts[i], 4)       # yì
+            # neutral (0 or 5) → leave as yī
+
+    return parts
 
 def to_numbered_pinyin(text: str) -> str:
     text = strip_punct(text)
@@ -79,15 +139,18 @@ def to_numbered_pinyin(text: str) -> str:
         return PINYIN_OVERRIDES[text]
 
     result = pinyin(text, style=Style.TONE3, heteronym=False)
-    parts = []
+    parts: list[str] = []
+    chars: list[str] = []
+
     for i, syllables in enumerate(result):
         char = text[i] if i < len(text) else ''
-        if char in PINYIN_OVERRIDES:
-            parts.append(PINYIN_OVERRIDES[char])
-        else:
-            parts.append(syllables[0])
-    return ''.join(parts).lower()
+        chars.append(char)
+        parts.append(
+            PINYIN_OVERRIDES[char] if char in PINYIN_OVERRIDES else syllables[0]
+        )
 
+    parts = apply_tone_sandhi_chars(parts, chars)
+    return ''.join(parts).lower()
 
 def char_to_pinyin(textbook_db: Session, ch: str, unit_number: int = None, hsk_level: int = 1) -> str:
     """Single character -> numeric pinyin. DB lookup first (crud.py's
@@ -101,7 +164,6 @@ def char_to_pinyin(textbook_db: Session, ch: str, unit_number: int = None, hsk_l
     if pinyin:
         return pinyin
     return to_numbered_pinyin(ch)
-
 
 def _base_tone(syllable: str):
     """'ta1' -> ('ta','1'); bare 'de' -> ('de','5')."""

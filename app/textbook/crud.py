@@ -573,4 +573,6 @@ def get_all_unit_numbers(db: Session, hsk_level: Optional[int] = None) -> list:
 
     result = [r.unit_number for r in query.all()]
     _cache.set(cache_key, result)
+    print("get all unit numbers : ")
+    print("result: ", result)
     return result

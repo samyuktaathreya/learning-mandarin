@@ -309,16 +309,20 @@ def main():
     init_db()
     with get_session() as db:
         print(f"0. Make sure there is no bad pinyin.")
-        bad_pinyin = db.query(VocabSense).filter(
-            VocabSense.pinyin.notlike('%[1-5]%'),  # no digit 1-5
+        senses = db.query(VocabSense).filter(
             VocabSense.pinyin != "UNKNOWN_PINYIN",
             VocabSense.pinyin.isnot(None),
             VocabSense.pinyin != "",
         ).all()
+        
+        # Check for digits using Python instead of SQLite
+        bad_pinyin = [s for s in senses if not any(char in '12345' for char in s.pinyin)]
+        
         if bad_pinyin:
             print(f"⚠️  WARNING: Found {len(bad_pinyin)} vocab sense(s) with un-converted pinyin. "
                 f"Run repair_diacritic_pinyin.py first.")
             return
+        
         print(f"1. Rehoming sentences to their earliest legitimate unit (HSK level {HSK_LEVEL})...")
         # Must stay within this one hsk_level -- a sentence using only HSK1
         # words shouldn't get rehomed to an HSK2 unit just because the
