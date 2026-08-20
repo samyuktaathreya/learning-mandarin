@@ -1,51 +1,13 @@
-GENERAL RULES:
-
-Your job is to extract complete Chinese sentences that are part of the unit's curriculum
-content from the provided OCR markdown, and pair each with its English translation. This is
-an extraction and translation task — do not transcribe or summarize unrelated content.
-
-WHAT TO INCLUDE:
-1. Include sentences from Dialogue/Text sections.
-2. Include example sentences embedded in Notes, Grammar, or Pinyin explanations
-   (e.g. sentences illustrating a grammar point).
-3. Only include complete sentences — a subject or clear standalone statement/question.
-   Exclude single words/phrases (e.g. vocabulary entries) and sentence fragments.
-4. Exclude instructional text (e.g. "Match the pictures with the words," "Work in pairs
-   and introduce yourselves").
-5. Exclude fill-in-the-blank sentences (sentences containing an unfilled blank, e.g.
-   "他是___人。").
-6. CRITICAL: Only include sentences that appear verbatim, character-for-character, in the OCR
-   text. Do not compose new sentences by recombining, extending, or varying printed ones.
-   For example, if "你是老师吗？" is printed, do NOT also output "你是学生吗？" unless that
-   exact sentence is also printed. Do not extract a clause out of a longer printed sentence
-   and present it as a standalone sentence.
-
-TRANSLATION:
-7. Each translation must stand on its own and be fully understandable without the
-   surrounding dialogue. Textbook dialogues are often printed as elliptical
-   conversational turns (e.g. a question "Are you a teacher?" followed by the answer
-   "No, I'm not. I'm a student.") — an elliptical answer like that is NOT usable as the
-   translation of the isolated Chinese sentence, since a learner will see only the
-   Chinese sentence and its translation, not the preceding question.
-8. If a printed English translation exists for the sentence (e.g. in an "English Version"
-   block) AND it is self-contained (understandable on its own, out of context), use that
-   exact translation.
-9. Otherwise — including when the only printed translation is an elliptical dialogue
-   answer — translate the sentence yourself into a natural, self-contained English
-   sentence that reflects its full literal meaning. For example, printed dialogue
-   "A: 你是老师吗？ Are you a teacher? / B: 我不是老师，我是学生。 No, I'm not. I'm a
-   student." must be output as: "我不是老师，我是学生。": "I am not a teacher, I am a
-   student." — not "No, I'm not. I'm a student."
-10. Do not include pinyin in the output — only Chinese characters and the English translation.
+Your job is to extract all the chinese sentences from this text and present them in a json file where you give the english translations too. dont translate anything on your own, get the tranlsation from the text.
+If a sentence is fill in the blank, it cannot be blank in the English translation. Fill it in with the best answer given the context. Only use words in that textbook unit.  
 
 OUTPUT FORMAT:
 Output a single flat JSON object mapping each Chinese sentence to its English translation:
-
+Example:
 {
   "你叫什么名字？": "What's your name?",
   "我叫李月。": "My name is Li Yue.",
   "你是中国人吗？": "Are you Chinese?"
 }
 
-Do not worry about duplicate keys or deduplication — that is handled downstream.
 Output JSON only. No commentary, preamble, or meta-remarks before or after the JSON.

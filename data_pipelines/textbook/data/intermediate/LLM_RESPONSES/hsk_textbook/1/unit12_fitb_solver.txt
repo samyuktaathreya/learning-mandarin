@@ -1,36 +1,28 @@
-Looking at the unit text, I need to find answers for each candidate sentence from the "描述图片" (describe the pictures) exercise.
-
-1. "妈妈___不太好。" — From the text, the pattern "身体不太好" appears in dialogue 3: "我身体不太好". The structure matches "妈妈身体不太好" (subject-predicate predicate sentence as explained in Note 2). The answer is 身体.
-
-2. "明天天气很好，不会___。" — The picture shows a tree/sky (no rain). From dialogue 2, "不会下雨" is the relevant phrase. The answer is 下雨.
-
-3. "王小姐爱吃___，不爱吃饭。" — The picture shows fruit/bananas. From dialogue 3, "多吃些水果" and the new word 水果 (fruit). The answer is 水果.
-
-4. "今天天气___，你多喝水。" — From dialogue 3, the reason to drink more water is "天气太热了". The answer is 太热了.
-
+```json
 [
   {
-    "fill in the blank": "妈妈___不 太 好。",
+    "fill in the blank": "Māma ___不 太 好。",
     "answer": ["身体"],
-    "full_sentence_answer": "妈妈身体不太好。",
+    "full_sentence_answer": "Māma 身体不 太 好。",
     "translation": "Mom is not very well."
   },
   {
     "fill in the blank": "明天 天气很 好，不会___。",
     "answer": ["下雨"],
-    "full_sentence_answer": "明天天气很好，不会下雨。",
-    "translation": "The weather will be fine tomorrow. It won't rain."
+    "full_sentence_answer": "明天 天气很 好，不会下雨。",
+    "translation": "Tomorrow the weather will be fine. It won't rain."
   },
   {
     "fill in the blank": "王 小姐 爱吃___，不爱吃 饭。",
     "answer": ["水果"],
-    "full_sentence_answer": "王小姐爱吃水果，不爱吃饭。",
-    "translation": "Miss Wang likes to eat fruit. She has no appetite for meals."
+    "full_sentence_answer": "王 小姐 爱吃水果，不爱吃 饭。",
+    "translation": "Miss Wang likes to eat fruit but doesn't like to eat rice."
   },
   {
     "fill in the blank": "今天 天气___，你多喝 水。",
     "answer": ["太热了"],
-    "full_sentence_answer": "今天天气太热了，你多喝水。",
-    "translation": "It's too hot today. Drink more water."
+    "full_sentence_answer": "今天 天气太热了，你多喝 水。",
+    "translation": "It's too hot today. You should drink more water."
   }
 ]
+```

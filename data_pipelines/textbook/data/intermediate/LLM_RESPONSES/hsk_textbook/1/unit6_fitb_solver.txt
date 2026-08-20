@@ -1,16 +1,11 @@
-Looking at the candidates:
-
-1. "妈妈___", "汉字___", "中国　菜___", "说　汉语___", "写汉字___", "做　中国　菜___" — These are matching exercises where students match words to pictures labeled A-F. The correct picture labels are not derivable from the text alone (we don't know which picture letter corresponds to which word from the OCR description alone with certainty). Drop these.
-
-2. "我们　都 会___。" — The picture shows a group of people, and the context suggests speaking Chinese (说汉语), but there's no single correct answer derivable from the text. Drop.
-
-3. "中国　　菜 很___。" — From the dialogue: "中国菜很好吃。" The answer is 好吃.
-
-4. "他 会 做___。" — The picture shows a chef cooking, and from the dialogues the relevant phrase is "做中国菜". The answer is 中国菜.
-
-5. "这个 汉字 我 会___，不 会___。" — From the dialogue: "这个字我会读，不会写。" The answers are 读 and 写.
-
+```json
 [
+  {
+    "fill in the blank": "我们　都 会___。",
+    "answer": ["说汉语"],
+    "full_sentence_answer": "我们　都 会说汉语。",
+    "translation": "We can all speak Chinese."
+  },
   {
     "fill in the blank": "中国　　菜 很___。",
     "answer": ["好吃"],
@@ -18,15 +13,16 @@ Looking at the candidates:
     "translation": "Chinese food is very delicious."
   },
   {
-    "fill in the blank": "他 会 做___。",
-    "answer": ["中国菜"],
-    "full_sentence_answer": "他 会 做中国菜。",
-    "translation": "He can cook Chinese food."
+    "fill in the blank": "这个 汉字 我 会___，",
+    "answer": ["读"],
+    "full_sentence_answer": "这个 汉字 我 会读，",
+    "translation": "This character I can read,"
   },
   {
-    "fill in the blank": "这个 汉字 我 会___，不 会___。",
-    "answer": ["读", "写"],
-    "full_sentence_answer": "这个 汉字 我 会读，不 会写。",
-    "translation": "I can read this Chinese character, but I don't know how to write it."
+    "fill in the blank": "不 会___。",
+    "answer": ["写"],
+    "full_sentence_answer": "不 会写。",
+    "translation": "but I cannot write."
   }
 ]
+```

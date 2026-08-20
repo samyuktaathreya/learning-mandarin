@@ -135,8 +135,9 @@ SEG_CACHE_PATH = os.path.join(SCRIPT_DIR, "segmentation_cache.json")
 
 # --------------------------------- LOGGING ---------------------------------
 
-def setup_logging(hsk_level: int) -> logging.Logger:
-    """One txt log file per run in ../debug/tag_sentences/ named by datetime."""
+def setup_logging(hsk_level: int) -> tuple[logging.Logger, str]:
+    """One txt log file per run in ../debug/tag_sentences/ named by datetime.
+    Returns (logger, log_path) so the path can be accessed for the final summary."""
     os.makedirs(LOG_DIR, exist_ok=True)
     
     # Formats datetime as YYYYMMDD_HHMMSS (or use "%Y-%m-%d_%H-%M-%S" for dashes)
@@ -160,7 +161,7 @@ def setup_logging(hsk_level: int) -> logging.Logger:
 
     logger.info(f"=== tag_sentences.py run started -- HSK level {hsk_level} ===")
     print(f"Logging full trace to {log_path}")
-    return logger
+    return logger, log_path
 
 
 # --------------------------------- SEGMENTATION CACHE ---------------------------------
@@ -673,10 +674,12 @@ def tag_sentence(db, sentence: Sentence, hsk_level: int, valid_vocab: set,
     Tokens tagged "NUM" by segment_sentence (numeral runs -- dates, ages,
     counts, durations) are NEVER registered as vocabulary: no
     get_or_create_vocab, no resolve_word_sense, no SentenceVocab row.
-    They're generated/compositional strings, not taught words. They're
-    still included in the sentence's pinyin (via pypinyin), and since
-    they're simply absent from the SentenceVocab tag list, the frontend
-    (ClickableText) naturally renders them as plain non-clickable text."""
+    Punctuation and whitespace (words with no Chinese characters or digits)
+    are also NEVER registered as vocabulary.
+    These non-vocabulary tokens are still included in the sentence's pinyin
+    (via pypinyin), and since they're simply absent from the SentenceVocab
+    tag list, the frontend (ClickableText) naturally renders them as plain
+    non-clickable text."""
     unit_number = sentence.unit.unit_number
     words_and_pos = get_validated_segmentation(
         db, sentence, hsk_level, valid_vocab, seg_cache, logger,
@@ -687,6 +690,10 @@ def tag_sentence(db, sentence: Sentence, hsk_level: int, valid_vocab: set,
     for word, pos_tag in words_and_pos:
         if pos_tag == "NUM":
             readings.append(get_reading_for_word(word))
+            continue
+        # Skip punctuation and whitespace (no Chinese chars or digits)
+        if not _has_content(word):
+            logger.info(f"  SKIP      punctuation/whitespace: {word!r}")
             continue
         is_new_word = word not in valid_vocab
         vocab = get_or_create_vocab(db, word)
@@ -712,10 +719,11 @@ def main():
     parser.add_argument("--retag", action="store_true", help="Re-tag sentences that already have tags.")
     args = parser.parse_args()
 
-    logger = setup_logging(HSK_LEVEL)
+    logger, log_path = setup_logging(HSK_LEVEL)
     seg_cache = load_segmentation_cache()
     logger.info(f"Loaded segmentation cache: {len(seg_cache)} entr{'y' if len(seg_cache)==1 else 'ies'}")
     new_vocab_log: list = []
+    run_errors: list = []
 
     init_db()
     with get_session() as db:
@@ -728,28 +736,88 @@ def main():
 
         total_tags = 0
         for i, sentence in enumerate(sentences, 1):
-            n = tag_sentence(db, sentence, HSK_LEVEL, valid_vocab, seg_cache, logger, new_vocab_log)
-            total_tags += n
+            try:
+                n = tag_sentence(db, sentence, HSK_LEVEL, valid_vocab, seg_cache, logger, new_vocab_log)
+                total_tags += n
+            except Exception as e:
+                error_msg = f"Error tagging sentence {i}: {e}"
+                logger.error(error_msg)
+                run_errors.append(error_msg)
             if i % 25 == 0:
                 print(f"  ...{i}/{len(sentences)}")
 
         save_segmentation_cache(seg_cache)
 
-        # --- end-of-run summary, written to the log file ---
-        logger.info("=== SEGMENTATION CACHE (end of run) ===")
-        for (word, pos), replacement in sorted(seg_cache.items()):
-            logger.info(f"  ({word}, {pos}) -> {replacement}")
+        # --- RESTRUCTURED END-OF-RUN SUMMARY FOR CLARITY ---
+        # Write to file with clear sections in the requested order
+        
+        logger.info("")
+        logger.info("=" * 80)
+        logger.info("SUMMARY: RUNTIME INFORMATION")
+        logger.info("=" * 80)
+        run_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        logger.info(f"Run completed at: {run_time}")
+        logger.info(f"HSK Level: {HSK_LEVEL}")
+        if args.unit:
+            logger.info(f"Unit filter: {args.unit}")
+        if run_errors:
+            logger.info(f"Errors encountered: {len(run_errors)}")
+            for err in run_errors:
+                logger.info(f"  - {err}")
+        else:
+            logger.info("Errors encountered: 0")
 
-        logger.info(f"=== NEW VOCABULARY REGISTERED ({len(new_vocab_log)}) ===")
-        for d in new_vocab_log:
-            logger.info(f"  [unit {d['unit']}] {d['hanzi']!r} -- first evidenced by {d['sentence']!r}")
+        logger.info("")
+        logger.info("=" * 80)
+        logger.info("SUMMARY: SENTENCES TAGGED")
+        logger.info("=" * 80)
+        logger.info(f"Total sentences processed: {len(sentences)}")
+        logger.info(f"Total tag occurrences resolved: {total_tags}")
 
-        print(f"✅ Tagged {len(sentences)} sentence(s), {total_tags} tag occurrence(s) resolved. "
-              f"No sentences were dropped.")
+        logger.info("")
+        logger.info("=" * 80)
+        logger.info("SUMMARY: CACHE STATISTICS")
+        logger.info("=" * 80)
+        logger.info(f"Segmentation cache entries: {len(seg_cache)}")
+
+        logger.info("")
+        logger.info("=" * 80)
+        logger.info("SUMMARY: CACHE ENTRIES (by word)")
+        logger.info("=" * 80)
+        if seg_cache:
+            for (word, pos), replacement in sorted(seg_cache.items()):
+                logger.info(f"  ({word}, {pos}) -> {replacement}")
+        else:
+            logger.info("  (no entries)")
+
+        logger.info("")
+        logger.info("=" * 80)
+        logger.info("DETAILED RUN LOG")
+        logger.info("=" * 80)
+        logger.info("(See above for individual actions and decisions)")
+
+        logger.info("")
+        logger.info("=" * 80)
+        logger.info("NEW VOCABULARY REGISTERED")
+        logger.info("=" * 80)
         if new_vocab_log:
-            print(f"📚 Registered {len(new_vocab_log)} word(s) not previously in the vocab index "
-                  f"-- see the log file for details.")
-        print(f"Segmentation cache now has {len(seg_cache)} entries.")
+            logger.info(f"Total new words: {len(new_vocab_log)}")
+            for d in new_vocab_log:
+                logger.info(f"  [unit {d['unit']}] {d['hanzi']!r} -- first evidenced by {d['sentence']!r}")
+        else:
+            logger.info("  (no new vocabulary registered)")
+
+        # Console output summary
+        print("")
+        print(f"✅ Tagged {len(sentences)} sentence(s), {total_tags} tag occurrence(s) resolved.")
+        if run_errors:
+            print(f"⚠️  {len(run_errors)} error(s) encountered during processing.")
+        else:
+            print(f"✓  No errors.")
+        if new_vocab_log:
+            print(f"📚 Registered {len(new_vocab_log)} new word(s) not in the vocab index.")
+        print(f"💾 Segmentation cache: {len(seg_cache)} entries.")
+        print(f"\nFull log: {log_path}")
         
 if __name__ == "__main__":
     main()

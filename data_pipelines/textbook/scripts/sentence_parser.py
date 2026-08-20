@@ -88,6 +88,7 @@ FORCE_OCR = False
 LLM_RESPONSES_FILEPATH = TEXTBOOK_INTERMEDIATE_DIR / "LLM_RESPONSES"
 
 MODEL = "claude-sonnet-4-6"
+HAIKU_MODEL = "claude-haiku-4-5"
 OCR_MAX_TOKENS = 8192
 AGENT_MAX_TOKENS = 8192
 TEMPERATURE = 0
@@ -422,7 +423,7 @@ def run_text_agent(ocr_markdown: str, sop: str, source: str, unit_number: int,
     if extra_content:
         content += f"\n\n{extra_content}"
     response = client.messages.create(
-        model=MODEL,
+        model=HAIKU_MODEL,
         max_tokens=AGENT_MAX_TOKENS,
         temperature=TEMPERATURE,
         system=sop,

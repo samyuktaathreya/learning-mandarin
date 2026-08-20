@@ -202,21 +202,13 @@ def extract_fitb_translation(question: str) -> str:
 
 
 def build_vocab_style_questions(db, items, unit_number: int, all_hanzi: list[str],
-                                 home_unit: dict, qtypes: list[str], hsk_level: int = HSK_LEVEL):
-    """Shared body for vocab / grammar / proper-noun word questions -- same
-    (qtype, question, answer) triples the original code emitted per section,
-    just parameterized by which qtypes each section allows.
-
-    `items` are now VocabSense rows (one per taught MEANING homed at this
-    unit), not Vocab rows -- a word that's retaught here with a NEW sense
-    gets its own question set using that sense's own pinyin/english, even
-    if the word's cached "primary" definition (Vocab.english) is a
-    different, earlier-taught meaning."""
+                                 home_unit: dict, qtypes: list[str], seen_questions: set, hsk_level: int = HSK_LEVEL):
+    """Shared body for vocab / grammar / proper-noun word questions..."""
     for sense in items:
         hanzi = sense.vocab.hanzi
         pinyin = (sense.pinyin or "").strip()
         if pinyin and pinyin != "UNKNOWN_PINYIN":
-            pinyin = diacritic_to_numeric(pinyin)  # defensive: normalize regardless
+            pinyin = diacritic_to_numeric(pinyin)
         english = sense.english or ""
         tags = content_tags_for(hanzi, all_hanzi)
         blocked = has_unlearned_vocab(tags, unit_number, home_unit, hsk_level=hsk_level)
@@ -235,32 +227,42 @@ def build_vocab_style_questions(db, items, unit_number: int, all_hanzi: list[str
             if qtype in TYPING_REQUIRED_TYPES and blocked:
                 continue
             q_text, a_text = candidates[qtype]
+            
+            # Deduplication check
+            unique_key = (qtype, q_text)
+            if unique_key in seen_questions:
+                continue
+            seen_questions.add(unique_key)
+            
             upsert_question(db, unit_number, qtype, q_text, a_text,
                              vocab_id=sense.vocab_id, vocab_sense_id=sense.id, hsk_level=hsk_level)
 
 
 def build_questions_for_unit(db, unit_number: int, all_hanzi: list[str], home_unit: dict,
                               hsk_level: int = HSK_LEVEL):
+    
+    seen_questions = set() # Track unique (qtype, q_text) to prevent duplicates
+
     # --- vocab / grammar / proper-noun word questions (per SENSE homed here) ---
     vocab_senses = get_senses_for_unit(db, unit_number, word_types=[WordType.vocab], hsk_level=hsk_level)
     build_vocab_style_questions(db, vocab_senses, unit_number, all_hanzi, home_unit, qtypes=[
         QuestionType.LISTENING_VOCAB.value, QuestionType.SPEAKING_VOCAB.value,
         QuestionType.TRANSLATE_EN_TO_ZH_WORD.value, QuestionType.TRANSLATE_ZH_TO_EN_WORD.value,
         QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value,
-    ], hsk_level=hsk_level)
+    ], seen_questions=seen_questions, hsk_level=hsk_level)
 
     grammar_senses = get_senses_for_unit(db, unit_number, word_types=[WordType.grammar], hsk_level=hsk_level)
     build_vocab_style_questions(db, grammar_senses, unit_number, all_hanzi, home_unit, qtypes=[
         QuestionType.LISTENING_VOCAB.value, QuestionType.SPEAKING_VOCAB.value,
         QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value,
-    ], hsk_level=hsk_level)
+    ], seen_questions=seen_questions, hsk_level=hsk_level)
 
     proper_senses = get_senses_for_unit(db, unit_number, word_types=[WordType.proper_noun], hsk_level=hsk_level)
     build_vocab_style_questions(db, proper_senses, unit_number, all_hanzi, home_unit, qtypes=[
         QuestionType.LISTENING_VOCAB.value, QuestionType.SPEAKING_VOCAB.value,
         QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, QuestionType.TRANSLATE_ZH_TO_EN_WORD.value,
         QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value,
-    ], hsk_level=hsk_level)
+    ], seen_questions=seen_questions, hsk_level=hsk_level)
 
     # --- sentence questions (real DB tags, no recomputation) ---
     for sentence in get_sentences_for_unit(db, unit_number, hsk_level=hsk_level):
@@ -268,11 +270,7 @@ def build_questions_for_unit(db, unit_number: int, all_hanzi: list[str], home_un
         hanzi, pinyin, english = sentence.hanzi, sentence.pinyin, sentence.english
         tags = get_tags_for_sentence(db, sentence.id)
         blocked = has_unlearned_vocab(tags, unit_number, home_unit, hsk_level=hsk_level)
-        # grammar tips ride along for display purposes; not stored on
-        # Question itself (they belong to the sentence via SentenceGrammar --
-        # fetch them at read-time in your API layer via
-        # get_grammar_tips_for_sentence(sentence_id) rather than duplicating
-        # them onto every question row).
+
         for qtype, q_text, a_text in [
             (QuestionType.LISTENING_SENTENCE.value, hanzi, hanzi),
             (QuestionType.SPEAKING_SENTENCE.value, hanzi, pinyin),
@@ -281,13 +279,17 @@ def build_questions_for_unit(db, unit_number: int, all_hanzi: list[str], home_un
         ]:
             if qtype in TYPING_REQUIRED_TYPES and blocked:
                 continue
+                
+            # Deduplication check
+            unique_key = (qtype, q_text)
+            if unique_key in seen_questions:
+                continue
+            seen_questions.add(unique_key)
+            
             upsert_question(db, unit_number, qtype, q_text, a_text, sentence_id=sentence.id,
                              hsk_level=hsk_level)
 
     # --- FITB questions ---
-    # Unit lookup now needs BOTH unit_number and hsk_level -- see migration
-    # doc section 3. Without the hsk_level filter this grabs whichever row
-    # SQLite happens to return first once more than one level's units exist.
     unit_row = (
         db.query(Unit)
         .filter(Unit.unit_number == unit_number, Unit.hsk_level == hsk_level)
@@ -300,7 +302,15 @@ def build_questions_for_unit(db, unit_number: int, all_hanzi: list[str], home_un
             raw_tags = content_tags_for(full_sentence, all_hanzi)
             if has_unlearned_vocab(raw_tags, unit_number, home_unit, hsk_level=hsk_level):
                 continue
-            upsert_question(db, unit_number, QuestionType.FILL_IN_THE_BLANK.value,
+                
+            # Deduplication check
+            qtype = QuestionType.FILL_IN_THE_BLANK.value
+            unique_key = (qtype, fq.question)
+            if unique_key in seen_questions:
+                continue
+            seen_questions.add(unique_key)
+                
+            upsert_question(db, unit_number, qtype,
                              fq.question, fq.answer, sentence_id=fq.sentence_id,
                              hsk_level=hsk_level)
 
