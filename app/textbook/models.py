@@ -1,4 +1,3 @@
-# textbook/models.py
 """
 SQL schema for the textbook database (replaces units_output.json,
 unit_vocabs_tag.json, index_output.json, and the "tags" arrays that used
@@ -46,6 +45,22 @@ class WordType(str, enum.Enum):
     auto = "auto"                # unknown-word fallback, tagged but never in the printed index
 
 
+class VocabOrigin(str, enum.Enum):
+    vocab_index = "vocab_index"              # first entered via vocab_index_parser.py
+    textbook_sentence = "textbook_sentence"  # first surfaced by tag_sentences.py off a textbook sentence
+    # NOTE: no "external" value here on purpose -- per the pipeline, external
+    # (hsk-sentence-audio) sentences are only ever ALLOWED IN if every word/sense
+    # already exists from one of the two origins above. External sentences never
+    # create a new Vocab or VocabSense row, so this enum never needs a third value.
+    # If that ever changes, this needs revisiting.
+
+
+class SentenceSource(str, enum.Enum):
+    textbook = "textbook"
+    workbook = "workbook"
+    external = "external"        # hsk-sentence-audio pypi library
+
+
 class Unit(Base):
     __tablename__ = "units"
 
@@ -67,14 +82,15 @@ class Vocab(Base):
     """The hanzi IDENTITY row -- one per unique string, e.g. one row for
     "还" no matter how many different meanings it's taught with.
 
-    pinyin/english/unit_id/word_type here are now a CACHED SNAPSHOT of this
-    word's primary sense (see VocabSense.is_primary), kept in sync by
+    pinyin/english/unit_id/word_type/origin here are now a CACHED SNAPSHOT of
+    this word's primary sense (see VocabSense.is_primary), kept in sync by
     db_utils whenever the primary sense changes. They exist so code that
     hasn't been migrated to be sense-aware yet (old queries, the app layer)
     keeps returning a reasonable single definition instead of breaking.
     New code should prefer VocabSense rows via `senses` / db_utils sense
     helpers -- a word can have several taught meanings, each introduced in
-    its own unit, and Vocab alone can no longer represent that."""
+    its own unit (and via its own pipeline stage), and Vocab alone can no
+    longer represent that."""
     __tablename__ = "vocab"
 
     id = Column(Integer, primary_key=True)
@@ -83,6 +99,11 @@ class Vocab(Base):
     english = Column(Text, nullable=False, default="")
     word_type = Column(Enum(WordType), nullable=False, default=WordType.vocab)
     unit_id = Column(Integer, ForeignKey("units.id"), nullable=True)  # nullable: "auto" words may have no known unit
+    # Cached snapshot of the PRIMARY sense's origin. Kept in sync by db_utils
+    # the same way pinyin/english/unit_id already are. Nullable because
+    # legacy rows / auto words predate this and may not have a resolved
+    # primary sense yet.
+    origin = Column(Enum(VocabOrigin), nullable=True)
 
     unit = relationship("Unit", back_populates="vocab")
     sentence_links = relationship("SentenceVocab", back_populates="vocab", cascade="all, delete-orphan")
@@ -126,6 +147,11 @@ class VocabSense(Base):
     # senses, pre-HanLP migration rows). Combined with `pinyin`, this is the
     # SenseCache lookup key -- see SenseCache below for why.
     pos_tag = Column(Text, nullable=True)
+    # Which pipeline step first taught THIS meaning. Set once at creation,
+    # never changed after -- if the index and a sentence later disagree on
+    # a word's definition, that's a NEW sense (a new row here), not a
+    # rewrite of this one's origin.
+    origin = Column(Enum(VocabOrigin), nullable=False)
 
     vocab = relationship("Vocab", back_populates="senses")
     unit = relationship("Unit")
@@ -185,7 +211,11 @@ class Sentence(Base):
     hanzi = Column(Text, nullable=False)
     english = Column(Text, nullable=False, default="")
     pinyin = Column(Text, nullable=False, default="")
-    source = Column(Text, nullable=True)  # "textbook" | "workbook"
+    # Where this sentence came from -- "textbook" / "workbook" (written by
+    # sentence_parser.py) or "external" (written by import_sentences.py,
+    # sourced from the hsk-sentence-audio pypi library). Nullable only for
+    # legacy rows that predate this being a formal enum.
+    source = Column(Enum(SentenceSource), nullable=True)
 
     unit = relationship("Unit", back_populates="sentences")
     vocab_links = relationship("SentenceVocab", back_populates="sentence",

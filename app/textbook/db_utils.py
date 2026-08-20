@@ -21,6 +21,7 @@ from contextlib import contextmanager
 
 from .models import (
     Base, Unit, Vocab, VocabSense, Sentence, SentenceVocab, WordType,
+    VocabOrigin, SentenceSource,
     GrammarTip, SentenceGrammar, Question, FitbQuestion, SenseCache,
 )
 import json
@@ -100,10 +101,26 @@ def _is_placeholder_sense(sense: VocabSense) -> bool:
     misfiring on legitimate data."""
     return sense.word_type == WordType.auto and not (sense.english or "").strip()
 
+def get_vocab_hanzi_through_level(db: Session, hsk_level: int) -> set:
+    """Hanzi with at least one sense taught at or before `hsk_level` --
+    the correct input for tag_sentences.py's HSK vocab-list gate (unlike
+    get_all_vocab_hanzi, which is intentionally global/unscoped for
+    compound-word matching, not level cutoffs)."""
+    rows = (
+        db.query(Vocab.hanzi)
+        .join(VocabSense, VocabSense.vocab_id == Vocab.id)
+        .join(Unit, VocabSense.unit_id == Unit.id)
+        .filter(Unit.hsk_level <= hsk_level, VocabSense.word_type != WordType.auto)
+        .distinct()
+        .all()
+    )
+    return {r.hanzi for r in rows}
+
 
 def upsert_vocab_sense(db: Session, hanzi: str, pinyin: str, english: str,
                         unit_number: int | None, word_type: WordType = WordType.vocab,
-                        hsk_level: int = 1, make_primary: bool | None = None) -> VocabSense:
+                        hsk_level: int = 1, make_primary: bool | None = None,
+                        origin: VocabOrigin = VocabOrigin.vocab_index) -> VocabSense:
     """
     Insert-or-reuse ONE taught meaning of `hanzi`. Creates the Vocab
     identity row if this is a brand-new hanzi.
@@ -116,6 +133,14 @@ def upsert_vocab_sense(db: Session, hanzi: str, pinyin: str, english: str,
     -- this function trusts whatever sense identity the caller has already
     resolved; it does NOT do same-vs-new-sense disambiguation itself (see
     register_word_sense for that).
+
+    origin: which pipeline stage is registering this meaning --
+    VocabOrigin.vocab_index (default, for vocab_index_parser.py) or
+    VocabOrigin.textbook_sentence (for tag_sentences.py, when a sentence
+    surfaces a word/meaning the printed index never listed). Set once at
+    creation; reused (existing) senses keep whatever origin they were
+    first created with -- this function never overwrites an existing
+    sense's origin.
 
     make_primary: None (default) = primary iff this is the very first
     sense ever recorded for this word, OR the word's current primary is
@@ -157,7 +182,7 @@ def upsert_vocab_sense(db: Session, hanzi: str, pinyin: str, english: str,
     )
     sense = VocabSense(
         vocab_id=vocab.id, unit_id=unit_id, pinyin=pinyin, english=english,
-        word_type=word_type,
+        word_type=word_type, origin=origin,
         is_primary=1 if (make_primary or (make_primary is None and is_first_sense) or promotes_placeholder) else 0,
     )
     db.add(sense)
@@ -251,6 +276,7 @@ def refresh_primary_cache(db: Session, vocab: Vocab):
     vocab.english = primary.english
     vocab.word_type = primary.word_type
     vocab.unit_id = primary.unit_id
+    vocab.origin = primary.origin
     db.flush()
 
 
@@ -260,12 +286,16 @@ def upsert_vocab_auto(db: Session, hanzi: str, pinyin: str) -> Vocab:
     word_type=auto) if one doesn't already exist, so a tag always has both
     a Vocab row AND a sense to attach to (SentenceVocab.vocab_sense_id needs
     something to resolve to). No hsk_level needed -- unit_number is None
-    either way."""
+    either way.
+
+    origin is stamped textbook_sentence here since this placeholder only
+    ever gets created off a real sentence occurrence, never off the index."""
     existing = db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
     if existing:
         return existing
     upsert_vocab_sense(db, hanzi, pinyin, english="", unit_number=None,
-                        word_type=WordType.auto, make_primary=True)
+                        word_type=WordType.auto, make_primary=True,
+                        origin=VocabOrigin.textbook_sentence)
     return db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
 
 
@@ -352,7 +382,7 @@ def get_highest_unit_number(db: Session, hsk_level: int = 1) -> int | None:
     )
 
 
-
+def get_word_to_pinyin_map(db: Session) -> dict:
     """Replaces reading word_to_pinyin.json. Now sourced from each word's
     PRIMARY sense via Vocab's cache columns -- fine for sentence_parser's
     use (picking a reasonable pinyin to display before any sense has been
@@ -449,6 +479,25 @@ def get_uncovered_word_units(db: Session, hsk_level: int = 1) -> list:
 
 # --------------------------------- SENTENCE ---------------------------------
 
+def _coerce_source(source) -> "SentenceSource | None":
+    """Accepts either a SentenceSource member or a plain string (every
+    existing caller passes plain strings like "textbook"/"workbook") and
+    normalizes to the enum. Unknown strings raise loudly rather than
+    silently writing garbage into a column that's now typed -- a typo'd
+    source string used to just sit there as free text; now it should fail
+    the pipeline run so it gets fixed at the source, not discovered later
+    when someone tries to filter sentences by origin."""
+    if source is None or isinstance(source, SentenceSource):
+        return source
+    try:
+        return SentenceSource(source)
+    except ValueError:
+        raise ValueError(
+            f"Unknown sentence source {source!r} -- expected one of "
+            f"{[s.value for s in SentenceSource]}"
+        )
+
+
 def upsert_sentence_bare(db: Session, unit_number: int, hanzi: str, english: str,
                           pinyin: str, source: str = None, hsk_level: int = 1) -> Sentence:
     """Writes/updates just the Sentence row -- no tags. Used by
@@ -457,10 +506,17 @@ def upsert_sentence_bare(db: Session, unit_number: int, hanzi: str, english: str
     are available). A sentence written here has no SentenceVocab rows yet
     -- set_sentence_tags() adds those in the next stage.
 
+    `source` distinguishes where the sentence came from: "textbook" /
+    "workbook" (sentence_parser.py) vs. "external" (import_sentences.py,
+    the hsk-sentence-audio pypi library) -- see models.SentenceSource.
+    Accepts a plain string for backward compatibility with existing
+    callers; normalized via _coerce_source.
+
     Re-running for the same (unit, hanzi) updates english/pinyin/source
     in place rather than duplicating, matching upsert_sentence's old
     idempotency contract (just without the tag side of it)."""
     unit = get_or_create_unit(db, unit_number, hsk_level)
+    source = _coerce_source(source)
 
     sentence = (
         db.query(Sentence)
@@ -509,8 +565,12 @@ def upsert_sentence(db: Session, unit_number: int, hanzi: str, english: str,
     set_sentence_tags instead (see tag_sentences.py), since tagging is now
     a distinct pipeline stage with its own HanLP + AI-assisted sense
     resolution that this function doesn't do.
+
+    import_sentences.py should pass source="external" (or
+    SentenceSource.external) here -- see models.SentenceSource.
     """
     unit = get_or_create_unit(db, unit_number, hsk_level)
+    source = _coerce_source(source)
 
     sentence = (
         db.query(Sentence)
@@ -869,7 +929,7 @@ def get_senses_matching_pos_pinyin(db: Session, hanzi: str, pos_tag: str, pinyin
     """Existing senses of `hanzi` that already share this exact (pos_tag,
     pinyin) combo -- checked as a fallback when SenseCache itself has no
     entry yet (e.g. a sense was created by vocab_index_parser.py, which
-    doesn't populate pos_tag, before tag_sentences.py ever saw this word).
+    doesn't populate pos_tag), before tag_sentences.py ever saw this word).
     If this finds a match, it's used directly (and the cache backfilled)
     with no AI call; an empty result means a genuine AI comparison is
     needed."""

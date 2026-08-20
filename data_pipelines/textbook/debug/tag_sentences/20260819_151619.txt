@@ -1,0 +1,194 @@
+2026-08-19 15:16:19,112  INFO     === tag_sentences.py run started -- HSK level 1 ===
+2026-08-19 15:16:19,112  INFO     Loaded segmentation cache: 0 entries
+2026-08-19 15:16:19,125  INFO     Valid vocab set for HSK<=1: 156 words
+2026-08-19 15:16:24,346  INFO     OK        hanlp-valid   '你叫什么名字？' -> [('你', 'PN'), ('叫', 'VV'), ('什么', 'DT'), ('名字', 'NN')]
+2026-08-19 15:16:25,315  INFO       SENSE ambiguous  你 (PN, ni3) -> matched existing sense id=4
+2026-08-19 15:16:26,155  INFO       SENSE ambiguous  叫 (VV, jiao4) -> matched existing sense id=9
+2026-08-19 15:16:27,390  INFO       SENSE ambiguous  什么 (DT, shen2me5) -> matched existing sense id=14
+2026-08-19 15:16:28,328  INFO       SENSE ambiguous  名字 (NN, ming2zi4) -> matched existing sense id=12
+2026-08-19 15:16:28,336  INFO     TAGGED    '你叫什么名字？' (4 tags)
+2026-08-19 15:16:28,353  INFO     FALLBACK  '你是中国人吗？' -- hanlp produced out-of-vocab word(s): ['中国人']
+2026-08-19 15:16:28,354  WARNING    HAIKU resegment call for '你是中国人吗？' (cache miss on [('中国人', 'NN')])
+2026-08-19 15:16:29,488  INFO       HAIKU result for '你是中国人吗？' -> [('你', 'PN'), ('是', 'VC'), ('中国', 'NN'), ('人', 'NN'), ('吗', 'SP'), ('？', 'PU')]
+2026-08-19 15:16:29,488  WARNING    Haiku resegmentation degraded to HanLP's own output for '你是中国人吗？' -- nothing new to cache
+2026-08-19 15:16:29,488  WARNING  DROP      '你是中国人吗？' -- still out-of-vocab after resegmentation: ['？']
+2026-08-19 15:16:29,506  INFO     OK        hanlp-valid   '你是学生吗？' -> [('你', 'PN'), ('是', 'VC'), ('学生', 'NN'), ('吗', 'SP')]
+2026-08-19 15:16:29,508  INFO       SENSE cache-hit  你 (PN, ni3)
+2026-08-19 15:16:30,055  INFO       SENSE ambiguous  是 (VC, shi4) -> matched existing sense id=15
+2026-08-19 15:16:31,078  INFO       SENSE ambiguous  学生 (NN, xue2sheng1) -> matched existing sense id=17
+2026-08-19 15:16:31,693  INFO       SENSE ambiguous  吗 (SP, ma5) -> matched existing sense id=11
+2026-08-19 15:16:31,697  INFO     TAGGED    '你是学生吗？' (4 tags)
+2026-08-19 15:16:31,712  INFO     FALLBACK  '你是美国人吗？' -- hanlp produced out-of-vocab word(s): ['美国人']
+2026-08-19 15:16:31,712  WARNING    HAIKU resegment call for '你是美国人吗？' (cache miss on [('美国人', 'NN')])
+2026-08-19 15:16:32,616  INFO       HAIKU result for '你是美国人吗？' -> [('你', 'PN'), ('是', 'VC'), ('美国', 'NN'), ('人', 'NN'), ('吗', 'SP'), ('？', 'PU')]
+2026-08-19 15:16:32,616  WARNING    Haiku resegmentation degraded to HanLP's own output for '你是美国人吗？' -- nothing new to cache
+2026-08-19 15:16:32,616  WARNING  DROP      '你是美国人吗？' -- still out-of-vocab after resegmentation: ['？']
+2026-08-19 15:16:32,634  INFO     OK        hanlp-valid   '你是老师吗？' -> [('你', 'PN'), ('是', 'VC'), ('老师', 'NN'), ('吗', 'SP')]
+2026-08-19 15:16:32,636  INFO       SENSE cache-hit  你 (PN, ni3)
+2026-08-19 15:16:32,636  INFO       SENSE cache-hit  是 (VC, shi4)
+2026-08-19 15:16:33,334  INFO       SENSE ambiguous  老师 (NN, lao3shi1) -> matched existing sense id=10
+2026-08-19 15:16:33,337  INFO       SENSE cache-hit  吗 (SP, ma5)
+2026-08-19 15:16:33,339  INFO     TAGGED    '你是老师吗？' (4 tags)
+2026-08-19 15:16:33,354  INFO     FALLBACK  '我不是中国人，我是美国人。' -- hanlp produced out-of-vocab word(s): ['不是', '中国人', '美国人']
+2026-08-19 15:16:33,354  WARNING    HAIKU resegment call for '我不是中国人，我是美国人。' (cache miss on [('不是', 'AD'), ('中国人', 'NN'), ('美国人', 'NN')])
+2026-08-19 15:16:34,666  INFO       HAIKU result for '我不是中国人，我是美国人。' -> [('我', 'PN'), ('不', 'AD'), ('是', 'VC'), ('中国', 'NN'), ('人', 'NN'), ('，', 'PU'), ('我', 'PN'), ('是', 'VC'), ('美国', 'NN'), ('人', 'NN'), ('。', 'PU')]
+2026-08-19 15:16:34,666  WARNING    Haiku resegmentation degraded to HanLP's own output for '我不是中国人，我是美国人。' -- nothing new to cache
+2026-08-19 15:16:34,667  WARNING  DROP      '我不是中国人，我是美国人。' -- still out-of-vocab after resegmentation: ['，', '。']
+2026-08-19 15:16:34,682  INFO     FALLBACK  '我不是老师。' -- hanlp produced out-of-vocab word(s): ['不是']
+2026-08-19 15:16:34,682  WARNING    HAIKU resegment call for '我不是老师。' (cache miss on [('不是', 'AD')])
+2026-08-19 15:16:35,895  INFO       HAIKU result for '我不是老师。' -> [('我', 'PN'), ('不', 'AD'), ('是', 'VC'), ('老师', 'NN'), ('。', 'PU')]
+2026-08-19 15:16:35,895  WARNING    Haiku resegmentation degraded to HanLP's own output for '我不是老师。' -- nothing new to cache
+2026-08-19 15:16:35,896  WARNING  DROP      '我不是老师。' -- still out-of-vocab after resegmentation: ['。']
+2026-08-19 15:16:35,912  INFO     FALLBACK  '我不是老师，我是学生。' -- hanlp produced out-of-vocab word(s): ['不是']
+2026-08-19 15:16:35,912  WARNING    HAIKU resegment call for '我不是老师，我是学生。' (cache miss on [('不是', 'AD')])
+2026-08-19 15:16:37,535  INFO       HAIKU result for '我不是老师，我是学生。' -> [('我', 'PN'), ('不', 'AD'), ('是', 'VC'), ('老师', 'NN'), ('，', 'PU'), ('我', 'PN'), ('是', 'VC'), ('学生', 'NN'), ('。', 'PU')]
+2026-08-19 15:16:37,535  WARNING    Haiku resegmentation degraded to HanLP's own output for '我不是老师，我是学生。' -- nothing new to cache
+2026-08-19 15:16:37,535  WARNING  DROP      '我不是老师，我是学生。' -- still out-of-vocab after resegmentation: ['，', '。']
+2026-08-19 15:16:37,548  INFO     FALLBACK  '我叫大卫，我是美国人，我是学生。' -- hanlp produced out-of-vocab word(s): ['美国人']
+2026-08-19 15:16:37,548  WARNING    HAIKU resegment call for '我叫大卫，我是美国人，我是学生。' (cache miss on [('美国人', 'NN')])
+2026-08-19 15:16:38,971  INFO       HAIKU result for '我叫大卫，我是美国人，我是学生。' -> [('我', 'PN'), ('叫', 'VV'), ('大卫', 'NR'), ('，', 'PU'), ('我', 'PN'), ('是', 'VC'), ('美国', 'NR'), ('人', 'NN'), ('，', 'PU'), ('我', 'PN'), ('是', 'VC'), ('学生', 'NN'), ('。', 'PU')]
+2026-08-19 15:16:38,971  WARNING    Haiku resegmentation degraded to HanLP's own output for '我叫大卫，我是美国人，我是学生。' -- nothing new to cache
+2026-08-19 15:16:38,971  WARNING  DROP      '我叫大卫，我是美国人，我是学生。' -- still out-of-vocab after resegmentation: ['，', '，', '。']
+2026-08-19 15:16:38,989  INFO     OK        hanlp-valid   '我叫李月。' -> [('我', 'PN'), ('叫', 'VV'), ('李月', 'NR')]
+2026-08-19 15:16:39,687  INFO       SENSE ambiguous  我 (PN, wo3) -> matched existing sense id=16
+2026-08-19 15:16:39,690  INFO       SENSE cache-hit  叫 (VV, jiao4)
+2026-08-19 15:16:40,229  INFO       SENSE ambiguous  李月 (NR, li3yue4) -> matched existing sense id=18
+2026-08-19 15:16:40,234  INFO     TAGGED    '我叫李月。' (3 tags)
+2026-08-19 15:16:40,249  INFO     FALLBACK  '我叫李月，我是中国人，我是老师。' -- hanlp produced out-of-vocab word(s): ['中国人']
+2026-08-19 15:16:40,249  WARNING    HAIKU resegment call for '我叫李月，我是中国人，我是老师。' (cache miss on [('中国人', 'NN')])
+2026-08-19 15:16:41,676  INFO       HAIKU result for '我叫李月，我是中国人，我是老师。' -> [('我', 'PN'), ('叫', 'VV'), ('李月', 'NR'), ('，', 'PU'), ('我', 'PN'), ('是', 'VC'), ('中国', 'NR'), ('人', 'NN'), ('，', 'PU'), ('我', 'PN'), ('是', 'VC'), ('老师', 'NN'), ('。', 'PU')]
+2026-08-19 15:16:41,676  WARNING    Haiku resegmentation degraded to HanLP's own output for '我叫李月，我是中国人，我是老师。' -- nothing new to cache
+2026-08-19 15:16:41,676  WARNING  DROP      '我叫李月，我是中国人，我是老师。' -- still out-of-vocab after resegmentation: ['，', '，', '。']
+2026-08-19 15:16:41,695  INFO     FALLBACK  '我是美国人。' -- hanlp produced out-of-vocab word(s): ['美国人']
+2026-08-19 15:16:41,695  WARNING    HAIKU resegment call for '我是美国人。' (cache miss on [('美国人', 'NN')])
+2026-08-19 15:16:42,722  INFO       HAIKU result for '我是美国人。' -> [('我', 'PN'), ('是', 'VC'), ('美国', 'NN'), ('人', 'NN'), ('。', 'PU')]
+2026-08-19 15:16:42,722  WARNING    Haiku resegmentation degraded to HanLP's own output for '我是美国人。' -- nothing new to cache
+2026-08-19 15:16:42,722  WARNING  DROP      '我是美国人。' -- still out-of-vocab after resegmentation: ['。']
+2026-08-19 15:16:42,736  INFO     OK        hanlp-valid   '李月是老师。' -> [('李月', 'NR'), ('是', 'VC'), ('老师', 'NN')]
+2026-08-19 15:16:42,738  INFO       SENSE cache-hit  李月 (NR, li3yue4)
+2026-08-19 15:16:42,739  INFO       SENSE cache-hit  是 (VC, shi4)
+2026-08-19 15:16:42,740  INFO       SENSE cache-hit  老师 (NN, lao3shi1)
+2026-08-19 15:16:42,741  INFO     TAGGED    '李月是老师。' (3 tags)
+2026-08-19 15:16:42,756  INFO     FALLBACK  '这是什么书？' -- hanlp produced out-of-vocab word(s): ['这是']
+2026-08-19 15:16:42,756  WARNING    HAIKU resegment call for '这是什么书？' (cache miss on [('这是', 'VC')])
+2026-08-19 15:16:43,560  INFO       HAIKU result for '这是什么书？' -> [('这', 'PN'), ('是', 'VC'), ('什么', 'PN'), ('书', 'NN'), ('？', 'PU')]
+2026-08-19 15:16:43,561  WARNING    Haiku resegmentation degraded to HanLP's own output for '这是什么书？' -- nothing new to cache
+2026-08-19 15:16:43,561  WARNING  DROP      '这是什么书？' -- still out-of-vocab after resegmentation: ['？']
+2026-08-19 15:16:43,578  INFO     FALLBACK  '这是什么？' -- hanlp produced out-of-vocab word(s): ['这是']
+2026-08-19 15:16:43,579  WARNING    HAIKU resegment call for '这是什么？' (cache miss on [('这是', 'AD')])
+2026-08-19 15:16:44,505  INFO       HAIKU result for '这是什么？' -> [('这', 'PN'), ('是', 'VC'), ('什么', 'NN'), ('？', 'PU')]
+2026-08-19 15:16:44,505  WARNING    Haiku resegmentation degraded to HanLP's own output for '这是什么？' -- nothing new to cache
+2026-08-19 15:16:44,505  WARNING  DROP      '这是什么？' -- still out-of-vocab after resegmentation: ['？']
+2026-08-19 15:16:44,518  INFO     OK        hanlp-valid   '他是我同学。' -> [('他', 'PN'), ('是', 'VC'), ('我', 'PN'), ('同学', 'NN')]
+2026-08-19 15:16:45,130  INFO       SENSE ambiguous  他 (PN, ta1) -> matched existing sense id=27
+2026-08-19 15:16:45,132  INFO       SENSE cache-hit  是 (VC, shi4)
+2026-08-19 15:16:45,133  INFO       SENSE cache-hit  我 (PN, wo3)
+2026-08-19 15:16:45,834  INFO       SENSE ambiguous  同学 (NN, tong2xue2) -> matched existing sense id=29
+2026-08-19 15:16:45,837  INFO     TAGGED    '他是我同学。' (4 tags)
+2026-08-19 15:16:45,849  INFO     OK        hanlp-valid   '他是谁？' -> [('他', 'PN'), ('是', 'VC'), ('谁', 'PN')]
+2026-08-19 15:16:45,850  INFO       SENSE cache-hit  他 (PN, ta1)
+2026-08-19 15:16:45,850  INFO       SENSE cache-hit  是 (VC, shi4)
+2026-08-19 15:16:46,483  INFO       SENSE ambiguous  谁 (PN, shui2) -> matched existing sense id=26
+2026-08-19 15:16:46,486  INFO     TAGGED    '他是谁？' (3 tags)
+2026-08-19 15:16:46,497  INFO     FALLBACK  '你是哪国人？' -- hanlp produced out-of-vocab word(s): ['国']
+2026-08-19 15:16:46,497  WARNING    HAIKU resegment call for '你是哪国人？' (cache miss on [('国', 'NN')])
+2026-08-19 15:16:47,785  INFO       HAIKU result for '你是哪国人？' -> [('你', 'PN'), ('是', 'VC'), ('哪', 'DT'), ('国', 'NN'), ('人', 'NN'), ('？', 'PU')]
+2026-08-19 15:16:47,785  WARNING    Haiku resegmentation degraded to HanLP's own output for '你是哪国人？' -- nothing new to cache
+2026-08-19 15:16:47,786  WARNING  DROP      '你是哪国人？' -- still out-of-vocab after resegmentation: ['国', '？']
+2026-08-19 15:16:47,801  INFO     FALLBACK  '她不是我同学，她是我朋友。' -- hanlp produced out-of-vocab word(s): ['不是']
+2026-08-19 15:16:47,801  WARNING    HAIKU resegment call for '她不是我同学，她是我朋友。' (cache miss on [('不是', 'VC')])
+2026-08-19 15:16:49,066  INFO       HAIKU result for '她不是我同学，她是我朋友。' -> [('她', 'PN'), ('不', 'AD'), ('是', 'VC'), ('我', 'PN'), ('同学', 'NN'), ('，', 'PU'), ('她', 'PN'), ('是', 'VC'), ('我', 'PN'), ('朋友', 'NN'), ('。', 'PU')]
+2026-08-19 15:16:49,066  WARNING    Haiku resegmentation degraded to HanLP's own output for '她不是我同学，她是我朋友。' -- nothing new to cache
+2026-08-19 15:16:49,066  WARNING  DROP      '她不是我同学，她是我朋友。' -- still out-of-vocab after resegmentation: ['，', '。']
+2026-08-19 15:16:49,079  INFO     OK        hanlp-valid   '她叫李月。他呢？' -> [('她', 'PN'), ('叫', 'VV'), ('李月', 'NR'), ('他', 'PN'), ('呢', 'SP')]
+2026-08-19 15:16:49,837  INFO       SENSE ambiguous  她 (PN, ta1) -> matched existing sense id=28
+2026-08-19 15:16:49,839  INFO       SENSE cache-hit  叫 (VV, jiao4)
+2026-08-19 15:16:49,840  INFO       SENSE cache-hit  李月 (NR, li3yue4)
+2026-08-19 15:16:49,841  INFO       SENSE cache-hit  他 (PN, ta1)
+2026-08-19 15:16:50,362  INFO       SENSE ambiguous  呢 (SP, ne5) -> matched existing sense id=24
+2026-08-19 15:16:50,365  INFO     TAGGED    '她叫李月。他呢？' (5 tags)
+2026-08-19 15:16:50,376  INFO     OK        hanlp-valid   '她呢？她是你同学吗？' -> [('她', 'PN'), ('呢', 'SP'), ('她', 'PN'), ('是', 'VC'), ('你', 'PN'), ('同学', 'NN'), ('吗', 'SP')]
+2026-08-19 15:16:50,377  INFO       SENSE cache-hit  她 (PN, ta1)
+2026-08-19 15:16:50,377  INFO       SENSE cache-hit  呢 (SP, ne5)
+2026-08-19 15:16:50,378  INFO       SENSE cache-hit  她 (PN, ta1)
+2026-08-19 15:16:50,378  INFO       SENSE cache-hit  是 (VC, shi4)
+2026-08-19 15:16:50,379  INFO       SENSE cache-hit  你 (PN, ni3)
+2026-08-19 15:16:50,381  INFO       SENSE cache-hit  同学 (NN, tong2xue2)
+2026-08-19 15:16:50,381  INFO       SENSE cache-hit  吗 (SP, ma5)
+2026-08-19 15:16:50,382  INFO     TAGGED    '她呢？她是你同学吗？' (7 tags)
+2026-08-19 15:16:50,393  INFO     OK        hanlp-valid   '她是我的汉语老师，她叫李月。' -> [('她', 'PN'), ('是', 'VC'), ('我', 'PN'), ('的', 'DEG'), ('汉语', 'NN'), ('老师', 'NN'), ('她', 'PN'), ('叫', 'VV'), ('李月', 'NR')]
+2026-08-19 15:16:50,394  INFO       SENSE cache-hit  她 (PN, ta1)
+2026-08-19 15:16:50,394  INFO       SENSE cache-hit  是 (VC, shi4)
+2026-08-19 15:16:50,395  INFO       SENSE cache-hit  我 (PN, wo3)
+2026-08-19 15:16:51,198  INFO       SENSE ambiguous  的 (DEG, de5) -> matched existing sense id=21
+2026-08-19 15:16:51,749  INFO       SENSE ambiguous  汉语 (NN, han4yu3) -> matched existing sense id=22
+2026-08-19 15:16:51,752  INFO       SENSE cache-hit  老师 (NN, lao3shi1)
+2026-08-19 15:16:51,753  INFO       SENSE cache-hit  她 (PN, ta1)
+2026-08-19 15:16:51,754  INFO       SENSE cache-hit  叫 (VV, jiao4)
+2026-08-19 15:16:51,754  INFO       SENSE cache-hit  李月 (NR, li3yue4)
+2026-08-19 15:16:51,756  INFO     TAGGED    '她是我的汉语老师，她叫李月。' (9 tags)
+2026-08-19 15:16:51,767  INFO     OK        hanlp-valid   '她是谁？' -> [('她', 'PN'), ('是', 'VC'), ('谁', 'PN')]
+2026-08-19 15:16:51,768  INFO       SENSE cache-hit  她 (PN, ta1)
+2026-08-19 15:16:51,768  INFO       SENSE cache-hit  是 (VC, shi4)
+2026-08-19 15:16:51,769  INFO       SENSE cache-hit  谁 (PN, shui2)
+2026-08-19 15:16:51,770  INFO     TAGGED    '她是谁？' (3 tags)
+2026-08-19 15:16:51,780  INFO     FALLBACK  '我不是老师，我是学生。你呢？' -- hanlp produced out-of-vocab word(s): ['不是']
+2026-08-19 15:16:51,780  WARNING    HAIKU resegment call for '我不是老师，我是学生。你呢？' (cache miss on [('不是', 'AD')])
+2026-08-19 15:16:53,106  INFO       HAIKU result for '我不是老师，我是学生。你呢？' -> [('我', 'PN'), ('不', 'AD'), ('是', 'VC'), ('老师', 'NN'), ('，', 'PU'), ('我', 'PN'), ('是', 'VC'), ('学生', 'NN'), ('。', 'PU'), ('你', 'PN'), ('呢', 'SP'), ('？', 'PU')]
+2026-08-19 15:16:53,106  WARNING    Haiku resegmentation degraded to HanLP's own output for '我不是老师，我是学生。你呢？' -- nothing new to cache
+2026-08-19 15:16:53,106  WARNING  DROP      '我不是老师，我是学生。你呢？' -- still out-of-vocab after resegmentation: ['，', '。', '？']
+2026-08-19 15:16:53,116  INFO     FALLBACK  '我是中国人。' -- hanlp produced out-of-vocab word(s): ['中国人']
+2026-08-19 15:16:53,117  WARNING    HAIKU resegment call for '我是中国人。' (cache miss on [('中国人', 'NN')])
+2026-08-19 15:16:54,034  INFO       HAIKU result for '我是中国人。' -> [('我', 'PN'), ('是', 'VC'), ('中国', 'NN'), ('人', 'NN'), ('。', 'PU')]
+2026-08-19 15:16:54,034  WARNING    Haiku resegmentation degraded to HanLP's own output for '我是中国人。' -- nothing new to cache
+2026-08-19 15:16:54,034  WARNING  DROP      '我是中国人。' -- still out-of-vocab after resegmentation: ['。']
+2026-08-19 15:16:54,047  INFO     FALLBACK  '我是美国人。' -- hanlp produced out-of-vocab word(s): ['美国人']
+2026-08-19 15:16:54,048  WARNING    HAIKU resegment call for '我是美国人。' (cache miss on [('美国人', 'NN')])
+2026-08-19 15:16:55,133  INFO       HAIKU result for '我是美国人。' -> [('我', 'PN'), ('是', 'VC'), ('美国', 'NN'), ('人', 'NN'), ('。', 'PU')]
+2026-08-19 15:16:55,133  WARNING    Haiku resegmentation degraded to HanLP's own output for '我是美国人。' -- nothing new to cache
+2026-08-19 15:16:55,133  WARNING  DROP      '我是美国人。' -- still out-of-vocab after resegmentation: ['。']
+2026-08-19 15:16:55,148  INFO     FALLBACK  '我是美国人。你呢？' -- hanlp produced out-of-vocab word(s): ['美国人']
+2026-08-19 15:16:55,148  WARNING    HAIKU resegment call for '我是美国人。你呢？' (cache miss on [('美国人', 'NN')])
+2026-08-19 15:16:56,477  INFO       HAIKU result for '我是美国人。你呢？' -> [('我', 'PN'), ('是', 'VC'), ('美国', 'NN'), ('人', 'NN'), ('。', 'PU'), ('你', 'PN'), ('呢', 'SP'), ('？', 'PU')]
+2026-08-19 15:16:56,477  WARNING    Haiku resegmentation degraded to HanLP's own output for '我是美国人。你呢？' -- nothing new to cache
+2026-08-19 15:16:56,477  WARNING  DROP      '我是美国人。你呢？' -- still out-of-vocab after resegmentation: ['。', '？']
+2026-08-19 15:16:56,492  INFO     OK        hanlp-valid   '李月是我的老师。' -> [('李月', 'NR'), ('是', 'VC'), ('我', 'PN'), ('的', 'DEG'), ('老师', 'NN')]
+2026-08-19 15:16:56,493  INFO       SENSE cache-hit  李月 (NR, li3yue4)
+2026-08-19 15:16:56,494  INFO       SENSE cache-hit  是 (VC, shi4)
+2026-08-19 15:16:56,494  INFO       SENSE cache-hit  我 (PN, wo3)
+2026-08-19 15:16:56,495  INFO       SENSE cache-hit  的 (DEG, de5)
+2026-08-19 15:16:56,496  INFO       SENSE cache-hit  老师 (NN, lao3shi1)
+2026-08-19 15:16:56,497  INFO     TAGGED    '李月是我的老师。' (5 tags)
+2026-08-19 15:16:56,508  INFO     FALLBACK  '你今年几岁了？' -- hanlp produced out-of-vocab word(s): ['今年', '几岁']
+2026-08-19 15:16:56,508  WARNING    HAIKU resegment call for '你今年几岁了？' (cache miss on [('今年', 'NT'), ('几岁', 'NT')])
+2026-08-19 15:16:57,742  INFO       HAIKU result for '你今年几岁了？' -> [('你', 'PN'), ('今年', 'NT'), ('几', 'CD'), ('岁', 'M'), ('了', 'AS'), ('？', 'PU')]
+2026-08-19 15:16:57,742  WARNING    Haiku resegmentation degraded to HanLP's own output for '你今年几岁了？' -- nothing new to cache
+2026-08-19 15:16:57,742  WARNING  DROP      '你今年几岁了？' -- still out-of-vocab after resegmentation: ['今年', '？']
+2026-08-19 15:16:57,755  INFO     FALLBACK  '你今年多大了？' -- hanlp produced out-of-vocab word(s): ['今年']
+2026-08-19 15:16:57,755  WARNING    HAIKU resegment call for '你今年多大了？' (cache miss on [('今年', 'NT')])
+2026-08-19 15:16:58,791  INFO       HAIKU result for '你今年多大了？' -> [('你', 'PN'), ('今年', 'NT'), ('多', 'AD'), ('大', 'VA'), ('了', 'AS'), ('？', 'PU')]
+2026-08-19 15:16:58,791  WARNING    Haiku resegmentation degraded to HanLP's own output for '你今年多大了？' -- nothing new to cache
+2026-08-19 15:16:58,791  WARNING  DROP      '你今年多大了？' -- still out-of-vocab after resegmentation: ['今年', '？']
+2026-08-19 15:16:58,806  INFO     OK        hanlp-valid   '你多大了？' -> [('你', 'PN'), ('多', 'AD'), ('大', 'VA'), ('了', 'SP')]
+2026-08-19 15:16:58,808  INFO       SENSE cache-hit  你 (PN, ni3)
+2026-08-19 15:16:59,449  INFO       SENSE ambiguous  多 (AD, duo1) -> matched existing sense id=32
+2026-08-19 15:17:00,072  INFO       SENSE ambiguous  大 (VA, da4) -> matched existing sense id=31
+2026-08-19 15:17:00,993  INFO       SENSE ambiguous  了 (SP, le5) -> matched existing sense id=37
+2026-08-19 15:17:00,996  INFO     TAGGED    '你多大了？' (4 tags)
+2026-08-19 15:17:01,008  INFO     FALLBACK  '你女儿今年多大了？' -- hanlp produced out-of-vocab word(s): ['今年']
+2026-08-19 15:17:01,008  WARNING    HAIKU resegment call for '你女儿今年多大了？' (cache miss on [('今年', 'NT')])
+2026-08-19 15:17:02,019  INFO       HAIKU result for '你女儿今年多大了？' -> [('你', 'PN'), ('女儿', 'NN'), ('今年', 'NT'), ('多', 'AD'), ('大', 'VA'), ('了', 'AS'), ('？', 'PU')]
+2026-08-19 15:17:02,019  WARNING    Haiku resegmentation degraded to HanLP's own output for '你女儿今年多大了？' -- nothing new to cache
+2026-08-19 15:17:02,019  WARNING  DROP      '你女儿今年多大了？' -- still out-of-vocab after resegmentation: ['今年', '？']
+2026-08-19 15:17:02,032  INFO     FALLBACK  '你女儿几岁了？' -- hanlp produced out-of-vocab word(s): ['几岁']
+2026-08-19 15:17:02,033  WARNING    HAIKU resegment call for '你女儿几岁了？' (cache miss on [('几岁', 'NT')])
+2026-08-19 15:17:03,042  INFO       HAIKU result for '你女儿几岁了？' -> [('你', 'PN'), ('女儿', 'NN'), ('几', 'CD'), ('岁', 'M'), ('了', 'AS'), ('？', 'PU')]
+2026-08-19 15:17:03,042  WARNING    Haiku resegmentation degraded to HanLP's own output for '你女儿几岁了？' -- nothing new to cache
+2026-08-19 15:17:03,042  WARNING  DROP      '你女儿几岁了？' -- still out-of-vocab after resegmentation: ['？']
+2026-08-19 15:17:03,060  INFO     FALLBACK  '你家有几口人？' -- hanlp produced out-of-vocab word(s): ['几口']
+2026-08-19 15:17:03,060  WARNING    HAIKU resegment call for '你家有几口人？' (cache miss on [('几口', 'NN')])
+2026-08-19 15:17:04,035  INFO       HAIKU result for '你家有几口人？' -> [('你', 'PN'), ('家', 'NN'), ('有', 'VV'), ('几', 'CD'), ('口', 'M'), ('人', 'NN'), ('？', 'PU')]
+2026-08-19 15:17:04,035  WARNING    Haiku resegmentation degraded to HanLP's own output for '你家有几口人？' -- nothing new to cache
+2026-08-19 15:17:04,036  WARNING  DROP      '你家有几口人？' -- still out-of-vocab after resegmentation: ['口', '？']
+2026-08-19 15:17:04,050  INFO     FALLBACK  '你有几个汉语老师？' -- hanlp produced out-of-vocab word(s): ['几个']
+2026-08-19 15:17:04,050  WARNING    HAIKU resegment call for '你有几个汉语老师？' (cache miss on [('几个', 'CD')])

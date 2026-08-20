@@ -32,6 +32,8 @@ import io
 import json
 import base64
 import re
+import datetime
+import argparse
 
 import anthropic
 from pypdf import PdfReader, PdfWriter
@@ -43,7 +45,7 @@ from app.core.config.textbook import (
     SOP_PATH,
     OCR_PATH,
 )
-
+import time
 from app.textbook.db_utils import get_session, init_db, upsert_sentence_bare
 from app.textbook.models import FitbQuestion
 
@@ -263,7 +265,14 @@ _BLANK_PLACEHOLDER_RE = re.compile(
 def normalize_fitb_blanks(fitb_list: list, label: str = "") -> list:
     normalized = []
     n_fixed = 0
+    n_malformed = 0
     for entry in fitb_list:
+        if not isinstance(entry, dict):
+            n_malformed += 1
+            if label:
+                print(f"  [fitb-warning] {label}: dropping malformed (non-dict) FITB "
+                      f"entry from solver output: {entry!r}")
+            continue
         blanked = entry.get("fill in the blank", "")
         fixed, count = _BLANK_PLACEHOLDER_RE.subn("___", blanked)
         if count and fixed != blanked:
@@ -273,15 +282,12 @@ def normalize_fitb_blanks(fitb_list: list, label: str = "") -> list:
     if n_fixed and label:
         print(f"  [fitb-normalize] {label}: rewrote non-'___' blank placeholder(s) "
               f"in {n_fixed} entr(y/ies) to '___'")
+    if n_malformed and label:
+        print(f"  [fitb-warning] {label}: dropped {n_malformed} malformed FITB entr(y/ies) total")
     return normalized
 
 
 # --------------------------------- NUMBER NORMALIZATION ---------------------------------
-# Moved here from the old tag-level digit-expansion logic: since tagging no
-# longer happens in this script, literal Arabic-digit runs need to be
-# rewritten as hanzi BEFORE HanLP ever sees the sentence text (HanLP has no
-# CEDICT-backed reading for a bare "38"). This now operates on the raw
-# sentence STRING, not on post-segmentation tags.
 
 _DIGIT_HANZI = "\u96f6\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d"
 _DIGIT_RUN_RE = re.compile(r"\d+")
@@ -320,13 +326,6 @@ def digit_run_to_hanzi(run: str) -> str:
 
 
 def normalize_number_text(text: str) -> str:
-    """Rewrites literal Arabic-digit runs in extracted sentence text as
-    their hanzi cardinal reading (e.g. "38" -> "三十八"). A digit-run that
-    reduces to a lone "二" and is immediately followed by a measure word
-    becomes "两" instead (标准量词前的"两" convention) -- matching how a
-    textbook would actually print it. This ONLY applies to digit-run-
-    derived twos: a "二" already present in the original text (e.g. 星期二)
-    is left untouched, since it's presumably already correct as printed."""
     def replace(m):
         run = m.group()
         hanzi = digit_run_to_hanzi(run)
@@ -438,9 +437,7 @@ def run_text_agent(ocr_markdown: str, sop: str, source: str, unit_number: int,
 def process_unit(db, source: str, unit_number: int, start_page: int, end_page: int,
                   reader: PdfReader, sops: dict) -> dict:
     """Extraction/filtering pipeline, ending by writing BARE sentences +
-    FitbQuestion rows to the DB -- no tags, no vocab gate. tag_sentences.py
-    (the next pipeline stage) is what turns these into fully tagged
-    sentences with resolved VocabSense links."""
+    FitbQuestion rows to the DB -- no tags, no vocab gate."""
     label = f"{source} unit {unit_number}"
     print(f"Processing {label} (pages {start_page}-{end_page})...")
 
@@ -471,6 +468,8 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
 
     # --- write BARE sentences straight to the DB (number-normalized text) ---
     written_sentences = []
+    collected_sentences = []  # For debug JSON
+    
     for zh, en in sentences.items():
         normalized_hanzi = normalize_number_text(zh)
         sentence_row = upsert_sentence_bare(
@@ -483,6 +482,14 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
             source=source,
         )
         written_sentences.append(sentence_row)
+        
+        # Keep track of info sent to the DB for the debug file
+        collected_sentences.append({
+            "hanzi": normalized_hanzi,
+            "english": en,
+            "pinyin": "",
+            "source": source
+        })
 
     fitb_questions = [q for entry in fitb for q in expand_fitb(entry)]
     counts["fitb_questions_final"] = len(fitb_questions)
@@ -491,11 +498,22 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
     from app.textbook.db_utils import get_or_create_unit
     unit_row = get_or_create_unit(db, unit_number, hsk_level=HSK_LEVEL)
     sentence_by_content = {cjk_only(s.hanzi): s for s in written_sentences}
+    collected_fitb = []  # For debug JSON
+    
     for q in fitb_questions:
         sentence_id = None
         match = sentence_by_content.get(cjk_only(q["full_sentence"]))
         if match:
             sentence_id = match.id
+            
+        # Add to debug log payload
+        collected_fitb.append({
+            "question": q["question"],
+            "answer": q["answer"],
+            "full_sentence": q["full_sentence"],
+            "source": source
+        })
+            
         existing = (
             db.query(FitbQuestion)
             .filter(FitbQuestion.unit_id == unit_row.id,
@@ -505,6 +523,7 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
         )
         if existing:
             continue
+            
         db.add(FitbQuestion(
             sentence_id=sentence_id,
             unit_id=unit_row.id,
@@ -514,10 +533,15 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
         ))
     db.flush()
 
-    return {"unit": unit_number, "counts": counts}
+    return {
+        "unit": unit_number, 
+        "counts": counts, 
+        "sentences": collected_sentences,
+        "fitb_questions": collected_fitb
+    }
 
 
-def run_source(db, source: str) -> list:
+def run_source(source: str) -> list:
     cfg = SOURCES[source]
     sops = {
         "ocr": load_sop(cfg["OCR_SOP_FILENAME"]),
@@ -536,25 +560,125 @@ def run_source(db, source: str) -> list:
     if UNITS_TO_PROCESS:
         unit_ranges = [u for u in unit_ranges if u[0] in UNITS_TO_PROCESS]
 
-    results = [process_unit(db, source, n, s, e, reader, sops)
-               for n, s, e in unit_ranges]
+    # One session PER UNIT -- each unit commits independently, so a later
+    # unit's failure can't roll back units that already succeeded in this
+    # same run (previously all units in a source shared one big
+    # transaction and a single failure discarded everything).
+    results = []
+    for n, s, e in unit_ranges:
+        try:
+            with get_session() as db:
+                result = process_unit(db, source, n, s, e, reader, sops)
+            results.append(result)
+        except Exception as ex:
+            print(f"  [error] {source} unit {n} failed: {ex} "
+                  f"-- units already committed before this one are safe; continuing")
+            results.append({
+                "unit": n, "counts": {}, "sentences": [], "fitb_questions": [],
+                "error": str(ex),
+            })
     return results
 
 
-def run_pipeline():
-    init_db()
-    with get_session() as db:
-        sources = SOURCES_TO_PROCESS or list(SOURCES.keys())
-        all_results = []
-        for s in sources:
-            all_results.extend(run_source(db, s))
+# --------------------------------- DEBUG JSON WRITER ---------------------------------
 
-    print(f"Done. Wrote {len(all_results)} unit-source result(s) directly to the textbook DB "
-          f"(HSK level {HSK_LEVEL}). Sentences are BARE (untagged) -- run tag_sentences.py next.")
-    for r in all_results:
-        c = r["counts"]
-        print(f"  {r['unit']}: {c['sentences_final']} sentences, {c['fitb_questions_final']} FITB questions")
+def write_debug_json(parsed_data: dict, error_msg: str):
+    """Writes a structured parsed snapshot to ../debug/sentence_parser/ for debugging purposes."""
+    now = datetime.datetime.now()
+    date_str = now.strftime("%Y-%m-%d")
+    time_str = now.strftime("%H:%M:%S")
+    datetime_file_str = now.strftime("%Y%m%d_%H%M%S")
+    
+    debug_payload = {
+        "run_info": {
+            "hsk_levels_ran_for": [HSK_LEVEL],
+            "date_of_run": date_str,
+            "time_of_run": time_str,
+            "error_msg": error_msg
+        },
+        "index": parsed_data
+    }
+    
+    # Path: ../debug/sentence_parser/ relative to this script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    out_dir = os.path.abspath(os.path.join(script_dir, "..", "debug", "sentence_parser"))
+    os.makedirs(out_dir, exist_ok=True)
+    
+    out_file = os.path.join(out_dir, f"{datetime_file_str}.json")
+    with open(out_file, "w", encoding="utf-8") as f:
+        json.dump(debug_payload, f, ensure_ascii=False, indent=4)
+        
+    print(f"  [debug] Wrote runtime debug info to {out_file}")
+
+
+def run_pipeline():
+    # Will track the data structured: { hsk_level: { unit_number: { sentences: [], fitb_questions: [] } } }
+    parsed_data = {str(HSK_LEVEL): {}}
+    error_msg = ""
+    all_results = []
+    failed = []
+
+    try:
+        init_db()
+        sources = SOURCES_TO_PROCESS or list(SOURCES.keys())
+        for s in sources:
+            all_results.extend(run_source(s))
+
+        # Aggregate debug data hierarchically
+        for r in all_results:
+            unit_str = str(r["unit"])
+            if unit_str not in parsed_data[str(HSK_LEVEL)]:
+                parsed_data[str(HSK_LEVEL)][unit_str] = {"sentences": [], "fitb_questions": []}
+            parsed_data[str(HSK_LEVEL)][unit_str]["sentences"].extend(r["sentences"])
+            parsed_data[str(HSK_LEVEL)][unit_str]["fitb_questions"].extend(r["fitb_questions"])
+
+        failed = [r for r in all_results if r.get("error")]
+        succeeded = len(all_results) - len(failed)
+        print(f"Done. Wrote {succeeded} unit-source result(s) directly to the textbook DB "
+              f"(HSK level {HSK_LEVEL}). Sentences are BARE (untagged) -- run tag_sentences.py next.")
+        for r in all_results:
+            if r.get("error"):
+                print(f"  {r['unit']}: ❌ FAILED -- {r['error']}")
+                continue
+            c = r["counts"]
+            print(f"  {r['unit']}: {c['sentences_final']} sentences, {c['fitb_questions_final']} FITB questions")
+
+        if failed:
+            error_msg = f"{len(failed)} unit(s) failed: {[r['unit'] for r in failed]}"
+
+    except Exception as e:
+        error_msg = str(e)
+        print(f"  [error] Exception during run: {error_msg}")
+        raise
+
+    finally:
+        write_debug_json(parsed_data, error_msg)
+
+    # Still fail the run (nonzero exit for main.py's abort-on-failure logic)
+    # if any individual unit failed -- but only AFTER every other unit's
+    # work has already been committed and the debug JSON written.
+    if failed:
+        raise RuntimeError(error_msg)
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Extract sentences/FITB from textbook+workbook units.")
+    parser.add_argument("--hsk-level", type=int, default=None,
+                         help="Override HSK_LEVEL (defaults to the HSK_LEVEL env var, or 1).")
+    parser.add_argument("--unit", type=int, default=None,
+                         help="Only process this unit number.")
+    parser.add_argument("--source", choices=list(SOURCES.keys()), default=None,
+                         help="Only process this source (e.g. 'workbook').")
+    return parser.parse_args()
 
 
 if __name__ == "__main__":
+    args = parse_args()
+
+    if args.hsk_level is not None:
+        HSK_LEVEL = args.hsk_level
+    if args.unit is not None:
+        UNITS_TO_PROCESS = [args.unit]
+    if args.source is not None:
+        SOURCES_TO_PROCESS = [args.source]
+
     run_pipeline()

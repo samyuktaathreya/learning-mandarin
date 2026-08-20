@@ -27,7 +27,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import anthropic
 from typing import Optional
-
+import time
 from app.core.config.textbook import OCR_PATH, GRAMMAR_TIP_SOP, REFORMAT_GRAMMAR_TIP_SOP
 from app.core.config.shared import ENV_FILE
 
@@ -249,6 +249,8 @@ def get_matching_sentences(sop_text: str, structured_tip: dict, hanzi_list: list
 # Step 3: Main Execution Flow (DB-writing)
 # ---------------------------------------------------------
 def main():
+    start_time = time.time()
+
     init_db()
     print(f"1. Extracting grammar tips from OCR cache (HSK level {HSK_LEVEL})...")
     unit_tips = parse_grammar_tips()
@@ -310,6 +312,8 @@ def main():
 
     print("\n✅ Done! Grammar tips and sentence links written directly to the DB.")
 
+    elapsed = time.time() - start_time
+    print(f"⏱️ Total execution time: {elapsed:.2f} seconds ({elapsed / 60:.2f} minutes).")
 
 if __name__ == "__main__":
     main()
