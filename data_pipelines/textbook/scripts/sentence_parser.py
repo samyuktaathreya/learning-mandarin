@@ -55,6 +55,8 @@ SENTENCE_PARSER_SOP_FILEPATH = SOP_PATH / "sentence_parser"
 SENTENCE_FINDER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "sentence_finder.txt"
 FITB_FINDER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "fitb_finder.txt"
 FITB_SOLVER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "fitb_solver.txt"
+FIX_SENTENCES_SOP_FILEPATH = SENTENCE_PARSER_SOP_FILEPATH / "fix_sentences.txt"
+
 
 # NOTE: UNIT_STARTS/LAST_UNIT_END_PAGE/FIRST_UNIT_NUMBER below are HSK1's
 # page layout. Once HSK2+ PDFs are loaded, these will almost certainly
@@ -223,6 +225,55 @@ def filter_verbatim_sentences(sentences: dict, ocr_markdown: str, label: str):
         for zh in dropped:
             print(f"    - {zh}")
     return verified, len(dropped)
+
+
+# --------------------------------- HALLUCINATION PRE-FILTER (programmatic) ---------------------------------
+
+# Ellipses ("…" or "..") and blank placeholders ("_") in either the hanzi or
+# english attribute are telltale signs of a truncated/garbled OCR->LLM
+# extraction rather than a real sentence.
+_ELLIPSIS_RE = re.compile(r"\.\.|\u2026")
+_UNDERSCORE_BLANK_RE = re.compile(r"_")
+
+# Multiple-choice stubs like "(A)", "(B)", "(C)" (half- or full-width
+# parens) leaking through from workbook exercise text, not real sentences.
+_MULTIPLE_CHOICE_RE = re.compile(r"[\uff08(]\s*[A-Da-d]\s*[\uff09)]")
+
+
+def filter_hallucination_candidates(sentences: dict, label: str = "") -> tuple:
+    """Programmatic (non-LLM) pre-filter for sentence candidates that are
+    almost certainly hallucinated/garbage rather than real textbook
+    sentences:
+      - hanzi attribute is only a single hanzi character (or empty)
+      - hanzi or english attribute contains an ellipsis ("..." / "…") or a
+        blank placeholder ("_")
+      - hanzi or english attribute contains multiple-choice markers like
+        "(A)", "(B)", "(C)"
+    Runs BEFORE the sentences are sent to Haiku for the fix-up pass, so
+    Haiku never has to waste a call on something this cheap to catch.
+    """
+    kept, dropped = {}, []
+    for zh, en in sentences.items():
+        en = en or ""
+        reason = None
+        if len(cjk_only(zh)) <= 1:
+            reason = "single hanzi character"
+        elif _ELLIPSIS_RE.search(zh) or _ELLIPSIS_RE.search(en):
+            reason = "ellipsis"
+        elif _UNDERSCORE_BLANK_RE.search(zh) or _UNDERSCORE_BLANK_RE.search(en):
+            reason = "blank placeholder"
+        elif _MULTIPLE_CHOICE_RE.search(zh) or _MULTIPLE_CHOICE_RE.search(en):
+            reason = "multiple-choice marker"
+
+        if reason:
+            dropped.append((zh, reason))
+        else:
+            kept[zh] = en
+    if dropped:
+        print(f"  [hallucination-filter] {label}: dropped {len(dropped)} sentence(s):")
+        for zh, reason in dropped:
+            print(f"    - ({reason}) {zh}")
+    return kept, len(dropped)
 
 
 def filter_verbatim_fitb(fitb_list: list, ocr_markdown: str, label: str):
@@ -433,6 +484,41 @@ def run_text_agent(ocr_markdown: str, sop: str, source: str, unit_number: int,
                                 source, unit_number, call_name)
 
 
+def run_fix_sentences_agent(sentences: dict, sop: str, source: str, unit_number: int,
+                             hsk_level: int) -> dict:
+    """Sends this unit's surviving sentences (whole unit, not one-by-one) to
+    Haiku along with the fix_sentences SOP, so it can catch/correct any
+    remaining hallucination issues the programmatic pre-filter can't (e.g.
+    a mistranslated or mismatched english attribute) without another OCR
+    pass. The SOP is prefixed with the HSK level of the material being
+    processed, since hsk_level varies per-call depending on which
+    unit/source is currently being handled (it is NOT a fixed constant --
+    it's threaded through from HSK_LEVEL for whichever unit this call is
+    for)."""
+    if client is None or not sentences:
+        return sentences
+
+    system_prompt = f"This is HSK{hsk_level} material.\n\n{sop}"
+    content = ("Here are this unit's candidate sentences (hanzi -> english) "
+               "as a JSON object. Fix any that need it and return the full "
+               "corrected JSON object in the same {hanzi: english} shape:\n\n"
+               + json.dumps(sentences, ensure_ascii=False, indent=2))
+    response = client.messages.create(
+        model=HAIKU_MODEL,
+        max_tokens=AGENT_MAX_TOKENS,
+        temperature=TEMPERATURE,
+        system=system_prompt,
+        messages=[{"role": "user", "content": content}],
+    )
+    fixed = parse_json_response(extract_text_from_response(response), sentences,
+                                 source, unit_number, "fix_sentences")
+    if not isinstance(fixed, dict):
+        print(f"  [warning] fix_sentences ({source} unit {unit_number}) returned "
+              f"non-dict output; keeping pre-fix sentences")
+        return sentences
+    return fixed
+
+
 # --------------------------------- PIPELINE (DB-writing) ---------------------------------
 
 def process_unit(db, source: str, unit_number: int, start_page: int, end_page: int,
@@ -450,6 +536,17 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
                                 "sentence_finder", fallback={})
     counts["sentences_extracted"] = len(sentences)
     sentences, counts["sentences_dropped_verbatim"] = filter_verbatim_sentences(sentences, ocr_md, label)
+
+    # Programmatic pre-filter: drop the cheap, obvious hallucination cases
+    # (single-hanzi fragments, ellipses/blanks, multiple-choice stubs)
+    # before spending a Haiku call on them.
+    sentences, counts["sentences_dropped_hallucination_check"] = filter_hallucination_candidates(
+        sentences, label
+    )
+
+    # Haiku pass over what's left, per unit, using the fix_sentences SOP to
+    # catch/correct any remaining hallucination issues.
+    sentences = run_fix_sentences_agent(sentences, sops["fix_sentences"], source, unit_number, HSK_LEVEL)
 
     fitb_candidates = run_text_agent(ocr_md, sops["fitb_finder"], source, unit_number,
                                       "fitb_finder", fallback=[])
@@ -549,6 +646,7 @@ def run_source(source: str) -> list:
         "sentence_finder": load_sop(SENTENCE_FINDER_FILENAME),
         "fitb_finder": load_sop(FITB_FINDER_FILENAME),
         "fitb_solver": load_sop(FITB_SOLVER_FILENAME),
+        "fix_sentences": load_sop(FIX_SENTENCES_SOP_FILEPATH),
     }
 
     pdf_path = os.path.join(str(TEXTBOOK_RAW_DIR), cfg["RAW_SUBDIR"], f"{HSK_LEVEL}.pdf")
