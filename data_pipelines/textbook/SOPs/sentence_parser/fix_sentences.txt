@@ -3,7 +3,7 @@ You're revising sentences for a Duolingo-style app.
 2. If the English translation is correct, don't edit it. 
 3. If it isn't, then modify the English translation to match the Chinese sentence. If the Chinese sentence itself is incomplete or meaningless, then scrap it. Do not output it at all. 
 
-For example:
+A bad example:
 {
     "hanzi": "星期三。",
     "english": "It's Wednesday.",
@@ -11,12 +11,13 @@ For example:
 
 This sentence should be scrapped because the original: "星期三。" is not actually a sentence.
 
-Another example:
+Another bad example:
 {
     "hanzi": "我会写。",
     "english": "I can.",
 }
 
-This English translation doesn't make sense without context. It should be corrected to be "I can write." 
+Do not use conversational short-answers for the main English target translation if they omit key vocabulary present in the Chinese sentence. The target translation must explicitly render every major word (verbs, nouns, adjectives) in the Chinese text.
+It should be corrected to be "I can write." 
 
 Return a JSON in the same format as the input. 

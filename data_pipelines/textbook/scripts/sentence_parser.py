@@ -190,6 +190,12 @@ _CONTENT_RE = re.compile(r"[一-鿿]|\d+")
 def content_only(s: str) -> str:
     return "".join(_CONTENT_RE.findall(s))
 
+def remove_parentheses(text: str) -> str:
+    """Removes full-width and half-width parentheses from a string."""
+    if not text:
+        return text
+    return re.sub(r'[\uff08\uff09\(\)]', '', text)
+
 
 # --------------------------------- VALIDATION (unchanged) ---------------------------------
 
@@ -237,7 +243,7 @@ _UNDERSCORE_BLANK_RE = re.compile(r"_")
 
 # Multiple-choice stubs like "(A)", "(B)", "(C)" (half- or full-width
 # parens) leaking through from workbook exercise text, not real sentences.
-_MULTIPLE_CHOICE_RE = re.compile(r"[\uff08(]\s*[A-Da-d]\s*[\uff09)]")
+_MULTIPLE_CHOICE_RE = re.compile(r"[\uff08(]\s*[A-Za-z]\s*[\uff09)]")
 
 
 def filter_hallucination_candidates(sentences: dict, label: str = "") -> tuple:
@@ -548,6 +554,24 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
     # catch/correct any remaining hallucination issues.
     sentences = run_fix_sentences_agent(sentences, sops["fix_sentences"], source, unit_number, HSK_LEVEL)
 
+    # --- NEW: Programmatic Deduplication & Parentheses Removal for standard sentences ---
+    cleaned_sentences = {}
+    dupes_dropped = 0
+    for zh, en in sentences.items():
+        zh_clean = remove_parentheses(zh).strip()
+        en_clean = remove_parentheses(en).strip() if en else en
+        
+        if not zh_clean:
+            continue
+            
+        if zh_clean not in cleaned_sentences:
+            cleaned_sentences[zh_clean] = en_clean
+        else:
+            dupes_dropped += 1
+            
+    sentences = cleaned_sentences
+    counts["sentences_dropped_duplicates"] = dupes_dropped
+
     fitb_candidates = run_text_agent(ocr_md, sops["fitb_finder"], source, unit_number,
                                       "fitb_finder", fallback=[])
     counts["fitb_candidates"] = len(fitb_candidates)
@@ -564,12 +588,20 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
     counts["fitb_final"] = len(fitb)
     counts["sentences_final"] = len(sentences)
 
-    # --- write BARE sentences straight to the DB (number-normalized text) ---
+    # --- write BARE sentences straight to the DB (number-normalized text) --
     written_sentences = []
     collected_sentences = []  # For debug JSON
-    
+    seen_sentences = {}  # Track normalized (hanzi, english) pairs to avoid duplicates
+
     for zh, en in sentences.items():
         normalized_hanzi = normalize_number_text(zh)
+        
+        # Deduplicate based on normalized hanzi + english pair
+        sig = (normalized_hanzi, en or "")
+        if sig in seen_sentences:
+            continue  # Skip duplicate
+        seen_sentences[sig] = True
+        
         sentence_row = upsert_sentence_bare(
             db,
             unit_number=unit_number,
@@ -588,8 +620,26 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
             "pinyin": "",
             "source": source
         })
-
     fitb_questions = [q for entry in fitb for q in expand_fitb(entry)]
+    
+    # --- NEW: Programmatic Deduplication & Parentheses Removal for FITB Questions ---
+    cleaned_fitb = []
+    seen_fitb = set()
+    for q in fitb_questions:
+        q_text_clean = remove_parentheses(q["question"]).strip()
+        q_ans_clean = remove_parentheses(q["answer"]).strip()
+        q_full_clean = remove_parentheses(q["full_sentence"]).strip()
+        
+        sig = (q_text_clean, q_ans_clean)
+        if sig not in seen_fitb:
+            seen_fitb.add(sig)
+            cleaned_fitb.append({
+                "question": q_text_clean,
+                "answer": q_ans_clean,
+                "full_sentence": q_full_clean
+            })
+            
+    fitb_questions = cleaned_fitb
     counts["fitb_questions_final"] = len(fitb_questions)
 
     # --- write FITB questions straight to the DB ---
