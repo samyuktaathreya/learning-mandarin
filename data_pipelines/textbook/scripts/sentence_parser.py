@@ -1,30 +1,40 @@
 """
-Extracts sentences and FITB exercises from the textbook AND workbook, per
-unit, and writes them DIRECTLY to the textbook SQL database as BARE
-Sentence rows (db_utils.upsert_sentence_bare) and FitbQuestion rows.
+Extracts SENTENCES ONLY from the textbook AND workbook, per unit, and writes
+them DIRECTLY to the textbook SQL database as BARE Sentence rows
+(db_utils.upsert_sentence_bare).
 
-REWRITE: this script no longer does ANY word segmentation or vocab-gating.
-Previously it ran a greedy_segment/AI-tagger pass right here, gated on
-"has every character in this sentence already been taught by this unit,"
-and wrote SentenceVocab tag rows directly. That's all gone -- tagging is
-now tag_sentences.py's job (pipeline stage 3, run right after this one),
-using HanLP for segmentation and AI-assisted sense resolution instead of a
-known-words allow-list. This script's ONLY responsibility now is: OCR the
-unit, extract candidate sentences/FITB entries via the LLM, verify they're
-verbatim (not hallucinated), normalize literal digit runs into hanzi, and
-write bare Sentence + FitbQuestion rows. No vocab gate means no sentence is
-ever REJECTED here for using "unknown" vocab -- an unfamiliar word in a
-real textbook sentence is exactly the situation tag_sentences.py is built
-to handle (register it, evidenced by this sentence), not something to
-silently drop.
+SPLIT: this script used to also extract/solve/write FITB (fill-in-the-blank)
+exercises. That responsibility has been moved OUT to fitb_parser.py, a
+separate sibling script run right after this one in the pipeline.
+Rationale: FITB entries are matched back to a Sentence row by content
+(cjk_only(full_sentence) -> Sentence.hanzi), so FITB extraction should run
+strictly after bare sentences exist in the DB for the unit, and keeping the
+two concerns in one file made a pipeline stage do two structurally different
+jobs (write Sentence rows vs. write FitbQuestion rows linked to them). Now:
+
+  sentence_parser.py -> bare Sentence rows only
+  fitb_parser.py     -> bare FitbQuestion rows only (reads existing
+                         Sentence rows from the DB to resolve sentence_id;
+                         does NOT depend on being in the same process/run
+                         as sentence_parser.py, only on it having already
+                         committed)
+
+REWRITE (carried over from before the split): this script does no word
+segmentation or vocab-gating. Tagging is tag_sentences.py's job (pipeline
+stage run right after fitb_parser.py), using HanLP for segmentation and
+AI-assisted sense resolution instead of a known-words allow-list. This
+script's ONLY responsibility is: OCR the unit, extract candidate sentences
+via the LLM, verify they're verbatim (not hallucinated), normalize literal
+digit runs into hanzi, and write bare Sentence rows. No vocab gate means no
+sentence is ever REJECTED here for using "unknown" vocab -- an unfamiliar
+word in a real textbook sentence is exactly the situation tag_sentences.py
+is built to handle (register it, evidenced by this sentence), not something
+to silently drop.
 
 Sentence.pinyin is left BLANK by this script ("") -- it's populated later
 by tag_sentences.py once tags are resolved and each tag's actual reading is
 known (see tag_sentences.tag_sentence, which joins each resolved tag's
 pinyin into the sentence's pinyin field after tagging).
-
-Everything else -- OCR, sentence-finder/FITB-finder/solver agent calls,
-verbatim filtering -- is unchanged from before.
 """
 
 import os
@@ -45,16 +55,12 @@ from app.core.config.textbook import (
     SOP_PATH,
     OCR_PATH,
 )
-import time
 from app.textbook.db_utils import get_session, init_db, upsert_sentence_bare
-from app.textbook.models import FitbQuestion
 
 # --------------------------------- CONSTANTS (unchanged) ---------------------------------
 SENTENCE_PARSER_SOP_FILEPATH = SOP_PATH / "sentence_parser"
 
 SENTENCE_FINDER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "sentence_finder.txt"
-FITB_FINDER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "fitb_finder.txt"
-FITB_SOLVER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "fitb_solver.txt"
 FIX_SENTENCES_SOP_FILEPATH = SENTENCE_PARSER_SOP_FILEPATH / "fix_sentences.txt"
 
 
@@ -190,6 +196,7 @@ _CONTENT_RE = re.compile(r"[一-鿿]|\d+")
 def content_only(s: str) -> str:
     return "".join(_CONTENT_RE.findall(s))
 
+
 def remove_parentheses(text: str) -> str:
     """Removes full-width and half-width parentheses from a string."""
     if not text:
@@ -282,69 +289,6 @@ def filter_hallucination_candidates(sentences: dict, label: str = "") -> tuple:
     return kept, len(dropped)
 
 
-def filter_verbatim_fitb(fitb_list: list, ocr_markdown: str, label: str):
-    lines = [normalize_for_match(line) for line in ocr_markdown.split("\n")]
-    verified, dropped = [], []
-    for entry in fitb_list:
-        blanked = entry.get("fill in the blank", "")
-        segments = [normalize_for_match(seg) for seg in blanked.split("___")]
-        found = False
-        for line in lines:
-            pos, ok = 0, True
-            for seg in segments:
-                if not seg:
-                    continue
-                idx = line.find(seg, pos)
-                if idx == -1:
-                    ok = False
-                    break
-                pos = idx + len(seg)
-            if ok:
-                found = True
-                break
-        if found:
-            verified.append(entry)
-        else:
-            dropped.append(blanked)
-    if dropped:
-        print(f"  [verbatim] {label}: dropped {len(dropped)} non-verbatim FITB entr(y/ies):")
-        for b in dropped:
-            print(f"    - {b}")
-    return verified, len(dropped)
-
-
-_BLANK_PLACEHOLDER_RE = re.compile(
-    r"\uff08\s*\u3000*\s*\uff09"
-    r"|\(\s*\u3000*\s*\)"
-    r"|_{2,}"
-)
-
-
-def normalize_fitb_blanks(fitb_list: list, label: str = "") -> list:
-    normalized = []
-    n_fixed = 0
-    n_malformed = 0
-    for entry in fitb_list:
-        if not isinstance(entry, dict):
-            n_malformed += 1
-            if label:
-                print(f"  [fitb-warning] {label}: dropping malformed (non-dict) FITB "
-                      f"entry from solver output: {entry!r}")
-            continue
-        blanked = entry.get("fill in the blank", "")
-        fixed, count = _BLANK_PLACEHOLDER_RE.subn("___", blanked)
-        if count and fixed != blanked:
-            n_fixed += 1
-        entry = {**entry, "fill in the blank": fixed}
-        normalized.append(entry)
-    if n_fixed and label:
-        print(f"  [fitb-normalize] {label}: rewrote non-'___' blank placeholder(s) "
-              f"in {n_fixed} entr(y/ies) to '___'")
-    if n_malformed and label:
-        print(f"  [fitb-warning] {label}: dropped {n_malformed} malformed FITB entr(y/ies) total")
-    return normalized
-
-
 # --------------------------------- NUMBER NORMALIZATION ---------------------------------
 
 _DIGIT_HANZI = "\u96f6\u4e00\u4e8c\u4e09\u56db\u4e94\u516d\u4e03\u516b\u4e5d"
@@ -393,47 +337,6 @@ def normalize_number_text(text: str) -> str:
             return "\u4e24"
         return hanzi
     return _DIGIT_RUN_RE.sub(replace, text)
-
-
-# --------------------------------- FITB -> QUESTIONS (unchanged) ---------------------------------
-
-def _answers_are_words(answers: list, full: str, blanked: str) -> bool:
-    for a in answers:
-        a_str = (a or "").strip()
-        if not a_str:
-            return False
-        needle = cjk_only(a_str) or a_str
-        if needle not in cjk_only(full) and a_str not in full:
-            return False
-    return True
-
-
-def expand_fitb(entry: dict) -> list:
-    blanked = entry.get("fill in the blank", "")
-    answers = entry.get("answer", [])
-    translation = (entry.get("translation") or "").strip()
-    full = entry.get("full_sentence_answer", "")
-    segments = blanked.split("___")
-    n_blanks_found = len(segments) - 1
-    if n_blanks_found != len(answers) or not answers:
-        print(f"  [fitb-warning] blank/answer count mismatch, skipping: {blanked}")
-        return []
-    if not _answers_are_words(answers, full, blanked):
-        print(f"  [fitb-warning] answer not found in full sentence (likely a leaked "
-              f"word-bank label, not a word); dropping: {blanked}")
-        return []
-    questions = []
-    for i in range(len(answers)):
-        parts = []
-        for j, seg in enumerate(segments):
-            parts.append(seg)
-            if j < len(answers):
-                parts.append("___" if j == i else answers[j])
-        q_text = "".join(parts)
-        if translation:
-            q_text += f" ({translation})"
-        questions.append({"question": q_text, "answer": answers[i], "full_sentence": full})
-    return questions
 
 
 # --------------------------------- AGENT CALLS (unchanged) ---------------------------------
@@ -529,8 +432,8 @@ def run_fix_sentences_agent(sentences: dict, sop: str, source: str, unit_number:
 
 def process_unit(db, source: str, unit_number: int, start_page: int, end_page: int,
                   reader: PdfReader, sops: dict) -> dict:
-    """Extraction/filtering pipeline, ending by writing BARE sentences +
-    FitbQuestion rows to the DB -- no tags, no vocab gate."""
+    """Extraction/filtering pipeline, ending by writing BARE Sentence rows
+    to the DB -- no tags, no vocab gate, no FITB (see fitb_parser.py)."""
     label = f"{source} unit {unit_number}"
     print(f"Processing {label} (pages {start_page}-{end_page})...")
 
@@ -554,55 +457,39 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
     # catch/correct any remaining hallucination issues.
     sentences = run_fix_sentences_agent(sentences, sops["fix_sentences"], source, unit_number, HSK_LEVEL)
 
-    # --- NEW: Programmatic Deduplication & Parentheses Removal for standard sentences ---
+    # --- Programmatic Deduplication & Parentheses Removal ---
     cleaned_sentences = {}
     dupes_dropped = 0
     for zh, en in sentences.items():
         zh_clean = remove_parentheses(zh).strip()
         en_clean = remove_parentheses(en).strip() if en else en
-        
+
         if not zh_clean:
             continue
-            
+
         if zh_clean not in cleaned_sentences:
             cleaned_sentences[zh_clean] = en_clean
         else:
             dupes_dropped += 1
-            
+
     sentences = cleaned_sentences
     counts["sentences_dropped_duplicates"] = dupes_dropped
-
-    fitb_candidates = run_text_agent(ocr_md, sops["fitb_finder"], source, unit_number,
-                                      "fitb_finder", fallback=[])
-    counts["fitb_candidates"] = len(fitb_candidates)
-    if fitb_candidates:
-        extra = ("Here are the candidate fill-in-the-blank sentences to solve:\n\n"
-                 + json.dumps(fitb_candidates, ensure_ascii=False, indent=2))
-        fitb = run_text_agent(ocr_md, sops["fitb_solver"], source, unit_number,
-                               "fitb_solver", fallback=[], extra_content=extra)
-    else:
-        fitb = []
-    counts["fitb_solved"] = len(fitb)
-    fitb = normalize_fitb_blanks(fitb, label)
-    fitb, counts["fitb_dropped_verbatim"] = filter_verbatim_fitb(fitb, ocr_md, label)
-    counts["fitb_final"] = len(fitb)
     counts["sentences_final"] = len(sentences)
 
     # --- write BARE sentences straight to the DB (number-normalized text) --
-    written_sentences = []
     collected_sentences = []  # For debug JSON
     seen_sentences = {}  # Track normalized (hanzi, english) pairs to avoid duplicates
 
     for zh, en in sentences.items():
         normalized_hanzi = normalize_number_text(zh)
-        
+
         # Deduplicate based on normalized hanzi + english pair
         sig = (normalized_hanzi, en or "")
         if sig in seen_sentences:
             continue  # Skip duplicate
         seen_sentences[sig] = True
-        
-        sentence_row = upsert_sentence_bare(
+
+        upsert_sentence_bare(
             db,
             unit_number=unit_number,
             hsk_level=HSK_LEVEL,
@@ -611,8 +498,7 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
             pinyin="",  # filled in later by tag_sentences.py once tags are resolved
             source=source,
         )
-        written_sentences.append(sentence_row)
-        
+
         # Keep track of info sent to the DB for the debug file
         collected_sentences.append({
             "hanzi": normalized_hanzi,
@@ -620,72 +506,11 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
             "pinyin": "",
             "source": source
         })
-    fitb_questions = [q for entry in fitb for q in expand_fitb(entry)]
-    
-    # --- NEW: Programmatic Deduplication & Parentheses Removal for FITB Questions ---
-    cleaned_fitb = []
-    seen_fitb = set()
-    for q in fitb_questions:
-        q_text_clean = remove_parentheses(q["question"]).strip()
-        q_ans_clean = remove_parentheses(q["answer"]).strip()
-        q_full_clean = remove_parentheses(q["full_sentence"]).strip()
-        
-        sig = (q_text_clean, q_ans_clean)
-        if sig not in seen_fitb:
-            seen_fitb.add(sig)
-            cleaned_fitb.append({
-                "question": q_text_clean,
-                "answer": q_ans_clean,
-                "full_sentence": q_full_clean
-            })
-            
-    fitb_questions = cleaned_fitb
-    counts["fitb_questions_final"] = len(fitb_questions)
-
-    # --- write FITB questions straight to the DB ---
-    from app.textbook.db_utils import get_or_create_unit
-    unit_row = get_or_create_unit(db, unit_number, hsk_level=HSK_LEVEL)
-    sentence_by_content = {cjk_only(s.hanzi): s for s in written_sentences}
-    collected_fitb = []  # For debug JSON
-    
-    for q in fitb_questions:
-        sentence_id = None
-        match = sentence_by_content.get(cjk_only(q["full_sentence"]))
-        if match:
-            sentence_id = match.id
-            
-        # Add to debug log payload
-        collected_fitb.append({
-            "question": q["question"],
-            "answer": q["answer"],
-            "full_sentence": q["full_sentence"],
-            "source": source
-        })
-            
-        existing = (
-            db.query(FitbQuestion)
-            .filter(FitbQuestion.unit_id == unit_row.id,
-                    FitbQuestion.question == q["question"],
-                    FitbQuestion.answer == q["answer"])
-            .first()
-        )
-        if existing:
-            continue
-            
-        db.add(FitbQuestion(
-            sentence_id=sentence_id,
-            unit_id=unit_row.id,
-            question=q["question"],
-            answer=q["answer"],
-            full_sentence=q["full_sentence"],
-        ))
-    db.flush()
 
     return {
-        "unit": unit_number, 
-        "counts": counts, 
+        "unit": unit_number,
+        "counts": counts,
         "sentences": collected_sentences,
-        "fitb_questions": collected_fitb
     }
 
 
@@ -694,8 +519,6 @@ def run_source(source: str) -> list:
     sops = {
         "ocr": load_sop(cfg["OCR_SOP_FILENAME"]),
         "sentence_finder": load_sop(SENTENCE_FINDER_FILENAME),
-        "fitb_finder": load_sop(FITB_FINDER_FILENAME),
-        "fitb_solver": load_sop(FITB_SOLVER_FILENAME),
         "fix_sentences": load_sop(FIX_SENTENCES_SOP_FILEPATH),
     }
 
@@ -723,7 +546,7 @@ def run_source(source: str) -> list:
             print(f"  [error] {source} unit {n} failed: {ex} "
                   f"-- units already committed before this one are safe; continuing")
             results.append({
-                "unit": n, "counts": {}, "sentences": [], "fitb_questions": [],
+                "unit": n, "counts": {}, "sentences": [],
                 "error": str(ex),
             })
     return results
@@ -737,7 +560,7 @@ def write_debug_json(parsed_data: dict, error_msg: str):
     date_str = now.strftime("%Y-%m-%d")
     time_str = now.strftime("%H:%M:%S")
     datetime_file_str = now.strftime("%Y%m%d_%H%M%S")
-    
+
     debug_payload = {
         "run_info": {
             "hsk_levels_ran_for": [HSK_LEVEL],
@@ -747,21 +570,21 @@ def write_debug_json(parsed_data: dict, error_msg: str):
         },
         "index": parsed_data
     }
-    
+
     # Path: ../debug/sentence_parser/ relative to this script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     out_dir = os.path.abspath(os.path.join(script_dir, "..", "debug", "sentence_parser"))
     os.makedirs(out_dir, exist_ok=True)
-    
+
     out_file = os.path.join(out_dir, f"{datetime_file_str}.json")
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(debug_payload, f, ensure_ascii=False, indent=4)
-        
+
     print(f"  [debug] Wrote runtime debug info to {out_file}")
 
 
 def run_pipeline():
-    # Will track the data structured: { hsk_level: { unit_number: { sentences: [], fitb_questions: [] } } }
+    # Will track the data structured: { hsk_level: { unit_number: { sentences: [] } } }
     parsed_data = {str(HSK_LEVEL): {}}
     error_msg = ""
     all_results = []
@@ -777,20 +600,20 @@ def run_pipeline():
         for r in all_results:
             unit_str = str(r["unit"])
             if unit_str not in parsed_data[str(HSK_LEVEL)]:
-                parsed_data[str(HSK_LEVEL)][unit_str] = {"sentences": [], "fitb_questions": []}
+                parsed_data[str(HSK_LEVEL)][unit_str] = {"sentences": []}
             parsed_data[str(HSK_LEVEL)][unit_str]["sentences"].extend(r["sentences"])
-            parsed_data[str(HSK_LEVEL)][unit_str]["fitb_questions"].extend(r["fitb_questions"])
 
         failed = [r for r in all_results if r.get("error")]
         succeeded = len(all_results) - len(failed)
         print(f"Done. Wrote {succeeded} unit-source result(s) directly to the textbook DB "
-              f"(HSK level {HSK_LEVEL}). Sentences are BARE (untagged) -- run tag_sentences.py next.")
+              f"(HSK level {HSK_LEVEL}). Sentences are BARE (untagged) -- run fitb_parser.py "
+              f"and tag_sentences.py next.")
         for r in all_results:
             if r.get("error"):
                 print(f"  {r['unit']}: ❌ FAILED -- {r['error']}")
                 continue
             c = r["counts"]
-            print(f"  {r['unit']}: {c['sentences_final']} sentences, {c['fitb_questions_final']} FITB questions")
+            print(f"  {r['unit']}: {c['sentences_final']} sentences")
 
         if failed:
             error_msg = f"{len(failed)} unit(s) failed: {[r['unit'] for r in failed]}"
@@ -809,8 +632,9 @@ def run_pipeline():
     if failed:
         raise RuntimeError(error_msg)
 
+
 def parse_args():
-    parser = argparse.ArgumentParser(description="Extract sentences/FITB from textbook+workbook units.")
+    parser = argparse.ArgumentParser(description="Extract sentences from textbook+workbook units.")
     parser.add_argument("--hsk-level", type=int, default=None,
                          help="Override HSK_LEVEL (defaults to the HSK_LEVEL env var, or 1).")
     parser.add_argument("--unit", type=int, default=None,

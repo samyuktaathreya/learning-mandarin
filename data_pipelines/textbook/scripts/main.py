@@ -6,17 +6,30 @@ REWRITTEN PIPELINE (replaces the old vocab_index_parser -> sentence_parser
 order):
 
   1. vocab_index_parser.py   -> Vocab/VocabSense rows FROM THE PRINTED INDEX
-  2. sentence_parser.py      -> bare Sentence rows (NO tagging anymore --
-                                 OCR + LLM extraction + verbatim-check only)
-  3. tag_sentences.py        -> HanLP-segments every bare sentence, resolves
+  2. sentence_parser.py      -> bare Sentence rows ONLY (NO FITB, no tagging
+                                 -- OCR + LLM extraction + verbatim-check
+                                 only)
+  3. fitb_parser.py          -> bare FitbQuestion rows ONLY, matched back to
+                                 the Sentence rows sentence_parser.py just
+                                 wrote. Split out of sentence_parser.py
+                                 because it's a different kind of row and
+                                 depends on sentence_parser.py having
+                                 already committed for this unit -- it reads
+                                 Sentence rows fresh from the DB rather than
+                                 sharing in-memory state. Also applies two
+                                 new programmatic filters: drops any
+                                 question whose answer isn't pure hanzi, and
+                                 drops any question whose text leaked pinyin
+                                 with tone diacritics.
+  4. tag_sentences.py        -> HanLP-segments every bare sentence, resolves
                                  SentenceVocab tags + VocabSense creation/
                                  matching/rehoming via AI where needed
-  4. import_sentences.py     -> external supplementary sentences (SEPARATE
-                                 script, run per level, AFTER 1-3 complete
+  5. import_sentences.py     -> external supplementary sentences (SEPARATE
+                                 script, run per level, AFTER 1-4 complete
                                  for that level -- its placement logic
                                  depends on what's already known)
-  5. extract_and_match_grammar.py -> GrammarTip + SentenceGrammar rows
-  6. create_questions.py     -> Question rows (every word used in a
+  6. extract_and_match_grammar.py -> GrammarTip + SentenceGrammar rows
+  7. create_questions.py     -> Question rows (every word used in a
                                  sentence is now documented by this point)
 
 append_orphan_tags.py IS DELETED. Its core mistake was inventing vocab
@@ -29,10 +42,11 @@ vocab senses get created, and both require actual sentence evidence.
 
 PER-HSK-LEVEL EXECUTION: stages 1-3 write directly from the textbook's own
 per-level source (index PDF, unit pages) and don't depend on other levels.
-Stage 4 (import_sentences) DOES depend on 1-3 having fully completed for
-that same level -- its placement logic reads "what's already known" for
-that level. Stage 5-6 depend on all of 1-4 for that level. So the pipeline
-runs FULLY through stage 6 for one level before starting the next level, not
+Stage 4 (tag_sentences) depends on stage 2 (sentence_parser) for that same
+level. Stage 5 (import_sentences) DOES depend on 1-4 having fully completed
+for that same level -- its placement logic reads "what's already known" for
+that level. Stage 6-7 depend on all of 1-5 for that level. So the pipeline
+runs FULLY through stage 7 for one level before starting the next level, not
 stage-by-stage across every level. --hsk-level scopes a run to ONE level;
 omit it (or pass --all-levels) to run every level in order.
 
@@ -47,11 +61,12 @@ Usage:
     python main.py --all-levels                     # HSK1, then HSK2, ... in order
     python main.py --hsk-level 1 --vocab-only        # stop after vocab_index_parser
     python main.py --hsk-level 1 --from-sentences    # start from sentence_parser
+    python main.py --hsk-level 1 --from-fitb         # start from fitb_parser
     python main.py --hsk-level 1 --from-tagging      # start from tag_sentences
     python main.py --hsk-level 1 --from-external     # start from import_sentences
     python main.py --hsk-level 1 --from-grammar      # start from extract_and_match_grammar
     python main.py --hsk-level 1 --from-questions    # start from create_questions
-    python main.py --hsk-level 1 --units 3 4 5       # selective: only these units in sentence_parser
+    python main.py --hsk-level 1 --units 3 4 5       # selective: only these units in sentence_parser/fitb_parser
     python main.py --hsk-level 1 --sources textbook  # only process textbook (not workbook)
     python main.py --hsk-level 1 --skip-external     # don't run import_sentences this run
 """
@@ -146,12 +161,13 @@ def check_level_prerequisites(hsk_level: int) -> bool:
 
 
 def run_pipeline_for_level(hsk_level: int, args) -> list[str]:
-    """Runs the full per-level pipeline (stages 1-6) for one HSK level,
+    """Runs the full per-level pipeline (stages 1-7) for one HSK level,
     honoring the --from-*/--vocab-only/--skip-external flags. Returns the
     list of stage names that failed (empty if all succeeded)."""
     pipeline = [
         "vocab_index_parser",
         "sentence_parser",
+        "fitb_parser",
         "tag_sentences",
         "import_sentences",
         "extract_and_match_grammar",
@@ -162,25 +178,30 @@ def run_pipeline_for_level(hsk_level: int, args) -> list[str]:
         pipeline = ["vocab_index_parser"]
     elif args.from_sentences:
         pipeline = pipeline[1:]
-    elif args.from_tagging:
+    elif args.from_fitb:
         pipeline = pipeline[2:]
-    elif args.from_external:
+    elif args.from_tagging:
         pipeline = pipeline[3:]
-    elif args.from_grammar:
+    elif args.from_external:
         pipeline = pipeline[4:]
-    elif args.from_questions:
+    elif args.from_grammar:
         pipeline = pipeline[5:]
+    elif args.from_questions:
+        pipeline = pipeline[6:]
 
     if args.skip_external and "import_sentences" in pipeline:
         pipeline.remove("import_sentences")
 
     common_env_overrides = {"HSK_LEVEL": str(hsk_level)}
 
-    sentence_parser_env_overrides = {}
+    # sentence_parser and fitb_parser both accept the same UNITS/SOURCES
+    # selective-reprocessing overrides (fitb_parser needs to scope to the
+    # same units/sources it's matching Sentence rows against).
+    extraction_env_overrides = {}
     if args.units:
-        sentence_parser_env_overrides["UNITS_TO_PROCESS"] = ",".join(str(u) for u in args.units)
+        extraction_env_overrides["UNITS_TO_PROCESS"] = ",".join(str(u) for u in args.units)
     if args.sources:
-        sentence_parser_env_overrides["SOURCES_TO_PROCESS"] = ",".join(args.sources)
+        extraction_env_overrides["SOURCES_TO_PROCESS"] = ",".join(args.sources)
 
     import_sentences_env_overrides = {}
     if args.topic:
@@ -197,8 +218,8 @@ def run_pipeline_for_level(hsk_level: int, args) -> list[str]:
         script_env = dict(common_env_overrides)
         script_args = [] # Initialize empty list for CLI arguments
 
-        if script_name == "sentence_parser":
-            script_env.update(sentence_parser_env_overrides)
+        if script_name in ("sentence_parser", "fitb_parser"):
+            script_env.update(extraction_env_overrides)
             
         if script_name == "import_sentences":
             script_env.update(import_sentences_env_overrides)
@@ -234,6 +255,7 @@ Examples:
   python main.py --hsk-level 1                    # Full pipeline, HSK1 only
   python main.py --all-levels                      # Every level, in order
   python main.py --hsk-level 1 --vocab-only        # Stop after vocab_index_parser
+  python main.py --hsk-level 1 --from-fitb         # Start from fitb_parser
   python main.py --hsk-level 1 --from-tagging      # Start from tag_sentences
   python main.py --hsk-level 1 --units 3 4 5       # Reprocess only units 3, 4, 5
   python main.py --hsk-level 1 --skip-external     # Skip import_sentences this run
@@ -249,10 +271,12 @@ Examples:
                          help="Run only vocab_index_parser and exit.")
     parser.add_argument("--from-sentences", action="store_true",
                          help="Start from sentence_parser (vocab already done).")
+    parser.add_argument("--from-fitb", action="store_true",
+                         help="Start from fitb_parser (vocab and sentences already done).")
     parser.add_argument("--from-tagging", action="store_true",
-                         help="Start from tag_sentences (vocab and sentences already done).")
+                         help="Start from tag_sentences (vocab, sentences, and FITB already done).")
     parser.add_argument("--from-external", action="store_true",
-                         help="Start from import_sentences (vocab, sentences, tagging already done).")
+                         help="Start from import_sentences (vocab, sentences, FITB, tagging already done).")
     parser.add_argument("--from-grammar", action="store_true",
                          help="Start from extract_and_match_grammar.")
     parser.add_argument("--from-questions", action="store_true",
@@ -261,9 +285,11 @@ Examples:
                          help="Don't run import_sentences this run (e.g. no network access, or "
                               "iterating quickly on the textbook-only stages).")
     parser.add_argument("--units", nargs="+", type=int,
-                         help="Selective reprocessing: only these unit numbers. Passed to sentence_parser.")
+                         help="Selective reprocessing: only these unit numbers. Passed to "
+                              "sentence_parser and fitb_parser.")
     parser.add_argument("--sources", nargs="+", choices=["textbook", "workbook"],
-                         help="Selective reprocessing: only these sources. Passed to sentence_parser.")
+                         help="Selective reprocessing: only these sources. Passed to "
+                              "sentence_parser and fitb_parser.")
     parser.add_argument("--topic", type=str, default=None,
                          help="Only import external sentences matching this topic. Passed to import_sentences.")
     parser.add_argument("--no-stats", action="store_true",
