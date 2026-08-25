@@ -4,7 +4,8 @@ import shutil
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-
+from core.config.shared import settings
+from app.core.logger import logger
 from core.database import engine, Base
 from scripts.seed import init_db
 from session_log import reset_log
@@ -13,7 +14,8 @@ from textbook.models import Base as TextbookBase
 from textbook.db_utils import engine as textbook_engine
 from scripts.seed import init_db
 
-app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
+if settings.ENVIRONMENT == "DEV":
+    app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
 
 app.add_middleware(
     CORSMiddleware,
@@ -26,7 +28,7 @@ app.add_middleware(
 if os.path.exists("../frontend/public"):
     app.mount("/api/static", StaticFiles(directory="../frontend/public"), name="static")
 else:
-    print("Warning: ../frontend/public not found. Static files bypassed.")
+    logger.debug("Warning: ../frontend/public not found. Static files bypassed.")
 
 @app.on_event("startup")
 def on_startup():
@@ -42,7 +44,7 @@ def on_startup():
     if os.path.exists(cache_dir):
         shutil.rmtree(cache_dir)
     os.makedirs(cache_dir, exist_ok=True)
-    print("Audio cache cleared on startup.")
+    logger.debug("Audio cache cleared on startup.")
 
 # --- Feature-Based Routers ---
 

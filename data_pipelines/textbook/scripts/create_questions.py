@@ -44,14 +44,12 @@ from vocab_pinyin_utils import diacritic_to_numeric
 HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
 
 import anthropic
-from dotenv import load_dotenv
 from typing import Optional
 
-from app.core.config.shared import ENV_FILE
+from app.core.config.shared import settings
 from app.textbook.models import SentenceVocab
 
-load_dotenv(ENV_FILE)
-api_key = os.environ.get("CLAUDE_API_KEY")
+api_key = settings.CLAUDE_API_KEY
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
 MODEL = os.getenv("CLAUDE_MODEL", "claude-haiku-4-5-20251001")
 

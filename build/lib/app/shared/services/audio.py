@@ -8,6 +8,8 @@ import azure.cognitiveservices.speech as speechsdk
 import edge_tts
 from sqlalchemy.orm import Session
 from pinyin_utils import strip_punct, to_numbered_pinyin, tones_match, grade_speaking_sentence
+from core.config.shared import settings
+from app.core.logger import logger
 
 CACHE_DIR = "audio_cache"
 os.makedirs(CACHE_DIR, exist_ok=True)
@@ -22,8 +24,8 @@ MANDARIN_VOICES = [
 audio_cache = {}
 session_files = set()
 
-AZURE_SPEECH_KEY = os.environ.get("AZURE_SPEECH_KEY")
-AZURE_SPEECH_REGION = os.environ.get("AZURE_REGION", "eastus")
+AZURE_SPEECH_KEY = settings.AZURE_SPEECH_KEY
+AZURE_SPEECH_REGION = settings.AZURE_REGION
 
 # --- Pronunciation assessment tuning ---
 ACCURACY_THRESHOLD = 90
@@ -61,7 +63,7 @@ def clear_session_audio() -> int:
                 if fp == filepath:
                     del audio_cache[key]
         except Exception as e:
-            print(f"Failed to delete {filepath}: {e}")
+            logger.debug(f"Failed to delete {filepath}: {e}")
     session_files.clear()
     return count
 
@@ -98,11 +100,11 @@ def assess_pronunciation_with_azure(audio_path: str, reference_text: str) -> dic
 
     if result.reason == speechsdk.ResultReason.Canceled:
         details = result.cancellation_details
-        print(f"Assessment canceled: {details.reason}, error: {details.error_details}")
+        logger.debug(f"Assessment canceled: {details.reason}, error: {details.error_details}")
         return {"error": "canceled"}
 
     if result.reason != speechsdk.ResultReason.RecognizedSpeech:
-        print(f"Assessment: no speech recognized ({result.reason})")
+        logger.debug(f"Assessment: no speech recognized ({result.reason})")
         return {"error": "no_speech"}
 
     out = {"recognized": strip_punct(result.text or "")}
@@ -116,10 +118,10 @@ def assess_pronunciation_with_azure(audio_path: str, reference_text: str) -> dic
             for p in (w.phonemes or [])
         ]
     except Exception as e:
-        print(f"Assessment wrapper error: {type(e).__name__}: {e}")
+        logger.debug(f"Assessment wrapper error: {type(e).__name__}: {e}")
         return {"error": "wrapper_failed", "recognized": out["recognized"]}
 
-    print(f"Assessment: ref={reference_text!r} heard={out['recognized']!r} accuracy={out.get('accuracy')}")
+    logger.debug(f"Assessment: ref={reference_text!r} heard={out['recognized']!r} accuracy={out.get('accuracy')}")
     return out
 
 

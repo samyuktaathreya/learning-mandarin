@@ -11,6 +11,7 @@ from textbook import services as textbook_services
 from session.services.review_engine import is_facet_review_eligible
 from session import crud as session_crud
 
+from app.core.logger import logger
 
 class _CollapsedRecord:
     __slots__ = ("tag", "correct_count", "stability", "last_practice")
@@ -69,8 +70,8 @@ def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int)
     from session.services.progress import get_collapsed_progress  # avoid circular import at module load
  
     user = get_user(db, user_id)
-    print("get attr: ")
-    print(getattr(get_user(db, user_id), "hsk_level", 1))
+    logger.debug("get attr: ")
+    logger.debug(getattr(get_user(db, user_id), "hsk_level", 1))
     hsk_level = getattr(user, "hsk_level", 1)
  
     all_records = get_collapsed_progress(db, user_id)

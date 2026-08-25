@@ -47,8 +47,7 @@ import argparse
 
 import anthropic
 from pypdf import PdfReader, PdfWriter
-from dotenv import load_dotenv
-from app.core.config.shared import ENV_FILE
+from app.core.config.shared import settings
 from app.core.config.textbook import (
     TEXTBOOK_RAW_DIR,
     TEXTBOOK_INTERMEDIATE_DIR,
@@ -110,8 +109,7 @@ HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
 
 # --------------------------------- SETUP ---------------------------------
 
-load_dotenv(ENV_FILE)
-api_key = os.environ.get("CLAUDE_API_KEY")
+api_key = settings.CLAUDE_API_KEY
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
 
 _CJK_RE = re.compile(r"[\u4e00-\u9fff]")

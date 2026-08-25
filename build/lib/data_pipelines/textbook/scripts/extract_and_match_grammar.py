@@ -24,12 +24,11 @@ import os
 import json
 import re
 from pathlib import Path
-from dotenv import load_dotenv
 import anthropic
 from typing import Optional
 import time
 from app.core.config.textbook import OCR_PATH, GRAMMAR_TIP_SOP, REFORMAT_GRAMMAR_TIP_SOP
-from app.core.config.shared import ENV_FILE
+from app.core.config.shared import settings
 
 from app.textbook.db_utils import get_session, init_db, get_sentences_for_unit, get_or_create_grammar_tip, link_sentence_grammar
 
@@ -45,8 +44,7 @@ MAX_RETRIES = 2
 # threads UNITS_TO_PROCESS / SOURCES_TO_PROCESS to sentence_parser.py).
 HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
 
-load_dotenv(ENV_FILE)
-api_key = os.environ.get("CLAUDE_API_KEY")
+api_key = settings.CLAUDE_API_KEY
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
 
 

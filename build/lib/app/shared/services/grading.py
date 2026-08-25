@@ -4,15 +4,14 @@ import json
 import anthropic as anthropic_sdk
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
-from core.config.shared import ENV_FILE
+from core.config.shared import settings
 
 from pinyin_utils import strip_punct, to_numbered_pinyin, tones_match
 from session.models import AcceptedAnswer
 from session.crud import log_mismatch
+from app.core.logger import logger
 
-load_dotenv(ENV_FILE)
-
-anthropic_client = anthropic_sdk.Anthropic(api_key=os.environ.get("CLAUDE_API_KEY"))
+anthropic_client = anthropic_sdk.Anthropic(api_key=settings.CLAUDE_API_KEY)
 
 LISTENING_TYPES = {"listening sentence", "listening vocab"}
 
@@ -57,7 +56,7 @@ def cache_store(db: Session, expected: str, cleaned: str):
         db.commit()
     except Exception as e:
         db.rollback()
-        print(f"[cache_store] skipped: {e}")
+        logger.debug(f"[cache_store] skipped: {e}")
 
 def cache_lookup_by_question(db: Session, question: str, cleaned: str) -> bool:
     return db.query(AcceptedAnswer).filter(
@@ -75,7 +74,7 @@ def cache_store_by_question(db: Session, question: str, cleaned: str):
         db.commit()
     except Exception as e:
         db.rollback()
-        print(f"[cache_store_by_question] skipped: {e}")
+        logger.debug(f"[cache_store_by_question] skipped: {e}")
 
 
 # ----------------------------- AI GRADER CORE -----------------------------
@@ -194,7 +193,7 @@ def _ai_grade_with_mismatch_check(direction: str, question: str, expected: str, 
     try:
         result = json.loads(raw_text)
     except json.JSONDecodeError:
-        print(f"[grader] failed to parse JSON: {raw_text!r}")
+        logger.debug(f"[grader] failed to parse JSON: {raw_text!r}")
         return {"is_correct": False, "expected_matches_question": True, "reasoning": "parse failure"}
 
     result.setdefault("is_correct", False)
@@ -214,7 +213,7 @@ def _maybe_log_mismatch(db: Session, direction: str, question: str, expected: st
             reasoning=result.get("reasoning", ""),
         )
     except Exception as e:
-        print(f"[log_mismatch] skipped: {e}")
+        logger.debug(f"[log_mismatch] skipped: {e}")
 
 
 # ----------------------------- SERVICE WRAPPERS -----------------------------
@@ -231,7 +230,7 @@ def evaluate_chinese_to_english(db: Session, user_answer: str, question: str) ->
             cache_store_by_question(db, question, cleaned)
         return {"is_correct": is_correct}
     except Exception as e:
-        print(f"Grading error: {e}")
+        logger.debug(f"Grading error: {e}")
         return {"is_correct": False}
 
 def evaluate_english_to_chinese(db: Session, user_answer: str, expected: str, question: str, question_type: str) -> dict:
@@ -257,7 +256,7 @@ def evaluate_english_to_chinese(db: Session, user_answer: str, expected: str, qu
                         is_correct = True
                         cache_store(db, expected, cleaned)
                 except Exception as e:
-                    print(f"Listening leniency grading error: {e}")
+                    logger.debug(f"Listening leniency grading error: {e}")
 
         return {
             "is_correct": is_correct,
@@ -276,5 +275,5 @@ def evaluate_english_to_chinese(db: Session, user_answer: str, expected: str, qu
             cache_store_by_question(db, question, cleaned)
         return {"is_correct": is_correct}
     except Exception as e:
-        print(f"Grading error: {e}")
+        logger.debug(f"Grading error: {e}")
         return {"is_correct": False}

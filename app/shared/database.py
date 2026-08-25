@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 from core.database import SessionLocal
 from core.config.textbook import DICT_PATH
+from app.core.logger import logger
 
 # Import required parsed data and constants from services
 from textbook.services import unique_vocab_tags, FACETS
@@ -14,9 +15,9 @@ def seed_cedict(db: Session):
     if db.query(DictionaryEntry).first():
         return
 
-    print("Seeding CC-CEDICT dictionary into database...")
+    logger.debug("Seeding CC-CEDICT dictionary into database...")
     if not DICT_PATH.exists():
-        print(f"Warning: CC-CEDICT file not found at {DICT_PATH}")
+        logger.debug(f"Warning: CC-CEDICT file not found at {DICT_PATH}")
         return
 
     entries = []
@@ -51,7 +52,7 @@ def seed_cedict(db: Session):
     if entries:
         db.bulk_insert_mappings(DictionaryEntry, entries)
         db.commit()
-        print(f"CC-CEDICT seeding complete! ({len(entries)} entries added)")
+        logger.debug(f"CC-CEDICT seeding complete! ({len(entries)} entries added)")
 
 
 def init_db():
@@ -62,7 +63,7 @@ def init_db():
     try:
         if not db.query(User).filter(User.id == 1).first():
             db.add(User(id=1, current_unit=3, graduated_units=""))
-            print("Default user created.")
+            logger.debug("Default user created.")
 
         existing = {
             (row.tag, row.facet) for row in
@@ -86,7 +87,7 @@ def init_db():
                 added += 1
 
         db.commit()
-        print(f"Strength table seeded: {added} new (tag, facet) rows added "
+        logger.debug(f"Strength table seeded: {added} new (tag, facet) rows added "
               f"across {len(unique_vocab_tags)} tags x {len(FACETS)} facets.")
 
         seed_cedict(db)

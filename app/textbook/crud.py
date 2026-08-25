@@ -45,7 +45,7 @@ from typing import Optional
 
 from sqlalchemy.orm import Session
 from sqlalchemy import func, or_, and_
-
+from app.core.logger import logger
 from textbook.models import Unit, Vocab, VocabSense, Sentence, SentenceVocab, Question, WordType
 from session.constants import QUESTION_TYPE_FACETS  # single source of truth -- see note below
 
@@ -573,6 +573,6 @@ def get_all_unit_numbers(db: Session, hsk_level: Optional[int] = None) -> list:
 
     result = [r.unit_number for r in query.all()]
     _cache.set(cache_key, result)
-    print("get all unit numbers : ")
-    print("result: ", result)
+    logger.debug("get all unit numbers : ")
+    logger.debug("result: ", result)
     return result

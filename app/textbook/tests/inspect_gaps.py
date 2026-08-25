@@ -9,14 +9,15 @@ Usage:
 import argparse
 import sqlite3
 import sys
+from app.core.logger import logger
 
 from app.core.config.data import TEXTBOOK_DB
 
 
 def show_incomplete_vocab(conn):
-    print("=" * 70)
-    print("VOCAB WORDS WITH MISSING/BLANK/PLACEHOLDER PINYIN OR ENGLISH")
-    print("=" * 70)
+    logger.debug("=" * 70)
+    logger.debug("VOCAB WORDS WITH MISSING/BLANK/PLACEHOLDER PINYIN OR ENGLISH")
+    logger.debug("=" * 70)
     rows = conn.execute("""
         SELECT v.hanzi, v.pinyin, v.english, v.word_type, u.unit_number
         FROM vocab v
@@ -28,23 +29,23 @@ def show_incomplete_vocab(conn):
     """).fetchall()
 
     if not rows:
-        print("  None. All vocab has pinyin + english filled in.\n")
+        logger.debug("  None. All vocab has pinyin + english filled in.\n")
         return
 
-    print(f"  {len(rows)} word(s):\n")
+    logger.debug(f"  {len(rows)} word(s):\n")
     for hanzi, pinyin, english, word_type, unit in rows:
         pinyin_display = pinyin if pinyin and pinyin.strip() else "(blank)"
         english_display = english if english and english.strip() else "(blank)"
         unit_display = unit if unit is not None else "(no unit)"
-        print(f"  {hanzi:6s} unit={str(unit_display):8s} type={word_type:10s} "
+        logger.debug(f"  {hanzi:6s} unit={str(unit_display):8s} type={word_type:10s} "
               f"pinyin={pinyin_display:16s} english={english_display}")
-    print()
+    logger.debug()
 
 
 def show_orphan_questions(conn):
-    print("=" * 70)
-    print("ORPHAN QUESTIONS (no vocab_id AND no sentence_id -- unreachable)")
-    print("=" * 70)
+    logger.debug("=" * 70)
+    logger.debug("ORPHAN QUESTIONS (no vocab_id AND no sentence_id -- unreachable)")
+    logger.debug("=" * 70)
     rows = conn.execute("""
         SELECT q.id, u.unit_number, q.question_type, q.question, q.answer
         FROM questions q
@@ -54,21 +55,21 @@ def show_orphan_questions(conn):
     """).fetchall()
 
     if not rows:
-        print("  None. Every question links to a vocab word or a sentence.\n")
+        logger.debug("  None. Every question links to a vocab word or a sentence.\n")
         return
 
-    print(f"  {len(rows)} question(s):\n")
+    logger.debug(f"  {len(rows)} question(s):\n")
     for qid, unit, qtype, question, answer in rows:
-        print(f"  id={qid:6} unit={unit:3} type={qtype:35s} q={question!r:30s} a={answer!r}")
-    print()
+        logger.debug(f"  id={qid:6} unit={unit:3} type={qtype:35s} q={question!r:30s} a={answer!r}")
+    logger.debug()
 
     by_type = {}
     for _, unit, qtype, _, _ in rows:
         by_type[qtype] = by_type.get(qtype, 0) + 1
-    print("  Breakdown by question_type:")
+    logger.debug("  Breakdown by question_type:")
     for qtype, count in sorted(by_type.items(), key=lambda x: -x[1]):
-        print(f"    {qtype}: {count}")
-    print()
+        logger.debug(f"    {qtype}: {count}")
+    logger.debug()
 
 
 def main():
@@ -79,7 +80,7 @@ def main():
 
     db_path = str(TEXTBOOK_DB)
     conn = sqlite3.connect(db_path)
-    print(f"Database: {db_path}\n")
+    logger.debug(f"Database: {db_path}\n")
 
     show_both = not args.vocab and not args.questions
     if args.vocab or show_both:

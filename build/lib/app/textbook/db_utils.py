@@ -27,7 +27,7 @@ from .models import (
 import json
 from collections import defaultdict
 from app.core.config.data import TEXTBOOK_DB
-
+from app.core.logger import logger
 
 engine = create_engine(f"sqlite:///{TEXTBOOK_DB}", connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
@@ -838,7 +838,7 @@ def rehome_sentences(db: Session, hsk_level: int = 1) -> dict:
         moved += 1
 
     db.flush()
-    print(f"  [rehome] hsk_level {hsk_level}: moved {moved} sentence(s) to an earlier unit, "
+    logger.debug(f"  [rehome] hsk_level {hsk_level}: moved {moved} sentence(s) to an earlier unit, "
           f"deleted {deleted} duplicate(s)")
     return {"moved": moved, "deleted": deleted}
 

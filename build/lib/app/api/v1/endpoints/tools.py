@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from core.database import SessionLocal
 from pinyin_utils import to_numbered_pinyin
 from shared.crud import get_dictionary_entries
-
+from app.core.logger import logger
 # ----------------------------- DB DEPENDENCY -----------------------------
 
 def get_db():
@@ -19,7 +19,7 @@ router = APIRouter()
 @router.post("/api/pinyin")
 async def get_pinyin(payload: dict):
     text = payload.get("text", "")
-    print("text: ", text)
+    logger.debug("text: ", text)
     return JSONResponse({"pinyin": to_numbered_pinyin(text)})
 
 @router.get("/dictionary/{word}")

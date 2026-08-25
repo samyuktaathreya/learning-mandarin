@@ -1,5 +1,4 @@
 import os
-from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException
 import httpx
 from sqlalchemy.orm import Session
@@ -7,7 +6,8 @@ from fastapi import APIRouter, Depends, Body, HTTPException
 from core.database import SessionLocal
 from shared.crud import build_vocab_block
 from session.crud import get_known_vocab_tags
-from core.config.shared import ENV_FILE
+from core.config.shared import settings
+
 # from openai import OpenAI  <- You don't actually need this if you are using httpx to make the web request
 
 router = APIRouter()
@@ -19,8 +19,7 @@ def get_db():
     finally:
         db.close()
 
-load_dotenv(ENV_FILE)
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+OPENAI_API_KEY = settings.OPENAI_API_KEY
 
 # FIX 1: I deleted the duplicate `/realtime/session` route that was using the fake command.
 # We only need this one route to get the token for your frontend.

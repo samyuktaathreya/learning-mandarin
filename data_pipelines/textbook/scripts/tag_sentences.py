@@ -103,10 +103,9 @@ import logging
 from datetime import datetime
 import time
 import anthropic
-from dotenv import load_dotenv
 from pypinyin import lazy_pinyin, Style
 import time
-from app.core.config.shared import ENV_FILE
+from app.core.config.shared import settings
 from app.textbook.db_utils import (
     get_session, init_db, get_or_create_vocab, get_senses_for_vocab,
     get_cached_sense, write_sense_cache, get_senses_matching_pos_pinyin,
@@ -117,8 +116,7 @@ from app.textbook.models import Sentence, SentenceVocab, WordType, VocabOrigin
 
 HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
 
-load_dotenv(ENV_FILE)
-api_key = os.environ.get("CLAUDE_API_KEY")
+api_key = settings.CLAUDE_API_KEY
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
 
 HAIKU_MODEL = "claude-haiku-4-5"

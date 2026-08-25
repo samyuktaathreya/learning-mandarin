@@ -18,7 +18,7 @@ from session.constants import (
     FINAL_PUSH_UNGRADUATED_THRESHOLD,
 )
 from textbook import services
-
+from app.core.logger import logger
 
 def _tier_types_for_facet(tier: int, facet: str) -> list:
     return [qt for qt in TIER_QUESTION_TYPES[tier]
@@ -150,7 +150,7 @@ def generate_tier_questions(db: Session, textbook_db: Session, user_id: int, uni
                     facet_counts[tag][f] += 1
             return True
 
-        print(f"[generate_tier_questions] WARNING: tag '{tag}' has NO available "
+        logger.debug(f"[generate_tier_questions] WARNING: tag '{tag}' has NO available "
               f"question at tier {serve_tier} (unit {unit}) -- content gap, "
               f"this tag cannot advance until data is added")
         return False

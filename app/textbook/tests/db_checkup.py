@@ -11,7 +11,7 @@ import sqlite3
 import sys
 
 from app.core.config.data import TEXTBOOK_DB
-
+from app.core.logger import logger
 
 def main():
     parser = argparse.ArgumentParser()
@@ -19,20 +19,20 @@ def main():
     args = parser.parse_args()
 
     if not os.path.exists(args.db):
-        print(f"Database not found: {args.db}", file=sys.stderr)
+        logger.debug(f"Database not found: {args.db}", file=sys.stderr)
         sys.exit(1)
 
     conn = sqlite3.connect(args.db)
-    print(f"Database: {args.db}\n")
+    logger.debug(f"Database: {args.db}\n")
 
     # --- totals ---
-    print("TOTALS")
+    logger.debug("TOTALS")
     for t in ["units", "vocab", "sentences", "sentence_vocab", "grammar_tips",
               "sentence_grammar", "fitb_questions", "questions"]:
         n = conn.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
-        print(f"  {t}: {n}")
+        logger.debug(f"  {t}: {n}")
 
-    print("\nISSUES FOUND")
+    logger.debug("\nISSUES FOUND")
     found_any = False
 
     # units with vocab but zero questions
@@ -43,13 +43,13 @@ def main():
     """).fetchall()
     if empty_units:
         found_any = True
-        print(f"  - Units with vocab but 0 questions: {[r[0] for r in empty_units]}")
+        logger.debug(f"  - Units with vocab but 0 questions: {[r[0] for r in empty_units]}")
 
     # grammar tips missing entirely
     grammar_count = conn.execute("SELECT COUNT(*) FROM grammar_tips").fetchone()[0]
     if grammar_count == 0:
         found_any = True
-        print("  - No grammar_tips at all -- extract_and_match_grammar.py hasn't "
+        logger.debug("  - No grammar_tips at all -- extract_and_match_grammar.py hasn't "
               "completed successfully yet")
 
     # vocab with placeholder/missing definitions
@@ -60,7 +60,7 @@ def main():
     """).fetchone()[0]
     if bad_vocab:
         found_any = True
-        print(f"  - {bad_vocab} vocab row(s) with missing/placeholder pinyin or english "
+        logger.debug(f"  - {bad_vocab} vocab row(s) with missing/placeholder pinyin or english "
               f"(run sync_index_definitions.py / append_orphan_tags.py)")
 
     # questions unreachable via any tag lookup
@@ -69,7 +69,7 @@ def main():
     """).fetchone()[0]
     if orphan_questions:
         found_any = True
-        print(f"  - {orphan_questions} question(s) with neither vocab_id nor sentence_id "
+        logger.debug(f"  - {orphan_questions} question(s) with neither vocab_id nor sentence_id "
               f"(unreachable by spaced repetition)")
 
     # sentences with no tags
@@ -79,7 +79,7 @@ def main():
     """).fetchone()[0]
     if untagged:
         found_any = True
-        print(f"  - {untagged} sentence(s) with zero tags")
+        logger.debug(f"  - {untagged} sentence(s) with zero tags")
 
     # duplicates (should never happen -- upserts are supposed to prevent this)
     dup_vocab = conn.execute("""
@@ -93,11 +93,11 @@ def main():
     """).fetchone()[0]
     if dup_vocab or dup_questions:
         found_any = True
-        print(f"  - Duplicates found: {dup_vocab} vocab, {dup_questions} questions "
+        logger.debug(f"  - Duplicates found: {dup_vocab} vocab, {dup_questions} questions "
               f"(idempotency broke somewhere)")
 
     if not found_any:
-        print("  None -- looks healthy.")
+        logger.debug("  None -- looks healthy.")
 
     conn.close()
 

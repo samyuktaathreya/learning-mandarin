@@ -30,8 +30,7 @@ import json
 import datetime
 import time
 import anthropic
-from dotenv import load_dotenv
-from app.core.config.shared import ENV_FILE
+from app.core.config.shared import settings
 from app.core.config.textbook import (
     TEXTBOOK_RAW_DIR,
     SOP_PATH,
@@ -78,8 +77,7 @@ GRAMMAR_POS_PREFIXES = ("part", "aux", "助")
 
 # --------------------------------- SETUP ---------------------------------
 
-load_dotenv(ENV_FILE)
-api_key = os.environ.get("CLAUDE_API_KEY")
+api_key = settings.CLAUDE_API_KEY
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
 
 

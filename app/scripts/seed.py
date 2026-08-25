@@ -13,6 +13,7 @@ from textbook.services import get_all_vocab_tags, FACETS
 from auth.models import User
 from session.models import StrengthTable
 from shared.models import DictionaryEntry
+from app.core.logger import logger
 
 '''
 # Data path is relative to the project root
@@ -23,9 +24,9 @@ def seed_cedict(db):
     if db.query(DictionaryEntry).first():
         return
 
-    print("Seeding CC-CEDICT dictionary into database...")
+    logger.debug("Seeding CC-CEDICT dictionary into database...")
     if not DICT_PATH.exists():
-        print(f"Warning: CC-CEDICT file not found at {DICT_PATH}")
+        logger.debug(f"Warning: CC-CEDICT file not found at {DICT_PATH}")
         return
 
     entries = []
@@ -60,7 +61,7 @@ def seed_cedict(db):
     if entries:
         db.bulk_insert_mappings(DictionaryEntry, entries)
         db.commit()
-        print(f"CC-CEDICT seeding complete! ({len(entries)} entries added)")
+        logger.debug(f"CC-CEDICT seeding complete! ({len(entries)} entries added)")
 '''
 
 def init_db():
@@ -74,7 +75,7 @@ def init_db():
     try:
         if not db.query(User).filter(User.id == 1).first():
             db.add(User(id=1, current_unit=3, graduated_units=""))
-            print("Default user created.")
+            logger.debug("Default user created.")
 
         existing = {
             (row.tag, row.facet) for row in
@@ -99,7 +100,7 @@ def init_db():
                 added += 1
 
         db.commit()
-        print(f"Strength table seeded: {added} new (tag, facet) rows added "
+        logger.debug(f"Strength table seeded: {added} new (tag, facet) rows added "
               f"across {len(vocab_tags)} tags x {len(FACETS)} facets.")
 
         # Seed Cedict
@@ -111,6 +112,6 @@ def init_db():
 
 
 if __name__ == "__main__":
-    print("Starting database seed...")
+    logger.debug("Starting database seed...")
     init_db()
-    print("Database seeding complete.")
+    logger.debug("Database seeding complete.")
