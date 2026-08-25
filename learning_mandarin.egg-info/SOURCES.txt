@@ -24,6 +24,7 @@ app/core/database.py
 app/core/config/__init__.py
 app/core/config/characters.py
 app/core/config/data.py
+app/core/config/external_sources.py
 app/core/config/session.py
 app/core/config/shared.py
 app/core/config/textbook.py
@@ -70,10 +71,15 @@ data_pipelines/characters/scripts/populate_ids.py
 data_pipelines/characters/scripts/populate_radicals.py
 data_pipelines/characters/scripts/test_db.py
 data_pipelines/external_sources/hsk-sentences-audio/scripts/import_sentences.py
+data_pipelines/external_sources/hsk-sentences-audio/test_scripts/investigate_tokens.py
+data_pipelines/external_sources/hsk-sentences-audio/test_scripts/test.py
+data_pipelines/external_sources/hsk-vocab-list/scripts/main.py
 data_pipelines/textbook/migration_scripts/add_hsk_user_level_to_mandarinapp.py
 data_pipelines/textbook/migration_scripts/add_hsk_user_level_to_textbookdb.py
 data_pipelines/textbook/migration_scripts/add_sentence_external_metadata.py
+data_pipelines/textbook/migration_scripts/cleanup_numerical_vocab.py
 data_pipelines/textbook/migration_scripts/migrate_add_sentence_id.py
+data_pipelines/textbook/migration_scripts/migrate_pinyin_to_sandhi.py
 data_pipelines/textbook/migration_scripts/migrate_sentence_vocab.py
 data_pipelines/textbook/migration_scripts/migrate_to_vocab_senses.py
 data_pipelines/textbook/migration_scripts/repair_diacritic_pinyin.py
@@ -81,6 +87,7 @@ data_pipelines/textbook/migration_scripts/repair_diacritic_questions.py
 data_pipelines/textbook/scripts/cedict_utils.py
 data_pipelines/textbook/scripts/create_questions.py
 data_pipelines/textbook/scripts/extract_and_match_grammar.py
+data_pipelines/textbook/scripts/fitb_parser.py
 data_pipelines/textbook/scripts/main.py
 data_pipelines/textbook/scripts/sentence_parser.py
 data_pipelines/textbook/scripts/tag_sentences.py
