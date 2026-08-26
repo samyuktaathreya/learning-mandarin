@@ -25,7 +25,7 @@ audio_cache = {}
 session_files = set()
 
 AZURE_SPEECH_KEY = settings.AZURE_SPEECH_KEY
-AZURE_SPEECH_REGION = settings.AZURE_REGION
+AZURE_SPEECH_REGION = settings.AZURE_SPEECH_REGION
 
 # --- Pronunciation assessment tuning ---
 ACCURACY_THRESHOLD = 90
