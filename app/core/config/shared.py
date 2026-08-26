@@ -11,7 +11,6 @@ class Settings(BaseSettings):
 
     # Required Environment Variables
     environment: str
-    database_url: str
     AZURE_SPEECH_KEY: str
     AZURE_SPEECH_REGION: str
     OPENAI_API_KEY: str
