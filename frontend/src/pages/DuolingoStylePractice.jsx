@@ -8,6 +8,7 @@ import SpeakingQuestion from '../Components/SpeakingQuestion';
 import Results from '../Components/Results';
 import Modal from '../Components/Modal';
 import ReviewCounter from '../Components/ReviewCounter';
+import { API_BASE_URL } from '../config';
 
 const USER_ID = 1;
 
@@ -54,7 +55,7 @@ const fetchAudioData = (text, slow = false) => {
     const key = `${text}::${slow}`;
     if (audioCache.has(key)) return audioCache.get(key);
 
-    const promise = fetch('/api/audio', {
+    const promise = fetch(`${API_BASE_URL}/api/audio`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, slow }),
@@ -312,7 +313,7 @@ export default function DuolingoStyleQuestions() {
 
     const fetchProgress = async () => {
         try {
-            const res = await fetch(`/api/progress/${USER_ID}`);
+            const res = await fetch(`${API_BASE_URL}/api/progress/${USER_ID}`);
             setProgress(await res.json());
         } catch (e) { console.error("Failed to fetch progress", e); }
     };
@@ -321,7 +322,7 @@ export default function DuolingoStyleQuestions() {
         setIsLoading(true);
         setDebugMode(debug);
         try {
-            const url = `/api/generate_session/${USER_ID}` + (skipReview ? '?skip_review=true' : '');
+            const url = `${API_BASE_URL}/api/generate_session/${USER_ID}` + (skipReview ? '?skip_review=true' : '');
             const response = await fetch(url);
             if (!response.ok) {
                 setIsLoading(false);
@@ -349,7 +350,7 @@ export default function DuolingoStyleQuestions() {
 
     const submitSession = async (finalAnswerLog) => {
         try {
-            await fetch(`/api/submit_session/${USER_ID}`, {
+            await fetch(`${API_BASE_URL}/api/submit_session/${USER_ID}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -358,7 +359,7 @@ export default function DuolingoStyleQuestions() {
                     is_unit_test: sessionType === "unit_test",
                 }),
             });
-            await fetch('/api/audio/clear', { method: 'POST' });
+            await fetch(`${API_BASE_URL}/api/audio/clear`, { method: 'POST' });
             clearAudioCache();
             fetchProgress();
         } catch (error) { console.error("Failed to submit session", error); }
@@ -430,7 +431,7 @@ export default function DuolingoStyleQuestions() {
         try {
             if (GRADE_ENGLISH_TO_CHINESE_TYPES.has(question_type)) {
                 try {
-                    const res = await fetch('/api/grade_english_to_chinese', {
+                    const res = await fetch(`${API_BASE_URL}/api/grade_english_to_chinese`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -448,7 +449,7 @@ export default function DuolingoStyleQuestions() {
 
             if (TRANSLATE_TO_ENGLISH_TYPES.has(question_type)) {
                 try {
-                    const res = await fetch('/api/grade_chinese_to_english', {
+                    const res = await fetch(`${API_BASE_URL}/api/grade_chinese_to_english`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -501,7 +502,7 @@ export default function DuolingoStyleQuestions() {
             const reader = new FileReader();
             reader.onloadend = async () => {
                 const base64 = reader.result.split(',')[1];
-                const res = await fetch('/api/transcribe', {
+                const res = await fetch(`${API_BASE_URL}/api/transcribe`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

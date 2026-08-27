@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { API_BASE_URL } from '../config';
 
 /**
  * SPIKE: Pronunciation Assessment test page.
@@ -61,7 +62,7 @@ export default function TestPronounciation() {
         reader.onloadend = async () => {
             const base64 = reader.result.split(',')[1];
             try {
-                const res = await fetch('/api/test/pronunciation', {
+                const res = await fetch(`${API_BASE_URL}/api/test/pronunciation`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ audio: base64, reference }),

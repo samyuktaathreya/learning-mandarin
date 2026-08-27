@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 
 const USER_ID = 1;
 
@@ -48,7 +49,7 @@ export default function UnitDetail({ unit }) {
     useEffect(() => {
         let cancelled = false;
         setLoading(true);
-        fetch(`/api/unit_detail/${USER_ID}/${unit}`)
+        fetch(`${API_BASE_URL}/api/unit_detail/${USER_ID}/${unit}`)
             .then(r => r.json())
             .then(d => { if (!cancelled) { setData(d); setLoading(false); } })
             .catch(() => { if (!cancelled) setLoading(false); });

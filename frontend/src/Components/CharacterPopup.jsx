@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import '../App.css'
+import { API_BASE_URL } from '../config';
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 
 /**
@@ -36,7 +37,7 @@ export function ClickableText({ text, tags = [], isUnitTest, unitId, hskLevel = 
 
         setPopup({ word, pinyin: '...', english: null, unit: null, other_definitions: [], x, y });
 
-        let url = `/api/lookup/${encodeURIComponent(word)}`;
+        let url = `${API_BASE_URL}/api/lookup/${encodeURIComponent(word)}`;
         const queryParams = new URLSearchParams();
         if (unitId != null) queryParams.append('unit', unitId);
         if (hskLevel != null) queryParams.append('hsk_level', hskLevel);

@@ -3,6 +3,7 @@ import { ClickableText } from './CharacterPopup';
 import MultipleChoice from './MultipleChoice';
 import { useState, useEffect } from 'react';
 import CharacterDecomposition from './CharacterDecomposition'
+import { API_BASE_URL } from '../config';
 
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 
@@ -114,7 +115,7 @@ export default function Question({
             return;
         }
         
-        fetch(`/api/sentence_tags/${currentQuestionObj.sentence_id}`)
+        fetch(`${API_BASE_URL}/api/sentence_tags/${currentQuestionObj.sentence_id}`)
             .then(res => res.json())
             .then(data => setSentenceTagMetadata(data.tags || {}))
             .catch(err => {
@@ -139,7 +140,7 @@ export default function Question({
 
             console.debug("[decomposition] fetching for:", uniqueChars, "from chars:", chars);
 
-            fetch(`/api/characters/decompose?text=${encodeURIComponent(uniqueChars)}&recursive=false`)
+            fetch(`${API_BASE_URL}/api/characters/decompose?text=${encodeURIComponent(uniqueChars)}&recursive=false`)
                 .then(res => res.json())
                 .then(data => {
                     console.debug("[decomposition] API response:", data);
@@ -154,7 +155,7 @@ export default function Question({
         if (!tipDraft.trim() || !keyValue) return;
         setTipSaveState('saving');
         try {
-            await fetch('/api/tips', {
+            await fetch(`${API_BASE_URL}/api/tips`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ key_type: tipKeyType, key_value: keyValue, tip: tipDraft.trim() }),
@@ -168,7 +169,7 @@ export default function Question({
 
     useEffect(() => {
         if (isWrong && isListening) {
-            fetch('/api/pinyin', {
+            fetch(`${API_BASE_URL}/api/pinyin`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ text: currentQuestionObj.answer }),
