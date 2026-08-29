@@ -1,52 +1,156 @@
-name: Deploy Frontend to GitHub Pages
+name: Build and Deploy Frontend
 
 on:
   push:
-    branches: ["main"] # Trigger on pushes to main
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
 
 jobs:
-  deploy-frontend:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build-and-push:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./frontend
+    outputs:
+      image-tag: ${{ steps.meta.outputs.version }}
+
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
         with:
-          node-version: 20
-          cache: 'npm'
-          cache-dependency-path: './frontend/package-lock.json'
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build static site
-        run: npm run build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
         with:
-          path: './frontend/dist' # Change 'dist' to 'build' if using Create React App
+          images: ${{ vars.DOCKERHUB_USERNAME }}/my-frontend
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/my-frontend:buildcache
+          cache-to: type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/my-frontend:buildcache,mode=max
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Write deploy script
+        env:
+          DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+          IMAGE_TAG: ${{ needs.build-and-push.outputs.image-tag }}
+        run: |
+          cat > /tmp/deploy.sh << SCRIPT
+          #!/usr/bin/env bash
+          set -euo pipefail
+
+          DOCKERHUB_USERNAME="${DOCKERHUB_USERNAME}"
+          IMAGE_TAG="${IMAGE_TAG}"
+
+          if [ -z "\${DOCKERHUB_USERNAME}" ] || [ -z "\${IMAGE_TAG}" ]; then
+            echo "Error: DOCKERHUB_USERNAME or IMAGE_TAG is empty"
+            exit 1
+          fi
+
+          if docker compose version >/dev/null 2>&1; then
+            COMPOSE="docker compose"
+          elif command -v docker-compose >/dev/null 2>&1; then
+            COMPOSE="docker-compose"
+          else
+            echo "Error: neither 'docker compose' nor 'docker-compose' found"
+            exit 1
+          fi
+
+          echo "Deploying \${DOCKERHUB_USERNAME}/my-frontend:\${IMAGE_TAG}"
+
+          cd ~/learning_mandarin
+
+          docker pull "\${DOCKERHUB_USERNAME}/my-frontend:\${IMAGE_TAG}"
+
+          # Update only our two keys, preserving every other line in app/.env
+          mkdir -p app
+          touch app/.env
+          cp app/.env app/.env.bak
+          TMP_ENV="\$(mktemp)"
+          grep -vE '^(FRONTEND_IMAGE_TAG|DOCKERHUB_USERNAME)=' app/.env > "\$TMP_ENV" || true
+          printf 'FRONTEND_IMAGE_TAG=%s\n' "\${IMAGE_TAG}" >> "\$TMP_ENV"
+          printf 'DOCKERHUB_USERNAME=%s\n' "\${DOCKERHUB_USERNAME}" >> "\$TMP_ENV"
+          mv "\$TMP_ENV" app/.env
+
+          \$COMPOSE down --remove-orphans || true
+          \$COMPOSE up -d
+
+          sleep 5
+          \$COMPOSE ps
+
+          if \$COMPOSE ps | grep -qiE '\bexit(ed)?\b'; then
+            echo "Error: some containers failed to start"
+            \$COMPOSE logs --tail=100
+            exit 1
+          fi
+
+          echo "Deployment successful"
+          SCRIPT
+          chmod +x /tmp/deploy.sh
+
+          grep -q 'DOCKERHUB_USERNAME=""' /tmp/deploy.sh && {
+            echo "Error: DOCKERHUB_USERNAME did not interpolate"; exit 1; }
+          grep -q 'IMAGE_TAG=""' /tmp/deploy.sh && {
+            echo "Error: IMAGE_TAG did not interpolate"; exit 1; }
+          true
+
+      - name: Deploy to VPS
+        env:
+          VPS_HOST: ${{ vars.VPS_HOST }}
+          VPS_USERNAME: ${{ vars.VPS_USERNAME }}
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/vps_key
+          chmod 600 ~/.ssh/vps_key
+
+          scp -i ~/.ssh/vps_key \
+            -o StrictHostKeyChecking=accept-new \
+            -o ConnectTimeout=10 \
+            docker-compose.yml "$VPS_USERNAME@$VPS_HOST:~/learning_mandarin/docker-compose.yml"
+
+          scp -i ~/.ssh/vps_key \
+            -o StrictHostKeyChecking=accept-new \
+            -o ConnectTimeout=10 \
+            /tmp/deploy.sh "$VPS_USERNAME@$VPS_HOST:/tmp/deploy.sh"
+
+          ssh -i ~/.ssh/vps_key \
+            -o StrictHostKeyChecking=accept-new \
+            -o ConnectTimeout=10 \
+            "$VPS_USERNAME@$VPS_HOST" "bash /tmp/deploy.sh; rc=\$?; rm -f /tmp/deploy.sh; exit \$rc"
+
+      - name: Cleanup
+        if: always()
+        run: rm -f ~/.ssh/vps_key /tmp/deploy.sh
+
+      - name: Deployment notification
+        if: failure()
+        run: echo "Deployment failed - check logs above"
