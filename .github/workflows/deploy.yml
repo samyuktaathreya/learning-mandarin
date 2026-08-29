@@ -139,7 +139,7 @@ jobs:
           scp -i ~/.ssh/vps_key \
             -o StrictHostKeyChecking=accept-new \
             -o ConnectTimeout=10 \
-            docker-compose.yml "$VPS_USERNAME@$VPS_HOST:~/learning_mandarin/app/docker-compose.yml"
+            docker-compose.yml "$VPS_USERNAME@$VPS_HOST:~/learning_mandarin/docker-compose.yml"
 
           scp -i ~/.ssh/vps_key \
             -o StrictHostKeyChecking=accept-new \
