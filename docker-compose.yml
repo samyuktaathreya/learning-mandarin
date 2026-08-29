@@ -1,6 +1,6 @@
 services:
   backend:
-    image: your-dockerhub-username/my-backend:latest
+    image: ${DOCKERHUB_USERNAME}/my-backend:latest
     ports:
       - "8000:8000"
     env_file:

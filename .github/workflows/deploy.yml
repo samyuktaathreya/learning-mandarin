@@ -5,14 +5,14 @@ on:
     branches:
       - main
       - develop
-  workflow_dispatch:  # Allows manual trigger from GitHub UI
+  workflow_dispatch:
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     outputs:
-      image-tag: ${{ steps.meta.outputs.tags }}
-    
+      image-tag: ${{ steps.meta.outputs.version }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,14 +23,14 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/my-backend
+          images: ${{ vars.DOCKERHUB_USERNAME }}/my-backend
           tags: |
             type=ref,event=branch
             type=semver,pattern={{version}}
@@ -41,56 +41,115 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: . 
-          push: true 
+          context: .
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/my-backend:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/my-backend:buildcache,mode=max
+          cache-from: type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/my-backend:buildcache
+          cache-to: type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/my-backend:buildcache,mode=max
 
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'  # Only deploy on main branch
-    
+    if: github.ref == 'refs/heads/main'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Write deploy script
+        env:
+          DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
+          IMAGE_TAG: ${{ needs.build-and-push.outputs.image-tag }}
+        run: |
+          # Unquoted marker: ${DOCKERHUB_USERNAME} and ${IMAGE_TAG} are
+          # interpolated here on the runner. Anything escaped as \${...}
+          # stays literal and is evaluated later on the VPS.
+          cat > /tmp/deploy.sh << SCRIPT
+          #!/usr/bin/env bash
+          set -euo pipefail
+
+          DOCKERHUB_USERNAME="${DOCKERHUB_USERNAME}"
+          IMAGE_TAG="${IMAGE_TAG}"
+
+          if [ -z "\${DOCKERHUB_USERNAME}" ] || [ -z "\${IMAGE_TAG}" ]; then
+            echo "Error: DOCKERHUB_USERNAME or IMAGE_TAG is empty"
+            exit 1
+          fi
+
+          # Pick whichever compose command exists on this host
+          if docker compose version >/dev/null 2>&1; then
+            COMPOSE="docker compose"
+          elif command -v docker-compose >/dev/null 2>&1; then
+            COMPOSE="docker-compose"
+          else
+            echo "Error: neither 'docker compose' nor 'docker-compose' found"
+            exit 1
+          fi
+
+          echo "Deploying \${DOCKERHUB_USERNAME}/my-backend:\${IMAGE_TAG}"
+
+          cd ~/app
+
+          docker pull "\${DOCKERHUB_USERNAME}/my-backend:\${IMAGE_TAG}"
+
+          # Update only our two keys, preserving every other line in .env
+          touch .env
+          cp .env .env.bak
+          TMP_ENV="\$(mktemp)"
+          grep -vE '^(IMAGE_TAG|DOCKERHUB_USERNAME)=' .env > "\$TMP_ENV" || true
+          printf 'IMAGE_TAG=%s\n' "\${IMAGE_TAG}" >> "\$TMP_ENV"
+          printf 'DOCKERHUB_USERNAME=%s\n' "\${DOCKERHUB_USERNAME}" >> "\$TMP_ENV"
+          mv "\$TMP_ENV" .env
+
+          \$COMPOSE down --remove-orphans || true
+          \$COMPOSE up -d
+
+          sleep 5
+          \$COMPOSE ps
+
+          if \$COMPOSE ps | grep -qiE '\bexit(ed)?\b'; then
+            echo "Error: some containers failed to start"
+            \$COMPOSE logs --tail=100
+            exit 1
+          fi
+
+          echo "Deployment successful"
+          SCRIPT
+          chmod +x /tmp/deploy.sh
+
+          # Fail fast if interpolation silently produced empty values
+          grep -q 'DOCKERHUB_USERNAME=""' /tmp/deploy.sh && {
+            echo "Error: DOCKERHUB_USERNAME did not interpolate"; exit 1; }
+          grep -q 'IMAGE_TAG=""' /tmp/deploy.sh && {
+            echo "Error: IMAGE_TAG did not interpolate"; exit 1; }
+          true
+
       - name: Deploy to VPS
         env:
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_USERNAME: ${{ secrets.VPS_USERNAME }}
+          VPS_HOST: ${{ vars.VPS_HOST }}
+          VPS_USERNAME: ${{ vars.VPS_USERNAME }}
           VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
-          # Create SSH key file
           mkdir -p ~/.ssh
-          echo "$VPS_SSH_KEY" > ~/.ssh/vps_key
+          chmod 700 ~/.ssh
+
+          printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/vps_key
           chmod 600 ~/.ssh/vps_key
-          
-          # Add VPS to known hosts (prevents SSH prompt)
-          ssh-keyscan -H $VPS_HOST >> ~/.ssh/known_hosts 2>/dev/null
-          
-          # Deploy script
-          ssh -i ~/.ssh/vps_key $VPS_USERNAME@$VPS_HOST << 'EOF'
-            set -e
-            
-            # Navigate to your backend directory
-            cd ~/app  # Adjust this path to where your docker-compose.yml is located
-            
-            # Pull latest image
-            docker pull $DOCKERHUB_USERNAME/my-backend:latest
-            
-            # Restart services
-            docker-compose down
-            docker-compose up -d
-            
-            # Verify deployment
-            docker-compose ps
-            
-            echo "✓ Deployment successful"
-          EOF
-          
-      - name: Cleanup SSH key
+
+          scp -i ~/.ssh/vps_key \
+            -o StrictHostKeyChecking=accept-new \
+            -o ConnectTimeout=10 \
+            /tmp/deploy.sh "$VPS_USERNAME@$VPS_HOST:/tmp/deploy.sh"
+
+          ssh -i ~/.ssh/vps_key \
+            -o StrictHostKeyChecking=accept-new \
+            -o ConnectTimeout=10 \
+            "$VPS_USERNAME@$VPS_HOST" "bash /tmp/deploy.sh; rc=\$?; rm -f /tmp/deploy.sh; exit \$rc"
+
+      - name: Cleanup
         if: always()
-        run: rm -f ~/.ssh/vps_key
+        run: rm -f ~/.ssh/vps_key /tmp/deploy.sh
+
+      - name: Deployment notification
+        if: failure()
+        run: echo "Deployment failed - check logs above"
