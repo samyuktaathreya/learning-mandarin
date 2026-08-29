@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     // Replace YOUR-REPO-NAME with your actual repository name:
-    base: isProd ? '/learning-mandarin/' : '/',
+    base: isProd ? '/' : '/',
     server: {
       host: '0.0.0.0',
       port: 5173,
