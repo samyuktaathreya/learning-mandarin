@@ -5,7 +5,7 @@ import TestPronunciation from "./pages/TestPronounciation"
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/duolingo-style-practice" element={<DuolingoStyleQuestions />} />
         <Route path="/mandarin-voice-practice" element={<MandarinVoicePractice />} />
