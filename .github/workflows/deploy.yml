@@ -150,7 +150,7 @@ jobs:
           ssh -i ~/.ssh/vps_key \
             -o StrictHostKeyChecking=accept-new \
             -o ConnectTimeout=10 \
-            "$VPS_USERNAME@$VPS_HOST" "bash /tmp/deploy.sh; rc=\$?; rm -f /tmp/deploy.sh; exit \$rc"
+            "$VPS_USERNAME@$VPS_HOST" "bash --noprofile --norc /tmp/deploy.sh; rc=\$?; rm -f /tmp/deploy.sh; exit \$rc"
 
       - name: Cleanup
         if: always()
