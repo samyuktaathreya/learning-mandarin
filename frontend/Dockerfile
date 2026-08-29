@@ -5,12 +5,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
+# .env (with VITE_API_URL) must be committed and present here —
+# Vite reads it automatically during build
 COPY . .
-
-# Force production mode for Vite build
-ENV NODE_ENV=production
-ENV VITE_ENVIRONMENT=PROD
-
 RUN npm run build
 
 # --- Serve stage ---
