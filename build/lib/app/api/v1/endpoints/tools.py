@@ -5,6 +5,7 @@ from core.database import SessionLocal
 from pinyin_utils import to_numbered_pinyin
 from shared.crud import get_dictionary_entries
 from app.core.logger import logger
+
 # ----------------------------- DB DEPENDENCY -----------------------------
 
 def get_db():
@@ -12,7 +13,7 @@ def get_db():
     try:
         yield db
     finally:
-        db.close()
+        db.close() 
 
 router = APIRouter()
 

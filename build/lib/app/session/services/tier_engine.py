@@ -20,6 +20,7 @@ from session.constants import (
 from textbook import services
 from app.core.logger import logger
 
+
 def _tier_types_for_facet(tier: int, facet: str) -> list:
     return [qt for qt in TIER_QUESTION_TYPES[tier]
             if facet in crud.QUESTION_TYPE_FACETS.get(qt, [])]

@@ -3,6 +3,7 @@ from textbook.db_utils import SessionLocal as TextbookSessionLocal
 from session.services.review_engine import _due_review_facets
 from textbook import crud
 from app.core.logger import logger
+
 db = SessionDB()
 textbook_db = TextbookSessionLocal()
 

@@ -9,9 +9,10 @@ Usage:
 import argparse
 import sqlite3
 import sys
+from app.core.logger import logger
 
 from app.core.config.data import TEXTBOOK_DB
-from app.core.logger import logger
+
 
 def show_incomplete_vocab(conn):
     logger.debug("=" * 70)
