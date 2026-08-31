@@ -150,7 +150,7 @@ jobs:
             "$VPS_USERNAME@$VPS_HOST" "bash --noprofile --norc /tmp/deploy.sh; rc=\$?; rm -f /tmp/deploy.sh; exit \$rc"
 
       - name: Cleanup
-        if: always()
+        if: always() 
         run: rm -f ~/.ssh/vps_key /tmp/deploy.sh
 
       - name: Deployment notification
