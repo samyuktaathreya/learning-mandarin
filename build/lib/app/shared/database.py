@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from core.database import SessionLocal
 from core.config.textbook import DICT_PATH
 from app.core.logger import logger
+
 # Import required parsed data and constants from services
 from textbook.services import unique_vocab_tags, FACETS
 

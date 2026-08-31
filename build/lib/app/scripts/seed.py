@@ -14,6 +14,7 @@ from auth.models import User
 from session.models import StrengthTable
 from shared.models import DictionaryEntry
 from app.core.logger import logger
+
 '''
 # Data path is relative to the project root
 DICT_PATH = BASE_DIR / "language-app-data" / "data" / "raw" / "chinese_english_dictionary.u8"
