@@ -3,7 +3,7 @@ import DuolingoStyleQuestions from "./pages/DuolingoStylePractice"
 import MandarinVoicePractice from "./pages/MandarinVoicePractice"
 import TestPronunciation from "./pages/TestPronounciation"
 
-function App() {
+function App() { 
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
