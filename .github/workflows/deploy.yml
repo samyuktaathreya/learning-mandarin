@@ -110,7 +110,7 @@ jobs:
           sleep 5
           \$COMPOSE ps backend
 
-          if \$COMPOSE ps backend | grep -qiE '\bexit(ed)?\b'; then
+          if \$COMPOSE ps backend | grep -qiE "\bexit(ed)?\b"; then
             echo "Error: backend container failed to start"
             \$COMPOSE logs --tail=100 backend
             exit 1
@@ -118,6 +118,7 @@ jobs:
 
           echo "Deployment successful"
           SCRIPT
+          cat -n /tmp/deploy.sh
           chmod +x /tmp/deploy.sh
 
           grep -q 'DOCKERHUB_USERNAME=""' /tmp/deploy.sh && {
