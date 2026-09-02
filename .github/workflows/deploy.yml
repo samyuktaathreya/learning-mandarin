@@ -5,6 +5,14 @@ on:
     branches:
       - main
       - develop
+    paths:
+      - 'app/**'
+      - 'data/**'
+      - 'pyproject.toml'
+      - 'setup.py'
+      - 'Dockerfile'
+      - 'docker-compose.yml'
+      - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
 jobs:
@@ -42,6 +50,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: ./Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/my-backend:buildcache
@@ -61,9 +70,6 @@ jobs:
           DOCKERHUB_USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
           IMAGE_TAG: ${{ needs.build-and-push.outputs.image-tag }}
         run: |
-          # Unquoted marker: ${DOCKERHUB_USERNAME} and ${IMAGE_TAG} are
-          # interpolated here on the runner. Anything escaped as \${...}
-          # stays literal and is evaluated later on the VPS.
           cat > /tmp/deploy.sh << SCRIPT
           #!/usr/bin/env bash
           set -euo pipefail
@@ -76,7 +82,6 @@ jobs:
             exit 1
           fi
 
-          # Pick whichever compose command exists on this host
           if docker compose version >/dev/null 2>&1; then
             COMPOSE="docker compose"
           elif command -v docker-compose >/dev/null 2>&1; then
@@ -92,33 +97,30 @@ jobs:
 
           docker pull "\${DOCKERHUB_USERNAME}/my-backend:\${IMAGE_TAG}"
 
-          # Update only our two keys, preserving every other line in app/.env
-          mkdir -p app
-          touch app/.env
-          cp app/.env app/.env.bak
+          touch .env
+          cp .env .env.bak
           TMP_ENV="\$(mktemp)"
-          grep -vE '^(IMAGE_TAG|DOCKERHUB_USERNAME)=' app/.env > "\$TMP_ENV" || true
-          printf 'IMAGE_TAG=%s\n' "\${IMAGE_TAG}" >> "\$TMP_ENV"
+          grep -vE '^(BACKEND_IMAGE_TAG|DOCKERHUB_USERNAME)=' .env > "\$TMP_ENV" || true
+          printf 'BACKEND_IMAGE_TAG=%s\n' "\${IMAGE_TAG}" >> "\$TMP_ENV"
           printf 'DOCKERHUB_USERNAME=%s\n' "\${DOCKERHUB_USERNAME}" >> "\$TMP_ENV"
-          mv "\$TMP_ENV" app/.env
+          mv "\$TMP_ENV" .env
 
-          \$COMPOSE down --remove-orphans || true
-          \$COMPOSE up -d
+          \$COMPOSE up -d --no-deps backend
 
           sleep 5
-          \$COMPOSE ps
+          \$COMPOSE ps backend
 
-          if \$COMPOSE ps | grep -qiE '\bexit(ed)?\b'; then
-            echo "Error: some containers failed to start"
-            \$COMPOSE logs --tail=100
+          if \$COMPOSE ps backend | grep -qiE "\bexit(ed)?\b"; then
+            echo "Error: backend container failed to start"
+            \$COMPOSE logs --tail=100 backend
             exit 1
           fi
 
           echo "Deployment successful"
           SCRIPT
+          cat -n /tmp/deploy.sh
           chmod +x /tmp/deploy.sh
 
-          # Fail fast if interpolation silently produced empty values
           grep -q 'DOCKERHUB_USERNAME=""' /tmp/deploy.sh && {
             echo "Error: DOCKERHUB_USERNAME did not interpolate"; exit 1; }
           grep -q 'IMAGE_TAG=""' /tmp/deploy.sh && {
