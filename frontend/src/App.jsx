@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
-        <Route path="/duolingo-style-practice" element={<DuolingoStyleQuestions />} />
+        <Route path="/" element={<DuolingoStyleQuestions />} />
         <Route path="/mandarin-voice-practice" element={<MandarinVoicePractice />} />
         <Route path="/test" element={<TestPronunciation />} />
         <Route path="*" element={<div>I am lost! Current path: {window.location.pathname}</div>} />
