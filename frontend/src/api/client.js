@@ -1,4 +1,4 @@
-import { API_BASE_URL } from './config.js';
+import { API_BASE_URL } from '../config.js';
 
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
 
@@ -61,18 +61,6 @@ export async function apiFetch(url, options = {}) {
     res = await doFetch();
   }
   return res;
-}
-
-async function createSession() {
-  const token = await getToken();
-  window.turnstile.reset();          // force a fresh token for next time
-  currentToken = null;
-  const res = await fetch(`${API_BASE_URL}/api/session`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: { 'X-Turnstile-Token': token },
-  });
-  if (!res.ok) throw new Error('Session creation failed');
 }
 
 export async function verifySession() {
