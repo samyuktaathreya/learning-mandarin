@@ -15,6 +15,11 @@ from scripts.seed import init_db
 
 from app.core.logger import logger
 
+from core.limiter import limiter
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
+
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
 
 app.add_middleware(
@@ -24,6 +29,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_middleware(SlowAPIMiddleware)
 
 if os.path.exists("../frontend/public"):
     app.mount("/api/static", StaticFiles(directory="../frontend/public"), name="static")

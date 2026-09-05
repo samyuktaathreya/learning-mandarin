@@ -29,8 +29,10 @@ from textbook import services as textbook_services
 from textbook.database import get_textbook_db
 from characters.database import get_characters_db
 
-router = APIRouter()
+from fastapi import APIRouter, Depends
+from core.turnstile import require_turnstile
 
+router = APIRouter(dependencies=[Depends(require_turnstile)])
 
 @router.get("/api/generate_session/{user_id}", response_model=SessionResponse)
 def generate_session(user_id: int, mode: str = "sentence", skip_review: bool = False,

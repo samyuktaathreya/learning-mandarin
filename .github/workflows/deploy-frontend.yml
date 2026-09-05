@@ -51,6 +51,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           build-args: |
             VITE_API_URL=${{ vars.VITE_API_URL }}
+            VITE_TURNSTILE_SITE_KEY=${{ vars.VITE_TURNSTILE_SITE_KEY }}
           cache-from: type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/my-frontend:buildcache
           cache-to: type=registry,ref=${{ vars.DOCKERHUB_USERNAME }}/my-frontend:buildcache,mode=max
 

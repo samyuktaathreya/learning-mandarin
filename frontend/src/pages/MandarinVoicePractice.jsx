@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { RealtimeAgent, RealtimeSession } from "@openai/agents/realtime";
 import { ClickableText } from '../Components/CharacterPopup';
 import { API_BASE_URL } from '../config';
+import { apiFetch } from '../api/client';
 
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 
@@ -26,7 +27,7 @@ export default function MandarinVoicePractice() {
 
   const startPracticeSession = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/voice-session`, { method: 'POST' });
+      const res = await apiFetch(`${API_BASE_URL}/api/voice-session`, { method: 'POST' });
       const { client_secret } = await res.json();
       
       const agent = new RealtimeAgent({

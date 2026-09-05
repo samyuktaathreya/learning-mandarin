@@ -8,7 +8,10 @@ from shared.services.grading import (
     evaluate_english_to_chinese
 )
 
-router = APIRouter()
+from fastapi import APIRouter, Depends
+from app.core.turnstile import require_turnstile
+
+router = APIRouter(dependencies=[Depends(require_turnstile)])
 
 def get_db():
     db = SessionLocal()

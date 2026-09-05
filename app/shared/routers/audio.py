@@ -9,8 +9,10 @@ from shared.services.audio import (
     process_spoken_audio
 )
 from textbook.database import get_textbook_db
+from fastapi import APIRouter, Depends
+from core.turnstile import require_turnstile
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(require_turnstile)])
 
 @router.post("/api/audio")
 async def get_audio(payload: dict):

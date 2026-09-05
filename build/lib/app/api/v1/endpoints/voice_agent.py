@@ -8,9 +8,10 @@ from core.database import SessionLocal
 from shared.crud import build_vocab_block
 from session.crud import get_known_vocab_tags
 from core.config.shared import settings
-# from openai import OpenAI  <- You don't actually need this if you are using httpx to make the web request
+from fastapi import APIRouter, Depends
+from core.turnstile import require_turnstile
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(require_turnstile)])
 
 def get_db():
     db = SessionLocal()
