@@ -49,7 +49,6 @@ export async function apiFetch(url, options = {}) {
   let token = null;
   try {
     token = await getToken();
-    console.log('[DEBUG] apiFetch got token, length:', token?.length);
   } catch (e) {
     console.log('[DEBUG] apiFetch failed to get token:', e.message);
   }
@@ -59,7 +58,12 @@ export async function apiFetch(url, options = {}) {
     ...(token ? { 'X-Turnstile-Token': token } : {}),
     ...options.headers,
   };
-  console.log('[DEBUG] final headers being sent:', headers);
+
+  // consume the token — force a fresh one for the next call
+  currentToken = null;
+  if (window.turnstile && turnstileRendered) {
+    window.turnstile.reset('#turnstile-container');
+  }
 
   return fetch(url, { ...options, headers });
 }
