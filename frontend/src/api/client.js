@@ -1,3 +1,5 @@
+import { API_BASE_URL } from './config.js';
+
 const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
 
 let currentToken = null;
