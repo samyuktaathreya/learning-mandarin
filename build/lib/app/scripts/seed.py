@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE_DIR))
 
-from core.database import SessionLocal
+from app.core.database import SessionLocal
 from textbook.db_utils import SessionLocal as TextbookSessionLocal
 from textbook.services import get_all_vocab_tags, FACETS
 from auth.models import User

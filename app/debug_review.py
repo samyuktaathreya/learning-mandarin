@@ -1,4 +1,4 @@
-from core.database import SessionLocal as SessionDB
+from app.core.database import SessionLocal as SessionDB
 from textbook.db_utils import SessionLocal as TextbookSessionLocal
 from session.services.review_engine import _due_review_facets
 from textbook import crud

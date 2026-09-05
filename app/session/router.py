@@ -30,7 +30,7 @@ from textbook.database import get_textbook_db
 from characters.database import get_characters_db
 
 from fastapi import APIRouter, Depends
-from core.turnstile import require_turnstile
+from app.core.turnstile import require_turnstile
 
 router = APIRouter(dependencies=[Depends(require_turnstile)])
 

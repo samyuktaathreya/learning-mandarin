@@ -72,3 +72,15 @@ async function createSession() {
   });
   if (!res.ok) throw new Error('Session creation failed');
 }
+
+export async function verifySession() {
+  const token = await getToken();
+  window.turnstile.reset();
+  currentToken = null;
+  const res = await fetch(`${API_BASE_URL}/api/auth/verify`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'X-Turnstile-Token': token },
+  });
+  if (!res.ok) throw new Error('Verification failed');
+}

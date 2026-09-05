@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from core.database import engine, Base
+from app.core.database import engine, Base
 from scripts.seed import init_db
 from session_log import reset_log
 

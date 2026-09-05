@@ -3,12 +3,12 @@ from fastapi import APIRouter, HTTPException
 import httpx
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, Body, HTTPException
-from core.database import SessionLocal
+from app.core.database import SessionLocal
 from shared.crud import build_vocab_block
 from session.crud import get_known_vocab_tags
-from core.config.shared import settings
+from app.core.config.shared import settings
 from fastapi import APIRouter, Depends
-from core.turnstile import require_turnstile
+from app.core.turnstile import require_turnstile
 
 # from openai import OpenAI  <- You don't actually need this if you are using httpx to make the web request
 

@@ -5,7 +5,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from core.database import engine, Base
+from app.core.session_auth import session_middleware
+from app.core.database import engine, Base
 from scripts.seed import init_db 
 from session_log import reset_log
 
@@ -15,27 +16,12 @@ from scripts.seed import init_db
 
 from app.core.logger import logger
 
-from core.limiter import limiter
+from app.core.limiter import limiter
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://www.wenku.app", "https://wenku.app", "http://localhost:5173"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-from core.session_auth import session_middleware
-app.middleware("http")(session_middleware)
-
-app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
-app.add_middleware(SlowAPIMiddleware)
 
 if os.path.exists("../frontend/public"):
     app.mount("/api/static", StaticFiles(directory="../frontend/public"), name="static")
@@ -72,6 +58,9 @@ app.include_router(audio_router)
 from shared.routers.grading import router as grading_router
 app.include_router(grading_router)
 
+from app.auth import router as auth_router
+app.include_router(auth_router)
+
 # --- Legacy/Unmigrated Routers ---
 # (These remain in api/v1/endpoints as they don't have new feature folders yet)
 
@@ -80,6 +69,20 @@ app.include_router(tools_router)
 
 from api.v1.endpoints.voice_agent import router as voice_agent_router
 app.include_router(voice_agent_router)
+
+app.middleware("http")(session_middleware)
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_middleware(SlowAPIMiddleware)
+
+# CORS LAST so it wraps everything and tags all responses, including 401s
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://www.wenku.app", "https://wenku.app", "http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def root():
