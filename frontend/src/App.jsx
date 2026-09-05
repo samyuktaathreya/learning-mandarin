@@ -7,12 +7,17 @@ import { initTurnstile } from './api/client';
 
 function App() { 
   useEffect(() => {
-    // Wait for Turnstile script to load
+    console.log('[DEBUG] App mounted, checking window.turnstile:', !!window.turnstile);
     if (window.turnstile) {
       initTurnstile();
     } else {
-      document.querySelector('script[src*="turnstile"]')
-        .addEventListener('load', initTurnstile);
+      console.log('[DEBUG] waiting for turnstile script to load');
+      const script = document.querySelector('script[src*="turnstile"]');
+      console.log('[DEBUG] turnstile script tag found:', !!script);
+      script?.addEventListener('load', () => {
+        console.log('[DEBUG] turnstile script load event fired');
+        initTurnstile();
+      });
     }
   }, []);
 
