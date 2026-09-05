@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import '../App.css'
 import { API_BASE_URL } from '../config';
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
+import { apiFetch } from '../api/client';
 
 /**
  * Wraps a string so every Chinese word is clickable with a dotted underline.
@@ -47,7 +48,7 @@ export function ClickableText({ text, tags = [], isUnitTest, unitId, hskLevel = 
             url += `?${queryString}`;
         }
 
-        fetch(url)
+        apiFetch(url)
             .then(res => res.json())
             .then(data => {
                 setPopup({

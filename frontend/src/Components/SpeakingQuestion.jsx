@@ -1,6 +1,7 @@
 import { ClickableText } from './CharacterPopup';
 import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../config';
+import { apiFetch } from '../api/client';
 
 const questionTypeToInstruction = (question_type) => {
     switch (question_type) {
@@ -77,7 +78,7 @@ export default function SpeakingQuestion({
             return;
         }
         
-        fetch(`${API_BASE_URL}/api/sentence_tags/${currentQuestionObj.sentence_id}`)
+        apiFetch(`${API_BASE_URL}/api/sentence_tags/${currentQuestionObj.sentence_id}`)
             .then(res => res.json())
             .then(data => setSentenceTagMetadata(data.tags || {}))
             .catch(err => {
@@ -107,7 +108,7 @@ export default function SpeakingQuestion({
         if (!tipDraft.trim() || !keyValue) return;
         setTipSaveState('saving');
         try {
-            await fetch(`${API_BASE_URL}/api/tips`, {
+            await apiFetch(`${API_BASE_URL}/api/tips`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ key_type: tipKeyType, key_value: keyValue, tip: tipDraft.trim() }),

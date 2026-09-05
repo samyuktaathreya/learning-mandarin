@@ -3,54 +3,58 @@ const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
 let currentToken = null;
 let turnstileRendered = false;
 let tokenResolvers = [];
+let tokenUseCount = 0;
+
+function log(...args) {
+  console.log(`[${Date.now() % 100000}]`, ...args);
+}
 
 export function initTurnstile() {
-  console.log('[DEBUG] initTurnstile called, turnstileRendered:', turnstileRendered);
+  log('initTurnstile called, turnstileRendered:', turnstileRendered);
   if (turnstileRendered) return;
-  if (!window.turnstile) {
-    console.log('[DEBUG] window.turnstile not available yet');
-    return;
-  }
-
-  const container = document.getElementById('turnstile-container');
-  console.log('[DEBUG] container element:', container);
-  console.log('[DEBUG] container dimensions:', container?.getBoundingClientRect());
-  console.log('[DEBUG] container computed style:', container ? getComputedStyle(container).display : 'N/A');
+  if (!window.turnstile) return;
 
   turnstileRendered = true;
-  const widgetId = window.turnstile.render('#turnstile-container', {
+  window.turnstile.render('#turnstile-container', {
     sitekey: TURNSTILE_SITE_KEY,
     callback: (token) => {
-      console.log('[DEBUG] Turnstile callback fired, token length:', token.length);
+      log('CALLBACK fired, token (first 15 chars):', token.slice(0, 15), 'resolvers waiting:', tokenResolvers.length);
       currentToken = token;
-      tokenResolvers.forEach(resolve => resolve(token));
+      const resolvers = tokenResolvers;
       tokenResolvers = [];
+      resolvers.forEach(resolve => resolve(token));
     },
-    'expired-callback': () => { console.log('[DEBUG] Turnstile expired'); currentToken = null; },
-    'error-callback': (err) => { console.log('[DEBUG] Turnstile error-callback fired:', err); currentToken = null; },
+    'expired-callback': () => { log('EXPIRED callback fired'); currentToken = null; },
+    'error-callback': (err) => { log('ERROR callback fired:', err); currentToken = null; },
   });
-  console.log('[DEBUG] widget rendered with id:', widgetId);
 }
 
 function getToken() {
-  console.log('[DEBUG] getToken called, currentToken exists:', !!currentToken);
-  if (currentToken) return Promise.resolve(currentToken);
+  const callId = Math.random().toString(36).slice(2, 7);
+  log(`getToken[${callId}] called, currentToken exists:`, !!currentToken);
+  if (currentToken) {
+    log(`getToken[${callId}] returning cached token immediately`);
+    return Promise.resolve(currentToken);
+  }
   return new Promise((resolve, reject) => {
     tokenResolvers.push(resolve);
-    console.log('[DEBUG] waiting for token, resolvers queued:', tokenResolvers.length);
+    log(`getToken[${callId}] queued, total resolvers now:`, tokenResolvers.length);
     setTimeout(() => {
-      console.log('[DEBUG] token wait timed out after 10s');
+      log(`getToken[${callId}] TIMED OUT after 10s`);
       reject(new Error('Turnstile token timeout'));
     }, 10000);
   });
 }
 
 export async function apiFetch(url, options = {}) {
+  log('apiFetch START for url:', url);
   let token = null;
   try {
     token = await getToken();
+    tokenUseCount++;
+    log('apiFetch got token for', url, '- use #', tokenUseCount, '- token first 15 chars:', token?.slice(0, 15));
   } catch (e) {
-    console.log('[DEBUG] apiFetch failed to get token:', e.message);
+    log('apiFetch FAILED to get token for', url, ':', e.message);
   }
 
   const headers = {
@@ -58,12 +62,6 @@ export async function apiFetch(url, options = {}) {
     ...(token ? { 'X-Turnstile-Token': token } : {}),
     ...options.headers,
   };
-
-  // consume the token — force a fresh one for the next call
-  currentToken = null;
-  if (window.turnstile && turnstileRendered) {
-    window.turnstile.reset('#turnstile-container');
-  }
 
   return fetch(url, { ...options, headers });
 }
