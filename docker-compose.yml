@@ -12,6 +12,9 @@ services:
     image: ${DOCKERHUB_USERNAME}/my-frontend:${FRONTEND_IMAGE_TAG:-latest}
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/nginx/certs:/etc/nginx/certs:ro
     restart: always
     depends_on:
       - backend
