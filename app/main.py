@@ -58,7 +58,7 @@ app.include_router(audio_router)
 from shared.routers.grading import router as grading_router
 app.include_router(grading_router)
 
-from app.auth import router as auth_router
+from app.auth.router import router as auth_router
 app.include_router(auth_router)
 
 # --- Legacy/Unmigrated Routers ---
