@@ -25,14 +25,6 @@ function App() {
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <div 
         id="turnstile-container" 
-        style={{ 
-          position: 'absolute', 
-          width: '1px', 
-          height: '1px', 
-          overflow: 'hidden',
-          opacity: 0,
-          pointerEvents: 'none'
-        }} 
       />
       <Routes>
         <Route path="/" element={<DuolingoStyleQuestions />} />

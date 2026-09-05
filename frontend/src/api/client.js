@@ -47,21 +47,28 @@ function getToken() {
 }
 
 export async function apiFetch(url, options = {}) {
-  log('apiFetch START for url:', url);
-  let token = null;
-  try {
-    token = await getToken();
-    tokenUseCount++;
-    log('apiFetch got token for', url, '- use #', tokenUseCount, '- token first 15 chars:', token?.slice(0, 15));
-  } catch (e) {
-    log('apiFetch FAILED to get token for', url, ':', e.message);
+  const doFetch = () => fetch(url, {
+    ...options,
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json', ...options.headers },
+  });
+
+  let res = await doFetch();
+  if (res.status === 401) {
+    await createSession();   // gets fresh Turnstile token, POSTs /api/session
+    res = await doFetch();
   }
+  return res;
+}
 
-  const headers = {
-    'Content-Type': 'application/json',
-    ...(token ? { 'X-Turnstile-Token': token } : {}),
-    ...options.headers,
-  };
-
-  return fetch(url, { ...options, headers });
+async function createSession() {
+  const token = await getToken();
+  window.turnstile.reset();          // force a fresh token for next time
+  currentToken = null;
+  const res = await fetch(`${API_BASE_URL}/api/session`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'X-Turnstile-Token': token },
+  });
+  if (!res.ok) throw new Error('Session creation failed');
 }
