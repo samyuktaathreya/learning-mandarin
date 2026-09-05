@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     AZURE_SPEECH_REGION: str
     OPENAI_API_KEY: str
     CLAUDE_API_KEY: str
+    SESSION_SECRET: str
 
     # Optional Environment Variables
     debug: bool = False

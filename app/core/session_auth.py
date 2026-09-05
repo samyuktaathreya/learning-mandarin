@@ -3,8 +3,9 @@ import os, time, jwt
 from fastapi import Request, HTTPException, Header
 from fastapi.responses import JSONResponse
 from typing import Optional
+from app.core.config.shared import settings
 
-SECRET = os.getenv("SESSION_SECRET")
+SECRET = settings.SESSION_SECRET
 PUBLIC_PATHS = {"/", "/api/auth/verify", "/api/docs", "/api/openapi.json"}
 
 def issue_session() -> str:
