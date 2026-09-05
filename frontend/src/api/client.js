@@ -8,17 +8,18 @@ export function initTurnstile() {
   if (turnstileRendered) return;
   if (!window.turnstile) return;
 
+  console.log('Turnstile sitekey:', TURNSTILE_SITE_KEY);  // confirm key is present
   turnstileRendered = true;
   window.turnstile.render('#turnstile-container', {
     sitekey: TURNSTILE_SITE_KEY,
     callback: (token) => {
+      console.log('Turnstile token received:', token.slice(0, 20) + '...');
       currentToken = token;
-      // resolve anyone waiting for a token
       tokenResolvers.forEach(resolve => resolve(token));
       tokenResolvers = [];
     },
-    'expired-callback': () => { currentToken = null; },
-    'error-callback': () => { currentToken = null; },
+    'expired-callback': () => { console.log('Turnstile token expired'); currentToken = null; },
+    'error-callback': (err) => { console.log('Turnstile error:', err); currentToken = null; },
   });
 }
 
