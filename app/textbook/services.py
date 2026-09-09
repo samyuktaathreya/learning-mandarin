@@ -120,11 +120,11 @@ def get_questions_for_tag_up_to_unit(db: Session, tag: str, max_unit: int, quest
     )
 
 
-def get_all_questions_for_unit(db: Session, unit_number: int) -> list:
+def get_all_questions_for_unit(db: Session, unit_number: int, hsk_level: int) -> list:
     """Replaces `unit_questions.get(str(unit), [])` -- used by
     generate_unit_test, which needs every question in a unit regardless of
     tag, then filters to ALL_TIER_QUESTION_TYPES itself."""
-    return crud.get_all_questions_for_unit(db, unit_number)
+    return crud.get_all_questions_for_unit(db, unit_number, hsk_level)
 
 
 def get_dictionary_entry(db: Session, hanzi: str, unit_number: Optional[int] = None,
