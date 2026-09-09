@@ -11,15 +11,24 @@ from session_log import reset_log
 
 from textbook.models import Base as TextbookBase
 from textbook.db_utils import engine as textbook_engine
-from scripts.seed import init_db
 
 from app.core.logger import logger
+from app.core.config.shared import settings
 
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
 
+# Configure CORS dynamically based on environment
+if settings.environment == "prod":
+    allow_origins = [
+        "https://wenku.app",
+        "https://www.wenku.app",
+    ]
+else:
+    allow_origins = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # replace with frontend URL in production
+    allow_origins=allow_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
