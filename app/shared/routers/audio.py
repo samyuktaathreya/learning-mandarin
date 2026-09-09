@@ -12,7 +12,7 @@ from textbook.database import get_textbook_db
 from fastapi import APIRouter, Depends
 from app.core.turnstile import require_turnstile
 
-router = APIRouter(dependencies=[Depends(require_turnstile)])
+router = APIRouter()
 
 @router.post("/api/audio")
 async def get_audio(payload: dict):

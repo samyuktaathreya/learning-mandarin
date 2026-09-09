@@ -11,7 +11,7 @@ from app.core.config.shared import settings
 from fastapi import APIRouter, Depends
 from app.core.turnstile import require_turnstile
 
-router = APIRouter(dependencies=[Depends(require_turnstile)])
+router = APIRouter()
 
 def get_db():
     db = SessionLocal()

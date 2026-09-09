@@ -32,7 +32,7 @@ from characters.database import get_characters_db
 from fastapi import APIRouter, Depends
 from app.core.turnstile import require_turnstile
 
-router = APIRouter(dependencies=[Depends(require_turnstile)])
+router = APIRouter()
 
 
 @router.get("/api/generate_session/{user_id}", response_model=SessionResponse)
