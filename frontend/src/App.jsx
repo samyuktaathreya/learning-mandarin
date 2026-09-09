@@ -27,7 +27,7 @@ function App() {
 
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <div id="turnstile-container" />
+      <div id="turnstile-container" style={{ display: 'none' }}/>
       {error && <div>Verification failed: {error}</div>}
       {!ready && !error && <div>Loading…</div>}
       {ready && (
