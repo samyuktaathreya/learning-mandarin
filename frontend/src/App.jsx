@@ -4,7 +4,7 @@ import DuolingoStyleQuestions from "./pages/DuolingoStylePractice";
 import MandarinVoicePractice from "./pages/MandarinVoicePractice";
 import TestPronunciation from "./pages/TestPronounciation";
 import { initTurnstile, verifySession } from './api/client';
-import { TokenBridge, SignInPage, SignUpPage, GuestBanner } from './Components/Auth';
+import { TokenBridge, SignInPage, SignUpPage, GuestBanner, AccountControl } from './Components/Auth';
 import { ClerkProvider } from '@clerk/clerk-react';
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -42,6 +42,7 @@ function App() {
         {!ready && !error && <div>Loading…</div>}
         {ready && (
           <>
+            <AccountControl />
             <GuestBanner />
             <Routes>
               <Route path="/sign-in/*" element={<SignInPage />} />

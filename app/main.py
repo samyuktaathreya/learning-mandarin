@@ -62,6 +62,9 @@ app.include_router(grading_router)
 from app.auth.router import router as auth_router
 app.include_router(auth_router)
 
+from app.auth.webhooks import router as clerk_webhook_router
+app.include_router(clerk_webhook_router)
+
 # --- Legacy/Unmigrated Routers ---
 # (These remain in api/v1/endpoints as they don't have new feature folders yet)
 

@@ -86,3 +86,18 @@ export function GuestBanner() {
     </SignedOut>
   );
 }
+
+export function AccountControl() {
+  return (
+    <>
+      <SignedIn>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '0.5rem 1rem' }}>
+          <UserButton afterSignOutUrl="/" />
+        </div>
+      </SignedIn>
+      <SignedOut>
+        <GuestBanner />
+      </SignedOut>
+    </>
+  );
+}

@@ -16,6 +16,9 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str
     CLAUDE_API_KEY: str
     SESSION_SECRET: str
+    CLERK_SECRET_KEY: str
+    CLERK_JWT_KEY: str
+    CLERK_WEBHOOK_SECRET: str
 
     # Optional Environment Variables
     debug: bool = False
