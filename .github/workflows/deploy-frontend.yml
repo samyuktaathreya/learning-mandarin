@@ -44,6 +44,10 @@ jobs:
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
+        build-args: |
+          VITE_API_URL=${{ vars.VITE_API_URL }}
+          VITE_TURNSTILE_SITE_KEY=${{ vars.VITE_TURNSTILE_SITE_KEY }}
+          VITE_CLERK_PUBLISHABLE_KEY=${{ vars.VITE_CLERK_PUBLISHABLE_KEY }}
         with:
           context: ./frontend
           file: ./frontend/Dockerfile

@@ -1,29 +1,18 @@
-FROM python:3.11-slim
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+ARG VITE_TURNSTILE_SITE_KEY
+ENV VITE_TURNSTILE_SITE_KEY=$VITE_TURNSTILE_SITE_KEY
+ARG VITE_CLERK_PUBLISHABLE_KEY
+ENV VITE_CLERK_PUBLISHABLE_KEY=$VITE_CLERK_PUBLISHABLE_KEY
+RUN npm run build
 
-# Create a non-root user and set up virtual environment paths
-RUN useradd --create-home appuser
-ENV VIRTUAL_ENV=/opt/venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-
-WORKDIR /workspace
-
-# Copy build configuration for the root package
-COPY pyproject.toml setup.py* ./
-
-# Copy application source code and data
-COPY app/ ./app/
-COPY data/ ./data/
-
-# Install dependencies inside the virtual environment
-RUN pip install --no-cache-dir -e . && \
-    pip install --no-cache-dir -r app/requirements.txt
-
-# Switch ownership and drop root privileges
-RUN chown -R appuser:appuser /workspace $VIRTUAL_ENV
-USER appuser
-
-# Set execution directory to app and launch Uvicorn
-WORKDIR /workspace/app
-EXPOSE 8000
-CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
