@@ -5,7 +5,21 @@ const TURNSTILE_SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
 let currentToken = null;
 let turnstileRendered = false;
 let tokenResolvers = [];
-let tokenUseCount = 0;
+
+// --- Clerk bridge ---
+let getClerkTokenFn = null;
+export function registerTokenGetter(fn) {
+  getClerkTokenFn = fn;
+}
+
+async function getClerkToken() {
+  if (!getClerkTokenFn) return null;
+  try {
+    return await getClerkTokenFn(); // null if signed out, string if signed in
+  } catch {
+    return null;
+  }
+}
 
 function log(...args) {
   console.log(`[${Date.now() % 100000}]`, ...args);
@@ -49,11 +63,18 @@ function getToken() {
 }
 
 export async function apiFetch(url, options = {}) {
-  const doFetch = () => fetch(url, {
-    ...options,
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json', ...options.headers },
-  });
+  const doFetch = async () => {
+    const clerkToken = await getClerkToken(); // null for guests, fine
+    return fetch(url, {
+      ...options,
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(clerkToken ? { Authorization: `Bearer ${clerkToken}` } : {}),
+        ...options.headers,
+      },
+    });
+  };
 
   let res = await doFetch();
   if (res.status === 401) {

@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from app.core.session_auth import session_middleware
+from app.core.clerk_auth import clerk_auth_middleware
 from app.core.database import engine, Base
 from scripts.seed import init_db 
 from session_log import reset_log
@@ -70,7 +71,9 @@ app.include_router(tools_router)
 from api.v1.endpoints.voice_agent import router as voice_agent_router
 app.include_router(voice_agent_router)
 
-app.middleware("http")(session_middleware)
+app.middleware("http")(clerk_auth_middleware) 
+app.middleware("http")(session_middleware)      # registered second = runs first (turnstile check)
+
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)

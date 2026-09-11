@@ -4,10 +4,9 @@ import DuolingoStyleQuestions from "./pages/DuolingoStylePractice";
 import MandarinVoicePractice from "./pages/MandarinVoicePractice";
 import TestPronunciation from "./pages/TestPronounciation";
 import { initTurnstile, verifySession } from './api/client';
-import { ProtectedRoute, SignInPage } from './Components/Auth';
+import { TokenBridge, SignInPage, SignUpPage, GuestBanner } from './Components/Auth';
 import { ClerkProvider } from '@clerk/clerk-react';
 
-// Read the publishable key from Vite environment variables
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {
@@ -36,22 +35,26 @@ function App() {
 
   return (
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+      <TokenBridge />
       <BrowserRouter basename={import.meta.env.BASE_URL}>
         <div id="turnstile-container" style={{ display: 'none' }}/>
         {error && <div>Verification failed: {error}</div>}
         {!ready && !error && <div>Loading…</div>}
         {ready && (
-          <Routes>
-            {/* Sign In Route */}
-            <Route path="/sign-in/*" element={<SignInPage />} />
+          <>
+            <GuestBanner />
+            <Routes>
+              <Route path="/sign-in/*" element={<SignInPage />} />
+              <Route path="/sign-up/*" element={<SignUpPage />} />
 
-            {/* Protected Main App Routes */}
-            <Route path="/" element={<DuolingoStyleQuestions />} />
-            <Route path="/mandarin-voice-practice" element={<MandarinVoicePractice />} />
-            <Route path="/test" element={<TestPronunciation />} />
+              {/* Guests allowed now — no ProtectedRoute wrapper */}
+              <Route path="/" element={<DuolingoStyleQuestions />} />
+              <Route path="/mandarin-voice-practice" element={<MandarinVoicePractice />} />
+              <Route path="/test" element={<TestPronunciation />} />
 
-            <Route path="*" element={<div>I am lost! Current path: {window.location.pathname}</div>} />
-          </Routes>
+              <Route path="*" element={<div>I am lost! Current path: {window.location.pathname}</div>} />
+            </Routes>
+          </>
         )}
       </BrowserRouter>
     </ClerkProvider>
