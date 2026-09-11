@@ -43,7 +43,6 @@ function App() {
         {ready && (
           <>
             <AccountControl />
-            <GuestBanner />
             <Routes>
               <Route path="/sign-in/*" element={<SignInPage />} />
               <Route path="/sign-up/*" element={<SignUpPage />} />

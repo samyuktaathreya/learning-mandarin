@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut, SignIn, SignUp, RedirectToSignIn, useAuth } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, SignIn, SignUp, RedirectToSignIn, useAuth, UserButton } from '@clerk/clerk-react';
 import { Navigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { registerTokenGetter } from '../api/client';
