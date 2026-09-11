@@ -7,7 +7,13 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    
+
+    # Identity — nullable so guests can still have rows if you want to persist them
+    clerk_user_id = Column(String, unique=True, index=True, nullable=True)
+    email = Column(String, nullable=True)
+    is_guest = Column(Boolean, default=False, nullable=False)
+    guest_id = Column(String, unique=True, index=True, nullable=True)  # client-generated UUID for guests
+
     # Existing learning profile fields
     current_unit = Column(Integer, default=1)
     graduated_units = Column(TEXT, default="")

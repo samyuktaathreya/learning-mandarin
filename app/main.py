@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from app.core.session_auth import session_middleware
+from app.core.clerk_auth import clerk_auth_middleware
 from app.core.database import engine, Base
 from scripts.seed import init_db 
 from session_log import reset_log
@@ -61,6 +62,9 @@ app.include_router(grading_router)
 from app.auth.router import router as auth_router
 app.include_router(auth_router)
 
+from app.auth.webhooks import router as clerk_webhook_router
+app.include_router(clerk_webhook_router)
+
 # --- Legacy/Unmigrated Routers ---
 # (These remain in api/v1/endpoints as they don't have new feature folders yet)
 
@@ -70,7 +74,9 @@ app.include_router(tools_router)
 from api.v1.endpoints.voice_agent import router as voice_agent_router
 app.include_router(voice_agent_router)
 
-app.middleware("http")(session_middleware)
+app.middleware("http")(clerk_auth_middleware) 
+app.middleware("http")(session_middleware)      # registered second = runs first (turnstile check)
+
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)

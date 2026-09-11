@@ -6,7 +6,8 @@ from fastapi.responses import JSONResponse
 from app.core.config.shared import settings
 
 SECRET = settings.SESSION_SECRET
-PUBLIC_PATHS = {"/", "/api/auth/verify", "/api/docs", "/api/openapi.json"}
+PUBLIC_PATHS = {"/", "/api/auth/verify", "/api/docs", "/api/openapi.json", "/api/webhooks/clerk"}
+
 
 def issue_session() -> str:
     return jwt.encode({"exp": int(time.time()) + 3600}, SECRET, algorithm="HS256")
