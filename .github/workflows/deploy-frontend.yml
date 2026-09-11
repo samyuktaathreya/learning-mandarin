@@ -152,9 +152,9 @@ jobs:
             -o ConnectTimeout=10 \
             "$VPS_USERNAME@$VPS_HOST" "bash --noprofile --norc /tmp/deploy.sh; rc=\$?; rm -f /tmp/deploy.sh; exit \$rc"
 
-      - name: Cleanup
-        if: always() 
-        run: rm -f ~/.ssh/vps_key /tmp/deploy.sh
+      # - name: Cleanup
+        # if: always() 
+        # run: rm -f ~/.ssh/vps_key /tmp/deploy.sh
 
       - name: Deployment notification
         if: failure()
