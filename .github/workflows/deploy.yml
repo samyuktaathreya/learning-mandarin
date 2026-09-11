@@ -107,7 +107,7 @@ jobs:
 
           \$COMPOSE up -d --no-deps backend
 
-          sleep 5
+          sleep 10
           \$COMPOSE ps backend
 
           if \$COMPOSE ps backend | grep -qiE "\bexit(ed)?\b"; then

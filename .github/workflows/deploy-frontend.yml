@@ -106,7 +106,7 @@ jobs:
 
           \$COMPOSE up -d --no-deps frontend
 
-          sleep 5
+          sleep 10
           \$COMPOSE ps frontend
 
           if \$COMPOSE ps frontend | grep -qiE '\bexit(ed)?\b'; then
@@ -152,9 +152,9 @@ jobs:
             -o ConnectTimeout=10 \
             "$VPS_USERNAME@$VPS_HOST" "bash --noprofile --norc /tmp/deploy.sh; rc=\$?; rm -f /tmp/deploy.sh; exit \$rc"
 
-      # - name: Cleanup
-        # if: always() 
-        # run: rm -f ~/.ssh/vps_key /tmp/deploy.sh
+      - name: Cleanup
+        if: always() 
+        run: rm -f ~/.ssh/vps_key /tmp/deploy.sh
 
       - name: Deployment notification
         if: failure()
