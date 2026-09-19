@@ -58,28 +58,48 @@ def _resolve_hkcs_placeholders(ids_raw: str) -> str:
     return _HKCS_PLACEHOLDER_RE.sub(_replace, ids_raw)
  
  
+def _has_unknown_component(ids_raw: str) -> bool:
+    """True if this IDS string contains an unresolved component -- the
+    dictionary source marks these with a full-width '？' (and we also
+    treat a literal ASCII '?' the same way, just in case)."""
+    return "？" in ids_raw or "?" in ids_raw
+
+
 def get_decomposition(db, char: str, recursive: bool = True, max_depth: int = 1):
     """
     Full breakdown of a single character for display purposes.
- 
+
     hkcs-coded unencoded-variant placeholders in ids_raw are resolved to
     their standard-form Unicode equivalent before returning (see
     _resolve_hkcs_placeholders) -- callers/frontend never see raw
     "{hkcs-...}" strings.
+
+    If the character's ids_raw contains an unknown/unresolved component
+    (a '？' placeholder from the source dictionary), `components` is
+    returned as None so callers know the breakdown is incomplete and
+    shouldn't be rendered, rather than a technically-empty-but-misleading
+    list.
     """
     character = get_character(db, char)
     if not character:
         return None
- 
+
     resolved_ids_raw = _resolve_hkcs_placeholders(character.ids_raw)
- 
+
+    if _has_unknown_component(character.ids_raw):
+        return {
+            "char": char,
+            "ids_raw": resolved_ids_raw,
+            "components": None,
+        }
+
     if not recursive:
         return {
             "char": char,
             "ids_raw": resolved_ids_raw,
             "components": [],
         }
- 
+
     components = (
         db.query(CharacterComponent)
         .filter(
@@ -89,7 +109,7 @@ def get_decomposition(db, char: str, recursive: bool = True, max_depth: int = 1)
         .order_by(CharacterComponent.depth, CharacterComponent.position)
         .all()
     )
- 
+
     return {
         "char": char,
         "ids_raw": resolved_ids_raw,
@@ -102,7 +122,6 @@ def get_decomposition(db, char: str, recursive: bool = True, max_depth: int = 1)
             for c in components
         ],
     }
-
  
 # ---------------------------------------------------------------------------
 # 2. IDS-derived structural similarity

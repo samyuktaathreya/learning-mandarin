@@ -7,9 +7,12 @@
 //   <CharacterDecomposition data={decompositionData} />
 //
 // `data` is the array your /api/characters/decompose endpoint already returns,
-// each item shaped like: { char, ids_raw, components: [...] }
-// (components is no longer used for rendering — ids_raw is parsed directly —
-// but it's fine to keep sending it from the API for other purposes.)
+// each item shaped like: { char, ids_raw, components: [...] | null }
+// (components is no longer used for rendering the tree/equation -- ids_raw is
+// parsed directly -- but the endpoint now sends components: null whenever
+// ids_raw has an unresolved '？' component, and we use that flag below to
+// skip rendering that character's breakdown entirely rather than showing a
+// tree with a literal question mark in it.)
 
 // ── IDC operator table ──────────────────────────────────────────
 // arity = how many sub-components the operator combines
@@ -191,7 +194,7 @@ function EquationLine({ item }) {
         return (
             <div className="decomposition-equation">
                 <span className="decomposition-equation-char">{item.char}</span>
-                <span className="decomposition-equation-label">(basic component)</span>
+                <span className="decomposition-equation-label">(Radical)</span>
             </div>
         );
     }
@@ -224,10 +227,18 @@ function EquationLine({ item }) {
 export default function CharacterDecomposition({ data }) {
     if (!data || data.length === 0) return null;
 
+    // The API sends components: null for any character whose ids_raw has an
+    // unresolved '？' component (unknown decomposition in the source data).
+    // Rather than parse/render a tree or equation containing a literal
+    // question mark, just leave that character out of the breakdown.
+    const items = data.filter((item) => item.components !== null);
+
+    if (items.length === 0) return null;
+
     return (
         <div className="decomposition-section">
             <h3>Character Breakdown</h3>
-            {data.map((item, idx) => (
+            {items.map((item, idx) => (
                 <EquationLine key={idx} item={item} />
             ))}
         </div>

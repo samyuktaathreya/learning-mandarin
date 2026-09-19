@@ -321,7 +321,7 @@ export default function Question({
                         </>
                     )}
 
-                    {decompositionData && decompositionData.length > 0 && (
+                    {decompositionData && decompositionData.length > 0 && currentQuestionObj.question_type !== 'radical_meaning' && (
                         <CharacterDecomposition data={decompositionData} />
                     )}
                     

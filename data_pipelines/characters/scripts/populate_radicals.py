@@ -75,15 +75,21 @@ def parse_radical_csv(path: Path) -> list[dict]:
     with open(path, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            radical_char = (row.get("radical") or "").strip()
+            traditional_char = (row.get("radical") or "").strip()
+            simplified_char = (row.get("simplifiedradical") or "").strip()
+            # Prefer the simplified glyph when the CSV provides one; most rows
+            # leave simplifiedradical blank because the traditional form IS
+            # the simplified form, so fall back to `radical` in that case.
+            radical_char = simplified_char or traditional_char
             if not radical_char:
                 continue
 
             radicals.append({
                 "number": int(row["number"]) if row.get("number") else None,
                 "radical": radical_char,
+                "traditional": traditional_char or None,
                 "variants": extract_variant_chars(row.get("variants", "")),
-                "simplified": (row.get("simplifiedradical") or "").strip() or None,
+                "simplified": simplified_char or None,
                 "pinyin": (row.get("pinyin") or "").strip() or None,
                 "english": (row.get("english") or "").strip() or None,
                 "stroke_count": int(row["strokecount"]) if row.get("strokecount") else None,

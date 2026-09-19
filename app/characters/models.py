@@ -10,17 +10,21 @@ class Character(CharactersBase):
     ids_raw         = Column(Text)                  # raw IDS string e.g. ⿱艹禺
     decomp_operator = Column(Text)                  # top-level operator e.g. ⿱, ⿰, None if atomic
     is_radical      = Column(Integer, default=0)    # 1 if this char is a Kangxi radical (or a radical variant)
+    definition      = Column(Text)                  # second-language-learner definition, e.g. "ice"
+    pinyin          = Column(Text)                  # comma-separated pronunciations, may be empty
+    radical         = Column(Text)                  # this char's own primary radical, e.g. 艹
 
 
 class RadicalMeta(CharactersBase):
     """Radical-specific metadata -- only populated for rows where
-    Character.is_radical == 1. Kept separate from Character since pinyin/
-    english/stroke_count/radical_number don't apply to ordinary characters."""
+    Character.is_radical == 1. Kept separate from Character since
+    english/stroke_count/radical_number don't apply to ordinary characters.
+    (pinyin/definition for a radical char itself live on Character, same as
+    for any other character.)"""
     __tablename__ = "radical_meta"
 
     char           = Column(Text, ForeignKey("characters.char"), primary_key=True)
     radical_number = Column(Integer)
-    pinyin         = Column(Text)
     english        = Column(Text)
     stroke_count   = Column(Integer)
 
