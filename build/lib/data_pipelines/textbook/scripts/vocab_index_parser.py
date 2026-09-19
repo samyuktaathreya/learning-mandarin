@@ -153,7 +153,6 @@ def run_index_ocr() -> str:
     response = client.messages.create(
         model=MODEL,
         max_tokens=OCR_MAX_TOKENS,
-        temperature=TEMPERATURE,
         system=load_sop(OCR_SOP_FILENAME),
         messages=[{
             "role": "user",

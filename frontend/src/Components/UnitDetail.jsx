@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../config';
 import { apiFetch } from '../api/client';
 
-const USER_ID = 1;
-
 // 5-cell strength bar from a 0..1 strength value.
 function bar(strength) {
     if (strength === null || strength === undefined) return '·····';
@@ -50,7 +48,7 @@ export default function UnitDetail({ unit }) {
     useEffect(() => {
         let cancelled = false;
         setLoading(true);
-        apiFetch(`${API_BASE_URL}/api/unit_detail/${USER_ID}/${unit}`)
+        apiFetch(`${API_BASE_URL}/api/unit_detail/${unit}`)
             .then(r => r.json())
             .then(d => { if (!cancelled) { setData(d); setLoading(false); } })
             .catch(() => { if (!cancelled) setLoading(false); });
