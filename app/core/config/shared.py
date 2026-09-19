@@ -3,6 +3,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 APP_DIR = Path(__file__).resolve().parent.parent.parent
 ROOT_DIR = APP_DIR.parent
+PIPELINE_DIR = ROOT_DIR / "data_pipelines"
 
 class Settings(BaseSettings):
     # Base Paths
