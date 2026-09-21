@@ -6,6 +6,8 @@ from textbook.database import get_textbook_db
 from app.core.database import SessionLocal
 import characters.schemas
 import characters.crud
+from app.core.deps import get_current_user
+from auth.models import User
 
 def get_db():
     db = SessionLocal()
@@ -18,11 +20,13 @@ def get_db():
 
 router = APIRouter()
 
-@router.get("/api/character_practice/{user_id}")
-def character_practice(user_id: int, num_questions: int = 10,
+@router.get("/api/character_practice")
+def character_practice(num_questions: int = 10,
+                       user: User = Depends(get_current_user),
                        db: Session = Depends(get_db),
                        characters_db: Session = Depends(get_characters_db),
                        textbook_db: Session = Depends(get_textbook_db)):
+    user_id = user.id
     questions = generate_character_questions(db, characters_db, textbook_db, user_id, num_questions)
     return {"user_id": user_id, "question_set": questions}
 

@@ -11,8 +11,6 @@ import ReviewCounter from '../Components/ReviewCounter';
 import { API_BASE_URL } from '../config';
 import { apiFetch } from '../api/client';
 
-const USER_ID = 1;
-
 const clean = (str) => {
     return str
         .toLowerCase()
@@ -314,7 +312,7 @@ export default function DuolingoStyleQuestions() {
 
     const fetchProgress = async () => {
         try {
-            const res = await apiFetch(`${API_BASE_URL}/api/progress/${USER_ID}`);
+            const res = await apiFetch(`${API_BASE_URL}/api/progress/`);
             setProgress(await res.json());
         } catch (e) { console.error("Failed to fetch progress", e); }
     };
@@ -323,7 +321,7 @@ export default function DuolingoStyleQuestions() {
         setIsLoading(true);
         setDebugMode(debug);
         try {
-            const url = `${API_BASE_URL}/api/generate_session/${USER_ID}` + (skipReview ? '?skip_review=true' : '');
+            const url = `${API_BASE_URL}/api/generate_session/` + (skipReview ? '?skip_review=true' : '');
             const response = await apiFetch(url);
             if (!response.ok) {
                 setIsLoading(false);
@@ -351,7 +349,7 @@ export default function DuolingoStyleQuestions() {
 
     const submitSession = async (finalAnswerLog) => {
         try {
-            await apiFetch(`${API_BASE_URL}/api/submit_session/${USER_ID}`, {
+            await apiFetch(`${API_BASE_URL}/api/submit_session/`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

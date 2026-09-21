@@ -1,4 +1,4 @@
-from fastapi import Request, Depends, Header
+from fastapi import Request, Depends, Header, HTTPException
 from sqlalchemy.orm import Session
 
 from app.core.database import SessionLocal
@@ -17,9 +17,9 @@ def get_db():
 def get_current_user(
     request: Request,
     db: Session = Depends(get_db),
-    x_guest_id: str | None = Header(None, alias="X-Guest-Id"),
 ) -> User:
     clerk_id = getattr(request.state, "clerk_user_id", None)
+    x_guest_id = request.cookies.get("guest_id")
 
     if clerk_id:
         if x_guest_id:
@@ -29,4 +29,4 @@ def get_current_user(
     if x_guest_id:
         return get_or_create_guest(db, guest_id=x_guest_id)
 
-    return get_or_create_guest(db, guest_id="anonymous-fallback")
+    raise HTTPException(status_code=401, detail="No identity found for request")

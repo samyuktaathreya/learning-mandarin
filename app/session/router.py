@@ -31,33 +31,39 @@ from characters.database import get_characters_db
 
 from fastapi import APIRouter, Depends
 from app.core.turnstile import require_turnstile
+from app.core.deps import get_current_user
+from auth.models import User
 
 router = APIRouter()
 
-@router.get("/api/generate_session/{user_id}", response_model=SessionResponse)
-def generate_session(user_id: int, mode: str = "sentence", skip_review: bool = False,
+@router.get("/api/generate_session", response_model=SessionResponse)
+def generate_session(mode: str = "sentence", skip_review: bool = False,
+                      user: User = Depends(get_current_user),
                       db: Session = Depends(get_db),
                       characters_db: Session = Depends(get_characters_db),
                       textbook_db: Session = Depends(get_textbook_db)):
+    user_id = user.id
     return generate_full_session(db, characters_db, textbook_db, user_id, mode=mode, skip_review=skip_review)
 
 
-@router.patch("/api/submit_session/{user_id}")
+@router.patch("/api/submit_session")
 def submit_session(
-    user_id: int,
     list_of_question_data: list[dict] = Body(...),
     is_correct: list[bool] = Body(...),
     is_unit_test: bool = Body(...),
     mode: str = Body("sentence"),
+    user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
     textbook_db: Session = Depends(get_textbook_db),
 ):
+    user_id = user.id
     return process_submission(db, textbook_db, user_id, list_of_question_data, is_correct, is_unit_test, mode)
 
 
-@router.get("/api/debug/{user_id}")
-def debug(user_id: int, db: Session = Depends(get_db),
+@router.get("/api/debug")
+def debug(user: User = Depends(get_current_user), db: Session = Depends(get_db),
           textbook_db: Session = Depends(get_textbook_db)):
+    user_id = user.id
     user = get_user(db, user_id)
     hsk_level = getattr(user, "hsk_level", 1)
     unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, user.current_unit, hsk_level)
@@ -88,9 +94,10 @@ def debug(user_id: int, db: Session = Depends(get_db),
     }
 
 
-@router.get("/api/progress/{user_id}")
-def get_progress(user_id: int, db: Session = Depends(get_db),
+@router.get("/api/progress")
+def get_progress(user: User = Depends(get_current_user), db: Session = Depends(get_db),
                   textbook_db: Session = Depends(get_textbook_db)):
+    user_id = user.id
     user = get_user(db, user_id)
     user_unit = user.current_unit
     graduated_units = get_graduated_units(db, user_id)
@@ -127,9 +134,10 @@ def get_progress(user_id: int, db: Session = Depends(get_db),
     }
 
 
-@router.get("/api/unit_detail/{user_id}/{unit}")
-def unit_detail(user_id: int, unit: int, db: Session = Depends(get_db),
+@router.get("/api/unit_detail/{unit}")
+def unit_detail(unit: int, user: User = Depends(get_current_user), db: Session = Depends(get_db),
                  textbook_db: Session = Depends(get_textbook_db)):
+    user_id = user.id
     user = get_user(db, user_id)
     graduated_units = get_graduated_units(db, user_id)
     unlocked = (unit == user.current_unit) or (unit in graduated_units)
@@ -168,50 +176,16 @@ def lookup(
     hsk_level: int = 1,
     textbook_db: Session = Depends(get_textbook_db),
 ):
-    """
-    Was: `inline `if hanzi in hsk1_dictionary: ... else: pypinyin
-    fallback`` -- moved to textbook/services.py (see lookup_word), since
-    dictionary lookup is a textbook-data concern, not a routing concern.
-
-    NOW SENSE-AWARE: a word can have several taught meanings (see
-    textbook.models.VocabSense), so this endpoint accepts optional `unit`
-    (and `hsk_level`) query params -- pass the caller's current position in
-    the curriculum (e.g. `current_user.current_unit`, or the unit the
-    sentence being read belongs to) so a multi-sense word resolves to
-    whichever meaning is actually relevant there, rather than always the
-    word's overall primary sense. Omit them for a plain "what does this
-    word generally mean" lookup.
-
-    The response now also carries `other_definitions` -- every OTHER
-    taught (or dictionary) meaning the word has, beyond the relevant one
-    already in `pinyin`/`english`, so the frontend can show the relevant
-    definition first and the rest underneath instead of picking one and
-    hiding everything else, or dumping every definition on the learner at
-    once. Empty for the common single-sense word.
-
-    Example response for a multi-sense word:
-        {
-          "hanzi": "还", "pinyin": "hai2", "english": "still/also",
-          "unit": 5, "hsk_level": 1,
-          "other_definitions": [
-            {"hanzi": "还", "pinyin": "huan2", "english": "to return (something)",
-             "unit": 20, "hsk_level": 1, "word_type": "vocab"}
-          ]
-        }
-    """
     return textbook_services.lookup_word(textbook_db, hanzi, unit_number=unit, hsk_level=hsk_level)
 
 @router.get("/api/sentence_tags/{sentence_id}")
 def get_sentence_tags(sentence_id: int, textbook_db: Session = Depends(get_textbook_db)):
-    """Returns all vocab tags for a sentence with their definitions,
-    preferring context_definition if available."""
     from textbook.models import Sentence, SentenceVocab
     
     sentence = textbook_db.query(Sentence).filter(Sentence.id == sentence_id).first()
     if not sentence:
         return {"sentence_id": sentence_id, "tags": {}}
     
-    # Get all SentenceVocab links for this sentence
     links = (
         textbook_db.query(SentenceVocab)
         .filter(SentenceVocab.sentence_id == sentence_id)
@@ -225,7 +199,6 @@ def get_sentence_tags(sentence_id: int, textbook_db: Session = Depends(get_textb
         if not vocab:
             continue
         
-        # Prefer context_definition if it's non-empty, otherwise use english
         english = vocab.english or "UNKNOWN_ENGLISH"
         if link.context_definition and link.context_definition.strip():
             english = link.context_definition
@@ -233,7 +206,7 @@ def get_sentence_tags(sentence_id: int, textbook_db: Session = Depends(get_textb
         tags[vocab.hanzi] = {
             "pinyin": vocab.pinyin or "UNKNOWN_PINYIN",
             "english": english,
-            "context_definition": link.context_definition,  # expose it if the frontend wants to see both
+            "context_definition": link.context_definition,
         }
     
     return {"sentence_id": sentence_id, "tags": tags}

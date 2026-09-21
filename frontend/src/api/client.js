@@ -78,7 +78,7 @@ export async function apiFetch(url, options = {}) {
 
   let res = await doFetch();
   if (res.status === 401) {
-    await createSession();   // gets fresh Turnstile token, POSTs /api/session
+    await verifySession();   // gets fresh Turnstile token, POSTs /api/session
     res = await doFetch();
   }
   return res;
