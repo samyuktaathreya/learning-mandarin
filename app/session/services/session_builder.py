@@ -222,7 +222,7 @@ def process_submission(
                     for _, _, tone in split_pinyin_sounds(pinyin):
                         crud.record_sound_attempt(db, user_id, f"tone{tone}", is_correct[i])
 
-    # Passive Tier Advancement Check:
+    # Passive Tier Advancement Check: 
     # A tag qualifies for advancement if it appears in a question whose tier meets or
     # exceeds the tag's current tier (and was answered cleanly across the session).
     tags_served_at_current_tier = set()
