@@ -26,6 +26,9 @@ from session_log import log_session
 from textbook import services as textbook_services
 from textbook.services import META_TAGS
 from characters.services import generate_character_questions
+from app.pinyin_utils import split_pinyin_sounds
+
+from session.constants import SOUND_CREDIT_TYPES
 
 # ----------------------------- SESSION GENERATION -----------------------------
 
@@ -205,12 +208,19 @@ def process_submission(
                 for facet in crud.facets_for_question_type(question_type):
                     facet_probation_clears.add((tag, facet))
 
-        if question_type == "speaking vocab":
+        # "if question_type == 'speaking vocab'" block:
+        if question_type in SOUND_CREDIT_TYPES:
             for tag in question_data.get("tags", []):
                 if tag in META_TAGS or tag.startswith("unit_"):
                     continue
+
                 for sound in _tag_sounds(textbook_db, tag):
                     crud.record_sound_attempt(db, user_id, sound, is_correct[i])
+
+                pinyin = crud.get_pinyin_for_word(textbook_db, tag)
+                if pinyin:
+                    for _, _, tone in split_pinyin_sounds(pinyin):
+                        crud.record_sound_attempt(db, user_id, f"tone{tone}", is_correct[i])
 
     # Passive Tier Advancement Check:
     # A tag qualifies for advancement if it appears in a question whose tier meets or

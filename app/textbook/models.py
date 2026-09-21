@@ -361,3 +361,12 @@ class Question(Base):
     __table_args__ = (
         UniqueConstraint("legacy_id", name="_legacy_id_uc"),
     )
+
+class PinyinSyllable(Base):
+    __tablename__ = "pinyin_syllables"
+    id = Column(Integer, primary_key=True)
+    syllable = Column(String, nullable=False)       # "bao"
+    tone = Column(Integer, nullable=False)           # 1-4 (5=neutral, added later if needed)
+    initial_tag = Column(String, nullable=True)      # "b", None for bare-final syllables
+    final_tag = Column(String, nullable=False)       # "ao"
+    __table_args__ = (UniqueConstraint("syllable", "tone", name="_syllable_tone_uc"),)
