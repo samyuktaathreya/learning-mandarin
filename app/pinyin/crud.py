@@ -10,9 +10,29 @@ domain, not by which engine backs it.
 """
 from sqlalchemy.orm import Session
 
-from app.textbook.models import PinyinSyllable
-from app.session.models import SoundProgress
+from textbook.models import PinyinSyllable
+from session.models import SoundProgress
 
+def get_syllables_by_tone_within_unlocked(
+    textbook_db: Session, tone: int, unlocked_tags: set[str]
+) -> list[PinyinSyllable]:
+    candidates = textbook_db.query(PinyinSyllable).filter(PinyinSyllable.tone == tone).all()
+    return [
+        s for s in candidates
+        if (s.initial_tag is None or s.initial_tag in unlocked_tags)
+        and s.final_tag in unlocked_tags
+    ]
+
+
+def get_any_syllable_within_unlocked(
+    textbook_db: Session, unlocked_tags: set[str]
+) -> list[PinyinSyllable]:
+    candidates = textbook_db.query(PinyinSyllable).all()
+    return [
+        s for s in candidates
+        if (s.initial_tag is None or s.initial_tag in unlocked_tags)
+        and s.final_tag in unlocked_tags
+    ]
 
 def get_syllables_for_tag(textbook_db: Session, tag: str) -> list[PinyinSyllable]:
     """All syllables where this tag is the initial, final, OR tone.

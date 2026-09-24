@@ -15,6 +15,6 @@ class User(Base):
     guest_id = Column(String, unique=True, index=True, nullable=True)  # client-generated UUID for guests
 
     # Existing learning profile fields
-    current_unit = Column(Integer, default=1)
+    current_unit = Column(Integer, default=0)
     graduated_units = Column(TEXT, default="")
     hsk_level = Column(Integer, default=1, nullable=False)

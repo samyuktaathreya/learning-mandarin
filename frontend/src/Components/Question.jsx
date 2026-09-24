@@ -9,7 +9,7 @@ import { apiFetch } from '../api/client';
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 
 const isListeningQuestion = (qt) =>
-    qt === "listening vocab" || qt === "listening sentence";
+    qt === "listening vocab" || qt === "listening sentence" || qt === "listening_pinyin";
 
 const TYPES_MISSING_ENGLISH = new Set([
     "listening vocab",
@@ -48,6 +48,7 @@ const questionTypeToInstruction = (question_type) => {
         case "character_spot_difference":               return "Spot the character:";
         case "character_pinyin_to_char":                return "Match pinyin to character:";
         case "radical_meaning":                         return "Identify the radical:";
+        case "listening_pinyin":                        return "Type the pinyin (with tones) for what you hear:";
         default:                                        return "Answer the question:";
     }
 };

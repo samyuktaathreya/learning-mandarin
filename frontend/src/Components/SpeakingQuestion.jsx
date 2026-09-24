@@ -7,6 +7,7 @@ const questionTypeToInstruction = (question_type) => {
     switch (question_type) {
         case "speaking vocab":    return "Say this word out loud:";
         case "speaking sentence": return "Say this sentence out loud:";
+        case "speaking_pinyin":   return "Say this pinyin out loud:";
         default:                  return "Say this out loud:";
     }
 };

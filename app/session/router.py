@@ -123,7 +123,7 @@ def get_progress(user: User = Depends(get_current_user), db: Session = Depends(g
         for tag in current_unit_tags
     ], key=lambda x: x["tag"])
 
-    return {
+    result = {
         "user_id": user_id,
         "current_unit": user_unit,
         "graduated_units": list(graduated_units),
@@ -132,6 +132,10 @@ def get_progress(user: User = Depends(get_current_user), db: Session = Depends(g
         "review_due_word_count": review_due_word_count(db, textbook_db, user_id),
         "review_due_tomorrow_word_count": review_due_tomorrow_word_count(db, textbook_db, user_id),
     }
+
+    print(result)
+
+    return result
 
 
 @router.get("/api/unit_detail/{unit}")

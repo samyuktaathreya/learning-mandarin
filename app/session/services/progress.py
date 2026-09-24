@@ -60,29 +60,41 @@ from session import crud as session_crud
  
  
 def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int) -> dict:
-    """Replaces the per-unit loop that used to live directly in
-    router.py's /api/progress, walking `unit_questions.keys()` and
-    `unit_to_vocab_tags_dict`. Same output shape as before: {unit_str: {...}}.
- 
-    Reads hsk_level off the User row (assumed present -- see auth/models.py)
-    rather than taking it as a parameter, since every caller already has
-    only a user_id to work with here."""
-    from session.services.progress import get_collapsed_progress  # avoid circular import at module load
- 
+    from session.services.progress import get_collapsed_progress
+    from app.pinyin import services as pinyin_services
+
     user = get_user(db, user_id)
-    logger.debug("get attr: ")
-    logger.debug(getattr(get_user(db, user_id), "hsk_level", 1))
     hsk_level = getattr(user, "hsk_level", 1)
- 
+
     all_records = get_collapsed_progress(db, user_id)
     record_map = {r.tag: r for r in all_records}
- 
+
     unit_progress = {}
+
+    # Pinyin (unit 0) only exists for HSK1 -- the units table row and the
+    # pinyin curriculum itself were only ever set up for hsk_level 1.
+    if hsk_level == 1:
+        pinyin_progress = pinyin_services.get_pinyin_progress(db, user_id)
+        all_pinyin_tags = pinyin_progress["tones"] + pinyin_progress["vowels"] + pinyin_progress["consonants"]
+        pinyin_mastered = sum(
+            1 for entry in all_pinyin_tags
+            if entry["attempts"] and entry["successes"] / entry["attempts"] >= pinyin_services.MASTERY_THRESHOLD
+        )
+        unit_progress["0"] = {
+            "unit": 0,
+            "total_tags": len(all_pinyin_tags),
+            "graduated_tags": pinyin_mastered,
+            "progress_pct": round(pinyin_mastered / len(all_pinyin_tags) * 100) if all_pinyin_tags else 0,
+            "avg_correct_count": None,
+        }
+
     for unit in textbook_services.get_all_unit_numbers(textbook_db, hsk_level):
+        if unit == 0:
+            continue
         unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, unit, hsk_level)
         if not unit_tags:
             continue
- 
+
         total = len(unit_tags)
         graduated_tags = sum(
             1 for tag in unit_tags
@@ -92,7 +104,7 @@ def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int)
             sum(record_map[tag].correct_count for tag in unit_tags if tag in record_map) / total
             if total > 0 else 0
         )
- 
+
         unit_progress[str(unit)] = {
             "unit": unit,
             "total_tags": total,
@@ -100,7 +112,7 @@ def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int)
             "progress_pct": round(graduated_tags / total * 100) if total > 0 else 0,
             "avg_correct_count": round(avg_correct, 1),
         }
- 
+
     return unit_progress
  
  

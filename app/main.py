@@ -65,6 +65,9 @@ app.include_router(auth_router)
 from app.auth.webhooks import router as clerk_webhook_router
 app.include_router(clerk_webhook_router)
 
+from app.pinyin.router import router as pinyin_router
+app.include_router(pinyin_router)
+
 # --- Legacy/Unmigrated Routers ---
 # (These remain in api/v1/endpoints as they don't have new feature folders yet)
 
