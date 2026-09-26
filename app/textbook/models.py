@@ -365,8 +365,10 @@ class Question(Base):
 class PinyinSyllable(Base):
     __tablename__ = "pinyin_syllables"
     id = Column(Integer, primary_key=True)
-    syllable = Column(String, nullable=False)       # "bao"
-    tone = Column(Integer, nullable=False)           # 1-4 (5=neutral, added later if needed)
-    initial_tag = Column(String, nullable=True)      # "b", None for bare-final syllables
-    final_tag = Column(String, nullable=False)       # "ao"
+    syllable = Column(String, nullable=False)
+    tone = Column(Integer, nullable=False)
+    initial_tag = Column(String, nullable=True)
+    final_tag = Column(String, nullable=False)
+    diacritic_pinyin = Column(String, nullable=True)
+    character = Column(String, nullable=True)  # representative hanzi for this syllable+tone, from CC-CEDICT
     __table_args__ = (UniqueConstraint("syllable", "tone", name="_syllable_tone_uc"),)

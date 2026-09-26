@@ -5,30 +5,30 @@ import { hasChinese } from '../utils/questionHelpers';
 // Cache of in-flight/resolved audio fetches, keyed by "text::slow"
 const audioCache = new Map();
 
-const fetchAudioData = (text, slow = false) => {
-    const key = `${text}::${slow}`;
+const fetchAudioData = (text, slow = false, pinyin = null) => {
+    const key = `${text}::${slow}::${pinyin || ''}`;
     if (audioCache.has(key)) return audioCache.get(key);
 
     const promise = apiFetch(`${API_BASE_URL}/api/audio`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, slow }),
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify({ text, slow, pinyin }),
     })
         .then(res => res.json())
         .then(data => data.audio)
         .catch(err => {
-            audioCache.delete(key); // don't cache a failure — allow retry
+            audioCache.delete(key);
             throw err;
         });
 
     audioCache.set(key, promise);
+    console.log("promise : ", promise);
     return promise;
 };
 
-// Fetches and caches audio without playing it.
-export const preloadAudio = (text, slow = false) => {
-    if (!hasChinese(text)) return;
-    fetchAudioData(text, slow).catch(err => console.error("Failed to preload audio", err));
+export const preloadAudio = (text, slow = false, pinyin = null) => {
+    if (!(text)) return;
+    fetchAudioData(text, slow, pinyin).catch(err => console.error("Failed to preload audio", err));
 };
 
 export const clearAudioCache = () => audioCache.clear();
@@ -44,8 +44,8 @@ export const stopCurrentAudio = (currentAudioRef) => {
     }
 };
 
-export const playAudio = async (text, slow = false, currentAudioRef = null, tokenRef = null, expectedToken = null) => {
-    if (!hasChinese(text)) return;
+export const playAudio = async (text, slow = false, currentAudioRef = null, tokenRef = null, expectedToken = null, pinyin = null) => {
+    if (!(text)) return;
     stopCurrentAudio(currentAudioRef);
 
     try {

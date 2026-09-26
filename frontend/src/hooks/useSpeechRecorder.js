@@ -53,18 +53,26 @@ export default function useSpeechRecorder({ questionObj, isSingleSyllable, onTra
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
             audioChunksRef.current = [];
-            const mediaRecorder = new MediaRecorder(stream);
+
+            const mimeType = ['audio/webm', 'audio/mp4', 'audio/ogg']
+                .find(t => MediaRecorder.isTypeSupported(t)) || '';
+
+            const mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
             mediaRecorderRef.current = mediaRecorder;
+
             mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) audioChunksRef.current.push(e.data); };
             mediaRecorder.onstop = async () => {
                 stream.getTracks().forEach(t => t.stop());
-                const blob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
-                replaceRecordingURL(URL.createObjectURL(blob));
+                const blob = new Blob(audioChunksRef.current, { type: mediaRecorder.mimeType || mimeType || 'audio/webm' });
+                const url = URL.createObjectURL(blob);
+                console.log('created blob URL:', url, 'size:', blob.size);
+                replaceRecordingURL(url);
                 setIsTranscribing(false);
                 if (!latest.current.isSingleSyllable) await transcribe(blob);
             };
             mediaRecorder.start();
             setIsRecording(true);
+            console.log("mime type: ", mediaRecorderRef.current.mimeType);
         } catch (err) { console.error("Microphone access denied", err); }
     };
 

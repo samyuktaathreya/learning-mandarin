@@ -39,6 +39,7 @@ const questionTypeToInstruction = (question_type) => {
         case "listening sentence":                      return "Write what you hear in Chinese characters:";
         case "speaking vocab":                          return "Say this word out loud:";
         case "speaking sentence":                       return "Say this sentence out loud:";
+        case "speaking_pinyin":                          return "Say this pinyin out loud:";
         case "translate english sentence to chinese":   return "Translate to Chinese:";
         case "translate chinese sentence to english":   return "Translate to English:";
         case "translate english word to chinese":       return "Translate to Chinese:";
@@ -128,7 +129,7 @@ export default function Question({
 
     useEffect(() => {
         if (showReplayButton && onPreloadAudio) {
-            onPreloadAudio(currentQuestionObj.question);
+            onPreloadAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question);
         }
     }, [currentQuestionObj]);
 
@@ -170,7 +171,7 @@ export default function Question({
     };
 
     useEffect(() => {
-        if (isWrong && isListening) {
+        if (isWrong && isListening && currentQuestionObj.question_type !== "listening_pinyin") {
             apiFetch(`${API_BASE_URL}/api/pinyin`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -182,7 +183,7 @@ export default function Question({
         } else {
             setCorrectPinyin("");
         }
-    }, [isWrong, isListening, currentQuestionObj.answer]);
+    }, [isWrong, isListening, currentQuestionObj.answer, currentQuestionObj.question_type]);
 
     const renderChineseText = (text) => {
         if (!text || typeof text !== 'string') return text;
@@ -289,8 +290,8 @@ export default function Question({
 
             {showReplayButton && (
                 <>
-                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.question)} disabled={isGrading}>🔊 Replay</button>
-                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.question, true)} disabled={isGrading}>🐢 Slow</button>
+                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question)} disabled={isGrading}>🔊 Replay</button>
+                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true)} disabled={isGrading}>🐢 Slow</button>
                 </>
             )}
 

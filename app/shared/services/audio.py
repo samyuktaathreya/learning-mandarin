@@ -8,8 +8,8 @@ import azure.cognitiveservices.speech as speechsdk
 import edge_tts
 from sqlalchemy.orm import Session
 from pinyin_utils import strip_punct, to_numbered_pinyin, tones_match, grade_speaking_sentence
-from app.core.config.shared import settings
-from app.core.logger import logger
+from core.config.shared import settings
+from core.logger import logger
 
 
 CACHE_DIR = "audio_cache"
@@ -30,13 +30,16 @@ AZURE_SPEECH_REGION = settings.AZURE_SPEECH_REGION
 
 # --- Pronunciation assessment tuning ---
 ACCURACY_THRESHOLD = 90
-ASSESSMENT_QUESTION_TYPES = {"speaking vocab"}
+PINYIN_ACCURACY_THRESHOLD = 80
+ASSESSMENT_QUESTION_TYPES = {"speaking vocab", "speaking_pinyin"}
 
 
 # ----------------------------- TTS -----------------------------
 
-async def generate_and_cache_audio(text: str, slow: bool = False) -> str:
-    cache_key = f"{text}_slow" if slow else text
+async def generate_and_cache_audio(text: str, slow: bool = False, numbered_pinyin: str | None = None) -> str:
+    """`numbered_pinyin` (e.g. 'a1') forces the exact tone via SSML phoneme forcing,
+    for heteronyms like 阿 where the TTS engine would otherwise guess the reading."""
+    cache_key = f"{numbered_pinyin or text}_slow" if slow else (numbered_pinyin or text)
     if cache_key in audio_cache:
         return audio_cache[cache_key]
 
@@ -45,13 +48,38 @@ async def generate_and_cache_audio(text: str, slow: bool = False) -> str:
     filepath = os.path.join(CACHE_DIR, filename)
 
     if not os.path.exists(filepath):
-        rate = "-30%" if slow else "+0%"
-        communicate = edge_tts.Communicate(text, voice, rate=rate)
-        await communicate.save(filepath)
+        if numbered_pinyin:
+            await asyncio.to_thread(_synthesize_forced_pronunciation, text, numbered_pinyin, filepath, voice, slow)
+        else:
+            rate = "-30%" if slow else "+0%"
+            communicate = edge_tts.Communicate(text, voice, rate=rate)
+            await communicate.save(filepath)
 
     audio_cache[cache_key] = filepath
     session_files.add(filepath)
     return filepath
+
+def _synthesize_forced_pronunciation(text: str, numbered_pinyin: str, filepath: str, voice: str, slow: bool = False):
+    """Synthesizes `text` (hanzi) forced to the exact tone/reading in `numbered_pinyin`,
+    via an SSML <phoneme> tag, so heteronyms (e.g. 阿) don't get read with the wrong tone."""
+    speech_config = speechsdk.SpeechConfig(subscription=AZURE_SPEECH_KEY, region=AZURE_SPEECH_REGION)
+    audio_config = speechsdk.audio.AudioOutputConfig(filename=filepath)
+    synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+
+    rate = "-30%" if slow else "+0%"
+    ssml = f'''<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="zh-CN">
+  <voice name="{voice}">
+    <prosody rate="{rate}">
+      <phoneme alphabet="x-microsoft-sapi" ph="{numbered_pinyin}">{text}</phoneme>
+    </prosody>
+  </voice>
+</speak>'''
+
+    result = synthesizer.speak_ssml_async(ssml).get()
+    if result.reason != speechsdk.ResultReason.SynthesizingAudioCompleted:
+        details = getattr(result, "cancellation_details", None)
+        logger.debug(f"Forced-pronunciation TTS failed: {result.reason}, details: {details}")
+        raise Exception("Forced-pronunciation synthesis failed")
 
 
 def clear_session_audio() -> int:
@@ -233,7 +261,8 @@ async def process_spoken_audio(audio_bytes: bytes, expected: str, hanzi: str, qu
             recognized = assessment.get("recognized", "")
             transcription_pinyin = to_numbered_pinyin(recognized) if recognized else ""
 
-            accuracy_ok = accuracy >= ACCURACY_THRESHOLD
+            threshold = PINYIN_ACCURACY_THRESHOLD if question_type == "speaking_pinyin" else ACCURACY_THRESHOLD
+            accuracy_ok = accuracy >= threshold
             tone_ok = bool(transcription_pinyin) and tones_match(transcription_pinyin, expected_pinyin)
             is_correct = accuracy_ok and tone_ok
 

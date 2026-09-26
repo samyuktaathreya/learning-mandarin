@@ -26,10 +26,11 @@ from session_log import log_session
 from textbook import services as textbook_services
 from textbook.services import META_TAGS
 from characters.services import generate_character_questions
-from app.pinyin_utils import split_pinyin_sounds
+from pinyin_utils import split_pinyin_sounds
+import textbook.crud as textbook_crud
 
 from session.constants import SOUND_CREDIT_TYPES
-from app.pinyin import services as pinyin_services
+from pinyin import services as pinyin_services
 
 # ----------------------------- SESSION GENERATION -----------------------------
 
@@ -231,7 +232,7 @@ def process_submission(
                 for sound in _tag_sounds(textbook_db, tag):
                     crud.record_sound_attempt(db, user_id, sound, is_correct[i])
 
-                pinyin = crud.get_pinyin_for_word(textbook_db, tag)
+                pinyin = textbook_crud.get_pinyin_for_word(textbook_db, tag)
                 if pinyin:
                     for _, _, tone in split_pinyin_sounds(pinyin):
                         crud.record_sound_attempt(db, user_id, f"tone{tone}", is_correct[i])

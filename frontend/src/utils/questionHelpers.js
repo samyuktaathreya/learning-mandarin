@@ -14,9 +14,9 @@ export const clean = (str) => {
         .trim();
 };
 
-export const isSpeakingQuestion = (qt) => qt === "speaking vocab" || qt === "speaking sentence";
+export const isSpeakingQuestion = (qt) => qt === "speaking vocab" || qt === "speaking sentence" || qt == "speaking_pinyin";
 export const hasChinese = (str) => /[一-鿿]/.test(str);
-export const isListeningType = (qt) => qt === "listening vocab" || qt === "listening sentence";
+export const isListeningType = (qt) => qt === "listening vocab" || qt === "listening sentence" || qt === "listening_pinyin";
 
 export const TRANSLATE_TO_ENGLISH_TYPES = new Set([
     "translate chinese word to english",
@@ -44,7 +44,7 @@ const PINYIN_TYPES = new Set([
 
 // True if the answer is at most two letters/characters long (e.g. a single syllable).
 export const isSingleSyllableAnswer = (answer) =>
-    answer.replace(/[^a-z0-9一-鿿]/gi, '').length <= 2;
+    answer.replace(/[^a-z0-9一-鿿]/gi, '').length <= 1;
 
 // Local exact-match check against the comma-separated accepted answers.
 export const isExactMatch = (userAnswer, questionObj) => {

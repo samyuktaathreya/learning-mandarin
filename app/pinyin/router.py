@@ -2,11 +2,11 @@
 from fastapi import APIRouter, Depends, Body
 from sqlalchemy.orm import Session
 
-from app.core.database import SessionLocal
+from core.database import SessionLocal
 from textbook.database import get_textbook_db
-from app.core.deps import get_current_user
+from core.deps import get_current_user
 from auth.models import User
-from app.pinyin import services as pinyin_services
+from pinyin import services as pinyin_services
 
 
 def get_db():

@@ -36,7 +36,7 @@ export const transcribeAudio = async (base64Audio, questionObj) => {
     const res = await postJson('/api/transcribe', {
         audio: base64Audio,
         expected: questionObj.answer,
-        hanzi: questionObj.question,
+        hanzi: questionObj.hanzi,
         question_type: questionObj.question_type,
     });
     return res.json();

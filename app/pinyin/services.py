@@ -6,7 +6,7 @@ generation, and cross-crediting from advanced (non-pinyin) questions.
 Mirrors session/services/tier_engine.py's role for the textbook feature,
 but pool-based-per-level rather than per-question-type tiers -- see the
 design discussion that led here. No Question rows exist for pinyin;
-everything is generated on the fly from PinyinSyllable + these tags.
+everything is generated on the fly from pinyinSyllable + these tags.
 
 Levels are ordered lists of GROUPS, not flat tag sets: a group unlocks
 once the group before it (within the same level) is mastered. This
@@ -16,9 +16,9 @@ b/p/d/t/g/k -> j/q/x -> zh/ch/sh/r/z/c/s split with one mechanism.
 import random
 from sqlalchemy.orm import Session
 
-from app.pinyin import crud as pinyin_crud
-from app.session.crud import record_sound_attempt
-from app.pinyin_utils import split_pinyin_sounds
+from pinyin import crud as pinyin_crud
+from session.crud import record_sound_attempt
+from pinyin_utils import split_pinyin_sounds
 
 INITIALS = sorted(
     ["zh", "ch", "sh", "b", "p", "m", "f", "d", "t", "n", "l", "g", "k",
@@ -179,12 +179,13 @@ def generate_pinyin_question(db: Session, textbook_db: Session, user_id: int) ->
     return {
         "id": f"pinyin:{syllable_row.syllable}:{syllable_row.tone}:{question_type}",
         "question_type": question_type,
-        "question": numbered_pinyin,   # what's displayed/spoken -- e.g. "shu1"
-        "answer": numbered_pinyin,     # what the response is graded against
-        "tags": [],                    # no vocab tags for pinyin
-        "target_tag": target_tag,      # extra field, harmless -- QuestionBase doesn't forbid extras
+        "question": numbered_pinyin,
+        "answer": numbered_pinyin,
+        "audio_text": syllable_row.character,       # was diacritic_pinyin
+        "hanzi": syllable_row.character,            # for speaking-question Azure assessment
+        "tags": [],
+        "target_tag": target_tag,
     }
-
 
 def generate_pinyin_session(db: Session, textbook_db: Session, user_id: int, num_questions: int = 10) -> list[dict]:
     if not get_unlocked_tags(db, user_id):

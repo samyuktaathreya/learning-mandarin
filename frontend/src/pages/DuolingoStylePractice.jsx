@@ -75,11 +75,12 @@ export default function DuolingoStyleQuestions() {
 
         const audioMode = getQuestionAudioMode(currentQuestionObj, sessionType);
         if (audioMode === 'autoplay') {
-            playAudio(currentQuestionObj.question, false, currentAudioRef, questionTokenRef, questionTokenRef.current);
+            const slow = isListeningType(currentQuestionObj.question_type);
+            playAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, slow, currentAudioRef, questionTokenRef, questionTokenRef.current);
         } else if (audioMode === 'preload') {
             // Review-session case: don't autoplay, but fetch now so revealAnswer's
             // playAudio call later is instant instead of waiting on the network.
-            preloadAudio(currentQuestionObj.question);
+            preloadAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question);
         }
     }, [currentIndex, questions]);
 
@@ -153,7 +154,7 @@ export default function DuolingoStyleQuestions() {
         if (sessionType === 'review_session' &&
             !isListeningType(currentQuestionObj.question_type) &&
             hasChinese(currentQuestionObj.question)) {
-            playAudio(currentQuestionObj.question, false, currentAudioRef, questionTokenRef, questionTokenRef.current);
+            playAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, currentAudioRef, questionTokenRef, questionTokenRef.current);
         }
     };
 
@@ -237,7 +238,7 @@ export default function DuolingoStyleQuestions() {
         totalQuestions: questions.length,
         sessionType,
         onMarkCorrect: () => advanceQuestion(true),
-        onPlayAudio: playAudio,
+        onPlayAudio: (text, slow, pinyin) => playAudio(text, slow, undefined, undefined, undefined, pinyin),
         onToggleGrammar: () => setIsGrammarTipOpen(!isGrammarTipOpen),
     };
 

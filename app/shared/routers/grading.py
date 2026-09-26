@@ -2,14 +2,14 @@ from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
-from app.core.database import SessionLocal
+from core.database import SessionLocal
 from shared.services.grading import (
     evaluate_chinese_to_english,
     evaluate_english_to_chinese
 )
 
 from fastapi import APIRouter, Depends
-from app.core.turnstile import require_turnstile
+from core.turnstile import require_turnstile
 
 router = APIRouter()
 

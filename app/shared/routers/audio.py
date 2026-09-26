@@ -10,7 +10,7 @@ from shared.services.audio import (
 )
 from textbook.database import get_textbook_db
 from fastapi import APIRouter, Depends
-from app.core.turnstile import require_turnstile
+from core.turnstile import require_turnstile
 
 router = APIRouter()
 
@@ -18,12 +18,13 @@ router = APIRouter()
 async def get_audio(payload: dict):
     text = payload["text"]
     slow = payload.get("slow", False)
-    
-    filepath = await generate_and_cache_audio(text, slow=slow)
-    
+    numbered_pinyin = payload.get("pinyin")
+
+    filepath = await generate_and_cache_audio(text, slow=slow, numbered_pinyin=numbered_pinyin)
+
     with open(filepath, "rb") as f:
         audio_data = base64.b64encode(f.read()).decode("utf-8")
-        
+
     return JSONResponse({"audio": audio_data})
 
 

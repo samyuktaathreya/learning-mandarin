@@ -10,7 +10,7 @@ from session.constants import GRADUATION_THRESHOLD, REVIEW_THRESHOLD
 from textbook import services as textbook_services
 from session.services.review_engine import is_facet_review_eligible
 from session import crud as session_crud
-from app.core.logger import logger
+from core.logger import logger
 
 
 class _CollapsedRecord:
@@ -61,7 +61,7 @@ from session import crud as session_crud
  
 def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int) -> dict:
     from session.services.progress import get_collapsed_progress
-    from app.pinyin import services as pinyin_services
+    from pinyin import services as pinyin_services
 
     user = get_user(db, user_id)
     hsk_level = getattr(user, "hsk_level", 1)

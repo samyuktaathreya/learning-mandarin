@@ -4,7 +4,7 @@ from sqlalchemy.dialects.sqlite import TEXT
 from datetime import datetime
 
 # Assuming Base is defined in your main database.py file
-from app.core.database import Base
+from core.database import Base
 
 
 class StrengthTable(Base):
