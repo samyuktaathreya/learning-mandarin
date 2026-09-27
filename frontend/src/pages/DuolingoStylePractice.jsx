@@ -76,11 +76,11 @@ export default function DuolingoStyleQuestions() {
         const audioMode = getQuestionAudioMode(currentQuestionObj, sessionType);
         if (audioMode === 'autoplay') {
             const slow = isListeningType(currentQuestionObj.question_type);
-            playAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, slow, currentAudioRef, questionTokenRef, questionTokenRef.current);
+            playAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, slow, currentAudioRef, questionTokenRef, questionTokenRef.current, currentQuestionObj.audio_pinyin);
         } else if (audioMode === 'preload') {
             // Review-session case: don't autoplay, but fetch now so revealAnswer's
             // playAudio call later is instant instead of waiting on the network.
-            preloadAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question);
+            preloadAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, currentQuestionObj.audio_pinyin);
         }
     }, [currentIndex, questions]);
 
@@ -154,7 +154,7 @@ export default function DuolingoStyleQuestions() {
         if (sessionType === 'review_session' &&
             !isListeningType(currentQuestionObj.question_type) &&
             hasChinese(currentQuestionObj.question)) {
-            playAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, currentAudioRef, questionTokenRef, questionTokenRef.current);
+            playAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, currentAudioRef, questionTokenRef, questionTokenRef.current, currentQuestionObj.audio_pinyin);
         }
     };
 

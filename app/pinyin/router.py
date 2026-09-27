@@ -8,6 +8,8 @@ from core.deps import get_current_user
 from auth.models import User
 from pinyin import services as pinyin_services
 
+from typing import Literal
+
 
 def get_db():
     db = SessionLocal()
@@ -55,3 +57,11 @@ def submit_pinyin(
     db: Session = Depends(get_db),
 ):
     return pinyin_services.process_pinyin_submission(db, user.id, list_of_question_data, is_correct)
+
+@router.get("/api/pinyin/get_row_by_tag")
+def get_row_by_tag(
+    tag: str,
+    category: Literal["initial", "final"],
+    textbook_db: Session = Depends(get_textbook_db),
+):
+    return pinyin_services.get_representative_row_by_tag(textbook_db, tag, category)

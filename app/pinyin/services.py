@@ -26,6 +26,8 @@ INITIALS = sorted(
     key=len, reverse=True,
 )
 
+MAX_ATTEMPTS_PER_SLOT = 3
+
 TONES = (1, 2, 3, 4)
 
 # Each level is an ordered list of groups. Group 0 of a level unlocks as
@@ -35,12 +37,24 @@ LEVEL_GROUPS: dict[int, list[set[str]]] = {
     1: [{"tone1", "tone4"}, {"tone2", "tone3"}],
     2: [{"a", "o", "e", "i", "u", "v"}],  # ü represented as "v", per app convention
     3: [
-        {"b", "p", "d", "t", "g", "k"},
+        {"b", "p", "m", "f"},
+        {"d", "t", "n", "l"},
+        {"g", "k", "h"},
         {"j", "q", "x"},
         {"zh", "ch", "sh", "r", "z", "c", "s"},
     ],
     4: [{"an", "en", "in", "ang", "eng", "ing", "ong"}],
 }
+
+# Every group in teaching order, levels flattened. Unlocking walks this list
+# and ignores level boundaries; levels are still used for `graduated`.
+ORDERED_GROUPS: list[set[str]] = [
+    group for level in sorted(LEVEL_GROUPS) for group in LEVEL_GROUPS[level]
+]
+ 
+# How many introduced-but-unmastered tags a learner can have before new
+# material is held back. 1 = "only one straggler left, bring in the next group".
+MAX_UNMASTERED_BEFORE_UNLOCK = 1
 
 DEMO_SYLLABLE_TAGS = {"m", "a"}
 MASTERY_THRESHOLD = 0.85
@@ -103,25 +117,26 @@ def _seed_group(db: Session, user_id: int, group: set[str]) -> None:
 
 
 def maybe_unlock_next_group(db: Session, user_id: int) -> None:
-    """Call every session. Walks the current level's groups in order,
-    seeding the first one not yet introduced whose predecessor is
-    mastered. Only unlocks one group per call."""
-    level = get_current_level(db, user_id)
-    if level not in LEVEL_GROUPS:
-        return
+    """Call every session. Seeds the next group in ORDERED_GROUPS once the
+    learner has at most MAX_UNMASTERED_BEFORE_UNLOCK unmastered tags among
+    everything already introduced. Level boundaries don't matter: someone
+    who has mastered every tone except tone4 starts getting vowels.
+ 
+    A group counts as introduced only when ALL its tags have progress rows.
+    Demo tags ('a', 'm') seed single members early, and those shouldn't make
+    their whole group look introduced; the missing members get seeded when
+    that group's turn comes. Unlocks at most one group per call.
+    """
     progress = pinyin_crud.get_sound_progress_map(db, user_id)
-    groups = LEVEL_GROUPS[level]
-
-    for i, group in enumerate(groups):
-        introduced = bool(group & set(progress.keys()))
-        if not introduced:
-            if i == 0:
-                _seed_group(db, user_id, group)
-            else:
-                prev_group = groups[i - 1]
-                if all(_is_mastered(progress.get(t)) for t in prev_group):
-                    _seed_group(db, user_id, group)
-            return
+    introduced = set(progress.keys())
+ 
+    next_group = next((g for g in ORDERED_GROUPS if not g <= introduced), None)
+    if next_group is None:
+        return  # everything already introduced
+ 
+    unmastered = [t for t in introduced if not _is_mastered(progress[t])]
+    if len(unmastered) <= MAX_UNMASTERED_BEFORE_UNLOCK:
+        _seed_group(db, user_id, next_group - introduced)
 
 
 def maybe_advance_level(db: Session, user_id: int) -> None:
@@ -140,10 +155,9 @@ def maybe_advance_level(db: Session, user_id: int) -> None:
 def _is_tone_tag(tag: str) -> bool:
     return tag.startswith("tone") and tag[4:].isdigit()
 
-
 def pick_target_tag(db: Session, user_id: int) -> str:
     progress = pinyin_crud.get_sound_progress_map(db, user_id)
-    unlocked = set(progress.keys())
+    unlocked = list(progress.keys())
     if not unlocked:
         raise ValueError("No unlocked tags yet -- call generate_pinyin_session first")
 
@@ -151,49 +165,76 @@ def pick_target_tag(db: Session, user_id: int) -> str:
         row = progress[tag]
         return (row.successes or 0) / max(row.attempts or 1, 1)
 
-    min_score = min(score(t) for t in unlocked)
-    weakest = [t for t in unlocked if score(t) == min_score]
-    return random.choice(weakest)
+    # Weighted random instead of strict argmin: weaker tags come up more
+    # often, but every unlocked tag still has *some* chance each question.
+    # Without this, one tag being uniquely weakest (e.g. tone4 at 82% vs
+    # everything else at 92%+) meant it got picked for literally every
+    # question in every session, with no contrast against other tags --
+    # useless for something like telling tones apart. The 0.05 floor keeps
+    # even fully-mastered tags in light rotation instead of disappearing
+    # entirely once they cross the threshold.
+    weights = [max(1.0 - score(t), 0.05) for t in unlocked]
+    return random.choices(unlocked, weights=weights, k=1)[0]
 
 
-def generate_pinyin_question(db: Session, textbook_db: Session, user_id: int) -> dict:
+ 
+def generate_pinyin_question(db: Session, textbook_db: Session, user_id: int,
+                             avoid: str | None = None) -> dict | None:
+    """`avoid` is the previous question's numbered pinyin (e.g. 'ma3').
+    Candidates with that same syllable+tone are skipped, whatever the question
+    type, so the same sound never comes up twice in a row. Returns None when
+    every available candidate is the avoided one."""
     unlocked = get_unlocked_tags(db, user_id)
     target_tag = pick_target_tag(db, user_id)
-
+ 
     if _is_tone_tag(target_tag):
         tone = int(target_tag[4:])
         candidates = pinyin_crud.get_syllables_by_tone_within_unlocked(textbook_db, tone, unlocked)
     else:
         tone = random.randint(1, 4)
         candidates = pinyin_crud.get_syllables_matching_tags(textbook_db, target_tag, tone, unlocked)
-
+ 
     if not candidates:
         candidates = pinyin_crud.get_any_syllable_within_unlocked(textbook_db, unlocked)
     if not candidates:
         raise ValueError(f"No syllables available for user {user_id} given unlocked tags {unlocked}")
-
+ 
+    candidates = [c for c in candidates if f"{c.syllable}{c.tone}" != avoid]
+    if not candidates:
+        return None
+ 
     syllable_row = random.choice(candidates)
     question_type = random.choice(QUESTION_TYPES)
     numbered_pinyin = f"{syllable_row.syllable}{syllable_row.tone}"
-
+ 
     return {
         "id": f"pinyin:{syllable_row.syllable}:{syllable_row.tone}:{question_type}",
         "question_type": question_type,
         "question": numbered_pinyin,
         "answer": numbered_pinyin,
-        "audio_text": syllable_row.character,       # was diacritic_pinyin
-        "hanzi": syllable_row.character,            # for speaking-question Azure assessment
+        "audio_text": syllable_row.character,
+        "audio_pinyin": f"{syllable_row.syllable} {syllable_row.tone}",
+        "hanzi": syllable_row.character,
         "tags": [],
         "target_tag": target_tag,
     }
 
 def generate_pinyin_session(db: Session, textbook_db: Session, user_id: int, num_questions: int = 10) -> list[dict]:
-    if not get_unlocked_tags(db, user_id):
-        maybe_advance_level(db, user_id)  # seeds level 1's first group for a fresh user
+    """Never puts the same syllable+tone back to back. The same sound can
+    still appear more than once in a session, just not consecutively. If a
+    slot can't find a different sound after MAX_ATTEMPTS_PER_SLOT tries,
+    it's dropped, so a session can come back shorter than num_questions."""
     maybe_unlock_next_group(db, user_id)
-    maybe_advance_level(db, user_id)
-    return [generate_pinyin_question(db, textbook_db, user_id) for _ in range(num_questions)]
-
+ 
+    questions: list[dict] = []
+    for _ in range(num_questions):
+        avoid = questions[-1]["question"] if questions else None
+        for _ in range(MAX_ATTEMPTS_PER_SLOT):
+            q = generate_pinyin_question(db, textbook_db, user_id, avoid=avoid)
+            if q is not None:
+                questions.append(q)
+                break
+    return questions
 
 def process_pinyin_submission(
     db: Session,
@@ -242,4 +283,11 @@ def get_pinyin_progress(db: Session, user_id: int) -> dict:
         "vowels": sorted(vowels, key=lambda x: x["tag"]),
         "consonants": sorted(consonants, key=lambda x: x["tag"]),
         "graduated": get_current_level(db, user_id) > max(LEVEL_GROUPS),
+        "mastery_threshold": MASTERY_THRESHOLD,
+
     }
+
+def get_representative_row_by_tag(db: Session, tag: str, category: str) -> dict | None:
+    if category == "initial":
+        return pinyin_crud.get_consonant_example_row(db, tag)
+    return pinyin_crud.get_final_example_row(db, tag)

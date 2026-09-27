@@ -2,7 +2,7 @@ import { API_BASE_URL } from '../config';
 import { apiFetch } from './client';
 import { hasChinese } from '../utils/questionHelpers';
 
-// Cache of in-flight/resolved audio fetches, keyed by "text::slow"
+// Cache of in-flight/resolved audio fetches, keyed by "text::slow::pinyin"
 const audioCache = new Map();
 
 const fetchAudioData = (text, slow = false, pinyin = null) => {
@@ -14,15 +14,22 @@ const fetchAudioData = (text, slow = false, pinyin = null) => {
         headers: { 'Content-Type': 'application/json' }, 
         body: JSON.stringify({ text, slow, pinyin }),
     })
-        .then(res => res.json())
-        .then(data => data.audio)
+        .then(async (res) => {
+            const data = await res.json().catch(() => null);
+            if (!res.ok) {
+                // Forced-pronunciation failures come back as 502 with what was
+                // sent to Azure (sent_to_azure) and what Azure said (azure_response).
+                console.error('Audio request failed', { status: res.status, request: { text, slow, pinyin }, response: data });
+                throw new Error(`Audio request failed (${res.status})`);
+            }
+            return data.audio;
+        })
         .catch(err => {
             audioCache.delete(key);
             throw err;
         });
 
     audioCache.set(key, promise);
-    console.log("promise : ", promise);
     return promise;
 };
 
@@ -49,7 +56,7 @@ export const playAudio = async (text, slow = false, currentAudioRef = null, toke
     stopCurrentAudio(currentAudioRef);
 
     try {
-        const audio = await fetchAudioData(text, slow); // instant if preloaded
+        const audio = await fetchAudioData(text, slow, pinyin); // instant if preloaded
 
         if (tokenRef && tokenRef.current !== expectedToken) return;
 

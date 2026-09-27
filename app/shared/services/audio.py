@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 from pinyin_utils import strip_punct, to_numbered_pinyin, tones_match, grade_speaking_sentence
 from core.config.shared import settings
 from core.logger import logger
-
+import re
 
 CACHE_DIR = "audio_cache"
 os.makedirs(CACHE_DIR, exist_ok=True)
@@ -33,28 +33,81 @@ ACCURACY_THRESHOLD = 90
 PINYIN_ACCURACY_THRESHOLD = 80
 ASSESSMENT_QUESTION_TYPES = {"speaking vocab", "speaking_pinyin"}
 
+class ForcedPronunciationError(Exception):
+    """Azure rejected or cancelled a forced-pronunciation request. Carries
+    everything that was sent so the router can return it to the client."""
+ 
+    def __init__(self, text: str, numbered_pinyin: str, voice: str, slow: bool,
+                 ssml: str, reason, cancel_reason, error_details):
+        self.text = text
+        self.numbered_pinyin = numbered_pinyin
+        self.voice = voice
+        self.slow = slow
+        self.ssml = ssml
+        self.reason = str(reason)
+        self.cancel_reason = str(cancel_reason)
+        self.error_details = error_details
+        super().__init__(f"Forced-pronunciation synthesis failed: {cancel_reason} - {error_details}")
+ 
+    def to_dict(self) -> dict:
+        return {
+            "error": "forced_pronunciation_failed",
+            "sent_to_azure": {
+                "text": self.text,
+                "ph": self.numbered_pinyin,
+                "voice": self.voice,
+                "slow": self.slow,
+                "ssml": self.ssml,
+            },
+            "azure_response": {
+                "reason": self.reason,
+                "cancel_reason": self.cancel_reason,
+                "error_details": self.error_details,
+            },
+        }
+        
+def normalize_sapi_pinyin(pinyin: str) -> str:
+    """Azure's SAPI phoneme tag wants a space between each syllable and its
+    tone digit. Callers send different formats ('ma3' from speaking
+    questions, 'ma 3' from the progress popup), so normalize them all here:
+      'ma3' -> 'ma 3',  'ni3hao3' -> 'ni 3 hao 3',  'ma 3' -> 'ma 3'
+    """
+    spaced = re.sub(r"([a-zü]+)\s*([0-5])", r"\1 \2 ", pinyin.strip().lower())
+    return " ".join(spaced.split())
 
 # ----------------------------- TTS -----------------------------
 
+# app/shared/services/audio.py -- replace generate_and_cache_audio
+
 async def generate_and_cache_audio(text: str, slow: bool = False, numbered_pinyin: str | None = None) -> str:
-    """`numbered_pinyin` (e.g. 'a1') forces the exact tone via SSML phoneme forcing,
+    """`numbered_pinyin` (e.g. 'ma 3') forces the exact tone via SSML phoneme forcing,
     for heteronyms like 阿 where the TTS engine would otherwise guess the reading."""
     cache_key = f"{numbered_pinyin or text}_slow" if slow else (numbered_pinyin or text)
     if cache_key in audio_cache:
         return audio_cache[cache_key]
-
+ 
     voice = random.choice(MANDARIN_VOICES)
     filename = hashlib.md5(cache_key.encode("utf-8")).hexdigest() + ".mp3"
     filepath = os.path.join(CACHE_DIR, filename)
-
-    if not os.path.exists(filepath):
-        if numbered_pinyin:
-            await asyncio.to_thread(_synthesize_forced_pronunciation, text, numbered_pinyin, filepath, voice, slow)
-        else:
-            rate = "-30%" if slow else "+0%"
-            communicate = edge_tts.Communicate(text, voice, rate=rate)
-            await communicate.save(filepath)
-
+ 
+    # A failed synthesis leaves an empty file behind (Azure creates it before
+    # it knows whether synthesis worked). Treat empty files as missing, and
+    # delete them on failure, so a failed sound is retried next time instead
+    # of being served as silence.
+    if not os.path.exists(filepath) or os.path.getsize(filepath) == 0:
+        try:
+            if numbered_pinyin:
+                numbered_pinyin = normalize_sapi_pinyin(numbered_pinyin)
+                await asyncio.to_thread(_synthesize_forced_pronunciation, text, numbered_pinyin, filepath, voice, slow)
+            else:
+                rate = "-30%" if slow else "+0%"
+                communicate = edge_tts.Communicate(text, voice, rate=rate)
+                await communicate.save(filepath)
+        except Exception:
+            if os.path.exists(filepath):
+                os.remove(filepath)
+            raise
+ 
     audio_cache[cache_key] = filepath
     session_files.add(filepath)
     return filepath
@@ -65,22 +118,36 @@ def _synthesize_forced_pronunciation(text: str, numbered_pinyin: str, filepath: 
     speech_config = speechsdk.SpeechConfig(subscription=AZURE_SPEECH_KEY, region=AZURE_SPEECH_REGION)
     audio_config = speechsdk.audio.AudioOutputConfig(filename=filepath)
     synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
-
     rate = "-30%" if slow else "+0%"
+ 
     ssml = f'''<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="zh-CN">
   <voice name="{voice}">
     <prosody rate="{rate}">
-      <phoneme alphabet="x-microsoft-sapi" ph="{numbered_pinyin}">{text}</phoneme>
+      <phoneme alphabet="sapi" ph="{numbered_pinyin}">{text}</phoneme>
     </prosody>
   </voice>
 </speak>'''
-
+ 
+    # Logged on every forced request, not just failures, so a request that
+    # "succeeds" but plays the wrong tone can still be checked against what
+    # was actually sent.
+    logger.info(f"Forced pronunciation request: text={text!r} ph={numbered_pinyin!r} voice={voice} slow={slow}")
+ 
     result = synthesizer.speak_ssml_async(ssml).get()
     if result.reason != speechsdk.ResultReason.SynthesizingAudioCompleted:
         details = getattr(result, "cancellation_details", None)
-        logger.debug(f"Forced-pronunciation TTS failed: {result.reason}, details: {details}")
-        raise Exception("Forced-pronunciation synthesis failed")
-
+        err = ForcedPronunciationError(
+            text=text,
+            numbered_pinyin=numbered_pinyin,
+            voice=voice,
+            slow=slow,
+            ssml=ssml,
+            reason=result.reason,
+            cancel_reason=getattr(details, "reason", None),
+            error_details=getattr(details, "error_details", None),
+        )
+        logger.error(f"Forced-pronunciation TTS failed: {err.to_dict()}")
+        raise err
 
 def clear_session_audio() -> int:
     count = len(session_files)

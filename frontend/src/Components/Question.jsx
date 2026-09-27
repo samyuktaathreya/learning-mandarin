@@ -290,8 +290,8 @@ export default function Question({
 
             {showReplayButton && (
                 <>
-                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question)} disabled={isGrading}>🔊 Replay</button>
-                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true)} disabled={isGrading}>🐢 Slow</button>
+                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, currentQuestionObj.audio_pinyin)} disabled={isGrading}>🔊 Replay</button>
+                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true, currentQuestionObj.audio_pinyin)} disabled={isGrading}>🐢 Slow</button>
                 </>
             )}
 
