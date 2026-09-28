@@ -84,3 +84,5 @@ SOUND_UNLOCK_SUCCESSES = 1
 SOUND_UNLOCK_ATTEMPTS_CAP = 5
 
 UNIT_TEST_TIER_WEIGHTS = {1: 1, 2: 1, 3: 4, 4: 4}
+
+SOUND_CREDIT_TYPES = {"speaking vocab", "listening vocab", "transcribe word to pinyin"}

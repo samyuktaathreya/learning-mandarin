@@ -4,12 +4,12 @@ import json
 import anthropic as anthropic_sdk
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
-from app.core.config.shared import settings
+from core.config.shared import settings
 
 from pinyin_utils import strip_punct, to_numbered_pinyin, tones_match
 from session.models import AcceptedAnswer
 from session.crud import log_mismatch
-from app.core.logger import logger
+from core.logger import logger
 
 anthropic_client = anthropic_sdk.Anthropic(api_key=settings.CLAUDE_API_KEY)
 

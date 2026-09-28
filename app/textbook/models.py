@@ -361,3 +361,14 @@ class Question(Base):
     __table_args__ = (
         UniqueConstraint("legacy_id", name="_legacy_id_uc"),
     )
+
+class PinyinSyllable(Base):
+    __tablename__ = "pinyin_syllables"
+    id = Column(Integer, primary_key=True)
+    syllable = Column(String, nullable=False)
+    tone = Column(Integer, nullable=False)
+    initial_tag = Column(String, nullable=True)
+    final_tag = Column(String, nullable=False)
+    diacritic_pinyin = Column(String, nullable=True)
+    character = Column(String, nullable=True)  # representative hanzi for this syllable+tone, from CC-CEDICT
+    __table_args__ = (UniqueConstraint("syllable", "tone", name="_syllable_tone_uc"),)

@@ -1,7 +1,7 @@
 from fastapi import Request, Depends, Header, HTTPException
 from sqlalchemy.orm import Session
 
-from app.core.database import SessionLocal
+from core.database import SessionLocal
 from auth.crud import get_or_create_user, get_or_create_guest, merge_guest_into_user
 from auth.models import User
 

@@ -4,7 +4,7 @@ from clerk_backend_api import Clerk
 from clerk_backend_api.security import authenticate_request
 from clerk_backend_api.security.types import AuthenticateRequestOptions
 from starlette.requests import Request
-from app.core.config.shared import settings
+from core.config.shared import settings
 
 CLERK_SECRET_KEY = settings.CLERK_SECRET_KEY
 CLERK_JWT_KEY = settings.CLERK_JWT_KEY  # enables networkless (local) verification

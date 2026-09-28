@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from app.core.config.data import MANDARIN_APP_DB
+from core.config.data import MANDARIN_APP_DB
 
 SQLALCHEMY_DATABASE_URL = f"sqlite:///{MANDARIN_APP_DB}"
 

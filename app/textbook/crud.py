@@ -45,7 +45,7 @@ from typing import Optional
 
 from sqlalchemy.orm import Session
 from sqlalchemy import func, or_, and_
-from app.core.logger import logger
+from core.logger import logger
 from textbook.models import Unit, Vocab, VocabSense, Sentence, SentenceVocab, Question, WordType
 from session.constants import QUESTION_TYPE_FACETS  # single source of truth -- see note below
 

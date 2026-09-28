@@ -10,20 +10,28 @@ from shared.services.audio import (
 )
 from textbook.database import get_textbook_db
 from fastapi import APIRouter, Depends
-from app.core.turnstile import require_turnstile
+from core.turnstile import require_turnstile
+from shared.services.audio import ForcedPronunciationError
 
 router = APIRouter()
+
 
 @router.post("/api/audio")
 async def get_audio(payload: dict):
     text = payload["text"]
     slow = payload.get("slow", False)
-    
-    filepath = await generate_and_cache_audio(text, slow=slow)
-    
+    numbered_pinyin = payload.get("pinyin")
+ 
+    try:
+        filepath = await generate_and_cache_audio(text, slow=slow, numbered_pinyin=numbered_pinyin)
+    except ForcedPronunciationError as e:
+        # 502: Azure (upstream) rejected the request. The body shows exactly
+        # what was sent and what Azure said, readable in the Network tab.
+        return JSONResponse(status_code=502, content=e.to_dict())
+ 
     with open(filepath, "rb") as f:
         audio_data = base64.b64encode(f.read()).decode("utf-8")
-        
+ 
     return JSONResponse({"audio": audio_data})
 
 

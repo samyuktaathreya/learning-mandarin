@@ -10,7 +10,7 @@ from session.constants import GRADUATION_THRESHOLD, REVIEW_THRESHOLD
 from textbook import services as textbook_services
 from session.services.review_engine import is_facet_review_eligible
 from session import crud as session_crud
-from app.core.logger import logger
+from core.logger import logger
 
 
 class _CollapsedRecord:
