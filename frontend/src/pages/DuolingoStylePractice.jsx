@@ -99,6 +99,13 @@ export default function DuolingoStyleQuestions() {
         return () => window.removeEventListener('keydown', onKeyDown);
     }, [answerState, transcriptionResult]);
 
+    const fetchProgress = async () => {
+        try {
+            const res = await apiFetch(`${API_BASE_URL}/api/progress`);
+            setProgress(await res.json());
+        } catch (e) { console.error("Failed to fetch progress", e); }
+    };
+
     const startSession = async (debug = false, skipReview = false) => {
         setIsLoading(true);
         setDebugMode(debug);
