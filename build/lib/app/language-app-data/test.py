@@ -1,6 +1,6 @@
 import json
 from collections import Counter
-from app.core.logger import logger
+from core.logger import logger
 
 qs = json.load(open("data/clean/unit_questions_hsk1.json"))
 for unit in ["6", "7", "8", "10", "13"]:

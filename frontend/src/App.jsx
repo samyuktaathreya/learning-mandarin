@@ -6,6 +6,7 @@ import TestPronunciation from "./pages/TestPronounciation";
 import { initTurnstile, verifySession } from './api/client';
 import { TokenBridge, SignInPage, SignUpPage, GuestBanner, AccountControl } from './Components/Auth';
 import { ClerkProvider } from '@clerk/clerk-react';
+import { PinyinTest } from "./Components/PinyinTest";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -53,6 +54,7 @@ function App() {
               <Route path="/" element={<DuolingoStyleQuestions />} />
               <Route path="/mandarin-voice-practice" element={<MandarinVoicePractice />} />
               <Route path="/test" element={<TestPronunciation />} />
+              <Route path="/pinyin-test" element={<PinyinTest />} />
 
               <Route path="*" element={<div>I am lost! Current path: {window.location.pathname}</div>} />
             </Routes>

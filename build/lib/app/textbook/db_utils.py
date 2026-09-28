@@ -26,8 +26,8 @@ from .models import (
 )
 import json
 from collections import defaultdict
-from app.core.config.data import TEXTBOOK_DB
-from app.core.logger import logger
+from core.config.data import TEXTBOOK_DB
+from core.logger import logger
 
 engine = create_engine(f"sqlite:///{TEXTBOOK_DB}", connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)

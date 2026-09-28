@@ -5,15 +5,15 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from app.core.database import engine, Base
+from core.database import engine, Base
 from scripts.seed import init_db
 from session_log import reset_log
 
 from textbook.models import Base as TextbookBase
 from textbook.db_utils import engine as textbook_engine
 
-from app.core.logger import logger
-from app.core.config.shared import settings
+from core.logger import logger
+from core.config.shared import settings
 
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
 

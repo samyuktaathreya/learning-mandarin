@@ -28,7 +28,7 @@ call sites won't have this context, so defaults are fine.
 from typing import Optional
 from sqlalchemy.orm import Session
 
-from app.pinyin_utils import split_pinyin_sounds, GATED_INITIALS, GATED_FINALS
+from pinyin_utils import split_pinyin_sounds, GATED_INITIALS, GATED_FINALS
 from textbook import crud
 
 # Minimum required sounds per practicefor pronunciation practice to be viable

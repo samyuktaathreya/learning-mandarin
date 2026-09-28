@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
-from app.core.database import SessionLocal
+from core.database import SessionLocal
 from pinyin_utils import to_numbered_pinyin
 from shared.crud import get_dictionary_entries
-from app.core.logger import logger
+from core.logger import logger
 
 # ----------------------------- DB DEPENDENCY -----------------------------
 

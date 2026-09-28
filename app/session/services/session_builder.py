@@ -26,6 +26,11 @@ from session_log import log_session
 from textbook import services as textbook_services
 from textbook.services import META_TAGS
 from characters.services import generate_character_questions
+from pinyin_utils import split_pinyin_sounds
+import textbook.crud as textbook_crud
+
+from session.constants import SOUND_CREDIT_TYPES
+from pinyin import services as pinyin_services
 
 # ----------------------------- SESSION GENERATION -----------------------------
 
@@ -100,6 +105,15 @@ def generate_full_session(db: Session, characters_db: Session, textbook_db: Sess
     """
     user = crud.get_user(db, user_id)
     user_unit = user.current_unit
+
+    if user.current_unit == 0:
+        pinyin_questions = pinyin_services.generate_pinyin_session(db, textbook_db, user_id)
+        return SessionResponse(
+            user_id=user_id,
+            session_type="pinyin",
+            question_set=pinyin_questions,
+        )
+    
     hsk_level = getattr(user, "hsk_level", 1)
 
     unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, user_unit, hsk_level)
@@ -149,6 +163,10 @@ def process_submission(
         for i, q in enumerate(list_of_question_data)
     ]
     submit_tags = set()
+
+    if list_of_question_data and list_of_question_data[0].get("question_type") in pinyin_services.QUESTION_TYPES:
+        return pinyin_services.process_pinyin_submission(db, user_id, list_of_question_data, is_correct)
+    
     for question_data in list_of_question_data:
         for tag in question_data.get("tags", []):
             if tag not in META_TAGS and not tag.startswith("unit_"):
@@ -205,14 +223,21 @@ def process_submission(
                 for facet in crud.facets_for_question_type(question_type):
                     facet_probation_clears.add((tag, facet))
 
-        if question_type == "speaking vocab":
+        # "if question_type == 'speaking vocab'" block:
+        if question_type in SOUND_CREDIT_TYPES:
             for tag in question_data.get("tags", []):
                 if tag in META_TAGS or tag.startswith("unit_"):
                     continue
+
                 for sound in _tag_sounds(textbook_db, tag):
                     crud.record_sound_attempt(db, user_id, sound, is_correct[i])
 
-    # Passive Tier Advancement Check:
+                pinyin = textbook_crud.get_pinyin_for_word(textbook_db, tag)
+                if pinyin:
+                    for _, _, tone in split_pinyin_sounds(pinyin):
+                        crud.record_sound_attempt(db, user_id, f"tone{tone}", is_correct[i])
+
+    # Passive Tier Advancement Check: 
     # A tag qualifies for advancement if it appears in a question whose tier meets or
     # exceeds the tag's current tier (and was answered cleanly across the session).
     tags_served_at_current_tier = set()
