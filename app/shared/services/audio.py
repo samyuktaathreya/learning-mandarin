@@ -86,20 +86,57 @@ def get_rate(text: str, slow: bool) -> str:
     # need the slowest setting to sound noticeably slower.
     return "-50%" if len(strip_punct(text)) <= 1 else "-30%"
 
+TONE_CONTOURS = {
+    "1": "(0%,+15%) (100%,+15%)",
+    "2": "(0%,-10%) (100%,+30%)",
+    "3": "(0%,-5%) (35%,-35%) (75%,-35%) (100%,+10%)",
+    "4": "(0%,+35%) (55%,-25%) (100%,-40%)",   # fast/normal: steeper fall, reaches the bottom early
+}
+
+# Slower audio smooths pitch changes, so exaggerate the shapes a bit
+SLOW_TONE_CONTOURS = {
+    **TONE_CONTOURS,
+    "4": "(0%,+45%) (40%,-30%) (100%,-45%)",
+}
+
+BAD_VOICES_BY_TONE = {
+    "3": {"zh-CN-XiaoyiNeural"},   # <- replace with the voice from your logs
+}
+
+def pick_voice(seed_text: str, numbered_pinyin: str | None) -> str:
+    seed = int(hashlib.md5(seed_text.encode("utf-8")).hexdigest(), 16)
+    pool = MANDARIN_VOICES
+    if numbered_pinyin:
+        tone = numbered_pinyin.split()[-1]
+        bad = BAD_VOICES_BY_TONE.get(tone, set())
+        pool = [v for v in MANDARIN_VOICES if v not in bad] or MANDARIN_VOICES
+    return pool[seed % len(pool)]
+
+def get_contour_attr(numbered_pinyin: str, slow: bool = False) -> str:
+    parts = numbered_pinyin.split()
+    if len(parts) != 2:
+        return ""
+    table = SLOW_TONE_CONTOURS if slow else TONE_CONTOURS
+    contour = table.get(parts[1])
+    return f' contour="{contour}"' if contour else ""
+
 async def generate_and_cache_audio(text: str, slow: bool = False, numbered_pinyin: str | None = None) -> str:
     """`numbered_pinyin` (e.g. 'ma 3') forces the exact tone via SSML phoneme forcing,
     for heteronyms like 阿 where the TTS engine would otherwise guess the reading."""
+    # Normalize first, so the cache key, voice choice and SSML all see the same format
+    if numbered_pinyin:
+        numbered_pinyin = normalize_sapi_pinyin(numbered_pinyin)
+
     cache_key = f"{numbered_pinyin or text}_slow" if slow else (numbered_pinyin or text)
     if cache_key in audio_cache:
         return audio_cache[cache_key]
- 
+
     # Same voice for normal + slow of the same item, so speed is the only difference.
-    voice_seed = int(hashlib.md5((numbered_pinyin or text).encode("utf-8")).hexdigest(), 16)
-    voice = MANDARIN_VOICES[voice_seed % len(MANDARIN_VOICES)]
+    voice = pick_voice(numbered_pinyin or text, numbered_pinyin)
 
     filename = hashlib.md5(cache_key.encode("utf-8")).hexdigest() + ".mp3"
     filepath = os.path.join(CACHE_DIR, filename)
- 
+
     # A failed synthesis leaves an empty file behind (Azure creates it before
     # it knows whether synthesis worked). Treat empty files as missing, and
     # delete them on failure, so a failed sound is retried next time instead
@@ -107,7 +144,6 @@ async def generate_and_cache_audio(text: str, slow: bool = False, numbered_pinyi
     if not os.path.exists(filepath) or os.path.getsize(filepath) == 0:
         try:
             if numbered_pinyin:
-                numbered_pinyin = normalize_sapi_pinyin(numbered_pinyin)
                 await asyncio.to_thread(_synthesize_forced_pronunciation, text, numbered_pinyin, filepath, voice, slow)
             else:
                 rate = get_rate(text, slow)
@@ -117,7 +153,7 @@ async def generate_and_cache_audio(text: str, slow: bool = False, numbered_pinyi
             if os.path.exists(filepath):
                 os.remove(filepath)
             raise
- 
+
     audio_cache[cache_key] = filepath
     session_files.add(filepath)
     return filepath
@@ -129,14 +165,19 @@ def _synthesize_forced_pronunciation(text: str, numbered_pinyin: str, filepath: 
     audio_config = speechsdk.audio.AudioOutputConfig(filename=filepath)
     synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
     rate = get_rate(text, slow)
+    contour = ' contour="(0%,-15%) (45%,-45%) (100%,+10%)"' if numbered_pinyin.endswith(" 3") else ""
  
+    contour_attr = get_contour_attr(numbered_pinyin)
+
     ssml = f'''<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="zh-CN">
-  <voice name="{voice}">
-    <prosody rate="{rate}">
-      <phoneme alphabet="sapi" ph="{numbered_pinyin}">{text}</phoneme>
-    </prosody>
-  </voice>
-</speak>'''
+    <voice name="{voice}">
+        <prosody rate="{rate}"{contour_attr}>
+        <phoneme alphabet="sapi" ph="{numbered_pinyin}">{text}</phoneme>
+        </prosody>
+    </voice>
+    </speak>'''
+
+    print("ssml : ", ssml)
 
     # Logged on every forced request, not just failures, so a request that
     # "succeeds" but plays the wrong tone can still be checked against what
