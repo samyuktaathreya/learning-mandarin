@@ -312,7 +312,7 @@ export default function DuolingoStyleQuestions() {
 
     const fetchProgress = async () => {
         try {
-            const res = await apiFetch(`${API_BASE_URL}/api/progress/`);
+            const res = await apiFetch(`${API_BASE_URL}/api/progress`);
             setProgress(await res.json());
         } catch (e) { console.error("Failed to fetch progress", e); }
     };
