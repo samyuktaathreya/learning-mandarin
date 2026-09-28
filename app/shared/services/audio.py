@@ -79,6 +79,13 @@ def normalize_sapi_pinyin(pinyin: str) -> str:
 
 # app/shared/services/audio.py -- replace generate_and_cache_audio
 
+def get_rate(text: str, slow: bool) -> str:
+    if not slow:
+        return "+0%"
+    # Single characters/syllables are over in a fraction of a second, so they
+    # need the slowest setting to sound noticeably slower.
+    return "-50%" if len(strip_punct(text)) <= 1 else "-30%"
+
 async def generate_and_cache_audio(text: str, slow: bool = False, numbered_pinyin: str | None = None) -> str:
     """`numbered_pinyin` (e.g. 'ma 3') forces the exact tone via SSML phoneme forcing,
     for heteronyms like 阿 where the TTS engine would otherwise guess the reading."""
@@ -86,7 +93,10 @@ async def generate_and_cache_audio(text: str, slow: bool = False, numbered_pinyi
     if cache_key in audio_cache:
         return audio_cache[cache_key]
  
-    voice = random.choice(MANDARIN_VOICES)
+    # Same voice for normal + slow of the same item, so speed is the only difference.
+    voice_seed = int(hashlib.md5((numbered_pinyin or text).encode("utf-8")).hexdigest(), 16)
+    voice = MANDARIN_VOICES[voice_seed % len(MANDARIN_VOICES)]
+
     filename = hashlib.md5(cache_key.encode("utf-8")).hexdigest() + ".mp3"
     filepath = os.path.join(CACHE_DIR, filename)
  
@@ -100,7 +110,7 @@ async def generate_and_cache_audio(text: str, slow: bool = False, numbered_pinyi
                 numbered_pinyin = normalize_sapi_pinyin(numbered_pinyin)
                 await asyncio.to_thread(_synthesize_forced_pronunciation, text, numbered_pinyin, filepath, voice, slow)
             else:
-                rate = "-30%" if slow else "+0%"
+                rate = get_rate(text, slow)
                 communicate = edge_tts.Communicate(text, voice, rate=rate)
                 await communicate.save(filepath)
         except Exception:
@@ -118,7 +128,7 @@ def _synthesize_forced_pronunciation(text: str, numbered_pinyin: str, filepath: 
     speech_config = speechsdk.SpeechConfig(subscription=AZURE_SPEECH_KEY, region=AZURE_SPEECH_REGION)
     audio_config = speechsdk.audio.AudioOutputConfig(filename=filepath)
     synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
-    rate = "-30%" if slow else "+0%"
+    rate = get_rate(text, slow)
  
     ssml = f'''<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="zh-CN">
   <voice name="{voice}">
@@ -127,7 +137,7 @@ def _synthesize_forced_pronunciation(text: str, numbered_pinyin: str, filepath: 
     </prosody>
   </voice>
 </speak>'''
- 
+
     # Logged on every forced request, not just failures, so a request that
     # "succeeds" but plays the wrong tone can still be checked against what
     # was actually sent.

@@ -133,8 +133,6 @@ def get_progress(user: User = Depends(get_current_user), db: Session = Depends(g
         "review_due_tomorrow_word_count": review_due_tomorrow_word_count(db, textbook_db, user_id),
     }
 
-    print(result)
-
     return result
 
 

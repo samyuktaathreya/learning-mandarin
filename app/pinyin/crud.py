@@ -126,7 +126,6 @@ def _row_to_dict(row) -> dict:
  
 def get_consonant_example_row(textbook_db: Session, initial: str) -> dict | None:
     target_syllable = consonant_example_syllable(initial)
-    print(f"[pinyin debug] looking up syllable={target_syllable!r} tones={EXAMPLE_TONE_ORDER}")
  
     row = (
         textbook_db.query(PinyinSyllable)
@@ -137,8 +136,7 @@ def get_consonant_example_row(textbook_db: Session, initial: str) -> dict | None
         .order_by(PinyinSyllable.tone.asc())
         .first()
     )
- 
-    print(f"[pinyin debug] row found: {row and (row.syllable, row.tone, row.character)}")
+
     return _row_to_dict(row) if row else None
  
  
