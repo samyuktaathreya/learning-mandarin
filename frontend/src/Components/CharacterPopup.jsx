@@ -19,7 +19,7 @@ export function ClickableText({ text, tags = [], isUnitTest, unitId, hskLevel = 
         return () => document.removeEventListener('click', handleOutsideClick);
     }, []);
 
-    if (!text) return null;
+    if (!text) return null; 
     if (isUnitTest) return <span>{text}</span>;
 
     const sortedTags = [...tags].filter(hasChinese).sort((a, b) => b.length - a.length);

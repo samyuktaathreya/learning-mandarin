@@ -175,7 +175,7 @@ def evaluate_english_to_chinese(db: Session, user_answer: str, expected: str, qu
                 return {
                     "is_correct": True, "cached": True,
                     "user_pinyin": user_pinyin, "expected_pinyin": expected_pinyin,
-                }
+                } 
 
             same_base_pinyin = _strip_tones(user_pinyin) == _strip_tones(expected_pinyin)
             has_digit = bool(re.search(r"\d", user_answer) or re.search(r"\d", expected))
