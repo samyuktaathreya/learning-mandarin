@@ -11,6 +11,7 @@ from pinyin_utils import strip_punct, to_numbered_pinyin, tones_match, grade_spe
 from core.config.shared import settings
 from core.logger import logger
 import re
+from shared.services.pinyin_audio import get_recording_url
 
 CACHE_DIR = "audio_cache"
 os.makedirs(CACHE_DIR, exist_ok=True)
@@ -76,8 +77,6 @@ def normalize_sapi_pinyin(pinyin: str) -> str:
     return " ".join(spaced.split())
 
 # ----------------------------- TTS -----------------------------
-
-# app/shared/services/audio.py -- replace generate_and_cache_audio
 
 def get_rate(text: str, slow: bool) -> str:
     if not slow:
@@ -455,3 +454,21 @@ async def process_spoken_audio(audio_bytes: bytes, expected: str, hanzi: str, qu
         for path in [webm_path, wav_path]:
             if os.path.exists(path):
                 os.remove(path)
+
+# ----------------------------- USING REAL AUDIO FILES (NOT TTS) -----------------------------
+async def get_audio(text: str, slow: bool = False, numbered_pinyin: str | None = None,
+                    prefer_recording: bool = False) -> dict:
+    """Recording URL for pinyin syllables when one exists, otherwise base64 TTS."""
+    if prefer_recording:
+        url = await get_recording_url(numbered_pinyin or text, slow)
+        if url:
+            return {"url": url, "source": "recording"}
+        print(f"[pinyin audio] No recording for {numbered_pinyin or text!r}, falling back to TTS")
+        print()
+
+    filepath = await generate_and_cache_audio(text, slow=slow, numbered_pinyin=numbered_pinyin)
+    with open(filepath, "rb") as f:
+        result = {"audio": base64.b64encode(f.read()).decode("utf-8")}
+    if prefer_recording:
+        result["source"] = "tts"
+    return result

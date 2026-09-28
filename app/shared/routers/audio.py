@@ -1,38 +1,43 @@
 import base64
+import traceback
+
 from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
 from shared.services.audio import (
-    generate_and_cache_audio,
+    get_audio,
     clear_session_audio,
-    process_spoken_audio
+    process_spoken_audio,
+    ForcedPronunciationError,
 )
 from textbook.database import get_textbook_db
-from fastapi import APIRouter, Depends
-from core.turnstile import require_turnstile
-from shared.services.audio import ForcedPronunciationError
 
 router = APIRouter()
 
 
 @router.post("/api/audio")
-async def get_audio(payload: dict):
-    text = payload["text"]
-    slow = payload.get("slow", False)
-    numbered_pinyin = payload.get("pinyin")
- 
+async def audio(payload: dict):
+    """
+    Other features: unchanged, returns {"audio": <base64 mp3>}.
+
+    Pinyin section (sends "source": "pinyin"):
+      recording found -> {"url": "/pinyin-audio/...", "source": "recording"}
+      no recording    -> {"audio": <base64 mp3>,     "source": "tts"}
+    """
     try:
-        filepath = await generate_and_cache_audio(text, slow=slow, numbered_pinyin=numbered_pinyin)
+        result = await get_audio(
+            payload["text"],
+            slow=payload.get("slow", False),
+            numbered_pinyin=payload.get("pinyin"),
+            prefer_recording=payload.get("source") == "pinyin",
+        )
     except ForcedPronunciationError as e:
         # 502: Azure (upstream) rejected the request. The body shows exactly
         # what was sent and what Azure said, readable in the Network tab.
         return JSONResponse(status_code=502, content=e.to_dict())
- 
-    with open(filepath, "rb") as f:
-        audio_data = base64.b64encode(f.read()).decode("utf-8")
- 
-    return JSONResponse({"audio": audio_data})
+
+    return JSONResponse(result)
 
 
 @router.post("/api/audio/clear")
@@ -57,7 +62,6 @@ async def transcribe(payload: dict, textbook_db: Session = Depends(get_textbook_
         result = await process_spoken_audio(audio_bytes, expected, hanzi, question_type, textbook_db)
         return JSONResponse(result)
     except Exception as e:
-        import traceback
         traceback.print_exc()
         # Fallback for internal service errors (like failed FFmpeg conversions)
         if str(e) == "Assessment failed":

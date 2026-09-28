@@ -22,12 +22,19 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
+from shared.services.pinyin_audio import RECORDINGS_DIR, SLOW_DIR, RECORDINGS_URL, SLOW_URL
+
+from core.config.data import DATA_DIR
+
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
 
 if os.path.exists("../frontend/public"):
     app.mount("/api/static", StaticFiles(directory="../frontend/public"), name="static")
 else:
     logger.debug("Warning: ../frontend/public not found. Static files bypassed.")
+
+app.mount(RECORDINGS_URL, StaticFiles(directory=RECORDINGS_DIR), name="pinyin-audio")
+app.mount(SLOW_URL, StaticFiles(directory=SLOW_DIR), name="pinyin-audio-slow")
 
 @app.on_event("startup")
 def on_startup():
