@@ -122,7 +122,29 @@ def _row_to_dict(row) -> dict:
         "diacritic_pinyin": row.diacritic_pinyin,
         "character": row.character,
     }
- 
+
+def syllable_row_to_tags(row: PinyinSyllable) -> list[dict]:
+    """Row -> [{"consonant": "sh"}, {"vowel": "ai"}, {"tone": "4"}].
+    Bare-final syllables (a, an, er, ...) have no initial, so the
+    consonant entry is omitted rather than sent as None.
+    """
+    tags: list[dict] = []
+    if row.initial_tag:
+        tags.append({"consonant": row.initial_tag})
+    tags.append({"vowel": row.final_tag})
+    tags.append({"tone": str(row.tone)})
+    return tags
+
+
+def get_syllable_tags(textbook_db: Session, syllable: str, tone: int) -> list[dict] | None:
+    """Tags for a syllable+tone, e.g. ('shai', 4). The unique constraint on
+    (syllable, tone) guarantees at most one row."""
+    row = (
+        textbook_db.query(PinyinSyllable)
+        .filter(PinyinSyllable.syllable == syllable, PinyinSyllable.tone == tone)
+        .one_or_none()
+    )
+    return syllable_row_to_tags(row) if row else None
  
 def get_consonant_example_row(textbook_db: Session, initial: str) -> dict | None:
     target_syllable = consonant_example_syllable(initial)
