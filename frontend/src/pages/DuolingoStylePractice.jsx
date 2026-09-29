@@ -75,7 +75,7 @@ export default function DuolingoStyleQuestions() {
 
         const audioMode = getQuestionAudioMode(currentQuestionObj, sessionType);
         if (audioMode === 'autoplay') {
-            const slow = isListeningType(currentQuestionObj.question_type);
+            const slow = false;
             playAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, slow, currentAudioRef, questionTokenRef, questionTokenRef.current, currentQuestionObj.audio_pinyin);
         } else if (audioMode === 'preload') {
             // Review-session case: don't autoplay, but fetch now so revealAnswer's

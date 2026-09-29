@@ -3,6 +3,8 @@ import { ClickableText } from './CharacterPopup';
 import MultipleChoice from './MultipleChoice';
 import { useState, useEffect } from 'react';
 import CharacterDecomposition from './CharacterDecomposition'
+import PinyinSoundPopup from './PinyinSoundPopup';
+import { tagsToSoundItems } from '../utils/pinyinHelpers';
 import { API_BASE_URL } from '../config';
 import { apiFetch } from '../api/client';
 
@@ -91,6 +93,12 @@ export default function Question({
     const [correctPinyin, setCorrectPinyin] = useState("");
     const [decompositionData, setDecompositionData] = useState(null);
     const [sentenceTagMetadata, setSentenceTagMetadata] = useState({});
+    const [selectedSound, setSelectedSound] = useState(null);
+
+    // Clickable consonant / vowel / tone pieces for pinyin questions.
+    const pinyinSounds = currentQuestionObj.question_type === "listening_pinyin"
+        ? tagsToSoundItems(currentQuestionObj.tags)
+        : [];
 
     // ── Grammar Tip UI state ──────────────────────────────────────
     const [isGrammarTipOpen, setIsGrammarTipOpen] = useState(false);
@@ -109,6 +117,7 @@ export default function Question({
         setTipSaveState(null);
         setIsGrammarTipOpen(false);
         setDecompositionData(null);
+        setSelectedSound(null);
     }, [currentQuestionObj]);
 
     // Fetch sentence tags with context-aware definitions
@@ -323,6 +332,22 @@ export default function Question({
                         </>
                     )}
 
+                    {pinyinSounds.length > 0 && (
+                        <div className="pinyin-sound-parts">
+                            <p>Tap a sound to hear it:</p>
+                            {pinyinSounds.map((sound) => (
+                                <button
+                                    key={sound.tag}
+                                    type="button"
+                                    className="pinyin-sound-part"
+                                    onClick={() => setSelectedSound(sound)}
+                                >
+                                    {sound.main}{sound.sub ? ` (${sound.sub})` : ""}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
                     {decompositionData && decompositionData.length > 0 && currentQuestionObj.question_type !== 'radical_meaning' && (
                         <CharacterDecomposition data={decompositionData} />
                     )}
@@ -398,6 +423,14 @@ export default function Question({
 
             {debug && !hasAnswered && (
                 <button type="button" onClick={onMarkCorrect} disabled={isGrading} className="btn-debug">✓ Mark correct (debug)</button>
+            )}
+
+            {selectedSound && (
+                <PinyinSoundPopup
+                    item={selectedSound}
+                    onClose={() => setSelectedSound(null)}
+                    showProgress={false}
+                />
             )}
         </div>
     );

@@ -124,7 +124,32 @@ export const getSoundSource = (item, row) => {
     };
 };
 
-export const getPopupTitle = (item) => (item.isTone ? `${item.main} · ${item.sub} tone` : item.main);
+// Turns a pinyin question's `tags` (consonant, vowel, tone -- any order, the
+// consonant may be missing for zero-initial syllables) into popup items.
+// These have no progress stats, so the popup is opened with showProgress={false}.
+export const tagsToSoundItems = (tags = []) => {
+    const items = [];
+    for (const tag of tags) {
+        let category = null;
+        if (TONES[tag]) category = null;
+        else if (INITIAL_ORDER.includes(tag)) category = 'initial';
+        else if (FINAL_ORDER.includes(tag)) category = 'final';
+        else continue; // not a pinyin sound tag (e.g. a grammar tag)
+
+        const tone = getToneInfo(tag);
+        items.push({
+            tag,
+            category,
+            isTone: Boolean(tone),
+            main: tone ? tone.pinyin : tag,
+            sub: tone ? tone.label : null,
+        });
+    }
+    const rank = (i) => (i.isTone ? 2 : i.category === 'final' ? 1 : 0);
+    return items.sort((a, b) => rank(a) - rank(b));
+};
+
+export const getPopupTitle =(item) => (item.isTone ? `${item.main} · ${item.sub} tone` : item.main);
 
 export const formatStats = ({ attempts, successes, accuracy }) =>
     attempts
