@@ -14,6 +14,8 @@ export const clean = (str) => {
         .trim();
 };
 
+export const PINYIN_QUESTION_TYPES = new Set(["listening_pinyin", "speaking_pinyin"]);
+
 export const isSpeakingQuestion = (qt) => qt === "speaking vocab" || qt === "speaking sentence" || qt == "speaking_pinyin";
 export const hasChinese = (str) => /[一-鿿]/.test(str);
 export const isListeningType = (qt) => qt === "listening vocab" || qt === "listening sentence" || qt === "listening_pinyin";

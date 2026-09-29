@@ -7,6 +7,7 @@ import PinyinSoundPopup from './PinyinSoundPopup';
 import { tagsToSoundItems } from '../utils/pinyinHelpers';
 import { API_BASE_URL } from '../config';
 import { apiFetch } from '../api/client';
+import { PINYIN_QUESTION_TYPES } from '../utils/questionHelpers';
 
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 
@@ -81,6 +82,7 @@ export default function Question({
         (hasChinese(currentQuestionObj.question) || isListeningQuestion(currentQuestionObj.question_type));
 
     const isListening = isListeningQuestion(currentQuestionObj.question_type);
+    const isPinyinQuestion = PINYIN_QUESTION_TYPES.has(currentQuestionObj.question_type);
     
     const isTranscriptionToPinyin = 
         currentQuestionObj.question_type === "transcribe word to pinyin" || 
@@ -138,7 +140,7 @@ export default function Question({
 
     useEffect(() => {
         if (showReplayButton && onPreloadAudio) {
-            onPreloadAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question);
+            onPreloadAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, currentQuestionObj.audio_pinyin, isPinyinQuestion);
         }
     }, [currentQuestionObj]);
 
@@ -299,8 +301,35 @@ export default function Question({
 
             {showReplayButton && (
                 <>
-                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, currentQuestionObj.audio_pinyin)} disabled={isGrading}>🔊 Replay</button>
-                    <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true, currentQuestionObj.audio_pinyin)} disabled={isGrading}>🐢 Slow</button>
+                    <button
+                    type="button"
+                    onClick={() =>
+                        onPlayAudio(
+                        currentQuestionObj.audio_text ?? currentQuestionObj.question,
+                        false,
+                        currentQuestionObj.audio_pinyin,
+                        isPinyinQuestion
+                        )
+                    }
+                    disabled={isGrading}
+                    >
+                    🔊 Replay
+                    </button>
+
+                    <button
+                    type="button"
+                    onClick={() =>
+                        onPlayAudio(
+                        currentQuestionObj.audio_text ?? currentQuestionObj.question,
+                        true,
+                        currentQuestionObj.audio_pinyin,
+                        isPinyinQuestion
+                        )
+                    }
+                    disabled={isGrading}
+                    >
+                    🐢 Slow
+                    </button>
                 </>
             )}
 

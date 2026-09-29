@@ -35,7 +35,7 @@ export function usePinyinSound(item) {
     // instead of its actual 3rd tone) when Azure's default reading guesses
     // wrong. Forcing the exact syllable+tone prevents that.
     useEffect(() => {
-        if (source) preloadAudio(source.character, false, source.numberedPinyin);
+        if (source) preloadAudio(source.character, false, source.numberedPinyin, true);
     }, [source]);
 
     // Stop audio when switching sounds or closing the popup.
@@ -47,7 +47,7 @@ export function usePinyinSound(item) {
     const play = useCallback(async (slow = false) => {
         if (!source) return;
         setPlaying(slow ? 'slow' : 'normal');
-        await playAudio(source.character, slow, audioRef, null, null, source.numberedPinyin);
+        await playAudio(source.character, slow, audioRef, null, null, source.numberedPinyin, true);
         setPlaying(null);
     }, [source]);
 
