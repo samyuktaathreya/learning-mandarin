@@ -173,7 +173,7 @@ export default function SpeakingQuestion({
                         <div className="shadow-alert">
                             <strong>Shadowing Phase:</strong> Match the native speaker's speed and rhythm!
                             <div className="shadow-listen-wrapper">
-                                <button type="button" className="shadow-listen-btn" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, true)}>
+                                <button type="button" className="shadow-listen-btn" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion)}>
                                     🔊 Listen again
                                 </button>
                             </div>
@@ -214,8 +214,8 @@ export default function SpeakingQuestion({
                                 {recordingURL && (
                                     <button type="button" onClick={() => new Audio(recordingURL).play().catch(e => console.error('playback failed', e))}>🎧 Hear yourself</button>
                                 )}
-                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, true)}>🔊 Hear target</button>
-                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true, pinyinOverride, true)}>🐢 Slow</button>
+                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion)}>🔊 Hear target</button>
+                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true, pinyinOverride, isPinyinQuestion)}>🐢 Slow</button>
                             </div>
 
                             <p className="transcription-text">

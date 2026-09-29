@@ -13,6 +13,11 @@ from core.logger import logger
 import re
 from shared.services.pinyin_audio import get_recording_url
 
+import time
+
+ASSESS_TIMEOUT = 5         # seconds, single syllable/word
+TRANSCRIBE_TIMEOUT = 12    # seconds, sentences
+
 CACHE_DIR = "audio_cache"
 os.makedirs(CACHE_DIR, exist_ok=True)
 
@@ -214,22 +219,52 @@ def clear_session_audio() -> int:
     return count
 
 
+# ----------------------------- AUDIO PREP -----------------------------
+
+async def to_trimmed_pcm(audio_bytes: bytes) -> bytes:
+    """webm (or anything ffmpeg reads) -> raw 16 kHz mono 16-bit PCM, with
+    leading/trailing silence removed. All in memory, no temp files.
+    Returns b"" if the recording was all silence."""
+    trim = ("silenceremove=start_periods=1:start_silence=0.05:start_threshold=-45dB,"
+            "areverse,"
+            "silenceremove=start_periods=1:start_silence=0.05:start_threshold=-45dB,"
+            "areverse")
+    proc = await asyncio.create_subprocess_exec(
+        "ffmpeg", "-loglevel", "error", "-i", "pipe:0",
+        "-af", trim, "-ar", "16000", "-ac", "1", "-f", "s16le", "pipe:1",
+        stdin=asyncio.subprocess.PIPE,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
+    pcm, stderr = await proc.communicate(audio_bytes)
+    if proc.returncode != 0:
+        logger.error(f"ffmpeg conversion failed: {stderr.decode(errors='replace')[-500:]}")
+        raise Exception("Audio conversion failed")
+    return pcm
+
+
+def _pcm_audio_config(pcm: bytes) -> speechsdk.audio.AudioConfig:
+    """Hands the whole recording to Azure as a finished stream. Closing the
+    stream tells Azure there's no more audio coming, so it doesn't wait."""
+    fmt = speechsdk.audio.AudioStreamFormat(samples_per_second=16000, bits_per_sample=16, channels=1)
+    stream = speechsdk.audio.PushAudioInputStream(stream_format=fmt)
+    stream.write(pcm)
+    stream.close()
+    return speechsdk.audio.AudioConfig(stream=stream)
+
+
 # --------------- PRONUNCIATION ASSESSMENT (single words) ---------------
 
-def assess_pronunciation_with_azure(audio_path: str, reference_text: str) -> dict:
-    speech_config = speechsdk.SpeechConfig(
-        subscription=AZURE_SPEECH_KEY,
-        region=AZURE_SPEECH_REGION,
-    )
+def assess_pronunciation_pcm(pcm: bytes, reference_text: str) -> dict:
+    speech_config = speechsdk.SpeechConfig(subscription=AZURE_SPEECH_KEY, region=AZURE_SPEECH_REGION)
     speech_config.speech_recognition_language = "zh-CN"
     speech_config.set_property(
-        speechsdk.PropertyId.SpeechServiceConnection_EndSilenceTimeoutMs, "3000"
+        speechsdk.PropertyId.SpeechServiceConnection_EndSilenceTimeoutMs, "800"
     )
 
-    audio_config = speechsdk.audio.AudioConfig(filename=audio_path)
     recognizer = speechsdk.SpeechRecognizer(
         speech_config=speech_config,
-        audio_config=audio_config,
+        audio_config=_pcm_audio_config(pcm),
     )
 
     reference_text = strip_punct(reference_text)
@@ -273,11 +308,8 @@ def assess_pronunciation_with_azure(audio_path: str, reference_text: str) -> dic
 
 # ----------------------------- STT (Azure) -----------------------------
 
-def transcribe_with_azure(audio_path: str, expected: str = "") -> str:
-    speech_config = speechsdk.SpeechConfig(
-        subscription=AZURE_SPEECH_KEY,
-        region=AZURE_SPEECH_REGION
-    )
+def transcribe_with_azure(pcm: bytes, expected: str = "") -> str:
+    speech_config = speechsdk.SpeechConfig(subscription=AZURE_SPEECH_KEY, region=AZURE_SPEECH_REGION)
     speech_config.speech_recognition_language = "zh-CN"
     speech_config.set_property(
         speechsdk.PropertyId.SpeechServiceConnection_InitialSilenceTimeoutMs, "5000"
@@ -286,10 +318,9 @@ def transcribe_with_azure(audio_path: str, expected: str = "") -> str:
         speechsdk.PropertyId.SpeechServiceConnection_EndSilenceTimeoutMs, "5000"
     )
 
-    audio_config = speechsdk.audio.AudioConfig(filename=audio_path)
     recognizer = speechsdk.SpeechRecognizer(
         speech_config=speech_config,
-        audio_config=audio_config
+        audio_config=_pcm_audio_config(pcm),
     )
 
     expected_hanzi = strip_punct(expected)
@@ -315,145 +346,151 @@ def transcribe_with_azure(audio_path: str, expected: str = "") -> str:
         done.wait(timeout=30)
         recognizer.stop_continuous_recognition()
 
-        result_text = ''.join(results)
-    else:
-        result = recognizer.recognize_once()
-        if result.reason == speechsdk.ResultReason.RecognizedSpeech:
-            result_text = result.text.strip()
-        else:
-            result_text = ""
+        return ''.join(results)
 
-    return result_text
+    result = recognizer.recognize_once()
+    if result.reason == speechsdk.ResultReason.RecognizedSpeech:
+        return result.text.strip()
+    return ""
 
 
 # ------------------------- FULL PIPELINE -------------------------
 
 async def process_spoken_audio(audio_bytes: bytes, expected: str, hanzi: str, question_type: str, db: Session) -> dict:
-    """Handles FFmpeg conversion, decides between assessment/transcription, and grades the result."""
-    # Use unique filenames to prevent concurrency overwrites
-    temp_id = uuid.uuid4().hex
-    webm_path = os.path.join(CACHE_DIR, f"temp_{temp_id}.webm")
-    wav_path = os.path.join(CACHE_DIR, f"temp_{temp_id}.wav")
+    """Converts + trims the recording in memory, decides between assessment/transcription, and grades the result."""
+    t_start = time.perf_counter()
 
-    with open(webm_path, "wb") as f:
-        f.write(audio_bytes)
+    expected_pinyin = (
+        to_numbered_pinyin(expected)
+        if any('\u4e00' <= c <= '\u9fff' for c in expected)
+        else expected.lower().replace(' ', '').replace(',', '')
+    )
+    is_assessment = question_type in ASSESSMENT_QUESTION_TYPES and bool(hanzi)
+    mode = "assessment" if is_assessment else "transcription"
 
-    try:
-        proc = await asyncio.create_subprocess_exec(
-            "ffmpeg", "-y", "-i", webm_path, "-ar", "16000", "-ac", "1", wav_path,
-            stdout=asyncio.subprocess.DEVNULL,
-            stderr=asyncio.subprocess.DEVNULL
-        )
-        await proc.wait()
-
-        if not os.path.exists(wav_path):
-            raise Exception("Audio conversion failed")
-
-        expected_pinyin = (
-            to_numbered_pinyin(expected)
-            if any('\u4e00' <= c <= '\u9fff' for c in expected)
-            else expected.lower().replace(' ', '').replace(',', '')
-        )
-
-        # ---------- SINGLE WORD: pronunciation assessment ----------
-        if question_type in ASSESSMENT_QUESTION_TYPES and hanzi:
-            assessment = await asyncio.to_thread(
-                assess_pronunciation_with_azure, wav_path, hanzi
-            )
-
-            if assessment.get("error") in ("canceled", "no_speech"):
-                return {
-                    "transcription": "",
-                    "transcription_pinyin": "",
-                    "expected_pinyin": expected_pinyin,
-                    "is_correct": False,
-                    "hallucination": True,
-                    "mode": "assessment",
-                }
-
-            if assessment.get("error") == "wrapper_failed":
-                raise Exception("Assessment failed")
-
-            accuracy = assessment.get("accuracy") or 0
-            recognized = assessment.get("recognized", "")
-            transcription_pinyin = to_numbered_pinyin(recognized) if recognized else ""
-
-            threshold = PINYIN_ACCURACY_THRESHOLD if question_type == "speaking_pinyin" else ACCURACY_THRESHOLD
-            accuracy_ok = accuracy >= threshold
-            tone_ok = bool(transcription_pinyin) and tones_match(transcription_pinyin, expected_pinyin)
-            is_correct = accuracy_ok and tone_ok
-
-            if is_correct:
-                feedback = "correct"
-            elif not accuracy_ok and not tone_ok:
-                feedback = "sound_and_tone"
-            elif not accuracy_ok:
-                feedback = "sound"
-            else:
-                feedback = "tone"
-
-            phonemes = assessment.get("phonemes", [])
-            weakest = min(phonemes, key=lambda p: p["accuracy"]) if phonemes else None
-
-            return {
-                "transcription": recognized,
-                "transcription_pinyin": transcription_pinyin,
-                "expected_pinyin": expected_pinyin,
-                "is_correct": is_correct,
-                "mode": "assessment",
-                "accuracy": accuracy,
-                "accuracy_threshold": ACCURACY_THRESHOLD,
-                "accuracy_ok": accuracy_ok,
-                "tone_ok": tone_ok,
-                "feedback": feedback,
-                "phonemes": phonemes,
-                "weakest_phoneme": weakest,
-            }
-
-        # ---------- MULTI-WORD / SENTENCE: transcription path ----------
-        transcription_hanzi = await asyncio.to_thread(transcribe_with_azure, wav_path, expected)
-
-        if not transcription_hanzi:
-            return {
-                "transcription": "",
-                "transcription_pinyin": "",
-                "expected_pinyin": expected_pinyin,
-                "is_correct": False,
-                "hallucination": True,
-                "mode": "transcription",
-            }
-
-        expected_char_count = len(expected.replace(' ', ''))
-        transcription_char_count = len(transcription_hanzi.replace(' ', ''))
-        if expected_char_count > 0 and transcription_char_count > expected_char_count * 3:
-            return {
-                "transcription": transcription_hanzi,
-                "transcription_pinyin": "",
-                "expected_pinyin": expected_pinyin,
-                "is_correct": False,
-                "hallucination": True,
-                "mode": "transcription",
-            }
-
-        transcription_pinyin = to_numbered_pinyin(transcription_hanzi)
-
-        if hanzi:
-            is_correct = grade_speaking_sentence(transcription_hanzi, hanzi, db)
-        else:
-            is_correct = tones_match(transcription_pinyin, expected_pinyin)
-            
+    def no_speech_result(transcription: str = "") -> dict:
         return {
-            "transcription": transcription_hanzi,
+            "transcription": transcription,
+            "transcription_pinyin": "",
+            "expected_pinyin": expected_pinyin,
+            "is_correct": False,
+            "hallucination": True,
+            "mode": mode,
+        }
+
+    def timeout_result() -> dict:
+        return {
+            "transcription": "",
+            "transcription_pinyin": "",
+            "expected_pinyin": expected_pinyin,
+            "is_correct": False,
+            "mode": mode,
+            "feedback": "timeout",
+        }
+
+    pcm = await to_trimmed_pcm(audio_bytes)
+    t_converted = time.perf_counter()
+
+    if not pcm:
+        # The whole recording was below the silence threshold
+        return no_speech_result()
+
+    def log_timing():
+        t_done = time.perf_counter()
+        logger.info(
+            f"[grading] {mode} convert={t_converted - t_start:.2f}s "
+            f"azure={t_done - t_converted:.2f}s audio={len(pcm) / 32000:.2f}s"
+        )
+
+    # ---------- SINGLE WORD: pronunciation assessment ----------
+    if is_assessment:
+        try:
+            assessment = await asyncio.wait_for(
+                asyncio.to_thread(assess_pronunciation_pcm, pcm, hanzi),
+                timeout=ASSESS_TIMEOUT,
+            )
+        except asyncio.TimeoutError:
+            logger.warning(f"[grading] assessment timed out after {ASSESS_TIMEOUT}s for {hanzi!r}")
+            return timeout_result()
+        finally:
+            log_timing()
+
+        if assessment.get("error") in ("canceled", "no_speech"):
+            return no_speech_result()
+
+        if assessment.get("error") == "wrapper_failed":
+            raise Exception("Assessment failed")
+
+        accuracy = assessment.get("accuracy") or 0
+        recognized = assessment.get("recognized", "")
+        transcription_pinyin = to_numbered_pinyin(recognized) if recognized else ""
+
+        threshold = PINYIN_ACCURACY_THRESHOLD if question_type == "speaking_pinyin" else ACCURACY_THRESHOLD
+        accuracy_ok = accuracy >= threshold
+        tone_ok = bool(transcription_pinyin) and tones_match(transcription_pinyin, expected_pinyin)
+        is_correct = accuracy_ok and tone_ok
+
+        if is_correct:
+            feedback = "correct"
+        elif not accuracy_ok and not tone_ok:
+            feedback = "sound_and_tone"
+        elif not accuracy_ok:
+            feedback = "sound"
+        else:
+            feedback = "tone"
+
+        phonemes = assessment.get("phonemes", [])
+        weakest = min(phonemes, key=lambda p: p["accuracy"]) if phonemes else None
+
+        return {
+            "transcription": recognized,
             "transcription_pinyin": transcription_pinyin,
             "expected_pinyin": expected_pinyin,
             "is_correct": is_correct,
-            "mode": "transcription",
+            "mode": "assessment",
+            "accuracy": accuracy,
+            "accuracy_threshold": threshold,
+            "accuracy_ok": accuracy_ok,
+            "tone_ok": tone_ok,
+            "feedback": feedback,
+            "phonemes": phonemes,
+            "weakest_phoneme": weakest,
         }
 
+    # ---------- MULTI-WORD / SENTENCE: transcription path ----------
+    try:
+        transcription_hanzi = await asyncio.wait_for(
+            asyncio.to_thread(transcribe_with_azure, pcm, expected),
+            timeout=TRANSCRIBE_TIMEOUT,
+        )
+    except asyncio.TimeoutError:
+        logger.warning(f"[grading] transcription timed out after {TRANSCRIBE_TIMEOUT}s for {expected!r}")
+        return timeout_result()
     finally:
-        for path in [webm_path, wav_path]:
-            if os.path.exists(path):
-                os.remove(path)
+        log_timing()
+
+    if not transcription_hanzi:
+        return no_speech_result()
+
+    expected_char_count = len(expected.replace(' ', ''))
+    transcription_char_count = len(transcription_hanzi.replace(' ', ''))
+    if expected_char_count > 0 and transcription_char_count > expected_char_count * 3:
+        return no_speech_result(transcription_hanzi)
+
+    transcription_pinyin = to_numbered_pinyin(transcription_hanzi)
+
+    if hanzi:
+        is_correct = grade_speaking_sentence(transcription_hanzi, hanzi, db)
+    else:
+        is_correct = tones_match(transcription_pinyin, expected_pinyin)
+
+    return {
+        "transcription": transcription_hanzi,
+        "transcription_pinyin": transcription_pinyin,
+        "expected_pinyin": expected_pinyin,
+        "is_correct": is_correct,
+        "mode": "transcription",
+    }
 
 # ----------------------------- USING REAL AUDIO FILES (NOT TTS) -----------------------------
 async def get_audio(text: str, slow: bool = False, numbered_pinyin: str | None = None,

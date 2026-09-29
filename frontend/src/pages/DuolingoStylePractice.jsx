@@ -78,7 +78,7 @@ export default function DuolingoStyleQuestions() {
         const isPinyinQuestion = PINYIN_QUESTION_TYPES.has(currentQuestionObj.question_type);
         if (audioMode === 'autoplay') {
             const slow = false;
-            playAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, slow, currentAudioRef, questionTokenRef, questionTokenRef.current, currentQuestionObj.audio_pinyin);
+            playAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, slow, currentAudioRef, questionTokenRef, questionTokenRef.current, currentQuestionObj.audio_pinyin, isPinyinQuestion);
         } else if (audioMode === 'preload') {
             // Review-session case: don't autoplay, but fetch now so revealAnswer's
             // playAudio call later is instant instead of waiting on the network.

@@ -14,6 +14,7 @@ import os
 import re
 import uuid
 from pathlib import Path
+import random
 
 from core.config.shared import settings
 from core.config.data import DATA_DIR
@@ -67,7 +68,11 @@ def find_recording(pinyin: str) -> Path | None:
     key = to_filename_key(pinyin)
     if not key:
         return None
-    for folder in VOICE_FOLDERS:
+    
+    folders = list(VOICE_FOLDERS)
+    random.shuffle(folders)
+    
+    for folder in folders:
         path = RECORDINGS_DIR / folder / f"{key}.mp3"
         if path.exists():
             return path
