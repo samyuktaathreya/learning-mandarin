@@ -215,7 +215,7 @@ def generate_pinyin_question(db: Session, textbook_db: Session, user_id: int,
         "audio_text": syllable_row.character,
         "audio_pinyin": f"{syllable_row.syllable} {syllable_row.tone}",
         "hanzi": syllable_row.character,
-        "tags": [],
+        "tags": pinyin_crud.syllable_row_to_tags(syllable_row),
         "target_tag": target_tag,
     }
 

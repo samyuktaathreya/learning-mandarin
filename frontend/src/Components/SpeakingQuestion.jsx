@@ -1,5 +1,7 @@
 import { ClickableText } from './CharacterPopup';
 import { useState, useEffect } from 'react';
+import PinyinSoundPopup from './PinyinSoundPopup';
+import { tagsToSoundItems } from '../utils/pinyinHelpers';
 import { API_BASE_URL } from '../config';
 import { apiFetch } from '../api/client';
 import { PINYIN_QUESTION_TYPES } from '../utils/questionHelpers';
@@ -64,7 +66,13 @@ export default function SpeakingQuestion({
     const [tipSaveState, setTipSaveState] = useState(null); 
     const [audioCompleted, setAudioCompleted] = useState(false); 
     const [sentenceTagMetadata, setSentenceTagMetadata] = useState({});
-    
+    const [selectedSound, setSelectedSound] = useState(null);
+
+    // Clickable consonant / vowel / tone pieces for pinyin questions.
+    const pinyinSounds = currentQuestionObj.question_type === "speaking_pinyin"
+        ? tagsToSoundItems(currentQuestionObj.tags)
+        : [];
+
     // Track if we are in the shadowing phase
     const [hasPassedFirstTry, setHasPassedFirstTry] = useState(false);
 
@@ -75,7 +83,8 @@ export default function SpeakingQuestion({
         setTipDraft("");
         setTipSaveState(null);
         setAudioCompleted(false); 
-        setHasPassedFirstTry(false); 
+        setHasPassedFirstTry(false);
+        setSelectedSound(null);
     }, [currentQuestionObj]);
 
     // Fetch sentence tags with context-aware definitions
@@ -142,13 +151,29 @@ export default function SpeakingQuestion({
                 />
             </h1>
 
+            {pinyinSounds.length > 0 && (
+                <div className="pinyin-sound-parts">
+                    <p>Tap a sound to hear it:</p>
+                    {pinyinSounds.map((sound) => (
+                        <button
+                            key={sound.tag}
+                            type="button"
+                            className="pinyin-sound-part"
+                            onClick={() => setSelectedSound(sound)}
+                        >
+                            {sound.main}{sound.sub ? ` (${sound.sub})` : ""}
+                        </button>
+                    ))}
+                </div>
+            )}
+
             {!transcriptionResult && !recordingURL && (
                 <div className="recording-controls">
                     {hasPassedFirstTry && requiresShadowing && (
                         <div className="shadow-alert">
                             <strong>Shadowing Phase:</strong> Match the native speaker's speed and rhythm!
                             <div className="shadow-listen-wrapper">
-                                <button type="button" className="shadow-listen-btn" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, true)}>
+                                <button type="button" className="shadow-listen-btn" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion)}>
                                     🔊 Listen again
                                 </button>
                             </div>
@@ -189,8 +214,8 @@ export default function SpeakingQuestion({
                                 {recordingURL && (
                                     <button type="button" onClick={() => new Audio(recordingURL).play().catch(e => console.error('playback failed', e))}>🎧 Hear yourself</button>
                                 )}
-                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, true)}>🔊 Hear target</button>
-                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true, pinyinOverride, true)}>🐢 Slow</button>
+                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion)}>🔊 Hear target</button>
+                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true, pinyinOverride, isPinyinQuestion)}>🐢 Slow</button>
                             </div>
 
                             <p className="transcription-text">
@@ -332,6 +357,14 @@ export default function SpeakingQuestion({
 
             {debug && (
                 <button type="button" className="debug-btn" onClick={onMarkCorrect}>✓ Mark correct (debug)</button>
+            )}
+
+            {selectedSound && (
+                <PinyinSoundPopup
+                    item={selectedSound}
+                    onClose={() => setSelectedSound(null)}
+                    showProgress={false}
+                />
             )}
         </div>
     );

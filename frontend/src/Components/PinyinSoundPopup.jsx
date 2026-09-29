@@ -3,7 +3,7 @@ import { usePinyinSound } from '../hooks/usePinyinSound';
 import { useEscapeKey } from '../hooks/useEscapeKey';
 import { formatStats, getPopupTitle } from '../utils/pinyinHelpers';
 
-export default function PinyinSoundPopup({ item, onClose }) {
+export default function PinyinSoundPopup({ item, onClose, showProgress = true }) {
     const { source, status, playing, play } = usePinyinSound(item);
     useEscapeKey(onClose);
 
@@ -61,12 +61,14 @@ export default function PinyinSoundPopup({ item, onClose }) {
                     </>
                 )}
 
-                <div className="pinyin-popup-section">
-                    <h4 className="pinyin-popup-label">Your progress</h4>
-                    <p className="pinyin-popup-text">{formatStats(item)}</p>
-                    <progress className="pinyin-card-bar pinyin-popup-bar" value={item.percent} max={100} />
-                    {item.mastered && <p className="pinyin-popup-mastered">Mastered</p>}
-                </div>
+                {showProgress && (
+                    <div className="pinyin-popup-section">
+                        <h4 className="pinyin-popup-label">Your progress</h4>
+                        <p className="pinyin-popup-text">{formatStats(item)}</p>
+                        <progress className="pinyin-card-bar pinyin-popup-bar" value={item.percent} max={100} />
+                        {item.mastered && <p className="pinyin-popup-mastered">Mastered</p>}
+                    </div>
+                )}
             </div>
         </div>
     );
