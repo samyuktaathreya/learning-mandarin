@@ -21,7 +21,7 @@ export function ProtectedRoute({ children }) {
   return (
     <>
       <SignedIn>{children}</SignedIn>
-      <SignedOut>
+      <SignedOut> 
         <RedirectToSignIn replace />
       </SignedOut>
     </>
