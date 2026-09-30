@@ -133,10 +133,16 @@ def get_similar_by_components(
     depth: int = 0,
     max_frequency: int = 50,
     limit: int = 10,
+    allowed_chars: set[str] | None = None,
 ) -> list[dict]:
     """
     Find characters that share at least one component with `char` at the
     given depth (0 = direct children only, the most visually similar).
+
+    If `allowed_chars` is given, only characters in that set are returned
+    (e.g. the characters a learner has reached in the curriculum). The filter
+    is applied before `limit`, so you still get up to `limit` results when
+    enough allowed matches exist. None (default) means no filtering.
 
     Shared components with frequency_in_corpus > max_frequency are excluded
     to avoid common radicals like 亻 or 艹 dominating results with noise.
@@ -190,6 +196,7 @@ def get_similar_by_components(
             "shared_count": len(components),
         }
         for target_char, components in grouped.items()
+        if allowed_chars is None or target_char in allowed_chars
     ]
 
     # Sort: most shared components first, ties broken by component rarity
@@ -258,10 +265,17 @@ def get_similar_by_position(
 # 3. Human-curated confusion pairs
 # ---------------------------------------------------------------------------
 
-def get_confusibles(db: Session, char: str) -> list[str]:
+def get_confusibles(
+    db: Session,
+    char: str,
+    allowed_chars: set[str] | None = None,
+) -> list[str]:
     """
     Return all characters that are human-curated confusibles of `char`.
     Handles the bidirectional storage (char_a < char_b) transparently.
+
+    If `allowed_chars` is given, only confusibles in that set are returned
+    (None, the default, means no filtering).
 
     Example usage:
         get_confusibles(db, "人")
@@ -275,10 +289,13 @@ def get_confusibles(db: Session, char: str) -> list[str]:
         .all()
     )
 
-    return [
+    confusibles = [
         row.char_b if row.char_a == char else row.char_a
         for row in rows
     ]
+    if allowed_chars is not None:
+        confusibles = [c for c in confusibles if c in allowed_chars]
+    return confusibles
 
 
 def get_all_confusible_pairs_for_chars(
