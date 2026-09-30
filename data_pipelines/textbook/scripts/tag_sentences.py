@@ -105,7 +105,7 @@ import time
 import anthropic
 from pypinyin import lazy_pinyin, Style
 import time
-from app.core.config.shared import settings
+from core.config.shared import settings
 from app.textbook.db_utils import (
     get_session, init_db, get_or_create_vocab, get_senses_for_vocab,
     get_cached_sense, write_sense_cache, get_senses_matching_pos_pinyin,

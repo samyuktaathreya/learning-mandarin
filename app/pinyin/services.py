@@ -288,6 +288,13 @@ def get_pinyin_progress(db: Session, user_id: int) -> dict:
     }
 
 def get_representative_row_by_tag(db: Session, tag: str, category: str) -> dict | None:
-    if category == "initial":
-        return pinyin_crud.get_consonant_example_row(db, tag)
-    return pinyin_crud.get_final_example_row(db, tag)
+    row = (
+        pinyin_crud.get_consonant_example_row(db, tag)
+        if category == "initial"
+        else pinyin_crud.get_final_example_row(db, tag)
+    )
+    if row is None:
+        return None
+
+    guide = pinyin_crud.get_sound_guide(db, tag, category)
+    return {**row, "description": guide.description if guide else None}

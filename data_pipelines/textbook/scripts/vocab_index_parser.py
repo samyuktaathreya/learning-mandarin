@@ -30,8 +30,8 @@ import json
 import datetime
 import time
 import anthropic
-from app.core.config.shared import settings
-from app.core.config.textbook import (
+from core.config.shared import settings
+from core.config.textbook import (
     TEXTBOOK_RAW_DIR,
     SOP_PATH,
     OCR_PATH,
@@ -65,7 +65,7 @@ FORCE_OCR = False
 
 # LLM raw-response dumps stay on disk for debugging -- these were never part
 # of the app's data model, just crash forensics, so they're untouched.
-from app.core.config.textbook import TEXTBOOK_INTERMEDIATE_DIR
+from core.config.textbook import TEXTBOOK_INTERMEDIATE_DIR
 LLM_RESPONSES_FILEPATH = TEXTBOOK_INTERMEDIATE_DIR / "LLM_RESPONSES"
 
 MODEL = "claude-sonnet-4-6"

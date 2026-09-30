@@ -107,7 +107,7 @@ The `treatPendingAsSignedOut` prop controls how pending sessions (sessions with 
 
 **`<Show>` only visually hides content** — it remains in browser source. It is not a security boundary. For protecting sensitive data, always verify authentication server-side with `auth()` or use `auth.protect()` in middleware.
 
-## Migration from Core 2
+## Migration from core 2
 
 | Core 2 | Current |
 |--------|---------|

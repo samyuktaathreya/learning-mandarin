@@ -372,3 +372,11 @@ class PinyinSyllable(Base):
     diacritic_pinyin = Column(String, nullable=True)
     character = Column(String, nullable=True)  # representative hanzi for this syllable+tone, from CC-CEDICT
     __table_args__ = (UniqueConstraint("syllable", "tone", name="_syllable_tone_uc"),)
+
+class PinyinSoundGuide(Base):
+    __tablename__ = "pinyin_sound_guides"
+    id = Column(Integer, primary_key=True)
+    category = Column(String, nullable=False)   # 'initial' | 'final'
+    tag = Column(String, nullable=False)        # 'zh', 'ang', ...
+    description = Column(Text, nullable=False)
+    __table_args__ = (UniqueConstraint("category", "tag", name="_guide_category_tag_uc"),)
