@@ -152,7 +152,9 @@ export function findVoicedSegment(
     const gapMs = gapFrames * hop;
     const gapKinds = kinds.slice(prev.e + 1, run.s);
     const prevLow = hzToSt(frames[prev.e].hz!) <= lowSt;
-    const isCreak = gapKinds.every((k) => k === 'creak') && prevLow;
+    const nextLow = hzToSt(frames[run.s].hz!) <= lowSt;
+    // creak after a low stretch (raspy tone 3 ending) or before one (falling into the dip)
+    const isCreak = gapKinds.every((k) => k === 'creak') && (prevLow || nextLow);
 
     if (gapMs < cfg.bridgeGapMs || (isCreak && gapMs <= cfg.creakGapMs)) {
       prev.e = run.e;

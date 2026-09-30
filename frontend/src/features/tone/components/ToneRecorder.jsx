@@ -18,9 +18,10 @@ export function ToneRecorder({
   speakerRange = null,
   onResult,
   onRequestCalibration,
+  debugContext,
   className,
 }) {
-  const rec = useToneRecorder({ expectedTone, speakerRange, onResult });
+  const rec = useToneRecorder({ expectedTone, speakerRange, onResult, debugLabel: syllable, debugContext });
   const { status, result, micError } = rec;
 
   const onClick = () => (status === 'listening' ? rec.stop() : rec.start());

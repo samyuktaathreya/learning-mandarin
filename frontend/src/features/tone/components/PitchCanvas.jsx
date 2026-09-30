@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import '../../../App.css';
 import { TONE_CONFIG } from '../config';
 import { toChaoLevel } from '../analysis/normalize';
 import { alignToTarget, bandAt, isInBand } from './targetBand';
@@ -27,7 +28,7 @@ function readColors(el) {
 const PAD = { left: 22, right: 10, top: 10, bottom: 10 };
 const MAX_GAP_MS = 60; // don't join points across longer gaps (creak / dropouts)
 
-export function PitchCanvas({ expectedTone, status, liveRef, result, height = 180, className }) {
+export function PitchCanvas({ expectedTone, status, liveRef, result, className }) {
   const canvasRef = useRef(null);
   const propsRef = useRef({ expectedTone, status, result });
   propsRef.current = { expectedTone, status, result };
@@ -214,8 +215,7 @@ export function PitchCanvas({ expectedTone, status, liveRef, result, height = 18
   return (
     <canvas
       ref={canvasRef}
-      className={className}
-      style={{ width: '100%', height, display: 'block' }}
+      className={['pitch-canvas', className].filter(Boolean).join(' ')}
       role="img"
       aria-label={`Pitch graph for tone ${expectedTone}`}
     />

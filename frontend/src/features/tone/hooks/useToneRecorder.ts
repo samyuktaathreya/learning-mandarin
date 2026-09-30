@@ -9,7 +9,8 @@ import {
   type AudioGraph,
 } from '../audio/createAudioGraph';
 import { createFrameAnalyzer } from '../audio/pitchDetector';
-import type { PitchFrame, SpeakerRange, Tone, ToneResult } from '../types';
+import { logToneAttempt } from '../debug/toneLogger';
+import type { PitchFrame, SpeakerRange, Tone, ToneResult, ToneTrace } from '../types';
 
 export type RecorderStatus =
   | 'idle'
@@ -23,6 +24,10 @@ export interface UseToneRecorderOptions {
   expectedTone: Tone;
   speakerRange?: SpeakerRange | null;
   onResult?: (result: ToneResult, frames: PitchFrame[]) => void;
+  /** shown in the debug log to identify the take, e.g. the syllable */
+  debugLabel?: string;
+  /** logged as JSON with each take, e.g. the question being answered */
+  debugContext?: unknown;
 }
 
 /**
@@ -32,7 +37,7 @@ export interface UseToneRecorderOptions {
  * re-render React; PitchCanvas reads it on each animation frame. State only
  * changes on phase transitions.
  */
-export function useToneRecorder({ expectedTone, speakerRange = null, onResult }: UseToneRecorderOptions) {
+export function useToneRecorder({ expectedTone, speakerRange = null, onResult, debugLabel, debugContext }: UseToneRecorderOptions) {
   const [status, setStatus] = useState<RecorderStatus>('idle');
   const [result, setResult] = useState<ToneResult | null>(null);
   const [micError, setMicError] = useState<string | null>(null);
@@ -44,8 +49,8 @@ export function useToneRecorder({ expectedTone, speakerRange = null, onResult }:
   const mountedRef = useRef(true);
 
   // latest props, readable from the audio callback without re-subscribing
-  const propsRef = useRef({ expectedTone, speakerRange, onResult });
-  propsRef.current = { expectedTone, speakerRange, onResult };
+  const propsRef = useRef({ expectedTone, speakerRange, onResult, debugLabel, debugContext });
+  propsRef.current = { expectedTone, speakerRange, onResult, debugLabel, debugContext };
 
   const finish = useCallback(() => {
     const tracker = liveRef.current;
@@ -54,12 +59,25 @@ export function useToneRecorder({ expectedTone, speakerRange = null, onResult }:
     if (!tracker) return;
     tracker.finish('manual'); // no-op if it already finished on its own
 
-    const { expectedTone: tone, speakerRange: range, onResult: cb } = propsRef.current;
+    const { expectedTone: tone, speakerRange: range, onResult: cb, debugLabel: label, debugContext: context } = propsRef.current;
+    const trace: ToneTrace = {};
     const r = analyzeTone({
       frames: tracker.frames,
       expectedTone: tone,
       speakerRange: range,
       preRollMs: tracker.preRollMs,
+      trace,
+    });
+    logToneAttempt({
+      label,
+      context,
+      expectedTone: tone,
+      speakerRange: range ?? null,
+      finishReason: tracker.finishReason,
+      preRollMs: tracker.preRollMs,
+      frames: tracker.frames,
+      result: r,
+      trace,
     });
     setResult(r);
     setStatus('done');

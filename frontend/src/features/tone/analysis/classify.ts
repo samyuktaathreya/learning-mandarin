@@ -50,10 +50,12 @@ export function extractFeatures(
 export function scoreTones(f: ToneFeatures): Record<Tone, number> {
   const c = TONE_CONFIG.classify;
   const calibrated = f.startLevel !== null && f.meanLevel !== null;
+  const creakCue = sigmoid(f.creakRatio, c.t3.creak);
 
   // Tone 1: level. High, if we know the speaker's range.
   let t1 = 1 - sigmoid(f.span, c.t1.flatSpan);
   if (calibrated) t1 *= 0.5 + 0.5 * sigmoid(f.meanLevel!, c.t1.highLevel);
+  t1 *= 1 - creakCue;
 
   // Tone 2: rising. A small early dip is normal; a deep, late one is tone 3.
   const t2 =
@@ -67,7 +69,6 @@ export function scoreTones(f: ToneFeatures): Record<Tone, number> {
 
   // Tone 3, variant B: low fall (21). A modest fall that levels off,
   // goes creaky, or starts low in the speaker's range.
-  const creakCue = sigmoid(f.creakRatio, c.t3.creak);
   const lowStartCue = calibrated ? 1 - sigmoid(f.startLevel!, c.t3.highStart) : 0;
   const shapeCue =
     0.5 + 0.5 * Math.max(sigmoid(f.deceleration, c.t3.deceleration), creakCue, lowStartCue);
@@ -96,7 +97,13 @@ export function scoreTones(f: ToneFeatures): Record<Tone, number> {
   let t4 = sigmoid(f.fall, c.t4.fall) * (1 - sigmoid(f.recover, c.t4.lateRecover));
   if (calibrated) t4 *= 0.4 + 0.6 * sigmoid(f.startLevel!, c.t4.highStart);
 
-  return { 1: t1, 2: t2, 3: t3, 4: t4 };
+  // Tone 4, creaky variant: starts high, then breaks into creak. The fall
+  // happened where the tracker couldn't follow it.
+  const t4Creak = calibrated
+    ? creakCue * (1 - sigmoid(f.rise, c.t3.creakRise)) * sigmoid(f.startLevel!, c.t4.highStart)
+    : 0;
+
+  return { 1: t1, 2: t2, 3: t3, 4: Math.max(t4, t4Creak) };
 }
 
 export function topTone(scores: Record<Tone, number>): Tone {

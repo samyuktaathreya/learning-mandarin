@@ -106,4 +106,9 @@ export interface AnalyzeInput {
   speakerRange?: SpeakerRange | null;
   /** leading ms recorded before the user was prompted, used to measure background noise */
   preRollMs?: number;
+  /** if given, filled with intermediate values and the reason the pipeline stopped (for debug logging) */
+  trace?: ToneTrace;
 }
+
+/** Intermediate values from one analyzeTone run. Every field is optional: it stops where the pipeline stopped. */
+export type ToneTrace = Record<string, unknown>;

@@ -231,6 +231,7 @@ export default function SpeakingQuestion({
                                 speakerRange={speakerRange}
                                 onResult={handleToneResult}
                                 onRequestCalibration={() => setRecalibrating(true)}
+                                debugContext={{ questionIndex: currentIndex, sessionType, question: currentQuestionObj }}
                             />
 
                             <div className="replay-buttons">

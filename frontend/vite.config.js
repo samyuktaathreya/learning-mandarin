@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { toneLogPlugin } from './vite-plugins/toneLogPlugin.js'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), toneLogPlugin()],
   base: '/',
   server: {
     host: '0.0.0.0',
