@@ -10,7 +10,7 @@ domain, not by which engine backs it.
 """
 from sqlalchemy.orm import Session
 
-from textbook.models import PinyinSyllable
+from textbook.models import PinyinSyllable, PinyinSoundGuide
 from session.models import SoundProgress
 import re
 import logging
@@ -174,3 +174,10 @@ def get_final_example_row(textbook_db: Session, final: str) -> dict | None:
         .first()
     )
     return _row_to_dict(row) if row else None
+
+def get_sound_guide(textbook_db: Session, tag: str, category: str) -> PinyinSoundGuide | None:
+    return (
+        textbook_db.query(PinyinSoundGuide)
+        .filter(PinyinSoundGuide.category == category, PinyinSoundGuide.tag == tag)
+        .first()
+    )

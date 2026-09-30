@@ -11,11 +11,26 @@ export const DEFAULT_MASTERY_THRESHOLD = 0.8;
 // the SAPI phoneme format. Assumes neutral tone is stored as tone 5 --
 // adjust if the DB uses 0 instead.
 export const TONES = {
-    tone1: { character: '妈', pinyin: 'mā', numbered: 'ma 1', label: '1st' },
-    tone2: { character: '麻', pinyin: 'má', numbered: 'ma 2', label: '2nd' },
-    tone3: { character: '马', pinyin: 'mǎ', numbered: 'ma 3', label: '3rd' },
-    tone4: { character: '骂', pinyin: 'mà', numbered: 'ma 4', label: '4th' },
-    tone5: { character: '吗', pinyin: 'ma', numbered: 'ma 5', label: 'neutral' },
+    tone1: {
+        character: '妈', pinyin: 'mā', numbered: 'ma 1', label: '1st',
+        description: "Start high and hold the pitch steady and flat, like singing one sustained high note.",
+    },
+    tone2: {
+        character: '麻', pinyin: 'má', numbered: 'ma 2', label: '2nd',
+        description: "Start at a medium pitch and rise sharply to high, like the rising intonation of a surprised 'What?'.",
+    },
+    tone3: {
+        character: '马', pinyin: 'mǎ', numbered: 'ma 3', label: '3rd',
+        description: "A low, flat pitch when spoken normally in continuous speech ('half third tone'), rising at the end only when heavily emphasized or spoken completely in isolation ('full third tone')",
+    },
+    tone4: {
+        character: '骂', pinyin: 'mà', numbered: 'ma 4', label: '4th',
+        description: "Fourth tone, falling (pitch 51), as in mà (骂 scold): start high and drop sharply to low, like firmly saying 'No!' or giving a command.",
+    },
+    tone5: {
+        character: '吗', pinyin: 'ma', numbered: 'ma 5', label: 'neutral',
+        description: "Neutral tone, light and short with no fixed pitch, as in ma (吗 question particle): say it softly and quickly, letting its pitch follow on from the previous syllable's tone.",
+    },
 };
 
 // Standard teaching order (the backend sorts alphabetically).

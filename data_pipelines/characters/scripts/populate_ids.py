@@ -35,9 +35,9 @@ import json
 import re
 import sqlite3
 from pathlib import Path
-from app.core.config.characters import RAW_IDS_PATH
-from app.core.config.data import CHARACTERS_DB
-from app.core.config.data import TEXTBOOK_DB
+from core.config.characters import RAW_IDS_PATH
+from core.config.data import CHARACTERS_DB
+from core.config.data import TEXTBOOK_DB
 #from __future__ import annotations
 
 

@@ -18,7 +18,7 @@ import sqlite3
 from pathlib import Path
 
 # Hardcoded DB path import
-from app.core.config.data import TEXTBOOK_DB
+from core.config.data import TEXTBOOK_DB
 
 # Import the sandhi function. Adjust import path as needed if running from
 # a different location.

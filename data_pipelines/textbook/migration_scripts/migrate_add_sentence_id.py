@@ -17,7 +17,7 @@ import sqlite3
 import sys
 import os
 
-from app.core.config.data import TEXTBOOK_DB
+from core.config.data import TEXTBOOK_DB
 
 
 def has_column(conn, table: str, column: str) -> bool:

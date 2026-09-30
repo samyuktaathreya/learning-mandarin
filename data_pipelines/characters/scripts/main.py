@@ -2,7 +2,7 @@ import json
 import os
 import sys
 from pathlib import Path
-from app.core.config.characters import CHARACTER_SCRIPTS_DIR
+from core.config.characters import CHARACTER_SCRIPTS_DIR
 
 
 def run_script(module_name: str):
