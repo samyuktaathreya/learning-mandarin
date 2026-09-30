@@ -5,6 +5,8 @@ import { tagsToSoundItems } from '../utils/pinyinHelpers';
 import { API_BASE_URL } from '../config';
 import { apiFetch } from '../api/client';
 import { PINYIN_QUESTION_TYPES } from '../utils/questionHelpers';
+import { ToneRecorder, CalibrationPrompt, useSpeakerRange } from '../features/tone';
+import { parsePinyinSyllable } from '../features/tone/parsePinyin';
 
 const questionTypeToInstruction = (question_type) => {
     switch (question_type) {
@@ -76,6 +78,34 @@ export default function SpeakingQuestion({
     // Track if we are in the shadowing phase
     const [hasPassedFirstTry, setHasPassedFirstTry] = useState(false);
 
+    // ── Tone check (in-browser pitch detection) ───────────────────
+    // speaking_pinyin questions with a single syllable in tones 1–4 are graded
+    // here, not by the transcribe endpoint. Anything else (neutral tone,
+    // multi-syllable) falls back to the existing Record → transcribe flow.
+    const toneTarget = currentQuestionObj.question_type === "speaking_pinyin"
+        ? parsePinyinSyllable(currentQuestionObj.answer)
+        : null;
+    const usesToneCheck = toneTarget !== null;
+    const { range: speakerRange, setRange: setSpeakerRange } = useSpeakerRange();
+    const [toneResult, setToneResult] = useState(null);
+    const [recalibrating, setRecalibrating] = useState(false);
+    const [calibrationSkipped, setCalibrationSkipped] = useState(() => {
+        try { return sessionStorage.getItem('tone.calibrationSkipped') === '1'; } catch { return false; }
+    });
+    const showCalibration = usesToneCheck && (recalibrating || (!speakerRange && !calibrationSkipped));
+
+    const skipCalibration = () => {
+        setRecalibrating(false);
+        setCalibrationSkipped(true);
+        try { sessionStorage.setItem('tone.calibrationSkipped', '1'); } catch { /* storage unavailable */ }
+    };
+
+    const handleToneResult = (result) => {
+        setToneResult(result);
+        setAudioCompleted(false);
+        if (debug) console.log('[tone check]', result);
+    };
+
     // reset forms and logic state whenever the question changes
     useEffect(() => {
         setShowTipForm(false);
@@ -85,6 +115,8 @@ export default function SpeakingQuestion({
         setAudioCompleted(false); 
         setHasPassedFirstTry(false);
         setSelectedSound(null);
+        setToneResult(null);
+        setRecalibrating(false);
     }, [currentQuestionObj]);
 
     // Fetch sentence tags with context-aware definitions
@@ -118,6 +150,19 @@ export default function SpeakingQuestion({
             return () => { isMounted = false; };
         }
     }, [transcriptionResult, currentQuestionObj.question, currentQuestionObj.audio_text, onPlayAudio]);
+
+    // Tone check: play the target after a CORRECT take, same as the transcribe flow.
+    // Not after a wrong one: the user will likely retry right away, and the
+    // mic shouldn't be listening while the native audio is still playing.
+    useEffect(() => {
+        if (!toneResult?.ok || !toneResult.isCorrect) return;
+        let isMounted = true;
+        (async () => {
+            await onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion);
+            if (isMounted) setAudioCompleted(true);
+        })();
+        return () => { isMounted = false; };
+    }, [toneResult]);
 
     const saveTip = async () => {
         const keyValue = tipKeyType === "question" ? currentQuestionObj.question : currentQuestionObj.answer;
@@ -167,7 +212,56 @@ export default function SpeakingQuestion({
                 </div>
             )}
 
-            {!transcriptionResult && !recordingURL && (
+            {usesToneCheck && (
+                <div className="tone-check">
+                    {showCalibration ? (
+                        <CalibrationPrompt
+                            onComplete={(range) => {
+                                setSpeakerRange(range);
+                                setRecalibrating(false);
+                            }}
+                            onCancel={skipCalibration}
+                        />
+                    ) : (
+                        <>
+                            <ToneRecorder
+                                key={currentQuestionObj.answer}
+                                syllable={toneTarget.syllable}
+                                expectedTone={toneTarget.tone}
+                                speakerRange={speakerRange}
+                                onResult={handleToneResult}
+                                onRequestCalibration={() => setRecalibrating(true)}
+                            />
+
+                            <div className="replay-buttons">
+                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion)}>🔊 Hear target</button>
+                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true, pinyinOverride, isPinyinQuestion)}>🐢 Slow</button>
+                            </div>
+
+                            {toneResult?.ok && currentQuestionObj.tip && (
+                                <p className="question-tip">💡 Tip: {currentQuestionObj.tip}</p>
+                            )}
+
+                            <div className="action-buttons">
+                                {toneResult?.ok && (
+                                    <button
+                                        className="continue-btn"
+                                        onClick={() => onAdvanceQuestion(toneResult.isCorrect)}
+                                        disabled={toneResult.isCorrect && !audioCompleted}
+                                    >
+                                        {toneResult.isCorrect && !audioCompleted ? "Playing audio..." : "Continue"}
+                                    </button>
+                                )}
+                                {toneResult && !toneResult.ok && (
+                                    <button type="button" onClick={() => onAdvanceQuestion(false)}>Skip</button>
+                                )}
+                            </div>
+                        </>
+                    )}
+                </div>
+            )}
+
+            {!usesToneCheck && !transcriptionResult && !recordingURL && (
                 <div className="recording-controls">
                     {hasPassedFirstTry && requiresShadowing && (
                         <div className="shadow-alert">
