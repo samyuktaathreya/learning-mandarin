@@ -7,6 +7,7 @@ import { apiFetch } from '../api/client';
 import { PINYIN_QUESTION_TYPES } from '../utils/questionHelpers';
 import { ToneRecorder, CalibrationPrompt, useSpeakerRange } from '../features/tone';
 import { parsePinyinSyllable } from '../features/tone/parsePinyin';
+import { usePhonemeCheck, PhonemeFeedback } from '../features/pinyin_phonemes';
 
 const questionTypeToInstruction = (question_type) => {
     switch (question_type) {
@@ -106,6 +107,32 @@ export default function SpeakingQuestion({
         if (debug) console.log('[tone check]', result);
     };
 
+    // ── Phoneme check (backend) ───────────────────────────────────
+    // Records the same take as the tone checker and grades initial + final
+    // only (zhe2 said as zhe4 passes here; the tone checker catches that).
+    // A take is correct only if BOTH pass. If the phoneme request fails,
+    // we fall back to grading on tone alone rather than blocking the user.
+    const phonemes = usePhonemeCheck(usesToneCheck ? currentQuestionObj.answer : null);
+
+    const handleToneStatus = (status) => {
+        if (status === 'starting') setToneResult(null);   // new take: clear the old verdict
+        phonemes.onToneStatus(status);
+    };
+
+    const phonemePending = phonemes.status === 'recording' || phonemes.status === 'checking';
+    const takeGraded = Boolean(toneResult?.ok) && !phonemePending;
+    const soundCorrect = phonemes.status === 'done' ? phonemes.result.correct : null; // null = couldn't check
+    const toneCorrect = Boolean(toneResult?.isCorrect);
+    const takeCorrect = takeGraded && toneCorrect && soundCorrect !== false;
+    const takeFeedback = !takeGraded || takeCorrect ? null
+        : !toneCorrect && soundCorrect === false ? "sound_and_tone"
+        : !toneCorrect ? "tone"
+        : "sound";
+
+    useEffect(() => {
+        if (debug && phonemes.status === 'done') console.log('[phoneme check]', phonemes.result);
+    }, [phonemes.status]);
+
     // reset forms and logic state whenever the question changes
     useEffect(() => {
         setShowTipForm(false);
@@ -151,18 +178,19 @@ export default function SpeakingQuestion({
         }
     }, [transcriptionResult, currentQuestionObj.question, currentQuestionObj.audio_text, onPlayAudio]);
 
-    // Tone check: play the target after a CORRECT take, same as the transcribe flow.
-    // Not after a wrong one: the user will likely retry right away, and the
-    // mic shouldn't be listening while the native audio is still playing.
+    // Tone + phoneme check: play the target after a CORRECT take (both checks
+    // passed), same as the transcribe flow. Not after a wrong one: the user
+    // will likely retry right away, and the mic shouldn't be listening while
+    // the native audio is still playing.
     useEffect(() => {
-        if (!toneResult?.ok || !toneResult.isCorrect) return;
+        if (!takeCorrect) return;
         let isMounted = true;
         (async () => {
             await onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion);
             if (isMounted) setAudioCompleted(true);
         })();
         return () => { isMounted = false; };
-    }, [toneResult]);
+    }, [takeCorrect]);
 
     const saveTip = async () => {
         const keyValue = tipKeyType === "question" ? currentQuestionObj.question : currentQuestionObj.answer;
@@ -230,27 +258,36 @@ export default function SpeakingQuestion({
                                 expectedTone={toneTarget.tone}
                                 speakerRange={speakerRange}
                                 onResult={handleToneResult}
+                                onStatusChange={handleToneStatus}
                                 onRequestCalibration={() => setRecalibrating(true)}
                                 debugContext={{ questionIndex: currentIndex, sessionType, question: currentQuestionObj }}
                             />
+
+                            {toneResult?.ok && (
+                                <PhonemeFeedback status={phonemes.status} result={phonemes.result} />
+                            )}
+
+                            {takeFeedback && (
+                                <p className="incorrect-text">{feedbackMessage(takeFeedback)}</p>
+                            )}
 
                             <div className="replay-buttons">
                                 <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion)}>🔊 Hear target</button>
                                 <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true, pinyinOverride, isPinyinQuestion)}>🐢 Slow</button>
                             </div>
 
-                            {toneResult?.ok && currentQuestionObj.tip && (
+                            {takeGraded && currentQuestionObj.tip && (
                                 <p className="question-tip">💡 Tip: {currentQuestionObj.tip}</p>
                             )}
 
                             <div className="action-buttons">
-                                {toneResult?.ok && (
+                                {takeGraded && (
                                     <button
                                         className="continue-btn"
-                                        onClick={() => onAdvanceQuestion(toneResult.isCorrect)}
-                                        disabled={toneResult.isCorrect && !audioCompleted}
+                                        onClick={() => onAdvanceQuestion(takeCorrect)}
+                                        disabled={takeCorrect && !audioCompleted}
                                     >
-                                        {toneResult.isCorrect && !audioCompleted ? "Playing audio..." : "Continue"}
+                                        {takeCorrect && !audioCompleted ? "Playing audio..." : "Continue"}
                                     </button>
                                 )}
                                 {toneResult && !toneResult.ok && (

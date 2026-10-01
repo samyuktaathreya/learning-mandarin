@@ -1,0 +1,24 @@
+/* Reuses the tone feature's colour variables so both verdicts match. */
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.line {
+  font-weight: 600;
+}
+
+.good {
+  color: var(--tone-good, #16a34a);
+}
+
+.off {
+  color: var(--tone-off, #f59e0b);
+}
+
+.note {
+  opacity: 0.75;
+  font-size: 0.9em;
+}

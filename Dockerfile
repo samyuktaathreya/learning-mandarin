@@ -1,10 +1,23 @@
 FROM python:3.11-slim
 
+# ffmpeg decodes browser recordings; curl + bzip2 fetch and unpack the speech model
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
     ca-certificates \
+    curl \
+    bzip2 \
     && rm -rf /var/lib/apt/lists/*
-    
+
+# Download the speech model (as root, before app code, so this layer is cached)
+ARG PHONEME_MODEL=sherpa-onnx-streaming-zipformer-small-ctc-zh-int8-2025-04-01
+RUN mkdir -p /opt/models \
+    && curl -fL -o /tmp/model.tar.bz2 \
+       https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/${PHONEME_MODEL}.tar.bz2 \
+    && tar xjf /tmp/model.tar.bz2 -C /opt/models --no-same-owner \
+    && rm /tmp/model.tar.bz2 \
+    && chmod -R a+rX /opt/models
+ENV PHONEME_MODEL_DIR=/opt/models/${PHONEME_MODEL}
+
 # Create a non-root user and set up virtual environment paths
 RUN useradd --create-home appuser
 ENV VIRTUAL_ENV=/opt/venv

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { useToneRecorder } from '../hooks/useToneRecorder';
 import { TONE_NAMES, withToneMark } from '../pinyin';
 import { PitchCanvas } from './PitchCanvas';
@@ -18,11 +19,20 @@ export function ToneRecorder({
   speakerRange = null,
   onResult,
   onRequestCalibration,
+  onStatusChange,
   debugContext,
   className,
 }) {
   const rec = useToneRecorder({ expectedTone, speakerRange, onResult, debugLabel: syllable, debugContext });
   const { status, result, micError } = rec;
+
+  // Lets a parent follow the take (e.g. the phoneme checker records the same
+  // take in parallel). Ref so a new callback identity doesn't re-fire it.
+  const onStatusChangeRef = useRef(onStatusChange);
+  onStatusChangeRef.current = onStatusChange;
+  useEffect(() => {
+    onStatusChangeRef.current?.(status);
+  }, [status]);
 
   const onClick = () => (status === 'listening' ? rec.stop() : rec.start());
 

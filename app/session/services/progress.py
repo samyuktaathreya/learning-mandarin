@@ -61,7 +61,7 @@ from session import crud as session_crud
  
 def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int) -> dict:
     from session.services.progress import get_collapsed_progress
-    from pinyin import services as pinyin_services
+    from app.pinyin.services import services as pinyin_services
 
     user = get_user(db, user_id)
     hsk_level = getattr(user, "hsk_level", 1)

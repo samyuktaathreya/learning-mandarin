@@ -30,7 +30,7 @@ from pinyin_utils import split_pinyin_sounds
 import textbook.crud as textbook_crud
 
 from session.constants import SOUND_CREDIT_TYPES
-from pinyin import services as pinyin_services
+from app.pinyin.services import services as pinyin_services
 
 # ----------------------------- SESSION GENERATION -----------------------------
 

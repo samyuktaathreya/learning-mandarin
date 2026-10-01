@@ -65,11 +65,15 @@ function getToken() {
 export async function apiFetch(url, options = {}) {
   const doFetch = async () => {
     const clerkToken = await getClerkToken(); // null for guests, fine
+    // File uploads (FormData) must NOT get a JSON Content-Type: the browser
+    // has to set "multipart/form-data; boundary=..." itself or the server
+    // can't read the fields.
+    const isFormData = options.body instanceof FormData;
     return fetch(url, {
       ...options,
       credentials: 'include',
       headers: {
-        'Content-Type': 'application/json',
+        ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
         ...(clerkToken ? { Authorization: `Bearer ${clerkToken}` } : {}),
         ...options.headers,
       },

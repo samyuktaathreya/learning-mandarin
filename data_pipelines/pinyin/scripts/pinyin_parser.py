@@ -3,7 +3,7 @@ from pathlib import Path
 from app.core.config.shared import DATA_DIR
 from app.textbook.db_utils import SessionLocal
 from app.textbook.models import PinyinSyllable
-from app.pinyin.services import decompose_pinyin
+from app.pinyin.services.services import decompose_pinyin
 
 RAW_PATH = "../data/raw/pinyin.txt"
 
