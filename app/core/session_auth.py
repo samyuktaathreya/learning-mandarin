@@ -3,7 +3,7 @@ import time
 import jwt
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from core.config.shared import settings
+from app.core.config.shared import settings
 
 SECRET = settings.SESSION_SECRET
 PUBLIC_PATHS = {"/", "/api/auth/verify", "/api/docs", "/api/openapi.json", "/api/webhooks/clerk"}

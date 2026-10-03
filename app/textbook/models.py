@@ -380,3 +380,29 @@ class PinyinSoundGuide(Base):
     tag = Column(String, nullable=False)        # 'zh', 'ang', ...
     description = Column(Text, nullable=False)
     __table_args__ = (UniqueConstraint("category", "tag", name="_guide_category_tag_uc"),)
+
+class PinyinWord(Base):
+    """A two-character Vocab word usable in pinyin tone-pair drills.
+    Built by data_pipelines/build_pinyin_words.py; tags are copied from
+    pinyin_syllables so words and single syllables are tagged identically."""
+    __tablename__ = "pinyin_words"
+
+    id = Column(Integer, primary_key=True)
+    vocab_id = Column(Integer, ForeignKey("vocab.id"), nullable=False, unique=True)
+    hanzi = Column(Text, nullable=False)
+    tone_pair = Column(String, nullable=False, index=True)   # "2-4"
+
+    syllable1_id = Column(Integer, ForeignKey("pinyin_syllables.id"), nullable=False)
+    syllable1 = Column(String, nullable=False)
+    tone1 = Column(Integer, nullable=False)
+    initial1 = Column(String, nullable=True)
+    final1 = Column(String, nullable=False)
+    sandhi = Column(Integer, nullable=False, default=0, server_default="0")  # 1 = written 3-3, spoken 2-3
+
+    syllable2_id = Column(Integer, ForeignKey("pinyin_syllables.id"), nullable=True)  # NULL for neutral tone
+    syllable2 = Column(String, nullable=False)
+    tone2 = Column(Integer, nullable=False)
+    initial2 = Column(String, nullable=True)
+    final2 = Column(String, nullable=False)
+
+    vocab = relationship("Vocab")

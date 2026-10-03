@@ -2,7 +2,7 @@ import os
 import httpx
 from typing import Optional
 from fastapi import HTTPException, Header
-from core.config.shared import settings
+from app.core.config.shared import settings
 
 # Cloudflare's official always-pass test secret key
 TEST_SECRET_KEY = "1x0000000000000000000000000000000AA"

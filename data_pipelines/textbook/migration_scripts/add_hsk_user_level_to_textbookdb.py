@@ -16,7 +16,7 @@ Idempotent: checks the existing constraint shape first.
 import sys
 from pathlib import Path
 
-from core.config.shared import BASE_DIR
+from app.core.config.shared import BASE_DIR
 sys.path.insert(0, str(BASE_DIR))
 
 from sqlalchemy import text

@@ -4,10 +4,10 @@ import json
 from fastapi import APIRouter, Request, HTTPException, Header
 from svix.webhooks import Webhook, WebhookVerificationError
 
-from core.database import SessionLocal
+from app.core.database import SessionLocal
 from auth.crud import get_or_create_user, delete_user_by_clerk_id
 
-from core.config.shared import settings
+from app.core.config.shared import settings
 
 router = APIRouter(prefix="/api/webhooks", tags=["webhooks"])
 

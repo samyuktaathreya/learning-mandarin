@@ -3,10 +3,10 @@ from sqlalchemy.orm import Session
 from characters.services import generate_character_questions
 from characters.database import get_characters_db
 from textbook.database import get_textbook_db
-from core.database import SessionLocal
+from app.core.database import SessionLocal
 import characters.schemas
 import characters.crud
-from core.deps import get_current_user
+from app.core.deps import get_current_user
 from auth.models import User
 
 def get_db():

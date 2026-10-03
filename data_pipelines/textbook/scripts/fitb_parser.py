@@ -42,8 +42,8 @@ import unicodedata
 
 import anthropic
 from pypdf import PdfReader, PdfWriter
-from core.config.shared import settings
-from core.config.textbook import (
+from app.core.config.shared import settings
+from app.core.config.textbook import (
     TEXTBOOK_RAW_DIR,
     TEXTBOOK_INTERMEDIATE_DIR,
     SOP_PATH,

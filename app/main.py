@@ -5,9 +5,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from core.session_auth import session_middleware
-from core.clerk_auth import clerk_auth_middleware
-from core.database import engine, Base
+from app.core.session_auth import session_middleware
+from app.core.clerk_auth import clerk_auth_middleware
+from app.core.database import engine, Base
 from scripts.seed import init_db 
 from session_log import reset_log
 
@@ -15,16 +15,16 @@ from textbook.models import Base as TextbookBase
 from textbook.db_utils import engine as textbook_engine
 from scripts.seed import init_db
 
-from core.logger import logger
+from app.core.logger import logger
 
-from core.limiter import limiter
+from app.core.limiter import limiter
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
 from shared.services.pinyin_audio import RECORDINGS_DIR, SLOW_DIR, RECORDINGS_URL, SLOW_URL
 
-from core.config.data import DATA_DIR
+from app.core.config.data import DATA_DIR
 
 app = FastAPI(docs_url="/api/docs", openapi_url="/api/openapi.json")
 

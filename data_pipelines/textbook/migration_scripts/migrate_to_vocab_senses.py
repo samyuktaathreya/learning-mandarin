@@ -54,7 +54,7 @@ import argparse
 
 from sqlalchemy import inspect, text
 
-from core.config.data import TEXTBOOK_DB
+from app.core.config.data import TEXTBOOK_DB
 from app.textbook.db_utils import engine, init_db, SessionLocal
 from app.textbook.models import Base, Vocab, VocabSense, SentenceVocab, Question
 

@@ -28,8 +28,8 @@ import csv
 import re
 import sqlite3
 from pathlib import Path
-from core.config.characters import RAW_RADICALS_PATH
-from core.config.data import CHARACTERS_DB
+from app.core.config.characters import RAW_RADICALS_PATH
+from app.core.config.data import CHARACTERS_DB
 
 # Matches a single CJK character, used to pull just the glyph out of entries
 # like "乀 (fu2)" or "乁(yi2)" in the variants column.

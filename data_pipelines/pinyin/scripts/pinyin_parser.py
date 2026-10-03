@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from core.config.shared import DATA_DIR
+from app.core.config.shared import DATA_DIR
 from app.textbook.db_utils import SessionLocal
 from app.textbook.models import PinyinSyllable
 from app.pinyin.services import decompose_pinyin

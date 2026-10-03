@@ -8,7 +8,7 @@ migrate_sentence_vocab.py / migrate_add_sentence_id.py.
 Safe to rerun -- checks for the column first.
 """
 import sqlite3
-from core.config.shared import DATA_DIR  # or wherever textbook.db's path constant lives
+from app.core.config.shared import DATA_DIR  # or wherever textbook.db's path constant lives
 
 DB_PATH = f"{DATA_DIR}/textbook.db"  # confirm this matches your actual textbook.db path
 

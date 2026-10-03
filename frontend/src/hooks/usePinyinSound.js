@@ -7,7 +7,8 @@ import { getSoundSource } from '../utils/pinyinHelpers';
 // and exposes play() for normal and slow audio.
 export function usePinyinSound(item) {
     const tag = item?.tag ?? null;
-    const isTone = Boolean(item?.isTone);
+    // Tones and whole syllables carry everything they need; only initials/finals need a row.
+    const isTone = Boolean(item?.isTone || item?.isSyllable);
     const category = item?.category ?? null; // 'initial' | 'final'
 
     const [rowState, setRowState] = useState({ tag: null, row: null, status: 'idle' });

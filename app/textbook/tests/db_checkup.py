@@ -10,8 +10,8 @@ import os
 import sqlite3
 import sys
 
-from core.config.data import TEXTBOOK_DB
-from core.logger import logger
+from app.core.config.data import TEXTBOOK_DB
+from app.core.logger import logger
 
 def main():
     parser = argparse.ArgumentParser()

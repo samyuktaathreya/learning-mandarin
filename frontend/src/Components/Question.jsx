@@ -4,6 +4,7 @@ import MultipleChoice from './MultipleChoice';
 import { useState, useEffect } from 'react';
 import CharacterDecomposition from './CharacterDecomposition'
 import PinyinSoundPopup from './PinyinSoundPopup';
+import ClickablePinyin from './ClickablePinyin';
 import { tagsToSoundItems } from '../utils/pinyinHelpers';
 import { API_BASE_URL } from '../config';
 import { apiFetch } from '../api/client';
@@ -205,6 +206,8 @@ export default function Question({
                 tagMetadata={sentenceTagMetadata}
                 isUnitTest={sessionType === "unit_test"} 
             />
+        ) : isPinyinQuestion ? (
+            <ClickablePinyin text={text} isUnitTest={sessionType === "unit_test"} />
         ) : (
             text
         );

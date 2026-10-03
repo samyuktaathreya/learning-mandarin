@@ -83,7 +83,7 @@ from data_pipelines.textbook.scripts.tag_sentences import (
 from data_pipelines.textbook.scripts.vocab_pinyin_utils import diacritic_to_numeric
 from app.textbook.db_utils import upsert_vocab_sense, write_sense_cache
 from app.textbook.models import WordType
-from core.config.external_sources import VOCAB_LIST_JSON
+from app.core.config.external_sources import VOCAB_LIST_JSON
 
 SOURCE_LABEL = "hsk_sentences_audio"
 

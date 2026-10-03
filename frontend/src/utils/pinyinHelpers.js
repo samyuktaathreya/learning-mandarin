@@ -1,4 +1,5 @@
 // Pure helpers for the pinyin progress screen. No React, no fetching.
+import { parsePinyinSyllable } from '../features/tone/parsePinyin';
 
 // Fallback until /api/pinyin/progress returns `mastery_threshold`.
 // Keep in sync with pinyin_services.MASTERY_THRESHOLD, or delete once the backend sends it.
@@ -121,6 +122,17 @@ export const summarize = (sections) => {
 // SSML <phoneme alphabet="sapi"> tag actually expects. No space (e.g. 'mu3')
 // gets rejected as an unknown phoneme.
 export const getSoundSource = (item, row) => {
+    // Whole syllable (from pinyinToSyllableItem): no row lookup, there's no
+    // example character, so the syllable itself is what's shown and played.
+    if (item.isSyllable) {
+        return {
+            character: item.main,
+            displayPinyin: item.tag,
+            // SAPI spells ü as v ('nv 3').
+            numberedPinyin: `${item.syllable.replace(/ü/g, 'v')} ${item.tone}`,
+            description: TONES[`tone${item.tone}`]?.description ?? null,
+        };
+    }
     const tone = getToneInfo(item.tag);
     if (tone) {
         return {
@@ -164,7 +176,47 @@ export const tagsToSoundItems = (tags = []) => {
     return items.sort((a, b) => rank(a) - rank(b));
 };
 
-export const getPopupTitle =(item) => (item.isTone ? `${item.main} · ${item.sub} tone` : item.main);
+const TONE_MARKS = { a: 'āáǎà', e: 'ēéěè', i: 'īíǐì', o: 'ōóǒò', u: 'ūúǔù', ü: 'ǖǘǚǜ' };
+
+// ('ma', 4) -> 'mà'. Mark goes on a, else e, else the o of "ou", else the last vowel.
+export const toDiacriticPinyin = (syllable, tone) => {
+    if (tone < 1 || tone > 4) return syllable;
+    const idx = syllable.includes('a') ? syllable.indexOf('a')
+        : syllable.includes('e') ? syllable.indexOf('e')
+        : syllable.includes('ou') ? syllable.indexOf('o')
+        : syllable.search(/[iouü](?=[^iouü]*$)/);
+    if (idx === -1) return syllable;
+    return syllable.slice(0, idx) + TONE_MARKS[syllable[idx]][tone - 1] + syllable.slice(idx + 1);
+};
+
+// Turns one whole pinyin syllable as displayed in a question ("ma4", "mǎ",
+// "ma5") into a popup item. Returns null if it isn't a single toned syllable,
+// so callers can render it as plain text.
+export const pinyinToSyllableItem = (text) => {
+    if (typeof text !== 'string') return null;
+    let parsed = parsePinyinSyllable(text);
+    if (!parsed) {
+        // parsePinyinSyllable rejects neutral tone (the tone checker can't grade it).
+        const neutral = text.trim().toLowerCase().replace(/u:|v/g, 'ü').match(/^([a-zü]+)5$/);
+        if (neutral) parsed = { syllable: neutral[1], tone: 5 };
+    }
+    if (!parsed || !/[aeiouü]/.test(parsed.syllable)) return null;
+
+    const { syllable, tone } = parsed;
+    return {
+        tag: `${syllable}${tone}`,
+        category: null,
+        isTone: false,
+        isSyllable: true,
+        main: toDiacriticPinyin(syllable, tone),
+        sub: TONES[`tone${tone}`].label,
+        syllable,
+        tone,
+    };
+};
+
+export const getPopupTitle = (item) =>
+    (item.isTone || item.isSyllable ? `${item.main} · ${item.sub} tone` : item.main);
 
 export const formatStats = ({ attempts, successes, accuracy }) =>
     attempts

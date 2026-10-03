@@ -16,8 +16,8 @@ import uuid
 from pathlib import Path
 import random
 
-from core.config.shared import settings
-from core.config.data import DATA_DIR
+from app.core.config.shared import settings
+from app.core.config.data import DATA_DIR
 
 # Absolute, so ffmpeg, the static mount and this module always agree
 SLOW_DIR = (Path("audio_cache") / "pinyin_slow").resolve()

@@ -76,7 +76,7 @@ import sys
 import argparse
 from collections import defaultdict
 
-from core.config.textbook import PIPELINE_SCRIPTS_DIR
+from app.core.config.textbook import PIPELINE_SCRIPTS_DIR
 
 from app.textbook.db_utils import init_db, get_session
 from app.textbook.models import Unit, Vocab, VocabSense, Sentence, FitbQuestion, Question
@@ -231,7 +231,7 @@ def run_pipeline_for_level(hsk_level: int, args) -> list[str]:
         # import_sentences.py lives outside PIPELINE_SCRIPTS_DIR
         script_dir = None
         if script_name == "import_sentences":
-            from core.config.textbook import HSK_SENTENCES_AUDIO_SCRIPTS_DIR
+            from app.core.config.textbook import HSK_SENTENCES_AUDIO_SCRIPTS_DIR
             script_dir = HSK_SENTENCES_AUDIO_SCRIPTS_DIR
 
         # Pass the script_args into the function
@@ -306,7 +306,7 @@ Examples:
         sys.exit(1)
 
     if args.all_levels:
-        from core.config.textbook import TEXTBOOK_RAW_DIR
+        from app.core.config.textbook import TEXTBOOK_RAW_DIR
         index_dir = TEXTBOOK_RAW_DIR / "hsk_textbook_index"
         levels = sorted(
             int(p.stem) for p in index_dir.glob("*.pdf") if p.stem.isdigit()

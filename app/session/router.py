@@ -30,8 +30,8 @@ from textbook.database import get_textbook_db
 from characters.database import get_characters_db
 
 from fastapi import APIRouter, Depends
-from core.turnstile import require_turnstile
-from core.deps import get_current_user
+from app.core.turnstile import require_turnstile
+from app.core.deps import get_current_user
 from auth.models import User
 
 router = APIRouter()

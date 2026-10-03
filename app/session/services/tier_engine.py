@@ -18,7 +18,7 @@ from session.constants import (
     FINAL_PUSH_UNGRADUATED_THRESHOLD,
 )
 from textbook import services
-from core.logger import logger
+from app.core.logger import logger
 
 
 def _tier_types_for_facet(tier: int, facet: str) -> list:

@@ -2,9 +2,9 @@
 import uuid
 from fastapi import APIRouter, Request, Response, Header, HTTPException
 from typing import Optional
-from core.session_auth import issue_session
-from core.turnstile import verify_turnstile
-from core.config.shared import settings
+from app.core.session_auth import issue_session
+from app.core.turnstile import verify_turnstile
+from app.core.config.shared import settings
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 

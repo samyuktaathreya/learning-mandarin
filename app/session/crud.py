@@ -30,7 +30,7 @@ from session.constants import (
     SOUND_UNLOCK_SUCCESSES,
     SOUND_UNLOCK_ATTEMPTS_CAP,
 )
-from core.config.data import MANDARIN_APP_DB
+from app.core.config.data import MANDARIN_APP_DB
 
 
 def facets_for_question_type(question_type: str) -> list:

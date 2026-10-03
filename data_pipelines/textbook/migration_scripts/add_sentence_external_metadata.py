@@ -23,7 +23,7 @@ Usage:
     python migration_scripts/add_sentence_external_metadata.py
 """
 import sqlite3
-from core.config.data import TEXTBOOK_DB
+from app.core.config.data import TEXTBOOK_DB
 
 
 NEW_COLUMNS = [

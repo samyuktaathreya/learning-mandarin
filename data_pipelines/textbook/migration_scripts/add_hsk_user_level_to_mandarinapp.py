@@ -1,4 +1,4 @@
-from core.config.data import MANDARIN_APP_DB
+from app.core.config.data import MANDARIN_APP_DB
 
 """
 Adds `hsk_level` to `users` in the session/progress database. Existing users 

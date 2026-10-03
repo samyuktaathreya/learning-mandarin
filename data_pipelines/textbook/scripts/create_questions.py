@@ -46,7 +46,7 @@ HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
 import anthropic
 from typing import Optional
 
-from core.config.shared import settings
+from app.core.config.shared import settings
 from app.textbook.models import SentenceVocab
 
 api_key = settings.CLAUDE_API_KEY

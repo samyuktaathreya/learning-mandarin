@@ -1,6 +1,6 @@
 # core/logger.py
 import logging
-from core.config.shared import settings
+from app.core.config.shared import settings
 
 logging.basicConfig(
     level=logging.DEBUG if settings.debug else logging.INFO,

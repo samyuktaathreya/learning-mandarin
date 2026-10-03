@@ -1,6 +1,7 @@
 import { ClickableText } from './CharacterPopup';
 import { useState, useEffect } from 'react';
 import PinyinSoundPopup from './PinyinSoundPopup';
+import ClickablePinyin from './ClickablePinyin';
 import { tagsToSoundItems } from '../utils/pinyinHelpers';
 import { API_BASE_URL } from '../config';
 import { apiFetch } from '../api/client';
@@ -188,12 +189,16 @@ export default function SpeakingQuestion({
             {isUnitTest && <p className="unit-test-label">Unit Test</p>}
             <h2>{questionTypeToInstruction(currentQuestionObj.question_type)}</h2>
             <h1>
-                <ClickableText 
-                    text={currentQuestionObj.question} 
-                    tags={currentQuestionObj.tags || []} 
-                    tagMetadata={sentenceTagMetadata}
-                    isUnitTest={isUnitTest} 
-                />
+                {currentQuestionObj.question_type === "speaking_pinyin" ? (
+                    <ClickablePinyin text={currentQuestionObj.question} isUnitTest={isUnitTest} />
+                ) : (
+                    <ClickableText 
+                        text={currentQuestionObj.question} 
+                        tags={currentQuestionObj.tags || []} 
+                        tagMetadata={sentenceTagMetadata}
+                        isUnitTest={isUnitTest} 
+                    />
+                )}
             </h1>
 
             {pinyinSounds.length > 0 && (
@@ -316,7 +321,11 @@ export default function SpeakingQuestion({
                                 You said: <strong>{transcriptionResult.transcription}</strong> ({transcriptionResult.transcription_pinyin})
                             </p>
                             <p className="expected-text">
-                                Expected: <strong>{currentQuestionObj.answer}</strong> ({transcriptionResult.expected_pinyin})
+                                Expected: <strong>
+                                    {currentQuestionObj.question_type === "speaking_pinyin"
+                                        ? <ClickablePinyin text={currentQuestionObj.answer} isUnitTest={isUnitTest} />
+                                        : currentQuestionObj.answer}
+                                </strong> ({transcriptionResult.expected_pinyin})
                             </p>
 
                             {isAssessment && (
