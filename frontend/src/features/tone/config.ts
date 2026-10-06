@@ -44,6 +44,8 @@ export const TONE_CONFIG = {
     windowMs: 1500,
     /** how long the target band is drawn during live recording */
     targetMs: 550,
+    /** …per syllable, in a multi-syllable take (syllables in a word are shorter) */
+    sequenceTargetMs: 320,
     /** frames used to anchor an uncalibrated live trace */
     anchorFrames: 5,
   },
@@ -176,6 +178,30 @@ export const TONE_CONFIG = {
     },
   },
 
+  /** multi-syllable takes ("cao3 mei2") */
+  sequence: {
+    /**
+     * Learners often pause between syllables, so a multi-syllable take waits
+     * longer for silence before stopping. Gaps up to this long are also kept
+     * inside the utterance rather than splitting it into two takes.
+     */
+    silenceMs: 600,
+    maxDurationMs: 4000,
+    /** each syllable needs at least this much voice, or one was probably left out */
+    minSyllableMs: 120,
+    /**
+     * A boundary is searched for within ±this fraction of one syllable's share
+     * around where it would fall if every syllable took the same time.
+     */
+    searchWindow: 0.4,
+    /** a break in clean pitch at least this long marks a boundary (e.g. the "c" of "cao") */
+    minBreakMs: 30,
+    /** otherwise an energy dip at least this deep marks one (e.g. the "m" of "mama") */
+    minValleyDb: 3,
+    /** frames of RMS smoothing when looking for that dip */
+    valleySmoothFrames: 5,
+  },
+
   scoring: {
     /** if the expected tone is the top pick, it passes when it scores at least this */
     passThreshold: 0.4,
@@ -193,6 +219,7 @@ export const ERROR_MESSAGES: Record<ToneErrorCode, string> = {
   TOO_QUIET: 'Speak a little louder or move closer to the mic.',
   CLIPPING: 'Too loud — move back from the mic a bit.',
   UNCLEAR: "Couldn't track your pitch clearly — try again.",
+  MISSING_SYLLABLE: "We didn't hear every syllable — say the whole word.",
 };
 
 /**

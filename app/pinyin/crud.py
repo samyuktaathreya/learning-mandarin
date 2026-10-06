@@ -10,7 +10,7 @@ domain, not by which engine backs it.
 """
 from sqlalchemy.orm import Session
 
-from textbook.models import PinyinSyllable, PinyinSoundGuide
+from textbook.models import PinyinSyllable, PinyinSoundGuide, PinyinWord
 from session.models import SoundProgress
 import re
 import logging
@@ -180,4 +180,21 @@ def get_sound_guide(textbook_db: Session, tag: str, category: str) -> PinyinSoun
         textbook_db.query(PinyinSoundGuide)
         .filter(PinyinSoundGuide.category == category, PinyinSoundGuide.tag == tag)
         .first()
+    )
+
+def get_words_for_tone_pair(db, tone1: int, tone2: int,
+                            syllables1: set[str], syllables2: set[str]) -> list[PinyinWord]:
+    """Textbook words with this tone pair whose two syllables are both in
+    the given sets (the syllables the learner has unlocked)."""
+    if not syllables1 or not syllables2:
+        return []
+    return (
+        db.query(PinyinWord)
+        .filter(
+            PinyinWord.tone1 == tone1,
+            PinyinWord.tone2 == tone2,
+            PinyinWord.syllable1.in_(syllables1),
+            PinyinWord.syllable2.in_(syllables2),
+        )
+        .all()
     )

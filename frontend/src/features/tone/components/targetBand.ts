@@ -38,3 +38,24 @@ export function alignToTarget(tone: Tone, contour: { x: number; level: number }[
     contour.reduce((sum, p) => sum + (bandAt(tone, p.x).center - p.level), 0) / contour.length;
   return contour.map((p) => ({ x: p.x, level: p.level + offset }));
 }
+
+/**
+ * alignToTarget for a word: one vertical shift for every syllable together,
+ * so a syllable that really was higher than its neighbour still looks higher.
+ * `contours[i]` belongs to `tones[i]`; neutral-tone (5) syllables are left out
+ * of the fit but shifted with the rest.
+ */
+export function alignSequenceToTargets(tones: (Tone | 5)[], contours: { x: number; level: number }[][]) {
+  let sum = 0;
+  let count = 0;
+  contours.forEach((contour, i) => {
+    const tone = tones[i];
+    if (tone === 5) return;
+    for (const p of contour) {
+      sum += bandAt(tone, p.x).center - p.level;
+      count++;
+    }
+  });
+  const offset = count ? sum / count : 0;
+  return contours.map((contour) => contour.map((p) => ({ x: p.x, level: p.level + offset })));
+}

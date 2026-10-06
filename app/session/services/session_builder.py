@@ -162,9 +162,10 @@ def process_submission(
         True if q.get("question_type") in SPEAKING_TYPES else is_correct[i]
         for i, q in enumerate(list_of_question_data)
     ]
+    is_correct = graded_correct
     submit_tags = set()
-
-    if list_of_question_data and list_of_question_data[0].get("question_type") in pinyin_services.QUESTION_TYPES:
+    pinyin_types = set(pinyin_services.QUESTION_TYPES) | set(pinyin_services.PAIR_QUESTION_TYPES)
+    if list_of_question_data and list_of_question_data[0].get("question_type") in pinyin_types:
         return pinyin_services.process_pinyin_submission(db, user_id, list_of_question_data, is_correct)
     
     for question_data in list_of_question_data:

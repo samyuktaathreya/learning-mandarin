@@ -201,10 +201,16 @@ export interface VoiceRun {
 /**
  * Longest stretch of voice of ANY kind (pitched or creak), bridging short
  * quiet gaps. Used when the pitch-based segment fails, to recognize a take
- * that was mostly or entirely raspy.
+ * that was mostly or entirely raspy. With a longer `maxGapMs` it finds a
+ * whole multi-syllable utterance, pauses between syllables included.
  */
-export function findVoiceRun(kinds: FrameKind[], hopMs: number, fromIdx = 0): VoiceRun | null {
-  const maxGap = Math.round(TONE_CONFIG.segment.bridgeGapMs / hopMs);
+export function findVoiceRun(
+  kinds: FrameKind[],
+  hopMs: number,
+  fromIdx = 0,
+  maxGapMs: number = TONE_CONFIG.segment.bridgeGapMs,
+): VoiceRun | null {
+  const maxGap = Math.round(maxGapMs / hopMs);
   let best: VoiceRun | null = null;
   let start = -1;
   let lastVoice = -1;
@@ -233,4 +239,108 @@ export function findVoiceRun(kinds: FrameKind[], hopMs: number, fromIdx = 0): Vo
   }
   close();
   return best;
+}
+/**
+ * Split an utterance (frame indices, inclusive) into `count` syllables.
+ * Returns `count` inclusive [startIdx, endIdx] windows, in order.
+ *
+ * Each boundary is looked for near where it would fall if every syllable took
+ * the same time, and placed at the first of these that exists there:
+ *  1. the longest break in clean pitch (a pause, or an unvoiced consonant
+ *     like the "c" in "cǎoméi"), split down its middle so a creaky tone-3
+ *     ending stays with its syllable;
+ *  2. the deepest dip in loudness (a voiced consonant like the "m" in "māma",
+ *     where the pitch never stops). The dip is left out of both syllables:
+ *     its pitch is the glide from one tone to the next and belongs to neither;
+ *  3. the even split itself.
+ */
+export function splitSyllables(
+  frames: PitchFrame[],
+  kinds: FrameKind[],
+  startIdx: number,
+  endIdx: number,
+  count: number,
+): [number, number][] {
+  if (count <= 1) return [[startIdx, endIdx]];
+  const cfg = TONE_CONFIG.sequence;
+  const hop = frameHopMs(frames);
+  const n = endIdx - startIdx + 1;
+  const minBreak = Math.max(1, Math.round(cfg.minBreakMs / hop));
+
+  // smoothed loudness, so one quiet frame doesn't count as a dip
+  const half = Math.floor(cfg.valleySmoothFrames / 2);
+  const level = (i: number) => {
+    let sum = 0;
+    let k = 0;
+    for (let j = Math.max(startIdx, i - half); j <= Math.min(endIdx, i + half); j++, k++) sum += frames[j].rmsDb;
+    return sum / k;
+  };
+
+  const windows: [number, number][] = [];
+  let s = startIdx;
+  for (let b = 1; b < count; b++) {
+    const even = startIdx + Math.round((b / count) * n);
+    const reach = Math.round((cfg.searchWindow / count) * n);
+    const lo = Math.max(s + 1, even - reach);
+    const hi = Math.min(endIdx - (count - b), even + reach);
+    const boundary = findBoundary(kinds, lo, hi, even, minBreak, level, cfg.minValleyDb) ?? { end: even - 1, next: even };
+    windows.push([s, boundary.end]);
+    s = boundary.next;
+  }
+  windows.push([s, endIdx]);
+  return windows;
+}
+
+/**
+ * Where one syllable ends and the next starts (frames between the two belong
+ * to neither), or null if nothing marks a boundary in [lo, hi].
+ */
+function findBoundary(
+  kinds: FrameKind[],
+  lo: number,
+  hi: number,
+  even: number,
+  minBreak: number,
+  level: (i: number) => number,
+  minValleyDb: number,
+): { end: number; next: number } | null {
+  if (hi <= lo) return null;
+
+  // 1. longest run of frames without clean pitch; ties go to the one nearest the even split
+  let best: { s: number; e: number } | null = null;
+  for (let i = lo; i <= hi; ) {
+    if (kinds[i] === 'pitched') { i++; continue; }
+    let j = i;
+    while (j + 1 <= hi && kinds[j + 1] !== 'pitched') j++;
+    const len = j - i + 1;
+    const bestLen = best ? best.e - best.s + 1 : 0;
+    const nearer = best && Math.abs((i + j) / 2 - even) < Math.abs((best.s + best.e) / 2 - even);
+    if (len >= minBreak && (len > bestLen || (len === bestLen && nearer))) best = { s: i, e: j };
+    i = j + 1;
+  }
+  if (best) {
+    const mid = Math.ceil((best.s + best.e) / 2);
+    return { end: mid - 1, next: mid };
+  }
+
+  // 2. deepest loudness dip, measured against the loudest point on each side of it
+  let dip: { i: number; depth: number } | null = null;
+  for (let i = lo; i <= hi; i++) {
+    const here = level(i);
+    let left = -Infinity;
+    let right = -Infinity;
+    for (let j = lo; j < i; j++) left = Math.max(left, level(j));
+    for (let j = i + 1; j <= hi; j++) right = Math.max(right, level(j));
+    const depth = Math.min(left, right) - here;
+    if (depth >= minValleyDb && (!dip || depth > dip.depth)) dip = { i, depth };
+  }
+  if (!dip) return null;
+
+  // the consonant: every frame around the bottom that sits in the lower half of the dip
+  const cutoff = level(dip.i) + dip.depth / 2;
+  let a = dip.i;
+  let b = dip.i;
+  while (a - 1 >= lo && level(a - 1) < cutoff) a--;
+  while (b + 1 <= hi && level(b + 1) < cutoff) b++;
+  return { end: a - 1, next: b + 1 };
 }

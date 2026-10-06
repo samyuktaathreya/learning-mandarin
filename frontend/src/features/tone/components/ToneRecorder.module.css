@@ -178,3 +178,24 @@
   color: var(--tone-good);
   border-color: transparent;
 }
+
+.syllableResults {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.syllableResult {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.syllableResult > :first-child {
+  min-width: 3.5em;
+  font-weight: 600;
+}

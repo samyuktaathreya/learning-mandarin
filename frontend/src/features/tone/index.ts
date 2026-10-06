@@ -10,9 +10,10 @@ export { useToneRecorder, type RecorderStatus, type UseToneRecorderOptions } fro
 export { useSpeakerRange } from './hooks/useSpeakerRange';
 
 // analysis (pure functions)
-export { analyzeTone, voicedPitchesHz } from './analysis/analyze';
+export { analyzeTone, analyzeTones, voicedPitchesHz } from './analysis/analyze';
 export { estimateSpeakerRange } from './analysis/normalize';
 
-export { withToneMark, TONE_NAMES } from './pinyin';
+export { withToneMark, TONE_NAMES, TONE_SHORT_NAMES } from './pinyin';
+export { parsePinyinSyllable, parsePinyinSyllables } from './parsePinyin';
 export { TONE_CONFIG, TONE_TARGETS, ERROR_MESSAGES } from './config';
 export type * from './types';

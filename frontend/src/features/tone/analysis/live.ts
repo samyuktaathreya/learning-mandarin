@@ -39,13 +39,25 @@ export class LiveTracker {
   private prevSt: number | null = null;
   private anchorBuffer: number[] = [];
 
+  /** when to stop: a multi-syllable take waits longer, so a pause between syllables doesn't end it */
+  private readonly silenceMs: number;
+  private readonly maxDurationMs: number;
+
+  /**
+   * @param expectedTone the (first) syllable's tone; an uncalibrated trace is anchored to its target
+   * @param syllableCount how many syllables the take should contain
+   */
   constructor(
     readonly expectedTone: Tone,
     speakerRange: SpeakerRange | null,
     readonly preRollMs: number = TONE_CONFIG.preRollMs,
+    readonly syllableCount: number = 1,
   ) {
     this.calibrated = speakerRange !== null;
     this.range = speakerRange ? speakerRangeToSt(speakerRange) : null;
+    const multi = syllableCount > 1;
+    this.silenceMs = multi ? TONE_CONFIG.sequence.silenceMs : TONE_CONFIG.endpoint.silenceMs;
+    this.maxDurationMs = multi ? TONE_CONFIG.sequence.maxDurationMs : TONE_CONFIG.endpoint.maxDurationMs;
   }
 
   /** @returns true if the phase changed (so the UI knows to re-render) */
@@ -79,10 +91,10 @@ export class LiveTracker {
     else if (this.voiceStartMs !== null && hasEnergy(frame, floor)) this.creakTimes.push(frame.t);
 
     const sinceListen = frame.t - this.preRollMs;
-    if (this.voicedMs >= ep.minVoiceMs && frame.t - this.lastEnergyMs >= ep.silenceMs) {
+    if (this.voicedMs >= ep.minVoiceMs && frame.t - this.lastEnergyMs >= this.silenceMs) {
       return this.finish('silence');
     }
-    if (sinceListen >= ep.maxDurationMs) {
+    if (sinceListen >= this.maxDurationMs) {
       return this.finish(this.voiceStartMs === null ? 'noVoice' : 'maxDuration');
     }
     if (this.voiceStartMs === null && sinceListen >= ep.noVoiceTimeoutMs) {

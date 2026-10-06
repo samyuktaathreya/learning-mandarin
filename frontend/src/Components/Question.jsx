@@ -8,12 +8,12 @@ import ClickablePinyin from './ClickablePinyin';
 import { tagsToSoundItems } from '../utils/pinyinHelpers';
 import { API_BASE_URL } from '../config';
 import { apiFetch } from '../api/client';
-import { PINYIN_QUESTION_TYPES } from '../utils/questionHelpers';
+import { PINYIN_QUESTION_TYPES, LISTENING_PINYIN_TYPES } from '../utils/questionHelpers';
 
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 
 const isListeningQuestion = (qt) =>
-    qt === "listening vocab" || qt === "listening sentence" || qt === "listening_pinyin";
+    qt === "listening vocab" || qt === "listening sentence" || LISTENING_PINYIN_TYPES.has(qt);
 
 const TYPES_MISSING_ENGLISH = new Set([
     "listening vocab",
@@ -54,6 +54,7 @@ const questionTypeToInstruction = (question_type) => {
         case "character_pinyin_to_char":                return "Match pinyin to character:";
         case "radical_meaning":                         return "Identify the radical:";
         case "listening_pinyin":                        return "Type the pinyin (with tones) for what you hear:";
+        case "listening_pinyin_pair":                   return "Type the pinyin (with tones) for both syllables you hear:";
         default:                                        return "Answer the question:";
     }
 };
@@ -99,7 +100,7 @@ export default function Question({
     const [selectedSound, setSelectedSound] = useState(null);
 
     // Clickable consonant / vowel / tone pieces for pinyin questions.
-    const pinyinSounds = currentQuestionObj.question_type === "listening_pinyin"
+    const pinyinSounds = LISTENING_PINYIN_TYPES.has(currentQuestionObj.question_type)
         ? tagsToSoundItems(currentQuestionObj.tags)
         : [];
 
@@ -183,7 +184,7 @@ export default function Question({
     };
 
     useEffect(() => {
-        if (isWrong && isListening && currentQuestionObj.question_type !== "listening_pinyin") {
+        if (isWrong && isListening && !LISTENING_PINYIN_TYPES.has(currentQuestionObj.question_type)) {
             apiFetch(`${API_BASE_URL}/api/pinyin`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -384,6 +385,20 @@ export default function Question({
                         <CharacterDecomposition data={decompositionData} />
                     )}
                     
+                    {/* Two-syllable pinyin: only a real textbook word has a meaning worth showing;
+                        generated pairs are two unrelated characters. */}
+                    {currentQuestionObj.question_type === "listening_pinyin_pair" && currentQuestionObj.is_real_word && (
+                        <p>
+                            Word: <strong>{renderChineseText(currentQuestionObj.hanzi)}</strong>
+                            {currentQuestionObj.english && <> — {currentQuestionObj.english}</>}
+                        </p>
+                    )}
+                    {currentQuestionObj.question_type === "listening_pinyin_pair" && currentQuestionObj.sandhi && (
+                        <p className="question-tip">
+                            Two 3rd tones in a row: the first is said as a 2nd tone, so <strong>{currentQuestionObj.accepted_answers?.[1]}</strong> is what you hear. Either spelling counts.
+                        </p>
+                    )}
+
                     {TYPES_MISSING_CHINESE.has(currentQuestionObj.question_type) && currentQuestionObj.hanzi && (
                         <p>Characters: <strong>{renderChineseText(currentQuestionObj.hanzi)}</strong></p>
                     )}

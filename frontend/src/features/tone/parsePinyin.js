@@ -45,3 +45,29 @@ export function parsePinyinSyllable(input) {
   }
   return tone === null ? null : { syllable, tone };
 }
+// Turns space-separated pinyin ("cao3 mei2", "cǎo méi", "xie4 xie5") into
+// [{ syllable, tone }, ...] for the tone checker. Unlike parsePinyinSyllable,
+// neutral tone is kept as tone 5 ("xie5", or an unmarked "xie" after a toned
+// syllable): the checker splits it off but doesn't grade it. Returns null if any
+// part isn't a syllable, or if every syllable is neutral.
+export function parsePinyinSyllables(input) {
+  if (typeof input !== 'string') return null;
+  const parts = input
+    .normalize('NFC')
+    .trim()
+    .toLowerCase()
+    .replace(/[.,!?;:。，！？]+/g, ' ')
+    .replace(/u:|v/g, 'ü')
+    .split(/\s+/)
+    .filter(Boolean);
+  if (!parts.length) return null;
+
+  const out = [];
+  for (const part of parts) {
+    const neutral = part.match(/^([a-zü]+)[05]?$/);
+    const parsed = parsePinyinSyllable(part) ?? (neutral && /[aeiouü]/.test(neutral[1]) ? { syllable: neutral[1], tone: 5 } : null);
+    if (!parsed) return null;
+    out.push(parsed);
+  }
+  return out.some((p) => p.tone !== 5) ? out : null;
+}

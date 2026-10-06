@@ -91,7 +91,8 @@ export function AccountControl() {
   return (
     <>
       <SignedIn>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '0.5rem 1rem' }}>
+        {/* right padding leaves room for the settings button pinned in the corner */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '0.5rem 3.5rem 0.5rem 1rem' }}>
           <UserButton afterSignOutUrl="/" />
         </div>
       </SignedIn>

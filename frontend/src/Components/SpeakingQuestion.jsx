@@ -7,13 +7,14 @@ import { API_BASE_URL } from '../config';
 import { apiFetch } from '../api/client';
 import { PINYIN_QUESTION_TYPES } from '../utils/questionHelpers';
 import { ToneRecorder, CalibrationPrompt, useSpeakerRange } from '../features/tone';
-import { parsePinyinSyllable } from '../features/tone/parsePinyin';
+import { parsePinyinSyllable, parsePinyinSyllables } from '../features/tone/parsePinyin';
 
 const questionTypeToInstruction = (question_type) => {
     switch (question_type) {
         case "speaking vocab":    return "Say this word out loud:";
         case "speaking sentence": return "Say this sentence out loud:";
         case "speaking_pinyin":   return "Say this pinyin out loud:";
+        case "speaking_pinyin_pair": return "Say both syllables out loud:";
         default:                  return "Say this out loud:";
     }
 };
@@ -54,9 +55,11 @@ export default function SpeakingQuestion({
     const isUnitTest = sessionType === "unit_test";
     const isAssessment = transcriptionResult?.mode === "assessment";
     
+    const isPinyinPair = currentQuestionObj.question_type === "speaking_pinyin_pair";
+    // Pair audio is forced to the exact tones by audio_pinyin ("cao 3 mei 2").
     const pinyinOverride = currentQuestionObj.question_type === "speaking_pinyin"
     ? currentQuestionObj.answer
-    : null;
+    : isPinyinPair ? currentQuestionObj.audio_pinyin : null;
 
     const isPinyinQuestion = PINYIN_QUESTION_TYPES.has(currentQuestionObj.question_type);
     // Check if the current question requires the shadowing phase
@@ -72,7 +75,7 @@ export default function SpeakingQuestion({
     const [selectedSound, setSelectedSound] = useState(null);
 
     // Clickable consonant / vowel / tone pieces for pinyin questions.
-    const pinyinSounds = currentQuestionObj.question_type === "speaking_pinyin"
+    const pinyinSounds = currentQuestionObj.question_type === "speaking_pinyin" || isPinyinPair
         ? tagsToSoundItems(currentQuestionObj.tags)
         : [];
 
@@ -80,13 +83,19 @@ export default function SpeakingQuestion({
     const [hasPassedFirstTry, setHasPassedFirstTry] = useState(false);
 
     // ── Tone check (in-browser pitch detection) ───────────────────
-    // speaking_pinyin questions with a single syllable in tones 1–4 are graded
-    // here, not by the transcribe endpoint. Anything else (neutral tone,
-    // multi-syllable) falls back to the existing Record → transcribe flow.
+    // speaking_pinyin questions with a single syllable in tones 1–4, and
+    // speaking_pinyin_pair questions, are graded here, not by the transcribe
+    // endpoint. Anything else (e.g. a lone neutral tone) falls back to the
+    // existing Record → transcribe flow.
     const toneTarget = currentQuestionObj.question_type === "speaking_pinyin"
         ? parsePinyinSyllable(currentQuestionObj.answer)
         : null;
-    const usesToneCheck = toneTarget !== null;
+    // A sandhi word is written 3-3 but said 2-3, so the first syllable is graded as tone 2.
+    const pairTargets = isPinyinPair
+        ? parsePinyinSyllables(currentQuestionObj.answer)?.map((p, i) =>
+            currentQuestionObj.sandhi && i === 0 && p.tone === 3 ? { ...p, spokenTone: 2 } : p)
+        : null;
+    const usesToneCheck = toneTarget !== null || pairTargets != null;
     const { range: speakerRange, setRange: setSpeakerRange } = useSpeakerRange();
     const [toneResult, setToneResult] = useState(null);
     const [recalibrating, setRecalibrating] = useState(false);
@@ -189,7 +198,7 @@ export default function SpeakingQuestion({
             {isUnitTest && <p className="unit-test-label">Unit Test</p>}
             <h2>{questionTypeToInstruction(currentQuestionObj.question_type)}</h2>
             <h1>
-                {currentQuestionObj.question_type === "speaking_pinyin" ? (
+                {currentQuestionObj.question_type === "speaking_pinyin" || isPinyinPair ? (
                     <ClickablePinyin text={currentQuestionObj.question} isUnitTest={isUnitTest} />
                 ) : (
                     <ClickableText 
@@ -231,17 +240,26 @@ export default function SpeakingQuestion({
                         <>
                             <ToneRecorder
                                 key={currentQuestionObj.answer}
-                                syllable={toneTarget.syllable}
-                                expectedTone={toneTarget.tone}
+                                syllable={toneTarget?.syllable}
+                                expectedTone={toneTarget?.tone}
+                                syllables={pairTargets}
                                 speakerRange={speakerRange}
                                 onResult={handleToneResult}
                                 onRequestCalibration={() => setRecalibrating(true)}
+                                debugContext={{ questionIndex: currentIndex, sessionType, question: currentQuestionObj }}
                             />
 
                             <div className="replay-buttons">
                                 <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion)}>🔊 Hear target</button>
                                 <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true, pinyinOverride, isPinyinQuestion)}>🐢 Slow</button>
                             </div>
+
+                            {isPinyinPair && toneResult?.ok && currentQuestionObj.is_real_word && (
+                                <p className="translation-text">
+                                    Word: <strong>{currentQuestionObj.hanzi}</strong>
+                                    {currentQuestionObj.english && <> — {currentQuestionObj.english}</>}
+                                </p>
+                            )}
 
                             {toneResult?.ok && currentQuestionObj.tip && (
                                 <p className="question-tip">💡 Tip: {currentQuestionObj.tip}</p>
@@ -251,7 +269,12 @@ export default function SpeakingQuestion({
                                 {toneResult?.ok && (
                                     <button
                                         className="continue-btn"
-                                        onClick={() => onAdvanceQuestion(toneResult.isCorrect)}
+                                        onClick={() => onAdvanceQuestion(
+                                            toneResult.isCorrect,
+                                            false,
+                                            // pair: per-syllable results (a neutral syllable isn't graded, so it counts as right)
+                                            toneResult.syllables?.map((r) => r?.isCorrect ?? true),
+                                        )}
                                         disabled={toneResult.isCorrect && !audioCompleted}
                                     >
                                         {toneResult.isCorrect && !audioCompleted ? "Playing audio..." : "Continue"}
@@ -322,7 +345,7 @@ export default function SpeakingQuestion({
                             </p>
                             <p className="expected-text">
                                 Expected: <strong>
-                                    {currentQuestionObj.question_type === "speaking_pinyin"
+                                    {currentQuestionObj.question_type === "speaking_pinyin" || isPinyinPair
                                         ? <ClickablePinyin text={currentQuestionObj.answer} isUnitTest={isUnitTest} />
                                         : currentQuestionObj.answer}
                                 </strong> ({transcriptionResult.expected_pinyin})

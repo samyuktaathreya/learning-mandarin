@@ -2,6 +2,12 @@
 export type Tone = 1 | 2 | 3 | 4;
 
 /**
+ * A syllable's tone inside a multi-syllable take. 5 = neutral tone: the
+ * syllable is found and split off so its neighbours line up, but it isn't graded.
+ */
+export type SyllableTone = Tone | 5;
+
+/**
  * One analysis frame, produced every ~10 ms while recording.
  * The audio layer fills these in; the analysis layer only reads them.
  */
@@ -30,7 +36,9 @@ export type ToneErrorCode =
   | 'TOO_SHORT'
   | 'TOO_QUIET'
   | 'CLIPPING'
-  | 'UNCLEAR';
+  | 'UNCLEAR'
+  /** multi-syllable take: too little voice for the number of syllables expected */
+  | 'MISSING_SYLLABLE';
 
 /** A point on the time-normalized contour, ready to draw. */
 export interface ContourPoint {
@@ -106,4 +114,42 @@ export interface AnalyzeInput {
   speakerRange?: SpeakerRange | null;
   /** leading ms recorded before the user was prompted, used to measure background noise */
   preRollMs?: number;
+  /** if given, filled with intermediate values and the reason the pipeline stopped (for debug logging) */
+  trace?: ToneTrace;
 }
+export interface AnalyzeSequenceInput {
+  frames: PitchFrame[];
+  /** one per syllable, in order, e.g. [3, 2] for "cao3 mei2" */
+  expectedTones: SyllableTone[];
+  speakerRange?: SpeakerRange | null;
+  preRollMs?: number;
+  trace?: ToneTrace;
+}
+
+/** Intermediate values from one analysis run. Every field is optional: it stops where the pipeline stopped. */
+export type ToneTrace = Record<string, unknown>;
+
+export interface ToneSequenceSuccess {
+  ok: true;
+  expectedTones: SyllableTone[];
+  /** one per syllable; null for a neutral-tone syllable (not graded) */
+  syllables: (ToneSuccess | null)[];
+  /** every graded syllable was correct */
+  isCorrect: boolean;
+  /** 0–100, mean over the graded syllables */
+  score: number;
+  /** the whole utterance in the recording */
+  segment: { startMs: number; endMs: number };
+  calibrated: boolean;
+}
+
+export interface ToneSequenceFailure {
+  ok: false;
+  expectedTones: SyllableTone[];
+  error: ToneErrorCode;
+  message: string;
+  /** which syllable couldn't be graded (0-based), or null if the whole take failed */
+  syllableIndex: number | null;
+}
+
+export type ToneSequenceResult = ToneSequenceSuccess | ToneSequenceFailure;

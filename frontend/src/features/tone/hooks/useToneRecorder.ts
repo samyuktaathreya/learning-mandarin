@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { analyzeTone } from '../analysis/analyze';
+import { analyzeTone, analyzeTones } from '../analysis/analyze';
 import { LiveTracker } from '../analysis/live';
 import {
   acquireAudioGraph,
@@ -9,7 +9,8 @@ import {
   type AudioGraph,
 } from '../audio/createAudioGraph';
 import { createFrameAnalyzer } from '../audio/pitchDetector';
-import type { PitchFrame, SpeakerRange, Tone, ToneResult } from '../types';
+import { logToneAttempt } from '../debug/toneLogger';
+import type { PitchFrame, SpeakerRange, SyllableTone, Tone, ToneResult, ToneSequenceResult, ToneTrace } from '../types';
 
 export type RecorderStatus =
   | 'idle'
@@ -20,21 +21,43 @@ export type RecorderStatus =
   | 'error'; // mic problem (recording problems come back as a ToneResult instead)
 
 export interface UseToneRecorderOptions {
-  expectedTone: Tone;
+  /** one syllable */
+  expectedTone?: Tone;
+  /**
+   * several syllables in one take, e.g. [3, 2] for "cao3 mei2" (5 = neutral,
+   * not graded). With more than one, results are ToneSequenceResults.
+   */
+  expectedTones?: SyllableTone[];
   speakerRange?: SpeakerRange | null;
-  onResult?: (result: ToneResult, frames: PitchFrame[]) => void;
+  onResult?: (result: ToneResult | ToneSequenceResult, frames: PitchFrame[]) => void;
+  /** shown in the debug log to identify the take, e.g. the syllable */
+  debugLabel?: string;
+  /** logged as JSON with each take, e.g. the question being answered */
+  debugContext?: unknown;
 }
 
+/** expectedTone / expectedTones → one list of tones */
+const tonesOf = (expectedTone?: Tone, expectedTones?: SyllableTone[]): SyllableTone[] =>
+  expectedTones?.length ? expectedTones : [expectedTone ?? 1];
+
 /**
- * Records one syllable at a time and analyzes it the moment the user stops.
+ * Records one take (a syllable, or a word of several) and analyzes it the
+ * moment the user stops.
  *
  * Live pitch data goes into `liveRef` (not state), so 100 updates/s never
  * re-render React; PitchCanvas reads it on each animation frame. State only
  * changes on phase transitions.
  */
-export function useToneRecorder({ expectedTone, speakerRange = null, onResult }: UseToneRecorderOptions) {
+export function useToneRecorder({
+  expectedTone,
+  expectedTones,
+  speakerRange = null,
+  onResult,
+  debugLabel,
+  debugContext,
+}: UseToneRecorderOptions) {
   const [status, setStatus] = useState<RecorderStatus>('idle');
-  const [result, setResult] = useState<ToneResult | null>(null);
+  const [result, setResult] = useState<ToneResult | ToneSequenceResult | null>(null);
   const [micError, setMicError] = useState<string | null>(null);
 
   const liveRef = useRef<LiveTracker | null>(null);
@@ -44,8 +67,8 @@ export function useToneRecorder({ expectedTone, speakerRange = null, onResult }:
   const mountedRef = useRef(true);
 
   // latest props, readable from the audio callback without re-subscribing
-  const propsRef = useRef({ expectedTone, speakerRange, onResult });
-  propsRef.current = { expectedTone, speakerRange, onResult };
+  const propsRef = useRef({ tones: tonesOf(expectedTone, expectedTones), speakerRange, onResult, debugLabel, debugContext });
+  propsRef.current = { tones: tonesOf(expectedTone, expectedTones), speakerRange, onResult, debugLabel, debugContext };
 
   const finish = useCallback(() => {
     const tracker = liveRef.current;
@@ -54,12 +77,23 @@ export function useToneRecorder({ expectedTone, speakerRange = null, onResult }:
     if (!tracker) return;
     tracker.finish('manual'); // no-op if it already finished on its own
 
-    const { expectedTone: tone, speakerRange: range, onResult: cb } = propsRef.current;
-    const r = analyzeTone({
-      frames: tracker.frames,
-      expectedTone: tone,
-      speakerRange: range,
+    const { tones, speakerRange: range, onResult: cb, debugLabel: label, debugContext: context } = propsRef.current;
+    const trace: ToneTrace = {};
+    const input = { frames: tracker.frames, speakerRange: range, preRollMs: tracker.preRollMs, trace };
+    const r =
+      tones.length > 1
+        ? analyzeTones({ ...input, expectedTones: tones })
+        : analyzeTone({ ...input, expectedTone: tones[0] as Tone });
+    logToneAttempt({
+      label,
+      context,
+      expectedTones: tones,
+      speakerRange: range ?? null,
+      finishReason: tracker.finishReason,
       preRollMs: tracker.preRollMs,
+      frames: tracker.frames,
+      result: r,
+      trace,
     });
     setResult(r);
     setStatus('done');
@@ -87,8 +121,9 @@ export function useToneRecorder({ expectedTone, speakerRange = null, onResult }:
       return;
     }
 
-    const { expectedTone: tone, speakerRange: range } = propsRef.current;
-    const tracker = new LiveTracker(tone, range ?? null);
+    const { tones, speakerRange: range } = propsRef.current;
+    const anchorTone = (tones.find((t) => t !== 5) ?? 1) as Tone;
+    const tracker = new LiveTracker(anchorTone, range ?? null, undefined, tones.length);
     liveRef.current = tracker;
     const analyzer = analyzerRef.current!;
     analyzer.resetClock();

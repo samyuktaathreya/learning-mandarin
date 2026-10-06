@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { voicedPitchesHz } from '../analysis/analyze';
 import { estimateSpeakerRange } from '../analysis/normalize';
+import { logToneEvent } from '../debug/toneLogger';
 import { useToneRecorder } from '../hooks/useToneRecorder';
 import { withToneMark } from '../pinyin';
 import { PitchCanvas } from './PitchCanvas';
@@ -37,6 +38,11 @@ export function CalibrationPrompt({ onComplete, onCancel, className }) {
     if (step < STEPS.length - 1) return setStep(step + 1);
 
     const range = estimateSpeakerRange(pitches.current.flat());
+    logToneEvent('CALIBRATION', {
+      range,
+      spanSt: range ? 12 * Math.log2(range.highHz / range.lowHz) : null,
+      pitchesPerTake: pitches.current.map((p) => p.length).join(' / '),
+    });
     if (!range || 12 * Math.log2(range.highHz / range.lowHz) < MIN_RANGE_ST) {
       pitches.current = [];
       setStep(0);
@@ -45,7 +51,12 @@ export function CalibrationPrompt({ onComplete, onCancel, className }) {
     onComplete(range);
   };
 
-  const rec = useToneRecorder({ expectedTone: tone, speakerRange: null, onResult: handleResult });
+  const rec = useToneRecorder({
+    expectedTone: tone,
+    speakerRange: null,
+    onResult: handleResult,
+    debugLabel: `calibration ${withToneMark('ma', tone)}`,
+  });
   const { status } = rec;
 
   return (

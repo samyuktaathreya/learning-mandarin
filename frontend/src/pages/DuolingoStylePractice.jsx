@@ -14,10 +14,13 @@ import {
     hasChinese,
     isListeningType,
     isExactMatch,
+    gradePinyinAnswer,
     isSingleSyllableAnswer,
     getQuestionAudioMode,
     PINYIN_QUESTION_TYPES,
+    PINYIN_PAIR_QUESTION_TYPES,
 } from '../utils/questionHelpers';
+import { useSettings, isQuestionEnabled } from '../features/settings';
 
 export default function DuolingoStyleQuestions() {
     const [questions, setQuestions] = useState([]);
@@ -38,11 +41,15 @@ export default function DuolingoStyleQuestions() {
     const gradingRef = useRef(false);
     const questionTokenRef = useRef(0);
     const currentAudioRef = useRef(null);
+    // Per-syllable results for the current two-syllable question ([bool, bool]),
+    // sent with the answer so the backend can credit each syllable on its own.
+    const syllableCorrectRef = useRef(null);
 
     const currentQuestionObj = questions[currentIndex] ?? null;
     const isSingleSyllable = currentQuestionObj ? isSingleSyllableAnswer(currentQuestionObj.answer) : false;
 
     const { progress, selectedUnit, setSelectedUnit, refreshProgress } = useProgress();
+    const { settings } = useSettings();
     const {
         isRecording, isTranscribing, transcriptionResult, recordingURL,
         startRecording, stopRecording, resetRecording,
@@ -58,6 +65,7 @@ export default function DuolingoStyleQuestions() {
     useEffect(() => {
         advancingRef.current = false;
         gradingRef.current = false;
+        syllableCorrectRef.current = null;
         questionTokenRef.current += 1;
         stopCurrentAudio(currentAudioRef); // stop audio from the previous question immediately
 
@@ -85,6 +93,15 @@ export default function DuolingoStyleQuestions() {
             preloadAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, currentQuestionObj.audio_pinyin, isPinyinQuestion);
         }
     }, [currentIndex, questions]);
+
+    // Toggling a setting mid-session drops the now-disabled questions that haven't been answered yet.
+    useEffect(() => {
+        if (!isSessionStarted || currentIndex >= questions.length) return;
+        const kept = questions.filter((q, i) => i < currentIndex || isQuestionEnabled(q.question_type, settings));
+        if (kept.length === questions.length) return;
+        setQuestions(kept);
+        if (currentIndex >= kept.length) finishSession(answerLog);
+    }, [settings]);
 
     // Enter advances once an answer has been revealed or a speaking answer transcribed.
     useEffect(() => {
@@ -114,7 +131,7 @@ export default function DuolingoStyleQuestions() {
         try {
             const data = await generateSession(skipReview);
             if (!data) return;
-            setQuestions(data.question_set);
+            setQuestions(data.question_set.filter(q => isQuestionEnabled(q.question_type, settings)));
             setSessionType(data.session_type);
             setCurrentIndex(0);
             setScore(0);
@@ -136,12 +153,17 @@ export default function DuolingoStyleQuestions() {
         } catch (error) { console.error("Failed to submit session", error); }
     };
 
-    const advanceQuestion = (wasCorrect, requeue = false) => {
+    // syllableCorrect: optional [bool, ...] for a two-syllable question; falls
+    // back to anything recorded when the answer was graded.
+    const advanceQuestion = (wasCorrect, requeue = false, syllableCorrect = syllableCorrectRef.current) => {
         if (advancingRef.current) return;
         advancingRef.current = true;
 
         resetRecording();
-        const log = [...answerLog, { question_data: currentQuestionObj, is_correct: wasCorrect }];
+        const questionData = syllableCorrect
+            ? { ...currentQuestionObj, syllable_correct: syllableCorrect }
+            : currentQuestionObj;
+        const log = [...answerLog, { question_data: questionData, is_correct: wasCorrect }];
         setAnswerLog(log);
         if (wasCorrect) setScore(s => s + 1);
         if (requeue && !wasCorrect) setQuestions(prev => [...prev, currentQuestionObj]);
@@ -179,6 +201,13 @@ export default function DuolingoStyleQuestions() {
         if (advancingRef.current || gradingRef.current) return;
 
         if (!userAnswer || !userAnswer.trim()) { revealAnswer(false, "(no answer)"); return; }
+
+        if (PINYIN_PAIR_QUESTION_TYPES.has(currentQuestionObj.question_type)) {
+            const { isCorrect, syllableCorrect } = gradePinyinAnswer(userAnswer, currentQuestionObj);
+            syllableCorrectRef.current = syllableCorrect;
+            revealAnswer(isCorrect, userAnswer);
+            return;
+        }
 
         const questionAtSubmit = currentQuestionObj;
         const tokenAtSubmit = questionTokenRef.current;

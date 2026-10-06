@@ -7,6 +7,7 @@ import { initTurnstile, verifySession } from './api/client';
 import { TokenBridge, SignInPage, SignUpPage, GuestBanner, AccountControl } from './Components/Auth';
 import { ClerkProvider } from '@clerk/clerk-react';
 import { PinyinTest } from "./Components/PinyinTest";
+import { SettingsProvider, SettingsButton } from "./features/settings";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -36,31 +37,34 @@ function App() {
 
   return (
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <TokenBridge />
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
-        {/* Only show Turnstile while loading */}
-        {!ready && !error && <div id="turnstile-container"/>}
+      <SettingsProvider>
+        <TokenBridge />
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
+          {/* Only show Turnstile while loading */}
+          {!ready && !error && <div id="turnstile-container"/>}
         
-        {error && <div>Verification failed: {error}</div>}
-        {!ready && !error && <div>Loading…</div>}
-        {ready && (
-          <>
-            <AccountControl />
-            <Routes>
-              <Route path="/sign-in/*" element={<SignInPage />} />
-              <Route path="/sign-up/*" element={<SignUpPage />} />
+          {error && <div>Verification failed: {error}</div>}
+          {!ready && !error && <div>Loading…</div>}
+          {ready && (
+            <>
+              <AccountControl />
+              <SettingsButton />
+              <Routes>
+                <Route path="/sign-in/*" element={<SignInPage />} />
+                <Route path="/sign-up/*" element={<SignUpPage />} />
 
-              {/* Guests allowed now — no ProtectedRoute wrapper */}
-              <Route path="/" element={<DuolingoStyleQuestions />} />
-              <Route path="/mandarin-voice-practice" element={<MandarinVoicePractice />} />
-              <Route path="/test" element={<TestPronunciation />} />
-              <Route path="/pinyin-test" element={<PinyinTest />} />
+                {/* Guests allowed now — no ProtectedRoute wrapper */}
+                <Route path="/" element={<DuolingoStyleQuestions />} />
+                <Route path="/mandarin-voice-practice" element={<MandarinVoicePractice />} />
+                <Route path="/test" element={<TestPronunciation />} />
+                <Route path="/pinyin-test" element={<PinyinTest />} />
 
-              <Route path="*" element={<div>I am lost! Current path: {window.location.pathname}</div>} />
-            </Routes>
-          </>
-        )}
-      </BrowserRouter>
+                <Route path="*" element={<div>I am lost! Current path: {window.location.pathname}</div>} />
+              </Routes>
+            </>
+          )}
+        </BrowserRouter>
+      </SettingsProvider>
     </ClerkProvider>
   );
 }

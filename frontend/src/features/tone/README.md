@@ -36,6 +36,18 @@ function PinyinDrill() {
 
 To build your own UI, use `useToneRecorder` together with `PitchCanvas`.
 
+### Words (several syllables)
+
+```tsx
+<ToneRecorder
+  syllables={[{ syllable: 'cao', tone: 3 }, { syllable: 'mei', tone: 2 }]}
+  speakerRange={range}
+  onResult={(result) => saveAttempt(result)}   // a ToneSequenceResult
+/>
+```
+
+`analyzeTones` finds the whole utterance, splits it into syllables, and grades each syllable with the same pipeline as `analyzeTone`. A boundary goes at a break in the pitch (a pause, or an unvoiced consonant like the "c" in cǎoméi). Failing that, it goes at a dip in loudness (a voiced consonant like the "m" in māma), and the dip itself is left out of both syllables. Failing both, the take is split evenly. Tone 5 (neutral) syllables are split off but not graded. Use `spokenTone` to grade a syllable against a tone other than the written one (3-3 sandhi: `{ syllable: 'ni', tone: 3, spokenTone: 2 }`). Multi-syllable takes wait longer for silence (`TONE_CONFIG.sequence.silenceMs`), so a pause between syllables doesn't end the take.
+
 ## Layout
 
 | Folder | What's in it |
