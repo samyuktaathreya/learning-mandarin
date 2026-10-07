@@ -37,7 +37,6 @@ from app.textbook.db_utils import get_session, init_db, get_sentences_for_unit, 
 # ---------------------------------------------------------
 MODEL = "claude-haiku-4-5"
 MAX_TOKENS = 1024
-TEMPERATURE = 0
 MAX_RETRIES = 2
 
 # HSK level being processed this run (threaded the same way main.py already
@@ -182,7 +181,6 @@ def reformat_grammar_tip_text(reformat_sop_text: str, raw_tip: str) -> Optional[
             response = client.messages.create(
                 model=MODEL,
                 max_tokens=MAX_TOKENS,
-                temperature=TEMPERATURE,
                 system=reformat_sop_text,
                 messages=[{"role": "user", "content": [{"type": "text", "text": user_content}]}],
             )
@@ -228,7 +226,6 @@ def get_matching_sentences(sop_text: str, structured_tip: dict, hanzi_list: list
         response = client.messages.create(
             model=MODEL,
             max_tokens=MAX_TOKENS,
-            temperature=TEMPERATURE,
             system=sop_text,
             messages=[{"role": "user", "content": [{"type": "text", "text": user_content}]}],
         )

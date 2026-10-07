@@ -71,7 +71,6 @@ LLM_RESPONSES_FILEPATH = TEXTBOOK_INTERMEDIATE_DIR / "LLM_RESPONSES"
 MODEL = "claude-sonnet-4-6"
 OCR_MAX_TOKENS = 8192
 AGENT_MAX_TOKENS = 8192
-TEMPERATURE = 0
 
 GRAMMAR_POS_PREFIXES = ("part", "aux", "助")
 
@@ -153,7 +152,6 @@ def run_index_ocr() -> str:
     response = client.messages.create(
         model=MODEL,
         max_tokens=OCR_MAX_TOKENS,
-        temperature=TEMPERATURE,
         system=load_sop(OCR_SOP_FILENAME),
         messages=[{
             "role": "user",
@@ -183,7 +181,6 @@ def run_extractor(ocr_markdown: str) -> list:
     response = client.messages.create(
         model=MODEL,
         max_tokens=AGENT_MAX_TOKENS,
-        temperature=TEMPERATURE,
         system=load_sop(EXTRACTOR_SOP_FILENAME),
         messages=[{"role": "user",
                    "content": f"Here is the OCR result of the vocabulary index:\n\n{ocr_markdown}"}],

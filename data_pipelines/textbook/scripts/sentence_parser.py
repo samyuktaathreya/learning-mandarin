@@ -98,7 +98,7 @@ MODEL = "claude-sonnet-4-6"
 HAIKU_MODEL = "claude-haiku-4-5"
 OCR_MAX_TOKENS = 8192
 AGENT_MAX_TOKENS = 8192
-TEMPERATURE = 0
+
 
 # module-level overrides from main.py
 UNITS_TO_PROCESS = []
@@ -356,7 +356,7 @@ def run_ocr(pdf_bytes: bytes, ocr_sop: str, source: str, unit_number: int) -> st
     response = client.messages.create(
         model=MODEL,
         max_tokens=OCR_MAX_TOKENS,
-        temperature=TEMPERATURE,
+
         system=ocr_sop,
         messages=[{
             "role": "user",
@@ -383,7 +383,7 @@ def run_text_agent(ocr_markdown: str, sop: str, source: str, unit_number: int,
     response = client.messages.create(
         model=HAIKU_MODEL,
         max_tokens=AGENT_MAX_TOKENS,
-        temperature=TEMPERATURE,
+
         system=sop,
         messages=[{"role": "user", "content": content}],
     )
@@ -413,7 +413,7 @@ def run_fix_sentences_agent(sentences: dict, sop: str, source: str, unit_number:
     response = client.messages.create(
         model=HAIKU_MODEL,
         max_tokens=AGENT_MAX_TOKENS,
-        temperature=TEMPERATURE,
+
         system=system_prompt,
         messages=[{"role": "user", "content": content}],
     )
