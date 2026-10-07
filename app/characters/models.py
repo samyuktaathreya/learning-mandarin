@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, Text, UniqueConstraint, ForeignKey, Index
-from characters.database import CharactersBase
+from app.characters.database import CharactersBase
 
 
 class Character(CharactersBase):

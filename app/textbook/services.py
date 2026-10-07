@@ -31,13 +31,13 @@ unique_vocab_tags by walking unit_questions.
 
 CALLER IMPACT: any code that did
 
-    from textbook.services import inverted_index, unit_to_vocab_tags_dict
+    from app.textbook.services import inverted_index, unit_to_vocab_tags_dict
     unit_tags = unit_to_vocab_tags_dict.get(unit, set())
     questions = inverted_index.get(tag, [])
 
 now needs a `db: Session` and calls the crud functions instead:
 
-    from textbook import crud
+    from app.textbook import crud
     unit_tags = crud.get_vocab_tags_for_unit(db, unit)
     questions = crud.get_questions_for_tag(db, tag, unit)
 
@@ -49,7 +49,7 @@ from typing import Optional
 
 from sqlalchemy.orm import Session
 
-from textbook import crud
+from app.textbook import crud
 
 # --------------------------------- CONSTANTS (unchanged) ---------------------------------
 
@@ -77,7 +77,7 @@ QUESTION_TYPES = [
 
 FACETS = ("character", "pinyin")
 
-QUESTION_TYPE_FACETS = crud.QUESTION_TYPE_FACETS  # re-exported; crud.py itself imports this from session.constants (single source of truth), doesn't redefine it
+QUESTION_TYPE_FACETS = crud.QUESTION_TYPE_FACETS  # re-exported; crud.py itself imports this from app.session.constants (single source of truth), doesn't redefine it
 
 
 # --------------------------------- DB-BACKED LOOKUPS (thin re-exports) ---------------------------------

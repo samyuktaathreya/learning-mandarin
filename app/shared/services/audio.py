@@ -7,11 +7,11 @@ import uuid
 import azure.cognitiveservices.speech as speechsdk
 import edge_tts
 from sqlalchemy.orm import Session
-from pinyin_utils import strip_punct, to_numbered_pinyin, tones_match, grade_speaking_sentence
+from app.pinyin_utils import strip_punct, to_numbered_pinyin, tones_match, grade_speaking_sentence
 from app.core.config.shared import settings
 from app.core.logger import logger
 import re
-from shared.services.pinyin_audio import get_recording_url
+from app.shared.services.pinyin_audio import get_recording_url
 
 import time
 

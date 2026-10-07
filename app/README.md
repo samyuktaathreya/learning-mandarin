@@ -202,7 +202,7 @@ it, mirroring the existing `characters/database.py`'s `get_characters_db()`.
 
 ## 5. Session domain (mandarin_app.db)
 
-Separate from textbook data entirely. Tracks per-user learning state:
+Separate from app.textbook data entirely. Tracks per-user learning state:
 
 ```
 strength_table       -- (user, tag, facet) -> correct_count, stability,

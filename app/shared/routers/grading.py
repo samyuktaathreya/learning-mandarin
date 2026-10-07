@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
 from app.core.database import SessionLocal
-from shared.services.grading import (
+from app.shared.services.grading import (
     evaluate_chinese_to_english,
     evaluate_english_to_chinese
 )

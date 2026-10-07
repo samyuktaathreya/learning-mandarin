@@ -1,7 +1,7 @@
 from app.core.database import SessionLocal as SessionDB
-from textbook.db_utils import SessionLocal as TextbookSessionLocal
-from session.services.review_engine import _due_review_facets
-from textbook import crud
+from app.textbook.db_utils import SessionLocal as TextbookSessionLocal
+from app.session.services.review_engine import _due_review_facets
+from app.textbook import crud
 from app.core.logger import logger
 
 db = SessionDB()

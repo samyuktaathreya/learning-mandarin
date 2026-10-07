@@ -46,8 +46,8 @@ from typing import Optional
 from sqlalchemy.orm import Session
 from sqlalchemy import func, or_, and_
 from app.core.logger import logger
-from textbook.models import Unit, Vocab, VocabSense, Sentence, SentenceVocab, Question, WordType
-from session.constants import QUESTION_TYPE_FACETS  # single source of truth -- see note below
+from app.textbook.models import Unit, Vocab, VocabSense, Sentence, SentenceVocab, Question, WordType
+from app.session.constants import QUESTION_TYPE_FACETS  # single source of truth -- see note below
 
 DEFAULT_CACHE_TTL_SECONDS = 3600  # 1 hour; curriculum data changes rarely
 

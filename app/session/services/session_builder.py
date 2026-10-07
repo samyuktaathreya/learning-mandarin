@@ -2,8 +2,8 @@ import random
 
 from sqlalchemy.orm import Session
 
-from session import crud
-from session.constants import (
+from app.session import crud
+from app.session.constants import (
     SESSION_SIZE,
     NUM_OF_UNIT_TEST_QUESTIONS,
     UNIT_TEST_TIER_WEIGHTS,
@@ -12,25 +12,25 @@ from session.constants import (
     PERCENTAGE_TO_PASS_UNIT_TEST,
     SPEAKING_TYPES,
 )
-from session.schemas import SessionResponse
-from session.services.progress import get_collapsed_progress, is_unit_graduated
-from session.services.tier_engine import generate_tier_questions
-from session.services.review_engine import (
+from app.session.schemas import SessionResponse
+from app.session.services.progress import get_collapsed_progress, is_unit_graduated
+from app.session.services.tier_engine import generate_tier_questions
+from app.session.services.review_engine import (
     generate_review_questions,
     review_due_word_count,
     is_facet_review_eligible,
 )
-from session.services.tips import attach_tips
-from session.services.sound import _tag_sounds
-from session_log import log_session
-from textbook import services as textbook_services
-from textbook.services import META_TAGS
-from characters.services import generate_character_questions
-from pinyin_utils import split_pinyin_sounds
+from app.session.services.tips import attach_tips
+from app.session.services.sound import _tag_sounds
+from app.session_log import log_session
+from app.textbook import services as textbook_services
+from app.textbook.services import META_TAGS
+from app.characters.services import generate_character_questions
+from app.pinyin_utils import split_pinyin_sounds
 import textbook.crud as textbook_crud
 
-from session.constants import SOUND_CREDIT_TYPES
-from pinyin import services as pinyin_services
+from app.session.constants import SOUND_CREDIT_TYPES
+from app.pinyin import services as pinyin_services
 
 # ----------------------------- SESSION GENERATION -----------------------------
 
@@ -144,7 +144,7 @@ def generate_full_session(db: Session, characters_db: Session, textbook_db: Sess
 # ----------------------------- SUBMISSION -----------------------------
 # process_submission is UNCHANGED below -- it never touched
 # unit_to_vocab_tags_dict/unit_questions/inverted_index, only META_TAGS
-# (still a plain constant, still importable directly from textbook.services)
+# (still a plain constant, still importable directly from app.textbook.services)
 # and session-DB-only crud calls.
 
 

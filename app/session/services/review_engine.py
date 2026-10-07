@@ -3,14 +3,14 @@ from datetime import datetime
 
 from sqlalchemy.orm import Session
 
-from session import crud
-from session.constants import (
+from app.session import crud
+from app.session.constants import (
     MAX_TIER,
     GRADUATION_THRESHOLD,
     REVIEW_THRESHOLD,
     REVIEW_TYPES_BY_FACET,
 )
-from textbook import services as textbook_services
+from app.textbook import services as textbook_services
 
 def is_facet_review_eligible(tier: int, facet_count: int) -> bool:
     return tier >= MAX_TIER and facet_count >= GRADUATION_THRESHOLD

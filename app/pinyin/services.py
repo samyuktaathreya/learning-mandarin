@@ -6,7 +6,7 @@ generation, and cross-crediting from advanced (non-pinyin) questions.
 Mirrors session/services/tier_engine.py's role for the textbook feature,
 but pool-based-per-level rather than per-question-type tiers -- see the
 design discussion that led here. No Question rows exist for pinyin;
-everything is generated on the fly from pinyinSyllable + these tags.
+everything is generated on the fly from app.pinyinSyllable + these tags.
 
 Levels are ordered lists of GROUPS, not flat tag sets: a group unlocks
 once the group before it (within the same level) is mastered. This
@@ -28,9 +28,9 @@ import random
 from itertools import product
 from sqlalchemy.orm import Session
 
-from pinyin import crud as pinyin_crud
-from session.crud import record_sound_attempt
-from pinyin_utils import split_pinyin_sounds
+from app.pinyin import crud as pinyin_crud
+from app.session.crud import record_sound_attempt
+from app.pinyin_utils import split_pinyin_sounds
 
 INITIALS = sorted(
     ["zh", "ch", "sh", "b", "p", "m", "f", "d", "t", "n", "l", "g", "k",

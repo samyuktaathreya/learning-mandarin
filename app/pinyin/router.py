@@ -3,10 +3,10 @@ from fastapi import APIRouter, Depends, Body
 from sqlalchemy.orm import Session
 
 from app.core.database import SessionLocal
-from textbook.database import get_textbook_db
+from app.textbook.database import get_textbook_db
 from app.core.deps import get_current_user
-from auth.models import User
-from pinyin import services as pinyin_services
+from app.auth.models import User
+from app.pinyin import services as pinyin_services
 
 from typing import Literal
 

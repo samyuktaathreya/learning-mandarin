@@ -10,7 +10,7 @@ No FastAPI, no Azure, no network -- pure text logic.
 import re
 from pypinyin import pinyin, Style
 from sqlalchemy.orm import Session
-from textbook import crud
+from app.textbook import crud
 
 # ----------------------------- OVERRIDES / DICT -----------------------------
 

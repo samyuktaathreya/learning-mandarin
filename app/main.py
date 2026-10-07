@@ -8,12 +8,12 @@ from fastapi.staticfiles import StaticFiles
 from app.core.session_auth import session_middleware
 from app.core.clerk_auth import clerk_auth_middleware
 from app.core.database import engine, Base
-from scripts.seed import init_db 
-from session_log import reset_log
+from app.scripts.seed import init_db 
+from app.session_log import reset_log
 
-from textbook.models import Base as TextbookBase
-from textbook.db_utils import engine as textbook_engine
-from scripts.seed import init_db
+from app.textbook.models import Base as TextbookBase
+from app.textbook.db_utils import engine as textbook_engine
+from app.scripts.seed import init_db
 
 from app.core.logger import logger
 
@@ -22,7 +22,7 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
-from shared.services.pinyin_audio import RECORDINGS_DIR, SLOW_DIR, RECORDINGS_URL, SLOW_URL
+from app.shared.services.pinyin_audio import RECORDINGS_DIR, SLOW_DIR, RECORDINGS_URL, SLOW_URL
 
 from app.core.config.data import DATA_DIR
 
@@ -54,34 +54,34 @@ def on_startup():
 
 # --- Feature-Based Routers ---
 
-from session.router import router as session_router
+from app.session.router import router as session_router
 app.include_router(session_router)
 
-from characters.router import router as characters_router
+from app.characters.router import router as characters_router
 app.include_router(characters_router)
 
-from shared.routers.audio import router as audio_router
+from app.shared.routers.audio import router as audio_router
 app.include_router(audio_router)
 
-from shared.routers.grading import router as grading_router
+from app.shared.routers.grading import router as grading_router
 app.include_router(grading_router)
 
-from auth.router import router as auth_router
+from app.auth.router import router as auth_router
 app.include_router(auth_router)
 
-from auth.webhooks import router as clerk_webhook_router
+from app.auth.webhooks import router as clerk_webhook_router
 app.include_router(clerk_webhook_router)
 
-from pinyin.router import router as pinyin_router
+from app.pinyin.router import router as pinyin_router
 app.include_router(pinyin_router)
 
 # --- Legacy/Unmigrated Routers ---
 # (These remain in api/v1/endpoints as they don't have new feature folders yet)
 
-from api.v1.endpoints.tools import router as tools_router
+from app.api.v1.endpoints.tools import router as tools_router
 app.include_router(tools_router)
 
-from api.v1.endpoints.voice_agent import router as voice_agent_router
+from app.api.v1.endpoints.voice_agent import router as voice_agent_router
 app.include_router(voice_agent_router)
 
 app.middleware("http")(clerk_auth_middleware) 

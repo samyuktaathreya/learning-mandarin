@@ -20,9 +20,9 @@ function is cheap to duplicate or re-import from the top-level module.
 from sqlalchemy.orm import Session
 from datetime import datetime
 
-from session.models import StrengthTable, SoundProgress, WordTierProgress, SeenQuestion, FlaggedMismatch
-from auth.models import User
-from session.constants import (
+from app.session.models import StrengthTable, SoundProgress, WordTierProgress, SeenQuestion, FlaggedMismatch
+from app.auth.models import User
+from app.session.constants import (
     QUESTION_TYPE_FACETS,
     STABILITY_FLOOR,
     MAX_MISS_COUNT,

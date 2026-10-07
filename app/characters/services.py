@@ -45,11 +45,11 @@ from datetime import datetime
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from shared.crud import get_dictionary_entries
-from session.models import StrengthTable
-from characters.models import Character, RadicalMeta
+from app.shared.crud import get_dictionary_entries
+from app.session.models import StrengthTable
+from app.characters.models import Character, RadicalMeta
 import characters.crud
-from textbook.services import get_pinyin, META_TAGS
+from app.textbook.services import get_pinyin, META_TAGS
 
 REVIEW_STRENGTH_THRESHOLD = 0.80  # matches REVIEW_THRESHOLD in session.py
 NUM_OPTIONS = 4                   # multiple-choice option count for all quiz types

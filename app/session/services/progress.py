@@ -1,15 +1,15 @@
 from sqlalchemy.orm import Session
 from datetime import datetime
-from session import crud
-from textbook.services import get_unit_vocab_tags, get_all_unit_numbers
-from session.crud import get_tiers_for_tags, get_progress_by_user
-from session.constants import GRADUATION_THRESHOLD, REVIEW_THRESHOLD
-from session.services.review_engine import is_facet_review_eligible
-from session.crud import get_tiers_for_tags, get_progress_by_user, get_user
-from session.constants import GRADUATION_THRESHOLD, REVIEW_THRESHOLD
-from textbook import services as textbook_services
-from session.services.review_engine import is_facet_review_eligible
-from session import crud as session_crud
+from app.session import crud
+from app.textbook.services import get_unit_vocab_tags, get_all_unit_numbers
+from app.session.crud import get_tiers_for_tags, get_progress_by_user
+from app.session.constants import GRADUATION_THRESHOLD, REVIEW_THRESHOLD
+from app.session.services.review_engine import is_facet_review_eligible
+from app.session.crud import get_tiers_for_tags, get_progress_by_user, get_user
+from app.session.constants import GRADUATION_THRESHOLD, REVIEW_THRESHOLD
+from app.textbook import services as textbook_services
+from app.session.services.review_engine import is_facet_review_eligible
+from app.session import crud as session_crud
 from app.core.logger import logger
 
 
@@ -44,7 +44,7 @@ def get_collapsed_progress(db: Session, user_id: int):
 
 
 def is_unit_graduated(db: Session, user_id: int, tag_records: list, unit_tags: set) -> bool:
-    from session.constants import GRADUATION_THRESHOLD, MAX_TIER
+    from app.session.constants import GRADUATION_THRESHOLD, MAX_TIER
 
     record_map = {r.tag: r for r in tag_records}
     tiers = crud.get_tiers_for_tags(db, user_id, unit_tags)
@@ -56,12 +56,12 @@ def is_unit_graduated(db: Session, user_id: int, tag_records: list, unit_tags: s
             return False
     return True
 
-from session import crud as session_crud
+from app.session import crud as session_crud
  
  
 def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int) -> dict:
-    from session.services.progress import get_collapsed_progress
-    from pinyin import services as pinyin_services
+    from app.session.services.progress import get_collapsed_progress
+    from app.pinyin import services as pinyin_services
 
     user = get_user(db, user_id)
     hsk_level = getattr(user, "hsk_level", 1)

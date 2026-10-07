@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from characters.services import generate_character_questions
-from characters.database import get_characters_db
-from textbook.database import get_textbook_db
+from app.characters.services import generate_character_questions
+from app.characters.database import get_characters_db
+from app.textbook.database import get_textbook_db
 from app.core.database import SessionLocal
 import characters.schemas
 import characters.crud
 from app.core.deps import get_current_user
-from auth.models import User
+from app.auth.models import User
 
 def get_db():
     db = SessionLocal()

@@ -122,7 +122,7 @@ export const summarize = (sections) => {
 // SSML <phoneme alphabet="sapi"> tag actually expects. No space (e.g. 'mu3')
 // gets rejected as an unknown phoneme.
 export const getSoundSource = (item, row) => {
-    // Whole syllable (from pinyinToSyllableItem): no row lookup, there's no
+    // Whole syllable (from app.pinyinToSyllableItem): no row lookup, there's no
     // example character, so the syllable itself is what's shown and played.
     if (item.isSyllable) {
         return {

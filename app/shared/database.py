@@ -7,10 +7,10 @@ from app.core.config.textbook import DICT_PATH
 from app.core.logger import logger
 
 # Import required parsed data and constants from services
-from textbook.services import unique_vocab_tags, FACETS
+from app.textbook.services import unique_vocab_tags, FACETS
 
 def seed_cedict(db: Session):
-    from shared.models import DictionaryEntry
+    from app.shared.models import DictionaryEntry
     """Bulk inserts CC-CEDICT file into database if dictionary_entries is empty."""
     if db.query(DictionaryEntry).first():
         return
@@ -56,8 +56,8 @@ def seed_cedict(db: Session):
 
 
 def init_db():
-    from session.models import StrengthTable
-    from auth.models import User
+    from app.session.models import StrengthTable
+    from app.auth.models import User
     
     db = SessionLocal()
     try:

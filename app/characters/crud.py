@@ -12,7 +12,7 @@ Three query families:
 
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from characters.models import Character, CharacterComponent, ConfusionPair
+from app.characters.models import Character, CharacterComponent, ConfusionPair
 import re
 
 

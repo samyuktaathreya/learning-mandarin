@@ -1,7 +1,7 @@
 # auth/crud.py
 import uuid
 from sqlalchemy.orm import Session
-from auth.models import User
+from app.auth.models import User
 
 
 def get_or_create_user(db: Session, clerk_id: str, email: str | None = None) -> User:

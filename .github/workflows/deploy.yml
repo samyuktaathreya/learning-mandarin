@@ -110,7 +110,7 @@ jobs:
           sleep 10
           \$COMPOSE ps backend
 
-          if \$COMPOSE ps backend | grep -qiE "\bexit(ed)?\b"; then
+          if \$COMPOSE ps backend | grep -qiE "\b(exit(ed)?|restarting)\b"; then
             echo "Error: backend container failed to start"
             \$COMPOSE logs --tail=100 backend
             exit 1

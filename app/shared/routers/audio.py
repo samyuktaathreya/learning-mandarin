@@ -5,13 +5,13 @@ from fastapi import APIRouter, Depends
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
-from shared.services.audio import (
+from app.shared.services.audio import (
     get_audio,
     clear_session_audio,
     process_spoken_audio,
     ForcedPronunciationError,
 )
-from textbook.database import get_textbook_db
+from app.textbook.database import get_textbook_db
 
 router = APIRouter()
 

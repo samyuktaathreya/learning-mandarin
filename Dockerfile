@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
-    
+
 # Create a non-root user and set up virtual environment paths
 RUN useradd --create-home appuser
 ENV VIRTUAL_ENV=/opt/venv
@@ -28,7 +28,6 @@ RUN pip install --no-cache-dir -e . && \
 RUN chown -R appuser:appuser /workspace $VIRTUAL_ENV
 USER appuser
 
-# Set execution directory to app and launch Uvicorn
-WORKDIR /workspace/app
+# Launch Uvicorn from the project root
 EXPOSE 8000
-CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers", "--forwarded-allow-ips=*"]
+CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers", "--forwarded-allow-ips=*"]

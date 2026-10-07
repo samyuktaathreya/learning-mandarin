@@ -3,8 +3,8 @@ import random
 
 from sqlalchemy.orm import Session
 
-from session import crud
-from session.constants import (
+from app.session import crud
+from app.session.constants import (
     TIER_QUESTION_TYPES,
     TIER4_DOWNSHIFT_PROBABILITY,
     SESSION_SIZE,
@@ -17,7 +17,7 @@ from session.constants import (
     GRADUATION_THRESHOLD,
     FINAL_PUSH_UNGRADUATED_THRESHOLD,
 )
-from textbook import services
+from app.textbook import services
 from app.core.logger import logger
 
 

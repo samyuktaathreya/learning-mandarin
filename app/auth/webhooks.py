@@ -5,7 +5,7 @@ from fastapi import APIRouter, Request, HTTPException, Header
 from svix.webhooks import Webhook, WebhookVerificationError
 
 from app.core.database import SessionLocal
-from auth.crud import get_or_create_user, delete_user_by_clerk_id
+from app.auth.crud import get_or_create_user, delete_user_by_clerk_id
 
 from app.core.config.shared import settings
 

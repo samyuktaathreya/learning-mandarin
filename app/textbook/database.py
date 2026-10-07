@@ -17,7 +17,7 @@ from typing import Generator
 
 from sqlalchemy.orm import Session
 
-from textbook.db_utils import SessionLocal
+from app.textbook.db_utils import SessionLocal
 
 def get_textbook_db() -> Generator[Session, None, None]:
     db = SessionLocal()

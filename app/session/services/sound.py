@@ -28,8 +28,8 @@ call sites won't have this context, so defaults are fine.
 from typing import Optional
 from sqlalchemy.orm import Session
 
-from pinyin_utils import split_pinyin_sounds, GATED_INITIALS, GATED_FINALS
-from textbook import crud
+from app.pinyin_utils import split_pinyin_sounds, GATED_INITIALS, GATED_FINALS
+from app.textbook import crud
 
 # Minimum required sounds per practicefor pronunciation practice to be viable
 MIN_DISTRACTOR_WORDS = 3
@@ -94,7 +94,7 @@ def build_listening_question(target_sound: str, word: str, db: Session,
     """Listening comprehension question: "You hear [audio of word], which one
     is it?" -- multiple choice among the word and other words with confusible
     sounds."""
-    from textbook import services
+    from app.textbook import services
     definition = services.get_dictionary_entry(db, word, unit_number=unit_number, hsk_level=hsk_level)
     if not definition or not definition.get("english"):
         return None  # need a definition to anchor the prompt
@@ -124,7 +124,7 @@ def build_speaking_question(target_sound: str, word: str, db: Session,
     """Speaking production question: "You see [English meaning], say this word
     in Chinese" -- tests whether the learner can produce the target sound
     correctly."""
-    from textbook import services
+    from app.textbook import services
     definition = services.get_dictionary_entry(db, word, unit_number=unit_number, hsk_level=hsk_level)
     if not definition or not definition.get("english"):
         return None

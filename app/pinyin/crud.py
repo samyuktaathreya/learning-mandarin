@@ -10,8 +10,8 @@ domain, not by which engine backs it.
 """
 from sqlalchemy.orm import Session
 
-from textbook.models import PinyinSyllable, PinyinSoundGuide, PinyinWord
-from session.models import SoundProgress
+from app.textbook.models import PinyinSyllable, PinyinSoundGuide, PinyinWord
+from app.session.models import SoundProgress
 import re
 import logging
 logger = logging.getLogger(__name__)

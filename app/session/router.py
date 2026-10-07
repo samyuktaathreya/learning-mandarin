@@ -3,36 +3,36 @@ from typing import Optional
 
 from fastapi import APIRouter, Depends, Body, HTTPException
 from sqlalchemy.orm import Session
-from textbook.database import get_textbook_db
-from session.database import get_db
-from session.schemas import SessionResponse
-from session.crud import get_user, get_tiers_for_tags, get_graduated_units, get_progress_by_user
-from session.constants import GRADUATION_THRESHOLD, REVIEW_THRESHOLD
-from session.services.progress import (
+from app.textbook.database import get_textbook_db
+from app.session.database import get_db
+from app.session.schemas import SessionResponse
+from app.session.crud import get_user, get_tiers_for_tags, get_graduated_units, get_progress_by_user
+from app.session.constants import GRADUATION_THRESHOLD, REVIEW_THRESHOLD
+from app.session.services.progress import (
     get_collapsed_progress,
     is_unit_graduated,
     build_unit_progress_summary,
     build_unit_words_detail,
 )
-from session.services.review_engine import (
+from app.session.services.review_engine import (
     is_facet_review_eligible,
     review_due_word_count,
     review_due_tomorrow_word_count,
 )
-from session.services.tips import attach_tips, save_tip
-from session.services.session_builder import (
+from app.session.services.tips import attach_tips, save_tip
+from app.session.services.session_builder import (
     generate_practice_session,
     generate_full_session,
     process_submission,
 )
-from textbook import services as textbook_services
-from textbook.database import get_textbook_db
-from characters.database import get_characters_db
+from app.textbook import services as textbook_services
+from app.textbook.database import get_textbook_db
+from app.characters.database import get_characters_db
 
 from fastapi import APIRouter, Depends
 from app.core.turnstile import require_turnstile
 from app.core.deps import get_current_user
-from auth.models import User
+from app.auth.models import User
 
 router = APIRouter()
 
@@ -73,7 +73,7 @@ def debug(user: User = Depends(get_current_user), db: Session = Depends(get_db),
     session = generate_practice_session(db, textbook_db, user_id, user.current_unit)
     tiers = get_tiers_for_tags(db, user_id, unit_tags)
 
-    from session.services.review_engine import _all_review_eligible_facets, _due_review_facets
+    from app.session.services.review_engine import _all_review_eligible_facets, _due_review_facets
     eligible = _all_review_eligible_facets(db, textbook_db, user_id, hsk_level)
     due = _due_review_facets(db, textbook_db, user_id, hsk_level)
 
@@ -182,7 +182,7 @@ def lookup(
 
 @router.get("/api/sentence_tags/{sentence_id}")
 def get_sentence_tags(sentence_id: int, textbook_db: Session = Depends(get_textbook_db)):
-    from textbook.models import Sentence, SentenceVocab
+    from app.textbook.models import Sentence, SentenceVocab
     
     sentence = textbook_db.query(Sentence).filter(Sentence.id == sentence_id).first()
     if not sentence:

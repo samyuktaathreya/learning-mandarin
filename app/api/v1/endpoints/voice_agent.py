@@ -4,8 +4,8 @@ import httpx
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, Body, HTTPException
 from app.core.database import SessionLocal
-from shared.crud import build_vocab_block
-from session.crud import get_known_vocab_tags
+from app.shared.crud import build_vocab_block
+from app.session.crud import get_known_vocab_tags
 from app.core.config.shared import settings
 from fastapi import APIRouter, Depends
 

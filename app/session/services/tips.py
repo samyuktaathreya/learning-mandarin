@@ -2,8 +2,8 @@ from datetime import datetime
 
 from sqlalchemy.orm import Session
 
-from session.models import QuestionTip
-from session.schemas import SessionResponse
+from app.session.models import QuestionTip
+from app.session.schemas import SessionResponse
 
 
 def attach_tips(db: Session, session_response: SessionResponse) -> SessionResponse:

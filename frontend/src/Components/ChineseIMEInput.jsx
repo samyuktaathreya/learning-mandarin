@@ -80,7 +80,7 @@ export default function ChineseIMEInput({ value, onChange, autoFocus, placeholde
             return;
         }
 
-        // Backspace: delete from pinyin buffer first, then from committed text
+        // Backspace: delete from app.pinyin buffer first, then from committed text
         if (e.key === 'Backspace') {
             if (pinyinBuffer.length > 0) {
                 e.preventDefault();
