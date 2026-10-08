@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSettings } from '../SettingsContext';
-import { useEscapeKey } from '../../../hooks/useEscapeKey';
+import { useEscapeKey } from '../../../shared/hooks/useEscapeKey';
 import styles from './SettingsButton.module.css';
 
 const TOGGLES = [
