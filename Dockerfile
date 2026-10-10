@@ -20,6 +20,10 @@ COPY pyproject.toml setup.py* ./
 COPY app/ ./app/
 COPY data/ ./data/
 
+# alembic business
+COPY alembic.ini ./
+COPY migrations/ ./migrations/
+
 # Install dependencies inside the virtual environment
 RUN pip install --no-cache-dir -e . && \
     pip install --no-cache-dir -r app/requirements.txt
