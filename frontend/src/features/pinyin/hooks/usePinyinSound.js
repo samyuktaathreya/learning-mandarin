@@ -14,6 +14,7 @@ export function usePinyinSound(item) {
     const [rowState, setRowState] = useState({ tag: null, row: null, status: 'idle' });
     const [playing, setPlaying] = useState(null); // null | 'normal' | 'slow'
     const audioRef = useRef(null);
+    const playIdRef = useRef(0);
 
     useEffect(() => {
         if (!tag || isTone) return undefined;
@@ -47,9 +48,11 @@ export function usePinyinSound(item) {
 
     const play = useCallback(async (slow = false) => {
         if (!source) return;
+        const playId = ++playIdRef.current;
         setPlaying(slow ? 'slow' : 'normal');
         await playAudio(source.character, slow, audioRef, null, null, source.numberedPinyin, true);
-        setPlaying(null);
+        // A newer play() cut this one off; leave its 'playing' state alone.
+        if (playIdRef.current === playId) setPlaying(null);
     }, [source]);
 
     return { source, status, playing, play };
