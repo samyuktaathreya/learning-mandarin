@@ -48,44 +48,77 @@ export const preloadAudio = (text, slow = false, pinyin = null, preferRecording 
     fetchAudioSrc(text, slow, pinyin, preferRecording).catch(err => console.error("Failed to preload audio", err));
 };
 
+// Fetches a list of sounds ({ text, slow, pinyin, preferRecording }) in order,
+// a few at a time, so the first ones are ready soonest and the server isn't
+// hit with every TTS request at once.
+export const preloadAll = (items, concurrency = 3) => {
+    const queue = items.filter(item => item.text);
+    const worker = async () => {
+        while (queue.length) {
+            const { text, slow = false, pinyin = null, preferRecording = false } = queue.shift();
+            await fetchAudioSrc(text, slow, pinyin, preferRecording).catch(err => console.error("Failed to preload audio", err));
+        }
+    };
+    return Promise.all(Array.from({ length: concurrency }, worker));
+};
+
 export const clearAudioCache = () => audioCache.clear();
 
 // Tells the server it can drop its generated audio for this session.
 export const clearServerAudio = () => apiFetch(`${API_BASE_URL}/api/audio/clear`, { method: 'POST' });
 
-// Pauses whatever audio element the ref is holding, if any.
+// Only one sound plays at a time, app-wide. Starting any sound cuts off
+// whatever is already playing.
+let nowPlaying = null; // { element, finish }
+let playToken = 0;     // bumped on every play, so a slow fetch can't start after a newer one
+
+const stopNowPlaying = () => {
+    if (nowPlaying) nowPlaying.finish();
+};
+
+// Plays a src that's already in hand (e.g. a recording's blob URL). Resolves
+// when it ends or gets cut off by another sound.
+export const playSrc = (src, currentAudioRef = null) => {
+    stopNowPlaying();
+    const audioElement = new Audio(src);
+    if (currentAudioRef) currentAudioRef.current = audioElement;
+
+    return new Promise((resolve) => {
+        const finish = () => {
+            audioElement.onended = audioElement.onerror = null;
+            audioElement.pause();
+            if (nowPlaying?.element === audioElement) nowPlaying = null;
+            if (currentAudioRef?.current === audioElement) currentAudioRef.current = null;
+            resolve();
+        };
+        nowPlaying = { element: audioElement, finish };
+        audioElement.onended = finish;
+        audioElement.onerror = finish;
+        audioElement.play().catch(finish);
+    });
+};
+
+// Stops the audio element the ref is holding, if any.
 export const stopCurrentAudio = (currentAudioRef) => {
-    if (currentAudioRef?.current) {
-        currentAudioRef.current.pause();
-        currentAudioRef.current = null;
-    }
+    const element = currentAudioRef?.current;
+    if (!element) return;
+    if (nowPlaying?.element === element) nowPlaying.finish();
+    else element.pause();
+    currentAudioRef.current = null;
 };
 
 export const playAudio = async (text, slow = false, currentAudioRef = null, tokenRef = null, expectedToken = null, pinyin = null, preferRecording = false) => {
     if (!(text)) return;
-    stopCurrentAudio(currentAudioRef);
+    const myToken = ++playToken;
+    stopNowPlaying();
 
     try {
         const src = await fetchAudioSrc(text, slow, pinyin, preferRecording); // instant if preloaded
 
         if (tokenRef && tokenRef.current !== expectedToken) return;
+        if (myToken !== playToken) return; // another sound was requested meanwhile
 
-        if (currentAudioRef?.current) {
-            currentAudioRef.current.pause();
-        }
-
-        const audioElement = new Audio(src);
-        if (currentAudioRef) currentAudioRef.current = audioElement;
-
-        return new Promise((resolve) => {
-            const finish = () => {
-                if (currentAudioRef?.current === audioElement) currentAudioRef.current = null;
-                resolve();
-            };
-            audioElement.onended = finish;
-            audioElement.onerror = finish;
-            audioElement.play().catch(resolve);
-        });
+        return playSrc(src, currentAudioRef);
     } catch (error) {
         console.error("Failed to play audio", error);
     }

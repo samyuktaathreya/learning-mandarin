@@ -4,6 +4,7 @@ import { PinyinSoundPopup, ClickablePinyin, tagsToSoundItems } from '../../pinyi
 import { API_BASE_URL } from '../../../shared/config';
 import { apiFetch } from '../../../shared/api/client';
 import { PINYIN_QUESTION_TYPES } from '../questionHelpers';
+import { playSrc } from '../../audio';
 import { ToneRecorder, CalibrationPrompt, useSpeakerRange, parsePinyinSyllable, parsePinyinSyllables } from '../../tone';
 
 const questionTypeToInstruction = (question_type) => {
@@ -312,7 +313,7 @@ export default function SpeakingQuestion({
 
             {recordingURL && !isTranscribing && !transcriptionResult && (
                 <div className="preview-controls">
-                    <button type="button" onClick={() => new Audio(recordingURL).play().catch(e => console.error('playback failed', e))}>🎧 Hear yourself</button>
+                    <button type="button" onClick={() => playSrc(recordingURL)}>🎧 Hear yourself</button>
                     <button type="button" onClick={() => onAdvanceQuestion(false)}>Skip</button>
                 </div>
             )}
@@ -331,7 +332,7 @@ export default function SpeakingQuestion({
                         : <div className="result-container">
                             <div className="replay-buttons">
                                 {recordingURL && (
-                                    <button type="button" onClick={() => new Audio(recordingURL).play().catch(e => console.error('playback failed', e))}>🎧 Hear yourself</button>
+                                    <button type="button" onClick={() => playSrc(recordingURL)}>🎧 Hear yourself</button>
                                 )}
                                 <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion)}>🔊 Hear target</button>
                                 <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true, pinyinOverride, isPinyinQuestion)}>🐢 Slow</button>

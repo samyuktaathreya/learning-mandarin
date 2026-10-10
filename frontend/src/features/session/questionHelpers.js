@@ -150,3 +150,44 @@ export const getQuestionAudioMode = (questionObj, sessionType) => {
     if (hasChinese(question)) return 'preload';
     return 'none';
 };
+// Question types whose answer is typed pinyin with tones.
+const TONED_PINYIN_ANSWER_TYPES = new Set([
+    "listening vocab",
+    "transcribe word to pinyin",
+    ...LISTENING_PINYIN_TYPES,
+]);
+
+// A tone number right after a letter ("xue2sheng5") or a tone-marked vowel ("xué").
+const hasToneMarking = (str) =>
+    /[a-zü:][1-5]/i.test(str) || [...str.normalize('NFC')].some((ch) => MARKED_VOWELS[ch.toLowerCase()]);
+
+// Returns a message when the answer is in the wrong format for the question
+// (English typed for a pinyin question, or pinyin for an English translation),
+// so the user can retry instead of being marked wrong. Returns null otherwise.
+export const getAnswerFormatWarning = (userAnswer, questionObj) => {
+    const { question_type, answer = '' } = questionObj;
+
+    // skip neutral-tone-only answers ("le"), which have no tones to type
+    if (TONED_PINYIN_ANSWER_TYPES.has(question_type) && hasToneMarking(answer)) {
+        if (hasChinese(userAnswer) || !hasToneMarking(userAnswer)) {
+            return "Make sure you are entering a pinyin answer with tones as numbers (i.e. xue2sheng5)";
+        }
+    }
+
+    // skip answers that legitimately mix letters and digits ("mp3")
+    if (TRANSLATE_TO_ENGLISH_TYPES.has(question_type) && !hasToneMarking(answer) && !hasChinese(answer)) {
+        if (hasChinese(userAnswer) || hasToneMarking(userAnswer)) {
+            return "Make sure to give the English translation";
+        }
+    }
+
+    return null;
+};
+
+// True if the answer has at least one letter (Latin, pinyin or Chinese). Digits
+// also count when the expected answer is a number with no letters ("50").
+export const hasAnswerContent = (userAnswer, questionObj) => {
+    if (/\p{L}/u.test(userAnswer)) return true;
+    const answer = questionObj.answer ?? '';
+    return !/\p{L}/u.test(answer) && /\d/.test(answer) && /\d/.test(userAnswer);
+};

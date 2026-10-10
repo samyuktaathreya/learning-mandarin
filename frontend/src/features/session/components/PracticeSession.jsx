@@ -4,7 +4,7 @@ import Question from './Question';
 import SpeakingQuestion from './SpeakingQuestion';
 import Results from './Results';
 import GrammarTipsSidebar from './GrammarTipsSidebar';
-import { playAudio, preloadAudio, stopCurrentAudio, clearAudioCache, clearServerAudio } from '../../audio';
+import { playAudio, preloadAudio, preloadAll, stopCurrentAudio, clearAudioCache, clearServerAudio } from '../../audio';
 import { submitSession, checkAnswerRemotely } from '../api/practice';
 import useSpeechRecorder from '../hooks/useSpeechRecorder';
 import {
@@ -15,6 +15,8 @@ import {
     gradePinyinAnswer,
     isSingleSyllableAnswer,
     getQuestionAudioMode,
+    getAnswerFormatWarning,
+    hasAnswerContent,
     PINYIN_QUESTION_TYPES,
     PINYIN_PAIR_QUESTION_TYPES,
 } from '../questionHelpers';
@@ -36,6 +38,11 @@ export default function PracticeSession({ session, onExit, onFinished }) {
     const [answerState, setAnswerState] = useState(null);
     const [isGrading, setIsGrading] = useState(false);
     const [isGrammarTipOpen, setIsGrammarTipOpen] = useState(false);
+    // Shown when the answer is blank or in the wrong format (e.g. pinyin for an
+    // English translation), so the user can retry instead of being marked wrong.
+    const [formatWarning, setFormatWarning] = useState(null);
+    // Wrong-format answers get one retry per question before they're graded.
+    const formatGraceUsedRef = useRef(false);
 
     const advancingRef = useRef(false);
     const gradingRef = useRef(false);
@@ -59,6 +66,18 @@ export default function PracticeSession({ session, onExit, onFinished }) {
     });
 
     useEffect(() => { console.log('currentQuestionObj:', currentQuestionObj); }, [currentQuestionObj]);
+
+    // Fetch every question's audio up front so it's ready before the user gets there.
+    useEffect(() => {
+        if (debugMode) return;
+        preloadAll(session.questions
+            .filter(q => getQuestionAudioMode(q, sessionType) !== 'none')
+            .map(q => ({
+                text: q.audio_text ?? q.question,
+                pinyin: q.audio_pinyin,
+                preferRecording: PINYIN_QUESTION_TYPES.has(q.question_type),
+            })));
+    }, []);
 
     // Reset per-question state and handle the question's audio whenever the question changes.
     useEffect(() => {
@@ -147,6 +166,8 @@ export default function PracticeSession({ session, onExit, onFinished }) {
         setUserAnswer("");
         setLastUserAnswer("");
         setAnswerState(null);
+        setFormatWarning(null);
+        formatGraceUsedRef.current = false;
     };
 
     const revealAnswer = (correct, answerGiven) => {
@@ -173,7 +194,20 @@ export default function PracticeSession({ session, onExit, onFinished }) {
         if (!currentQuestionObj) return;
         if (advancingRef.current || gradingRef.current) return;
 
-        if (!userAnswer || !userAnswer.trim()) { revealAnswer(false, "(no answer)"); return; }
+        // a blank or symbols-only answer is almost certainly a typo, so let them retry
+        if (!hasAnswerContent(userAnswer, currentQuestionObj)) {
+            setFormatWarning("Type an answer before submitting");
+            return;
+        }
+
+        if (!formatGraceUsedRef.current) {
+            const warning = getAnswerFormatWarning(userAnswer, currentQuestionObj);
+            if (warning) {
+                formatGraceUsedRef.current = true;
+                setFormatWarning(warning);
+                return;
+            }
+        }
 
         if (PINYIN_PAIR_QUESTION_TYPES.has(currentQuestionObj.question_type)) {
             const { isCorrect, syllableCorrect } = gradePinyinAnswer(userAnswer, currentQuestionObj);
@@ -269,6 +303,7 @@ export default function PracticeSession({ session, onExit, onFinished }) {
                             isGrading={isGrading}
                             onSubmit={handleSubmit}
                             onNext={handleNext}
+                            formatWarning={formatWarning}
                           />
                     }
                 </div>

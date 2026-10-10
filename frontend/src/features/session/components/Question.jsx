@@ -72,7 +72,8 @@ export default function Question({
     onMarkCorrect,
     onPlayAudio,
     debug,
-    onPreloadAudio
+    onPreloadAudio,
+    formatWarning
 }) {
 
     const showReplayButton =
@@ -446,6 +447,7 @@ export default function Question({
 
             {!hasAnswered && (
                 <form onSubmit={onSubmit}>
+                    {formatWarning && <p className="format-warning">{formatWarning}</p>}
                     {isMultipleChoice ? (
                         <MultipleChoice 
                             options={currentQuestionObj.options}
