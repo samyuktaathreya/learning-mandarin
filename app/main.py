@@ -39,7 +39,8 @@ app.mount(SLOW_URL, StaticFiles(directory=SLOW_DIR), name="pinyin-audio-slow")
 @app.on_event("startup")
 def on_startup():
     # Core/session database
-    Base.metadata.create_all(bind=engine)
+    # Base.metadata.create_all(bind=engine) 
+    # (alembic creates it now)
     
     # Textbook database (vocab, sentences, questions, etc.)
     TextbookBase.metadata.create_all(bind=textbook_engine)
