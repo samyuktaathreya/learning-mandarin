@@ -1,4 +1,10 @@
 # run: python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips="*"
+'''
+the app no longer creates the user tables on its own. 
+If you ever delete your local mandarin_app.db to start fresh, 
+run alembic upgrade head before starting the server, or you’ll get 
+“no such table” errors.
+'''
 import os
 import shutil
 from fastapi import FastAPI
