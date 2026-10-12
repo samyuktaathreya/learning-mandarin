@@ -11,6 +11,7 @@ from app.pinyin_utils import strip_punct, to_numbered_pinyin, tones_match, grade
 from app.core.config.shared import settings
 from app.core.logger import logger
 import re
+from xml.sax.saxutils import escape as xml_escape
 from app.shared.services.pinyin_audio import get_recording_url
 
 import time
@@ -72,6 +73,14 @@ class ForcedPronunciationError(Exception):
             },
         }
         
+class TTSUnavailableError(Exception):
+    """Both edge-tts and the Azure fallback failed. The router should turn
+    this into a 503 rather than letting it surface as a 500."""
+
+    def __init__(self, text: str):
+        self.text = text
+        super().__init__(f"Text-to-speech is temporarily unavailable for {text!r}")
+
 def normalize_sapi_pinyin(pinyin: str) -> str:
     """Azure's SAPI phoneme tag wants a space between each syllable and its
     tone digit. Callers send different formats ('ma3' from speaking
@@ -150,9 +159,7 @@ async def generate_and_cache_audio(text: str, slow: bool = False, numbered_pinyi
             if numbered_pinyin:
                 await asyncio.to_thread(_synthesize_forced_pronunciation, text, numbered_pinyin, filepath, voice, slow)
             else:
-                rate = get_rate(text, slow)
-                communicate = edge_tts.Communicate(text, voice, rate=rate)
-                await communicate.save(filepath)
+                await _synthesize_plain(text, filepath, voice, slow)
         except Exception:
             if os.path.exists(filepath):
                 os.remove(filepath)
@@ -161,6 +168,49 @@ async def generate_and_cache_audio(text: str, slow: bool = False, numbered_pinyi
     audio_cache[cache_key] = filepath
     session_files.add(filepath)
     return filepath
+
+async def _synthesize_plain(text: str, filepath: str, voice: str, slow: bool = False):
+    """Normal (non-forced) TTS. Tries edge-tts first since it's free; if
+    Microsoft rejects it (e.g. the 403 handshake error when edge-tts goes
+    stale), falls back to the paid Azure Speech API with the same voice, so
+    users still get audio. Raises TTSUnavailableError only if both fail."""
+    rate = get_rate(text, slow)
+    try:
+        communicate = edge_tts.Communicate(text, voice, rate=rate)
+        await communicate.save(filepath)
+        return
+    except Exception as edge_err:
+        logger.warning(f"edge-tts failed for {text!r} ({type(edge_err).__name__}: {edge_err}); falling back to Azure")
+        if os.path.exists(filepath):
+            os.remove(filepath)
+
+    try:
+        await asyncio.to_thread(_synthesize_azure_plain, text, filepath, voice, rate)
+    except Exception as azure_err:
+        logger.error(f"Azure TTS fallback also failed for {text!r}: {type(azure_err).__name__}: {azure_err}")
+        raise TTSUnavailableError(text) from azure_err
+
+
+def _synthesize_azure_plain(text: str, filepath: str, voice: str, rate: str):
+    speech_config = speechsdk.SpeechConfig(subscription=AZURE_SPEECH_KEY, region=AZURE_SPEECH_REGION)
+    # Azure writes WAV by default; ask for MP3 so it matches the .mp3 cache files
+    speech_config.set_speech_synthesis_output_format(
+        speechsdk.SpeechSynthesisOutputFormat.Audio24Khz48KBitRateMonoMp3
+    )
+    audio_config = speechsdk.audio.AudioOutputConfig(filename=filepath)
+    synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+
+    ssml = f'''<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="zh-CN">
+    <voice name="{voice}">
+        <prosody rate="{rate}">{xml_escape(text)}</prosody>
+    </voice>
+    </speak>'''
+
+    result = synthesizer.speak_ssml_async(ssml).get()
+    if result.reason != speechsdk.ResultReason.SynthesizingAudioCompleted:
+        details = getattr(result, "cancellation_details", None)
+        raise RuntimeError(f"{getattr(details, 'reason', result.reason)} - {getattr(details, 'error_details', None)}")
+
 
 def _synthesize_forced_pronunciation(text: str, numbered_pinyin: str, filepath: str, voice: str, slow: bool = False):
     """Synthesizes `text` (hanzi) forced to the exact tone/reading in `numbered_pinyin`,
