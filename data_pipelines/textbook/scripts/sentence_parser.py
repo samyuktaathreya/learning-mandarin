@@ -84,6 +84,9 @@ AGENT_MAX_TOKENS = 8192
 # module-level overrides from main.py
 UNITS_TO_PROCESS = []
 SOURCES_TO_PROCESS = None
+# Skip every unit numbered below this (e.g. to resume an interrupted run).
+# None = start from the first unit.
+START_UNIT = None
 # HSK level being processed this run (main.py passes this the same way it
 # already passes UNITS_TO_PROCESS / SOURCES_TO_PROCESS -- via env override).
 HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
@@ -526,6 +529,11 @@ def run_source(source: str) -> list:
 
     if UNITS_TO_PROCESS:
         unit_ranges = [u for u in unit_ranges if u[0] in UNITS_TO_PROCESS]
+    if START_UNIT is not None:
+        unit_ranges = [u for u in unit_ranges if u[0] >= START_UNIT]
+        if not unit_ranges:
+            print(f"  [warning] no {source} units >= {START_UNIT} for HSK level {HSK_LEVEL}; "
+                  f"nothing to do")
 
     # One session PER UNIT -- each unit commits independently, so a later
     # unit's failure can't roll back units that already succeeded in this
@@ -636,6 +644,9 @@ def parse_args():
                          help="Override HSK_LEVEL (defaults to the HSK_LEVEL env var, or 1).")
     parser.add_argument("--unit", type=int, default=None,
                          help="Only process this unit number.")
+    parser.add_argument("--start-unit", type=int, default=None,
+                         help="Process this unit and every unit after it "
+                              "(e.g. to resume an interrupted run).")
     parser.add_argument("--source", choices=list(SOURCE_NAMES), default=None,
                          help="Only process this source (e.g. 'workbook').")
     return parser.parse_args()
@@ -648,6 +659,8 @@ if __name__ == "__main__":
         HSK_LEVEL = args.hsk_level
     if args.unit is not None:
         UNITS_TO_PROCESS = [args.unit]
+    if args.start_unit is not None:
+        START_UNIT = args.start_unit
     if args.source is not None:
         SOURCES_TO_PROCESS = [args.source]
 

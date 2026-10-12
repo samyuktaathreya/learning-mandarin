@@ -54,7 +54,7 @@ from app.textbook.models import FitbQuestion, Sentence
 # Same per-level page layouts as sentence_parser.py -- FITB extraction OCRs
 # the same unit pages (and reuses the same OCR cache when present), so both
 # scripts read their book layouts from one shared constants file.
-from app.textbook.sentence_parser_constants import (
+from data_pipelines.textbook.scripts.table_of_contents_constants import (
     SOURCE_NAMES,
     configured_sources,
     get_source_config,

@@ -1,0 +1,234 @@
+2026-10-12 16:16:22,259  INFO     === tag_sentences.py run started -- HSK level 2 ===
+2026-10-12 16:16:22,259  INFO     Loaded segmentation cache: 20 entries
+2026-10-12 16:16:22,275  INFO     Valid vocab set for HSK<=2: 533 words
+2026-10-12 16:16:25,686  INFO     FALLBACK  '二十多岁。' -- hanlp produced word(s) not yet in the vocab list (checking for an over-glued compound before accepting): ['多岁']
+2026-10-12 16:16:25,687  WARNING    HAIKU resegment call for '二十多岁。' (cache miss on [('多岁', 'CD')])
+2026-10-12 16:16:26,687  INFO       HAIKU result for '二十多岁。' -> [('二十', 'NUM'), ('多', 'AD'), ('岁', 'M'), ('。', 'PU')]
+2026-10-12 16:16:26,687  WARNING    Haiku resegmentation degraded to HanLP's own output for '二十多岁。' -- nothing new to cache
+2026-10-12 16:16:26,687  INFO     RESOLVED  '二十多岁。' -> [('二十', 'NUM'), ('多', 'AD'), ('岁', 'M'), ('。', 'PU')]
+2026-10-12 16:16:26,690  INFO       SENSE cache-hit  多 (AD, duo1)
+2026-10-12 16:16:26,691  INFO       SENSE cache-hit  岁 (M, sui4)
+2026-10-12 16:16:26,691  INFO       SKIP      punctuation/whitespace: '。'
+2026-10-12 16:16:26,693  INFO     TAGGED    '二十多岁。' (2 tags)
+2026-10-12 16:16:26,712  INFO     FALLBACK  '他们十一点十分开始游泳。' -- hanlp produced word(s) not yet in the vocab list (checking for an over-glued compound before accepting): ['点十分']
+2026-10-12 16:16:26,712  INFO       CACHE-ONLY resegmentation for '他们十一点十分开始游泳。' -> [('他们', 'PN'), ('十一', 'NUM'), ('点', 'M'), ('十', 'CD'), ('分', 'M'), ('开始', 'VV'), ('游泳', 'VV')]
+2026-10-12 16:16:26,712  INFO     RESOLVED  '他们十一点十分开始游泳。' -> [('他们', 'PN'), ('十一', 'NUM'), ('点', 'M'), ('十', 'CD'), ('分', 'M'), ('开始', 'VV'), ('游泳', 'VV')]
+2026-10-12 16:16:26,713  INFO       SENSE cache-hit  他们 (PN, ta1men5)
+2026-10-12 16:16:26,714  INFO       SENSE cache-hit  点 (M, dian3)
+2026-10-12 16:16:26,714  INFO       SENSE cache-hit  十 (CD, shi2)
+2026-10-12 16:16:26,715  INFO       SENSE cache-hit  分 (M, fen1)
+2026-10-12 16:16:26,716  INFO       SENSE cache-hit  开始 (VV, kai1shi3)
+2026-10-12 16:16:26,716  INFO       SENSE cache-hit  游泳 (VV, you2yong3)
+2026-10-12 16:16:26,718  INFO     TAGGED    '他们十一点十分开始游泳。' (6 tags)
+2026-10-12 16:16:26,735  INFO     FALLBACK  '我十一岁的时候开始踢足球，已经踢了十年了。' -- hanlp produced word(s) not yet in the vocab list (checking for an over-glued compound before accepting): ['十年']
+2026-10-12 16:16:26,735  WARNING    HAIKU resegment call for '我十一岁的时候开始踢足球，已经踢了十年了。' (cache miss on [('十年', 'NT')])
+2026-10-12 16:16:28,892  INFO       HAIKU result for '我十一岁的时候开始踢足球，已经踢了十年了。' -> [('我', 'PN'), ('十一', 'NUM'), ('岁', 'M'), ('的', 'DEG'), ('时候', 'NN'), ('开始', 'VV'), ('踢', 'VV'), ('足球', 'NN'), ('，', 'PU'), ('已经', 'AD'), ('踢', 'VV'), ('了', 'AS'), ('十', 'CD'), ('年', 'M'), ('了', 'SP'), ('。', 'PU')]
+2026-10-12 16:16:28,892  WARNING    Haiku resegmentation degraded to HanLP's own output for '我十一岁的时候开始踢足球，已经踢了十年了。' -- nothing new to cache
+2026-10-12 16:16:28,892  INFO     RESOLVED  '我十一岁的时候开始踢足球，已经踢了十年了。' -> [('我', 'PN'), ('十一', 'NUM'), ('岁', 'M'), ('的', 'DEG'), ('时候', 'NN'), ('开始', 'VV'), ('踢', 'VV'), ('足球', 'NN'), ('，', 'PU'), ('已经', 'AD'), ('踢', 'VV'), ('了', 'AS'), ('十', 'CD'), ('年', 'M'), ('了', 'SP'), ('。', 'PU')]
+2026-10-12 16:16:28,894  INFO       SENSE cache-hit  我 (PN, wo3)
+2026-10-12 16:16:28,896  INFO       SENSE cache-hit  岁 (M, sui4)
+2026-10-12 16:16:28,897  INFO       SENSE cache-hit  的 (DEG, de5)
+2026-10-12 16:16:28,899  INFO       SENSE cache-hit  时候 (NN, shi2hou4)
+2026-10-12 16:16:28,900  INFO       SENSE cache-hit  开始 (VV, kai1shi3)
+2026-10-12 16:16:28,901  INFO       SENSE cache-hit  踢 (VV, ti1)
+2026-10-12 16:16:28,902  INFO       SENSE cache-hit  足球 (NN, zu2qiu2)
+2026-10-12 16:16:28,902  INFO       SKIP      punctuation/whitespace: '，'
+2026-10-12 16:16:28,902  INFO       SENSE cache-hit  已经 (AD, yi3jing1)
+2026-10-12 16:16:28,903  INFO       SENSE cache-hit  踢 (VV, ti1)
+2026-10-12 16:16:28,904  INFO       SENSE cache-hit  了 (AS, le5)
+2026-10-12 16:16:28,905  INFO       SENSE cache-hit  十 (CD, shi2)
+2026-10-12 16:16:28,905  INFO       SENSE cache-hit  年 (M, nian2)
+2026-10-12 16:16:28,906  INFO       SENSE cache-hit  了 (SP, le5)
+2026-10-12 16:16:28,906  INFO       SKIP      punctuation/whitespace: '。'
+2026-10-12 16:16:28,908  INFO     TAGGED    '我十一岁的时候开始踢足球，已经踢了十年了。' (13 tags)
+2026-10-12 16:16:28,921  INFO     FALLBACK  '三百块钱还可以，你喜欢就买吧。' -- hanlp produced word(s) not yet in the vocab list (checking for an over-glued compound before accepting): ['块钱']
+2026-10-12 16:16:28,921  WARNING    HAIKU resegment call for '三百块钱还可以，你喜欢就买吧。' (cache miss on [('块钱', 'NN')])
+2026-10-12 16:16:30,650  INFO       HAIKU result for '三百块钱还可以，你喜欢就买吧。' -> [('三百', 'NUM'), ('块', 'M'), ('钱', 'NN'), ('还', 'AD'), ('可以', 'VA'), ('，', 'PU'), ('你', 'PN'), ('喜欢', 'VV'), ('就', 'AD'), ('买', 'VV'), ('吧', 'SP'), ('。', 'PU')]
+2026-10-12 16:16:30,650  WARNING    Haiku resegmentation degraded to HanLP's own output for '三百块钱还可以，你喜欢就买吧。' -- nothing new to cache
+2026-10-12 16:16:30,650  INFO     RESOLVED  '三百块钱还可以，你喜欢就买吧。' -> [('三百', 'NUM'), ('块', 'M'), ('钱', 'NN'), ('还', 'AD'), ('可以', 'VA'), ('，', 'PU'), ('你', 'PN'), ('喜欢', 'VV'), ('就', 'AD'), ('买', 'VV'), ('吧', 'SP'), ('。', 'PU')]
+2026-10-12 16:16:30,652  INFO       SENSE cache-hit  块 (M, kuai4)
+2026-10-12 16:16:30,655  INFO       SENSE cache-hit  钱 (NN, qian2)
+2026-10-12 16:16:30,657  INFO       SENSE cache-hit  还 (AD, hai2)
+2026-10-12 16:16:30,659  INFO       SENSE cache-hit  可以 (VA, ke2yi3)
+2026-10-12 16:16:30,659  INFO       SKIP      punctuation/whitespace: '，'
+2026-10-12 16:16:30,659  INFO       SENSE cache-hit  你 (PN, ni3)
+2026-10-12 16:16:30,660  INFO       SENSE cache-hit  喜欢 (VV, xi3huan1)
+2026-10-12 16:16:30,661  INFO       SENSE cache-hit  就 (AD, jiu4)
+2026-10-12 16:16:30,661  INFO       SENSE cache-hit  买 (VV, mai3)
+2026-10-12 16:16:30,662  INFO       SENSE cache-hit  吧 (SP, ba5)
+2026-10-12 16:16:30,662  INFO       SKIP      punctuation/whitespace: '。'
+2026-10-12 16:16:30,663  INFO     TAGGED    '三百块钱还可以，你喜欢就买吧。' (9 tags)
+2026-10-12 16:16:30,681  INFO     OK        hanlp-valid   '这个月我天天游泳，我现在七十公斤了。' -> [('这个', 'DT'), ('月', 'NN'), ('我', 'PN'), ('天天', 'AD'), ('游泳', 'VV'), ('我', 'PN'), ('现在', 'NT'), ('七十', 'NUM'), ('公斤', 'M'), ('了', 'SP')]
+2026-10-12 16:16:30,682  INFO       SENSE cache-hit  这个 (DT, zhe4ge5)
+2026-10-12 16:16:30,682  INFO       SENSE cache-hit  月 (NN, yue4)
+2026-10-12 16:16:30,683  INFO       SENSE cache-hit  我 (PN, wo3)
+2026-10-12 16:16:30,684  INFO       SENSE cache-hit  天天 (AD, tian1tian1)
+2026-10-12 16:16:30,684  INFO       SENSE cache-hit  游泳 (VV, you2yong3)
+2026-10-12 16:16:30,685  INFO       SENSE cache-hit  我 (PN, wo3)
+2026-10-12 16:16:30,685  INFO       SENSE cache-hit  现在 (NT, xian4zai4)
+2026-10-12 16:16:31,197  INFO       SENSE ambiguous  公斤 (M, gong1jin1) -> matched existing sense id=470
+2026-10-12 16:16:31,200  INFO       SENSE cache-hit  了 (SP, le5)
+2026-10-12 16:16:31,202  INFO     TAGGED    '这个月我天天游泳，我现在七十公斤了。' (9 tags)
+2026-10-12 16:16:31,224  INFO     FALLBACK  '他们十一点十分开始游泳。' -- hanlp produced word(s) not yet in the vocab list (checking for an over-glued compound before accepting): ['点十分']
+2026-10-12 16:16:31,225  INFO       CACHE-ONLY resegmentation for '他们十一点十分开始游泳。' -> [('他们', 'PN'), ('十一', 'NUM'), ('点', 'M'), ('十', 'CD'), ('分', 'M'), ('开始', 'VV'), ('游泳', 'VV')]
+2026-10-12 16:16:31,225  INFO     RESOLVED  '他们十一点十分开始游泳。' -> [('他们', 'PN'), ('十一', 'NUM'), ('点', 'M'), ('十', 'CD'), ('分', 'M'), ('开始', 'VV'), ('游泳', 'VV')]
+2026-10-12 16:16:31,226  INFO       SENSE cache-hit  他们 (PN, ta1men5)
+2026-10-12 16:16:31,226  INFO       SENSE cache-hit  点 (M, dian3)
+2026-10-12 16:16:31,227  INFO       SENSE cache-hit  十 (CD, shi2)
+2026-10-12 16:16:31,227  INFO       SENSE cache-hit  分 (M, fen1)
+2026-10-12 16:16:31,228  INFO       SENSE cache-hit  开始 (VV, kai1shi3)
+2026-10-12 16:16:31,228  INFO       SENSE cache-hit  游泳 (VV, you2yong3)
+2026-10-12 16:16:31,229  INFO     TAGGED    '他们十一点十分开始游泳。' (6 tags)
+2026-10-12 16:16:31,246  INFO     FALLBACK  '学校离机场有二十多公里。' -- hanlp produced word(s) not yet in the vocab list (checking for an over-glued compound before accepting): ['多公里']
+2026-10-12 16:16:31,246  WARNING    HAIKU resegment call for '学校离机场有二十多公里。' (cache miss on [('多公里', 'M')])
+2026-10-12 16:16:32,548  INFO       HAIKU result for '学校离机场有二十多公里。' -> [('学校', 'NN'), ('离', 'VV'), ('机场', 'NN'), ('有', 'VV'), ('二十', 'NUM'), ('多', 'AD'), ('公里', 'NN'), ('。', 'PU')]
+2026-10-12 16:16:32,548  WARNING    Haiku resegmentation degraded to HanLP's own output for '学校离机场有二十多公里。' -- nothing new to cache
+2026-10-12 16:16:32,548  INFO     RESOLVED  '学校离机场有二十多公里。' -> [('学校', 'NN'), ('离', 'VV'), ('机场', 'NN'), ('有', 'VV'), ('二十', 'NUM'), ('多', 'AD'), ('公里', 'NN'), ('。', 'PU')]
+2026-10-12 16:16:32,550  INFO       SENSE cache-hit  学校 (NN, xue2xiao4)
+2026-10-12 16:16:32,551  INFO       SENSE cache-hit  离 (VV, li2)
+2026-10-12 16:16:32,552  INFO       SENSE cache-hit  机场 (NN, ji1chang3)
+2026-10-12 16:16:32,553  INFO       SENSE cache-hit  有 (VV, you3)
+2026-10-12 16:16:32,553  INFO       SENSE cache-hit  多 (AD, duo1)
+2026-10-12 16:16:33,121  INFO       SENSE ambiguous  公里 (NN, gong1li3) -> matched existing sense id=484
+2026-10-12 16:16:33,121  INFO       SKIP      punctuation/whitespace: '。'
+2026-10-12 16:16:33,122  INFO     TAGGED    '学校离机场有二十多公里。' (6 tags)
+2026-10-12 16:16:33,141  INFO     OK        hanlp-valid   '我的生日是二月二十二号。' -> [('我', 'PN'), ('的', 'DEG'), ('生日', 'NN'), ('是', 'VC'), ('二月', 'NT'), ('二十二', 'NUM'), ('号', 'VA')]
+2026-10-12 16:16:33,142  INFO       SENSE cache-hit  我 (PN, wo3)
+2026-10-12 16:16:33,142  INFO       SENSE cache-hit  的 (DEG, de5)
+2026-10-12 16:16:33,143  INFO       SENSE cache-hit  生日 (NN, sheng1ri4)
+2026-10-12 16:16:33,144  INFO       SENSE cache-hit  是 (VC, shi4)
+2026-10-12 16:16:33,578  INFO       SENSE ambiguous  二月 (NT, er4yue4) -> matched existing sense id=488
+2026-10-12 16:16:33,581  INFO       SENSE cache-hit  号 (VA, hao4)
+2026-10-12 16:16:33,584  INFO     TAGGED    '我的生日是二月二十二号。' (6 tags)
+2026-10-12 16:16:33,608  INFO     FALLBACK  '不是不是，我同学介绍的，昨天第一次见。' -- hanlp produced word(s) not yet in the vocab list (checking for an over-glued compound before accepting): ['次见']
+2026-10-12 16:16:33,608  WARNING    HAIKU resegment call for '不是不是，我同学介绍的，昨天第一次见。' (cache miss on [('次见', 'NN')])
+2026-10-12 16:16:35,747  INFO       HAIKU result for '不是不是，我同学介绍的，昨天第一次见。' -> [('不', 'AD'), ('是', 'VC'), ('不', 'AD'), ('是', 'VC'), ('，', 'PU'), ('我', 'PN'), ('同学', 'NN'), ('介绍', 'VV'), ('的', 'DEG'), ('，', 'PU'), ('昨天', 'NT'), ('第一', 'NUM'), ('次', 'M'), ('见', 'VV'), ('。', 'PU')]
+2026-10-12 16:16:35,747  WARNING    Haiku resegmentation degraded to HanLP's own output for '不是不是，我同学介绍的，昨天第一次见。' -- nothing new to cache
+2026-10-12 16:16:35,748  INFO     RESOLVED  '不是不是，我同学介绍的，昨天第一次见。' -> [('不', 'AD'), ('是', 'VC'), ('不', 'AD'), ('是', 'VC'), ('，', 'PU'), ('我', 'PN'), ('同学', 'NN'), ('介绍', 'VV'), ('的', 'DEG'), ('，', 'PU'), ('昨天', 'NT'), ('第一', 'NUM'), ('次', 'M'), ('见', 'VV'), ('。', 'PU')]
+2026-10-12 16:16:35,749  INFO       SENSE cache-hit  不 (AD, bu4)
+2026-10-12 16:16:35,750  INFO       SENSE cache-hit  是 (VC, shi4)
+2026-10-12 16:16:35,751  INFO       SENSE cache-hit  不 (AD, bu4)
+2026-10-12 16:16:35,752  INFO       SENSE cache-hit  是 (VC, shi4)
+2026-10-12 16:16:35,752  INFO       SKIP      punctuation/whitespace: '，'
+2026-10-12 16:16:35,753  INFO       SENSE cache-hit  我 (PN, wo3)
+2026-10-12 16:16:35,753  INFO       SENSE cache-hit  同学 (NN, tong2xue2)
+2026-10-12 16:16:35,754  INFO       SENSE cache-hit  介绍 (VV, jie4shao4)
+2026-10-12 16:16:35,755  INFO       SENSE cache-hit  的 (DEG, de5)
+2026-10-12 16:16:35,755  INFO       SKIP      punctuation/whitespace: '，'
+2026-10-12 16:16:35,756  INFO       SENSE cache-hit  昨天 (NT, zuo2tian1)
+2026-10-12 16:16:35,756  INFO       SENSE cache-hit  次 (M, ci4)
+2026-10-12 16:16:35,757  INFO       SENSE cache-hit  见 (VV, jian4)
+2026-10-12 16:16:35,758  INFO       SKIP      punctuation/whitespace: '。'
+2026-10-12 16:16:35,759  INFO     TAGGED    '不是不是，我同学介绍的，昨天第一次见。' (11 tags)
+2026-10-12 16:16:35,770  INFO     FALLBACK  '二十五岁，他比我大三岁。' -- hanlp produced word(s) not yet in the vocab list (checking for an over-glued compound before accepting): ['三岁']
+2026-10-12 16:16:35,770  INFO       CACHE-ONLY resegmentation for '二十五岁，他比我大三岁。' -> [('二十五', 'NUM'), ('岁', 'M'), ('他', 'PN'), ('比', 'P'), ('我', 'PN'), ('大', 'VA'), ('三', 'CD'), ('岁', 'M')]
+2026-10-12 16:16:35,770  INFO     RESOLVED  '二十五岁，他比我大三岁。' -> [('二十五', 'NUM'), ('岁', 'M'), ('他', 'PN'), ('比', 'P'), ('我', 'PN'), ('大', 'VA'), ('三', 'CD'), ('岁', 'M')]
+2026-10-12 16:16:35,771  INFO       SENSE cache-hit  岁 (M, sui4)
+2026-10-12 16:16:35,771  INFO       SENSE cache-hit  他 (PN, ta1)
+2026-10-12 16:16:35,772  INFO       SENSE cache-hit  比 (P, bi3)
+2026-10-12 16:16:35,772  INFO       SENSE cache-hit  我 (PN, wo3)
+2026-10-12 16:16:35,773  INFO       SENSE cache-hit  大 (VA, da4)
+2026-10-12 16:16:35,774  INFO       SENSE cache-hit  三 (CD, san1)
+2026-10-12 16:16:35,774  INFO       SENSE cache-hit  岁 (M, sui4)
+2026-10-12 16:16:35,775  INFO     TAGGED    '二十五岁，他比我大三岁。' (7 tags)
+2026-10-12 16:16:35,784  INFO     OK        hanlp-valid   '十一点多了，你睡不睡觉？' -> [('十一', 'NUM'), ('点', 'NN'), ('多', 'AD'), ('了', 'SP'), ('你', 'PN'), ('睡', 'VV'), ('不', 'AD'), ('睡觉', 'VV')]
+2026-10-12 16:16:36,468  INFO       SENSE ambiguous  点 (NN, dian3) -> matched existing sense id=109
+2026-10-12 16:16:36,470  INFO       SENSE cache-hit  多 (AD, duo1)
+2026-10-12 16:16:36,472  INFO       SENSE cache-hit  了 (SP, le5)
+2026-10-12 16:16:36,473  INFO       SENSE cache-hit  你 (PN, ni3)
+2026-10-12 16:16:36,474  INFO       SENSE cache-hit  睡 (VV, shui4)
+2026-10-12 16:16:36,475  INFO       SENSE cache-hit  不 (AD, bu4)
+2026-10-12 16:16:36,476  INFO       SENSE cache-hit  睡觉 (VV, shui4jiao4)
+2026-10-12 16:16:36,478  INFO     TAGGED    '十一点多了，你睡不睡觉？' (7 tags)
+2026-10-12 16:16:36,497  INFO     FALLBACK  '我的手机比大卫的贵三百块钱。' -- hanlp produced word(s) not yet in the vocab list (checking for an over-glued compound before accepting): ['块钱']
+2026-10-12 16:16:36,497  WARNING    HAIKU resegment call for '我的手机比大卫的贵三百块钱。' (cache miss on [('块钱', 'NN')])
+2026-10-12 16:16:38,312  INFO       HAIKU result for '我的手机比大卫的贵三百块钱。' -> [('我', 'PN'), ('的', 'DEG'), ('手机', 'NN'), ('比', 'P'), ('大卫', 'NR'), ('的', 'DEG'), ('贵', 'VA'), ('三百', 'NUM'), ('块', 'M'), ('钱', 'NN'), ('。', 'PU')]
+2026-10-12 16:16:38,313  WARNING    Haiku resegmentation degraded to HanLP's own output for '我的手机比大卫的贵三百块钱。' -- nothing new to cache
+2026-10-12 16:16:38,313  INFO     RESOLVED  '我的手机比大卫的贵三百块钱。' -> [('我', 'PN'), ('的', 'DEG'), ('手机', 'NN'), ('比', 'P'), ('大卫', 'NR'), ('的', 'DEG'), ('贵', 'VA'), ('三百', 'NUM'), ('块', 'M'), ('钱', 'NN'), ('。', 'PU')]
+2026-10-12 16:16:38,315  INFO       SENSE cache-hit  我 (PN, wo3)
+2026-10-12 16:16:38,317  INFO       SENSE cache-hit  的 (DEG, de5)
+2026-10-12 16:16:38,319  INFO       SENSE cache-hit  手机 (NN, shou3ji1)
+2026-10-12 16:16:38,320  INFO       SENSE cache-hit  比 (P, bi3)
+2026-10-12 16:16:38,321  INFO       SENSE cache-hit  大卫 (NR, da4wei4)
+2026-10-12 16:16:38,322  INFO       SENSE cache-hit  的 (DEG, de5)
+2026-10-12 16:16:38,323  INFO       SENSE cache-hit  贵 (VA, gui4)
+2026-10-12 16:16:38,324  INFO       SENSE cache-hit  块 (M, kuai4)
+2026-10-12 16:16:38,325  INFO       SENSE cache-hit  钱 (NN, qian2)
+2026-10-12 16:16:38,325  INFO       SKIP      punctuation/whitespace: '。'
+2026-10-12 16:16:38,327  INFO     TAGGED    '我的手机比大卫的贵三百块钱。' (9 tags)
+2026-10-12 16:16:38,357  INFO     OK        hanlp-valid   '今天是十二月二十八号了，新年快要到了。' -> [('今天', 'NT'), ('是', 'VC'), ('十二', 'NUM'), ('月', 'NN'), ('二十八', 'NUM'), ('号', 'NN'), ('了', 'SP'), ('新年', 'NT'), ('快要', 'AD'), ('到', 'VV'), ('了', 'SP')]
+2026-10-12 16:16:38,358  INFO       SENSE cache-hit  今天 (NT, jin1tian1)
+2026-10-12 16:16:38,359  INFO       SENSE cache-hit  是 (VC, shi4)
+2026-10-12 16:16:38,360  INFO       SENSE cache-hit  月 (NN, yue4)
+2026-10-12 16:16:38,360  INFO       SENSE cache-hit  号 (NN, hao4)
+2026-10-12 16:16:38,361  INFO       SENSE cache-hit  了 (SP, le5)
+2026-10-12 16:16:38,361  INFO       SENSE cache-hit  新年 (NT, xin1nian2)
+2026-10-12 16:16:38,362  INFO       SENSE cache-hit  快要 (AD, kuai4yao4)
+2026-10-12 16:16:38,362  INFO       SENSE cache-hit  到 (VV, dao4)
+2026-10-12 16:16:38,362  INFO       SENSE cache-hit  了 (SP, le5)
+2026-10-12 16:16:38,364  INFO     TAGGED    '今天是十二月二十八号了，新年快要到了。' (9 tags)
+2026-10-12 16:16:38,388  INFO     FALLBACK  '今天是十二月二十日，新年就要到了。' -- hanlp produced word(s) not yet in the vocab list (checking for an over-glued compound before accepting): ['就要']
+2026-10-12 16:16:38,388  INFO       CACHE-ONLY resegmentation for '今天是十二月二十日，新年就要到了。' -> [('今天', 'NT'), ('是', 'VC'), ('十二', 'NUM'), ('月', 'NN'), ('二十', 'NUM'), ('日', 'NT'), ('新年', 'NT'), ('就', 'AD'), ('要', 'VV'), ('到', 'VV'), ('了', 'SP')]
+2026-10-12 16:16:38,388  INFO     RESOLVED  '今天是十二月二十日，新年就要到了。' -> [('今天', 'NT'), ('是', 'VC'), ('十二', 'NUM'), ('月', 'NN'), ('二十', 'NUM'), ('日', 'NT'), ('新年', 'NT'), ('就', 'AD'), ('要', 'VV'), ('到', 'VV'), ('了', 'SP')]
+2026-10-12 16:16:38,389  INFO       SENSE cache-hit  今天 (NT, jin1tian1)
+2026-10-12 16:16:38,389  INFO       SENSE cache-hit  是 (VC, shi4)
+2026-10-12 16:16:38,390  INFO       SENSE cache-hit  月 (NN, yue4)
+2026-10-12 16:16:38,967  INFO       SENSE ambiguous  日 (NT, ri4) -> matched existing sense id=383
+2026-10-12 16:16:38,971  INFO       SENSE cache-hit  新年 (NT, xin1nian2)
+2026-10-12 16:16:38,972  INFO       SENSE cache-hit  就 (AD, jiu4)
+2026-10-12 16:16:38,972  INFO       SENSE cache-hit  要 (VV, yao4)
+2026-10-12 16:16:38,974  INFO       SENSE cache-hit  到 (VV, dao4)
+2026-10-12 16:16:38,976  INFO       SENSE cache-hit  了 (SP, le5)
+2026-10-12 16:16:38,978  INFO     TAGGED    '今天是十二月二十日，新年就要到了。' (9 tags)
+2026-10-12 16:16:38,978  INFO     
+2026-10-12 16:16:38,978  INFO     ================================================================================
+2026-10-12 16:16:38,978  INFO     SUMMARY: RUNTIME INFORMATION
+2026-10-12 16:16:38,978  INFO     ================================================================================
+2026-10-12 16:16:38,978  INFO     Run completed at: 2026-10-12 16:16:38
+2026-10-12 16:16:38,979  INFO     HSK Level: 2
+2026-10-12 16:16:38,979  INFO     Errors encountered: 0
+2026-10-12 16:16:38,979  INFO     
+2026-10-12 16:16:38,979  INFO     ================================================================================
+2026-10-12 16:16:38,979  INFO     SUMMARY: SENTENCES TAGGED
+2026-10-12 16:16:38,979  INFO     ================================================================================
+2026-10-12 16:16:38,979  INFO     Total sentences processed: 14
+2026-10-12 16:16:38,979  INFO     Total tag occurrences resolved: 109
+2026-10-12 16:16:38,979  INFO     
+2026-10-12 16:16:38,979  INFO     ================================================================================
+2026-10-12 16:16:38,979  INFO     SUMMARY: CACHE STATISTICS
+2026-10-12 16:16:38,979  INFO     ================================================================================
+2026-10-12 16:16:38,979  INFO     Segmentation cache entries: 20
+2026-10-12 16:16:38,979  INFO     
+2026-10-12 16:16:38,979  INFO     ================================================================================
+2026-10-12 16:16:38,979  INFO     SUMMARY: CACHE ENTRIES (by word)
+2026-10-12 16:16:38,979  INFO     ================================================================================
+2026-10-12 16:16:38,979  INFO       (一个, CD) -> [('一', 'CD'), ('个', 'M')]
+2026-10-12 16:16:38,979  INFO       (一个星期, NN) -> [('一', 'CD'), ('个', 'M'), ('星期', 'NN')]
+2026-10-12 16:16:38,979  INFO       (三个, NR) -> [('三', 'CD'), ('个', 'M')]
+2026-10-12 16:16:38,979  INFO       (三天, NT) -> [('三', 'CD'), ('天', 'M')]
+2026-10-12 16:16:38,979  INFO       (三岁, NN) -> [('三', 'CD'), ('岁', 'M')]
+2026-10-12 16:16:38,979  INFO       (上午八点, NT) -> [('上午', 'NN'), ('八', 'CD'), ('点', 'M')]
+2026-10-12 16:16:38,979  INFO       (下午三点十分, NT) -> [('下午', 'NN'), ('三', 'CD'), ('点', 'M'), ('十', 'CD'), ('分', 'M')]
+2026-10-12 16:16:38,979  INFO       (下午五点, NT) -> [('下午', 'NN'), ('五', 'CD'), ('点', 'M')]
+2026-10-12 16:16:38,979  INFO       (不少, CD) -> [('不', 'AD'), ('少', 'VA')]
+2026-10-12 16:16:38,979  INFO       (两点, NT) -> [('两', 'CD'), ('点', 'M')]
+2026-10-12 16:16:38,979  INFO       (九点, NT) -> [('九', 'CD'), ('点', 'M')]
+2026-10-12 16:16:38,979  INFO       (买卖, NN) -> [('买', 'VV'), ('卖', 'VV')]
+2026-10-12 16:16:38,979  INFO       (五个, CD) -> [('五', 'CD'), ('个', 'M')]
+2026-10-12 16:16:38,979  INFO       (五点, NT) -> [('五', 'CD'), ('点', 'M')]
+2026-10-12 16:16:38,979  INFO       (六点, NT) -> [('六点', 'NN')]
+2026-10-12 16:16:38,979  INFO       (喝茶, VV) -> [('喝', 'VV'), ('茶', 'NN')]
+2026-10-12 16:16:38,979  INFO       (四点, NT) -> [('四', 'CD'), ('点', 'M')]
+2026-10-12 16:16:38,979  INFO       (就要, AD) -> [('就', 'AD'), ('要', 'VV')]
+2026-10-12 16:16:38,979  INFO       (想想, VV) -> [('想', 'VV'), ('想', 'VV')]
+2026-10-12 16:16:38,979  INFO       (点十分, NT) -> [('点', 'M'), ('十', 'CD'), ('分', 'M')]
+2026-10-12 16:16:38,979  INFO     
+2026-10-12 16:16:38,979  INFO     ================================================================================
+2026-10-12 16:16:38,979  INFO     DETAILED RUN LOG
+2026-10-12 16:16:38,979  INFO     ================================================================================
+2026-10-12 16:16:38,979  INFO     (See above for individual actions and decisions)
+2026-10-12 16:16:38,979  INFO     
+2026-10-12 16:16:38,979  INFO     ================================================================================
+2026-10-12 16:16:38,979  INFO     NEW VOCABULARY REGISTERED
+2026-10-12 16:16:38,979  INFO     ================================================================================
+2026-10-12 16:16:38,979  INFO       (no new vocabulary registered)
