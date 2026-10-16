@@ -1,7 +1,7 @@
 import UnitDetail from './UnitDetail';
 import PinyinProgress from './GetPinyinProgress';
 
-export default function UnitCenter({ progress, selectedUnit, onStartSession }) {
+export default function UnitCenter({ progress, selectedUnit, hskLevel, onStartSession }) {
     if (!progress || selectedUnit === null) return null;
 
     const unitData = progress.unit_progress[String(selectedUnit)];
@@ -14,7 +14,7 @@ export default function UnitCenter({ progress, selectedUnit, onStartSession }) {
 
     return (
         <div className="unit-center">
-            <h2>Unit {selectedUnit}</h2>
+            <h2>{hskLevel != null && `HSK ${hskLevel} · `}Unit {selectedUnit}</h2>
 
             {isLocked && <p>🔒 Complete Unit {selectedUnit - 1} to unlock</p>}
 
@@ -23,7 +23,7 @@ export default function UnitCenter({ progress, selectedUnit, onStartSession }) {
             {/* Unit 0 is the pinyin unit -- show unlocked-sound progress instead of
                 the word-facet detail view, which doesn't apply to pinyin sounds. */}
             {(isCurrentUnit || isGraduated) && (
-                isPinyinUnit ? <PinyinProgress /> : <UnitDetail unit={selectedUnit} />
+                isPinyinUnit ? <PinyinProgress /> : <UnitDetail unit={selectedUnit} hskLevel={hskLevel} />
             )}
         </div>
     );

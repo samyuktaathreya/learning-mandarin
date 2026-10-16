@@ -69,7 +69,8 @@ export async function apiFetch(url, options = {}) {
       ...options,
       credentials: 'include',
       headers: {
-        'Content-Type': 'application/json',
+        // FormData sets its own multipart Content-Type (with the boundary).
+        ...(options.body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
         ...(clerkToken ? { Authorization: `Bearer ${clerkToken}` } : {}),
         ...options.headers,
       },

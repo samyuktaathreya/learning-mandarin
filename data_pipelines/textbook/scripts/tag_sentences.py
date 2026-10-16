@@ -296,6 +296,26 @@ def segment_sentence(hanzi: str) -> list[tuple[str, str]]:
     return results
 
 
+def split_numeral_tokens(words_and_pos: list[tuple[str, str]]) -> list[tuple[str, str]]:
+    """Applies segment_sentence's numeral rule to a segmentation that did
+    NOT come from segment_sentence -- i.e. Haiku's re-segmentation, or a
+    replacement replayed from seg_cache. Haiku has no idea about the NUM
+    convention and returns dates/times/counts as single words (二零一一年
+    "NT", 十一点 "NT", 三十一 "CD"), which would otherwise be registered as
+    vocabulary. Any token containing a numeral run is re-split exactly the
+    way segment_sentence would have split it (numeral run -> NUM, the rest
+    -> HanLP), so 二零一一年 -> 二零一一 (NUM) + 年. Tokens with no numeral
+    run, and tokens already tagged NUM, pass through unchanged. Idempotent,
+    and preserves the original text, so character spans still line up."""
+    out = []
+    for word, pos_tag in words_and_pos:
+        if pos_tag != "NUM" and any(is_num for _, is_num in extract_numeral_runs(word)):
+            out.extend(segment_sentence(word))
+        else:
+            out.append((word, pos_tag))
+    return out
+
+
 def get_reading_for_word(word: str) -> str:
     """pypinyin ONLY -- CEDICT has been removed from this pipeline
     entirely. Style.TONE3 (numeric tones) with tone_sandhi=True, which
@@ -369,7 +389,7 @@ def haiku_resegment_sentence(hanzi: str, logger: logging.Logger) -> list[tuple[s
         '[{"word": "...", "pos": "..."}, ...]'
     )
     response = client.messages.create(
-        model=HAIKU_MODEL, max_tokens=MAX_TOKENS_RESEGMENT, temperature=0,
+        model=HAIKU_MODEL, max_tokens=MAX_TOKENS_RESEGMENT,
         messages=[{"role": "user", "content": prompt}],
     )
     text = "".join(b.text for b in response.content if hasattr(b, "text"))
@@ -449,7 +469,10 @@ def get_validated_segmentation(db, sentence: Sentence, hsk_level: int, valid_voc
         logger.info(f"  CACHE-ONLY resegmentation for {hanzi!r} -> {final_words}")
     else:
         logger.warning(f"  HAIKU resegment call for {hanzi!r} (cache miss on {cache_misses})")
-        haiku_words = haiku_resegment_sentence(hanzi, logger)
+        # Split numeral runs out of Haiku's tokens BEFORE learning cache
+        # replacements from them, so a date/count blob never gets cached
+        # (or registered) as if it were a word.
+        haiku_words = split_numeral_tokens(haiku_resegment_sentence(hanzi, logger))
         logger.info(f"  HAIKU result for {hanzi!r} -> {haiku_words}")
 
         # Best-effort: learn a reusable replacement for each originally-
@@ -479,6 +502,10 @@ def get_validated_segmentation(db, sentence: Sentence, hsk_level: int, valid_voc
                             f"-- nothing new to cache")
 
         final_words = haiku_words
+
+    # Catch-all: cache replacements learned before split_numeral_tokens
+    # existed may still contain a numeral blob -- re-split on the way out.
+    final_words = split_numeral_tokens(final_words)
 
     still_new = [(w, p) for w, p in final_words
                  if p != "NUM" and _has_content(w) and w not in valid_vocab]
@@ -516,7 +543,7 @@ def haiku_write_definition(hanzi: str, pos_tag: str, pinyin: str, sentence: str)
     if client is None:
         return {"english": "UNKNOWN_ENGLISH"}
     response = client.messages.create(
-        model=HAIKU_MODEL, max_tokens=MAX_TOKENS_DEFINITION, temperature=0,
+        model=HAIKU_MODEL, max_tokens=MAX_TOKENS_DEFINITION,
         messages=[{"role": "user", "content": prompt}],
     )
     text = "".join(b.text for b in response.content if hasattr(b, "text"))
@@ -550,7 +577,7 @@ def haiku_compare_senses(hanzi: str, candidate_senses: list, sentence: str) -> d
     if client is None:
         return {"match": 0 if candidate_senses else None, "english": "UNKNOWN_ENGLISH"}
     response = client.messages.create(
-        model=HAIKU_MODEL, max_tokens=MAX_TOKENS_COMPARE, temperature=0,
+        model=HAIKU_MODEL, max_tokens=MAX_TOKENS_COMPARE,
         messages=[{"role": "user", "content": prompt}],
     )
     text = "".join(b.text for b in response.content if hasattr(b, "text"))

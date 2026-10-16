@@ -85,7 +85,10 @@ from app.textbook.db_utils import upsert_vocab_sense, write_sense_cache
 from app.textbook.models import WordType
 from app.core.config.external_sources import VOCAB_LIST_JSON
 
-SOURCE_LABEL = "hsk_sentences_audio"
+import logging
+logger = logging.getLogger(__name__)
+
+SOURCE_LABEL = "external"
 
 # Must match create_questions.py's QuestionType enum values exactly, so a
 # later create_questions.py rerun's upsert_question() dedup key
@@ -258,7 +261,7 @@ def process_card(db, card: dict, word_to_unit: dict, vocab_list: dict, dry_run: 
         
         if had_senses_before:
             print(f"     {word}: resolving existing sense")
-            sense = resolve_word_sense(db, word, pos_tag, hanzi, target_unit, target_hsk_level)
+            sense = resolve_word_sense(db, word, pos_tag, hanzi, target_unit, target_hsk_level, logger)
         else:
             vocab_entry = get_vocab_list_entry(word, card_hsk_level, vocab_list)
             print(f"     {word}: creating sense from vocab list: {vocab_entry.get('english')}")

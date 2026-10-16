@@ -9,6 +9,7 @@ RUN useradd --create-home appuser
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV && chown -R appuser:appuser $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+ENV PRONUNCIATION_THREADS=2 MALLOC_ARENA_MAX=2
 
 WORKDIR /workspace
 RUN chown appuser:appuser /workspace

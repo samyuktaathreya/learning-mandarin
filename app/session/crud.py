@@ -200,33 +200,112 @@ def get_user(db: Session, user_id: int):
     return db.query(User).filter(User.id == user_id).first()
 
 
-def update_user_unit(db: Session, user_id: int, new_unit: int):
+# Units per HSK level. current_unit is now the unit number WITHIN the user's
+# hsk_level (1-based), not a running total across levels.
+# HSK 1 = 15 matches your data (global unit 16 -> HSK 2 unit 1). The other
+# counts are the HSK Standard Course lesson counts -- check them against your
+# units_output.json and adjust. Consider moving this to session/constants.py.
+UNITS_PER_HSK_LEVEL = {1: 15, 2: 15, 3: 20, 4: 20, 5: 36, 6: 40}
+MAX_HSK_LEVEL = max(UNITS_PER_HSK_LEVEL)
+
+
+def next_position(hsk_level: int, unit: int) -> tuple[int, int]:
+    """(hsk_level, unit) that follows finishing `unit` in `hsk_level`.
+    Rolls over to unit 1 of the next level when the level is complete.
+    At the last unit of the last level it stays put."""
+    units_in_level = UNITS_PER_HSK_LEVEL.get(hsk_level, 0)
+    if unit < units_in_level:
+        return hsk_level, unit + 1
+    if hsk_level < MAX_HSK_LEVEL:
+        return hsk_level + 1, 1
+    return hsk_level, unit
+
+
+def global_to_level_unit(global_unit: int) -> tuple[int, int]:
+    """Convert an old running-total unit number (e.g. 16) to (hsk_level, unit)
+    (e.g. (2, 1)). Used to read graduated_units saved in the old format."""
+    remaining = global_unit
+    for level in sorted(UNITS_PER_HSK_LEVEL):
+        count = UNITS_PER_HSK_LEVEL[level]
+        if remaining <= count:
+            return level, remaining
+        remaining -= count
+    return MAX_HSK_LEVEL, remaining  # past the end; leave it on the last level
+
+
+def _parse_graduated(raw: str) -> set[tuple[int, int]]:
+    """graduated_units is stored as 'level:unit' entries, e.g. '1:14,1:15,2:1'.
+    Bare numbers from the old format are treated as running totals and
+    converted, so existing rows keep working without a migration."""
+    result = set()
+    for entry in (raw or "").split(","):
+        entry = entry.strip()
+        if not entry:
+            continue
+        if ":" in entry:
+            level, unit = entry.split(":", 1)
+            result.add((int(level), int(unit)))
+        else:
+            result.add(global_to_level_unit(int(entry)))
+    return result
+
+
+def get_user_position(db: Session, user_id: int) -> dict | None:
+    """{'hsk_level': 2, 'unit': 1} -- what the app should show as 'where we are'."""
+    user = get_user(db, user_id)
+    if not user:
+        return None
+    return {"hsk_level": user.hsk_level or 1, "unit": user.current_unit or 1}
+
+
+def update_user_unit(db: Session, user_id: int, new_unit: int, hsk_level: int = None):
+    """Set the user's unit (within a level). Pass hsk_level to move levels too;
+    leave it out to keep the current level."""
     user = db.query(User).filter(User.id == user_id).first()
     if user:
+        if hsk_level is not None:
+            user.hsk_level = hsk_level
         user.current_unit = new_unit
         db.commit()
         db.refresh(user)
     return user
 
 
-def graduate_unit(db: Session, user_id: int, unit: int):
+def graduate_unit(db: Session, user_id: int, unit: int, hsk_level: int = None):
+    """Mark (hsk_level, unit) graduated and advance the user, rolling over to
+    the next HSK level when the current one is finished. hsk_level defaults to
+    the user's current level."""
     user = db.query(User).filter(User.id == user_id).first()
     if user:
-        graduated = set(user.graduated_units.split(",")) if user.graduated_units else set()
-        graduated.discard("")
-        graduated.add(str(unit))
-        user.graduated_units = ",".join(graduated)
-        user.current_unit = unit + 1
+        level = hsk_level if hsk_level is not None else (user.hsk_level or 1)
+
+        graduated = _parse_graduated(user.graduated_units)
+        graduated.add((level, unit))
+        user.graduated_units = ",".join(f"{l}:{u}" for l, u in sorted(graduated))
+
+        user.hsk_level, user.current_unit = next_position(level, unit)
         db.commit()
         db.refresh(user)
     return user
 
 
-def get_graduated_units(db: Session, user_id: int) -> set:
+def get_graduated_units(db: Session, user_id: int, hsk_level: int = None) -> set:
+    """Graduated unit numbers WITHIN one HSK level (defaults to the user's
+    current level), so callers comparing against current_unit keep working.
+    Use get_all_graduated_units for every level."""
     user = get_user(db, user_id)
     if not user or not user.graduated_units:
         return set()
-    return {int(u) for u in user.graduated_units.split(",") if u}
+    level = hsk_level if hsk_level is not None else (user.hsk_level or 1)
+    return {u for l, u in _parse_graduated(user.graduated_units) if l == level}
+
+
+def get_all_graduated_units(db: Session, user_id: int) -> set[tuple[int, int]]:
+    """Every graduated (hsk_level, unit) pair across all levels."""
+    user = get_user(db, user_id)
+    if not user:
+        return set()
+    return _parse_graduated(user.graduated_units)
 
 
 # ----------------------------- SOUND PROGRESS -----------------------------

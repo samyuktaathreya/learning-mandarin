@@ -35,6 +35,9 @@ Sentence.pinyin is left BLANK by this script ("") -- it's populated later
 by tag_sentences.py once tags are resolved and each tag's actual reading is
 known (see tag_sentences.tag_sentence, which joins each resolved tag's
 pinyin into the sentence's pinyin field after tagging).
+
+Per-level book layouts (unit page ranges for each HSK level's textbook and
+workbook) live in sentence_parser_constants.py.
 """
 
 import os
@@ -55,39 +58,17 @@ from app.core.config.textbook import (
     OCR_PATH,
 )
 from app.textbook.db_utils import get_session, init_db, upsert_sentence_bare
+from data_pipelines.textbook.scripts.table_of_contents_constants import (
+    SOURCE_NAMES,
+    configured_sources,
+    get_source_config,
+)
 
-# --------------------------------- CONSTANTS (unchanged) ---------------------------------
+# --------------------------------- CONSTANTS ---------------------------------
 SENTENCE_PARSER_SOP_FILEPATH = SOP_PATH / "sentence_parser"
 
 SENTENCE_FINDER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "sentence_finder.txt"
 FIX_SENTENCES_SOP_FILEPATH = SENTENCE_PARSER_SOP_FILEPATH / "fix_sentences.txt"
-
-
-# NOTE: UNIT_STARTS/LAST_UNIT_END_PAGE/FIRST_UNIT_NUMBER below are HSK1's
-# page layout. Once HSK2+ PDFs are loaded, these will almost certainly
-# differ per level (different books, different page counts) -- this config
-# will need to become per-hsk-level (e.g. a dict keyed by HSK_LEVEL) rather
-# than a single flat literal per source. Left as-is structurally for now
-# since only the file *paths* are known to have changed; flagging this so
-# it isn't missed when HSK2 data actually gets loaded.
-SOURCES = {
-    "textbook": {
-        # Raw PDFs are now split per level: .../data/raw/hsk_textbook/{level}.pdf
-        "RAW_SUBDIR": "hsk_textbook",
-        "OCR_SOP_FILENAME": SOP_PATH / "sentence_parser" / "ocr.txt",
-        "UNIT_STARTS": [34, 42, 50, 60, 68, 76, 84, 92, 102, 110, 118, 124, 132],
-        "LAST_UNIT_END_PAGE": 139,
-        "FIRST_UNIT_NUMBER": 3,
-    },
-    "workbook": {
-        # .../data/raw/hsk_workbook/{level}.pdf
-        "RAW_SUBDIR": "hsk_workbook",
-        "OCR_SOP_FILENAME": os.path.join("workbook_parser", "ocr.txt"),
-        "UNIT_STARTS": [15, 23, 31, 39, 47, 55, 63, 71, 87, 96, 105, 113],
-        "LAST_UNIT_END_PAGE": 120,
-        "FIRST_UNIT_NUMBER": 4,
-    },
-}
 
 OCR_CACHE_FILEPATH = OCR_PATH
 FORCE_OCR = False
@@ -103,6 +84,9 @@ AGENT_MAX_TOKENS = 8192
 # module-level overrides from main.py
 UNITS_TO_PROCESS = []
 SOURCES_TO_PROCESS = None
+# Skip every unit numbered below this (e.g. to resume an interrupted run).
+# None = start from the first unit.
+START_UNIT = None
 # HSK level being processed this run (main.py passes this the same way it
 # already passes UNITS_TO_PROCESS / SOURCES_TO_PROCESS -- via env override).
 HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
@@ -513,7 +497,14 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
 
 
 def run_source(source: str) -> list:
-    cfg = SOURCES[source]
+    # Look up this level's layout for this book at call time (not import
+    # time), so --hsk-level / HSK_LEVEL overrides set after import apply.
+    cfg = get_source_config(HSK_LEVEL, source)
+    if cfg is None:
+        print(f"  [warning] no {source} config for HSK level {HSK_LEVEL} in "
+              f"sentence_parser_constants.SOURCES; skipping")
+        return []
+
     sops = {
         "ocr": load_sop(cfg["OCR_SOP_FILENAME"]),
         "sentence_finder": load_sop(SENTENCE_FINDER_FILENAME),
@@ -527,8 +518,22 @@ def run_source(source: str) -> list:
 
     reader = PdfReader(pdf_path)
     unit_ranges = get_unit_page_ranges(cfg)
+
+    last_needed = unit_ranges[-1][2]
+    if last_needed > len(reader.pages):
+        raise ValueError(
+            f"HSK{HSK_LEVEL} {source} config expects at least {last_needed} pages "
+            f"but {pdf_path} has {len(reader.pages)} -- check the page numbers in "
+            f"sentence_parser_constants.SOURCES"
+        )
+
     if UNITS_TO_PROCESS:
         unit_ranges = [u for u in unit_ranges if u[0] in UNITS_TO_PROCESS]
+    if START_UNIT is not None:
+        unit_ranges = [u for u in unit_ranges if u[0] >= START_UNIT]
+        if not unit_ranges:
+            print(f"  [warning] no {source} units >= {START_UNIT} for HSK level {HSK_LEVEL}; "
+                  f"nothing to do")
 
     # One session PER UNIT -- each unit commits independently, so a later
     # unit's failure can't roll back units that already succeeded in this
@@ -590,7 +595,9 @@ def run_pipeline():
 
     try:
         init_db()
-        sources = SOURCES_TO_PROCESS or list(SOURCES.keys())
+        # Default to every source configured for this level (raises if the
+        # level isn't configured at all).
+        sources = SOURCES_TO_PROCESS or configured_sources(HSK_LEVEL)
         for s in sources:
             all_results.extend(run_source(s))
 
@@ -637,7 +644,10 @@ def parse_args():
                          help="Override HSK_LEVEL (defaults to the HSK_LEVEL env var, or 1).")
     parser.add_argument("--unit", type=int, default=None,
                          help="Only process this unit number.")
-    parser.add_argument("--source", choices=list(SOURCES.keys()), default=None,
+    parser.add_argument("--start-unit", type=int, default=None,
+                         help="Process this unit and every unit after it "
+                              "(e.g. to resume an interrupted run).")
+    parser.add_argument("--source", choices=list(SOURCE_NAMES), default=None,
                          help="Only process this source (e.g. 'workbook').")
     return parser.parse_args()
 
@@ -649,6 +659,8 @@ if __name__ == "__main__":
         HSK_LEVEL = args.hsk_level
     if args.unit is not None:
         UNITS_TO_PROCESS = [args.unit]
+    if args.start_unit is not None:
+        START_UNIT = args.start_unit
     if args.source is not None:
         SOURCES_TO_PROCESS = [args.source]
 

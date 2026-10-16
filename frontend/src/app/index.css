@@ -131,6 +131,28 @@ code {
   margin-bottom: 24px;
 }
 
+/* Top-left HSK level dropdown (mirrors the settings button in the top right) */
+.hsk-level-select {
+  position: absolute;
+  top: 0.4rem;
+  left: 1rem;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.hsk-level-select select {
+  font: inherit;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text-h);
+  cursor: pointer;
+}
+
 .header-container {
   display: flex;
   justify-content: center;

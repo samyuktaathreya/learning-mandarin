@@ -15,6 +15,8 @@ caller (this app's own crud.py already follows this same default-1 pattern)
 keeps working unchanged against today's HSK1-only data. Only the pipeline
 scripts pass hsk_level explicitly, via the HSK_LEVEL env var main.py sets.
 """
+import re
+
 from sqlalchemy import create_engine, func, or_, and_
 from sqlalchemy.orm import sessionmaker, Session
 from contextlib import contextmanager
@@ -117,6 +119,98 @@ def get_vocab_hanzi_through_level(db: Session, hsk_level: int) -> set:
     return {r.hanzi for r in rows}
 
 
+_GLOSS_NORM_RE = re.compile(r"[^\w]+")
+
+
+def normalize_gloss(english: str) -> str:
+    """Loose normalization for comparing two english glosses -- case,
+    punctuation and whitespace differences don't count as a different
+    meaning (same rule vocab_index_parser.py uses within one run)."""
+    return _GLOSS_NORM_RE.sub(" ", (english or "").strip().lower()).strip()
+
+
+def _normalize_pinyin(pinyin: str) -> str:
+    return re.sub(r"\s+", "", (pinyin or "").strip().lower())
+
+
+def _sense_home_key(sense: VocabSense):
+    """(hsk_level, unit_number) of a sense's home, or None if it has none."""
+    return (sense.unit.hsk_level, sense.unit.unit_number) if sense.unit else None
+
+
+def find_identical_sense(db: Session, vocab_id: int, pinyin: str, english: str,
+                          exclude_id: int | None = None) -> VocabSense | None:
+    """The EARLIEST-homed existing sense of `vocab_id` with the same pinyin
+    and (normalized) english, or None. Only considers senses that have a
+    home unit and a real english gloss -- blank placeholders never count as
+    "the same meaning" as anything."""
+    if not normalize_gloss(english):
+        return None
+    want_py, want_en = _normalize_pinyin(pinyin), normalize_gloss(english)
+    matches = [
+        s for s in db.query(VocabSense).filter(VocabSense.vocab_id == vocab_id).all()
+        if s.id != exclude_id and s.unit is not None
+        and _normalize_pinyin(s.pinyin) == want_py
+        and normalize_gloss(s.english) == want_en
+    ]
+    if not matches:
+        return None
+    return min(matches, key=lambda s: (_sense_home_key(s), s.id))
+
+
+def merge_sense_into(db: Session, keep: VocabSense, drop: VocabSense) -> VocabSense:
+    """Folds `drop` into `keep` (two rows for the same meaning of the same
+    word) and deletes `drop`:
+      - every SentenceVocab / Question / SenseCache row pointing at `drop`
+        is repointed to `keep`
+      - blank pinyin / pos_tag on `keep` are filled from `drop`
+      - if `drop` was the word's primary sense, `keep` becomes primary
+      - if `drop`'s home is earlier, `keep` inherits its origin (the
+        meaning was first taught wherever `drop` lived)
+    Does NOT move `keep`'s home -- callers decide that (rehome_sense moves
+    it right after; the cleanup script keeps the earliest row as `keep`)."""
+    if keep.id == drop.id:
+        return keep
+    if keep.vocab_id != drop.vocab_id:
+        raise ValueError(f"can't merge senses of different words "
+                         f"(sense {drop.id} vocab {drop.vocab_id} -> sense {keep.id} vocab {keep.vocab_id})")
+
+    # Repoint references through the relationships (not raw UPDATEs) so the
+    # in-session collections stay consistent, then flush BEFORE deleting
+    # `drop` -- otherwise the delete would see the old links and null them.
+    for row in db.query(SentenceVocab).filter(SentenceVocab.vocab_sense_id == drop.id).all():
+        row.sense = keep
+    for row in db.query(Question).filter(Question.vocab_sense_id == drop.id).all():
+        row.sense = keep
+    for row in db.query(SenseCache).filter(SenseCache.vocab_sense_id == drop.id).all():
+        row.sense = keep
+
+    if not (keep.pinyin or "").strip() and (drop.pinyin or "").strip():
+        keep.pinyin = drop.pinyin
+    if not keep.pos_tag and drop.pos_tag:
+        keep.pos_tag = drop.pos_tag
+    if keep.word_type == WordType.auto and drop.word_type != WordType.auto:
+        keep.word_type = drop.word_type
+    drop_key, keep_key = _sense_home_key(drop), _sense_home_key(keep)
+    if drop_key is not None and (keep_key is None or drop_key < keep_key):
+        keep.origin = drop.origin
+
+    was_primary = bool(drop.is_primary)
+    vocab = keep.vocab
+    db.flush()
+
+    db.delete(drop)
+    db.flush()
+    db.expire(vocab, ["senses"])  # drop is gone; don't let a stale collection hold it
+
+    if was_primary:
+        set_primary_sense(db, vocab, keep)
+    elif keep.is_primary:
+        refresh_primary_cache(db, vocab)
+    logger.debug(f"  [merge-sense] {vocab.hanzi}: merged sense {drop.id} into {keep.id}")
+    return keep
+
+
 def upsert_vocab_sense(db: Session, hanzi: str, pinyin: str, english: str,
                         unit_number: int | None, word_type: WordType = WordType.vocab,
                         hsk_level: int = 1, make_primary: bool | None = None,
@@ -128,11 +222,20 @@ def upsert_vocab_sense(db: Session, hanzi: str, pinyin: str, english: str,
     Idempotency: if a sense already exists for (vocab, unit, hsk_level,
     english) -- literally the same meaning already recorded at this exact
     home -- that row is reused rather than duplicated, so reruns of
-    vocab_index_parser.py stay idempotent. A DIFFERENT `english` for a
-    hanzi that already has senses ALWAYS creates a new VocabSense row here
-    -- this function trusts whatever sense identity the caller has already
-    resolved; it does NOT do same-vs-new-sense disambiguation itself (see
-    register_word_sense for that).
+    vocab_index_parser.py stay idempotent.
+
+    Same meaning at a DIFFERENT unit: if the word already has a sense with
+    the same pinyin and (normalized) english homed at another unit, that
+    sense is reused instead of creating a duplicate -- a word re-listed
+    later with the same meaning is review, not a new sense. If the new
+    unit is EARLIER than the existing sense's home, the existing sense is
+    rehomed there (rehome_sense, which merges if needed), so the meaning
+    always lives at its earliest unit.
+
+    A DIFFERENT `english` (or pinyin) for a hanzi that already has senses
+    still creates a new VocabSense row here -- this function only collapses
+    exact restatements; it does NOT do fuzzy same-vs-new-sense
+    disambiguation itself (see register_word_sense for that).
 
     origin: which pipeline stage is registering this meaning --
     VocabOrigin.vocab_index (default, for vocab_index_parser.py) or
@@ -168,6 +271,19 @@ def upsert_vocab_sense(db: Session, hanzi: str, pinyin: str, english: str,
         if make_primary:
             set_primary_sense(db, vocab, existing)
         return existing
+
+    # Same meaning already on file at a different unit -> reuse it (moving
+    # it earlier if this listing is earlier) instead of duplicating it.
+    if unit is not None:
+        twin = find_identical_sense(db, vocab.id, pinyin, english)
+        if twin is not None:
+            twin = rehome_sense(db, twin, unit_number, hsk_level)
+            if pinyin and not twin.pinyin:
+                twin.pinyin = pinyin
+                db.flush()
+            if make_primary:
+                set_primary_sense(db, vocab, twin)
+            return twin
 
     is_first_sense = db.query(VocabSense).filter(VocabSense.vocab_id == vocab.id).count() == 0
     current_primary = (
@@ -963,20 +1079,43 @@ def get_nearest_sense(db: Session, hanzi: str, unit_number: int, hsk_level: int 
     return min(senses, key=sort_key)
 
 
-def rehome_sense(db: Session, sense: VocabSense, unit_number: int, hsk_level: int = 1):
+def rehome_sense(db: Session, sense: VocabSense, unit_number: int, hsk_level: int = 1) -> VocabSense:
     """Moves `sense`'s home EARLIER, to (unit_number, hsk_level), if that's
     genuinely earlier than its current home -- used when the same meaning
     turns out to have been used earlier than previously recorded. Never
     moves a sense later. Re-syncs Vocab's cache if this is the primary
-    sense."""
+    sense.
+
+    If the target unit already has a sense of this word with the same
+    english (which would violate the (vocab_id, unit_id, english) unique
+    constraint), that row is a duplicate of this one: it's merged INTO
+    `sense` (its references repointed here, then deleted) and `sense` then
+    takes its place. `sense` itself always survives, so callers that keep
+    using the object they passed in (e.g. tag_sentences.resolve_word_sense)
+    stay correct. Returns `sense`."""
     new_key = (hsk_level, unit_number)
-    current_key = (sense.unit.hsk_level, sense.unit.unit_number) if sense.unit else None
+    current_key = _sense_home_key(sense)
     if current_key is not None and new_key >= current_key:
-        return
-    sense.unit_id = get_or_create_unit(db, unit_number, hsk_level).id
+        return sense
+
+    target_unit = get_or_create_unit(db, unit_number, hsk_level)
+    conflict = (
+        db.query(VocabSense)
+        .filter(VocabSense.vocab_id == sense.vocab_id,
+                VocabSense.unit_id == target_unit.id,
+                VocabSense.english == sense.english,
+                VocabSense.id != sense.id)
+        .first()
+    )
+    if conflict is not None:
+        merge_sense_into(db, keep=sense, drop=conflict)
+
+    sense.unit_id = target_unit.id
     db.flush()
+    db.expire(sense, ["unit"])
     if sense.is_primary:
         refresh_primary_cache(db, sense.vocab)
+    return sense
 
 
 def fill_sense_pinyin(db: Session, sense: VocabSense, pinyin: str):

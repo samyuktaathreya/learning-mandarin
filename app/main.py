@@ -28,6 +28,8 @@ from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
 
+from pronunciation.services.scorer import warm_up
+
 from app.shared.services.pinyin_audio import RECORDINGS_DIR, SLOW_DIR, RECORDINGS_URL, SLOW_URL
 
 from app.core.config.data import DATA_DIR
@@ -59,6 +61,8 @@ def on_startup():
     os.makedirs(cache_dir, exist_ok=True)
     logger.debug("Audio cache cleared on startup.")
 
+    warm_up() # for pronounciation model
+
 # --- Feature-Based Routers ---
 
 from app.session.router import router as session_router
@@ -81,6 +85,9 @@ app.include_router(clerk_webhook_router)
 
 from app.pinyin.router import router as pinyin_router
 app.include_router(pinyin_router)
+
+from pronunciation.router import router as pronunciation_router
+app.include_router(pronunciation_router)
 
 # --- Legacy/Unmigrated Routers ---
 # (These remain in api/v1/endpoints as they don't have new feature folders yet)

@@ -7,7 +7,10 @@ import { useSettings } from '../features/settings';
 export default function PracticePage() {
     const [session, setSession] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const { progress, selectedUnit, setSelectedUnit, refreshProgress } = useProgress();
+    const {
+        progress, selectedUnit, setSelectedUnit, refreshProgress,
+        userLevel, viewedLevel, selectLevel,
+    } = useProgress();
     const { settings } = useSettings();
 
     const startSession = async (debug = false, skipReview = false) => {
@@ -28,6 +31,9 @@ export default function PracticePage() {
                 onSelectUnit={setSelectedUnit}
                 isLoading={isLoading}
                 startSession={startSession}
+                userLevel={userLevel}
+                viewedLevel={viewedLevel}
+                onSelectLevel={selectLevel}
             />
         );
     }

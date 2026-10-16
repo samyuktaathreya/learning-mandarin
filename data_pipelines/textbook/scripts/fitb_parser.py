@@ -51,32 +51,21 @@ from app.core.config.textbook import (
 )
 from app.textbook.db_utils import get_session, init_db, get_or_create_unit
 from app.textbook.models import FitbQuestion, Sentence
+# Same per-level page layouts as sentence_parser.py -- FITB extraction OCRs
+# the same unit pages (and reuses the same OCR cache when present), so both
+# scripts read their book layouts from one shared constants file.
+from data_pipelines.textbook.scripts.table_of_contents_constants import (
+    SOURCE_NAMES,
+    configured_sources,
+    get_source_config,
+)
 
-# --------------------------------- CONSTANTS (unchanged from sentence_parser) ---------------------------------
+# --------------------------------- CONSTANTS ---------------------------------
 SENTENCE_PARSER_SOP_FILEPATH = SOP_PATH / "sentence_parser"
 
 FITB_FINDER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "fitb_finder.txt"
 FITB_SOLVER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "fitb_solver.md"
 FITB_CHECKER_FILENAME = SENTENCE_PARSER_SOP_FILEPATH / "fitb_checker.md"
-
-# Same per-source page layout as sentence_parser.py -- FITB extraction OCRs
-# the same unit pages (and reuses the same OCR cache when present).
-SOURCES = {
-    "textbook": {
-        "RAW_SUBDIR": "hsk_textbook",
-        "OCR_SOP_FILENAME": SOP_PATH / "sentence_parser" / "ocr.txt",
-        "UNIT_STARTS": [34, 42, 50, 60, 68, 76, 84, 92, 102, 110, 118, 124, 132],
-        "LAST_UNIT_END_PAGE": 139,
-        "FIRST_UNIT_NUMBER": 3,
-    },
-    "workbook": {
-        "RAW_SUBDIR": "hsk_workbook",
-        "OCR_SOP_FILENAME": os.path.join("workbook_parser", "ocr.txt"),
-        "UNIT_STARTS": [15, 23, 31, 39, 47, 55, 63, 71, 87, 96, 105, 113],
-        "LAST_UNIT_END_PAGE": 120,
-        "FIRST_UNIT_NUMBER": 4,
-    },
-}
 
 OCR_CACHE_FILEPATH = OCR_PATH
 FORCE_OCR = False
@@ -637,7 +626,14 @@ def process_unit(db, source: str, unit_number: int, start_page: int, end_page: i
 
 
 def run_source(source: str) -> list:
-    cfg = SOURCES[source]
+    # Look up this level's layout for this book at call time (not import
+    # time), so --hsk-level / HSK_LEVEL overrides set after import apply.
+    cfg = get_source_config(HSK_LEVEL, source)
+    if cfg is None:
+        print(f"  [warning] no {source} config for HSK level {HSK_LEVEL} in "
+              f"sentence_parser_constants.SOURCES; skipping")
+        return []
+
     sops = {
         "ocr": load_sop(cfg["OCR_SOP_FILENAME"]),
         "fitb_finder": load_sop(FITB_FINDER_FILENAME),
@@ -652,6 +648,15 @@ def run_source(source: str) -> list:
 
     reader = PdfReader(pdf_path)
     unit_ranges = get_unit_page_ranges(cfg)
+
+    last_needed = unit_ranges[-1][2]
+    if last_needed > len(reader.pages):
+        raise ValueError(
+            f"HSK{HSK_LEVEL} {source} config expects at least {last_needed} pages "
+            f"but {pdf_path} has {len(reader.pages)} -- check the page numbers in "
+            f"sentence_parser_constants.SOURCES"
+        )
+
     if UNITS_TO_PROCESS:
         unit_ranges = [u for u in unit_ranges if u[0] in UNITS_TO_PROCESS]
 
@@ -712,7 +717,9 @@ def run_pipeline():
 
     try:
         init_db()
-        sources = SOURCES_TO_PROCESS or list(SOURCES.keys())
+        # Default to every source configured for this level (raises if the
+        # level isn't configured at all).
+        sources = SOURCES_TO_PROCESS or configured_sources(HSK_LEVEL)
         for s in sources:
             all_results.extend(run_source(s))
 
@@ -754,7 +761,7 @@ def parse_args():
                          help="Override HSK_LEVEL (defaults to the HSK_LEVEL env var, or 1).")
     parser.add_argument("--unit", type=int, default=None,
                          help="Only process this unit number.")
-    parser.add_argument("--source", choices=list(SOURCES.keys()), default=None,
+    parser.add_argument("--source", choices=list(SOURCE_NAMES), default=None,
                          help="Only process this source (e.g. 'workbook').")
     return parser.parse_args()
 

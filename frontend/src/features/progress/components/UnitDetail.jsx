@@ -41,19 +41,20 @@ function FacetCell({ label, facet }) {
  * divergence (strong character, weak pinyin, or vice versa) is visible, plus
  * decayed strength and due state.
  */
-export default function UnitDetail({ unit }) {
+export default function UnitDetail({ unit, hskLevel }) {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         let cancelled = false;
         setLoading(true);
-        apiFetch(`${API_BASE_URL}/api/unit_detail/${unit}`)
+        const query = hskLevel != null ? `?hsk_level=${hskLevel}` : '';
+        apiFetch(`${API_BASE_URL}/api/unit_detail/${unit}${query}`)
             .then(r => r.json())
             .then(d => { if (!cancelled) { setData(d); setLoading(false); } })
             .catch(() => { if (!cancelled) setLoading(false); });
         return () => { cancelled = true; };
-    }, [unit]);
+    }, [unit, hskLevel]);
 
     if (loading) return <div className="unit-detail">Loading unit {unit}…</div>;
     if (!data) return <div className="unit-detail">Couldn’t load unit {unit}.</div>;

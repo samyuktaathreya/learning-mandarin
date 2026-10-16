@@ -1,5 +1,4 @@
 // Pure helpers for the pinyin progress screen. No React, no fetching.
-import { parsePinyinSyllable } from '../tone';
 
 // Fallback until /api/pinyin/progress returns `mastery_threshold`.
 // Keep in sync with pinyin_services.MASTERY_THRESHOLD, or delete once the backend sends it.
@@ -189,18 +188,85 @@ export const toDiacriticPinyin = (syllable, tone) => {
     return syllable.slice(0, idx) + TONE_MARKS[syllable[idx]][tone - 1] + syllable.slice(idx + 1);
 };
 
+const MARKED = {
+    ā: ['a', 1], á: ['a', 2], ǎ: ['a', 3], à: ['a', 4],
+    ē: ['e', 1], é: ['e', 2], ě: ['e', 3], è: ['e', 4],
+    ī: ['i', 1], í: ['i', 2], ǐ: ['i', 3], ì: ['i', 4],
+    ō: ['o', 1], ó: ['o', 2], ǒ: ['o', 3], ò: ['o', 4],
+    ū: ['u', 1], ú: ['u', 2], ǔ: ['u', 3], ù: ['u', 4],
+    ǖ: ['ü', 1], ǘ: ['ü', 2], ǚ: ['ü', 3], ǜ: ['ü', 4],
+};
+
+// One pinyin syllable ("mǎ", "ma3", "ma5", "lv4") -> { syllable, tone }, tone 1-5.
+// "v" or "u:" work for ü. Returns null for no tone at all ("ma"), or more than one syllable.
+export const parsePinyinSyllable = (input) => {
+    if (typeof input !== 'string') return null;
+    const s = input
+        .normalize('NFC')
+        .trim()
+        .toLowerCase()
+        .replace(/[.,!?;:。，！？]+$/, '')
+        .replace(/u:|v/g, 'ü');
+    if (!s || /\s/.test(s)) return null;
+
+    // tone number: "ma3" (0 is sometimes used for neutral)
+    const numbered = s.match(/^([a-zü]+)([0-5])$/);
+    if (numbered) {
+        if (!/[aeiouü]/.test(numbered[1])) return null;
+        return { syllable: numbered[1], tone: Number(numbered[2]) || 5 };
+    }
+
+    // tone mark: exactly one marked vowel
+    let tone = null;
+    let syllable = '';
+    for (const ch of s) {
+        if (MARKED[ch]) {
+            if (tone !== null) return null; // two marks = two syllables
+            syllable += MARKED[ch][0];
+            tone = MARKED[ch][1];
+        } else if (/[a-zü]/.test(ch)) {
+            syllable += ch;
+        } else {
+            return null;
+        }
+    }
+    return tone === null ? null : { syllable, tone };
+};
+
+// Space-separated pinyin ("cao3 mei2", "cǎo méi", "xiè xie") -> [{ syllable, tone }, ...].
+// Unlike parsePinyinSyllable, an unmarked syllable counts as neutral tone (5).
+// Returns null if any part isn't a syllable.
+export const parsePinyinSyllables = (input) => {
+    if (typeof input !== 'string') return null;
+    const parts = input
+        .normalize('NFC')
+        .trim()
+        .toLowerCase()
+        .replace(/[.,!?;:。，！？]+/g, ' ')
+        .replace(/u:|v/g, 'ü')
+        .split(/\s+/)
+        .filter(Boolean);
+    if (!parts.length) return null;
+
+    const out = [];
+    for (const part of parts) {
+        const parsed = parsePinyinSyllable(part)
+            ?? (/^[a-zü]*[aeiouü][a-zü]*$/.test(part) ? { syllable: part, tone: 5 } : null);
+        if (!parsed) return null;
+        out.push(parsed);
+    }
+    return out;
+};
+
+// { syllable: 'lü', tone: 4 } -> 'lv4', the target format /pronunciation/score expects.
+export const toScoreTarget = ({ syllable, tone }) => `${syllable.replace(/ü/g, 'v')}${tone}`;
+
 // Turns one whole pinyin syllable as displayed in a question ("ma4", "mǎ",
 // "ma5") into a popup item. Returns null if it isn't a single toned syllable,
 // so callers can render it as plain text.
 export const pinyinToSyllableItem = (text) => {
-    if (typeof text !== 'string') return null;
-    let parsed = parsePinyinSyllable(text);
-    if (!parsed) {
-        // parsePinyinSyllable rejects neutral tone (the tone checker can't grade it).
-        const neutral = text.trim().toLowerCase().replace(/u:|v/g, 'ü').match(/^([a-zü]+)5$/);
-        if (neutral) parsed = { syllable: neutral[1], tone: 5 };
-    }
-    if (!parsed || !/[aeiouü]/.test(parsed.syllable)) return null;
+    const parsed = parsePinyinSyllable(text);
+    if (!parsed) return null;
 
     const { syllable, tone } = parsed;
     return {

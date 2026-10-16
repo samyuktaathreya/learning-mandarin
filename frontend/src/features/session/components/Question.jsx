@@ -82,6 +82,11 @@ export default function Question({
         (hasChinese(currentQuestionObj.question) || isListeningQuestion(currentQuestionObj.question_type));
 
     const isListening = isListeningQuestion(currentQuestionObj.question_type);
+    const isListeningVocab = currentQuestionObj.question_type === "listening vocab";
+    // Textbook questions carry the word in `question` and its meaning in `definition`;
+    // generated pinyin questions send `hanzi` / `english` instead.
+    const revealHanzi = currentQuestionObj.hanzi ?? currentQuestionObj.question;
+    const revealEnglish = currentQuestionObj.english ?? currentQuestionObj.definition;
     const isPinyinQuestion = PINYIN_QUESTION_TYPES.has(currentQuestionObj.question_type);
     
     const isTranscriptionToPinyin = 
@@ -181,8 +186,9 @@ export default function Question({
         }
     };
 
+    // listening sentence answers are hanzi, so look up their pinyin; listening vocab answers already are pinyin
     useEffect(() => {
-        if (isWrong && isListening && !LISTENING_PINYIN_TYPES.has(currentQuestionObj.question_type)) {
+        if (isWrong && currentQuestionObj.question_type === "listening sentence") {
             apiFetch(`${API_BASE_URL}/api/pinyin`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -194,7 +200,7 @@ export default function Question({
         } else {
             setCorrectPinyin("");
         }
-    }, [isWrong, isListening, currentQuestionObj.answer, currentQuestionObj.question_type]);
+    }, [isWrong, currentQuestionObj.answer, currentQuestionObj.question_type]);
 
     const renderChineseText = (text) => {
         if (!text || typeof text !== 'string') return text;
@@ -360,6 +366,7 @@ export default function Question({
                             {hasChinese(lastUserAnswer || "") && (
                                 <p>You answered: <strong>{renderChineseText(lastUserAnswer)}</strong></p>
                             )}
+                            {isListeningVocab && <p>Pinyin: <strong>{currentQuestionObj.answer}</strong></p>}
                         </>
                     )}
 
@@ -397,11 +404,11 @@ export default function Question({
                         </p>
                     )}
 
-                    {TYPES_MISSING_CHINESE.has(currentQuestionObj.question_type) && currentQuestionObj.hanzi && (
-                        <p>Characters: <strong>{renderChineseText(currentQuestionObj.hanzi)}</strong></p>
+                    {TYPES_MISSING_CHINESE.has(currentQuestionObj.question_type) && revealHanzi && (
+                        <p>Characters: <strong>{renderChineseText(revealHanzi)}</strong></p>
                     )}
-                    {TYPES_MISSING_ENGLISH.has(currentQuestionObj.question_type) && currentQuestionObj.english && (
-                        <p>Translation: <strong>{currentQuestionObj.english}</strong></p>
+                    {TYPES_MISSING_ENGLISH.has(currentQuestionObj.question_type) && revealEnglish && (
+                        <p>Translation: <strong>{revealEnglish}</strong></p>
                     )}
 
                     {currentQuestionObj.tip && (

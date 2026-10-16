@@ -94,23 +94,37 @@ def debug(user: User = Depends(get_current_user), db: Session = Depends(get_db),
     }
 
 
+def _resolve_hsk_level(user, hsk_level: Optional[int]) -> tuple[int, int]:
+    """(user's own level, level to show). The shown level defaults to the
+    user's own and can't go above it -- later levels are still locked."""
+    user_level = user.hsk_level or 1
+    if hsk_level is None:
+        return user_level, user_level
+    if hsk_level < 1 or hsk_level > user_level:
+        raise HTTPException(status_code=403, detail=f"HSK {hsk_level} is locked")
+    return user_level, hsk_level
+
+
 @router.get("/api/progress")
-def get_progress(user: User = Depends(get_current_user), db: Session = Depends(get_db),
+def get_progress(hsk_level: Optional[int] = None,
+                  user: User = Depends(get_current_user), db: Session = Depends(get_db),
                   textbook_db: Session = Depends(get_textbook_db)):
     user_id = user.id
     user = get_user(db, user_id)
     user_unit = user.current_unit
-    graduated_units = get_graduated_units(db, user_id)
+    user_level, shown_level = _resolve_hsk_level(user, hsk_level)
+    graduated_units = get_graduated_units(db, user_id, hsk_level=shown_level)
 
     # was: an inline loop over unit_questions.keys() / unit_to_vocab_tags_dict --
     # moved to session/services/progress.py (see build_unit_progress_summary),
     # since it's per-unit progress aggregation, not routing.
-    unit_progress = build_unit_progress_summary(db, textbook_db, user_id)
+    unit_progress = build_unit_progress_summary(db, textbook_db, user_id, hsk_level=shown_level)
     for unit_str, entry in unit_progress.items():
         entry["is_graduated"] = entry["unit"] in graduated_units
-        entry["is_current"] = entry["unit"] == user_unit
+        # The current unit only exists on the user's own level.
+        entry["is_current"] = shown_level == user_level and entry["unit"] == user_unit
 
-    current_unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, user_unit, getattr(user, "hsk_level", 1))
+    current_unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, user_unit, user_level)
     current_unit_tiers = get_tiers_for_tags(db, user_id, current_unit_tags)
     all_records = get_collapsed_progress(db, user_id)
     record_map = {r.tag: r for r in all_records}
@@ -125,6 +139,8 @@ def get_progress(user: User = Depends(get_current_user), db: Session = Depends(g
 
     result = {
         "user_id": user_id,
+        "hsk_level": user_level,
+        "viewed_hsk_level": shown_level,
         "current_unit": user_unit,
         "graduated_units": list(graduated_units),
         "unit_progress": unit_progress,
@@ -137,22 +153,29 @@ def get_progress(user: User = Depends(get_current_user), db: Session = Depends(g
 
 
 @router.get("/api/unit_detail/{unit}")
-def unit_detail(unit: int, user: User = Depends(get_current_user), db: Session = Depends(get_db),
+def unit_detail(unit: int, hsk_level: Optional[int] = None,
+                 user: User = Depends(get_current_user), db: Session = Depends(get_db),
                  textbook_db: Session = Depends(get_textbook_db)):
     user_id = user.id
     user = get_user(db, user_id)
-    graduated_units = get_graduated_units(db, user_id)
-    unlocked = (unit == user.current_unit) or (unit in graduated_units)
-    if not unlocked:
-        return {"unit": unit, "locked": True, "words": []}
+    user_level = user.hsk_level or 1
+    shown_level = hsk_level if hsk_level is not None else user_level
+    if shown_level < 1 or shown_level > user_level:
+        return {"unit": unit, "hsk_level": shown_level, "locked": True, "words": []}
 
-    is_current = unit == user.current_unit
+    graduated_units = get_graduated_units(db, user_id, hsk_level=shown_level)
+    is_current = shown_level == user_level and unit == user.current_unit
+    unlocked = is_current or (unit in graduated_units)
+    if not unlocked:
+        return {"unit": unit, "hsk_level": shown_level, "locked": True, "words": []}
+
     # was: an inline facet_detail closure -- moved to
     # session/services/progress.py (see build_unit_words_detail).
-    words = build_unit_words_detail(db, textbook_db, user_id, unit, is_current)
+    words = build_unit_words_detail(db, textbook_db, user_id, unit, is_current, hsk_level=shown_level)
 
     return {
         "unit": unit,
+        "hsk_level": shown_level,
         "locked": False,
         "is_current": is_current,
         "is_graduated": unit in graduated_units,
