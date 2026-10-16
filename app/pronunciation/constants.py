@@ -1,14 +1,11 @@
 import os
-from pathlib import Path
+from app.core.config.data import MODEL_DIR
 
 # Folder with the exported models (see pinyin_scorer's README, "Deploying"):
 #   stage6b/model_int8.onnx + onnx.json
 #   stage7_hubert/model_int8.onnx + onnx.json
 #   tone23_pitch.joblib
 # Defaults to <repo>/data/pronunciation; override with the PRONUNCIATION_MODEL_DIR environment variable.
-MODEL_DIR = Path(os.environ.get(
-    "PRONUNCIATION_MODEL_DIR",
-    Path(__file__).resolve().parent.parent / "data" / "pronunciation"))
 MODEL_NAMES = ["stage6b", "stage7_hubert"]          # combined by averaging
 PITCH_MODEL_FILE = "tone23_pitch.joblib"
 
