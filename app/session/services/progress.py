@@ -59,12 +59,15 @@ def is_unit_graduated(db: Session, user_id: int, tag_records: list, unit_tags: s
 from app.session import crud as session_crud
  
  
-def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int) -> dict:
+def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int,
+                                hsk_level: int = None) -> dict:
+    """hsk_level defaults to the user's own level; pass one to summarize an
+    earlier level the user is looking back at."""
     from app.session.services.progress import get_collapsed_progress
     from app.pinyin import services as pinyin_services
 
-    user = get_user(db, user_id)
-    hsk_level = getattr(user, "hsk_level", 1)
+    if hsk_level is None:
+        hsk_level = getattr(get_user(db, user_id), "hsk_level", 1) or 1
 
     all_records = get_collapsed_progress(db, user_id)
     record_map = {r.tag: r for r in all_records}
@@ -117,7 +120,7 @@ def build_unit_progress_summary(db: Session, textbook_db: Session, user_id: int)
  
  
 def build_unit_words_detail(db: Session, textbook_db: Session, user_id: int, unit: int,
-                             is_current: bool) -> list:
+                             is_current: bool, hsk_level: int = None) -> list:
     """Replaces the facet_detail closure + word-list assembly that used to
     live directly in router.py's /api/unit_detail. Returns the sorted list
     of per-word {tag, tier, character, pinyin} dicts; the router still owns
@@ -129,8 +132,12 @@ def build_unit_words_detail(db: Session, textbook_db: Session, user_id: int, uni
     same rule the original inline closure used -- and the router already
     knows whether this unit == user.current_unit, so there's no need to
     duplicate that check inside the service function.
+
+    hsk_level defaults to the user's own level.
     """
-    unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, unit, getattr(get_user(db, user_id), "hsk_level", 1))
+    if hsk_level is None:
+        hsk_level = getattr(get_user(db, user_id), "hsk_level", 1) or 1
+    unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, unit, hsk_level)
     tiers = get_tiers_for_tags(db, user_id, unit_tags)
  
     rows = {}

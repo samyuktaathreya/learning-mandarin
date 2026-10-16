@@ -5,6 +5,7 @@ import UnitCenter from './UnitCenter';
 import SessionControls from './SessionControls';
 import Modal from '../../../shared/components/Modal';
 import ReviewCounter from './ReviewCounter';
+import HskLevelSelect from './HskLevelSelect';
 
 function SkipReviewModal({ open, dueNow, onCancel, onConfirm }) {
     return (
@@ -30,9 +31,15 @@ function SkipReviewModal({ open, dueNow, onCancel, onConfirm }) {
 
 // The unit overview shown when no session is running.
 // startSession(debug, skipReview) is the session starter from the practice page.
-export default function PracticeHome({ progress, selectedUnit, onSelectUnit, isLoading, startSession }) {
+// userLevel/viewedLevel/onSelectLevel drive the HSK level dropdown; sessions
+// can only be started from the user's own level.
+export default function PracticeHome({
+    progress, selectedUnit, onSelectUnit, isLoading, startSession,
+    userLevel, viewedLevel, onSelectLevel,
+}) {
     const [showSkipWarning, setShowSkipWarning] = useState(false);
     const dueNow = progress?.review_due_word_count ?? 0;
+    const onOwnLevel = viewedLevel === userLevel;
 
     const confirmSkipReview = () => { setShowSkipWarning(false); startSession(false, true); };
     const cancelSkipReview = () => setShowSkipWarning(false);
@@ -41,7 +48,15 @@ export default function PracticeHome({ progress, selectedUnit, onSelectUnit, isL
 
     return (
         <div className="website-page">
+            <HskLevelSelect
+                userLevel={userLevel}
+                viewedLevel={viewedLevel}
+                onSelectLevel={onSelectLevel}
+            />
             <Header />
+            {!progress && viewedLevel != null && (
+                <div className="unit-center">Loading HSK {viewedLevel}…</div>
+            )}
             <div className="progress-layout">
                 <UnitSidebar
                     progress={progress}
@@ -49,7 +64,7 @@ export default function PracticeHome({ progress, selectedUnit, onSelectUnit, isL
                     onSelectUnit={onSelectUnit}
                 />
                 <div className="unit-center-column">
-                    {progress && selectedUnit === progress.current_unit && (
+                    {progress && onOwnLevel && selectedUnit === progress.current_unit && (
                         <>
                             <SessionControls
                                 onStartSession={() => startSession(false, false)}
@@ -68,6 +83,7 @@ export default function PracticeHome({ progress, selectedUnit, onSelectUnit, isL
                     <UnitCenter
                         progress={progress}
                         selectedUnit={selectedUnit}
+                        hskLevel={viewedLevel}
                         onStartSession={startSession}
                     />
                 </div>
