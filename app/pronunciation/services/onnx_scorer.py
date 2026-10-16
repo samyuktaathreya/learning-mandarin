@@ -46,6 +46,24 @@ class OnnxScorer:
             out.append({h: head_probs(logits[i][0], h) for i, h in enumerate(cfg["heads"])})
         return out
 
+    def frame_probs(self, wav):
+        """Per-frame unit probabilities, averaged over the models: {head: (T, C) array, blank at 0}.
+        Used to find syllable boundaries (split.py). `wav` is already prepared."""
+        per_model = []
+        for sess, cfg in self.models:
+            x = wav.astype(np.float32)
+            if cfg["do_normalize"]:
+                x = (x - x.mean()) / np.sqrt(x.var() + 1e-7)
+            logits = sess.run(None, {"input_values": x[None, :]})
+            out = {}
+            for i, h in enumerate(cfg["heads"]):
+                z = logits[i][0].astype(np.float64)
+                p = np.exp(z - z.max(axis=-1, keepdims=True))
+                out[h] = p / p.sum(axis=-1, keepdims=True)
+            per_model.append(out)
+        T = min(p[h].shape[0] for p in per_model for h in p)
+        return {h: sum(p[h][:T] for p in per_model) / len(per_model) for h in per_model[0]}
+
     def pitch_vote(self, wav):
         return self.pitch.vote(wav) if self.pitch is not None else None
 

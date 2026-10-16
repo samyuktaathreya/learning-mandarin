@@ -1,0 +1,126 @@
+.root {
+  --pr-surface: #ffffff;
+  --pr-border: rgba(15, 23, 42, 0.1);
+  --pr-text: #0f172a;
+  --pr-muted: #64748b;
+  --pr-accent: #4f46e5;
+  --pr-accent-text: #ffffff;
+  --pr-good: #16a34a;
+  --pr-off: #dc6803;
+  --pr-close: #ca8a04;
+  --pr-error: #dc2626;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  margin: 0 auto;
+  border: 1px solid var(--pr-border);
+  border-radius: 14px;
+  background: var(--pr-surface);
+  color: var(--pr-text);
+  max-width: 560px;
+  text-align: left;
+}
+
+@media (prefers-color-scheme: dark) {
+  .root {
+    --pr-surface: #111827;
+    --pr-border: rgba(255, 255, 255, 0.1);
+    --pr-text: #f1f5f9;
+    --pr-muted: #94a3b8;
+    --pr-accent: #818cf8;
+    --pr-accent-text: #0b1020;
+    --pr-good: #4ade80;
+    --pr-off: #fb923c;
+    --pr-close: #facc15;
+    --pr-error: #f87171;
+  }
+}
+
+.results,
+.parts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.verdict {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.parts {
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.part {
+  display: grid;
+  grid-template-columns: 4.5rem 4.5rem 1fr auto;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.partLabel,
+.score,
+.note {
+  color: var(--pr-muted);
+  font-size: 0.9rem;
+}
+
+.partTarget {
+  font-weight: 600;
+}
+
+.good { color: var(--pr-good); }
+.off { color: var(--pr-off); }
+.close { color: var(--pr-close); }
+.error { color: var(--pr-error); }
+.live { color: var(--pr-accent); font-weight: 600; }
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.button,
+.secondary {
+  padding: 10px 18px;
+  border-radius: 10px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.button {
+  border: none;
+  background: var(--pr-accent);
+  color: var(--pr-accent-text);
+  font-weight: 600;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.secondary {
+  border: 1px solid var(--pr-border);
+  background: transparent;
+  color: var(--pr-text);
+}
+
+.raw pre {
+  font-size: 0.75rem;
+  max-height: 300px;
+  overflow: auto;
+}

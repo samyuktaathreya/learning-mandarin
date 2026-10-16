@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { ClickableText } from '../../characters';
-import { PinyinSoundPopup, ClickablePinyin, tagsToSoundItems } from '../../pinyin';
+import { PinyinSoundPopup, ClickablePinyin, PronunciationRecorder, tagsToSoundItems, parsePinyinSyllable, parsePinyinSyllables } from '../../pinyin';
 import { API_BASE_URL } from '../../../shared/config';
 import { apiFetch } from '../../../shared/api/client';
 import { PINYIN_QUESTION_TYPES } from '../questionHelpers';
 import { playSrc } from '../../audio';
-import { ToneRecorder, CalibrationPrompt, useSpeakerRange, parsePinyinSyllable, parsePinyinSyllables } from '../../tone';
 
 const questionTypeToInstruction = (question_type) => {
     switch (question_type) {
@@ -80,38 +79,28 @@ export default function SpeakingQuestion({
     // Track if we are in the shadowing phase
     const [hasPassedFirstTry, setHasPassedFirstTry] = useState(false);
 
-    // ── Tone check (in-browser pitch detection) ───────────────────
-    // speaking_pinyin questions with a single syllable in tones 1–4, and
-    // speaking_pinyin_pair questions, are graded here, not by the transcribe
-    // endpoint. Anything else (e.g. a lone neutral tone) falls back to the
-    // existing Record → transcribe flow.
-    const toneTarget = currentQuestionObj.question_type === "speaking_pinyin"
+    // ── Pronunciation model (app/pronunciation) ───────────────────
+    // speaking_pinyin and speaking_pinyin_pair questions are graded by the
+    // pronunciation model (initial, final and tone of each syllable), not by the
+    // transcribe endpoint. Anything it can't parse falls back to the existing
+    // Record → transcribe flow.
+    const singleTarget = currentQuestionObj.question_type === "speaking_pinyin"
         ? parsePinyinSyllable(currentQuestionObj.answer)
         : null;
     // A sandhi word is written 3-3 but said 2-3, so the first syllable is graded as tone 2.
-    const pairTargets = isPinyinPair
-        ? parsePinyinSyllables(currentQuestionObj.answer)?.map((p, i) =>
-            currentQuestionObj.sandhi && i === 0 && p.tone === 3 ? { ...p, spokenTone: 2 } : p)
-        : null;
-    const usesToneCheck = toneTarget !== null || pairTargets != null;
-    const { range: speakerRange, setRange: setSpeakerRange } = useSpeakerRange();
-    const [toneResult, setToneResult] = useState(null);
-    const [recalibrating, setRecalibrating] = useState(false);
-    const [calibrationSkipped, setCalibrationSkipped] = useState(() => {
-        try { return sessionStorage.getItem('tone.calibrationSkipped') === '1'; } catch { return false; }
-    });
-    const showCalibration = usesToneCheck && (recalibrating || (!speakerRange && !calibrationSkipped));
+    const pronunciationTargets = singleTarget
+        ? [singleTarget]
+        : isPinyinPair
+            ? parsePinyinSyllables(currentQuestionObj.answer)?.map((p, i) =>
+                currentQuestionObj.sandhi && i === 0 && p.tone === 3 ? { ...p, spokenTone: 2 } : p)
+            : null;
+    const usesModel = pronunciationTargets?.length > 0;
+    const [modelResult, setModelResult] = useState(null);
 
-    const skipCalibration = () => {
-        setRecalibrating(false);
-        setCalibrationSkipped(true);
-        try { sessionStorage.setItem('tone.calibrationSkipped', '1'); } catch { /* storage unavailable */ }
-    };
-
-    const handleToneResult = (result) => {
-        setToneResult(result);
+    const handleModelResult = (result) => {
+        setModelResult(result);
         setAudioCompleted(false);
-        if (debug) console.log('[tone check]', result);
+        if (debug) console.log('[pronunciation model]', result);
     };
 
     // reset forms and logic state whenever the question changes
@@ -123,8 +112,7 @@ export default function SpeakingQuestion({
         setAudioCompleted(false); 
         setHasPassedFirstTry(false);
         setSelectedSound(null);
-        setToneResult(null);
-        setRecalibrating(false);
+        setModelResult(null);
     }, [currentQuestionObj]);
 
     // Fetch sentence tags with context-aware definitions
@@ -159,18 +147,17 @@ export default function SpeakingQuestion({
         }
     }, [transcriptionResult, currentQuestionObj.question, currentQuestionObj.audio_text, onPlayAudio]);
 
-    // Tone check: play the target after a CORRECT take, same as the transcribe flow.
-    // Not after a wrong one: the user will likely retry right away, and the
-    // mic shouldn't be listening while the native audio is still playing.
+    // Model check: play the target after a CORRECT take, same as the transcribe flow.
+    // Not after a wrong one: the user will likely retry right away.
     useEffect(() => {
-        if (!toneResult?.ok || !toneResult.isCorrect) return;
+        if (!modelResult?.ok || !modelResult.isCorrect) return;
         let isMounted = true;
         (async () => {
             await onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion);
             if (isMounted) setAudioCompleted(true);
         })();
         return () => { isMounted = false; };
-    }, [toneResult]);
+    }, [modelResult]);
 
     const saveTip = async () => {
         const keyValue = tipKeyType === "question" ? currentQuestionObj.question : currentQuestionObj.answer;
@@ -224,70 +211,54 @@ export default function SpeakingQuestion({
                 </div>
             )}
 
-            {usesToneCheck && (
-                <div className="tone-check">
-                    {showCalibration ? (
-                        <CalibrationPrompt
-                            onComplete={(range) => {
-                                setSpeakerRange(range);
-                                setRecalibrating(false);
-                            }}
-                            onCancel={skipCalibration}
-                        />
-                    ) : (
-                        <>
-                            <ToneRecorder
-                                key={currentQuestionObj.answer}
-                                syllable={toneTarget?.syllable}
-                                expectedTone={toneTarget?.tone}
-                                syllables={pairTargets}
-                                speakerRange={speakerRange}
-                                onResult={handleToneResult}
-                                onRequestCalibration={() => setRecalibrating(true)}
-                                debugContext={{ questionIndex: currentIndex, sessionType, question: currentQuestionObj }}
-                            />
+            {usesModel && (
+                <div className="pronunciation-check">
+                    <PronunciationRecorder
+                        key={currentQuestionObj.answer}
+                        syllables={pronunciationTargets}
+                        onResult={handleModelResult}
+                        debug={debug}
+                    />
 
-                            <div className="replay-buttons">
-                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion)}>🔊 Hear target</button>
-                                <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true, pinyinOverride, isPinyinQuestion)}>🐢 Slow</button>
-                            </div>
+                    <div className="replay-buttons">
+                        <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion)}>🔊 Hear target</button>
+                        <button type="button" onClick={() => onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, true, pinyinOverride, isPinyinQuestion)}>🐢 Slow</button>
+                    </div>
 
-                            {isPinyinPair && toneResult?.ok && currentQuestionObj.is_real_word && (
-                                <p className="translation-text">
-                                    Word: <strong>{currentQuestionObj.hanzi}</strong>
-                                    {currentQuestionObj.english && <> — {currentQuestionObj.english}</>}
-                                </p>
-                            )}
-
-                            {toneResult?.ok && currentQuestionObj.tip && (
-                                <p className="question-tip">💡 Tip: {currentQuestionObj.tip}</p>
-                            )}
-
-                            <div className="action-buttons">
-                                {toneResult?.ok && (
-                                    <button
-                                        className="continue-btn"
-                                        onClick={() => onAdvanceQuestion(
-                                            toneResult.isCorrect,
-                                            false,
-                                            // pair: per-syllable results (a neutral syllable isn't graded, so it counts as right)
-                                            toneResult.syllables?.map((r) => r?.isCorrect ?? true),
-                                        )}
-                                        disabled={toneResult.isCorrect && !audioCompleted}
-                                    >
-                                        {toneResult.isCorrect && !audioCompleted ? "Playing audio..." : "Continue"}
-                                    </button>
-                                )}
-                                {toneResult && !toneResult.ok && (
-                                    <button type="button" onClick={() => onAdvanceQuestion(false)}>Skip</button>
-                                )}
-                            </div>
-                        </>
+                    {isPinyinPair && modelResult?.ok && currentQuestionObj.is_real_word && (
+                        <p className="translation-text">
+                            Word: <strong>{currentQuestionObj.hanzi}</strong>
+                            {currentQuestionObj.english && <> — {currentQuestionObj.english}</>}
+                        </p>
                     )}
+
+                    {modelResult?.ok && currentQuestionObj.tip && (
+                        <p className="question-tip">💡 Tip: {currentQuestionObj.tip}</p>
+                    )}
+
+                    <div className="action-buttons">
+                        {modelResult?.ok && (
+                            <button
+                                className="continue-btn"
+                                onClick={() => onAdvanceQuestion(
+                                    modelResult.isCorrect,
+                                    false,
+                                    // pair: per-syllable results
+                                    isPinyinPair ? modelResult.syllables.map((r) => r.isCorrect) : undefined,
+                                )}
+                                disabled={modelResult.isCorrect && !audioCompleted}
+                            >
+                                {modelResult.isCorrect && !audioCompleted ? "Playing audio..." : "Continue"}
+                            </button>
+                        )}
+                        {modelResult && !modelResult.ok && (
+                            <button type="button" onClick={() => onAdvanceQuestion(false)}>Skip</button>
+                        )}
+                    </div>
                 </div>
             )}
 
-            {!usesToneCheck && !transcriptionResult && !recordingURL && (
+            {!usesModel && !transcriptionResult && !recordingURL && (
                 <div className="recording-controls">
                     {hasPassedFirstTry && requiresShadowing && (
                         <div className="shadow-alert">

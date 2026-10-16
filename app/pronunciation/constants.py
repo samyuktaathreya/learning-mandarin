@@ -17,4 +17,5 @@ MAX_CONCURRENT = int(os.environ.get("PRONUNCIATION_MAX_CONCURRENT", "1"))
 MAX_UPLOAD_BYTES = 2_000_000                        # ~2 MB
 MIN_SECONDS = 0.1
 MAX_SECONDS = 4.0                                   # one syllable; longer audio is rejected
+MAX_SECONDS_WORD = 6.0                              # several syllables in one take (/score_word)
 SAMPLE_RATE = 16000

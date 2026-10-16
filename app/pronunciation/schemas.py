@@ -26,3 +26,20 @@ class ScoreResponse(BaseModel):
     no_speech: bool          # nothing that sounds like speech was found
     understood: bool         # all three parts correct and speech found
     ms: int                  # time spent scoring on the server
+
+
+class SyllableResult(BaseModel):
+    target: str
+    parts: PartsResult
+    no_speech: bool
+    understood: bool
+
+
+class WordScoreResponse(BaseModel):
+    target: str                       # the syllables, space-separated ("cao3 mei2")
+    syllables: List[SyllableResult]   # one per target syllable, in order
+    no_speech: bool                   # no syllable sounded like speech
+    understood: bool                  # every syllable understood
+    cuts: List[float]                 # where the take was split, in seconds from its start
+    split_found: bool                 # False: syllables couldn't be located, so the take was split evenly
+    ms: int
