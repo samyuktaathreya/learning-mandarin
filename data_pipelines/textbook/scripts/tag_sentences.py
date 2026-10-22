@@ -1,130 +1,107 @@
 """
 data_pipelines/textbook/scripts/tag_sentences.py
 
-Pipeline stage 3: tags every bare Sentence row (written by sentence_parser.py,
-which no longer does any segmentation/tagging itself) with its SentenceVocab
-links, creating/updating VocabSense rows along the way.
+Pipeline stage 3: tags every bare Sentence row with its SentenceVocab links,
+creating VocabSense rows along the way, then sets each sentence's HSK level.
+Runs ONCE over all sentences (not per level): a sentence's level is the
+highest level among its words, so it's only known after tagging.
 
-REPLACES: sentence_parser.py's old greedy_segment/tag_and_pinyin logic AND
-append_orphan_tags.py entirely. append_orphan_tags.py is deleted -- its
-core mistake was inventing vocab words from the printed INDEX (which lists
-compound words like 东西, so a naive gap-filler would register the
-substring 西 as if it were independently taught) with no sentence evidence
-at all. This script only ever creates a VocabSense because a real sentence
-actually contains that word -- there is no other path to vocab creation
-left in the pipeline. Every sense minted here is stamped
-VocabOrigin.textbook_sentence (see resolve_word_sense) so downstream code
-can always tell "this meaning came from the printed index" apart from
-"this meaning was only ever evidenced by a sentence."
+WORD SPLIT
+  hsk-sentences-audio sentences come with a word split (hsa_source.tokens):
+  it covers every character and 99.7% of its words are in the HSK list, so it
+  is used as-is. A token NOT in the list that can be split entirely into list
+  words (早点儿 -> 早 + 点儿, 今晚 -> 今 + 晚) is split -- the same job the
+  Haiku re-segmentation used to do for 不是, done by rule.
+  Adjacent tokens that together form a LOWER-level list word are joined
+  (不 + 客气 -> 不客气, HSK 1 instead of 客气's HSK 5), so a sentence isn't
+  levelled up by the dataset splitting a set phrase.
+  Sentences with no dataset tokens (e.g. Tatoeba, later) fall back to the
+  original HanLP segmentation + vocab-list gate + Haiku re-segmentation
+  (segment_sentence / get_validated_segmentation, unchanged).
+  HanLP's POS tagger tags the words either way (CTB tags: P, VV, AD, NR...).
 
-SEGMENTATION (2024 rewrite): HanLP's output is the default, but it is no
-longer trusted blindly. Every non-numeral word HanLP produces is checked
-against the cumulative HSK-{hsk_level} vocab list already loaded into the
-db (see get_valid_vocab_set). If everything checks out, HanLP's output is
-used as-is -- this is the common case and costs nothing extra.
+READING (which pronunciation, e.g. 还 hai2 vs huan2)
+  The dataset's per-word pinyin, which is chosen in context (了 le / liǎo,
+  长 cháng / zhǎng), converted to numeric citation tones. pypinyin (no tone
+  sandhi) only when there is none. Tone-sandhi display pinyin is written
+  later by the finalize stage.
 
-If HanLP produces a word that ISN'T in the vocab list, that's a signal of
-one of two things:
-  (a) HanLP over-glued a real compound HanLP treats as one token but the
-      textbook teaches as separate words -- the canonical example is
-      不是, which HanLP keeps as one word but HSK1/2 teach 不 (AD) and 是
-      (VC) separately, so 不是 itself is never a taught vocab entry.
-  (b) The word is genuinely not taught at this HSK level at all.
-There's no way to tell these apart cheaply, so the fallback is: ask Haiku
-to re-segment the WHOLE sentence (see haiku_resegment_sentence), the way
-a textbook would teach the words individually, then re-check ITS output
-against the vocab list. If Haiku's segmentation still has an out-of-vocab
-word, we genuinely don't know how to tag this sentence correctly, so it
-is DROPPED (skipped, not tagged, logged) rather than silently minting a
-bogus vocab entry -- this is what was happening before (see 不是 bug).
+SENSE RESOLUTION for a word in the HSK list (cheapest first):
+  1. SenseCache hit on (hanzi, pos_tag, reading) -> that sense. No AI.
+  2. The reading picks the word's form(s) in the vocab JSON
+     (hsk_vocab_source.match_forms); no matching form -> every form.
+  3. An existing sense of this word with the same POS tag and one of those
+     forms -> reuse it. No AI.
+  4. Only one candidate meaning -> take it. No AI.
+  5. Otherwise ONE Haiku call: the sentence, its translation and the
+     NUMBERED candidate meanings from the JSON. Haiku must answer with a
+     number; "none fits" is accepted only with a reason, and only then is a
+     new meaning written (origin = ai_added, listed in the run log for you
+     to review).
+  A sense picked from the JSON copies the meaning text exactly
+  (origin = hsk_list, with form_index / meaning_index). Senses are created
+  only on sentence evidence, with no unit -- assign_units.py homes them.
 
-Each word that triggers the Haiku fallback gets its resolved replacement
-cached (SEG_CACHE, keyed on (word, pos_tag), persisted to
-segmentation_cache.json) so the same over-glued compound never needs a
-second Haiku call, in this run or a future one.
+WORDS NOT IN THE LIST (kept, never dropped)
+  - HanLP tags it NR (proper noun) and its dictionary text looks like a name
+    (capitalised, or "surname ...") -> word_type = proper_noun,
+    origin = proper_noun, definition "(name) <dataset gloss>"
+  - otherwise -> word_type = auto, origin = unlisted, definition = the
+    dataset's gloss (CC-CEDICT text); Haiku writes one (ai_added) only if
+    there is no gloss.
+  Neither counts toward the sentence's level.
 
-SENSE RESOLUTION (per word, per occurrence) -- unchanged in shape from
-before, only now guaranteed to only ever run on a word that has already
-passed the HSK-vocab-list gate above:
-  1. SenseCache lookup on (hanzi, pos_tag, pinyin) -- if hit, use that sense.
-     Zero AI calls.
-  2. Cache miss, word has NO existing senses at all -> brand new word ->
-     ONE Haiku call to write a definition FROM SENTENCE CONTEXT -> create
-     the sense (primary, since it's the word's first, origin=
-     textbook_sentence) -> write cache.
-  3. Cache miss, word HAS existing senses, but none share this exact
-     (pos_tag, pinyin) -> check get_senses_matching_pos_pinyin as a
-     backfill path (handles senses created by vocab_index_parser.py, which
-     doesn't populate pos_tag) -- if found, reuse + write cache, no AI call.
-  4. Still nothing -> genuinely ambiguous -> ONE Haiku call comparing
-     against the word's nearest existing sense(s): SAME (reuse, cache it)
-     or DIFFERENT (write a new sense with Haiku's definition, origin=
-     textbook_sentence, cache it).
-  5. REHOME: whichever sense got resolved, if this sentence's
-     (hsk_level, unit_number) is EARLIER than the sense's current home,
-     move the sense's home earlier (db_utils.rehome_sense already no-ops
-     if it isn't actually earlier) -- "the word showed up sooner than we
-     thought" should always win over whatever unit a sense was originally
-     created at.
+The dataset's gloss_en is NOT used to pick a meaning: it is the same
+dictionary text for a given word and reading in every sentence, so it says
+nothing about context.
 
-Every step above is a full sense-resolution outcome BEFORE any sentence
-gets its SentenceVocab rows written -- once tag_sentences.py finishes a
-unit, "every word used in a sentence is documented" (create_questions.py's
-precondition) is actually true, not aspirational. Dropped sentences are
-the one exception -- they are deliberately NOT tagged and NOT included in
-that guarantee; see the note in main() about re-processing them.
-
-READINGS: pypinyin only (CEDICT has been removed entirely from this
-script). Style.TONE3 numeric tones, tone_sandhi=True so 不/一 tone changes
-and neutral-tone handling reflect how the word is actually spoken, not
-just its citation-form reading. Requires pypinyin >= 0.44 for the
-tone_sandhi kwarg (confirmed working on 0.55).
-
-LOGGING: every run writes a timestamped txt log to
-data_pipelines/textbook/scripts/logs/. It contains, in order: (1) a line
-per action taken (HanLP segmentation accepted, fallback triggered, cache
-hit/miss, Haiku calls, sense resolution branch taken, rehomes), (2) a
-warning line for every dropped sentence, (3) a final summary dump of the
-full segmentation cache and the full list of drops for that run.
-
-USAGE
------
-    python tag_sentences.py                    # tag every untagged sentence, HSK_LEVEL from env
-    HSK_LEVEL=2 python tag_sentences.py         # explicit level
-    python tag_sentences.py --unit 5            # only sentences in unit 5
-    python tag_sentences.py --retag             # re-tag sentences that already have tags
-                                                 # (use after a segmentation/model change)
+USAGE (from the repo root)
+    python -m data_pipelines.textbook.scripts.tag_sentences              # all untagged sentences
+    python -m data_pipelines.textbook.scripts.tag_sentences --limit 50   # first 50 (check AI volume)
+    python -m data_pipelines.textbook.scripts.tag_sentences --estimate   # count AI calls, write nothing
+    python -m data_pipelines.textbook.scripts.tag_sentences --retag      # re-tag every sentence
 """
 import os
 import re
 import argparse
 import json
 import logging
-from datetime import datetime
 import time
+from collections import Counter
+from datetime import datetime
+
 import anthropic
 from pypinyin import lazy_pinyin, Style
-import time
+from pypinyin.contrib.tone_convert import to_tone3
+
 from app.core.config.shared import settings
+from app.core.config.textbook import TEXTBOOK_RAW_DIR
 from app.textbook.db_utils import (
     get_session, init_db, get_or_create_vocab, get_senses_for_vocab,
-    get_cached_sense, write_sense_cache, get_senses_matching_pos_pinyin,
-    get_nearest_sense, upsert_vocab_sense, rehome_sense,
-    set_sentence_tags, get_vocab_hanzi_through_level
+    get_cached_sense, write_sense_cache, upsert_vocab_sense,
+    set_sentence_tags, set_sentence_level, get_vocab_hanzi_through_level,
+    get_untagged_sentences,
 )
-from app.textbook.models import Sentence, SentenceVocab, WordType, VocabOrigin
+from app.textbook.models import Sentence, Vocab, WordType, VocabOrigin
 
-HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
+from data_pipelines.textbook.scripts import hsa_source
+from data_pipelines.textbook.scripts import hsk_vocab_source as hvs
 
 api_key = settings.CLAUDE_API_KEY
 client = anthropic.Anthropic(api_key=api_key) if api_key else None
 
 HAIKU_MODEL = "claude-haiku-4-5"
 MAX_TOKENS_DEFINITION = 300
-MAX_TOKENS_COMPARE = 200
+MAX_TOKENS_CHOOSE = 300
 MAX_TOKENS_RESEGMENT = 500
+COMMIT_EVERY = 50          # sentences; a crash loses at most this much AI work
 
-_CONTENT_RE = re.compile(r"[\u4e00-\u9fff]|\d+")
+ALL_LEVELS = 7             # 7 = levels 7-9: every listed word is valid
+PROPER_NOUN_POS = {"NR"}
+
+VOCAB_PATH = TEXTBOOK_RAW_DIR / "hsk_vocab.json"
+
+_CONTENT_RE = re.compile(r"[一-鿿]|\d+")
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, "..", "debug", "tag_sentences"))
@@ -133,12 +110,9 @@ SEG_CACHE_PATH = os.path.join(SCRIPT_DIR, "segmentation_cache.json")
 
 # --------------------------------- LOGGING ---------------------------------
 
-def setup_logging(hsk_level: int) -> tuple[logging.Logger, str]:
-    """One txt log file per run in ../debug/tag_sentences/ named by datetime.
-    Returns (logger, log_path) so the path can be accessed for the final summary."""
+def setup_logging() -> tuple[logging.Logger, str]:
+    """One txt log file per run in ../debug/tag_sentences/ named by datetime."""
     os.makedirs(LOG_DIR, exist_ok=True)
-    
-    # Formats datetime as YYYYMMDD_HHMMSS (or use "%Y-%m-%d_%H-%M-%S" for dashes)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_path = os.path.join(LOG_DIR, f"{timestamp}.txt")
 
@@ -157,7 +131,7 @@ def setup_logging(hsk_level: int) -> tuple[logging.Logger, str]:
     ch.setFormatter(logging.Formatter("%(levelname)s  %(message)s"))
     logger.addHandler(ch)
 
-    logger.info(f"=== tag_sentences.py run started -- HSK level {hsk_level} ===")
+    logger.info("=== tag_sentences.py run started ===")
     print(f"Logging full trace to {log_path}")
     return logger, log_path
 
@@ -166,123 +140,85 @@ def setup_logging(hsk_level: int) -> tuple[logging.Logger, str]:
 
 def load_segmentation_cache() -> dict:
     """Keys are (word, pos_tag) tuples; values are the replacement
-    [(word, pos_tag), ...] list Haiku produced for that word the first
-    time it was seen as out-of-vocab. Persisted to disk so this survives
-    across separate runs, not just within one."""
+    [(word, pos_tag), ...] list Haiku produced for that word the first time
+    it was seen as out-of-vocab. Only used by the HanLP fallback path."""
     if not os.path.exists(SEG_CACHE_PATH):
         return {}
     with open(SEG_CACHE_PATH, "r", encoding="utf-8") as f:
         raw = json.load(f)
-    return {
-        tuple(k.split("\t")): [tuple(pair) for pair in v]
-        for k, v in raw.items()
-    }
+    return {tuple(k.split("\t")): [tuple(pair) for pair in v] for k, v in raw.items()}
 
 
 def save_segmentation_cache(cache: dict) -> None:
-    raw = {
-        f"{word}\t{pos}": [[w, p] for w, p in replacement]
-        for (word, pos), replacement in cache.items()
-    }
+    raw = {f"{word}\t{pos}": [[w, p] for w, p in replacement]
+           for (word, pos), replacement in cache.items()}
     with open(SEG_CACHE_PATH, "w", encoding="utf-8") as f:
         json.dump(raw, f, ensure_ascii=False, indent=2, sort_keys=True)
 
 
-# --------------------------------- SEGMENTATION (HanLP) ---------------------------------
+# --------------------------------- HANLP ---------------------------------
 
-_hanlp_pipeline = None
+_hanlp_tok = None
+_hanlp_pos = None
 
-# Numeral character class: cardinal digits (零-九), positional units
-# (十百千万亿), and 两 ("two", used before measure words instead of 二).
-# 第 is included ONLY as an ordinal prefix directly attached to a
-# following numeral run (第二 "second", 第一百 "the hundredth").
+
+def _get_hanlp_pos():
+    """Lazy-load HanLP's POS tagger once per process (large model)."""
+    global _hanlp_pos
+    if _hanlp_pos is None:
+        import hanlp
+        _hanlp_pos = hanlp.load(hanlp.pretrained.pos.CTB9_POS_ELECTRA_SMALL)
+    return _hanlp_pos
+
+
+def _get_hanlp_tok():
+    """Lazy-load HanLP's tokenizer -- only needed for sentences with no
+    dataset word split."""
+    global _hanlp_tok
+    if _hanlp_tok is None:
+        import hanlp
+        _hanlp_tok = hanlp.load(hanlp.pretrained.tok.COARSE_ELECTRA_SMALL_ZH)
+    return _hanlp_tok
+
+
+def tag_pos(words: list[str]) -> list[str]:
+    """CTB POS tags for an already-split list of words."""
+    if not words:
+        return []
+    return list(_get_hanlp_pos()(words))
+
+
+# ----------------------- NUMERALS (HanLP fallback path, unchanged) -----------------------
 #
-# ONLY runs of length >= 2 (or 第-prefixed, any length) are extracted --
-# a BARE SINGLE numeral character is left untouched, glued to its
-# neighbors, so HanLP sees the whole original span and can decide for
-# itself whether it's one cohesive real word. This matters a lot: single
-# numeral characters are extremely common inside ordinary FIXED
-# vocabulary that has nothing to do with counting -- 星期二 (Tuesday),
-# 一样 (same/alike), 一定 (certainly), 一起 (together), 一下 (briefly),
-# 十字路口 (crossroads), 十分 (very) -- extracting the numeral char out of
-# any of these would wrongly shred a real word into a fake "NUM" span
-# plus a meaningless leftover fragment. A length-2+ run (十二, 二零一一,
-# 一百, ...) or an explicit 第-prefixed ordinal (第二, 第一百, ...) is
-# reliably compositional/unbounded (you can construct infinitely many),
-# which is genuinely never worth treating as a fixed vocabulary item --
-# that boundary is where extraction is safe.
+# ONLY runs of length >= 2 (or 第-prefixed) are extracted, so real fixed
+# vocabulary containing a single numeral character (星期二, 一样, 一定, 一起,
+# 十分) is never shredded. See the original docstring history for why.
+
 _NUMERAL_CHARS = "零一二三四五六七八九十百千万亿两"
 _NUMERAL_RUN_RE = re.compile(rf"第[{_NUMERAL_CHARS}]+|[{_NUMERAL_CHARS}]{{2,}}")
-
-# Small manual exception list: real, closed-set FIXED words that happen to
-# be built entirely from numeral characters and would otherwise match the
-# length>=2 rule above. Extend this set if more are found -- it's meant to
-# stay short (most 2+-char numeral-only runs genuinely are numbers).
+_NUMERAL_ONLY_RE = re.compile(rf"^(第[{_NUMERAL_CHARS}]+|[{_NUMERAL_CHARS}]{{2,}})$")
 _NUMERAL_LOOKING_FIXED_WORDS = {"万一"}  # "in case / what if", not "10,001"
 
 
 def extract_numeral_runs(text: str) -> list[tuple[str, bool]]:
-    """Splits `text` into ordered (segment, is_numeral) pieces. Numeral
-    runs (dates, ages, counts, durations -- 二零一一年九月, 十二个月, 一百块钱,
-    第二次, ...) are isolated as their own pieces so they never get handed
-    to HanLP glued to adjacent real words; everything else is returned as
-    plain non-numeral segments for normal segmentation. An empty non-
-    numeral segment can occur between two adjacent numeral runs or at the
-    string's edges -- callers should skip empty segments."""
-    pieces = []
-    pos = 0
+    """Splits `text` into ordered (segment, is_numeral) pieces so numeral
+    runs (二零一一年九月, 十二个月, 第二次) never reach HanLP glued to real words."""
+    pieces, pos = [], 0
     for m in _NUMERAL_RUN_RE.finditer(text):
         if m.start() > pos:
             pieces.append((text[pos:m.start()], False))
         matched = m.group()
-        is_numeral = matched not in _NUMERAL_LOOKING_FIXED_WORDS
-        pieces.append((matched, is_numeral))
+        pieces.append((matched, matched not in _NUMERAL_LOOKING_FIXED_WORDS))
         pos = m.end()
     if pos < len(text):
         pieces.append((text[pos:], False))
     return pieces
 
 
-def _get_hanlp():
-    """Lazy-load HanLP's tokenizer + POS tagger once per process -- these
-    are large models, no reason to reload per sentence."""
-    global _hanlp_pipeline
-    if _hanlp_pipeline is None:
-        import hanlp
-        tok = hanlp.load(hanlp.pretrained.tok.COARSE_ELECTRA_SMALL_ZH)
-        pos = hanlp.load(hanlp.pretrained.pos.CTB9_POS_ELECTRA_SMALL)
-        _hanlp_pipeline = (tok, pos)
-    return _hanlp_pipeline
-
-
 def segment_sentence(hanzi: str) -> list[tuple[str, str]]:
-    """Numeral runs (dates, ages, quantities, durations -- see
-    extract_numeral_runs) are pulled out and pre-split BEFORE HanLP ever
-    sees the sentence, then HanLP's word segmentation + POS tagging is
-    used for everything else. This is the DEFAULT segmenter -- its output
-    is validated against the HSK vocab list by get_validated_segmentation,
-    which only falls back to Haiku when HanLP produces something the
-    vocab list doesn't recognize.
-
-    WHY PRE-SPLIT RATHER THAN POST-FILTER ON HANLP'S OWN POS OUTPUT:
-    real CTB9 tagging of numeral phrases is inconsistent -- a short date
-    like 六岁 splits cleanly into 六/CD + 岁/M (fine either way, both are
-    legitimate closed-set vocab), but a longer date like 二零一一年九月
-    gets coalesced into ONE token tagged CD, swallowing 年 and 月 (both
-    legitimate, likely-already-taught vocab) into the numeral blob instead
-    of leaving them separately taggable. Stripping the numeral run out of
-    the TEXT first (see extract_numeral_runs -- only length>=2 or
-    第-prefixed runs are extracted; a bare single numeral character is
-    left alone so real fixed vocabulary like 星期二/一样/一定/一起 is never
-    wrongly shredded) means HanLP only ever has to segment the genuinely-
-    word parts, and never has the opportunity to over-coalesce a number
-    with adjacent real vocabulary.
-
-    Punctuation/whitespace tokens are dropped (POS tag 'PU' in CTB9's
-    tagset); content_only() isn't applied to the INPUT since HanLP's
-    tokenizer wants real sentence punctuation for accurate boundaries, but
-    the OUTPUT is filtered to drop punctuation tokens."""
-    tok, pos = _get_hanlp()
+    """HanLP fallback segmentation: numeral runs pre-split as "NUM", HanLP
+    word split + POS for the rest, punctuation (PU) dropped."""
+    tok = _get_hanlp_tok()
     results = []
     for segment, is_numeral in extract_numeral_runs(hanzi):
         if not segment:
@@ -291,22 +227,14 @@ def segment_sentence(hanzi: str) -> list[tuple[str, str]]:
             results.append((segment, "NUM"))
             continue
         words = tok(segment)
-        tags = pos(words)
+        tags = tag_pos(words)
         results.extend((w, t) for w, t in zip(words, tags) if t != "PU" and w.strip())
     return results
 
 
 def split_numeral_tokens(words_and_pos: list[tuple[str, str]]) -> list[tuple[str, str]]:
-    """Applies segment_sentence's numeral rule to a segmentation that did
-    NOT come from segment_sentence -- i.e. Haiku's re-segmentation, or a
-    replacement replayed from seg_cache. Haiku has no idea about the NUM
-    convention and returns dates/times/counts as single words (二零一一年
-    "NT", 十一点 "NT", 三十一 "CD"), which would otherwise be registered as
-    vocabulary. Any token containing a numeral run is re-split exactly the
-    way segment_sentence would have split it (numeral run -> NUM, the rest
-    -> HanLP), so 二零一一年 -> 二零一一 (NUM) + 年. Tokens with no numeral
-    run, and tokens already tagged NUM, pass through unchanged. Idempotent,
-    and preserves the original text, so character spans still line up."""
+    """Re-applies the numeral rule to a segmentation that didn't come from
+    segment_sentence (Haiku's, or a cached replacement)."""
     out = []
     for word, pos_tag in words_and_pos:
         if pos_tag != "NUM" and any(is_num for _, is_num in extract_numeral_runs(word)):
@@ -316,64 +244,32 @@ def split_numeral_tokens(words_and_pos: list[tuple[str, str]]) -> list[tuple[str
     return out
 
 
-def get_reading_for_word(word: str) -> str:
-    """pypinyin ONLY -- CEDICT has been removed from this pipeline
-    entirely. Style.TONE3 (numeric tones) with tone_sandhi=True, which
-    applies pypinyin's built-in 不/一 tone-change rules and neutral-tone
-    handling, so the reading reflects how the word is actually SPOKEN
-    (e.g. 不是 -> bu2shi4, 一个 -> yi2ge4) rather than each character's
-    citation-form tone. Falls back to no-sandhi if an old pypinyin version
-    doesn't accept the kwarg (added ~0.44; confirmed present on 0.55)."""
-    try:
-        syllables = lazy_pinyin(
-            word, style=Style.TONE3, neutral_tone_with_five=True, tone_sandhi=True,
-        )
-    except TypeError:
-        syllables = lazy_pinyin(word, style=Style.TONE3, neutral_tone_with_five=True)
-    return "".join(syllables) or "UNKNOWN_PINYIN"
+def _has_content(word: str) -> bool:
+    return bool(_CONTENT_RE.search(word))
 
 
-# --------------------------------- HSK VOCAB LIST GATE ---------------------------------
-
-def get_valid_vocab_set(db, hsk_level: int) -> set:
-    """The set of hanzi words allowed to be tagged/created at this HSK
-    level -- cumulative across every level up to and including hsk_level
-    (an HSK2 sentence freely reuses HSK1 words)."""
-    return get_vocab_hanzi_through_level(db, hsk_level)
-
-
-def _char_spans(words_and_pos: list[tuple[str, str]]) -> list[tuple[int, int, str, str]]:
-    """(start_char, end_char, word, pos) for each token, assuming the
-    tokens concatenate back to the original string in order. Used to line
-    up HanLP's and Haiku's segmentations of the same sentence so a
-    reusable replacement can be extracted for the cache."""
-    spans = []
-    pos_cursor = 0
+def _char_spans(words_and_pos):
+    spans, cursor = [], 0
     for w, p in words_and_pos:
-        spans.append((pos_cursor, pos_cursor + len(w), w, p))
-        pos_cursor += len(w)
+        spans.append((cursor, cursor + len(w), w, p))
+        cursor += len(w)
     return spans
 
 
+def _extract_json(text: str):
+    text = text.strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text.strip())
+    return json.loads(text)
+
+
 def haiku_resegment_sentence(hanzi: str, logger: logging.Logger) -> list[tuple[str, str]]:
-    """ONE Haiku call, only used as a fallback when HanLP's segmentation
-    produced a word not in the target HSK level's vocab list. Asks Haiku
-    to segment the way a textbook teaches words individually -- e.g. 不是
-    should usually come back as 不 (AD) + 是 (VC) rather than one token,
-    since HSK1/2 teach the negation adverb and the copula separately.
-
-    If the API key is missing, or the response fails to parse, or Haiku's
-    reconstructed text doesn't match the original sentence character-for-
-    character (which would break the cache-diffing in
-    get_validated_segmentation and make the output untrustworthy), this
-    falls back to returning HanLP's own segmentation unchanged -- the
-    caller's revalidation step will then correctly drop the sentence
-    rather than tag it with something wrong."""
+    """HanLP fallback path only: ONE Haiku call to re-segment a sentence the
+    way a textbook teaches words individually (不是 -> 不 + 是). Falls back to
+    HanLP's own output if the call fails or doesn't reconstruct the text."""
     if client is None:
-        logger.warning("No CLAUDE_API_KEY configured -- cannot call Haiku for resegmentation, "
-                        "falling back to HanLP's own segmentation")
+        logger.warning("No CLAUDE_API_KEY -- cannot resegment, using HanLP's output")
         return segment_sentence(hanzi)
-
     prompt = (
         "Segment this Mandarin sentence into words the way a Chinese "
         "textbook teaches them individually -- for example 不是 should "
@@ -388,461 +284,496 @@ def haiku_resegment_sentence(hanzi: str, logger: logging.Logger) -> list[tuple[s
         "Respond with ONLY a JSON array, no other text: "
         '[{"word": "...", "pos": "..."}, ...]'
     )
-    response = client.messages.create(
-        model=HAIKU_MODEL, max_tokens=MAX_TOKENS_RESEGMENT,
-        messages=[{"role": "user", "content": prompt}],
-    )
+    response = client.messages.create(model=HAIKU_MODEL, max_tokens=MAX_TOKENS_RESEGMENT,
+                                      messages=[{"role": "user", "content": prompt}])
     text = "".join(b.text for b in response.content if hasattr(b, "text"))
     try:
-        data = _extract_json(text)
-        words_and_pos = [(item["word"], item["pos"]) for item in data]
+        words_and_pos = [(item["word"], item["pos"]) for item in _extract_json(text)]
     except Exception as e:
-        logger.warning(f"Failed to parse Haiku resegmentation response ({e!r}): {text!r} "
-                        f"-- falling back to HanLP's own segmentation")
+        logger.warning(f"Failed to parse Haiku resegmentation ({e!r}): {text!r} -- using HanLP's output")
         return segment_sentence(hanzi)
-
-    reconstructed = "".join(w for w, _ in words_and_pos)
-    if reconstructed != hanzi:
-        logger.warning(f"Haiku resegmentation text mismatch for {hanzi!r} -- got {reconstructed!r}, "
-                        f"falling back to HanLP's own segmentation")
+    if "".join(w for w, _ in words_and_pos) != hanzi:
+        logger.warning(f"Haiku resegmentation text mismatch for {hanzi!r} -- using HanLP's output")
         return segment_sentence(hanzi)
-
     return words_and_pos
 
 
-def _has_content(word: str) -> bool:
-    """Returns True if the word contains at least one Chinese character
-    or digit -- i.e., it's not pure punctuation/whitespace. Used to skip
-    validation of punctuation tokens against the vocab list."""
-    return bool(_CONTENT_RE.search(word))
-
-
-def get_validated_segmentation(db, sentence: Sentence, hsk_level: int, valid_vocab: set,
-                                seg_cache: dict, logger: logging.Logger) -> list[tuple[str, str]]:
-    """Returns the final (word, pos) segmentation for `sentence`. NEVER
-    drops a sentence -- a real textbook sentence is ground truth by
-    definition, so a word not yet in valid_vocab just means the printed
-    index (or an earlier sentence) hasn't taught it yet, not that the
-    sentence is unusable. resolve_word_sense (downstream, in
-    tag_sentence) registers any such word as a brand new VocabSense.
-
-    valid_vocab is still used to trigger the Haiku fallback below -- that
-    fallback's real purpose is catching HanLP over-gluing a real compound
-    the textbook teaches as separate words (the canonical example: 不是,
-    which HanLP keeps as one token but HSK1/2 teach 不 and 是 separately).
-    Whatever comes out the other end is accepted as final, whether or not
-    it ends up matching valid_vocab.
-
-    1. Run HanLP as always. If every non-NUM, content-bearing word is
-       already in valid_vocab, done -- the common case, no extra cost.
-    2. Otherwise, for each out-of-vocab word: check seg_cache for a
-       previously-learned replacement first.
-    3. If every out-of-vocab word has a cache hit, splice the cached
-       replacements in directly -- ZERO Haiku calls.
-    4. If any out-of-vocab word is uncached, make ONE Haiku call to
-       re-segment the WHOLE sentence (cheaper than one call per word, and
-       gives Haiku full sentence context), then best-effort diff its
-       output against HanLP's to learn a reusable replacement for each
-       originally-invalid word (written into seg_cache).
-    5. Whatever segmentation results from 1-4 is FINAL. Any word still
-       not in valid_vocab is simply new vocabulary -- logged, not dropped.
-    """
-    hanzi = sentence.hanzi
+def get_validated_segmentation(hanzi: str, valid_vocab: set, seg_cache: dict,
+                               logger: logging.Logger) -> list[tuple[str, str]]:
+    """HanLP fallback path (sentences with no dataset tokens): HanLP output,
+    checked against the vocab list; out-of-list words trigger a cached or
+    Haiku re-segmentation. Never drops a sentence."""
     hanlp_words = segment_sentence(hanzi)
     invalid = [(w, p) for w, p in hanlp_words
                if p != "NUM" and _has_content(w) and w not in valid_vocab]
-
     if not invalid:
         logger.info(f"OK        hanlp-valid   {hanzi!r} -> {hanlp_words}")
         return hanlp_words
 
-    logger.info(f"FALLBACK  {hanzi!r} -- hanlp produced word(s) not yet in the vocab list "
-                f"(checking for an over-glued compound before accepting): {[w for w, _ in invalid]}")
-
+    logger.info(f"FALLBACK  {hanzi!r} -- out-of-list word(s): {[w for w, _ in invalid]}")
     cache_misses = [(w, p) for w, p in invalid if (w, p) not in seg_cache]
-
     if not cache_misses:
         final_words = []
         for w, p in hanlp_words:
-            replacement = seg_cache.get((w, p))
-            final_words.extend(replacement if replacement is not None else [(w, p)])
-        logger.info(f"  CACHE-ONLY resegmentation for {hanzi!r} -> {final_words}")
+            final_words.extend(seg_cache.get((w, p)) or [(w, p)])
+        logger.info(f"  CACHE-ONLY resegmentation -> {final_words}")
     else:
         logger.warning(f"  HAIKU resegment call for {hanzi!r} (cache miss on {cache_misses})")
-        # Split numeral runs out of Haiku's tokens BEFORE learning cache
-        # replacements from them, so a date/count blob never gets cached
-        # (or registered) as if it were a word.
         haiku_words = split_numeral_tokens(haiku_resegment_sentence(hanzi, logger))
-        logger.info(f"  HAIKU result for {hanzi!r} -> {haiku_words}")
-
-        # Best-effort: learn a reusable replacement for each originally-
-        # invalid word by diffing character spans between the two
-        # segmentations. Only attempted if both reconstruct the exact
-        # same string (haiku_resegment_sentence already guarantees this
-        # for its own output, but we re-check here since this branch may
-        # also run after a fallback-to-HanLP inside that function, in
-        # which case hanlp_words == haiku_words and there's nothing to
-        # learn).
         if "".join(w for w, _ in hanlp_words) == "".join(w for w, _ in haiku_words):
-            hanlp_spans = _char_spans(hanlp_words)
             haiku_spans = _char_spans(haiku_words)
             for w, p in cache_misses:
-                for (s, e, ww, pp) in hanlp_spans:
+                for (s, e, ww, pp) in _char_spans(hanlp_words):
                     if (ww, pp) == (w, p):
-                        replacement = [
-                            (hw, hp) for (hs, he, hw, hp) in haiku_spans
-                            if hs < e and he > s
-                        ]
+                        replacement = [(hw, hp) for (hs, he, hw, hp) in haiku_spans if hs < e and he > s]
                         if replacement and replacement != [(w, p)]:
                             seg_cache[(w, p)] = replacement
                             logger.info(f"  CACHE WRITE  ({w}, {p}) -> {replacement}")
                         break
-        else:
-            logger.warning(f"  Haiku resegmentation degraded to HanLP's own output for {hanzi!r} "
-                            f"-- nothing new to cache")
-
         final_words = haiku_words
-
-    # Catch-all: cache replacements learned before split_numeral_tokens
-    # existed may still contain a numeral blob -- re-split on the way out.
-    final_words = split_numeral_tokens(final_words)
-
-    still_new = [(w, p) for w, p in final_words
-                 if p != "NUM" and _has_content(w) and w not in valid_vocab]
-    if still_new:
-        logger.info(f"NEW-VOCAB {hanzi!r} -- word(s) not previously taught, will be registered: "
-                    f"{[w for w, _ in still_new]}")
-
-    logger.info(f"RESOLVED  {hanzi!r} -> {final_words}")
-    return final_words
+    return split_numeral_tokens(final_words)
 
 
-# --------------------------------- AI-ASSISTED SENSE RESOLUTION ---------------------------------
+# --------------------------------- READINGS ---------------------------------
 
-def _extract_json(text: str) -> dict:
-    text = text.strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text.strip())
-    return json.loads(text)
+def citation_reading(word: str) -> str:
+    """pypinyin fallback: numeric CITATION tones, no tone sandhi, neutral = 5."""
+    return " ".join(lazy_pinyin(word, style=Style.TONE3, neutral_tone_with_five=True))
 
 
-def haiku_write_definition(hanzi: str, pos_tag: str, pinyin: str, sentence: str) -> dict:
-    """ONE call, only for a word with NO existing senses at all. Writes a
-    definition grounded in the actual sentence it was found in -- this is
-    the ONLY place in the entire pipeline a brand-new VocabSense gets
-    invented, and it always has real sentence evidence behind it (unlike
-    the old append_orphan_tags.py, which invented senses from bare index
-    membership with no sentence at all)."""
+def dataset_reading(pinyin: str) -> str | None:
+    """Dataset token pinyin ("gāo xìng", "diǎnr", "le") -> numeric citation
+    tones ("gao1 xing4", "dianr3", "le5")."""
+    if not pinyin or not pinyin.strip():
+        return None
+    return " ".join(to_tone3(sy, neutral_tone_with_five=True) for sy in pinyin.split())
+
+
+def compact(reading: str) -> str:
+    """"gao1 xing4" -> "gao1xing4": the stored pinyin format (matches the
+    vocab rows and the old tagger)."""
+    return reading.replace(" ", "")
+
+
+# --------------------------------- WORD SPLIT ---------------------------------
+
+def split_into_list_words(word: str, valid_vocab: set) -> list[str] | None:
+    """Split an out-of-list token into 2+ list words, trying every split (so
+    结果实 -> 结 + 果实, which longest-first would miss) and keeping the one
+    with the fewest pieces. None if no split uses only list words."""
+    best = {0: []}
+    for i in range(1, len(word) + 1):
+        options = [best[j] + [word[j:i]] for j in range(i) if j in best and word[j:i] in valid_vocab]
+        if options:
+            best[i] = min(options, key=len)
+    pieces = best.get(len(word))
+    return pieces if pieces and len(pieces) > 1 else None
+
+
+def _split_reading(reading: str | None, pieces: list[str]) -> list[str | None]:
+    """Shares a token's reading out among its pieces when there is one
+    syllable per character; otherwise each piece falls back to pypinyin."""
+    sylls = reading.split() if reading else []
+    if len(sylls) != sum(len(p) for p in pieces):
+        return [None] * len(pieces)
+    out, k = [], 0
+    for p in pieces:
+        out.append(" ".join(sylls[k:k + len(p)]))
+        k += len(p)
+    return out
+
+
+MAX_MERGE = 4  # tokens
+
+
+def merge_lower_level_words(words: list[dict], levels: dict, stats: Counter,
+                            merges_log: list, hanzi: str) -> list[dict]:
+    """Joins adjacent words that together form a list word at a LOWER level
+    than their highest piece: the dataset splits 不客气 (HSK 1) into 不 + 客气
+    (客气 is HSK 5), which would make 谢谢你！不客气。 an HSK 5 sentence.
+    Joining only when it lowers the level keeps 在 + 家 (both HSK 1) apart,
+    so 在 stays a preposition for grammar detection. Longest join first."""
+    out, i = [], 0
+    while i < len(words):
+        for n in range(min(MAX_MERGE, len(words) - i), 1, -1):
+            span = words[i:i + n]
+            joined = "".join(w["word"] for w in span)
+            joined_level = levels.get(joined)
+            piece_levels = [levels.get(w["word"]) or 99 for w in span]
+            if joined_level is not None and joined_level < max(piece_levels):
+                readings = [w["reading"] for w in span]
+                out.append({"word": joined, "gloss": "",
+                            "reading": " ".join(readings) if all(readings) else None})
+                stats["adjacent words joined into a lower-level list word"] += 1
+                merges_log.append((" + ".join(w["word"] for w in span), joined, hanzi))
+                i += n
+                break
+        else:
+            out.append(words[i])
+            i += 1
+    return out
+
+
+def words_from_dataset(sentence: Sentence, valid_vocab: set, stats: Counter,
+                       splits_log: list) -> list[dict] | None:
+    """The dataset's word split for this sentence as
+    [{"word", "reading", "gloss"}], with out-of-list compounds split into
+    list words. None if the sentence has no usable dataset tokens."""
+    if not sentence.external_id:
+        return None
+    tokens = hsa_source.tokens(sentence.external_id)
+    if not tokens or "".join(t["word"] for t in tokens) != "".join(re.findall(r"[一-鿿]", sentence.hanzi)):
+        return None
+    out = []
+    for t in tokens:
+        word, reading = t["word"], dataset_reading(t.get("pinyin"))
+        gloss = (t.get("gloss_en") or "").strip()
+        pieces = None if word in valid_vocab else split_into_list_words(word, valid_vocab)
+        if pieces:
+            stats["out-of-list token split into list words"] += 1
+            splits_log.append((word, pieces, sentence.hanzi))
+            for piece, piece_reading in zip(pieces, _split_reading(reading, pieces)):
+                out.append({"word": piece, "reading": piece_reading, "gloss": ""})
+        else:
+            out.append({"word": word, "reading": reading, "gloss": gloss})
+    return out
+
+
+# --------------------------------- AI CALLS ---------------------------------
+
+def haiku_write_definition(hanzi: str, pos_tag: str, pinyin: str, sentence: str) -> str:
+    """ONE call, only for a word that is neither in the list nor has a
+    dataset gloss. Definition grounded in the sentence."""
+    if client is None:
+        return "UNKNOWN_ENGLISH"
     prompt = (
-        f"A Mandarin textbook pipeline found the word \"{hanzi}\" (POS tag: {pos_tag}, "
+        f"A Mandarin learning app found the word \"{hanzi}\" (POS tag: {pos_tag}, "
         f"pinyin: {pinyin}) in this sentence:\n\n{sentence}\n\n"
         f"Write a concise English definition for \"{hanzi}\" AS USED IN THIS SENTENCE. "
         f"Respond with ONLY a JSON object, no other text: "
         f'{{"english": "<definition>"}}'
     )
-    if client is None:
-        return {"english": "UNKNOWN_ENGLISH"}
-    response = client.messages.create(
-        model=HAIKU_MODEL, max_tokens=MAX_TOKENS_DEFINITION,
-        messages=[{"role": "user", "content": prompt}],
-    )
+    response = client.messages.create(model=HAIKU_MODEL, max_tokens=MAX_TOKENS_DEFINITION,
+                                      messages=[{"role": "user", "content": prompt}])
     text = "".join(b.text for b in response.content if hasattr(b, "text"))
     try:
-        data = _extract_json(text)
-        return {"english": (data.get("english") or "UNKNOWN_ENGLISH").strip()}
+        return (_extract_json(text).get("english") or "UNKNOWN_ENGLISH").strip()
     except Exception:
-        return {"english": "UNKNOWN_ENGLISH"}
+        return "UNKNOWN_ENGLISH"
 
 
-def haiku_compare_senses(hanzi: str, candidate_senses: list, sentence: str) -> dict:
-    """ONE call, only when a word has existing senses but none share this
-    exact (pos_tag, pinyin) combo already cached. Asks Claude to judge
-    whether the word AS USED IN THIS SENTENCE matches one of the
-    candidates' meanings, or is genuinely a new meaning. Returns either
-    {"match": <candidate index>} or {"match": null, "english": "<new def>"}.
-    """
-    candidates_text = "\n".join(
-        f"{i}. {s.english} (pinyin: {s.pinyin}, POS: {s.word_type.value if hasattr(s.word_type,'value') else s.word_type})"
-        for i, s in enumerate(candidate_senses)
-    )
+def haiku_choose_meaning(hanzi: str, pos_tag: str, reading: str, sentence: Sentence,
+                         candidates: list[dict], logger: logging.Logger) -> dict:
+    """ONE call: which of the numbered dictionary meanings does this sentence
+    use? Returns {"choice": i} or {"choice": None, "english": ..., "reason": ...}.
+    Strongly steered toward choosing an existing meaning."""
+    listing = "\n".join(f"{i}. {c['english']}  [{c['pinyin']}]" for i, c in enumerate(candidates))
     prompt = (
-        f"The Mandarin word \"{hanzi}\" was found in this sentence:\n\n{sentence}\n\n"
-        f"Existing known meanings of \"{hanzi}\":\n{candidates_text}\n\n"
-        f"Does this sentence use \"{hanzi}\" with ONE of the meanings above, or a "
-        f"DIFFERENT meaning not yet recorded? Respond with ONLY a JSON object, no "
-        f"other text. If it matches an existing meaning: "
-        f'{{"match": <index number>}}. If it is a new/different meaning: '
-        f'{{"match": null, "english": "<concise definition as used here>"}}'
+        f"Which dictionary meaning does the word \"{hanzi}\" have in this Mandarin sentence?\n\n"
+        f"Sentence: {sentence.hanzi}\n"
+        f"English translation: {sentence.english or '(none)'}\n"
+        f"Word: {hanzi} (pinyin: {reading}, part-of-speech tag: {pos_tag})\n\n"
+        f"Dictionary meanings:\n{listing}\n\n"
+        "Choose the number of the meaning that fits best. The list is the source of truth: "
+        "choose a meaning even if its wording is broader, narrower or more formal than the "
+        "sentence. Answer null ONLY if none of the meanings could possibly describe this "
+        "use of the word.\n"
+        "Respond with ONLY a JSON object, no other text. Either "
+        '{"choice": <number>} or '
+        '{"choice": null, "reason": "<why none fits>", "english": "<concise definition as used here>"}'
     )
-    if client is None:
-        return {"match": 0 if candidate_senses else None, "english": "UNKNOWN_ENGLISH"}
-    response = client.messages.create(
-        model=HAIKU_MODEL, max_tokens=MAX_TOKENS_COMPARE,
-        messages=[{"role": "user", "content": prompt}],
-    )
+    response = client.messages.create(model=HAIKU_MODEL, max_tokens=MAX_TOKENS_CHOOSE,
+                                      messages=[{"role": "user", "content": prompt}])
     text = "".join(b.text for b in response.content if hasattr(b, "text"))
     try:
-        return _extract_json(text)
-    except Exception:
-        # default to "same as nearest" on parse failure -- safer than
-        # silently minting a duplicate sense from a malformed AI response
-        return {"match": 0}
+        result = _extract_json(text)
+        choice = result.get("choice")
+        if choice is None:
+            if (result.get("english") or "").strip() and (result.get("reason") or "").strip():
+                return {"choice": None, "english": result["english"].strip(), "reason": result["reason"].strip()}
+            logger.warning(f"  Haiku answered 'none' without a reason/definition for {hanzi} -- using meaning 0")
+            return {"choice": 0}
+        choice = int(choice)
+        if 0 <= choice < len(candidates):
+            return {"choice": choice}
+        logger.warning(f"  Haiku chose out-of-range {choice} for {hanzi} -- using meaning 0")
+    except Exception as e:
+        logger.warning(f"  Could not parse Haiku choice for {hanzi} ({e!r}): {text!r} -- using meaning 0")
+    # Safer than minting a new sense from a malformed answer.
+    return {"choice": 0}
 
 
-def resolve_word_sense(db, hanzi: str, pos_tag: str, sentence: str,
-                        unit_number: int, hsk_level: int, logger: logging.Logger) -> "VocabSense":
-    """The full per-word resolution pipeline described in the module
-    docstring. Returns the VocabSense this occurrence should link to,
-    rehomed earlier if this sentence predates the sense's current home.
+# --------------------------------- SENSE RESOLUTION ---------------------------------
 
-    By the time this is called, `hanzi` has already passed the HSK vocab
-    list gate in get_validated_segmentation -- this function no longer
-    needs to (and does not) do its own vocab-list check.
+class Run:
+    """Per-run state shared by every sentence."""
+    def __init__(self, logger, entries, valid_vocab, seg_cache, estimate):
+        self.logger = logger
+        self.entries = entries
+        self.valid_vocab = valid_vocab
+        self.seg_cache = seg_cache
+        self.estimate = estimate
+        self.stats = Counter()
+        self.ai_added = []        # (hanzi, english, reason, sentence)
+        self.non_list = []        # (hanzi, kind, english, sentence)
+        self.splits = []          # (token, pieces, sentence)
+        self.merges = []          # (pieces, joined word, sentence)
+        self.levels = {w: hvs.level_of(e) for w, e in entries.items()}
+        self.errors = []
 
-    Every NEW sense this function creates (branches 2 and 4 below) is
-    stamped origin=VocabOrigin.textbook_sentence -- there is no other
-    origin a sense minted here could legitimately have, since arriving
-    here at all means the word was found in a sentence, not the printed
-    index (that's vocab_index_parser.py's job, upstream of this script)."""
-    pinyin = get_reading_for_word(hanzi)
 
-    # 1. cache hit -- zero AI calls
-    sense = get_cached_sense(db, hanzi, pos_tag, pinyin)
+def resolve_listed_word(db, run: Run, vocab: Vocab, pos_tag: str, reading: str,
+                        sentence: Sentence):
+    """Steps 1-5 of SENSE RESOLUTION (module docstring) for an HSK-list word."""
+    hanzi, log = vocab.hanzi, run.logger
 
+    sense = get_cached_sense(db, hanzi, pos_tag, reading)
     if sense is not None:
-        logger.info(f"  SENSE cache-hit  {hanzi} ({pos_tag}, {pinyin})")
+        run.stats["sense: cache hit"] += 1
+        return sense
+
+    entry = run.entries[hanzi]
+    forms = hvs.match_forms(entry, reading)
+    if not forms:
+        run.stats["reading matched no form (all forms offered)"] += 1
+        log.info(f"  READING  {hanzi} {reading!r} matches no form -- offering every form")
+        forms = list(range(len(entry["forms"])))
+
+    reuse = [s for s in get_senses_for_vocab(db, hanzi)
+             if s.pos_tag == pos_tag and s.form_index in forms]
+    if reuse:
+        sense = reuse[0]
+        run.stats["sense: reused (same POS + reading)"] += 1
     else:
-        existing_senses = get_senses_for_vocab(db, hanzi)
-
-        if not existing_senses:
-            # 2. brand new word -- one Haiku call, grounded in this sentence
-            definition = haiku_write_definition(hanzi, pos_tag, pinyin, sentence)
-            sense = upsert_vocab_sense(
-                db, hanzi, pinyin, definition["english"], unit_number,
-                word_type=WordType.vocab, hsk_level=hsk_level, make_primary=True,
-                origin=VocabOrigin.textbook_sentence,
-            )
-            sense.pos_tag = pos_tag
-            db.flush()
-            logger.info(f"  SENSE new-word   {hanzi} ({pos_tag}, {pinyin}) -> "
-                        f"\"{definition['english']}\" (unit {unit_number})")
+        candidates = hvs.candidates(entry, forms)
+        if len(candidates) == 1:
+            chosen = candidates[0]
+            run.stats["sense: only one meaning"] += 1
+        elif run.estimate:
+            chosen = candidates[0]
+            run.stats["sense: AI call needed"] += 1
         else:
-            # 3. backfill path -- an existing sense already has this exact
-            # (pos_tag, pinyin), it just predates pos_tag being tracked /
-            # predates this exact combo being cached
-            pos_pinyin_matches = get_senses_matching_pos_pinyin(db, hanzi, pos_tag, pinyin)
-            if pos_pinyin_matches:
-                sense = pos_pinyin_matches[0]
-                logger.info(f"  SENSE backfill   {hanzi} ({pos_tag}, {pinyin}) -> existing sense id={sense.id}")
-            else:
-                # 4. genuinely ambiguous -- one Haiku call against the
-                # nearest existing sense(s)
-                nearest = get_nearest_sense(db, hanzi, unit_number, hsk_level)
-                candidates = [nearest] if nearest else existing_senses[:1]
-                result = haiku_compare_senses(hanzi, candidates, sentence)
-                match_idx = result.get("match")
-                if match_idx is not None and 0 <= match_idx < len(candidates):
-                    sense = candidates[match_idx]
-                    logger.info(f"  SENSE ambiguous  {hanzi} ({pos_tag}, {pinyin}) -> matched existing sense id={sense.id}")
-                else:
-                    english = result.get("english") or "UNKNOWN_ENGLISH"
-                    sense = upsert_vocab_sense(
-                        db, hanzi, pinyin, english, unit_number,
-                        word_type=WordType.vocab, hsk_level=hsk_level, make_primary=False,
-                        origin=VocabOrigin.textbook_sentence,
-                    )
-                    sense.pos_tag = pos_tag
-                    db.flush()
-                    logger.info(f"  SENSE new-sense  {hanzi} ({pos_tag}, {pinyin}) -> "
-                                f"\"{english}\" (new sense, unit {unit_number})")
+            run.stats["sense: AI call"] += 1
+            result = haiku_choose_meaning(hanzi, pos_tag, reading, sentence, candidates, log)
+            if result["choice"] is None:
+                run.stats["sense: AI added a new meaning"] += 1
+                run.ai_added.append((hanzi, result["english"], result["reason"], sentence.hanzi))
+                log.warning(f"  AI-ADDED  {hanzi} ({pos_tag}, {reading}) -> {result['english']!r} "
+                            f"-- {result['reason']}")
+                sense = upsert_vocab_sense(
+                    db, vocab, pinyin=compact(hvs.numeric(entry["forms"][forms[0]])),
+                    english=result["english"], origin=VocabOrigin.ai_added,
+                    word_type=vocab.word_type, pos_tag=pos_tag, form_index=forms[0],
+                )
+                write_sense_cache(db, hanzi, pos_tag, reading, sense)
+                return sense
+            chosen = candidates[result["choice"]]
+        sense = upsert_vocab_sense(
+            db, vocab, pinyin=compact(chosen["pinyin"]), english=chosen["english"],
+            origin=VocabOrigin.hsk_list, word_type=vocab.word_type, pos_tag=pos_tag,
+            form_index=chosen["form_index"], meaning_index=chosen["meaning_index"],
+        )
+        log.info(f"  SENSE    {hanzi} ({pos_tag}, {reading}) -> [{chosen['form_index']}.{chosen['meaning_index']}] "
+                 f"{chosen['english']!r}")
 
-        write_sense_cache(db, hanzi, pos_tag, pinyin, sense)
-
-    # 5. rehome earlier if this sentence predates the sense's current home
-    # (no-ops if it isn't actually earlier -- see rehome_sense docstring)
-    prior_unit = sense.unit.unit_number if sense.unit else None
-    rehome_sense(db, sense, unit_number, hsk_level)
-    new_unit = sense.unit.unit_number if sense.unit else None
-    if prior_unit != new_unit:
-        logger.info(f"  REHOME  {hanzi} sense id={sense.id}: unit {prior_unit} -> {new_unit}")
+    write_sense_cache(db, hanzi, pos_tag, reading, sense)
     return sense
 
 
-# --------------------------------- MAIN ---------------------------------
-
-def get_sentences_to_tag(db, hsk_level: int, unit_number: int | None, retag: bool) -> list[Sentence]:
-    from app.textbook.models import Unit
-    q = db.query(Sentence).join(Unit, Sentence.unit_id == Unit.id).filter(Unit.hsk_level == hsk_level)
-    if unit_number is not None:
-        q = q.filter(Unit.unit_number == unit_number)
-    sentences = q.all()
-    if retag:
-        return sentences
-    # only untagged sentences: zero SentenceVocab rows
-    return [s for s in sentences if not s.vocab_links]
+def looks_like_name(gloss: str) -> bool:
+    """Backs up the tagger's NR (proper noun) tag, which is sometimes wrong
+    (棉衣 "cotton-padded clothes"): a name's dictionary text starts with a
+    capital letter or says "surname". No gloss -> trust the tag."""
+    if not gloss:
+        return True
+    return gloss[:1].isupper() or "surname" in gloss.lower()
 
 
-def tag_sentence(db, sentence: Sentence, hsk_level: int, valid_vocab: set,
-                  seg_cache: dict, logger: logging.Logger, new_vocab_log: list) -> int:
-    """Tags one sentence, returns the number of tag occurrences resolved.
-    Also fills in Sentence.pinyin (left blank by sentence_parser.py) by
-    joining each resolved tag's own reading.
+def resolve_non_list_word(db, run: Run, word: str, pos_tag: str, reading: str,
+                          gloss: str, sentence: Sentence):
+    """A word outside the HSK list: proper noun or unlisted word. Kept."""
+    is_name = pos_tag in PROPER_NOUN_POS and looks_like_name(gloss)
+    if is_name:
+        word_type, origin = WordType.proper_noun, VocabOrigin.proper_noun
+        english = f"(name) {gloss}" if gloss else f"(name) {compact(reading)}"
+    else:
+        word_type, origin = WordType.auto, VocabOrigin.unlisted
+        english = gloss
+        if not english:
+            if run.estimate:
+                run.stats["unlisted: AI definition needed"] += 1
+                english = "UNKNOWN_ENGLISH"
+            else:
+                run.stats["unlisted: AI definition"] += 1
+                english = haiku_write_definition(word, pos_tag, reading, sentence.hanzi)
+                origin = VocabOrigin.ai_added
+                run.ai_added.append((word, english, "word not in the HSK list and no dataset gloss",
+                                     sentence.hanzi))
 
-    NO TEXTBOOK SENTENCE IS EVER DROPPED. A word not already in
-    valid_vocab is registered as a brand-new VocabSense via
-    resolve_word_sense (origin=textbook_sentence) instead of causing the
-    sentence to be skipped -- the printed index or an earlier sentence
-    simply hadn't taught it yet. valid_vocab is updated in place as new
-    words are registered so later sentences IN THIS SAME RUN that reuse
-    the word are recognized immediately (no repeat Haiku fallback).
+    vocab = get_or_create_vocab(db, word, word_type=word_type, origin=origin,
+                                pinyin=compact(reading), english=english)
+    sense = get_cached_sense(db, word, pos_tag, reading)
+    if sense is None:
+        existing = get_senses_for_vocab(db, word)
+        sense = existing[0] if existing else upsert_vocab_sense(
+            db, vocab, pinyin=compact(reading), english=english, origin=origin,
+            word_type=word_type, pos_tag=pos_tag)
+        write_sense_cache(db, word, pos_tag, reading, sense)
+        if not existing:
+            run.stats["proper noun added" if is_name else "unlisted word added"] += 1
+            run.non_list.append((word, "proper noun" if is_name else "unlisted", english, sentence.hanzi))
+            run.logger.info(f"  NON-LIST {word} ({pos_tag}) -> {english!r} [{origin.value}]")
+    return vocab, sense
 
-    Tokens tagged "NUM" by segment_sentence (numeral runs -- dates, ages,
-    counts, durations) are NEVER registered as vocabulary: no
-    get_or_create_vocab, no resolve_word_sense, no SentenceVocab row.
-    Punctuation and whitespace (words with no Chinese characters or digits)
-    are also NEVER registered as vocabulary.
-    These non-vocabulary tokens are still included in the sentence's pinyin
-    (via pypinyin), and since they're simply absent from the SentenceVocab
-    tag list, the frontend (ClickableText) naturally renders them as plain
-    non-clickable text."""
-    unit_number = sentence.unit.unit_number
-    words_and_pos = get_validated_segmentation(
-        db, sentence, hsk_level, valid_vocab, seg_cache, logger,
-    )
 
-    resolved_tags = []
-    readings = []
-    for word, pos_tag in words_and_pos:
-        if pos_tag == "NUM":
-            readings.append(get_reading_for_word(word))
-            continue
-        # Skip punctuation and whitespace (no Chinese chars or digits)
+# --------------------------------- TAGGING ---------------------------------
+
+def tag_sentence(db, run: Run, sentence: Sentence) -> int:
+    """Tags one sentence and sets its level. Returns the number of tags."""
+    words = words_from_dataset(sentence, run.valid_vocab, run.stats, run.splits)
+    if words is not None:
+        words = merge_lower_level_words(words, run.levels, run.stats, run.merges, sentence.hanzi)
+        tags = tag_pos([w["word"] for w in words])
+        for w, t in zip(words, tags):
+            w["pos"] = t
+        run.stats["sentences: dataset word split"] += 1
+    else:
+        words = [{"word": w, "pos": p, "reading": None, "gloss": ""}
+                 for w, p in get_validated_segmentation(sentence.hanzi, run.valid_vocab,
+                                                        run.seg_cache, run.logger)]
+        run.stats["sentences: HanLP word split"] += 1
+
+    resolved, readings = [], []
+    for w in words:
+        word, pos_tag = w["word"], w["pos"]
         if not _has_content(word):
-            logger.info(f"  SKIP      punctuation/whitespace: {word!r}")
             continue
-        is_new_word = word not in valid_vocab
-        vocab = get_or_create_vocab(db, word)
-        sense = resolve_word_sense(db, word, pos_tag, sentence.hanzi, unit_number, hsk_level, logger)
-        if is_new_word:
-            valid_vocab.add(word)
-            new_vocab_log.append({
-                "hanzi": word, "unit": unit_number, "sentence": sentence.hanzi,
-            })
-        resolved_tags.append((vocab.id, sense.id if sense else None))
-        readings.append(sense.pinyin if sense and sense.pinyin else get_reading_for_word(word))
+        reading = w["reading"] or citation_reading(word)
+        is_listed = word in run.valid_vocab
+        if pos_tag == "NUM" or (not is_listed and _NUMERAL_ONLY_RE.match(word)
+                                and word not in _NUMERAL_LOOKING_FIXED_WORDS):
+            readings.append(compact(reading))   # numbers: read aloud, never vocabulary
+            continue
+        if is_listed:
+            vocab = db.query(Vocab).filter(Vocab.hanzi == word).one()
+            sense = resolve_listed_word(db, run, vocab, pos_tag, reading, sentence)
+        else:
+            vocab, sense = resolve_non_list_word(db, run, word, pos_tag, reading, w["gloss"], sentence)
+        resolved.append((vocab.id, sense.id if sense else None))
+        readings.append(compact(reading))
 
-    set_sentence_tags(db, sentence, resolved_tags)
+    set_sentence_tags(db, sentence, resolved)
+    # Citation pinyin for now; the finalize stage rewrites it with tone sandhi.
     sentence.pinyin = " ".join(readings)
-    db.flush()
-    logger.info(f"TAGGED    {sentence.hanzi!r} ({len(resolved_tags)} tags)")
-    return len(resolved_tags)
+    level = set_sentence_level(db, sentence)
+    run.stats[f"sentence level {level}"] += 1
+    run.logger.info(f"TAGGED    {sentence.hanzi!r} (level {level}, {len(resolved)} tags)")
+    return len(resolved)
+
+
+def write_summary(run: Run, n_sentences: int, total_tags: int, elapsed: float, log_path: str):
+    log = run.logger
+    log.info("")
+    log.info("=" * 80)
+    log.info(f"SUMMARY  {n_sentences} sentence(s), {total_tags} tag(s), {elapsed:.0f}s"
+             f"{'  [ESTIMATE: nothing written]' if run.estimate else ''}")
+    log.info("=" * 80)
+    for k, v in sorted(run.stats.items()):
+        log.info(f"  {k}: {v}")
+    log.info("")
+    log.info("=" * 80)
+    log.info(f"AI-ADDED MEANINGS ({len(run.ai_added)}) -- review these")
+    log.info("=" * 80)
+    for hanzi, english, reason, s in run.ai_added:
+        log.info(f"  {hanzi}: {english!r}  -- {reason}  -- e.g. {s}")
+    log.info("")
+    log.info("=" * 80)
+    log.info(f"WORDS NOT IN THE HSK LIST ({len(run.non_list)})")
+    log.info("=" * 80)
+    for word, kind, english, s in run.non_list:
+        log.info(f"  [{kind}] {word}: {english!r}  -- first seen in {s}")
+    log.info("")
+    log.info("=" * 80)
+    log.info(f"OUT-OF-LIST TOKENS SPLIT INTO LIST WORDS ({len(run.splits)})")
+    log.info("=" * 80)
+    for token, pieces, s in run.splits:
+        log.info(f"  {token} -> {' + '.join(pieces)}  -- in {s}")
+    log.info("")
+    log.info("=" * 80)
+    log.info(f"ADJACENT WORDS JOINED INTO A LOWER-LEVEL LIST WORD ({len(run.merges)})")
+    log.info("=" * 80)
+    for pieces, joined, s in run.merges:
+        log.info(f"  {pieces} -> {joined}  -- in {s}")
+    if run.errors:
+        log.info("")
+        log.info(f"ERRORS ({len(run.errors)})")
+        for e in run.errors:
+            log.info(f"  - {e}")
+
+    print("")
+    print(f"{'Estimated' if run.estimate else 'Tagged'} {n_sentences} sentence(s), {total_tags} tag(s) "
+          f"in {elapsed:.0f}s.")
+    for k, v in sorted(run.stats.items()):
+        print(f"  {k}: {v}")
+    if run.ai_added:
+        print(f"  {len(run.ai_added)} AI-added meaning(s) to review -- listed in the log")
+    if run.errors:
+        print(f"  {len(run.errors)} error(s) -- listed in the log")
+    print(f"Full log: {log_path}")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Tag sentences with HanLP segmentation + AI-assisted sense resolution.")
-    parser.add_argument("--unit", type=int, default=None, help="Only tag sentences in this unit number.")
-    parser.add_argument("--retag", action="store_true", help="Re-tag sentences that already have tags.")
+    parser = argparse.ArgumentParser(description="Tag sentences: words, POS, senses, level.")
+    parser.add_argument("--limit", type=int, default=None, help="Only tag the first N untagged sentences.")
+    parser.add_argument("--retag", action="store_true", help="Re-tag every sentence, not only untagged ones.")
+    parser.add_argument("--estimate", action="store_true",
+                        help="Run without AI calls and roll everything back; reports how many AI calls a real run needs.")
     args = parser.parse_args()
 
-    logger, log_path = setup_logging(HSK_LEVEL)
+    if client is None and not args.estimate:
+        raise SystemExit("CLAUDE_API_KEY is not set. Without it, ambiguous words can't be resolved and "
+                         "a wrong meaning would be saved and cached. Set the key, or use --estimate.")
+
+    logger, log_path = setup_logging()
     seg_cache = load_segmentation_cache()
-    logger.info(f"Loaded segmentation cache: {len(seg_cache)} entr{'y' if len(seg_cache)==1 else 'ies'}")
-    new_vocab_log: list = []
-    run_errors: list = []
+    entries = hvs.load_entries(str(VOCAB_PATH))
+    t0 = time.time()
 
     init_db()
     with get_session() as db:
-        valid_vocab = get_valid_vocab_set(db, HSK_LEVEL)
-        logger.info(f"Valid vocab set for HSK<={HSK_LEVEL}: {len(valid_vocab)} words")
+        valid_vocab = get_vocab_hanzi_through_level(db, ALL_LEVELS)
+        if not valid_vocab:
+            raise RuntimeError("No HSK-list words in the DB -- run load_hsk_lists.py first.")
+        run = Run(logger, entries, valid_vocab, seg_cache, args.estimate)
 
-        sentences = get_sentences_to_tag(db, HSK_LEVEL, args.unit, args.retag)
-        print(f"Tagging {len(sentences)} sentence(s) in HSK level {HSK_LEVEL}"
-              f"{f' (unit {args.unit})' if args.unit else ''}...")
+        if args.retag:
+            sentences = db.query(Sentence).order_by(Sentence.id).all()
+            if args.limit:
+                sentences = sentences[:args.limit]
+        else:
+            sentences = get_untagged_sentences(db, limit=args.limit)
+        print(f"{'Estimating' if args.estimate else 'Tagging'} {len(sentences)} sentence(s)...")
 
         total_tags = 0
         for i, sentence in enumerate(sentences, 1):
             try:
-                n = tag_sentence(db, sentence, HSK_LEVEL, valid_vocab, seg_cache, logger, new_vocab_log)
-                total_tags += n
+                with db.begin_nested():
+                    total_tags += tag_sentence(db, run, sentence)
             except Exception as e:
-                error_msg = f"Error tagging sentence {i}: {e}"
-                logger.error(error_msg)
-                run_errors.append(error_msg)
-            if i % 25 == 0:
+                msg = f"sentence {sentence.id} {sentence.hanzi!r}: {e!r}"
+                logger.error(msg)
+                run.errors.append(msg)
+            if i % COMMIT_EVERY == 0:
+                if not args.estimate:
+                    db.commit()
                 print(f"  ...{i}/{len(sentences)}")
 
-        save_segmentation_cache(seg_cache)
-
-        # --- RESTRUCTURED END-OF-RUN SUMMARY FOR CLARITY ---
-        # Write to file with clear sections in the requested order
-        
-        logger.info("")
-        logger.info("=" * 80)
-        logger.info("SUMMARY: RUNTIME INFORMATION")
-        logger.info("=" * 80)
-        run_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        logger.info(f"Run completed at: {run_time}")
-        logger.info(f"HSK Level: {HSK_LEVEL}")
-        if args.unit:
-            logger.info(f"Unit filter: {args.unit}")
-        if run_errors:
-            logger.info(f"Errors encountered: {len(run_errors)}")
-            for err in run_errors:
-                logger.info(f"  - {err}")
+        if args.estimate:
+            db.rollback()
         else:
-            logger.info("Errors encountered: 0")
+            save_segmentation_cache(seg_cache)
+        write_summary(run, len(sentences), total_tags, time.time() - t0, log_path)
 
-        logger.info("")
-        logger.info("=" * 80)
-        logger.info("SUMMARY: SENTENCES TAGGED")
-        logger.info("=" * 80)
-        logger.info(f"Total sentences processed: {len(sentences)}")
-        logger.info(f"Total tag occurrences resolved: {total_tags}")
 
-        logger.info("")
-        logger.info("=" * 80)
-        logger.info("SUMMARY: CACHE STATISTICS")
-        logger.info("=" * 80)
-        logger.info(f"Segmentation cache entries: {len(seg_cache)}")
-
-        logger.info("")
-        logger.info("=" * 80)
-        logger.info("SUMMARY: CACHE ENTRIES (by word)")
-        logger.info("=" * 80)
-        if seg_cache:
-            for (word, pos), replacement in sorted(seg_cache.items()):
-                logger.info(f"  ({word}, {pos}) -> {replacement}")
-        else:
-            logger.info("  (no entries)")
-
-        logger.info("")
-        logger.info("=" * 80)
-        logger.info("DETAILED RUN LOG")
-        logger.info("=" * 80)
-        logger.info("(See above for individual actions and decisions)")
-
-        logger.info("")
-        logger.info("=" * 80)
-        logger.info("NEW VOCABULARY REGISTERED")
-        logger.info("=" * 80)
-        if new_vocab_log:
-            logger.info(f"Total new words: {len(new_vocab_log)}")
-            for d in new_vocab_log:
-                logger.info(f"  [unit {d['unit']}] {d['hanzi']!r} -- first evidenced by {d['sentence']!r}")
-        else:
-            logger.info("  (no new vocabulary registered)")
-
-        # Console output summary
-        print("")
-        print(f"✅ Tagged {len(sentences)} sentence(s), {total_tags} tag occurrence(s) resolved.")
-        if run_errors:
-            print(f"⚠️  {len(run_errors)} error(s) encountered during processing.")
-        else:
-            print(f"✓  No errors.")
-        if new_vocab_log:
-            print(f"📚 Registered {len(new_vocab_log)} new word(s) not in the vocab index.")
-        print(f"💾 Segmentation cache: {len(seg_cache)} entries.")
-        print(f"\nFull log: {log_path}")
-        
 if __name__ == "__main__":
     main()
