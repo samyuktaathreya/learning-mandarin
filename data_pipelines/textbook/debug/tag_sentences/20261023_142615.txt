@@ -1,0 +1,151 @@
+2026-10-23 14:26:15,640  INFO     === tag_sentences.py run started ===
+2026-10-23 14:26:15,740  INFO       --redo-ai-added: removed 30 AI-added meaning(s); re-tagging the 59 sentence(s) that used them
+2026-10-23 14:26:21,689  WARNING    AI-ADDED  干什么 (PN, gan4 shen2 me5) -> 'what to do' -- Neither meaning fits. The sentence uses 干什么 as 'what to do' (asking about an action/course of action), not 'what are you doing?' or 'what's he up to?' (asking about current activity). The meanings provided are interrogative questions about present action, while this is a question about what action to take.
+2026-10-23 14:26:21,698  INFO     TAGGED    '我不知道干什么好。' (level 1, 5 tags)
+2026-10-23 14:26:23,202  WARNING    AI-ADDED  不要 (VV, bu4 yao4) -> "don't want" -- The sentence uses 不要 as a negated desire verb meaning 'don't want' or 'don't wish for', which is distinct from both dictionary meanings provided. Meaning 0 'don't!' is an imperative command, and meaning 1 'must not' expresses prohibition or obligation. Neither captures the sense of negated volition in this context.
+2026-10-23 14:26:23,208  INFO     TAGGED    '别的东西我不要。' (level 2, 4 tags)
+2026-10-23 14:26:24,748  WARNING    Haiku answered 'none' without a reason/definition for 十分 -- using meaning 0
+2026-10-23 14:26:24,749  INFO       SENSE    十分 (NT, shi2 fen1) -> [0.0] 'very'
+2026-10-23 14:26:24,752  INFO     TAGGED    '现在是九点十分。' (level 2, 5 tags)
+2026-10-23 14:26:26,648  INFO       RETRY    长 (VA, zhang3): no meaning fits that reading ('long (in length or distance)') -- asking again with every reading
+2026-10-23 14:26:27,141  INFO       SENSE    长 (VA, zhang3) -> [0.0] 'length'
+2026-10-23 14:26:27,147  INFO     TAGGED    '这条路长五公里。' (level 2, 6 tags)
+2026-10-23 14:26:28,626  INFO       SENSE    数 (VV, shu4) -> [1.0] 'number; figure'
+2026-10-23 14:26:28,633  INFO     TAGGED    '请数一数有多少人。' (level 2, 7 tags)
+2026-10-23 14:26:30,107  INFO       RETRY    都 (AD, du1): no meaning fits that reading ('all; completely (adverbial particle indicating totality)') -- asking again with every reading
+2026-10-23 14:26:30,575  INFO       SENSE    都 (AD, du1) -> [1.0] 'all; both; entirely'
+2026-10-23 14:26:30,580  INFO     TAGGED    '春天来了，花都开了。' (level 2, 7 tags)
+2026-10-23 14:26:30,590  INFO     TAGGED    '她的头发又黑又长。' (level 2, 7 tags)
+2026-10-23 14:26:30,598  INFO     TAGGED    '全国都在过春节。' (level 2, 5 tags)
+2026-10-23 14:26:30,606  INFO     TAGGED    '这条河很长，向东流。' (level 2, 8 tags)
+2026-10-23 14:26:30,614  INFO     TAGGED    '花园里的花都开了。' (level 2, 7 tags)
+2026-10-23 14:26:32,111  INFO       RETRY    重点 (NN, chong2 dian3): no meaning fits that reading ('key point; main focus; emphasis') -- asking again with every reading
+2026-10-23 14:26:32,670  INFO       SENSE    重点 (NN, chong2 dian3) -> [1.0] 'important point; main point; focus'
+2026-10-23 14:26:32,673  INFO     TAGGED    '这是今天的重点。' (level 2, 5 tags)
+2026-10-23 14:26:32,688  INFO     TAGGED    '头发太长了，我想弄短一点儿。' (level 2, 9 tags)
+2026-10-23 14:26:32,696  INFO     TAGGED    '冬天的夜很长。' (level 2, 5 tags)
+2026-10-23 14:26:32,704  INFO     TAGGED    '这条道路又长又平。' (level 2, 7 tags)
+2026-10-23 14:26:32,712  INFO     TAGGED    '或早或晚，他都会知道。' (level 2, 8 tags)
+2026-10-23 14:26:34,571  INFO       RETRY    和 (CC, huo5): no meaning fits that reading ('and (conjunction connecting two nouns)') -- asking again with every reading
+2026-10-23 14:26:35,083  INFO       SENSE    和 (CC, huo5) -> [2.0] '(joining two nouns) and; together with; with (Taiwan pr. [hàn])'
+2026-10-23 14:26:35,088  INFO     TAGGED    '家庭给了我温暖和力量。' (level 3, 7 tags)
+2026-10-23 14:26:37,030  WARNING    AI-ADDED  存在 (VV, cun2 zai4) -> 'to keep/store (money) in (a location)' -- In this sentence, '存在' is used as two separate morphemes: '存' (to store/keep) + '在' (in/at). The verb '存' means to deposit or store money, and '在' is a locative particle indicating location. None of the dictionary meanings for '存在' as a single word unit (to exist, to be, existence) accurately describe this usage where the characters function separately.
+2026-10-23 14:26:37,040  INFO     TAGGED    '他把钱存在银行里。' (level 3, 6 tags)
+2026-10-23 14:26:38,461  INFO       RETRY    中 (LC, zhong4): no meaning fits that reading ('in, within') -- asking again with every reading
+2026-10-23 14:26:38,973  INFO       SENSE    中 (LC, zhong4) -> [1.0] 'within; among; in'
+2026-10-23 14:26:38,979  INFO     TAGGED    '龙是中国文化中的形象。' (level 3, 7 tags)
+2026-10-23 14:26:40,504  WARNING    AI-ADDED  才能 (AD, cai2 neng2) -> 'can; will be able to' -- In this sentence, 才能 functions as an auxiliary verb/modal expressing possibility or permission ('can', 'will be able to'), not as a noun describing talent, ability, or capacity. The part-of-speech tag 'AD' (adverb) also suggests this modal usage rather than nominal meanings.
+2026-10-23 14:26:40,511  INFO     TAGGED    '只有努力，才能成功。' (level 3, 4 tags)
+2026-10-23 14:26:40,520  INFO     TAGGED    '问题仍然存在。' (level 3, 3 tags)
+2026-10-23 14:26:40,529  INFO     TAGGED    '老师强调了这个重点。' (level 3, 6 tags)
+2026-10-23 14:26:41,730  WARNING    AI-ADDED  才能 (VV, cai2 neng2) -> 'in order to; so as to' -- In this sentence, 才能 functions as a modal verb meaning 'in order to' or 'so as to', expressing purpose or necessary condition. None of the dictionary meanings (talent, ability, capacity) fit this grammatical function.
+2026-10-23 14:26:41,737  INFO     TAGGED    '动物需要水才能生存。' (level 3, 5 tags)
+2026-10-23 14:26:41,750  INFO     TAGGED    '这是世界上最长的桥之一。' (level 4, 9 tags)
+2026-10-23 14:26:41,759  INFO     TAGGED    '输入密码才能登录网络。' (level 4, 5 tags)
+2026-10-23 14:26:43,200  INFO       RETRY    种 (VV, zhong3): no meaning fits that reading ('to plant') -- asking again with every reading
+2026-10-23 14:26:43,888  INFO       SENSE    种 (VV, zhong3) -> [1.0] 'to plant'
+2026-10-23 14:26:43,894  INFO     TAGGED    '路两边种着树。' (level 4, 5 tags)
+2026-10-23 14:26:45,004  INFO       SENSE    结 (VV, jie2) -> [1.0] 'knot'
+2026-10-23 14:26:45,009  INFO     TAGGED    '湖上结了冰。' (level 4, 5 tags)
+2026-10-23 14:26:45,021  INFO     TAGGED    '这里被列为重点保护区。' (level 4, 6 tags)
+2026-10-23 14:26:45,029  INFO     TAGGED    '树的影子很长。' (level 4, 5 tags)
+2026-10-23 14:26:46,463  INFO       RETRY    当时 (NT, dang4 shi2): no meaning fits that reading ('at that time; then') -- asking again with every reading
+2026-10-23 14:26:47,063  INFO       SENSE    当时 (NT, dang4 shi2) -> [0.1] 'at that time'
+2026-10-23 14:26:47,069  INFO     TAGGED    '他描述了当时的情景。' (level 4, 6 tags)
+2026-10-23 14:26:47,080  INFO     TAGGED    '秋天树上结满了果实。' (level 4, 7 tags)
+2026-10-23 14:26:48,379  INFO       RETRY    落 (VV, la4): no meaning fits that reading ('to fall; to drop') -- asking again with every reading
+2026-10-23 14:26:48,908  INFO       SENSE    落 (VV, la4) -> [2.0] 'to fall or drop'
+2026-10-23 14:26:48,912  INFO     TAGGED    '秋天树叶落了。' (level 4, 4 tags)
+2026-10-23 14:26:48,923  INFO     TAGGED    '这条江很长。' (level 4, 5 tags)
+2026-10-23 14:26:48,931  INFO     TAGGED    '地里种着瓜。' (level 4, 5 tags)
+2026-10-23 14:26:50,748  INFO       RETRY    长 (VV, chang2): no meaning fits that reading ("to grow; to develop (used in the phrase 长得 meaning 'to look/appear')") -- asking again with every reading
+2026-10-23 14:26:51,224  INFO       SENSE    长 (VV, chang2) -> [1.3] 'to grow'
+2026-10-23 14:26:51,229  INFO     TAGGED    '这个小伙子长得矮小。' (level 4, 6 tags)
+2026-10-23 14:26:51,240  INFO     TAGGED    '努力才能赢得成功。' (level 4, 4 tags)
+2026-10-23 14:26:52,797  WARNING    AI-ADDED  气 (NN, qi5) -> 'luck/fortune (as part of the compound noun 运气)' -- In '祝你好运气', the word '气' functions as a noun suffix attached to '运' (luck/fortune) to form '运气' (luck), rather than carrying any of the listed dictionary meanings independently. None of the provided meanings accurately describe this grammatical function.
+2026-10-23 14:26:52,802  INFO     TAGGED    '祝你好运气！' (level 5, 4 tags)
+2026-10-23 14:26:54,433  WARNING    Haiku answered 'none' without a reason/definition for 中 -- using meaning 0
+2026-10-23 14:26:54,434  INFO       SENSE    中 (VV, zhong1) -> [1.0] 'within; among; in'
+2026-10-23 14:26:54,443  INFO     TAGGED    '电脑中了病毒，要杀毒。' (level 5, 6 tags)
+2026-10-23 14:26:54,452  INFO     TAGGED    '桃树和桃花都很美。' (level 5, 6 tags)
+2026-10-23 14:26:54,460  INFO     TAGGED    '园林里种着各种植物。' (level 5, 6 tags)
+2026-10-23 14:26:55,579  INFO       RETRY    待 (VV, dai4): no meaning fits that reading ('to stay') -- asking again with every reading
+2026-10-23 14:26:56,106  INFO       SENSE    待 (VV, dai4) -> [0.0] 'to stay'
+2026-10-23 14:26:56,111  INFO     TAGGED    '他在这里待了一天。' (level 5, 7 tags)
+2026-10-23 14:26:56,121  INFO     TAGGED    '努力才能得以成功。' (level 5, 4 tags)
+2026-10-23 14:26:56,130  INFO     TAGGED    '指甲太长要剪。' (level 5, 5 tags)
+2026-10-23 14:26:56,138  INFO     TAGGED    '花盆里种着花。' (level 5, 6 tags)
+2026-10-23 14:26:56,144  INFO     TAGGED    '他的胡子长了。' (level 5, 5 tags)
+2026-10-23 14:26:57,510  WARNING    Haiku answered 'none' without a reason/definition for 凶手 -- using meaning 0
+2026-10-23 14:26:57,514  INFO       SENSE    凶手 (NN, xiong1 shou3) -> [0.0] 'murderer'
+2026-10-23 14:26:57,518  INFO     TAGGED    '他是这次纠纷的凶手吗？' (level 6, 8 tags)
+2026-10-23 14:26:57,529  INFO     TAGGED    '公司的档案存在仓库里。' (level 6, 6 tags)
+2026-10-23 14:26:59,044  INFO       RETRY    着 (AS, zhao1): no meaning fits that reading ('progressive aspect marker indicating continuous action') -- asking again with every reading
+2026-10-23 14:26:59,560  INFO       SENSE    着 (AS, zhao1) -> [2.0] 'aspect particle indicating action in progress or ongoing state'
+2026-10-23 14:26:59,565  INFO     TAGGED    '屏幕上显示着数据。' (level 6, 5 tags)
+2026-10-23 14:26:59,578  INFO     TAGGED    '果树上结满了果实。' (level 6, 6 tags)
+2026-10-23 14:26:59,586  INFO     TAGGED    '田里种着小麦。' (level 6, 5 tags)
+2026-10-23 14:27:01,500  WARNING    AI-ADDED  国有 (NN, guo2 you3) -> "have (verb, as part of the phrase 'two nations have')" -- In this sentence, '国有' is not functioning as an adjective meaning 'state-owned' or 'government owned'. Rather, '两国有' is parsed as '两国' (two nations) + '有' (have/possess), making it a verb phrase meaning 'the two nations have'. The dictionary meanings all describe '国有' as an adjective describing ownership, which does not fit this grammatical usage.
+2026-10-23 14:27:01,509  INFO     TAGGED    '两国有很多往来。' (level 7, 5 tags)
+2026-10-23 14:27:02,832  INFO       RETRY    正当 (VA, zheng4 dang1): no meaning fits that reading ('legitimate; justified; valid') -- asking again with every reading
+2026-10-23 14:27:03,450  INFO       SENSE    正当 (VA, zheng4 dang1) -> [1.2] 'fair'
+2026-10-23 14:27:03,456  INFO     TAGGED    '这是正当的要求。' (level 6, 5 tags)
+2026-10-23 14:27:04,804  INFO       RETRY    炸 (VV, zha4): no meaning fits that reading ('to fry (food)') -- asking again with every reading
+2026-10-23 14:27:05,395  INFO       SENSE    炸 (VV, zha4) -> [0.0] 'to deep fry'
+2026-10-23 14:27:05,401  INFO     TAGGED    '他炸了土豆。' (level 6, 4 tags)
+2026-10-23 14:27:06,827  INFO       RETRY    挨 (VV, ai1): no meaning fits that reading ('to suffer; to receive (a beating)') -- asking again with every reading
+2026-10-23 14:27:07,443  INFO       SENSE    挨 (VV, ai1) -> [1.0] 'to suffer; to endure'
+2026-10-23 14:27:07,449  INFO     TAGGED    '他挨了一顿打。' (level 6, 6 tags)
+2026-10-23 14:27:09,019  INFO       RETRY    只 (M, zhi3): no meaning fits that reading ('classifier/measure word for counting animals') -- asking again with every reading
+2026-10-23 14:27:09,590  INFO       SENSE    只 (M, zhi3) -> [4.0] 'classifier for birds and certain animals, one of a pair, some utensils, vessels etc'
+2026-10-23 14:27:09,593  INFO     TAGGED    '这只虎很猛。' (level 6, 5 tags)
+2026-10-23 14:27:09,602  INFO     TAGGED    '这条线路很长。' (level 6, 5 tags)
+2026-10-23 14:27:11,333  WARNING    AI-ADDED  在 (VA, zai5) -> "morpheme in the adjective '自在' meaning 'at ease, comfortable'" -- In '他过得很自在', the character '在' is part of the adjective '自在' (meaning 'at ease, comfortable, free'). It is not functioning as a standalone verb or auxiliary verb as described in the dictionary meanings provided. The word '在' here is a morpheme within a compound word, not one of the three verb meanings listed.
+2026-10-23 14:27:11,339  INFO     TAGGED    '他过得很自在。' (level 4, 6 tags)
+2026-10-23 14:27:12,767  INFO       RETRY    蒙 (VV, meng1): no meaning fits that reading ('to cover') -- asking again with every reading
+2026-10-23 14:27:13,279  INFO       SENSE    蒙 (VV, meng1) -> [6.0] 'to cover'
+2026-10-23 14:27:13,285  INFO     TAGGED    '他蒙着眼睛。' (level 6, 4 tags)
+2026-10-23 14:27:14,816  WARNING    AI-ADDED  血管 (NN, xue4 guan3) -> 'blood vessels' -- The sentence uses 血管 in a general sense meaning 'blood vessels' (the anatomical structures through which blood flows), which encompasses both veins and arteries. Neither definition alone captures this general usage - the word refers to vessels as a category, not specifically to veins or arteries.
+2026-10-23 14:27:14,823  INFO     TAGGED    '血液在血管里流。' (level 6, 5 tags)
+2026-10-23 14:27:14,834  INFO     TAGGED    '这条通道很长。' (level 6, 5 tags)
+2026-10-23 14:27:14,836  INFO     
+2026-10-23 14:27:14,836  INFO     ================================================================================
+2026-10-23 14:27:14,836  INFO     SUMMARY  59 sentence(s), 334 tag(s), 59s
+2026-10-23 14:27:14,836  INFO     ================================================================================
+2026-10-23 14:27:14,836  INFO       sense: AI added a new meaning: 9
+2026-10-23 14:27:14,836  INFO       sense: AI call: 30
+2026-10-23 14:27:14,836  INFO       sense: AI retried with every reading: 16
+2026-10-23 14:27:14,836  INFO       sense: cache hit: 304
+2026-10-23 14:27:14,836  INFO       sentence level 1: 1
+2026-10-23 14:27:14,836  INFO       sentence level 2: 14
+2026-10-23 14:27:14,836  INFO       sentence level 3: 7
+2026-10-23 14:27:14,836  INFO       sentence level 4: 14
+2026-10-23 14:27:14,836  INFO       sentence level 5: 9
+2026-10-23 14:27:14,836  INFO       sentence level 6: 13
+2026-10-23 14:27:14,836  INFO       sentence level 7: 1
+2026-10-23 14:27:14,836  INFO       sentences: dataset word split: 59
+2026-10-23 14:27:14,836  INFO     
+2026-10-23 14:27:14,836  INFO     ================================================================================
+2026-10-23 14:27:14,836  INFO     AI-ADDED MEANINGS (9) -- review these
+2026-10-23 14:27:14,836  INFO     ================================================================================
+2026-10-23 14:27:14,836  INFO       干什么: 'what to do'  -- Neither meaning fits. The sentence uses 干什么 as 'what to do' (asking about an action/course of action), not 'what are you doing?' or 'what's he up to?' (asking about current activity). The meanings provided are interrogative questions about present action, while this is a question about what action to take.  -- e.g. 我不知道干什么好。
+2026-10-23 14:27:14,837  INFO       不要: "don't want"  -- The sentence uses 不要 as a negated desire verb meaning 'don't want' or 'don't wish for', which is distinct from both dictionary meanings provided. Meaning 0 'don't!' is an imperative command, and meaning 1 'must not' expresses prohibition or obligation. Neither captures the sense of negated volition in this context.  -- e.g. 别的东西我不要。
+2026-10-23 14:27:14,837  INFO       存在: 'to keep/store (money) in (a location)'  -- In this sentence, '存在' is used as two separate morphemes: '存' (to store/keep) + '在' (in/at). The verb '存' means to deposit or store money, and '在' is a locative particle indicating location. None of the dictionary meanings for '存在' as a single word unit (to exist, to be, existence) accurately describe this usage where the characters function separately.  -- e.g. 他把钱存在银行里。
+2026-10-23 14:27:14,837  INFO       才能: 'can; will be able to'  -- In this sentence, 才能 functions as an auxiliary verb/modal expressing possibility or permission ('can', 'will be able to'), not as a noun describing talent, ability, or capacity. The part-of-speech tag 'AD' (adverb) also suggests this modal usage rather than nominal meanings.  -- e.g. 只有努力，才能成功。
+2026-10-23 14:27:14,837  INFO       才能: 'in order to; so as to'  -- In this sentence, 才能 functions as a modal verb meaning 'in order to' or 'so as to', expressing purpose or necessary condition. None of the dictionary meanings (talent, ability, capacity) fit this grammatical function.  -- e.g. 动物需要水才能生存。
+2026-10-23 14:27:14,837  INFO       气: 'luck/fortune (as part of the compound noun 运气)'  -- In '祝你好运气', the word '气' functions as a noun suffix attached to '运' (luck/fortune) to form '运气' (luck), rather than carrying any of the listed dictionary meanings independently. None of the provided meanings accurately describe this grammatical function.  -- e.g. 祝你好运气！
+2026-10-23 14:27:14,837  INFO       国有: "have (verb, as part of the phrase 'two nations have')"  -- In this sentence, '国有' is not functioning as an adjective meaning 'state-owned' or 'government owned'. Rather, '两国有' is parsed as '两国' (two nations) + '有' (have/possess), making it a verb phrase meaning 'the two nations have'. The dictionary meanings all describe '国有' as an adjective describing ownership, which does not fit this grammatical usage.  -- e.g. 两国有很多往来。
+2026-10-23 14:27:14,837  INFO       在: "morpheme in the adjective '自在' meaning 'at ease, comfortable'"  -- In '他过得很自在', the character '在' is part of the adjective '自在' (meaning 'at ease, comfortable, free'). It is not functioning as a standalone verb or auxiliary verb as described in the dictionary meanings provided. The word '在' here is a morpheme within a compound word, not one of the three verb meanings listed.  -- e.g. 他过得很自在。
+2026-10-23 14:27:14,837  INFO       血管: 'blood vessels'  -- The sentence uses 血管 in a general sense meaning 'blood vessels' (the anatomical structures through which blood flows), which encompasses both veins and arteries. Neither definition alone captures this general usage - the word refers to vessels as a category, not specifically to veins or arteries.  -- e.g. 血液在血管里流。
+2026-10-23 14:27:14,837  INFO     
+2026-10-23 14:27:14,837  INFO     ================================================================================
+2026-10-23 14:27:14,837  INFO     WORDS NOT IN THE HSK LIST (0)
+2026-10-23 14:27:14,837  INFO     ================================================================================
+2026-10-23 14:27:14,837  INFO     
+2026-10-23 14:27:14,837  INFO     ================================================================================
+2026-10-23 14:27:14,837  INFO     OUT-OF-LIST TOKENS SPLIT INTO LIST WORDS (0)
+2026-10-23 14:27:14,837  INFO     ================================================================================
+2026-10-23 14:27:14,837  INFO     
+2026-10-23 14:27:14,837  INFO     ================================================================================
+2026-10-23 14:27:14,837  INFO     ADJACENT WORDS JOINED INTO A LOWER-LEVEL LIST WORD (0)
+2026-10-23 14:27:14,837  INFO     ================================================================================

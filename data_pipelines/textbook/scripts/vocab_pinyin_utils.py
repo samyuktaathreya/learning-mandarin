@@ -217,7 +217,9 @@ def apply_bu_yi_sandhi(hanzi: str, numeric_pinyin: str) -> str:
     for i, ch in enumerate(hanzi):
         base, tone = out[i]
         if ch == "不":
-            if tone == 4 and i + 1 < len(out):
+            # bu4 -> bu2 ONLY before a 4th tone (不是 bú shì); before 1st/2nd/3rd
+            # it stays bù (不懂 bù dǒng, 不好 bù hǎo, 不来 bù lái).
+            if tone == 4 and i + 1 < len(out) and out[i + 1][1] == 4:
                 out[i] = (base, 2)
         elif ch == "一":
             if tone != 1:

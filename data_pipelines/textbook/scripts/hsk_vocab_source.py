@@ -146,15 +146,41 @@ def match_forms(entry: dict, pinyin) -> list[int]:
     return [i for *_, i in sorted(scored)]
 
 
+# CC-CEDICT entries that are notes about the word, not meanings of it:
+# 一 "also pr. [yāo] for greater clarity...", 一 '"one" radical in Chinese
+# characters', "variant of ...", "see ...". Offering them let Haiku pick
+# "also pr. [yāo]..." as the meaning of 一 in 一年有十二个月.
+NOTE_RE = re.compile(r'^(also pr\.|also written|variant of|old variant of|see also |see |"[^"]*" radical|radical )',
+                     re.IGNORECASE)
+
+
+def is_note(meaning: str) -> bool:
+    return bool(NOTE_RE.match(meaning.strip()))
+
+
 def candidates(entry: dict, form_indexes: list[int]) -> list[dict]:
     """Every meaning of the given forms, flattened and numbered for the
     sense-matching prompt:
         [{"form_index": 1, "meaning_index": 0, "pinyin": "hai2",
-          "english": "still"}, ...]"""
+          "english": "still"}, ...]
+    Notes (NOTE_RE) are left out, unless a form has nothing else.
+    meaning_index stays the position in the JSON."""
     out = []
     for fi in form_indexes:
         form = entry["forms"][fi]
-        for mi, meaning in enumerate(form["meanings"]):
+        meanings = list(enumerate(form["meanings"]))
+        real = [(mi, m) for mi, m in meanings if not is_note(m)]
+        for mi, meaning in (real or meanings):
             out.append({"form_index": fi, "meaning_index": mi,
                         "pinyin": numeric(form), "english": meaning})
     return out
+
+
+def single_meaning_is_safe(entry: dict, forms: list[int]) -> bool:
+    """Whether a reading that leaves ONE meaning can be trusted without AI:
+    yes if the word has one form, or the reading picked the word's usual
+    form. No if it picked a rare one -- the dataset reads 的 as dí / dì /
+    dī in some sentences (目的-style), which would give 'really and truly'
+    or "bull's-eye" to an ordinary 的. Those go to resolve_senses, which
+    offers that reading first and then every reading."""
+    return len(entry["forms"]) == 1 or default_form_index(entry) in forms

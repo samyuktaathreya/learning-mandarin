@@ -1,0 +1,214 @@
+2026-10-23 16:51:16,217  INFO     === tag_sentences.py run started ===
+2026-10-23 16:51:20,072  INFO     TAGGED    '请进，请坐。' (level 1, 2 tags)
+2026-10-23 16:51:20,078  INFO     TAGGED    '有些人喝茶，有的人喝水。' (level 1, 8 tags)
+2026-10-23 16:51:20,083  INFO     TAGGED    '这个不对。' (level 1, 3 tags)
+2026-10-23 16:51:20,087  INFO     TAGGED    '他不大高。' (level 1, 3 tags)
+2026-10-23 16:51:20,912  INFO       AI-SPLIT  '早点儿' -> ['早点', '儿'] rejected (not a word in any HSK list: 早点, 儿) -- kept whole
+2026-10-23 16:51:20,921  INFO     TAGGED    '一路顺风，早点儿回来！' (level 2, 3 tags)
+2026-10-23 16:51:21,559  INFO       AI-SPLIT  '早点儿' -> ['早点', '儿'] rejected (not a word in any HSK list: 早点, 儿) -- kept whole
+2026-10-23 16:51:21,575  INFO     TAGGED    '妈妈让我早点儿回家。' (level 2, 5 tags)
+2026-10-23 16:51:25,229  WARNING    AI-SPLIT  '早点儿' in '多喝水，早点儿睡，很快就好了。': failed (JSONDecodeError('Extra data: line 2 column 1 (char 25)')) -- kept whole
+2026-10-23 16:51:25,244  INFO     TAGGED    '多喝水，早点儿睡，很快就好了。' (level 1, 10 tags)
+2026-10-23 16:51:25,252  INFO     TAGGED    '有的动物爱睡觉，例如猫。' (level 2, 6 tags)
+2026-10-23 16:51:25,258  INFO     TAGGED    '他不一定来。' (level 2, 3 tags)
+2026-10-23 16:51:25,265  INFO     TAGGED    '我们走的方向不对。' (level 2, 5 tags)
+2026-10-23 16:51:25,271  INFO     TAGGED    '那样做不对，这样才对。' (level 2, 6 tags)
+2026-10-23 16:51:25,278  INFO     TAGGED    '挺好的，就这样吧。' (level 2, 5 tags)
+2026-10-23 16:51:25,284  INFO     TAGGED    '李主任是一位专家。' (level 3, 6 tags)
+2026-10-23 16:51:25,290  INFO     TAGGED    '这个房间的面积不大。' (level 3, 6 tags)
+2026-10-23 16:51:25,915  INFO       AI-SPLIT  '今晚' -> ['今', '晚'] rejected (not a word in any HSK list: 今) -- kept whole
+2026-10-23 16:51:25,928  INFO       NON-LIST 今晚 (NT) -> 'tonight' [unlisted]
+2026-10-23 16:51:25,930  INFO     TAGGED    '今晚有一场足球比赛。' (level 3, 6 tags)
+2026-10-23 16:51:26,528  INFO       AI-SPLIT  '美术馆' -> ['美术', '馆'] rejected (not a word in any HSK list: 馆) -- kept whole
+2026-10-23 16:51:26,541  INFO       NON-LIST 美术馆 (NN) -> 'art gallery' [unlisted]
+2026-10-23 16:51:26,544  INFO     TAGGED    '美术馆里有很多图画。' (level 3, 6 tags)
+2026-10-23 16:51:27,145  INFO       AI-SPLIT  '早点儿' -> ['早点儿']  in '尽量早点儿来。'
+2026-10-23 16:51:27,158  INFO     TAGGED    '尽量早点儿来。' (level 3, 3 tags)
+2026-10-23 16:51:27,760  WARNING    AI-SPLIT  '玩笑' -> ['开', '玩笑'] doesn't rebuild the token -- kept whole
+2026-10-23 16:51:27,774  INFO     TAGGED    '我只是开个玩笑。' (level 3, 5 tags)
+2026-10-23 16:51:27,781  INFO     TAGGED    '月初我要去报到。' (level 7, 5 tags)
+2026-10-23 16:51:28,462  INFO       AI-SPLIT  '发音' -> ['发音']  in '他的发音很标准。'
+2026-10-23 16:51:28,475  INFO     TAGGED    '他的发音很标准。' (level 3, 5 tags)
+2026-10-23 16:51:28,484  INFO     TAGGED    '飞机降落的时候，请坐好。' (level 4, 6 tags)
+2026-10-23 16:51:29,191  INFO       AI-SPLIT  '一再表示' -> ['一再', '表示']  in '他一再表示感谢。'
+2026-10-23 16:51:29,204  INFO     TAGGED    '他一再表示感谢。' (level 4, 4 tags)
+2026-10-23 16:51:29,212  INFO       READING  眼里 'yan3 li3' matches no form -- offering every form
+2026-10-23 16:51:29,214  INFO     TAGGED    '她眼里含着泪水。' (level 4, 5 tags)
+2026-10-23 16:51:30,010  WARNING    AI-SPLIT  '点儿' -> ['喝', '点儿', '水', '缓解', '一下'] doesn't rebuild the token -- kept whole
+2026-10-23 16:51:30,024  INFO     TAGGED    '喝点儿水缓解一下。' (level 4, 6 tags)
+2026-10-23 16:51:30,670  WARNING    AI-SPLIT  '点儿' -> ['别', '闹', '了', '认真', '点儿'] doesn't rebuild the token -- kept whole
+2026-10-23 16:51:30,683  INFO     TAGGED    '别闹了，认真点儿。' (level 4, 5 tags)
+2026-10-23 16:51:31,342  INFO       AI-SPLIT  '昨晚' -> ['昨', '晚'] rejected (not a word in any HSK list: 昨) -- kept whole
+2026-10-23 16:51:31,355  INFO       NON-LIST 昨晚 (NT) -> 'yesterday evening; last night' [unlisted]
+2026-10-23 16:51:31,357  INFO     TAGGED    '他昨晚做了一个梦。' (level 4, 7 tags)
+2026-10-23 16:51:31,956  INFO       AI-SPLIT  '点击' -> ['点击']  in '请用鼠标点击这个键。'
+2026-10-23 16:51:31,969  INFO     TAGGED    '请用鼠标点击这个键。' (level 5, 7 tags)
+2026-10-23 16:51:31,977  INFO     TAGGED    '水库存了很多水。' (level 5, 6 tags)
+2026-10-23 16:51:32,610  INFO       AI-SPLIT  '易懂' -> ['易', '懂'] rejected (not a word in any HSK list: 易) -- kept whole
+2026-10-23 16:51:32,623  INFO       NON-LIST 易懂 (VA) -> 'easy to understand' [unlisted]
+2026-10-23 16:51:32,625  INFO     TAGGED    '这个道理不易懂。' (level 2, 5 tags)
+2026-10-23 16:51:33,389  WARNING    AI-SPLIT  '下达' -> ['命令', '由', '中央', '下达'] doesn't rebuild the token -- kept whole
+2026-10-23 16:51:33,401  INFO       NON-LIST 下达 (VV) -> 'to transmit to lower levels; to issue (a command, decree etc)' [unlisted]
+2026-10-23 16:51:33,402  INFO     TAGGED    '命令由中央下达。' (level 5, 4 tags)
+2026-10-23 16:51:34,003  INFO       AI-SPLIT  '玩笑' -> ['玩', '笑']  in '这只不过是个玩笑。'
+2026-10-23 16:51:34,017  INFO     TAGGED    '这只不过是个玩笑。' (level 5, 6 tags)
+2026-10-23 16:51:34,569  INFO       AI-SPLIT  '早点儿' -> ['早点儿']  in '尽可能早点儿来。'
+2026-10-23 16:51:34,576  INFO     TAGGED    '尽可能早点儿来。' (level 5, 3 tags)
+2026-10-23 16:51:34,583  INFO     TAGGED    '河岸上有很多树。' (level 5, 6 tags)
+2026-10-23 16:51:35,233  INFO       AI-SPLIT  '租房' -> ['租', '房'] rejected (not a word in any HSK list: 房) -- kept whole
+2026-10-23 16:51:35,244  INFO       NON-LIST 租房 (VV) -> 'to rent an apartment' [unlisted]
+2026-10-23 16:51:35,246  INFO     TAGGED    '租房要付押金。' (level 5, 4 tags)
+2026-10-23 16:51:35,848  INFO       AI-SPLIT  '玩笑' -> ['玩笑']  in '别把玩笑看成真的。'
+2026-10-23 16:51:35,859  INFO       READING  真的 'zhen1 de5' matches no form -- offering every form
+2026-10-23 16:51:35,861  INFO     TAGGED    '别把玩笑看成真的。' (level 5, 5 tags)
+2026-10-23 16:51:35,868  INFO     TAGGED    '河岸上开满了花。' (level 5, 6 tags)
+2026-10-23 16:51:36,564  INFO       AI-SPLIT  '尽责' -> ['尽', '责'] rejected (not a word in any HSK list: 责) -- kept whole
+2026-10-23 16:51:36,576  INFO       NON-LIST 尽责 (VV) -> "to do one's duty; to do one's bit conscientiously" [unlisted]
+2026-10-23 16:51:36,577  INFO     TAGGED    '船长和船员们都很尽责。' (level 6, 7 tags)
+2026-10-23 16:51:37,178  WARNING    AI-SPLIT  '点儿' -> ['点儿', '醋'] doesn't rebuild the token -- kept whole
+2026-10-23 16:51:37,192  INFO     TAGGED    '菜里放点儿醋和酱油。' (level 6, 7 tags)
+2026-10-23 16:51:37,203  INFO     TAGGED    '他向银行贷了款，付了手续费。' (level 6, 9 tags)
+2026-10-23 16:51:42,708  WARNING    AI-SPLIT  '早点儿' in '早点儿走，免得迟到。': failed (JSONDecodeError('Extra data: line 2 column 1 (char 25)')) -- kept whole
+2026-10-23 16:51:42,722  INFO     TAGGED    '早点儿走，免得迟到。' (level 6, 4 tags)
+2026-10-23 16:51:43,426  WARNING    AI-SPLIT  '奋起' -> ['奋起', '反抗'] doesn't rebuild the token -- kept whole
+2026-10-23 16:51:43,440  INFO     TAGGED    '他奋起反抗。' (level 6, 3 tags)
+2026-10-23 16:51:44,244  WARNING    AI-SPLIT  '桌上' -> ['桌', '上', '有', '一', '个', '台灯'] doesn't rebuild the token -- kept whole
+2026-10-23 16:51:44,257  INFO     TAGGED    '桌上有一个台灯。' (level 6, 5 tags)
+2026-10-23 16:51:44,264  INFO     TAGGED    '他叹了一口气。' (level 5, 4 tags)
+2026-10-23 16:51:44,269  INFO       READING  城里 'cheng2 li3' matches no form -- offering every form
+2026-10-23 16:51:44,270  INFO     TAGGED    '商城里人很多。' (level 5, 5 tags)
+2026-10-23 16:51:44,962  INFO       AI-SPLIT  '五颗星' -> ['五颗', '星'] rejected (not a word in any HSK list: 五颗, 星) -- kept whole
+2026-10-23 16:51:44,975  INFO       NON-LIST 五颗星 (NR) -> '(name) wu3ke1xing1' [proper_noun]
+2026-10-23 16:51:44,977  INFO     TAGGED    '国旗上有五颗星。' (level 6, 4 tags)
+2026-10-23 16:51:44,984  INFO     TAGGED    '富人不一定快乐。' (level 6, 3 tags)
+2026-10-23 16:51:45,575  INFO       AI-SPLIT  '赶工' -> ['赶', '工'] rejected (not a word in any HSK list: 工) -- kept whole
+2026-10-23 16:51:45,587  INFO       NON-LIST 赶工 (VV) -> 'to work against the clock; to hurry with work to get it done in time' [unlisted]
+2026-10-23 16:51:45,589  INFO     TAGGED    '他常开夜车赶工。' (level 6, 4 tags)
+2026-10-23 16:51:46,202  INFO       AI-SPLIT  '玩笑' -> ['玩笑']  in '他把玩笑当作真的了。'
+2026-10-23 16:51:46,213  INFO       READING  真的 'zhen1 de5' matches no form -- offering every form
+2026-10-23 16:51:46,215  INFO     TAGGED    '他把玩笑当作真的了。' (level 6, 6 tags)
+2026-10-23 16:51:46,809  INFO       AI-SPLIT  '未知' -> ['未知']  in '他探索未知的世界。'
+2026-10-23 16:51:46,822  INFO     TAGGED    '他探索未知的世界。' (level 6, 5 tags)
+2026-10-23 16:51:46,831  INFO     TAGGED    '居民从危房撤离。' (level 6, 4 tags)
+2026-10-23 16:51:47,387  INFO       AI-SPLIT  '棉衣' -> ['棉', '衣'] rejected (not a word in any HSK list: 衣) -- kept whole
+2026-10-23 16:51:47,400  INFO     TAGGED    '他穿棉衣。' (level 1, 3 tags)
+2026-10-23 16:51:48,031  WARNING    AI-SPLIT  '点儿' -> ['添', '点儿', '水'] doesn't rebuild the token -- kept whole
+2026-10-23 16:51:48,038  INFO     TAGGED    '请添点儿水。' (level 6, 4 tags)
+2026-10-23 16:51:48,045  INFO     TAGGED    '孩子玩游戏机。' (level 6, 3 tags)
+2026-10-23 16:51:48,051  INFO     TAGGED    '洗完澡很爽。' (level 6, 5 tags)
+2026-10-23 16:51:48,648  INFO       AI-SPLIT  '桌上' -> ['桌', '上'] rejected (not a word in any HSK list: 桌) -- kept whole
+2026-10-23 16:51:48,656  INFO     TAGGED    '桌上有一个花瓶。' (level 6, 5 tags)
+2026-10-23 16:51:49,262  INFO       AI-SPLIT  '警方' -> ['警', '方'] rejected (not a word in any HSK list: 警) -- kept whole
+2026-10-23 16:51:49,275  INFO       NON-LIST 警方 (NN) -> 'police' [unlisted]
+2026-10-23 16:51:49,277  INFO     TAGGED    '警方追究了责任。' (level 6, 4 tags)
+2026-10-23 16:51:49,979  INFO       AI-SPLIT  '据我所知' -> ['据', '我', '所知'] rejected (not a word in any HSK list: 所知) -- kept whole
+2026-10-23 16:51:49,994  INFO       NON-LIST 据我所知 (AD) -> 'as far as I know; to the best of my knowledge' [unlisted]
+2026-10-23 16:51:49,995  INFO     TAGGED    '据我所知，他走了。' (level 1, 4 tags)
+2026-10-23 16:51:50,016  INFO     
+2026-10-23 16:51:50,016  INFO     ================================================================================
+2026-10-23 16:51:50,016  INFO     SUMMARY  57 sentence(s), 284 tag(s), 34s
+2026-10-23 16:51:50,016  INFO     ================================================================================
+2026-10-23 16:51:50,016  INFO       adjacent words joined into a list word: 18
+2026-10-23 16:51:50,016  INFO       ambiguous: left for resolve_senses (one AI call per sentence): 197
+2026-10-23 16:51:50,016  INFO       cleanup: unused non-list words deleted: 15
+2026-10-23 16:51:50,016  INFO       cleanup: unused senses deleted: 20
+2026-10-23 16:51:50,016  INFO       out-of-list token: AI kept it whole: 31
+2026-10-23 16:51:50,016  INFO       out-of-list token: AI split call: 33
+2026-10-23 16:51:50,016  INFO       out-of-list token: AI split it: 2
+2026-10-23 16:51:50,016  INFO       proper noun added: 1
+2026-10-23 16:51:50,016  INFO       rare reading: left for resolve_senses to check: 1
+2026-10-23 16:51:50,016  INFO       reading matched no form (all forms offered): 4
+2026-10-23 16:51:50,016  INFO       sense: only one meaning (no AI): 45
+2026-10-23 16:51:50,016  INFO       sentence level 1: 7
+2026-10-23 16:51:50,016  INFO       sentence level 2: 8
+2026-10-23 16:51:50,016  INFO       sentence level 3: 7
+2026-10-23 16:51:50,016  INFO       sentence level 4: 6
+2026-10-23 16:51:50,016  INFO       sentence level 5: 11
+2026-10-23 16:51:50,017  INFO       sentence level 6: 17
+2026-10-23 16:51:50,017  INFO       sentence level 7: 1
+2026-10-23 16:51:50,017  INFO       sentences: dataset word split: 57
+2026-10-23 16:51:50,017  INFO       unlisted word added: 10
+2026-10-23 16:51:50,017  INFO     
+2026-10-23 16:51:50,017  INFO     ================================================================================
+2026-10-23 16:51:50,017  INFO     AI-ADDED MEANINGS (0) -- review these
+2026-10-23 16:51:50,017  INFO     ================================================================================
+2026-10-23 16:51:50,017  INFO     
+2026-10-23 16:51:50,017  INFO     ================================================================================
+2026-10-23 16:51:50,017  INFO     WORDS NOT IN THE HSK LIST (11)
+2026-10-23 16:51:50,017  INFO     ================================================================================
+2026-10-23 16:51:50,017  INFO       [unlisted] 今晚: 'tonight'  -- first seen in 今晚有一场足球比赛。
+2026-10-23 16:51:50,017  INFO       [unlisted] 美术馆: 'art gallery'  -- first seen in 美术馆里有很多图画。
+2026-10-23 16:51:50,017  INFO       [unlisted] 昨晚: 'yesterday evening; last night'  -- first seen in 他昨晚做了一个梦。
+2026-10-23 16:51:50,017  INFO       [unlisted] 易懂: 'easy to understand'  -- first seen in 这个道理不易懂。
+2026-10-23 16:51:50,017  INFO       [unlisted] 下达: 'to transmit to lower levels; to issue (a command, decree etc)'  -- first seen in 命令由中央下达。
+2026-10-23 16:51:50,017  INFO       [unlisted] 租房: 'to rent an apartment'  -- first seen in 租房要付押金。
+2026-10-23 16:51:50,017  INFO       [unlisted] 尽责: "to do one's duty; to do one's bit conscientiously"  -- first seen in 船长和船员们都很尽责。
+2026-10-23 16:51:50,017  INFO       [proper noun] 五颗星: '(name) wu3ke1xing1'  -- first seen in 国旗上有五颗星。
+2026-10-23 16:51:50,017  INFO       [unlisted] 赶工: 'to work against the clock; to hurry with work to get it done in time'  -- first seen in 他常开夜车赶工。
+2026-10-23 16:51:50,017  INFO       [unlisted] 警方: 'police'  -- first seen in 警方追究了责任。
+2026-10-23 16:51:50,017  INFO       [unlisted] 据我所知: 'as far as I know; to the best of my knowledge'  -- first seen in 据我所知，他走了。
+2026-10-23 16:51:50,017  INFO     
+2026-10-23 16:51:50,017  INFO     ================================================================================
+2026-10-23 16:51:50,017  INFO     OUT-OF-LIST TOKENS SPLIT INTO LIST WORDS (0)
+2026-10-23 16:51:50,017  INFO     ================================================================================
+2026-10-23 16:51:50,017  INFO     
+2026-10-23 16:51:50,017  INFO     ================================================================================
+2026-10-23 16:51:50,017  INFO     OUT-OF-LIST TOKENS SPLIT BY AI (2) -- review these
+2026-10-23 16:51:50,017  INFO     ================================================================================
+2026-10-23 16:51:50,017  INFO       一再表示 -> 一再 + 表示  -- in 他一再表示感谢。
+2026-10-23 16:51:50,017  INFO       玩笑 -> 玩 + 笑  -- in 这只不过是个玩笑。
+2026-10-23 16:51:50,017  INFO     
+2026-10-23 16:51:50,017  INFO     OUT-OF-LIST TOKENS THE AI KEPT WHOLE (31)
+2026-10-23 16:51:50,017  INFO       早点儿  -- in 一路顺风，早点儿回来！
+2026-10-23 16:51:50,017  INFO       早点儿  -- in 妈妈让我早点儿回家。
+2026-10-23 16:51:50,017  INFO       早点儿  -- in 多喝水，早点儿睡，很快就好了。
+2026-10-23 16:51:50,017  INFO       今晚  -- in 今晚有一场足球比赛。
+2026-10-23 16:51:50,017  INFO       美术馆  -- in 美术馆里有很多图画。
+2026-10-23 16:51:50,017  INFO       早点儿  -- in 尽量早点儿来。
+2026-10-23 16:51:50,017  INFO       玩笑  -- in 我只是开个玩笑。
+2026-10-23 16:51:50,017  INFO       发音  -- in 他的发音很标准。
+2026-10-23 16:51:50,017  INFO       点儿  -- in 喝点儿水缓解一下。
+2026-10-23 16:51:50,017  INFO       点儿  -- in 别闹了，认真点儿。
+2026-10-23 16:51:50,017  INFO       昨晚  -- in 他昨晚做了一个梦。
+2026-10-23 16:51:50,017  INFO       点击  -- in 请用鼠标点击这个键。
+2026-10-23 16:51:50,017  INFO       易懂  -- in 这个道理不易懂。
+2026-10-23 16:51:50,017  INFO       下达  -- in 命令由中央下达。
+2026-10-23 16:51:50,017  INFO       早点儿  -- in 尽可能早点儿来。
+2026-10-23 16:51:50,017  INFO       租房  -- in 租房要付押金。
+2026-10-23 16:51:50,017  INFO       玩笑  -- in 别把玩笑看成真的。
+2026-10-23 16:51:50,017  INFO       尽责  -- in 船长和船员们都很尽责。
+2026-10-23 16:51:50,017  INFO       点儿  -- in 菜里放点儿醋和酱油。
+2026-10-23 16:51:50,017  INFO       早点儿  -- in 早点儿走，免得迟到。
+2026-10-23 16:51:50,017  INFO       奋起  -- in 他奋起反抗。
+2026-10-23 16:51:50,017  INFO       桌上  -- in 桌上有一个台灯。
+2026-10-23 16:51:50,017  INFO       五颗星  -- in 国旗上有五颗星。
+2026-10-23 16:51:50,017  INFO       赶工  -- in 他常开夜车赶工。
+2026-10-23 16:51:50,017  INFO       玩笑  -- in 他把玩笑当作真的了。
+2026-10-23 16:51:50,017  INFO       未知  -- in 他探索未知的世界。
+2026-10-23 16:51:50,017  INFO       棉衣  -- in 他穿棉衣。
+2026-10-23 16:51:50,017  INFO       点儿  -- in 请添点儿水。
+2026-10-23 16:51:50,017  INFO       桌上  -- in 桌上有一个花瓶。
+2026-10-23 16:51:50,017  INFO       警方  -- in 警方追究了责任。
+2026-10-23 16:51:50,017  INFO       据我所知  -- in 据我所知，他走了。
+2026-10-23 16:51:50,017  INFO     
+2026-10-23 16:51:50,017  INFO     ================================================================================
+2026-10-23 16:51:50,017  INFO     ADJACENT WORDS JOINED INTO A LIST WORD (18)
+2026-10-23 16:51:50,017  INFO     ================================================================================
+2026-10-23 16:51:50,017  INFO       请 + 进 -> 请进  -- in 请进，请坐。
+2026-10-23 16:51:50,017  INFO       请 + 坐 -> 请坐  -- in 请进，请坐。
+2026-10-23 16:51:50,017  INFO       有 + 的 -> 有的  -- in 有些人喝茶，有的人喝水。
+2026-10-23 16:51:50,017  INFO       不 + 对 -> 不对  -- in 这个不对。
+2026-10-23 16:51:50,017  INFO       不 + 大 -> 不大  -- in 他不大高。
+2026-10-23 16:51:50,017  INFO       有 + 的 -> 有的  -- in 有的动物爱睡觉，例如猫。
+2026-10-23 16:51:50,017  INFO       不 + 一定 -> 不一定  -- in 他不一定来。
+2026-10-23 16:51:50,017  INFO       不 + 对 -> 不对  -- in 我们走的方向不对。
+2026-10-23 16:51:50,017  INFO       不 + 对 -> 不对  -- in 那样做不对，这样才对。
+2026-10-23 16:51:50,017  INFO       挺 + 好 -> 挺好  -- in 挺好的，就这样吧。
+2026-10-23 16:51:50,017  INFO       不 + 大 -> 不大  -- in 这个房间的面积不大。
+2026-10-23 16:51:50,017  INFO       报 + 到 -> 报到  -- in 月初我要去报到。
+2026-10-23 16:51:50,017  INFO       请 + 坐 -> 请坐  -- in 飞机降落的时候，请坐好。
+2026-10-23 16:51:50,017  INFO       泪 + 水 -> 泪水  -- in 她眼里含着泪水。
+2026-10-23 16:51:50,017  INFO       水 + 库 -> 水库  -- in 水库存了很多水。
+2026-10-23 16:51:50,017  INFO       岸 + 上 -> 岸上  -- in 河岸上有很多树。
+2026-10-23 16:51:50,017  INFO       岸 + 上 -> 岸上  -- in 河岸上开满了花。
+2026-10-23 16:51:50,017  INFO       不 + 一定 -> 不一定  -- in 富人不一定快乐。

@@ -38,7 +38,7 @@ from sqlalchemy.orm import sessionmaker, Session
 from .models import (
     Base, Unit, Vocab, VocabSense, Sentence, SentenceVocab, WordType,
     VocabOrigin, SentenceSource,
-    GrammarTip, SentenceGrammar, Question, FitbQuestion, SenseCache,
+    GrammarTip, SentenceGrammar, Question, FitbQuestion, SenseCache, PinyinWord,
 )
 from app.core.config.data import TEXTBOOK_DB
 from app.core.logger import logger
@@ -609,25 +609,70 @@ def get_untagged_sentences(db: Session, source: str | SentenceSource | None = No
     return q.all()
 
 
-def set_sentence_tags(db: Session, sentence: Sentence, resolved_tags: list[tuple]):
-    """Replaces a sentence's SentenceVocab rows wholesale with tags
-    tag_sentences.py has ALREADY resolved. Each tag is a tuple, in sentence
-    order (position = index):
-        (vocab_id, vocab_sense_id)
-        (vocab_id, vocab_sense_id, context_definition)
-        (vocab_id, vocab_sense_id, context_definition, pinyin)
-    context_definition = the dataset's per-sentence gloss, or None.
-    pinyin = this occurrence's display (sandhi) reading, or None until the
-    finalize stage fills it."""
+def set_sentence_tags(db: Session, sentence: Sentence, resolved_tags: list):
+    """Replaces a sentence's SentenceVocab rows wholesale, in sentence order
+    (position = index). Each tag is either a dict:
+        {"vocab_id", "sense_id", "pos_tag", "reading", "context_definition", "pinyin"}
+    (only vocab_id required; sense_id None = resolve_senses.py picks it
+    later), or the older tuple form (vocab_id, vocab_sense_id[,
+    context_definition[, pinyin]])."""
     db.query(SentenceVocab).filter(SentenceVocab.sentence_id == sentence.id).delete()
     db.flush()
     for position, tag in enumerate(resolved_tags):
-        vocab_id, sense_id, *rest = tag
-        context_definition = rest[0] if len(rest) > 0 else None
-        pinyin = rest[1] if len(rest) > 1 else None
-        db.add(SentenceVocab(sentence_id=sentence.id, vocab_id=vocab_id, vocab_sense_id=sense_id,
-                             position=position, context_definition=context_definition, pinyin=pinyin))
+        if isinstance(tag, dict):
+            t = tag
+        else:
+            vocab_id, sense_id, *rest = tag
+            t = {"vocab_id": vocab_id, "sense_id": sense_id,
+                 "context_definition": rest[0] if len(rest) > 0 else None,
+                 "pinyin": rest[1] if len(rest) > 1 else None}
+        db.add(SentenceVocab(sentence_id=sentence.id, vocab_id=t["vocab_id"],
+                             vocab_sense_id=t.get("sense_id"), position=position,
+                             pos_tag=t.get("pos_tag"), reading=t.get("reading"),
+                             context_definition=t.get("context_definition"), pinyin=t.get("pinyin")))
     db.flush()
+
+
+def delete_unused_senses(db: Session) -> int:
+    """Deletes senses that no sentence uses any more (left over after
+    meanings are re-picked), with their SenseCache rows and the questions
+    built on them (create_questions.py rebuilds questions anyway). Keeps the
+    Vocab rows. Returns how many senses were deleted."""
+    used = {sid for (sid,) in db.query(SentenceVocab.vocab_sense_id).filter(
+        SentenceVocab.vocab_sense_id.isnot(None)).distinct().all()}
+    unused = [sid for (sid,) in db.query(VocabSense.id).all() if sid not in used]
+    for i in range(0, len(unused), 500):
+        chunk = unused[i:i + 500]
+        db.query(SenseCache).filter(SenseCache.vocab_sense_id.in_(chunk)).delete(synchronize_session=False)
+        db.query(Question).filter(Question.vocab_sense_id.in_(chunk)).delete(synchronize_session=False)
+        db.query(VocabSense).filter(VocabSense.id.in_(chunk)).delete(synchronize_session=False)
+    db.flush()
+    db.expire_all()
+    return len(unused)
+
+
+def delete_unused_non_list_vocab(db: Session) -> tuple[int, int]:
+    """After re-tagging: deletes every sense no sentence uses, then words
+    OUTSIDE the HSK list (names, unlisted, AI-defined) that no sentence uses
+    any more (e.g. 今 after 今晚 stops being split), with their questions and
+    pinyin-drill rows. HSK-list words are never deleted. Returns
+    (senses deleted, words deleted)."""
+    senses_gone = delete_unused_senses(db)
+    used = {vid for (vid,) in db.query(SentenceVocab.vocab_id).distinct().all()}
+    orphans = [vid for (vid,) in db.query(Vocab.id).filter(Vocab.hsk_level.is_(None)).all() if vid not in used]
+    for i in range(0, len(orphans), 500):
+        chunk = orphans[i:i + 500]
+        sense_ids = [sid for (sid,) in db.query(VocabSense.id).filter(VocabSense.vocab_id.in_(chunk)).all()]
+        if sense_ids:
+            db.query(SenseCache).filter(SenseCache.vocab_sense_id.in_(sense_ids)).delete(synchronize_session=False)
+            db.query(Question).filter(Question.vocab_sense_id.in_(sense_ids)).delete(synchronize_session=False)
+            db.query(VocabSense).filter(VocabSense.id.in_(sense_ids)).delete(synchronize_session=False)
+        db.query(Question).filter(Question.vocab_id.in_(chunk)).delete(synchronize_session=False)
+        db.query(PinyinWord).filter(PinyinWord.vocab_id.in_(chunk)).delete(synchronize_session=False)
+        db.query(Vocab).filter(Vocab.id.in_(chunk)).delete(synchronize_session=False)
+    db.flush()
+    db.expire_all()
+    return senses_gone, len(orphans)
 
 
 def set_sentence_level(db: Session, sentence: Sentence) -> int | None:

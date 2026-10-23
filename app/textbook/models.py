@@ -237,6 +237,13 @@ class Sentence(Base):
 class SentenceVocab(Base):
     """One word occurrence in a sentence.
 
+    vocab_sense_id: the meaning used HERE. Set by tag_sentences.py when the
+    word has only one meaning for its reading; otherwise NULL until
+    resolve_senses.py asks the AI for this one sentence.
+    pos_tag: HanLP's CTB tag for this occurrence (P, VV, AS...).
+    reading: this occurrence's citation pinyin, compact numeric (gao1xing4),
+    from the dataset's per-word pinyin or pypinyin. Picks the word's
+    dictionary form(s) when resolving the sense.
     pinyin: this occurrence's display reading WITH context sandhi (一 is yí
     in 一个 but yī on its own), so a clicked word matches what the sentence
     shows. Written by the finalize stage.
@@ -249,6 +256,8 @@ class SentenceVocab(Base):
     vocab_id = Column(Integer, ForeignKey("vocab.id"), nullable=False)
     vocab_sense_id = Column(Integer, ForeignKey("vocab_senses.id"), nullable=True)
     position = Column(Integer, nullable=False, default=0)
+    pos_tag = Column(Text, nullable=True)
+    reading = Column(Text, nullable=True)
     pinyin = Column(Text, nullable=True)
     context_definition = Column(Text, nullable=True)
 
