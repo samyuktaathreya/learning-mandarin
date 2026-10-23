@@ -1,346 +1,193 @@
 """
-SQL-based textbook data pipeline runner.
+SQL-based textbook data pipeline runner (hsk-sentences-audio version).
 
-REWRITTEN PIPELINE (replaces the old vocab_index_parser -> sentence_parser
--> extract_and_match_grammar -> create_questions -> append_orphan_tags
-order):
+STAGES, in order:
+  once, over everything:
+    1. load_hsk_lists     vocab JSON (2021 levels) + grammar points list
+    2. import_hsa         hsk-sentences-audio sentences, bare (no unit, no tags)
+    3. tag_sentences      words, POS tags, readings, one-meaning senses, sentence
+                          levels -- no AI for word meanings, a few minutes
+  for the levels you build:
+    3b. resolve_senses    one AI call per ambiguous word occurrence, in parallel
+                          (~3,800 calls for HSK 1-2)
+  once:
+    4. detect_grammar     rule-based grammar links
+  per HSK level, lowest first:
+    5. assign_units       units, then unit_id on sentences / words / senses / grammar
+  once, after the levels are built:
+    6. finalize           tone-sandhi display pinyin, primary senses
+    7. create_questions   question bank (rebuilt from scratch each time)
 
-  1. vocab_index_parser.py   -> Vocab/VocabSense rows FROM THE PRINTED INDEX
-  2. sentence_parser.py      -> bare Sentence rows ONLY (NO FITB, no tagging
-                                 -- OCR + LLM extraction + verbatim-check
-                                 only)
-  3. fitb_parser.py          -> bare FitbQuestion rows ONLY, matched back to
-                                 the Sentence rows sentence_parser.py just
-                                 wrote. Split out of sentence_parser.py
-                                 because it's a different kind of row and
-                                 depends on sentence_parser.py having
-                                 already committed for this unit -- it reads
-                                 Sentence rows fresh from the DB rather than
-                                 sharing in-memory state. Also applies two
-                                 new programmatic filters: drops any
-                                 question whose answer isn't pure hanzi, and
-                                 drops any question whose text leaked pinyin
-                                 with tone diacritics.
-  4. tag_sentences.py        -> HanLP-segments every bare sentence, resolves
-                                 SentenceVocab tags + VocabSense creation/
-                                 matching/rehoming via AI where needed
-  5. import_sentences.py     -> external supplementary sentences (SEPARATE
-                                 script, run per level, AFTER 1-4 complete
-                                 for that level -- its placement logic
-                                 depends on what's already known)
-  6. extract_and_match_grammar.py -> GrammarTip + SentenceGrammar rows
-  7. create_questions.py     -> Question rows (every word used in a
-                                 sentence is now documented by this point)
+Stages 1-4 run over everything because a sentence's level is only known
+after tagging; 3b and 5 only for the levels you build. Every stage is safe
+to re-run: 1-2 update in place, 3 only tags untagged sentences, 3b only
+sends tags still without a meaning (unless --redo-senses), 4-7 rebuild what
+they own.
 
-append_orphan_tags.py IS DELETED. Its core mistake was inventing vocab
-entries from the printed INDEX with no sentence evidence at all -- e.g. the
-index lists 东西 (a compound) at some unit, and the old gap-filler would
-register the SUBSTRING 西 as if it were independently taught there, because
-nothing gated vocab creation on "does a real sentence actually use this."
-tag_sentences.py and import_sentences.py are now the ONLY two places new
-vocab senses get created, and both require actual sentence evidence.
+Each stage runs as `python -m data_pipelines.textbook.scripts.<stage>` from
+the repo root, same as running it by hand.
 
-PER-HSK-LEVEL EXECUTION: stages 1-3 write directly from the textbook's own
-per-level source (index PDF, unit pages) and don't depend on other levels.
-Stage 4 (tag_sentences) depends on stage 2 (sentence_parser) for that same
-level. Stage 5 (import_sentences) DOES depend on 1-4 having fully completed
-for that same level -- its placement logic reads "what's already known" for
-that level. Stage 6-7 depend on all of 1-5 for that level. So the pipeline
-runs FULLY through stage 7 for one level before starting the next level, not
-stage-by-stage across every level. --hsk-level scopes a run to ONE level;
-omit it (or pass --all-levels) to run every level in order.
+USAGE (from the repo root)
+    python main.py --levels 1 2                       # everything, building HSK 1 and 2
+    python main.py --levels 1 2 --from units          # rebuild units onward (no AI)
+    python main.py --levels 1 2 --from finalize       # just pinyin, primary senses, questions
+    python main.py --levels 1 2 --only tag            # one stage
+    python main.py --estimate-tagging                 # count tagging's AI calls, change nothing
+    python main.py --levels 1 2 --redo-senses         # re-pick every ambiguous meaning, then units onward
+    python main.py --stats                            # just print the DB summary
 
-A level > 1 requires the level below it to already be populated (rehoming
-and import_sentences placement both implicitly assume lower levels are
-"settled" reference data) -- main.py checks this and refuses to run a level
-out of order.
-
-Usage:
-    python main.py --hsk-level 1                    # full pipeline for HSK1 only
-    python main.py --hsk-level 2                    # full pipeline for HSK2 (requires HSK1 done)
-    python main.py --all-levels                     # HSK1, then HSK2, ... in order
-    python main.py --hsk-level 1 --vocab-only        # stop after vocab_index_parser
-    python main.py --hsk-level 1 --from-sentences    # start from sentence_parser
-    python main.py --hsk-level 1 --from-fitb         # start from fitb_parser
-    python main.py --hsk-level 1 --from-tagging      # start from tag_sentences
-    python main.py --hsk-level 1 --from-external     # start from import_sentences
-    python main.py --hsk-level 1 --from-grammar      # start from extract_and_match_grammar
-    python main.py --hsk-level 1 --from-questions    # start from create_questions
-    python main.py --hsk-level 1 --units 3 4 5       # selective: only these units in sentence_parser/fitb_parser
-    python main.py --hsk-level 1 --sources textbook  # only process textbook (not workbook)
-    python main.py --hsk-level 1 --skip-external     # don't run import_sentences this run
+After a run, check it:  sqlite3 <db> < check_pipeline.sql
 """
-
-import os
-import sys
 import argparse
+import subprocess
+import sys
 from collections import defaultdict
 
 from app.core.config.textbook import PIPELINE_SCRIPTS_DIR
-
 from app.textbook.db_utils import init_db, get_session
-from app.textbook.models import Unit, Vocab, VocabSense, Sentence, FitbQuestion, Question
+from app.textbook.models import Unit, Vocab, VocabSense, Sentence, SentenceVocab, FitbQuestion, Question
+
+REPO_ROOT = PIPELINE_SCRIPTS_DIR.resolve().parents[2]       # .../data_pipelines/textbook/scripts -> repo root
+MODULE_PREFIX = "data_pipelines.textbook.scripts"
+
+# (short name used by --from / --only, script module, runs per level?)
+STAGES = [
+    ("lists",     "load_hsk_lists",   False),
+    ("import",    "import_hsa",       False),
+    ("tag",       "tag_sentences",    False),
+    ("senses",    "resolve_senses",   "levels"),   # one call with every level
+    ("grammar",   "detect_grammar",   False),
+    ("units",     "assign_units",     True),
+    ("finalize",  "finalize",         False),
+    ("questions", "create_questions", False),
+]
+STAGE_NAMES = [name for name, _, _ in STAGES]
 
 
-def run_script(script_name: str, env_overrides: dict = None, script_dir=None, script_args: list = None) -> bool:
-    """Run a pipeline script as a subprocess."""
-    base_dir = script_dir or PIPELINE_SCRIPTS_DIR
-    script_path = base_dir / f"{script_name}.py"
-    if not script_path.exists():
-        print(f"❌ Script not found: {script_path}", file=sys.stderr)
-        return False
-
-    env = os.environ.copy()
-    if env_overrides:
-        env.update(env_overrides)
-
-    import subprocess
-    
-    # Build the base command
-    cmd = [sys.executable, str(script_path)]
-    # Append any command-line arguments if they were provided
-    if script_args:
-        cmd.extend(script_args)
-        
-    result = subprocess.run(cmd, env=env)
+def run_module(module: str, args: list[str] | None = None) -> bool:
+    """Runs one stage as `python -m <module> [args]` from the repo root."""
+    cmd = [sys.executable, "-m", f"{MODULE_PREFIX}.{module}"] + (args or [])
+    print(f"$ {' '.join(cmd[1:])}")
+    result = subprocess.run(cmd, cwd=REPO_ROOT)
     if result.returncode != 0:
-        print(f"❌ {script_name} exited with status {result.returncode}", file=sys.stderr)
+        print(f"❌ {module} exited with status {result.returncode}", file=sys.stderr)
         return False
-
     return True
 
 
+def stage_args(name: str, level: int | None, args) -> list[str]:
+    if name == "units":
+        return ["--hsk-level", str(level)]
+    if name == "senses":
+        return ["--levels", *map(str, sorted(set(args.levels)))] + (["--redo"] if args.redo_senses else [])
+    if name == "tag":
+        out = []
+        if args.retag:
+            out.append("--retag")
+        if args.tag_limit:
+            out += ["--limit", str(args.tag_limit)]
+        return out
+    return []              # create_questions does every level that has units
+
+
 def print_stats():
-    """Print a summary of what's currently in the database."""
+    """Summary of what's currently in the database."""
     try:
         with get_session() as db:
-            units_count = db.query(Unit).count()
-            vocab_count = db.query(Vocab).count()
-            senses_count = db.query(VocabSense).count()
-            sentences_count = db.query(Sentence).count()
-            fitb_count = db.query(FitbQuestion).count()
-            questions_count = db.query(Question).count()
-            untagged_sentences = db.query(Sentence).filter(~Sentence.vocab_links.any()).count()
-
+            untagged = db.query(Sentence).filter(~Sentence.vocab_links.any()).count()
             print("\n" + "=" * 50)
             print("📊 DATABASE SUMMARY")
             print("=" * 50)
-            print(f"  Units:              {units_count}")
-            print(f"  Vocab (identities): {vocab_count}")
-            print(f"  Vocab senses:       {senses_count}")
-            print(f"  Sentences:          {sentences_count}")
-            print(f"    untagged:         {untagged_sentences}" + (" ⚠️" if untagged_sentences else ""))
-            print(f"  FITB Qs:            {fitb_count}")
-            print(f"  Questions:          {questions_count}")
-
-            level_counts = defaultdict(int)
+            print(f"  Vocab (identities): {db.query(Vocab).count()}"
+                  f"   (in the HSK list: {db.query(Vocab).filter(Vocab.hsk_level.isnot(None)).count()})")
+            print(f"  Vocab senses:       {db.query(VocabSense).count()}")
+            print(f"  Sentences:          {db.query(Sentence).count()}")
+            print(f"    untagged:         {untagged}" + (" ⚠️" if untagged else ""))
+            print(f"    with a unit:      {db.query(Sentence).filter(Sentence.unit_id.isnot(None)).count()}")
+            print(f"  Units:              {db.query(Unit).count()}")
+            print(f"  FITB Qs:            {db.query(FitbQuestion).count()}")
+            print(f"  Questions:          {db.query(Question).count()}")
+            by_level = defaultdict(lambda: [0, 0])
             for u in db.query(Unit).all():
-                level_counts[u.hsk_level] += 1
-            if len(level_counts) > 1:
-                print("  --- by hsk_level ---")
-                for level in sorted(level_counts):
-                    print(f"    HSK{level}: {level_counts[level]} unit(s)")
-            print("=" * 50 + "\n")
+                by_level[u.hsk_level][0] += 1
+            for (lvl,) in db.query(Unit.hsk_level).join(Question, Question.unit_id == Unit.id).all():
+                by_level[lvl][1] += 1
+            for lvl in sorted(by_level):
+                print(f"    HSK{lvl}: {by_level[lvl][0]} unit(s), {by_level[lvl][1]} question(s)")
+            print("=" * 50)
+            print("Full check: sqlite3 <db> < check_pipeline.sql\n")
     except Exception as e:
         print(f"⚠️  Could not fetch stats: {e}", file=sys.stderr)
 
 
-def check_level_prerequisites(hsk_level: int) -> bool:
-    """A level > 1 requires the level below it to already have units --
-    rehoming and import_sentences placement both implicitly treat lower
-    levels as settled reference data. Returns True if OK to proceed."""
-    if hsk_level <= 1:
-        return True
-    with get_session() as db:
-        prior_count = db.query(Unit).filter(Unit.hsk_level == hsk_level - 1).count()
-    if prior_count == 0:
-        print(f"❌ HSK level {hsk_level - 1} has no units yet -- run the pipeline for "
-              f"HSK level {hsk_level - 1} before HSK level {hsk_level}.", file=sys.stderr)
-        return False
-    return True
-
-
-def run_pipeline_for_level(hsk_level: int, args) -> list[str]:
-    """Runs the full per-level pipeline (stages 1-7) for one HSK level,
-    honoring the --from-*/--vocab-only/--skip-external flags. Returns the
-    list of stage names that failed (empty if all succeeded)."""
-    pipeline = [
-        "vocab_index_parser",
-        "sentence_parser",
-        "fitb_parser",
-        "tag_sentences",
-        "import_sentences",
-        "extract_and_match_grammar",
-        "create_questions",
-    ]
-
-    if args.vocab_only:
-        pipeline = ["vocab_index_parser"]
-    elif args.from_sentences:
-        pipeline = pipeline[1:]
-    elif args.from_fitb:
-        pipeline = pipeline[2:]
-    elif args.from_tagging:
-        pipeline = pipeline[3:]
-    elif args.from_external:
-        pipeline = pipeline[4:]
-    elif args.from_grammar:
-        pipeline = pipeline[5:]
-    elif args.from_questions:
-        pipeline = pipeline[6:]
-
-    if args.skip_external and "import_sentences" in pipeline:
-        pipeline.remove("import_sentences")
-
-    common_env_overrides = {"HSK_LEVEL": str(hsk_level)}
-
-    # sentence_parser and fitb_parser both accept the same UNITS/SOURCES
-    # selective-reprocessing overrides (fitb_parser needs to scope to the
-    # same units/sources it's matching Sentence rows against).
-    extraction_env_overrides = {}
-    if args.units:
-        extraction_env_overrides["UNITS_TO_PROCESS"] = ",".join(str(u) for u in args.units)
-    if args.sources:
-        extraction_env_overrides["SOURCES_TO_PROCESS"] = ",".join(args.sources)
-
-    import_sentences_env_overrides = {}
-    if args.topic:
-        import_sentences_env_overrides["TOPIC"] = args.topic
-
-    print(f"\n🎯 HSK level: {hsk_level}")
-    if not check_level_prerequisites(hsk_level):
-        return ["prerequisite_check"]
-
-    failed_scripts = []
-    for i, script_name in enumerate(pipeline, start=1):
-        print(f"[{i}/{len(pipeline)}] Running {script_name} (HSK{hsk_level})...")
-
-        script_env = dict(common_env_overrides)
-        script_args = [] # Initialize empty list for CLI arguments
-
-        if script_name in ("sentence_parser", "fitb_parser"):
-            script_env.update(extraction_env_overrides)
-            
-        if script_name == "import_sentences":
-            script_env.update(import_sentences_env_overrides)
-            # import_sentences requires CLI arguments, not just env vars
-            script_args.extend(["--hsk-level", str(hsk_level)])
-            if args.topic:
-                script_args.extend(["--topic", args.topic])
-
-        # import_sentences.py lives outside PIPELINE_SCRIPTS_DIR
-        script_dir = None
-        if script_name == "import_sentences":
-            from app.core.config.textbook import HSK_SENTENCES_AUDIO_SCRIPTS_DIR
-            script_dir = HSK_SENTENCES_AUDIO_SCRIPTS_DIR
-
-        # Pass the script_args into the function
-        if not run_script(script_name, script_env, script_dir=script_dir, script_args=script_args):
-            failed_scripts.append(script_name)
-            print(f"❌ {script_name} failed. Aborting the pipeline!\n", file=sys.stderr)
-            # Return immediately on failure to stop the pipeline
-            return failed_scripts
-        else:
-            print(f"✓ {script_name} completed\n")
-
-    return failed_scripts
-
-
 def main():
     parser = argparse.ArgumentParser(
-        description="Run the SQL-based textbook data pipeline.",
+        description="Run the textbook data pipeline (hsk-sentences-audio).",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Examples:
-  python main.py --hsk-level 1                    # Full pipeline, HSK1 only
-  python main.py --all-levels                      # Every level, in order
-  python main.py --hsk-level 1 --vocab-only        # Stop after vocab_index_parser
-  python main.py --hsk-level 1 --from-fitb         # Start from fitb_parser
-  python main.py --hsk-level 1 --from-tagging      # Start from tag_sentences
-  python main.py --hsk-level 1 --units 3 4 5       # Reprocess only units 3, 4, 5
-  python main.py --hsk-level 1 --skip-external     # Skip import_sentences this run
-        """
+        epilog=__doc__[__doc__.index("USAGE"):],
     )
-
-    level_group = parser.add_mutually_exclusive_group(required=True)
-    level_group.add_argument("--hsk-level", type=int, help="Run the pipeline for this HSK level only.")
-    level_group.add_argument("--all-levels", action="store_true",
-                              help="Run every HSK level found under the raw data directory, in order.")
-
-    parser.add_argument("--vocab-only", action="store_true",
-                         help="Run only vocab_index_parser and exit.")
-    parser.add_argument("--from-sentences", action="store_true",
-                         help="Start from sentence_parser (vocab already done).")
-    parser.add_argument("--from-fitb", action="store_true",
-                         help="Start from fitb_parser (vocab and sentences already done).")
-    parser.add_argument("--from-tagging", action="store_true",
-                         help="Start from tag_sentences (vocab, sentences, and FITB already done).")
-    parser.add_argument("--from-external", action="store_true",
-                         help="Start from import_sentences (vocab, sentences, FITB, tagging already done).")
-    parser.add_argument("--from-grammar", action="store_true",
-                         help="Start from extract_and_match_grammar.")
-    parser.add_argument("--from-questions", action="store_true",
-                         help="Start from create_questions (everything else already done).")
-    parser.add_argument("--skip-external", action="store_true",
-                         help="Don't run import_sentences this run (e.g. no network access, or "
-                              "iterating quickly on the textbook-only stages).")
-    parser.add_argument("--units", nargs="+", type=int,
-                         help="Selective reprocessing: only these unit numbers. Passed to "
-                              "sentence_parser and fitb_parser.")
-    parser.add_argument("--sources", nargs="+", choices=["textbook", "workbook"],
-                         help="Selective reprocessing: only these sources. Passed to "
-                              "sentence_parser and fitb_parser.")
-    parser.add_argument("--topic", type=str, default=None,
-                         help="Only import external sentences matching this topic. Passed to import_sentences.")
-    parser.add_argument("--no-stats", action="store_true",
-                         help="Skip printing database statistics at the end.")
-
+    parser.add_argument("--levels", nargs="+", type=int,
+                        help="HSK levels to build units for, e.g. --levels 1 2 (built lowest first).")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("--from", dest="start", choices=STAGE_NAMES,
+                       help="Start at this stage and run everything after it.")
+    group.add_argument("--only", choices=STAGE_NAMES, help="Run just this stage.")
+    group.add_argument("--estimate-tagging", action="store_true",
+                       help="Run tag_sentences --estimate (counts AI calls, changes nothing) and stop.")
+    group.add_argument("--stats", action="store_true", help="Only print the DB summary.")
+    parser.add_argument("--redo-senses", action="store_true",
+                        help="Re-pick every ambiguous meaning in the built levels, then rebuild units onward "
+                             "(implies --from senses).")
+    parser.add_argument("--retag", action="store_true", help="Pass --retag to tag_sentences (re-tag everything).")
+    parser.add_argument("--tag-limit", type=int, default=None,
+                        help="Pass --limit N to tag_sentences (try it on a few sentences first).")
+    parser.add_argument("--no-stats", action="store_true", help="Skip the DB summary at the end.")
     args = parser.parse_args()
 
-    print("🗄️  Initializing database...")
-    try:
-        init_db()
-        print("✓ Database initialized\n")
-    except Exception as e:
-        print(f"❌ Failed to initialize database: {e}", file=sys.stderr)
-        sys.exit(1)
+    init_db()
+    if args.stats:
+        print_stats()
+        return
+    if args.estimate_tagging:
+        ok = run_module("tag_sentences", ["--estimate"])
+        sys.exit(0 if ok else 1)
 
-    if args.all_levels:
-        from app.core.config.textbook import TEXTBOOK_RAW_DIR
-        index_dir = TEXTBOOK_RAW_DIR / "hsk_textbook_index"
-        levels = sorted(
-            int(p.stem) for p in index_dir.glob("*.pdf") if p.stem.isdigit()
-        ) if index_dir.exists() else []
-        if not levels:
-            print(f"❌ No HSK level PDFs found under {index_dir}.", file=sys.stderr)
+    if args.redo_senses and not (args.start or args.only):
+        args.start = "senses"
+    if args.only:
+        selected = [s for s in STAGES if s[0] == args.only]
+    else:
+        start = STAGE_NAMES.index(args.start) if args.start else 0
+        selected = STAGES[start:]
+
+    needs_levels = any(per_level for _, _, per_level in selected)
+    if needs_levels and not args.levels:
+        parser.error("--levels is required when the senses or units stage runs, e.g. --levels 1 2")
+    levels = sorted(set(args.levels or []))
+
+    steps = []
+    for name, module, per_level in selected:
+        if per_level == "levels":
+            steps.append((f"{name} (HSK{' '.join(map(str, levels))})", name, module, None))
+        elif per_level:
+            steps += [(f"{name} (HSK{lvl})", name, module, lvl) for lvl in levels]
+        else:
+            steps.append((name, name, module, None))
+
+    print(f"🎯 Stages: {' -> '.join(label for label, *_ in steps)}\n")
+    for i, (label, name, module, level) in enumerate(steps, 1):
+        print(f"[{i}/{len(steps)}] {label}")
+        if not run_module(module, stage_args(name, level, args)):
+            print(f"⛔ Stopped: {label} failed. Fix it, then resume with --from {name}"
+                  f"{' --levels ' + ' '.join(map(str, levels)) if levels else ''}.", file=sys.stderr)
+            if not args.no_stats:
+                print_stats()
             sys.exit(1)
-    else:
-        levels = [args.hsk_level]
+        print(f"✓ {label} done\n")
 
-    all_failed = {}
-    for level in levels:
-        failed = run_pipeline_for_level(level, args)
-        if failed:
-            all_failed[level] = failed
-            if failed == ["prerequisite_check"]:
-                if args.all_levels:
-                    print(f"⛔ Stopping --all-levels run: HSK{level} prerequisites not met.", file=sys.stderr)
-            else:
-                print(f"⛔ Stopping run: Pipeline aborted due to failure in HSK{level}.", file=sys.stderr)
-            # Break immediately to stop processing any subsequent levels
-            break
-
-    if all_failed:
-        print(f"\n❌ Pipeline completed with errors:", file=sys.stderr)
-        for level, scripts in all_failed.items():
-            print(f"  HSK{level}: {', '.join(scripts)}", file=sys.stderr)
-        if not args.no_stats:
-            print_stats()
-        sys.exit(1)
-    else:
-        print("\n✅ Pipeline completed successfully!")
-        if not args.no_stats:
-            print_stats()
+    print("✅ Pipeline completed successfully!")
+    if not args.no_stats:
+        print_stats()
 
 
 if __name__ == "__main__":

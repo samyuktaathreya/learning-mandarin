@@ -1,57 +1,56 @@
 """
-Generate the per-unit question bank directly from the DB (Vocab, Sentence,
-SentenceVocab, GrammarTip/SentenceGrammar, FitbQuestion) and write Question
-rows. Replaces index_output.json + units_output.json + unit_questions_hsk1.json
-+ unit_vocabs_tag.json as inputs/outputs entirely.
+data_pipelines/textbook/scripts/create_questions.py
 
-Key simplification vs. the JSON version: a sentence's tags used to be
-recomputed from scratch here (`content_tags_for` via substring matching
-against `all_hanzi`) because units_output.json's own "tags" field wasn't
-fully trusted / wasn't always present for every consumer. In the DB, a
-sentence's tags ARE db.get_tags_for_sentence(sentence_id) -- the exact,
-already-validated SentenceVocab links written by sentence_parser.py -- so
-that recomputation is gone for sentences. It's kept ONLY for vocab/grammar/
-proper-noun entries, where a compound word's own hanzi may contain other
-taught sub-words that aren't tracked anywhere else (there's no
-"vocab_components" table -- this mirrors the old code's same use of
-content_tags_for for vocab items).
+Pipeline stage 7: generates each unit's question bank from the finished DB
+and writes Question rows (and FitbQuestion rows for fill-in-the-blank).
+No AI. Run after assign_units.py and finalize.py.
 
-Merge/idempotency: db.upsert_question is keyed on (unit, question_type,
-question, answer) -- the same signature the old code used to merge into
-existing_questions and avoid duplicate IDs on rerun. legacy_id preservation
-was for a specific "u3_speaking_vocab_2" ID format some other part of the
-app might reference directly; if nothing external depends on that string
-anymore, it can be dropped -- included here for parity.
+Questions are derived data, so each run DELETES a level's questions and
+rebuilds them -- re-running never leaves stale questions behind (they get
+new ids each time).
+
+WORD QUESTIONS -- one set per sense homed in the unit (a word re-taught with
+a new meaning in a later unit gets questions there too). Pinyin is the
+sense's tone-sandhi display pinyin.
+  vocab / unlisted words: listening, speaking, translate both ways, pinyin
+  grammar words (了, 的, 吗...): listening, speaking, pinyin -- no
+                                  translation, a particle has no English word
+  proper nouns: listening, speaking, pinyin, translate to English
+
+SENTENCE QUESTIONS -- every sentence in the unit: listening, speaking
+(answer = the sentence's sandhi pinyin), translate both ways (skipped when
+the sentence has no English translation).
+
+FILL IN THE BLANK -- one per sentence, generated: the blank is a word whose
+sense is new in this unit (spread so the unit's new words each get blanked
+before any repeats), else the most recently taught word. Proper nouns are
+never blanked. Format, as before: "我很___。 (I'm very happy.)"
+
+TYPING questions (listening sentence, translate to Chinese, fill in the
+blank) are skipped when a SENTENCE uses a word not taught yet. Every
+sentence's words are taught by its unit (assign_units.py checks this), so
+this is a safety net. The old extra rule for WORD questions -- skip a
+compound if any shorter word inside it is taught later -- is gone: against
+the full 11,000-word list it blocked 老师 because 老 comes later, and typing
+a word needs its pinyin, not its characters as separate words.
+
+USAGE (from the repo root)
+    python -m data_pipelines.textbook.scripts.create_questions               # every level with units
+    python -m data_pipelines.textbook.scripts.create_questions --hsk-level 1
 """
-
-import os
+import argparse
 import re
-from collections import defaultdict
+import time
+from collections import Counter, defaultdict
 from enum import Enum
 
-from app.textbook.models import Vocab, VocabSense
-
 from app.textbook.db_utils import (
-    get_session, init_db, get_senses_for_unit, get_all_vocab_hanzi,
-    get_sentences_for_unit, get_tags_for_sentence, get_grammar_tips_for_sentence,
-    rehome_sentences, upsert_question, get_word_to_unit_map, get_senses_taught_by,
+    get_session, init_db, get_senses_for_unit,
+    get_sentences_for_unit, get_tags_for_sentence, upsert_question, get_word_to_unit_map,
 )
-from app.textbook.models import WordType, FitbQuestion, Unit
-from vocab_pinyin_utils import diacritic_to_numeric
-
-# HSK level being processed this run (threaded the same way main.py already
-# threads UNITS_TO_PROCESS / SOURCES_TO_PROCESS to sentence_parser.py).
-HSK_LEVEL = int(os.environ.get("HSK_LEVEL", "1"))
-
-import anthropic
-from typing import Optional
-
-from app.core.config.shared import settings
-from app.textbook.models import SentenceVocab
-
-api_key = settings.CLAUDE_API_KEY
-client = anthropic.Anthropic(api_key=api_key) if api_key else None
-MODEL = os.getenv("CLAUDE_MODEL", "claude-haiku-4-5-20251001")
+from app.textbook.models import (
+    FitbQuestion, Question, Sentence, SentenceVocab, Unit, VocabSense, WordType,
+)
 
 
 class QuestionType(str, Enum):
@@ -75,280 +74,184 @@ TYPING_REQUIRED_TYPES = {
     QuestionType.FILL_IN_THE_BLANK.value,
 }
 
+WORD_QTYPES = {
+    WordType.vocab: [QuestionType.LISTENING_VOCAB, QuestionType.SPEAKING_VOCAB,
+                     QuestionType.TRANSLATE_EN_TO_ZH_WORD, QuestionType.TRANSLATE_ZH_TO_EN_WORD,
+                     QuestionType.TRANSCRIBE_WORD_TO_PINYIN, QuestionType.TRANSCRIBE_HANZI_TO_PINYIN],
+    WordType.grammar: [QuestionType.LISTENING_VOCAB, QuestionType.SPEAKING_VOCAB,
+                       QuestionType.TRANSCRIBE_WORD_TO_PINYIN, QuestionType.TRANSCRIBE_HANZI_TO_PINYIN],
+    WordType.proper_noun: [QuestionType.LISTENING_VOCAB, QuestionType.SPEAKING_VOCAB,
+                           QuestionType.TRANSCRIBE_WORD_TO_PINYIN, QuestionType.TRANSLATE_ZH_TO_EN_WORD,
+                           QuestionType.TRANSCRIBE_HANZI_TO_PINYIN],
+}
+WORD_QTYPES[WordType.auto] = WORD_QTYPES[WordType.vocab]   # unlisted words: same as vocab
 
-def content_tags_for(hanzi_text: str, all_hanzi: list[str]) -> list[str]:
-    """Which known words are substrings of this text -- used only for vocab/
-    grammar/proper-noun entries (compound-word decomposition). Sentences use
-    their real DB tags instead; see module docstring."""
-    return [w for w in all_hanzi if w in hanzi_text]
-
-
-def resolve_ambiguous_sense(word: str, candidates: list, sentence_hanzi: str) -> Optional[object]:
-    """When `word` has SEVERAL senses already taught by the time
-    `sentence_hanzi` appears, asks Claude which of `candidates`
-    (VocabSense rows) this specific occurrence actually uses. Returns the
-    matching VocabSense, or None if Claude is unavailable or doesn't
-    clearly pick one -- callers keep whichever sense
-    resolve_sense_for_sentence already guessed (the most-recently-taught
-    candidate) in that case."""
-    if client is None or len(candidates) < 2:
-        return None
-
-    options = "\n".join(f"{i + 1}. {c.english}" for i, c in enumerate(candidates))
-    prompt = f"""You are a Chinese-English dictionary editor. The word "{word}"
-has more than one taught meaning by this point in the curriculum. Which
-meaning is actually used in this sentence?
-
-Sentence: "{sentence_hanzi}"
-
-Candidate meanings:
-{options}
-
-Output ONLY the number of the matching candidate. No explanation.
-"""
-    try:
-        response = client.messages.create(
-            model=MODEL,
-            max_tokens=8,
-            system="You are a precise bilingual dictionary editor.",
-            messages=[{"role": "user", "content": prompt}],
-        )
-        raw = response.content[0].text.strip()
-        m = re.match(r"\d+", raw)
-        if not m:
-            return None
-        idx = int(m.group()) - 1
-        return candidates[idx] if 0 <= idx < len(candidates) else None
-    except Exception as e:
-        print(f"  [warning] sense-disambiguation failed for '{word}': {e}")
-        return None
+_CJK_RE = re.compile(r"[一-鿿]")
 
 
-def resolve_sentence_sense_ambiguity(db, sentence) -> int:
-    """For every word tagged in `sentence` that has MULTIPLE senses already
-    taught by this sentence's unit (real ambiguity -- resolve_sense_for_
-    sentence's unit-based default is just a guess in that case), asks
-    Claude which sense this occurrence actually uses and re-points the
-    SentenceVocab link at it if that disagrees with the default guess.
+# --------------------------------- HELPERS ---------------------------------
 
-    Idempotent: links already checked (context_definition is not None) are
-    skipped, so reruns don't re-spend API calls. Unlike the old per-word
-    Claude check this replaces, the common single-sense case is FREE --
-    this only calls Claude when a word genuinely has more than one
-    candidate meaning to choose between. context_definition is now purely
-    a "have I checked this occurrence" marker ("" = checked, no ambiguity
-    or couldn't resolve) rather than free-text override storage, since the
-    actual correction happens by pointing at the right VocabSense row."""
-    links = db.query(SentenceVocab).filter(SentenceVocab.sentence_id == sentence.id).all()
-    updated = 0
-    for link in links:
-        if link.context_definition is not None:
-            continue  # already checked this occurrence
+def has_unlearned_vocab(tags: list[str], unit_number: int, home_unit: dict, hsk_level: int) -> bool:
+    """True if any tag's home unit is later than (hsk_level, unit_number).
+    home_unit values are (unit_number, hsk_level); words with no unit don't
+    block (unchanged)."""
+    for t in tags:
+        u, lvl = home_unit.get(t, (unit_number, hsk_level))
+        if (lvl, u) > (hsk_level, unit_number):
+            return True
+    return False
 
-        vocab = link.vocab
-        if not vocab:
+
+def display_pinyin(sense: VocabSense) -> str:
+    return (sense.pinyin_display or sense.pinyin or "").strip()
+
+
+def word_spans(sentence: Sentence, rows: list[SentenceVocab]) -> list[tuple[int, int] | None]:
+    """(start, end) in sentence.hanzi of each tagged word, matched in order;
+    characters with no word row (numbers, punctuation) are skipped."""
+    text, spans, pos = sentence.hanzi, [], 0
+    for row in rows:
+        word = row.vocab.hanzi
+        idx = text.find(word, pos)
+        if idx == -1:
+            spans.append(None)
             continue
-
-        candidates = get_senses_taught_by(db, vocab.id, sentence.unit.unit_number, sentence.unit.hsk_level)
-        if len(candidates) < 2:
-            link.context_definition = ""  # nothing ambiguous here
+        between = text[pos:idx]
+        if any(_CJK_RE.match(c) for c in between) and not all(c in "零一二三四五六七八九十百千万两" or not _CJK_RE.match(c) for c in between):
+            spans.append(None)   # skipped over a real word: alignment is off
             continue
-
-        chosen = resolve_ambiguous_sense(vocab.hanzi, candidates, sentence.hanzi)
-        if chosen is not None and chosen.id != link.vocab_sense_id:
-            link.vocab_sense_id = chosen.id
-            updated += 1
-            print(f"  [sense-disambig] '{vocab.hanzi}' in \"{sentence.hanzi}\" -> using sense '{chosen.english}'")
-        link.context_definition = ""  # checked either way
-
-    if updated:
-        db.flush()
-    return updated
+        spans.append((idx, idx + len(word)))
+        pos = idx + len(word)
+    return spans
 
 
-def _word_location_after(word_location, hsk_level: int, unit_number: int) -> bool:
-    """True if a word's home unit is STRICTLY LATER than (hsk_level, unit_number)
-    -- i.e. not yet taught. home_unit's values need to be (unit_number,
-    hsk_level) tuples now that unit_number alone is ambiguous across levels
-    (see db.get_word_to_unit_map). HSK levels are sequential, so tuple
-    comparison is correct. Falls back to treating a bare int as hsk_level 1
-    for backward compatibility if db_utils hasn't been updated yet."""
-    if isinstance(word_location, tuple):
-        word_unit_number, word_hsk_level = word_location
-    else:
-        word_unit_number, word_hsk_level = word_location, 1
-    return (word_hsk_level, word_unit_number) > (hsk_level, unit_number)
+def pick_blank(rows, spans, unit_id: int, blank_counts: Counter):
+    """The word to blank: a sense new in this unit, least-blanked first, then
+    longest; else the most recently taught word. Never a proper noun."""
+    best = None
+    for row, span in zip(rows, spans):
+        if span is None or row.sense is None or row.vocab.word_type == WordType.proper_noun:
+            continue
+        sense_unit = row.sense.unit
+        new_here = row.sense.unit_id == unit_id
+        recency = (sense_unit.hsk_level, sense_unit.unit_number) if sense_unit else (0, 0)
+        key = (new_here, -blank_counts[row.vocab.hanzi] if new_here else 0, recency, len(row.vocab.hanzi))
+        if best is None or key > best[0]:
+            best = (key, row, span)
+    return (best[1], best[2]) if best else (None, None)
 
 
-def has_unlearned_vocab(tags: list[str], unit_number: int, home_unit: dict,
-                         hsk_level: int = HSK_LEVEL) -> bool:
-    return any(_word_location_after(home_unit.get(t, (unit_number, hsk_level)), hsk_level, unit_number)
-               for t in tags)
+# --------------------------------- PER UNIT ---------------------------------
 
+def build_questions_for_unit(db, unit: Unit, home_unit: dict, counts: Counter):
+    n, lvl = unit.unit_number, unit.hsk_level
+    seen = set()   # (qtype, question text): no duplicates within a unit
 
-def reconstruct_fitb_sentence(question: str, answer: str) -> str:
-    paren_index = question.rfind("(")
-    core = question[:paren_index].strip() if paren_index != -1 else question.strip()
-    return core.replace("___", answer)
+    def add(qtype, q, a, **links):
+        if not q or not a or (qtype, q) in seen:
+            return
+        seen.add((qtype, q))
+        upsert_question(db, n, qtype, q, a, hsk_level=lvl, **links)
+        counts[qtype] += 1
 
-
-def extract_fitb_translation(question: str) -> str:
-    paren_index = question.rfind("(")
-    if paren_index == -1:
-        return ""
-    return question[paren_index + 1:].rstrip(")").strip()
-
-
-def build_vocab_style_questions(db, items, unit_number: int, all_hanzi: list[str],
-                                 home_unit: dict, qtypes: list[str], seen_questions: set, hsk_level: int = HSK_LEVEL):
-    """Shared body for vocab / grammar / proper-noun word questions..."""
-    for sense in items:
-        hanzi = sense.vocab.hanzi
-        pinyin = (sense.pinyin or "").strip()
-        if pinyin and pinyin != "UNKNOWN_PINYIN":
-            pinyin = diacritic_to_numeric(pinyin)
-        english = sense.english or ""
-        tags = content_tags_for(hanzi, all_hanzi)
-        blocked = has_unlearned_vocab(tags, unit_number, home_unit, hsk_level=hsk_level)
-
-        candidates = {
-            QuestionType.LISTENING_VOCAB.value: (hanzi, pinyin),
-            QuestionType.SPEAKING_VOCAB.value: (hanzi, pinyin),
-            QuestionType.TRANSLATE_EN_TO_ZH_WORD.value: (english, hanzi),
-            QuestionType.TRANSLATE_ZH_TO_EN_WORD.value: (hanzi, english),
-            QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value: (hanzi, pinyin),
-            QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value: (hanzi, pinyin),
+    # --- word questions: every sense homed in this unit ---
+    for sense in get_senses_for_unit(db, n, hsk_level=lvl):
+        hanzi, pinyin, english = sense.vocab.hanzi, display_pinyin(sense), (sense.english or "").strip()
+        if not pinyin or "UNKNOWN" in pinyin:
+            counts["word skipped: no pinyin"] += 1
+            continue
+        options = {
+            QuestionType.LISTENING_VOCAB: (hanzi, pinyin),
+            QuestionType.SPEAKING_VOCAB: (hanzi, pinyin),
+            QuestionType.TRANSLATE_EN_TO_ZH_WORD: (english, hanzi),
+            QuestionType.TRANSLATE_ZH_TO_EN_WORD: (hanzi, english),
+            QuestionType.TRANSCRIBE_WORD_TO_PINYIN: (hanzi, pinyin),
+            QuestionType.TRANSCRIBE_HANZI_TO_PINYIN: (hanzi, pinyin),
         }
-        for qtype in qtypes:
-            if qtype not in candidates:
+        for qtype in WORD_QTYPES.get(sense.vocab.word_type, WORD_QTYPES[WordType.vocab]):
+            if "UNKNOWN" in english and qtype in (QuestionType.TRANSLATE_EN_TO_ZH_WORD,
+                                                  QuestionType.TRANSLATE_ZH_TO_EN_WORD):
                 continue
-            if qtype in TYPING_REQUIRED_TYPES and blocked:
-                continue
-            q_text, a_text = candidates[qtype]
-            
-            # Deduplication check
-            unique_key = (qtype, q_text)
-            if unique_key in seen_questions:
-                continue
-            seen_questions.add(unique_key)
-            
-            upsert_question(db, unit_number, qtype, q_text, a_text,
-                             vocab_id=sense.vocab_id, vocab_sense_id=sense.id, hsk_level=hsk_level)
+            q, a = options[qtype]
+            add(qtype.value, q, a, vocab_id=sense.vocab_id, vocab_sense_id=sense.id)
 
-
-def build_questions_for_unit(db, unit_number: int, all_hanzi: list[str], home_unit: dict,
-                              hsk_level: int = HSK_LEVEL):
-    
-    seen_questions = set() # Track unique (qtype, q_text) to prevent duplicates
-
-    # --- vocab / grammar / proper-noun word questions (per SENSE homed here) ---
-    vocab_senses = get_senses_for_unit(db, unit_number, word_types=[WordType.vocab], hsk_level=hsk_level)
-    build_vocab_style_questions(db, vocab_senses, unit_number, all_hanzi, home_unit, qtypes=[
-        QuestionType.LISTENING_VOCAB.value, QuestionType.SPEAKING_VOCAB.value,
-        QuestionType.TRANSLATE_EN_TO_ZH_WORD.value, QuestionType.TRANSLATE_ZH_TO_EN_WORD.value,
-        QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value,
-    ], seen_questions=seen_questions, hsk_level=hsk_level)
-
-    grammar_senses = get_senses_for_unit(db, unit_number, word_types=[WordType.grammar], hsk_level=hsk_level)
-    build_vocab_style_questions(db, grammar_senses, unit_number, all_hanzi, home_unit, qtypes=[
-        QuestionType.LISTENING_VOCAB.value, QuestionType.SPEAKING_VOCAB.value,
-        QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value,
-    ], seen_questions=seen_questions, hsk_level=hsk_level)
-
-    proper_senses = get_senses_for_unit(db, unit_number, word_types=[WordType.proper_noun], hsk_level=hsk_level)
-    build_vocab_style_questions(db, proper_senses, unit_number, all_hanzi, home_unit, qtypes=[
-        QuestionType.LISTENING_VOCAB.value, QuestionType.SPEAKING_VOCAB.value,
-        QuestionType.TRANSCRIBE_WORD_TO_PINYIN.value, QuestionType.TRANSLATE_ZH_TO_EN_WORD.value,
-        QuestionType.TRANSCRIBE_HANZI_TO_PINYIN.value,
-    ], seen_questions=seen_questions, hsk_level=hsk_level)
-
-    # --- sentence questions (real DB tags, no recomputation) ---
-    for sentence in get_sentences_for_unit(db, unit_number, hsk_level=hsk_level):
-        resolve_sentence_sense_ambiguity(db, sentence)
-        hanzi, pinyin, english = sentence.hanzi, sentence.pinyin, sentence.english
-        tags = get_tags_for_sentence(db, sentence.id)
-        blocked = has_unlearned_vocab(tags, unit_number, home_unit, hsk_level=hsk_level)
-
-        for qtype, q_text, a_text in [
+    # --- sentence questions + generated fill in the blank ---
+    blank_counts = Counter()
+    for sentence in sorted(get_sentences_for_unit(db, n, hsk_level=lvl), key=lambda s: s.id):
+        hanzi, pinyin, english = sentence.hanzi, sentence.pinyin, (sentence.english or "").strip()
+        blocked = has_unlearned_vocab(get_tags_for_sentence(db, sentence.id), n, home_unit, lvl)
+        for qtype, q, a in [
             (QuestionType.LISTENING_SENTENCE.value, hanzi, hanzi),
             (QuestionType.SPEAKING_SENTENCE.value, hanzi, pinyin),
             (QuestionType.TRANSLATE_EN_TO_ZH_SENTENCE.value, english, hanzi),
             (QuestionType.TRANSLATE_ZH_TO_EN_SENTENCE.value, hanzi, english),
         ]:
             if qtype in TYPING_REQUIRED_TYPES and blocked:
+                counts["typing question skipped: unlearned word inside"] += 1
                 continue
-                
-            # Deduplication check
-            unique_key = (qtype, q_text)
-            if unique_key in seen_questions:
-                continue
-            seen_questions.add(unique_key)
-            
-            upsert_question(db, unit_number, qtype, q_text, a_text, sentence_id=sentence.id,
-                             hsk_level=hsk_level)
+            add(qtype, q, a, sentence_id=sentence.id)
 
-    # --- FITB questions ---
-    unit_row = (
-        db.query(Unit)
-        .filter(Unit.unit_number == unit_number, Unit.hsk_level == hsk_level)
-        .first()
-    )
-    if unit_row:
-        fitb_rows = db.query(FitbQuestion).filter(FitbQuestion.unit_id == unit_row.id).all()
-        for fq in fitb_rows:
-            full_sentence = fq.full_sentence or reconstruct_fitb_sentence(fq.question, fq.answer)
-            raw_tags = content_tags_for(full_sentence, all_hanzi)
-            if has_unlearned_vocab(raw_tags, unit_number, home_unit, hsk_level=hsk_level):
-                continue
-                
-            # Deduplication check
-            qtype = QuestionType.FILL_IN_THE_BLANK.value
-            unique_key = (qtype, fq.question)
-            if unique_key in seen_questions:
-                continue
-            seen_questions.add(unique_key)
-                
-            upsert_question(db, unit_number, qtype,
-                             fq.question, fq.answer, sentence_id=fq.sentence_id,
-                             hsk_level=hsk_level)
+        if blocked:
+            continue
+        rows = sorted(sentence.vocab_links, key=lambda r: r.position)
+        row, span = pick_blank(rows, word_spans(sentence, rows), unit.id, blank_counts)
+        if row is None:
+            counts["fill in the blank skipped: no word to blank"] += 1
+            continue
+        answer = row.vocab.hanzi
+        question = hanzi[:span[0]] + "___" + hanzi[span[1]:]
+        if english:
+            question += f" ({english})"
+        if not db.query(FitbQuestion).filter_by(unit_id=unit.id, question=question, answer=answer).first():
+            db.add(FitbQuestion(sentence_id=sentence.id, unit_id=unit.id, question=question,
+                                answer=answer, full_sentence=hanzi))
+        add(QuestionType.FILL_IN_THE_BLANK.value, question, answer,
+            sentence_id=sentence.id, vocab_id=row.vocab_id, vocab_sense_id=row.vocab_sense_id)
+        blank_counts[answer] += 1
+    db.flush()
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Generate each unit's questions.")
+    parser.add_argument("--hsk-level", type=int, default=None, help="Only this level (default: every level with units).")
+    args = parser.parse_args()
+
+    t0 = time.time()
     init_db()
     with get_session() as db:
-        print(f"0. Make sure there is no bad pinyin.")
-        senses = db.query(VocabSense).filter(
-            VocabSense.pinyin != "UNKNOWN_PINYIN",
-            VocabSense.pinyin.isnot(None),
-            VocabSense.pinyin != "",
-        ).all()
-        
-        # Check for digits using Python instead of SQLite
-        bad_pinyin = [s for s in senses if not any(char in '12345' for char in s.pinyin)]
-        
-        if bad_pinyin:
-            print(f"⚠️  WARNING: Found {len(bad_pinyin)} vocab sense(s) with un-converted pinyin. "
-                f"Run repair_diacritic_pinyin.py first.")
-            return
-        
-        print(f"1. Rehoming sentences to their earliest legitimate unit (HSK level {HSK_LEVEL})...")
-        # Must stay within this one hsk_level -- a sentence using only HSK1
-        # words shouldn't get rehomed to an HSK2 unit just because the
-        # unit_number happens to be lower there (see migration doc section 3).
-        rehome_sentences(db, hsk_level=HSK_LEVEL)
+        missing = db.query(VocabSense).filter(VocabSense.unit_id.isnot(None),
+                                              VocabSense.pinyin_display.is_(None)).count()
+        if missing:
+            raise SystemExit(f"{missing} taught sense(s) have no display pinyin -- run finalize.py first.")
+
+        levels = ([args.hsk_level] if args.hsk_level else
+                  sorted({lvl for (lvl,) in db.query(Unit.hsk_level).distinct().all()}))
+        if not levels:
+            raise SystemExit("No units yet -- run assign_units.py first.")
 
         home_unit = get_word_to_unit_map(db)
-        all_hanzi = get_all_vocab_hanzi(db)
 
-        unit_numbers = sorted(
-            u.unit_number for u in db.query(Unit).filter(Unit.hsk_level == HSK_LEVEL).all()
-        )
-        print(f"2. Building questions for {len(unit_numbers)} unit(s) in HSK level {HSK_LEVEL}...")
-        for unit_number in unit_numbers:
-            print(f"  -> unit {unit_number}")
-            build_questions_for_unit(db, unit_number, all_hanzi, home_unit, hsk_level=HSK_LEVEL)
-
-    print("✅ Done! Questions written directly to the DB.")
+        for lvl in levels:
+            units = db.query(Unit).filter(Unit.hsk_level == lvl).order_by(Unit.unit_number).all()
+            unit_ids = [u.id for u in units]
+            old = db.query(Question).filter(Question.unit_id.in_(unit_ids)).delete(synchronize_session=False)
+            db.query(FitbQuestion).filter(FitbQuestion.unit_id.in_(unit_ids)).delete(synchronize_session=False)
+            db.flush()
+            counts = Counter()
+            per_unit = []
+            for unit in units:
+                before = sum(v for k, v in counts.items() if not k.startswith(("word skipped", "typing", "fill in the blank skipped")))
+                build_questions_for_unit(db, unit, home_unit, counts)
+                after = sum(v for k, v in counts.items() if not k.startswith(("word skipped", "typing", "fill in the blank skipped")))
+                per_unit.append((unit.unit_number, unit.title, after - before))
+            total = sum(q for *_, q in per_unit)
+            print(f"\nHSK {lvl}: {total} question(s) in {len(units)} unit(s) (replaced {old})")
+            for n, title, q in per_unit:
+                print(f"  {n:>3}  {title:<34}{q:>6}")
+            for k, v in sorted(counts.items()):
+                print(f"    {k}: {v}")
+            db.commit()
+    print(f"\nDone in {time.time() - t0:.0f}s.")
 
 
 if __name__ == "__main__":
