@@ -36,33 +36,56 @@ class OnnxScorer:
 
     prepare = staticmethod(prepare)
 
-    def model_probs(self, wav):
+    def logits(self, wav):
+        """Runs every model once on an already prepared wav -> one {head: (T, C) logits} per model.
+        This is the expensive part; everything else here is cheap numpy on its output."""
         out = []
         for sess, cfg in self.models:
             x = wav.astype(np.float32)
             if cfg["do_normalize"]:
                 x = (x - x.mean()) / np.sqrt(x.var() + 1e-7)
-            logits = sess.run(None, {"input_values": x[None, :]})
-            out.append({h: head_probs(logits[i][0], h) for i, h in enumerate(cfg["heads"])})
+            res = sess.run(None, {"input_values": x[None, :]})
+            out.append({h: res[i][0] for i, h in enumerate(cfg["heads"])})
         return out
 
-    def frame_probs(self, wav):
-        """Per-frame unit probabilities, averaged over the models: {head: (T, C) array, blank at 0}.
-        Used to find syllable boundaries (split.py). `wav` is already prepared."""
+    def model_probs(self, wav):
+        return [{h: head_probs(z, h) for h, z in m.items()} for m in self.logits(wav)]
+
+    @staticmethod
+    def frame_probs_from(logits):
+        """Per-frame unit probabilities from logits(), averaged over the models: {head: (T, C), blank
+        at 0}. Used to find syllable boundaries (split.py)."""
         per_model = []
-        for sess, cfg in self.models:
-            x = wav.astype(np.float32)
-            if cfg["do_normalize"]:
-                x = (x - x.mean()) / np.sqrt(x.var() + 1e-7)
-            logits = sess.run(None, {"input_values": x[None, :]})
+        for m in logits:
             out = {}
-            for i, h in enumerate(cfg["heads"]):
-                z = logits[i][0].astype(np.float64)
+            for h, z in m.items():
+                z = z.astype(np.float64)
                 p = np.exp(z - z.max(axis=-1, keepdims=True))
                 out[h] = p / p.sum(axis=-1, keepdims=True)
             per_model.append(out)
         T = min(p[h].shape[0] for p in per_model for h in p)
         return {h: sum(p[h][:T] for p in per_model) / len(per_model) for h in per_model[0]}
+
+    def frame_probs(self, wav):
+        """`wav` is already prepared. Runs the models; use frame_probs_from() if you have logits."""
+        return self.frame_probs_from(self.logits(wav))
+
+    def score_slice(self, logits, start_frame, end_frame, clip, target, threshold=DEFAULT_THRESHOLD,
+                    top_k=3):
+        """Score one syllable of a multi-syllable take without running the models again: frames
+        [start_frame, end_frame) of logits computed on the whole take (end_frame None = to the end).
+        The pitch vote still comes from the syllable's own audio clip (cheap, no model)."""
+        per_model = []
+        for m in logits:
+            probs = {}
+            for h, z in m.items():
+                T = z.shape[0]
+                a = min(start_frame, T - 1)
+                b = T if end_frame is None else max(min(end_frame, T), a + 1)
+                probs[h] = head_probs(z[a:b], h)
+            per_model.append(probs)
+        vote = self.pitch_vote(prepare(clip))
+        return judge(apply_pitch(combine(per_model), vote, self.pitch_weight), target, threshold, top_k)
 
     def pitch_vote(self, wav):
         return self.pitch.vote(wav) if self.pitch is not None else None

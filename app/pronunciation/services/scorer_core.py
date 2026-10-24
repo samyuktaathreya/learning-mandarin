@@ -62,6 +62,29 @@ def normalize_loudness(wav, target_dbfs=TARGET_DBFS):
     return wav.astype(np.float32)
 
 
+# Silence trimming (server only, not in data.py). Model cost grows with clip length, and browser
+# recordings carry a lot of silence around the syllable. Frames more than TRIM_TOP_DB below the
+# loudest 10 ms frame count as silence; TRIM_MARGIN_S of it is kept on each side so quiet onsets
+# (s, sh, x, f) and the padding the models were trained with survive. In a noisy room the noise is
+# within TRIM_TOP_DB of the speech, so nothing gets trimmed: it fails safe.
+TRIM_TOP_DB = 40.0
+TRIM_MARGIN_S = 0.15
+
+
+def trim_silence(wav, top_db=TRIM_TOP_DB, margin_s=TRIM_MARGIN_S, frame=160):
+    """-> (wav without leading/trailing silence, index in `wav` where the kept part starts)."""
+    n = len(wav) // frame
+    if n < 3:
+        return wav, 0
+    power = (wav[:n * frame].astype(np.float64).reshape(n, frame) ** 2).mean(axis=1)
+    db = 10 * np.log10(power + 1e-12)
+    loud = np.where(db > db.max() - top_db)[0]     # never empty: the loudest frame is in it
+    margin = int(margin_s * SAMPLE_RATE)
+    start = max(0, int(loud[0]) * frame - margin)
+    end = min(len(wav), (int(loud[-1]) + 1) * frame + margin)
+    return wav[start:end], start
+
+
 def pad_audio(wav, min_seconds=0.5):
     short = int(min_seconds * SAMPLE_RATE) - len(wav)
     if short > 0:

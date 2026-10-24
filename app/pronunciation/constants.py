@@ -10,7 +10,9 @@ MODEL_NAMES = ["stage6b", "stage7_hubert"]          # combined by averaging
 PITCH_MODEL_FILE = "tone23_pitch.joblib"
 
 # CPU threads for the models (0 = let ONNX Runtime decide). Set to the server's core count.
-THREADS = int(os.environ.get("PRONUNCIATION_THREADS", "0")) or None
+# THREADS = int(os.environ.get("PRONUNCIATION_THREADS", "0")) or None
+THREADS = 1
+
 # How many recordings may be scored at the same time; extra requests wait. Keeps CPU and memory bounded.
 MAX_CONCURRENT = int(os.environ.get("PRONUNCIATION_MAX_CONCURRENT", "1"))
 
