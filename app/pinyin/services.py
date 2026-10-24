@@ -281,6 +281,14 @@ def generate_pinyin_question(db: Session, textbook_db: Session, user_id: int,
 
     candidates = [c for c in candidates if f"{c.syllable}{c.tone}" != avoid]
     if not candidates:
+        # The target tag only matched the avoided sound (common early on, when
+        # e.g. tone1 has a single syllable). Widen to anything unlocked rather
+        # than giving up on the slot.
+        candidates = [
+            c for c in pinyin_crud.get_any_syllable_within_unlocked(textbook_db, unlocked)
+            if f"{c.syllable}{c.tone}" != avoid
+        ]
+    if not candidates:
         return None
 
     syllable_row = random.choice(candidates)
@@ -418,9 +426,13 @@ def generate_pinyin_pair_question(db: Session, textbook_db: Session, user_id: in
         return None
 
     accepted_answers = [numbered_pinyin]
+    audio_pinyin = " ".join(e["audio_pinyin"] for e in entries)
     if sandhi:
         # Written 3-3, spoken 2-3: writing down what was heard is also right.
         accepted_answers.append(f"{entries[0]['syllable']}2 {entries[1]['pinyin']}")
+        # The audio is two single-syllable recordings joined, which won't
+        # apply sandhi on their own, so ask for the spoken tones.
+        audio_pinyin = f"{entries[0]['syllable']} 2 {entries[1]['audio_pinyin']}"
 
     tags = []
     for e in entries:
@@ -435,7 +447,7 @@ def generate_pinyin_pair_question(db: Session, textbook_db: Session, user_id: in
         "answer": numbered_pinyin,
         "accepted_answers": accepted_answers,
         "audio_text": audio_text,
-        "audio_pinyin": " ".join(e["audio_pinyin"] for e in entries),
+        "audio_pinyin": audio_pinyin,
         "hanzi": hanzi,
         "english": english,
         "is_real_word": word is not None,
@@ -447,10 +459,11 @@ def generate_pinyin_pair_question(db: Session, textbook_db: Session, user_id: in
 
 
 def generate_pinyin_session(db: Session, textbook_db: Session, user_id: int, num_questions: int = 10) -> list[dict]:
-    """Never puts the same question back to back. The same sound can
-    still appear more than once in a session, just not consecutively. If a
-    slot can't find a different sound after MAX_ATTEMPTS_PER_SLOT tries,
-    it's dropped, so a session can come back shorter than num_questions.
+    """Always returns exactly num_questions questions. Avoids putting the
+    same sound back to back; the same sound can still appear more than once
+    in a session, just not consecutively. If a slot can't find a different
+    sound after MAX_ATTEMPTS_PER_SLOT tries (only possible when a single
+    syllable is unlocked in total), it repeats rather than dropping the slot.
 
     Once any tone pair is unlocked, about MULTI_SYLLABLE_SHARE of the slots
     are two-syllable questions. A two-syllable slot that can't be filled
@@ -476,8 +489,12 @@ def generate_pinyin_session(db: Session, textbook_db: Session, user_id: int, num
                     break
             if q is not None:
                 break
-        if q is not None:
-            questions.append(q)
+        if q is None:
+            # Last resort: allow a back-to-back repeat instead of a short
+            # session. With avoid=None this never returns None (it raises if
+            # nothing at all is unlocked).
+            q = generate_pinyin_question(db, textbook_db, user_id, avoid=None)
+        questions.append(q)
     return questions
 
 

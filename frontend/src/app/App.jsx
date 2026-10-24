@@ -8,7 +8,7 @@ import { initTurnstile, verifySession } from '../shared/api/client';
 import { TokenBridge, SignInPage, SignUpPage, GuestBanner, AccountControl } from '../features/auth';
 import { ClerkProvider } from '@clerk/clerk-react';
 import { PinyinTest } from "../features/pinyin";
-import { SettingsProvider, SettingsButton } from "../features/settings";
+import { SettingsProvider, SettingsButton, DisabledQuestionsBanner } from "../features/settings";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -50,6 +50,7 @@ function App() {
             <>
               <AccountControl />
               <SettingsButton />
+              <DisabledQuestionsBanner />
               <Routes>
                 <Route path="/sign-in/*" element={<SignInPage />} />
                 <Route path="/sign-up/*" element={<SignUpPage />} />

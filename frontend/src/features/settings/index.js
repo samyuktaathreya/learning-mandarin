@@ -2,4 +2,5 @@
 
 export { SettingsProvider, useSettings } from './SettingsContext';
 export { SettingsButton } from './components/SettingsButton';
+export { DisabledQuestionsBanner } from './components/DisabledQuestionsBanner';
 export { isQuestionEnabled } from './questionFilter';

@@ -10,8 +10,9 @@ services:
       - USER_DB_PATH=/workspace/userdata/mandarin_app.db
       - PRONUNCIATION_MODEL_DIR=/workspace/data/pronunciation
     volumes:
-      - /srv/learning_mandarin/data:/workspace/userdata
-      - /srv/learning_mandarin/models:/workspace/data/pronunciation:ro
+         - /srv/learning_mandarin/data:/workspace/userdata
+         - /srv/learning_mandarin/models:/workspace/data/pronunciation:ro
+         - /srv/learning_mandarin/pinyin-audio:/workspace/data/pinyin-audio:ro
     restart: always
 
   frontend:

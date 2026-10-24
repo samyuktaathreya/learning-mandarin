@@ -1,8 +1,9 @@
 """
-Trim leading and trailing silence from every .mp3 in audio-male/ and audio-female/.
+Trim leading and trailing silence from every .mp3 in tone_perfect/
+(laid out as tone_perfect/<syllable><tone>/<speaker>.mp3, e.g. ma3/FV1.mp3).
 
 Run from inside the pinyin-audio directory:
-    python trim_silence.py
+    python remove_silence.py
 
 Originals are copied to _originals/ first (once), so you can re-run with
 different settings or restore them. Requires ffmpeg on your PATH.
@@ -13,7 +14,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-FOLDERS = ["audio-female", "audio-male"]
+FOLDERS = ["tone_perfect"]
 BACKUP_DIR = Path("_originals")
 
 THRESHOLD = "-45dB"  # anything quieter than this counts as silence
@@ -58,7 +59,7 @@ def main():
         if not d.is_dir():
             print(f"Skipping {folder}: not found (are you in the pinyin-audio directory?)")
             continue
-        files += sorted(p for p in d.glob("*.mp3") if not p.name.endswith(".tmp.mp3"))
+        files += sorted(p for p in d.rglob("*.mp3") if not p.name.endswith(".tmp.mp3"))
 
     if not files:
         sys.exit("No .mp3 files found.")

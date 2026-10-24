@@ -104,10 +104,13 @@ def generate_full_session(db: Session, characters_db: Session, textbook_db: Sess
     same pattern already used for characters_db.
     """
     user = crud.get_user(db, user_id)
-    user_unit = user.current_unit
+    # NULL current_unit means a fresh user -- start them on unit 0 (pinyin).
+    user_unit = user.current_unit if user.current_unit is not None else 0
 
-    if user.current_unit == 0:
+    if user_unit == 0:
         pinyin_questions = pinyin_services.generate_pinyin_session(db, textbook_db, user_id)
+        log_session(user_id, 0, [(q, q.get("target_tag")) for q in pinyin_questions],
+                    [], {}, {}, "pinyin_session")
         return SessionResponse(
             user_id=user_id,
             session_type="pinyin",

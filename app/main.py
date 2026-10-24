@@ -30,7 +30,7 @@ from slowapi.middleware import SlowAPIMiddleware
 
 from pronunciation.services.scorer import warm_up
 
-from app.shared.services.pinyin_audio import RECORDINGS_DIR, SLOW_DIR, RECORDINGS_URL, SLOW_URL
+from app.shared.services.pinyin_audio import RECORDINGS_DIR, SLOW_DIR, PAIRS_DIR, RECORDINGS_URL, SLOW_URL, PAIRS_URL
 
 from app.core.config.data import DATA_DIR
 
@@ -43,6 +43,7 @@ else:
 
 app.mount(RECORDINGS_URL, StaticFiles(directory=RECORDINGS_DIR), name="pinyin-audio")
 app.mount(SLOW_URL, StaticFiles(directory=SLOW_DIR), name="pinyin-audio-slow")
+app.mount(PAIRS_URL, StaticFiles(directory=PAIRS_DIR), name="pinyin-audio-pairs")
 
 @app.on_event("startup")
 def on_startup():

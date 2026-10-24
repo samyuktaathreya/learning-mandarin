@@ -8,6 +8,7 @@ export { default as PronunciationRecorder } from './components/PronunciationReco
 
 // helpers
 export { buildSections, summarize, tagsToSoundItems, parsePinyinSyllable, parsePinyinSyllables } from './pinyinHelpers';
+export { isValidSyllable, findInvalidSyllables } from './validSyllables';
 export { fetchPinyinProgress } from './api/pinyin';
 export { scorePronunciation } from './api/pronunciation';
 

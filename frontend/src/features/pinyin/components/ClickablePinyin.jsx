@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import PinyinSoundPopup from './PinyinSoundPopup';
-import { pinyinToSyllableItem } from '../pinyinHelpers';
+import { pinyinToSyllableItem, parsePinyinSyllable } from '../pinyinHelpers';
+import { isValidSyllable } from '../validSyllables';
 
 /**
  * Renders a string so every pinyin syllable in it ("ma4", "mǎ") is underlined
  * and clickable. Clicking one opens the PinyinSoundPopup for that syllable.
- * Anything that doesn't parse as a toned syllable is rendered as plain text.
+ * Anything that doesn't parse as a toned syllable, or isn't a real Mandarin
+ * syllable ("be1"), is rendered as plain text -- there's no audio for it.
  */
 export default function ClickablePinyin({ text, isUnitTest }) {
     const [selected, setSelected] = useState(null);
@@ -21,7 +23,9 @@ export default function ClickablePinyin({ text, isUnitTest }) {
         <>
             {parts.map((part, idx) => {
                 const item = pinyinToSyllableItem(part);
-                if (!item) return <span key={idx}>{part}</span>;
+                if (!item || !isValidSyllable(parsePinyinSyllable(part).syllable)) {
+                    return <span key={idx}>{part}</span>;
+                }
                 return (
                     <span
                         key={idx}

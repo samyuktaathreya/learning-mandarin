@@ -2,7 +2,7 @@ import ChineseIMEInput from './ChineseIMEInput';
 import MultipleChoice from './MultipleChoice';
 import { useState, useEffect } from 'react';
 import { ClickableText, CharacterDecomposition } from '../../characters';
-import { PinyinSoundPopup, ClickablePinyin, tagsToSoundItems } from '../../pinyin';
+import { PinyinSoundPopup, ClickablePinyin, tagsToSoundItems, findInvalidSyllables } from '../../pinyin';
 import { API_BASE_URL } from '../../../shared/config';
 import { apiFetch } from '../../../shared/api/client';
 import { PINYIN_QUESTION_TYPES, LISTENING_PINYIN_TYPES } from '../questionHelpers';
@@ -101,6 +101,11 @@ export default function Question({
     const [decompositionData, setDecompositionData] = useState(null);
     const [sentenceTagMetadata, setSentenceTagMetadata] = useState({});
     const [selectedSound, setSelectedSound] = useState(null);
+
+    // Typed syllables that don't exist in Mandarin ("be1"), shown after a wrong answer.
+    const invalidSyllables = isWrong && isPinyinQuestion
+        ? findInvalidSyllables(lastUserAnswer)
+        : [];
 
     // Clickable consonant / vowel / tone pieces for pinyin questions.
     const pinyinSounds = LISTENING_PINYIN_TYPES.has(currentQuestionObj.question_type)
@@ -356,8 +361,15 @@ export default function Question({
                     {isWrong ? (
                         <>
                             <p>You answered: <strong>{renderChineseText(lastUserAnswer)}</strong></p>
+                            {invalidSyllables.length > 0 && (
+                                <p className="question-tip">
+                                    {invalidSyllables.length === 1
+                                        ? <><strong>{invalidSyllables[0]}</strong> isn't a valid pinyin syllable in Mandarin.</>
+                                        : <><strong>{invalidSyllables.join(", ")}</strong> aren't valid pinyin syllables in Mandarin.</>}
+                                </p>
+                            )}
                             <p>Correct answer: <strong>{renderChineseText(currentQuestionObj.answer)}</strong></p>
-                            
+
                             {isListening && correctPinyin && <p>Pinyin: <strong>{correctPinyin}</strong></p>}
                         </>
                     ) : (

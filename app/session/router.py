@@ -111,7 +111,8 @@ def get_progress(hsk_level: Optional[int] = None,
                   textbook_db: Session = Depends(get_textbook_db)):
     user_id = user.id
     user = get_user(db, user_id)
-    user_unit = user.current_unit
+    # NULL current_unit means a fresh user -- start them on unit 0 (pinyin).
+    user_unit = user.current_unit if user.current_unit is not None else 0
     user_level, shown_level = _resolve_hsk_level(user, hsk_level)
     graduated_units = get_graduated_units(db, user_id, hsk_level=shown_level)
 
@@ -164,7 +165,8 @@ def unit_detail(unit: int, hsk_level: Optional[int] = None,
         return {"unit": unit, "hsk_level": shown_level, "locked": True, "words": []}
 
     graduated_units = get_graduated_units(db, user_id, hsk_level=shown_level)
-    is_current = shown_level == user_level and unit == user.current_unit
+    user_unit = user.current_unit if user.current_unit is not None else 0
+    is_current = shown_level == user_level and unit == user_unit
     unlocked = is_current or (unit in graduated_units)
     if not unlocked:
         return {"unit": unit, "hsk_level": shown_level, "locked": True, "words": []}
