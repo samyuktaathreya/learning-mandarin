@@ -3,31 +3,38 @@ SQL-based textbook data pipeline runner (hsk-sentences-audio version).
 
 STAGES, in order:
   once, over everything:
-    1. load_hsk_lists     vocab JSON (2021 levels) + grammar points list
+    1. load_hsk_lists     vocab list (2025 syllabus + overrides, radicals) + grammar points list
     2. import_hsa         hsk-sentences-audio sentences, bare (no unit, no tags)
-    3. tag_sentences      words, POS tags, readings, one-meaning senses, sentence
-                          levels -- no AI for word meanings, a few minutes
+    3. tag_sentences      words, POS tags, readings, senses for the main reading,
+                          sentence levels from words
+    4. detect_grammar     rule-based grammar links; recomputes levels and moves
+                          HSK 1 sentences with higher grammar up
   for the levels you build:
-    3b. resolve_senses    one AI call per ambiguous word occurrence, in parallel
-                          (~3,800 calls for HSK 1-2)
-  once:
-    4. detect_grammar     rule-based grammar links
+    4b. fill_gaps         every list word gets a sentence of its level, from the
+                          500-sentence CSV if the dataset has none; the rest flagged
+    4c. resolve_senses    one AI call per occurrence the main reading doesn't
+                          settle (alternate readings, mismatched pinyin)
   per HSK level, lowest first:
     5. assign_units       units, then unit_id on sentences / words / senses / grammar
   once, after the levels are built:
     6. finalize           tone-sandhi display pinyin, primary senses
     7. create_questions   question bank (rebuilt from scratch each time)
 
-Stages 1-4 run over everything because a sentence's level is only known
-after tagging; 3b and 5 only for the levels you build. Every stage is safe
-to re-run: 1-2 update in place, 3 only tags untagged sentences, 3b only
-sends tags still without a meaning (unless --redo-senses), 4-7 rebuild what
-they own.
+Grammar runs before senses now: it can move a sentence to another level,
+and fill_gaps needs final levels. Every stage is safe to re-run: 1-2 update
+in place, 3 only tags untagged sentences, 4 recomputes, 4b only looks at
+uncovered words, 4c only sends tags still without a meaning (unless
+--redo-senses), 5-7 rebuild what they own.
+
+--reset-db deletes everything the pipeline writes before stage 1 (pinyin
+syllables and sound guides are kept; pinyin_words points at vocab ids, so
+re-run build_pinyin_words.py afterwards).
 
 Each stage runs as `python -m data_pipelines.textbook.scripts.<stage>` from
 the repo root, same as running it by hand.
 
 USAGE (from the repo root)
+    python main.py --levels 1 2 --reset-db            # wipe, then everything for HSK 1 and 2
     python main.py --levels 1 2                       # everything, building HSK 1 and 2
     python main.py --levels 1 2 --from units          # rebuild units onward (no AI)
     python main.py --levels 1 2 --from finalize       # just pinyin, primary senses, questions
@@ -44,7 +51,7 @@ import sys
 from collections import defaultdict
 
 from app.core.config.textbook import PIPELINE_SCRIPTS_DIR
-from app.textbook.db_utils import init_db, get_session
+from app.textbook.db_utils import init_db, get_session, reset_textbook_data
 from app.textbook.models import Unit, Vocab, VocabSense, Sentence, SentenceVocab, FitbQuestion, Question
 
 REPO_ROOT = PIPELINE_SCRIPTS_DIR.resolve().parents[2]       # .../data_pipelines/textbook/scripts -> repo root
@@ -55,8 +62,9 @@ STAGES = [
     ("lists",     "load_hsk_lists",   False),
     ("import",    "import_hsa",       False),
     ("tag",       "tag_sentences",    False),
-    ("senses",    "resolve_senses",   "levels"),   # one call with every level
     ("grammar",   "detect_grammar",   False),
+    ("gaps",      "fill_gaps",        "levels"),   # one call with every level
+    ("senses",    "resolve_senses",   "levels"),
     ("units",     "assign_units",     True),
     ("finalize",  "finalize",         False),
     ("questions", "create_questions", False),
@@ -80,6 +88,8 @@ def stage_args(name: str, level: int | None, args) -> list[str]:
         return ["--hsk-level", str(level)]
     if name == "senses":
         return ["--levels", *map(str, sorted(set(args.levels)))] + (["--redo"] if args.redo_senses else [])
+    if name == "gaps":
+        return ["--levels", *map(str, sorted(set(args.levels)))]
     if name == "tag":
         out = []
         if args.retag:
@@ -142,6 +152,9 @@ def main():
     parser.add_argument("--tag-limit", type=int, default=None,
                         help="Pass --limit N to tag_sentences (try it on a few sentences first).")
     parser.add_argument("--no-stats", action="store_true", help="Skip the DB summary at the end.")
+    parser.add_argument("--reset-db", action="store_true",
+                        help="Delete everything the pipeline wrote, then run from stage 1. "
+                             "Re-run build_pinyin_words.py afterwards.")
     args = parser.parse_args()
 
     init_db()
@@ -152,6 +165,8 @@ def main():
         ok = run_module("tag_sentences", ["--estimate"])
         sys.exit(0 if ok else 1)
 
+    if args.reset_db and (args.start or args.only or args.redo_senses):
+        parser.error("--reset-db runs the whole pipeline: don't combine it with --from / --only / --redo-senses")
     if args.redo_senses and not (args.start or args.only):
         args.start = "senses"
     if args.only:
@@ -162,7 +177,7 @@ def main():
 
     needs_levels = any(per_level for _, _, per_level in selected)
     if needs_levels and not args.levels:
-        parser.error("--levels is required when the senses or units stage runs, e.g. --levels 1 2")
+        parser.error("--levels is required when the gaps, senses or units stage runs, e.g. --levels 1 2")
     levels = sorted(set(args.levels or []))
 
     steps = []
@@ -174,6 +189,11 @@ def main():
         else:
             steps.append((name, name, module, None))
 
+    if args.reset_db:
+        with get_session() as db:
+            counts = reset_textbook_data(db)
+        print("🧹 Reset: deleted " + (", ".join(f"{t} {n}" for t, n in counts.items() if n) or "nothing") +
+              "\n   (pinyin_words was cleared too: run build_pinyin_words.py after this pipeline)\n")
     print(f"🎯 Stages: {' -> '.join(label for label, *_ in steps)}\n")
     for i, (label, name, module, level) in enumerate(steps, 1):
         print(f"[{i}/{len(steps)}] {label}")

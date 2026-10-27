@@ -75,6 +75,9 @@ app.include_router(characters_router)
 from app.shared.routers.audio import router as audio_router
 app.include_router(audio_router)
 
+from app.shared.routers.speech import router as speech_router
+app.include_router(speech_router)
+
 from app.shared.routers.grading import router as grading_router
 app.include_router(grading_router)
 

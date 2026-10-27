@@ -37,7 +37,7 @@ from sqlalchemy.orm import sessionmaker, Session
 
 from .models import (
     Base, Unit, Vocab, VocabSense, Sentence, SentenceVocab, WordType,
-    VocabOrigin, SentenceSource,
+    VocabOrigin, SentenceSource, OUT_OF_LIST_LEVEL,
     GrammarTip, SentenceGrammar, Question, FitbQuestion, SenseCache, PinyinWord,
 )
 from app.core.config.data import TEXTBOOK_DB
@@ -65,6 +65,44 @@ def _sqlite_explicit_begin(conn):
 
 def init_db():
     Base.metadata.create_all(bind=engine)
+    _add_missing_columns()
+
+
+# create_all() makes missing TABLES but never adds a column to an existing
+# one, so columns added to a model after the DB was created go here.
+_ADDED_COLUMNS = [("vocab", "radical", "TEXT"), ("vocab", "pattern", "TEXT")]
+
+_PATTERN_SPLIT_RE = re.compile(r"[…⋯.。～~\s]+")
+
+
+def pattern_pieces(pattern: str) -> list[str]:
+    """"虽然……但是……" -> ["虽然", "但是"]."""
+    return [p for p in _PATTERN_SPLIT_RE.split(pattern or "") if p]
+
+
+def _add_missing_columns():
+    with engine.begin() as conn:
+        for table, column, sql_type in _ADDED_COLUMNS:
+            existing = {row[1] for row in conn.exec_driver_sql(f"PRAGMA table_info({table})")}
+            if column not in existing:
+                conn.exec_driver_sql(f"ALTER TABLE {table} ADD COLUMN {column} {sql_type}")
+                logger.info(f"  [migrate] added {table}.{column}")
+
+
+def reset_textbook_data(db: Session) -> dict:
+    """Deletes every row the textbook pipeline writes, so a run starts from
+    scratch: questions, units, sentences, vocab, senses, grammar points and
+    their links. Also pinyin_words, which points at vocab ids -- rebuild it
+    afterwards (build_pinyin_words.py). pinyin_syllables and
+    pinyin_sound_guides don't depend on vocab and are kept. Returns
+    {table: rows deleted}."""
+    counts = {}
+    for model in (Question, FitbQuestion, SentenceGrammar, SentenceVocab, SenseCache,
+                  PinyinWord, VocabSense, Sentence, Vocab, GrammarTip, Unit):
+        counts[model.__tablename__] = db.query(model).delete(synchronize_session=False)
+    db.flush()
+    db.expire_all()
+    return counts
 
 
 @contextmanager
@@ -170,10 +208,11 @@ def get_highest_unit_number(db: Session, hsk_level: int = 1) -> int | None:
 
 def upsert_hsk_vocab(db: Session, hanzi: str, hsk_level: int, pinyin: str, english: str,
                      frequency: int | None = None, pos: list[str] | None = None,
-                     word_type: WordType = WordType.vocab) -> Vocab:
-    """load_hsk_vocab.py: one row per word in the vocab JSON. Creates NO
+                     word_type: WordType = WordType.vocab, radical: str | None = None,
+                     pattern: str | None = None) -> Vocab:
+    """load_hsk_lists.py: one row per word in the HSK list. Creates NO
     sense -- senses are created only when a sentence uses a meaning.
-    pinyin/english are the JSON's first form / first meaning, as a display
+    pinyin/english are the main reading and its definition, as a display
     default until a primary sense exists. Idempotent: a re-run updates the
     list fields in place and never touches unit_id or a synced cache."""
     vocab = db.query(Vocab).filter(Vocab.hanzi == hanzi).first()
@@ -188,6 +227,8 @@ def upsert_hsk_vocab(db: Session, hanzi: str, hsk_level: int, pinyin: str, engli
     vocab.hsk_level = hsk_level
     vocab.frequency = frequency
     vocab.pos = json.dumps(pos, ensure_ascii=False) if pos is not None else None
+    vocab.radical = radical
+    vocab.pattern = pattern
     vocab.origin = vocab.origin or VocabOrigin.hsk_list
     db.flush()
     return vocab
@@ -676,15 +717,28 @@ def delete_unused_non_list_vocab(db: Session) -> tuple[int, int]:
 
 
 def set_sentence_level(db: Session, sentence: Sentence) -> int | None:
-    """Sets and returns the sentence's level = the highest hsk_level among
-    its tagged words. Proper nouns and unlisted words have no level, so they
-    don't count. None if no tagged word has a level."""
-    level = (
-        db.query(func.max(Vocab.hsk_level))
+    """Sets and returns the sentence's level from its words alone:
+      - any word outside the HSK list that isn't a name -> OUT_OF_LIST_LEVEL
+        (never built, so the sentence is in no level's units)
+      - a piece of a listed pattern (虽然 of 虽然……但是……) without every
+        other piece in the sentence counts as outside the list too
+      - otherwise the highest hsk_level among its list words; names don't
+        count (they're taught in the unit, but don't decide the level)
+      - None if it has no list words at all.
+    detect_grammar.py may raise an HSK 1 sentence afterwards."""
+    rows = (
+        db.query(Vocab.hsk_level, Vocab.word_type, Vocab.hanzi, Vocab.pattern)
         .join(SentenceVocab, SentenceVocab.vocab_id == Vocab.id)
         .filter(SentenceVocab.sentence_id == sentence.id)
-        .scalar()
+        .all()
     )
+    words = {hanzi for _, _, hanzi, _ in rows}
+    incomplete_pattern = any(pattern and not all(p in words for p in pattern_pieces(pattern))
+                             for _, _, _, pattern in rows)
+    if incomplete_pattern or any(lvl is None and wt != WordType.proper_noun for lvl, wt, _, _ in rows):
+        level = OUT_OF_LIST_LEVEL
+    else:
+        level = max((lvl for lvl, _, _, _ in rows if lvl is not None), default=None)
     sentence.hsk_level = level
     db.flush()
     return level

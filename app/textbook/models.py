@@ -2,12 +2,21 @@
 SQL schema for the textbook database.
 
 DATA SOURCES (see ATTRIBUTION.md):
-- Vocabulary, HSK levels, pinyin and candidate meanings come from the
-  complete-hsk-vocabulary JSON, using its `new-N` levels (the 2021 standard,
-  GF0025-2021; `new-7` covers levels 7-9). load_hsk_vocab.py writes one Vocab
-  row per listed word. It creates NO senses.
+- Vocabulary, pinyin, meanings and radicals come from complete-hsk-vocabulary
+  (data/raw/disorganized_hsk_vocab_with_radicals.json). LEVELS are the 2025
+  exam syllabus ("newest-N": HSK 1 ~300 words, HSK 1-2 ~500), plus the
+  hand-written data/raw/hsk_level_overrides.json. load_hsk_lists.py writes
+  one Vocab row per listed word. It creates NO senses.
 - Sentences and audio come from hsk-sentences-audio (CC BY-SA 4.0), written
-  by import_hsa.py with no unit yet.
+  by import_hsa.py with no unit yet. The dataset was written for the 2021
+  standard, so many of its sentences use words outside the 2025 list and
+  fall out of every level. A list word no remaining sentence covers gets
+  one from the fill-in sentence CSVs (fill_gaps.py, source = external).
+
+SENTENCE LEVELS: the highest level among the sentence's list words. Names
+don't count. A word in NO list level (word_type auto) puts the sentence at
+OUT_OF_LIST_LEVEL, which is never built. detect_grammar.py may raise an
+HSK 1 sentence further when it uses higher grammar.
 
 ORDER OF FILLING (why several unit_id columns are nullable):
   1. load_hsk_vocab  -> Vocab (hsk_level set, unit_id NULL)
@@ -46,6 +55,10 @@ import enum
 
 Base = declarative_base()
 
+# Sentence.hsk_level for a sentence that uses a word outside the HSK list
+# (not a name): above every real level, so no level's units ever include it.
+OUT_OF_LIST_LEVEL = 10      # above 7 (= levels 7-9)
+
 
 class WordType(str, enum.Enum):
     vocab = "vocab"
@@ -70,10 +83,10 @@ class VocabOrigin(str, enum.Enum):
 
 class SentenceSource(str, enum.Enum):
     hsa = "hsa"                  # hsk-sentences-audio
+    external = "external"        # extracted-500-sentences-mandarin.csv, added by fill_gaps.py
     # LEGACY: from the textbook pipeline; delete once nothing references them.
     textbook = "textbook"
     workbook = "workbook"
-    external = "external"
 
 
 class Unit(Base):
@@ -104,8 +117,18 @@ class Vocab(Base):
     """The hanzi IDENTITY row: one per unique string, however many meanings
     it has.
 
-    hsk_level comes straight from the JSON (`new-N`). NULL for proper nouns
-    and unlisted words: they don't count toward a sentence's level.
+    hsk_level: the 2025 syllabus level (1-7, 7 = 7-9) or a hand-written
+    override. NULL for names and words outside the list.
+
+    radical: from the vocab file, one per word (for a multi-character word,
+    its first character's). NULL when the file has none.
+    Stored for the separate characters feature; nothing here uses it.
+
+    pattern: set on the pieces of a listed pattern (虽然 and 但是 both carry
+    "虽然……但是……"; word_type grammar, the pattern's level and definition).
+    A sentence counts a piece at that level only if it has every piece;
+    otherwise the piece is treated as outside the list. The app can show
+    the pattern as one vocab item from this column.
 
     pinyin / english / unit_id / word_type / origin: a cached snapshot of the
     primary sense, kept in sync by db_utils (see module docstring)."""
@@ -119,9 +142,12 @@ class Vocab(Base):
     unit_id = Column(Integer, ForeignKey("units.id"), nullable=True)  # set by assign_units.py
     origin = Column(Enum(VocabOrigin), nullable=True)
 
-    hsk_level = Column(Integer, nullable=True, index=True)  # 1-7 (7 = levels 7-9); NULL = not in list
+    hsk_level = Column(Integer, nullable=True, index=True)  # 1-7 (2025 syllabus, 7 = 7-9); NULL = not in list
     frequency = Column(Integer, nullable=True)              # JSON `frequency` (lower = more common)
     pos = Column(Text, nullable=True)                       # JSON `pos` list as JSON text, e.g. '["n","v"]'
+    radical = Column(Text, nullable=True)                   # e.g. "目" for 看; NULL = the file has none
+    pattern = Column(Text, nullable=True)                   # "虽然……但是……" on 虽然 and 但是: a piece of a
+                                                            # listed pattern; counts only with every piece
 
     unit = relationship("Unit", back_populates="vocab")
     sentence_links = relationship("SentenceVocab", back_populates="vocab", cascade="all, delete-orphan")
@@ -206,9 +232,9 @@ class Sentence(Base):
 
     unit_id: set by assign_units.py; NULL only between import and unit
     assignment.
-    hsk_level: the highest hsk_level among the sentence's words (proper nouns
-    and unlisted words don't count), set by tag_sentences.py. The dataset's
-    own level label is ignored.
+    hsk_level: see SENTENCE LEVELS in the module docstring. Set by
+    tag_sentences.py, recomputed (and possibly raised for grammar) by
+    detect_grammar.py. The dataset's own level label is ignored.
     external_id: the dataset's sentence id (e.g. "hsk1-0002"), used for
     attribution and to find the audio. hanzi is unique: the dataset has a few
     identical sentences under different ids, and import keeps the first.

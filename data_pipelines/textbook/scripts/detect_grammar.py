@@ -19,9 +19,20 @@ WORDS + POS TAGS
   vocabulary). No HanLP run, no AI.
 
 LEVELS
-  A sentence is only checked against points AT OR BELOW its own HSK level:
-  an HSK 1 sentence never gets an HSK 2 point, an HSK 3 sentence is checked
-  against HSK 1, 2 and 3. (Level 7 = 7-9 is checked against everything.)
+  A sentence's level is first recomputed from its words
+  (db_utils.set_sentence_level), so re-running this stage gives the same
+  result. Then it is only linked to points AT OR BELOW its level: an HSK 3
+  sentence is checked against HSK 1, 2 and 3.
+
+HSK 1 GRAMMAR RESTRICTION
+  An HSK 1 sentence (by its words) is also checked against the higher
+  points, with the hand-written RULES only -- the list's regex patterns
+  have too many false positives. If any fires, the sentence moves up to
+  that point's level (the highest one that fired), so 我来介绍一下... style
+  grammar (verb + 一下, 2-52) can't sit in HSK 1. Only HSK 1 is restricted.
+  The grammar list is the 2021 standard while the vocab is the 2025
+  syllabus, so a few points an HSK 1 learner does meet are allowed through:
+  HSK1_ALLOWED_ABOVE. Every bump is written to the report.
 
 HOW EACH POINT IS DETECTED (first that applies)
   1. A hand-written rule on words + POS tags (RULES below) -- precise, and
@@ -51,7 +62,7 @@ from collections import Counter, defaultdict
 from datetime import datetime
 
 from app.textbook.db_utils import (
-    get_session, init_db, link_sentence_grammar,
+    get_session, init_db, link_sentence_grammar, set_sentence_level,
 )
 from app.textbook.models import GrammarTip, Sentence, SentenceGrammar, SentenceVocab
 
@@ -642,6 +653,17 @@ RULES = {
     "3-55": lambda c: has(c, {"被", "叫", "让"}, {"LB", "SB"}),
 }
 
+# HSK 1 restriction: 2021-standard points above level 1 that are basic
+# enough for HSK 1 sentences, so they must NOT push a sentence out of
+# HSK 1. Review the bump report and edit this set.
+HSK1_ALLOWED_ABOVE = {
+    "2-48",   # noun predicate: 今天星期三 / 我今年二十岁
+    "2-54",   # noun predicate (number/time): 这本书三十块
+    "2-60",   # 是……的: 我是坐飞机来的
+    "2-57",   # serial verbs: 我去商店买东西 / 坐飞机来
+}
+RESTRICTED_LEVEL = 1
+
 # Describe (nearly) every sentence; linking them would bury the real points.
 SKIP = {
     "1-24": "noun/pronoun as subject: nearly every sentence",
@@ -674,6 +696,57 @@ def compile_pattern_rule(content: dict):
         text = ex.sub(lambda m: "□" * len(m.group()), c.text) if ex else c.text
         return bool(rx.search(text))
     return rule
+
+
+# --------------------------------- PER SENTENCE ---------------------------------
+
+def detect_sentence(db, s: Sentence, detectors: dict, level_of_point: dict):
+    """Recomputes the sentence's level from its words, applies the HSK 1
+    grammar restriction, and returns (codes found at its final level,
+    bump or None). bump = (old level, new level, codes that caused it).
+    Writes Sentence.hsk_level; the caller writes the links."""
+    set_sentence_level(db, s)
+    ds = hsa_source.get(s.external_id) if s.external_id else None
+    c = Context(s.hanzi, sentence_words(s), ds.get("sentence_type") if ds else None)
+    bump = None
+    if s.hsk_level == RESTRICTED_LEVEL:
+        above = sorted(code for code, (how, rule) in detectors.items()
+                       if how == "rule" and level_of_point[code] > RESTRICTED_LEVEL
+                       and code not in HSK1_ALLOWED_ABOVE and rule(c))
+        if above:
+            new_level = max(level_of_point[code] for code in above)
+            bump = (s.hsk_level, new_level, above)
+            s.hsk_level = new_level
+    lvl = s.hsk_level or 99
+    found = [code for code, (_, rule) in detectors.items()
+             if level_of_point[code] <= lvl and rule(c)]
+    return found, bump
+
+
+def write_links(db, s: Sentence, found: list[str], id_of: dict):
+    db.query(SentenceGrammar).filter(SentenceGrammar.sentence_id == s.id).delete()
+    for code in found:
+        link_sentence_grammar(db, s.id, id_of[code])
+
+
+def write_bump_report(bumps: list, path_prefix: str):
+    """bumps: [(sentence hanzi, old, new, codes)]. CSV + console summary."""
+    if not bumps:
+        print("  HSK 1 grammar restriction: no sentence moved up.")
+        return None
+    path = f"{path_prefix}_hsk1_bumps.csv"
+    with open(path, "w", newline="", encoding="utf-8-sig") as f:
+        w = csv.writer(f)
+        w.writerow(["sentence", "from_level", "to_level", "grammar_codes"])
+        for hanzi, old, new, codes in bumps:
+            w.writerow([hanzi, old, new, " ".join(codes)])
+    by_code = Counter(code for *_, codes in bumps for code in codes)
+    print(f"  HSK 1 grammar restriction: {len(bumps)} sentence(s) moved out of HSK 1. By point:")
+    for code, n in by_code.most_common():
+        example = next(h for h, *_, codes in bumps if code in codes)
+        print(f"    {code}: {n}  e.g. {example}")
+    print(f"  Every bump: {path}")
+    return path
 
 
 # --------------------------------- MAIN ---------------------------------
@@ -760,27 +833,21 @@ def main():
         print(f"Detecting grammar in {len(sentences)} tagged sentence(s)"
               f"{f' ({untagged} untagged sentence(s) skipped -- run tag_sentences.py)' if untagged else ''}...")
 
-        counts, examples, errors = Counter(), defaultdict(list), []
+        counts, examples, errors, bumps = Counter(), defaultdict(list), [], []
         for i, s in enumerate(sentences, 1):
             try:
-                ds = hsa_source.get(s.external_id) if s.external_id else None
-                c = Context(s.hanzi, sentence_words(s), ds.get("sentence_type") if ds else None)
-                # only points at or below the sentence's level: an HSK 1 sentence
-                # is never linked to an HSK 2+ point (level 7 = 7-9 sees everything)
-                lvl = s.hsk_level or 99
-                found = [code for code, (_, rule) in detectors.items()
-                         if level_of_point[code] <= lvl and rule(c)]
+                found, bump = detect_sentence(db, s, detectors, level_of_point)
             except Exception as e:
                 errors.append(f"{s.id} {s.hanzi!r}: {e!r}")
                 continue
+            if bump:
+                bumps.append((s.hanzi, *bump))
             for code in found:
                 counts[code] += 1
                 if len(examples[code]) < 2:
                     examples[code].append(s.hanzi)
             if not args.report_only:
-                db.query(SentenceGrammar).filter(SentenceGrammar.sentence_id == s.id).delete()
-                for code in found:
-                    link_sentence_grammar(db, s.id, id_of[code])
+                write_links(db, s, found, id_of)
                 if i % COMMIT_EVERY == 0:
                     db.commit()
             if i % COMMIT_EVERY == 0:
@@ -788,7 +855,8 @@ def main():
 
         if args.report_only:
             db.rollback()
-        write_report(points, detectors, undetected, counts, examples, level_of_point, len(sentences))
+        report_path = write_report(points, detectors, undetected, counts, examples, level_of_point, len(sentences))
+        write_bump_report(bumps, report_path[:-len(".csv")])
         if errors:
             print(f"  {len(errors)} error(s), e.g. {errors[:3]}")
     print(f"Done in {time.time() - t0:.0f}s.{' (report only: nothing written)' if args.report_only else ''}")

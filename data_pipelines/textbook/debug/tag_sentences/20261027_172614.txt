@@ -1,0 +1,1127 @@
+2026-10-27 17:26:14,245  INFO     === tag_sentences.py run started ===
+2026-10-27 17:26:19,273  INFO     FALLBACK  '我要买这个杯子。' -- out-of-list word(s): ['这个']
+2026-10-27 17:26:19,273  WARNING    HAIKU resegment call for '我要买这个杯子。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:26:20,533  INFO     TAGGED    '我要买这个杯子。' (level 1, 6 tags)
+2026-10-27 17:26:20,555  INFO     OK        hanlp-valid   '这件衣服很便宜。' -> [('这', 'DT'), ('件', 'M'), ('衣服', 'NN'), ('很', 'AD'), ('便宜', 'VA')]
+2026-10-27 17:26:20,558  INFO     TAGGED    '这件衣服很便宜。' (level 1, 5 tags)
+2026-10-27 17:26:20,574  INFO     FALLBACK  '不要担心，我们会帮你解决这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:26:20,574  WARNING    HAIKU resegment call for '不要担心，我们会帮你解决这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:26:22,199  INFO     TAGGED    '不要担心，我们会帮你解决这个问题。' (level 3, 10 tags)
+2026-10-27 17:26:22,214  INFO     OK        hanlp-valid   '请不要大声喧哗。' -> [('请', 'VV'), ('不要', 'AD'), ('大声', 'AD'), ('喧哗', 'VV')]
+2026-10-27 17:26:22,222  INFO     TAGGED    '请不要大声喧哗。' (level 7, 5 tags)
+2026-10-27 17:26:22,233  INFO     FALLBACK  '请不要重复这个错误。' -- out-of-list word(s): ['这个']
+2026-10-27 17:26:22,233  WARNING    HAIKU resegment call for '请不要重复这个错误。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:26:23,587  INFO     TAGGED    '请不要重复这个错误。' (level 5, 7 tags)
+2026-10-27 17:26:23,600  INFO     OK        hanlp-valid   '请不要在讲话时打断别人。' -> [('请', 'VV'), ('不要', 'AD'), ('在', 'P'), ('讲话', 'VV'), ('时', 'LC'), ('打断', 'VV'), ('别人', 'PN')]
+2026-10-27 17:26:23,603  INFO     TAGGED    '请不要在讲话时打断别人。' (level 5, 7 tags)
+2026-10-27 17:26:23,616  INFO     OK        hanlp-valid   '请保持安静，不要打扰别人。' -> [('请', 'VV'), ('保持', 'VV'), ('安静', 'NN'), ('不要', 'AD'), ('打扰', 'VV'), ('别人', 'PN')]
+2026-10-27 17:26:23,618  INFO     TAGGED    '请保持安静，不要打扰别人。' (level 5, 6 tags)
+2026-10-27 17:26:23,639  INFO     FALLBACK  '警察喊道：“站住，不要逃跑！”' -- out-of-list word(s): ['喊道']
+2026-10-27 17:26:23,639  WARNING    HAIKU resegment call for '警察喊道：“站住，不要逃跑！”' (cache miss on [('喊道', 'VV')])
+2026-10-27 17:26:25,529  WARNING  Failed to parse Haiku resegmentation (JSONDecodeError("Expecting ',' delimiter: line 6 column 14 (char 136)")): '```json\n[\n  {"word": "警察", "pos": "NN"},\n  {"word": "喊", "pos": "VV"},\n  {"word": "道", "pos": "VV"},\n  {"word": "：", "pos": "PU"},\n  {"word": """, "pos": "PU"},\n  {"word": "站", "pos": "VV"},\n  {"word": "住", "pos": "VV"},\n  {"word": "，", "pos": "PU"},\n  {"word": "不", "pos": "AD"},\n  {"word": "要", "pos": "VV"},\n  {"word": "逃跑", "pos": "VV"},\n  {"word": "！", "pos": "PU"},\n  {"word": """, "pos": "PU"}\n]\n```' -- using HanLP's output
+2026-10-27 17:26:25,559  INFO     TAGGED    '警察喊道：“站住，不要逃跑！”' (level 6, 7 tags)
+2026-10-27 17:26:25,581  INFO     OK        hanlp-valid   '楼下有个超市。' -> [('楼下', 'NN'), ('有', 'VE'), ('个', 'M'), ('超市', 'NN')]
+2026-10-27 17:26:25,587  INFO     TAGGED    '楼下有个超市。' (level 2, 5 tags)
+2026-10-27 17:26:25,597  INFO     OK        hanlp-valid   '这里没有超市。' -> [('这里', 'PN'), ('没有', 'VE'), ('超市', 'NN')]
+2026-10-27 17:26:25,599  INFO     TAGGED    '这里没有超市。' (level 1, 3 tags)
+2026-10-27 17:26:25,613  INFO     OK        hanlp-valid   '我需要叫一辆出租车。' -> [('我', 'PN'), ('需要', 'VV'), ('叫', 'VV'), ('一', 'CD'), ('辆', 'M'), ('出租车', 'NN')]
+2026-10-27 17:26:25,615  INFO     TAGGED    '我需要叫一辆出租车。' (level 3, 6 tags)
+2026-10-27 17:26:25,629  INFO     FALLBACK  '请少放大蒜。' -- out-of-list word(s): ['大蒜']
+2026-10-27 17:26:25,629  WARNING    HAIKU resegment call for '请少放大蒜。' (cache miss on [('大蒜', 'NN')])
+2026-10-27 17:26:26,669  INFO     TAGGED    '请少放大蒜。' (level 7, 5 tags)
+2026-10-27 17:26:26,682  INFO     OK        hanlp-valid   '我的房子不大。' -> [('我', 'PN'), ('的', 'DEG'), ('房子', 'NN'), ('不大', 'VA')]
+2026-10-27 17:26:26,688  INFO     TAGGED    '我的房子不大。' (level 3, 5 tags)
+2026-10-27 17:26:26,699  INFO     FALLBACK  '这个学院大吗？' -- out-of-list word(s): ['这个']
+2026-10-27 17:26:26,699  WARNING    HAIKU resegment call for '这个学院大吗？' (cache miss on [('这个', 'DT')])
+2026-10-27 17:26:27,888  INFO     TAGGED    '这个学院大吗？' (level 4, 5 tags)
+2026-10-27 17:26:27,902  INFO     OK        hanlp-valid   '我明年要申请大学。' -> [('我', 'PN'), ('明年', 'NT'), ('要', 'VV'), ('申请', 'VV'), ('大学', 'NN')]
+2026-10-27 17:26:27,905  INFO     TAGGED    '我明年要申请大学。' (level 4, 5 tags)
+2026-10-27 17:26:27,926  INFO     FALLBACK  '他是由奶奶带大的。' -- out-of-list word(s): ['带大']
+2026-10-27 17:26:27,926  WARNING    HAIKU resegment call for '他是由奶奶带大的。' (cache miss on [('带大', 'VV')])
+2026-10-27 17:26:29,014  INFO     TAGGED    '他是由奶奶带大的。' (level 4, 7 tags)
+2026-10-27 17:26:29,031  INFO     OK        hanlp-valid   '她是我的大学同学。' -> [('她', 'PN'), ('是', 'VC'), ('我', 'PN'), ('的', 'DEG'), ('大学', 'NN'), ('同学', 'NN')]
+2026-10-27 17:26:29,035  INFO     TAGGED    '她是我的大学同学。' (level 1, 6 tags)
+2026-10-27 17:26:29,046  INFO     OK        hanlp-valid   '现在的大学生压力很大。' -> [('现在', 'NT'), ('的', 'DEG'), ('大学生', 'NN'), ('压力', 'NN'), ('很', 'AD'), ('大', 'VA')]
+2026-10-27 17:26:29,049  INFO     TAGGED    '现在的大学生压力很大。' (level 4, 6 tags)
+2026-10-27 17:26:29,060  INFO     OK        hanlp-valid   '请从大门进入。' -> [('请', 'VV'), ('从', 'P'), ('大门', 'NN'), ('进入', 'VV')]
+2026-10-27 17:26:29,066  INFO     TAGGED    '请从大门进入。' (level 4, 5 tags)
+2026-10-27 17:26:29,077  INFO     FALLBACK  '这个数字很大。' -- out-of-list word(s): ['这个']
+2026-10-27 17:26:29,077  WARNING    HAIKU resegment call for '这个数字很大。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:26:30,248  INFO     TAGGED    '这个数字很大。' (level 4, 5 tags)
+2026-10-27 17:26:30,261  INFO     FALLBACK  '他背着一个大包。' -- out-of-list word(s): ['一个']
+2026-10-27 17:26:30,262  INFO       CACHE-ONLY resegmentation -> [('他', 'PN'), ('背着', 'VV'), ('一', 'CD'), ('个', 'M'), ('大', 'JJ'), ('包', 'NN')]
+2026-10-27 17:26:30,269  INFO     TAGGED    '他背着一个大包。' (level 4, 7 tags)
+2026-10-27 17:26:30,281  INFO     OK        hanlp-valid   '大人们都在开会。' -> [('大人', 'NN'), ('们', 'NN'), ('都', 'AD'), ('在', 'AD'), ('开会', 'VV')]
+2026-10-27 17:26:30,284  INFO     TAGGED    '大人们都在开会。' (level 3, 5 tags)
+2026-10-27 17:26:30,295  INFO     OK        hanlp-valid   '请不要大声喧哗。' -> [('请', 'VV'), ('不要', 'AD'), ('大声', 'AD'), ('喧哗', 'VV')]
+2026-10-27 17:26:30,301  INFO     TAGGED    '请不要大声喧哗。' (level 7, 5 tags)
+2026-10-27 17:26:30,312  INFO     OK        hanlp-valid   '这件大衣很暖和。' -> [('这', 'DT'), ('件', 'M'), ('大衣', 'NN'), ('很', 'AD'), ('暖和', 'VA')]
+2026-10-27 17:26:30,314  INFO     TAGGED    '这件大衣很暖和。' (level 4, 5 tags)
+2026-10-27 17:26:30,325  INFO     OK        hanlp-valid   '她大约中等个子。' -> [('她', 'PN'), ('大约', 'AD'), ('中等', 'JJ'), ('个子', 'NN')]
+2026-10-27 17:26:30,327  INFO     TAGGED    '她大约中等个子。' (level 6, 4 tags)
+2026-10-27 17:26:30,338  INFO     FALLBACK  '这栋大楼有很多层。' -- out-of-list word(s): ['很多']
+2026-10-27 17:26:30,338  WARNING    HAIKU resegment call for '这栋大楼有很多层。' (cache miss on [('很多', 'CD')])
+2026-10-27 17:26:31,882  INFO     TAGGED    '这栋大楼有很多层。' (level 6, 8 tags)
+2026-10-27 17:26:31,899  INFO     FALLBACK  '这个购物中心很大。' -- out-of-list word(s): ['这个', '购物中心']
+2026-10-27 17:26:31,899  WARNING    HAIKU resegment call for '这个购物中心很大。' (cache miss on [('这个', 'DT'), ('购物中心', 'NN')])
+2026-10-27 17:26:33,117  INFO     TAGGED    '这个购物中心很大。' (level 5, 6 tags)
+2026-10-27 17:26:33,130  INFO     OK        hanlp-valid   '我喜欢在大海边散步。' -> [('我', 'PN'), ('喜欢', 'VV'), ('在', 'P'), ('大海', 'NN'), ('边', 'LC'), ('散步', 'VV')]
+2026-10-27 17:26:33,139  INFO     TAGGED    '我喜欢在大海边散步。' (level 4, 7 tags)
+2026-10-27 17:26:33,151  INFO     FALLBACK  '我在一家大公司工作。' -- out-of-list word(s): ['一家']
+2026-10-27 17:26:33,151  WARNING    HAIKU resegment call for '我在一家大公司工作。' (cache miss on [('一家', 'CD')])
+2026-10-27 17:26:34,544  INFO     TAGGED    '我在一家大公司工作。' (level 1, 7 tags)
+2026-10-27 17:26:34,571  INFO     FALLBACK  '大家好！欢迎来参加我的生日派对。' -- out-of-list word(s): ['派对']
+2026-10-27 17:26:34,571  WARNING    HAIKU resegment call for '大家好！欢迎来参加我的生日派对。' (cache miss on [('派对', 'NN')])
+2026-10-27 17:26:36,221  INFO     TAGGED    '大家好！欢迎来参加我的生日派对。' (level 5, 10 tags)
+2026-10-27 17:26:36,235  INFO     FALLBACK  '大家都认为这个创意很棒。' -- out-of-list word(s): ['这个']
+2026-10-27 17:26:36,235  WARNING    HAIKU resegment call for '大家都认为这个创意很棒。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:26:37,927  INFO     TAGGED    '大家都认为这个创意很棒。' (level 6, 8 tags)
+2026-10-27 17:26:37,946  INFO     FALLBACK  '第几页？' -- out-of-list word(s): ['第几页']
+2026-10-27 17:26:37,946  WARNING    HAIKU resegment call for '第几页？' (cache miss on [('第几页', 'OD')])
+2026-10-27 17:26:38,893  INFO     TAGGED    '第几页？' (level 3, 3 tags)
+2026-10-27 17:26:38,920  INFO     FALLBACK  '这是我第五次来中国。' -- out-of-list word(s): ['这是']
+2026-10-27 17:26:38,920  WARNING    HAIKU resegment call for '这是我第五次来中国。' (cache miss on [('这是', 'AD')])
+2026-10-27 17:26:40,281  INFO     TAGGED    '这是我第五次来中国。' (level 2, 8 tags)
+2026-10-27 17:26:40,298  INFO     FALLBACK  '你的电话号码是多少？' -- out-of-list word(s): ['电话号码']
+2026-10-27 17:26:40,298  WARNING    HAIKU resegment call for '你的电话号码是多少？' (cache miss on [('电话号码', 'NN')])
+2026-10-27 17:26:41,615  INFO     TAGGED    '你的电话号码是多少？' (level 3, 6 tags)
+2026-10-27 17:26:41,631  INFO     OK        hanlp-valid   '我需要打电话给顾客。' -> [('我', 'PN'), ('需要', 'VV'), ('打电话', 'NN'), ('给', 'P'), ('顾客', 'NN')]
+2026-10-27 17:26:41,634  INFO     TAGGED    '我需要打电话给顾客。' (level 4, 5 tags)
+2026-10-27 17:26:41,646  INFO     OK        hanlp-valid   '我到了，就给你打电话。' -> [('我', 'PN'), ('到', 'VV'), ('了', 'AS'), ('就', 'AD'), ('给', 'P'), ('你', 'PN'), ('打电话', 'VV')]
+2026-10-27 17:26:41,649  INFO     TAGGED    '我到了，就给你打电话。' (level 2, 7 tags)
+2026-10-27 17:26:41,660  INFO     OK        hanlp-valid   '我刚刚接到了他的电话。' -> [('我', 'PN'), ('刚刚', 'AD'), ('接到', 'VV'), ('了', 'AS'), ('他', 'PN'), ('的', 'DEG'), ('电话', 'NN')]
+2026-10-27 17:26:41,667  INFO     TAGGED    '我刚刚接到了他的电话。' (level 3, 8 tags)
+2026-10-27 17:26:41,678  INFO     OK        hanlp-valid   '你可以打电话或者发电子邮件。' -> [('你', 'PN'), ('可以', 'VV'), ('打电话', 'NN'), ('或者', 'CC'), ('发', 'VV'), ('电子邮件', 'NN')]
+2026-10-27 17:26:41,689  INFO     TAGGED    '你可以打电话或者发电子邮件。' (level 10, 6 tags)
+2026-10-27 17:26:41,703  INFO     OK        hanlp-valid   '电影院在哪里？' -> [('电影院', 'NN'), ('在', 'VV'), ('哪里', 'PN')]
+2026-10-27 17:26:41,705  INFO     TAGGED    '电影院在哪里？' (level 1, 3 tags)
+2026-10-27 17:26:41,718  INFO     OK        hanlp-valid   '车站在酒店后边。' -> [('车站', 'NN'), ('在', 'VV'), ('酒店', 'NN'), ('后边', 'NN')]
+2026-10-27 17:26:41,724  INFO     TAGGED    '车站在酒店后边。' (level 2, 5 tags)
+2026-10-27 17:26:41,734  INFO     OK        hanlp-valid   '超市在酒店南边。' -> [('超市', 'NN'), ('在', 'VV'), ('酒店', 'NN'), ('南边', 'NN')]
+2026-10-27 17:26:41,740  INFO     TAGGED    '超市在酒店南边。' (level 3, 5 tags)
+2026-10-27 17:26:41,750  INFO     OK        hanlp-valid   '这家饭店的菜很贵。' -> [('这', 'DT'), ('家', 'M'), ('饭店', 'NN'), ('的', 'DEG'), ('菜', 'NN'), ('很', 'AD'), ('贵', 'VA')]
+2026-10-27 17:26:41,753  INFO     TAGGED    '这家饭店的菜很贵。' (level 1, 7 tags)
+2026-10-27 17:26:41,762  INFO     FALLBACK  '你想开一家商店吗？' -- out-of-list word(s): ['一家']
+2026-10-27 17:26:41,762  WARNING    HAIKU resegment call for '你想开一家商店吗？' (cache miss on [('一家', 'AD')])
+2026-10-27 17:26:43,273  INFO     TAGGED    '你想开一家商店吗？' (level 1, 7 tags)
+2026-10-27 17:26:43,289  INFO     OK        hanlp-valid   '酒店在车站的右边。' -> [('酒店', 'NN'), ('在', 'VV'), ('车站', 'NN'), ('的', 'DEG'), ('右边', 'NN')]
+2026-10-27 17:26:43,292  INFO     TAGGED    '酒店在车站的右边。' (level 2, 5 tags)
+2026-10-27 17:26:43,303  INFO     FALLBACK  '酒店前边有一个公园。' -- out-of-list word(s): ['一个']
+2026-10-27 17:26:43,303  INFO       CACHE-ONLY resegmentation -> [('酒店', 'NN'), ('前边', 'NN'), ('有', 'VE'), ('一', 'CD'), ('个', 'M'), ('公园', 'NN')]
+2026-10-27 17:26:43,319  INFO     TAGGED    '酒店前边有一个公园。' (level 3, 7 tags)
+2026-10-27 17:26:43,338  INFO     OK        hanlp-valid   '这家书店营业二十四小时。' -> [('这', 'DT'), ('家', 'M'), ('书店', 'NN'), ('营业', 'VV'), ('二十四', 'NUM'), ('小时', 'NN')]
+2026-10-27 17:26:43,340  INFO     TAGGED    '这家书店营业二十四小时。' (level 5, 5 tags)
+2026-10-27 17:26:43,351  INFO     FALLBACK  '我需要去花店买些东西。' -- out-of-list word(s): ['花店']
+2026-10-27 17:26:43,351  WARNING    HAIKU resegment call for '我需要去花店买些东西。' (cache miss on [('花店', 'NN')])
+2026-10-27 17:26:44,809  INFO     TAGGED    '我需要去花店买些东西。' (level 3, 8 tags)
+2026-10-27 17:26:44,822  INFO     OK        hanlp-valid   '我要去药店买药。' -> [('我', 'PN'), ('要', 'VV'), ('去', 'VV'), ('药店', 'NN'), ('买', 'VV'), ('药', 'NN')]
+2026-10-27 17:26:44,825  INFO     TAGGED    '我要去药店买药。' (level 2, 6 tags)
+2026-10-27 17:26:44,836  INFO     OK        hanlp-valid   '也许我应该去药店。' -> [('也许', 'AD'), ('我', 'PN'), ('应该', 'VV'), ('去', 'VV'), ('药店', 'NN')]
+2026-10-27 17:26:44,838  INFO     TAGGED    '也许我应该去药店。' (level 4, 5 tags)
+2026-10-27 17:26:44,849  INFO     OK        hanlp-valid   '这家酒店的服务很好。' -> [('这', 'DT'), ('家', 'M'), ('酒店', 'NN'), ('的', 'DEG'), ('服务', 'NN'), ('很', 'AD'), ('好', 'VA')]
+2026-10-27 17:26:44,852  INFO     TAGGED    '这家酒店的服务很好。' (level 3, 7 tags)
+2026-10-27 17:26:44,862  INFO     FALLBACK  '我在那家酒店待了三夜。' -- out-of-list word(s): ['三夜']
+2026-10-27 17:26:44,863  WARNING    HAIKU resegment call for '我在那家酒店待了三夜。' (cache miss on [('三夜', 'NN')])
+2026-10-27 17:26:46,526  INFO     TAGGED    '我在那家酒店待了三夜。' (level 4, 9 tags)
+2026-10-27 17:26:46,544  INFO     FALLBACK  '这个饭店今天晚上客满了。' -- out-of-list word(s): ['这个', '客满']
+2026-10-27 17:26:46,545  WARNING    HAIKU resegment call for '这个饭店今天晚上客满了。' (cache miss on [('这个', 'DT'), ('客满', 'VV')])
+2026-10-27 17:26:48,921  INFO       NON-LIST 客 (NN) -> 'full of customers/guests' [ai_added]
+2026-10-27 17:26:48,924  INFO     TAGGED    '这个饭店今天晚上客满了。' (level 10, 8 tags)
+2026-10-27 17:26:48,939  INFO     FALLBACK  '这家商店卖很多漂亮的衣服。' -- out-of-list word(s): ['很多']
+2026-10-27 17:26:48,939  WARNING    HAIKU resegment call for '这家商店卖很多漂亮的衣服。' (cache miss on [('很多', 'CD')])
+2026-10-27 17:26:50,620  INFO     TAGGED    '这家商店卖很多漂亮的衣服。' (level 1, 9 tags)
+2026-10-27 17:26:50,636  INFO     FALLBACK  '我走过那条街时看到了一家新店。' -- out-of-list word(s): ['一家']
+2026-10-27 17:26:50,637  WARNING    HAIKU resegment call for '我走过那条街时看到了一家新店。' (cache miss on [('一家', 'CD')])
+2026-10-27 17:26:52,772  INFO     TAGGED    '我走过那条街时看到了一家新店。' (level 3, 14 tags)
+2026-10-27 17:26:52,789  INFO     OK        hanlp-valid   '这家店的服务很好，顾客都很满意。' -> [('这', 'DT'), ('家', 'M'), ('店', 'NN'), ('的', 'DEG'), ('服务', 'NN'), ('很', 'AD'), ('好', 'VA'), ('顾客', 'NN'), ('都', 'AD'), ('很', 'AD'), ('满意', 'VA')]
+2026-10-27 17:26:52,793  INFO     TAGGED    '这家店的服务很好，顾客都很满意。' (level 4, 11 tags)
+2026-10-27 17:26:52,809  INFO     FALLBACK  '他买了很多东西。' -- out-of-list word(s): ['很多']
+2026-10-27 17:26:52,809  WARNING    HAIKU resegment call for '他买了很多东西。' (cache miss on [('很多', 'CD')])
+2026-10-27 17:26:54,102  INFO     TAGGED    '他买了很多东西。' (level 1, 6 tags)
+2026-10-27 17:26:54,123  INFO     OK        hanlp-valid   '他想买一架飞机。' -> [('他', 'PN'), ('想', 'VV'), ('买', 'VV'), ('一', 'CD'), ('架', 'M'), ('飞机', 'NN')]
+2026-10-27 17:26:54,126  INFO     TAGGED    '他想买一架飞机。' (level 5, 6 tags)
+2026-10-27 17:26:54,137  INFO     OK        hanlp-valid   '你下飞机了吗？' -> [('你', 'PN'), ('下', 'VV'), ('飞机', 'NN'), ('了', 'SP'), ('吗', 'SP')]
+2026-10-27 17:26:54,140  INFO     TAGGED    '你下飞机了吗？' (level 1, 5 tags)
+2026-10-27 17:26:54,156  INFO     OK        hanlp-valid   '非常好！' -> [('非常', 'AD'), ('好', 'VA')]
+2026-10-27 17:26:54,158  INFO     TAGGED    '非常好！' (level 1, 2 tags)
+2026-10-27 17:26:54,181  INFO     OK        hanlp-valid   '他数学考试得了八十分。' -> [('他', 'PN'), ('数学', 'NN'), ('考试', 'NN'), ('得', 'VV'), ('了', 'AS'), ('八十', 'NUM'), ('分', 'VV')]
+2026-10-27 17:26:54,184  INFO     TAGGED    '他数学考试得了八十分。' (level 3, 6 tags)
+2026-10-27 17:26:54,195  INFO     FALLBACK  '我五分钟后到。' -- out-of-list word(s): ['五分钟']
+2026-10-27 17:26:54,195  WARNING    HAIKU resegment call for '我五分钟后到。' (cache miss on [('五分钟', 'NT')])
+2026-10-27 17:26:55,432  INFO     TAGGED    '我五分钟后到。' (level 1, 5 tags)
+2026-10-27 17:26:55,448  INFO     FALLBACK  '利息率是百分之二。' -- out-of-list word(s): ['利息率', '百分之二']
+2026-10-27 17:26:55,449  WARNING    HAIKU resegment call for '利息率是百分之二。' (cache miss on [('利息率', 'NN'), ('百分之二', 'CD')])
+2026-10-27 17:26:57,478  INFO       NON-LIST 分之 (CD) -> 'of (used in fractions and percentages, connecting the denominator or base number to the numerator)' [ai_added]
+2026-10-27 17:26:57,480  INFO     TAGGED    '利息率是百分之二。' (level 10, 6 tags)
+2026-10-27 17:26:57,494  INFO     FALLBACK  '利息率是百分之一。' -- out-of-list word(s): ['利息率', '百分之一']
+2026-10-27 17:26:57,494  WARNING    HAIKU resegment call for '利息率是百分之一。' (cache miss on [('利息率', 'NN'), ('百分之一', 'CD')])
+2026-10-27 17:26:59,221  INFO       NON-LIST 分之 (CD) -> 'per; of (used in fractions and percentages)' [ai_added]
+2026-10-27 17:26:59,223  INFO     TAGGED    '利息率是百分之一。' (level 10, 6 tags)
+2026-10-27 17:26:59,245  INFO     FALLBACK  '从这里到车站要十分钟。' -- out-of-list word(s): ['十分钟']
+2026-10-27 17:26:59,245  WARNING    HAIKU resegment call for '从这里到车站要十分钟。' (cache miss on [('十分钟', 'CD')])
+2026-10-27 17:27:00,656  INFO     TAGGED    '从这里到车站要十分钟。' (level 2, 7 tags)
+2026-10-27 17:27:00,671  INFO     FALLBACK  '我们需要把这个苹果分成两半。' -- out-of-list word(s): ['这个', '两半']
+2026-10-27 17:27:00,671  WARNING    HAIKU resegment call for '我们需要把这个苹果分成两半。' (cache miss on [('这个', 'DT'), ('两半', 'CD')])
+2026-10-27 17:27:02,395  INFO     TAGGED    '我们需要把这个苹果分成两半。' (level 6, 10 tags)
+2026-10-27 17:27:02,409  INFO     FALLBACK  '这个电影十分有趣。' -- out-of-list word(s): ['这个']
+2026-10-27 17:27:02,409  WARNING    HAIKU resegment call for '这个电影十分有趣。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:27:03,526  INFO     TAGGED    '这个电影十分有趣。' (level 4, 5 tags)
+2026-10-27 17:27:03,548  INFO     OK        hanlp-valid   '他考试取得了一百分。' -> [('他', 'PN'), ('考试', 'NN'), ('取得', 'VV'), ('了', 'SP'), ('一百', 'NUM'), ('分', 'VV')]
+2026-10-27 17:27:03,550  INFO     TAGGED    '他考试取得了一百分。' (level 4, 5 tags)
+2026-10-27 17:27:03,563  INFO     FALLBACK  '这是我生活的一部分。' -- out-of-list word(s): ['这是']
+2026-10-27 17:27:03,563  WARNING    HAIKU resegment call for '这是我生活的一部分。' (cache miss on [('这是', 'AD')])
+2026-10-27 17:27:04,968  INFO     TAGGED    '这是我生活的一部分。' (level 4, 7 tags)
+2026-10-27 17:27:04,982  INFO     FALLBACK  '我需要五分钟准备一下。' -- out-of-list word(s): ['五分钟', '一下']
+2026-10-27 17:27:04,982  WARNING    HAIKU resegment call for '我需要五分钟准备一下。' (cache miss on [('五分钟', 'CD'), ('一下', 'AD')])
+2026-10-27 17:27:06,353  INFO     TAGGED    '我需要五分钟准备一下。' (level 3, 7 tags)
+2026-10-27 17:27:06,366  INFO     FALLBACK  '他的成绩很好，考了满分。' -- out-of-list word(s): ['满分']
+2026-10-27 17:27:06,366  WARNING    HAIKU resegment call for '他的成绩很好，考了满分。' (cache miss on [('满分', 'NN')])
+2026-10-27 17:27:08,046  INFO     TAGGED    '他的成绩很好，考了满分。' (level 4, 9 tags)
+2026-10-27 17:27:08,059  INFO     OK        hanlp-valid   '大部分人都喜欢吃巧克力。' -> [('大部分', 'CD'), ('人', 'NN'), ('都', 'AD'), ('喜欢', 'VV'), ('吃', 'VV'), ('巧克力', 'NN')]
+2026-10-27 17:27:08,067  INFO     TAGGED    '大部分人都喜欢吃巧克力。' (level 4, 7 tags)
+2026-10-27 17:27:08,080  INFO     FALLBACK  '我们需要把这些书分开放。' -- out-of-list word(s): ['分开放']
+2026-10-27 17:27:08,080  WARNING    HAIKU resegment call for '我们需要把这些书分开放。' (cache miss on [('分开放', 'VV')])
+2026-10-27 17:27:09,492  INFO     TAGGED    '我们需要把这些书分开放。' (level 3, 7 tags)
+2026-10-27 17:27:09,509  INFO     FALLBACK  '这个视频只是整个系列的部分。' -- out-of-list word(s): ['这个']
+2026-10-27 17:27:09,509  WARNING    HAIKU resegment call for '这个视频只是整个系列的部分。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:27:11,106  INFO     TAGGED    '这个视频只是整个系列的部分。' (level 6, 9 tags)
+2026-10-27 17:27:11,119  INFO     OK        hanlp-valid   '他的考试成绩在平均分数以上。' -> [('他', 'PN'), ('的', 'DEG'), ('考试', 'NN'), ('成绩', 'NN'), ('在', 'VV'), ('平均', 'JJ'), ('分数', 'NN'), ('以上', 'LC')]
+2026-10-27 17:27:11,123  INFO     TAGGED    '他的考试成绩在平均分数以上。' (level 5, 8 tags)
+2026-10-27 17:27:11,136  INFO     FALLBACK  '我在数学考试中得了一个好分数。' -- out-of-list word(s): ['一个']
+2026-10-27 17:27:11,136  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('在', 'P'), ('数学', 'NN'), ('考试', 'NN'), ('中', 'LC'), ('得了', 'VV'), ('一', 'CD'), ('个', 'M'), ('好', 'JJ'), ('分数', 'NN')]
+2026-10-27 17:27:11,139  INFO     TAGGED    '我在数学考试中得了一个好分数。' (level 6, 10 tags)
+2026-10-27 17:27:11,152  INFO     FALLBACK  '你可以创建一个小组来分享你的故事。' -- out-of-list word(s): ['一个']
+2026-10-27 17:27:11,152  INFO       CACHE-ONLY resegmentation -> [('你', 'PN'), ('可以', 'VV'), ('创建', 'VV'), ('一', 'CD'), ('个', 'M'), ('小组', 'NN'), ('来', 'VV'), ('分享', 'VV'), ('你', 'PN'), ('的', 'DEG'), ('故事', 'NN')]
+2026-10-27 17:27:11,156  INFO     TAGGED    '你可以创建一个小组来分享你的故事。' (level 6, 11 tags)
+2026-10-27 17:27:11,168  INFO     OK        hanlp-valid   '如果你仔细分析，你会得出正确的结论。' -> [('如果', 'CS'), ('你', 'PN'), ('仔细', 'AD'), ('分析', 'VV'), ('你', 'PN'), ('会', 'VV'), ('得出', 'VV'), ('正确', 'VA'), ('的', 'DEC'), ('结论', 'NN')]
+2026-10-27 17:27:11,176  INFO     TAGGED    '如果你仔细分析，你会得出正确的结论。' (level 5, 11 tags)
+2026-10-27 17:27:11,199  INFO     FALLBACK  '我五分钟后到。' -- out-of-list word(s): ['五分钟']
+2026-10-27 17:27:11,199  WARNING    HAIKU resegment call for '我五分钟后到。' (cache miss on [('五分钟', 'NT')])
+2026-10-27 17:27:12,539  INFO     TAGGED    '我五分钟后到。' (level 1, 5 tags)
+2026-10-27 17:27:12,557  INFO     FALLBACK  '他今天学了十个汉字。' -- out-of-list word(s): ['十个']
+2026-10-27 17:27:12,557  WARNING    HAIKU resegment call for '他今天学了十个汉字。' (cache miss on [('十个', 'CD')])
+2026-10-27 17:27:14,074  INFO     TAGGED    '他今天学了十个汉字。' (level 1, 7 tags)
+2026-10-27 17:27:14,094  INFO     FALLBACK  '这个好看吗？' -- out-of-list word(s): ['这个']
+2026-10-27 17:27:14,094  WARNING    HAIKU resegment call for '这个好看吗？' (cache miss on [('这个', 'PN')])
+2026-10-27 17:27:15,298  INFO     TAGGED    '这个好看吗？' (level 1, 4 tags)
+2026-10-27 17:27:15,319  INFO     FALLBACK  '我坐火车去深圳。' -- out-of-list word(s): ['深圳']
+2026-10-27 17:27:15,320  WARNING    HAIKU resegment call for '我坐火车去深圳。' (cache miss on [('深圳', 'NR')])
+2026-10-27 17:27:16,633  INFO       NON-LIST 深圳 (NR) -> '(name) shen1zhen4' [proper_noun]
+2026-10-27 17:27:16,635  INFO     TAGGED    '我坐火车去深圳。' (level 1, 5 tags)
+2026-10-27 17:27:16,654  INFO     OK        hanlp-valid   '你喜欢吃鸡蛋吗？' -> [('你', 'PN'), ('喜欢', 'VV'), ('吃', 'VV'), ('鸡蛋', 'NN'), ('吗', 'SP')]
+2026-10-27 17:27:16,657  INFO     TAGGED    '你喜欢吃鸡蛋吗？' (level 1, 5 tags)
+2026-10-27 17:27:16,671  INFO     FALLBACK  '我要六个饺子。' -- out-of-list word(s): ['六个']
+2026-10-27 17:27:16,671  WARNING    HAIKU resegment call for '我要六个饺子。' (cache miss on [('六个', 'CD')])
+2026-10-27 17:27:17,876  INFO     TAGGED    '我要六个饺子。' (level 1, 5 tags)
+2026-10-27 17:27:17,896  INFO     FALLBACK  '请开门。' -- out-of-list word(s): ['开门']
+2026-10-27 17:27:17,896  WARNING    HAIKU resegment call for '请开门。' (cache miss on [('开门', 'VV')])
+2026-10-27 17:27:18,923  INFO     TAGGED    '请开门。' (level 2, 3 tags)
+2026-10-27 17:27:18,939  INFO     OK        hanlp-valid   '从零开始。' -> [('从', 'P'), ('零', 'CD'), ('开始', 'VV')]
+2026-10-27 17:27:18,941  INFO     TAGGED    '从零开始。' (level 2, 3 tags)
+2026-10-27 17:27:18,952  INFO     OK        hanlp-valid   '请打开空调。' -> [('请', 'VV'), ('打开', 'VV'), ('空调', 'NN')]
+2026-10-27 17:27:18,954  INFO     TAGGED    '请打开空调。' (level 3, 3 tags)
+2026-10-27 17:27:18,965  INFO     OK        hanlp-valid   '我正开车呢。' -> [('我', 'PN'), ('正', 'AD'), ('开车', 'VV'), ('呢', 'SP')]
+2026-10-27 17:27:18,967  INFO     TAGGED    '我正开车呢。' (level 2, 4 tags)
+2026-10-27 17:27:18,977  INFO     FALLBACK  '我们几点开会？' -- out-of-list word(s): ['几点']
+2026-10-27 17:27:18,977  WARNING    HAIKU resegment call for '我们几点开会？' (cache miss on [('几点', 'NT')])
+2026-10-27 17:27:20,110  INFO     TAGGED    '我们几点开会？' (level 3, 4 tags)
+2026-10-27 17:27:20,123  INFO     OK        hanlp-valid   '你喜欢开玩笑吗？' -> [('你', 'PN'), ('喜欢', 'VV'), ('开玩笑', 'VV'), ('吗', 'SP')]
+2026-10-27 17:27:20,135  INFO     TAGGED    '你喜欢开玩笑吗？' (level 4, 4 tags)
+2026-10-27 17:27:20,146  INFO     FALLBACK  '你想开一家商店吗？' -- out-of-list word(s): ['一家']
+2026-10-27 17:27:20,146  WARNING    HAIKU resegment call for '你想开一家商店吗？' (cache miss on [('一家', 'AD')])
+2026-10-27 17:27:21,649  INFO     TAGGED    '你想开一家商店吗？' (level 1, 7 tags)
+2026-10-27 17:27:21,669  INFO     OK        hanlp-valid   '你可以帮我吗？' -> [('你', 'PN'), ('可以', 'VV'), ('帮', 'VV'), ('我', 'PN'), ('吗', 'SP')]
+2026-10-27 17:27:21,671  INFO     TAGGED    '你可以帮我吗？' (level 2, 5 tags)
+2026-10-27 17:27:21,682  INFO     OK        hanlp-valid   '你可以教我吗？' -> [('你', 'PN'), ('可以', 'VV'), ('教', 'VV'), ('我', 'PN'), ('吗', 'SP')]
+2026-10-27 17:27:21,684  INFO     TAGGED    '你可以教我吗？' (level 2, 5 tags)
+2026-10-27 17:27:21,694  INFO     OK        hanlp-valid   '你可以问老师。' -> [('你', 'PN'), ('可以', 'VV'), ('问', 'VV'), ('老师', 'NN')]
+2026-10-27 17:27:21,697  INFO     TAGGED    '你可以问老师。' (level 1, 4 tags)
+2026-10-27 17:27:21,710  INFO     OK        hanlp-valid   '我常点外卖。' -> [('我', 'PN'), ('常', 'AD'), ('点', 'VV'), ('外卖', 'NN')]
+2026-10-27 17:27:21,712  INFO     TAGGED    '我常点外卖。' (level 3, 4 tags)
+2026-10-27 17:27:21,722  INFO     FALLBACK  '这家商店卖很多漂亮的衣服。' -- out-of-list word(s): ['很多']
+2026-10-27 17:27:21,723  WARNING    HAIKU resegment call for '这家商店卖很多漂亮的衣服。' (cache miss on [('很多', 'CD')])
+2026-10-27 17:27:23,389  INFO     TAGGED    '这家商店卖很多漂亮的衣服。' (level 1, 9 tags)
+2026-10-27 17:27:23,403  INFO     FALLBACK  '我今晚想吃外卖。' -- out-of-list word(s): ['今晚']
+2026-10-27 17:27:23,403  WARNING    HAIKU resegment call for '我今晚想吃外卖。' (cache miss on [('今晚', 'NT')])
+2026-10-27 17:27:24,693  INFO     TAGGED    '我今晚想吃外卖。' (level 10, 5 tags)
+2026-10-27 17:27:24,713  INFO     OK        hanlp-valid   '我喜欢和朋友们一起聊天。' -> [('我', 'PN'), ('喜欢', 'VV'), ('和', 'P'), ('朋友', 'NN'), ('们', 'NN'), ('一起', 'AD'), ('聊天', 'VV')]
+2026-10-27 17:27:24,720  INFO     TAGGED    '我喜欢和朋友们一起聊天。' (level 3, 8 tags)
+2026-10-27 17:27:24,731  INFO     OK        hanlp-valid   '他们是同学。' -> [('他们', 'PN'), ('是', 'VC'), ('同学', 'NN')]
+2026-10-27 17:27:24,733  INFO     TAGGED    '他们是同学。' (level 1, 3 tags)
+2026-10-27 17:27:24,743  INFO     OK        hanlp-valid   '他们一样高。' -> [('他们', 'PN'), ('一样', 'AD'), ('高', 'VA')]
+2026-10-27 17:27:24,744  INFO     TAGGED    '他们一样高。' (level 3, 3 tags)
+2026-10-27 17:27:24,754  INFO     FALLBACK  '我们都是朋友。' -- out-of-list word(s): ['都是']
+2026-10-27 17:27:24,755  WARNING    HAIKU resegment call for '我们都是朋友。' (cache miss on [('都是', 'AD')])
+2026-10-27 17:27:26,047  INFO     TAGGED    '我们都是朋友。' (level 1, 4 tags)
+2026-10-27 17:27:26,063  INFO     FALLBACK  '我们几点开会？' -- out-of-list word(s): ['几点']
+2026-10-27 17:27:26,063  WARNING    HAIKU resegment call for '我们几点开会？' (cache miss on [('几点', 'NT')])
+2026-10-27 17:27:27,176  INFO     TAGGED    '我们几点开会？' (level 3, 4 tags)
+2026-10-27 17:27:27,202  INFO     OK        hanlp-valid   '他们是老朋友。' -> [('他们', 'PN'), ('是', 'VC'), ('老朋友', 'NN')]
+2026-10-27 17:27:27,209  INFO     TAGGED    '他们是老朋友。' (level 3, 4 tags)
+2026-10-27 17:27:27,220  INFO     OK        hanlp-valid   '她们是双胞胎。' -> [('她们', 'PN'), ('是', 'VC'), ('双胞胎', 'NN')]
+2026-10-27 17:27:27,223  INFO     TAGGED    '她们是双胞胎。' (level 7, 3 tags)
+2026-10-27 17:27:27,233  INFO     OK        hanlp-valid   '我们会说中文。' -> [('我们', 'PN'), ('会', 'VV'), ('说', 'VV'), ('中文', 'NN')]
+2026-10-27 17:27:27,235  INFO     TAGGED    '我们会说中文。' (level 1, 4 tags)
+2026-10-27 17:27:27,245  INFO     OK        hanlp-valid   '我们在哪里见面？' -> [('我们', 'PN'), ('在', 'P'), ('哪里', 'PN'), ('见面', 'VV')]
+2026-10-27 17:27:27,247  INFO     TAGGED    '我们在哪里见面？' (level 3, 4 tags)
+2026-10-27 17:27:27,257  INFO     OK        hanlp-valid   '我们要听写生词。' -> [('我们', 'PN'), ('要', 'VV'), ('听写', 'VV'), ('生词', 'NN')]
+2026-10-27 17:27:27,267  INFO     TAGGED    '我们要听写生词。' (level 4, 6 tags)
+2026-10-27 17:27:27,277  INFO     OK        hanlp-valid   '我们一起玩儿吧！' -> [('我们', 'PN'), ('一起', 'AD'), ('玩儿', 'VV'), ('吧', 'SP')]
+2026-10-27 17:27:27,279  INFO     TAGGED    '我们一起玩儿吧！' (level 10, 4 tags)
+2026-10-27 17:27:27,289  INFO     OK        hanlp-valid   '我们一块儿玩吧！' -> [('我们', 'PN'), ('一块儿', 'AD'), ('玩', 'VV'), ('吧', 'SP')]
+2026-10-27 17:27:27,291  INFO     TAGGED    '我们一块儿玩吧！' (level 3, 4 tags)
+2026-10-27 17:27:27,300  INFO     OK        hanlp-valid   '我们一起去旅行吧！' -> [('我们', 'PN'), ('一起', 'AD'), ('去', 'VV'), ('旅行', 'VV'), ('吧', 'SP')]
+2026-10-27 17:27:27,303  INFO     TAGGED    '我们一起去旅行吧！' (level 4, 5 tags)
+2026-10-27 17:27:27,313  INFO     OK        hanlp-valid   '我们坐下喝杯茶吧。' -> [('我们', 'PN'), ('坐下', 'VV'), ('喝', 'VV'), ('杯', 'M'), ('茶', 'NN'), ('吧', 'SP')]
+2026-10-27 17:27:27,320  INFO     TAGGED    '我们坐下喝杯茶吧。' (level 10, 7 tags)
+2026-10-27 17:27:27,330  INFO     OK        hanlp-valid   '我们是在网上认识的。' -> [('我们', 'PN'), ('是', 'VC'), ('在', 'P'), ('网上', 'NN'), ('认识', 'VV'), ('的', 'DEC')]
+2026-10-27 17:27:27,332  INFO     TAGGED    '我们是在网上认识的。' (level 2, 6 tags)
+2026-10-27 17:27:27,342  INFO     FALLBACK  '我们学校有很多女老师。' -- out-of-list word(s): ['很多']
+2026-10-27 17:27:27,342  WARNING    HAIKU resegment call for '我们学校有很多女老师。' (cache miss on [('很多', 'CD')])
+2026-10-27 17:27:28,721  INFO     TAGGED    '我们学校有很多女老师。' (level 1, 7 tags)
+2026-10-27 17:27:28,736  INFO     OK        hanlp-valid   '我们中午一起吃午饭吧！' -> [('我们', 'PN'), ('中午', 'NT'), ('一起', 'AD'), ('吃', 'VV'), ('午饭', 'NN'), ('吧', 'SP')]
+2026-10-27 17:27:28,739  INFO     TAGGED    '我们中午一起吃午饭吧！' (level 2, 6 tags)
+2026-10-27 17:27:28,751  INFO     OK        hanlp-valid   '我们先做作业，再看电视。' -> [('我们', 'PN'), ('先', 'AD'), ('做', 'VV'), ('作业', 'NN'), ('再', 'AD'), ('看', 'VV'), ('电视', 'NN')]
+2026-10-27 17:27:28,753  INFO     TAGGED    '我们先做作业，再看电视。' (level 3, 7 tags)
+2026-10-27 17:27:28,764  INFO     OK        hanlp-valid   '我们往北走。' -> [('我们', 'PN'), ('往', 'P'), ('北', 'NN'), ('走', 'VV')]
+2026-10-27 17:27:28,767  INFO     TAGGED    '我们往北走。' (level 3, 4 tags)
+2026-10-27 17:27:28,778  INFO     FALLBACK  '我们应该省电。' -- out-of-list word(s): ['省电']
+2026-10-27 17:27:28,778  WARNING    HAIKU resegment call for '我们应该省电。' (cache miss on [('省电', 'VV')])
+2026-10-27 17:27:29,939  INFO     TAGGED    '我们应该省电。' (level 4, 4 tags)
+2026-10-27 17:27:29,953  INFO     FALLBACK  '它们是玫瑰花。' -- out-of-list word(s): ['玫瑰花']
+2026-10-27 17:27:29,953  WARNING    HAIKU resegment call for '它们是玫瑰花。' (cache miss on [('玫瑰花', 'NN')])
+2026-10-27 17:27:30,986  INFO     TAGGED    '它们是玫瑰花。' (level 5, 4 tags)
+2026-10-27 17:27:30,998  INFO     OK        hanlp-valid   '大人们都在开会。' -> [('大人', 'NN'), ('们', 'NN'), ('都', 'AD'), ('在', 'AD'), ('开会', 'VV')]
+2026-10-27 17:27:31,000  INFO     TAGGED    '大人们都在开会。' (level 3, 5 tags)
+2026-10-27 17:27:31,011  INFO     OK        hanlp-valid   '他是我们班的班长。' -> [('他', 'PN'), ('是', 'VC'), ('我们', 'PN'), ('班', 'NN'), ('的', 'DEG'), ('班长', 'NN')]
+2026-10-27 17:27:31,018  INFO     TAGGED    '他是我们班的班长。' (level 2, 7 tags)
+2026-10-27 17:27:31,029  INFO     OK        hanlp-valid   '我们可以租一艘船。' -> [('我们', 'PN'), ('可以', 'VV'), ('租', 'VV'), ('一', 'CD'), ('艘', 'M'), ('船', 'NN')]
+2026-10-27 17:27:31,031  INFO     TAGGED    '我们可以租一艘船。' (level 6, 6 tags)
+2026-10-27 17:27:31,042  INFO     FALLBACK  '我们的足球队很强。' -- out-of-list word(s): ['足球队']
+2026-10-27 17:27:31,042  WARNING    HAIKU resegment call for '我们的足球队很强。' (cache miss on [('足球队', 'NN')])
+2026-10-27 17:27:32,233  INFO     TAGGED    '我们的足球队很强。' (level 4, 6 tags)
+2026-10-27 17:27:32,251  INFO     OK        hanlp-valid   '欢迎来我们的聚会。' -> [('欢迎', 'VV'), ('来', 'VV'), ('我们', 'PN'), ('的', 'DEG'), ('聚会', 'NN')]
+2026-10-27 17:27:32,254  INFO     TAGGED    '欢迎来我们的聚会。' (level 4, 5 tags)
+2026-10-27 17:27:32,265  INFO     OK        hanlp-valid   '我们的教室很宽敞。' -> [('我们', 'PN'), ('的', 'DEG'), ('教室', 'NN'), ('很', 'AD'), ('宽敞', 'VA')]
+2026-10-27 17:27:32,267  INFO     TAGGED    '我们的教室很宽敞。' (level 7, 5 tags)
+2026-10-27 17:27:32,278  INFO     OK        hanlp-valid   '我们周末去爬山吧。' -> [('我们', 'PN'), ('周末', 'NT'), ('去', 'VV'), ('爬山', 'VV'), ('吧', 'SP')]
+2026-10-27 17:27:32,284  INFO     TAGGED    '我们周末去爬山吧。' (level 3, 6 tags)
+2026-10-27 17:27:32,295  INFO     OK        hanlp-valid   '我们已经非常熟了。' -> [('我们', 'PN'), ('已经', 'AD'), ('非常', 'AD'), ('熟', 'VA'), ('了', 'SP')]
+2026-10-27 17:27:32,297  INFO     TAGGED    '我们已经非常熟了。' (level 4, 5 tags)
+2026-10-27 17:27:32,309  INFO     OK        hanlp-valid   '你们有多少位老师？' -> [('你们', 'PN'), ('有', 'VE'), ('多少', 'CD'), ('位', 'M'), ('老师', 'NN')]
+2026-10-27 17:27:32,312  INFO     TAGGED    '你们有多少位老师？' (level 2, 5 tags)
+2026-10-27 17:27:32,324  INFO     OK        hanlp-valid   '他们有相同的爱好。' -> [('他们', 'PN'), ('有', 'VE'), ('相同', 'JJ'), ('的', 'DEG'), ('爱好', 'NN')]
+2026-10-27 17:27:32,326  INFO     TAGGED    '他们有相同的爱好。' (level 4, 5 tags)
+2026-10-27 17:27:32,340  INFO     OK        hanlp-valid   '我们一起去照相吧！' -> [('我们', 'PN'), ('一起', 'AD'), ('去', 'VV'), ('照相', 'VV'), ('吧', 'SP')]
+2026-10-27 17:27:32,342  INFO     TAGGED    '我们一起去照相吧！' (level 3, 5 tags)
+2026-10-27 17:27:32,353  INFO     OK        hanlp-valid   '他们的对话很有意思。' -> [('他们', 'PN'), ('的', 'DEG'), ('对话', 'NN'), ('很', 'AD'), ('有意思', 'VA')]
+2026-10-27 17:27:32,355  INFO     TAGGED    '他们的对话很有意思。' (level 3, 5 tags)
+2026-10-27 17:27:32,365  INFO     OK        hanlp-valid   '我们去饭馆吃晚饭吧。' -> [('我们', 'PN'), ('去', 'VV'), ('饭馆', 'NN'), ('吃', 'VV'), ('晚饭', 'NN'), ('吧', 'SP')]
+2026-10-27 17:27:32,368  INFO     TAGGED    '我们去饭馆吃晚饭吧。' (level 2, 6 tags)
+2026-10-27 17:27:32,377  INFO     FALLBACK  '我们不能让坏人得逞。' -- out-of-list word(s): ['不能', '得逞']
+2026-10-27 17:27:32,378  WARNING    HAIKU resegment call for '我们不能让坏人得逞。' (cache miss on [('不能', 'VV'), ('得逞', 'VV')])
+2026-10-27 17:27:34,445  INFO       NON-LIST 逞 (VV) -> "to succeed in (doing something wrong); to have one's way" [ai_added]
+2026-10-27 17:27:34,448  INFO     TAGGED    '我们不能让坏人得逞。' (level 10, 8 tags)
+2026-10-27 17:27:34,462  INFO     OK        hanlp-valid   '我们要好好招待客人。' -> [('我们', 'PN'), ('要', 'VV'), ('好好', 'AD'), ('招待', 'VV'), ('客人', 'NN')]
+2026-10-27 17:27:34,466  INFO     TAGGED    '我们要好好招待客人。' (level 6, 5 tags)
+2026-10-27 17:27:34,478  INFO     OK        hanlp-valid   '青年们正在参加活动。' -> [('青年', 'NN'), ('们', 'NN'), ('正在', 'AD'), ('参加', 'VV'), ('活动', 'NN')]
+2026-10-27 17:27:34,481  INFO     TAGGED    '青年们正在参加活动。' (level 4, 5 tags)
+2026-10-27 17:27:34,493  INFO     OK        hanlp-valid   '我们在球场上踢足球。' -> [('我们', 'PN'), ('在', 'P'), ('球场', 'NN'), ('上', 'LC'), ('踢', 'VV'), ('足球', 'NN')]
+2026-10-27 17:27:34,496  INFO     TAGGED    '我们在球场上踢足球。' (level 3, 6 tags)
+2026-10-27 17:27:34,507  INFO     OK        hanlp-valid   '我听说他们要搬家了。' -> [('我', 'PN'), ('听说', 'VV'), ('他们', 'PN'), ('要', 'VV'), ('搬家', 'VV'), ('了', 'SP')]
+2026-10-27 17:27:34,509  INFO     TAGGED    '我听说他们要搬家了。' (level 3, 6 tags)
+2026-10-27 17:27:34,520  INFO     FALLBACK  '我们一共有五个小孩。' -- out-of-list word(s): ['五个', '小孩']
+2026-10-27 17:27:34,520  WARNING    HAIKU resegment call for '我们一共有五个小孩。' (cache miss on [('小孩', 'NN')])
+2026-10-27 17:27:36,375  INFO       NON-LIST 小孩 (NN) -> 'child' [ai_added]
+2026-10-27 17:27:36,378  INFO     TAGGED    '我们一共有五个小孩。' (level 10, 6 tags)
+2026-10-27 17:27:36,392  INFO     OK        hanlp-valid   '他是我们团队的组长。' -> [('他', 'PN'), ('是', 'VC'), ('我们', 'PN'), ('团队', 'NN'), ('的', 'DEG'), ('组长', 'NN')]
+2026-10-27 17:27:36,400  INFO     TAGGED    '他是我们团队的组长。' (level 5, 7 tags)
+2026-10-27 17:27:36,413  INFO     OK        hanlp-valid   '他们的爱情故事很感人。' -> [('他们', 'PN'), ('的', 'DEG'), ('爱情', 'NN'), ('故事', 'NN'), ('很', 'AD'), ('感人', 'VA')]
+2026-10-27 17:27:36,416  INFO     TAGGED    '他们的爱情故事很感人。' (level 4, 6 tags)
+2026-10-27 17:27:36,428  INFO     OK        hanlp-valid   '我们要确保旅行的安全。' -> [('我们', 'PN'), ('要', 'VV'), ('确保', 'VV'), ('旅行', 'NN'), ('的', 'DEG'), ('安全', 'NN')]
+2026-10-27 17:27:36,431  INFO     TAGGED    '我们要确保旅行的安全。' (level 5, 6 tags)
+2026-10-27 17:27:36,442  INFO     FALLBACK  '我们今天去参观了故宫。' -- out-of-list word(s): ['故宫']
+2026-10-27 17:27:36,442  WARNING    HAIKU resegment call for '我们今天去参观了故宫。' (cache miss on [('故宫', 'NR')])
+2026-10-27 17:27:37,642  INFO     TAGGED    '我们今天去参观了故宫。' (level 7, 7 tags)
+2026-10-27 17:27:37,656  INFO     FALLBACK  '她给我们带来了好消息。' -- out-of-list word(s): ['好消息']
+2026-10-27 17:27:37,657  WARNING    HAIKU resegment call for '她给我们带来了好消息。' (cache miss on [('好消息', 'NN')])
+2026-10-27 17:27:39,045  INFO     TAGGED    '她给我们带来了好消息。' (level 4, 8 tags)
+2026-10-27 17:27:39,058  INFO     OK        hanlp-valid   '我们去动物园看大熊猫。' -> [('我们', 'PN'), ('去', 'VV'), ('动物园', 'NN'), ('看', 'VV'), ('大熊猫', 'NN')]
+2026-10-27 17:27:39,061  INFO     TAGGED    '我们去动物园看大熊猫。' (level 3, 5 tags)
+2026-10-27 17:27:39,072  INFO     FALLBACK  '他是我们篮球队的队长。' -- out-of-list word(s): ['篮球队']
+2026-10-27 17:27:39,072  WARNING    HAIKU resegment call for '他是我们篮球队的队长。' (cache miss on [('篮球队', 'NN')])
+2026-10-27 17:27:40,490  INFO     TAGGED    '他是我们篮球队的队长。' (level 4, 7 tags)
+2026-10-27 17:27:40,506  INFO     FALLBACK  '我们需要制定一个计划。' -- out-of-list word(s): ['一个']
+2026-10-27 17:27:40,506  INFO       CACHE-ONLY resegmentation -> [('我们', 'PN'), ('需要', 'VV'), ('制定', 'VV'), ('一', 'CD'), ('个', 'M'), ('计划', 'NN')]
+2026-10-27 17:27:40,509  INFO     TAGGED    '我们需要制定一个计划。' (level 5, 6 tags)
+2026-10-27 17:27:40,521  INFO     FALLBACK  '他们有一个幸福的家庭。' -- out-of-list word(s): ['一个']
+2026-10-27 17:27:40,521  INFO       CACHE-ONLY resegmentation -> [('他们', 'PN'), ('有', 'VE'), ('一', 'CD'), ('个', 'M'), ('幸福', 'JJ'), ('的', 'DEG'), ('家庭', 'NN')]
+2026-10-27 17:27:40,524  INFO     TAGGED    '他们有一个幸福的家庭。' (level 4, 7 tags)
+2026-10-27 17:27:40,535  INFO     OK        hanlp-valid   '我们下个月就要开学了。' -> [('我们', 'PN'), ('下个月', 'NT'), ('就要', 'AD'), ('开学', 'VV'), ('了', 'SP')]
+2026-10-27 17:27:40,546  INFO     TAGGED    '我们下个月就要开学了。' (level 2, 8 tags)
+2026-10-27 17:27:40,557  INFO     OK        hanlp-valid   '学生们在食堂门口排队。' -> [('学生', 'NN'), ('们', 'NN'), ('在', 'P'), ('食堂', 'NN'), ('门口', 'NN'), ('排队', 'VV')]
+2026-10-27 17:27:40,560  INFO     TAGGED    '学生们在食堂门口排队。' (level 4, 6 tags)
+2026-10-27 17:27:40,572  INFO     OK        hanlp-valid   '我们的日子过得很快乐。' -> [('我们', 'PN'), ('的', 'DEG'), ('日子', 'NN'), ('过', 'VV'), ('得', 'DER'), ('很', 'AD'), ('快乐', 'VA')]
+2026-10-27 17:27:40,575  INFO     TAGGED    '我们的日子过得很快乐。' (level 4, 7 tags)
+2026-10-27 17:27:40,586  INFO     FALLBACK  '我们需要考虑实际情况。' -- out-of-list word(s): ['实际情况']
+2026-10-27 17:27:40,586  WARNING    HAIKU resegment call for '我们需要考虑实际情况。' (cache miss on [('实际情况', 'NN')])
+2026-10-27 17:27:41,819  INFO     TAGGED    '我们需要考虑实际情况。' (level 4, 5 tags)
+2026-10-27 17:27:41,835  INFO     OK        hanlp-valid   '我们需要提高生产效率。' -> [('我们', 'PN'), ('需要', 'VV'), ('提高', 'VV'), ('生产', 'NN'), ('效率', 'NN')]
+2026-10-27 17:27:41,838  INFO     TAGGED    '我们需要提高生产效率。' (level 5, 5 tags)
+2026-10-27 17:27:41,850  INFO     OK        hanlp-valid   '我们学校的体育馆很大。' -> [('我们', 'PN'), ('学校', 'NN'), ('的', 'DEG'), ('体育馆', 'NN'), ('很', 'AD'), ('大', 'VA')]
+2026-10-27 17:27:41,853  INFO     TAGGED    '我们学校的体育馆很大。' (level 3, 6 tags)
+2026-10-27 17:27:41,864  INFO     OK        hanlp-valid   '他们同时到达了目的地。' -> [('他们', 'PN'), ('同时', 'AD'), ('到达', 'VV'), ('了', 'AS'), ('目的地', 'NN')]
+2026-10-27 17:27:41,868  INFO     TAGGED    '他们同时到达了目的地。' (level 5, 5 tags)
+2026-10-27 17:27:41,879  INFO     FALLBACK  '他们同样喜欢这个游戏。' -- out-of-list word(s): ['这个']
+2026-10-27 17:27:41,879  WARNING    HAIKU resegment call for '他们同样喜欢这个游戏。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:27:43,252  INFO     TAGGED    '他们同样喜欢这个游戏。' (level 4, 6 tags)
+2026-10-27 17:27:43,267  INFO     OK        hanlp-valid   '我们有不同的文化和习惯。' -> [('我们', 'PN'), ('有', 'VE'), ('不同', 'VA'), ('的', 'DEC'), ('文化', 'NN'), ('和', 'CC'), ('习惯', 'NN')]
+2026-10-27 17:27:43,271  INFO     TAGGED    '我们有不同的文化和习惯。' (level 3, 7 tags)
+2026-10-27 17:27:43,283  INFO     OK        hanlp-valid   '我们什么时候出发去旅行？' -> [('我们', 'PN'), ('什么', 'DT'), ('时候', 'NN'), ('出发', 'VV'), ('去', 'VV'), ('旅行', 'VV')]
+2026-10-27 17:27:43,286  INFO     TAGGED    '我们什么时候出发去旅行？' (level 4, 6 tags)
+2026-10-27 17:27:43,299  INFO     OK        hanlp-valid   '我们要带足够的食物和水。' -> [('我们', 'PN'), ('要', 'VV'), ('带', 'VV'), ('足够', 'JJ'), ('的', 'DEG'), ('食物', 'NN'), ('和', 'CC'), ('水', 'NN')]
+2026-10-27 17:27:43,302  INFO     TAGGED    '我们要带足够的食物和水。' (level 5, 8 tags)
+2026-10-27 17:27:43,314  INFO     FALLBACK  '我们需要把这些书分开放。' -- out-of-list word(s): ['分开放']
+2026-10-27 17:27:43,315  WARNING    HAIKU resegment call for '我们需要把这些书分开放。' (cache miss on [('分开放', 'VV')])
+2026-10-27 17:27:44,792  INFO     TAGGED    '我们需要把这些书分开放。' (level 3, 7 tags)
+2026-10-27 17:27:44,809  INFO     OK        hanlp-valid   '今后我们要更加努力工作。' -> [('今后', 'NT'), ('我们', 'PN'), ('要', 'VV'), ('更加', 'AD'), ('努力', 'AD'), ('工作', 'VV')]
+2026-10-27 17:27:44,812  INFO     TAGGED    '今后我们要更加努力工作。' (level 4, 6 tags)
+2026-10-27 17:27:44,824  INFO     OK        hanlp-valid   '我们需要进行更多的研究。' -> [('我们', 'PN'), ('需要', 'VV'), ('进行', 'VV'), ('更', 'AD'), ('多', 'CD'), ('的', 'DEG'), ('研究', 'NN')]
+2026-10-27 17:27:44,827  INFO     TAGGED    '我们需要进行更多的研究。' (level 4, 7 tags)
+2026-10-27 17:27:44,839  INFO     OK        hanlp-valid   '我们将在下个月举行婚礼。' -> [('我们', 'PN'), ('将', 'AD'), ('在', 'P'), ('下个月', 'NT'), ('举行', 'VV'), ('婚礼', 'NN')]
+2026-10-27 17:27:44,846  INFO     TAGGED    '我们将在下个月举行婚礼。' (level 5, 8 tags)
+2026-10-27 17:27:44,858  INFO     OK        hanlp-valid   '人们喜欢观看有趣的视频。' -> [('人们', 'NN'), ('喜欢', 'VV'), ('观看', 'VV'), ('有趣', 'JJ'), ('的', 'DEC'), ('视频', 'NN')]
+2026-10-27 17:27:44,865  INFO     TAGGED    '人们喜欢观看有趣的视频。' (level 4, 7 tags)
+2026-10-27 17:27:44,877  INFO     OK        hanlp-valid   '我们的生活正在发生变化。' -> [('我们', 'PN'), ('的', 'DEG'), ('生活', 'NN'), ('正在', 'AD'), ('发生', 'VV'), ('变化', 'NN')]
+2026-10-27 17:27:44,879  INFO     TAGGED    '我们的生活正在发生变化。' (level 3, 6 tags)
+2026-10-27 17:27:44,890  INFO     OK        hanlp-valid   '我们需要满足客户的要求。' -> [('我们', 'PN'), ('需要', 'VV'), ('满足', 'VV'), ('客户', 'NN'), ('的', 'DEG'), ('要求', 'NN')]
+2026-10-27 17:27:44,893  INFO     TAGGED    '我们需要满足客户的要求。' (level 5, 6 tags)
+2026-10-27 17:27:44,904  INFO     OK        hanlp-valid   '我们应该尊重彼此的意见。' -> [('我们', 'PN'), ('应该', 'VV'), ('尊重', 'VV'), ('彼此', 'PN'), ('的', 'DEG'), ('意见', 'NN')]
+2026-10-27 17:27:44,907  INFO     TAGGED    '我们应该尊重彼此的意见。' (level 5, 6 tags)
+2026-10-27 17:27:44,918  INFO     OK        hanlp-valid   '我们需要找出问题的根源。' -> [('我们', 'PN'), ('需要', 'VV'), ('找出', 'VV'), ('问题', 'NN'), ('的', 'DEG'), ('根源', 'NN')]
+2026-10-27 17:27:44,925  INFO     TAGGED    '我们需要找出问题的根源。' (level 7, 7 tags)
+2026-10-27 17:27:44,936  INFO     OK        hanlp-valid   '我们需要找人来装热水器。' -> [('我们', 'PN'), ('需要', 'VV'), ('找', 'VV'), ('人', 'NN'), ('来', 'VV'), ('装', 'VV'), ('热水器', 'NN')]
+2026-10-27 17:27:44,939  INFO     TAGGED    '我们需要找人来装热水器。' (level 6, 7 tags)
+2026-10-27 17:27:44,951  INFO     OK        hanlp-valid   '这些食物够我们吃一顿饭了。' -> [('这些', 'DT'), ('食物', 'NN'), ('够', 'VV'), ('我们', 'PN'), ('吃', 'VV'), ('一', 'CD'), ('顿', 'M'), ('饭', 'NN'), ('了', 'SP')]
+2026-10-27 17:27:44,954  INFO     TAGGED    '这些食物够我们吃一顿饭了。' (level 4, 9 tags)
+2026-10-27 17:27:44,966  INFO     OK        hanlp-valid   '他以热情的笑容欢迎了我们。' -> [('他', 'PN'), ('以', 'P'), ('热情', 'VA'), ('的', 'DEC'), ('笑容', 'NN'), ('欢迎', 'VV'), ('了', 'AS'), ('我们', 'PN')]
+2026-10-27 17:27:44,968  INFO     TAGGED    '他以热情的笑容欢迎了我们。' (level 6, 8 tags)
+2026-10-27 17:27:44,980  INFO     FALLBACK  '我们需要商量一下这个问题。' -- out-of-list word(s): ['一下', '这个']
+2026-10-27 17:27:44,980  WARNING    HAIKU resegment call for '我们需要商量一下这个问题。' (cache miss on [('一下', 'AD'), ('这个', 'DT')])
+2026-10-27 17:27:46,236  INFO     TAGGED    '我们需要商量一下这个问题。' (level 4, 8 tags)
+2026-10-27 17:27:46,248  INFO     OK        hanlp-valid   '我的朋友们都在身边支持我。' -> [('我', 'PN'), ('的', 'DEG'), ('朋友', 'NN'), ('们', 'NN'), ('都', 'AD'), ('在', 'VV'), ('身边', 'NN'), ('支持', 'VV'), ('我', 'PN')]
+2026-10-27 17:27:46,252  INFO     TAGGED    '我的朋友们都在身边支持我。' (level 4, 9 tags)
+2026-10-27 17:27:46,263  INFO     OK        hanlp-valid   '我们的计划进行得非常顺利。' -> [('我们', 'PN'), ('的', 'DEG'), ('计划', 'NN'), ('进行', 'VV'), ('得', 'DER'), ('非常', 'AD'), ('顺利', 'VA')]
+2026-10-27 17:27:46,266  INFO     TAGGED    '我们的计划进行得非常顺利。' (level 4, 7 tags)
+2026-10-27 17:27:46,277  INFO     FALLBACK  '我们需要讨论一下这个问题。' -- out-of-list word(s): ['一下', '这个']
+2026-10-27 17:27:46,278  WARNING    HAIKU resegment call for '我们需要讨论一下这个问题。' (cache miss on [('一下', 'AD'), ('这个', 'DT')])
+2026-10-27 17:27:47,568  INFO     TAGGED    '我们需要讨论一下这个问题。' (level 4, 8 tags)
+2026-10-27 17:27:47,581  INFO     OK        hanlp-valid   '今天晚上我们一起吃晚餐吧。' -> [('今天', 'NT'), ('晚上', 'NT'), ('我们', 'PN'), ('一起', 'AD'), ('吃', 'VV'), ('晚餐', 'NN'), ('吧', 'SP')]
+2026-10-27 17:27:47,583  INFO     TAGGED    '今天晚上我们一起吃晚餐吧。' (level 4, 7 tags)
+2026-10-27 17:27:47,594  INFO     OK        hanlp-valid   '我们的友谊将永远保持下去。' -> [('我们', 'PN'), ('的', 'DEG'), ('友谊', 'NN'), ('将', 'AD'), ('永远', 'AD'), ('保持', 'VV'), ('下去', 'VV')]
+2026-10-27 17:27:47,597  INFO     TAGGED    '我们的友谊将永远保持下去。' (level 5, 7 tags)
+2026-10-27 17:27:47,609  INFO     OK        hanlp-valid   '我们的学院院长非常有经验。' -> [('我们', 'PN'), ('的', 'DEG'), ('学院', 'NN'), ('院长', 'NN'), ('非常', 'AD'), ('有', 'VE'), ('经验', 'NN')]
+2026-10-27 17:27:47,611  INFO     TAGGED    '我们的学院院长非常有经验。' (level 4, 7 tags)
+2026-10-27 17:27:47,622  INFO     OK        hanlp-valid   '咱们应该一起努力实现目标。' -> [('咱们', 'PN'), ('应该', 'VV'), ('一起', 'AD'), ('努力', 'AD'), ('实现', 'VV'), ('目标', 'NN')]
+2026-10-27 17:27:47,624  INFO     TAGGED    '咱们应该一起努力实现目标。' (level 5, 6 tags)
+2026-10-27 17:27:47,636  INFO     FALLBACK  '我们需要把这个苹果分成两半。' -- out-of-list word(s): ['这个', '两半']
+2026-10-27 17:27:47,636  WARNING    HAIKU resegment call for '我们需要把这个苹果分成两半。' (cache miss on [('这个', 'DT'), ('两半', 'CD')])
+2026-10-27 17:27:49,399  INFO     TAGGED    '我们需要把这个苹果分成两半。' (level 6, 10 tags)
+2026-10-27 17:27:49,415  INFO     FALLBACK  '我们一起干杯庆祝这个好消息。' -- out-of-list word(s): ['这个', '好消息']
+2026-10-27 17:27:49,415  WARNING    HAIKU resegment call for '我们一起干杯庆祝这个好消息。' (cache miss on [('这个', 'DT'), ('好消息', 'NN')])
+2026-10-27 17:27:50,931  INFO     TAGGED    '我们一起干杯庆祝这个好消息。' (level 4, 8 tags)
+2026-10-27 17:27:50,945  INFO     FALLBACK  '我们要快点儿，不然会迟到的。' -- out-of-list word(s): ['点儿']
+2026-10-27 17:27:50,945  WARNING    HAIKU resegment call for '我们要快点儿，不然会迟到的。' (cache miss on [('点儿', 'AD')])
+2026-10-27 17:27:52,569  INFO     TAGGED    '我们要快点儿，不然会迟到的。' (level 10, 8 tags)
+2026-10-27 17:27:52,583  INFO     OK        hanlp-valid   '我们必须努力实现我们的目标。' -> [('我们', 'PN'), ('必须', 'VV'), ('努力', 'AD'), ('实现', 'VV'), ('我们', 'PN'), ('的', 'DEG'), ('目标', 'NN')]
+2026-10-27 17:27:52,586  INFO     TAGGED    '我们必须努力实现我们的目标。' (level 5, 7 tags)
+2026-10-27 17:27:52,599  INFO     OK        hanlp-valid   '我们正好赶上了最后一班地铁。' -> [('我们', 'PN'), ('正好', 'AD'), ('赶上', 'VV'), ('了', 'AS'), ('最后', 'JJ'), ('一', 'CD'), ('班', 'M'), ('地铁', 'NN')]
+2026-10-27 17:27:52,602  INFO     TAGGED    '我们正好赶上了最后一班地铁。' (level 4, 8 tags)
+2026-10-27 17:27:52,615  INFO     FALLBACK  '我们需要讲清楚这个计划的细节。' -- out-of-list word(s): ['这个']
+2026-10-27 17:27:52,615  WARNING    HAIKU resegment call for '我们需要讲清楚这个计划的细节。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:27:54,415  INFO     TAGGED    '我们需要讲清楚这个计划的细节。' (level 5, 9 tags)
+2026-10-27 17:27:54,434  INFO     OK        hanlp-valid   '在中国，人们经常使用筷子吃饭。' -> [('在', 'P'), ('中国', 'NR'), ('人们', 'NN'), ('经常', 'AD'), ('使用', 'VV'), ('筷子', 'NN'), ('吃饭', 'VV')]
+2026-10-27 17:27:54,446  INFO     TAGGED    '在中国，人们经常使用筷子吃饭。' (level 4, 9 tags)
+2026-10-27 17:27:54,457  INFO     FALLBACK  '我们需要学会正确使用这个工具。' -- out-of-list word(s): ['这个']
+2026-10-27 17:27:54,458  WARNING    HAIKU resegment call for '我们需要学会正确使用这个工具。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:27:56,052  INFO     TAGGED    '我们需要学会正确使用这个工具。' (level 6, 8 tags)
+2026-10-27 17:27:56,068  INFO     OK        hanlp-valid   '我们明天要庆祝公司的周年纪念。' -> [('我们', 'PN'), ('明天', 'NT'), ('要', 'VV'), ('庆祝', 'VV'), ('公司', 'NN'), ('的', 'DEG'), ('周年', 'NN'), ('纪念', 'NN')]
+2026-10-27 17:27:56,071  INFO     TAGGED    '我们明天要庆祝公司的周年纪念。' (level 5, 8 tags)
+2026-10-27 17:27:56,084  INFO     FALLBACK  '我们需要想出一个解决问题的办法。' -- out-of-list word(s): ['想出', '一个']
+2026-10-27 17:27:56,084  WARNING    HAIKU resegment call for '我们需要想出一个解决问题的办法。' (cache miss on [('想出', 'VV')])
+2026-10-27 17:27:58,102  INFO     TAGGED    '我们需要想出一个解决问题的办法。' (level 3, 10 tags)
+2026-10-27 17:27:58,117  INFO     FALLBACK  '我们不久就会见面，到时候再聊吧。' -- out-of-list word(s): ['到时候']
+2026-10-27 17:27:58,117  WARNING    HAIKU resegment call for '我们不久就会见面，到时候再聊吧。' (cache miss on [('到时候', 'AD')])
+2026-10-27 17:27:59,945  INFO     TAGGED    '我们不久就会见面，到时候再聊吧。' (level 3, 10 tags)
+2026-10-27 17:27:59,961  INFO     FALLBACK  '我们要走一段公路才能到达目的地。' -- out-of-list word(s): ['一段']
+2026-10-27 17:27:59,961  WARNING    HAIKU resegment call for '我们要走一段公路才能到达目的地。' (cache miss on [('一段', 'CD')])
+2026-10-27 17:28:01,693  INFO     TAGGED    '我们要走一段公路才能到达目的地。' (level 5, 10 tags)
+2026-10-27 17:28:01,710  INFO     OK        hanlp-valid   '今天天气很好，我们去公园散步吧。' -> [('今天', 'NT'), ('天气', 'NN'), ('很', 'AD'), ('好', 'VA'), ('我们', 'PN'), ('去', 'VV'), ('公园', 'NN'), ('散步', 'VV'), ('吧', 'SP')]
+2026-10-27 17:28:01,714  INFO     TAGGED    '今天天气很好，我们去公园散步吧。' (level 4, 9 tags)
+2026-10-27 17:28:01,726  INFO     FALLBACK  '我们去海边度假，享受阳光和海风。' -- out-of-list word(s): ['海风']
+2026-10-27 17:28:01,726  WARNING    HAIKU resegment call for '我们去海边度假，享受阳光和海风。' (cache miss on [('海风', 'NN')])
+2026-10-27 17:28:03,333  INFO     TAGGED    '我们去海边度假，享受阳光和海风。' (level 5, 10 tags)
+2026-10-27 17:28:03,347  INFO     FALLBACK  '接下来我们要做的是制定一个计划。' -- out-of-list word(s): ['一个']
+2026-10-27 17:28:03,347  INFO       CACHE-ONLY resegmentation -> [('接下来', 'AD'), ('我们', 'PN'), ('要', 'VV'), ('做', 'VV'), ('的', 'DEC'), ('是', 'VC'), ('制定', 'VV'), ('一', 'CD'), ('个', 'M'), ('计划', 'NN')]
+2026-10-27 17:28:03,356  INFO     TAGGED    '接下来我们要做的是制定一个计划。' (level 5, 11 tags)
+2026-10-27 17:28:03,369  INFO     FALLBACK  '今天下雨了，所以我们不能去公园。' -- out-of-list word(s): ['不能']
+2026-10-27 17:28:03,369  WARNING    HAIKU resegment call for '今天下雨了，所以我们不能去公园。' (cache miss on [('不能', 'VV')])
+2026-10-27 17:28:05,066  INFO     TAGGED    '今天下雨了，所以我们不能去公园。' (level 3, 9 tags)
+2026-10-27 17:28:05,083  INFO     FALLBACK  '时间过得很快，孩子们都变成了大人。' -- out-of-list word(s): ['很快']
+2026-10-27 17:28:05,083  WARNING    HAIKU resegment call for '时间过得很快，孩子们都变成了大人。' (cache miss on [('很快', 'AD')])
+2026-10-27 17:28:07,014  INFO     TAGGED    '时间过得很快，孩子们都变成了大人。' (level 3, 11 tags)
+2026-10-27 17:28:07,032  INFO     FALLBACK  '不要担心，我们会帮你解决这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:28:07,034  WARNING    HAIKU resegment call for '不要担心，我们会帮你解决这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:28:08,754  INFO     TAGGED    '不要担心，我们会帮你解决这个问题。' (level 3, 10 tags)
+2026-10-27 17:28:08,773  INFO     FALLBACK  '我们需要检查这个机器是否正常工作。' -- out-of-list word(s): ['这个']
+2026-10-27 17:28:08,773  WARNING    HAIKU resegment call for '我们需要检查这个机器是否正常工作。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:28:10,389  INFO     TAGGED    '我们需要检查这个机器是否正常工作。' (level 5, 9 tags)
+2026-10-27 17:28:10,404  INFO     OK        hanlp-valid   '看到孩子们的笑容，我感到非常快乐。' -> [('看到', 'VV'), ('孩子', 'NN'), ('们', 'NN'), ('的', 'DEG'), ('笑容', 'NN'), ('我', 'PN'), ('感到', 'VV'), ('非常', 'AD'), ('快乐', 'VA')]
+2026-10-27 17:28:10,414  INFO     TAGGED    '看到孩子们的笑容，我感到非常快乐。' (level 6, 10 tags)
+2026-10-27 17:28:10,427  INFO     OK        hanlp-valid   '今天的天气很好，我们可以去公园散步。' -> [('今天', 'NT'), ('的', 'DEG'), ('天气', 'NN'), ('很', 'AD'), ('好', 'VA'), ('我们', 'PN'), ('可以', 'VV'), ('去', 'VV'), ('公园', 'NN'), ('散步', 'VV')]
+2026-10-27 17:28:10,431  INFO     TAGGED    '今天的天气很好，我们可以去公园散步。' (level 4, 10 tags)
+2026-10-27 17:28:10,443  INFO     OK        hanlp-valid   '虽然天气很冷，但是我们还是去了公园。' -> [('虽然', 'CS'), ('天气', 'NN'), ('很', 'AD'), ('冷', 'VA'), ('但是', 'AD'), ('我们', 'PN'), ('还是', 'AD'), ('去', 'VV'), ('了', 'AS'), ('公园', 'NN')]
+2026-10-27 17:28:10,446  INFO     TAGGED    '虽然天气很冷，但是我们还是去了公园。' (level 3, 10 tags)
+2026-10-27 17:28:10,459  INFO     OK        hanlp-valid   '这时候天气非常好，我们可以去户外活动。' -> [('这时候', 'AD'), ('天气', 'NN'), ('非常', 'AD'), ('好', 'VA'), ('我们', 'PN'), ('可以', 'VV'), ('去', 'VV'), ('户外', 'NN'), ('活动', 'VV')]
+2026-10-27 17:28:10,466  INFO     TAGGED    '这时候天气非常好，我们可以去户外活动。' (level 5, 10 tags)
+2026-10-27 17:28:10,478  INFO     OK        hanlp-valid   '春节是中国最重要的节日，我们都会回家过年。' -> [('春节', 'NT'), ('是', 'VC'), ('中国', 'NR'), ('最', 'AD'), ('重要', 'VA'), ('的', 'DEC'), ('节日', 'NN'), ('我们', 'PN'), ('都', 'AD'), ('会', 'VV'), ('回家', 'VV'), ('过年', 'VV')]
+2026-10-27 17:28:10,487  INFO     TAGGED    '春节是中国最重要的节日，我们都会回家过年。' (level 10, 13 tags)
+2026-10-27 17:28:10,499  INFO     FALLBACK  '当我看到这个相机，我想起了我们一起拍摄的视频。' -- out-of-list word(s): ['这个']
+2026-10-27 17:28:10,499  WARNING    HAIKU resegment call for '当我看到这个相机，我想起了我们一起拍摄的视频。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:28:13,665  INFO       NON-LIST 摄 (VV) -> 'to shoot; to film; to photograph' [ai_added]
+2026-10-27 17:28:13,669  INFO     TAGGED    '当我看到这个相机，我想起了我们一起拍摄的视频。' (level 10, 17 tags)
+2026-10-27 17:28:13,686  INFO     OK        hanlp-valid   '他明年结婚。' -> [('他', 'PN'), ('明年', 'NT'), ('结婚', 'VV')]
+2026-10-27 17:28:13,689  INFO     TAGGED    '他明年结婚。' (level 3, 3 tags)
+2026-10-27 17:28:13,700  INFO     OK        hanlp-valid   '我明年要申请大学。' -> [('我', 'PN'), ('明年', 'NT'), ('要', 'VV'), ('申请', 'VV'), ('大学', 'NN')]
+2026-10-27 17:28:13,703  INFO     TAGGED    '我明年要申请大学。' (level 4, 5 tags)
+2026-10-27 17:28:13,713  INFO     OK        hanlp-valid   '我计划明年全国旅行。' -> [('我', 'PN'), ('计划', 'VV'), ('明年', 'NT'), ('全国', 'NN'), ('旅行', 'VV')]
+2026-10-27 17:28:13,720  INFO     TAGGED    '我计划明年全国旅行。' (level 4, 6 tags)
+2026-10-27 17:28:13,733  INFO     FALLBACK  '那儿的甜点很好吃。' -- out-of-list word(s): ['甜点']
+2026-10-27 17:28:13,733  WARNING    HAIKU resegment call for '那儿的甜点很好吃。' (cache miss on [('甜点', 'NN')])
+2026-10-27 17:28:14,903  INFO     TAGGED    '那儿的甜点很好吃。' (level 3, 6 tags)
+2026-10-27 17:28:14,920  INFO     FALLBACK  '这是我的朋友。' -- out-of-list word(s): ['这是']
+2026-10-27 17:28:14,920  WARNING    HAIKU resegment call for '这是我的朋友。' (cache miss on [('这是', 'VC')])
+2026-10-27 17:28:16,069  INFO     TAGGED    '这是我的朋友。' (level 1, 5 tags)
+2026-10-27 17:28:16,093  INFO     FALLBACK  '这个地方真漂亮。' -- out-of-list word(s): ['这个']
+2026-10-27 17:28:16,093  WARNING    HAIKU resegment call for '这个地方真漂亮。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:28:17,251  INFO     TAGGED    '这个地方真漂亮。' (level 3, 5 tags)
+2026-10-27 17:28:17,268  INFO     FALLBACK  '那个女生很漂亮。' -- out-of-list word(s): ['那个']
+2026-10-27 17:28:17,268  WARNING    HAIKU resegment call for '那个女生很漂亮。' (cache miss on [('那个', 'DT')])
+2026-10-27 17:28:18,477  INFO     TAGGED    '那个女生很漂亮。' (level 3, 5 tags)
+2026-10-27 17:28:18,492  INFO     OK        hanlp-valid   '她长得很漂亮。' -> [('她', 'PN'), ('长', 'VV'), ('得', 'DER'), ('很', 'AD'), ('漂亮', 'VA')]
+2026-10-27 17:28:18,495  INFO     TAGGED    '她长得很漂亮。' (level 2, 5 tags)
+2026-10-27 17:28:18,507  INFO     OK        hanlp-valid   '她的脸很漂亮。' -> [('她', 'PN'), ('的', 'DEG'), ('脸', 'NN'), ('很', 'AD'), ('漂亮', 'VA')]
+2026-10-27 17:28:18,510  INFO     TAGGED    '她的脸很漂亮。' (level 3, 5 tags)
+2026-10-27 17:28:18,521  INFO     FALLBACK  '今晚的星星很漂亮。' -- out-of-list word(s): ['今晚']
+2026-10-27 17:28:18,521  WARNING    HAIKU resegment call for '今晚的星星很漂亮。' (cache miss on [('今晚', 'NT')])
+2026-10-27 17:28:19,741  INFO     TAGGED    '今晚的星星很漂亮。' (level 10, 5 tags)
+2026-10-27 17:28:19,758  INFO     OK        hanlp-valid   '这朵花的颜色很漂亮。' -> [('这', 'DT'), ('朵', 'M'), ('花', 'NN'), ('的', 'DEG'), ('颜色', 'NN'), ('很', 'AD'), ('漂亮', 'VA')]
+2026-10-27 17:28:19,769  INFO     TAGGED    '这朵花的颜色很漂亮。' (level 5, 7 tags)
+2026-10-27 17:28:19,780  INFO     FALLBACK  '这个公园的草地很漂亮。' -- out-of-list word(s): ['这个']
+2026-10-27 17:28:19,780  WARNING    HAIKU resegment call for '这个公园的草地很漂亮。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:28:21,147  INFO     TAGGED    '这个公园的草地很漂亮。' (level 3, 7 tags)
+2026-10-27 17:28:21,160  INFO     FALLBACK  '这家商店卖很多漂亮的衣服。' -- out-of-list word(s): ['很多']
+2026-10-27 17:28:21,160  WARNING    HAIKU resegment call for '这家商店卖很多漂亮的衣服。' (cache miss on [('很多', 'CD')])
+2026-10-27 17:28:22,799  INFO     TAGGED    '这家商店卖很多漂亮的衣服。' (level 1, 9 tags)
+2026-10-27 17:28:22,820  INFO     FALLBACK  '请数一下这些苹果。' -- out-of-list word(s): ['一下']
+2026-10-27 17:28:22,820  WARNING    HAIKU resegment call for '请数一下这些苹果。' (cache miss on [('一下', 'AD')])
+2026-10-27 17:28:24,312  INFO     TAGGED    '请数一下这些苹果。' (level 4, 7 tags)
+2026-10-27 17:28:24,326  INFO     FALLBACK  '请把这些苹果称一下。' -- out-of-list word(s): ['一下']
+2026-10-27 17:28:24,326  WARNING    HAIKU resegment call for '请把这些苹果称一下。' (cache miss on [('一下', 'AD')])
+2026-10-27 17:28:25,749  INFO     TAGGED    '请把这些苹果称一下。' (level 5, 7 tags)
+2026-10-27 17:28:25,762  INFO     OK        hanlp-valid   '我以为你喜欢吃苹果。' -> [('我', 'PN'), ('以为', 'VV'), ('你', 'PN'), ('喜欢', 'VV'), ('吃', 'VV'), ('苹果', 'NN')]
+2026-10-27 17:28:25,765  INFO     TAGGED    '我以为你喜欢吃苹果。' (level 3, 6 tags)
+2026-10-27 17:28:25,777  INFO     FALLBACK  '我们需要把这个苹果分成两半。' -- out-of-list word(s): ['这个', '两半']
+2026-10-27 17:28:25,777  WARNING    HAIKU resegment call for '我们需要把这个苹果分成两半。' (cache miss on [('这个', 'DT'), ('两半', 'CD')])
+2026-10-27 17:28:27,501  INFO     TAGGED    '我们需要把这个苹果分成两半。' (level 6, 10 tags)
+2026-10-27 17:28:27,525  INFO     FALLBACK  '我喜欢吃各种水果，例如苹果、香蕉和橙子。' -- out-of-list word(s): ['橙子']
+2026-10-27 17:28:27,525  WARNING    HAIKU resegment call for '我喜欢吃各种水果，例如苹果、香蕉和橙子。' (cache miss on [('橙子', 'NN')])
+2026-10-27 17:28:29,609  INFO       NON-LIST 橙 (NR) -> '(name) cheng2' [proper_noun]
+2026-10-27 17:28:29,611  INFO     TAGGED    '我喜欢吃各种水果，例如苹果、香蕉和橙子。' (level 4, 12 tags)
+2026-10-27 17:28:29,626  INFO     FALLBACK  '我喜欢吃各种各样的水果，比如苹果、香蕉和橙子。' -- out-of-list word(s): ['各种各样', '橙子']
+2026-10-27 17:28:29,626  WARNING    HAIKU resegment call for '我喜欢吃各种各样的水果，比如苹果、香蕉和橙子。' (cache miss on [('各种各样', 'JJ'), ('橙子', 'NN')])
+2026-10-27 17:28:31,679  INFO       NON-LIST 橙 (NR) -> '(name) cheng2' [proper_noun]
+2026-10-27 17:28:31,681  INFO     TAGGED    '我喜欢吃各种各样的水果，比如苹果、香蕉和橙子。' (level 6, 14 tags)
+2026-10-27 17:28:31,704  INFO     OK        hanlp-valid   '你今天要上课吗？' -> [('你', 'PN'), ('今天', 'NT'), ('要', 'VV'), ('上课', 'VV'), ('吗', 'SP')]
+2026-10-27 17:28:31,706  INFO     TAGGED    '你今天要上课吗？' (level 1, 5 tags)
+2026-10-27 17:28:31,722  INFO     FALLBACK  '你每天睡多少个小时？' -- out-of-list word(s): ['每天']
+2026-10-27 17:28:31,722  WARNING    HAIKU resegment call for '你每天睡多少个小时？' (cache miss on [('每天', 'AD')])
+2026-10-27 17:28:33,123  INFO     TAGGED    '你每天睡多少个小时？' (level 2, 7 tags)
+2026-10-27 17:28:33,137  INFO     FALLBACK  '你几点睡觉？' -- out-of-list word(s): ['几点']
+2026-10-27 17:28:33,137  WARNING    HAIKU resegment call for '你几点睡觉？' (cache miss on [('几点', 'NT')])
+2026-10-27 17:28:34,328  INFO     TAGGED    '你几点睡觉？' (level 1, 4 tags)
+2026-10-27 17:28:34,341  INFO     FALLBACK  '我要早睡早起。' -- out-of-list word(s): ['早起']
+2026-10-27 17:28:34,341  WARNING    HAIKU resegment call for '我要早睡早起。' (cache miss on [('早起', 'VV')])
+2026-10-27 17:28:35,597  INFO     TAGGED    '我要早睡早起。' (level 3, 6 tags)
+2026-10-27 17:28:35,612  INFO     FALLBACK  '你该早点睡觉。' -- out-of-list word(s): ['早点']
+2026-10-27 17:28:35,612  WARNING    HAIKU resegment call for '你该早点睡觉。' (cache miss on [('早点', 'AD')])
+2026-10-27 17:28:36,713  INFO     TAGGED    '你该早点睡觉。' (level 3, 5 tags)
+2026-10-27 17:28:36,727  INFO     FALLBACK  '他每天午睡半个小时。' -- out-of-list word(s): ['每天', '半个小时']
+2026-10-27 17:28:36,727  WARNING    HAIKU resegment call for '他每天午睡半个小时。' (cache miss on [('每天', 'AD'), ('半个小时', 'NN')])
+2026-10-27 17:28:38,140  INFO     TAGGED    '他每天午睡半个小时。' (level 10, 7 tags)
+2026-10-27 17:28:38,156  INFO     FALLBACK  '他半夜醒来，无法入睡。' -- out-of-list word(s): ['入睡']
+2026-10-27 17:28:38,156  WARNING    HAIKU resegment call for '他半夜醒来，无法入睡。' (cache miss on [('入睡', 'VV')])
+2026-10-27 17:28:39,578  INFO     TAGGED    '他半夜醒来，无法入睡。' (level 5, 7 tags)
+2026-10-27 17:28:39,592  INFO     OK        hanlp-valid   '请把灯关掉，我要睡觉了。' -> [('请', 'VV'), ('把', 'BA'), ('灯', 'NN'), ('关掉', 'VV'), ('我', 'PN'), ('要', 'VV'), ('睡觉', 'VV'), ('了', 'SP')]
+2026-10-27 17:28:39,600  INFO     TAGGED    '请把灯关掉，我要睡觉了。' (level 4, 9 tags)
+2026-10-27 17:28:39,613  INFO     FALLBACK  '我每天晚上都会关机睡觉。' -- out-of-list word(s): ['每天']
+2026-10-27 17:28:39,613  WARNING    HAIKU resegment call for '我每天晚上都会关机睡觉。' (cache miss on [('每天', 'AD')])
+2026-10-27 17:28:41,210  INFO     TAGGED    '我每天晚上都会关机睡觉。' (level 3, 8 tags)
+2026-10-27 17:28:41,234  INFO     FALLBACK  '你几点睡觉？' -- out-of-list word(s): ['几点']
+2026-10-27 17:28:41,234  WARNING    HAIKU resegment call for '你几点睡觉？' (cache miss on [('几点', 'NT')])
+2026-10-27 17:28:42,339  INFO     TAGGED    '你几点睡觉？' (level 1, 4 tags)
+2026-10-27 17:28:42,360  INFO     FALLBACK  '他喝了四瓶可乐。' -- out-of-list word(s): ['四瓶']
+2026-10-27 17:28:42,360  WARNING    HAIKU resegment call for '他喝了四瓶可乐。' (cache miss on [('四瓶', 'CD')])
+2026-10-27 17:28:43,853  INFO     TAGGED    '他喝了四瓶可乐。' (level 10, 6 tags)
+2026-10-27 17:28:43,867  INFO     FALLBACK  '她在四班。' -- out-of-list word(s): ['四班']
+2026-10-27 17:28:43,867  WARNING    HAIKU resegment call for '她在四班。' (cache miss on [('四班', 'NN')])
+2026-10-27 17:28:44,897  INFO     TAGGED    '她在四班。' (level 2, 4 tags)
+2026-10-27 17:28:44,914  INFO     FALLBACK  '我每周健身四次。' -- out-of-list word(s): ['每周', '四次']
+2026-10-27 17:28:44,914  WARNING    HAIKU resegment call for '我每周健身四次。' (cache miss on [('每周', 'AD'), ('四次', 'CD')])
+2026-10-27 17:28:46,226  INFO     TAGGED    '我每周健身四次。' (level 4, 6 tags)
+2026-10-27 17:28:46,240  INFO     FALLBACK  '他每天四点放学。' -- out-of-list word(s): ['每天', '四点']
+2026-10-27 17:28:46,240  WARNING    HAIKU resegment call for '他每天四点放学。' (cache miss on [('每天', 'AD')])
+2026-10-27 17:28:47,408  INFO     TAGGED    '他每天四点放学。' (level 3, 6 tags)
+2026-10-27 17:28:47,429  INFO     OK        hanlp-valid   '这家书店营业二十四小时。' -> [('这', 'DT'), ('家', 'M'), ('书店', 'NN'), ('营业', 'VV'), ('二十四', 'NUM'), ('小时', 'NN')]
+2026-10-27 17:28:47,432  INFO     TAGGED    '这家书店营业二十四小时。' (level 5, 5 tags)
+2026-10-27 17:28:47,443  INFO     FALLBACK  '这个正方形有四个角。' -- out-of-list word(s): ['这个', '正方形', '四个']
+2026-10-27 17:28:47,443  WARNING    HAIKU resegment call for '这个正方形有四个角。' (cache miss on [('这个', 'DT'), ('正方形', 'NN'), ('四个', 'CD')])
+2026-10-27 17:28:48,808  INFO     TAGGED    '这个正方形有四个角。' (level 10, 9 tags)
+2026-10-27 17:28:48,830  INFO     FALLBACK  '这款鞋有没有四十八码？' -- out-of-list word(s): ['款']
+2026-10-27 17:28:48,831  WARNING    HAIKU resegment call for '这款鞋有没有四十八码？' (cache miss on [('款', 'M')])
+2026-10-27 17:28:50,223  INFO     TAGGED    '这款鞋有没有四十八码？' (level 10, 7 tags)
+2026-10-27 17:28:50,247  INFO     OK        hanlp-valid   '他们是同学。' -> [('他们', 'PN'), ('是', 'VC'), ('同学', 'NN')]
+2026-10-27 17:28:50,250  INFO     TAGGED    '他们是同学。' (level 1, 3 tags)
+2026-10-27 17:28:50,267  INFO     FALLBACK  '你听见雷声了吗？' -- out-of-list word(s): ['雷声']
+2026-10-27 17:28:50,267  WARNING    HAIKU resegment call for '你听见雷声了吗？' (cache miss on [('雷声', 'NN')])
+2026-10-27 17:28:51,597  INFO     TAGGED    '你听见雷声了吗？' (level 6, 6 tags)
+2026-10-27 17:28:51,612  INFO     FALLBACK  '他在街上喊了我好几声，但我没听见。' -- out-of-list word(s): ['街上', '好几声']
+2026-10-27 17:28:51,612  WARNING    HAIKU resegment call for '他在街上喊了我好几声，但我没听见。' (cache miss on [('街上', 'NN'), ('好几声', 'AD')])
+2026-10-27 17:28:53,623  INFO     TAGGED    '他在街上喊了我好几声，但我没听见。' (level 4, 14 tags)
+2026-10-27 17:28:53,638  INFO     OK        hanlp-valid   '你喜欢开玩笑吗？' -> [('你', 'PN'), ('喜欢', 'VV'), ('开玩笑', 'VV'), ('吗', 'SP')]
+2026-10-27 17:28:53,640  INFO     TAGGED    '你喜欢开玩笑吗？' (level 4, 4 tags)
+2026-10-27 17:28:53,651  INFO     OK        hanlp-valid   '我们一起玩儿吧！' -> [('我们', 'PN'), ('一起', 'AD'), ('玩儿', 'VV'), ('吧', 'SP')]
+2026-10-27 17:28:53,654  INFO     TAGGED    '我们一起玩儿吧！' (level 10, 4 tags)
+2026-10-27 17:28:53,664  INFO     OK        hanlp-valid   '我们一块儿玩吧！' -> [('我们', 'PN'), ('一块儿', 'AD'), ('玩', 'VV'), ('吧', 'SP')]
+2026-10-27 17:28:53,666  INFO     TAGGED    '我们一块儿玩吧！' (level 3, 4 tags)
+2026-10-27 17:28:53,676  INFO     FALLBACK  '这个游戏真好玩儿。' -- out-of-list word(s): ['这个']
+2026-10-27 17:28:53,676  WARNING    HAIKU resegment call for '这个游戏真好玩儿。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:28:55,055  INFO     TAGGED    '这个游戏真好玩儿。' (level 10, 7 tags)
+2026-10-27 17:28:55,069  INFO     OK        hanlp-valid   '青少年喜欢玩电子游戏。' -> [('青少年', 'NN'), ('喜欢', 'VV'), ('玩', 'VV'), ('电子', 'NN'), ('游戏', 'NN')]
+2026-10-27 17:28:55,080  INFO     TAGGED    '青少年喜欢玩电子游戏。' (level 5, 7 tags)
+2026-10-27 17:28:55,092  INFO     OK        hanlp-valid   '我喜欢在周末和朋友一起出去玩。' -> [('我', 'PN'), ('喜欢', 'VV'), ('在', 'P'), ('周末', 'NT'), ('和', 'P'), ('朋友', 'NN'), ('一起', 'AD'), ('出去', 'VV'), ('玩', 'VV')]
+2026-10-27 17:28:55,104  INFO     TAGGED    '我喜欢在周末和朋友一起出去玩。' (level 3, 9 tags)
+2026-10-27 17:28:55,117  INFO     OK        hanlp-valid   '喂！' -> [('喂', 'IJ')]
+2026-10-27 17:28:55,119  INFO     TAGGED    '喂！' (level 1, 1 tags)
+2026-10-27 17:28:55,133  INFO     OK        hanlp-valid   '他在直播中回答了观众的问题。' -> [('他', 'PN'), ('在', 'P'), ('直播', 'NN'), ('中', 'LC'), ('回答', 'VV'), ('了', 'AS'), ('观众', 'NN'), ('的', 'DEG'), ('问题', 'NN')]
+2026-10-27 17:28:55,136  INFO     TAGGED    '他在直播中回答了观众的问题。' (level 5, 9 tags)
+2026-10-27 17:28:55,148  INFO     FALLBACK  '这是一个很急的问题。' -- out-of-list word(s): ['这是', '一个']
+2026-10-27 17:28:55,148  WARNING    HAIKU resegment call for '这是一个很急的问题。' (cache miss on [('这是', 'PN')])
+2026-10-27 17:28:56,577  INFO     TAGGED    '这是一个很急的问题。' (level 3, 8 tags)
+2026-10-27 17:28:56,591  INFO     FALLBACK  '这个问题实在太难了。' -- out-of-list word(s): ['这个']
+2026-10-27 17:28:56,591  WARNING    HAIKU resegment call for '这个问题实在太难了。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:28:57,888  INFO     TAGGED    '这个问题实在太难了。' (level 4, 7 tags)
+2026-10-27 17:28:57,902  INFO     OK        hanlp-valid   '请直接把问题告诉我。' -> [('请', 'VV'), ('直接', 'AD'), ('把', 'BA'), ('问题', 'NN'), ('告诉', 'VV'), ('我', 'PN')]
+2026-10-27 17:28:57,904  INFO     TAGGED    '请直接把问题告诉我。' (level 4, 6 tags)
+2026-10-27 17:28:57,916  INFO     FALLBACK  '我不懂这个问题的答案。' -- out-of-list word(s): ['这个']
+2026-10-27 17:28:57,916  WARNING    HAIKU resegment call for '我不懂这个问题的答案。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:28:59,455  INFO     TAGGED    '我不懂这个问题的答案。' (level 4, 8 tags)
+2026-10-27 17:28:59,468  INFO     OK        hanlp-valid   '他故意不回答我的问题。' -> [('他', 'PN'), ('故意', 'AD'), ('不', 'AD'), ('回答', 'VV'), ('我', 'PN'), ('的', 'DEG'), ('问题', 'NN')]
+2026-10-27 17:28:59,480  INFO     TAGGED    '他故意不回答我的问题。' (level 4, 7 tags)
+2026-10-27 17:28:59,491  INFO     FALLBACK  '让我帮你解决这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:28:59,491  WARNING    HAIKU resegment call for '让我帮你解决这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:01,058  INFO     TAGGED    '让我帮你解决这个问题。' (level 3, 8 tags)
+2026-10-27 17:29:01,071  INFO     FALLBACK  '他完全明白了这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:01,071  WARNING    HAIKU resegment call for '他完全明白了这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:02,407  INFO     TAGGED    '他完全明白了这个问题。' (level 4, 7 tags)
+2026-10-27 17:29:02,423  INFO     FALLBACK  '请记住这个问题的重点。' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:02,424  WARNING    HAIKU resegment call for '请记住这个问题的重点。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:03,949  INFO     TAGGED    '请记住这个问题的重点。' (level 4, 8 tags)
+2026-10-27 17:29:03,961  INFO     FALLBACK  '他懂得如何处理这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:03,961  WARNING    HAIKU resegment call for '他懂得如何处理这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:05,480  INFO     TAGGED    '他懂得如何处理这个问题。' (level 5, 7 tags)
+2026-10-27 17:29:05,494  INFO     FALLBACK  '这个问题涉及到很多方面。' -- out-of-list word(s): ['这个', '很多']
+2026-10-27 17:29:05,494  WARNING    HAIKU resegment call for '这个问题涉及到很多方面。' (cache miss on [('这个', 'DT'), ('很多', 'CD')])
+2026-10-27 17:29:07,022  INFO     TAGGED    '这个问题涉及到很多方面。' (level 6, 8 tags)
+2026-10-27 17:29:07,037  INFO     OK        hanlp-valid   '我们需要找出问题的根源。' -> [('我们', 'PN'), ('需要', 'VV'), ('找出', 'VV'), ('问题', 'NN'), ('的', 'DEG'), ('根源', 'NN')]
+2026-10-27 17:29:07,044  INFO     TAGGED    '我们需要找出问题的根源。' (level 7, 7 tags)
+2026-10-27 17:29:07,056  INFO     FALLBACK  '他对这个问题有自己的看法。' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:07,056  WARNING    HAIKU resegment call for '他对这个问题有自己的看法。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:08,653  INFO     TAGGED    '他对这个问题有自己的看法。' (level 4, 9 tags)
+2026-10-27 17:29:08,669  INFO     FALLBACK  '我们需要商量一下这个问题。' -- out-of-list word(s): ['一下', '这个']
+2026-10-27 17:29:08,669  WARNING    HAIKU resegment call for '我们需要商量一下这个问题。' (cache miss on [('一下', 'AD'), ('这个', 'DT')])
+2026-10-27 17:29:09,995  INFO     TAGGED    '我们需要商量一下这个问题。' (level 4, 8 tags)
+2026-10-27 17:29:10,008  INFO     FALLBACK  '我们需要讨论一下这个问题。' -- out-of-list word(s): ['一下', '这个']
+2026-10-27 17:29:10,008  WARNING    HAIKU resegment call for '我们需要讨论一下这个问题。' (cache miss on [('一下', 'AD'), ('这个', 'DT')])
+2026-10-27 17:29:11,324  INFO     TAGGED    '我们需要讨论一下这个问题。' (level 4, 8 tags)
+2026-10-27 17:29:11,337  INFO     FALLBACK  '他在谈话中提到了这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:11,337  WARNING    HAIKU resegment call for '他在谈话中提到了这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:13,087  INFO     TAGGED    '他在谈话中提到了这个问题。' (level 5, 9 tags)
+2026-10-27 17:29:13,104  INFO     FALLBACK  '这个问题有（一）点儿复杂。' -- out-of-list word(s): ['这个', '点儿']
+2026-10-27 17:29:13,105  WARNING    HAIKU resegment call for '这个问题有（一）点儿复杂。' (cache miss on [('这个', 'DT'), ('点儿', 'AD')])
+2026-10-27 17:29:14,495  INFO     TAGGED    '这个问题有（一）点儿复杂。' (level 10, 7 tags)
+2026-10-27 17:29:14,509  INFO     FALLBACK  '老师在课堂上讲解了这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:14,509  WARNING    HAIKU resegment call for '老师在课堂上讲解了这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:16,132  INFO     TAGGED    '老师在课堂上讲解了这个问题。' (level 6, 9 tags)
+2026-10-27 17:29:16,148  INFO     FALLBACK  '请你帮我算一下这个数学问题。' -- out-of-list word(s): ['一下', '这个']
+2026-10-27 17:29:16,148  WARNING    HAIKU resegment call for '请你帮我算一下这个数学问题。' (cache miss on [('一下', 'AD'), ('这个', 'DT')])
+2026-10-27 17:29:17,874  INFO     TAGGED    '请你帮我算一下这个数学问题。' (level 4, 11 tags)
+2026-10-27 17:29:17,888  INFO     FALLBACK  '你可以这样做来解决这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:17,888  WARNING    HAIKU resegment call for '你可以这样做来解决这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:19,509  INFO     TAGGED    '你可以这样做来解决这个问题。' (level 3, 9 tags)
+2026-10-27 17:29:19,524  INFO     FALLBACK  '我们需要想出一个解决问题的办法。' -- out-of-list word(s): ['想出', '一个']
+2026-10-27 17:29:19,524  WARNING    HAIKU resegment call for '我们需要想出一个解决问题的办法。' (cache miss on [('想出', 'VV')])
+2026-10-27 17:29:21,252  INFO     TAGGED    '我们需要想出一个解决问题的办法。' (level 3, 10 tags)
+2026-10-27 17:29:21,267  INFO     FALLBACK  '不要担心，我们会帮你解决这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:21,267  WARNING    HAIKU resegment call for '不要担心，我们会帮你解决这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:23,094  INFO     TAGGED    '不要担心，我们会帮你解决这个问题。' (level 3, 10 tags)
+2026-10-27 17:29:23,110  INFO     FALLBACK  '从不同的角度看这个问题，会有不同的答案。' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:23,110  WARNING    HAIKU resegment call for '从不同的角度看这个问题，会有不同的答案。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:25,245  INFO     TAGGED    '从不同的角度看这个问题，会有不同的答案。' (level 5, 13 tags)
+2026-10-27 17:29:25,262  INFO     OK        hanlp-valid   '你吃午饭了吗？' -> [('你', 'PN'), ('吃', 'VV'), ('午饭', 'NN'), ('了', 'AS'), ('吗', 'SP')]
+2026-10-27 17:29:25,265  INFO     TAGGED    '你吃午饭了吗？' (level 1, 5 tags)
+2026-10-27 17:29:25,281  INFO     FALLBACK  '你几点下班？' -- out-of-list word(s): ['几点']
+2026-10-27 17:29:25,281  WARNING    HAIKU resegment call for '你几点下班？' (cache miss on [('几点', 'NT')])
+2026-10-27 17:29:26,289  INFO     TAGGED    '你几点下班？' (level 1, 4 tags)
+2026-10-27 17:29:26,312  INFO     FALLBACK  '你今天几点下课？' -- out-of-list word(s): ['几点']
+2026-10-27 17:29:26,312  WARNING    HAIKU resegment call for '你今天几点下课？' (cache miss on [('几点', 'NT')])
+2026-10-27 17:29:27,495  INFO     TAGGED    '你今天几点下课？' (level 1, 5 tags)
+2026-10-27 17:29:27,515  INFO     OK        hanlp-valid   '我的家很小。' -> [('我', 'PN'), ('的', 'DEG'), ('家', 'NN'), ('很', 'AD'), ('小', 'VA')]
+2026-10-27 17:29:27,518  INFO     TAGGED    '我的家很小。' (level 1, 5 tags)
+2026-10-27 17:29:27,533  INFO     FALLBACK  '那个小朋友很可爱。' -- out-of-list word(s): ['那个']
+2026-10-27 17:29:27,534  WARNING    HAIKU resegment call for '那个小朋友很可爱。' (cache miss on [('那个', 'DT')])
+2026-10-27 17:29:28,731  INFO     TAGGED    '那个小朋友很可爱。' (level 3, 6 tags)
+2026-10-27 17:29:28,747  INFO     FALLBACK  '你每天工作几个小时？' -- out-of-list word(s): ['每天', '几个小时']
+2026-10-27 17:29:28,747  WARNING    HAIKU resegment call for '你每天工作几个小时？' (cache miss on [('每天', 'AD'), ('几个小时', 'NN')])
+2026-10-27 17:29:30,157  INFO     TAGGED    '你每天工作几个小时？' (level 2, 7 tags)
+2026-10-27 17:29:30,172  INFO     FALLBACK  '你每天睡多少个小时？' -- out-of-list word(s): ['每天']
+2026-10-27 17:29:30,172  WARNING    HAIKU resegment call for '你每天睡多少个小时？' (cache miss on [('每天', 'AD')])
+2026-10-27 17:29:31,532  INFO     TAGGED    '你每天睡多少个小时？' (level 2, 7 tags)
+2026-10-27 17:29:31,555  INFO     OK        hanlp-valid   '这家书店营业二十四小时。' -> [('这', 'DT'), ('家', 'M'), ('书店', 'NN'), ('营业', 'VV'), ('二十四', 'NUM'), ('小时', 'NN')]
+2026-10-27 17:29:31,558  INFO     TAGGED    '这家书店营业二十四小时。' (level 5, 5 tags)
+2026-10-27 17:29:31,571  INFO     FALLBACK  '他每天午睡半个小时。' -- out-of-list word(s): ['每天', '半个小时']
+2026-10-27 17:29:31,571  WARNING    HAIKU resegment call for '他每天午睡半个小时。' (cache miss on [('每天', 'AD'), ('半个小时', 'NN')])
+2026-10-27 17:29:32,928  INFO     TAGGED    '他每天午睡半个小时。' (level 10, 7 tags)
+2026-10-27 17:29:32,941  INFO     OK        hanlp-valid   '我小时候就喜欢唱歌。' -> [('我', 'PN'), ('小时候', 'NT'), ('就', 'AD'), ('喜欢', 'VV'), ('唱歌', 'VV')]
+2026-10-27 17:29:32,949  INFO     TAGGED    '我小时候就喜欢唱歌。' (level 2, 6 tags)
+2026-10-27 17:29:32,965  INFO     OK        hanlp-valid   '你要休息吗？' -> [('你', 'PN'), ('要', 'VV'), ('休息', 'VV'), ('吗', 'SP')]
+2026-10-27 17:29:32,967  INFO     TAGGED    '你要休息吗？' (level 1, 4 tags)
+2026-10-27 17:29:32,984  INFO     FALLBACK  '你喜欢在雪中散步吗？' -- out-of-list word(s): ['雪中']
+2026-10-27 17:29:32,984  WARNING    HAIKU resegment call for '你喜欢在雪中散步吗？' (cache miss on [('雪中', 'NN')])
+2026-10-27 17:29:34,384  INFO     TAGGED    '你喜欢在雪中散步吗？' (level 4, 7 tags)
+2026-10-27 17:29:34,415  INFO     FALLBACK  '瑞典十二月常常下雪。' -- out-of-list word(s): ['瑞典']
+2026-10-27 17:29:34,415  WARNING    HAIKU resegment call for '瑞典十二月常常下雪。' (cache miss on [('瑞典', 'NR')])
+2026-10-27 17:29:35,809  INFO       NON-LIST 瑞典 (NR) -> '(name) rui4dian3' [proper_noun]
+2026-10-27 17:29:35,811  INFO     TAGGED    '瑞典十二月常常下雪。' (level 3, 5 tags)
+2026-10-27 17:29:35,825  INFO     OK        hanlp-valid   '这把椅子很舒服。' -> [('这', 'DT'), ('把', 'M'), ('椅子', 'NN'), ('很', 'AD'), ('舒服', 'VA')]
+2026-10-27 17:29:35,828  INFO     TAGGED    '这把椅子很舒服。' (level 3, 5 tags)
+2026-10-27 17:29:35,849  INFO     OK        hanlp-valid   '这条裤子五百元。' -> [('这', 'DT'), ('条', 'M'), ('裤子', 'NN'), ('五百', 'NUM'), ('元', 'NT')]
+2026-10-27 17:29:35,852  INFO     TAGGED    '这条裤子五百元。' (level 2, 4 tags)
+2026-10-27 17:29:35,864  INFO     OK        hanlp-valid   '我常常在这儿健身。' -> [('我', 'PN'), ('常常', 'AD'), ('在', 'P'), ('这儿', 'PN'), ('健身', 'VV')]
+2026-10-27 17:29:35,867  INFO     TAGGED    '我常常在这儿健身。' (level 4, 5 tags)
+2026-10-27 17:29:35,880  INFO     FALLBACK  '他身上有一只蜘蛛。' -- out-of-list word(s): ['蜘蛛']
+2026-10-27 17:29:35,880  WARNING    HAIKU resegment call for '他身上有一只蜘蛛。' (cache miss on [('蜘蛛', 'NN')])
+2026-10-27 17:29:37,837  INFO       NON-LIST 蜘蛛 (NN) -> 'spider' [ai_added]
+2026-10-27 17:29:37,839  INFO     TAGGED    '他身上有一只蜘蛛。' (level 10, 6 tags)
+2026-10-27 17:29:37,856  INFO     OK        hanlp-valid   '我只想要一杯咖啡。' -> [('我', 'PN'), ('只', 'AD'), ('想', 'VV'), ('要', 'VV'), ('一', 'CD'), ('杯', 'M'), ('咖啡', 'NN')]
+2026-10-27 17:29:37,859  INFO     TAGGED    '我只想要一杯咖啡。' (level 10, 7 tags)
+2026-10-27 17:29:37,870  INFO     OK        hanlp-valid   '我想养一只猫。' -> [('我', 'PN'), ('想', 'VV'), ('养', 'VV'), ('一', 'CD'), ('只', 'M'), ('猫', 'NN')]
+2026-10-27 17:29:37,873  INFO     TAGGED    '我想养一只猫。' (level 3, 6 tags)
+2026-10-27 17:29:37,883  INFO     OK        hanlp-valid   '这只小猫非常可爱。' -> [('这', 'DT'), ('只', 'M'), ('小', 'JJ'), ('猫', 'NN'), ('非常', 'AD'), ('可爱', 'VA')]
+2026-10-27 17:29:37,886  INFO     TAGGED    '这只小猫非常可爱。' (level 3, 6 tags)
+2026-10-27 17:29:37,896  INFO     OK        hanlp-valid   '那只鸟在树上唱歌。' -> [('那', 'DT'), ('只', 'M'), ('鸟', 'NN'), ('在', 'P'), ('树', 'NN'), ('上', 'LC'), ('唱歌', 'VV')]
+2026-10-27 17:29:37,911  INFO     TAGGED    '那只鸟在树上唱歌。' (level 3, 8 tags)
+2026-10-27 17:29:37,922  INFO     FALLBACK  '我只能尽力而为了。' -- out-of-list word(s): ['尽力而为']
+2026-10-27 17:29:37,922  WARNING    HAIKU resegment call for '我只能尽力而为了。' (cache miss on [('尽力而为', 'VV')])
+2026-10-27 17:29:39,375  INFO     TAGGED    '我只能尽力而为了。' (level 6, 8 tags)
+2026-10-27 17:29:39,390  INFO     OK        hanlp-valid   '突然出现了一只小猫。' -> [('突然', 'AD'), ('出现', 'VV'), ('了', 'AS'), ('一', 'CD'), ('只', 'M'), ('小', 'JJ'), ('猫', 'NN')]
+2026-10-27 17:29:39,393  INFO     TAGGED    '突然出现了一只小猫。' (level 4, 7 tags)
+2026-10-27 17:29:39,405  INFO     OK        hanlp-valid   '我家有一只可爱的猫。' -> [('我', 'PN'), ('家', 'NN'), ('有', 'VE'), ('一', 'CD'), ('只', 'M'), ('可爱', 'VA'), ('的', 'DEC'), ('猫', 'NN')]
+2026-10-27 17:29:39,408  INFO     TAGGED    '我家有一只可爱的猫。' (level 3, 8 tags)
+2026-10-27 17:29:39,420  INFO     OK        hanlp-valid   '它是一只可爱的小狗。' -> [('它', 'PN'), ('是', 'VC'), ('一', 'CD'), ('只', 'M'), ('可爱', 'JJ'), ('的', 'DEG'), ('小', 'JJ'), ('狗', 'NN')]
+2026-10-27 17:29:39,424  INFO     TAGGED    '它是一只可爱的小狗。' (level 3, 8 tags)
+2026-10-27 17:29:39,436  INFO     OK        hanlp-valid   '我只会说一点点中文。' -> [('我', 'PN'), ('只', 'AD'), ('会', 'VV'), ('说', 'VV'), ('一点点', 'CD'), ('中文', 'NN')]
+2026-10-27 17:29:39,443  INFO     TAGGED    '我只会说一点点中文。' (level 1, 8 tags)
+2026-10-27 17:29:39,454  INFO     OK        hanlp-valid   '只要努力，就能成功。' -> [('只要', 'CS'), ('努力', 'VV'), ('就', 'AD'), ('能', 'VV'), ('成功', 'VV')]
+2026-10-27 17:29:39,457  INFO     TAGGED    '只要努力，就能成功。' (level 4, 5 tags)
+2026-10-27 17:29:39,468  INFO     OK        hanlp-valid   '我家有一只可爱的小狗。' -> [('我', 'PN'), ('家', 'NN'), ('有', 'VE'), ('一', 'CD'), ('只', 'M'), ('可爱', 'JJ'), ('的', 'DEG'), ('小', 'JJ'), ('狗', 'NN')]
+2026-10-27 17:29:39,471  INFO     TAGGED    '我家有一只可爱的小狗。' (level 3, 9 tags)
+2026-10-27 17:29:39,482  INFO     OK        hanlp-valid   '我在路边看到了一只小狗。' -> [('我', 'PN'), ('在', 'P'), ('路边', 'NN'), ('看到', 'VV'), ('了', 'AS'), ('一', 'CD'), ('只', 'M'), ('小', 'JJ'), ('狗', 'NN')]
+2026-10-27 17:29:39,490  INFO     TAGGED    '我在路边看到了一只小狗。' (level 3, 10 tags)
+2026-10-27 17:29:39,501  INFO     OK        hanlp-valid   '只要努力，你一定能够成功。' -> [('只要', 'CS'), ('努力', 'VV'), ('你', 'PN'), ('一定', 'AD'), ('能够', 'VV'), ('成功', 'VV')]
+2026-10-27 17:29:39,504  INFO     TAGGED    '只要努力，你一定能够成功。' (level 4, 6 tags)
+2026-10-27 17:29:39,514  INFO     OK        hanlp-valid   '这只狗非常忠诚于它的主人。' -> [('这', 'DT'), ('只', 'M'), ('狗', 'NN'), ('非常', 'AD'), ('忠诚', 'VV'), ('于', 'P'), ('它', 'PN'), ('的', 'DEG'), ('主人', 'NN')]
+2026-10-27 17:29:39,518  INFO     TAGGED    '这只狗非常忠诚于它的主人。' (level 7, 9 tags)
+2026-10-27 17:29:39,529  INFO     FALLBACK  '这个视频只是整个系列的部分。' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:39,529  WARNING    HAIKU resegment call for '这个视频只是整个系列的部分。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:41,020  INFO     TAGGED    '这个视频只是整个系列的部分。' (level 6, 8 tags)
+2026-10-27 17:29:41,036  INFO     FALLBACK  '当我看到那只小狗的时候，我就爱上了它。' -- out-of-list word(s): ['爱上']
+2026-10-27 17:29:41,036  WARNING    HAIKU resegment call for '当我看到那只小狗的时候，我就爱上了它。' (cache miss on [('爱上', 'VV')])
+2026-10-27 17:29:43,499  INFO     TAGGED    '当我看到那只小狗的时候，我就爱上了它。' (level 4, 16 tags)
+2026-10-27 17:29:43,514  INFO     FALLBACK  '在这个班级里，只有少数学生喜欢打篮球。' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:43,514  WARNING    HAIKU resegment call for '在这个班级里，只有少数学生喜欢打篮球。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:45,415  INFO     TAGGED    '在这个班级里，只有少数学生喜欢打篮球。' (level 4, 12 tags)
+2026-10-27 17:29:45,432  INFO     OK        hanlp-valid   '只有努力工作，才能做到自己想要的目标。' -> [('只有', 'AD'), ('努力', 'AD'), ('工作', 'VV'), ('才', 'AD'), ('能', 'VV'), ('做到', 'VV'), ('自己', 'PN'), ('想', 'VV'), ('要', 'VV'), ('的', 'DEC'), ('目标', 'NN')]
+2026-10-27 17:29:45,441  INFO     TAGGED    '只有努力工作，才能做到自己想要的目标。' (level 4, 12 tags)
+2026-10-27 17:29:45,463  INFO     OK        hanlp-valid   '我们中午一起吃午饭吧！' -> [('我们', 'PN'), ('中午', 'NT'), ('一起', 'AD'), ('吃', 'VV'), ('午饭', 'NN'), ('吧', 'SP')]
+2026-10-27 17:29:45,466  INFO     TAGGED    '我们中午一起吃午饭吧！' (level 2, 6 tags)
+2026-10-27 17:29:45,486  INFO     OK        hanlp-valid   '真好吃啊！' -> [('真', 'AD'), ('好吃', 'VA'), ('啊', 'SP')]
+2026-10-27 17:29:45,488  INFO     TAGGED    '真好吃啊！' (level 2, 3 tags)
+2026-10-27 17:29:45,504  INFO     FALLBACK  '我需要一支笔来写字。' -- out-of-list word(s): ['写字']
+2026-10-27 17:29:45,504  WARNING    HAIKU resegment call for '我需要一支笔来写字。' (cache miss on [('写字', 'VV')])
+2026-10-27 17:29:46,967  INFO     TAGGED    '我需要一支笔来写字。' (level 5, 8 tags)
+2026-10-27 17:29:46,983  INFO     OK        hanlp-valid   '我需要一台新的笔记本。' -> [('我', 'PN'), ('需要', 'VV'), ('一', 'CD'), ('台', 'M'), ('新', 'VA'), ('的', 'DEC'), ('笔记本', 'NN')]
+2026-10-27 17:29:46,986  INFO     TAGGED    '我需要一台新的笔记本。' (level 4, 7 tags)
+2026-10-27 17:29:46,998  INFO     OK        hanlp-valid   '我喜欢用笔记本记录我的笔记。' -> [('我', 'PN'), ('喜欢', 'VV'), ('用', 'P'), ('笔记本', 'NN'), ('记录', 'VV'), ('我', 'PN'), ('的', 'DEG'), ('笔记', 'NN')]
+2026-10-27 17:29:47,001  INFO     TAGGED    '我喜欢用笔记本记录我的笔记。' (level 5, 8 tags)
+2026-10-27 17:29:47,012  INFO     FALLBACK  '这支笔九块钱。' -- out-of-list word(s): ['九块钱']
+2026-10-27 17:29:47,012  WARNING    HAIKU resegment call for '这支笔九块钱。' (cache miss on [('九块钱', 'NN')])
+2026-10-27 17:29:48,280  INFO     TAGGED    '这支笔九块钱。' (level 5, 6 tags)
+2026-10-27 17:29:48,296  INFO     OK        hanlp-valid   '你的笔在桌子下边。' -> [('你', 'PN'), ('的', 'DEG'), ('笔', 'NN'), ('在', 'VV'), ('桌子', 'NN'), ('下边', 'NN')]
+2026-10-27 17:29:48,312  INFO     TAGGED    '你的笔在桌子下边。' (level 2, 7 tags)
+2026-10-27 17:29:48,330  INFO     FALLBACK  '这个餐厅的菜不错，你应该去尝试一下。' -- out-of-list word(s): ['这个', '一下']
+2026-10-27 17:29:48,330  WARNING    HAIKU resegment call for '这个餐厅的菜不错，你应该去尝试一下。' (cache miss on [('这个', 'DT'), ('一下', 'AD')])
+2026-10-27 17:29:50,163  INFO     TAGGED    '这个餐厅的菜不错，你应该去尝试一下。' (level 5, 13 tags)
+2026-10-27 17:29:50,180  INFO     OK        hanlp-valid   '他想出国留学。' -> [('他', 'PN'), ('想', 'VV'), ('出国', 'VV'), ('留学', 'VV')]
+2026-10-27 17:29:50,182  INFO     TAGGED    '他想出国留学。' (level 3, 4 tags)
+2026-10-27 17:29:50,194  INFO     OK        hanlp-valid   '我需要我的护照才能出国旅行。' -> [('我', 'PN'), ('需要', 'VV'), ('我', 'PN'), ('的', 'DEG'), ('护照', 'NN'), ('才', 'AD'), ('能', 'VV'), ('出国', 'VV'), ('旅行', 'VV')]
+2026-10-27 17:29:50,198  INFO     TAGGED    '我需要我的护照才能出国旅行。' (level 4, 9 tags)
+2026-10-27 17:29:50,214  INFO     OK        hanlp-valid   '我现在要出门去买东西。' -> [('我', 'PN'), ('现在', 'NT'), ('要', 'VV'), ('出门', 'VV'), ('去', 'VV'), ('买', 'VV'), ('东西', 'NN')]
+2026-10-27 17:29:50,218  INFO     TAGGED    '我现在要出门去买东西。' (level 2, 7 tags)
+2026-10-27 17:29:50,234  INFO     OK        hanlp-valid   '我喜欢在周末和朋友一起出去玩。' -> [('我', 'PN'), ('喜欢', 'VV'), ('在', 'P'), ('周末', 'NT'), ('和', 'P'), ('朋友', 'NN'), ('一起', 'AD'), ('出去', 'VV'), ('玩', 'VV')]
+2026-10-27 17:29:50,238  INFO     TAGGED    '我喜欢在周末和朋友一起出去玩。' (level 3, 9 tags)
+2026-10-27 17:29:50,250  INFO     FALLBACK  '我每天出去散步。' -- out-of-list word(s): ['每天']
+2026-10-27 17:29:50,250  WARNING    HAIKU resegment call for '我每天出去散步。' (cache miss on [('每天', 'AD')])
+2026-10-27 17:29:51,470  INFO     TAGGED    '我每天出去散步。' (level 4, 5 tags)
+2026-10-27 17:29:51,487  INFO     FALLBACK  '这个词的意思是什么？' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:51,487  WARNING    HAIKU resegment call for '这个词的意思是什么？' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:52,790  INFO     TAGGED    '这个词的意思是什么？' (level 2, 7 tags)
+2026-10-27 17:29:52,810  INFO     OK        hanlp-valid   '他从小就喜欢音乐。' -> [('他', 'PN'), ('从小', 'AD'), ('就', 'AD'), ('喜欢', 'VV'), ('音乐', 'NN')]
+2026-10-27 17:29:52,812  INFO     TAGGED    '他从小就喜欢音乐。' (level 3, 5 tags)
+2026-10-27 17:29:52,827  INFO     FALLBACK  '我很喜欢这个电影，但是结局让我有些失望。' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:52,827  WARNING    HAIKU resegment call for '我很喜欢这个电影，但是结局让我有些失望。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:54,958  INFO     TAGGED    '我很喜欢这个电影，但是结局让我有些失望。' (level 7, 13 tags)
+2026-10-27 17:29:54,975  INFO     FALLBACK  '他对这个决定很不满，但是还是接受了。' -- out-of-list word(s): ['这个']
+2026-10-27 17:29:54,975  WARNING    HAIKU resegment call for '他对这个决定很不满，但是还是接受了。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:29:57,191  INFO     TAGGED    '他对这个决定很不满，但是还是接受了。' (level 4, 12 tags)
+2026-10-27 17:29:57,207  INFO     OK        hanlp-valid   '虽然天气很冷，但是我们还是去了公园。' -> [('虽然', 'CS'), ('天气', 'NN'), ('很', 'AD'), ('冷', 'VA'), ('但是', 'AD'), ('我们', 'PN'), ('还是', 'AD'), ('去', 'VV'), ('了', 'AS'), ('公园', 'NN')]
+2026-10-27 17:29:57,211  INFO     TAGGED    '虽然天气很冷，但是我们还是去了公园。' (level 3, 10 tags)
+2026-10-27 17:29:57,223  INFO     FALLBACK  '他来自一个小城市，但是现在住在大城市里。' -- out-of-list word(s): ['一个']
+2026-10-27 17:29:57,223  INFO       CACHE-ONLY resegmentation -> [('他', 'PN'), ('来自', 'VV'), ('一', 'CD'), ('个', 'M'), ('小', 'JJ'), ('城市', 'NN'), ('但是', 'AD'), ('现在', 'NT'), ('住', 'VV'), ('在', 'P'), ('大', 'JJ'), ('城市', 'NN'), ('里', 'LC')]
+2026-10-27 17:29:57,228  INFO     TAGGED    '他来自一个小城市，但是现在住在大城市里。' (level 3, 13 tags)
+2026-10-27 17:29:57,250  INFO     FALLBACK  '他一开始不喜欢这个工作，但是后来发现很有意思。' -- out-of-list word(s): ['一开始', '这个']
+2026-10-27 17:29:57,250  WARNING    HAIKU resegment call for '他一开始不喜欢这个工作，但是后来发现很有意思。' (cache miss on [('一开始', 'NN'), ('这个', 'DT')])
+2026-10-27 17:29:59,395  INFO     TAGGED    '他一开始不喜欢这个工作，但是后来发现很有意思。' (level 3, 14 tags)
+2026-10-27 17:29:59,420  INFO     OK        hanlp-valid   '我们去饭馆吃晚饭吧。' -> [('我们', 'PN'), ('去', 'VV'), ('饭馆', 'NN'), ('吃', 'VV'), ('晚饭', 'NN'), ('吧', 'SP')]
+2026-10-27 17:29:59,423  INFO     TAGGED    '我们去饭馆吃晚饭吧。' (level 2, 6 tags)
+2026-10-27 17:29:59,439  INFO     OK        hanlp-valid   '飞机马上就要起飞了。' -> [('飞机', 'NN'), ('马上', 'AD'), ('就要', 'AD'), ('起飞', 'VV'), ('了', 'SP')]
+2026-10-27 17:29:59,447  INFO     TAGGED    '飞机马上就要起飞了。' (level 3, 6 tags)
+2026-10-27 17:29:59,459  INFO     OK        hanlp-valid   '你会飞吗？' -> [('你', 'PN'), ('会', 'VV'), ('飞', 'VV'), ('吗', 'SP')]
+2026-10-27 17:29:59,461  INFO     TAGGED    '你会飞吗？' (level 2, 4 tags)
+2026-10-27 17:29:59,477  INFO     FALLBACK  '我在高中学习了很多知识。' -- out-of-list word(s): ['很多']
+2026-10-27 17:29:59,477  WARNING    HAIKU resegment call for '我在高中学习了很多知识。' (cache miss on [('很多', 'CD')])
+2026-10-27 17:30:00,893  INFO     TAGGED    '我在高中学习了很多知识。' (level 4, 8 tags)
+2026-10-27 17:30:00,909  INFO     OK        hanlp-valid   '他喜欢穿黑色的衣服。' -> [('他', 'PN'), ('喜欢', 'VV'), ('穿', 'VV'), ('黑色', 'JJ'), ('的', 'DEG'), ('衣服', 'NN')]
+2026-10-27 17:30:00,912  INFO     TAGGED    '他喜欢穿黑色的衣服。' (level 2, 6 tags)
+2026-10-27 17:30:00,930  INFO     OK        hanlp-valid   '墙壁是红色的。' -> [('墙壁', 'NN'), ('是', 'VC'), ('红色', 'JJ'), ('的', 'DEG')]
+2026-10-27 17:30:00,932  INFO     TAGGED    '墙壁是红色的。' (level 6, 4 tags)
+2026-10-27 17:30:00,947  INFO     OK        hanlp-valid   '这幅画的色彩很鲜艳。' -> [('这', 'DT'), ('幅', 'M'), ('画', 'NN'), ('的', 'DEG'), ('色彩', 'NN'), ('很', 'AD'), ('鲜艳', 'VA')]
+2026-10-27 17:30:00,950  INFO     TAGGED    '这幅画的色彩很鲜艳。' (level 6, 7 tags)
+2026-10-27 17:30:00,963  INFO     OK        hanlp-valid   '墙上挂着一幅画。' -> [('墙', 'NN'), ('上', 'LC'), ('挂', 'VV'), ('着', 'AS'), ('一', 'CD'), ('幅', 'M'), ('画', 'NN')]
+2026-10-27 17:30:00,965  INFO     TAGGED    '墙上挂着一幅画。' (level 5, 7 tags)
+2026-10-27 17:30:00,977  INFO     OK        hanlp-valid   '这位画家的作品很有名。' -> [('这', 'DT'), ('位', 'M'), ('画家', 'NN'), ('的', 'DEG'), ('作品', 'NN'), ('很', 'AD'), ('有名', 'VA')]
+2026-10-27 17:30:00,980  INFO     TAGGED    '这位画家的作品很有名。' (level 4, 7 tags)
+2026-10-27 17:30:00,992  INFO     OK        hanlp-valid   '他在木板上刻了一幅画。' -> [('他', 'PN'), ('在', 'P'), ('木板', 'NN'), ('上', 'LC'), ('刻', 'VV'), ('了', 'AS'), ('一', 'CD'), ('幅', 'M'), ('画', 'NN')]
+2026-10-27 17:30:00,995  INFO     TAGGED    '他在木板上刻了一幅画。' (level 10, 9 tags)
+2026-10-27 17:30:01,016  INFO     OK        hanlp-valid   '这幅画儿的主题是自然风光。' -> [('这', 'DT'), ('幅', 'M'), ('画儿', 'NN'), ('的', 'DEG'), ('主题', 'NN'), ('是', 'VC'), ('自然', 'NN'), ('风光', 'NN')]
+2026-10-27 17:30:01,593  INFO       NON-LIST 画儿 (NN) -> 'painting; picture' [ai_added]
+2026-10-27 17:30:01,597  INFO     TAGGED    '这幅画儿的主题是自然风光。' (level 10, 8 tags)
+2026-10-27 17:30:01,626  INFO     OK        hanlp-valid   '你别占他的时间。' -> [('你', 'PN'), ('别', 'AD'), ('占', 'VV'), ('他', 'PN'), ('的', 'DEG'), ('时间', 'NN')]
+2026-10-27 17:30:01,629  INFO     TAGGED    '你别占他的时间。' (level 5, 6 tags)
+2026-10-27 17:30:01,641  INFO     FALLBACK  '这个房间的墙壁是黄色的。' -- out-of-list word(s): ['这个']
+2026-10-27 17:30:01,641  WARNING    HAIKU resegment call for '这个房间的墙壁是黄色的。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:30:03,033  INFO     TAGGED    '这个房间的墙壁是黄色的。' (level 6, 8 tags)
+2026-10-27 17:30:03,047  INFO     OK        hanlp-valid   '请务必通知我会议的时间。' -> [('请', 'VV'), ('务必', 'AD'), ('通知', 'VV'), ('我', 'PN'), ('会议', 'NN'), ('的', 'DEG'), ('时间', 'NN')]
+2026-10-27 17:30:03,050  INFO     TAGGED    '请务必通知我会议的时间。' (level 7, 7 tags)
+2026-10-27 17:30:03,063  INFO     OK        hanlp-valid   '我想去旅游，可是我没有时间。' -> [('我', 'PN'), ('想', 'VV'), ('去', 'VV'), ('旅游', 'VV'), ('可是', 'CC'), ('我', 'PN'), ('没有', 'VE'), ('时间', 'NN')]
+2026-10-27 17:30:03,066  INFO     TAGGED    '我想去旅游，可是我没有时间。' (level 3, 8 tags)
+2026-10-27 17:30:03,086  INFO     FALLBACK  '请走开，我需要一点私人空间。' -- out-of-list word(s): ['一点']
+2026-10-27 17:30:03,086  WARNING    HAIKU resegment call for '请走开，我需要一点私人空间。' (cache miss on [('一点', 'CD')])
+2026-10-27 17:30:04,762  INFO     TAGGED    '请走开，我需要一点私人空间。' (level 5, 9 tags)
+2026-10-27 17:30:04,778  INFO     FALLBACK  '这个房间很亮，因为有很多窗户。' -- out-of-list word(s): ['这个', '很多']
+2026-10-27 17:30:04,778  WARNING    HAIKU resegment call for '这个房间很亮，因为有很多窗户。' (cache miss on [('这个', 'PN'), ('很多', 'CD')])
+2026-10-27 17:30:06,564  INFO     TAGGED    '这个房间很亮，因为有很多窗户。' (level 4, 10 tags)
+2026-10-27 17:30:06,582  INFO     FALLBACK  '这款手机的特点是超长待机时间。' -- out-of-list word(s): ['款', '超长', '待机']
+2026-10-27 17:30:06,582  WARNING    HAIKU resegment call for '这款手机的特点是超长待机时间。' (cache miss on [('款', 'M'), ('超长', 'VV'), ('待机', 'NN')])
+2026-10-27 17:30:08,763  INFO       NON-LIST 待机 (NN) -> 'standby time' [ai_added]
+2026-10-27 17:30:08,766  INFO     TAGGED    '这款手机的特点是超长待机时间。' (level 10, 10 tags)
+2026-10-27 17:30:08,781  INFO     FALLBACK  '我的时间不够，无法完成这个任务。' -- out-of-list word(s): ['这个']
+2026-10-27 17:30:08,781  WARNING    HAIKU resegment call for '我的时间不够，无法完成这个任务。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:30:10,810  INFO     TAGGED    '我的时间不够，无法完成这个任务。' (level 4, 10 tags)
+2026-10-27 17:30:10,826  INFO     FALLBACK  '我需要多一点时间来完成这个任务。' -- out-of-list word(s): ['一点', '这个']
+2026-10-27 17:30:10,826  WARNING    HAIKU resegment call for '我需要多一点时间来完成这个任务。' (cache miss on [('一点', 'CD'), ('这个', 'DT')])
+2026-10-27 17:30:12,591  INFO     TAGGED    '我需要多一点时间来完成这个任务。' (level 4, 11 tags)
+2026-10-27 17:30:12,607  INFO     FALLBACK  '我需要更多的时间来完成这个任务。' -- out-of-list word(s): ['这个']
+2026-10-27 17:30:12,608  WARNING    HAIKU resegment call for '我需要更多的时间来完成这个任务。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:30:14,432  INFO     TAGGED    '我需要更多的时间来完成这个任务。' (level 4, 11 tags)
+2026-10-27 17:30:14,448  INFO     FALLBACK  '时间过得很快，孩子们都变成了大人。' -- out-of-list word(s): ['很快']
+2026-10-27 17:30:14,448  WARNING    HAIKU resegment call for '时间过得很快，孩子们都变成了大人。' (cache miss on [('很快', 'AD')])
+2026-10-27 17:30:16,546  INFO     TAGGED    '时间过得很快，孩子们都变成了大人。' (level 6, 12 tags)
+2026-10-27 17:30:16,563  INFO     FALLBACK  '他拉着我的手，带我走进了那个房间。' -- out-of-list word(s): ['那个']
+2026-10-27 17:30:16,563  WARNING    HAIKU resegment call for '他拉着我的手，带我走进了那个房间。' (cache miss on [('那个', 'DT')])
+2026-10-27 17:30:18,701  INFO     TAGGED    '他拉着我的手，带我走进了那个房间。' (level 4, 14 tags)
+2026-10-27 17:30:18,716  INFO     FALLBACK  '我要订三间单人房。' -- out-of-list word(s): ['三间', '单人房']
+2026-10-27 17:30:18,716  WARNING    HAIKU resegment call for '我要订三间单人房。' (cache miss on [('三间', 'NR'), ('单人房', 'NN')])
+2026-10-27 17:30:20,638  INFO       NON-LIST 单人房 (NN) -> 'single room' [ai_added]
+2026-10-27 17:30:20,641  INFO     TAGGED    '我要订三间单人房。' (level 10, 6 tags)
+2026-10-27 17:30:20,657  INFO     OK        hanlp-valid   '我的房间很乱。' -> [('我', 'PN'), ('的', 'DEG'), ('房间', 'NN'), ('很', 'AD'), ('乱', 'VA')]
+2026-10-27 17:30:20,660  INFO     TAGGED    '我的房间很乱。' (level 4, 5 tags)
+2026-10-27 17:30:20,672  INFO     OK        hanlp-valid   '他的房间朝南。' -> [('他', 'PN'), ('的', 'DEG'), ('房间', 'NN'), ('朝', 'VV'), ('南', 'NN')]
+2026-10-27 17:30:20,674  INFO     TAGGED    '他的房间朝南。' (level 5, 5 tags)
+2026-10-27 17:30:20,685  INFO     FALLBACK  '洗手间在二楼。' -- out-of-list word(s): ['二楼']
+2026-10-27 17:30:20,685  WARNING    HAIKU resegment call for '洗手间在二楼。' (cache miss on [('二楼', 'NN')])
+2026-10-27 17:30:21,662  INFO     TAGGED    '洗手间在二楼。' (level 2, 4 tags)
+2026-10-27 17:30:21,677  INFO     OK        hanlp-valid   '我的车停在中间。' -> [('我', 'PN'), ('的', 'DEG'), ('车', 'NN'), ('停', 'VV'), ('在', 'P'), ('中间', 'NN')]
+2026-10-27 17:30:21,680  INFO     TAGGED    '我的车停在中间。' (level 4, 6 tags)
+2026-10-27 17:30:21,696  INFO     FALLBACK  '这个商场离我家很近。' -- out-of-list word(s): ['这个']
+2026-10-27 17:30:21,696  WARNING    HAIKU resegment call for '这个商场离我家很近。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:30:23,321  INFO     TAGGED    '这个商场离我家很近。' (level 2, 8 tags)
+2026-10-27 17:30:23,338  INFO     OK        hanlp-valid   '这家酒店的服务很好。' -> [('这', 'DT'), ('家', 'M'), ('酒店', 'NN'), ('的', 'DEG'), ('服务', 'NN'), ('很', 'AD'), ('好', 'VA')]
+2026-10-27 17:30:23,341  INFO     TAGGED    '这家酒店的服务很好。' (level 3, 7 tags)
+2026-10-27 17:30:23,354  INFO     FALLBACK  '我在那家酒店待了三夜。' -- out-of-list word(s): ['三夜']
+2026-10-27 17:30:23,354  WARNING    HAIKU resegment call for '我在那家酒店待了三夜。' (cache miss on [('三夜', 'NN')])
+2026-10-27 17:30:25,046  INFO     TAGGED    '我在那家酒店待了三夜。' (level 4, 9 tags)
+2026-10-27 17:30:25,064  INFO     OK        hanlp-valid   '车站在酒店后边。' -> [('车站', 'NN'), ('在', 'VV'), ('酒店', 'NN'), ('后边', 'NN')]
+2026-10-27 17:30:25,071  INFO     TAGGED    '车站在酒店后边。' (level 2, 5 tags)
+2026-10-27 17:30:25,086  INFO     OK        hanlp-valid   '我才刚开始学中文。' -> [('我', 'PN'), ('才', 'AD'), ('刚', 'AD'), ('开始', 'VV'), ('学', 'VV'), ('中文', 'NN')]
+2026-10-27 17:30:25,088  INFO     TAGGED    '我才刚开始学中文。' (level 3, 6 tags)
+2026-10-27 17:30:25,099  INFO     OK        hanlp-valid   '我需要重新开始我的工作。' -> [('我', 'PN'), ('需要', 'VV'), ('重新', 'AD'), ('开始', 'VV'), ('我', 'PN'), ('的', 'DEG'), ('工作', 'NN')]
+2026-10-27 17:30:25,102  INFO     TAGGED    '我需要重新开始我的工作。' (level 4, 7 tags)
+2026-10-27 17:30:25,114  INFO     FALLBACK  '他一开始不喜欢这个工作，但是后来发现很有意思。' -- out-of-list word(s): ['一开始', '这个']
+2026-10-27 17:30:25,114  WARNING    HAIKU resegment call for '他一开始不喜欢这个工作，但是后来发现很有意思。' (cache miss on [('一开始', 'NN'), ('这个', 'DT')])
+2026-10-27 17:30:27,604  INFO     TAGGED    '他一开始不喜欢这个工作，但是后来发现很有意思。' (level 3, 14 tags)
+2026-10-27 17:30:27,618  INFO     OK        hanlp-valid   '从零开始。' -> [('从', 'P'), ('零', 'CD'), ('开始', 'VV')]
+2026-10-27 17:30:27,620  INFO     TAGGED    '从零开始。' (level 2, 3 tags)
+2026-10-27 17:30:27,636  INFO     OK        hanlp-valid   '我们下个月就要开学了。' -> [('我们', 'PN'), ('下个月', 'NT'), ('就要', 'AD'), ('开学', 'VV'), ('了', 'SP')]
+2026-10-27 17:30:27,648  INFO     TAGGED    '我们下个月就要开学了。' (level 2, 8 tags)
+2026-10-27 17:30:27,664  INFO     OK        hanlp-valid   '我买了一条新裤子。' -> [('我', 'PN'), ('买', 'VV'), ('了', 'AS'), ('一', 'CD'), ('条', 'M'), ('新', 'JJ'), ('裤子', 'NN')]
+2026-10-27 17:30:27,667  INFO     TAGGED    '我买了一条新裤子。' (level 2, 7 tags)
+2026-10-27 17:30:27,683  INFO     OK        hanlp-valid   '看到孩子们的笑容，我感到非常快乐。' -> [('看到', 'VV'), ('孩子', 'NN'), ('们', 'NN'), ('的', 'DEG'), ('笑容', 'NN'), ('我', 'PN'), ('感到', 'VV'), ('非常', 'AD'), ('快乐', 'VA')]
+2026-10-27 17:30:27,692  INFO     TAGGED    '看到孩子们的笑容，我感到非常快乐。' (level 6, 10 tags)
+2026-10-27 17:30:27,703  INFO     OK        hanlp-valid   '我们的日子过得很快乐。' -> [('我们', 'PN'), ('的', 'DEG'), ('日子', 'NN'), ('过', 'VV'), ('得', 'DER'), ('很', 'AD'), ('快乐', 'VA')]
+2026-10-27 17:30:27,706  INFO     TAGGED    '我们的日子过得很快乐。' (level 4, 7 tags)
+2026-10-27 17:30:27,718  INFO     OK        hanlp-valid   '生日快乐！' -> [('生日', 'NN'), ('快乐', 'VA')]
+2026-10-27 17:30:27,719  INFO     TAGGED    '生日快乐！' (level 2, 2 tags)
+2026-10-27 17:30:27,732  INFO     OK        hanlp-valid   '他很喜欢打篮球。' -> [('他', 'PN'), ('很', 'AD'), ('喜欢', 'VV'), ('打', 'VV'), ('篮球', 'NN')]
+2026-10-27 17:30:27,735  INFO     TAGGED    '他很喜欢打篮球。' (level 2, 5 tags)
+2026-10-27 17:30:27,750  INFO     FALLBACK  '他把瓶子倒过来，让里面的液体流出来。' -- out-of-list word(s): ['倒过来']
+2026-10-27 17:30:27,750  WARNING    HAIKU resegment call for '他把瓶子倒过来，让里面的液体流出来。' (cache miss on [('倒过来', 'VV')])
+2026-10-27 17:30:29,762  INFO     TAGGED    '他把瓶子倒过来，让里面的液体流出来。' (level 6, 11 tags)
+2026-10-27 17:30:29,779  INFO     OK        hanlp-valid   '我计划下个月去旅游。' -> [('我', 'PN'), ('计划', 'VV'), ('下个月', 'NT'), ('去', 'VV'), ('旅游', 'VV')]
+2026-10-27 17:30:29,786  INFO     TAGGED    '我计划下个月去旅游。' (level 4, 7 tags)
+2026-10-27 17:30:29,797  INFO     OK        hanlp-valid   '我想去旅游，可是我没有时间。' -> [('我', 'PN'), ('想', 'VV'), ('去', 'VV'), ('旅游', 'VV'), ('可是', 'CC'), ('我', 'PN'), ('没有', 'VE'), ('时间', 'NN')]
+2026-10-27 17:30:29,800  INFO     TAGGED    '我想去旅游，可是我没有时间。' (level 3, 8 tags)
+2026-10-27 17:30:29,813  INFO     FALLBACK  '这个网站提供了很多有关旅游的建议。' -- out-of-list word(s): ['这个', '很多']
+2026-10-27 17:30:29,813  WARNING    HAIKU resegment call for '这个网站提供了很多有关旅游的建议。' (cache miss on [('这个', 'DT'), ('很多', 'CD')])
+2026-10-27 17:30:31,507  INFO     TAGGED    '这个网站提供了很多有关旅游的建议。' (level 4, 11 tags)
+2026-10-27 17:30:31,522  INFO     OK        hanlp-valid   '他计划在西北地区拍摄一系列旅游视频。' -> [('他', 'PN'), ('计划', 'VV'), ('在', 'P'), ('西北', 'NN'), ('地区', 'NN'), ('拍摄', 'VV'), ('一系列', 'CD'), ('旅游', 'NN'), ('视频', 'NN')]
+2026-10-27 17:30:31,526  INFO     TAGGED    '他计划在西北地区拍摄一系列旅游视频。' (level 6, 9 tags)
+2026-10-27 17:30:31,541  INFO     OK        hanlp-valid   '我最喜欢的颜色是绿色。' -> [('我', 'PN'), ('最', 'AD'), ('喜欢', 'VV'), ('的', 'DEC'), ('颜色', 'NN'), ('是', 'VC'), ('绿色', 'NN')]
+2026-10-27 17:30:31,544  INFO     TAGGED    '我最喜欢的颜色是绿色。' (level 2, 7 tags)
+2026-10-27 17:30:31,560  INFO     FALLBACK  '你每天做饭吗？' -- out-of-list word(s): ['每天']
+2026-10-27 17:30:31,560  WARNING    HAIKU resegment call for '你每天做饭吗？' (cache miss on [('每天', 'AD')])
+2026-10-27 17:30:32,929  INFO     TAGGED    '你每天做饭吗？' (level 2, 6 tags)
+2026-10-27 17:30:32,951  INFO     OK        hanlp-valid   '我喜欢吃面。' -> [('我', 'PN'), ('喜欢', 'VV'), ('吃', 'VV'), ('面', 'NN')]
+2026-10-27 17:30:32,953  INFO     TAGGED    '我喜欢吃面。' (level 2, 4 tags)
+2026-10-27 17:30:32,967  INFO     OK        hanlp-valid   '你不应该做那样的事情。' -> [('你', 'PN'), ('不', 'AD'), ('应该', 'VV'), ('做', 'VV'), ('那样', 'JJ'), ('的', 'DEG'), ('事情', 'NN')]
+2026-10-27 17:30:32,970  INFO     TAGGED    '你不应该做那样的事情。' (level 3, 7 tags)
+2026-10-27 17:30:32,986  INFO     OK        hanlp-valid   '你喜欢喝奶茶？' -> [('你', 'PN'), ('喜欢', 'VV'), ('喝', 'VV'), ('奶茶', 'NN')]
+2026-10-27 17:30:32,988  INFO     TAGGED    '你喜欢喝奶茶？' (level 2, 4 tags)
+2026-10-27 17:30:33,005  INFO     FALLBACK  '那个男孩儿真可爱。' -- out-of-list word(s): ['那个']
+2026-10-27 17:30:33,005  WARNING    HAIKU resegment call for '那个男孩儿真可爱。' (cache miss on [('那个', 'DT')])
+2026-10-27 17:30:34,221  INFO     TAGGED    '那个男孩儿真可爱。' (level 3, 6 tags)
+2026-10-27 17:30:34,238  INFO     OK        hanlp-valid   '那只鸟在树上唱歌。' -> [('那', 'DT'), ('只', 'M'), ('鸟', 'NN'), ('在', 'P'), ('树', 'NN'), ('上', 'LC'), ('唱歌', 'VV')]
+2026-10-27 17:30:34,246  INFO     TAGGED    '那只鸟在树上唱歌。' (level 3, 8 tags)
+2026-10-27 17:30:34,260  INFO     FALLBACK  '你认识那个女孩儿吗？' -- out-of-list word(s): ['那个']
+2026-10-27 17:30:34,260  WARNING    HAIKU resegment call for '你认识那个女孩儿吗？' (cache miss on [('那个', 'DT')])
+2026-10-27 17:30:35,488  INFO     TAGGED    '你认识那个女孩儿吗？' (level 2, 6 tags)
+2026-10-27 17:30:35,513  INFO     OK        hanlp-valid   '今天天气晴。' -> [('今天', 'NT'), ('天气', 'NN'), ('晴', 'VA')]
+2026-10-27 17:30:35,515  INFO     TAGGED    '今天天气晴。' (level 2, 3 tags)
+2026-10-27 17:30:35,529  INFO     FALLBACK  '让我帮你解决这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:30:35,529  WARNING    HAIKU resegment call for '让我帮你解决这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:30:37,025  INFO     TAGGED    '让我帮你解决这个问题。' (level 3, 8 tags)
+2026-10-27 17:30:37,039  INFO     FALLBACK  '这个故事让我感动了。' -- out-of-list word(s): ['这个']
+2026-10-27 17:30:37,039  WARNING    HAIKU resegment call for '这个故事让我感动了。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:30:38,345  INFO     TAGGED    '这个故事让我感动了。' (level 4, 7 tags)
+2026-10-27 17:30:38,359  INFO     FALLBACK  '我们不能让坏人得逞。' -- out-of-list word(s): ['不能', '得逞']
+2026-10-27 17:30:38,359  WARNING    HAIKU resegment call for '我们不能让坏人得逞。' (cache miss on [('不能', 'VV'), ('得逞', 'VV')])
+2026-10-27 17:30:40,709  INFO       NON-LIST 逞 (VV) -> 'to succeed (in doing something bad); to get away with' [ai_added]
+2026-10-27 17:30:40,711  INFO     TAGGED    '我们不能让坏人得逞。' (level 10, 8 tags)
+2026-10-27 17:30:40,725  INFO     OK        hanlp-valid   '不好意思让你等了这么久。' -> [('不好意思', 'VA'), ('让', 'VV'), ('你', 'PN'), ('等', 'VV'), ('了', 'AS'), ('这么', 'AD'), ('久', 'VA')]
+2026-10-27 17:30:40,728  INFO     TAGGED    '不好意思让你等了这么久。' (level 3, 7 tags)
+2026-10-27 17:30:40,748  INFO     FALLBACK  '过去的事情就让它过去吧。' -- out-of-list word(s): ['就让']
+2026-10-27 17:30:40,749  WARNING    HAIKU resegment call for '过去的事情就让它过去吧。' (cache miss on [('就让', 'AD')])
+2026-10-27 17:30:42,249  INFO     TAGGED    '过去的事情就让它过去吧。' (level 2, 8 tags)
+2026-10-27 17:30:42,276  INFO     FALLBACK  '你每天上网吗？' -- out-of-list word(s): ['每天']
+2026-10-27 17:30:42,276  WARNING    HAIKU resegment call for '你每天上网吗？' (cache miss on [('每天', 'AD')])
+2026-10-27 17:30:43,475  INFO     TAGGED    '你每天上网吗？' (level 2, 5 tags)
+2026-10-27 17:30:43,498  INFO     OK        hanlp-valid   '虽然天气很冷，但是我们还是去了公园。' -> [('虽然', 'CS'), ('天气', 'NN'), ('很', 'AD'), ('冷', 'VA'), ('但是', 'AD'), ('我们', 'PN'), ('还是', 'AD'), ('去', 'VV'), ('了', 'AS'), ('公园', 'NN')]
+2026-10-27 17:30:43,502  INFO     TAGGED    '虽然天气很冷，但是我们还是去了公园。' (level 3, 10 tags)
+2026-10-27 17:30:43,516  INFO     FALLBACK  '今天下雨了，所以我们不能去公园。' -- out-of-list word(s): ['不能']
+2026-10-27 17:30:43,516  WARNING    HAIKU resegment call for '今天下雨了，所以我们不能去公园。' (cache miss on [('不能', 'VV')])
+2026-10-27 17:30:45,420  INFO     TAGGED    '今天下雨了，所以我们不能去公园。' (level 3, 9 tags)
+2026-10-27 17:30:45,438  INFO     FALLBACK  '这个场很适合踢足球。' -- out-of-list word(s): ['这个']
+2026-10-27 17:30:45,438  WARNING    HAIKU resegment call for '这个场很适合踢足球。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:30:46,872  INFO     TAGGED    '这个场很适合踢足球。' (level 4, 7 tags)
+2026-10-27 17:30:46,890  INFO     OK        hanlp-valid   '我们在球场上踢足球。' -> [('我们', 'PN'), ('在', 'P'), ('球场', 'NN'), ('上', 'LC'), ('踢', 'VV'), ('足球', 'NN')]
+2026-10-27 17:30:46,893  INFO     TAGGED    '我们在球场上踢足球。' (level 3, 6 tags)
+2026-10-27 17:30:46,906  INFO     OK        hanlp-valid   '请你帮我回答这道数学题。' -> [('请', 'VV'), ('你', 'PN'), ('帮', 'VV'), ('我', 'PN'), ('回答', 'VV'), ('这', 'DT'), ('道', 'M'), ('数学', 'NN'), ('题', 'NN')]
+2026-10-27 17:30:46,910  INFO     TAGGED    '请你帮我回答这道数学题。' (level 4, 9 tags)
+2026-10-27 17:30:46,922  INFO     FALLBACK  '这是一个很急的问题。' -- out-of-list word(s): ['这是', '一个']
+2026-10-27 17:30:46,922  WARNING    HAIKU resegment call for '这是一个很急的问题。' (cache miss on [('这是', 'PN')])
+2026-10-27 17:30:48,505  INFO     TAGGED    '这是一个很急的问题。' (level 3, 8 tags)
+2026-10-27 17:30:48,522  INFO     FALLBACK  '这是一个很难的难题。' -- out-of-list word(s): ['这是', '一个', '很难']
+2026-10-27 17:30:48,523  WARNING    HAIKU resegment call for '这是一个很难的难题。' (cache miss on [('这是', 'PN'), ('很难', 'JJ')])
+2026-10-27 17:30:50,136  INFO     TAGGED    '这是一个很难的难题。' (level 3, 8 tags)
+2026-10-27 17:30:50,153  INFO     FALLBACK  '这个问题实在太难了。' -- out-of-list word(s): ['这个']
+2026-10-27 17:30:50,153  WARNING    HAIKU resegment call for '这个问题实在太难了。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:30:51,561  INFO     TAGGED    '这个问题实在太难了。' (level 4, 7 tags)
+2026-10-27 17:30:51,577  INFO     OK        hanlp-valid   '请直接把问题告诉我。' -> [('请', 'VV'), ('直接', 'AD'), ('把', 'BA'), ('问题', 'NN'), ('告诉', 'VV'), ('我', 'PN')]
+2026-10-27 17:30:51,580  INFO     TAGGED    '请直接把问题告诉我。' (level 4, 6 tags)
+2026-10-27 17:30:51,600  INFO     FALLBACK  '我不懂这个问题的答案。' -- out-of-list word(s): ['这个']
+2026-10-27 17:30:51,601  WARNING    HAIKU resegment call for '我不懂这个问题的答案。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:30:53,105  INFO     TAGGED    '我不懂这个问题的答案。' (level 4, 8 tags)
+2026-10-27 17:30:53,122  INFO     OK        hanlp-valid   '他故意不回答我的问题。' -> [('他', 'PN'), ('故意', 'AD'), ('不', 'AD'), ('回答', 'VV'), ('我', 'PN'), ('的', 'DEG'), ('问题', 'NN')]
+2026-10-27 17:30:53,125  INFO     TAGGED    '他故意不回答我的问题。' (level 4, 7 tags)
+2026-10-27 17:30:53,136  INFO     FALLBACK  '让我帮你解决这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:30:53,136  WARNING    HAIKU resegment call for '让我帮你解决这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:30:54,636  INFO     TAGGED    '让我帮你解决这个问题。' (level 3, 8 tags)
+2026-10-27 17:30:54,652  INFO     FALLBACK  '他完全明白了这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:30:54,652  WARNING    HAIKU resegment call for '他完全明白了这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:30:55,964  INFO     TAGGED    '他完全明白了这个问题。' (level 4, 7 tags)
+2026-10-27 17:30:55,977  INFO     FALLBACK  '请记住这个问题的重点。' -- out-of-list word(s): ['这个']
+2026-10-27 17:30:55,977  WARNING    HAIKU resegment call for '请记住这个问题的重点。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:30:57,425  INFO     TAGGED    '请记住这个问题的重点。' (level 4, 8 tags)
+2026-10-27 17:30:57,439  INFO     FALLBACK  '他懂得如何处理这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:30:57,440  WARNING    HAIKU resegment call for '他懂得如何处理这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:30:59,039  INFO     TAGGED    '他懂得如何处理这个问题。' (level 5, 8 tags)
+2026-10-27 17:30:59,054  INFO     FALLBACK  '这个问题涉及到很多方面。' -- out-of-list word(s): ['这个', '很多']
+2026-10-27 17:30:59,055  WARNING    HAIKU resegment call for '这个问题涉及到很多方面。' (cache miss on [('这个', 'DT'), ('很多', 'CD')])
+2026-10-27 17:31:00,578  INFO     TAGGED    '这个问题涉及到很多方面。' (level 6, 8 tags)
+2026-10-27 17:31:00,596  INFO     OK        hanlp-valid   '我们需要找出问题的根源。' -> [('我们', 'PN'), ('需要', 'VV'), ('找出', 'VV'), ('问题', 'NN'), ('的', 'DEG'), ('根源', 'NN')]
+2026-10-27 17:31:00,605  INFO     TAGGED    '我们需要找出问题的根源。' (level 7, 7 tags)
+2026-10-27 17:31:00,617  INFO     OK        hanlp-valid   '这幅画儿的主题是自然风光。' -> [('这', 'DT'), ('幅', 'M'), ('画儿', 'NN'), ('的', 'DEG'), ('主题', 'NN'), ('是', 'VC'), ('自然', 'NN'), ('风光', 'NN')]
+2026-10-27 17:31:01,187  INFO       NON-LIST 画儿 (NN) -> 'picture; painting' [ai_added]
+2026-10-27 17:31:01,190  INFO     TAGGED    '这幅画儿的主题是自然风光。' (level 10, 8 tags)
+2026-10-27 17:31:01,204  INFO     FALLBACK  '他对这个问题有自己的看法。' -- out-of-list word(s): ['这个']
+2026-10-27 17:31:01,205  WARNING    HAIKU resegment call for '他对这个问题有自己的看法。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:31:02,725  INFO     TAGGED    '他对这个问题有自己的看法。' (level 4, 9 tags)
+2026-10-27 17:31:02,740  INFO     FALLBACK  '我们需要商量一下这个问题。' -- out-of-list word(s): ['一下', '这个']
+2026-10-27 17:31:02,740  WARNING    HAIKU resegment call for '我们需要商量一下这个问题。' (cache miss on [('一下', 'AD'), ('这个', 'DT')])
+2026-10-27 17:31:04,168  INFO     TAGGED    '我们需要商量一下这个问题。' (level 4, 8 tags)
+2026-10-27 17:31:04,182  INFO     FALLBACK  '我们需要讨论一下这个问题。' -- out-of-list word(s): ['一下', '这个']
+2026-10-27 17:31:04,182  WARNING    HAIKU resegment call for '我们需要讨论一下这个问题。' (cache miss on [('一下', 'AD'), ('这个', 'DT')])
+2026-10-27 17:31:05,611  INFO     TAGGED    '我们需要讨论一下这个问题。' (level 4, 8 tags)
+2026-10-27 17:31:05,624  INFO     FALLBACK  '他在谈话中提到了这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:31:05,624  WARNING    HAIKU resegment call for '他在谈话中提到了这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:31:07,303  INFO     TAGGED    '他在谈话中提到了这个问题。' (level 5, 9 tags)
+2026-10-27 17:31:07,321  INFO     FALLBACK  '这个问题有（一）点儿复杂。' -- out-of-list word(s): ['这个', '点儿']
+2026-10-27 17:31:07,321  WARNING    HAIKU resegment call for '这个问题有（一）点儿复杂。' (cache miss on [('这个', 'DT'), ('点儿', 'AD')])
+2026-10-27 17:31:08,739  INFO     TAGGED    '这个问题有（一）点儿复杂。' (level 10, 7 tags)
+2026-10-27 17:31:08,753  INFO     FALLBACK  '老师在课堂上讲解了这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:31:08,753  WARNING    HAIKU resegment call for '老师在课堂上讲解了这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:31:10,264  INFO     TAGGED    '老师在课堂上讲解了这个问题。' (level 6, 9 tags)
+2026-10-27 17:31:10,279  INFO     FALLBACK  '请你帮我算一下这个数学问题。' -- out-of-list word(s): ['一下', '这个']
+2026-10-27 17:31:10,279  WARNING    HAIKU resegment call for '请你帮我算一下这个数学问题。' (cache miss on [('一下', 'AD'), ('这个', 'DT')])
+2026-10-27 17:31:12,011  INFO     TAGGED    '请你帮我算一下这个数学问题。' (level 4, 11 tags)
+2026-10-27 17:31:12,025  INFO     OK        hanlp-valid   '他在直播中回答了观众的问题。' -> [('他', 'PN'), ('在', 'P'), ('直播', 'NN'), ('中', 'LC'), ('回答', 'VV'), ('了', 'AS'), ('观众', 'NN'), ('的', 'DEG'), ('问题', 'NN')]
+2026-10-27 17:31:12,029  INFO     TAGGED    '他在直播中回答了观众的问题。' (level 5, 9 tags)
+2026-10-27 17:31:12,041  INFO     FALLBACK  '你可以这样做来解决这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:31:12,041  WARNING    HAIKU resegment call for '你可以这样做来解决这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:31:13,753  INFO     TAGGED    '你可以这样做来解决这个问题。' (level 3, 9 tags)
+2026-10-27 17:31:13,772  INFO     FALLBACK  '我们需要想出一个解决问题的办法。' -- out-of-list word(s): ['想出', '一个']
+2026-10-27 17:31:13,772  WARNING    HAIKU resegment call for '我们需要想出一个解决问题的办法。' (cache miss on [('想出', 'VV')])
+2026-10-27 17:31:15,595  INFO     TAGGED    '我们需要想出一个解决问题的办法。' (level 3, 10 tags)
+2026-10-27 17:31:15,613  INFO     FALLBACK  '不要担心，我们会帮你解决这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:31:15,613  WARNING    HAIKU resegment call for '不要担心，我们会帮你解决这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:31:17,449  INFO     TAGGED    '不要担心，我们会帮你解决这个问题。' (level 3, 10 tags)
+2026-10-27 17:31:17,466  INFO     FALLBACK  '从不同的角度看这个问题，会有不同的答案。' -- out-of-list word(s): ['这个']
+2026-10-27 17:31:17,466  WARNING    HAIKU resegment call for '从不同的角度看这个问题，会有不同的答案。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:31:19,795  INFO     TAGGED    '从不同的角度看这个问题，会有不同的答案。' (level 5, 15 tags)
+2026-10-27 17:31:19,821  INFO     OK        hanlp-valid   '我也喜欢跳舞。' -> [('我', 'PN'), ('也', 'AD'), ('喜欢', 'VV'), ('跳舞', 'VV')]
+2026-10-27 17:31:19,823  INFO     TAGGED    '我也喜欢跳舞。' (level 2, 4 tags)
+2026-10-27 17:31:19,837  INFO     OK        hanlp-valid   '别在门口外面停车。' -> [('别', 'AD'), ('在', 'P'), ('门口', 'NN'), ('外面', 'NN'), ('停车', 'VV')]
+2026-10-27 17:31:19,840  INFO     TAGGED    '别在门口外面停车。' (level 4, 5 tags)
+2026-10-27 17:31:19,853  INFO     FALLBACK  '他在网上找到了很多有用的信息。' -- out-of-list word(s): ['很多']
+2026-10-27 17:31:19,853  WARNING    HAIKU resegment call for '他在网上找到了很多有用的信息。' (cache miss on [('很多', 'CD')])
+2026-10-27 17:31:21,847  INFO     TAGGED    '他在网上找到了很多有用的信息。' (level 4, 11 tags)
+2026-10-27 17:31:21,862  INFO     FALLBACK  '你可以在网上搜索一下关于这款手机的信息。' -- out-of-list word(s): ['一下', '款']
+2026-10-27 17:31:21,862  WARNING    HAIKU resegment call for '你可以在网上搜索一下关于这款手机的信息。' (cache miss on [('一下', 'AD'), ('款', 'M')])
+2026-10-27 17:31:23,705  INFO     TAGGED    '你可以在网上搜索一下关于这款手机的信息。' (level 10, 13 tags)
+2026-10-27 17:31:23,720  INFO     OK        hanlp-valid   '我们是在网上认识的。' -> [('我们', 'PN'), ('是', 'VC'), ('在', 'P'), ('网上', 'NN'), ('认识', 'VV'), ('的', 'DEC')]
+2026-10-27 17:31:23,722  INFO     TAGGED    '我们是在网上认识的。' (level 2, 6 tags)
+2026-10-27 17:31:23,741  INFO     OK        hanlp-valid   '你有小孩儿吗？' -> [('你', 'PN'), ('有', 'VE'), ('小孩儿', 'NN'), ('吗', 'SP')]
+2026-10-27 17:31:23,743  INFO     TAGGED    '你有小孩儿吗？' (level 2, 4 tags)
+2026-10-27 17:31:23,758  INFO     OK        hanlp-valid   '我小时候就喜欢唱歌。' -> [('我', 'PN'), ('小时候', 'NT'), ('就', 'AD'), ('喜欢', 'VV'), ('唱歌', 'VV')]
+2026-10-27 17:31:23,766  INFO     TAGGED    '我小时候就喜欢唱歌。' (level 2, 6 tags)
+2026-10-27 17:31:23,781  INFO     OK        hanlp-valid   '我喜欢你眼睛的颜色。' -> [('我', 'PN'), ('喜欢', 'VV'), ('你', 'PN'), ('眼睛', 'NN'), ('的', 'DEG'), ('颜色', 'NN')]
+2026-10-27 17:31:23,784  INFO     TAGGED    '我喜欢你眼睛的颜色。' (level 2, 6 tags)
+2026-10-27 17:31:23,798  INFO     OK        hanlp-valid   '我要去药店买药。' -> [('我', 'PN'), ('要', 'VV'), ('去', 'VV'), ('药店', 'NN'), ('买', 'VV'), ('药', 'NN')]
+2026-10-27 17:31:23,800  INFO     TAGGED    '我要去药店买药。' (level 2, 6 tags)
+2026-10-27 17:31:23,815  INFO     OK        hanlp-valid   '我喜欢她，因为她很聪明。' -> [('我', 'PN'), ('喜欢', 'VV'), ('她', 'PN'), ('因为', 'P'), ('她', 'PN'), ('很', 'AD'), ('聪明', 'VA')]
+2026-10-27 17:31:23,819  INFO     TAGGED    '我喜欢她，因为她很聪明。' (level 3, 7 tags)
+2026-10-27 17:31:23,830  INFO     OK        hanlp-valid   '我不喜欢吃快餐，因为它不健康。' -> [('我', 'PN'), ('不', 'AD'), ('喜欢', 'VV'), ('吃', 'VV'), ('快餐', 'NN'), ('因为', 'P'), ('它', 'PN'), ('不', 'AD'), ('健康', 'VA')]
+2026-10-27 17:31:23,833  INFO     TAGGED    '我不喜欢吃快餐，因为它不健康。' (level 4, 9 tags)
+2026-10-27 17:31:23,845  INFO     FALLBACK  '这个房间很亮，因为有很多窗户。' -- out-of-list word(s): ['这个', '很多']
+2026-10-27 17:31:23,846  WARNING    HAIKU resegment call for '这个房间很亮，因为有很多窗户。' (cache miss on [('这个', 'PN'), ('很多', 'CD')])
+2026-10-27 17:31:25,436  INFO     TAGGED    '这个房间很亮，因为有很多窗户。' (level 4, 10 tags)
+2026-10-27 17:31:25,454  INFO     OK        hanlp-valid   '我想去旅游，可是我没有时间。' -> [('我', 'PN'), ('想', 'VV'), ('去', 'VV'), ('旅游', 'VV'), ('可是', 'CC'), ('我', 'PN'), ('没有', 'VE'), ('时间', 'NN')]
+2026-10-27 17:31:25,457  INFO     TAGGED    '我想去旅游，可是我没有时间。' (level 3, 8 tags)
+2026-10-27 17:31:25,469  INFO     FALLBACK  '他很聪明，但有时候也会犯错误。' -- out-of-list word(s): ['犯错误']
+2026-10-27 17:31:25,469  WARNING    HAIKU resegment call for '他很聪明，但有时候也会犯错误。' (cache miss on [('犯错误', 'VV')])
+2026-10-27 17:31:27,173  INFO     TAGGED    '他很聪明，但有时候也会犯错误。' (level 6, 10 tags)
+2026-10-27 17:31:27,187  INFO     OK        hanlp-valid   '我有时候在家做饭。' -> [('我', 'PN'), ('有时候', 'AD'), ('在家', 'VV'), ('做饭', 'VV')]
+2026-10-27 17:31:27,199  INFO     TAGGED    '我有时候在家做饭。' (level 1, 6 tags)
+2026-10-27 17:31:27,215  INFO     FALLBACK  '我的右手受伤了。' -- out-of-list word(s): ['右手']
+2026-10-27 17:31:27,215  WARNING    HAIKU resegment call for '我的右手受伤了。' (cache miss on [('右手', 'NN')])
+2026-10-27 17:31:28,299  INFO     TAGGED    '我的右手受伤了。' (level 4, 6 tags)
+2026-10-27 17:31:28,311  INFO     OK        hanlp-valid   '酒店在车站的右边。' -> [('酒店', 'NN'), ('在', 'VV'), ('车站', 'NN'), ('的', 'DEG'), ('右边', 'NN')]
+2026-10-27 17:31:28,314  INFO     TAGGED    '酒店在车站的右边。' (level 2, 5 tags)
+2026-10-27 17:31:28,329  INFO     OK        hanlp-valid   '我喜欢参加各种运动。' -> [('我', 'PN'), ('喜欢', 'VV'), ('参加', 'VV'), ('各种', 'DT'), ('运动', 'NN')]
+2026-10-27 17:31:28,331  INFO     TAGGED    '我喜欢参加各种运动。' (level 4, 5 tags)
+2026-10-27 17:31:28,343  INFO     OK        hanlp-valid   '除了学习以外，我还喜欢运动。' -> [('除了', 'P'), ('学习', 'NN'), ('以外', 'LC'), ('我', 'PN'), ('还', 'AD'), ('喜欢', 'VV'), ('运动', 'VV')]
+2026-10-27 17:31:28,346  INFO     TAGGED    '除了学习以外，我还喜欢运动。' (level 3, 7 tags)
+2026-10-27 17:31:28,359  INFO     OK        hanlp-valid   '这条河很长。' -> [('这', 'DT'), ('条', 'M'), ('河', 'NN'), ('很', 'AD'), ('长', 'VA')]
+2026-10-27 17:31:28,361  INFO     TAGGED    '这条河很长。' (level 3, 5 tags)
+2026-10-27 17:31:28,373  INFO     OK        hanlp-valid   '这朵花长得很美。' -> [('这', 'DT'), ('朵', 'M'), ('花', 'NN'), ('长', 'VV'), ('得', 'DER'), ('很', 'AD'), ('美', 'VA')]
+2026-10-27 17:31:28,376  INFO     TAGGED    '这朵花长得很美。' (level 5, 7 tags)
+2026-10-27 17:31:28,387  INFO     OK        hanlp-valid   '这条河很长。' -> [('这', 'DT'), ('条', 'M'), ('河', 'NN'), ('很', 'AD'), ('长', 'VA')]
+2026-10-27 17:31:28,389  INFO     TAGGED    '这条河很长。' (level 3, 5 tags)
+2026-10-27 17:31:28,408  INFO     OK        hanlp-valid   '她的腿很长。' -> [('她', 'PN'), ('的', 'DEG'), ('腿', 'NN'), ('很', 'AD'), ('长', 'VA')]
+2026-10-27 17:31:28,410  INFO     TAGGED    '她的腿很长。' (level 3, 5 tags)
+2026-10-27 17:31:28,421  INFO     OK        hanlp-valid   '她长得很漂亮。' -> [('她', 'PN'), ('长', 'VV'), ('得', 'DER'), ('很', 'AD'), ('漂亮', 'VA')]
+2026-10-27 17:31:28,424  INFO     TAGGED    '她长得很漂亮。' (level 2, 5 tags)
+2026-10-27 17:31:28,442  INFO     FALLBACK  '这么多人来参加活动真是太棒了！' -- out-of-list word(s): ['真是']
+2026-10-27 17:31:28,442  WARNING    HAIKU resegment call for '这么多人来参加活动真是太棒了！' (cache miss on [('真是', 'AD')])
+2026-10-27 17:31:30,222  INFO     TAGGED    '这么多人来参加活动真是太棒了！' (level 4, 11 tags)
+2026-10-27 17:31:30,238  INFO     OK        hanlp-valid   '不好意思让你等了这么久。' -> [('不好意思', 'VA'), ('让', 'VV'), ('你', 'PN'), ('等', 'VV'), ('了', 'AS'), ('这么', 'AD'), ('久', 'VA')]
+2026-10-27 17:31:30,241  INFO     TAGGED    '不好意思让你等了这么久。' (level 3, 7 tags)
+2026-10-27 17:31:30,255  INFO     FALLBACK  '你可以这样做来解决这个问题。' -- out-of-list word(s): ['这个']
+2026-10-27 17:31:30,255  WARNING    HAIKU resegment call for '你可以这样做来解决这个问题。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:31:31,775  INFO     TAGGED    '你可以这样做来解决这个问题。' (level 3, 9 tags)
+2026-10-27 17:31:31,795  INFO     FALLBACK  '我们的足球队很强。' -- out-of-list word(s): ['足球队']
+2026-10-27 17:31:31,795  WARNING    HAIKU resegment call for '我们的足球队很强。' (cache miss on [('足球队', 'NN')])
+2026-10-27 17:31:33,134  INFO     TAGGED    '我们的足球队很强。' (level 4, 6 tags)
+2026-10-27 17:31:33,150  INFO     FALLBACK  '这个场很适合踢足球。' -- out-of-list word(s): ['这个']
+2026-10-27 17:31:33,150  WARNING    HAIKU resegment call for '这个场很适合踢足球。' (cache miss on [('这个', 'DT')])
+2026-10-27 17:31:34,587  INFO     TAGGED    '这个场很适合踢足球。' (level 4, 7 tags)
+2026-10-27 17:31:34,605  INFO     OK        hanlp-valid   '我们在球场上踢足球。' -> [('我们', 'PN'), ('在', 'P'), ('球场', 'NN'), ('上', 'LC'), ('踢', 'VV'), ('足球', 'NN')]
+2026-10-27 17:31:34,608  INFO     TAGGED    '我们在球场上踢足球。' (level 3, 6 tags)
+2026-10-27 17:31:34,619  INFO     FALLBACK  '他是一个真正的足球爱好者。' -- out-of-list word(s): ['一个', '爱好者']
+2026-10-27 17:31:34,619  WARNING    HAIKU resegment call for '他是一个真正的足球爱好者。' (cache miss on [('爱好者', 'NN')])
+2026-10-27 17:31:36,294  INFO     TAGGED    '他是一个真正的足球爱好者。' (level 4, 9 tags)
+2026-10-27 17:31:36,310  INFO     FALLBACK  '你用左手写字吗？' -- out-of-list word(s): ['左手', '写字']
+2026-10-27 17:31:36,311  WARNING    HAIKU resegment call for '你用左手写字吗？' (cache miss on [('左手', 'NN'), ('写字', 'VV')])
+2026-10-27 17:31:37,716  INFO     TAGGED    '你用左手写字吗？' (level 3, 7 tags)
+2026-10-27 17:31:37,731  INFO     OK        hanlp-valid   '停车场在超市的左边。' -> [('停车场', 'NN'), ('在', 'VV'), ('超市', 'NN'), ('的', 'DEG'), ('左边', 'NN')]
+2026-10-27 17:31:37,733  INFO     TAGGED    '停车场在超市的左边。' (level 4, 5 tags)

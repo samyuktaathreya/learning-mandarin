@@ -9,14 +9,21 @@ highest level among its words, so it's only known after tagging.
 
 WORD SPLIT
   hsk-sentences-audio sentences come with a word split (hsa_source.tokens):
-  it covers every character and 99.7% of its words are in the HSK list, so it
-  is used as-is. A token NOT in the list that can be split entirely into list
-  words (早点儿 -> 早 + 点儿, 今晚 -> 今 + 晚) is split -- the same job the
-  Haiku re-segmentation used to do for 不是, done by rule. An out-of-list
-  token that can't be split that way (一再表示: 表示 isn't in the 2021 list)
-  gets ONE Haiku call for that occurrence, which splits it (preferring list
-  words) or keeps it whole (a real word, a name, an idiom). New pieces
-  outside the list are unlisted words as usual.
+  it covers every character, so it is used as-is, except for a token NOT in
+  the curriculum list (the 2025 syllabus). The dataset was written for the
+  2021 list, which has many compounds the 2025 list leaves to their parts
+  (回家, 唱歌). choose_split():
+    - a REAL word (in the vocab file under any version) that splits into
+      list words only -> split (回家 -> 回 + 家); each piece's meaning is
+      then picked in context like any other word
+    - a real word with a piece outside the list -> kept whole, as an
+      unlisted word, so the sentence is out of every level
+    - not a word at all -> split into real words, fewest pieces, most list
+      words (只不过 -> 只 + 不过, not 只 + 不 + 过)
+    - none of these -> ONE Haiku call for that occurrence, which splits it
+      or keeps it whole (a name, an idiom).
+  Every split is listed in the run log for review; a wrong one is fixed by
+  giving the whole word a level in hsk_level_overrides.json.
   Adjacent tokens that together form a LOWER-level list word are joined
   (不 + 客气 -> 不客气, HSK 1 instead of 客气's HSK 5), so a sentence isn't
   levelled up by the dataset splitting a set phrase.
@@ -52,7 +59,9 @@ WORDS NOT IN THE LIST (kept, never dropped)
   - otherwise -> word_type = auto, origin = unlisted, definition = the
     dataset's gloss (CC-CEDICT text); Haiku writes one (ai_added) only if
     there is no gloss.
-  Neither counts toward the sentence's level.
+  A name doesn't count toward the sentence's level (it is taught in the
+  sentence's unit). An unlisted word puts the sentence out of every level
+  (models.OUT_OF_LIST_LEVEL), so no unit ever uses it.
 
 The dataset's gloss_en is NOT used to pick a meaning: it is the same
 dictionary text for a given word and reading in every sentence, so it says
@@ -99,10 +108,9 @@ MAX_TOKENS_DEFINITION = 300
 MAX_TOKENS_RESEGMENT = 500
 COMMIT_EVERY = 50          # sentences
 
-ALL_LEVELS = 7             # 7 = levels 7-9: every listed word is valid
 PROPER_NOUN_POS = {"NR"}
 
-VOCAB_PATH = TEXTBOOK_RAW_DIR / "hsk_vocab.json"
+VOCAB_PATH = TEXTBOOK_RAW_DIR / hvs.VOCAB_FILE
 
 _CONTENT_RE = re.compile(r"[一-鿿]|\d+")
 
@@ -360,17 +368,37 @@ def compact(reading: str) -> str:
 
 # --------------------------------- WORD SPLIT ---------------------------------
 
-def split_into_list_words(word: str, valid_vocab: set) -> list[str] | None:
-    """Split an out-of-list token into 2+ list words, trying every split (so
-    结果实 -> 结 + 果实, which longest-first would miss) and keeping the one
-    with the fewest pieces. None if no split uses only list words."""
-    best = {0: []}
+def best_real_split(word: str, valid_vocab: set, known_words) -> list[str] | None:
+    """The best split of `word` into 2+ REAL words (list words or words in
+    the vocab file under any version), trying every split (so 结果实 -> 结 +
+    果实, which longest-first would miss): fewest pieces, then the most of
+    them in the list. None if there is none."""
+    real = lambda w: w in valid_vocab or w in known_words
+    best = {0: (0, 0, [])}        # end -> (pieces, -list pieces, split)
     for i in range(1, len(word) + 1):
-        options = [best[j] + [word[j:i]] for j in range(i) if j in best and word[j:i] in valid_vocab]
+        options = []
+        for j in range(i):
+            piece = word[j:i]
+            if j in best and real(piece) and (j, i) != (0, len(word)):
+                n, neg_list, split = best[j]
+                options.append((n + 1, neg_list - (piece in valid_vocab), split + [piece]))
         if options:
-            best[i] = min(options, key=len)
-    pieces = best.get(len(word))
+            best[i] = min(options, key=lambda o: (o[0], o[1]))
+    pieces = best.get(len(word), (0, 0, None))[2]
     return pieces if pieces and len(pieces) > 1 else None
+
+
+def choose_split(word: str, valid_vocab: set, known_words) -> tuple[list[str] | None, str]:
+    """How to split a token that is NOT a curriculum word (see the module
+    docstring). Returns (pieces or None, what happened)."""
+    pieces = best_real_split(word, valid_vocab, known_words)
+    if word in known_words:
+        if pieces and all(p in valid_vocab for p in pieces):
+            return pieces, "real word split into list words"
+        return None, "real word outside the list, kept whole"
+    if pieces:
+        return pieces, "non-word split into real words"
+    return None, "no split found"
 
 
 def _split_reading(reading: str | None, pieces: list[str]) -> list[str | None]:
@@ -445,16 +473,27 @@ def words_from_dataset(sentence: Sentence, run: "Run", allow_ai: bool = True) ->
     for t in tokens:
         word, reading = t["word"], dataset_reading(t.get("pinyin"))
         gloss = (t.get("gloss_en") or "").strip()
-        pieces = None if word in run.valid_vocab else split_into_list_words(word, run.valid_vocab)
+        pieces, outcome = None, None
+        if word in run.valid_vocab or not _has_content(word):
+            pass
+        elif gloss and looks_like_name(gloss) and word not in run.known_words:
+            outcome = "looks like a name, kept whole"       # 王明 is not 王 + 明
+            if allow_ai:
+                run.stats[f"out-of-list token: {outcome}"] += 1
+        else:
+            pieces, outcome = choose_split(word, run.valid_vocab, run.known_words)
+            if allow_ai:
+                run.stats[f"out-of-list token: {outcome}"] += 1
+                if outcome == "real word outside the list, kept whole":
+                    run.kept_real.append((word, sentence.hanzi))
         if pieces:
             if allow_ai:
-                run.stats["out-of-list token split into list words"] += 1
                 run.splits.append((word, pieces, sentence.hanzi))
-        elif allow_ai and needs_ai_split(word, run.valid_vocab):
+        elif allow_ai and outcome == "no split found" and needs_ai_split(word, run.valid_vocab):
             pieces = ai_split(run, word, sentence)
         if pieces:
             for piece, piece_reading in zip(pieces, _split_reading(reading, pieces)):
-                # a piece outside the 2021 list but in another HSK list (表示) gets that list's text
+                # a piece outside the curriculum list gets the vocab file's text for it
                 gloss = "" if piece in run.valid_vocab else run.known_words.get(piece, "")
                 out.append({"word": piece, "reading": piece_reading, "gloss": gloss})
         else:
@@ -497,7 +536,7 @@ def haiku_split_token(word: str, sentence: str, valid_vocab: set, known_words: d
     a learner studies (一再表示 -> 一再 + 表示)? The HSK-list words inside the
     token are shown so Haiku prefers them. The pieces must rebuild the token
     exactly, and every piece must be a word in SOME HSK list in the JSON
-    (2021, 2.0 or 2025: known_words) -- so 一再表示 -> 一再 + 表示 is kept
+    (2025, 2021 or 2.0: known_words) -- so 一再表示 -> 一再 + 表示 is kept
     (表示 is in the 2.0 and 2025 lists), while 今晚 -> 今 + 晚, 五颗星 ->
     五颗 + 星 or 下达 -> 下 + 达 are rejected. Anything else keeps it whole."""
     inside = sorted({word[i:j] for i in range(len(word)) for j in range(i + 1, len(word) + 1)
@@ -561,25 +600,11 @@ def haiku_write_definition(hanzi: str, pos_tag: str, pinyin: str, sentence: str)
 
 # --------------------------------- SENSE RESOLUTION ---------------------------------
 
-def load_known_words() -> dict:
-    """Every word in the vocab JSON under ANY HSK version (2021, 2.0, 2025),
-    with a short gloss from its first lowercase reading. Used to check AI
-    splits: a piece must be a real word somewhere in these lists."""
-    out = {}
-    with open(VOCAB_PATH, encoding="utf-8") as f:
-        for e in json.load(f):
-            forms = e.get("forms") or []
-            if not forms:
-                continue
-            form = forms[hvs.default_form_index(e)]
-            meanings = [m for m in form.get("meanings", []) if not hvs.is_note(m)][:2]
-            out[e["simplified"]] = "; ".join(meanings)
-    return out
-
-
 class Run:
     """Per-run state shared by every sentence."""
     def __init__(self, logger, entries, valid_vocab, seg_cache, estimate):
+        if not VOCAB_PATH.exists():
+            raise SystemExit(f"Vocab file not found: {VOCAB_PATH}")
         self.logger = logger
         self.entries = entries
         self.valid_vocab = valid_vocab
@@ -590,7 +615,11 @@ class Run:
         self.non_list = []        # (hanzi, kind, english, sentence)
         self.splits = []          # (token, pieces, sentence)
         self.merges = []          # (pieces, joined word, sentence)
-        self.known_words = load_known_words()   # every word in the JSON, any HSK version -> gloss
+        self.known_words = hvs.load_known_words(str(VOCAB_PATH))  # every word in the file -> gloss
+        self.kept_real = []       # (token, sentence): real words outside the list, kept whole
+        # HanLP path (no dataset word split): a real word outside the list is
+        # left whole rather than sent to Haiku for re-segmentation
+        self.segmentation_ok = set(valid_vocab) | set(self.known_words)
         self.ai_splits = []       # (token, pieces, sentence)
         self.ai_kept = []         # (token, sentence)
         self.levels = {w: hvs.level_of(e) for w, e in entries.items()}
@@ -683,9 +712,23 @@ def tag_sentence(db, run: Run, sentence: Sentence) -> int:
             w["pos"] = t
         run.stats["sentences: dataset word split"] += 1
     else:
-        words = [{"word": w, "pos": p, "reading": None, "gloss": ""}
-                 for w, p in get_validated_segmentation(sentence.hanzi, run.valid_vocab,
-                                                        run.seg_cache, run.logger)]
+        words = []
+        for w, p in get_validated_segmentation(sentence.hanzi, run.segmentation_ok,
+                                               run.seg_cache, run.logger):
+            pieces = None
+            if w not in run.valid_vocab and p != "NUM" and _has_content(w):
+                # same rule as the dataset path: 回家 -> 回 + 家
+                pieces, outcome = choose_split(w, run.valid_vocab, run.known_words)
+                run.stats[f"out-of-list token (HanLP path): {outcome}"] += 1
+                if pieces:
+                    run.splits.append((w, pieces, sentence.hanzi))
+                elif outcome == "real word outside the list, kept whole":
+                    run.kept_real.append((w, sentence.hanzi))
+            if pieces:
+                words += [{"word": x, "pos": t, "reading": None, "gloss": ""}
+                          for x, t in zip(pieces, tag_pos(pieces))]
+            else:
+                words.append({"word": w, "pos": p, "reading": None, "gloss": ""})
         run.stats["sentences: HanLP word split"] += 1
 
     resolved, readings = [], []
@@ -756,7 +799,7 @@ def write_summary(run: Run, n_sentences: int, total_tags: int, elapsed: float, l
         log.info(f"  [{kind}] {word}: {english!r}  -- first seen in {s}")
     log.info("")
     log.info("=" * 80)
-    log.info(f"OUT-OF-LIST TOKENS SPLIT INTO LIST WORDS ({len(run.splits)})")
+    log.info(f"OUT-OF-LIST TOKENS SPLIT INTO REAL WORDS ({len(run.splits)})")
     log.info("=" * 80)
     for token, pieces, s in run.splits:
         log.info(f"  {token} -> {' + '.join(pieces)}  -- in {s}")
@@ -766,6 +809,10 @@ def write_summary(run: Run, n_sentences: int, total_tags: int, elapsed: float, l
     log.info("=" * 80)
     for token, pieces, s in run.ai_splits:
         log.info(f"  {token} -> {' + '.join(pieces)}  -- in {s}")
+    log.info("")
+    log.info(f"OUT-OF-LIST REAL WORDS KEPT WHOLE ({len(run.kept_real)}) -- their sentences are out of every level")
+    for token, s in run.kept_real:
+        log.info(f"  {token}  -- in {s}")
     log.info("")
     log.info(f"OUT-OF-LIST TOKENS THE AI KEPT WHOLE ({len(run.ai_kept)})")
     for token, s in run.ai_kept:
@@ -824,7 +871,7 @@ def main():
 
     init_db()
     with get_session() as db:
-        valid_vocab = get_vocab_hanzi_through_level(db, ALL_LEVELS)
+        valid_vocab = get_vocab_hanzi_through_level(db, hvs.MAX_LEVEL)
         if not valid_vocab:
             raise RuntimeError("No HSK-list words in the DB -- run load_hsk_lists.py first.")
         run = Run(logger, entries, valid_vocab, seg_cache, args.estimate)

@@ -24,7 +24,8 @@ EACH CALL
   reason. Then it is asked once more with EVERY reading of the word (the
   dataset's pinyin is sometimes wrong: 长 as zhǎng in 又长又平), and only if
   that also fails is a new meaning written (origin = ai_added, listed in
-  the log for review).
+  the log for review). When the dataset's reading isn't the word's main
+  one (了 as liǎo), every reading is offered in the first call already.
   Same meaning in two sentences -> same VocabSense row, so units, primary
   senses and questions work as before. Nothing is reused BETWEEN sentences.
 
@@ -70,7 +71,7 @@ DEFAULT_WORKERS = 8
 CHUNK = 200                 # occurrences per commit
 RETRY_ROUNDS = 2            # extra passes over failed calls, one at a time
 
-VOCAB_PATH = TEXTBOOK_RAW_DIR / "hsk_vocab.json"
+VOCAB_PATH = TEXTBOOK_RAW_DIR / hvs.VOCAB_FILE
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 LOG_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, "..", "debug", "resolve_senses"))
 
@@ -225,6 +226,13 @@ def build_jobs(db, levels: list[int], entries: dict, redo: bool, limit: int | No
             all_forms = list(range(len(entry["forms"])))
             forms = hvs.match_forms(entry, reading) or all_forms
             candidates = hvs.candidates(entry, forms)
+            if not hvs.single_meaning_is_safe(entry, forms):
+                # the dataset's reading points away from the word's main one
+                # (了 as liǎo in 找到了): it is often wrong, so offer every
+                # reading from the start -- offering only that reading's one
+                # meaning left the AI nothing to choose but the wrong one
+                forms = all_forms
+                candidates = hvs.candidates(entry, forms)
             if len(candidates) == 1 and hvs.single_meaning_is_safe(entry, forms):
                 if row.vocab_sense_id is None:
                     c = candidates[0]

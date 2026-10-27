@@ -65,7 +65,7 @@ from app.textbook.models import (
     GrammarTip, Sentence, SentenceGrammar, SentenceVocab, Unit, Vocab, VocabSense,
 )
 
-MIN_WORDS, MAX_WORDS = 20, 40
+MIN_WORDS, MAX_WORDS = 8, 15
 MIN_SENTENCES = 10   # 15 was too strict: early units add ~2.7 new words per sentence
 MAX_GRAMMAR = 3
 CORE_TOPICS = 5
