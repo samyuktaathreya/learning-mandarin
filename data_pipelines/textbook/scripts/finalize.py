@@ -81,9 +81,17 @@ def quiet_sandhi(hanzi: str, numeric: str, stats: Counter) -> str:
     return out
 
 
+def is_erhua(word: str, reading: str) -> bool:
+    """儿 read as the erhua "r" here (玩儿 wánr), not as "er"."""
+    return word == "儿" and (reading or "").lower().startswith("r")
+
+
 def reading_of(sv: SentenceVocab, word: str) -> list[str]:
     """The sense's citation pinyin; else this occurrence's stored reading
-    (words whose sense isn't resolved yet); else pypinyin."""
+    (words whose sense isn't resolved yet); else pypinyin. Erhua 儿 keeps
+    this occurrence's "r5": the dictionary sense says "er2"."""
+    if is_erhua(word, sv.reading):
+        return ["r5"]
     for source in (sv.sense.pinyin if sv.sense is not None else "", sv.reading or ""):
         if source and "UNKNOWN" not in source:
             sylls = syllables(source)
@@ -138,9 +146,13 @@ def finalize_sentence(db, sentence: Sentence, stats: Counter):
     for word, sylls, row in pieces:
         reading = "".join(out[i:i + len(sylls)])
         i += len(sylls)
-        words.append(reading)
         if row is not None:
             row.pinyin = reading
+        if is_erhua(word, reading) and words and words[-1][-1:].isdigit():
+            # erhua joins the word before it, the dataset's style: 玩儿 -> "wanr2"
+            words[-1] = words[-1][:-1] + "r" + words[-1][-1]
+            continue
+        words.append(reading)
     sentence.pinyin = " ".join(words)
 
 

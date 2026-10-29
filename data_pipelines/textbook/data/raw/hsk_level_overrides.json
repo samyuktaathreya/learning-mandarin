@@ -1,6 +1,40 @@
 {
-  "_readme": "Hand-written HSK levels for words the 2025 list leaves out (or levels you want to change). Keys starting with _ are ignored. The word must be in disorganized_hsk_vocab_with_radicals.json. load_hsk_lists.py prints every override it applies.",
-  "没": {"level": 1, "why": "没有 is HSK 1; 没 alone is missing from the 2025 list"},
-  "天": {"level": 1, "why": "今天/明天/天气 are HSK 1; check the loader output -- remove if the 2025 list already has it"},
-  "们": {"level": 1, "why": "我们/你们 are HSK 1; check the loader output -- remove if the 2025 list already has it"}
+  "_readme": "Hand-written HSK levels for words the 2025 list leaves out (or levels you want to change). Keys starting with _ are ignored. The vocab file supplies each word's readings and meanings; a word the file doesn't have at all must give its own \"pinyin\" (numeric) and \"meanings\" (list), like 儿 below. load_hsk_lists.py prints every override it applies.",
+  "没": {
+    "level": 1,
+    "why": "没有 is HSK 1; 没 alone is missing from the 2025 list"
+  },
+  "天": {
+    "level": 1,
+    "why": "今天/明天/天气 are HSK 1; check the loader output -- remove if the 2025 list already has it"
+  },
+  "们": {
+    "level": 1,
+    "why": "我们/你们 are HSK 1; check the loader output -- remove if the 2025 list already has it"
+  },
+  "儿": {
+    "level": 1,
+    "pinyin": "er2",
+    "meanings": [
+      "erhua suffix, makes the syllable end in -r (玩儿, 一点儿, 哪儿)",
+      "child; son"
+    ],
+    "why": "erhua suffix; 哪儿/这儿 are HSK 1. Not an entry of its own in the vocab file, so its pinyin and meanings are given here"
+  },
+  "杯": {
+    "level": 1,
+    "why": "measure word for drinks (一杯水); 杯子 is HSK 1"
+  },
+  "觉": {
+    "level": 1,
+    "why": "the 觉 of 睡觉 (HSK 1), which splits: 睡了一觉"
+  },
+  "英语": {
+    "level": 1,
+    "why": "English; as basic as 汉语/中文 (HSK 1)"
+  },
+  "英文": {
+    "level": 1,
+    "why": "English; as basic as 汉语/中文 (HSK 1)"
+  }
 }

@@ -3,9 +3,9 @@ check_name
 1a. vocab by HSK level (NULL = names / unlisted)
 hsk_level  words  with_unit
 ---------  -----  ---------
-           191    2        
-1          295    286      
-2          197    158      
+           168    2        
+1          300    292      
+2          197    175      
 3          487    0        
 4          972    0        
 5          1547   0        
@@ -16,30 +16,30 @@ check_name
 1b. senses by origin
 origin       senses  with_unit
 -----------  ------  ---------
-ai_added     10      1        
-hsk_list     1551    551      
-proper_noun  9       2        
-unlisted     173     0        
+ai_added     6       0        
+hsk_list     1575    577      
+proper_noun  8       2        
+unlisted     154     0        
 check_name            
 ----------------------
 1c. sentences by level
 hsk_level  sentences  tagged  all_meanings_picked  with_grammar  with_unit
 ---------  ---------  ------  -------------------  ------------  ---------
-1          161        161     161                  161           161      
-2          163        163     163                  163           163      
-3          325        325     0                    325           0        
-4          728        728     0                    728           0        
-5          1293       1293    1                    1293          0        
-6          1022       1022    1                    1022          0        
-7          390        390     1                    390           0        
-10         243        243     2                    243           0        
+1          175        175     175                  175           175      
+2          183        183     183                  183           183      
+3          330        330     0                    330           0        
+4          741        741     0                    741           0        
+5          1309       1309    1                    1309          0        
+6          1030       1030    1                    1030          0        
+7          392        392     1                    392           0        
+10         179        179     1                    179           0        
 check_name                      
 --------------------------------
 1d. units and questions by level
 hsk_level  units  questions
 ---------  -----  ---------
-1          10     2612     
-2          13     2178     
+1          19     2745     
+2          14     2378     
 check_name                             
 ---------------------------------------
 2. consistency checks (all should be 0)
@@ -61,72 +61,64 @@ units with no questions (create_questions)                0
 check_name
 ----------
 3. units  
-lvl  n   title                                      sentences  new_words  new_grammar  questions
----  --  -----------------------------------------  ---------  ---------  -----------  ---------
-1    1   Greetings, Identity                        23         58         20           455      
-1    2   Family                                     10         21         5            192      
-1    3   Numbers                                    14         27         5            241      
-1    4   Time                                       16         26         0            258      
-1    5   Daily Actions                              25         46         5            421      
-1    6   School & Work                              12         13         1            161      
-1    7   Location                                   12         23         0            210      
-1    8   Transport                                  10         11         1            140      
-1    9   Shopping                                   12         14         0            160      
-1    10  Food, Weather, Feelings, Sports & Leisure  27         32         1            374      
-2    1   Greetings, Numbers                         13         16         9            189      
-2    2   Time                                       17         23         9            254      
-2    3   Daily Actions 1                            10         12         1            139      
-2    4   Daily Actions 2                            12         12         0            157      
-2    5   Daily Actions 3                            10         10         5            155      
-2    6   Transport                                  22         19         7            256      
-2    7   Shopping                                   11         11         0            133      
-2    8   Weather, Health & Body, Feelings           16         21         7            231      
-2    9   School & Work, Family                      10         13         1            164      
-2    10  Location 1                                 10         10         0            133      
-2    11  Location 2                                 11         10         3            126      
-2    12  Food, Identity, Nature 1                   10         9          0            104      
-2    13  Food, Identity, Nature 2                   11         9          2            137      
+lvl  n   title                       sentences  new_words  new_grammar  questions
+---  --  --------------------------  ---------  ---------  -----------  ---------
+1    1   Greetings                   8          21         11           167      
+1    2   Identity, Part 1            7          19         5            144      
+1    3   Identity, Part 2            8          19         5            156      
+1    4   Family, Part 1              5          12         4            116      
+1    5   Family, Part 2              6          10         1            96       
+1    6   Numbers, Part 1             9          14         0            128      
+1    7   Numbers, Part 2             6          14         4            118      
+1    8   Time, Part 1                6          16         1            125      
+1    9   Time, Part 2                11         14         1            150      
+1    10  Daily Actions, Part 1       7          15         2            131      
+1    11  Daily Actions, Part 2       6          11         1            119      
+1    12  Daily Actions, Part 3       10         13         0            131      
+1    13  School & Work               14         17         1            189      
+1    14  Location, Part 1            7          10         0            101      
+1    15  Location, Part 2            5          14         0            115      
+1    16  Transport                   13         14         1            175      
+1    17  Shopping                    12         13         0            145      
+1    18  Food                        13         20         0            188      
+1    19  Weather, Feelings + 1 more  22         16         1            251      
+2    1   Greetings, Family           12         15         3            180      
+2    2   Numbers, Time               14         17         6            199      
+2    3   Time                        8          10         7            114      
+2    4   Daily Actions, Part 1       7          10         0            100      
+2    5   Daily Actions, Part 2       17         14         3            201      
+2    6   Daily Actions, Part 3       12         14         5            178      
+2    7   Transport                   22         19         7            259      
+2    8   Shopping                    12         11         0            150      
+2    9   Weather, Health & Body      11         12         6            162      
+2    10  Sports & Leisure, Feelings  9          10         3            112      
+2    11  School & Work               11         12         1            151      
+2    12  Location                    18         15         0            209      
+2    13  Food                        10         10         2            116      
+2    14  Identity, Nature            20         18         3            247      
 check_name                                                 
 -----------------------------------------------------------
 4a. AI-added meanings (no dictionary meaning fit) -- review
-hanzi   pinyin         english                                            lvl  unit
-------  -------------  -------------------------------------------------  ---  ----
-蛋      dan4           egg                                                         
-快点儿  kuai4dianr3    quickly; hurry up                                           
-咱      zan2           we/us (inclusive, informal)                                 
-劲儿    jin4er2        energy, vigor, or enthusiasm (in doing something)           
-点儿    dianr3         a little; some                                              
-桌上    zhuo1shang4    on the table                                                
-很难说  hen3nan2shuo1  hard to say; difficult to tell                              
-档      dang4          file; record                                                
-阔      kuo4           wide; broad                                                 
-车站    che1zhan4      vehicle/transportation station (general)           2    10  
+hanzi  pinyin       english                                                     lvl  unit
+-----  -----------  ----------------------------------------------------------  ---  ----
+蛋     dan4         egg                                                                  
+咱     zan2         we; us (inclusive, colloquial first-person plural pronoun)           
+劲儿   jin4er2      energy, vigor, or enthusiasm for doing something                     
+桌上   zhuo1shang4  on the table                                                         
+档     dang4        file; record; archive                                                
+阔     kuo4         wide; broad                                                          
 check_name                                         
 ---------------------------------------------------
 4b. words outside the HSK list (names and unlisted)
 hanzi     word_type    english                                                       lvl  unit
 --------  -----------  ------------------------------------------------------------  ---  ----
-杯        auto         cup; trophy cup                                                        
-
-玩儿      auto         to play; to have fun                                                   
-
-儿        auto         child; son                                                             
-
 电视机    auto         television set                                                         
-
-没事儿    auto         to have spare time; free from work                                     
 
 身上      auto         on the body; at hand                                                   
 
-早点儿    auto         a bit earlier                                                          
-
 春节      auto         Spring Festival (Chinese New Year)                                     
 
-空儿      auto         spare time; free time                                                  
-
 午睡      auto         to take a nap in the afternoon                                         
-
-英语      auto         English (language)                                                     
 
 话        auto         dialect; language                                                      
 
@@ -136,14 +128,7 @@ hanzi     word_type    english                                                  
 
 绿        auto         used in names                                                          
 
-没想到    auto         didn't expect                                                          
-
 西医      auto         Western medicine; a doctor trained in Western medicine                 
-
-英文      auto         English (language)                                                     
-
-那会儿    auto         at that time (in the past or the future); also pr. [nei4 hui           
-                       4 r5]                                                                  
 
 院        auto         courtyard; institution                                                 
 
@@ -151,15 +136,11 @@ hanzi     word_type    english                                                  
 
 票价      auto         ticket price; fare; admission fee                                      
 
-电子邮件  auto         email                                                                  
-
 大使馆    auto         embassy                                                                
 
 可乐      auto         amusing; entertaining                                                  
 
 今晚      auto         tonight                                                                
-
-世界杯    proper_noun  (name) World Cup                                                       
 
 连续剧    auto         serialized drama; dramatic series                                      
 
@@ -167,15 +148,11 @@ hanzi     word_type    english                                                  
 
 衣架      auto         clothes hanger; clothes rack                                           
 
-另一方面  auto         on the other hand; another aspect                                      
-
 乐        auto         surname Le                                                             
 
 不知      auto         not to know; unaware                                                   
 
 发音      auto         to pronounce; pronunciation                                            
-
-老头儿    auto         see 老頭子|老头子[lao3 tou2 zi5]                                       
 
 衬衣      auto         shirt                                                                  
 
@@ -275,8 +252,6 @@ hanzi     word_type    english                                                  
 泉        auto         spring (small stream); mouth of a spring                               
 
 易懂      auto         easy to understand                                                     
-
-个儿      auto         size; height                                                           
 
 下达      auto         to transmit to lower levels; to issue (a command, decree etc           
                        )                                                                      
@@ -402,14 +377,10 @@ hanzi     word_type    english                                                  
 
 奏        auto         to play music; to achieve                                              
 
-也就是说  auto         in other words; that is to say                                         
-
 赶工      auto         to work against the clock; to hurry with work to get it done           
                         in time                                                               
 
 录音机    auto         (tape) recording machine; tape recorder                                
-
-待会儿    auto         in a moment; later                                                     
 
 未知      auto         unknown                                                                
 
@@ -455,12 +426,8 @@ hanzi     word_type    english                                                  
 
 工艺品    auto         handicraft article; handiwork                                          
 
-绝大多数  auto         the vast majority                                                      
-
 花瓶      auto         flower vase; (fig.) female employee considered to be just a            
                        pretty face (attractive but not very competent)                        
-
-觉        auto         a nap; a sleep                                                         
 
 账        auto         account; bill                                                          
 
@@ -476,18 +443,19 @@ hanzi     word_type    english                                                  
 
 据我所知  auto         as far as I know; to the best of my knowledge                          
 
-这就是说  auto         in other words; that is to say                                         
-
-北京      proper_noun  (name) Beijing municipality, capital of the People's Republi  1    4   
+北京      proper_noun  (name) Beijing municipality, capital of the People's Republi  1    9   
                        c of China (short name 京[Jing1])                                      
 
-深圳      proper_noun  (name) shen1zhen4                                             1    8   
+深圳      proper_noun  (name) shen1zhen4                                             1    16  
 check_name                                                  
 ------------------------------------------------------------
 4c. words with the most senses (check they are real distinct
  meanings)                                                  
 hanzi  senses  meanings                                                    
 -----  ------  ------------------------------------------------------------
+点     5       drop  |  o'clock  |  point  |  point (in space or time)  |  
+               speck                                                       
+
 看     5       to feel (that)  |  to read  |  to see; to look at  |  to tre
                at (a patient or illness)  |  to watch                      
 
@@ -501,6 +469,14 @@ hanzi  senses  meanings
                ive sentence for emphasis)  |  (used to form a nominal expre
                ssion)  |  of; ~'s (possessive particle)                    
 
+好     4       (after a personal pronoun) hello  |  (before a verb) good to
+                 |  (verb complement indicating completion)  |  good       
+
+就     4       (after a clause of action) as soon as; immediately after  | 
+                (after a suppositional clause) in that case; then  |  (same
+                as 是) merely; nothing else but; simply; just; precisely; e
+               xactly  |  only; as little as                               
+
 快     4       quick  |  rapid  |  soon  |  to make haste                  
 
 去     4       (after a verb of motion indicates movement away from the spe
@@ -513,24 +489,16 @@ hanzi  senses  meanings
 
 一     4       a (article)  |  as soon as  |  one  |  single               
 
-点     3       classifier for items  |  o'clock  |  speck                  
-
 还     3       in addition  |  still  |  yet                               
 
-好     3       (after a personal pronoun) hello  |  (before a verb) good to
-                 |  good                                                   
+会     3       (bound form) a moment (Taiwan pr. [huǐ])  |  can; to have th
+               e skill; to know how to  |  to be likely to; to be sure to  
 
 家     3       classifier for families or businesses  |  family  |  home   
-
-就     3       (after a clause of action) as soon as; immediately after  | 
-                (same as 是) merely; nothing else but; simply; just; precis
-               ely; exactly  |  only; as little as                         
 
 来     3       (used as a substitute for a more specific verb)  |  hither (
                directional complement for motion toward the speaker, as in 
                回来)  |  to come                                           
-
-楼     3       floor  |  house with more than 1 story  |  storied building 
 check_name                                               
 ---------------------------------------------------------
 4d. grammar points per level: found in how many sentences
@@ -557,64 +525,70 @@ grammar_code  raw_text                                        sentences
 1-31          非主谓句                                        5        
 1-18          比                                              14       
 1-38          比较句1                                         14       
+1-15          从                                              18       
 1-43          钱数表示法                                      18       
-1-15          从                                              19       
 check_name                                    
 ----------------------------------------------
 4f. five random tagged sentences, word by word
-hanzi                   pinyin                                    unit                                       words                                                        
-----------------------  ----------------------------------------  -----------------------------------------  -------------------------------------------------------------
-你会说中文吗？          ni3 hui4 shuo1 Zhong1wen2 ma5             Daily Actions                              你 ni3 = you (Note: In Taiwan, 妳 is used to address females 
-                                                                                                             , but in mainland China, it is not commonly used. Instead, 你
-                                                                                                              is used to address both males and females.)  |  会 hui4 = c 
-                                                                                                             an; to have the skill; to know how to  |  说 shuo1 = to spea 
-                                                                                                             k; to talk; to say  |  中文 Zhong1wen2 = Chinese language  | 
-                                                                                                               吗 ma5 = (question particle for "yes-no" questions)        
+hanzi                           pinyin                                                     unit                        words                                                        
+------------------------------  ---------------------------------------------------------  --------------------------  -------------------------------------------------------------
+它是我家的猫，它们是我家的狗。  ta1 shi4 wo3 jia1 de5 mao1 ta1men5 shi4 wo3 jia1 de5 gou3  Identity, Part 2            它 ta1 = it  |  是 shi4 = to be (followed by substantives on 
+                                                                                                                       ly)  |  我 wo3 = I; me; my  |  家 jia1 = home  |  的 de5 = o 
+                                                                                                                       f; ~'s (possessive particle)  |  猫 mao1 = cat  |  它们 ta1m 
+                                                                                                                       en5 = they (for inanimate objects)  |  是 shi4 = to be (foll 
+                                                                                                                       owed by substantives only)  |  我 wo3 = I; me; my  |  家 jia 
+                                                                                                                       1 = home  |  的 de5 = of; ~'s (possessive particle)  |  狗 g 
+                                                                                                                       ou3 = dog                                                    
 
-水果很好吃，我买一些。  shui3guo3 hen3 hao3chi1 wo3 mai3 yi4xie1  Food, Weather, Feelings, Sports & Leisure  水果 shui3guo3 = fruit  |  很 hen3 = very  |  好吃 hao3chi1  
-                                                                                                             = delicious  |  我 wo3 = I; me; my  |  买 mai3 = to buy  |   
-                                                                                                             一些 yi4xie1 = some                                          
+多喝水，早点儿睡，很快就好了。  duo1 he1 shui3 zao3 dianr3 shui4 hen3 kuai4 jiu4 hao3 le5  Weather, Health & Body      多 duo1 = many; much  |  喝 he1 = to drink  |  水 shui3 = wa 
+                                                                                                                       ter  |  早 zao3 = early  |  点 dian3 = point (in space or ti 
+                                                                                                                       me)  |  儿 r5 = erhua suffix, makes the syllable end in -r ( 
+                                                                                                                       玩儿, 一点儿, 哪儿)  |  睡 shui4 = to sleep  |  很 hen3 = (a 
+                                                                                                                       dverb of degree)  |  快 kuai4 = soon  |  就 jiu4 = (after a  
+                                                                                                                       suppositional clause) in that case; then  |  好 hao3 = (verb 
+                                                                                                                        complement indicating completion)  |  了 le5 = (modal parti 
+                                                                                                                       cle indicating change of state, situation now)               
 
-今天天气很好。          jin1tian1 tian1qi4 hen3 hao3              Food, Weather, Feelings, Sports & Leisure  今天 jin1tian1 = today  |  天气 tian1qi4 = weather  |  很 he 
-                                                                                                             n3 = very  |  好 hao3 = good                                 
+你可以问老师。                  ni3 ke2yi3 wen4 lao3shi1                                   School & Work               你 ni3 = you (informal, as opposed to courteous 您)  |  可以 
+                                                                                                                        ke2yi3 = can  |  问 wen4 = to ask; to inquire  |  老师 lao3 
+                                                                                                                       shi1 = teacher                                               
 
-一千块钱不少了。        yi4 qian1 kuai4 qian2 bu4 shao3 le5       Numbers                                    一 yi4 = one  |  千 qian1 = thousand  |  块 kuai4 = (coll.)  
-                                                                                                             classifier for money and currency units  |  钱 qian2 = money 
-                                                                                                               |  不 bu4 = no; not so  |  少 shao3 = few  |  了 le5 = (mo 
-                                                                                                             dal particle indicating change of state, situation now)      
+你今天要上课吗？                ni3 jin1tian1 yao4 shang4ke4 ma5                           Weather, Feelings + 1 more  你 ni3 = you (informal, as opposed to courteous 您)  |  今天 
+                                                                                                                        jin1tian1 = today  |  要 yao4 = will; shall; about to  |  上
+                                                                                                                       课 shang4ke4 = to go to class  |  吗 ma5 = (question particl 
+                                                                                                                       e for "yes-no" questions)                                    
 
-但他没有来。            dan4 ta1 mei2you3 lai2                    Weather, Health & Body, Feelings           但 dan4 = but; yet; however; still  |  他 ta1 = he; him (use 
-                                                                                                             d for either sex when the sex is unknown or unimportant)  |  
-                                                                                                              没有 mei2you3 = haven't  |  来 lai2 = to come               
+你今天几点下课？                ni3 jin1tian1 ji3 dian3 xia4ke4                            Time, Part 2                你 ni3 = you (informal, as opposed to courteous 您)  |  今天 
+                                                                                                                        jin1tian1 = today  |  几 ji3 = how much  |  点 dian3 = o'cl 
+                                                                                                                       ock  |  下课 xia4ke4 = to finish class                       
 check_name                                 
 -------------------------------------------
 4g. five random fill-in-the-blank questions
 lvl  unit  question                                                      answer
 ---  ----  ------------------------------------------------------------  ------
-1    5     你___他家在哪儿吗？ (Do you know where his home is?)          知道  
+1    2     我___家很小。 (My home is small.)                             的    
 
-1    1     ___个是女的，那个是男的。 (This one is female, that one is m  这    
-           ale.)                                                               
+1    12    你___他家在哪儿吗？ (Do you know where his home is?)          知道  
 
-1    5     你想开一家___吗？ (Do you want to open a shop?)               商店  
+1    18    你喜欢吃___吗？ (Do you like to eat eggs?)                    鸡蛋  
 
-2    8     ___的事情就让它过去吧。 (Let's just let the past be the past  过去  
-           .)                                                                  
+2    3     这周我很忙，下周好___。 (I'm busy this week, next week is be  一点儿
+           tter.)                                                              
 
-1    1     我___家很小。 (My home is small.)                             的    
+1    13    他___，我上学。 (He goes to work, I go to school.)            上班  
 check_name           
 ---------------------
 4h. questions by type
 question_type                          n  
 -------------------------------------  ---
-transcribe word to pinyin              531
-transcribe hanzi to pinyin             531
-speaking vocab                         531
-listening vocab                        531
-translate english word to chinese      528
-translate chinese word to english      519
-translate chinese sentence to english  324
-speaking sentence                      324
-listening sentence                     324
-fill in the blank                      324
-translate english sentence to chinese  323
+transcribe word to pinyin              559
+transcribe hanzi to pinyin             559
+speaking vocab                         559
+listening vocab                        559
+translate english word to chinese      552
+translate chinese word to english      546
+translate chinese sentence to english  358
+speaking sentence                      358
+listening sentence                     358
+fill in the blank                      358
+translate english sentence to chinese  357

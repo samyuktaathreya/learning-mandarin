@@ -14,8 +14,9 @@ WORD SPLIT
   2021 list, which has many compounds the 2025 list leaves to their parts
   (回家, 唱歌). choose_split():
     - a REAL word (in the vocab file under any version) that splits into
-      list words only -> split (回家 -> 回 + 家); each piece's meaning is
-      then picked in context like any other word
+      list words only -> split, however many pieces it takes (回家 -> 回 +
+      家, 早点儿 -> 早 + 点 + 儿); each piece's meaning is then picked in
+      context like any other word
     - a real word with a piece outside the list -> kept whole, as an
       unlisted word, so the sentence is out of every level
     - not a word at all -> split into real words, fewest pieces, most list
@@ -368,44 +369,60 @@ def compact(reading: str) -> str:
 
 # --------------------------------- WORD SPLIT ---------------------------------
 
-def best_real_split(word: str, valid_vocab: set, known_words) -> list[str] | None:
-    """The best split of `word` into 2+ REAL words (list words or words in
-    the vocab file under any version), trying every split (so 结果实 -> 结 +
-    果实, which longest-first would miss): fewest pieces, then the most of
-    them in the list. None if there is none."""
+def best_split(word: str, allowed) -> list[str] | None:
+    """The split of `word` into 2+ pieces that all pass `allowed`, trying
+    every split (so 结果实 -> 结 + 果实, which longest-first would miss):
+    fewest pieces. None if there is none."""
+    best = {0: []}
+    for i in range(1, len(word) + 1):
+        options = [best[j] + [word[j:i]] for j in range(i)
+                   if j in best and (j, i) != (0, len(word)) and allowed(word[j:i])]
+        if options:
+            best[i] = min(options, key=len)
+    pieces = best.get(len(word))
+    return pieces if pieces and len(pieces) > 1 else None
+
+
+def choose_split(word: str, valid_vocab: set, known_words) -> tuple[list[str] | None, str]:
+    """How to split a token that is NOT a curriculum word (see the module
+    docstring). Returns (pieces or None, what happened).
+      - a real word: split only into list words (any level), however many
+        pieces it takes (早点儿 -> 早 + 点 + 儿, 没想到 -> 没 + 想 + 到);
+        otherwise kept whole
+      - not a word: split into real words, fewest pieces, then the most
+        list words (只不过 -> 只 + 不过)."""
+    in_list = lambda w: w in valid_vocab
+    if word in known_words:
+        pieces = best_split(word, in_list)
+        if pieces:
+            return pieces, "real word split into list words"
+        return None, "real word outside the list, kept whole"
     real = lambda w: w in valid_vocab or w in known_words
     best = {0: (0, 0, [])}        # end -> (pieces, -list pieces, split)
     for i in range(1, len(word) + 1):
         options = []
         for j in range(i):
             piece = word[j:i]
-            if j in best and real(piece) and (j, i) != (0, len(word)):
+            if j in best and (j, i) != (0, len(word)) and real(piece):
                 n, neg_list, split = best[j]
-                options.append((n + 1, neg_list - (piece in valid_vocab), split + [piece]))
+                options.append((n + 1, neg_list - in_list(piece), split + [piece]))
         if options:
             best[i] = min(options, key=lambda o: (o[0], o[1]))
     pieces = best.get(len(word), (0, 0, None))[2]
-    return pieces if pieces and len(pieces) > 1 else None
-
-
-def choose_split(word: str, valid_vocab: set, known_words) -> tuple[list[str] | None, str]:
-    """How to split a token that is NOT a curriculum word (see the module
-    docstring). Returns (pieces or None, what happened)."""
-    pieces = best_real_split(word, valid_vocab, known_words)
-    if word in known_words:
-        if pieces and all(p in valid_vocab for p in pieces):
-            return pieces, "real word split into list words"
-        return None, "real word outside the list, kept whole"
-    if pieces:
+    if pieces and len(pieces) > 1:
         return pieces, "non-word split into real words"
     return None, "no split found"
 
 
 def _split_reading(reading: str | None, pieces: list[str]) -> list[str | None]:
     """Shares a token's reading out among its pieces when there is one
-    syllable per character; otherwise each piece falls back to pypinyin."""
+    syllable per character -- an erhua syllable counts as two ("wanr2" ->
+    "wan2" + "r5", for 玩 + 儿); otherwise each piece falls back to pypinyin."""
     sylls = reading.split() if reading else []
-    if len(sylls) != sum(len(p) for p in pieces):
+    n_chars = sum(len(p) for p in pieces)
+    if len(sylls) != n_chars and reading:
+        sylls = [f"{l}{t}" for l, t in hvs.syllables(reading)]
+    if len(sylls) != n_chars:
         return [None] * len(pieces)
     out, k = [], 0
     for p in pieces:

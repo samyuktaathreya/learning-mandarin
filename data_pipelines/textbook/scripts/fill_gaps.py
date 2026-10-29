@@ -45,7 +45,7 @@ from app.textbook.db_utils import (
     get_session, init_db, upsert_import_sentence, get_vocab_hanzi_through_level,
 )
 from app.textbook.models import (
-    GrammarTip, Sentence, SentenceSource, SentenceVocab, Vocab, VocabOrigin,
+    GrammarTip, Sentence, SentenceSource, SentenceVocab, Vocab, VocabOrigin, WordType,
 )
 
 from data_pipelines.textbook.scripts import hsk_vocab_source as hvs
@@ -99,6 +99,19 @@ def candidates_for(word: str, level: int, rows: list[dict], in_db: set[str]) -> 
     return sorted(matching, key=lambda r: (r["level"] != level, r["word"] != word, len(r["hanzi"])))
 
 
+def blockers(s: Sentence, level: int) -> list[str]:
+    """The words that keep a sentence from `level`: outside the list
+    ("以为 (not in list)"), or listed higher ("公园 L3")."""
+    out = []
+    for r in sorted(s.vocab_links, key=lambda r: r.position):
+        v = r.vocab
+        if v.hsk_level is None and v.word_type != WordType.proper_noun:
+            out.append(f"{v.hanzi} (not in list)")
+        elif v.hsk_level is not None and v.hsk_level > level:
+            out.append(f"{v.hanzi} L{v.hsk_level}")
+    return list(dict.fromkeys(out))
+
+
 def try_row(db, run, row: dict, vocab: Vocab, level: int, grammar: dict):
     """Imports, tags and grammar-checks one CSV row inside a savepoint.
     Returns (sentence, "ok") if kept, else (None, why) with everything it
@@ -117,8 +130,11 @@ def try_row(db, run, row: dict, vocab: Vocab, level: int, grammar: dict):
         uses_word = any(r.vocab_id == vocab.id for r in s.vocab_links)
         if s.hsk_level != level:
             why = f"ends up at level {s.hsk_level}"
+            causes = blockers(s, level)
             if bump:
-                why += f" (grammar {' '.join(bump[2])})"
+                causes.append(f"grammar {' '.join(bump[2])}")
+            if causes:
+                why += f" because of {', '.join(causes)}"
             sp.rollback()
             return None, why
         if not uses_word:
@@ -190,10 +206,20 @@ def main():
                         break
                     tried.append(f"{row['hanzi']} ({why})")
                 else:
-                    flagged.append(v.hanzi)
-                    report.append((level, v.hanzi, "FLAGGED", "",
-                                   " | ".join(tried) or "no CSV sentence contains it"))
+                    flagged.append(v)
+                    report.append([level, v.hanzi, "FLAGGED", "",
+                                   " | ".join(tried) or "no CSV sentence contains it"])
                 db.commit()
+            if not args.dry_run and flagged:
+                # a word flagged early can be covered by a sentence kept later
+                # for another word: only what is STILL uncovered is flagged
+                covered = covered_vocab_ids(db, level)
+                for row in report:
+                    if row[0] == level and row[2] == "FLAGGED" and any(
+                            v.hanzi == row[1] and v.id in covered for v in flagged):
+                        row[2] = "filled (by a later word's sentence)"
+                flagged = [v for v in flagged if v.id not in covered]
+            flagged = [v.hanzi if isinstance(v, Vocab) else v for v in flagged]
             if args.dry_run:
                 print(f"  {len(missing) - len(flagged)} have at least one CSV candidate; "
                       f"{len(flagged)} have none: {' '.join(flagged)}")

@@ -14,8 +14,9 @@ few words the 2025 list leaves out but learners clearly know at a level
 (没 is missing even though 没有 is HSK 1):
     {"没": {"level": 1, "why": "没有 is HSK 1"}, ...}
 An override sets the word's level whether or not the 2025 list has one
-(load_hsk_lists.py prints both when they differ). The word must be in the
-file, which supplies its readings and meanings.
+(load_hsk_lists.py prints both when they differ). The vocab file supplies
+the word's readings and meanings; a word the file doesn't have at all must
+give its own: {"儿": {"level": 1, "pinyin": "er2", "meanings": [...]}}.
 
 RADICALS = the same file's "radical" field: one per word, the first
 character's for a multi-character word.
@@ -107,13 +108,27 @@ def _pattern_piece_entries(pattern: str, entry: dict) -> list[dict]:
             for piece, reading in zip(pieces, readings)]
 
 
-def _load_overrides(path: Path) -> dict:
-    if not path.exists():
+@lru_cache(maxsize=None)
+def _load_overrides(path: str) -> dict:
+    """{word: {"level": int, ...}} from the overrides file ("_" keys skipped)."""
+    p = Path(path)
+    if not p.exists():
         return {}
-    with open(path, encoding="utf-8") as f:
+    with open(p, encoding="utf-8") as f:
         raw = json.load(f)
-    return {w: int(v["level"] if isinstance(v, dict) else v) for w, v in raw.items()
+    return {w: (dict(v) if isinstance(v, dict) else {"level": v}) for w, v in raw.items()
             if not w.startswith("_")}
+
+
+def _entry_from_override(word: str, o: dict) -> dict | None:
+    """An entry for an override word the vocab file doesn't have, built from
+    the override's own "pinyin" (numeric, e.g. "er2") and "meanings" (list).
+    None if it doesn't give both."""
+    if not o.get("pinyin") or not o.get("meanings"):
+        return None
+    return {"simplified": word, "level": int(o["level"]), "pos": o.get("pos") or [],
+            "radical": o.get("radical"), "frequency": None,
+            "forms": [{"transcriptions": {"numeric": o["pinyin"]}, "meanings": list(o["meanings"])}]}
 
 
 @lru_cache(maxsize=None)
@@ -134,7 +149,7 @@ def load_entries(path: str) -> dict:
     The overrides file is read from the same folder as `path`."""
     for v in LOAD_NOTES.values():
         v.clear()
-    overrides = _load_overrides(Path(path).parent / OVERRIDES_FILE)
+    overrides = {w: int(o["level"]) for w, o in _load_overrides(str(Path(path).parent / OVERRIDES_FILE)).items()}
     out = {}
     for e in _raw(path):
         word = (e.get("simplified") or "").strip()
@@ -149,7 +164,14 @@ def load_entries(path: str) -> dict:
         if word in out and out[word]["level"] <= level:
             continue                       # listed twice: keep the lower level
         out[word] = _merge_identical_readings({**e, "simplified": word, "level": level})
-    LOAD_NOTES["override_missing"] = sorted(set(overrides) - {w for w, *_ in LOAD_NOTES["overrides"]})
+    # override words the file doesn't have: defined in the override itself, or ignored
+    for word in sorted(set(overrides) - {w for w, *_ in LOAD_NOTES["overrides"]}):
+        entry = _entry_from_override(word, _load_overrides(str(Path(path).parent / OVERRIDES_FILE))[word])
+        if entry is None:
+            LOAD_NOTES["override_missing"].append(word)
+            continue
+        LOAD_NOTES["overrides"].append((word, None, entry["level"]))
+        out[word] = entry
 
     for word in [w for w in out if len(pattern_pieces(w)) > 1]:
         entry = out.pop(word)
@@ -175,6 +197,9 @@ def load_known_words(path: str) -> dict:
             continue
         form = forms[default_form_index(e)]
         out[word] = "; ".join([m for m in form.get("meanings", []) if not is_note(m)][:2])
+    for word, o in _load_overrides(str(Path(path).parent / OVERRIDES_FILE)).items():
+        if word not in out and o.get("meanings"):
+            out[word] = "; ".join(o["meanings"][:2])      # defined only in the overrides file
     return out
 
 
@@ -247,8 +272,8 @@ def _syllable_match(got: tuple[str, int], want: tuple[str, int]) -> bool:
     CC-CEDICT: neutral tones (爸爸 ba4 ba5), 儿 endings (哪儿 na3 r5 vs
     na3 er2 vs nar3), and the tone changes of 不 and 一 (不对 bu2 vs bu4)."""
     (gl, gt), (wl, wt) = got, want
-    if gl == "er" and wl == "r":
-        gl = "r"
+    if {gl, wl} == {"er", "r"}:
+        gl = wl          # 儿 as erhua "r" in the sentence, "er" in the dictionary (or the reverse)
     if gl != wl:
         return False
     if gt == wt or wt == 5 or gt == 5:

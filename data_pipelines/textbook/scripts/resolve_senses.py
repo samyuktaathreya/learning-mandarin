@@ -128,7 +128,9 @@ def choose_meaning(job: dict, candidates: list[dict], need_definition: bool = Tr
         f"Dictionary meanings:\n{listing}\n\n"
         "Choose the number of the meaning the marked word has HERE. The list is the source of "
         "truth: choose a meaning even if its wording is broader, narrower or more formal than the "
-        "sentence. Answer null ONLY if none of the meanings could possibly describe this use.\n"
+        "sentence. If the sentence fits more than one meaning equally well, choose the FIRST of "
+        "them in the list -- that is not a reason to answer null. Answer null ONLY if none of the "
+        "meanings could possibly describe this use.\n"
         "Respond with ONLY a JSON object, no other text. Either "
         '{"choice": <number>} or '
         '{"choice": null, "reason": "<why none fits>", "english": "<concise definition as used here>"}'
@@ -203,6 +205,28 @@ def needs_recheck(db, row: SentenceVocab, entry: dict) -> bool:
             and sense.form_index != hvs.default_form_index(entry))
 
 
+def _norm_meaning(text: str) -> str:
+    return re.sub(r"[\W_]+", " ", (text or "").lower()).strip()
+
+
+def dedupe_candidates(candidates: list[dict], prefer_forms: list[int]) -> list[dict]:
+    """Keeps one candidate per meaning text. The dictionary repeats a meaning
+    under two readings (看 kān and kàn are both "to watch"), and the AI then
+    picked whichever came first: 他在看电视 got kān. Of identical meanings,
+    the one from the sentence's own reading wins, then the main reading,
+    then the first listed. The list keeps its order."""
+    rank = lambda c: prefer_forms.index(c["form_index"]) if c["form_index"] in prefer_forms else len(prefer_forms)
+    best, order = {}, []
+    for c in candidates:
+        key = _norm_meaning(c["english"])
+        if key not in best:
+            best[key] = c
+            order.append(key)
+        elif rank(c) < rank(best[key]):
+            best[key] = c
+    return [best[k] for k in order]
+
+
 def build_jobs(db, levels: list[int], entries: dict, redo: bool, limit: int | None, stats: Counter,
                recheck: bool = False):
     q = db.query(Sentence).filter(Sentence.hsk_level.in_(levels)).order_by(Sentence.id)
@@ -224,7 +248,8 @@ def build_jobs(db, levels: list[int], entries: dict, redo: bool, limit: int | No
                 stats["rechecked"] += 1
             reading = row.reading or ""
             all_forms = list(range(len(entry["forms"])))
-            forms = hvs.match_forms(entry, reading) or all_forms
+            matched = hvs.match_forms(entry, reading)
+            forms = matched or all_forms
             candidates = hvs.candidates(entry, forms)
             if not hvs.single_meaning_is_safe(entry, forms):
                 # the dataset's reading points away from the word's main one
@@ -233,6 +258,8 @@ def build_jobs(db, levels: list[int], entries: dict, redo: bool, limit: int | No
                 # meaning left the AI nothing to choose but the wrong one
                 forms = all_forms
                 candidates = hvs.candidates(entry, forms)
+            prefer = matched + [hvs.default_form_index(entry)]
+            candidates = dedupe_candidates(candidates, prefer)
             if len(candidates) == 1 and hvs.single_meaning_is_safe(entry, forms):
                 if row.vocab_sense_id is None:
                     c = candidates[0]
@@ -247,7 +274,8 @@ def build_jobs(db, levels: list[int], entries: dict, redo: bool, limit: int | No
                 "reading": reading, "english": s.english, "hanzi": s.hanzi,
                 "marked": mark(s.hanzi, *span) if span else s.hanzi,
                 "candidates": candidates,
-                "all_candidates": hvs.candidates(entry, all_forms) if forms != all_forms else None,
+                "all_candidates": (dedupe_candidates(hvs.candidates(entry, all_forms), prefer)
+                                   if forms != all_forms else None),
             })
     db.flush()
     return sentences, jobs

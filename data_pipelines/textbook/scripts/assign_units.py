@@ -65,9 +65,18 @@ from app.textbook.models import (
     GrammarTip, Sentence, SentenceGrammar, SentenceVocab, Unit, Vocab, VocabSense,
 )
 
-MIN_WORDS, MAX_WORDS = 8, 15
+MIN_WORDS, MAX_WORDS = 20, 40
 MIN_SENTENCES = 10   # 15 was too strict: early units add ~2.7 new words per sentence
 MAX_GRAMMAR = 3
+
+# Per-level limits that replace the defaults above. HSK 1 learners are still
+# learning pinyin, so its units are short: a topic with more words than fit
+# is split into "Part 1", "Part 2", ... Command-line flags override these.
+LEVEL_LIMITS = {
+    1: {"min_words": 8, "max_words": 20, "min_sentences": 5, "max_grammar": 3},
+    2: {"min_words": 10, "max_words": 20, "min_sentences": 6, "max_grammar": 3},
+}
+MAX_TITLE_TOPICS = 2     # a unit merged from more topics: "Food, Nature + 3 more"
 CORE_TOPICS = 5
 MAX_ROUNDS = 50
 
@@ -269,15 +278,19 @@ def balance(lv: Level, segments: list[Segment], log: list) -> list[Segment]:
 
 
 def titles_for(segments: list[Segment]) -> list[tuple[str, str, int | None]]:
-    """(title, topic, part) per segment; split topics get "1", "2", ..."""
-    names = [", ".join(topic_title(t) for t in s.topics) for s in segments]
+    """(title, topic, part) per segment; split topics get "Part 1", "Part 2", ..."""
+    def name(topics):
+        shown = ", ".join(topic_title(t) for t in topics[:MAX_TITLE_TOPICS])
+        rest = len(topics) - MAX_TITLE_TOPICS
+        return f"{shown} + {rest} more" if rest > 0 else shown
+    names = [name(s.topics) for s in segments]
     totals = Counter(names)
     seen = Counter()
     out = []
     for name, seg in zip(names, segments):
         seen[name] += 1
         part = seen[name] if totals[name] > 1 else None
-        out.append((f"{name} {part}" if part else name, seg.topics[0], part))
+        out.append((f"{name}, Part {part}" if part else name, seg.topics[0], part))
     return out
 
 
@@ -380,13 +393,20 @@ def main():
     parser = argparse.ArgumentParser(description="Build one HSK level's units and assign everything to them.")
     parser.add_argument("--hsk-level", type=int, required=True)
     parser.add_argument("--dry-run", action="store_true", help="Print the units without writing anything.")
-    parser.add_argument("--min-words", type=int, default=MIN_WORDS)
-    parser.add_argument("--max-words", type=int, default=MAX_WORDS)
-    parser.add_argument("--min-sentences", type=int, default=MIN_SENTENCES)
-    parser.add_argument("--max-grammar", type=int, default=MAX_GRAMMAR)
+    parser.add_argument("--min-words", type=int, default=None, help="Default: LEVEL_LIMITS, else 20.")
+    parser.add_argument("--max-words", type=int, default=None, help="Default: LEVEL_LIMITS, else 40.")
+    parser.add_argument("--min-sentences", type=int, default=None, help="Default: LEVEL_LIMITS, else 10.")
+    parser.add_argument("--max-grammar", type=int, default=None, help="Default: LEVEL_LIMITS, else 3.")
     args = parser.parse_args()
-    MIN_WORDS, MAX_WORDS, MIN_SENTENCES, MAX_GRAMMAR = (args.min_words, args.max_words,
-                                                        args.min_sentences, args.max_grammar)
+    limits = {"min_words": MIN_WORDS, "max_words": MAX_WORDS, "min_sentences": MIN_SENTENCES,
+              "max_grammar": MAX_GRAMMAR, **LEVEL_LIMITS.get(args.hsk_level, {})}
+    for key in limits:
+        if getattr(args, key) is not None:
+            limits[key] = getattr(args, key)
+    MIN_WORDS, MAX_WORDS = limits["min_words"], limits["max_words"]
+    MIN_SENTENCES, MAX_GRAMMAR = limits["min_sentences"], limits["max_grammar"]
+    print(f"HSK {args.hsk_level} unit limits: {MIN_WORDS}-{MAX_WORDS} new words, "
+          f"at least {MIN_SENTENCES} sentences, up to {MAX_GRAMMAR} new grammar points")
 
     t0 = time.time()
     init_db()
