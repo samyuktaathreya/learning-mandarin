@@ -13,17 +13,6 @@ clerk = Clerk(bearer_auth=CLERK_SECRET_KEY)
 
 
 async def clerk_auth_middleware(request: Request, call_next):
-    """
-    Resolves the Clerk user (if any) for this request.
-    - No/invalid/expired token -> guest (clerk_user_id = None), NOT a 401.
-      Guests are allowed in this app, so a missing or bad token should
-      just mean "no identity attached," not a blocked request.
-    - Valid token -> request.state.clerk_user_id set from claims.
-
-    jwt_key enables networkless verification: the JWT signature is checked
-    locally against Clerk's public key instead of round-tripping to Clerk's
-    API on every request. Matters here since this runs on every request.
-    """
     request.state.clerk_user_id = None
 
     try:
@@ -40,3 +29,5 @@ async def clerk_auth_middleware(request: Request, call_next):
             print("Clerk auth failed:", request_state.reason, flush=True)
     except Exception as e:
         print("Clerk auth error:", repr(e), flush=True)
+
+    return await call_next(request)
