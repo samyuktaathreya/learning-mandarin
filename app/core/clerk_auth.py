@@ -31,12 +31,12 @@ async def clerk_auth_middleware(request: Request, call_next):
             request,
             AuthenticateRequestOptions(
                 authorized_parties=["http://localhost:5173", "https://wenku.app", "https://www.wenku.app"],
-                jwt_key=CLERK_JWT_KEY,
+                secret_key=CLERK_SECRET_KEY,
             ),
         )
         if request_state.is_signed_in:
             request.state.clerk_user_id = request_state.payload["sub"]
-    except Exception:
-        pass  # any failure -> stays None -> guest
-
-    return await call_next(request)
+        elif request.headers.get("authorization"):
+            print("Clerk auth failed:", request_state.reason, flush=True)
+    except Exception as e:
+        print("Clerk auth error:", repr(e), flush=True)

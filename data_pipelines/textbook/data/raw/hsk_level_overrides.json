@@ -1,5 +1,5 @@
 {
-  "_readme": "Hand-written HSK levels for words the 2025 list leaves out (or levels you want to change). Keys starting with _ are ignored. The vocab file supplies each word's readings and meanings; a word the file doesn't have at all must give its own \"pinyin\" (numeric) and \"meanings\" (list), like 儿 below. load_hsk_lists.py prints every override it applies.",
+  "_readme": "Hand-written HSK levels for words the 2025 list leaves out (or levels you want to change). Keys starting with _ are ignored. The vocab file supplies each word's readings and meanings; a word the file doesn't have at all must give its own \"pinyin\" (numeric) and \"meanings\" (list), and can give \"pos\" (e.g. [\"u\"] = a grammar word: defined, but no translation questions), like 儿 below. load_hsk_lists.py prints every override it applies.",
   "没": {
     "level": 1,
     "why": "没有 is HSK 1; 没 alone is missing from the 2025 list"
@@ -15,11 +15,14 @@
   "儿": {
     "level": 1,
     "pinyin": "er2",
+    "pos": [
+      "u"
+    ],
     "meanings": [
-      "erhua suffix, makes the syllable end in -r (玩儿, 一点儿, 哪儿)",
+      "erhua: adds an -r sound to the end of the word before it",
       "child; son"
     ],
-    "why": "erhua suffix; 哪儿/这儿 are HSK 1. Not an entry of its own in the vocab file, so its pinyin and meanings are given here"
+    "why": "erhua suffix; 哪儿/这儿 are HSK 1. Not an entry of its own in the vocab file, so its pinyin and meanings are given here. A grammar word (pos u), like 了: it keeps its definition but gets no translation questions."
   },
   "杯": {
     "level": 1,

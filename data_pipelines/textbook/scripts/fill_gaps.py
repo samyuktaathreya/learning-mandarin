@@ -17,9 +17,10 @@ For each list word of the level that no sentence at that level uses:
      tag it exactly like tag_sentences.py does (HanLP split -- the CSV has no
      word split), and run the grammar check on it, HSK 1 restriction
      included;
-  3. keep it only if it ends up at THIS level and really contains the word
-     as a tagged word (not just the characters inside another word).
-     Otherwise it is rolled back and the next candidate is tried.
+  3. keep it only if it ends up at THIS level, really contains the word as
+     a tagged word (not just the characters inside another word), and passes
+     the AI difficulty check (review_sentences.review_one). Otherwise it is
+     rolled back and the next candidate is tried.
 A word no candidate works for is FLAGGED for you to handle by hand. A kept
 sentence can cover other missing words too.
 
@@ -51,6 +52,7 @@ from app.textbook.models import (
 from data_pipelines.textbook.scripts import hsk_vocab_source as hvs
 from data_pipelines.textbook.scripts import tag_sentences as ts
 from data_pipelines.textbook.scripts import detect_grammar as dg
+from data_pipelines.textbook.scripts import review_sentences as rs
 
 # Fill-in sentence files: every .csv in this folder, named by HSK level
 # (1.csv, 2.csv), all with the columns
@@ -140,6 +142,10 @@ def try_row(db, run, row: dict, vocab: Vocab, level: int, grammar: dict):
         if not uses_word:
             sp.rollback()
             return None, "word isn't a tagged word in it (part of a longer word)"
+        verdict = rs.review_one(db, s, level, grammar.setdefault("scope_cache", {}))
+        if not verdict.get("ok", True):
+            sp.rollback()
+            return None, f"AI review: too hard ({'; '.join(verdict.get('problems') or [])})"
         dg.write_links(db, s, found, grammar["id_of"])
         sp.commit()
         return s, "ok"

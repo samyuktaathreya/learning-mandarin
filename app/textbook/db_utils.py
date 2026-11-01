@@ -70,7 +70,7 @@ def init_db():
 
 # create_all() makes missing TABLES but never adds a column to an existing
 # one, so columns added to a model after the DB was created go here.
-_ADDED_COLUMNS = [("vocab", "radical", "TEXT"), ("vocab", "pattern", "TEXT")]
+_ADDED_COLUMNS = [("vocab", "radical", "TEXT"), ("vocab", "pattern", "TEXT"), ("sentences", "review", "TEXT")]
 
 _PATTERN_SPLIT_RE = re.compile(r"[…⋯.。～~\s]+")
 

@@ -93,14 +93,17 @@ app.include_router(pinyin_router)
 from pronunciation.router import router as pronunciation_router
 app.include_router(pronunciation_router)
 
+from app.VoicePractice.router import router as voice_practice_router
+app.include_router(voice_practice_router)
+
+from app.pinyin_practice.router import router as pinyin_practice_router
+app.include_router(pinyin_practice_router)
+
 # --- Legacy/Unmigrated Routers ---
 # (These remain in api/v1/endpoints as they don't have new feature folders yet)
 
 from app.api.v1.endpoints.tools import router as tools_router
 app.include_router(tools_router)
-
-from app.api.v1.endpoints.voice_agent import router as voice_agent_router
-app.include_router(voice_agent_router)
 
 app.middleware("http")(clerk_auth_middleware) 
 app.middleware("http")(session_middleware)      # registered second = runs first (turnstile check)

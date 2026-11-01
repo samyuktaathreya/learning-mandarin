@@ -10,8 +10,11 @@ STAGES, in order:
     4. detect_grammar     rule-based grammar links; recomputes levels and moves
                           HSK 1 sentences with higher grammar up
   for the levels you build:
+    4a. review_sentences  one AI call per sentence: grammar or word meanings beyond
+                          its level? too hard -> moves up a level (verdicts kept)
     4b. fill_gaps         every list word gets a sentence of its level, from the
-                          500-sentence CSV if the dataset has none; the rest flagged
+                          CSVs in data/raw/mandarin_hq_hsk_sentences/ if the dataset
+                          has none (same checks, AI review included); the rest flagged
     4c. resolve_senses    one AI call per occurrence the main reading doesn't
                           settle (alternate readings, mismatched pinyin)
   per HSK level, lowest first:
@@ -63,7 +66,8 @@ STAGES = [
     ("import",    "import_hsa",       False),
     ("tag",       "tag_sentences",    False),
     ("grammar",   "detect_grammar",   False),
-    ("gaps",      "fill_gaps",        "levels"),   # one call with every level
+    ("review",    "review_sentences", "levels"),   # one call with every level
+    ("gaps",      "fill_gaps",        "levels"),
     ("senses",    "resolve_senses",   "levels"),
     ("units",     "assign_units",     True),
     ("finalize",  "finalize",         False),
@@ -88,7 +92,7 @@ def stage_args(name: str, level: int | None, args) -> list[str]:
         return ["--hsk-level", str(level)]
     if name == "senses":
         return ["--levels", *map(str, sorted(set(args.levels)))] + (["--redo"] if args.redo_senses else [])
-    if name == "gaps":
+    if name in ("gaps", "review"):
         return ["--levels", *map(str, sorted(set(args.levels)))]
     if name == "tag":
         out = []
@@ -177,7 +181,7 @@ def main():
 
     needs_levels = any(per_level for _, _, per_level in selected)
     if needs_levels and not args.levels:
-        parser.error("--levels is required when the gaps, senses or units stage runs, e.g. --levels 1 2")
+        parser.error("--levels is required when the review, gaps, senses or units stage runs, e.g. --levels 1 2")
     levels = sorted(set(args.levels or []))
 
     steps = []

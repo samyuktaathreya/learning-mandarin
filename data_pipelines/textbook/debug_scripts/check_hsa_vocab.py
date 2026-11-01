@@ -1,92 +1,77 @@
 """
-Which HSK word list do the hsk-sentences-audio level sections follow?
-Read-only: touches no database.
+What do hsk-sentences-audio's own grammar fields contain? Read-only.
 
-For the dataset's HSK 1 section, and HSK 1+2 sections together, it counts
-the distinct words in the sentences (names and numbers counted apart) and
-compares them with the three lists in disorganized_hsk_vocab_with_radicals.json:
-    old-N    = HSK 2.0        (150 / 300 words)
-    new-N    = 2021 standard  (500 / 1,272)
-    newest-N = 2025 syllabus  (300 / 500)
-The list the dataset follows is the one where nearly every sentence word is
-in the list AND nearly every list word appears in the sentences.
+Prints the raw `grammar_points` / `grammar_tags` of a few example sentences
+(the ones from playtesting first), then how often each grammar label appears
+across the dataset's HSK 1 and HSK 2 sections. This decides whether the
+pipeline can use the dataset's grammar labels instead of (or alongside) its
+own rule-based detection.
 
-Run from data_pipelines/textbook/scripts:
-    python check_hsa_levels.py
+Run from data_pipelines/textbook/scripts (or debug_scripts):
+    python check_hsa_grammar.py
 """
 import json
 import re
 from collections import Counter
-from pathlib import Path
 
 from hsk_sentences_audio import load_sentences
 
-VOCAB = Path(__file__).resolve().parent.parent / "data" / "raw" / "disorganized_hsk_vocab_with_radicals.json"
-NUMBER = re.compile(r"^[零〇一二两三四五六七八九十百千万亿几半第\d]+$")
-LISTS = {"2.0 (old-)": "old-", "2021 (new-)": "new-", "2025 (newest-)": "newest-"}
+EXAMPLES = ["他不怎么爱说话。", "我在一家大公司工作。", "我爱你。", "我来介绍一下我的朋友。"]
 
 
 def section(s: dict) -> int | None:
-    """The dataset's level for a sentence, from its id: "hsk1-0002" -> 1."""
     m = re.match(r"hsk(\d+)-", s.get("id", ""))
     return int(m.group(1)) if m else None
 
 
-def looks_like_name(gloss: str) -> bool:
-    first = (gloss or "").split(";")[0].strip()
-    return first[:1].isupper() and not re.match(r"^I\b", first)
-
-
-def load_lists() -> dict:
-    entries = json.load(open(VOCAB, encoding="utf-8"))
-    out = {name: {} for name in LISTS}
-    for e in entries:
-        for name, prefix in LISTS.items():
-            for lvl in e.get("level", []):
-                if lvl.startswith(prefix) and lvl[len(prefix):].isdigit():
-                    n = int(lvl[len(prefix):])
-                    out[name][e["simplified"]] = min(n, out[name].get(e["simplified"], n))
+def labels(value) -> list[str]:
+    """Flatten a grammar field (list of strings, list of dicts, dict, str)
+    into short readable labels for counting."""
+    if value is None:
+        return []
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, dict):
+        return [json.dumps(value, ensure_ascii=False, sort_keys=True)]
+    out = []
+    for item in value:
+        if isinstance(item, dict):
+            key = item.get("id") or item.get("code") or item.get("name") or item.get("label")
+            out.append(str(key) if key else json.dumps(item, ensure_ascii=False, sort_keys=True))
+        else:
+            out.append(str(item))
     return out
 
 
 def main():
-    lists = load_lists()
     sentences = load_sentences()
-    print(f"{len(sentences)} dataset sentences. Fields of one sentence: {sorted(sentences[0])}")
-    print("Sentences per section: " + ", ".join(
-        f"HSK {k}: {v}" for k, v in sorted(Counter(section(s) for s in sentences).items(), key=str)))
+    by_text = {s.get("chinese"): s for s in sentences}
 
-    for level in (1, 2):
-        chosen = [s for s in sentences if section(s) is not None and section(s) <= level]
-        uses, names, numbers = Counter(), set(), set()
-        for s in chosen:
-            for t in s.get("tokens") or []:
-                w = t["word"]
-                if NUMBER.match(w):
-                    numbers.add(w)
-                elif looks_like_name(t.get("gloss_en", "")):
-                    names.add(w)
-                else:
-                    uses[w] += 1
-        words = set(uses)
-        title = "HSK 1 section" if level == 1 else "HSK 1 + 2 sections"
-        print(f"\n=== {title}: {len(chosen)} sentences, {len(words)} distinct words "
-              f"(+ {len(names)} probably names, {len(numbers)} numbers) ===")
-        for name, lst in lists.items():
-            listed = {w for w, l in lst.items() if l <= level}
-            inside = words & listed
-            print(f"  {name:<15} list has {len(listed):>5} words at level <= {level}.  "
-                  f"Sentence words in it: {len(inside)}/{len(words)} ({len(inside) / max(len(words), 1):.0%}).  "
-                  f"List words used in a sentence: {len(listed & words)}/{len(listed)}")
+    print("=== Example sentences: raw grammar fields ===")
+    shown = 0
+    for text in EXAMPLES:
+        s = by_text.get(text)
+        if s is None:
+            continue
+        shown += 1
+        print(f"\n{s['id']}  {text}")
+        for field in ("grammar_points", "grammar_tags", "sentence_type"):
+            print(f"  {field}: {json.dumps(s.get(field), ensure_ascii=False)}")
+    if not shown:
+        print("(none of the example sentences found; showing the first 3 HSK 1 sentences)")
+        for s in [x for x in sentences if section(x) == 1][:3]:
+            print(f"\n{s['id']}  {s.get('chinese')}")
+            for field in ("grammar_points", "grammar_tags"):
+                print(f"  {field}: {json.dumps(s.get(field), ensure_ascii=False)}")
 
-        newest = lists["2025 (newest-)"]
-        outside = sorted((w for w in words if newest.get(w, 99) > level), key=lambda w: -uses[w])
-        print(f"\n  Sentence words NOT in the 2025 list at level <= {level} ({len(outside)}), most used first:")
-        for w in outside[:30]:
-            levels = ", ".join(f"{n.split()[0]}: {lists[n].get(w, '-')}" for n in lists)
-            print(f"    {w:<6} used {uses[w]:>3}x   ({levels})")
-        if names:
-            print(f"  Probably names: {' '.join(sorted(names))}")
+    for field in ("grammar_points", "grammar_tags"):
+        filled = [s for s in sentences if s.get(field)]
+        print(f"\n=== {field}: present on {len(filled)}/{len(sentences)} sentences ===")
+        for lvl in (1, 2):
+            counts = Counter(l for s in sentences if section(s) == lvl for l in labels(s.get(field)))
+            print(f"  HSK {lvl} section: {len(counts)} distinct labels. Most common:")
+            for label, n in counts.most_common(25):
+                print(f"    {n:>4}  {label[:110]}")
 
 
 if __name__ == "__main__":

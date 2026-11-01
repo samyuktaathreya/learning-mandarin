@@ -71,7 +71,7 @@ def load_vocab(db) -> dict:
         upsert_hsk_vocab(
             db, hanzi=hanzi, hsk_level=level,
             pinyin=reading.replace(" ", ""),
-            english=form["meanings"][0] if form.get("meanings") else "",
+            english=hvs.clean_meaning(form["meanings"][0]) if form.get("meanings") else "",
             frequency=entry.get("frequency"),
             pos=entry.get("pos") or [],
             word_type=word_type,
@@ -94,7 +94,8 @@ def load_vocab(db) -> dict:
         print(f"    override: {word} -> HSK {override} ({was})"
               f"{'  [same level: the override does nothing]' if list_level == override else ''}")
     if notes["override_missing"]:
-        print(f"    [warning] override words not in the vocab file at all (ignored): {notes['override_missing']}")
+        print(f"    [warning] override words not in the vocab file and with no \"pinyin\" + \"meanings\" "
+              f"of their own (ignored): {notes['override_missing']}")
     if notes["merged_readings"]:
         print(f"    readings with identical meanings, merged ({len(notes['merged_readings'])}): "
               + ", ".join(f"{w} {r}" for w, r in notes["merged_readings"][:20]))

@@ -330,8 +330,54 @@ def candidates(entry: dict, form_indexes: list[int]) -> list[dict]:
         real = [(mi, m) for mi, m in meanings if not is_note(m)]
         for mi, meaning in (real or meanings):
             out.append({"form_index": fi, "meaning_index": mi,
-                        "pinyin": numeric(form), "english": meaning})
+                        "pinyin": numeric(form), "english": clean_meaning(meaning)})
     return out
+
+
+# --------------------------------- MEANING CLEANUP ---------------------------------
+# CC-CEDICT meanings carry notes for dictionary readers that make no sense as
+# a learner's definition (and break text-to-speech): "(Taiwan pr. [hàn])",
+# "(colloquial pr. [nèi])", "(CL:個|个[ge4])", Chinese characters inside a
+# note ("you (courteous, as opposed to informal 你)"), "(bound form)".
+
+_CJK = r"[\u3400-\u9fff]"
+_PRON_NOTE_RE = re.compile(r"\(?\s*(?:Taiwan |colloquial |also )pr\.\s*\[[^\]]*\]\s*\)?", re.I)
+_CL_NOTE_RE = re.compile(r"\(?\s*CL:[^)\]]*\]\s*\)?")
+_HANZI_REF_RE = re.compile(rf"\S*{_CJK}\S*\[[^\]]*\]")          # 老頭子|老头子[lao3 tou2 zi5]
+_PAREN_RE = re.compile(r"\(([^()]*)\)")
+_BOUND_RE = re.compile(r"\(bound form\)\s*", re.I)
+_PR_CLAUSE_RE = re.compile(r"\bpr\.\s*\[")                        # "commonly pr. [zhèi]" inside a note
+
+
+def clean_meaning(text: str) -> str:
+    """A dictionary meaning as a learner-facing definition: pronunciation
+    and classifier notes removed, Chinese removed from parenthesised notes
+    (dropping just the clause that had it), "(bound form)" removed. Falls
+    back to the original if nothing would be left."""
+    original = (text or "").strip()
+    t = _PRON_NOTE_RE.sub("", original)
+    t = _CL_NOTE_RE.sub("", t)
+    t = _HANZI_REF_RE.sub("", t)
+    t = _BOUND_RE.sub("", t)
+
+    def paren(m):
+        inner = m.group(1)
+        if re.match(r"\s*note\b", inner, re.I):
+            return ""                        # "(Note: In Taiwan, 妳 is used ...)": a usage paragraph
+        if _PR_CLAUSE_RE.search(inner):
+            return ""                        # "(in this sense, commonly pr. [zhèi], esp. in Beijing)"
+        if not re.search(_CJK, inner) and not _PR_CLAUSE_RE.search(inner):
+            return m.group(0)
+        kept = [part for part in re.split(r",\s*", inner)
+                if part.strip() and not re.search(_CJK, part) and not _PR_CLAUSE_RE.search(part)]
+        return f"({', '.join(kept)})" if kept else ""
+    t = _PAREN_RE.sub(paren, t)
+    t = re.sub(r"\s+([;,.)])", r"\1", t)
+    t = re.sub(r"\(\s*\)", "", t)
+    t = re.sub(r"\s{2,}", " ", t).strip(" ;,")
+    if not t or t.lower() in ("see", "see also", "variant of", "old variant of", "also written"):
+        return original                      # a pure cross-reference: nothing to clean it down to
+    return t
 
 
 def single_meaning_is_safe(entry: dict, forms: list[int]) -> bool:

@@ -16,7 +16,8 @@ DATA SOURCES (see ATTRIBUTION.md):
 SENTENCE LEVELS: the highest level among the sentence's list words. Names
 don't count. A word in NO list level (word_type auto) puts the sentence at
 OUT_OF_LIST_LEVEL, which is never built. detect_grammar.py may raise an
-HSK 1 sentence further when it uses higher grammar.
+HSK 1 sentence further when it uses higher grammar, and review_sentences.py
+raises any sentence an AI check judges too hard for its level by one.
 
 ORDER OF FILLING (why several unit_id columns are nullable):
   1. load_hsk_vocab  -> Vocab (hsk_level set, unit_id NULL)
@@ -238,7 +239,10 @@ class Sentence(Base):
     external_id: the dataset's sentence id (e.g. "hsk1-0002"), used for
     attribution and to find the audio. hanzi is unique: the dataset has a few
     identical sentences under different ids, and import keeps the first.
-    pinyin: whole-sentence tone-sandhi pinyin, written by the finalize stage."""
+    pinyin: whole-sentence tone-sandhi pinyin, written by the finalize stage.
+    review: review_sentences.py's AI verdict for each level the sentence was
+    checked at. A sentence judged too hard for its level is moved up one
+    level; verdicts are kept so a re-run doesn't ask again."""
     __tablename__ = "sentences"
 
     id = Column(Integer, primary_key=True)
@@ -253,6 +257,8 @@ class Sentence(Base):
     hsk_level = Column(Integer, nullable=True, index=True)
     audio_normal = Column(Text, nullable=True)            # dataset path, e.g. "audio/hsk1-0002.mp3"
     audio_slow = Column(Text, nullable=True)
+    review = Column(Text, nullable=True)                  # AI difficulty verdicts by level, JSON:
+                                                          # {"1": {"ok": false, "problems": [...]}, "2": {"ok": true}}
 
     unit = relationship("Unit", back_populates="sentences")
     vocab_links = relationship("SentenceVocab", back_populates="sentence",

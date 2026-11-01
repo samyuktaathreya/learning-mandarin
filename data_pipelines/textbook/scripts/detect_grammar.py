@@ -64,7 +64,7 @@ from datetime import datetime
 from app.textbook.db_utils import (
     get_session, init_db, link_sentence_grammar, set_sentence_level,
 )
-from app.textbook.models import GrammarTip, Sentence, SentenceGrammar, SentenceVocab
+from app.textbook.models import GrammarTip, Sentence, SentenceGrammar, SentenceVocab, OUT_OF_LIST_LEVEL
 
 from data_pipelines.textbook.scripts import hsa_source
 
@@ -700,11 +700,32 @@ def compile_pattern_rule(content: dict):
 
 # --------------------------------- PER SENTENCE ---------------------------------
 
+# Bump when review_sentences.py's prompt changes: verdicts made with another
+# version are ignored here and asked again there.
+REVIEW_PROMPT_VERSION = 2
+
+
+def apply_review_verdicts(s: Sentence):
+    """Moves the sentence up past every level an AI review judged it too
+    hard for (Sentence.review, current prompt version only), so recomputing
+    levels never undoes it."""
+    try:
+        verdicts = json.loads(s.review) if s.review else {}
+    except json.JSONDecodeError:
+        verdicts = {}
+    verdicts = {k: v for k, v in verdicts.items() if isinstance(v, dict) and v.get("v") == REVIEW_PROMPT_VERSION}
+    while (s.hsk_level is not None and s.hsk_level < OUT_OF_LIST_LEVEL
+           and verdicts.get(str(s.hsk_level), {}).get("ok", True) is False):
+        s.hsk_level += 1
+
+
 def detect_sentence(db, s: Sentence, detectors: dict, level_of_point: dict):
     """Recomputes the sentence's level from its words, applies the HSK 1
-    grammar restriction, and returns (codes found at its final level,
-    bump or None). bump = (old level, new level, codes that caused it).
-    Writes Sentence.hsk_level; the caller writes the links."""
+    grammar restriction, then any stored AI "too hard" verdicts
+    (review_sentences.py: too hard at level N -> N + 1), and returns (codes
+    found at its final level, bump or None). bump = (old level, new level,
+    codes that caused it) for the grammar restriction. Writes
+    Sentence.hsk_level; the caller writes the links."""
     set_sentence_level(db, s)
     ds = hsa_source.get(s.external_id) if s.external_id else None
     c = Context(s.hanzi, sentence_words(s), ds.get("sentence_type") if ds else None)
@@ -717,6 +738,7 @@ def detect_sentence(db, s: Sentence, detectors: dict, level_of_point: dict):
             new_level = max(level_of_point[code] for code in above)
             bump = (s.hsk_level, new_level, above)
             s.hsk_level = new_level
+    apply_review_verdicts(s)
     lvl = s.hsk_level or 99
     found = [code for code, (_, rule) in detectors.items()
              if level_of_point[code] <= lvl and rule(c)]
