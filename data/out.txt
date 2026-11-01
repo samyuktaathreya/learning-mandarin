@@ -1,0 +1,583 @@
+check_name                                      
+------------------------------------------------
+1a. vocab by HSK level (NULL = names / unlisted)
+hsk_level  words  with_unit
+---------  -----  ---------
+           168    2        
+1          300    291      
+2          197    175      
+3          487    0        
+4          972    0        
+5          1547   0        
+6          1684   0        
+7          4876   0        
+check_name          
+--------------------
+1b. senses by origin
+origin       senses  with_unit
+-----------  ------  ---------
+ai_added     6       0        
+hsk_list     1565    566      
+proper_noun  8       2        
+unlisted     154     0        
+check_name            
+----------------------
+1c. sentences by level
+hsk_level  sentences  tagged  all_meanings_picked  with_grammar  with_unit
+---------  ---------  ------  -------------------  ------------  ---------
+1          167        167     167                  167           167      
+2          185        185     185                  185           185      
+3          337        337     0                    337           0        
+4          741        741     0                    741           0        
+5          1309       1309    1                    1309          0        
+6          1030       1030    1                    1030          0        
+7          392        392     1                    392           0        
+10         179        179     1                    179           0        
+check_name                      
+--------------------------------
+1d. units and questions by level
+hsk_level  units  questions
+---------  -----  ---------
+1          18     2649     
+2          15     2402     
+check_name                             
+---------------------------------------
+2. consistency checks (all should be 0)
+should_be_0                                               n
+--------------------------------------------------------  -
+untagged sentences (tag_sentences)                        0
+tagged sentences with no level                            0
+built-level tags with no meaning picked (resolve_senses)  0
+sentences in a built level with no unit (assign_units)    0
+words used before their unit                              0
+senses used before their unit                             0
+words with a unit but no sentence in that unit            0
+taught senses with no display pinyin (finalize)           0
+tags with no display pinyin (finalize)                    0
+words with senses but not exactly 1 primary (finalize)    0
+primary sense not the earliest-taught one                 0
+senses with UNKNOWN pinyin or english                     0
+units with no questions (create_questions)                0
+check_name
+----------
+3. units  
+lvl  n   title                               sentences  new_words  new_grammar  questions
+---  --  ----------------------------------  ---------  ---------  -----------  ---------
+1    1   Greetings                           9          23         11           182      
+1    2   Identity, Part 1                    7          18         5            137      
+1    3   Identity, Part 2                    7          16         4            133      
+1    4   Family, Part 1                      5          12         5            115      
+1    5   Family, Part 2                      5          8          1            79       
+1    6   Numbers, Part 1                     9          14         0            128      
+1    7   Numbers, Part 2                     8          17         5            146      
+1    8   Time, Part 1                        5          13         1            102      
+1    9   Time, Part 2                        11         15         0            156      
+1    10  Daily Actions, Part 1               7          15         2            131      
+1    11  Daily Actions, Part 2               8          17         1            159      
+1    12  Daily Actions, Part 3               13         16         0            170      
+1    13  School & Work                       14         17         1            189      
+1    14  Location, Part 1                    7          9          0            101      
+1    15  Location, Part 2                    5          14         0            115      
+1    16  Transport, Shopping                 17         18         0            230      
+1    17  Food                                10         16         0            149      
+1    18  Weather, Feelings                   20         19         1            227      
+2    1   Greetings, Family + 1 more, Part 1  8          10         3            118      
+2    2   Greetings, Family + 1 more, Part 2  8          11         4            116      
+2    3   Time                                11         13         4            173      
+2    4   Daily Actions, Part 1               7          10         0            106      
+2    5   Daily Actions, Part 2               15         17         5            204      
+2    6   Daily Actions, Part 3               10         14         5            150      
+2    7   Transport                           21         18         8            250      
+2    8   Shopping                            13         13         1            167      
+2    9   Weather, Health & Body              13         11         4            168      
+2    10  Sports & Leisure, Feelings          14         12         2            155      
+2    11  School & Work                       12         13         1            168      
+2    12  Location                            16         15         0            193      
+2    13  Food                                11         10         0            121      
+2    14  Identity, Nature, Part 1            14         12         0            155      
+2    15  Identity, Nature, Part 2            12         12         10           158      
+check_name                                                 
+-----------------------------------------------------------
+4a. AI-added meanings (no dictionary meaning fit) -- review
+hanzi  pinyin       english                         lvl  unit
+-----  -----------  ------------------------------  ---  ----
+蛋     dan4         egg                                      
+咱     zan2         we; us (inclusive, colloquial)           
+劲儿   jin4er2      energy; vigor; strength                  
+桌上   zhuo1shang4  on the table                             
+档     dang4        file; record                             
+阔     kuo4         wide; broad                              
+check_name                                         
+---------------------------------------------------
+4b. words outside the HSK list (names and unlisted)
+hanzi     word_type    english                                                       lvl  unit
+--------  -----------  ------------------------------------------------------------  ---  ----
+电视机    auto         television set                                                         
+
+身上      auto         on the body; at hand                                                   
+
+春节      auto         Spring Festival (Chinese New Year)                                     
+
+午睡      auto         to take a nap in the afternoon                                         
+
+话        auto         dialect; language                                                      
+
+瓶        auto         bottle; vase                                                           
+
+蓝色      auto         blue (color)                                                           
+
+绿        auto         used in names                                                          
+
+西医      auto         Western medicine; a doctor trained in Western medicine                 
+
+院        auto         courtyard; institution                                                 
+
+李        proper_noun  (name) surname Li                                                      
+
+票价      auto         ticket price; fare; admission fee                                      
+
+大使馆    auto         embassy                                                                
+
+可乐      auto         amusing; entertaining                                                  
+
+今晚      auto         tonight                                                                
+
+连续剧    auto         serialized drama; dramatic series                                      
+
+美术馆    auto         art gallery                                                            
+
+衣架      auto         clothes hanger; clothes rack                                           
+
+乐        auto         surname Le                                                             
+
+不知      auto         not to know; unaware                                                   
+
+发音      auto         to pronounce; pronunciation                                            
+
+衬衣      auto         shirt                                                                  
+
+木板      auto         slab; board                                                            
+
+金        auto         surname Jin; surname Kim (Korean)                                      
+
+好友      auto         close friend; pal                                                      
+
+售货员    auto         sales clerk; sales associate; retail salesperson                       
+
+帅哥      auto         handsome guy; lady-killer                                              
+
+大哥      auto         eldest brother; big brother (polite address for a man of abo           
+                       ut the same age as oneself)                                            
+
+大姐      auto         big sister; elder sister                                               
+
+塑料袋    auto         plastic bag                                                            
+
+新房      auto         brand new house; bridal chamber                                        
+
+袋        auto         pouch; bag                                                             
+
+箱        auto         box; trunk                                                             
+
+春季      auto         springtime                                                             
+
+秋季      auto         autumn; fall                                                           
+
+冬季      auto         winter                                                                 
+
+夏季      auto         summer                                                                 
+
+窗子      auto         window                                                                 
+
+微        auto         surname Wei; ancient Chinese state near present-day Chongqin           
+                       g                                                                      
+
+途中      auto         en route                                                               
+
+巴士      auto         bus (loanword); motor coach                                            
+
+特价      auto         special price                                                          
+
+亚运会    proper_noun  (name) Asian Games                                                     
+
+味儿      auto         taste                                                                  
+
+王        proper_noun  (name) surname Wang                                                    
+
+相片      auto         image; photograph                                                      
+
+还款      auto         repayment; to pay back money                                           
+
+树叶      auto         tree leaves                                                            
+
+瓜        auto         melon; gourd; squash; (slang) a piece of gossip                        
+
+美金      auto         American dollar; US dollar                                             
+
+昨晚      auto         yesterday evening; last night                                          
+
+摄影师    auto         photographer; cinematographer; cameraman                               
+
+色        auto         color; look                                                            
+
+书柜      auto         bookcase                                                               
+
+书桌      auto         desk                                                                   
+
+烤鸭      auto         roast duck                                                             
+
+中秋节    auto         the Mid-Autumn Festival on 15th of 8th lunar month                     
+
+寿司      auto         sushi                                                                  
+
+阅览室    auto         reading room                                                           
+
+点击      auto         to hit; to press                                                       
+
+信箱      auto         mailbox; post office box                                               
+
+博        auto         (bound form) abundant; plentiful; extensive; wide; to win; t           
+                       o gain                                                                 
+
+博客      auto         (loanword) a blog; a blogger                                           
+
+摄像机    auto         video camera                                                           
+
+鼠        auto         (bound form) rat; mouse                                                
+
+兔        proper_noun  (name) tu4                                                             
+
+猴        auto         monkey                                                                 
+
+泉        auto         spring (small stream); mouth of a spring                               
+
+易懂      auto         easy to understand                                                     
+
+下达      auto         to transmit to lower levels; to issue (a command, decree etc           
+                       )                                                                      
+
+为主      auto         to rely mainly on; to attach most importance to                        
+
+价        auto         (literary) messenger; servant                                          
+
+决不      auto         not at all; simply (can) not                                           
+
+华语      auto         Chinese language                                                       
+
+租房      auto         to rent an apartment                                                   
+
+摩托      auto         (loanword) motor; (loanword) motorbike; motorcycle (abbr. fo           
+                       r 摩托車|摩托车[mo2 tuo1 che1])                                        
+
+餐馆      auto         restaurant                                                             
+
+游泳池    auto         swimming pool                                                          
+
+盒        auto         small box; case                                                        
+
+礼        auto         surname Li; abbr. for 禮記|礼记[Li3 ji4], Classic of Rites             
+
+礼拜      auto         to attend a religious service; (coll.) week                            
+
+胆子      auto         courage; nerve                                                         
+
+豆制品    auto         legume-based product; soybean product                                  
+
+贺卡      auto         greeting card; congratulation card                                     
+
+池子      auto         pond; bathhouse pool                                                   
+
+厅        auto         (reception) hall; living room                                          
+
+屋        auto         (bound form) house; (bound form) room                                  
+
+肩        auto         shoulder; to shoulder (responsibilities etc)                           
+
+总监      auto         head; director (of an organizational unit)                             
+
+三明治    auto         (loanword) sandwich                                                    
+
+设计师    auto         designer; architect                                                    
+
+尽责      auto         to do one's duty; to do one's bit conscientiously                      
+
+歌星      auto         singing star; famous singer                                            
+
+影星      auto         film star                                                              
+
+球星      auto         sports star (ball sport)                                               
+
+清洁工    auto         cleaner; janitor                                                       
+
+宇航员    auto         astronaut                                                              
+
+端午节    auto         Dragon Boat Festival (5th day of the 5th lunar month)                  
+
+圣诞节    auto         Christmas time; Christmas season                                       
+
+清明节    auto         Qingming or Pure Brightness Festival or Tomb Sweeping Day, c           
+                       elebration for the dead (in early April)                               
+
+薯条      auto         french fries; french fried potatoes                                    
+
+茄子      auto         eggplant (Solanum melongena L.); aubergine                             
+
+果酱      auto         jam                                                                    
+
+奶牛      auto         milk cow; dairy cow                                                    
+
+奶        auto         breast; milk                                                           
+
+法语      auto         French (language)                                                      
+
+日语      auto         Japanese language                                                      
+
+西班牙语  auto         Spanish language                                                       
+
+取款机    auto         ATM                                                                    
+
+取款      auto         to withdraw money from a bank                                          
+
+贷        auto         to lend on interest; to borrow                                         
+
+款        auto         section; paragraph                                                     
+
+工商      auto         industry and commerce                                                  
+
+暴风雨    auto         rainstorm; storm                                                       
+
+果树      auto         fruit tree                                                             
+
+民警      auto         civil police; PRC police                                               
+
+基督教    auto         Christianity                                                           
+
+作        auto         (bound form) worker; (bound form) workshop                             
+
+首相      auto         prime minister (of Japan or UK etc)                                    
+
+利        auto         surname Li                                                             
+
+剧        auto         theatrical work (play, opera, TV series etc); dramatic (chan           
+                       ge, increase etc)                                                      
+
+勺        auto         spoon; ladle                                                           
+
+奋起      auto         to rise vigorously; a spirited start                                   
+
+叹        auto         to sigh; to exclaim                                                    
+
+商        auto         Shang Dynasty (c. 1600–1046 BC); surname Shang                         
+
+五颗星    proper_noun  (name) wu3ke1xing1                                                     
+
+圆珠笔    auto         ballpoint pen                                                          
+
+外衣      auto         outer clothing; semblance                                              
+
+奏        auto         to play music; to achieve                                              
+
+赶工      auto         to work against the clock; to hurry with work to get it done           
+                        in time                                                               
+
+录音机    auto         (tape) recording machine; tape recorder                                
+
+未知      auto         unknown                                                                
+
+危房      auto         decrepit house                                                         
+
+文娱      auto         cultural recreation; entertainment                                     
+
+旅店      auto         inn; small hotel                                                       
+
+明日      auto         tomorrow                                                               
+
+晓得      auto         to know                                                                
+
+棉衣      auto         cotton-padded clothes                                                  
+
+楼房      auto         a building of two or more stories                                      
+
+民工      auto         migrant worker (who moved from a rural area of China to a ci           
+                       ty to find work); temporary worker enlisted on a public proj           
+                       ect                                                                    
+
+洗衣粉    auto         laundry detergent; washing powder                                      
+
+游戏机    auto         video game machine; video game console                                 
+
+上帝      proper_noun  (name) God                                                             
+
+司长      auto         bureau chief                                                           
+
+形        auto         to appear; to look                                                     
+
+影迷      auto         film enthusiast; movie fan                                             
+
+捐助      auto         to donate; to offer (aid)                                              
+
+景        auto         surname Jing                                                           
+
+澡        auto         bath                                                                   
+
+虎        auto         tiger                                                                  
+
+王后      auto         queen                                                                  
+
+工艺品    auto         handicraft article; handiwork                                          
+
+花瓶      auto         flower vase; (fig.) female employee considered to be just a            
+                       pretty face (attractive but not very competent)                        
+
+账        auto         account; bill                                                          
+
+车展      auto         auto show; motor show                                                  
+
+警方      auto         police                                                                 
+
+送礼      auto         to give a present                                                      
+
+音像      auto         audio and video; audiovisual                                           
+
+餐        auto         meal; to eat                                                           
+
+据我所知  auto         as far as I know; to the best of my knowledge                          
+
+北京      proper_noun  (name) Beijing municipality, capital of the People's Republi  1    9   
+                       c of China (short name 京[Jing1])                                      
+
+深圳      proper_noun  (name) shen1zhen4                                             1    16  
+check_name                                                  
+------------------------------------------------------------
+4c. words with the most senses (check they are real distinct
+ meanings)                                                  
+hanzi  senses  meanings                                                    
+-----  ------  ------------------------------------------------------------
+看     5       to feel (that)  |  to read  |  to see; to look at  |  to tre
+               at (a patient or illness)  |  to watch                      
+
+下     5       below  |  down  |  measure word to show the frequency of an 
+               action  |  next (week etc)  |  to go down                   
+
+的     4       (used after an attribute)  |  (used at the end of a declarat
+               ive sentence for emphasis)  |  (used to form a nominal expre
+               ssion)  |  of; ~'s (possessive particle)                    
+
+点     4       drop  |  o'clock  |  point (in space or time)  |  speck     
+
+快     4       quick  |  rapid  |  soon  |  to make haste                  
+
+去     4       (after a verb of motion indicates movement away from the spe
+               aker)  |  (when used either before or after a verb) to go in
+                order to do sth  |  to go  |  to go to (a place)           
+
+上     4       (directional complement) up  |  (noun suffix) on; above  |  
+               to climb; to get onto; to go up  |  up; upper; above; previo
+               us                                                          
+
+一     4       a (article)  |  as soon as  |  one  |  single               
+
+走     4       away (in compound verbs)  |  to go  |  to go away  |  to wal
+               k                                                           
+
+还     3       still  |  still more  |  yet                                
+
+好     3       (after a personal pronoun) hello  |  (verb complement indica
+               ting completion)  |  good                                   
+
+会     3       a moment  |  can; to have the skill; to know how to  |  to b
+               e likely to; to be sure to                                  
+
+家     3       classifier for families or businesses  |  family  |  home   
+
+就     3       (after a clause of action) as soon as; immediately after  | 
+                (after a suppositional clause) in that case; then  |  merel
+               y; nothing else but; simply; just; precisely; exactly       
+
+来     3       (used as a substitute for a more specific verb)  |  hither (
+               directional complement for motion toward the speaker)  |  to
+                come                                                       
+check_name                                               
+---------------------------------------------------------
+4d. grammar points per level: found in how many sentences
+lvl  points  found  found_20_plus  never_found
+---  ------  -----  -------------  -----------
+1    49      44     36             5          
+2    82      73     20             9          
+3    70      2      1              68         
+4    75      0      0              75         
+5    71      0      0              71         
+6    66      0      0              66         
+check_name                                        
+--------------------------------------------------
+4e. HSK 1 grammar points found in fewest sentences
+grammar_code  raw_text                                        sentences
+------------  ----------------------------------------------  ---------
+1-24          名词、代词或名词性短语作主语                    0        
+1-25          动词或动词性短语、形容词或形容词性短语作谓语    0        
+1-26          名词、代词或名词性短语作宾语                    0        
+1-27          名词性词语、形容词性词语、数量短语作定语        0        
+1-28          副词、形容词作状语；表示时间、处所的词语作状语  0        
+1-47          用“还是”提问                                    2        
+1-48          用正反疑问形式提问                              3        
+1-31          非主谓句                                        5        
+1-18          比                                              14       
+1-38          比较句1                                         14       
+1-43          钱数表示法                                      18       
+1-15          从                                              19       
+check_name                                    
+----------------------------------------------
+4f. five random tagged sentences, word by word
+hanzi                       pinyin                                                        unit                      words                                                       
+--------------------------  ------------------------------------------------------------  ------------------------  ------------------------------------------------------------
+我有一个哥哥和一个妹妹。    wo3 you3 yi2 ge4 ge1ge5 he2 yi2 ge4 mei4mei5                  Family, Part 2            我 wo3 = I; me; my  |  有 you3 = to have; there is  |  一 yi
+                                                                                                                    2 = a (article)  |  个 ge4 = (classifier used before a noun 
+                                                                                                                    that has no specific classifier)  |  哥哥 ge1ge5 = older bro
+                                                                                                                    ther  |  和 he2 = (joining two nouns) and; together with; wi
+                                                                                                                    th  |  一 yi2 = a (article)  |  个 ge4 = (classifier used be
+                                                                                                                    fore a noun that has no specific classifier)  |  妹妹 mei4me
+                                                                                                                    i5 = younger sister                                         
+
+书店在商店后边。            shu1dian4 zai4 shang1dian4 hou4 bian5                         Transport, Shopping       书店 shu1dian4 = bookstore  |  在 zai4 = (of sb or sth) to b
+                                                                                                                    e (located) at  |  商店 shang1dian4 = store; shop  |  后 hou
+                                                                                                                    4 = behind  |  边 bian5 = suffix of a noun of locality      
+
+水果很好吃，我买一些。      shui3guo3 hen3 hao3chi1 wo3 mai3 yi4xie1                      Food                      水果 shui3guo3 = fruit  |  很 hen3 = (adverb of degree)  |  
+                                                                                                                    好吃 hao3chi1 = tasty  |  我 wo3 = I; me; my  |  买 mai3 = t
+                                                                                                                    o buy  |  一些 yi4xie1 = some                               
+
+楼上边有房间，下边有商店。  lou2 shang4 bian5 you3 fang2jian1 xia4 bian5 you3 shang1dian  Location                  楼 lou2 = house with more than 1 story  |  上 shang4 = (noun
+                            4                                                                                        suffix) on; above  |  边 bian5 = suffix of a noun of locali
+                                                                                                                    ty  |  有 you3 = to have; there is  |  房间 fang2jian1 = roo
+                                                                                                                    m  |  下 xia4 = below  |  边 bian5 = suffix of a noun of loc
+                                                                                                                    ality  |  有 you3 = to have; there is  |  商店 shang1dian4 =
+                                                                                                                     store; shop                                                
+
+我在外面                    wo3 zai4 wai4mian4                                            Identity, Nature, Part 1  我 wo3 = I; me; my  |  在 zai4 = (of sb or sth) to be (locat
+                                                                                                                    ed) at  |  外面 wai4mian4 = outside for this sense)         
+check_name                                 
+-------------------------------------------
+4g. five random fill-in-the-blank questions
+lvl  unit  question                                                    answer
+---  ----  ----------------------------------------------------------  ------
+2    5     我忘了，你___吗？ (I forgot, do you remember?)              记得  
+2    12    今天的___很有意思 (Today's questions are very interesting)  题    
+2    12    请写上你的___。 (Please write your full name.)              姓名  
+2    14    他喜欢穿___的衣服。 (He likes to wear black clothes.)       黑色  
+1    18    ___！ (Hello!)                                              喂    
+check_name           
+---------------------
+4h. questions by type
+question_type                          n  
+-------------------------------------  ---
+transcribe word to pinyin              553
+transcribe hanzi to pinyin             553
+speaking vocab                         553
+listening vocab                        553
+translate english word to chinese      541
+translate chinese word to english      539
+translate chinese sentence to english  352
+speaking sentence                      352
+listening sentence                     352
+fill in the blank                      352
+translate english sentence to chinese  351

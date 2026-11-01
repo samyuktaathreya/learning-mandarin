@@ -1,10 +1,25 @@
 """
-Read-only access to the HSK vocabulary list (data/raw/hsk_vocab.json, from
-complete-hsk-vocabulary -- MIT; definitions from CC-CEDICT, CC BY-SA 4.0).
+Read-only access to the HSK vocabulary list:
+data/raw/disorganized_hsk_vocab_with_radicals.json (complete-hsk-vocabulary
+-- MIT; definitions from CC-CEDICT, CC BY-SA 4.0).
 
-Used by two stages:
-- load_hsk_lists.py: one Vocab row per word with a 2021-standard level.
-- tag_sentences.py: the candidate meanings for a word, picked by reading.
+LEVELS = the 2025 exam syllabus, the file's "newest-N" tags (HSK 1 ~300
+words, HSK 1-2 ~500). The file also tags "new-N" (2021 standard) and "old-N"
+(HSK 2.0); those don't set levels, but every word in the file under ANY
+version counts as a real word (load_known_words), which tag_sentences.py
+uses to decide how to split tokens.
+
+LEVEL OVERRIDES = data/raw/hsk_level_overrides.json, hand-written, for the
+few words the 2025 list leaves out but learners clearly know at a level
+(没 is missing even though 没有 is HSK 1):
+    {"没": {"level": 1, "why": "没有 is HSK 1"}, ...}
+An override sets the word's level whether or not the 2025 list has one
+(load_hsk_lists.py prints both when they differ). The vocab file supplies
+the word's readings and meanings; a word the file doesn't have at all must
+give its own: {"儿": {"level": 1, "pinyin": "er2", "meanings": [...]}}.
+
+RADICALS = the same file's "radical" field: one per word, the first
+character's for a multi-character word.
 
 FILE FORMAT: a JSON list of entries:
     {"simplified": "爱好", "radical": "爫", "frequency": 4902,
@@ -13,16 +28,16 @@ FILE FORMAT: a JSON list of entries:
                 "transcriptions": {"pinyin": "ài hào", "numeric": "ai4 hao4", ...},
                 "meanings": ["to like; to be fond of; ...", "interest; hobby"],
                 "classifiers": ["个"]}]}
-LEVELS: "new-N" = the 2021 standard (GF0025-2021), N = 1-7, where 7 covers
-levels 7-9. "old-N" = HSK 2.0 and "newest-N" = the 2025 exam syllabus; both
-are ignored here.
 """
 import json
 import re
 from functools import lru_cache
 from pathlib import Path
 
-LEVEL_PREFIX = "new-"
+VOCAB_FILE = "disorganized_hsk_vocab_with_radicals.json"
+OVERRIDES_FILE = "hsk_level_overrides.json"
+LEVEL_PREFIX = "newest-"
+MAX_LEVEL = 7                # newest-7 = levels 7-9, if the file has it
 
 # Readings with a capital letter are proper-noun forms, usually a surname
 # (还 has "Huan2: surname Huan" listed before "hai2: still").
@@ -34,26 +49,166 @@ _SYLLABLE_RE = re.compile(r"([a-zü:v]+)([1-5])")
 PROPER_NOUN_POS = {"nr", "ns", "nt", "nz"}
 GRAMMAR_POS = {"u", "y"}
 
+# What load_entries() did beyond the plain list, for load_hsk_lists.py to print.
+LOAD_NOTES = {"overrides": [], "override_missing": [], "merged_readings": [],
+              "patterns": [], "pattern_conflicts": []}
+
+_PATTERN_SPLIT_RE = re.compile(r"[…⋯.。～~\s]+")
+
+
+def pattern_pieces(word: str) -> list[str]:
+    """虽然……但是…… -> ["虽然", "但是"]; [word] for an ordinary word."""
+    pieces = [p for p in _PATTERN_SPLIT_RE.split(word) if p]
+    return pieces if len(pieces) > 1 else [word]
+
+
+def _version_level(entry: dict, prefix: str) -> int | None:
+    """The entry's level under one version ("newest-", "new-", "old-"),
+    matched exactly: "new-" doesn't match "newest-2"."""
+    levels = [int(l[len(prefix):]) for l in entry.get("level", [])
+              if l.startswith(prefix) and l[len(prefix):].isdigit()]
+    return min(levels) if levels else None
+
+
+def _norm(text: str) -> str:
+    return re.sub(r"[\W_]+", " ", (text or "").lower()).strip()
+
+
+def _merge_identical_readings(entry: dict) -> dict:
+    """Drops a form (reading) whose meanings are exactly an earlier form's
+    (谁 shui2 / shei2, both "who"): one meaning, not two."""
+    kept, seen = [], set()
+    for form in entry.get("forms") or []:
+        key = tuple(sorted(_norm(m) for m in form.get("meanings", []) if not is_note(m)))
+        if key and key in seen:
+            LOAD_NOTES["merged_readings"].append((entry["simplified"], numeric(form)))
+            continue
+        seen.add(key)
+        kept.append(form)
+    return {**entry, "forms": kept}
+
+
+def _pattern_piece_entries(pattern: str, entry: dict) -> list[dict]:
+    """One entry per piece of a pattern (虽然……但是…… -> 虽然, 但是), sharing
+    the pattern's level and meanings, with "pattern" = the whole pattern.
+    The first form's pinyin is shared out one syllable per character; if
+    the counts don't line up, the pieces get no reading."""
+    pieces = pattern_pieces(pattern)
+    form0 = entry["forms"][0]
+    sylls = [f"{l}{t}" for l, t in syllables(numeric(form0))]
+    readings = [""] * len(pieces)
+    if len(sylls) == sum(len(p) for p in pieces):
+        k, readings = 0, []
+        for p in pieces:
+            readings.append(" ".join(sylls[k:k + len(p)]))
+            k += len(p)
+    return [{"simplified": piece, "level": entry["level"], "pos": ["u"], "frequency": entry.get("frequency"),
+             "radical": None, "pattern": pattern,
+             "forms": [{"transcriptions": {"numeric": reading}, "meanings": list(form0["meanings"])}]}
+            for piece, reading in zip(pieces, readings)]
+
+
+@lru_cache(maxsize=None)
+def _load_overrides(path: str) -> dict:
+    """{word: {"level": int, ...}} from the overrides file ("_" keys skipped)."""
+    p = Path(path)
+    if not p.exists():
+        return {}
+    with open(p, encoding="utf-8") as f:
+        raw = json.load(f)
+    return {w: (dict(v) if isinstance(v, dict) else {"level": v}) for w, v in raw.items()
+            if not w.startswith("_")}
+
+
+def _entry_from_override(word: str, o: dict) -> dict | None:
+    """An entry for an override word the vocab file doesn't have, built from
+    the override's own "pinyin" (numeric, e.g. "er2") and "meanings" (list).
+    None if it doesn't give both."""
+    if not o.get("pinyin") or not o.get("meanings"):
+        return None
+    return {"simplified": word, "level": int(o["level"]), "pos": o.get("pos") or [],
+            "radical": o.get("radical"), "frequency": None,
+            "forms": [{"transcriptions": {"numeric": o["pinyin"]}, "meanings": list(o["meanings"])}]}
+
+
+@lru_cache(maxsize=None)
+def _raw(path: str) -> list:
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
 
 @lru_cache(maxsize=None)
 def load_entries(path: str) -> dict:
-    """{simplified: entry} for every entry with a 2021-standard level."""
-    with open(path, encoding="utf-8") as f:
-        raw = json.load(f)
+    """{simplified: entry} for every word in the curriculum list: a 2025
+    level ("newest-N") or a level override. entry["level"] = that level.
+      - readings with identical meanings are merged (_merge_identical_readings)
+      - a PATTERN entry (虽然……但是……) is replaced by its pieces, each with
+        entry["pattern"]; a sentence only counts a piece at that level when
+        it has every piece (db_utils.set_sentence_level). A piece listed as
+        a word on its own keeps its own entry.
+    The overrides file is read from the same folder as `path`."""
+    for v in LOAD_NOTES.values():
+        v.clear()
+    overrides = {w: int(o["level"]) for w, o in _load_overrides(str(Path(path).parent / OVERRIDES_FILE)).items()}
     out = {}
-    for entry in raw:
-        if level_of(entry) is not None:
-            out[entry["simplified"]] = entry
+    for e in _raw(path):
+        word = (e.get("simplified") or "").strip()
+        if not word or not e.get("forms"):
+            continue
+        level = _version_level(e, LEVEL_PREFIX)
+        if word in overrides:
+            LOAD_NOTES["overrides"].append((word, level, overrides[word]))
+            level = overrides[word]
+        if level is None:
+            continue
+        if word in out and out[word]["level"] <= level:
+            continue                       # listed twice: keep the lower level
+        out[word] = _merge_identical_readings({**e, "simplified": word, "level": level})
+    # override words the file doesn't have: defined in the override itself, or ignored
+    for word in sorted(set(overrides) - {w for w, *_ in LOAD_NOTES["overrides"]}):
+        entry = _entry_from_override(word, _load_overrides(str(Path(path).parent / OVERRIDES_FILE))[word])
+        if entry is None:
+            LOAD_NOTES["override_missing"].append(word)
+            continue
+        LOAD_NOTES["overrides"].append((word, None, entry["level"]))
+        out[word] = entry
+
+    for word in [w for w in out if len(pattern_pieces(w)) > 1]:
+        entry = out.pop(word)
+        LOAD_NOTES["patterns"].append((word, pattern_pieces(word)))
+        for piece_entry in _pattern_piece_entries(word, entry):
+            piece = piece_entry["simplified"]
+            if piece in out:
+                LOAD_NOTES["pattern_conflicts"].append((word, piece))
+                continue
+            out[piece] = piece_entry
     return out
 
 
+@lru_cache(maxsize=None)
+def load_known_words(path: str) -> dict:
+    """Every word in the file under ANY version (2025, 2021, 2.0) -> a short
+    gloss. A word here is a real word even if the curriculum list doesn't
+    have it."""
+    out = {}
+    for e in _raw(path):
+        word, forms = e.get("simplified"), e.get("forms") or []
+        if not word or not forms or word in out:
+            continue
+        form = forms[default_form_index(e)]
+        out[word] = "; ".join([m for m in form.get("meanings", []) if not is_note(m)][:2])
+    for word, o in _load_overrides(str(Path(path).parent / OVERRIDES_FILE)).items():
+        if word not in out and o.get("meanings"):
+            out[word] = "; ".join(o["meanings"][:2])      # defined only in the overrides file
+    return out
+
+
+def radical_of(entry: dict) -> str | None:
+    return (entry.get("radical") or "").strip() or None
+
+
 def level_of(entry: dict) -> int | None:
-    """The entry's 2021-standard level (1-7), or None if it has none.
-    Matches "new-N" exactly -- "newest-N" also starts with "new"."""
-    for lvl in entry.get("level", []):
-        if lvl.startswith(LEVEL_PREFIX) and lvl[len(LEVEL_PREFIX):].isdigit():
-            return int(lvl[len(LEVEL_PREFIX):])
-    return None
+    return entry.get("level")
 
 
 def numeric(form: dict) -> str:
@@ -70,16 +225,19 @@ def default_form_index(entry: dict) -> int:
     reading whose first meaning isn't "surname ...". Falls back to 0, which
     is right for proper nouns like 北京 that only have a capitalised form."""
     for i, form in enumerate(entry["forms"]):
-        if not is_proper_form(form) and not _SURNAME_RE.match(form["meanings"][0]):
+        if not is_proper_form(form) and form.get("meanings") and not _SURNAME_RE.match(form["meanings"][0]):
             return i
     return 0
 
 
 def word_type_of(entry: dict) -> str:
     """'proper_noun' if every POS tag is a proper-noun tag, 'grammar' if the
-    first (most common) tag is a particle, else 'vocab'. Returned as the
-    WordType value so this module doesn't import the models."""
+    first (most common) tag is a particle or the word is a pattern piece,
+    else 'vocab'. Returned as the WordType value so this module doesn't
+    import the models."""
     pos = entry.get("pos") or []
+    if entry.get("pattern"):
+        return "grammar"
     if pos and all(p in PROPER_NOUN_POS for p in pos):
         return "proper_noun"
     if pos and pos[0] in GRAMMAR_POS:
@@ -114,8 +272,8 @@ def _syllable_match(got: tuple[str, int], want: tuple[str, int]) -> bool:
     CC-CEDICT: neutral tones (爸爸 ba4 ba5), 儿 endings (哪儿 na3 r5 vs
     na3 er2 vs nar3), and the tone changes of 不 and 一 (不对 bu2 vs bu4)."""
     (gl, gt), (wl, wt) = got, want
-    if gl == "er" and wl == "r":
-        gl = "r"
+    if {gl, wl} == {"er", "r"}:
+        gl = wl          # 儿 as erhua "r" in the sentence, "er" in the dictionary (or the reverse)
     if gl != wl:
         return False
     if gt == wt or wt == 5 or gt == 5:
@@ -172,8 +330,54 @@ def candidates(entry: dict, form_indexes: list[int]) -> list[dict]:
         real = [(mi, m) for mi, m in meanings if not is_note(m)]
         for mi, meaning in (real or meanings):
             out.append({"form_index": fi, "meaning_index": mi,
-                        "pinyin": numeric(form), "english": meaning})
+                        "pinyin": numeric(form), "english": clean_meaning(meaning)})
     return out
+
+
+# --------------------------------- MEANING CLEANUP ---------------------------------
+# CC-CEDICT meanings carry notes for dictionary readers that make no sense as
+# a learner's definition (and break text-to-speech): "(Taiwan pr. [hàn])",
+# "(colloquial pr. [nèi])", "(CL:個|个[ge4])", Chinese characters inside a
+# note ("you (courteous, as opposed to informal 你)"), "(bound form)".
+
+_CJK = r"[\u3400-\u9fff]"
+_PRON_NOTE_RE = re.compile(r"\(?\s*(?:Taiwan |colloquial |also )pr\.\s*\[[^\]]*\]\s*\)?", re.I)
+_CL_NOTE_RE = re.compile(r"\(?\s*CL:[^)\]]*\]\s*\)?")
+_HANZI_REF_RE = re.compile(rf"\S*{_CJK}\S*\[[^\]]*\]")          # 老頭子|老头子[lao3 tou2 zi5]
+_PAREN_RE = re.compile(r"\(([^()]*)\)")
+_BOUND_RE = re.compile(r"\(bound form\)\s*", re.I)
+_PR_CLAUSE_RE = re.compile(r"\bpr\.\s*\[")                        # "commonly pr. [zhèi]" inside a note
+
+
+def clean_meaning(text: str) -> str:
+    """A dictionary meaning as a learner-facing definition: pronunciation
+    and classifier notes removed, Chinese removed from parenthesised notes
+    (dropping just the clause that had it), "(bound form)" removed. Falls
+    back to the original if nothing would be left."""
+    original = (text or "").strip()
+    t = _PRON_NOTE_RE.sub("", original)
+    t = _CL_NOTE_RE.sub("", t)
+    t = _HANZI_REF_RE.sub("", t)
+    t = _BOUND_RE.sub("", t)
+
+    def paren(m):
+        inner = m.group(1)
+        if re.match(r"\s*note\b", inner, re.I):
+            return ""                        # "(Note: In Taiwan, 妳 is used ...)": a usage paragraph
+        if _PR_CLAUSE_RE.search(inner):
+            return ""                        # "(in this sense, commonly pr. [zhèi], esp. in Beijing)"
+        if not re.search(_CJK, inner) and not _PR_CLAUSE_RE.search(inner):
+            return m.group(0)
+        kept = [part for part in re.split(r",\s*", inner)
+                if part.strip() and not re.search(_CJK, part) and not _PR_CLAUSE_RE.search(part)]
+        return f"({', '.join(kept)})" if kept else ""
+    t = _PAREN_RE.sub(paren, t)
+    t = re.sub(r"\s+([;,.)])", r"\1", t)
+    t = re.sub(r"\(\s*\)", "", t)
+    t = re.sub(r"\s{2,}", " ", t).strip(" ;,")
+    if not t or t.lower() in ("see", "see also", "variant of", "old variant of", "also written"):
+        return original                      # a pure cross-reference: nothing to clean it down to
+    return t
 
 
 def single_meaning_is_safe(entry: dict, forms: list[int]) -> bool:

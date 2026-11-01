@@ -41,6 +41,14 @@ No AI. Run one level at a time, lowest first.
    first sentences, so the first unit always introduces many: the grammar
    limit is a target, not a hard rule.
 
+5b. SHORT SENTENCES (EARLY_UNITS): in the first two HSK 1 units only
+   sentences of at most 6 words stay; longer ones move to the next unit of
+   the same topic, and any word only they use moves with them.
+5c. GRAMMAR PACING (every level): a sentence may bring in at most ONE
+   grammar point not seen earlier; one with more waits for a later unit
+   (see pace_grammar). The report lists every word these two rules moved
+   to a later unit, and any sentence still over the limit.
+
 6. WRITE: clears this level's old units (content rows are kept, only
    un-assigned), creates the new ones, and sets unit_id on sentences, words,
    senses (first appearance) and grammar points of this level or below
@@ -68,6 +76,39 @@ from app.textbook.models import (
 MIN_WORDS, MAX_WORDS = 20, 40
 MIN_SENTENCES = 10   # 15 was too strict: early units add ~2.7 new words per sentence
 MAX_GRAMMAR = 3
+
+# Per-level limits that replace the defaults above. HSK 1 learners are still
+# learning pinyin, so its units are short: a topic with more words than fit
+# is split into "Part 1", "Part 2", ... Command-line flags override these.
+LEVEL_LIMITS = {
+    1: {"min_words": 8, "max_words": 20, "min_sentences": 5, "max_grammar": 3},
+    2: {"min_words": 10, "max_words": 20, "min_sentences": 6, "max_grammar": 3},
+}
+MAX_TITLE_TOPICS = 2     # a unit merged from more topics: "Food, Nature + 3 more"
+
+# PACING (applied after balancing, every level). A sentence may bring in at
+# most this many grammar points not seen earlier in the course; one with
+# more waits for a later unit, by which time other sentences have usually
+# introduced some of them. 我在一家大公司工作 (在 + place + verb, a measure
+# word, an adjective modifier at once) waits until those come one by one.
+MAX_NEW_GRAMMAR_PER_SENTENCE = 1
+# Points that describe nearly every sentence (sentence types, verb/adjective
+# predicates), overlap a more specific point (1-22 modal particles is also
+# what 吗 1-45 and 了 1-40 trigger), or are vocabulary rather than grammar
+# (1-07 numbers) are not counted. Points the detector finds together count
+# as one: 1-23 number + measure word is the measure-word point 1-08, so
+# 三个人 brings one new point, not three.
+GRAMMAR_NOT_COUNTED = {"1-07", "1-22", "1-29", "1-30", "1-32", "1-33", "1-34", "1-35"}
+GRAMMAR_ALIASES = {"1-23": "1-08", "1-38": "1-18", "1-41": "1-21", "1-46": "1-04",
+                   "2-54": "2-48", "2-70": "2-33", "2-71": "2-32"}
+PACING_ROUNDS = 3        # balance -> short sentences -> pacing, repeated (see build)
+
+# SHORT SENTENCES in the first units of a level: sentences with more words
+# move to the next unit of the same topic (else the first unit after them),
+# taking any word only they use with them. At least EARLY_MIN_KEEP sentences
+# stay (the shortest of the long ones, if needed).
+EARLY_UNITS = {1: {"units": 2, "max_words": 6}}
+EARLY_MIN_KEEP = 3
 CORE_TOPICS = 5
 MAX_ROUNDS = 50
 
@@ -122,6 +163,7 @@ class Level:
         self.taught_grammar = {g for (g,) in db.query(GrammarTip.id).filter(GrammarTip.unit_id.in_(lower)).all()}
 
         self.vocab_level = {vid: lvl for vid, lvl in db.query(Vocab.id, Vocab.hsk_level).all()}
+        self.hanzi = dict(db.query(Vocab.id, Vocab.hanzi).all())
 
     def rank(self, sid) -> int:
         return max((self.grammar_rank[g] for g in self.grammar[sid]), default=0)
@@ -269,15 +311,19 @@ def balance(lv: Level, segments: list[Segment], log: list) -> list[Segment]:
 
 
 def titles_for(segments: list[Segment]) -> list[tuple[str, str, int | None]]:
-    """(title, topic, part) per segment; split topics get "1", "2", ..."""
-    names = [", ".join(topic_title(t) for t in s.topics) for s in segments]
+    """(title, topic, part) per segment; split topics get "Part 1", "Part 2", ..."""
+    def name(topics):
+        shown = ", ".join(topic_title(t) for t in topics[:MAX_TITLE_TOPICS])
+        rest = len(topics) - MAX_TITLE_TOPICS
+        return f"{shown} + {rest} more" if rest > 0 else shown
+    names = [name(s.topics) for s in segments]
     totals = Counter(names)
     seen = Counter()
     out = []
     for name, seg in zip(names, segments):
         seen[name] += 1
         part = seen[name] if totals[name] > 1 else None
-        out.append((f"{name} {part}" if part else name, seg.topics[0], part))
+        out.append((f"{name}, Part {part}" if part else name, seg.topics[0], part))
     return out
 
 
@@ -299,10 +345,107 @@ def build(lv: Level):
                 for t in real_topics if by_topic[t]]
     balance_log = []
     segments = balance(lv, segments, balance_log)
-    return segments, reasons, placement_log, balance_log
+    before = word_units(lv, segments)
+    # The short-sentence and pacing rules move sentences to later units,
+    # which can leave a unit nearly empty and pile sentences into the next
+    # one; balancing again fixes the sizes. Splits and merges keep the
+    # sentence order, so pacing still holds; a merge can bring long
+    # sentences into an early unit, so both rules run again. The last round
+    # ends with the rules, so they always hold.
+    for round_no in range(PACING_ROUNDS):
+        if round_no:
+            for seg in segments:
+                seg.unsplittable = False
+            segments = balance(lv, segments, balance_log)
+        segments = shorten_early_units(lv, segments, balance_log)
+        segments = pace_grammar(lv, segments, balance_log)
+    after = word_units(lv, segments)
+    moved_words = sorted(((lv.hanzi.get(v, str(v)), before[v] + 1, after[v] + 1)
+                          for v in after if v in before and after[v] > before[v]), key=lambda x: (x[1], x[0]))
+    return segments, reasons, placement_log, balance_log, moved_words
 
 
-def report(lv: Level, segments, reasons, placement_log, balance_log, stats, titles):
+# --------------------------------- PACING ---------------------------------
+
+def counted_grammar(lv: Level, grammar_ids) -> set[str]:
+    """Grammar codes that count for pacing (see GRAMMAR_NOT_COUNTED / _ALIASES)."""
+    out = set()
+    for g in grammar_ids:
+        code = lv.grammar_code.get(g)
+        if code and code not in GRAMMAR_NOT_COUNTED:
+            out.add(GRAMMAR_ALIASES.get(code, code))
+    return out
+
+
+def word_units(lv: Level, segments: list[Segment]) -> dict:
+    """vocab_id -> index of the unit that teaches it."""
+    return {v: i for i, st in enumerate(walk(lv, [s.sentences for s in segments])) for v in st["words"]}
+
+
+def shorten_early_units(lv: Level, segments: list[Segment], log: list) -> list[Segment]:
+    rule = EARLY_UNITS.get(lv.level)
+    if not rule or len(segments) <= rule["units"]:
+        return segments
+    n, max_words = rule["units"], rule["max_words"]
+    for i in range(n):
+        seg = segments[i]
+        long = [sid for sid in seg.sentences if len(lv.words[sid]) > max_words]
+        if not long:
+            continue
+        keep = set(seg.sentences) - set(long)
+        if len(keep) < EARLY_MIN_KEEP:
+            keep |= set(sorted(long, key=lambda sid: len(lv.words[sid]))[:EARLY_MIN_KEEP - len(keep)])
+        out = [sid for sid in seg.sentences if sid not in keep]
+        if not out:
+            continue
+        target = next((j for j in range(n, len(segments)) if set(segments[j].topics) & set(seg.topics)), n)
+        seg.sentences = [sid for sid in seg.sentences if sid in keep]
+        segments[target].sentences += out
+        log.append(f"short sentences: unit {i + 1} kept {len(seg.sentences)} sentence(s) of at most "
+                   f"{max_words} words; moved {len(out)} longer one(s) to unit {target + 1}")
+    return segments
+
+
+def pace_grammar(lv: Level, segments: list[Segment], log: list) -> list[Segment]:
+    """Walks the units in order. Within a unit, sentences are placed in their
+    order, each only once it brings at most MAX_NEW_GRAMMAR_PER_SENTENCE
+    points not seen yet; placing one can make another placeable, so the
+    unit is passed over until nothing changes. What is left waits for the
+    next unit. The last unit takes whatever is left anyway (reported)."""
+    taught = counted_grammar(lv, lv.taught_grammar)
+    deferred_total, forced = 0, []
+    for i, seg in enumerate(segments):
+        pending, placed = list(seg.sentences), []
+        progress = True
+        while pending and progress:
+            progress = False
+            for sid in list(pending):
+                new = counted_grammar(lv, lv.grammar[sid]) - taught
+                if len(new) <= MAX_NEW_GRAMMAR_PER_SENTENCE:
+                    placed.append(sid)
+                    pending.remove(sid)
+                    taught |= new
+                    progress = True
+        if pending and i + 1 < len(segments):
+            segments[i + 1].sentences = pending + segments[i + 1].sentences
+            deferred_total += len(pending)
+        elif pending:
+            for sid in pending:
+                forced.append((sid, sorted(counted_grammar(lv, lv.grammar[sid]) - taught)))
+                taught |= counted_grammar(lv, lv.grammar[sid])
+            placed += pending
+        seg.sentences = placed
+    kept = [seg for seg in segments if seg.sentences]
+    log.append(f"grammar pacing: at most {MAX_NEW_GRAMMAR_PER_SENTENCE} new grammar point(s) per sentence; "
+               f"{deferred_total} sentence move(s) to a later unit"
+               f"{f'; {len(segments) - len(kept)} unit(s) emptied and removed' if len(kept) < len(segments) else ''}")
+    for sid, new in forced:
+        log.append(f"  [over the limit] {lv.sentences[sid]['ext'] or sid} still brings {len(new)} new points "
+                   f"({' '.join(new)}): no earlier sentence introduces them; placed in the last unit")
+    return kept
+
+
+def report(lv: Level, segments, reasons, placement_log, balance_log, stats, titles, moved_words=()):
     print(f"\nHSK {lv.level}: {len(lv.sentences)} sentences -> {len(segments)} units")
     print(f"  catch-all sentences placed: {len(placement_log)} "
           f"({', '.join(f'{k}: {v}' for k, v in sorted(reasons.items()))})")
@@ -321,6 +464,11 @@ def report(lv: Level, segments, reasons, placement_log, balance_log, stats, titl
               f"{'; '.join(flags)}")
     print(f"\n  {flagged} unit(s) flagged. Words: {sum(len(s['words']) for s in stats)} new, "
           f"grammar points: {sum(len(s['grammar']) for s in stats)} new.")
+    if moved_words:
+        print(f"\n  {len(moved_words)} word(s) taught later because of the short-sentence and grammar-pacing "
+              f"rules (word: unit before -> after):")
+        line = ", ".join(f"{w} {a}->{b}" for w, a, b in moved_words)
+        print("    " + line)
 
 
 def write(db, lv: Level, segments, stats, titles) -> dict:
@@ -380,13 +528,20 @@ def main():
     parser = argparse.ArgumentParser(description="Build one HSK level's units and assign everything to them.")
     parser.add_argument("--hsk-level", type=int, required=True)
     parser.add_argument("--dry-run", action="store_true", help="Print the units without writing anything.")
-    parser.add_argument("--min-words", type=int, default=MIN_WORDS)
-    parser.add_argument("--max-words", type=int, default=MAX_WORDS)
-    parser.add_argument("--min-sentences", type=int, default=MIN_SENTENCES)
-    parser.add_argument("--max-grammar", type=int, default=MAX_GRAMMAR)
+    parser.add_argument("--min-words", type=int, default=None, help="Default: LEVEL_LIMITS, else 20.")
+    parser.add_argument("--max-words", type=int, default=None, help="Default: LEVEL_LIMITS, else 40.")
+    parser.add_argument("--min-sentences", type=int, default=None, help="Default: LEVEL_LIMITS, else 10.")
+    parser.add_argument("--max-grammar", type=int, default=None, help="Default: LEVEL_LIMITS, else 3.")
     args = parser.parse_args()
-    MIN_WORDS, MAX_WORDS, MIN_SENTENCES, MAX_GRAMMAR = (args.min_words, args.max_words,
-                                                        args.min_sentences, args.max_grammar)
+    limits = {"min_words": MIN_WORDS, "max_words": MAX_WORDS, "min_sentences": MIN_SENTENCES,
+              "max_grammar": MAX_GRAMMAR, **LEVEL_LIMITS.get(args.hsk_level, {})}
+    for key in limits:
+        if getattr(args, key) is not None:
+            limits[key] = getattr(args, key)
+    MIN_WORDS, MAX_WORDS = limits["min_words"], limits["max_words"]
+    MIN_SENTENCES, MAX_GRAMMAR = limits["min_sentences"], limits["max_grammar"]
+    print(f"HSK {args.hsk_level} unit limits: {MIN_WORDS}-{MAX_WORDS} new words, "
+          f"at least {MIN_SENTENCES} sentences, up to {MAX_GRAMMAR} new grammar points")
 
     t0 = time.time()
     init_db()
@@ -417,10 +572,10 @@ def main():
         if no_grammar == len(lv.sentences):
             print("  [warning] no grammar links found -- run detect_grammar.py first; ordering uses grammar.")
 
-        segments, reasons, placement_log, balance_log = build(lv)
+        segments, reasons, placement_log, balance_log, moved_words = build(lv)
         stats = walk(lv, [s.sentences for s in segments])
         titles = titles_for(segments)
-        report(lv, segments, reasons, placement_log, balance_log, stats, titles)
+        report(lv, segments, reasons, placement_log, balance_log, stats, titles, moved_words)
 
         if args.dry_run:
             db.rollback()

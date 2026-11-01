@@ -18,7 +18,11 @@ own progress tag ("pair:2-4"), stored in sound_progress next to the sound
 tags, and unlocks once both of its tones are mastered. Pair questions use a
 real two-character textbook word (pinyin_words) when one fits the learner's
 unlocked sounds, and two generated syllables otherwise. Pair tags never
-count toward group unlocking or levels.
+count toward group unlocking or levels. The 3-3 pair is never used: two
+third tones in a row are always spoken 2-3 (tone sandhi).
+
+Nothing vulgar is generated: syllables, characters, and two-syllable
+combinations on the blocklists below are filtered out of every question.
 
 The neutral (fifth) tone is tracked as "tone5" and shown in progress, but it
 is practice-only: it appears only as the second syllable of speaking pair
@@ -90,6 +94,29 @@ NEUTRAL_WORD_SHARE = 0.25
 # For generated pairs with two different tones: how often to use the same
 # syllable twice ("ma1 ma3") so only the tone changes.
 SAME_SYLLABLE_SHARE = 0.5
+# Tone pairs that are never drilled. Two third tones in a row are always
+# spoken 2-3 (tone sandhi), so a 3-3 question would teach a pattern nobody says.
+EXCLUDED_TONE_PAIRS = {(3, 3)}
+
+# --- Profanity filter ---
+# Numbered pinyin, "v" for ü. Matching is on pinyin AND characters, since the
+# audio speaks the character.
+# Syllables never used, alone or inside a pair. Kept short on purpose:
+# banning ri4 or ma1 would also lose 日 and 妈, which learners need.
+BLOCKED_SYLLABLES = {"cao4", "bi1", "diao3"}
+# Two-syllable combinations never used (applies to real words and generated pairs).
+BLOCKED_PHRASES = {
+    "ni3 ma1", "ta1 ma1", "si3 ma1", "ma1 de5",
+    "cao1 ni3", "ri4 ni3",
+    "ji1 ba1", "wang2 ba1", "hun2 dan4",
+    "jian4 ren2", "biao3 zi5", "sao1 huo4",
+}
+# Characters that are vulgar wherever they appear.
+BLOCKED_HANZI = {"肏", "屄", "屌", "婊"}
+# Characters that read as a swear on their own but are fine inside a real
+# word (操 in 操场 "playground"). Blocked for single syllables and generated
+# pairs, allowed in real textbook words.
+STANDALONE_BLOCKED_HANZI = {"操"}
 
 
 def decompose_pinyin(syllable: str) -> tuple[str | None, str]:
@@ -135,6 +162,35 @@ def _pair_tag(tone1: int, tone2: int) -> str:
 def _pair_tones(tag: str) -> tuple[int, int]:
     tone1, tone2 = tag[len(PAIR_TAG_PREFIX):].split("-")
     return int(tone1), int(tone2)
+
+
+def _is_active_pair_tag(tag: str) -> bool:
+    """A pair tag questions can be built from. Excludes 3-3, which some
+    learners may still have a progress row for from before it was dropped."""
+    return _is_pair_tag(tag) and _pair_tones(tag) not in EXCLUDED_TONE_PAIRS
+
+
+def _is_profane(numbered_pinyin: str, hanzi: str | None = None,
+                standalone: bool = True) -> bool:
+    """True if this syllable or pair ("cao4", "ni3 ma1") is on a blocklist.
+    standalone=False is for real textbook words, where characters like 操
+    (in 操场) are fine."""
+    pinyin = " ".join(numbered_pinyin.lower().replace("ü", "v").split())
+    if pinyin in BLOCKED_PHRASES:
+        return True
+    if any(s in BLOCKED_SYLLABLES for s in pinyin.split()):
+        return True
+    blocked_chars = BLOCKED_HANZI | (STANDALONE_BLOCKED_HANZI if standalone else set())
+    return bool(hanzi) and any(ch in blocked_chars for ch in hanzi)
+
+
+def _row_ok(row) -> bool:
+    return not _is_profane(f"{row.syllable}{row.tone}", row.character)
+
+
+def _word_ok(word) -> bool:
+    pinyin = f"{word.syllable1}{word.tone1} {word.syllable2}{word.tone2}"
+    return not _is_profane(pinyin, word.hanzi, standalone=False)
 
 
 def get_unlocked_tags(db: Session, user_id: int) -> set[str]:
@@ -199,19 +255,23 @@ def maybe_unlock_tone_pairs(db: Session, user_id: int) -> None:
     """Call every session. Seeds "pair:a-b" once tone a and tone b are both
     mastered on their own, so two-syllable questions only start after the
     single tones are solid. Mastering tone1 + tone4 opens 1-1, 1-4, 4-1, 4-4;
-    the rest follow as tone2 and tone3 are mastered. Once seeded, a pair
-    stays even if a tone later dips below the threshold.
+    the rest follow as tone2 and tone3 are mastered. 3-3 is never seeded
+    (see EXCLUDED_TONE_PAIRS). Once seeded, a pair stays even if a tone later
+    dips below the threshold.
 
     The neutral tone is seeded alongside the first pairs, since it can only
     appear inside a two-syllable question. That makes it show up in progress
     from then on, at 0 attempts until the first neutral-tone word is spoken."""
     progress = pinyin_crud.get_sound_progress_map(db, user_id)
     mastered_tones = [t for t in TONES if _is_mastered(progress.get(f"tone{t}"))]
-    for tone1, tone2 in product(mastered_tones, repeat=2):
+    allowed_pairs = [
+        p for p in product(mastered_tones, repeat=2) if p not in EXCLUDED_TONE_PAIRS
+    ]
+    for tone1, tone2 in allowed_pairs:
         tag = _pair_tag(tone1, tone2)
         if tag not in progress:
             pinyin_crud.upsert_sound_progress(db, user_id, tag, correct=False)
-    if mastered_tones and NEUTRAL_TONE_TAG not in progress:
+    if allowed_pairs and NEUTRAL_TONE_TAG not in progress:
         pinyin_crud.upsert_sound_progress(db, user_id, NEUTRAL_TONE_TAG, correct=False)
 
 
@@ -274,8 +334,12 @@ def generate_pinyin_question(db: Session, textbook_db: Session, user_id: int,
         tone = random.randint(1, 4)
         candidates = pinyin_crud.get_syllables_matching_tags(textbook_db, target_tag, tone, unlocked)
 
+    candidates = [c for c in candidates if _row_ok(c)]
     if not candidates:
-        candidates = pinyin_crud.get_any_syllable_within_unlocked(textbook_db, unlocked)
+        candidates = [
+            c for c in pinyin_crud.get_any_syllable_within_unlocked(textbook_db, unlocked)
+            if _row_ok(c)
+        ]
     if not candidates:
         raise ValueError(f"No syllables available for user {user_id} given unlocked tags {unlocked}")
 
@@ -286,7 +350,7 @@ def generate_pinyin_question(db: Session, textbook_db: Session, user_id: int,
         # than giving up on the slot.
         candidates = [
             c for c in pinyin_crud.get_any_syllable_within_unlocked(textbook_db, unlocked)
-            if f"{c.syllable}{c.tone}" != avoid
+            if _row_ok(c) and f"{c.syllable}{c.tone}" != avoid
         ]
     if not candidates:
         return None
@@ -339,7 +403,12 @@ def _pick_generated_pair(rows1: list, rows2: list, tone1: int, tone2: int) -> tu
             )
 
     first = random.choice(rows1)
-    different = [r for r in rows2 if (r.syllable, r.tone) != (first.syllable, first.tone)]
+    different = [
+        r for r in rows2
+        if (r.syllable, r.tone) != (first.syllable, first.tone)
+        and not _is_profane(f"{first.syllable}{first.tone} {r.syllable}{r.tone}",
+                            f"{first.character or ''}{r.character or ''}")
+    ]
     return first, random.choice(different or rows2)
 
 
@@ -358,7 +427,7 @@ def generate_pinyin_pair_question(db: Session, textbook_db: Session, user_id: in
     repeat `avoid` (the previous question's pinyin).
     """
     progress = pinyin_crud.get_sound_progress_map(db, user_id)
-    pair_tags = [t for t in progress if _is_pair_tag(t)]
+    pair_tags = [t for t in progress if _is_active_pair_tag(t)]
     if not pair_tags:
         return None
 
@@ -368,12 +437,16 @@ def generate_pinyin_pair_question(db: Session, textbook_db: Session, user_id: in
     speaking = question_type.startswith("speaking")
 
     unlocked = get_unlocked_tags(db, user_id)
-    rows1 = pinyin_crud.get_syllables_by_tone_within_unlocked(textbook_db, tone1, unlocked)
-    rows2 = pinyin_crud.get_syllables_by_tone_within_unlocked(textbook_db, tone2, unlocked)
-    if not rows1 or not rows2:
+    # all_rows* decide which real words fit (操场 should still be allowed even
+    # though 操 on its own isn't); rows* are the clean ones for generated pairs.
+    all_rows1 = pinyin_crud.get_syllables_by_tone_within_unlocked(textbook_db, tone1, unlocked)
+    all_rows2 = pinyin_crud.get_syllables_by_tone_within_unlocked(textbook_db, tone2, unlocked)
+    if not all_rows1 or not all_rows2:
         return None
-    syllables1 = {r.syllable for r in rows1}
-    syllables2 = {r.syllable for r in rows2}
+    rows1 = [r for r in all_rows1 if _row_ok(r)]
+    rows2 = [r for r in all_rows2 if _row_ok(r)]
+    syllables1 = {r.syllable for r in all_rows1}
+    syllables2 = {r.syllable for r in all_rows2}
 
     word = None
     if speaking and random.random() < NEUTRAL_WORD_SHARE:
@@ -385,17 +458,21 @@ def generate_pinyin_pair_question(db: Session, textbook_db: Session, user_id: in
             for r in pinyin_crud.get_syllables_by_tone_within_unlocked(textbook_db, tone, unlocked)
         }
         words = pinyin_crud.get_words_for_tone_pair(textbook_db, tone1, NEUTRAL_TONE, syllables1, any_tone)
+        words = [w for w in words if _word_ok(w)]
         if words:
             word = random.choice(words)
     if word is None and random.random() < REAL_WORD_SHARE:
         words = pinyin_crud.get_words_for_tone_pair(textbook_db, tone1, tone2, syllables1, syllables2)
+        words = [w for w in words if _word_ok(w)]
         if words:
             word = random.choice(words)
+    if word is None and (not rows1 or not rows2):
+        return None  # every syllable at one of the tones is blocked
 
     if word is not None:
-        row1 = next((r for r in rows1 if r.syllable == word.syllable1), None)
+        row1 = next((r for r in all_rows1 if r.syllable == word.syllable1), None)
         row2 = (
-            next((r for r in rows2 if r.syllable == word.syllable2), None)
+            next((r for r in all_rows2 if r.syllable == word.syllable2), None)
             if word.tone2 in TONES else None   # neutral syllable: no row at that tone
         )
         entries = [
@@ -423,6 +500,10 @@ def generate_pinyin_pair_question(db: Session, textbook_db: Session, user_id: in
 
     numbered_pinyin = " ".join(e["pinyin"] for e in entries)
     if numbered_pinyin == avoid:
+        return None
+    # Last line of defence: the session loop retries, then falls back to a
+    # single syllable, so returning None here never shortens a session.
+    if _is_profane(numbered_pinyin, hanzi, standalone=word is None):
         return None
 
     accepted_answers = [numbered_pinyin]
@@ -472,7 +553,7 @@ def generate_pinyin_session(db: Session, textbook_db: Session, user_id: int, num
     maybe_unlock_tone_pairs(db, user_id)
 
     progress = pinyin_crud.get_sound_progress_map(db, user_id)
-    pairs_unlocked = any(_is_pair_tag(t) for t in progress)
+    pairs_unlocked = any(_is_active_pair_tag(t) for t in progress)
 
     questions: list[dict] = []
     for _ in range(num_questions):
@@ -548,7 +629,8 @@ def process_pinyin_submission(
             results.append(correct)
             tones.append(tone)
 
-        if len(tones) == 2 and all(t in TONES for t in tones):
+        if (len(tones) == 2 and all(t in TONES for t in tones)
+                and (tones[0], tones[1]) not in EXCLUDED_TONE_PAIRS):
             record_sound_attempt(db, user_id, _pair_tag(tones[0], tones[1]), all(results))
 
     return {"user_id": user_id}
@@ -565,7 +647,8 @@ def get_pinyin_progress(db: Session, user_id: int) -> dict:
     for tag, row in progress.items():
         entry = {"tag": tag, "attempts": row.attempts, "successes": row.successes}
         if _is_pair_tag(tag):
-            tone_pairs.append(entry)
+            if _is_active_pair_tag(tag):   # hide leftover 3-3 rows
+                tone_pairs.append(entry)
         elif tag.startswith("tone"):
             tones.append(entry)
         elif tag in consonant_tags:

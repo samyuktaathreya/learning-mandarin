@@ -196,6 +196,14 @@ def _syllables_with_tones(numeric_pinyin: str) -> list[tuple[str, int]]:
             for m in re.finditer(r"([a-zA-ZüÜ]+)([1-5])", numeric_pinyin)]
 
 
+# 一 keeps its 1st tone as a number in a sequence rather than "one (of
+# something)": after 第 (ordinal) or another numeral (十一, 二十一), and in
+# dates before 月 / 号. A deliberately small list: a missed case only leaves
+# a citation tone, a wrong one would teach a wrong tone.
+_NO_YI_SANDHI_AFTER = set("第零〇一二三四五六七八九十百千万两")
+_NO_YI_SANDHI_BEFORE = set("月号")
+
+
 def apply_bu_yi_sandhi(hanzi: str, numeric_pinyin: str) -> str:
     """Applies the two LEXICAL sandhi rules dictionaries/textbooks spell out
     in citation pinyin: 不 (bu4->bu2 before a 4th-tone syllable) and 一
@@ -227,6 +235,10 @@ def apply_bu_yi_sandhi(hanzi: str, numeric_pinyin: str) -> str:
                           # phrase like 想一想) -- trust the source
             if i + 1 >= len(out):
                 continue  # word-final/isolated 一 -- no sandhi (第一, 十一)
+            if i > 0 and hanzi[i - 1] in _NO_YI_SANDHI_AFTER:
+                continue  # ordinal or inside a number: 第一次 di4 yi1 ci4, 十一个 shi2 yi1 ge4
+            if i + 1 < len(hanzi) and hanzi[i + 1] in _NO_YI_SANDHI_BEFORE:
+                continue  # dates: 一月 yi1 yue4, 一号 yi1 hao4
             next_tone = out[i + 1][1]
             if next_tone == 4:
                 out[i] = (base, 2)

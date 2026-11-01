@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import PracticePage from "./PracticePage";
 import MandarinVoicePractice from "./pages/MandarinVoicePractice";
 import TestPronunciation from "./pages/TestPronounciation";
+import PinyinPractice from "./pages/PinyinPractice";
 import { initTurnstile, verifySession } from '../shared/api/client';
 import { TokenBridge, SignInPage, SignUpPage, GuestBanner, AccountControl } from '../features/auth';
 import { ClerkProvider } from '@clerk/clerk-react';
@@ -60,6 +61,7 @@ function App() {
                 <Route path="/mandarin-voice-practice" element={<MandarinVoicePractice />} />
                 <Route path="/test" element={<TestPronunciation />} />
                 <Route path="/pinyin-test" element={<PinyinTest />} />
+                <Route path="/pinyin-practice" element={<PinyinPractice />} />
 
                 <Route path="*" element={<div>I am lost! Current path: {window.location.pathname}</div>} />
               </Routes>

@@ -131,6 +131,12 @@ export default function SpeakingQuestion({
             });
     }, [currentQuestionObj?.sentence_id]);
 
+    // Pinyin questions: play the target as soon as the question appears (same as "Hear target").
+    useEffect(() => {
+        if (!isPinyinQuestion) return;
+        onPlayAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, pinyinOverride, isPinyinQuestion);
+    }, [currentQuestionObj]);
+
     // Play target audio automatically after submission/transcription completes
     useEffect(() => {
         if (transcriptionResult && !transcriptionResult.error && !transcriptionResult.hallucination) {
