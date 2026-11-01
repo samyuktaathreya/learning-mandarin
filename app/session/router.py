@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from app.textbook.database import get_textbook_db
 from app.session.database import get_db
 from app.session.schemas import SessionResponse
-from app.session.crud import get_user, get_tiers_for_tags, get_graduated_units, get_progress_by_user
+from app.session.crud import get_user, get_tiers_for_tags, get_graduated_units, get_progress_by_user, skip_pinyin_unit
 from app.session.constants import GRADUATION_THRESHOLD, REVIEW_THRESHOLD
 from app.session.services.progress import (
     get_collapsed_progress,
@@ -58,6 +58,15 @@ def submit_session(
 ):
     user_id = user.id
     return process_submission(db, textbook_db, user_id, list_of_question_data, is_correct, is_unit_test, mode)
+
+
+@router.post("/api/skip_pinyin")
+def skip_pinyin(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    """Start at unit 1 instead of unit 0 (pinyin practice)."""
+    updated = skip_pinyin_unit(db, user.id)
+    if updated is None:
+        raise HTTPException(status_code=409, detail="Pinyin can only be skipped from HSK 1 unit 0")
+    return {"hsk_level": updated.hsk_level, "current_unit": updated.current_unit}
 
 
 @router.get("/api/debug")

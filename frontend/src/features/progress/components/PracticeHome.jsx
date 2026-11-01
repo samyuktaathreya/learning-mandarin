@@ -6,6 +6,7 @@ import SessionControls from './SessionControls';
 import Modal from '../../../shared/components/Modal';
 import ReviewCounter from './ReviewCounter';
 import HskLevelSelect from './HskLevelSelect';
+import { skipPinyinUnit } from '../api/progress';
 
 function SkipReviewModal({ open, dueNow, onCancel, onConfirm }) {
     return (
@@ -29,20 +30,57 @@ function SkipReviewModal({ open, dueNow, onCancel, onConfirm }) {
     );
 }
 
+function SkipPinyinModal({ open, busy, onCancel, onConfirm }) {
+    return (
+        <Modal
+            open={open}
+            onClose={onCancel}
+            title="Skip pinyin practice?"
+            actions={
+                <>
+                    <button onClick={onCancel} disabled={busy}>Keep practicing pinyin</button>
+                    <button onClick={onConfirm} disabled={busy}>
+                        {busy ? 'Skipping…' : 'Start at Unit 1'}
+                    </button>
+                </>
+            }
+        >
+            Unit 0 drills pinyin sounds and tones. If you can already read pinyin,
+            you can jump straight to Unit 1. This can’t be undone, but your pinyin
+            progress stays viewable under Unit 0.
+        </Modal>
+    );
+}
+
 // The unit overview shown when no session is running.
 // startSession(debug, skipReview) is the session starter from the practice page.
 // userLevel/viewedLevel/onSelectLevel drive the HSK level dropdown; sessions
 // can only be started from the user's own level.
+// onProgressChanged reloads progress after the user skips the pinyin unit.
 export default function PracticeHome({
     progress, selectedUnit, onSelectUnit, isLoading, startSession,
-    userLevel, viewedLevel, onSelectLevel,
+    userLevel, viewedLevel, onSelectLevel, onProgressChanged,
 }) {
     const [showSkipWarning, setShowSkipWarning] = useState(false);
+    const [showSkipPinyin, setShowSkipPinyin] = useState(false);
+    const [skippingPinyin, setSkippingPinyin] = useState(false);
     const dueNow = progress?.review_due_word_count ?? 0;
     const onOwnLevel = viewedLevel === userLevel;
+    const onPinyinUnit = progress && onOwnLevel && userLevel === 1
+        && progress.current_unit === 0 && selectedUnit === 0;
 
     const confirmSkipReview = () => { setShowSkipWarning(false); startSession(false, true); };
     const cancelSkipReview = () => setShowSkipWarning(false);
+
+    const confirmSkipPinyin = async () => {
+        setSkippingPinyin(true);
+        try {
+            await skipPinyinUnit();
+            setShowSkipPinyin(false);
+            await onProgressChanged?.();
+        } catch (e) { console.error("Failed to skip pinyin unit", e); }
+        finally { setSkippingPinyin(false); }
+    };
 
     if (progress != null) console.log("unit_progress:", progress.unit_progress);
 
@@ -78,6 +116,13 @@ export default function PracticeHome({
                                     </button>
                                 </div>
                             )}
+                            {onPinyinUnit && (
+                                <div className="skip-pinyin-row" style={{ marginTop: '0.5rem' }}>
+                                    <button onClick={() => setShowSkipPinyin(true)} disabled={isLoading}>
+                                        Already know pinyin? Start at Unit 1
+                                    </button>
+                                </div>
+                            )}
                         </>
                     )}
                     <UnitCenter
@@ -96,6 +141,13 @@ export default function PracticeHome({
                 dueNow={dueNow}
                 onCancel={cancelSkipReview}
                 onConfirm={confirmSkipReview}
+            />
+
+            <SkipPinyinModal
+                open={showSkipPinyin}
+                busy={skippingPinyin}
+                onCancel={() => !skippingPinyin && setShowSkipPinyin(false)}
+                onConfirm={confirmSkipPinyin}
             />
         </div>
     );

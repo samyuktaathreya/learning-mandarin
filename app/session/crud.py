@@ -289,6 +289,16 @@ def graduate_unit(db: Session, user_id: int, unit: int, hsk_level: int = None):
     return user
 
 
+def skip_pinyin_unit(db: Session, user_id: int):
+    """Let a user who already knows pinyin start at HSK 1 unit 1. Unit 0 is
+    marked graduated (so its pinyin progress page stays viewable) and the
+    user moves on. Returns None if the user isn't on unit 0 of HSK 1."""
+    user = get_user(db, user_id)
+    if not user or (user.hsk_level or 1) != 1 or (user.current_unit or 0) != 0:
+        return None
+    return graduate_unit(db, user_id, 0, hsk_level=1)
+
+
 def get_graduated_units(db: Session, user_id: int, hsk_level: int = None) -> set:
     """Graduated unit numbers WITHIN one HSK level (defaults to the user's
     current level), so callers comparing against current_unit keep working.

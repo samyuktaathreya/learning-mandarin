@@ -7,3 +7,10 @@ export const fetchProgress = async (hskLevel) => {
     const res = await apiFetch(`${API_BASE_URL}/api/progress/${query}`);
     return res.json();
 };
+
+// Moves the user from unit 0 (pinyin) straight to unit 1.
+export const skipPinyinUnit = async () => {
+    const res = await apiFetch(`${API_BASE_URL}/api/skip_pinyin`, { method: 'POST' });
+    if (!res.ok) throw new Error(`skip_pinyin failed: ${res.status}`);
+    return res.json();
+};
