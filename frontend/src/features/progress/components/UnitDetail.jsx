@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../../../shared/config';
 import { apiFetch } from '../../../shared/api/client';
+import { ClickableText } from '../../characters';
 
 // 5-cell strength bar from a 0..1 strength value.
 function bar(strength) {
@@ -83,7 +84,10 @@ export default function UnitDetail({ unit, hskLevel }) {
                             paddingBottom: '0.4rem', borderBottom: '1px solid #eee',
                         }}
                     >
-                        <span style={{ fontSize: '1.1rem' }}>{w.tag}</span>
+                        <span style={{ fontSize: '1.1rem' }}>
+                            {/* Pass the word as its own tag so multi-character words open as one popup. */}
+                            <ClickableText text={w.tag} tags={[w.tag]} unitId={unit} hskLevel={hskLevel} />
+                        </span>
                         <span className="word-tier-badge" style={{ fontSize: '0.75rem', opacity: 0.7 }}>
                             T{w.tier}
                         </span>
