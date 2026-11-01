@@ -34,6 +34,7 @@ export default function PracticePage() {
                 userLevel={userLevel}
                 viewedLevel={viewedLevel}
                 onSelectLevel={selectLevel}
+                onProgressChanged={refreshProgress}
             />
         );
     }
