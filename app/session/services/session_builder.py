@@ -35,20 +35,26 @@ from app.pinyin import services as pinyin_services
 # ----------------------------- SESSION GENERATION -----------------------------
 
 
-def generate_practice_session(db: Session, textbook_db: Session, user_id, unit) -> SessionResponse:
+def _fill_with_tier_picks(db: Session, textbook_db: Session, user_id, unit, used_ids: set, remaining: int):
+    """Current-unit tier questions to bring a session up to SESSION_SIZE,
+    skipping any question already picked for review."""
+    if remaining <= 0:
+        return [], "pure_review", {}, {}
     hsk_level = getattr(crud.get_user(db, user_id), "hsk_level", 1)
+    unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, unit, hsk_level)
+    tiers = crud.get_tiers_for_tags(db, user_id, unit_tags)
+    tier_picks, stop_reason, min_counts = generate_tier_questions(
+        db, textbook_db, user_id, unit, tiers, hsk_level)
+    tier_picks = [p for p in tier_picks if p[0]["id"] not in used_ids][:remaining]
+    return tier_picks, stop_reason, min_counts, tiers
+
+
+def generate_practice_session(db: Session, textbook_db: Session, user_id, unit) -> SessionResponse:
     used_ids = set()
     review_picks = generate_review_questions(db, textbook_db, user_id, used_ids, limit=SESSION_SIZE)
 
-    remaining = SESSION_SIZE - len(review_picks)
-    tier_picks, stop_reason, min_counts = [], "pure_review", {}
-    tiers = {}
-    if remaining > 0:
-        unit_tags = textbook_services.get_unit_vocab_tags(textbook_db, unit, hsk_level)
-        tiers = crud.get_tiers_for_tags(db, user_id, unit_tags)
-        tier_picks, stop_reason, min_counts = generate_tier_questions(
-            db, textbook_db, user_id, unit, tiers, hsk_level)
-        tier_picks = [p for p in tier_picks if p[0]["id"] not in used_ids][:remaining]
+    tier_picks, stop_reason, min_counts, tiers = _fill_with_tier_picks(
+        db, textbook_db, user_id, unit, used_ids, SESSION_SIZE - len(review_picks))
 
     log_session(user_id, unit, tier_picks, review_picks, tiers, min_counts, stop_reason)
     question_set = [q for q, _ in review_picks] + [q for q, _ in tier_picks]
@@ -56,13 +62,21 @@ def generate_practice_session(db: Session, textbook_db: Session, user_id, unit) 
     return SessionResponse(user_id=user_id, session_type="practice_session", question_set=question_set)
 
 
-def generate_review_session(db: Session, textbook_db: Session, user_id) -> SessionResponse:
+def generate_review_session(db: Session, textbook_db: Session, user_id, unit) -> SessionResponse:
+    """Due reviews first. If fewer than SESSION_SIZE are due, the rest is
+    filled with current-unit practice so the session is never just 1-2
+    questions long. Returns an empty session if nothing is due."""
     used_ids = set()
     review_picks = generate_review_questions(db, textbook_db, user_id, used_ids, limit=SESSION_SIZE)
+    if not review_picks:
+        return SessionResponse(user_id=user_id, session_type="review_session", question_set=[])
 
-    log_session(user_id, None, [], review_picks, {}, {}, "review_session")
+    tier_picks, stop_reason, min_counts, tiers = _fill_with_tier_picks(
+        db, textbook_db, user_id, unit, used_ids, SESSION_SIZE - len(review_picks))
 
-    question_set = [q for q, _ in review_picks]
+    log_session(user_id, unit, tier_picks, review_picks, tiers, min_counts, f"review_session:{stop_reason}")
+
+    question_set = [q for q, _ in review_picks] + [q for q, _ in tier_picks]
     random.shuffle(question_set)
     return SessionResponse(user_id=user_id, session_type="review_session", question_set=question_set)
 
@@ -129,7 +143,7 @@ def generate_full_session(db: Session, characters_db: Session, textbook_db: Sess
 
     # 2. Check for reviews (returns early if true)
     if not skip_review and review_due_word_count(db, textbook_db, user_id) > 0:
-        review_session = generate_review_session(db, textbook_db, user_id)
+        review_session = generate_review_session(db, textbook_db, user_id, user_unit)
         if review_session.question_set:
             return attach_tips(db, review_session)
 

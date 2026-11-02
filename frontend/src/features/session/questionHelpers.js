@@ -120,16 +120,24 @@ export const gradePinyinAnswer = (userAnswer, questionObj) => {
     return { isCorrect, syllableCorrect };
 };
 
-// Local exact-match check against the comma-separated accepted answers.
+// Local exact-match check, ignoring case and punctuation. Matches the whole
+// answer, or for word questions any of its comma-separated alternatives
+// ("date, day of the month"). Sentence answers aren't split: their commas are
+// punctuation, and "Hello" alone isn't right for "Hello, teacher!". Anything
+// that doesn't match goes to the AI grader.
 export const isExactMatch = (userAnswer, questionObj) => {
     if (LISTENING_PINYIN_TYPES.has(questionObj.question_type)) return gradePinyinAnswer(userAnswer, questionObj).isCorrect;
     const isPinyin = PINYIN_TYPES.has(questionObj.question_type);
     const normalize = (str) => {
+        // v and u: are the usual ways to type ü ("nv3" for "nü3"); before clean(), which strips ':'
+        if (isPinyin) str = str.normalize('NFC').toLowerCase().replace(/u:|v/g, 'ü');
         const cleaned = clean(str.trim());
         return isPinyin ? cleaned.replace(/\s+/g, "") : cleaned;
     };
     const given = normalize(userAnswer);
-    return questionObj.answer.split(',').some(v => normalize(v) === given);
+    const answer = questionObj.answer;
+    const isSentence = questionObj.question_type.includes("sentence");
+    return [answer, ...(isSentence ? [] : answer.split(','))].some(v => normalize(v) === given);
 };
 
 // The comma-separated accepted answers, spaced for display: "kitten,kitty" -> "kitten, kitty"

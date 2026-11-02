@@ -1,4 +1,5 @@
 import os
+import json
 import hashlib
 import random
 import asyncio
@@ -355,11 +356,40 @@ def _pcm_audio_config(pcm: bytes) -> speechsdk.audio.AudioConfig:
     return speechsdk.audio.AudioConfig(stream=stream)
 
 
+def _recognition_config() -> speechsdk.SpeechConfig:
+    """zh-CN recognizer that returns its alternative transcriptions (NBest)
+    as well as the top one, for _chinese_transcript to choose from."""
+    speech_config = speechsdk.SpeechConfig(subscription=AZURE_SPEECH_KEY, region=AZURE_SPEECH_REGION)
+    speech_config.speech_recognition_language = "zh-CN"
+    speech_config.output_format = speechsdk.OutputFormat.Detailed
+    return speech_config
+
+
+def _chinese_transcript(result) -> str:
+    """Azure's zh-CN model also knows English (for code-switching like "OK"),
+    so a heavy accent can come back as English words. Returns the best
+    alternative with no Latin letters; failing that, the top result with the
+    English stripped; "" if no Chinese is left, which callers treat as no speech."""
+    alternatives = [result.text or ""]
+    try:
+        alternatives += [n.get("Display", "") for n in json.loads(result.json).get("NBest", [])]
+    except (ValueError, TypeError, AttributeError):
+        pass
+
+    for alt in alternatives:
+        if CJK_RE.search(alt) and not LATIN_RE.search(alt):
+            return alt.strip()
+
+    stripped = " ".join(LATIN_RE.sub("", alternatives[0]).split())
+    if alternatives[0]:
+        logger.info(f"Azure heard English: {alternatives!r} -> {stripped if CJK_RE.search(stripped) else ''!r}")
+    return stripped if CJK_RE.search(stripped) else ""
+
+
 # --------------- PRONUNCIATION ASSESSMENT (single words) ---------------
 
 def assess_pronunciation_pcm(pcm: bytes, reference_text: str) -> dict:
-    speech_config = speechsdk.SpeechConfig(subscription=AZURE_SPEECH_KEY, region=AZURE_SPEECH_REGION)
-    speech_config.speech_recognition_language = "zh-CN"
+    speech_config = _recognition_config()
     speech_config.set_property(
         speechsdk.PropertyId.SpeechServiceConnection_EndSilenceTimeoutMs, "800"
     )
@@ -390,7 +420,11 @@ def assess_pronunciation_pcm(pcm: bytes, reference_text: str) -> dict:
         logger.debug(f"Assessment: no speech recognized ({result.reason})")
         return {"error": "no_speech"}
 
-    out = {"recognized": strip_punct(result.text or "")}
+    recognized = strip_punct(_chinese_transcript(result))
+    if not recognized:
+        logger.debug("Assessment: only English recognized, treating as no speech")
+        return {"error": "no_speech"}
+    out = {"recognized": recognized}
 
     try:
         pa = speechsdk.PronunciationAssessmentResult(result)
@@ -411,8 +445,7 @@ def assess_pronunciation_pcm(pcm: bytes, reference_text: str) -> dict:
 # ----------------------------- STT (Azure) -----------------------------
 
 def transcribe_with_azure(pcm: bytes, expected: str = "") -> str:
-    speech_config = speechsdk.SpeechConfig(subscription=AZURE_SPEECH_KEY, region=AZURE_SPEECH_REGION)
-    speech_config.speech_recognition_language = "zh-CN"
+    speech_config = _recognition_config()
     speech_config.set_property(
         speechsdk.PropertyId.SpeechServiceConnection_InitialSilenceTimeoutMs, "5000"
     )
@@ -434,8 +467,9 @@ def transcribe_with_azure(pcm: bytes, expected: str = "") -> str:
         done = threading.Event()
 
         def handle_result(evt):
-            if evt.result.text:
-                results.append(evt.result.text.strip())
+            text = _chinese_transcript(evt.result)
+            if text:
+                results.append(text)
 
         def handle_stop(evt):
             done.set()
@@ -452,7 +486,7 @@ def transcribe_with_azure(pcm: bytes, expected: str = "") -> str:
 
     result = recognizer.recognize_once()
     if result.reason == speechsdk.ResultReason.RecognizedSpeech:
-        return result.text.strip()
+        return _chinese_transcript(result)
     return ""
 
 

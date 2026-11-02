@@ -40,8 +40,11 @@ unrestricted similar characters when there aren't enough.
 """
 
 import random
+import re
 from datetime import datetime
+from itertools import product
 
+from pypinyin import pinyin as pypinyin_readings, Style
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
@@ -303,6 +306,38 @@ def _build_word_distractor(word: str, characters_db: Session,
     return candidate if candidate != word else None
 
 
+def _normalize_pinyin(p: str) -> str:
+    """'Ta1 men5' -> 'ta1men5'; ü/u:/v all -> 'v', the spelling pypinyin uses."""
+    return p.lower().replace(" ", "").replace("ü", "v").replace("u:", "v")
+
+
+def _sounds_like(candidate: str, numbered_pinyin: str) -> bool:
+    """True if `candidate` can be read exactly as `numbered_pinyin`, tones
+    included -- e.g. 他们 for 'ta1men5' (她们). Every reading of a heteronym
+    counts, so a distractor is dropped if ANY of its readings matches."""
+    per_char = pypinyin_readings(candidate, style=Style.TONE3, heteronym=True,
+                                 neutral_tone_with_five=True)
+    target = _normalize_pinyin(numbered_pinyin)
+    return any(_normalize_pinyin("".join(r)) == target for r in product(*per_char))
+
+
+def _core_meaning(definition: str) -> str:
+    """'they (females)' -> 'they', so near-synonyms like 他们/她们 compare equal."""
+    return re.sub(r"\([^)]*\)", "", definition).strip().lower()
+
+
+def _means(db: Session, candidate: str, meaning: str) -> bool:
+    """True if any dictionary definition of `candidate` is `meaning`, ignoring
+    bracketed notes -- e.g. 他们 'they' vs 她们 'they (females)', which would
+    make a second right answer."""
+    meaning = _core_meaning(meaning)
+    return any(
+        _core_meaning(d) == meaning
+        for e in get_dictionary_entries(db, candidate)
+        for d in e.english.split("/")
+    )
+
+
 # ---------------------------------------------------------------------------
 # Question builders
 # ---------------------------------------------------------------------------
@@ -331,15 +366,16 @@ def build_spot_the_difference_question(tag: str, db: Session, characters_db: Ses
     options = {tag}
 
     if len(tag) == 1:
-        similar = _get_similar_chars(characters_db, tag, limit=NUM_OPTIONS - 1,
+        # Ask for extra, since synonyms get filtered out
+        similar = _get_similar_chars(characters_db, tag, limit=(NUM_OPTIONS - 1) * 2,
                                      allowed_chars=allowed_chars)
-        options.update(similar)
+        options.update([c for c in similar if not _means(db, c, meaning)][:NUM_OPTIONS - 1])
     else:
         attempts = 0
         while len(options) < NUM_OPTIONS and attempts < NUM_OPTIONS * 3:
             attempts += 1
             distractor = _build_word_distractor(tag, characters_db, allowed_chars=allowed_chars)
-            if distractor:
+            if distractor and not _means(db, distractor, meaning):
                 options.add(distractor)
 
     options = list(options)
@@ -369,14 +405,16 @@ def build_pinyin_to_character_question(db: Session, tag: str, characters_db: Ses
 
     options = {tag}
     if len(tag) == 1:
-        options.update(_get_similar_chars(characters_db, tag, limit=NUM_OPTIONS - 1,
-                                          allowed_chars=allowed_chars))
+        # Ask for extra, since homophones (e.g. 他/她/它) get filtered out
+        similar = _get_similar_chars(characters_db, tag, limit=(NUM_OPTIONS - 1) * 2,
+                                     allowed_chars=allowed_chars)
+        options.update([c for c in similar if not _sounds_like(c, pinyin)][:NUM_OPTIONS - 1])
     else:
         attempts = 0
         while len(options) < NUM_OPTIONS and attempts < NUM_OPTIONS * 3:
             attempts += 1
             distractor = _build_word_distractor(tag, characters_db, allowed_chars=allowed_chars)
-            if distractor:
+            if distractor and not _sounds_like(distractor, pinyin):
                 options.add(distractor)
 
     options = list(options)

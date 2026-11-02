@@ -234,6 +234,7 @@ stable even if the textbook DB's internal IDs change on a pipeline rerun.
 session_builder.generate_full_session(db, characters_db, textbook_db, user_id, ...)
   1. graduation check -> generate_unit_test() if the unit's fully learned
   2. review check -> generate_review_session() if words are due for review
+       (due reviews, topped up to SESSION_SIZE with current-unit tier questions)
   3. otherwise: generate_practice_session()
        - review_engine.generate_review_questions()  (due reviews first)
        - tier_engine.generate_tier_questions()       (fill the rest, tier-

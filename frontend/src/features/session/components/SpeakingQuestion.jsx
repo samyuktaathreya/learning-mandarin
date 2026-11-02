@@ -316,7 +316,7 @@ export default function SpeakingQuestion({
                             </div>
 
                             <p className="transcription-text">
-                                You said: <strong>{transcriptionResult.transcription}</strong> ({transcriptionResult.transcription_pinyin})
+                                You said: ({transcriptionResult.transcription_pinyin})
                             </p>
                             <p className="expected-text">
                                 Expected: <strong>
