@@ -132,6 +132,10 @@ export const isExactMatch = (userAnswer, questionObj) => {
     return questionObj.answer.split(',').some(v => normalize(v) === given);
 };
 
+// The comma-separated accepted answers, spaced for display: "kitten,kitty" -> "kitten, kitty"
+export const formatAcceptedAnswers = (answer = '') =>
+    answer.split(',').map(v => v.trim()).filter(Boolean).join(', ');
+
 // Decides what to do with a question's audio when it first appears:
 // 'autoplay', 'preload' (review sessions play it after answering), or 'none'.
 export const getQuestionAudioMode = (questionObj, sessionType) => {

@@ -9,8 +9,6 @@ import { submitSession, checkAnswerRemotely } from '../api/practice';
 import useSpeechRecorder from '../hooks/useSpeechRecorder';
 import {
     isSpeakingQuestion,
-    hasChinese,
-    isListeningType,
     isExactMatch,
     gradePinyinAnswer,
     isSingleSyllableAnswer,
@@ -36,6 +34,8 @@ export default function PracticeSession({ session, onExit, onFinished }) {
     const [answerLog, setAnswerLog] = useState([]);
     const [lastUserAnswer, setLastUserAnswer] = useState("");
     const [answerState, setAnswerState] = useState(null);
+    // True when the AI grader (not an exact match) accepted the answer, so the expected answer is shown too
+    const [acceptedByAi, setAcceptedByAi] = useState(false);
     const [isGrading, setIsGrading] = useState(false);
     const [isGrammarTipOpen, setIsGrammarTipOpen] = useState(false);
     // Shown when the answer is blank or in the wrong format (e.g. pinyin for an
@@ -170,15 +170,17 @@ export default function PracticeSession({ session, onExit, onFinished }) {
         formatGraceUsedRef.current = false;
     };
 
-    const revealAnswer = (correct, answerGiven) => {
+    const revealAnswer = (correct, answerGiven, aiGraded = false) => {
         advancingRef.current = false;
         if (!correct) setLastUserAnswer(answerGiven);
+        setAcceptedByAi(correct && aiGraded);
         setAnswerState(correct ? 'correct' : 'incorrect');
         setUserAnswer("");
 
-        if (sessionType === 'review_session' &&
-            !isListeningType(currentQuestionObj.question_type) &&
-            hasChinese(currentQuestionObj.question)) {
+        // 'preload' = review-session question whose audio waits until now. Going
+        // through getQuestionAudioMode keeps fill in the blank (whose text has
+        // an English gloss, e.g. "老师___！ (Goodbye, teacher!)") silent.
+        if (getQuestionAudioMode(currentQuestionObj, sessionType) === 'preload') {
             playAudio(currentQuestionObj.audio_text ?? currentQuestionObj.question, false, currentAudioRef, questionTokenRef, questionTokenRef.current, currentQuestionObj.audio_pinyin, PINYIN_QUESTION_TYPES.has(currentQuestionObj.question_type));
         }
     };
@@ -227,7 +229,7 @@ export default function PracticeSession({ session, onExit, onFinished }) {
         try {
             const correct = await checkAnswerRemotely(questionAtSubmit, answerAtSubmit);
             if (questionTokenRef.current !== tokenAtSubmit) return; // user moved on meanwhile
-            revealAnswer(correct, answerAtSubmit);
+            revealAnswer(correct, answerAtSubmit, true);
         } finally {
             gradingRef.current = false;
             setIsGrading(false);
@@ -300,6 +302,7 @@ export default function PracticeSession({ session, onExit, onFinished }) {
                             setUserAnswer={setUserAnswer}
                             answerState={answerState}
                             lastUserAnswer={lastUserAnswer}
+                            acceptedByAi={acceptedByAi}
                             isGrading={isGrading}
                             onSubmit={handleSubmit}
                             onNext={handleNext}

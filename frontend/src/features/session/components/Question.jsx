@@ -5,7 +5,7 @@ import { ClickableText, CharacterDecomposition } from '../../characters';
 import { PinyinSoundPopup, ClickablePinyin, tagsToSoundItems, findInvalidSyllables } from '../../pinyin';
 import { API_BASE_URL } from '../../../shared/config';
 import { apiFetch } from '../../../shared/api/client';
-import { PINYIN_QUESTION_TYPES, LISTENING_PINYIN_TYPES } from '../questionHelpers';
+import { PINYIN_QUESTION_TYPES, LISTENING_PINYIN_TYPES, formatAcceptedAnswers } from '../questionHelpers';
 
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 
@@ -66,6 +66,7 @@ export default function Question({
     setUserAnswer,
     answerState,
     lastUserAnswer,
+    acceptedByAi,
     isGrading,
     onSubmit,
     onNext,
@@ -375,6 +376,9 @@ export default function Question({
                     ) : (
                         <>
                             <p className="correct-text">✓ Correct!</p>
+                            {acceptedByAi && (
+                                <p>Also correct: <strong>{renderChineseText(formatAcceptedAnswers(currentQuestionObj.answer))}</strong></p>
+                            )}
                             {hasChinese(lastUserAnswer || "") && (
                                 <p>You answered: <strong>{renderChineseText(lastUserAnswer)}</strong></p>
                             )}

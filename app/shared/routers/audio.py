@@ -10,6 +10,7 @@ from app.shared.services.audio import (
     clear_session_audio,
     process_spoken_audio,
     ForcedPronunciationError,
+    NonChineseTextError,
 )
 from app.textbook.database import get_textbook_db
 
@@ -36,6 +37,8 @@ async def audio(payload: dict):
         # 502: Azure (upstream) rejected the request. The body shows exactly
         # what was sent and what Azure said, readable in the Network tab.
         return JSONResponse(status_code=502, content=e.to_dict())
+    except NonChineseTextError as e:
+        return JSONResponse(status_code=400, content={"error": "no_chinese_text", "text": e.text})
 
     return JSONResponse(result)
 

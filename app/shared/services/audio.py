@@ -81,6 +81,34 @@ class TTSUnavailableError(Exception):
         self.text = text
         super().__init__(f"Text-to-speech is temporarily unavailable for {text!r}")
 
+class NonChineseTextError(Exception):
+    """The text sent for audio had no Chinese in it. The router turns this
+    into a 400 so the app never reads English (or pinyin) out loud."""
+
+    def __init__(self, text: str):
+        self.text = text
+        super().__init__(f"Refusing to speak non-Chinese text {text!r}")
+
+# Common hanzi plus the rarer blocks (Ext A, compatibility, Ext B+) that some
+# pinyin syllables use, e.g. 㨃
+CJK_RE = re.compile(r"[㐀-䶿一-鿿豈-﫿\U00020000-\U0002ffff]")
+# Latin letters, including tone-marked pinyin (ā, ü, ...)
+LATIN_RE = re.compile(r"[A-Za-zÀ-ɏ]+")
+# A bracketed aside with Latin in it, e.g. the English gloss in "老师___！ (Goodbye, teacher!)"
+LATIN_ASIDE_RE = re.compile(r"[(（][^()（）]*[A-Za-zÀ-ɏ][^()（）]*[)）]")
+
+def chinese_only(text: str) -> str:
+    """Strips English/pinyin out of text before it goes to TTS. Raises
+    NonChineseTextError if no Chinese is left to speak."""
+    cleaned = LATIN_ASIDE_RE.sub("", text)
+    cleaned = LATIN_RE.sub("", cleaned)
+    cleaned = " ".join(cleaned.split())
+    if not CJK_RE.search(cleaned):
+        raise NonChineseTextError(text)
+    if cleaned != text:
+        logger.warning(f"Stripped non-Chinese text from audio request: {text!r} -> {cleaned!r}")
+    return cleaned
+
 def normalize_sapi_pinyin(pinyin: str) -> str:
     """Azure's SAPI phoneme tag wants a space between each syllable and its
     tone digit. Callers send different formats ('ma3' from speaking
@@ -147,7 +175,8 @@ async def generate_and_cache_audio(text: str, slow: bool = False, numbered_pinyi
     # Same voice for normal + slow of the same item, so speed is the only difference.
     voice = pick_voice(numbered_pinyin or text, numbered_pinyin)
 
-    filename = hashlib.md5(cache_key.encode("utf-8")).hexdigest() + ".mp3"
+    # "_trimmed" so files cached before leading silence was stripped aren't reused
+    filename = hashlib.md5(f"{cache_key}_trimmed".encode("utf-8")).hexdigest() + ".mp3"
     filepath = os.path.join(CACHE_DIR, filename)
 
     # A failed synthesis leaves an empty file behind (Azure creates it before
@@ -164,10 +193,33 @@ async def generate_and_cache_audio(text: str, slow: bool = False, numbered_pinyi
             if os.path.exists(filepath):
                 os.remove(filepath)
             raise
+        await strip_leading_silence(filepath)
 
     audio_cache[cache_key] = filepath
     session_files.add(filepath)
     return filepath
+
+async def strip_leading_silence(filepath: str):
+    """TTS voices start with ~0.2s of silence, which makes playback feel
+    laggy. Trims it in place. Writes to a temp file first so a half-written
+    file is never served; if ffmpeg fails the untrimmed file is kept."""
+    trim = "silenceremove=start_periods=1:start_silence=0.02:start_threshold=-50dB"
+    tmp = f"{filepath}.{uuid.uuid4().hex}.tmp.mp3"
+    proc = await asyncio.create_subprocess_exec(
+        "ffmpeg", "-y", "-loglevel", "error", "-i", filepath, "-af", trim, "-b:a", "48k", tmp,
+        stdout=asyncio.subprocess.DEVNULL,
+        stderr=asyncio.subprocess.PIPE,
+    )
+    _, stderr = await proc.communicate()
+
+    if proc.returncode != 0 or not os.path.exists(tmp) or os.path.getsize(tmp) == 0:
+        if os.path.exists(tmp):
+            os.remove(tmp)
+        logger.warning(f"ffmpeg failed to trim {filepath}, serving untrimmed: {stderr.decode(errors='replace')[-500:]}")
+        return
+
+    os.replace(tmp, filepath)
+
 
 async def _synthesize_plain(text: str, filepath: str, voice: str, slow: bool = False):
     """Normal (non-forced) TTS. Tries edge-tts first since it's free; if
@@ -546,6 +598,7 @@ async def process_spoken_audio(audio_bytes: bytes, expected: str, hanzi: str, qu
 async def get_audio(text: str, slow: bool = False, numbered_pinyin: str | None = None,
                     prefer_recording: bool = False) -> dict:
     """Recording URL for pinyin syllables when one exists, otherwise base64 TTS."""
+    text = chinese_only(text)
     if prefer_recording:
         url = await get_recording_url(numbered_pinyin or text, slow)
         if url:
