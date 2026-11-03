@@ -92,8 +92,14 @@ class SentenceSource(str, enum.Enum):
 
 class Unit(Base):
     """One learning unit. Built by assign_units.py from the dataset topics:
-    a large topic is split into parts ("Daily Actions 1", "Daily Actions 2"),
-    a small one is merged into its neighbour."""
+    a large topic is split into parts ("Daily Actions, Part 1", "Part 2"),
+    a small one is merged into its neighbour.
+
+    kind: "vocab" (a topic unit) or "grammar" (a "Grammar Practice" unit:
+    sentences that bring several new grammar points at once, collected every
+    few vocab units; mostly known words, plus any word first used there).
+    A unit's focus grammar points are the GrammarTip rows whose unit_id is
+    the unit (where each point first appears)."""
     __tablename__ = "units"
 
     id = Column(Integer, primary_key=True)
@@ -103,6 +109,7 @@ class Unit(Base):
     topic = Column(Text, nullable=True)                  # dataset topic slug, e.g. "daily_actions";
                                                          # for a merged unit, the first topic
     part = Column(Integer, nullable=True)                # 1, 2, ... when a topic is split; NULL if not
+    kind = Column(Text, nullable=False, default="vocab", server_default="vocab")   # "vocab" | "grammar"
 
     # No delete cascades: units are rebuilt, the content is not (see module docstring).
     vocab = relationship("Vocab", back_populates="unit")
@@ -379,6 +386,22 @@ class Question(Base):
     __table_args__ = (
         UniqueConstraint("legacy_id", name="_legacy_id_uc"),
     )
+
+
+class QuestionGrammar(Base):
+    """Question <-> grammar point: the points a question practises, for
+    tracking grammar progress the way word questions track vocab. Every
+    sentence question links every grammar point its sentence uses (from
+    SentenceGrammar), in every unit; a grammar-unit fill-in-the-blank that
+    blanks a grammar marker (过, 不...) also links that point. Written by
+    create_questions.py."""
+    __tablename__ = "question_grammar"
+
+    question_id = Column(Integer, ForeignKey("questions.id"), primary_key=True)
+    grammar_tip_id = Column(Integer, ForeignKey("grammar_tips.id"), primary_key=True)
+
+    question = relationship("Question", backref="grammar_links")
+    grammar_tip = relationship("GrammarTip")
 
 
 class PinyinSyllable(Base):

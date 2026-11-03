@@ -103,6 +103,12 @@ def load_vocab(db) -> dict:
         print(f"    pattern {pattern} -> pieces {' + '.join(pieces)} (each counts only with the others)")
     for pattern, piece in notes["pattern_conflicts"]:
         print(f"    [note] {piece} of {pattern} is also listed on its own: its own entry is kept")
+    print(f"    meaning groups: synonyms merged for {len(notes['grouped'])} word(s) "
+          f"(data/raw/{hvs.GROUPS_FILE})")
+    if notes["groups_stale"]:
+        print(f"    [check] {len(notes['groups_stale'])} word(s) have groups that no longer match their "
+              f"dictionary meanings and stay ungrouped (re-run group_meanings, or fix the file): "
+              f"{' '.join(notes['groups_stale'][:20])}")
     print(f"    radicals: {len(entries) - len(no_radical)} found, {len(no_radical)} missing"
           f"{f' (e.g. {no_radical[:10]})' if no_radical else ''}")
     if malformed:

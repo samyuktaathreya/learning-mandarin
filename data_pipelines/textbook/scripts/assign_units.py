@@ -44,10 +44,12 @@ No AI. Run one level at a time, lowest first.
 5b. SHORT SENTENCES (EARLY_UNITS): in the first two HSK 1 units only
    sentences of at most 6 words stay; longer ones move to the next unit of
    the same topic, and any word only they use moves with them.
-5c. GRAMMAR PACING (every level): a sentence may bring in at most ONE
-   grammar point not seen earlier; one with more waits for a later unit
-   (see pace_grammar). The report lists every word these two rules moved
-   to a later unit, and any sentence still over the limit.
+5c. GRAMMAR PACING (every level): in a vocab unit a sentence may bring in at
+   most ONE grammar point not seen earlier; one with more waits and is tried
+   again in later units. Every few vocab units, the sentences still waiting
+   become a "Grammar Practice" unit (Unit.kind = "grammar"; see
+   GRAMMAR_UNIT_EVERY). The report lists every word these rules moved to a
+   later unit.
 
 6. WRITE: clears this level's old units (content rows are kept, only
    un-assigned), creates the new ones, and sets unit_id on sentences, words,
@@ -102,6 +104,19 @@ GRAMMAR_NOT_COUNTED = {"1-07", "1-22", "1-29", "1-30", "1-32", "1-33", "1-34", "
 GRAMMAR_ALIASES = {"1-23": "1-08", "1-38": "1-18", "1-41": "1-21", "1-46": "1-04",
                    "2-54": "2-48", "2-70": "2-33", "2-71": "2-32"}
 PACING_ROUNDS = 3        # balance -> short sentences -> pacing, repeated (see build)
+
+# GRAMMAR PRACTICE UNITS (last pacing round). A sentence that still brings 2+
+# new grammar points waits in a pool; it is tried again in every following
+# vocab unit and placed there as soon as it fits. After every
+# GRAMMAR_UNIT_EVERY vocab units, the sentences still waiting become a
+# "Grammar Practice" unit (kind "grammar") -- if there are at least
+# GRAMMAR_UNIT_MIN_SENTENCES of them; fewer wait for the next checkpoint.
+# The level ends with whatever is left. Inside a grammar unit several new
+# points per sentence are allowed (no new words to learn at the same time),
+# but sentences bringing the fewest come first. A word first used by a
+# grammar-unit sentence is taught there.
+GRAMMAR_UNIT_EVERY = 4
+GRAMMAR_UNIT_MIN_SENTENCES = 3
 
 # SHORT SENTENCES in the first units of a level: sentences with more words
 # move to the next unit of the same topic (else the first unit after them),
@@ -220,10 +235,11 @@ def prefix_new_words(lv: Level, before: set, seg: list[int]) -> list[int]:
 # --------------------------------- PLACEMENT + BALANCING ---------------------------------
 
 class Segment:
-    def __init__(self, topics: list[str], sentences: list[int]):
+    def __init__(self, topics: list[str], sentences: list[int], kind: str = "vocab"):
         self.topics = topics
         self.sentences = sentences
         self.unsplittable = False
+        self.kind = kind                  # "vocab" | "grammar" (a Grammar Practice unit)
 
 
 def place_catch_alls(lv: Level, real_topics: list[str], by_topic: dict, catch: list[int], log: list):
@@ -311,16 +327,23 @@ def balance(lv: Level, segments: list[Segment], log: list) -> list[Segment]:
 
 
 def titles_for(segments: list[Segment]) -> list[tuple[str, str, int | None]]:
-    """(title, topic, part) per segment; split topics get "Part 1", "Part 2", ..."""
+    """(title, topic, part) per segment; split topics get "Part 1", "Part 2",
+    ...; grammar units are "Grammar Practice 1", "Grammar Practice 2", ..."""
     def name(topics):
         shown = ", ".join(topic_title(t) for t in topics[:MAX_TITLE_TOPICS])
         rest = len(topics) - MAX_TITLE_TOPICS
         return f"{shown} + {rest} more" if rest > 0 else shown
-    names = [name(s.topics) for s in segments]
+    names = [name(s.topics) for s in segments if s.kind != "grammar"]
     totals = Counter(names)
     seen = Counter()
-    out = []
-    for name, seg in zip(names, segments):
+    out, n_grammar = [], 0
+    names = iter(names)
+    for seg in segments:
+        if seg.kind == "grammar":
+            n_grammar += 1
+            out.append((f"Grammar Practice {n_grammar}", "grammar", None))
+            continue
+        name = next(names)
         seen[name] += 1
         part = seen[name] if totals[name] > 1 else None
         out.append((f"{name}, Part {part}" if part else name, seg.topics[0], part))
@@ -358,7 +381,7 @@ def build(lv: Level):
                 seg.unsplittable = False
             segments = balance(lv, segments, balance_log)
         segments = shorten_early_units(lv, segments, balance_log)
-        segments = pace_grammar(lv, segments, balance_log)
+        segments = pace_grammar(lv, segments, balance_log, grammar_units=(round_no == PACING_ROUNDS - 1))
     after = word_units(lv, segments)
     moved_words = sorted(((lv.hanzi.get(v, str(v)), before[v] + 1, after[v] + 1)
                           for v in after if v in before and after[v] > before[v]), key=lambda x: (x[1], x[0]))
@@ -406,43 +429,87 @@ def shorten_early_units(lv: Level, segments: list[Segment], log: list) -> list[S
     return segments
 
 
-def pace_grammar(lv: Level, segments: list[Segment], log: list) -> list[Segment]:
-    """Walks the units in order. Within a unit, sentences are placed in their
-    order, each only once it brings at most MAX_NEW_GRAMMAR_PER_SENTENCE
-    points not seen yet; placing one can make another placeable, so the
-    unit is passed over until nothing changes. What is left waits for the
-    next unit. The last unit takes whatever is left anyway (reported)."""
+def _place(lv: Level, pending: list, taught: set) -> list:
+    """Places the sentences that bring at most MAX_NEW_GRAMMAR_PER_SENTENCE
+    new points, in order, passing over the list until nothing changes
+    (placing one can make another placeable). Removes them from `pending`,
+    adds their points to `taught`, returns them."""
+    placed, progress = [], True
+    while pending and progress:
+        progress = False
+        for sid in list(pending):
+            new = counted_grammar(lv, lv.grammar[sid]) - taught
+            if len(new) <= MAX_NEW_GRAMMAR_PER_SENTENCE:
+                placed.append(sid)
+                pending.remove(sid)
+                taught |= new
+                progress = True
+    return placed
+
+
+def _fewest_new_first(lv: Level, sids: list, taught: set) -> list:
+    """Grammar-unit order: repeatedly the sentence bringing the fewest new
+    points (ties: original order), so points come one at a time where they
+    can."""
+    rest, out = list(sids), []
+    while rest:
+        sid = min(rest, key=lambda x: (len(counted_grammar(lv, lv.grammar[x]) - taught), rest.index(x)))
+        rest.remove(sid)
+        out.append(sid)
+        taught |= counted_grammar(lv, lv.grammar[sid])
+    return out
+
+
+def pace_grammar(lv: Level, segments: list[Segment], log: list, grammar_units: bool = False) -> list[Segment]:
+    """Walks the units in order and places each unit's sentences only once
+    they bring at most MAX_NEW_GRAMMAR_PER_SENTENCE new points (_place).
+      grammar_units=False (earlier rounds): what is left waits for the next
+        unit; the last unit takes the rest anyway.
+      grammar_units=True (last round): what is left waits in a pool, is
+        tried again in each later vocab unit, and becomes a Grammar Practice
+        unit at the next checkpoint (see GRAMMAR_UNIT_EVERY)."""
     taught = counted_grammar(lv, lv.taught_grammar)
-    deferred_total, forced = 0, []
-    for i, seg in enumerate(segments):
-        pending, placed = list(seg.sentences), []
-        progress = True
-        while pending and progress:
-            progress = False
-            for sid in list(pending):
-                new = counted_grammar(lv, lv.grammar[sid]) - taught
-                if len(new) <= MAX_NEW_GRAMMAR_PER_SENTENCE:
-                    placed.append(sid)
-                    pending.remove(sid)
-                    taught |= new
-                    progress = True
-        if pending and i + 1 < len(segments):
-            segments[i + 1].sentences = pending + segments[i + 1].sentences
-            deferred_total += len(pending)
-        elif pending:
-            for sid in pending:
-                forced.append((sid, sorted(counted_grammar(lv, lv.grammar[sid]) - taught)))
-                taught |= counted_grammar(lv, lv.grammar[sid])
-            placed += pending
-        seg.sentences = placed
-    kept = [seg for seg in segments if seg.sentences]
-    log.append(f"grammar pacing: at most {MAX_NEW_GRAMMAR_PER_SENTENCE} new grammar point(s) per sentence; "
-               f"{deferred_total} sentence move(s) to a later unit"
-               f"{f'; {len(segments) - len(kept)} unit(s) emptied and removed' if len(kept) < len(segments) else ''}")
-    for sid, new in forced:
-        log.append(f"  [over the limit] {lv.sentences[sid]['ext'] or sid} still brings {len(new)} new points "
-                   f"({' '.join(new)}): no earlier sentence introduces them; placed in the last unit")
-    return kept
+    if not grammar_units:
+        deferred_total = 0
+        for i, seg in enumerate(segments):
+            pending = list(seg.sentences)
+            placed = _place(lv, pending, taught)
+            if pending and i + 1 < len(segments):
+                segments[i + 1].sentences = pending + segments[i + 1].sentences
+                deferred_total += len(pending)
+            elif pending:
+                for sid in pending:
+                    taught |= counted_grammar(lv, lv.grammar[sid])
+                placed += pending
+            seg.sentences = placed
+        kept = [seg for seg in segments if seg.sentences]
+        log.append(f"grammar pacing: {deferred_total} sentence move(s) to a later unit")
+        return kept
+
+    out, pool, since, made = [], [], 0, []
+
+    def flush():
+        nonlocal pool, since
+        sids = _fewest_new_first(lv, pool, taught)
+        out.append(Segment(["grammar"], sids, kind="grammar"))
+        made.append(len(sids))
+        pool, since = [], 0
+
+    for seg in segments:
+        pending = pool + list(seg.sentences)
+        seg.sentences = _place(lv, pending, taught)
+        pool = pending                        # still bringing 2+ new points
+        if seg.sentences:
+            out.append(seg)
+            since += 1
+        if since >= GRAMMAR_UNIT_EVERY and len(pool) >= GRAMMAR_UNIT_MIN_SENTENCES:
+            flush()
+    if pool:
+        flush()
+    log.append(f"grammar pacing: at most {MAX_NEW_GRAMMAR_PER_SENTENCE} new grammar point(s) per sentence in "
+               f"vocab units; {len(made)} Grammar Practice unit(s) for the sentences that bring more "
+               f"({', '.join(map(str, made)) or '-'} sentence(s))")
+    return out
 
 
 def report(lv: Level, segments, reasons, placement_log, balance_log, stats, titles, moved_words=()):
@@ -455,11 +522,14 @@ def report(lv: Level, segments, reasons, placement_log, balance_log, stats, titl
     flagged = 0
     for i, (seg, st, (title, _, _)) in enumerate(zip(segments, stats, titles), 1):
         flags = []
-        if len(st["words"]) > MAX_WORDS: flags.append(f"over {MAX_WORDS} words")
-        if len(st["words"]) < MIN_WORDS: flags.append(f"under {MIN_WORDS} words")
-        if len(seg.sentences) < MIN_SENTENCES: flags.append(f"under {MIN_SENTENCES} sentences")
-        if len(st["grammar"]) > MAX_GRAMMAR: flags.append(f"over {MAX_GRAMMAR} new grammar")
-        flagged += bool(flags)
+        if seg.kind == "grammar":
+            flags.append("grammar unit (size limits don't apply)")
+        else:
+            if len(st["words"]) > MAX_WORDS: flags.append(f"over {MAX_WORDS} words")
+            if len(st["words"]) < MIN_WORDS: flags.append(f"under {MIN_WORDS} words")
+            if len(seg.sentences) < MIN_SENTENCES: flags.append(f"under {MIN_SENTENCES} sentences")
+            if len(st["grammar"]) > MAX_GRAMMAR: flags.append(f"over {MAX_GRAMMAR} new grammar")
+            flagged += bool(flags)
         print(f"  {i:>3}  {title:<34}{len(seg.sentences):>10}{len(st['words']):>11}{len(st['grammar']):>13}  "
               f"{'; '.join(flags)}")
     print(f"\n  {flagged} unit(s) flagged. Words: {sum(len(s['words']) for s in stats)} new, "
@@ -475,7 +545,7 @@ def write(db, lv: Level, segments, stats, titles) -> dict:
     cleared = clear_units(db, lv.level)
     unit_ids = []
     for i, (title, topic, part) in enumerate(titles, 1):
-        unit_ids.append(create_unit(db, i, lv.level, title, topic=topic, part=part).id)
+        unit_ids.append(create_unit(db, i, lv.level, title, topic=topic, part=part, kind=segments[i - 1].kind).id)
 
     sentence_unit, word_unit, sense_unit, grammar_unit = {}, {}, {}, {}
     for uid, seg, st in zip(unit_ids, segments, stats):

@@ -51,7 +51,20 @@ GRAMMAR_POS = {"u", "y"}
 
 # What load_entries() did beyond the plain list, for load_hsk_lists.py to print.
 LOAD_NOTES = {"overrides": [], "override_missing": [], "merged_readings": [],
-              "patterns": [], "pattern_conflicts": []}
+              "patterns": [], "pattern_conflicts": [], "grouped": [], "groups_stale": []}
+
+# MEANING GROUPS = data/raw/meaning_groups.json, written by group_meanings.py
+# (one AI call per word, once) and editable by hand. CC-CEDICT lists
+# synonyms as separate meanings ("to try to find", "to look for", "to find",
+# "to seek"), so each sentence picked a different one and 找 was taught three
+# times. A group is one meaning: its texts joined with "; ".
+#     {"找": {"forms": [{"reading": "zhao3",
+#                        "groups": [["to try to find", "to look for", "to find", "to seek"],
+#                                   ["to call on sb"], ["to return", "to give change"]]}]}}
+# A word's groups are used only if they hold exactly the word's current
+# meanings; otherwise (dictionary changed, or a typo in an edit) the word
+# stays ungrouped and load_hsk_lists.py says so.
+GROUPS_FILE = "meaning_groups.json"
 
 _PATTERN_SPLIT_RE = re.compile(r"[…⋯.。～~\s]+")
 
@@ -137,8 +150,57 @@ def _raw(path: str) -> list:
         return json.load(f)
 
 
+def groupable_meanings(form: dict) -> list[str]:
+    """The meanings of a form that grouping works on (and candidates()
+    offers): dictionary notes left out, unless a form has nothing else."""
+    meanings = list(form.get("meanings") or [])
+    return [m for m in meanings if not is_note(m)] or meanings
+
+
 @lru_cache(maxsize=None)
-def load_entries(path: str) -> dict:
+def load_groups(path: str) -> dict:
+    p = Path(path)
+    if not p.exists():
+        return {}
+    with open(p, encoding="utf-8") as f:
+        raw = json.load(f)
+    return {w: v for w, v in raw.items() if not w.startswith("_")}
+
+
+def apply_groups(entry: dict, stored: dict | None) -> dict:
+    """The entry with each form's meanings replaced by its groups (one
+    meaning per group, texts joined with "; "). Unchanged when there is
+    nothing stored or the stored groups don't match the current meanings."""
+    if not stored:
+        return entry
+    stored_forms = stored.get("forms") or []
+    if len(stored_forms) != len(entry["forms"]):
+        LOAD_NOTES["groups_stale"].append(entry["simplified"])
+        return entry
+    new_forms = []
+    for form, sf in zip(entry["forms"], stored_forms):
+        meanings = groupable_meanings(form)
+        groups = [[m for m in g if isinstance(m, str)] for g in (sf.get("groups") or [])]
+        flat = [m for g in groups for m in g]
+        if sf.get("reading") != numeric(form) or sorted(flat) != sorted(meanings):
+            LOAD_NOTES["groups_stale"].append(entry["simplified"])
+            return entry
+        order = {m: i for i, m in enumerate(meanings)}
+        groups = sorted((sorted(g, key=order.get) for g in groups if g), key=lambda g: order[g[0]])
+        new_forms.append({**form, "meanings": ["; ".join(g) for g in groups]})
+    if any(len(f["meanings"]) < len(groupable_meanings(o)) for f, o in zip(new_forms, entry["forms"])):
+        LOAD_NOTES["grouped"].append(entry["simplified"])
+    return {**entry, "forms": new_forms}
+
+
+def load_entries(path: str, grouped: bool = True) -> dict:
+    """See _load_entries; grouped=False skips the meaning groups (what
+    group_meanings.py itself works from)."""
+    return _load_entries(path, grouped)
+
+
+@lru_cache(maxsize=None)
+def _load_entries(path: str, grouped: bool) -> dict:
     """{simplified: entry} for every word in the curriculum list: a 2025
     level ("newest-N") or a level override. entry["level"] = that level.
       - readings with identical meanings are merged (_merge_identical_readings)
@@ -146,7 +208,10 @@ def load_entries(path: str) -> dict:
         entry["pattern"]; a sentence only counts a piece at that level when
         it has every piece (db_utils.set_sentence_level). A piece listed as
         a word on its own keeps its own entry.
-    The overrides file is read from the same folder as `path`."""
+      - synonyms are one meaning, when meaning_groups.json has the word
+        (apply_groups)
+    The overrides and meaning-groups files are read from the same folder as
+    `path`."""
     for v in LOAD_NOTES.values():
         v.clear()
     overrides = {w: int(o["level"]) for w, o in _load_overrides(str(Path(path).parent / OVERRIDES_FILE)).items()}
@@ -172,6 +237,10 @@ def load_entries(path: str) -> dict:
             continue
         LOAD_NOTES["overrides"].append((word, None, entry["level"]))
         out[word] = entry
+
+    if grouped:
+        groups = load_groups(str(Path(path).parent / GROUPS_FILE))
+        out = {w: apply_groups(e, groups.get(w)) for w, e in out.items()}
 
     for word in [w for w in out if len(pattern_pieces(w)) > 1]:
         entry = out.pop(word)
@@ -355,10 +424,6 @@ def clean_meaning(text: str) -> str:
     (dropping just the clause that had it), "(bound form)" removed. Falls
     back to the original if nothing would be left."""
     original = (text or "").strip()
-    t = _PRON_NOTE_RE.sub("", original)
-    t = _CL_NOTE_RE.sub("", t)
-    t = _HANZI_REF_RE.sub("", t)
-    t = _BOUND_RE.sub("", t)
 
     def paren(m):
         inner = m.group(1)
@@ -371,7 +436,13 @@ def clean_meaning(text: str) -> str:
         kept = [part for part in re.split(r",\s*", inner)
                 if part.strip() and not re.search(_CJK, part) and not _PR_CLAUSE_RE.search(part)]
         return f"({', '.join(kept)})" if kept else ""
-    t = _PAREN_RE.sub(paren, t)
+    # whole parenthesised notes first, so a note is dropped in one piece --
+    # removing "also pr. [...]" first left "(... for this sense)" behind
+    t = _PAREN_RE.sub(paren, original)
+    t = _PRON_NOTE_RE.sub("", t)
+    t = _CL_NOTE_RE.sub("", t)
+    t = _HANZI_REF_RE.sub("", t)
+    t = _BOUND_RE.sub("", t)
     t = re.sub(r"\s+([;,.)])", r"\1", t)
     t = re.sub(r"\(\s*\)", "", t)
     t = re.sub(r"\s{2,}", " ", t).strip(" ;,")

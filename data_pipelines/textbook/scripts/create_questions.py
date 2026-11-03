@@ -25,6 +25,15 @@ FILL IN THE BLANK -- one per sentence, generated: the blank is a word whose
 sense is new in this unit (spread so the unit's new words each get blanked
 before any repeats), else the most recently taught word. Proper nouns are
 never blanked. Format, as before: "我很___。 (I'm very happy.)"
+In a GRAMMAR PRACTICE unit (Unit.kind = "grammar") the blank is the word
+that marks a grammar point instead (detect_grammar.GRAMMAR_MARKERS: 过 in
+我去过北京), preferring the points the unit introduces; a sentence with no
+marker word gets the ordinary blank.
+
+GRAMMAR LINKS -- every sentence question, in every unit, is linked to every
+grammar point its sentence uses (QuestionGrammar), so grammar progress can
+be tracked the way word questions track vocab. A marker blank also links
+its point. Word questions have no grammar links.
 
 TYPING questions (listening sentence, translate to Chinese, fill in the
 blank) are skipped when a SENTENCE uses a word not taught yet. Every
@@ -48,9 +57,13 @@ from app.textbook.db_utils import (
     get_session, init_db, get_senses_for_unit,
     get_sentences_for_unit, get_tags_for_sentence, upsert_question, get_word_to_unit_map,
 )
+from app.textbook.db_utils import delete_questions
 from app.textbook.models import (
-    FitbQuestion, Question, Sentence, SentenceVocab, Unit, VocabSense, WordType,
+    FitbQuestion, GrammarTip, Question, QuestionGrammar, Sentence, SentenceGrammar, SentenceVocab,
+    Unit, VocabSense, WordType,
 )
+
+from data_pipelines.textbook.scripts.detect_grammar import GRAMMAR_MARKERS
 
 
 class QuestionType(str, Enum):
@@ -141,17 +154,44 @@ def pick_blank(rows, spans, unit_id: int, blank_counts: Counter):
     return (best[1], best[2]) if best else (None, None)
 
 
+class GrammarIndex:
+    """Grammar points per sentence, and each point's code and home unit."""
+    def __init__(self, db):
+        self.code = dict(db.query(GrammarTip.id, GrammarTip.grammar_code).all())
+        self.home = dict(db.query(GrammarTip.id, GrammarTip.unit_id).all())
+        self.of_sentence = defaultdict(list)
+        for sid, gid in db.query(SentenceGrammar.sentence_id, SentenceGrammar.grammar_tip_id).all():
+            self.of_sentence[sid].append(gid)
+
+
+def pick_marker_blank(rows, spans, sentence_points: list[int], unit_id: int, grammar: GrammarIndex):
+    """Grammar Practice blank: the word marking one of the sentence's grammar
+    points -- a point the unit introduces first. (row, span, grammar_tip_id)
+    or (None, None, None) when no point has a marker word in the sentence."""
+    ordered = sorted(sentence_points, key=lambda g: (grammar.home.get(g) != unit_id, g))
+    for g in ordered:
+        markers = GRAMMAR_MARKERS.get(grammar.code.get(g), set())
+        for row, span in zip(rows, spans):
+            if span is not None and row.vocab.hanzi in markers:
+                return row, span, g
+    return None, None, None
+
+
 # --------------------------------- PER UNIT ---------------------------------
 
-def build_questions_for_unit(db, unit: Unit, home_unit: dict, counts: Counter):
+def build_questions_for_unit(db, unit: Unit, home_unit: dict, counts: Counter, grammar: GrammarIndex):
     n, lvl = unit.unit_number, unit.hsk_level
     seen = set()   # (qtype, question text): no duplicates within a unit
 
-    def add(qtype, q, a, **links):
+    def add(qtype, q, a, grammar_ids=(), **links):
         if not q or not a or (qtype, q) in seen:
             return
         seen.add((qtype, q))
-        upsert_question(db, n, qtype, q, a, hsk_level=lvl, **links)
+        row = upsert_question(db, n, qtype, q, a, hsk_level=lvl, **links)
+        for gid in dict.fromkeys(grammar_ids):
+            if db.get(QuestionGrammar, (row.id, gid)) is None:
+                db.add(QuestionGrammar(question_id=row.id, grammar_tip_id=gid))
+                counts["grammar links"] += 1
         counts[qtype] += 1
 
     # --- word questions: every sense homed in this unit ---
@@ -180,6 +220,7 @@ def build_questions_for_unit(db, unit: Unit, home_unit: dict, counts: Counter):
     for sentence in sorted(get_sentences_for_unit(db, n, hsk_level=lvl), key=lambda s: s.id):
         hanzi, pinyin, english = sentence.hanzi, sentence.pinyin, (sentence.english or "").strip()
         blocked = has_unlearned_vocab(get_tags_for_sentence(db, sentence.id), n, home_unit, lvl)
+        points = grammar.of_sentence.get(sentence.id, [])
         for qtype, q, a in [
             (QuestionType.LISTENING_SENTENCE.value, hanzi, hanzi),
             (QuestionType.SPEAKING_SENTENCE.value, hanzi, pinyin),
@@ -189,12 +230,18 @@ def build_questions_for_unit(db, unit: Unit, home_unit: dict, counts: Counter):
             if qtype in TYPING_REQUIRED_TYPES and blocked:
                 counts["typing question skipped: unlearned word inside"] += 1
                 continue
-            add(qtype, q, a, sentence_id=sentence.id)
+            add(qtype, q, a, grammar_ids=points, sentence_id=sentence.id)
 
         if blocked:
             continue
         rows = sorted(sentence.vocab_links, key=lambda r: r.position)
-        row, span = pick_blank(rows, word_spans(sentence, rows), unit.id, blank_counts)
+        spans = word_spans(sentence, rows)
+        row, span, marker_point = None, None, None
+        if unit.kind == "grammar":
+            row, span, marker_point = pick_marker_blank(rows, spans, points, unit.id, grammar)
+            counts["grammar unit blank: grammar marker" if row else "grammar unit blank: no marker, word blank"] += 1
+        if row is None:
+            row, span = pick_blank(rows, spans, unit.id, blank_counts)
         if row is None:
             counts["fill in the blank skipped: no word to blank"] += 1
             continue
@@ -206,6 +253,7 @@ def build_questions_for_unit(db, unit: Unit, home_unit: dict, counts: Counter):
             db.add(FitbQuestion(sentence_id=sentence.id, unit_id=unit.id, question=question,
                                 answer=answer, full_sentence=hanzi))
         add(QuestionType.FILL_IN_THE_BLANK.value, question, answer,
+            grammar_ids=points + ([marker_point] if marker_point else []),
             sentence_id=sentence.id, vocab_id=row.vocab_id, vocab_sense_id=row.vocab_sense_id)
         blank_counts[answer] += 1
     db.flush()
@@ -230,20 +278,22 @@ def main():
             raise SystemExit("No units yet -- run assign_units.py first.")
 
         home_unit = get_word_to_unit_map(db)
+        grammar = GrammarIndex(db)
 
         for lvl in levels:
             units = db.query(Unit).filter(Unit.hsk_level == lvl).order_by(Unit.unit_number).all()
             unit_ids = [u.id for u in units]
-            old = db.query(Question).filter(Question.unit_id.in_(unit_ids)).delete(synchronize_session=False)
+            old = delete_questions(db, db.query(Question).filter(Question.unit_id.in_(unit_ids)))
             db.query(FitbQuestion).filter(FitbQuestion.unit_id.in_(unit_ids)).delete(synchronize_session=False)
             db.flush()
             counts = Counter()
             per_unit = []
             for unit in units:
-                before = sum(v for k, v in counts.items() if not k.startswith(("word skipped", "typing", "fill in the blank skipped")))
-                build_questions_for_unit(db, unit, home_unit, counts)
-                after = sum(v for k, v in counts.items() if not k.startswith(("word skipped", "typing", "fill in the blank skipped")))
-                per_unit.append((unit.unit_number, unit.title, after - before))
+                before = sum(v for k, v in counts.items() if not k.startswith(("word skipped", "typing", "fill in the blank skipped", "grammar")))
+                build_questions_for_unit(db, unit, home_unit, counts, grammar)
+                after = sum(v for k, v in counts.items() if not k.startswith(("word skipped", "typing", "fill in the blank skipped", "grammar")))
+                per_unit.append((unit.unit_number, f"{unit.title}{' [grammar]' if unit.kind == 'grammar' else ''}",
+                                 after - before))
             total = sum(q for *_, q in per_unit)
             print(f"\nHSK {lvl}: {total} question(s) in {len(units)} unit(s) (replaced {old})")
             for n, title, q in per_unit:

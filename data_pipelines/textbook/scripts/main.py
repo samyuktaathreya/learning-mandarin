@@ -4,6 +4,9 @@ SQL-based textbook data pipeline runner (hsk-sentences-audio version).
 STAGES, in order:
   once, over everything:
     1. load_hsk_lists     vocab list (2025 syllabus + overrides, radicals) + grammar points list
+    1b. group_meanings    (levels you build) one AI call per word, once: synonym meanings
+                          ("to look for" / "to find") become one meaning; saved to
+                          data/raw/meaning_groups.json, editable, kept across --reset-db
     2. import_hsa         hsk-sentences-audio sentences, bare (no unit, no tags)
     3. tag_sentences      words, POS tags, readings, senses for the main reading,
                           sentence levels from words
@@ -63,6 +66,7 @@ MODULE_PREFIX = "data_pipelines.textbook.scripts"
 # (short name used by --from / --only, script module, runs per level?)
 STAGES = [
     ("lists",     "load_hsk_lists",   False),
+    ("meanings",  "group_meanings",   "levels"),   # once per word, kept across --reset-db
     ("import",    "import_hsa",       False),
     ("tag",       "tag_sentences",    False),
     ("grammar",   "detect_grammar",   False),
@@ -92,7 +96,7 @@ def stage_args(name: str, level: int | None, args) -> list[str]:
         return ["--hsk-level", str(level)]
     if name == "senses":
         return ["--levels", *map(str, sorted(set(args.levels)))] + (["--redo"] if args.redo_senses else [])
-    if name in ("gaps", "review"):
+    if name in ("gaps", "review", "meanings"):
         return ["--levels", *map(str, sorted(set(args.levels)))]
     if name == "tag":
         out = []
@@ -181,7 +185,7 @@ def main():
 
     needs_levels = any(per_level for _, _, per_level in selected)
     if needs_levels and not args.levels:
-        parser.error("--levels is required when the review, gaps, senses or units stage runs, e.g. --levels 1 2")
+        parser.error("--levels is required for the meanings, review, gaps, senses and units stages, e.g. --levels 1 2")
     levels = sorted(set(args.levels or []))
 
     steps = []

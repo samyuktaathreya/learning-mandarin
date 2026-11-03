@@ -38,7 +38,7 @@ from sqlalchemy.orm import sessionmaker, Session
 from .models import (
     Base, Unit, Vocab, VocabSense, Sentence, SentenceVocab, WordType,
     VocabOrigin, SentenceSource, OUT_OF_LIST_LEVEL,
-    GrammarTip, SentenceGrammar, Question, FitbQuestion, SenseCache, PinyinWord,
+    GrammarTip, SentenceGrammar, Question, QuestionGrammar, FitbQuestion, SenseCache, PinyinWord,
 )
 from app.core.config.data import TEXTBOOK_DB
 from app.core.logger import logger
@@ -70,7 +70,19 @@ def init_db():
 
 # create_all() makes missing TABLES but never adds a column to an existing
 # one, so columns added to a model after the DB was created go here.
-_ADDED_COLUMNS = [("vocab", "radical", "TEXT"), ("vocab", "pattern", "TEXT"), ("sentences", "review", "TEXT")]
+_ADDED_COLUMNS = [("vocab", "radical", "TEXT"), ("vocab", "pattern", "TEXT"), ("sentences", "review", "TEXT"),
+                  ("units", "kind", "TEXT NOT NULL DEFAULT 'vocab'")]
+
+
+def delete_questions(db: Session, query) -> int:
+    """Deletes the questions a Question query matches, with their grammar
+    links (question_grammar) first. Returns how many questions."""
+    ids = [qid for (qid,) in query.with_entities(Question.id).all()]
+    for i in range(0, len(ids), 500):
+        chunk = ids[i:i + 500]
+        db.query(QuestionGrammar).filter(QuestionGrammar.question_id.in_(chunk)).delete(synchronize_session=False)
+        db.query(Question).filter(Question.id.in_(chunk)).delete(synchronize_session=False)
+    return len(ids)
 
 _PATTERN_SPLIT_RE = re.compile(r"[…⋯.。～~\s]+")
 
@@ -97,7 +109,7 @@ def reset_textbook_data(db: Session) -> dict:
     pinyin_sound_guides don't depend on vocab and are kept. Returns
     {table: rows deleted}."""
     counts = {}
-    for model in (Question, FitbQuestion, SentenceGrammar, SentenceVocab, SenseCache,
+    for model in (QuestionGrammar, Question, FitbQuestion, SentenceGrammar, SentenceVocab, SenseCache,
                   PinyinWord, VocabSense, Sentence, Vocab, GrammarTip, Unit):
         counts[model.__tablename__] = db.query(model).delete(synchronize_session=False)
     db.flush()
@@ -157,11 +169,11 @@ def get_or_create_unit(db: Session, unit_number: int, hsk_level: int = 1) -> Uni
 
 
 def create_unit(db: Session, unit_number: int, hsk_level: int, title: str,
-                topic: str | None = None, part: int | None = None) -> Unit:
+                topic: str | None = None, part: int | None = None, kind: str = "vocab") -> Unit:
     """assign_units.py: writes one unit. Call clear_units first on a re-run;
     this raises on a duplicate (unit_number, hsk_level) rather than silently
-    reusing a stale row."""
-    unit = Unit(unit_number=unit_number, hsk_level=hsk_level, title=title, topic=topic, part=part)
+    reusing a stale row. kind: "vocab" or "grammar"."""
+    unit = Unit(unit_number=unit_number, hsk_level=hsk_level, title=title, topic=topic, part=part, kind=kind)
     db.add(unit)
     db.flush()
     return unit
@@ -180,7 +192,7 @@ def clear_units(db: Session, hsk_level: int) -> int:
     for model in (Sentence, Vocab, VocabSense, GrammarTip):
         db.query(model).filter(model.unit_id.in_(unit_ids)).update(
             {model.unit_id: None}, synchronize_session=False)
-    db.query(Question).filter(Question.unit_id.in_(unit_ids)).delete(synchronize_session=False)
+    delete_questions(db, db.query(Question).filter(Question.unit_id.in_(unit_ids)))
     db.query(FitbQuestion).filter(FitbQuestion.unit_id.in_(unit_ids)).delete(synchronize_session=False)
     db.query(Unit).filter(Unit.id.in_(unit_ids)).delete(synchronize_session=False)
     db.flush()
@@ -685,7 +697,7 @@ def delete_unused_senses(db: Session) -> int:
     for i in range(0, len(unused), 500):
         chunk = unused[i:i + 500]
         db.query(SenseCache).filter(SenseCache.vocab_sense_id.in_(chunk)).delete(synchronize_session=False)
-        db.query(Question).filter(Question.vocab_sense_id.in_(chunk)).delete(synchronize_session=False)
+        delete_questions(db, db.query(Question).filter(Question.vocab_sense_id.in_(chunk)))
         db.query(VocabSense).filter(VocabSense.id.in_(chunk)).delete(synchronize_session=False)
     db.flush()
     db.expire_all()
@@ -706,9 +718,9 @@ def delete_unused_non_list_vocab(db: Session) -> tuple[int, int]:
         sense_ids = [sid for (sid,) in db.query(VocabSense.id).filter(VocabSense.vocab_id.in_(chunk)).all()]
         if sense_ids:
             db.query(SenseCache).filter(SenseCache.vocab_sense_id.in_(sense_ids)).delete(synchronize_session=False)
-            db.query(Question).filter(Question.vocab_sense_id.in_(sense_ids)).delete(synchronize_session=False)
+            delete_questions(db, db.query(Question).filter(Question.vocab_sense_id.in_(sense_ids)))
             db.query(VocabSense).filter(VocabSense.id.in_(sense_ids)).delete(synchronize_session=False)
-        db.query(Question).filter(Question.vocab_id.in_(chunk)).delete(synchronize_session=False)
+        delete_questions(db, db.query(Question).filter(Question.vocab_id.in_(chunk)))
         db.query(PinyinWord).filter(PinyinWord.vocab_id.in_(chunk)).delete(synchronize_session=False)
         db.query(Vocab).filter(Vocab.id.in_(chunk)).delete(synchronize_session=False)
     db.flush()
