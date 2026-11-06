@@ -1,0 +1,45 @@
+# Grammar detection rules (trial)
+
+Written by AI (try_grammar_rule.py write), checked against the pipeline's sentences (try_grammar_rule.py validate), and safe to edit by hand. Only the ```rule block of each section is read by the code. Syntax: see test_scripts/grammar_rules.py.
+
+## 1-10
+<!-- written by claude-sonnet-5-5 on 2026-11-06; edit freely -->
+**Point:** The scope adverb 都 ("all / both") and the togetherness adverbs 一起 / 一块儿 ("together"), placed after the subject and before the verb.
+
+**Covers:** A plural, coordinated or collective subject followed by 都 and a predicate (他们都在上海, 我和我太太都不吃肉, 同学们都很认真). Also 一起 or 一块儿 directly before a verb (我们一起吃晚饭吧, 他想和他太太一起学中文).
+
+**Does not cover:** Every other use of 都, because each is a different grammar point.
+- 连…都 ("even"), 一+量词+都+不/没 ("not even one"), and question words with 都 (什么/谁/哪儿/怎么/多少…都).
+- 除了…都, 不管/无论…都, 别说, and 何况/更 ("let alone").
+- 都…了 ("already") and the "even" use 都能….
+- Sentence-initial 都 (都怪你).
+
+```rule
+match: /PN|NN|NR|NT|M|CD 都/AD
+match: 一起/AD
+match: 一块儿/AD
+unless: 连
+unless: 什么
+unless: 谁
+unless: 哪儿
+unless: 哪里
+unless: 哪
+unless: 怎么
+unless: 多少
+unless: 除了
+unless: 不管
+unless: 不 管
+unless: 无论
+unless: 别说
+unless: 何况
+unless: 更
+unless: 一/CD ... 都
+unless: 都 ... 了
+unless: 都 能
+```
+
+**Notes:**
+- The first `match:` line requires a nominal or measure word right before 都. This rejects sentence-initial 都, 去都去了 and 遍地都是.
+- The `unless:` lines are checked against the whole sentence, not one clause. A bare word such as 除了 or 连 therefore excludes the sentence even when it sits in a different clause from 都.
+- `都 ... 了` also removes some valid sentences, such as 笔试和口试都通过了. This is deliberate: it keeps out the "already" use at the cost of some recall.
+- 一起 and 一块儿 sentences are also rejected by any of the `unless:` words. That is acceptable under the precision-first policy.

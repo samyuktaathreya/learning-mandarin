@@ -59,8 +59,10 @@ export default function SpeakingQuestion({
     : isPinyinPair ? currentQuestionObj.audio_pinyin : null;
 
     const isPinyinQuestion = PINYIN_QUESTION_TYPES.has(currentQuestionObj.question_type);
-    // Check if the current question requires the shadowing phase
-    const requiresShadowing = currentQuestionObj.question_type === "speaking sentence";
+    // Whether the first graded attempt at this question was correct (null until graded)
+    const [firstAttemptCorrect, setFirstAttemptCorrect] = useState(null);
+    // Shadowing is only for sentences the user got wrong on the first attempt
+    const requiresShadowing = currentQuestionObj.question_type === "speaking sentence" && firstAttemptCorrect === false;
 
     // ── Tip UI & Logic state ──────────────────────────────────────
     const [showTipForm, setShowTipForm] = useState(false);
@@ -111,9 +113,16 @@ export default function SpeakingQuestion({
         setTipSaveState(null);
         setAudioCompleted(false); 
         setHasPassedFirstTry(false);
+        setFirstAttemptCorrect(null);
         setSelectedSound(null);
         setModelResult(null);
     }, [currentQuestionObj]);
+
+    // Errors and "couldn't hear you" don't count as an attempt
+    useEffect(() => {
+        if (!transcriptionResult || transcriptionResult.error || transcriptionResult.hallucination) return;
+        setFirstAttemptCorrect(prev => prev ?? transcriptionResult.is_correct);
+    }, [transcriptionResult]);
 
     // Fetch sentence tags with context-aware definitions
     useEffect(() => {
@@ -360,7 +369,7 @@ export default function SpeakingQuestion({
                                 requiresShadowing ? (
                                     !hasPassedFirstTry ? (
                                         <div className="shadow-pass-box">
-                                            <p className="shadow-pass-title">✓ First pass correct!</p>
+                                            <p className="shadow-pass-title">✓ You got it this time!</p>
                                             <p className="shadow-pass-prompt">Now listen to the target audio and repeat it to build muscle memory.</p>
                                             <button 
                                                 className="start-shadow-btn"

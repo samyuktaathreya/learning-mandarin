@@ -121,23 +121,25 @@ export const gradePinyinAnswer = (userAnswer, questionObj) => {
 };
 
 // Local exact-match check, ignoring case and punctuation. Matches the whole
-// answer, or for word questions any of its comma-separated alternatives
-// ("date, day of the month"). Sentence answers aren't split: their commas are
-// punctuation, and "Hello" alone isn't right for "Hello, teacher!". Anything
-// that doesn't match goes to the AI grader.
+// answer, or for word questions any of its comma- or semicolon-separated
+// alternatives ("date, day of the month", "to love; to like"). Sentence answers
+// aren't split: their commas are punctuation, and "Hello" alone isn't right for
+// "Hello, teacher!". Word questions also ignore a leading "to", so "love" and
+// "to love" match each other. Anything that doesn't match goes to the AI grader.
 export const isExactMatch = (userAnswer, questionObj) => {
     if (LISTENING_PINYIN_TYPES.has(questionObj.question_type)) return gradePinyinAnswer(userAnswer, questionObj).isCorrect;
     const isPinyin = PINYIN_TYPES.has(questionObj.question_type);
+    const isSentence = questionObj.question_type.includes("sentence");
     const normalize = (str) => {
         // v and u: are the usual ways to type ü ("nv3" for "nü3"); before clean(), which strips ':'
         if (isPinyin) str = str.normalize('NFC').toLowerCase().replace(/u:|v/g, 'ü');
         const cleaned = clean(str.trim());
-        return isPinyin ? cleaned.replace(/\s+/g, "") : cleaned;
+        if (isPinyin) return cleaned.replace(/\s+/g, "");
+        return isSentence ? cleaned : cleaned.replace(/^to\s+/, "");
     };
     const given = normalize(userAnswer);
     const answer = questionObj.answer;
-    const isSentence = questionObj.question_type.includes("sentence");
-    return [answer, ...(isSentence ? [] : answer.split(','))].some(v => normalize(v) === given);
+    return [answer, ...(isSentence ? [] : answer.split(/[,;；]/))].some(v => normalize(v) === given);
 };
 
 // The comma-separated accepted answers, spaced for display: "kitten,kitty" -> "kitten, kitty"
