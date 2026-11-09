@@ -1,0 +1,159 @@
+
+########## rules  2026-11-07 14:43 ##########
+6 page(s) use the word(s); asking about 6.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGEYQ9O  Expressing actions in progress (full form)
+  ASG846EA  Expressing actions in progress with "zai"
+
+not:
+  ASGUD25J  Coincidence with "zhenghao"
+
+unsure:
+  ASGLJM55  Sequencing with "xian" and "zai"
+
+unrelated:
+  ASGZVM27  Expressing "anyway" with "fanzheng"
+  ASGTBHBG  Comparing "zai" and "you"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-11
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_144339.txt
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 1-11
+<!-- written by claude-sonnet-5-5 on 2026-11-07; edit freely -->
+**Point:** Time adverbs before a verb: 在/正/正在 for an action in progress (including the 着…呢 and verb + object + 呢 forms), plus 先 ("first") and 马上 ("right away") before a verb.
+**Covers:**
+- 在, 正 or 正在 directly before a verb: 她在看书, 我正在吃饭, 他正上厕所呢.
+- 在 tagged P directly before a verb after a subject: 他在上厕所.
+- Verb + 着 … 呢: 老板开着会呢.
+- Bare "Subj. + common action verb + object + 呢": 我吃饭呢, 爷爷看报纸呢.
+- 先 or 马上 directly before a verb: 我先说吧, 医生马上来.
+- 有时 tagged AD before a verb.
+
+**Does not cover:**
+- 正好 (a different word, covered by 2-20): "coincidentally" and "just right".
+- 正 before 是, as in 现在正是吃饺子的时候, and 正常, 正式, 正确, 先生, 先后, 真正.
+- 在 as a locative preposition followed by a place (在北京工作). It is not progressive and is excluded because it is borderline.
+- Sentences that contain 正好 anywhere are excluded.
+
+```rule
+match: 在|正在|正/AD /VV
+match: /PN|NN 在/P /VV
+match: 先|马上|有时/AD /VV
+match: /PN|NN /VV 着/AS ... 呢/SP
+match: ^ /PN|NN 吃|喝|看|听|写|读|洗|上|开|做|打|玩|学|睡|唱|找|等|修|画/VV /NN /NN? 呢/SP
+match: ^ /PN|NN 打电话|开会|上课|上班|洗澡|睡觉|做饭|开车/VV 呢/SP
+unless: 正好
+```
+
+**Notes:** Verb + object + 呢 is limited to a list of concrete action verbs because a generic pattern would wrongly catch stative verbs like 喜欢 (我喜欢猫呢). The 着…呢 line may also match existential 着 (墙上挂着画呢). 在/P + place + verb (谁在里面洗澡) is not matched on purpose, since 他在家吃饭 is not progressive. Add that pattern only if you can restrict the place word. 在/P followed directly by a verb could occasionally be a nominal use (在学习上); this is rare.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-11
+Tagging 2 labeled example(s) (cached after this run)...
+
+=== A. 1-11: rule on labeled examples (no AI) ===
+  examples of 1-11 matched:    25/27
+  counter-examples wrongly matched: 0/10   <- should be 0
+
+--- examples of 1-11 the rule misses (2) ---
+  谁在里面洗澡？  -- ASG846EA Expressing actions in progress with "zai"
+  你给我打电话的时候，我正在跟朋友打游戏。  -- ASG846EA Expressing actions in progress with "zai"
+
+########## tatoeba  2026-11-07 17:22 ##########
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-41
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 58 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_172218.txt
+  ...100/238
+  ...200/238
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      545  2. contain the point's word(s)
+      545  3. new (not in DB, not a duplicate)
+      238  4. at most 2 characters outside HSK 2 words
+       19  5. really HSK 2
+       19  5b. no harder grammar point (of the 1 with a rule)
+       10  6. the rule finds 1-11
+       10  6b. no hidden word a learner can't work out
+        7  7. both checks say 1-11, English chosen
+        7  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  我妻子正在做饭。  (My wife is cooking right now.)  [tatoeba 408275]
+  跟她说我正在开车。  (Tell her that I am driving.)  [tatoeba 5401613]
+  因为他们正在看电视。  (Because they're watching television.)  [tatoeba 4859594]
+  跟她说我正在吃东西。  (Tell her that I am eating.)  [tatoeba 5401610]
+  他们正在洗他们的苹果。  (They're washing their apples.)  [tatoeba 13167252]
+  我正在去第四医院的路上。  (I'm going to the Number Four hospital.)  [tatoeba 395026]
+  我觉得你正在做的是错的。  (I think what you're doing is wrong.)  [tatoeba 8795145]
+
+--- dropped at step 4 (307), first 12 ---
+  我正在在波士顿读博士。  -- 3 characters no HSK 2 word uses: 博波顿
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  有时候外婆比克格勃还危险。  -- 6 characters no HSK 2 word uses: 克勃危婆格险
+  公共汽车的停车站正好坐落在我的住所前面。  -- 4 characters no HSK 2 word uses: 停共汽落
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  现在中国公认的标准旗袍的现代版本是首先在上海发展起来的。  -- 9 characters no HSK 2 word uses: 代发展旗标海版袍首
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  她不是这间公司正式的职员。  -- 3 characters no HSK 2 word uses: 员式职
+  这意味着一种轻松有趣的工作氛围，团队成就受到高度重视，沟通很重要，传统的3小时会议已被排队喝咖啡的非正式聊天取代。  -- 24 characters no HSK 2 word uses: 代传取受味团围度式成排松氛沟种统聊被议趣轻通重队
+  先生，我们可以检查一下您的行李吗？  -- 4 characters no HSK 2 word uses: 李查检行
+
+--- dropped at step 5 (219), first 12 ---
+  我马上就到了。  -- level 3: 马上 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3
+  那是一个真正的人。  -- level 4: 真正 L4
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  先生，请别生我的气！我是新来的工人！  -- level 4: 生 L4, 气 L4, 工人 L4
+  她是一位真正的美人。  -- level 4: 真正 L4, 美 L4
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  我马上要上ＱＱ了。  -- level 3: 马上 L3
+  是的，我马上来。  -- level 3: 马上 L3
+  我现在正忙于写一本书。  -- level 6: 于 L6
+  你在说话前应该先思考。  -- level 5: 应该 L3, 先 L3, 思考 L5
+  电话正在响。  -- level 4: 响 L4
+
+--- dropped at step 6 (9) ---
+  有时我去，有时不去。  -- rule: no match: line matched
+  正是这个意思！  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  这位贝先生什么事做不出来啊！  -- rule: no match: line matched
+  汤姆正在自己房间里看书。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  你认识高先生吗？  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+
+--- dropped at step 7 (3) ---
+  他们有时帮我们。  -- check said no (2/2): 有时 is temporal adverb for frequency, not action in progress
+  我正要给你打电话。  -- check said no (2/2): 正要 expresses imminent action, not action in progress
+  爱丽丝正在自己的房间里睡觉。  -- check said no (1/2): 正 and 在 separated; 在 used as postposition here
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-11_level2_20261107_172304.csv

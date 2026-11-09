@@ -394,18 +394,39 @@ SOURCES_PROMPT = """You are matching grammar reference pages to one point of the
 
 GRAMMAR POINT {code} (HSK {level}): {label}
 {official}
-Below are pages from the AllSet Learning Chinese Grammar Wiki that use the same word(s) ({markers}).
-Put each page in one group:
-  "is"     -- the page teaches this grammar point (or one of the uses this point lists)
-  "not"    -- the page teaches a DIFFERENT grammar point that uses the same word(s), so its example
-              sentences are counter-examples for this point
-  "unsure" -- related but neither: overlaps this point only partly, or you can't tell
+Below are pages from the AllSet Learning Chinese Grammar Wiki that contain the word(s) {markers}
+somewhere. Put each page in ONE group:
+  "is"        -- the page teaches this grammar point (or one of the uses this point lists).
+  "not"       -- the page TEACHES the same word(s) in a different way: the word is part of what
+                 the page is about (another meaning of it, a longer word or pattern built on it).
+                 Its example sentences are counter-examples for this point.
+  "unrelated" -- the page teaches something else, and the word only appears in its examples or
+                 its patterns by chance. (For a point about 在, a page about 的时候 is unrelated
+                 even if one of its examples says 我在吃饭的时候.)
+  "unsure"    -- the page overlaps this point only partly, so its examples are neither clearly
+                 this point nor clearly not (e.g. a pattern that contains this point plus more).
 
 PAGES:
 {pages}
 
 Respond with ONLY a JSON object mapping every page id to its group, e.g.
-{{"ASG9YK09": "is", "ASGT1CIR": "not"}}"""
+{{"ASG9YK09": "is", "ASGT1CIR": "not", "ASGWN185": "unrelated"}}"""
+
+
+HIDDEN_PROMPT = """A Mandarin course splits some dictionary words into smaller words its learners already
+know, because the dictionary word itself is not on the course's word list. For each word below,
+decide whether a beginner who knows ONLY the parts (with the meanings given) would understand the
+whole word in a sentence without being taught it:
+  "clear"  -- its meaning follows from the parts (有人 = 有 "have" + 人 "person" -> "someone";
+              看到 = 看 "look" + 到 "arrive" -> "see"; 这个 = 这 "this" + 个 (measure word))
+  "hidden" -- it does not (从没 = 从 "from" + 没 "not" -> "never"; 好几 = 好 "good" + 几 "how many"
+              -> "several")
+When unsure, answer "hidden".
+
+WORDS:
+{words}
+
+Respond with ONLY a JSON object mapping each word to "clear" or "hidden"."""
 
 
 def extract_json(text: str) -> dict:

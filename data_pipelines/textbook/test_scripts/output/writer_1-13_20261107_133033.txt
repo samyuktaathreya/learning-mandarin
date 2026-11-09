@@ -1,0 +1,63 @@
+## 1-13
+**Point:** The adverbs 也 ("also/too", a second subject doing the same thing) and 还 ("and also", one subject doing an additional thing).
+**Covers:** 也 placed before a verb, adjective, 是, 有 or an auxiliary, e.g. 我也喜欢, 他也很胖, 他们也会去吗, 我也不知道. Also 还 at the start of a clause, right after a comma, when it adds a further action or object, e.g. 他要去上海，还要去北京 and 你要一杯咖啡，还要什么.
+**Does not cover:** Fixed patterns that use the same words, each excluded by an `unless:` line:
+- 哪怕/就算/即使/就是/宁可/不管/无论/虽然/尽管 … 也
+- 连 … 也, 一点/一+量词 … 也, 再 … 也, 再也
+- 什么/谁/怎么 … 也
+- 除了, 既, 不但/不仅/不光/而而且 patterns
+- 还是, 还好, and 还 + 不/没, since 还 is followed by an adverb there rather than a verb
+- 还 + 在/行/可以/好, and 还 … 呢 or 还 … 吗
+
+Also excluded: 也 left hanging at the end of a clause.
+**Notes:** The patterns cannot look across clauses, so the rule cannot check that a 还-clause has a preceding clause. A sentence-initial 还有… (e.g. 还有一个人没来) will therefore match, which is borderline. Every `unless:` is checked against the whole sentence, so it is deliberately aggressive, in line with precision first. 也 is matched whether the tagger gives it AD or CC. 还 is matched as AD or CC, but only as the first word of a clause and directly before a VV or VE.
+
+```rule
+match: 也 _
+match: ^ 还/AD /VV|VE
+match: ^ 还/CC /VV|VE
+unless: 哪怕
+unless: 就算
+unless: 即使
+unless: 即便
+unless: 就/AD 算/VV
+unless: 就是
+unless: 就/AD 是/VC
+unless: 宁可
+unless: 宁愿
+unless: 不管
+unless: 无论
+unless: 不论
+unless: 虽然
+unless: 尽管
+unless: 别说
+unless: 连
+unless: 甚至
+unless: 一点
+unless: 一点儿
+unless: 一/CD ... 也
+unless: 再也
+unless: 再 也
+unless: 再 ... 也
+unless: 什么 ... 也
+unless: 谁 ... 也
+unless: 怎么 ... 也
+unless: 哪 ... 也
+unless: 除了
+unless: 除
+unless: 既
+unless: 不但
+unless: 不仅
+unless: 不光
+unless: 而且
+unless: 还是
+unless: 还好
+unless: ^ 还 在
+unless: ^ 还 行
+unless: ^ 还 可以
+unless: ^ 还 不错
+unless: ^ 还 ... 呢
+unless: ^ 还 ... 吗
+unless: 也好
+unless: 也许
+```

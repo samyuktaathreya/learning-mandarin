@@ -1,0 +1,414 @@
+
+########## rules  2026-11-07 14:40 ##########
+22 page(s) use the word(s); asking about 22.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG64BTE  Measure words for counting
+  ASGI0T9S  Measure word "ge"
+  ASGL6JOE  Counting money
+
+not:
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+  ASG6F157  Expressing "originally" with "benlai"
+  ASG9JK0B  Comparing "genben" and "daodi"
+  ASGH4A7W  Expressing "your side" with "ben"
+  ASGN6O6J  Comparing "zhijian" and “zhongjian"
+  ASGPINA4  Comparing "renjia" and "bieren"
+
+unsure:
+  ASG6120A  Reduplication of measure words
+  ASGNPO4V  Name-calling with "zhege"
+
+unrelated:
+  ASG8VJM8  The filler word "neige"
+  ASG5KNWW  Topic-comment sentences
+  ASG5RWKO  Time words and word order
+  ASGBA782  Expressing "no" (noun) "to" (verb) with "wu... ke..."
+  ASGCED31  Expressing "how often"
+  ASGCI0KG  Expressing close possession without "de"
+  ASGIKHUH  Comparing "buduan" and "buting"
+  ASGJ36VN  Expressing duration with "le"
+  ASGWN185  Expressing "when" with "de shihou"
+  ASGH13JY  Idiomatic phrases with "zai"
+  ASGJQPSC  Placement of question words
+
+[note] ASG64BTE is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-08
+Tagging 77 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_144031.txt
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 1-08
+<!-- written by claude-sonnet-5-5 on 2026-11-07; edit freely -->
+**Point:** Counting nouns with a number plus a measure word (Number + M + Noun), including 个 with the number 一 omitted, and the money pattern 块/毛 and 多少钱.
+**Covers:** A number followed by a common nominal measure word, such as 一个人, 四杯牛奶, 三条鱼, 两块五毛 and 三块. Also 是个 / 有个 + noun (他是个老外, 我有个儿子), and 多少钱 ("how much").
+**Does not cover:** Sentences that also contain 本来, 根本, 人家, 中间 or 之间, because those belong to other grammar points and the labeled counter-examples include such sentences. Time-unit and verbal measure words (年, 天, 分钟, 次, 顿) are not matched. 口 is left out because it usually acts as a verbal measure (吃一口). Bare 这个/那个 + noun is also not matched, since it is a demonstrative use and not counting.
+```rule
+match: /CD 个|杯|本|家|间|块|页|条|只|瓶|台|支|颗|盒|件|张/M
+match: 是/VC 个/M
+match: 有/VE 个/M
+match: 多少 钱
+unless: 本来
+unless: 根本
+unless: 人家
+unless: 中间
+unless: 之间
+```
+
+**Notes:** The measure-word list is open-ended; add more nominal measure words (本, 辆, 双, 位, 种 and so on) if more coverage is wanted. 多少 is tagged CD and 钱 NN, so the 多少 钱 line matches the literal words. The `unless` lines are what keep the counter-example sentences out (e.g. 一个小孩子 with 根本, 一个沙发 with 中间, 多少户人家 with 人家). 一块儿/一起 should be tokenized as one word, so it should not trigger the 块 line; check this if the tagger splits it.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-08
+Tagging 77 labeled example(s) (cached after this run)...
+
+=== A. 1-08: rule on labeled examples (no AI) ===
+  examples of 1-08 matched:    41/42
+  counter-examples wrongly matched: 0/47   <- should be 0
+
+--- examples of 1-08 the rule misses (1) ---
+  你想吃个包子吗？  -- ASGI0T9S Measure word "ge"
+
+########## tatoeba  2026-11-07 17:19 ##########
+Filling 1-08 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 2-32, 3-41
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 126 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_171929.txt
+  ...100/1635
+  ...200/1635
+  ...300/1635
+  ...400/1635
+  ...500/1635
+  ...600/1635
+  ...700/1635
+  ...800/1635
+  ...900/1635
+  ...1000/1635
+  ...1100/1635
+  ...1200/1635
+  ...1300/1635
+  ...1400/1635
+  ...1500/1635
+  ...1600/1635
+  Deciding 3 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  好人 = 好 + 人  (good person; healthy person)
+    hidden  想见 = 想 + 见  (to infer)
+    hidden  真是 = 真 + 是  (indeed; truly)
+
+Course sentences at HSK 1 the rule already finds 1-08 in: 15  -> Tatoeba needs to add 5 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 2) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-08 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     4038  2. contain the point's word(s)
+     4023  3. new (not in DB, not a duplicate)
+     1635  4. at most 2 characters outside HSK 1 words
+      298  5. really HSK 1
+      298  5b. no harder grammar point (of the 2 with a rule)
+       93  6. the rule finds 1-08
+       88  6b. no hidden word a learner can't work out
+       17  7. both checks say 1-08, English chosen
+       15  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (68 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (15) ===
+  七个？  (Seven?)  [tatoeba 13111538]
+  哪一个？  (Which one?)  [tatoeba 5112358]
+  再来一个！  (Another!)  [tatoeba 7767675]
+  这个几块？  (How much is this?)  [tatoeba 10052320]
+  是一本书。  (It is a book.)  [tatoeba 13274631]
+  我有一个家。  (I have a home.)  [tatoeba 1786136]
+  我要一本书。  (I want a book.)  [tatoeba 5649310]
+  我们要一个。  (We want one.)  [tatoeba 6057679]
+  我要一杯水。  (I want a glass of water.)  [tatoeba 6158476]
+  下一个是谁？  (Who is next?)  [tatoeba 7768204]
+  这个多少钱？  (How much is it?)  [tatoeba 10052325]
+  你是一个好人。  (You are a good person.)  [tatoeba 1545316]  hidden: 好人
+  您是一个好人。  (You are a good person.)  [tatoeba 1545318]  hidden: 好人
+  我是一个好人。  (I'm a good person.)  [tatoeba 1786008]  hidden: 好人
+  他有三个哥哥。  (He has three brothers.)  [tatoeba 2144004]
+
+--- dropped at step 3 (15), first 12 ---
+  这本书多少钱？  -- already in the database
+  地球是我们的家。  -- already in the database
+  英文有二十六个字母。  -- already in the database
+  洗手间在哪里？  -- already in the database
+  这是个好主意。  -- already in the database
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  他的房间总是很整齐。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  这个字怎么写？  -- already in the database
+  他是本地人。  -- already in the database
+  你国家的人吃米吗?  -- same text as tatoeba 1485254 (translations pooled)
+  你没看见那个人吗？  -- same text as tatoeba 1538712 (translations pooled)
+
+--- dropped at step 4 (2388), first 12 ---
+  这家饭馆的咖哩挺好。  -- 4 characters no HSK 1 word uses: 咖哩挺馆
+  他是个无可救药的家伙。  -- 4 characters no HSK 1 word uses: 伙救无药
+  那个词用意大利语怎么说？  -- 4 characters no HSK 1 word uses: 利意用词
+  我没有任何借口。  -- 3 characters no HSK 1 word uses: 任何借
+  这个城堡好美。  -- 3 characters no HSK 1 word uses: 城堡美
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 1 word uses: 单浴淋
+  非方矩阵的逆阵是一个危险的东西。  -- 6 characters no HSK 1 word uses: 危方矩逆阵险
+  直子是个游泳员。  -- 4 characters no HSK 1 word uses: 员泳游直
+  在你的词典查一查这个词。  -- 3 characters no HSK 1 word uses: 典查词
+  咖啡师们该创造一个情景喜剧。  -- 8 characters no HSK 1 word uses: 创剧咖啡情景该造
+  自由的本质就是数学。  -- 5 characters no HSK 1 word uses: 就数由自质
+  这片湖是日本最深的。  -- 4 characters no HSK 1 word uses: 最深湖片
+
+--- dropped at step 5 (1337), first 12 ---
+  这个盒子没那个盒子大。  -- level 4: 盒子 L4
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 跟 L2, 事件 L5, 关系 L3
+  中国比日本大得多。  -- level 2: 比 L2, 得 L2
+  我挺喜欢那个歌手的。  -- level 4: 挺 L3, 歌手 L4
+  哪一本书都行。  -- level 3: 行 L3
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  这是昨天来的那个女孩。  -- level 10: 女孩 (not in list)
+  这本书明年要出版。  -- level 5: 出版 L5
+  雨下个不停。  -- level 4: 停 L4
+  我没弄明白这个笑话。  -- level 4: 弄 L4, 明白 L3, 笑话 L4
+  你在日本住多久了？  -- level 3: 久 L3
+
+--- dropped at step 6 (205) ---
+  这本书我昨天买了。  -- rule: no match: line matched
+  桌子上有本书。  -- rule: no match: line matched
+  你在家里吗？  -- rule: no match: line matched
+  家里有没有人？  -- rule: no match: line matched
+  我们时间不多了。  -- rule: no match: line matched
+  我今天要早点回家。  -- rule: no match: line matched
+  大家好！  -- rule: no match: line matched
+  这个人是谁？  -- rule: no match: line matched
+  我们家有五口人。  -- rule: no match: line matched
+  这个学校有很多学生。  -- rule: no match: line matched
+  这个不贵。  -- rule: no match: line matched
+  来杯茶吧。  -- rule: no match: line matched
+  这个女孩子在喝茶。  -- rule: no match: line matched
+  这个男孩子在吃面包。  -- rule: no match: line matched
+  我家在这里。  -- rule: no match: line matched
+  他是日本人吗？  -- rule: no match: line matched
+  你喜欢这本书吗？  -- rule: no match: line matched
+  你家在哪里？  -- rule: no match: line matched
+  您的家在哪？  -- rule: no match: line matched
+  你们家在哪？  -- rule: no match: line matched
+  那个时候，我在家。  -- rule: no match: line matched
+  你没看见那个人吗？  -- rule: no match: line matched
+  你们没看见那个人吗？  -- rule: no match: line matched
+  您没有看见那个人吗？  -- rule: no match: line matched
+  她是日本人吗？  -- rule: no match: line matched
+  哪本是你们的书？  -- rule: no match: line matched
+  哪本是您的书？  -- rule: no match: line matched
+  哪本书是您的？  -- rule: no match: line matched
+  哪本书是你们的？  -- rule: no match: line matched
+  她家在哪儿？  -- rule: no match: line matched
+  现在还不是晚饭时间。  -- rule: no match: line matched
+  我喜欢那个人。  -- rule: no match: line matched
+  那本书在哪儿？  -- rule: no match: line matched
+  我喜欢你的房间。  -- rule: no match: line matched
+  你是日本学生吗？  -- rule: no match: line matched
+  日本和英格兰哪个大？  -- rule: no match: line matched
+  我不想读这本书。  -- rule: no match: line matched
+  这本书没那本大。  -- rule: no match: line matched
+  那个女学生是美洲人。  -- rule: no match: line matched
+  你还在家里吗？  -- rule: no match: line matched
+  你们还在家里吗？  -- rule: no match: line matched
+  那本书在这里。  -- rule: no match: line matched
+  不是这个问题。  -- rule: no match: line matched
+  你们的房间很大。  -- rule: no match: line matched
+  您的房间很大。  -- rule: no match: line matched
+  我是在日本上的中学。  -- rule: no match: line matched
+  我是上个月来的北京。  -- rule: no match: line matched
+  我要这本书。  -- rule: no match: line matched
+  我没有休息的时间。  -- rule: no match: line matched
+  回家。  -- rule: no match: line matched
+  我想要本书。  -- rule: no match: line matched
+  这是本汉语书。  -- rule: no match: line matched
+  这是我的日本朋友。  -- rule: no match: line matched
+  这不是我的日本朋友。  -- rule: no match: line matched
+  我觉得他不在家。  -- rule: no match: line matched
+  我吃了那个苹果。  -- rule: no match: line matched
+  哪本书是你的？  -- rule: no match: line matched
+  你在回家吗？  -- rule: no match: line matched
+  你正在回家。  -- rule: no match: line matched
+  你正在去我家。  -- rule: no match: line matched
+  哪个是你的杯子？  -- rule: no match: line matched
+  哪个杯子是你的？  -- rule: no match: line matched
+  这个叫什么？  -- rule: no match: line matched
+  他写了本新书。  -- rule: no match: line matched
+  大家都认识我。  -- rule: no match: line matched
+  不知道怎么回事，她昨天晚上没回家。  -- rule: no match: line matched
+  我非常喜欢这本书。  -- rule: no match: line matched
+  你在家里不说英语。  -- rule: no match: line matched
+  你在读哪本书？  -- rule: no match: line matched
+  你不是日本人。  -- rule: no match: line matched
+  我有时间。  -- rule: no match: line matched
+  我不知道有没有时间。  -- rule: no match: line matched
+  这是谁的杯子？  -- rule: no match: line matched
+  下个月他会很忙。  -- rule: no match: line matched
+  时间到了。  -- rule: no match: line matched
+  你家里人都还好吗？  -- rule: no match: line matched
+  是谁给你说那个的呢？  -- rule: no match: line matched
+  这个能吃吗？  -- rule: no match: line matched
+  回家吧。  -- rule: no match: line matched
+  哪个？  -- rule: no match: line matched
+  回家！  -- rule: no match: line matched
+  明天下午你在家吗？  -- rule: no match: line matched
+  你在露西亚家做什么？  -- rule: no match: line matched
+  我五点在家。  -- rule: no match: line matched
+  我做不了这个。  -- rule: no match: line matched
+  我不能做这个。  -- rule: no match: line matched
+  我没时间了。  -- rule: no match: line matched
+  请看这本书。  -- rule: no match: line matched
+  我睡了个好觉。  -- rule: no match: line matched
+  你家里谁做饭？  -- rule: no match: line matched
+  请在下个星期日休息。  -- rule: no match: line matched
+  我没时间找你想要的东西。  -- rule: no match: line matched
+  那个大的也是我的。  -- rule: no match: line matched
+  我们没有太多时间。  -- rule: no match: line matched
+  这本书小。  -- rule: no match: line matched
+  我有很多日本朋友。  -- rule: no match: line matched
+  我星期天在家。  -- rule: no match: line matched
+  我的猫会爱上这个。  -- rule: no match: line matched
+  现在读这个。  -- rule: no match: line matched
+  他们喜欢那个  -- rule: no match: line matched
+  这本书是谁的？  -- rule: no match: line matched
+  我儿子不在家，他在学校。  -- rule: no match: line matched
+  你家的电脑在桌子上吗？  -- rule: no match: line matched
+  这本书昨天在他车上。  -- rule: no match: line matched
+  下个月我在英国。  -- rule: no match: line matched
+  这个店的苹果不大。  -- rule: no match: line matched
+  你想吃这个吗？  -- rule: no match: line matched
+  是的，下个星期二。  -- rule: no match: line matched
+  我很想家。  -- rule: no match: line matched
+  我没有时间，也没有钱。  -- rule: no match: line matched
+  你现在可以住口了。  -- rule: no match: line matched
+  那个孩子在吃面包。  -- rule: no match: line matched
+  他去他家了吗？  -- rule: no match: line matched
+  这个苹果太小。  -- rule: no match: line matched
+  他们想要这个。  -- rule: no match: line matched
+  我们想回家。  -- rule: no match: line matched
+  这个是你的。  -- rule: no match: line matched
+  明年这个时候我在做什么？  -- rule: no match: line matched
+  你没有时间了。  -- rule: no match: line matched
+  在哪里能买到这个？  -- rule: no match: line matched
+  我上个月在波士顿。  -- rule: no match: line matched
+  那个真好。  -- rule: no match: line matched
+  他今天在家。  -- rule: no match: line matched
+  我昨天没时间看电视。  -- rule: no match: line matched
+  我妈妈不在家。  -- rule: no match: line matched
+  这个房间太小了。  -- rule: no match: line matched
+  我们有很多时间。  -- rule: no match: line matched
+  明天我不在家。  -- rule: no match: line matched
+  明天下午你在家吗?  -- rule: no match: line matched
+  你上午有时间吗?  -- rule: no match: line matched
+  上午你有时间吗?  -- rule: no match: line matched
+  我明天不在家。  -- rule: no match: line matched
+  这本书昨天在他的车上。  -- rule: no match: line matched
+  昨天晚上我们不在家。  -- rule: no match: line matched
+  晚上六点到上午八点在家。  -- rule: no match: line matched
+  昨天这个时候你在做什么？  -- rule: no match: line matched
+  昨天这个时候我在学校学习。  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: no match: line matched
+  我不想要这个。  -- rule: no match: line matched
+  在家里有问题吗？  -- rule: no match: line matched
+  这个没人要。  -- rule: no match: line matched
+  不要吃那个！  -- rule: no match: line matched
+  我不想再做这个了。  -- rule: no match: line matched
+  你知道哪家饭店好吗？  -- rule: no match: line matched
+  请你不要说这个。  -- rule: no match: line matched
+  这房间里有人。  -- rule: no match: line matched
+  我一没钱，二没时间。  -- rule: no match: line matched
+  他在哪买了那本书？  -- rule: no match: line matched
+  请回家。  -- rule: no match: line matched
+  我七点回到家。  -- rule: no match: line matched
+  你今天下午会在家吗？  -- rule: no match: line matched
+  那是他家。  -- rule: no match: line matched
+  这个卖不卖？  -- rule: no match: line matched
+  你真的知道这个怎么做吗？  -- rule: no match: line matched
+  我会在七八点回家。  -- rule: no match: line matched
+  老师们知道这个。  -- rule: no match: line matched
+  这个杯子里有水。  -- rule: no match: line matched
+  这个是我的朋友。  -- rule: no match: line matched
+  我是日本人。  -- rule: no match: line matched
+  听这个！  -- rule: no match: line matched
+  请来我家吧。  -- rule: no match: line matched
+  请来我家里。  -- rule: no match: line matched
+  我不能买这本书，太贵了。  -- rule: no match: line matched
+  我想给家人打电话。  -- rule: no match: line matched
+  我在看这本书。  -- rule: no match: line matched
+  这杯茶很好喝。  -- rule: no match: line matched
+  谢谢大家！  -- rule: no match: line matched
+  我今天没有时间去那里了。  -- rule: no match: line matched
+  我昨天没回家。  -- rule: no match: line matched
+  我没有吃饭的时间。  -- rule: no match: line matched
+  到我家来吧。  -- rule: no match: line matched
+  我能去你家吗？  -- rule: no match: line matched
+  你家人还在那里吗？  -- rule: no match: line matched
+  爸爸，我的杯子在哪里？  -- rule: no match: line matched
+  爸爸，下雨了，我们怎么回家？坐出租车吗？  -- rule: no match: line matched
+  爸爸和妈妈都在家。  -- rule: no match: line matched
+  杯子里有水。  -- rule: no match: line matched
+  大家好！我是你们的汉语老师。  -- rule: no match: line matched
+  今天中午你在家吗？  -- rule: no match: line matched
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  那本书不在桌子上。  -- rule: no match: line matched
+  那个是我爸爸。  -- rule: no match: line matched
+  你家有猫吗？  -- rule: no match: line matched
+  我们要回家。  -- rule: no match: line matched
+  玛丽说她会给你买那个。  -- rule: no match: line matched
+  她问他他是不是这个学校的学生。  -- rule: no match: line matched
+  Oleg 去了 Rima 家。  -- rule: no match: line matched
+  那个人的名字是什么？  -- rule: no match: line matched
+  我觉得我可以明天做这个。  -- rule: no match: line matched
+  你要回房间了吗?  -- rule: no match: line matched
+  我本想给你打电话的。  -- rule: no match: line matched
+  家！  -- rule: no match: line matched
+  没人在家？  -- rule: no match: line matched
+  我没时间读书。  -- rule: no match: line matched
+  你去玛丽家了。  -- rule: no match: line matched
+  你时间多吗？  -- rule: no match: line matched
+  她要去鲍伯家。  -- rule: no match: line matched
+  你回家了。  -- rule: no match: line matched
+  他下个月要去那里。  -- rule: no match: line matched
+  我觉得我可以吃这个。  -- rule: no match: line matched
+  我不要这个。  -- rule: no match: line matched
+  这个我不想要。  -- rule: no match: line matched
+  下个QQ。  -- rule: no match: line matched
+  我爱我家。  -- rule: no match: line matched
+  我们的孩子在家。  -- rule: no match: line matched
+
+--- dropped at step 6b (5) ---
+  我还有个姐姐。  -- hidden word a learner can't work out: 还有 (furthermore; in addition)
+  那是一个月前了。  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+  我还有个问题。  -- hidden word a learner can't work out: 还有 (furthermore; in addition)
+  有一个人想见你。  -- hidden word a learner can't work out: 想见 (to infer)
+  真是个好学校。  -- hidden word a learner can't work out: 真是 (indeed; truly)
+
+--- dropped at step 7 (3) ---
+  我要一个。  -- no accurate English among: I needed one.
+  我是个学生。  -- check said no (1/2): 个 omitted after number one
+  我是个大学生。  -- check said no (1/2): 个 omitted after number one
+
+--- dropped at step 8 (2) ---
+  多少个了？  -- difficulty review: (2/2); The sentence structure is unclear and ambiguous. '多少个了' could mean 'How many [are there] now?' but the lack of context and missing subject/object makes it difficult for HSK 1 beginners to understand what is being counted. The use of 了 here suggests a change of state or completion, but without a clear referent or context, a beginner would struggle to parse the meaning.
+  下一个给你。  -- difficulty review: (2/2); The preposition 给 (to give to) used in a dative sense (recipient marking) is grammar point 2-26, which is HSK 2, above this level. At HSK 1, 给 has not been introduced as a grammatical structure for marking the recipient of an action.
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-08_level1_20261107_172057.csv

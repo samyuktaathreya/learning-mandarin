@@ -1,0 +1,21 @@
+## 1-05
+**Point:** A personal pronoun (我, 你, 您, 他, 她, 我们, 你们, 他们, 她们) placed directly before a noun, without 的, to show close possession (family, school, workplace).
+
+**Covers:** A pronoun at the start of a clause followed directly by a noun, as in 我家很大, 你哥哥很高, 他们公司在北京, 我们学校很大. Also 是 + pronoun + noun, as in 这是我女朋友.
+
+**Does not cover:**
+- Pronouns used as objects or after a verb or preposition, as in 请给我票, 等你, 代替他. These are not possession.
+- A pronoun followed by a time word, adverb or verb, as in 他今天状态很好, 我周末去游泳.
+- Pronoun + 的 + noun, which is ordinary possession with 的.
+- Greetings like 你好 and 您好, where 好 is tagged as an adjective, not a noun.
+
+```rule
+match: ^ 我|你|您|他|她|我们|你们|他们|她们/PN _/NN
+match: 是/VC 我|你|您|他|她|我们|你们|他们|她们/PN _/NN
+```
+
+**Notes:**
+- The clause-start anchor is deliberate. It keeps out double-object sentences such as 给我票 and 告诉他消息, where PN + NN is indirect object + direct object.
+- Known false-positive risks: topic-comment sentences like 我工作很忙 or 你作业做完了, where the noun is not strictly possessed. These are rare.
+- The second `match:` line only fires after 是. Extending it to other verbs would catch double-object sentences.
+- Not covered: a pronoun that follows a sentence-initial adverb or conjunction, such as 也我妈妈….

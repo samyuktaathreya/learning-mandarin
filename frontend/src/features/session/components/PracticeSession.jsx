@@ -7,6 +7,7 @@ import GrammarTipsSidebar from './GrammarTipsSidebar';
 import { playAudio, preloadAudio, preloadAll, stopCurrentAudio, clearAudioCache, clearServerAudio } from '../../audio';
 import { submitSession, checkAnswerRemotely } from '../api/practice';
 import useSpeechRecorder from '../hooks/useSpeechRecorder';
+import { useMic } from '../../../shared/speech';
 import {
     isSpeakingQuestion,
     isExactMatch,
@@ -56,16 +57,21 @@ export default function PracticeSession({ session, onExit, onFinished }) {
     const isSingleSyllable = currentQuestionObj ? isSingleSyllableAnswer(currentQuestionObj.answer) : false;
 
     const { settings } = useSettings();
+    const isSpeaking = !debugMode && Boolean(currentQuestionObj) && isSpeakingQuestion(currentQuestionObj.question_type);
+    // Pinyin questions are still checked by the pronunciation model, not Azure.
+    const usesAzure = isSpeaking && !PINYIN_QUESTION_TYPES.has(currentQuestionObj.question_type);
     const {
         isRecording, isTranscribing, transcriptionResult, recordingURL,
         startRecording, stopRecording, resetRecording,
     } = useSpeechRecorder({
         questionObj: currentQuestionObj,
-        isSingleSyllable,
+        prepareAhead: usesAzure,
         onTranscribed: () => { advancingRef.current = false; },
     });
 
-    useEffect(() => { console.log('currentQuestionObj:', currentQuestionObj); }, [currentQuestionObj]);
+    useMic(isSpeaking);
+
+    // useEffect(() => { console.log('currentQuestionObj:', currentQuestionObj); }, [currentQuestionObj]);
 
     // Fetch every question's audio up front so it's ready before the user gets there.
     useEffect(() => {
@@ -130,7 +136,7 @@ export default function PracticeSession({ session, onExit, onFinished }) {
             e.preventDefault();
             if (answerState === 'incorrect') advanceQuestion(false, true);
             else if (answerState === 'correct') advanceQuestion(true);
-            else if (speakingReady) advanceQuestion(transcriptionResult.is_correct);
+            else if (speakingReady) advanceQuestion(true); // speaking never changes the score
         };
         window.addEventListener('keydown', onKeyDown);
         return () => window.removeEventListener('keydown', onKeyDown);

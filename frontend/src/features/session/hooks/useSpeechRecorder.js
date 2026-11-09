@@ -1,28 +1,31 @@
-import { useState, useRef, useCallback } from 'react';
-import { transcribeAudio } from '../api/practice';
+import { useState, useRef, useCallback, useEffect } from 'react';
+import { startCapture, prepareRecognition } from '../../../shared/speech';
+import { buildSpeakingResult, speechModeFor, referenceTextFor, loadPinyin } from '../speakingFeedback';
 
-const blobToBase64 = (blob) => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result.split(',')[1]);
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
-});
+const prepareFor = (q) => prepareRecognition({ mode: speechModeFor(q), referenceText: referenceTextFor(q) });
 
-// Microphone recording + server transcription for speaking questions.
-// Single-syllable answers are recorded for playback only, not transcribed.
-export default function useSpeechRecorder({ questionObj, isSingleSyllable, onTranscribed }) {
+// Recording + Azure feedback for speaking questions.
+//
+// The mic (shared/speech/mic.js) is already open, and with `prepareAhead` the
+// Azure connection is opened as soon as the question appears. While the user
+// speaks, audio streams to Azure, so tapping Stop only waits for Azure to
+// finish the last moment of audio.
+//
+// The result is feedback only (see speakingFeedback.js).
+export default function useSpeechRecorder({ questionObj, prepareAhead, onTranscribed }) {
     const [isRecording, setIsRecording] = useState(false);
     const [isTranscribing, setIsTranscribing] = useState(false);
     const [transcriptionResult, setTranscriptionResult] = useState(null);
     const [recordingURL, setRecordingURL] = useState(null);
 
-    const mediaRecorderRef = useRef(null);
-    const audioChunksRef = useRef([]);
+    const takeRef = useRef(null);      // { capture, ready, q } while recording
+    const startingRef = useRef(false); // guards double taps while the mic starts
     const recordingURLRef = useRef(null);
+    const preparedRef = useRef(null);  // { q, promise }: Azure warmed up for the next take
 
-    // Latest values, so recorder callbacks never read stale props.
+    // Latest values, so async callbacks never read stale props.
     const latest = useRef({});
-    latest.current = { questionObj, isSingleSyllable, onTranscribed };
+    latest.current = { questionObj, prepareAhead, onTranscribed };
 
     const replaceRecordingURL = useCallback((url) => {
         if (recordingURLRef.current) URL.revokeObjectURL(recordingURLRef.current);
@@ -30,56 +33,117 @@ export default function useSpeechRecorder({ questionObj, isSingleSyllable, onTra
         setRecordingURL(url);
     }, []);
 
-    // Clears the transcription and recording (used between questions and for "try again").
+    // Clears the result and recording (used between questions and for "try again").
     const resetRecording = useCallback(() => {
         setTranscriptionResult(null);
         replaceRecordingURL(null);
     }, [replaceRecordingURL]);
 
-    const transcribe = async (blob) => {
-        try {
-            const base64 = await blobToBase64(blob);
-            const result = await transcribeAudio(base64, latest.current.questionObj);
-            setTranscriptionResult(result);
-            latest.current.onTranscribed?.();
-        } catch (err) {
-            console.error("Transcription failed", err);
-        } finally {
-            setIsTranscribing(false);
-        }
-    };
+    const discardPrepared = useCallback(() => {
+        const entry = preparedRef.current;
+        preparedRef.current = null;
+        entry?.promise.then((r) => r.dispose(), () => {});
+    }, []);
+
+    const prepareAheadFor = useCallback((q) => {
+        discardPrepared();
+        const promise = prepareFor(q);
+        promise.catch((err) => console.error('[speech] could not prepare Azure', err));
+        preparedRef.current = { q, promise };
+    }, [discardPrepared]);
+
+    // Warm up as soon as a speaking question appears.
+    useEffect(() => {
+        if (!prepareAhead || !questionObj) return undefined;
+        loadPinyin().catch((err) => console.error('[speech] pinyin-pro failed to load', err));
+        prepareAheadFor(questionObj);
+        return discardPrepared;
+    }, [questionObj, prepareAhead, prepareAheadFor, discardPrepared]);
+
+    // Leaving mid-take: drop the Azure connection too.
+    useEffect(() => () => {
+        takeRef.current?.ready.then((s) => s.cancel(), () => {});
+        takeRef.current = null;
+    }, []);
 
     const startRecording = async () => {
+        if (takeRef.current || startingRef.current) return;
+        startingRef.current = true;
+        const q = latest.current.questionObj;
+
+        // Use the warmed-up connection if there is one (retrying once if it failed).
+        const warm = preparedRef.current?.q === q ? preparedRef.current.promise : null;
+        preparedRef.current = null;
+        const prepared = warm ? warm.catch(() => prepareFor(q)) : prepareFor(q);
+
+        // Audio that arrives before Azure is ready waits here, then goes in order.
+        const live = { stream: null, pending: [] };
+        let capture;
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            audioChunksRef.current = [];
+            capture = await startCapture({
+                onChunk: (chunk) => (live.stream ? live.stream.write(chunk) : live.pending.push(chunk)),
+            });
+        } catch (err) {
+            console.error('Microphone unavailable', err);
+            prepared.then((r) => r.dispose(), () => {});
+            startingRef.current = false;
+            return;
+        }
 
-            const mimeType = ['audio/webm', 'audio/mp4', 'audio/ogg']
-                .find(t => MediaRecorder.isTypeSupported(t)) || '';
+        const ready = prepared.then((recognition) => {
+            const stream = recognition.begin();
+            live.pending.forEach((chunk) => stream.write(chunk));
+            live.pending = [];
+            live.stream = stream;
+            return stream;
+        });
+        ready.catch(() => {}); // handled in stopRecording
 
-            const mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType } : undefined);
-            mediaRecorderRef.current = mediaRecorder;
-
-            mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) audioChunksRef.current.push(e.data); };
-            mediaRecorder.onstop = async () => {
-                stream.getTracks().forEach(t => t.stop());
-                const blob = new Blob(audioChunksRef.current, { type: mediaRecorder.mimeType || mimeType || 'audio/webm' });
-                const url = URL.createObjectURL(blob);
-                console.log('created blob URL:', url, 'size:', blob.size);
-                replaceRecordingURL(url);
-                setIsTranscribing(false);
-                if (!latest.current.isSingleSyllable) await transcribe(blob);
-            };
-            mediaRecorder.start();
-            setIsRecording(true);
-            console.log("mime type: ", mediaRecorderRef.current.mimeType);
-        } catch (err) { console.error("Microphone access denied", err); }
+        takeRef.current = { capture, ready, q };
+        startingRef.current = false;
+        setIsRecording(true);
     };
 
-    const stopRecording = () => {
-        mediaRecorderRef.current?.stop();
+    const stopRecording = async () => {
+        const take = takeRef.current;
+        if (!take) return;
+        takeRef.current = null;
         setIsRecording(false);
-        if (!isSingleSyllable) setIsTranscribing(true);
+        setIsTranscribing(true);
+
+        const stoppedAt = performance.now();
+        const recording = await take.capture.stop();
+        if (!recording || latest.current.questionObj !== take.q) { // cut off, or moved on
+            take.ready.then((s) => s.cancel(), () => {});
+            setIsTranscribing(false);
+            return;
+        }
+        replaceRecordingURL(URL.createObjectURL(recording.wav));
+
+        let raw;
+        try {
+            raw = await (await take.ready).end();
+        } catch (err) {
+            raw = { kind: 'error', message: err?.message ?? String(err) };
+        }
+        const result = await buildSpeakingResult(raw, take.q).catch((err) => ({
+            mode: speechModeFor(take.q),
+            error: `Feedback failed: ${err?.message ?? err}`,
+            is_correct: false,
+        }));
+
+        // Stop tap -> feedback on screen. The target is under a second.
+        console.info(
+            `[speech] stop -> result: ${Math.round(performance.now() - stoppedAt)} ms `
+            + `(${recording.durationMs} ms of audio)`,
+            result,
+        );
+
+        setIsTranscribing(false);
+        if (latest.current.questionObj !== take.q) return;
+        setTranscriptionResult(result);
+        latest.current.onTranscribed?.();
+        if (latest.current.prepareAhead) prepareAheadFor(take.q); // ready for "Try again"
     };
 
     return {

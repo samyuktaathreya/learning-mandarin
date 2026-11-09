@@ -1,0 +1,123 @@
+2026-11-07 13:37:03,022  INFO     === tag_sentences.py run started ===
+2026-11-07 13:37:07,128  INFO     FALLBACK  '小李比小张高。' -- out-of-list word(s): ['小李']
+2026-11-07 13:37:07,128  WARNING    HAIKU resegment call for '小李比小张高。' (cache miss on [('小李', 'NR')])
+2026-11-07 13:37:08,243  INFO     TAGGED    '小李比小张高。' (level 3, 6 tags)
+2026-11-07 13:37:08,263  INFO     FALLBACK  '小张比小李矮。' -- out-of-list word(s): ['李']
+2026-11-07 13:37:08,263  WARNING    HAIKU resegment call for '小张比小李矮。' (cache miss on [('李', 'NR')])
+2026-11-07 13:37:09,398  INFO     TAGGED    '小张比小李矮。' (level 3, 6 tags)
+2026-11-07 13:37:09,414  INFO     OK        hanlp-valid   '他比老师聪明。' -> [('他', 'PN'), ('比', 'P'), ('老师', 'NN'), ('聪明', 'VA')]
+2026-11-07 13:37:09,417  INFO     TAGGED    '他比老师聪明。' (level 3, 4 tags)
+2026-11-07 13:37:09,429  INFO     FALLBACK  '上海比纽约大吗？' -- out-of-list word(s): ['上海', '纽约']
+2026-11-07 13:37:09,429  WARNING    HAIKU resegment call for '上海比纽约大吗？' (cache miss on [('上海', 'NR')])
+2026-11-07 13:37:10,470  INFO       NON-LIST 纽约 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-07 13:37:10,472  INFO     TAGGED    '上海比纽约大吗？' (level 10, 6 tags)
+2026-11-07 13:37:10,486  INFO     OK        hanlp-valid   '她比她妈妈漂亮。' -> [('她', 'PN'), ('比', 'P'), ('她', 'PN'), ('妈妈', 'NN'), ('漂亮', 'VA')]
+2026-11-07 13:37:10,500  INFO     TAGGED    '她比她妈妈漂亮。' (level 2, 5 tags)
+2026-11-07 13:37:10,512  INFO     FALLBACK  '星巴克的咖啡比这里的咖啡贵。' -- out-of-list word(s): ['星巴克']
+2026-11-07 13:37:10,512  WARNING    HAIKU resegment call for '星巴克的咖啡比这里的咖啡贵。' (cache miss on [('星巴克', 'NR')])
+2026-11-07 13:37:11,877  INFO       NON-LIST 星巴克 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-07 13:37:11,882  INFO     TAGGED    '星巴克的咖啡比这里的咖啡贵。' (level 10, 8 tags)
+2026-11-07 13:37:11,896  INFO     OK        hanlp-valid   '地铁比公交车方便。' -> [('地铁', 'NN'), ('比', 'P'), ('公交车', 'NN'), ('方便', 'VA')]
+2026-11-07 13:37:11,898  INFO     TAGGED    '地铁比公交车方便。' (level 3, 4 tags)
+2026-11-07 13:37:11,909  INFO     FALLBACK  '小李比小张更高。' -- out-of-list word(s): ['小李']
+2026-11-07 13:37:11,909  WARNING    HAIKU resegment call for '小李比小张更高。' (cache miss on [('小李', 'NR')])
+2026-11-07 13:37:13,139  INFO     TAGGED    '小李比小张更高。' (level 3, 7 tags)
+2026-11-07 13:37:13,155  INFO     OK        hanlp-valid   '我哥哥比我更高。' -> [('我', 'PN'), ('哥哥', 'NN'), ('比', 'P'), ('我', 'PN'), ('更', 'AD'), ('高', 'VA')]
+2026-11-07 13:37:13,158  INFO     TAGGED    '我哥哥比我更高。' (level 3, 6 tags)
+2026-11-07 13:37:13,171  INFO     OK        hanlp-valid   '你男朋友比我男朋友更帅。' -> [('你', 'PN'), ('男朋友', 'NN'), ('比', 'P'), ('我', 'PN'), ('男朋友', 'NN'), ('更', 'AD'), ('帅', 'VA')]
+2026-11-07 13:37:13,174  INFO     TAGGED    '你男朋友比我男朋友更帅。' (level 4, 7 tags)
+2026-11-07 13:37:13,185  INFO     FALLBACK  '这里的冬天比纽约的冬天更冷。' -- out-of-list word(s): ['纽约']
+2026-11-07 13:37:13,185  INFO       CACHE-ONLY resegmentation -> [('这里', 'PN'), ('的', 'DEG'), ('冬天', 'NT'), ('比', 'P'), ('纽约', 'NN'), ('的', 'DEG'), ('冬天', 'NT'), ('更', 'AD'), ('冷', 'VA')]
+2026-11-07 13:37:13,188  INFO       NON-LIST 纽约 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-07 13:37:13,190  INFO     TAGGED    '这里的冬天比纽约的冬天更冷。' (level 10, 9 tags)
+2026-11-07 13:37:13,201  INFO     FALLBACK  '中文语法比汉字更好玩。' -- out-of-list word(s): ['好玩']
+2026-11-07 13:37:13,201  WARNING    HAIKU resegment call for '中文语法比汉字更好玩。' (cache miss on [('好玩', 'VA')])
+2026-11-07 13:37:14,557  INFO     TAGGED    '中文语法比汉字更好玩。' (level 4, 7 tags)
+2026-11-07 13:37:14,571  INFO     OK        hanlp-valid   '你的问题比我的问题更麻烦。' -> [('你', 'PN'), ('的', 'DEG'), ('问题', 'NN'), ('比', 'P'), ('我', 'PN'), ('的', 'DEG'), ('问题', 'NN'), ('更', 'AD'), ('麻烦', 'VA')]
+2026-11-07 13:37:14,575  INFO     TAGGED    '你的问题比我的问题更麻烦。' (level 4, 9 tags)
+2026-11-07 13:37:14,586  INFO     OK        hanlp-valid   '哥哥比弟弟高。' -> [('哥哥', 'NN'), ('比', 'P'), ('弟弟', 'NN'), ('高', 'VA')]
+2026-11-07 13:37:14,588  INFO     TAGGED    '哥哥比弟弟高。' (level 2, 4 tags)
+2026-11-07 13:37:14,598  INFO     FALLBACK  '这个房间比那个房间大。' -- out-of-list word(s): ['这个', '那个']
+2026-11-07 13:37:14,598  WARNING    HAIKU resegment call for '这个房间比那个房间大。' (cache miss on [('那个', 'PN')])
+2026-11-07 13:37:15,904  INFO     TAGGED    '这个房间比那个房间大。' (level 2, 8 tags)
+2026-11-07 13:37:15,919  INFO     FALLBACK  '这个问题比较简单。' -- out-of-list word(s): ['这个']
+2026-11-07 13:37:15,919  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('问题', 'NN'), ('比较', 'AD'), ('简单', 'VA')]
+2026-11-07 13:37:15,921  INFO     TAGGED    '这个问题比较简单。' (level 3, 5 tags)
+2026-11-07 13:37:15,932  INFO     FALLBACK  '我觉得这个价格比较贵。' -- out-of-list word(s): ['这个']
+2026-11-07 13:37:15,932  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('觉得', 'VV'), ('这个', 'DT'), ('价格', 'NN'), ('比较', 'AD'), ('贵', 'VA')]
+2026-11-07 13:37:15,939  INFO     TAGGED    '我觉得这个价格比较贵。' (level 4, 7 tags)
+2026-11-07 13:37:15,950  INFO     FALLBACK  '我家离市中心比较近。' -- out-of-list word(s): ['市中心']
+2026-11-07 13:37:15,950  WARNING    HAIKU resegment call for '我家离市中心比较近。' (cache miss on [('市中心', 'NN')])
+2026-11-07 13:37:17,163  INFO     TAGGED    '我家离市中心比较近。' (level 5, 7 tags)
+2026-11-07 13:37:17,179  INFO     OK        hanlp-valid   '大城市的工作压力比较大。' -> [('大', 'JJ'), ('城市', 'NN'), ('的', 'DEG'), ('工作', 'NN'), ('压力', 'NN'), ('比较', 'AD'), ('大', 'VA')]
+2026-11-07 13:37:17,183  INFO     TAGGED    '大城市的工作压力比较大。' (level 4, 7 tags)
+2026-11-07 13:37:17,195  INFO     OK        hanlp-valid   '你上班坐地铁比较方便吧？' -> [('你', 'PN'), ('上班', 'VV'), ('坐', 'VV'), ('地铁', 'NN'), ('比较', 'AD'), ('方便', 'VA'), ('吧', 'SP')]
+2026-11-07 13:37:17,198  INFO     TAGGED    '你上班坐地铁比较方便吧？' (level 3, 7 tags)
+2026-11-07 13:37:17,209  INFO     FALLBACK  '我比较讨厌男人说脏话。' -- out-of-list word(s): ['脏话']
+2026-11-07 13:37:17,209  WARNING    HAIKU resegment call for '我比较讨厌男人说脏话。' (cache miss on [('脏话', 'NN')])
+2026-11-07 13:37:18,472  INFO     TAGGED    '我比较讨厌男人说脏话。' (level 10, 7 tags)
+2026-11-07 13:37:18,487  INFO     OK        hanlp-valid   '你比较喜欢用Gmail还是Hotmail？' -> [('你', 'PN'), ('比较', 'AD'), ('喜欢', 'VV'), ('用', 'VV'), ('Gmail', 'NN'), ('还是', 'CC'), ('Hotmail', 'NR')]
+2026-11-07 13:37:18,490  INFO     TAGGED    '你比较喜欢用Gmail还是Hotmail？' (level 3, 5 tags)
+2026-11-07 13:37:18,501  INFO     OK        hanlp-valid   '我父母比较反对我找外国男朋友。' -> [('我', 'PN'), ('父母', 'NN'), ('比较', 'AD'), ('反对', 'VV'), ('我', 'PN'), ('找', 'VV'), ('外国', 'NN'), ('男朋友', 'NN')]
+2026-11-07 13:37:18,505  INFO     TAGGED    '我父母比较反对我找外国男朋友。' (level 4, 8 tags)
+2026-11-07 13:37:18,517  INFO     OK        hanlp-valid   '民众比较支持新的就业政策。' -> [('民众', 'NN'), ('比较', 'AD'), ('支持', 'VV'), ('新', 'VA'), ('的', 'DEC'), ('就业', 'NN'), ('政策', 'NN')]
+2026-11-07 13:37:18,520  INFO     TAGGED    '民众比较支持新的就业政策。' (level 6, 7 tags)
+2026-11-07 13:37:18,532  INFO     FALLBACK  '老板通常比较关注结果，不是过程。' -- out-of-list word(s): ['不是']
+2026-11-07 13:37:18,532  WARNING    HAIKU resegment call for '老板通常比较关注结果，不是过程。' (cache miss on [('不是', 'AD')])
+2026-11-07 13:37:20,000  INFO     TAGGED    '老板通常比较关注结果，不是过程。' (level 5, 8 tags)
+2026-11-07 13:37:20,016  INFO     FALLBACK  '跟上海比，我老家的物价很低。' -- out-of-list word(s): ['上海']
+2026-11-07 13:37:20,016  WARNING    HAIKU resegment call for '跟上海比，我老家的物价很低。' (cache miss on [('上海', 'NR')])
+2026-11-07 13:37:21,555  INFO     TAGGED    '跟上海比，我老家的物价很低。' (level 5, 10 tags)
+2026-11-07 13:37:21,569  INFO     FALLBACK  '跟东部比，我更喜欢美国西部。' -- out-of-list word(s): ['美国']
+2026-11-07 13:37:21,569  WARNING    HAIKU resegment call for '跟东部比，我更喜欢美国西部。' (cache miss on [('美国', 'NR')])
+2026-11-07 13:37:23,183  INFO     TAGGED    '跟东部比，我更喜欢美国西部。' (level 4, 9 tags)
+2026-11-07 13:37:23,198  INFO     FALLBACK  '跟他比，你最大的优势是什么？' -- out-of-list word(s): ['最大']
+2026-11-07 13:37:23,198  WARNING    HAIKU resegment call for '跟他比，你最大的优势是什么？' (cache miss on [('最大', 'JJ')])
+2026-11-07 13:37:24,913  INFO     TAGGED    '跟他比，你最大的优势是什么？' (level 5, 10 tags)
+2026-11-07 13:37:24,928  INFO     FALLBACK  '妹妹跟姐姐比起来有点害羞。' -- out-of-list word(s): ['有点']
+2026-11-07 13:37:24,928  WARNING    HAIKU resegment call for '妹妹跟姐姐比起来有点害羞。' (cache miss on [('有点', 'AD')])
+2026-11-07 13:37:26,276  INFO     TAGGED    '妹妹跟姐姐比起来有点害羞。' (level 4, 8 tags)
+2026-11-07 13:37:26,291  INFO     OK        hanlp-valid   '新版本跟旧版本比起来，多了一些功能。' -> [('新', 'JJ'), ('版本', 'NN'), ('跟', 'P'), ('旧', 'JJ'), ('版本', 'NN'), ('比', 'VV'), ('起来', 'VV'), ('多', 'VA'), ('了', 'AS'), ('一些', 'CD'), ('功能', 'NN')]
+2026-11-07 13:37:26,295  INFO     TAGGED    '新版本跟旧版本比起来，多了一些功能。' (level 6, 11 tags)
+2026-11-07 13:37:26,307  INFO     FALLBACK  '跟去年比，你的中文进步了很多。' -- out-of-list word(s): ['很多']
+2026-11-07 13:37:26,307  WARNING    HAIKU resegment call for '跟去年比，你的中文进步了很多。' (cache miss on [('很多', 'AD')])
+2026-11-07 13:37:27,990  INFO     TAGGED    '跟去年比，你的中文进步了很多。' (level 5, 10 tags)
+2026-11-07 13:37:28,005  INFO     FALLBACK  '跟十年前比起来，中国人的生活水平提高了很多。' -- out-of-list word(s): ['十年', '中国人', '生活水平', '很多']
+2026-11-07 13:37:28,005  WARNING    HAIKU resegment call for '跟十年前比起来，中国人的生活水平提高了很多。' (cache miss on [('十年', 'NT'), ('生活水平', 'NN'), ('很多', 'AD')])
+2026-11-07 13:37:30,055  INFO     TAGGED    '跟十年前比起来，中国人的生活水平提高了很多。' (level 3, 15 tags)
+2026-11-07 13:37:30,070  INFO     FALLBACK  '跟上个月比，这个月的工作很轻松。' -- out-of-list word(s): ['这个']
+2026-11-07 13:37:30,070  INFO       CACHE-ONLY resegmentation -> [('跟', 'P'), ('上个月', 'NT'), ('比', 'VV'), ('这', 'DT'), ('个', 'M'), ('月', 'NN'), ('的', 'DEG'), ('工作', 'NN'), ('很', 'AD'), ('轻松', 'VA')]
+2026-11-07 13:37:30,078  INFO     TAGGED    '跟上个月比，这个月的工作很轻松。' (level 4, 12 tags)
+2026-11-07 13:37:30,089  INFO     FALLBACK  '跟前几周比，这个星期的天气舒服多了。' -- out-of-list word(s): ['前几周', '这个']
+2026-11-07 13:37:30,089  WARNING    HAIKU resegment call for '跟前几周比，这个星期的天气舒服多了。' (cache miss on [('前几周', 'NT')])
+2026-11-07 13:37:32,110  INFO     TAGGED    '跟前几周比，这个星期的天气舒服多了。' (level 2, 13 tags)
+2026-11-07 13:37:32,128  INFO     FALLBACK  '跟刚毕业的时候比起来，他成熟了很多。' -- out-of-list word(s): ['很多']
+2026-11-07 13:37:32,128  WARNING    HAIKU resegment call for '跟刚毕业的时候比起来，他成熟了很多。' (cache miss on [('很多', 'AD')])
+2026-11-07 13:37:34,031  INFO     TAGGED    '跟刚毕业的时候比起来，他成熟了很多。' (level 5, 12 tags)
+2026-11-07 13:37:34,046  INFO     FALLBACK  '比起上海，我老家的物价便宜多了。' -- out-of-list word(s): ['上海']
+2026-11-07 13:37:34,047  WARNING    HAIKU resegment call for '比起上海，我老家的物价便宜多了。' (cache miss on [('上海', 'NR')])
+2026-11-07 13:37:35,644  INFO     TAGGED    '比起上海，我老家的物价便宜多了。' (level 5, 11 tags)
+2026-11-07 13:37:35,658  INFO     OK        hanlp-valid   '比起你来，我还差得远呢。' -> [('比起', 'P'), ('你', 'PN'), ('来', 'VV'), ('我', 'PN'), ('还', 'AD'), ('差', 'VV'), ('得', 'DER'), ('远', 'VA'), ('呢', 'SP')]
+2026-11-07 13:37:35,667  INFO     TAGGED    '比起你来，我还差得远呢。' (level 3, 10 tags)
+2026-11-07 13:37:35,679  INFO     FALLBACK  '本科生比起博士生来，学位要低很多。' -- out-of-list word(s): ['本科生', '博士生', '很多']
+2026-11-07 13:37:35,679  WARNING    HAIKU resegment call for '本科生比起博士生来，学位要低很多。' (cache miss on [('本科生', 'NN'), ('博士生', 'NN'), ('很多', 'AD')])
+2026-11-07 13:37:37,423  INFO     TAGGED    '本科生比起博士生来，学位要低很多。' (level 6, 12 tags)
+2026-11-07 13:37:37,435  INFO     OK        hanlp-valid   '相比网络教学，我更喜欢面对面教学。' -> [('相比', 'VV'), ('网络', 'NN'), ('教学', 'NN'), ('我', 'PN'), ('更', 'AD'), ('喜欢', 'VV'), ('面对面', 'AD'), ('教学', 'VV')]
+2026-11-07 13:37:37,443  INFO     TAGGED    '相比网络教学，我更喜欢面对面教学。' (level 5, 9 tags)
+2026-11-07 13:37:37,454  INFO     OK        hanlp-valid   '与网络教学相比，我更喜欢面对面教学。' -> [('与', 'P'), ('网络', 'NN'), ('教学', 'NN'), ('相比', 'VV'), ('我', 'PN'), ('更', 'AD'), ('喜欢', 'VV'), ('面对面', 'AD'), ('教学', 'VV')]
+2026-11-07 13:37:37,462  INFO     TAGGED    '与网络教学相比，我更喜欢面对面教学。' (level 5, 10 tags)
+2026-11-07 13:37:37,474  INFO     FALLBACK  '相比几十年前，中国的农村发生了很大变化。' -- out-of-list word(s): ['几十年']
+2026-11-07 13:37:37,474  WARNING    HAIKU resegment call for '相比几十年前，中国的农村发生了很大变化。' (cache miss on [('几十年', 'NT')])
+2026-11-07 13:37:39,339  INFO     TAGGED    '相比几十年前，中国的农村发生了很大变化。' (level 4, 13 tags)
+2026-11-07 13:37:39,355  INFO     FALLBACK  '与几十年前相比，中国的农村发生了很大变化。' -- out-of-list word(s): ['几十年']
+2026-11-07 13:37:39,355  WARNING    HAIKU resegment call for '与几十年前相比，中国的农村发生了很大变化。' (cache miss on [('几十年', 'NT')])
+2026-11-07 13:37:41,188  INFO     TAGGED    '与几十年前相比，中国的农村发生了很大变化。' (level 4, 14 tags)
+2026-11-07 13:37:41,202  INFO     FALLBACK  '相比网络广告，平面广告贵很多。' -- out-of-list word(s): ['很多']
+2026-11-07 13:37:41,202  WARNING    HAIKU resegment call for '相比网络广告，平面广告贵很多。' (cache miss on [('很多', 'AD')])
+2026-11-07 13:37:42,734  INFO     TAGGED    '相比网络广告，平面广告贵很多。' (level 7, 8 tags)
+2026-11-07 13:37:42,751  INFO     OK        hanlp-valid   '和平面广告相比，网络广告没那么贵。' -> [('和', 'P'), ('平面', 'NN'), ('广告', 'NN'), ('相比', 'VV'), ('网络', 'NN'), ('广告', 'NN'), ('没', 'AD'), ('那么', 'AD'), ('贵', 'VA')]
+2026-11-07 13:37:42,754  INFO     TAGGED    '和平面广告相比，网络广告没那么贵。' (level 7, 9 tags)
+2026-11-07 13:37:42,766  INFO     OK        hanlp-valid   '相比身体的问题，精神的问题更难治疗。' -> [('相比', 'VV'), ('身体', 'NN'), ('的', 'DEG'), ('问题', 'NN'), ('精神', 'NN'), ('的', 'DEG'), ('问题', 'NN'), ('更', 'AD'), ('难', 'AD'), ('治疗', 'VV')]
+2026-11-07 13:37:42,770  INFO     TAGGED    '相比身体的问题，精神的问题更难治疗。' (level 5, 10 tags)
+2026-11-07 13:37:42,782  INFO     OK        hanlp-valid   '和身体的问题相比，精神的问题更难治疗。' -> [('和', 'P'), ('身体', 'NN'), ('的', 'DEG'), ('问题', 'NN'), ('相比', 'VV'), ('精神', 'NN'), ('的', 'DEG'), ('问题', 'NN'), ('更', 'AD'), ('难', 'AD'), ('治疗', 'VV')]
+2026-11-07 13:37:42,786  INFO     TAGGED    '和身体的问题相比，精神的问题更难治疗。' (level 5, 11 tags)

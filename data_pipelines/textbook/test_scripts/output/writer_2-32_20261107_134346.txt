@@ -1,0 +1,23 @@
+## 2-32
+**Point:** The aspect particle 过 after a verb says the subject has (or has never) had an experience, as in 去过中国 and 没学过这个词.
+
+**Covers:** A verb followed by 过 as an aspect particle, in affirmative, negative (没), or question (吗) sentences, with or without an object. Examples: 我也吃过日本菜, 我们都没坐过飞机, 你学过中文吗. It also covers 见过, which the tagger sometimes tags 见/VV 过/VV.
+
+**Does not cover:**
+- 经过, 通过, 不过, 莫过于, 超过, 过于, 过年, 过去 and 过来. These are single words or other structures, so a bare 过 never matches inside them.
+- Direction-complement uses such as 走过来 and 搬过去.
+- Motion-past uses such as 走过这条街, which describe passing through a place, not an experience. Verbs of this kind (走, 跑, 飞, 游, 跳) are excluded.
+- Completion uses where 过 is followed by 了, such as 吃过饭了. These are borderline, so they are excluded.
+
+```rule
+match: /VV 过/AS
+match: 见 过/VV
+unless: 走|跑|飞|游|跳 过
+unless: 过/AS ... 了
+unless: 过/AS 了
+```
+
+**Notes:**
+- The main pattern needs a VV directly before an AS-tagged 过. The only VV-tagged 过 it allows is the one after 见, because the tagger gets that example wrong. Allowing 过/VV after other verbs would let in 走过来 and 过上 (as in 过上好日子).
+- The unless lines are deliberately conservative to favor precision. Some real experience sentences, such as 我走过这条路, are lost.
+- Unless lines are checked over the whole clause, so any 了 after 过 in the same clause blocks the match.

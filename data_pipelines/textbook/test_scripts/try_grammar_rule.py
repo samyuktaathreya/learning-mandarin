@@ -56,9 +56,11 @@ USAGE (from the repo root)
     python data_pipelines/textbook/test_scripts/try_grammar_rule.py write --code 1-10 --redo
     python data_pipelines/textbook/test_scripts/try_grammar_rule.py validate --code 1-10
     python data_pipelines/textbook/test_scripts/try_grammar_rule.py validate --code 1-10 --revise
-    python data_pipelines/textbook/test_scripts/try_grammar_rule.py tatoeba --code 1-10 --level 1
+    python data_pipelines/textbook/test_scripts/try_grammar_rule.py tatoeba --code 1-10
 """
 import argparse
+import atexit
+import os
 import csv
 import hashlib
 import json
@@ -82,9 +84,11 @@ import grammar_rules as gr  # noqa: E402
 
 DATA_DIR = TEST_DIR.parent / "data"
 OUT_DIR = TEST_DIR / "output"
-SCRATCH_DB = OUT_DIR / "scratch_textbook.db"
+SCRATCH_DB = OUT_DIR / f"scratch_textbook_{os.getpid()}.db"   # one per run, so two runs can't collide
 RULES_PATH = TEST_DIR / "grammar_rules.md"
 SOURCES_PATH = TEST_DIR / "grammar_sources.json"
+HIDDEN_PATH = TEST_DIR / "hidden_words.json"
+BATCH_STATE_PATH = TEST_DIR / "output" / "batch" / "state.json"
 ASG_PATH = DATA_DIR / "intermediate" / "allsetlearning" / "asg_points.json"
 CACHE_PATH = OUT_DIR / "check_cache.json"
 TAG_CACHE_PATH = OUT_DIR / "tag_cache.json"
@@ -113,7 +117,11 @@ def point_db_at_scratch_copy():
     if not real.exists():
         raise SystemExit(f"No database at {real} -- run main.py first.")
     OUT_DIR.mkdir(parents=True, exist_ok=True)
+    for old in OUT_DIR.glob("scratch_textbook*.db"):          # left over from runs that crashed
+        if old != SCRATCH_DB and time.time() - old.stat().st_mtime > 6 * 3600:
+            old.unlink(missing_ok=True)
     shutil.copy(real, SCRATCH_DB)
+    atexit.register(lambda: SCRATCH_DB.unlink(missing_ok=True))
     data_cfg.TEXTBOOK_DB = SCRATCH_DB if isinstance(data_cfg.TEXTBOOK_DB, Path) else str(SCRATCH_DB)
     from app.textbook import db_utils
     if Path(db_utils.engine.url.database).resolve() != SCRATCH_DB.resolve():
@@ -142,9 +150,16 @@ def load_json(path: Path, default):
         return default
 
 
-def save_json(path: Path, data):
+def save_json(path: Path, data, merge=True):
+    """Writes a cache file. merge: keep entries another run saved meanwhile."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=0), encoding="utf-8")
+    if merge:
+        on_disk = load_json(path, {})
+        if on_disk.get("_v", data.get("_v")) == data.get("_v"):
+            data = {**on_disk, **data}
+    tmp = path.with_name(f"{path.name}.{os.getpid()}.tmp")
+    tmp.write_text(json.dumps(data, ensure_ascii=False, indent=0), encoding="utf-8")
+    os.replace(tmp, path)
 
 
 def _cjk_strings(x) -> list[str]:
@@ -172,9 +187,25 @@ class Point:
         content = load_json_str(tip.content_json)
         self.list_examples = list(dict.fromkeys(
             s for k, v in content.items() if "example" in k.lower() for s in _cjk_strings(v)))
-        self.markers = sorted(set(contains or dg.GRAMMAR_MARKERS.get(code, set())), key=len, reverse=True)
+        saved = load_json(SOURCES_PATH, {}).get(code, {}).get("_words")
+        words = contains or saved or dg.GRAMMAR_MARKERS.get(code) or EXTRA_MARKERS.get(code)
+        if not words:                       # the label's own words, if they are real words
+            from app.textbook.models import Vocab as _V
+            vocab = {h for (h,) in db.query(_V.hanzi).all()}
+            words = real_label_words(self.label, vocab, {ch for h in vocab for ch in h})
+        self.markers = sorted(set(words), key=len, reverse=True)
         if not self.markers:
             raise SystemExit(f"No marker words known for {code}: pass --contains <words>.")
+        # The first HSK level where the point can be taught: its list level, or
+        # later if none of its words is in the vocab list that early (比 is an
+        # HSK 2 word, so 1-18 can't be drilled before HSK 2). The marker words
+        # are alternatives -- any one shows the point -- so the EARLIEST word
+        # counts: 都 is HSK 1, so 1-10 starts at HSK 1 though 一起 is HSK 2.
+        from app.textbook.models import Vocab
+        self.word_levels = {h: lv for h, lv in db.query(Vocab.hanzi, Vocab.hsk_level)
+                            .filter(Vocab.hanzi.in_(self.markers)).all()}
+        known = [lv for lv in self.word_levels.values() if lv is not None]
+        self.first_level = max(self.level, min(known)) if known else self.level
         self.list_others = []
         for p in db.query(GrammarTip).order_by(GrammarTip.id).all():
             if p.grammar_code == code:
@@ -204,9 +235,21 @@ class Point:
         for s in self.list_examples:
             if len(s) <= 40:
                 pos.setdefault(s, "HSK list example")
+        # a counter-example must use the word AS the page's grammar point: the
+        # word is in what the page marks (<em>), its structure or its keyword.
+        # Otherwise it only happens to contain it (a 的时候 page example with
+        # 在 in it may well be progressive 在).
+        def teaches_marker(p, e):
+            taught = [m.get("text", "") for m in e.get("marked", [])] + p.get("structures", []) + [p.get("keyword", "")]
+            return any(m in e["hanzi"] and any(m in t for t in taught) for m in self.markers)
         neg = {e["hanzi"]: f"{p['id']} {p['title']}" for p in self.not_pages for e in p["examples"]
-               if any(m in e["hanzi"] for m in self.markers)}
+               if teaches_marker(p, e)}
         self.conflicts = sorted(set(pos) & set(neg))
+        # a "not" page none of whose examples teach the word is left out of
+        # what the AI is told (it was filed there by mistake, or has no examples)
+        teaching = {src.split(" ", 1)[0] for src in neg.values()}
+        self.idle_not = [p["id"] for p in self.not_pages if p["id"] not in teaching]
+        self.not_pages = [p for p in self.not_pages if p["id"] in teaching]
         self.positives = {h: src for h, src in pos.items() if h not in neg}
         self.negatives = {h: src for h, src in neg.items() if h not in pos}
 
@@ -240,7 +283,9 @@ class Point:
 
     def show(self):
         print(f"Point {self.code} (HSK {self.level}): {self.label}")
-        print(f"Words: {' '.join(self.markers)}")
+        print(f"Words: {' '.join(f'{m} (HSK {self.word_levels.get(m) or "-"})' for m in self.markers)}")
+        if self.first_level != self.level:
+            print(f"  -> none of its words is HSK {self.level}, so it can first be taught at HSK {self.first_level}")
         print(f"Official list examples found: {len(self.list_examples)}"
               + (f"  e.g. {' / '.join(self.list_examples[:3])}" if self.list_examples else ""))
         if not self.is_pages and not self.not_pages:
@@ -249,10 +294,42 @@ class Point:
         print("AllSet Learning pages for this point:")
         for p in self.is_pages:
             print(f"  {p['id']}  {p['title']}  ({len(p['examples'])} examples)")
-        print(f"Pages for other uses (counter-examples): {len(self.not_pages)}; left out as unsure: {len(self.unsure)}")
+        print(f"Pages for other uses (counter-examples): {len(self.not_pages)}; left out as unsure: {len(self.unsure)}"
+              + (f"; 'not' pages with no example teaching the word, ignored: {len(self.idle_not)}" if self.idle_not else ""))
         print(f"Labeled test sentences: {len(self.positives)} examples, {len(self.negatives)} counter-examples"
               + (f" ({len(self.conflicts)} on both sides, dropped)" if self.conflicts else ""))
         print()
+
+
+# words in grammar-point labels that describe the point rather than being part of it
+_LABEL_STOP = set("用 表示 强调 句 结构 格式 句型 副词 介词 连词 助词 动词 形容词 名词 量词 代词 数词 语气 程度 范围 "
+                  "时间 频率 关联 否定 疑问 比较 复句 动态 结果 趋向 补语 表达 协同 进行态 某 等 的".split())
+
+
+def label_words(label: str) -> list[str]:
+    """The Chinese words of a point's label, e.g. 3-41 一……也/都+不/没 ->
+    一 也 都 不 没; for 'category：words' labels only the words part."""
+    part = label.split("：", 1)[1] if "：" in label else label
+    for stop in sorted(_LABEL_STOP, key=len, reverse=True):
+        if len(stop) > 1:
+            part = part.replace(stop, " ")
+    return [w for w in re.findall(r"[\u3400-\u9fff]+", part) if w not in _LABEL_STOP]
+
+
+# grammar terms: a label word containing one describes the point (谓语句,
+# 趋向补语), it isn't a word of the point (越来越, 什么的)
+_TERMS = ("句", "词", "语", "态", "补", "宾", "谓", "结构", "类型", "重叠", "短语")
+
+# points whose label has no word of its own but whose sentences always
+# contain one (the comparison points 2-58 比……多了 and 2-59 跟……一样)
+EXTRA_MARKERS = {"2-58": ["比"], "2-59": ["一样"]}
+
+
+def real_label_words(label: str, vocab: set, chars: set) -> list[str]:
+    """label_words() that are real words: on the vocab list, or 1-4
+    characters from list words with no grammar term in them."""
+    return [w for w in label_words(label)
+            if w in vocab or (len(w) <= 4 and all(ch in chars for ch in w) and not any(t in w for t in _TERMS))]
 
 
 def load_json_str(s):
@@ -347,6 +424,7 @@ class Tagger:
             out[t] = self.tag(t)
             if todo and k % 100 == 0:
                 print(f"  ...{k}/{len(texts)}", flush=True)
+                self.save()                     # so stopping mid-way keeps what's tagged
         self.save()
         return out
 
@@ -354,6 +432,98 @@ class Tagger:
         save_json(TAG_CACHE_PATH, self.cache)
         if self.ready:
             self.ts.save_segmentation_cache(self.run.seg_cache)
+
+
+def harder_points_with_easy_words(db, level: int) -> list[tuple]:
+    """Grammar points ABOVE `level` whose words (from their labels) are all
+    words a learner at `level` knows -- the ones vocabulary alone can't keep
+    out, like 3-41 一……也/都+不/没 or 4-66 连⋯⋯也/都. A word counts as
+    known if it is in the list at or below the level, or it is 1-2
+    characters that each belong to such a word (也没 = 也 + 没). Longer
+    label words that aren't on the list are descriptions (谓语句), not words.)"""
+    from app.textbook.models import GrammarTip, Vocab
+    known = {h for (h,) in db.query(Vocab.hanzi).filter(Vocab.hsk_level.isnot(None), Vocab.hsk_level <= level).all()}
+    known_chars = {ch for h in known for ch in h}
+    out = []
+    for p in db.query(GrammarTip).filter(GrammarTip.hsk_level > level).order_by(GrammarTip.id).all():
+        words = label_words(p.raw_text or "")
+        if words and all(w in known or (len(w) <= 2 and all(ch in known_chars for ch in w)) for w in words):
+            out.append((p.grammar_code, p.hsk_level, p.raw_text))
+    return out
+
+
+def judge_hidden_words(db, model: str, todo: dict, verdicts: dict):
+    """One AI decision per hidden word (40 per call), saved to
+    hidden_words.json -- after that the same word is treated the same way in
+    every sentence, for free. todo: {word: (parts, gloss)}."""
+    from app.textbook.models import Vocab
+    parts_all = {pt for parts, _ in todo.values() for pt in parts}
+    meaning = {h: e for h, e in db.query(Vocab.hanzi, Vocab.english).filter(Vocab.hanzi.in_(parts_all)).all()}
+    client, words = get_client(), list(todo)
+    print(f"  Deciding {len(words)} new hidden word(s) with {model} (saved to {HIDDEN_PATH.name})...", flush=True)
+    for i in range(0, len(words), 40):
+        chunk = words[i:i + 40]
+        listing = "\n".join(
+            f"  {w} = " + " + ".join(f"{pt} ({(meaning.get(pt) or '?')[:30]})" for pt in todo[w][0])
+            + f"   dictionary: {todo[w][1]}" for w in chunk)
+        try:
+            answer = gr.extract_json(call(client, model, gr.HIDDEN_PROMPT.format(words=listing), 1500))
+        except Exception as e:
+            print(f"  [warning] hidden-word call failed ({e!r}); those words count as hidden this run")
+            answer = {}
+        for w in chunk:
+            v = str(answer.get(w, "")).lower()
+            if v in ("clear", "hidden"):
+                verdicts[w] = {"verdict": v, "parts": " + ".join(todo[w][0]), "gloss": todo[w][1], "by": model}
+            else:                                   # not decided: hidden this run, asked again next run
+                verdicts.setdefault("_undecided_this_run", {})[w] = True
+    undecided = verdicts.pop("_undecided_this_run", {})
+    for w in undecided:
+        verdicts[w] = {"verdict": "hidden", "parts": " + ".join(todo[w][0]), "gloss": todo[w][1], "by": "(no answer)"}
+    saved = {k: v for k, v in verdicts.items() if not (isinstance(v, dict) and v.get("by") == "(no answer)")}
+    HIDDEN_PATH.write_text(json.dumps({"_readme": HIDDEN_README, **{k: v for k, v in sorted(saved.items())
+                                                                    if not k.startswith("_")}},
+                                      ensure_ascii=False, indent=1), encoding="utf-8")
+    for w in words:
+        if w in verdicts:
+            print(f"    {verdicts[w]['verdict']:>6}  {w} = {verdicts[w]['parts']}  ({verdicts[w]['gloss'][:40]})")
+
+
+HIDDEN_README = ("Dictionary words the course splits into listed parts (从没 = 从 + 没), and whether a learner "
+                 "who knows the parts understands the word untaught. hidden = no: a sentence with the word is "
+                 "dropped. clear = fine. Written by try_grammar_rule.py; edit freely (change hidden <-> clear).")
+
+
+def full_dictionary(hsk_words: dict) -> dict:
+    """{word: gloss}: every HSK word (all levels and versions) plus all of
+    CC-CEDICT (cepy_dict), so non-HSK words like 从没 are known too."""
+    out = dict(hsk_words)
+    try:
+        import cepy_dict
+    except ImportError:
+        print("[note] pip install cepy-dict  -- without it, hidden words (like 从没) are only found among HSK words")
+        return out
+    for entry in cepy_dict.entries():
+        simplified, definitions = (entry[2] or "").strip(), entry[4]
+        if simplified and simplified not in out:
+            out[simplified] = definitions[0] if definitions else ""
+    return out
+
+
+def hidden_words(words: list[str], dictionary: dict, listed: set, skip=()) -> list[tuple]:
+    """Runs of 2-3 neighbouring words that together are ONE dictionary word
+    not on the course's list -- e.g. 从 + 没 = 从没 "never". Tagging splits
+    such words into their listed parts, so the sentence looks easier than it
+    is. Runs with one of `skip` as a part (the point's own words: 见 + 过 is
+    just the point 2-32) are not reported. [(word, parts, gloss)]"""
+    out = []
+    for n in (3, 2):
+        for i in range(len(words) - n + 1):
+            w = "".join(words[i:i + n])
+            if (w in dictionary and w not in listed and not any(w in o[0] for o in out)
+                    and not any(part in skip for part in words[i:i + n])):
+                out.append((w, words[i:i + n], str(dictionary[w])[:60]))
+    return out
 
 
 def blockers(res: dict, level: int) -> list[str]:
@@ -472,20 +642,24 @@ def cmd_sources(db, point: Point, args):
         pages="\n".join(listing))
     print(f"  Asking {args.writer_model} to sort them...", flush=True)
     answer = gr.extract_json(call(get_client(), args.writer_model, prompt, 2000))
-    groups = {"is": {}, "not": {}, "unsure": {}}
+    groups = {"is": {}, "not": {}, "unsure": {}, "unrelated": {}}
     for p in shown:
         g = str(answer.get(p["id"], "unsure")).lower()
         groups[g if g in groups else "unsure"][p["id"]] = p["title"]
-    sources[point.code] = {"_proposed": f"by {args.writer_model} on {datetime.now():%Y-%m-%d} -- check it, "
-                                        "then delete this line", **groups}
+    sources[point.code] = {"_made_by": f"{args.writer_model} on {datetime.now():%Y-%m-%d}",
+                           "_words": point.markers, **groups}
     SOURCES_PATH.write_text(json.dumps(sources, ensure_ascii=False, indent=2), encoding="utf-8")
-    for g in ("is", "not", "unsure"):
+    for g in ("is", "not", "unsure", "unrelated"):
         print(f"\n{g}:")
         for i, t in groups[g].items():
             print(f"  {i}  {t}")
     if not groups["is"]:
         print("\n[warning] no page teaches this point: the rule would only have the list's own examples to go on.")
-    print(f"\nSaved to {SOURCES_PATH}. Check the groups (move a page if it's wrong), then: write --code {point.code}")
+    for p in shown:
+        if p["id"] in groups["is"] and p.get("hsk_2021") and point.level not in p["hsk_2021"]:
+            print(f"\n[note] {p['id']} is tagged HSK {p['hsk_2021']} on the wiki, the point is HSK {point.level} "
+                  "(often fine: one point can cover a later page's word, like 1-10 and 一起).")
+    print(f"\nSaved to {SOURCES_PATH}. No need to edit it unless validate shows a problem. Next: write --code {point.code}")
 
 
 # --------------------------------- WRITE ---------------------------------
@@ -661,6 +835,9 @@ def read_tatoeba(path: Path) -> dict:
     return out
 
 
+_TATOEBA = {}
+
+
 def cmd_tatoeba(db, point: Point, args):
     try:
         from opencc import OpenCC
@@ -673,11 +850,30 @@ def cmd_tatoeba(db, point: Point, args):
     rules, _, errors = gr.load_rules(RULES_PATH)
     if point.code not in rules:
         raise SystemExit(errors.get(point.code) or f"No rule for {point.code} yet: run write first.")
-    rule, level = rules[point.code], args.level
+    level = args.level or point.first_level
+    if level < point.first_level:
+        print(f"[note] --level {level} is below HSK {point.first_level}, the first level this point's words allow: "
+              f"no sentence can be HSK {level}. Using HSK {point.first_level}.")
+        level = point.first_level
+    print(f"Filling {point.code} at HSK {level}.")
+    rule = rules[point.code]
+    # rules for HARDER points: a sentence showing one of them is too hard here
+    from app.textbook.models import GrammarTip
+    level_of = dict(db.query(GrammarTip.grammar_code, GrammarTip.hsk_level).all())
+    failed = {c for c, st in load_json(BATCH_STATE_PATH, {}).items() if isinstance(st, dict) and st.get("rule") == "failed"}
+    harder = {c: r for c, r in rules.items()
+              if c != point.code and (level_of.get(c) or 0) > level and c not in failed}
+    print(f"Harder-grammar rules checked (points above HSK {level} with a rule): "
+          f"{', '.join(sorted(harder)) or 'none yet'}")
     tsv = Path(args.tsv) if args.tsv else DEFAULT_TSV
     print(f"Tatoeba file: {tsv}\n")
-    cc = OpenCC("t2s")
-    pairs = read_tatoeba(tsv)
+    if str(tsv) not in _TATOEBA:
+        cc = OpenCC("t2s")
+        loaded = read_tatoeba(tsv)
+        for p in loaded.values():
+            p["hanzi"] = cc.convert(p["original"])
+        _TATOEBA[str(tsv)] = loaded
+    pairs = {tid: dict(p, english=list(p["english"])) for tid, p in _TATOEBA[str(tsv)].items()}
     funnel, outcome, dropped = Counter(), {}, defaultdict(list)
 
     def drop(tid, step, reason):
@@ -685,11 +881,14 @@ def cmd_tatoeba(db, point: Point, args):
         dropped[step].append((pairs[tid]["hanzi"], reason))
 
     in_db = {h for (h,) in db.query(Sentence.hanzi).all()}
+    from data_pipelines.textbook.scripts import hsk_vocab_source as hvs
+    from data_pipelines.textbook.scripts import tag_sentences as ts
+    dictionary = full_dictionary(hvs.load_known_words(str(ts.VOCAB_PATH)))
+    listed = {h for (h,) in db.query(Vocab.hanzi).filter(Vocab.hsk_level.isnot(None)).all()}
     known_chars = {ch for (h,) in db.query(Vocab.hanzi).filter(Vocab.hsk_level.isnot(None),
                                                                  Vocab.hsk_level <= level).all() for ch in h}
     first_of, traditional, candidates = {}, 0, []
     for tid, p in pairs.items():
-        p["hanzi"] = cc.convert(p["original"])
         traditional += p["hanzi"] != p["original"]
     for tid, p in pairs.items():
         if not p["english"]:
@@ -735,14 +934,36 @@ def cmd_tatoeba(db, point: Point, args):
             continue
         funnel[f"5. really HSK {level}"] += 1
         clauses = as_clauses(res)
+        too_hard = [c for c, r in harder.items() if r.found(clauses)]
+        if too_hard:
+            drop(tid, "5b", "harder grammar: " + ", ".join(f"{c} (HSK {level_of[c]})" for c in too_hard))
+            continue
+        funnel[f"5b. no harder grammar point (of the {len(harder)} with a rule)"] += 1
         found, m, u = rule.explain(clauses)
         if not found:
             drop(tid, "6", f"rule: {'unless ' + ' ; '.join(u) if u else 'no match: line matched'}")
             continue
         funnel[f"6. the rule finds {point.code}"] += 1
         passed_rule.append({"tid": tid, "hanzi": p["hanzi"], "tagged": gr.render(clauses),
-                            "english": list(p["english"]), "words": res["words"], "matched": m})
+                            "english": list(p["english"]), "words": res["words"], "matched": m,
+                            "hidden": hidden_words(res["words"], dictionary, listed, point.markers)})
     db.rollback()
+
+    # ---- 6b: hidden words, decided once per word (hidden_words.json) ----
+    verdicts_hw = load_json(HIDDEN_PATH, {})
+    todo = {w: (parts, g) for j in passed_rule for w, parts, g in j["hidden"] if w not in verdicts_hw}
+    if todo:
+        judge_hidden_words(db, args.writer_model, todo, verdicts_hw)
+    kept = []
+    for j in passed_rule:
+        bad = [w for w, _, _ in j["hidden"] if verdicts_hw.get(w, {}).get("verdict") == "hidden"]
+        if bad:
+            drop(j["tid"], "6b", "hidden word a learner can't work out: "
+                 + ", ".join(f"{w} ({verdicts_hw[w].get('gloss', '')})" for w in bad))
+            continue
+        funnel["6b. no hidden word a learner can't work out"] += 1
+        kept.append(j)
+    passed_rule = kept
 
     # ---- how many does the point still need? ----
     have = [s.hanzi for s in pipeline_sentences(db, point)
@@ -756,15 +977,49 @@ def cmd_tatoeba(db, point: Point, args):
     scope = rs.grammar_scope(db, level)
     survivors, not_checked = [], 0
 
-    def review(j):
-        key = json.dumps(["review", dg.REVIEW_PROMPT_VERSION, level, j["hanzi"], j["chosen"]], ensure_ascii=False)
+    hard_easy = harder_points_with_easy_words(db, level)
+    print(f"Harder grammar points made only of {'HSK 1' if level == 1 else f'HSK 1-{level}'} words "
+          f"(the review is warned about them): {len(hard_easy)}")
+    for c, lv, lab in hard_easy[:12]:
+        print(f"    {c} (HSK {lv}) {lab}")
+    if len(hard_easy) > 12:
+        print(f"    ... and {len(hard_easy) - 12} more")
+    review_extra = (
+        f"\nTHIS SENTENCE WAS CHOSEN TO TEACH grammar point {point.code}: {point.label}. That point is taught at "
+        f"this level, so never count it -- or the words it uses -- as too hard.\n"
+        + ("\nTHESE GRAMMAR POINTS ARE ABOVE THIS LEVEL even though their words are easy. A sentence that uses "
+           "one of them IS TOO HARD:\n" + "\n".join(f"  {c} (HSK {lv}) {lab}" for c, lv, lab in hard_easy)
+           if hard_easy else ""))
+
+    def review_once(j, n):
+        key = json.dumps(["review5", dg.REVIEW_PROMPT_VERSION, point.code, level, j["hanzi"], j["chosen"], n],
+                         ensure_ascii=False)
         if key not in cache:
-            v = rs.ask(j["hanzi"], j["chosen"], level, scope, j["words"])
-            if "error" in v:
-                return {"ok": False, "problems": [f"AI call failed: {v['error'][:150]}"]}
+            prompt = rs.build_prompt(j["hanzi"], j["chosen"], level, scope, j["words"])
+            extra = review_extra
+            if j["hidden"]:
+                extra += ("\nHIDDEN WORDS: the course split these dictionary words into easier words, because the "
+                          "words themselves are not on its word list. Learners only know the parts. If the "
+                          "word's meaning can't be worked out from its parts, the sentence IS TOO HARD:\n"
+                          + "\n".join(f"  {w} = {' + '.join(parts)}  (dictionary: {g})" for w, parts, g in j["hidden"]))
+            prompt = prompt.replace("\nIf you are unsure, it is FINE.", extra + "\nIf you are unsure, it is FINE.")
+            try:
+                text = call(client, rs.HAIKU_MODEL, prompt, 300)
+                v = rs._extract_json(text)
+                if not isinstance(v.get("ok"), bool):
+                    raise ValueError(f"no true/false ok: {v!r}")
+                v = {"ok": v["ok"], "problems": [str(x) for x in (v.get("problems") or [])] if not v["ok"] else []}
+            except Exception as e:
+                return {"ok": False, "problems": [f"AI call failed: {e!r}"[:150]]}
             with _cache_lock:
                 cache[key] = v
         return cache[key]
+
+    def review(j):
+        """Two independent reviews; too hard if either says so."""
+        vs = [review_once(j, n) for n in range(2)]
+        bad = [v for v in vs if not v.get("ok")]
+        return {"ok": True} if not bad else {"ok": False, "problems": [f"({len(bad)}/2)"] + (bad[0].get("problems") or [])}
 
     queue = sorted(passed_rule, key=lambda j: len(j["hanzi"]))
     for start in range(0, len(queue), CHECK_BATCH):
@@ -791,7 +1046,7 @@ def cmd_tatoeba(db, point: Point, args):
             verdicts = list(pool.map(review, passed_check))
         for j, v in zip(passed_check, verdicts):
             if v.get("ok"):
-                funnel["8. difficulty review passes it"] += 1
+                funnel["8. both difficulty reviews pass it"] += 1
                 survivors.append(j)
                 outcome[j["tid"]] = ("8", "passed")
             else:
@@ -804,13 +1059,14 @@ def cmd_tatoeba(db, point: Point, args):
     with open(report, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
         w.writerow(["tatoeba_id", "hanzi", "original", "english_chosen", "english_options",
-                    "stopped_at_step", "reason", "rule_matched_lines"])
+                    "stopped_at_step", "reason", "rule_matched_lines", "hidden_words"])
         for tid, (step, reason) in outcome.items():
             if reason in ("no marker word", "no English translation"):
                 continue
             p, j = pairs[tid], chosen.get(tid, {})
             w.writerow([tid, p["hanzi"], p["original"], j.get("chosen", ""), " | ".join(p["english"]),
-                        step, reason, " ; ".join(j.get("matched", []))])
+                        step, reason, " ; ".join(j.get("matched", [])),
+                        " ; ".join(f"{w} ({g})" for w, _, g in j.get("hidden", []))])
 
     print(f"\n=== {point.code} at HSK {level}: funnel ===")
     print(f"  {len(pairs):>7}  Tatoeba sentences in the file")
@@ -821,7 +1077,8 @@ def cmd_tatoeba(db, point: Point, args):
         print(f"  ({not_checked} sentence(s) passed the rule but weren't checked: target reached)")
     print(f"\n=== Survivors ({len(survivors)}) ===")
     for j in survivors:
-        print(f"  {j['hanzi']}  ({j['chosen']})  [tatoeba {j['tid']}]")
+        hid = f"  hidden: {', '.join(w for w, _, _ in j['hidden'])}" if j.get("hidden") else ""
+        print(f"  {j['hanzi']}  ({j['chosen']})  [tatoeba {j['tid']}]{hid}")
     for step in sorted(dropped):
         items = dropped[step]
         n = len(items) if step in ("6", "7", "8") else min(len(items), SAMPLES_PER_STEP)
@@ -829,6 +1086,9 @@ def cmd_tatoeba(db, point: Point, args):
         for hanzi, reason in items[:n]:
             print(f"  {hanzi}  -- {reason}")
     print(f"\nEvery sentence and why: {report}")
+    return {"level": level, "have": len(have), "need": need, "added": len(survivors),
+            "survivors": [{"tatoeba_id": j["tid"], "hanzi": j["hanzi"], "english": j["chosen"]} for j in survivors],
+            "candidates_after_rule": len(passed_rule), "funnel": dict(funnel)}
 
 
 # --------------------------------- MAIN ---------------------------------
@@ -851,7 +1111,8 @@ def main():
                         help=f"tatoeba: stop once the point has this many sentences at the level, counting the "
                              f"course's own (default {DEFAULT_TARGET}; 0 = check every candidate).")
     parser.add_argument("--retag", action="store_true", help="Ignore the tagging cache.")
-    parser.add_argument("--level", type=int, default=1, help="tatoeba: HSK level (default 1).")
+    parser.add_argument("--level", type=int, default=None,
+                        help="tatoeba: HSK level (default: the first level the point's words allow).")
     parser.add_argument("--tsv", default=None, help=f"tatoeba: file (default {DEFAULT_TSV.name}).")
     parser.add_argument("--limit", type=int, default=None, help="validate/tatoeba: at most N sentences.")
     args = parser.parse_args()

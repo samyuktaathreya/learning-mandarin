@@ -1,0 +1,1692 @@
+
+########## rules  2026-11-07 14:38 ##########
+8 page(s) use the word(s); asking about 8.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGCI0KG  Expressing close possession without "de"
+
+not:
+
+unsure:
+
+unrelated:
+  ASG5KNWW  Topic-comment sentences
+  ASGN4S8O  Expressing "if… then…" with "yaoshi"
+  ASG25C48  Polite requests with "qing"
+  ASGC701A  Asking how something is with "zenmeyang"
+  ASGD4EC8  Simple rhetorical questions
+  ASGH13JY  Idiomatic phrases with "zai"
+  ASGXXP6M  Advanced usages of the contrary "dao"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-05
+Tagging 12 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_143814.txt
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 1-05
+<!-- written by claude-sonnet-5-5 on 2026-11-07; edit freely -->
+**Point:** A personal pronoun (我, 你, 您, 他, 她, 我们, 你们, 他们, 她们) placed directly before a noun, without 的, to show close possession (family, school, workplace).
+
+**Covers:** A pronoun at the start of a clause followed directly by a noun, as in 我家很大, 你哥哥很高, 他们公司在北京, 我们学校很大. Also 是 + pronoun + noun, as in 这是我女朋友.
+
+**Does not cover:**
+- Pronouns used as objects or after a verb or preposition, as in 请给我票, 等你, 代替他. These are not possession.
+- A pronoun followed by a time word, adverb or verb, as in 他今天状态很好, 我周末去游泳.
+- Pronoun + 的 + noun, which is ordinary possession with 的.
+- Greetings like 你好 and 您好, where 好 is tagged as an adjective, not a noun.
+
+```rule
+match: ^ 我|你|您|他|她|我们|你们|他们|她们/PN _/NN
+match: 是/VC 我|你|您|他|她|我们|你们|他们|她们/PN _/NN
+```
+
+**Notes:**
+- The clause-start anchor is deliberate. It keeps out double-object sentences such as 给我票 and 告诉他消息, where PN + NN is indirect object + direct object.
+- Known false-positive risks: topic-comment sentences like 我工作很忙 or 你作业做完了, where the noun is not strictly possessed. These are rare.
+- The second `match:` line only fires after 是. Extending it to other verbs would catch double-object sentences.
+- Not covered: a pronoun that follows a sentence-initial adverb or conjunction, such as 也我妈妈….
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-05
+Tagging 12 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-05: rule on labeled examples (no AI) ===
+  examples of 1-05 matched:    12/12
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+########## tatoeba  2026-11-07 15:03 ##########
+Filling 1-05 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 2-32, 3-41
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 4555 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_150335.txt
+  ...100/8090
+  ...200/8090
+  ...300/8090
+  ...400/8090
+  ...500/8090
+  ...600/8090
+  ...700/8090
+  ...800/8090
+  ...900/8090
+  ...1000/8090
+  ...1100/8090
+  ...1200/8090
+  ...1300/8090
+  ...1400/8090
+  ...1500/8090
+  ...1600/8090
+  ...1700/8090
+  ...1800/8090
+  ...1900/8090
+  ...2000/8090
+  ...2100/8090
+  ...2200/8090
+  ...2300/8090
+  ...2400/8090
+  ...2500/8090
+  ...2600/8090
+  ...2700/8090
+  ...2800/8090
+  ...2900/8090
+  ...3000/8090
+  ...3100/8090
+  ...3200/8090
+  ...3300/8090
+  ...3400/8090
+  ...3500/8090
+  ...3600/8090
+  ...3700/8090
+
+########## tatoeba  2026-11-07 15:36 ##########
+Filling 1-05 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 2-32, 3-41
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 4555 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_153603.txt
+  ...100/8090
+  ...200/8090
+  ...300/8090
+  ...400/8090
+  ...500/8090
+  ...600/8090
+  ...700/8090
+  ...800/8090
+  ...900/8090
+  ...1000/8090
+  ...1100/8090
+  ...1200/8090
+  ...1300/8090
+  ...1400/8090
+  ...1500/8090
+  ...1600/8090
+  ...1700/8090
+  ...1800/8090
+  ...1900/8090
+  ...2000/8090
+  ...2100/8090
+  ...2200/8090
+  ...2300/8090
+  ...2400/8090
+  ...2500/8090
+  ...2600/8090
+  ...2700/8090
+  ...2800/8090
+  ...2900/8090
+  ...3000/8090
+  ...3100/8090
+  ...3200/8090
+  ...3300/8090
+  ...3400/8090
+  ...3500/8090
+  ...3600/8090
+  ...3700/8090
+  ...3800/8090
+  ...3900/8090
+  ...4000/8090
+  ...4100/8090
+  ...4200/8090
+  ...4300/8090
+  ...4400/8090
+  ...4500/8090
+  ...4600/8090
+  ...4700/8090
+  ...4800/8090
+  ...4900/8090
+  ...5000/8090
+  ...5100/8090
+  ...5200/8090
+  ...5300/8090
+  ...5400/8090
+  ...5500/8090
+  ...5600/8090
+  ...5700/8090
+  ...5800/8090
+  ...5900/8090
+  ...6000/8090
+  ...6100/8090
+  ...6200/8090
+  ...6300/8090
+  ...6400/8090
+  ...6500/8090
+  ...6600/8090
+  ...6700/8090
+  ...6800/8090
+  ...6900/8090
+  ...7000/8090
+  ...7100/8090
+  ...7200/8090
+  ...7300/8090
+  ...7400/8090
+  ...7500/8090
+  ...7600/8090
+  ...7700/8090
+  ...7800/8090
+  ...7900/8090
+  ...8000/8090
+  Deciding 11 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  不想 = 不 + 想  (unexpectedly; to one's surprise)
+     clear  几点 = 几 + 点  (what time?)
+     clear  家里 = 家 + 里  (home)
+    hidden  里人 = 里 + 人  (person from the same village, town or pr)
+    hidden  还好 = 还 + 好  (not bad; pretty good)
+     clear  几个 = 几 + 个  (a few)
+     clear  星期几 = 星期 + 几  (which day of the week)
+     clear  小雨 = 小 + 雨  (light rain)
+     clear  小猫 = 小 + 猫  (kitten)
+     clear  怎么了 = 怎么 + 了  (What's up?)
+     clear  坐车 = 坐 + 车  (to take the car, bus, train etc)
+
+Course sentences at HSK 1 the rule already finds 1-05 in: 13  -> Tatoeba needs to add 7 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 2) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-05 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+    16832  2. contain the point's word(s)
+    16777  3. new (not in DB, not a duplicate)
+     8090  4. at most 2 characters outside HSK 1 words
+     1461  5. really HSK 1
+     1461  5b. no harder grammar point (of the 2 with a rule)
+       82  6. the rule finds 1-05
+       74  6b. no hidden word a learner can't work out
+       13  7. both checks say 1-05, English chosen
+       13  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (54 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (13) ===
+  你妈妈呢？  (Where's your mom?)  [tatoeba 10966817]
+  我家在这里。  (My house is here.)  [tatoeba 1275340]
+  她是我女儿。  (She's my daughter.)  [tatoeba 1428124]
+  你家在哪里？  (Where is your house?)  [tatoeba 1440409]
+  你们家在哪？  (Where is your house?)  [tatoeba 1440419]
+  她家在哪儿？  (Where is her house?)  [tatoeba 1691786]
+  我朋友很少。  (I have few friends.)  [tatoeba 4265094]
+  我是你爸爸。  (I am your father.)  [tatoeba 6057860]
+  谁是他朋友？  (Who is his friend?)  [tatoeba 6147822]
+  你家有猫吗？  (Have you got a cat in your house?)  [tatoeba 10966807]
+  你妈妈在哪？  (Where's your mom?)  [tatoeba 13119359]
+  你爸爸在哪？  (Where is your dad?)  [tatoeba 13189733]
+  你女朋友是谁？  (Who's your girlfriend?)  [tatoeba 4473139]
+
+--- dropped at step 3 (55), first 12 ---
+  要么你去，要么我去。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  今天是我的生日。  -- already in the database
+  我亲眼看见了。  -- already in the database
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  让我想一想。  -- same text as tatoeba 707208 (translations pooled)
+  我想吃点好吃的。  -- same text as tatoeba 4061626 (translations pooled)
+  你做什么工作？  -- same text as tatoeba 3378243 (translations pooled)
+  你是认真的吗？  -- same text as tatoeba 4887667 (translations pooled)
+  我单身。  -- same text as tatoeba 4977440 (translations pooled)
+  你认识我吗？  -- same text as tatoeba 1790035 (translations pooled)
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+
+--- dropped at step 4 (8687), first 12 ---
+  我跟父母联络了一下。  -- 5 characters no HSK 1 word uses: 母父络联跟
+  我把旅费耗光了。  -- 5 characters no HSK 1 word uses: 光把旅耗费
+  我不够钱去旅行。  -- 3 characters no HSK 1 word uses: 够旅行
+  我永远不会忘记你的亲切。  -- 6 characters no HSK 1 word uses: 亲切忘永记远
+  我们永远不会忘记你的亲切。  -- 6 characters no HSK 1 word uses: 亲切忘永记远
+  无论如何，都不关你的事。  -- 4 characters no HSK 1 word uses: 何如无论
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  拜托您，请给我一张签证。  -- 5 characters no HSK 1 word uses: 张托拜签证
+  我跟他去钓鱼。  -- 3 characters no HSK 1 word uses: 跟钓鱼
+  只要你微笑，我就会快乐。  -- 5 characters no HSK 1 word uses: 乐就微快笑
+  他是个无可救药的家伙。  -- 4 characters no HSK 1 word uses: 伙救无药
+  万一我来晚的话，就别等我了。  -- 4 characters no HSK 1 word uses: 万别就等
+
+--- dropped at step 5 (6629), first 12 ---
+  他喜欢旅行。我也是。  -- level 4: 旅行 L4
+  我们明天几点出发？  -- level 3: 出发 L3
+  我喜欢西瓜的味道。  -- level 4: 西瓜 L3, 味道 L4
+  你有多高？  -- level 2: 高 L2
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  我一点都不怕你。  -- level 3: 怕 L3
+  你不要着急。  -- level 3: 着急 L3
+  我想要出国。  -- level 2: 出国 L2
+  请给我找一把椅子。  -- level 3: 把 L3
+  我跟那个事件没有什么关系。  -- level 5: 跟 L2, 事件 L5, 关系 L3
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list), 外面 L2
+  她会十门语言。  -- level 3: 门 L2, 语言 L3
+
+--- dropped at step 6 (1379) ---
+  这是我的妈妈。  -- rule: no match: line matched
+  对不起，我爱你。  -- rule: no match: line matched
+  我什么都知道。  -- rule: no match: line matched
+  认识您很高兴。  -- rule: no match: line matched
+  您住在哪里？  -- rule: no match: line matched
+  麦克，你听到了没？  -- rule: no match: line matched
+  你是谁？  -- rule: no match: line matched
+  她是我的女朋友。  -- rule: no match: line matched
+  这本书我昨天买了。  -- rule: no match: line matched
+  你不要学习了。  -- rule: no match: line matched
+  你坐火车去吗？  -- rule: no match: line matched
+  我也去了。  -- rule: no match: line matched
+  你们今天下午在学校做些什么？  -- rule: no match: line matched
+  我不在的时候有没有人来？  -- rule: no match: line matched
+  那你是怎么做的？  -- rule: no match: line matched
+  我一个人去那边。  -- rule: no match: line matched
+  我不是来了吗？  -- rule: no match: line matched
+  你在家里吗？  -- rule: no match: line matched
+  我想要点钱。  -- rule: no match: line matched
+  我们有两个孩子。  -- rule: no match: line matched
+  他们现在要去哪里？  -- rule: no match: line matched
+  您有什么事想对我说吗？  -- rule: no match: line matched
+  我不喜欢你的女朋友。  -- rule: no match: line matched
+  您几点下课？  -- rule: no match: line matched
+  我们三个都是学生。  -- rule: no match: line matched
+  对了，我明天有事。  -- rule: no match: line matched
+  你想吃什么？  -- rule: no match: line matched
+  您想吃什么？  -- rule: no match: line matched
+  你们想吃什么？  -- rule: no match: line matched
+  你想喝什么？  -- rule: no match: line matched
+  您想喝什么？  -- rule: no match: line matched
+  你们想喝什么？  -- rule: no match: line matched
+  你不想吃饭吗？  -- rule: no match: line matched
+  您不想吃饭吗？  -- rule: no match: line matched
+  你们不想吃饭吗？  -- rule: no match: line matched
+  我想喝点什么。  -- rule: no match: line matched
+  我明天能来。  -- rule: no match: line matched
+  你们有什么菜？  -- rule: no match: line matched
+  您不想再喝点茶吗？  -- rule: no match: line matched
+  我要买什么？  -- rule: no match: line matched
+  你是新来的吗？  -- rule: no match: line matched
+  您今天一个人来的吗？  -- rule: no match: line matched
+  我们的饭菜很便宜。  -- rule: no match: line matched
+  他没有女朋友。  -- rule: no match: line matched
+  那是我的猫。  -- rule: no match: line matched
+  你是大学生吗？  -- rule: no match: line matched
+  这是我的问题。  -- rule: no match: line matched
+  你在吗？  -- rule: no match: line matched
+  你不能再住在这边了。  -- rule: no match: line matched
+  他有很多钱。  -- rule: no match: line matched
+  我有些东西要给你。  -- rule: no match: line matched
+  我觉得很热。  -- rule: no match: line matched
+  他是我的朋友。  -- rule: no match: line matched
+  你十岁了吗？  -- rule: no match: line matched
+  我想要你。  -- rule: no match: line matched
+  他想明天去看你。  -- rule: no match: line matched
+  我怎么知道？  -- rule: no match: line matched
+  他也学习汉语。  -- rule: no match: line matched
+  他不是意大利人吗？  -- rule: no match: line matched
+  这是你的书吗？  -- rule: no match: line matched
+  我要去看电影。  -- rule: no match: line matched
+  我是义大利人。  -- rule: no match: line matched
+  请叫我 Taro。  -- rule: no match: line matched
+  他现在住在国外。  -- rule: no match: line matched
+  我知道她在哪里。  -- rule: no match: line matched
+  我很高兴见到他。  -- rule: no match: line matched
+  我爱上了你。  -- rule: no match: line matched
+  你有多少钱？  -- rule: no match: line matched
+  你们在听吗？  -- rule: no match: line matched
+  这是您做的事！  -- rule: no match: line matched
+  我很高兴。  -- rule: no match: line matched
+  我觉得是你。  -- rule: no match: line matched
+  会，我会说中文。  -- rule: no match: line matched
+  不， 我不会说英文。  -- rule: no match: line matched
+  你喜欢中国吗？  -- rule: no match: line matched
+  我很想吃饺子。  -- rule: no match: line matched
+  我明天晚上来。  -- rule: no match: line matched
+  他有一个鸡蛋，他在吃鸡蛋。  -- rule: no match: line matched
+  我们到了。  -- rule: no match: line matched
+  昨天我去了那里。  -- rule: no match: line matched
+  你的名字叫什么？  -- rule: no match: line matched
+  你在做你觉得对的事吗?  -- rule: no match: line matched
+  我喜欢吃。  -- rule: no match: line matched
+  我吃水果、喝水。  -- rule: no match: line matched
+  我问他忙不忙。  -- rule: no match: line matched
+  你忙吗？  -- rule: no match: line matched
+  我不喜欢大狗。  -- rule: no match: line matched
+  他会来吗?我觉得他不会来。  -- rule: no match: line matched
+  他们吃这些东西。  -- rule: no match: line matched
+  她们吃这些东西。  -- rule: no match: line matched
+  我今天去大学读书，明天我会再去。  -- rule: no match: line matched
+  我和他是朋友。  -- rule: no match: line matched
+  我也很高兴见到你，伊藤先生。  -- rule: no match: line matched
+  我不喜欢。  -- rule: no match: line matched
+  他是日本人吗？  -- rule: no match: line matched
+  见到她我很高兴。  -- rule: no match: line matched
+  你会来，我很高兴。  -- rule: no match: line matched
+  我不知道她是谁。  -- rule: no match: line matched
+  两年前，我去了中国。  -- rule: no match: line matched
+  我非常喜欢英语。  -- rule: no match: line matched
+  我没听见。  -- rule: no match: line matched
+  我喜欢你。  -- rule: no match: line matched
+  你喜欢这本书吗？  -- rule: no match: line matched
+  你说的不是真的。  -- rule: no match: line matched
+  她一个朋友都没有。  -- rule: no match: line matched
+  他喜欢茶。  -- rule: no match: line matched
+  您的家在哪？  -- rule: no match: line matched
+  她问了他问题。  -- rule: no match: line matched
+  我们是好朋友。  -- rule: no match: line matched
+  你有弟弟吗？  -- rule: no match: line matched
+  我叫兰兰,我是中国人。  -- rule: no match: line matched
+  他喜欢看我的中文书。  -- rule: no match: line matched
+  你想买什么给他？  -- rule: no match: line matched
+  她很喜欢看中文书。  -- rule: no match: line matched
+  她在店里买了什么？  -- rule: no match: line matched
+  我去买点东西。  -- rule: no match: line matched
+  她不会读书写字。  -- rule: no match: line matched
+  那个时候，我在家。  -- rule: no match: line matched
+  你现在在哪里呢？  -- rule: no match: line matched
+  现在你忙吗？  -- rule: no match: line matched
+  现在你们忙吗？  -- rule: no match: line matched
+  现在您忙吗？  -- rule: no match: line matched
+  他们都喜欢唱歌。  -- rule: no match: line matched
+  我会说中文。  -- rule: no match: line matched
+  我住在这。  -- rule: no match: line matched
+  我喜欢学中文和英文。  -- rule: no match: line matched
+  我的名字是Ludwig。  -- rule: no match: line matched
+  我叫Ludwig。  -- rule: no match: line matched
+  她是Tom的姐姐。  -- rule: no match: line matched
+  我想见你姐姐。  -- rule: no match: line matched
+  我想认识你姐姐。  -- rule: no match: line matched
+  你没看见那个人吗？  -- rule: no match: line matched
+  你们没看见那个人吗？  -- rule: no match: line matched
+  您没有看见那个人吗？  -- rule: no match: line matched
+  我太高兴了！  -- rule: no match: line matched
+  你没听。  -- rule: no match: line matched
+  他们没听。  -- rule: no match: line matched
+  你是一个好人。  -- rule: no match: line matched
+  您是一个好人。  -- rule: no match: line matched
+  我叫Luis。  -- rule: no match: line matched
+  你们的东西在哪里？  -- rule: no match: line matched
+  您的东西在哪里？  -- rule: no match: line matched
+  你的东西在哪里？  -- rule: no match: line matched
+  我的书在哪？  -- rule: no match: line matched
+  你们呢？  -- rule: no match: line matched
+  您呢？  -- rule: no match: line matched
+  今天早上你在做什么？  -- rule: no match: line matched
+  她是日本人吗？  -- rule: no match: line matched
+  哪本是你们的书？  -- rule: no match: line matched
+  哪本是您的书？  -- rule: no match: line matched
+  哪本书是您的？  -- rule: no match: line matched
+  哪本书是你们的？  -- rule: no match: line matched
+  我们七点吃晚饭。  -- rule: no match: line matched
+  Crouch 先生，你在做什么？  -- rule: no match: line matched
+  “这是谁的椅子？”“它是我的。”  -- rule: no match: line matched
+  明天打电话给我。  -- rule: no match: line matched
+  你们喜欢学校吗？  -- rule: no match: line matched
+  您喜欢学校吗?  -- rule: no match: line matched
+  她没有真朋友。  -- rule: no match: line matched
+  你怎么不睡觉呢？  -- rule: no match: line matched
+  有时候，他也在这里吃午饭。  -- rule: no match: line matched
+  我正在读汉字。  -- rule: no match: line matched
+  我喜欢那个人。  -- rule: no match: line matched
+  你二了。  -- rule: no match: line matched
+  你知道问题在哪里。  -- rule: no match: line matched
+  你们好吗？  -- rule: no match: line matched
+  我现在在北京。  -- rule: no match: line matched
+  我再也不喜欢你了。  -- rule: no match: line matched
+  他们正在读她的书。  -- rule: no match: line matched
+  你能看吗？  -- rule: no match: line matched
+  我是约翰。  -- rule: no match: line matched
+  他给了它一个新名字。  -- rule: no match: line matched
+  我喜欢这只狗。  -- rule: no match: line matched
+  我是一个好人。  -- rule: no match: line matched
+  我有一个家。  -- rule: no match: line matched
+  他们吃很多米饭。  -- rule: no match: line matched
+  你想对我说什么？  -- rule: no match: line matched
+  你认识我吗？  -- rule: no match: line matched
+  昨天你没有去学校。  -- rule: no match: line matched
+  我正在吃东西。  -- rule: no match: line matched
+  我认识你吗？  -- rule: no match: line matched
+  我喜欢你的房间。  -- rule: no match: line matched
+  你是在对我说吗？  -- rule: no match: line matched
+  你是日本学生吗？  -- rule: no match: line matched
+  他们在吃午饭。  -- rule: no match: line matched
+  我叫Tom。  -- rule: no match: line matched
+  你是学生。  -- rule: no match: line matched
+  您是学生。  -- rule: no match: line matched
+  你们要在这里唱歌吗？  -- rule: no match: line matched
+  明年你会是几岁？  -- rule: no match: line matched
+  他是一个 DJ 。  -- rule: no match: line matched
+  我不是你们的妈妈。  -- rule: no match: line matched
+  我在这里工作。  -- rule: no match: line matched
+  我不喜欢狗。  -- rule: no match: line matched
+  你有孩子吗？  -- rule: no match: line matched
+  我有一些钱。  -- rule: no match: line matched
+  他是 Taro 的弟弟。  -- rule: no match: line matched
+  我不想读这本书。  -- rule: no match: line matched
+  你会说中文吗?  -- rule: no match: line matched
+  我什么事都没有做。  -- rule: no match: line matched
+  他去了伦敦。  -- rule: no match: line matched
+  我的名字叫做基里尔，很高兴见到你！  -- rule: no match: line matched
+  我是个大学生。  -- rule: no match: line matched
+  她现在正在工作。  -- rule: no match: line matched
+  他有很多书。  -- rule: no match: line matched
+  星期天他会一个人来。  -- rule: no match: line matched
+  她是你的朋友。  -- rule: no match: line matched
+  他是你的朋友。  -- rule: no match: line matched
+  他喜欢睡觉。  -- rule: no match: line matched
+  我没见到他。  -- rule: no match: line matched
+  你还在家里吗？  -- rule: no match: line matched
+  你们还在家里吗？  -- rule: no match: line matched
+  他有三个哥哥。  -- rule: no match: line matched
+  我不可以喝牛奶。  -- rule: no match: line matched
+  我不能喝牛奶。  -- rule: no match: line matched
+  我会打电话给你。  -- rule: no match: line matched
+  你不会说英语，是吗？  -- rule: no match: line matched
+  您是学生吗？  -- rule: no match: line matched
+  您的孩子是男是女？  -- rule: no match: line matched
+  是的，我也是学生。  -- rule: no match: line matched
+  你在那里学中文吗？  -- rule: no match: line matched
+  他一个朋友都没有。  -- rule: no match: line matched
+  他没有朋友。  -- rule: no match: line matched
+  我觉得他病了。  -- rule: no match: line matched
+  您也是喀什人吗？  -- rule: no match: line matched
+  我不高兴看电视。  -- rule: no match: line matched
+  我爱你！  -- rule: no match: line matched
+  你们的房间很大。  -- rule: no match: line matched
+  您的房间很大。  -- rule: no match: line matched
+  我没有两只猫。  -- rule: no match: line matched
+  我不是医生。  -- rule: no match: line matched
+  你也是。  -- rule: no match: line matched
+  你要喝点什么吗?  -- rule: no match: line matched
+  我去了医院。  -- rule: no match: line matched
+  我昨天去学校。  -- rule: no match: line matched
+  我能说。  -- rule: no match: line matched
+  你不知道那件事吗？  -- rule: no match: line matched
+  他们昨天到这里的。  -- rule: no match: line matched
+  我们是坐飞机去韩国的。  -- rule: no match: line matched
+  我是在日本上的中学。  -- rule: no match: line matched
+  我是来学中文的。  -- rule: no match: line matched
+  我是上个月来的北京。  -- rule: no match: line matched
+  他想买书。  -- rule: no match: line matched
+  我病了。  -- rule: no match: line matched
+  你想在大学里做什么?  -- rule: no match: line matched
+  我现在正在吃米饭。  -- rule: no match: line matched
+  我在吃什么？  -- rule: no match: line matched
+  我的哥哥是老师。  -- rule: no match: line matched
+  这些是我的书。  -- rule: no match: line matched
+  我们会做饭的。  -- rule: no match: line matched
+  我要这本书。  -- rule: no match: line matched
+  我想去学校。  -- rule: no match: line matched
+  我是你的妹妹。  -- rule: no match: line matched
+  我睡不好。  -- rule: no match: line matched
+  我没生病。  -- rule: no match: line matched
+  我们可以休息。  -- rule: no match: line matched
+  我在喝牛奶。  -- rule: no match: line matched
+  你们叫什么名字?  -- rule: no match: line matched
+  这两天我不忙。  -- rule: no match: line matched
+  你很会做菜，不是吗?  -- rule: no match: line matched
+  我没有休息的时间。  -- rule: no match: line matched
+  我边吃饭边看书。  -- rule: no match: line matched
+  这是我的妹妹。  -- rule: no match: line matched
+  我想要本书。  -- rule: no match: line matched
+  你几点吃的晚饭？  -- rule: no match: line matched
+  这是我的日本朋友。  -- rule: no match: line matched
+  这不是我的日本朋友。  -- rule: no match: line matched
+  请问，你在做什么？  -- rule: no match: line matched
+  昨天我卖了两本书。  -- rule: no match: line matched
+  我觉得他不在家。  -- rule: no match: line matched
+  我认识汉字。  -- rule: no match: line matched
+  我知道。  -- rule: no match: line matched
+  我的妹妹是老师。  -- rule: no match: line matched
+  我太高兴了。  -- rule: no match: line matched
+  我坐飞机去意大利。  -- rule: no match: line matched
+  我喝了两杯茶。  -- rule: no match: line matched
+  我吃苹果了。  -- rule: no match: line matched
+  我吃了那个苹果。  -- rule: no match: line matched
+  我去上大学。  -- rule: no match: line matched
+  我们在学校里。  -- rule: no match: line matched
+  我们写汉字也非常好。  -- rule: no match: line matched
+  我也在这里。  -- rule: no match: line matched
+  我也喝茶。  -- rule: no match: line matched
+  我也喝两杯茶。  -- rule: no match: line matched
+  我不高兴。  -- rule: no match: line matched
+  我不忙。  -- rule: no match: line matched
+  我有钱。  -- rule: no match: line matched
+  对不起，我来晚了。  -- rule: no match: line matched
+  她生病了。  -- rule: no match: line matched
+  哪本书是你的？  -- rule: no match: line matched
+  你知道怎么说吗？  -- rule: no match: line matched
+  你有妹妹吗？  -- rule: no match: line matched
+  你喝茶了吗？  -- rule: no match: line matched
+  你是中国人吗？  -- rule: no match: line matched
+  你在哪里学习？  -- rule: no match: line matched
+  你在回家吗？  -- rule: no match: line matched
+  你正在回家。  -- rule: no match: line matched
+  你喝茶了吗?  -- rule: no match: line matched
+  你喝茶吗？  -- rule: no match: line matched
+  你正在去我家。  -- rule: no match: line matched
+  你做什么工作？  -- rule: no match: line matched
+  他想在中国工作两年。  -- rule: no match: line matched
+  他对我很好。  -- rule: no match: line matched
+  他在家休息一个小时。  -- rule: no match: line matched
+  他休息两天。  -- rule: no match: line matched
+  他们在这里。  -- rule: no match: line matched
+  他也在这里。  -- rule: no match: line matched
+  她十七岁了。  -- rule: no match: line matched
+  我们在学习中文。  -- rule: no match: line matched
+  他们是孩子。  -- rule: no match: line matched
+  她们是孩子。  -- rule: no match: line matched
+  哪个是你的杯子？  -- rule: no match: line matched
+  哪个杯子是你的？  -- rule: no match: line matched
+  我的名字叫Juba。  -- rule: no match: line matched
+  你怎么说……？  -- rule: no match: line matched
+  我今天想去看电影。  -- rule: no match: line matched
+  她还在睡吗？  -- rule: no match: line matched
+  我明天的课很早。  -- rule: no match: line matched
+  你们学习吗？  -- rule: no match: line matched
+  我是学生。  -- rule: no match: line matched
+  他在读书。  -- rule: no match: line matched
+  你在哪读书？  -- rule: no match: line matched
+  他们是学生吗？  -- rule: no match: line matched
+  你们是学生吗？  -- rule: no match: line matched
+  他会开车吗？  -- rule: no match: line matched
+  我想知道。  -- rule: no match: line matched
+  你们会开车吗？  -- rule: no match: line matched
+  你的狗在这。  -- rule: no match: line matched
+  你也要去吗？  -- rule: no match: line matched
+  他写了本新书。  -- rule: no match: line matched
+  她是我的菜。  -- rule: no match: line matched
+  我明天会打电话给你。  -- rule: no match: line matched
+  明天我给你打电话。  -- rule: no match: line matched
+  你知道我的名字吗？  -- rule: no match: line matched
+  没有人认识她。  -- rule: no match: line matched
+  Mary认识我。  -- rule: no match: line matched
+  Tom认识我。  -- rule: no match: line matched
+  大家都认识我。  -- rule: no match: line matched
+  我要你的爱。  -- rule: no match: line matched
+  我叫做Jack。  -- rule: no match: line matched
+  没有人会看到我们。  -- rule: no match: line matched
+  我想吃点好吃的。  -- rule: no match: line matched
+  我没有电脑。  -- rule: no match: line matched
+  “你在哪里？” “我在一个朋友家。”  -- rule: no match: line matched
+  你在哪里看见他了？  -- rule: no match: line matched
+  我们喝了很多。  -- rule: no match: line matched
+  我们两个是学生。  -- rule: no match: line matched
+  我住在马尔他。  -- rule: no match: line matched
+  你能请她打电话给我吗？  -- rule: no match: line matched
+  不知道怎么回事，她昨天晚上没回家。  -- rule: no match: line matched
+  你一个月读几本书？  -- rule: no match: line matched
+  您有几只猫？  -- rule: no match: line matched
+  我想这是真的。  -- rule: no match: line matched
+  爸爸给我买了书。  -- rule: no match: line matched
+  晚饭我们吃什么？  -- rule: no match: line matched
+  你开车很好。  -- rule: no match: line matched
+  你想去哪里都可以。  -- rule: no match: line matched
+  我还在读书。  -- rule: no match: line matched
+  我的大儿子是Lech Zaręba。  -- rule: no match: line matched
+  我非常喜欢这本书。  -- rule: no match: line matched
+  她知道你知道。  -- rule: no match: line matched
+  我会做饭。  -- rule: no match: line matched
+  那是我的吗？  -- rule: no match: line matched
+  你在家里不说英语。  -- rule: no match: line matched
+  我不知道你要去哪。  -- rule: no match: line matched
+  我们有三个孩子。  -- rule: no match: line matched
+  我不想再玩了。  -- rule: no match: line matched
+  很高兴你是对的。  -- rule: no match: line matched
+  我的朋友人都很好。  -- rule: no match: line matched
+  我知道你要说不。  -- rule: no match: line matched
+  我不喜欢学习。  -- rule: no match: line matched
+  我不喜欢吃鸡蛋。  -- rule: no match: line matched
+  我不喜欢鸡蛋。  -- rule: no match: line matched
+  我什么都不喜欢。  -- rule: no match: line matched
+  我不喜欢你。  -- rule: no match: line matched
+  我不喜欢喝茶。  -- rule: no match: line matched
+  你想知道吗？  -- rule: no match: line matched
+  我们想知道。  -- rule: no match: line matched
+  你想知道什么？  -- rule: no match: line matched
+  我们做多一点。  -- rule: no match: line matched
+  他还说了什么？  -- rule: no match: line matched
+  这些天他们很少看电视。  -- rule: no match: line matched
+  你在读哪本书？  -- rule: no match: line matched
+  我能坐这里吗？  -- rule: no match: line matched
+  你不是日本人。  -- rule: no match: line matched
+  我还有个姐姐。  -- rule: no match: line matched
+  这是我的。  -- rule: no match: line matched
+  你们在写什么？  -- rule: no match: line matched
+  我们喝了一点水。  -- rule: no match: line matched
+  我们看不见他们。  -- rule: no match: line matched
+  我们找到她了。  -- rule: no match: line matched
+  她有一只狗和六只猫。  -- rule: no match: line matched
+  你在哪儿看到了她？  -- rule: no match: line matched
+  我觉得他们不会来了。  -- rule: no match: line matched
+  我会开车。  -- rule: no match: line matched
+  你喝多了。  -- rule: no match: line matched
+  他有二十个孩子。  -- rule: no match: line matched
+  没有人知道她在哪儿。  -- rule: no match: line matched
+  我不想吃。  -- rule: no match: line matched
+  我的英文不好。  -- rule: no match: line matched
+  你还认识我吗？  -- rule: no match: line matched
+  你想我吗？  -- rule: no match: line matched
+  我有时间。  -- rule: no match: line matched
+  我不知道有没有时间。  -- rule: no match: line matched
+  他们什么都没看到。  -- rule: no match: line matched
+  他什么都不知道。  -- rule: no match: line matched
+  他们的苹果没有我们的好吃。  -- rule: no match: line matched
+  他们说了些什么？  -- rule: no match: line matched
+  她什么都不知道。  -- rule: no match: line matched
+  我有两只猫。  -- rule: no match: line matched
+  我去学校。  -- rule: no match: line matched
+  你在找什么吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  这是谁的你知道吗？  -- rule: no match: line matched
+  你知道这是谁的吗？  -- rule: no match: line matched
+  你很好。  -- rule: no match: line matched
+  这谁给你的？  -- rule: no match: line matched
+  我能说什么？  -- rule: no match: line matched
+  你知道这是谁的字吗？  -- rule: no match: line matched
+  他吃。  -- rule: no match: line matched
+  她吃。  -- rule: no match: line matched
+  她是谁？  -- rule: no match: line matched
+  明天九点打电话给我吧。  -- rule: no match: line matched
+  你有电视吗？  -- rule: no match: line matched
+  你知道他们是谁吗?  -- rule: no match: line matched
+  你不热吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  你现在在哪里工作？  -- rule: no match: line matched
+  我们来了。  -- rule: no match: line matched
+  你会来吗？  -- rule: no match: line matched
+  她认识我。  -- rule: no match: line matched
+  我在找你。  -- rule: no match: line matched
+  我也喜欢你。  -- rule: no match: line matched
+  现在我要听些什么？  -- rule: no match: line matched
+  汤姆再也不会见你了。  -- rule: no match: line matched
+  下个月他会很忙。  -- rule: no match: line matched
+  我想要你睡在它上边。  -- rule: no match: line matched
+  我们不住在波士顿。  -- rule: no match: line matched
+  我真的不会唱。  -- rule: no match: line matched
+  昨天的事真的要谢谢您了。  -- rule: no match: line matched
+  是谁给你说那个的呢？  -- rule: no match: line matched
+  我们知道。  -- rule: no match: line matched
+  我写中文。  -- rule: no match: line matched
+  你在哪儿写？  -- rule: no match: line matched
+  你在写什么？  -- rule: no match: line matched
+  您在找什么吗？  -- rule: no match: line matched
+  我看不见你。  -- rule: no match: line matched
+  我知道，您也很忙。  -- rule: no match: line matched
+  你想坐哪儿呢？  -- rule: no match: line matched
+  我写了那些东西。  -- rule: no match: line matched
+  你有手机吗？  -- rule: no match: line matched
+  你不是我。  -- rule: no match: line matched
+  你怎么到那的？  -- rule: no match: line matched
+  他问你什么？  -- rule: no match: line matched
+  明天我在一家书店买书。  -- rule: no match: line matched
+  明天下午你在家吗？  -- rule: no match: line matched
+  你在露西亚家做什么？  -- rule: no match: line matched
+  我五点在家。  -- rule: no match: line matched
+  你九点上班。  -- rule: no match: line matched
+  那，我们五点后去买衣服，好吗？  -- rule: no match: line matched
+  你们想要吃些什么吗？  -- rule: no match: line matched
+  我昨天喝多了  -- rule: no match: line matched
+  我住在智利。  -- rule: no match: line matched
+  你在Facebook上有多少朋友？  -- rule: no match: line matched
+  我们知道我们在做什么。  -- rule: no match: line matched
+  我想要一只狗。  -- rule: no match: line matched
+  有人给我打电话吗？  -- rule: no match: line matched
+  我也爱你。  -- rule: no match: line matched
+  我们做我们想做的。  -- rule: no match: line matched
+  我做不了这个。  -- rule: no match: line matched
+  我不能做这个。  -- rule: no match: line matched
+  我听到了什么？  -- rule: no match: line matched
+  他怎么找到我们的？  -- rule: no match: line matched
+  他们的苹果没有我们的好。  -- rule: no match: line matched
+  我们不知道他来不来。  -- rule: no match: line matched
+  我读了一个小时的书。  -- rule: no match: line matched
+  好想见到你。  -- rule: no match: line matched
+  我们有一个吗？  -- rule: no match: line matched
+  他们都做了。  -- rule: no match: line matched
+  我没时间了。  -- rule: no match: line matched
+  我问你你在想什么。  -- rule: no match: line matched
+  我起床早。  -- rule: no match: line matched
+  我们要读很多书。  -- rule: no match: line matched
+  我不想再见到他们。  -- rule: no match: line matched
+  他没听。  -- rule: no match: line matched
+  我能找到的都在那。  -- rule: no match: line matched
+  我们有很多事要做。  -- rule: no match: line matched
+  我有很多朋友住在波士顿。  -- rule: no match: line matched
+  他不在这里。  -- rule: no match: line matched
+  他知道他们是谁。  -- rule: no match: line matched
+  我不是在说他。  -- rule: no match: line matched
+  问题是他没钱。  -- rule: no match: line matched
+  下一个给你。  -- rule: no match: line matched
+  他们爱她。  -- rule: no match: line matched
+  她给她妈妈打电话。  -- rule: no match: line matched
+  你想吃点午饭吗？  -- rule: no match: line matched
+  他在星期六下午做什么？  -- rule: no match: line matched
+  我要知道你怎么想。  -- rule: no match: line matched
+  我有个好东西给你。  -- rule: no match: line matched
+  我觉得这没什么好。  -- rule: no match: line matched
+  我睡了个好觉。  -- rule: no match: line matched
+  你有问题吗？  -- rule: no match: line matched
+  她给了他车。  -- rule: no match: line matched
+  她昨天来见我了。  -- rule: no match: line matched
+  我怎么看不见他们？  -- rule: no match: line matched
+  这是他们的书。  -- rule: no match: line matched
+  他不知道怎么到那里去、什么时候到。  -- rule: no match: line matched
+  我们会在那里见他。  -- rule: no match: line matched
+  你明天想去那里？  -- rule: no match: line matched
+  我不是意大利人。  -- rule: no match: line matched
+  你能不说了吗？  -- rule: no match: line matched
+  我会问他们。  -- rule: no match: line matched
+  我有些事。  -- rule: no match: line matched
+  我们是朋友。  -- rule: no match: line matched
+  他在这里。  -- rule: no match: line matched
+  你想再要点茶吗？  -- rule: no match: line matched
+  他有七个儿子。  -- rule: no match: line matched
+  他们没看到我们。  -- rule: no match: line matched
+  她做什么工作？  -- rule: no match: line matched
+  我觉得你说了什么。  -- rule: no match: line matched
+  你是对的吗？  -- rule: no match: line matched
+  我在读书。  -- rule: no match: line matched
+  我要一本书。  -- rule: no match: line matched
+  我要学很多。  -- rule: no match: line matched
+  我没时间找你想要的东西。  -- rule: no match: line matched
+  你的姐姐在这里上学吗？  -- rule: no match: line matched
+  我不要你。  -- rule: no match: line matched
+  我有些钱。  -- rule: no match: line matched
+  他在看我们。  -- rule: no match: line matched
+  不，我不买它。  -- rule: no match: line matched
+  那你会给我什么？  -- rule: no match: line matched
+  这是你要的吗？  -- rule: no match: line matched
+  我找她。  -- rule: no match: line matched
+  猫在喝你的牛奶。  -- rule: no match: line matched
+  你明天工作吗？  -- rule: no match: line matched
+  我能请你吃饭吗？  -- rule: no match: line matched
+  不是我的。  -- rule: no match: line matched
+  那个大的也是我的。  -- rule: no match: line matched
+  她真的不喜欢狗。  -- rule: no match: line matched
+  我知道问题。  -- rule: no match: line matched
+  我知道你在做什么。  -- rule: no match: line matched
+  你的妹妹呢？  -- rule: no match: line matched
+  你的姐姐呢？  -- rule: no match: line matched
+  我能给她打电话。  -- rule: no match: line matched
+  我喜欢这些东西。  -- rule: no match: line matched
+  你什么也做不了。  -- rule: no match: line matched
+  我们没面包了。  -- rule: no match: line matched
+  你会在哪里？  -- rule: no match: line matched
+  你爱上我了？  -- rule: no match: line matched
+  我不想再吃了。  -- rule: no match: line matched
+  你想知道我看见什么了吗？  -- rule: no match: line matched
+  我爱这里的人们。  -- rule: no match: line matched
+  我要坐下。  -- rule: no match: line matched
+  有你不能做的事吗？  -- rule: no match: line matched
+  我不喜欢看电视。  -- rule: no match: line matched
+  你知道我在做什么吗？  -- rule: no match: line matched
+  我们没有太多时间。  -- rule: no match: line matched
+  这不是我的车。  -- rule: no match: line matched
+  我会给点你好东西。  -- rule: no match: line matched
+  你的电脑有什么问题？  -- rule: no match: line matched
+  你想休息吗？  -- rule: no match: line matched
+  这是你的狗。我的呢？  -- rule: no match: line matched
+  我不知道我能不能做。  -- rule: no match: line matched
+  我知道要说什么。  -- rule: no match: line matched
+  我昨天去见他了。  -- rule: no match: line matched
+  我们什么都知道。  -- rule: no match: line matched
+  这是你的茶。  -- rule: no match: line matched
+  我想睡点觉。  -- rule: no match: line matched
+  我们能做到吗？  -- rule: no match: line matched
+  你想知道我是怎么做的吗？  -- rule: no match: line matched
+  他们不喜欢你。  -- rule: no match: line matched
+  我有很多日本朋友。  -- rule: no match: line matched
+  我知道他忙。  -- rule: no match: line matched
+  他十年前去了那里。  -- rule: no match: line matched
+  你喝很多牛奶吗？  -- rule: no match: line matched
+  我知道你做了什么。  -- rule: no match: line matched
+  没人要去找你。  -- rule: no match: line matched
+  你在看谁？  -- rule: no match: line matched
+  你吃晚饭了吗？  -- rule: no match: line matched
+  她有五个孩子。  -- rule: no match: line matched
+  我星期天在家。  -- rule: no match: line matched
+  我的猫会爱上这个。  -- rule: no match: line matched
+  你看，这是我的问题。  -- rule: no match: line matched
+  你们是怎么认识的？  -- rule: no match: line matched
+  穿你想穿的。  -- rule: no match: line matched
+  对你来说还不太晚。  -- rule: no match: line matched
+  我现在不知道。  -- rule: no match: line matched
+  对不起，我没有听到你说话。  -- rule: no match: line matched
+  我没觉得不好。  -- rule: no match: line matched
+  我还要再睡一会儿。  -- rule: no match: line matched
+  你昨天喝茶了吗？  -- rule: no match: line matched
+  你的一个朋友在我们这里。  -- rule: no match: line matched
+  谢谢你给我打电话。  -- rule: no match: line matched
+  他们喜欢那个  -- rule: no match: line matched
+  谁给了你这些东西？  -- rule: no match: line matched
+  你明天在这里吗？  -- rule: no match: line matched
+  我们没有做好。  -- rule: no match: line matched
+  我真喜欢我做的事。  -- rule: no match: line matched
+  你在这里的工作是什么？  -- rule: no match: line matched
+  你昨天没来学校。  -- rule: no match: line matched
+  你现在高兴吗？  -- rule: no match: line matched
+  你有多爱我？  -- rule: no match: line matched
+  你在吃东西吗？  -- rule: no match: line matched
+  我不知道他什么时候能来。  -- rule: no match: line matched
+  我也不。  -- rule: no match: line matched
+  我也不要。  -- rule: no match: line matched
+  你在上班吗？  -- rule: no match: line matched
+  我真的很爱他姐姐。  -- rule: no match: line matched
+  你去学校了吗？  -- rule: no match: line matched
+  你还在吃。  -- rule: no match: line matched
+  那天晚上你在哪里？  -- rule: no match: line matched
+  你们是朋友吗？  -- rule: no match: line matched
+  我叫何塞，我们是朋友。  -- rule: no match: line matched
+  这是你们的苹果吗？  -- rule: no match: line matched
+  我的电话是：六九二二六七七五二。  -- rule: no match: line matched
+  这不是他的电话。  -- rule: no match: line matched
+  你的电话是哪里的？  -- rule: no match: line matched
+  你有几个儿子？  -- rule: no match: line matched
+  你有几个女儿？  -- rule: no match: line matched
+  你喜欢狗吗？  -- rule: no match: line matched
+  你喜欢猫吗？  -- rule: no match: line matched
+  我工作很多小时。  -- rule: no match: line matched
+  我不知道要穿什么。  -- rule: no match: line matched
+  有人叫你来这吗？  -- rule: no match: line matched
+  你是学生吗？  -- rule: no match: line matched
+  你有朋友是医生吗？  -- rule: no match: line matched
+  你在医院工作吗？  -- rule: no match: line matched
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  这本书昨天在他车上。  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  下个月我在英国。  -- rule: no match: line matched
+  我明天上午十点起床。  -- rule: no match: line matched
+  他昨天下午六点在工作。  -- rule: no match: line matched
+  星期天我中午十二点起床。  -- rule: no match: line matched
+  你星期一下午五点在做什么？  -- rule: no match: line matched
+  你中午十二点吃午饭吗？  -- rule: no match: line matched
+  他的儿子在学开车。  -- rule: no match: line matched
+  你喜欢坐飞机吗？  -- rule: no match: line matched
+  我喜欢下小雨，不喜欢下大雨。  -- rule: no match: line matched
+  你喜欢下雨吗？  -- rule: no match: line matched
+  我会写五十四个汉字。  -- rule: no match: line matched
+  你会写多少汉字？  -- rule: no match: line matched
+  我吃了一个苹果。  -- rule: no match: line matched
+  我喝了一杯水。  -- rule: no match: line matched
+  你喜欢吃水果吗？  -- rule: no match: line matched
+  我想去德国。  -- rule: no match: line matched
+  我不想睡觉。  -- rule: no match: line matched
+  你想吃这个吗？  -- rule: no match: line matched
+  你能说汉语吗？  -- rule: no match: line matched
+  你能起床吗？  -- rule: no match: line matched
+  我们是三个人。  -- rule: no match: line matched
+  我们要一个。  -- rule: no match: line matched
+  你们要米饭吗？  -- rule: no match: line matched
+  他很少吃水果。  -- rule: no match: line matched
+  我很爱喝茶。  -- rule: no match: line matched
+  你要喝水吗？  -- rule: no match: line matched
+  我们的飞机上午十一点到。  -- rule: no match: line matched
+  你们吃饭了吗？  -- rule: no match: line matched
+  那，我们去吃饭，好吗？  -- rule: no match: line matched
+  你们有什么不吃的吗？  -- rule: no match: line matched
+  我没有不喜欢的。  -- rule: no match: line matched
+  那，你们喜欢吃什么呢？  -- rule: no match: line matched
+  我喜欢吃水果。  -- rule: no match: line matched
+  你在说汉语。  -- rule: no match: line matched
+  他们在说话。  -- rule: no match: line matched
+  你们在听他说话。  -- rule: no match: line matched
+  你在做什么？  -- rule: no match: line matched
+  我在听他们说话。  -- rule: no match: line matched
+  他们在说什么？  -- rule: no match: line matched
+  她现在会写多少汉字？  -- rule: no match: line matched
+  她二十五号去。  -- rule: no match: line matched
+  那不是我对汤姆说的。  -- rule: no match: line matched
+  我很想家。  -- rule: no match: line matched
+  我很冷。  -- rule: no match: line matched
+  你听见有人叫你的名字吗？  -- rule: no match: line matched
+  我真的冷。  -- rule: no match: line matched
+  你会爱它。  -- rule: no match: line matched
+  我没有时间，也没有钱。  -- rule: no match: line matched
+  我想明天下午见他。  -- rule: no match: line matched
+  有多少人知道我们？  -- rule: no match: line matched
+  他们还在波士顿。  -- rule: no match: line matched
+  你现在可以住口了。  -- rule: no match: line matched
+  他们也听不到我说话。  -- rule: no match: line matched
+  我在晚上看电视。  -- rule: no match: line matched
+  我看我们找到要找的东西了。  -- rule: no match: line matched
+  你买了多少东西？  -- rule: no match: line matched
+  他是一个好老师吗？  -- rule: no match: line matched
+  她是喂我们的狗的人。  -- rule: no match: line matched
+  我能看见。  -- rule: no match: line matched
+  我们会去做。  -- rule: no match: line matched
+  我看我找到你的一些东西了。  -- rule: no match: line matched
+  我们买了两本书。  -- rule: no match: line matched
+  我买衣服了。  -- rule: no match: line matched
+  我买了衣服了。  -- rule: no match: line matched
+  他去他家了吗？  -- rule: no match: line matched
+  七点我会回到这里的。  -- rule: no match: line matched
+  我在学习。  -- rule: no match: line matched
+  我还没找到他们。  -- rule: no match: line matched
+  你买了太多面包。  -- rule: no match: line matched
+  我们做不到。  -- rule: no match: line matched
+  他们想要这个。  -- rule: no match: line matched
+  请你去超市买些水果来。  -- rule: no match: line matched
+  我们想回家。  -- rule: no match: line matched
+  我不知道你要来这里。  -- rule: no match: line matched
+  你做的事我都知道。  -- rule: no match: line matched
+  那是我们的问题吗？  -- rule: no match: line matched
+  我们吃吧。  -- rule: no match: line matched
+  这个是你的。  -- rule: no match: line matched
+  你起床早吗？  -- rule: no match: line matched
+  我知道你们都是谁。  -- rule: no match: line matched
+  他们在吃苹果。  -- rule: no match: line matched
+  我知道有些事不对。  -- rule: no match: line matched
+  是我说的吗？  -- rule: no match: line matched
+  你喜欢去电影院吗？  -- rule: no match: line matched
+  你喜欢看电影吗？  -- rule: no match: line matched
+  你喜欢吃什么菜？  -- rule: no match: line matched
+  我能在这里吃午饭吗？  -- rule: no match: line matched
+  我有很多狗。  -- rule: no match: line matched
+  我们要做的工作太多了。  -- rule: no match: line matched
+  明年这个时候我在做什么？  -- rule: no match: line matched
+  我是一个好老师吗？  -- rule: no match: line matched
+  我们会很忙。  -- rule: no match: line matched
+  我们谁也不认识。  -- rule: no match: line matched
+  在那里见我。  -- rule: no match: line matched
+  这是你的女儿吗？  -- rule: no match: line matched
+  我叫小雨。  -- rule: no match: line matched
+  我是小雨。  -- rule: no match: line matched
+  你叫什么名字？  -- rule: no match: line matched
+  他叫什么名字？  -- rule: no match: line matched
+  她叫什么名字？  -- rule: no match: line matched
+  你是安娜吗？  -- rule: no match: line matched
+  是的，我是安娜。  -- rule: no match: line matched
+  我叫胡安。  -- rule: no match: line matched
+  她是安娜。  -- rule: no match: line matched
+  她不是安娜吗？  -- rule: no match: line matched
+  我叫约翰，你呢？  -- rule: no match: line matched
+  我还有个问题。  -- rule: no match: line matched
+  我们是谁？  -- rule: no match: line matched
+  我们要什么？  -- rule: no match: line matched
+  我们能在哪里打电话？  -- rule: no match: line matched
+  你们叫什么名字？  -- rule: no match: line matched
+  你不认识他。  -- rule: no match: line matched
+  你们认识吗？  -- rule: no match: line matched
+  你没有时间了。  -- rule: no match: line matched
+  我在七点吃早饭。  -- rule: no match: line matched
+  我们是什么？  -- rule: no match: line matched
+  胡安，她是小雨，我和小雨是同学。  -- rule: no match: line matched
+  小雨，他是胡安，我和胡安是朋友。  -- rule: no match: line matched
+  林峰，你认识他吗？  -- rule: no match: line matched
+  我不认识他，他是谁？  -- rule: no match: line matched
+  这是你的车。  -- rule: no match: line matched
+  不是，这不是我的车。  -- rule: no match: line matched
+  这不是我的车，那是我的车。  -- rule: no match: line matched
+  你想听吗？  -- rule: no match: line matched
+  你现在想看什么？  -- rule: no match: line matched
+  你今天晚上有没有要上班?  -- rule: no match: line matched
+  我们要去这里。  -- rule: no match: line matched
+  我们是六个人。  -- rule: no match: line matched
+  我穿三十七号。  -- rule: no match: line matched
+  我要一杯水。  -- rule: no match: line matched
+  我上个月在波士顿。  -- rule: no match: line matched
+  他今天在家。  -- rule: no match: line matched
+  我昨天没时间看电视。  -- rule: no match: line matched
+  他在学习英语。  -- rule: no match: line matched
+  有什么事我可以做吗？  -- rule: no match: line matched
+  他今天见他们了吗？  -- rule: no match: line matched
+  我喜欢车。  -- rule: no match: line matched
+  你们要去哪里？  -- rule: no match: line matched
+  你们有冷牛奶吗？  -- rule: no match: line matched
+  你们会说英语吗？  -- rule: no match: line matched
+  你坐飞机吧。  -- rule: no match: line matched
+  你的电脑怎么了？  -- rule: no match: line matched
+  我们爱我们的学校。  -- rule: no match: line matched
+  你做了很多。  -- rule: no match: line matched
+  我看见他在读一本书。  -- rule: no match: line matched
+  我不太想说话。  -- rule: no match: line matched
+  我今年没做多少事。  -- rule: no match: line matched
+  你明天去学校。  -- rule: no match: line matched
+  你想做我的朋友吗？  -- rule: no match: line matched
+  人人都知道我不喜欢汤姆。  -- rule: no match: line matched
+  我不去学校。  -- rule: no match: line matched
+  你明天要来吗？  -- rule: no match: line matched
+  在这时候，他到了。  -- rule: no match: line matched
+  听我说，好吗？  -- rule: no match: line matched
+  我觉的有一个问题。  -- rule: no match: line matched
+  我们有很多时间。  -- rule: no match: line matched
+  你真是太对了。  -- rule: no match: line matched
+  今天上午你们不在医院。  -- rule: no match: line matched
+  明天我不在家。  -- rule: no match: line matched
+  明天下午你在家吗?  -- rule: no match: line matched
+  明天下午他在医院。  -- rule: no match: line matched
+  明天中午他们不在学校。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你上午有时间吗?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  上午你有时间吗?  -- rule: no match: line matched
+  这本书昨天在他的车上。  -- rule: no match: line matched
+  昨天上午我在学校。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  昨天晚上我们不在家。  -- rule: no match: line matched
+  没，我什么都没在吃。  -- rule: no match: line matched
+  杰克，你有几个儿子？  -- rule: no match: line matched
+  你现在在哪里？  -- rule: no match: line matched
+  他十二点吃饭。  -- rule: no match: line matched
+  她在书店工作。  -- rule: no match: line matched
+  我八点起床。  -- rule: no match: line matched
+  我们十一点睡觉。  -- rule: no match: line matched
+  我有两个儿子。  -- rule: no match: line matched
+  星期三下午我在。  -- rule: no match: line matched
+  星期天我十二点起床。  -- rule: no match: line matched
+  昨天这个时候你在做什么？  -- rule: no match: line matched
+  昨天这个时候我在学校学习。  -- rule: no match: line matched
+  他们看不见我。  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: no match: line matched
+  不是你的问题。  -- rule: no match: line matched
+  你好吗？  -- rule: no match: line matched
+  很高兴认识你。  -- rule: no match: line matched
+  你是哪里的人？  -- rule: no match: line matched
+  我想去电影院。  -- rule: no match: line matched
+  我今天没看到她。  -- rule: no match: line matched
+  你们喝多了。  -- rule: no match: line matched
+  我们想你。  -- rule: no match: line matched
+  他们有工作。  -- rule: no match: line matched
+  我不会给汤姆买那东西。  -- rule: no match: line matched
+  你还不太晚。  -- rule: no match: line matched
+  我唱歌不太好。  -- rule: no match: line matched
+  我知道你是对的。  -- rule: no match: line matched
+  我不想要这个。  -- rule: no match: line matched
+  他还没到这里。  -- rule: no match: line matched
+  有一个人想见你。  -- rule: no match: line matched
+  我不想来这里。  -- rule: no match: line matched
+  那是我的。  -- rule: no match: line matched
+  你听见我说的了吗？  -- rule: no match: line matched
+  我们没水。  -- rule: no match: line matched
+  你给了他什么？  -- rule: no match: line matched
+  我知道这天要来。  -- rule: no match: line matched
+  我不想再听到这事。  -- rule: no match: line matched
+  你能做到吗？  -- rule: no match: line matched
+  我能在这里睡觉吗？  -- rule: no match: line matched
+  你想不想要这工作？  -- rule: no match: line matched
+  我们不在波士顿。  -- rule: no match: line matched
+  我不知道。你怎么想？  -- rule: no match: line matched
+  他们不喜欢我。  -- rule: no match: line matched
+  我唱歌很好听。  -- rule: no match: line matched
+  我想找女朋友。  -- rule: no match: line matched
+  我不想再做这个了。  -- rule: no match: line matched
+  我不想听汤姆唱歌。  -- rule: no match: line matched
+  你知道哪家饭店好吗？  -- rule: no match: line matched
+  我是新来的。  -- rule: no match: line matched
+  这不是给你的。  -- rule: no match: line matched
+  我们不会再见你了。  -- rule: no match: line matched
+  我很喜欢雪。  -- rule: no match: line matched
+  我还好。  -- rule: no match: line matched
+  我十一点起床了。  -- rule: no match: line matched
+  我去哪里都开车。  -- rule: no match: line matched
+  四点前我都在忙。  -- rule: no match: line matched
+  谁也没在看她。  -- rule: no match: line matched
+  他们喜欢苹果。  -- rule: no match: line matched
+  您想听它吗？  -- rule: no match: line matched
+  我们什么都做不了。  -- rule: no match: line matched
+  你会在那里吗？  -- rule: no match: line matched
+  我做不到。  -- rule: no match: line matched
+  他想要什么？  -- rule: no match: line matched
+  明天我会问他的。  -- rule: no match: line matched
+  你在这里。  -- rule: no match: line matched
+  我没在忙。  -- rule: no match: line matched
+  他住在哪里？  -- rule: no match: line matched
+  我是个学生。  -- rule: no match: line matched
+  我知道些东西的！  -- rule: no match: line matched
+  你在那里做什么呢？  -- rule: no match: line matched
+  他卖水果。  -- rule: no match: line matched
+  我没有朋友。  -- rule: no match: line matched
+  我在哪儿都找不到她。  -- rule: no match: line matched
+  你在看什么？  -- rule: no match: line matched
+  我找不到她。  -- rule: no match: line matched
+  他是老师。  -- rule: no match: line matched
+  您听到什么了？  -- rule: no match: line matched
+  我喜欢他们。  -- rule: no match: line matched
+  我们谁也没看见。  -- rule: no match: line matched
+  现在你能做这件事吗？  -- rule: no match: line matched
+  请你不要说这个。  -- rule: no match: line matched
+  我去看电影。  -- rule: no match: line matched
+  他说了些什么。  -- rule: no match: line matched
+  你和谁说话呢？  -- rule: no match: line matched
+  你明天有事吗？  -- rule: no match: line matched
+  我觉得你想坐下。  -- rule: no match: line matched
+  你现在住在哪里？  -- rule: no match: line matched
+  您在忙吗？  -- rule: no match: line matched
+  我知道我在做什么。  -- rule: no match: line matched
+  这我知道！  -- rule: no match: line matched
+  我没有狗。  -- rule: no match: line matched
+  我还什么都没找到呢。  -- rule: no match: line matched
+  他们现在去哪？  -- rule: no match: line matched
+  她想在医院工作。  -- rule: no match: line matched
+  我不喜欢上学。  -- rule: no match: line matched
+  我也在这儿上学。  -- rule: no match: line matched
+  你还冷吗？  -- rule: no match: line matched
+  您想吃点什么吗？  -- rule: no match: line matched
+  我们在找他。  -- rule: no match: line matched
+  你在波士顿做了什么？  -- rule: no match: line matched
+  您到这边来！  -- rule: no match: line matched
+  我们去看电影吧！  -- rule: no match: line matched
+  他四月十八日来了。  -- rule: no match: line matched
+  你要买点东西吗？  -- rule: no match: line matched
+  这不是你的事。  -- rule: no match: line matched
+  我明天能见到你吗？  -- rule: no match: line matched
+  我们在吃苹果。  -- rule: no match: line matched
+  我住在塔什干。  -- rule: no match: line matched
+  我觉得这不是真的。  -- rule: no match: line matched
+  现在他们有三个孩子。  -- rule: no match: line matched
+  你在说什么呢？  -- rule: no match: line matched
+  他们想到哪儿去？  -- rule: no match: line matched
+  我不知道他是在哪里找到她的。  -- rule: no match: line matched
+  我知道他们在哪里。  -- rule: no match: line matched
+  你也是学生不是吗？  -- rule: no match: line matched
+  我也没想到我会在这里。  -- rule: no match: line matched
+  我一没钱，二没时间。  -- rule: no match: line matched
+  你可以在那里见到我。  -- rule: no match: line matched
+  我很高兴你见了他。  -- rule: no match: line matched
+  我不能叫他做那件事。  -- rule: no match: line matched
+  我觉得你会找到她的。  -- rule: no match: line matched
+  我觉得你会找到他的。  -- rule: no match: line matched
+  我不知道他在哪。  -- rule: no match: line matched
+  他去哪买了这些东西？  -- rule: no match: line matched
+  她去哪买了这些东西？  -- rule: no match: line matched
+  他在哪买了那本书？  -- rule: no match: line matched
+  我是他的朋友。  -- rule: no match: line matched
+  你做到了。  -- rule: no match: line matched
+  我今天忙。  -- rule: no match: line matched
+  他们真是朋友吗？  -- rule: no match: line matched
+  我不知道你的书在哪里。  -- rule: no match: line matched
+  我可以吃点什么吗？  -- rule: no match: line matched
+  我七点回到家。  -- rule: no match: line matched
+  你知道怎么做吗？  -- rule: no match: line matched
+  我很高兴你们都在。  -- rule: no match: line matched
+  我在这儿有一些朋友。  -- rule: no match: line matched
+  我们喜欢你们。  -- rule: no match: line matched
+  我看见你在看她。  -- rule: no match: line matched
+  你还有什么想说的？  -- rule: no match: line matched
+  我是一只猫。  -- rule: no match: line matched
+  我认识她的姐姐。  -- rule: no match: line matched
+  我认识她的妹妹。  -- rule: no match: line matched
+  他们对我说话了。  -- rule: no match: line matched
+  你今天下午会在家吗？  -- rule: no match: line matched
+  我现在没有钱。  -- rule: no match: line matched
+  他是医生来的。  -- rule: no match: line matched
+  他读很多书。  -- rule: no match: line matched
+  你不冷吗？  -- rule: no match: line matched
+  你是我的。  -- rule: no match: line matched
+  他明天会来吗？  -- rule: no match: line matched
+  他不能买车。  -- rule: no match: line matched
+  明天我想见你。  -- rule: no match: line matched
+  你在哪里工作？  -- rule: no match: line matched
+  你还在上学吗？  -- rule: no match: line matched
+  他说，“九点了”。  -- rule: no match: line matched
+  我住在大阪。  -- rule: no match: line matched
+  我做到了！  -- rule: no match: line matched
+  我什么都不知道。  -- rule: no match: line matched
+  请爱我吧。  -- rule: no match: line matched
+  我想去玩。  -- rule: no match: line matched
+  可以给我吗？  -- rule: no match: line matched
+  我非常喜欢小狗。  -- rule: no match: line matched
+  那是我的钱。  -- rule: no match: line matched
+  这儿的书是我的。  -- rule: no match: line matched
+  你穿点东西。  -- rule: no match: line matched
+  我不知道你在看东西。  -- rule: no match: line matched
+  我听到了。  -- rule: no match: line matched
+  我明天再做。  -- rule: no match: line matched
+  我会给你回电话的。  -- rule: no match: line matched
+  我们去坐四点十分的火车吧。  -- rule: no match: line matched
+  我也能去。  -- rule: no match: line matched
+  萨米的妈妈给了他一些钱。  -- rule: no match: line matched
+  我想去英国。  -- rule: no match: line matched
+  他到了吗?  -- rule: no match: line matched
+  玛丽，我喜欢你！  -- rule: no match: line matched
+  我昨天晚上买的书到了。  -- rule: no match: line matched
+  我三十岁。  -- rule: no match: line matched
+  我三十二岁。  -- rule: no match: line matched
+  她十二岁。  -- rule: no match: line matched
+  我是胡安。  -- rule: no match: line matched
+  你是安娜。  -- rule: no match: line matched
+  她叫什么？  -- rule: no match: line matched
+  是的，我叫安娜。  -- rule: no match: line matched
+  你是小雨吗？  -- rule: no match: line matched
+  不，我是方宁。  -- rule: no match: line matched
+  我什么都不是。  -- rule: no match: line matched
+  我不知道我不知道什么。  -- rule: no match: line matched
+  我一点英文都不会说。  -- rule: no match: line matched
+  我有八个哥哥。  -- rule: no match: line matched
+  我吃了苹果。  -- rule: no match: line matched
+  你要几个苹果？  -- rule: no match: line matched
+  我不知道乔治会不会来。  -- rule: no match: line matched
+  你真的知道这个怎么做吗？  -- rule: no match: line matched
+  他现在在医院。  -- rule: no match: line matched
+  他们有很多朋友。  -- rule: no match: line matched
+  我和他认识。  -- rule: no match: line matched
+  我听不见你。  -- rule: no match: line matched
+  明天我要买手机了。  -- rule: no match: line matched
+  你去年住在哪儿？  -- rule: no match: line matched
+  我们在吃面包。  -- rule: no match: line matched
+  请给我打电话。  -- rule: no match: line matched
+  她给了他很多钱。  -- rule: no match: line matched
+  我会在七八点回家。  -- rule: no match: line matched
+  我去学校了。  -- rule: no match: line matched
+  她对我说，“我喜欢你”。  -- rule: no match: line matched
+  我是一只猫。我还没有名字。  -- rule: no match: line matched
+  我觉得没问题。  -- rule: no match: line matched
+  他请他们吃晚饭。  -- rule: no match: line matched
+  他说想见她。  -- rule: no match: line matched
+  我们去喝一杯。  -- rule: no match: line matched
+  他要做什么？  -- rule: no match: line matched
+  他们什么都不知道。  -- rule: no match: line matched
+  她们上了火车。  -- rule: no match: line matched
+  我坐出租车去。  -- rule: no match: line matched
+  你和她是朋友吗？  -- rule: no match: line matched
+  你和他是朋友吗？  -- rule: no match: line matched
+  这个是我的朋友。  -- rule: no match: line matched
+  她不是韩国人。  -- rule: no match: line matched
+  我会说汉语。  -- rule: no match: line matched
+  我是日本人。  -- rule: no match: line matched
+  你认识胡安吗？  -- rule: no match: line matched
+  你做的事我都喜欢。  -- rule: no match: line matched
+  我现在在波士顿工作。  -- rule: no match: line matched
+  我要喂狗。  -- rule: no match: line matched
+  你的哥哥在哪里?  -- rule: no match: line matched
+  你还喜欢我吗？  -- rule: no match: line matched
+  他对吗？  -- rule: no match: line matched
+  我觉得明天会很热。  -- rule: no match: line matched
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  我也不想玩。  -- rule: no match: line matched
+  我有点喜欢他。  -- rule: no match: line matched
+  我知道你有女朋友！  -- rule: no match: line matched
+  他们说天气会很热。  -- rule: no match: line matched
+  他在看奥运会。  -- rule: no match: line matched
+  她在看奥运会。  -- rule: no match: line matched
+  她爱他，他爱她。  -- rule: no match: line matched
+  请来我家吧。  -- rule: no match: line matched
+  请来我家里。  -- rule: no match: line matched
+  我还有点事。  -- rule: no match: line matched
+  你唱。  -- rule: no match: line matched
+  有钱人可以做他们想做的事。  -- rule: no match: line matched
+  我知道他们要做什么。  -- rule: no match: line matched
+  你真的什么都不想要？  -- rule: no match: line matched
+  我想知道他们在哪里。  -- rule: no match: line matched
+  我不知道什么时候要在那里。  -- rule: no match: line matched
+  你有朋友吗？  -- rule: no match: line matched
+  你知道她的名字吗？  -- rule: no match: line matched
+  我写什么是我的事。  -- rule: no match: line matched
+  我十二岁了。  -- rule: no match: line matched
+  我不觉得它很好。  -- rule: no match: line matched
+  你还在找工作吗？  -- rule: no match: line matched
+  我不知道明天会不会下雨。  -- rule: no match: line matched
+  他看到我的时候和我说话。  -- rule: no match: line matched
+  你昨天几点睡的？  -- rule: no match: line matched
+  我不能买这本书，太贵了。  -- rule: no match: line matched
+  我们的来了。  -- rule: no match: line matched
+  她觉得好多了。  -- rule: no match: line matched
+  你要做什么？  -- rule: no match: line matched
+  我想给家人打电话。  -- rule: no match: line matched
+  我在看这本书。  -- rule: no match: line matched
+  你在说他吗？  -- rule: no match: line matched
+  我们现在在做饭。  -- rule: no match: line matched
+  我想知道他们在哪。  -- rule: no match: line matched
+  他们唱歌很好。  -- rule: no match: line matched
+  我很高兴你今天来了。  -- rule: no match: line matched
+  我想读。  -- rule: no match: line matched
+  我也会想你的。  -- rule: no match: line matched
+  我要一个。  -- rule: no match: line matched
+  我们怎么来这的？  -- rule: no match: line matched
+  你觉得明天会有个好天气吗？  -- rule: no match: line matched
+  他们都爱我。  -- rule: no match: line matched
+  我上星期在这里玩。  -- rule: no match: line matched
+  他们都知道。  -- rule: no match: line matched
+  你什么都没问我。  -- rule: no match: line matched
+  你是老师吗？  -- rule: no match: line matched
+  我昨天去了学校。  -- rule: no match: line matched
+  你在哪里读书？  -- rule: no match: line matched
+  你真的不来吗？  -- rule: no match: line matched
+  我喜欢你！  -- rule: no match: line matched
+  我没买面包。  -- rule: no match: line matched
+  你在学什么？  -- rule: no match: line matched
+  我一天到晚看电视。  -- rule: no match: line matched
+  我没钱了。  -- rule: no match: line matched
+  他们什么都不给。  -- rule: no match: line matched
+  他不是学生。  -- rule: no match: line matched
+  我很好。你呢？  -- rule: no match: line matched
+  我没唱。  -- rule: no match: line matched
+  我有事要做。  -- rule: no match: line matched
+  我们想她。  -- rule: no match: line matched
+  我知道我想要的都在这里。  -- rule: no match: line matched
+  我怎么到那里去？  -- rule: no match: line matched
+  你会找到工作的。  -- rule: no match: line matched
+  你说英语吗？  -- rule: no match: line matched
+  我爱我的爸爸们。  -- rule: no match: line matched
+  我星期天不工作。  -- rule: no match: line matched
+  我今天看见他们了。  -- rule: no match: line matched
+  我今天看见她了。  -- rule: no match: line matched
+  我今天没有时间去那里了。  -- rule: no match: line matched
+  你喝水吗？  -- rule: no match: line matched
+  我昨天没回家。  -- rule: no match: line matched
+  你要我们做什么？  -- rule: no match: line matched
+  我是你。  -- rule: no match: line matched
+  昨天我吃了米饭。  -- rule: no match: line matched
+  我认识你儿子。  -- rule: no match: line matched
+  您看见它了吗？  -- rule: no match: line matched
+  你给她买东西了吗？  -- rule: no match: line matched
+  我能吗？  -- rule: no match: line matched
+  谁，我？  -- rule: no match: line matched
+  你起床了吗？  -- rule: no match: line matched
+  我们问他。  -- rule: no match: line matched
+  我不知道，我也不想知道。  -- rule: no match: line matched
+  我不喜欢你朋友。  -- rule: no match: line matched
+  我想住在这里。  -- rule: no match: line matched
+  这不是我的工作。  -- rule: no match: line matched
+  我爱Tatoeba。  -- rule: no match: line matched
+  你在看他吗?  -- rule: no match: line matched
+  我没有吃饭的时间。  -- rule: no match: line matched
+  到我家来吧。  -- rule: no match: line matched
+  你高兴了吗？  -- rule: no match: line matched
+  我知道这是谁的车。  -- rule: no match: line matched
+  我学英语。  -- rule: no match: line matched
+  我们去了波士顿。  -- rule: no match: line matched
+  我能去你那吗？  -- rule: no match: line matched
+  我能去你家吗？  -- rule: no match: line matched
+  你在这里高兴吗？  -- rule: no match: line matched
+  我想和她说话。  -- rule: no match: line matched
+  我可以多来点牛奶吗？  -- rule: no match: line matched
+  我在打电话。  -- rule: no match: line matched
+  我在看电视。  -- rule: no match: line matched
+  是你吗？  -- rule: no match: line matched
+  您会唱歌吗？  -- rule: no match: line matched
+  这是你要找的书。  -- rule: no match: line matched
+  你们是朋友？  -- rule: no match: line matched
+  他们喜欢水果。  -- rule: no match: line matched
+  我的孩子病了。  -- rule: no match: line matched
+  你这些年在做什么？  -- rule: no match: line matched
+  他三岁了。  -- rule: no match: line matched
+  这是我们的孩子。  -- rule: no match: line matched
+  爸爸，我的杯子在哪里？  -- rule: no match: line matched
+  爸爸，下雨了，我们怎么回家？坐出租车吗？  -- rule: no match: line matched
+  爸爸妈妈在叫我们。  -- rule: no match: line matched
+  大家好！我是你们的汉语老师。  -- rule: no match: line matched
+  他的女儿怎么了？  -- rule: no match: line matched
+  对, 他住在这里。  -- rule: no match: line matched
+  今天我妈妈做了很多菜。  -- rule: no match: line matched
+  今天中午你在家吗？  -- rule: no match: line matched
+  妈妈，你在想什么？  -- rule: no match: line matched
+  妈妈，你在想什么呢？  -- rule: no match: line matched
+  没有，我不喜欢猫。  -- rule: no match: line matched
+  没有，我没有女朋友。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  明天星期一，我去学校。  -- rule: no match: line matched
+  那是他们的书。  -- rule: no match: line matched
+  那些是你的朋友。  -- rule: no match: line matched
+  你爱我吗？  -- rule: no match: line matched
+  你的电话是多少？  -- rule: no match: line matched
+  你的学校有多少人？  -- rule: no match: line matched
+  你多吃苹果。  -- rule: no match: line matched
+  你会做什么？  -- rule: no match: line matched
+  你叫什么？  -- rule: no match: line matched
+  你叫他来！  -- rule: no match: line matched
+  你开车去上班。  -- rule: no match: line matched
+  你们去哪里？  -- rule: no match: line matched
+  你们在医院。  -- rule: no match: line matched
+  你们住这里。  -- rule: no match: line matched
+  你明年去中国吗？  -- rule: no match: line matched
+  你明天上午吃什么？  -- rule: no match: line matched
+  你能坐在那里吗？  -- rule: no match: line matched
+  你去北京学习几天？  -- rule: no match: line matched
+  你认识钱先生吗？  -- rule: no match: line matched
+  你认识他吗？  -- rule: no match: line matched
+  我们要回家。  -- rule: no match: line matched
+  我在学校什么也没学到。  -- rule: no match: line matched
+  玛丽说她会给你买那个。  -- rule: no match: line matched
+  我去了长崎。  -- rule: no match: line matched
+  她问他他是不是这个学校的学生。  -- rule: no match: line matched
+  她坐在椅子上看电视。  -- rule: no match: line matched
+  我住在这里。  -- rule: no match: line matched
+  我喜欢德国。  -- rule: no match: line matched
+  你真好。  -- rule: no match: line matched
+  我觉得他不会来。  -- rule: no match: line matched
+  我明天不想上班。  -- rule: no match: line matched
+  Sami真的是我一个很好的朋友。  -- rule: no match: line matched
+  你没看到我吗？是吗？  -- rule: no match: line matched
+  我想我爱你。  -- rule: no match: line matched
+  你觉得是汤姆做的，不是吗？  -- rule: no match: line matched
+  他们说喜欢做那件事。  -- rule: no match: line matched
+  你明天在哪里吃？  -- rule: no match: line matched
+  我们没找到你。  -- rule: no match: line matched
+  你想要水果吗？  -- rule: no match: line matched
+  他想要回他的孩子们。  -- rule: no match: line matched
+  我不是说了没有问题吗？  -- rule: no match: line matched
+  这是给我的。  -- rule: no match: line matched
+  你知道你想做什么吗？  -- rule: no match: line matched
+  你知道他想做什么吗？  -- rule: no match: line matched
+  现在，他们知道我们在这里。  -- rule: no match: line matched
+  我真的真的很想你。  -- rule: no match: line matched
+  都给我。  -- rule: no match: line matched
+  我喜欢他的猫。  -- rule: no match: line matched
+  她来了吗？  -- rule: no match: line matched
+  请问你的名字是？  -- rule: no match: line matched
+  我会很想他。  -- rule: no match: line matched
+  今天你吃的什么？  -- rule: no match: line matched
+  “她有狗吗？” “没有。”  -- rule: no match: line matched
+  是的，这是我的。  -- rule: no match: line matched
+  我问了他忙不忙。  -- rule: no match: line matched
+  我觉得他会来。  -- rule: no match: line matched
+  妈妈，你要去哪里？  -- rule: no match: line matched
+  对不起。我不能做你女朋友。  -- rule: no match: line matched
+  我不想再和汤姆说话了。  -- rule: no match: line matched
+  我觉得我可以明天做这个。  -- rule: no match: line matched
+  你来这里。  -- rule: no match: line matched
+  我非常想见她。  -- rule: no match: line matched
+  我是中国人，我爱中国。  -- rule: no match: line matched
+  你没见到我爸爸吗？  -- rule: no match: line matched
+  你要到那去吗？  -- rule: no match: line matched
+  你要回房间了吗?  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: no match: line matched
+  这是我的狗。  -- rule: no match: line matched
+  我明年十七岁。  -- rule: no match: line matched
+  你的？  -- rule: no match: line matched
+  他们去哪？  -- rule: no match: line matched
+  他和妈妈来的。  -- rule: no match: line matched
+  你问她什么了？  -- rule: no match: line matched
+  玛莉说爱我。  -- rule: no match: line matched
+  她不想。  -- rule: no match: line matched
+  我不想。  -- rule: no match: line matched
+  我不想！  -- rule: no match: line matched
+  我想明天做那件事。  -- rule: no match: line matched
+  我本想给你打电话的。  -- rule: no match: line matched
+  我没想叫的。  -- rule: no match: line matched
+  他想做什么？  -- rule: no match: line matched
+  我没想大写的。  -- rule: no match: line matched
+  我是小学生。  -- rule: no match: line matched
+  他们有。  -- rule: no match: line matched
+  他们问了什么？  -- rule: no match: line matched
+  我吃了什么？  -- rule: no match: line matched
+  她找到了什么？  -- rule: no match: line matched
+  你们好。  -- rule: no match: line matched
+  去你们的。  -- rule: no match: line matched
+  对。您是奈奈子先生？  -- rule: no match: line matched
+  他们是学生。  -- rule: no match: line matched
+  我们是学生。  -- rule: no match: line matched
+  她们是学生吗？  -- rule: no match: line matched
+  我不喜欢你  -- rule: no match: line matched
+  我们工作！  -- rule: no match: line matched
+  我们工作。  -- rule: no match: line matched
+  她吃苹果。  -- rule: no match: line matched
+  我们喜欢苹果。  -- rule: no match: line matched
+  他有苹果。  -- rule: no match: line matched
+  他吃苹果。  -- rule: no match: line matched
+  我喜欢苹果！  -- rule: no match: line matched
+  我们吃苹果。  -- rule: no match: line matched
+  他喜欢苹果。  -- rule: no match: line matched
+  你喜欢苹果。  -- rule: no match: line matched
+  我也喜欢苹果。  -- rule: no match: line matched
+  我有一些苹果。  -- rule: no match: line matched
+  这是我的苹果。  -- rule: no match: line matched
+  你有苹果吗？  -- rule: no match: line matched
+  我们喜欢吃苹果。  -- rule: no match: line matched
+  我的苹果没了。  -- rule: no match: line matched
+  我们吃了一些苹果。  -- rule: no match: line matched
+  他们给了她一些苹果。  -- rule: no match: line matched
+  齐莉给了她一些苹果。  -- rule: no match: line matched
+  我喜欢这些苹果。  -- rule: no match: line matched
+  我吃了你的苹果。  -- rule: no match: line matched
+  我没时间读书。  -- rule: no match: line matched
+  爸爸说他不会吃的。  -- rule: no match: line matched
+  他会生病的。  -- rule: no match: line matched
+  她会没事的。  -- rule: no match: line matched
+  她五岁。  -- rule: no match: line matched
+  她好想知道。  -- rule: no match: line matched
+  她想知道。  -- rule: no match: line matched
+  她想要知道。  -- rule: no match: line matched
+  她们想知道。  -- rule: no match: line matched
+  她们想要知道。  -- rule: no match: line matched
+  你说吧。  -- rule: no match: line matched
+  谁？我？  -- rule: no match: line matched
+  下一个是我吗？  -- rule: no match: line matched
+  我听不到你！  -- rule: no match: line matched
+  我听不到你。  -- rule: no match: line matched
+  我们还有很多工作要做。  -- rule: no match: line matched
+  你，开车！  -- rule: no match: line matched
+  我的朋友在哪里？  -- rule: no match: line matched
+  你什么也没说！  -- rule: no match: line matched
+  给你！  -- rule: no match: line matched
+  我吃了。  -- rule: no match: line matched
+  你不知道这是什么？  -- rule: no match: line matched
+  你去玛丽家了。  -- rule: no match: line matched
+  她什么也没说！  -- rule: no match: line matched
+  我的名字是玛莉。  -- rule: no match: line matched
+  他大叫。  -- rule: no match: line matched
+  你们卖水果吗？  -- rule: no match: line matched
+  你叫医生了吗？  -- rule: no match: line matched
+  他们开车去芝加哥。  -- rule: no match: line matched
+  他们喜欢你。  -- rule: no match: line matched
+  他们不会睡觉的。  -- rule: no match: line matched
+  你和我去商店吗？  -- rule: no match: line matched
+  你怎么会看不到？  -- rule: no match: line matched
+  我的电脑在哪里？  -- rule: no match: line matched
+  我们没有电脑。  -- rule: no match: line matched
+  我们可以。  -- rule: no match: line matched
+  我爱你，大儿子。  -- rule: no match: line matched
+  你吃了多少水果？  -- rule: no match: line matched
+  这是我的书。  -- rule: no match: line matched
+  我们买了面包和牛奶。  -- rule: no match: line matched
+  我的茶在哪里？  -- rule: no match: line matched
+  她要去鲍伯家。  -- rule: no match: line matched
+  我喜欢牛奶和面包。  -- rule: no match: line matched
+  你回家了。  -- rule: no match: line matched
+  我很喜欢。  -- rule: no match: line matched
+  「你认识我吗？」「认识。」  -- rule: no match: line matched
+  他下个月要去那里。  -- rule: no match: line matched
+  我在中国。  -- rule: no match: line matched
+  你来吧。  -- rule: no match: line matched
+  是我的。  -- rule: no match: line matched
+  我问他是谁。  -- rule: no match: line matched
+  这些天你都在读些什么？  -- rule: no match: line matched
+  我不知道怎么休息。  -- rule: no match: line matched
+  昨天我休息了。  -- rule: no match: line matched
+  Tom没有找到他要找到东西。  -- rule: no match: line matched
+  我觉得我可以吃这个。  -- rule: no match: line matched
+  汤姆说他没事。  -- rule: no match: line matched
+  Tom 是我们的小儿子。  -- rule: no match: line matched
+  我有些东西给 Tom。  -- rule: no match: line matched
+  你还看到了什么？  -- rule: no match: line matched
+  那时候我不在这里。  -- rule: no match: line matched
+  他说他很高兴。  -- rule: no match: line matched
+  我不要这个。  -- rule: no match: line matched
+  这个我不想要。  -- rule: no match: line matched
+  他找了她五个小时。  -- rule: no match: line matched
+  你还想买什么？  -- rule: no match: line matched
+  我谁也不认识。  -- rule: no match: line matched
+  我是朋友。  -- rule: no match: line matched
+  她说她没事。  -- rule: no match: line matched
+  这是他的店。  -- rule: no match: line matched
+  他会来这里吗？  -- rule: no match: line matched
+  我早上看了电视。  -- rule: no match: line matched
+  有人见到她吗？  -- rule: no match: line matched
+  我还什么都没写。  -- rule: no match: line matched
+  我们都不开车上班。  -- rule: no match: line matched
+  汤姆不是我们的老师。  -- rule: no match: line matched
+  谁在叫你的名字？  -- rule: no match: line matched
+  玛丽说她喜欢下雨。  -- rule: no match: line matched
+  我们不在中国。  -- rule: no match: line matched
+  我可以来吗？  -- rule: no match: line matched
+  我不想和他玩。  -- rule: no match: line matched
+  是你不能还是你不想？  -- rule: no match: line matched
+  你还在那吗？  -- rule: no match: line matched
+  我喜欢开车。  -- rule: no match: line matched
+  你看不见吗？  -- rule: no match: line matched
+  你能给我做点东西吃吗？  -- rule: no match: line matched
+  你听到什么了吗？  -- rule: no match: line matched
+  你知道在哪里可以找到她吗？  -- rule: no match: line matched
+  我没有妹妹。  -- rule: no match: line matched
+  你们这里卖什么？  -- rule: no match: line matched
+  我要去澳洲。  -- rule: no match: line matched
+  他有事要问她。  -- rule: no match: line matched
+  我想住在中国。  -- rule: no match: line matched
+  我找到你要的书了。  -- rule: no match: line matched
+  不！我不要。  -- rule: no match: line matched
+  我爱我家。  -- rule: no match: line matched
+  我什么也不想要。  -- rule: no match: line matched
+  我知道那不是对的。  -- rule: no match: line matched
+  我再也不能工作了。  -- rule: no match: line matched
+  他们不想和我说话。  -- rule: no match: line matched
+  她昨天来了。  -- rule: no match: line matched
+  我们的孩子在家。  -- rule: no match: line matched
+  你还吃什么？  -- rule: no match: line matched
+  你还好吗？  -- rule: no match: line matched
+  我们想住在波士顿。  -- rule: no match: line matched
+  我会喜欢的。  -- rule: no match: line matched
+  很高兴你您在这里。  -- rule: no match: line matched
+  我们没来。  -- rule: no match: line matched
+  她对他很好。  -- rule: no match: line matched
+  我今天去了那里。  -- rule: no match: line matched
+  我不会读。  -- rule: no match: line matched
+
+--- dropped at step 6b (8) ---
+  我今天要早点回家。  -- hidden word a learner can't work out: 早点 (breakfast)
+  我今天不想学习英语。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  你家里人都还好吗？  -- hidden word a learner can't work out: 里人 (person from the same village, town or province), 还好 (not bad; pretty good)
+  我今天不想吃东西。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  你家的电脑在桌子上吗？  -- hidden word a learner can't work out: 家的 ((old) wife)
+  那是他家。  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+  我今天不想起床。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我今天能早点下班吗？  -- hidden word a learner can't work out: 早点 (breakfast)
+
+--- dropped at step 7 (7) ---
+  你好。  -- check said no (2/2): Greeting formula, not possessive structure
+  您好。  -- check said no (2/2): Greeting formula, not possessive structure
+  你好，汤姆。  -- check said no (2/2): Greeting formula, not possessive structure
+  你问题太多了  -- check said no (2/2): 你 is object, not possessive pronoun
+  你好！林峰。  -- check said no (2/2): Greeting formula, not possessive structure
+  你时间多吗？  -- check said no (2/2): 你时间 is not close relationship
+  您们是学生吗？  -- check said no (2/2): 您们 is subject, not possessive relationship
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-05_level1_20261107_171522.csv

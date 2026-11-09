@@ -1,0 +1,25 @@
+## 1-05
+<!-- written by claude-sonnet-5-5 on 2026-11-07; revised -->
+**Point:** A personal pronoun (我, 你, 您, 他, 她, 我们, 你们, 他们, 她们) placed directly before a noun, without 的, to show close possession (family, school, workplace). The basic pronoun use in the greetings 你好 and 您好 is also counted.
+
+**Covers:** A pronoun at the start of a clause followed directly by a noun, as in 我家很大, 你哥哥很高, 他们公司在北京, 我们学校很大. Also 是 + pronoun + noun, as in 这是我女朋友. Also the standalone greetings 你好 and 您好 (a clause consisting only of the pronoun + 好).
+
+**Does not cover:**
+- Pronouns used as objects or after a verb or preposition, as in 请给我票, 等你, 代替他. These are not possession.
+- A pronoun followed by a time word, adverb or verb, as in 他今天状态很好, 我周末去游泳.
+- Pronoun + 的 + noun, which is ordinary possession with 的.
+- 你好 or 您好 followed by more words in the same clause, such as 你好吗.
+
+```rule
+match: ^ 我|你|您|他|她|我们|你们|他们|她们/PN /NN
+match: 是/VC 我|你|您|他|她|我们|你们|他们|她们/PN /NN
+match: ^ 你|您/PN 好/VA $
+```
+
+**Notes:**
+- The clause-start anchor is deliberate. It keeps out double-object sentences such as 给我票 and 告诉他消息, where PN + NN is indirect object + direct object.
+- The noun slot is written as a bare `/NN`. The earlier `_/NN` form did not match anything, which is why every labeled example was missed.
+- Known false-positive risks: topic-comment sentences like 我工作很忙 or 你作业做完了, where the noun is not strictly possessed. These are rare.
+- The second `match:` line only fires after 是. Extending it to other verbs would catch double-object sentences.
+- The greeting line requires 好 to end the clause, so 你好吗 and 你好看 are not matched.
+- Not covered: a pronoun that follows a sentence-initial adverb or conjunction, such as 也我妈妈….

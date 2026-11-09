@@ -1,0 +1,435 @@
+
+########## rules  2026-11-07 14:33 ##########
+24 page(s) use the word(s); asking about 24.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGC701A  Asking how something is with "zenmeyang"
+  ASGD7NS3  Asking why with "zenme"
+  ASGH2MNO  How to do something with "zenme"
+  ASGHC9CA  Using_"ji"_to_mean_"several"
+  ASGJQPSC  Placement of question words
+  ASGL9KQM  Measure words in quantity questions
+  ASGL6JOE  Counting money
+
+not:
+  ASG5BOGP  Expressing "not often" with "bu zenme"
+  ASG7ED89  Expressing "some" with question words
+  ASGAQV6C  Expressing "everything" with "shenme dou"
+  ASGDIDAC  Ending a non-exhaustive list with "shenme de"
+  ASGN3IGH  Challenging a verb with "shenme"
+  ASGNV2TZ  Challenging an adjective with "shenme"
+  ASGVYIZT  Expressing "not very" with "bu zenme"
+  ASG13ALM  Expressing "every" with question words
+
+unsure:
+  ASGE8810  Expressing "age difference" with "da and xiao"
+
+unrelated:
+  ASGVA70K  Expressing "nearly" with "jihu"
+  ASGXX3NY  Expressing "even if…" with "napa"
+  ASG79STE  Degree complement
+  ASGGB3IV  Expressing "on the basis of" with "ping"
+  ASGGPG97  Listing things with "a"
+  ASG25773  Expressing "what if" with "wanyi"
+  ASGD4EC8  Simple rhetorical questions
+  ASGH13JY  Idiomatic phrases with "zai"
+
+[note] ASGD7NS3 is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+[note] ASGHC9CA is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-04
+Tagging 150 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_143338.txt
+  ...100/180
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 1-04
+<!-- written by claude-sonnet-5-5 on 2026-11-07; edit freely -->
+**Point:** Interrogative pronouns used to ask questions: 怎么 / 怎么样, 几, 多少, 谁, 什么, 哪 / 哪儿 / 哪里 / 哪些. The point also covers 几 meaning "several" and the money forms 多少钱 and 块…毛.
+
+**Covers:**
+- 怎么 before a verb or adjective, meaning "how" or "why", including 怎么这么/那么 + adj.
+- 怎么样 as a predicate.
+- 几 + measure word or number (几个, 几十, 几百家, 好几次, 几点).
+- 多少 as a real question.
+- 是谁 and a clause-initial 谁.
+- A clause-final 什么 after a verb or 是.
+- 哪 + measure word (哪个, 哪位).
+- Clause-final 哪里 / 哪儿.
+- Single-word 怎么 / 为什么 / 什么.
+- Money amounts of the form 块 + number + 毛.
+
+**Does not cover:**
+- 不怎么 / 没怎么, which is a different point.
+- 怎么 / 多少 / 谁 / 哪 followed by 都 or 也, which is the "every / any" use.
+- 什么的 and X什么X challenges.
+- Indefinite "some" uses such as 点什么 or 在哪儿见过.
+- 没什么, which means "nothing".
+- 好/VA + 几, because the tagger mis-tags it in sentences from other points.
+
+```rule
+match: 怎么/AD
+match: 怎么样/VV
+match: 几/CD M
+match: 几/CD CD
+match: 好/AD 几/CD
+match: 多少/CD
+match: 是/VC 谁/PN
+match: ^ 谁/PN
+match: 哪/DT M
+match: 哪些
+match: 哪里|哪儿/PN $
+match: /VV 什么/PN $
+match: 是/VC 什么/PN $
+match: 块|元/M CD 毛|分|角/M
+match: ^ 怎么|为什么|什么 $
+unless: 不 怎么
+unless: 没 怎么
+unless: 不 怎么样
+unless: 怎么 ... 都|也/AD
+unless: 多少 ... 都|也/AD
+unless: 谁 ... 都|也/AD
+unless: 哪 ... 都|也/AD
+unless: 哪儿|哪里 ... 都|也/AD
+unless: 什么 的
+unless: 什么 ... 都|也/AD
+unless: 点|点儿|些 ... 什么
+unless: 没 什么
+unless: 好/VA 几
+unless: 什么 _ 什么
+```
+
+**Notes:**
+- Precision is favoured, so common patterns are left out: 什么 + noun, 什么时候, 哪里/哪儿 before a verb, and 谁 after a verb other than 是. They are too easily the indefinite "some" use.
+- The whole-sentence `unless` lines are clause-limited, so 都 in a different clause does not block a match.
+- 好/VA 几 is excluded because it appears in a counter-example sentence; 好/AD
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-04
+Tagging 150 labeled example(s) (cached after this run)...
+  ...100/180
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-04: rule on labeled examples (no AI) ===
+  examples of 1-04 matched:    88/89
+  counter-examples wrongly matched: 0/91   <- should be 0
+
+--- examples of 1-04 the rule misses (1) ---
+  我是小李。  -- ASGJQPSC Placement of question words
+
+########## tatoeba  2026-11-07 14:58 ##########
+Filling 1-04 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 2-32, 3-41
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 897 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_145828.txt
+  ...100/1581
+  ...200/1581
+  ...300/1581
+  ...400/1581
+  ...500/1581
+  ...600/1581
+  ...700/1581
+  ...800/1581
+  ...900/1581
+  ...1000/1581
+  ...1100/1581
+  ...1200/1581
+  ...1300/1581
+  ...1400/1581
+  ...1500/1581
+  Deciding 11 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  在读 = 在 + 读  (to be studying (at a school or research )
+    hidden  日本 = 日 + 本  (Japan)
+     clear  一个 = 一 + 个  (a; an; one)
+    hidden  那是 = 那 + 是  ((coll.) of course)
+    hidden  回事 = 回 + 事  ((old) to report to one's master)
+     clear  星期六 = 星期 + 六  (Saturday)
+     clear  看不见 = 看 + 不 + 见  (cannot see)
+    hidden  要说 = 要 + 说  (as for)
+     clear  想要 = 想 + 要  (to want to)
+     clear  下一个 = 下 + 一 + 个  (the next one)
+     clear  那个人 = 那 + 个 + 人  (lit. that person)
+
+Course sentences at HSK 1 the rule already finds 1-04 in: 13  -> Tatoeba needs to add 7 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 2) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-04 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2705  2. contain the point's word(s)
+     2688  3. new (not in DB, not a duplicate)
+     1581  4. at most 2 characters outside HSK 1 words
+      401  5. really HSK 1
+      401  5b. no harder grammar point (of the 2 with a rule)
+      229  6. the rule finds 1-04
+      224  6b. no hidden word a learner can't work out
+       12  7. both checks say 1-04, English chosen
+       12  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (204 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (12) ===
+  哪个？  (Which one?)  [tatoeba 5112355]
+  谁知道？  (Who knows?)  [tatoeba 395531]
+  你是谁？  (Who are you?)  [tatoeba 395853]
+  她是谁？  (Who's she?)  [tatoeba 4887707]
+  谁在玩？  (Who was playing?)  [tatoeba 6077366]
+  几点了？  (What time is it?)  [tatoeba 6559031]
+  谁爱谁？  (Who loved who?)  [tatoeba 9958609]
+  是谁在读？  (Who is reading?)  [tatoeba 1694985]  hidden: 在读
+  会是谁呢？  (Who will it be?)  [tatoeba 3718978]
+  它是什么？  (What is it?)  [tatoeba 4887708]
+  今天几号？  (What's today's date?)  [tatoeba 5363972]
+  我们是谁？  (Who are we?)  [tatoeba 6146408]
+
+--- dropped at step 3 (17), first 12 ---
+  门票多少钱？  -- already in the database
+  这本书多少钱？  -- already in the database
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  你做什么工作？  -- same text as tatoeba 3378243 (translations pooled)
+  你们想吃什么？  -- same text as tatoeba 419674 (translations pooled)
+  他是谁？  -- already in the database
+  门票多少钱？  -- already in the database
+  洗手间在哪里？  -- already in the database
+  现在几点？  -- already in the database
+  你怎么了？  -- already in the database
+  现在几点？  -- already in the database
+  你的姓怎么读？  -- same text as tatoeba 5675496 (translations pooled)
+
+--- dropped at step 4 (1107), first 12 ---
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  那个词用意大利语怎么说？  -- 4 characters no HSK 1 word uses: 利意用词
+  社会保障吗？他们在说什么笑话？  -- 4 characters no HSK 1 word uses: 保社笑障
+  你的眼睛为什么那么大？  -- 3 characters no HSK 1 word uses: 为眼睛
+  告诉我她为什么哭。  -- 4 characters no HSK 1 word uses: 为告哭诉
+  公共汽车上发生什么了？  -- 3 characters no HSK 1 word uses: 共发汽
+  我能在哪里乘上机场巴士？  -- 3 characters no HSK 1 word uses: 乘场巴
+  谁不喜欢反叛者呢？  -- 3 characters no HSK 1 word uses: 反叛者
+  你想吃几串烤羊肉？  -- 4 characters no HSK 1 word uses: 串烤羊肉
+  您想吃几串烤羊肉？  -- 4 characters no HSK 1 word uses: 串烤羊肉
+  你们想吃几串烤羊肉？  -- 4 characters no HSK 1 word uses: 串烤羊肉
+  我的房间里为什么有蟋蟀？  -- 3 characters no HSK 1 word uses: 为蟀蟋
+
+--- dropped at step 5 (1180), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  该怎么办呢？  -- level 3: 该 L3, 怎么办 L3
+  我跟那个事件没有什么关系。  -- level 5: 跟 L2, 事件 L5, 关系 L3
+  哪一本书都行。  -- level 3: 行 L3
+  谁也不知道他是否爱她。  -- level 4: 是否 L4
+  谁也不能帮我。  -- level 2: 帮 L2
+  你从哪得到它的？  -- level 3: 从 L2, 得到 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  你想怎么做就怎么做。  -- level 2: 就 L2
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list), 鸟 L2
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  生活怎么样？  -- level 3: 生活 L3
+
+--- dropped at step 6 (172) ---
+  我什么都知道。  -- rule: unless 什么 ... 都|也/AD
+  约翰住在哪里？  -- rule: no match: line matched
+  你们今天下午在学校做些什么？  -- rule: unless 点|点儿|些 ... 什么
+  那件事谁都知道。  -- rule: unless 谁 ... 都|也/AD
+  还有什么？  -- rule: no match: line matched
+  您有什么事想对我说吗？  -- rule: no match: line matched
+  有什么喝的吗？  -- rule: no match: line matched
+  我想喝点什么。  -- rule: unless 点|点儿|些 ... 什么
+  你们有什么菜？  -- rule: no match: line matched
+  您的家在哪？  -- rule: no match: line matched
+  你们家在哪？  -- rule: no match: line matched
+  你想买什么给他？  -- rule: no match: line matched
+  她在店里买了什么？  -- rule: no match: line matched
+  你现在在哪里呢？  -- rule: no match: line matched
+  我的书在哪？  -- rule: no match: line matched
+  有什么问题吗？  -- rule: no match: line matched
+  我什么事都没有做。  -- rule: unless 什么 ... 都|也/AD
+  什么问题都没有！  -- rule: unless 什么 ... 都|也/AD
+  那有什么不好？  -- rule: no match: line matched
+  你要喝点什么吗?  -- rule: unless 点|点儿|些 ... 什么
+  猫在哪里睡觉？  -- rule: no match: line matched
+  爸爸去哪了?  -- rule: no match: line matched
+  你们叫什么名字?  -- rule: no match: line matched
+  你在哪里学习？  -- rule: no match: line matched
+  你做什么工作？  -- rule: no match: line matched
+  你在哪读书？  -- rule: no match: line matched
+  你在哪里看见他了？  -- rule: no match: line matched
+  不知道怎么回事，她昨天晚上没回家。  -- rule: no match: line matched
+  做点什么吧！  -- rule: unless 点|点儿|些 ... 什么
+  你想去哪里都可以。  -- rule: unless 哪儿|哪里 ... 都|也/AD
+  我不知道你要去哪。  -- rule: no match: line matched
+  我什么都不喜欢。  -- rule: unless 什么 ... 都|也/AD
+  他还说了什么？  -- rule: no match: line matched
+  你在哪儿看到了她？  -- rule: no match: line matched
+  他们什么都没看到。  -- rule: unless 什么 ... 都|也/AD
+  他什么都不知道。  -- rule: unless 什么 ... 都|也/AD
+  他们说了些什么？  -- rule: unless 点|点儿|些 ... 什么
+  她什么都不知道。  -- rule: unless 什么 ... 都|也/AD
+  在吃什么呢？  -- rule: no match: line matched
+  你在找什么吗？  -- rule: no match: line matched
+  这谁给你的？  -- rule: no match: line matched
+  你现在在哪里工作？  -- rule: no match: line matched
+  现在我要听些什么？  -- rule: unless 点|点儿|些 ... 什么
+  爱谁谁。  -- rule: no match: line matched
+  有什么想吃的吗？  -- rule: no match: line matched
+  哪一个？  -- rule: no match: line matched
+  写点什么。  -- rule: unless 点|点儿|些 ... 什么
+  你在哪儿写？  -- rule: no match: line matched
+  您在找什么吗？  -- rule: no match: line matched
+  你想坐哪儿呢？  -- rule: no match: line matched
+  Tom有说什么吗？  -- rule: no match: line matched
+  他问你什么？  -- rule: no match: line matched
+  昨天星期几？  -- rule: no match: line matched
+  你们想要吃些什么吗？  -- rule: unless 点|点儿|些 ... 什么
+  我听到了什么？  -- rule: no match: line matched
+  你姐姐的狗叫什么名字？  -- rule: no match: line matched
+  我觉得这没什么好。  -- rule: unless 没 什么
+  你家里谁做饭？  -- rule: no match: line matched
+  她做什么工作？  -- rule: no match: line matched
+  我觉得你说了什么。  -- rule: no match: line matched
+  那你会给我什么？  -- rule: no match: line matched
+  你什么也做不了。  -- rule: unless 什么 ... 都|也/AD
+  你想知道我看见什么了吗？  -- rule: no match: line matched
+  你知道我在做什么吗？  -- rule: no match: line matched
+  你的电脑有什么问题？  -- rule: no match: line matched
+  我们什么都知道。  -- rule: unless 什么 ... 都|也/AD
+  我知道你做了什么。  -- rule: no match: line matched
+  你在看谁？  -- rule: no match: line matched
+  我不知道他什么时候能来。  -- rule: no match: line matched
+  那天晚上你在哪里？  -- rule: no match: line matched
+  这是多少？  -- rule: no match: line matched
+  你的电话是哪里的？  -- rule: no match: line matched
+  你星期几学汉语？  -- rule: no match: line matched
+  你星期一下午五点在做什么？  -- rule: unless 点|点儿|些 ... 什么
+  你们有什么不吃的吗？  -- rule: no match: line matched
+  那，你们喜欢吃什么呢？  -- rule: no match: line matched
+  还有谁知道它？  -- rule: no match: line matched
+  你喜欢吃什么菜？  -- rule: no match: line matched
+  我们谁也不认识。  -- rule: unless 谁 ... 都|也/AD
+  那人什么也不想做。  -- rule: unless 什么 ... 都|也/AD
+  去年的今天是星期几?  -- rule: no match: line matched
+  你叫什么名字？  -- rule: no match: line matched
+  他叫什么名字？  -- rule: no match: line matched
+  她叫什么名字？  -- rule: no match: line matched
+  我们能在哪里打电话？  -- rule: no match: line matched
+  你们叫什么名字？  -- rule: no match: line matched
+  哪里坐出租车？  -- rule: no match: line matched
+  在哪里能买到这个？  -- rule: no match: line matched
+  有什么事我可以做吗？  -- rule: no match: line matched
+  你的电脑怎么了？  -- rule: no match: line matched
+  没，我什么都没在吃。  -- rule: unless 什么 ... 都|也/AD
+  你是哪里的人？  -- rule: no match: line matched
+  你给了他什么？  -- rule: no match: line matched
+  我去哪里都开车。  -- rule: unless 哪儿|哪里 ... 都|也/AD
+  谁也没在看她。  -- rule: unless 谁 ... 都|也/AD
+  我们什么都做不了。  -- rule: unless 什么 ... 都|也/AD
+  你午饭吃的什么？  -- rule: no match: line matched
+  你在那里做什么呢？  -- rule: no match: line matched
+  我在哪儿都找不到她。  -- rule: unless 哪儿|哪里 ... 都|也/AD
+  您听到什么了？  -- rule: no match: line matched
+  我们谁也没看见。  -- rule: unless 谁 ... 都|也/AD
+  他说了些什么。  -- rule: unless 点|点儿|些 ... 什么
+  你和谁说话呢？  -- rule: no match: line matched
+  我还什么都没找到呢。  -- rule: unless 什么 ... 都|也/AD
+  他们现在去哪？  -- rule: no match: line matched
+  你们午饭吃了什么？  -- rule: no match: line matched
+  您想吃点什么吗？  -- rule: unless 点|点儿|些 ... 什么
+  这歌叫什么名字？  -- rule: no match: line matched
+  你在波士顿做了什么？  -- rule: no match: line matched
+  这还有什么能做的？  -- rule: no match: line matched
+  你在说什么呢？  -- rule: no match: line matched
+  他们想到哪儿去？  -- rule: no match: line matched
+  我不知道他是在哪里找到她的。  -- rule: no match: line matched
+  喝点儿什么。  -- rule: unless 点|点儿|些 ... 什么
+  我不知道他在哪。  -- rule: no match: line matched
+  他去哪买了这些东西？  -- rule: no match: line matched
+  她去哪买了这些东西？  -- rule: no match: line matched
+  他在哪买了那本书？  -- rule: no match: line matched
+  我可以吃点什么吗？  -- rule: unless 点|点儿|些 ... 什么
+  你还有什么想说的？  -- rule: no match: line matched
+  你在哪里工作？  -- rule: no match: line matched
+  我什么都不知道。  -- rule: unless 什么 ... 都|也/AD
+  谁也不知道。  -- rule: unless 谁 ... 都|也/AD
+  我什么都不是。  -- rule: unless 什么 ... 都|也/AD
+  还有什么想要的吗？  -- rule: no match: line matched
+  桌子上有什么？  -- rule: no match: line matched
+  他们什么都不知道。  -- rule: unless 什么 ... 都|也/AD
+  安娜和谁是同学？  -- rule: no match: line matched
+  谁也不在那里。  -- rule: unless 谁 ... 都|也/AD
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  你真的什么都不想要？  -- rule: unless 什么 ... 都|也/AD
+  我不知道什么时候要在那里。  -- rule: no match: line matched
+  我写什么是我的事。  -- rule: no match: line matched
+  我想知道他们在哪。  -- rule: no match: line matched
+  你什么都没问我。  -- rule: unless 什么 ... 都|也/AD
+  你在哪里读书？  -- rule: no match: line matched
+  他们什么都不给。  -- rule: unless 什么 ... 都|也/AD
+  钱都到哪里去了？  -- rule: no match: line matched
+  他的女儿怎么了？  -- rule: no match: line matched
+  妈妈，你在想什么呢？  -- rule: no match: line matched
+  你女儿怎么了？  -- rule: no match: line matched
+  你朋友的女儿怎么了？  -- rule: no match: line matched
+  天哪！  -- rule: no match: line matched
+  我在学校什么也没学到。  -- rule: unless 什么 ... 都|也/AD
+  你明天在哪里吃？  -- rule: no match: line matched
+  你知道你想做什么吗？  -- rule: no match: line matched
+  你知道他想做什么吗？  -- rule: no match: line matched
+  巴黎在哪里？  -- rule: no match: line matched
+  今天你吃的什么？  -- rule: no match: line matched
+  这里一个人都没有。大家都去哪了?  -- rule: no match: line matched
+  他们去哪？  -- rule: no match: line matched
+  你问她什么了？  -- rule: no match: line matched
+  爸爸在哪？  -- rule: no match: line matched
+  你妈妈在哪？  -- rule: no match: line matched
+  他们问了什么？  -- rule: no match: line matched
+  我吃了什么？  -- rule: no match: line matched
+  她找到了什么？  -- rule: no match: line matched
+  你爸爸在哪？  -- rule: no match: line matched
+  你什么也没说！  -- rule: unless 什么 ... 都|也/AD
+  你不知道这是什么？  -- rule: no match: line matched
+  她什么也没说！  -- rule: unless 什么 ... 都|也/AD
+  现在有什么电影？  -- rule: no match: line matched
+  这些天你都在读些什么？  -- rule: unless 点|点儿|些 ... 什么
+  你还看到了什么？  -- rule: no match: line matched
+  我谁也不认识。  -- rule: unless 谁 ... 都|也/AD
+  我还什么都没写。  -- rule: unless 什么 ... 都|也/AD
+  还有什么好说的？  -- rule: no match: line matched
+  你听到什么了吗？  -- rule: no match: line matched
+  你知道在哪里可以找到她吗？  -- rule: no match: line matched
+  什么是Facebook？  -- rule: no match: line matched
+  浙江在哪里？  -- rule: no match: line matched
+  我什么也不想要。  -- rule: unless 什么 ... 都|也/AD
+
+--- dropped at step 6b (5) ---
+  日本和英格兰哪个大？  -- hidden word a learner can't work out: 日本 (Japan)
+  那是谁？  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+  孩子，这是怎么回事？  -- hidden word a learner can't work out: 回事 ((old) to report to one's master)
+  我知道要说什么。  -- hidden word a learner can't work out: 要说 (as for)
+  你怎么会看不到？  -- hidden word a learner can't work out: 不到 (not to arrive)
+
+--- dropped at step 7 (8) ---
+  谁！  -- check said no (1/2): 谁 as exclamation, not interrogative
+  谁？  -- check said no (1/2): 谁 as exclamation, not interrogative
+  哪里？  -- check said no (1/2): 哪里 as exclamation, not interrogative
+  什么？  -- check said no (1/2): 什么 as exclamation, not interrogative
+  什么！  -- check said no (1/2): 什么 as exclamation, not interrogative
+  谁，我？  -- check said no (1/2): 谁 as exclamation, not interrogative
+  谁？我？  -- check said no (1/2): 谁 as exclamation, not interrogative
+  怎么会呢？  -- check said no (1/2): 怎么 means why here, not in grammar point
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-04_level1_20261107_150334.csv

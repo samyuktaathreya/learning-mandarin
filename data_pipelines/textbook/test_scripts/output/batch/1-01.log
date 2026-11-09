@@ -1,0 +1,521 @@
+
+########## rules  2026-11-07 14:24 ##########
+36 page(s) use the word(s); asking about 36.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGFBWZL  Expressing location with "zai... shang / xia / li"
+
+not:
+  ASG06EA8  Expressing "all at once" with "yixiazi"
+  ASG1PTJX  Result complement "-xiaqu"
+  ASG7AE5C  Defining upper and lower limits
+  ASGC3SCN  Comparing "yihou" and "zhihou"
+  ASGJ2OJC  Before a specific time with "yiqian"
+  ASGLNKZR  Comparing "yihou" and "de shihou"
+  ASGNPJ7T  Comparing "yihou" "ranhou" "houlai"
+  ASGPVFU1  In the future in general with "yihou"
+  ASGRLQGY  After a specific time with "yihou"
+  ASGTD3L3  Expressing "before" and "after" with "zhiqian" and "zhihou"
+  ASGVCWLU  Expressing "before" in general with "yiqian"
+  ASGWCESP  Verbing briefly with "yixia"
+  ASGY0UDC  Sequencing past events with "houlai"
+  ASG516F9  Advanced potential complements
+  ASGHFPGG  Expressing "except" and "in addition" with "chule… yiwai"
+  ASGH13JY  Idiomatic phrases with "zai"
+
+unsure:
+  ASG59C66  Comparing "li" and "cong"
+
+unrelated:
+  ASG2KQZI  Expressing "in addition" with "lingwai"
+  ASG87D22  Expressing "especially" with "gewai"
+  ASGD3FE5  Expressing "the other" with "lingwai"
+  ASG13ALM  Expressing "every" with question words
+  ASG3JELV  Comparing "dui" and "duiyu"
+  ASG5AODR  Measure words for verbs
+  ASG5KNWW  Topic-comment sentences
+  ASG5RWKO  Time words and word order
+  ASGC5Y86  Comparing "gen" and "dui"
+  ASGDHE8S  Reduplication of adjectives
+  ASGJ36VN  Expressing duration with "le"
+  ASGLI7GW  Expressing "ever since" with "zicong"
+  ASGLJM55  Sequencing with "xian" and "zai"
+  ASGPRGAX  Actions in a row
+  ASGSVF28  Expressing duration of inaction
+  ASGWN185  Expressing "when" with "de shihou"
+  ASG5334C  Expressing "while you're at it" with "shunbian"
+  ASGJQPSC  Placement of question words
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-01
+Tagging 132 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_142420.txt
+  ...100/153
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 1-01
+<!-- written by claude-sonnet-5-5 on 2026-11-07; edit freely -->
+**Point:** 在 + place + a direction or location word (上, 里, 下, 旁边, 外面, etc.) says where something is. A bare 在 + place name (在中国) also counts.
+**Covers:** 
+- 在 + noun (with up to two words between) + 上/里 tagged LC: 书在桌子上, 手机在书包里, 在会议上, 发票在我的口袋里.
+- 在 + noun + 下 tagged NN, as in 他在楼下.
+- 在 + noun + 旁边, as in 在我家旁边.
+- 在 + 外面/里面/上面/下面/前面/后面/旁边 tagged NN, standing alone as the end of the clause (我在外面).
+- A whole clause that is just 在 + a place name (在中国, 在上海, 在纽约).
+
+**Does not cover:** 
+- 以上/以下/以外/以前/以后/之前/之后 limit and time words.
+- 一下 and 下去 (verb + 下去).
+- The idiom 在…下 with 下 tagged LC ("under such conditions").
+- 然后/后来 sequencing.
+- 在 + place + a verb phrase, as in 他在英国读完了大学. Place names are accepted only when they are the whole clause.
+
+```rule
+match: 在/VV|P /NN 上|里/LC
+match: 在/VV|P _ /NN 上|里/LC
+match: 在/VV|P _ _ /NN 上|里/LC
+match: 在/VV /NN 下/NN
+match: 在/VV|P _ 旁边/NN
+match: 在/VV|P _ _ 旁边/NN
+match: ^ 在/VV|P 外面|里面|上面|下面|前面|后面|旁边|外边|里边|上边|下边|前边|后边/NN $
+match: ^ 在/VV|P /NR $
+match: ^ 在/VV|P /NR /NR $
+match: ^ 在/P /NN $
+unless: 以|之 /P|LC|NN|NT 上|下|外|内|前|后
+unless: 一 下/M|AD|VV
+unless: 下去/VV
+```
+
+**Notes:** 
+- The standalone place-name patterns are anchored with ^ and $ on purpose. Without the anchors they would also match 在 + place + a verb phrase, such as 他在英国读完了大学, which the counter-examples exclude.
+- 下 is accepted only when tagged NN (楼下). The idiom 在…条件下 tags 下 as LC, so it is not matched.
+- The middle `_` slots allow possessives (我的口袋里) and measure phrases. If false positives show up, restrict them to specific tags.
+- The `unless` lines are mostly a safeguard. The match patterns already do not fire on the listed counter-examples.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-01
+Tagging 132 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_142614.txt
+  ...100/153
+
+=== A. 1-01: rule on labeled examples (no AI) ===
+  examples of 1-01 matched:    17/17
+  counter-examples wrongly matched: 0/136   <- should be 0
+
+########## tatoeba  2026-11-07 14:44 ##########
+Filling 1-01 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 2-32, 3-41
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 1034 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_144406.txt
+  ...100/1725
+  ...200/1725
+  ...300/1725
+  ...400/1725
+  ...500/1725
+  ...600/1725
+  ...700/1725
+  ...800/1725
+  ...900/1725
+  ...1000/1725
+  ...1100/1725
+  ...1200/1725
+  ...1300/1725
+  ...1400/1725
+  ...1500/1725
+  ...1600/1725
+  ...1700/1725
+  Deciding 4 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  在家 = 在 + 家  (to be at home; (at a workplace) to be in)
+     clear  人们 = 人 + 们  (people)
+    hidden  家的 = 家 + 的  ((old) wife)
+     clear  不在 = 不 + 在  (not to be present)
+
+Course sentences at HSK 1 the rule already finds 1-01 in: 3  -> Tatoeba needs to add 17 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 2) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-01 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     4719  2. contain the point's word(s)
+     4709  3. new (not in DB, not a duplicate)
+     1725  4. at most 2 characters outside HSK 1 words
+      310  5. really HSK 1
+      310  5b. no harder grammar point (of the 2 with a rule)
+       18  6. the rule finds 1-01
+       17  6b. no hidden word a learner can't work out
+       17  7. both checks say 1-01, English chosen
+       17  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (17) ===
+  你在家里吗？  (Are you at home?)  [tatoeba 406192]  hidden: 在家
+  苹果在书上。  (The apple is on top of the book.)  [tatoeba 6056480]
+  你还在家里吗？  (Are you still at home?)  [tatoeba 2090839]  hidden: 在家
+  我们在学校里。  (We are in school.)  [tatoeba 3378111]
+  你们还在家里吗？  (Are you still at home?)  [tatoeba 2090840]  hidden: 在家
+  猫在椅子上睡觉。  (The cat sleeps on the chair.)  [tatoeba 2827154]
+  在家里有问题吗？  (Are there problems at home?)  [tatoeba 6635883]  hidden: 在家
+  我儿子在雨里玩。  (My son is playing in the rain.)  [tatoeba 10752754]
+  她在店里买了什么？  (What did she buy at the shop?)  [tatoeba 1448572]
+  你在家里不说英语。  (You don't speak English in your home.)  [tatoeba 4473148]  hidden: 在家
+  东西在爸爸的车上。  (The things are in dad's car.)  [tatoeba 10961059]
+  那本书不在桌子上。  (That book isn't on the desk.)  [tatoeba 10966754]  hidden: 不在
+  你想在大学里做什么?  (What do you want to do in university?)  [tatoeba 2771092]
+  这本书昨天在他车上。  (This book was in his car yesterday.)  [tatoeba 6056525]
+  她坐在椅子上看电视。  (She was sitting in a chair, watching TV.)  [tatoeba 11254299]
+  这本书昨天在他的车上。  (This book was in his car yesterday.)  [tatoeba 6471023]
+  人们怎么能在飞机上睡觉？  (How do people manage to sleep on the plane?)  [tatoeba 425117]  hidden: 人们
+
+--- dropped at step 3 (10) ---
+  请稍等一下。  -- already in the database
+  法律面前人人平等。  -- already in the database
+  这里不能停车。  -- already in the database
+  悉尼离这里很远。  -- same text as tatoeba 1366182 (translations pooled)
+  请把门锁上。  -- already in the database
+  洗手间在哪里？  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  今天上午你们不在医院。  -- same text as tatoeba 6471004 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+
+--- dropped at step 4 (2984), first 12 ---
+  我跟父母联络了一下。  -- 5 characters no HSK 1 word uses: 母父络联跟
+  就在沙发上。  -- 3 characters no HSK 1 word uses: 发就沙
+  请把您的护照给我看一下。  -- 3 characters no HSK 1 word uses: 把护照
+  四位姑娘之中最美的是南希。  -- 8 characters no HSK 1 word uses: 之位南姑娘希最美
+  盒子里有些空瓶。  -- 3 characters no HSK 1 word uses: 瓶盒空
+  非方矩阵的逆阵是一个危险的东西。  -- 6 characters no HSK 1 word uses: 危方矩逆阵险
+  公共汽车上发生什么了？  -- 3 characters no HSK 1 word uses: 共发汽
+  我能在哪里乘上机场巴士？  -- 3 characters no HSK 1 word uses: 乘场巴
+  我往右拐了。  -- 3 characters no HSK 1 word uses: 右往拐
+  连超级英雄们也该偶尔休息一下。  -- 6 characters no HSK 1 word uses: 偶尔级该连雄
+  木头能浮在水面上。  -- 3 characters no HSK 1 word uses: 头木浮
+  我小睡后就感到生龙活虎。  -- 5 characters no HSK 1 word uses: 就感活虎龙
+
+--- dropped at step 5 (1415), first 12 ---
+  我喜欢西瓜的味道。  -- level 4: 西瓜 L3, 味道 L4
+  法语课上得怎样？  -- level 10: 法语 (not in list), 得 L2, 怎样 L3
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list), 外面 L2
+  我正在去第四医院的路上。  -- level 2: 路上 L2
+  你等一会然后再给我打电话，可以吗？  -- level 3: 等 L2, 然后 L3, 打 L2
+  她在数学上不如他。  -- level 4: 数学 L3, 不如 L4
+  我马上就到了。  -- level 3: 马上 L3, 就 L2
+  哪里有电话机？  -- level 10: 机 (not in list)
+  离这里不远。  -- level 2: 离 L2, 远 L2
+  我在东京出生长大。  -- level 10: 东京 (not in list), 出生 L3, 长 L2
+  雨下个不停。  -- level 4: 停 L4
+
+--- dropped at step 6 (292) ---
+  您住在哪里？  -- rule: no match: line matched
+  约翰住在哪里？  -- rule: no match: line matched
+  你们今天下午在学校做些什么？  -- rule: no match: line matched
+  桌子上有本书。  -- rule: no match: line matched
+  他们现在要去哪里？  -- rule: no match: line matched
+  家里有没有人？  -- rule: no match: line matched
+  在下雨。  -- rule: no match: line matched
+  您几点下课？  -- rule: no match: line matched
+  我有些东西要给你。  -- rule: no match: line matched
+  他现在住在国外。  -- rule: no match: line matched
+  我知道她在哪里。  -- rule: no match: line matched
+  我爱上了你。  -- rule: no match: line matched
+  我明天晚上来。  -- rule: no match: line matched
+  这只猫在吃东西。  -- rule: no match: line matched
+  有人在吃东西。  -- rule: no match: line matched
+  昨天我去了那里。  -- rule: no match: line matched
+  他们吃这些东西。  -- rule: no match: line matched
+  她们吃这些东西。  -- rule: no match: line matched
+  它们吃这些东西。  -- rule: no match: line matched
+  我家在这里。  -- rule: no match: line matched
+  不在下雨。  -- rule: no match: line matched
+  两年前，我去了中国。  -- rule: no match: line matched
+  你家在哪里？  -- rule: no match: line matched
+  他们明天晚上都会去北京大学上课。  -- rule: no match: line matched
+  我去买点东西。  -- rule: no match: line matched
+  你现在在哪里呢？  -- rule: no match: line matched
+  明天会下雨。  -- rule: no match: line matched
+  你们的东西在哪里？  -- rule: no match: line matched
+  您的东西在哪里？  -- rule: no match: line matched
+  你的东西在哪里？  -- rule: no match: line matched
+  今天早上你在做什么？  -- rule: no match: line matched
+  有时候，他也在这里吃午饭。  -- rule: no match: line matched
+  你知道问题在哪里。  -- rule: no match: line matched
+  我现在在北京。  -- rule: no match: line matched
+  我正在吃东西。  -- rule: no match: line matched
+  你们要在这里唱歌吗？  -- rule: no match: line matched
+  我在这里工作。  -- rule: no match: line matched
+  我叫基里尔，你好！  -- rule: no match: line matched
+  我的名字叫做基里尔，很高兴见到你！  -- rule: no match: line matched
+  那本书在这里。  -- rule: no match: line matched
+  你在那里学中文吗？  -- rule: no match: line matched
+  这是非常，非常不好的东西。  -- rule: no match: line matched
+  下了雨。  -- rule: no match: line matched
+  那里太多人了。  -- rule: no match: line matched
+  他们昨天到这里的。  -- rule: no match: line matched
+  我是在日本上的中学。  -- rule: no match: line matched
+  我是上个月来的北京。  -- rule: no match: line matched
+  你们公司几点下班?  -- rule: no match: line matched
+  猫在哪里睡觉？  -- rule: no match: line matched
+  雨下了三天。  -- rule: no match: line matched
+  我去上大学。  -- rule: no match: line matched
+  我也在这里。  -- rule: no match: line matched
+  你在哪里学习？  -- rule: no match: line matched
+  他们在这里。  -- rule: no match: line matched
+  他也在这里。  -- rule: no match: line matched
+  还在下雨。  -- rule: no match: line matched
+  “你在哪里？” “我在一个朋友家。”  -- rule: no match: line matched
+  你在哪里看见他了？  -- rule: no match: line matched
+  不知道怎么回事，她昨天晚上没回家。  -- rule: no match: line matched
+  你想去哪里都可以。  -- rule: no match: line matched
+  我能坐这里吗？  -- rule: no match: line matched
+  要下雨了。  -- rule: no match: line matched
+  这是汤姆的东西吗？  -- rule: no match: line matched
+  这是要卖的东西吗？  -- rule: no match: line matched
+  你现在在哪里工作？  -- rule: no match: line matched
+  有多少人在那里工作？  -- rule: no match: line matched
+  下个月他会很忙。  -- rule: no match: line matched
+  我想要你睡在它上边。  -- rule: no match: line matched
+  看那里。  -- rule: no match: line matched
+  你家里人都还好吗？  -- rule: no match: line matched
+  我写了那些东西。  -- rule: no match: line matched
+  明天下午你在家吗？  -- rule: no match: line matched
+  你在露西亚家做什么？  -- rule: no match: line matched
+  你九点上班。  -- rule: no match: line matched
+  那，我们五点后去买衣服，好吗？  -- rule: no match: line matched
+  你在Facebook上有多少朋友？  -- rule: no match: line matched
+  那里很冷。  -- rule: no match: line matched
+  明天不会下雨。  -- rule: no match: line matched
+  他不在这里。  -- rule: no match: line matched
+  找到好东西了？  -- rule: no match: line matched
+  下一个给你。  -- rule: no match: line matched
+  他在星期六下午做什么？  -- rule: no match: line matched
+  我有个好东西给你。  -- rule: no match: line matched
+  你家里谁做饭？  -- rule: no match: line matched
+  他不知道怎么到那里去、什么时候到。  -- rule: no match: line matched
+  我们会在那里见他。  -- rule: no match: line matched
+  你明天想去那里？  -- rule: no match: line matched
+  请在下个星期日休息。  -- rule: no match: line matched
+  他在这里。  -- rule: no match: line matched
+  谁还在这里？  -- rule: no match: line matched
+  我没时间找你想要的东西。  -- rule: no match: line matched
+  你的姐姐在这里上学吗？  -- rule: no match: line matched
+  我喜欢这些东西。  -- rule: no match: line matched
+  你会在哪里？  -- rule: no match: line matched
+  你爱上我了？  -- rule: no match: line matched
+  我爱这里的人们。  -- rule: no match: line matched
+  我要坐下。  -- rule: no match: line matched
+  我会给点你好东西。  -- rule: no match: line matched
+  汤姆在这里工作了几年？  -- rule: no match: line matched
+  在那里。  -- rule: no match: line matched
+  他十年前去了那里。  -- rule: no match: line matched
+  我的猫会爱上这个。  -- rule: no match: line matched
+  有人在那里。  -- rule: no match: line matched
+  你的一个朋友在我们这里。  -- rule: no match: line matched
+  我今天不想吃东西。  -- rule: no match: line matched
+  谁给了你这些东西？  -- rule: no match: line matched
+  你明天在这里吗？  -- rule: no match: line matched
+  你在这里的工作是什么？  -- rule: no match: line matched
+  你在吃东西吗？  -- rule: no match: line matched
+  你在上班吗？  -- rule: no match: line matched
+  那天晚上你在哪里？  -- rule: no match: line matched
+  你的电话是哪里的？  -- rule: no match: line matched
+  谁来了这里？  -- rule: no match: line matched
+  是晚上了。  -- rule: no match: line matched
+  这里不是学校，是医院。  -- rule: no match: line matched
+  椅子上没有人。  -- rule: no match: line matched
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  下个月我在英国。  -- rule: no match: line matched
+  我明天上午十点起床。  -- rule: no match: line matched
+  他昨天下午六点在工作。  -- rule: no match: line matched
+  你星期一下午五点在做什么？  -- rule: no match: line matched
+  我喜欢下小雨，不喜欢下大雨。  -- rule: no match: line matched
+  你喜欢下雨吗？  -- rule: no match: line matched
+  请坐这里。  -- rule: no match: line matched
+  我们的飞机上午十一点到。  -- rule: no match: line matched
+  飞机上吃了一点，不多。  -- rule: no match: line matched
+  是的，下个星期二。  -- rule: no match: line matched
+  这里没人。  -- rule: no match: line matched
+  我想明天下午见他。  -- rule: no match: line matched
+  我在晚上看电视。  -- rule: no match: line matched
+  我看我们找到要找的东西了。  -- rule: no match: line matched
+  你买了多少东西？  -- rule: no match: line matched
+  谁会想住在这里？  -- rule: no match: line matched
+  我看我找到你的一些东西了。  -- rule: no match: line matched
+  大卫吃了很多东西。  -- rule: no match: line matched
+  今天下午下雨。  -- rule: no match: line matched
+  今天上午下雨。  -- rule: no match: line matched
+  明天下午不下雪。  -- rule: no match: line matched
+  七点我会回到这里的。  -- rule: no match: line matched
+  这是两件里便宜的那个。  -- rule: no match: line matched
+  我不知道你要来这里。  -- rule: no match: line matched
+  那是一个月前了。  -- rule: no match: line matched
+  我能在这里吃午饭吗？  -- rule: no match: line matched
+  今天晚上吃什么？  -- rule: no match: line matched
+  在那里见我。  -- rule: no match: line matched
+  我们能在哪里打电话？  -- rule: no match: line matched
+  你今天晚上有没有要上班?  -- rule: no match: line matched
+  哪里坐出租车？  -- rule: no match: line matched
+  我们要去这里。  -- rule: no match: line matched
+  在哪里能买到这个？  -- rule: no match: line matched
+  我上个月在波士顿。  -- rule: no match: line matched
+  北京热吗？  -- rule: no match: line matched
+  这里很热。  -- rule: no match: line matched
+  去店里！  -- rule: no match: line matched
+  你们要去哪里？  -- rule: no match: line matched
+  今天上午你们不在医院。  -- rule: no match: line matched
+  明天下午你在家吗?  -- rule: no match: line matched
+  明天下午他在医院。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你上午有时间吗?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  上午你有时间吗?  -- rule: no match: line matched
+  昨天上午我在学校。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  昨天晚上我们不在家。  -- rule: no match: line matched
+  下了三小时大雨。  -- rule: no match: line matched
+  你现在在哪里？  -- rule: no match: line matched
+  晚上六点到上午八点在家。  -- rule: no match: line matched
+  下午四点。  -- rule: no match: line matched
+  星期三下午我在。  -- rule: no match: line matched
+  晚上好！  -- rule: no match: line matched
+  你是哪里的人？  -- rule: no match: line matched
+  我不会给汤姆买那东西。  -- rule: no match: line matched
+  他还没到这里。  -- rule: no match: line matched
+  我不想来这里。  -- rule: no match: line matched
+  我能在这里睡觉吗？  -- rule: no match: line matched
+  不下雪了。  -- rule: no match: line matched
+  今天早上冷。  -- rule: no match: line matched
+  我去哪里都开车。  -- rule: no match: line matched
+  四点前我都在忙。  -- rule: no match: line matched
+  你好！你还在那里吗？  -- rule: no match: line matched
+  你会在那里吗？  -- rule: no match: line matched
+  上车吧！  -- rule: no match: line matched
+  你在这里。  -- rule: no match: line matched
+  他住在哪里？  -- rule: no match: line matched
+  下一个是谁？  -- rule: no match: line matched
+  我知道些东西的！  -- rule: no match: line matched
+  你在那里做什么呢？  -- rule: no match: line matched
+  我觉得你想坐下。  -- rule: no match: line matched
+  你现在住在哪里？  -- rule: no match: line matched
+  这房间里有人。  -- rule: no match: line matched
+  我不喜欢上学。  -- rule: no match: line matched
+  我也在这儿上学。  -- rule: no match: line matched
+  你要买点东西吗？  -- rule: no match: line matched
+  我不知道他是在哪里找到她的。  -- rule: no match: line matched
+  我知道他们在哪里。  -- rule: no match: line matched
+  我也没想到我会在这里。  -- rule: no match: line matched
+  你可以在那里见到我。  -- rule: no match: line matched
+  他去哪买了这些东西？  -- rule: no match: line matched
+  她去哪买了这些东西？  -- rule: no match: line matched
+  我不知道你的书在哪里。  -- rule: no match: line matched
+  你今天下午会在家吗？  -- rule: no match: line matched
+  你在哪里工作？  -- rule: no match: line matched
+  你还在上学吗？  -- rule: no match: line matched
+  你穿点东西。  -- rule: no match: line matched
+  我不知道你在看东西。  -- rule: no match: line matched
+  在明天早上九点见可以吗？  -- rule: no match: line matched
+  我昨天晚上买的书到了。  -- rule: no match: line matched
+  桌子上有什么？  -- rule: no match: line matched
+  这个杯子里有水。  -- rule: no match: line matched
+  我们电话里说。  -- rule: no match: line matched
+  她们上了火车。  -- rule: no match: line matched
+  谁也不在那里。  -- rule: no match: line matched
+  你的哥哥在哪里?  -- rule: no match: line matched
+  请来我家里。  -- rule: no match: line matched
+  我想知道他们在哪里。  -- rule: no match: line matched
+  我不知道什么时候要在那里。  -- rule: no match: line matched
+  学校里有多少学生？  -- rule: no match: line matched
+  我不知道明天会不会下雨。  -- rule: no match: line matched
+  我上星期在这里玩。  -- rule: no match: line matched
+  你在哪里读书？  -- rule: no match: line matched
+  这里有点冷。  -- rule: no match: line matched
+  这里有人。  -- rule: no match: line matched
+  钱都到哪里去了？  -- rule: no match: line matched
+  我知道我想要的都在这里。  -- rule: no match: line matched
+  我怎么到那里去？  -- rule: no match: line matched
+  我今天没有时间去那里了。  -- rule: no match: line matched
+  你给她买东西了吗？  -- rule: no match: line matched
+  我想住在这里。  -- rule: no match: line matched
+  今天下雨。  -- rule: no match: line matched
+  今天不下雨。  -- rule: no match: line matched
+  你在这里高兴吗？  -- rule: no match: line matched
+  你家人还在那里吗？  -- rule: no match: line matched
+  爸爸，我的杯子在哪里？  -- rule: no match: line matched
+  爸爸，下雨了，我们怎么回家？坐出租车吗？  -- rule: no match: line matched
+  杯子里有水。  -- rule: no match: line matched
+  对, 他住在这里。  -- rule: no match: line matched
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  你好, 你去哪里？  -- rule: no match: line matched
+  你开车去上班。  -- rule: no match: line matched
+  你们去哪里？  -- rule: no match: line matched
+  你们住这里。  -- rule: no match: line matched
+  你明天上午吃什么？  -- rule: no match: line matched
+  你能坐在那里吗？  -- rule: no match: line matched
+  你去北京学习几天？  -- rule: no match: line matched
+  妈妈在这里吗？  -- rule: no match: line matched
+  还没下雨。  -- rule: no match: line matched
+  我住在这里。  -- rule: no match: line matched
+  我明天不想上班。  -- rule: no match: line matched
+  你明天在哪里吃？  -- rule: no match: line matched
+  这里没人做那件事。  -- rule: no match: line matched
+  哪里？  -- rule: no match: line matched
+  看那里！  -- rule: no match: line matched
+  现在，他们知道我们在这里。  -- rule: no match: line matched
+  巴黎在哪里？  -- rule: no match: line matched
+  妈妈，你要去哪里？  -- rule: no match: line matched
+  你来这里。  -- rule: no match: line matched
+  这里一个人都没有。大家都去哪了?  -- rule: no match: line matched
+  那里有多少东西？  -- rule: no match: line matched
+  这里。  -- rule: no match: line matched
+  这里的苹果很便宜。  -- rule: no match: line matched
+  下一个是我吗？  -- rule: no match: line matched
+  我的朋友在哪里？  -- rule: no match: line matched
+  飞机上可以吃东西吗？  -- rule: no match: line matched
+  这里！  -- rule: no match: line matched
+  我的电脑在哪里？  -- rule: no match: line matched
+  我的茶在哪里？  -- rule: no match: line matched
+  汤姆星期一会早早去上学。  -- rule: no match: line matched
+  他下个月要去那里。  -- rule: no match: line matched
+  今年六月下雨天不多。  -- rule: no match: line matched
+  东尼，说话。  -- rule: no match: line matched
+  Tom没有找到他要找到东西。  -- rule: no match: line matched
+  喜欢上一个人。  -- rule: no match: line matched
+  我有些东西给 Tom。  -- rule: no match: line matched
+  那时候我不在这里。  -- rule: no match: line matched
+  他会来这里吗？  -- rule: no match: line matched
+  我早上看了电视。  -- rule: no match: line matched
+  我们都不开车上班。  -- rule: no match: line matched
+  玛丽说她喜欢下雨。  -- rule: no match: line matched
+  你能给我做点东西吃吗？  -- rule: no match: line matched
+  国外都不好，帛琉也是。  -- rule: no match: line matched
+  你知道在哪里可以找到她吗？  -- rule: no match: line matched
+  我今天能早点下班吗？  -- rule: no match: line matched
+  下个QQ。  -- rule: no match: line matched
+  浙江在哪里？  -- rule: no match: line matched
+  你们这里卖什么？  -- rule: no match: line matched
+  很高兴你您在这里。  -- rule: no match: line matched
+  我今天去了那里。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  你家的电脑在桌子上吗？  -- hidden word a learner can't work out: 家的 ((old) wife)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-01_level1_20261107_145240.csv

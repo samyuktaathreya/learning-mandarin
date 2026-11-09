@@ -1,0 +1,37 @@
+## 1-01
+**Point:** 在 + place + a direction or location word (上, 里, 下, 旁边, 外面, etc.) says where something is. A bare 在 + place name (在中国) also counts.
+**Covers:** 
+- 在 + noun (with up to two words between) + 上/里 tagged LC: 书在桌子上, 手机在书包里, 在会议上, 发票在我的口袋里.
+- 在 + noun + 下 tagged NN, as in 他在楼下.
+- 在 + noun + 旁边, as in 在我家旁边.
+- 在 + 外面/里面/上面/下面/前面/后面/旁边 tagged NN, standing alone as the end of the clause (我在外面).
+- A whole clause that is just 在 + a place name (在中国, 在上海, 在纽约).
+
+**Does not cover:** 
+- 以上/以下/以外/以前/以后/之前/之后 limit and time words.
+- 一下 and 下去 (verb + 下去).
+- The idiom 在…下 with 下 tagged LC ("under such conditions").
+- 然后/后来 sequencing.
+- 在 + place + a verb phrase, as in 他在英国读完了大学. Place names are accepted only when they are the whole clause.
+
+```rule
+match: 在/VV|P /NN 上|里/LC
+match: 在/VV|P _ /NN 上|里/LC
+match: 在/VV|P _ _ /NN 上|里/LC
+match: 在/VV /NN 下/NN
+match: 在/VV|P _ 旁边/NN
+match: 在/VV|P _ _ 旁边/NN
+match: ^ 在/VV|P 外面|里面|上面|下面|前面|后面|旁边|外边|里边|上边|下边|前边|后边/NN $
+match: ^ 在/VV|P /NR $
+match: ^ 在/VV|P /NR /NR $
+match: ^ 在/P /NN $
+unless: 以|之 /P|LC|NN|NT 上|下|外|内|前|后
+unless: 一 下/M|AD|VV
+unless: 下去/VV
+```
+
+**Notes:** 
+- The standalone place-name patterns are anchored with ^ and $ on purpose. Without the anchors they would also match 在 + place + a verb phrase, such as 他在英国读完了大学, which the counter-examples exclude.
+- 下 is accepted only when tagged NN (楼下). The idiom 在…条件下 tags 下 as LC, so it is not matched.
+- The middle `_` slots allow possessives (我的口袋里) and measure phrases. If false positives show up, restrict them to specific tags.
+- The `unless` lines are mostly a safeguard. The match patterns already do not fire on the listed counter-examples.

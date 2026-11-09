@@ -1,0 +1,32 @@
+## 1-06
+**Point:** Demonstrative pronouns 这 / 那 (and 这里/那里/这儿/那儿) used to point at things or places. The core pattern is 这/那 + measure word + noun, e.g. 这本书, 那个人.
+
+**Covers:**
+- 这/那 tagged DT followed directly by a measure word (这本书, 那个房间, 她喜欢那个书包).
+- 这/那 as a pronoun subject before 是 at clause start (这是谁的手机？).
+- The place words 这里/那里/这儿/那儿 tagged PN.
+
+**Does not cover:**
+- Sentences containing 这样, 那样, 这么, 那么 (the 2-07 words), or clause-initial 那 as a conjunction (那/AD).
+- Filler 那个 at the end of a clause (那个⋯⋯).
+- Name-calling or topic-category uses, where 这个/这种 follows a noun, pronoun or proper noun (你这个坏蛋, 上海这个城市). This includes 这种/这类 after a single clause-initial word (游泳这种运动).
+- 那会儿 (a time expression).
+
+```rule
+match: 这|那/DT /M
+match: ^ 这|那/PN 是/VC
+match: 这里|那里|这儿|那儿/PN
+unless: /PN|NN|NR 这|那/DT
+unless: ^ _ 这|那/DT 种|类/M
+unless: 那/DT 个/M $
+unless: 这|那/DT 会/M 儿
+unless: 这样|那样|这么|那么
+unless: 这|那/DT 样/NN
+unless: 那/AD
+```
+
+**Notes:**
+- The unless lines are checked against the whole sentence. A sentence with a valid 这/那 + measure word is therefore dropped if it also has 那么, 这样, clause-initial 那 or a name-calling phrase. This is deliberate, because the labeled counter-examples include such sentences (实现这个目标应该不难，那么我们一起努力吧).
+- The `/PN|NN|NR` before 这/那 also drops legitimate cases such as 给我这本书 (the object pronoun precedes). This is accepted in favour of precision.
+- Clause-final 那个, as in 我喜欢那个。, is also dropped, since it can't be told apart from the filler use.
+- 这/那 + 些 (这些, 那些) and 别的/有的 are not matched, because they have no measure-word pattern and tagging is unreliable.

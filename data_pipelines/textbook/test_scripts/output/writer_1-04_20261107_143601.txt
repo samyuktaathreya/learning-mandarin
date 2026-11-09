@@ -1,0 +1,59 @@
+## 1-04
+**Point:** Interrogative pronouns used to ask questions: 怎么 / 怎么样, 几, 多少, 谁, 什么, 哪 / 哪儿 / 哪里 / 哪些. The point also covers 几 meaning "several" and the money forms 多少钱 and 块…毛.
+
+**Covers:**
+- 怎么 before a verb or adjective, meaning "how" or "why", including 怎么这么/那么 + adj.
+- 怎么样 as a predicate.
+- 几 + measure word or number (几个, 几十, 几百家, 好几次, 几点).
+- 多少 as a real question.
+- 是谁 and a clause-initial 谁.
+- A clause-final 什么 after a verb or 是.
+- 哪 + measure word (哪个, 哪位).
+- Clause-final 哪里 / 哪儿.
+- Single-word 怎么 / 为什么 / 什么.
+- Money amounts of the form 块 + number + 毛.
+
+**Does not cover:**
+- 不怎么 / 没怎么, which is a different point.
+- 怎么 / 多少 / 谁 / 哪 followed by 都 or 也, which is the "every / any" use.
+- 什么的 and X什么X challenges.
+- Indefinite "some" uses such as 点什么 or 在哪儿见过.
+- 没什么, which means "nothing".
+- 好/VA + 几, because the tagger mis-tags it in sentences from other points.
+
+```rule
+match: 怎么/AD
+match: 怎么样/VV
+match: 几/CD M
+match: 几/CD CD
+match: 好/AD 几/CD
+match: 多少/CD
+match: 是/VC 谁/PN
+match: ^ 谁/PN
+match: 哪/DT M
+match: 哪些
+match: 哪里|哪儿/PN $
+match: /VV 什么/PN $
+match: 是/VC 什么/PN $
+match: 块|元/M CD 毛|分|角/M
+match: ^ 怎么|为什么|什么 $
+unless: 不 怎么
+unless: 没 怎么
+unless: 不 怎么样
+unless: 怎么 ... 都|也/AD
+unless: 多少 ... 都|也/AD
+unless: 谁 ... 都|也/AD
+unless: 哪 ... 都|也/AD
+unless: 哪儿|哪里 ... 都|也/AD
+unless: 什么 的
+unless: 什么 ... 都|也/AD
+unless: 点|点儿|些 ... 什么
+unless: 没 什么
+unless: 好/VA 几
+unless: 什么 _ 什么
+```
+
+**Notes:**
+- Precision is favoured, so common patterns are left out: 什么 + noun, 什么时候, 哪里/哪儿 before a verb, and 谁 after a verb other than 是. They are too easily the indefinite "some" use.
+- The whole-sentence `unless` lines are clause-limited, so 都 in a different clause does not block a match.
+- 好/VA 几 is excluded because it appears in a counter-example sentence; 好/AD

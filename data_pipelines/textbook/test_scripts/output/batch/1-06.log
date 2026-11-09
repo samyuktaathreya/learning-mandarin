@@ -1,0 +1,337 @@
+
+########## rules  2026-11-07 14:38 ##########
+15 page(s) use the word(s); asking about 15.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGZC42B  Measure words with "this" and "that"
+
+not:
+  ASG1F4D1  Expressing "in this way" with "zheyang"
+  ASG8VJM8  The filler word "neige"
+  ASGNKKP6  Adjectives with "name" and "zheme"
+  ASGNPO4V  Name-calling with "zhege"
+  ASGX298Z  Expressing "then…" with "name"
+
+unsure:
+  ASG765HD  Expressing "it depends" with "kan"
+
+unrelated:
+  ASG59C66  Comparing "li" and "cong"
+  ASG5KNWW  Topic-comment sentences
+  ASGG4BX9  Expressing "since" with "jiran"
+  ASGGIVT0  Expressing "if... then..." with "ruguo... jiu..."
+  ASG1MD4N  Comparing specifically with "xiang"
+  ASG5DG95  Expressing_comparable_degree_with_"you"
+  ASGD7NS3  Asking why with "zenme"
+  ASGH13JY  Idiomatic phrases with "zai"
+
+[note] ASGZC42B is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-06
+Tagging 62 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_143848.txt
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 1-06
+<!-- written by claude-sonnet-5-5 on 2026-11-07; edit freely -->
+**Point:** Demonstrative pronouns 这 / 那 (and 这里/那里/这儿/那儿) used to point at things or places. The core pattern is 这/那 + measure word + noun, e.g. 这本书, 那个人.
+
+**Covers:**
+- 这/那 tagged DT followed directly by a measure word (这本书, 那个房间, 她喜欢那个书包).
+- 这/那 as a pronoun subject before 是 at clause start (这是谁的手机？).
+- The place words 这里/那里/这儿/那儿 tagged PN.
+
+**Does not cover:**
+- Sentences containing 这样, 那样, 这么, 那么 (the 2-07 words), or clause-initial 那 as a conjunction (那/AD).
+- Filler 那个 at the end of a clause (那个⋯⋯).
+- Name-calling or topic-category uses, where 这个/这种 follows a noun, pronoun or proper noun (你这个坏蛋, 上海这个城市). This includes 这种/这类 after a single clause-initial word (游泳这种运动).
+- 那会儿 (a time expression).
+
+```rule
+match: 这|那/DT /M
+match: ^ 这|那/PN 是/VC
+match: 这里|那里|这儿|那儿/PN
+unless: /PN|NN|NR 这|那/DT
+unless: ^ _ 这|那/DT 种|类/M
+unless: 那/DT 个/M $
+unless: 这|那/DT 会/M 儿
+unless: 这样|那样|这么|那么
+unless: 这|那/DT 样/NN
+unless: 那/AD
+```
+
+**Notes:**
+- The unless lines are checked against the whole sentence. A sentence with a valid 这/那 + measure word is therefore dropped if it also has 那么, 这样, clause-initial 那 or a name-calling phrase. This is deliberate, because the labeled counter-examples include such sentences (实现这个目标应该不难，那么我们一起努力吧).
+- The `/PN|NN|NR` before 这/那 also drops legitimate cases such as 给我这本书 (the object pronoun precedes). This is accepted in favour of precision.
+- Clause-final 那个, as in 我喜欢那个。, is also dropped, since it can't be told apart from the filler use.
+- 这/那 + 些 (这些, 那些) and 别的/有的 are not matched, because they have no measure-word pattern and tagging is unreliable.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-06
+Tagging 62 labeled example(s) (cached after this run)...
+
+=== A. 1-06: rule on labeled examples (no AI) ===
+  examples of 1-06 matched:    11/11
+  counter-examples wrongly matched: 0/51   <- should be 0
+
+########## tatoeba  2026-11-07 17:15 ##########
+Filling 1-06 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 2-32, 3-41
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 499 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_171522.txt
+  ...100/1906
+  ...200/1906
+  ...300/1906
+  ...400/1906
+  ...500/1906
+  ...600/1906
+  ...700/1906
+  ...800/1906
+  ...900/1906
+  ...1000/1906
+  ...1100/1906
+  ...1200/1906
+  ...1300/1906
+  ...1400/1906
+  ...1500/1906
+  ...1600/1906
+  ...1700/1906
+  ...1800/1906
+  ...1900/1906
+  Deciding 23 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  女孩子 = 女 + 孩子  (girl)
+     clear  喝茶 = 喝 + 茶  (to drink tea)
+     clear  男孩子 = 男 + 孩子  (boy)
+    hidden  我去 = 我 + 去  ((slang) what the ...!; oh my god!; that')
+    hidden  有时候 = 有 + 时候  (sometimes)
+     clear  不好 = 不 + 好  (no good)
+     clear  不是 = 不 + 是  (no)
+    hidden  一家 = 一 + 家  (the whole family)
+    hidden  怎么回事 = 怎么 + 回 + 事  (what's the matter?)
+    hidden  不了 = 不 + 了  (no thanks (used to politely but informal)
+     clear  不能 = 不 + 能  (cannot)
+     clear  请看 = 请 + 看  (please see ...)
+     clear  车上 = 车 + 上  (Car)
+    hidden  不大 = 不 + 大  (not very; not too)
+    hidden  请坐 = 请 + 坐  (please, have a seat)
+     clear  有些人 = 有些 + 人  (some people)
+    hidden  有一些 = 有 + 一些  (somewhat; rather)
+     clear  有水 = 有 + 水  (supplied with water (of a house))
+    hidden  好喝 = 好 + 喝  (tasty (drinks))
+    hidden  有点 = 有 + 点  (a little)
+     clear  是不是 = 是 + 不 + 是  (is or isn't; yes or no)
+    hidden  是的 = 是 + 的  (yes, that's right)
+     clear  一个人 = 一 + 个 + 人  (by oneself (without assistance))
+
+Course sentences at HSK 1 the rule already finds 1-06 in: 28  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 2) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-06 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     4296  2. contain the point's word(s)
+     4283  3. new (not in DB, not a duplicate)
+     1906  4. at most 2 characters outside HSK 1 words
+      326  5. really HSK 1
+      326  5b. no harder grammar point (of the 2 with a rule)
+      206  6. the rule finds 1-06
+      188  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (188 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (13), first 12 ---
+  这里不能停车。  -- already in the database
+  这本书多少钱？  -- already in the database
+  悉尼离这里很远。  -- same text as tatoeba 1366182 (translations pooled)
+  这是我的朋友。  -- already in the database
+  这是个好主意。  -- already in the database
+  这个字怎么写？  -- already in the database
+  不是，这不是我的车。  -- same text as tatoeba 6149259 (translations pooled)
+  你没看见那个人吗？  -- same text as tatoeba 1538712 (translations pooled)
+  我昨天买了这头猪。  -- same text as tatoeba 2737460 (translations pooled)
+  这是鸟类保护区。  -- same text as tatoeba 5576810 (translations pooled)
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+  我不想冒这个险。  -- same text as tatoeba 2637090 (translations pooled)
+
+--- dropped at step 4 (2377), first 12 ---
+  这家饭馆的咖哩挺好。  -- 4 characters no HSK 1 word uses: 咖哩挺馆
+  那个词用意大利语怎么说？  -- 4 characters no HSK 1 word uses: 利意用词
+  这个城堡好美。  -- 3 characters no HSK 1 word uses: 城堡美
+  这只是枝叶而已。  -- 4 characters no HSK 1 word uses: 叶已枝而
+  那不是一把刀。这才是一把刀。  -- 3 characters no HSK 1 word uses: 刀才把
+  你的眼睛为什么那么大？  -- 3 characters no HSK 1 word uses: 为眼睛
+  在你的词典查一查这个词。  -- 3 characters no HSK 1 word uses: 典查词
+  我昨天买了一支像你那样的笔。  -- 3 characters no HSK 1 word uses: 像支笔
+  最危险的猎物是无路可走的那种。  -- 9 characters no HSK 1 word uses: 危无最物猎种走路险
+  这件事让我真的很感动。  -- 3 characters no HSK 1 word uses: 动感让
+  请填好这张表格。  -- 4 characters no HSK 1 word uses: 填张格表
+  这片湖是日本最深的。  -- 4 characters no HSK 1 word uses: 最深湖片
+
+--- dropped at step 5 (1580), first 12 ---
+  这个盒子没那个盒子大。  -- level 4: 盒子 L4
+  我跟那个事件没有什么关系。  -- level 5: 跟 L2, 事件 L5, 关系 L3
+  我挺喜欢那个歌手的。  -- level 4: 挺 L3, 歌手 L4
+  那是我的台词！  -- level 4: 台 L4, 词 L2
+  这是昨天来的那个女孩。  -- level 10: 女孩 (not in list)
+  我给他解释了这件事。  -- level 4: 解释 L4
+  你还是留在这儿吧。  -- level 4: 还是 L2, 留 L4
+  离这里不远。  -- level 2: 离 L2, 远 L2
+  这本书明年要出版。  -- level 5: 出版 L5
+  我没弄明白这个笑话。  -- level 4: 弄 L4, 明白 L3, 笑话 L4
+  那么，咱们走吧。  -- level 3: 那么 L2, 咱们 L3, 走 L2
+  要是你来得了，那就太好了。  -- level 4: 要是 L4, 得 L2, 就 L2
+
+--- dropped at step 6 (120) ---
+  这是我的妈妈。  -- rule: no match: line matched
+  那你是怎么做的？  -- rule: unless 那/AD
+  我一个人去那边。  -- rule: no match: line matched
+  这不是真的。  -- rule: no match: line matched
+  这是我的问题。  -- rule: no match: line matched
+  你不能再住在这边了。  -- rule: no match: line matched
+  这很好。  -- rule: no match: line matched
+  那孩子要六岁了。  -- rule: no match: line matched
+  这两本都是宋本。  -- rule: no match: line matched
+  他们吃这些东西。  -- rule: no match: line matched
+  她们吃这些东西。  -- rule: no match: line matched
+  它们吃这些东西。  -- rule: no match: line matched
+  我明天不在这儿。  -- rule: no match: line matched
+  我住在这。  -- rule: no match: line matched
+  这不好。  -- rule: no match: line matched
+  这不是爱。  -- rule: no match: line matched
+  那有什么不好？  -- rule: no match: line matched
+  那人没穿衣服。  -- rule: no match: line matched
+  这些是我的书。  -- rule: no match: line matched
+  这两天我不忙。  -- rule: no match: line matched
+  这不是我的日本朋友。  -- rule: no match: line matched
+  你的狗在这。  -- rule: no match: line matched
+  那叫做真爱。  -- rule: no match: line matched
+  我想这是真的。  -- rule: no match: line matched
+  这些天他们很少看电视。  -- rule: no match: line matched
+  这是冷的。  -- rule: no match: line matched
+  你知道这是谁的吗？  -- rule: no match: line matched
+  这谁给你的？  -- rule: no match: line matched
+  有这回事吗？  -- rule: no match: line matched
+  这是要卖的东西吗？  -- rule: no match: line matched
+  你知道这是谁的字吗？  -- rule: no match: line matched
+  这是医院。  -- rule: no match: line matched
+  那边有人吗？  -- rule: no match: line matched
+  坐这边  -- rule: no match: line matched
+  我写了那些东西。  -- rule: no match: line matched
+  你怎么到那的？  -- rule: no match: line matched
+  那，我们五点后去买衣服，好吗？  -- rule: unless 那/AD
+  这水不能喝。  -- rule: no match: line matched
+  我能找到的都在那。  -- rule: no match: line matched
+  他不在这里。  -- rule: no match: line matched
+  那太多了吗？  -- rule: unless 那/AD
+  我觉得这没什么好。  -- rule: no match: line matched
+  那不太好。  -- rule: no match: line matched
+  那不好。  -- rule: no match: line matched
+  那你会给我什么？  -- rule: unless 那/AD
+  这真是真的吗？  -- rule: no match: line matched
+  这很贵。  -- rule: no match: line matched
+  我喜欢这些东西。  -- rule: no match: line matched
+  这不是汤姆要的吗？  -- rule: no match: line matched
+  那不会是一件好事。  -- rule: no match: line matched
+  这不是我的车。  -- rule: no match: line matched
+  汤姆在这里工作了几年？  -- rule: no match: line matched
+  他十年前去了那里。  -- rule: no match: line matched
+  你看，这是我的问题。  -- rule: no match: line matched
+  他们喜欢那个  -- rule: unless 那/DT 个/M $
+  谁给了你这些东西？  -- rule: no match: line matched
+  那真是太好了。  -- rule: no match: line matched
+  这不是他的电话。  -- rule: no match: line matched
+  这五本书是我同学的。  -- rule: no match: line matched
+  有人叫你来这吗？  -- rule: no match: line matched
+  那，我们去吃饭，好吗？  -- rule: unless 那/AD
+  那，你们喜欢吃什么呢？  -- rule: unless 那/AD
+  那不是我对汤姆说的。  -- rule: no match: line matched
+  七点我会回到这里的。  -- rule: no match: line matched
+  这些人是你女儿吗？  -- rule: no match: line matched
+  那人什么也不想做。  -- rule: no match: line matched
+  不是，这不是我的车。  -- rule: no match: line matched
+  这不是我的车，那是我的车。  -- rule: no match: line matched
+  这书是谁的？  -- rule: no match: line matched
+  这车是你朋友的吗？  -- rule: no match: line matched
+  这些苹果很大。  -- rule: no match: line matched
+  在这时候，他到了。  -- rule: no match: line matched
+  那些事都是真的。  -- rule: no match: line matched
+  我不会给汤姆买那东西。  -- rule: no match: line matched
+  我不想来这里。  -- rule: no match: line matched
+  不要吃那个！  -- rule: unless 那/DT 个/M $
+  我不想再听到这事。  -- rule: no match: line matched
+  这些是新的。  -- rule: no match: line matched
+  你想不想要这工作？  -- rule: no match: line matched
+  这不是给你的。  -- rule: no match: line matched
+  你好！你还在那里吗？  -- rule: no match: line matched
+  这太贵了。  -- rule: no match: line matched
+  这我知道！  -- rule: no match: line matched
+  这房间里有人。  -- rule: no match: line matched
+  这歌叫什么名字？  -- rule: no match: line matched
+  您到这边来！  -- rule: no match: line matched
+  这不是你的事。  -- rule: no match: line matched
+  我觉得这不是真的。  -- rule: no match: line matched
+  这还有什么能做的？  -- rule: no match: line matched
+  他去哪买了这些东西？  -- rule: no match: line matched
+  她去哪买了这些东西？  -- rule: no match: line matched
+  这是胡安的车。  -- rule: no match: line matched
+  谁也不在那里。  -- rule: no match: line matched
+  我们怎么来这的？  -- rule: no match: line matched
+  我上星期在这里玩。  -- rule: no match: line matched
+  我知道我想要的都在这里。  -- rule: no match: line matched
+  这不是新的。  -- rule: no match: line matched
+  这不是我的工作。  -- rule: no match: line matched
+  我知道这是谁的车。  -- rule: no match: line matched
+  我能去你那吗？  -- rule: no match: line matched
+  你这些年在做什么？  -- rule: no match: line matched
+  那些是你的朋友。  -- rule: no match: line matched
+  玛丽说她会给你买那个。  -- rule: unless 那/DT 个/M $
+  这是对的。  -- rule: no match: line matched
+  你要到那去吗？  -- rule: no match: line matched
+  那些苹果很小。  -- rule: no match: line matched
+  这些苹果很小。  -- rule: no match: line matched
+  这些苹果很好吃。  -- rule: no match: line matched
+  这些苹果好吃。  -- rule: no match: line matched
+  我喜欢这些苹果。  -- rule: no match: line matched
+  你不知道这是什么？  -- rule: no match: line matched
+  这太贵了！  -- rule: no match: line matched
+  这些天你都在读些什么？  -- rule: no match: line matched
+  那时候我不在这里。  -- rule: no match: line matched
+  这是他的店。  -- rule: no match: line matched
+  这是一家新电影院。  -- rule: no match: line matched
+  你还在那吗？  -- rule: no match: line matched
+  这也没问题！  -- rule: no match: line matched
+  我知道那不是对的。  -- rule: no match: line matched
+  这也是对的。  -- rule: no match: line matched
+
+--- dropped at step 6b (18), first 12 ---
+  昨天我去了那里。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+  有时候，他也在这里吃午饭。  -- hidden word a learner can't work out: 有时候 (sometimes)
+  我不想读这本书。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  这是一家好医院。  -- hidden word a learner can't work out: 一家 (the whole family)
+  这是我的日本朋友。  -- hidden word a learner can't work out: 日本 (Japan)
+  孩子，这是怎么回事？  -- hidden word a learner can't work out: 怎么回事 (what's the matter?)
+  我做不了这个。  -- hidden word a learner can't work out: 不了 (no thanks (used to politely but informally decline))
+  我的猫会爱上这个。  -- hidden word a learner can't work out: 爱上 (to fall in love with)
+  这个店的苹果不大。  -- hidden word a learner can't work out: 不大 (not very; not too)
+  请坐这里。  -- hidden word a learner can't work out: 请坐 (please, have a seat)
+  我不想要这个。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再做这个了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-06_level1_20261107_171929.csv

@@ -59,10 +59,13 @@ export default function SpeakingQuestion({
     : isPinyinPair ? currentQuestionObj.audio_pinyin : null;
 
     const isPinyinQuestion = PINYIN_QUESTION_TYPES.has(currentQuestionObj.question_type);
-    // Whether the first graded attempt at this question was correct (null until graded)
-    const [firstAttemptCorrect, setFirstAttemptCorrect] = useState(null);
-    // Shadowing is only for sentences the user got wrong on the first attempt
-    const requiresShadowing = currentQuestionObj.question_type === "speaking sentence" && firstAttemptCorrect === false;
+    // Whether each checked attempt at this question sounded right, in order.
+    // Feedback only: speaking never changes the score.
+    const [attempts, setAttempts] = useState([]);
+    // Sentences only: wrong at first, right on the retry -> shadow it once.
+    // Wrong on the retry too -> no shadowing, the user just moves on.
+    const requiresShadowing = currentQuestionObj.question_type === "speaking sentence"
+        && attempts[0] === false && attempts[1] === true;
 
     // ── Tip UI & Logic state ──────────────────────────────────────
     const [showTipForm, setShowTipForm] = useState(false);
@@ -113,7 +116,7 @@ export default function SpeakingQuestion({
         setTipSaveState(null);
         setAudioCompleted(false); 
         setHasPassedFirstTry(false);
-        setFirstAttemptCorrect(null);
+        setAttempts([]);
         setSelectedSound(null);
         setModelResult(null);
     }, [currentQuestionObj]);
@@ -121,7 +124,7 @@ export default function SpeakingQuestion({
     // Errors and "couldn't hear you" don't count as an attempt
     useEffect(() => {
         if (!transcriptionResult || transcriptionResult.error || transcriptionResult.hallucination) return;
-        setFirstAttemptCorrect(prev => prev ?? transcriptionResult.is_correct);
+        setAttempts(prev => [...prev, transcriptionResult.is_correct]);
     }, [transcriptionResult]);
 
     // Fetch sentence tags with context-aware definitions
@@ -255,11 +258,12 @@ export default function SpeakingQuestion({
                         {modelResult?.ok && (
                             <button
                                 className="continue-btn"
+                                // Speaking never changes the score: finishing a take counts as correct
+                                // (pairs: both syllables).
                                 onClick={() => onAdvanceQuestion(
-                                    modelResult.isCorrect,
+                                    true,
                                     false,
-                                    // pair: per-syllable results
-                                    isPinyinPair ? modelResult.syllables.map((r) => r.isCorrect) : undefined,
+                                    isPinyinPair ? modelResult.syllables.map(() => true) : undefined,
                                 )}
                                 disabled={modelResult.isCorrect && !audioCompleted}
                             >
@@ -267,7 +271,7 @@ export default function SpeakingQuestion({
                             </button>
                         )}
                         {modelResult && !modelResult.ok && (
-                            <button type="button" onClick={() => onAdvanceQuestion(false)}>Skip</button>
+                            <button type="button" onClick={() => onAdvanceQuestion(true)}>Skip</button>
                         )}
                     </div>
                 </div>
@@ -300,7 +304,7 @@ export default function SpeakingQuestion({
             {recordingURL && !isTranscribing && !transcriptionResult && (
                 <div className="preview-controls">
                     <button type="button" onClick={() => playSrc(recordingURL)}>🎧 Hear yourself</button>
-                    <button type="button" onClick={() => onAdvanceQuestion(false)}>Skip</button>
+                    <button type="button" onClick={() => onAdvanceQuestion(true)}>Skip</button>
                 </div>
             )}
 
@@ -309,6 +313,8 @@ export default function SpeakingQuestion({
                     ? <div className="error-container">
                         <p className="warning-text">⚠️ Couldn't check that — skip or try again</p>
                         <button onClick={onTryAgain}>Try Again</button>
+                        {/* They spoke; only the check failed, so skipping still counts */}
+                        <button type="button" onClick={() => onAdvanceQuestion(true)}>Skip</button>
                       </div>
                     : transcriptionResult.hallucination
                         ? <div className="error-container">
@@ -453,7 +459,7 @@ export default function SpeakingQuestion({
                                     <>
                                         <button 
                                             className="continue-btn"
-                                            onClick={() => onAdvanceQuestion(transcriptionResult.is_correct)}
+                                            onClick={() => onAdvanceQuestion(true)}
                                             disabled={transcriptionResult.is_correct && !audioCompleted}
                                         >
                                             {transcriptionResult.is_correct && !audioCompleted ? "Playing audio..." : "Continue"}

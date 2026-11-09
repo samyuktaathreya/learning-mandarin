@@ -1,0 +1,30 @@
+## 1-09
+**Point:** Degree adverbs 非常 / 很 / 太 / 真 / 最 placed before an adjective or a psychological or modal verb, as in 很好, 最可爱了, 太累了, 真漂亮, 非常喜欢.
+
+**Covers:** 很, 非常, 太, 真 or 最 directly followed by an adjective (VA) or a verb (VV or VE). That includes:
+- Noun + 很 + Adj. (我们很累, 中文很难).
+- 最 + Adj. (汉语最难).
+- 太 + Adj. + 了 (老板太忙了).
+- 真 + Adj. or 真 + 会 / 能 / 有 (你真能吃, 他家真有钱).
+- 很 / 非常 / 最 + a psychological verb (我很想你, 我非常喜欢这本书, 谁最了解你).
+
+**Does not cover:**
+- 最好 ("had better"). It is tokenized as one word, and any sentence containing it is excluded.
+- 很是 (很 followed by 是).
+- Adj. + 得很 and other degree complements. The 得 before 很 excludes the whole sentence.
+- 差很多 and 比…很多 comparisons.
+- 很多 used as a quantity word (很/AD 多/CD), because 多 is not VA there.
+- 很 + JJ, such as 很大的权.
+- 真有你的.
+
+```rule
+match: 很|非常|太|真|最/AD /VA|VV|VE
+unless: 最好
+unless: 很 是
+unless: 得 很
+unless: 差 很
+unless: 比 ... 很 多
+unless: 真 有 _ 的
+```
+
+**Notes:** The unless lines are checked against the whole sentence, so they are deliberately blunt. A sentence like 这个活动很重要，我们最好穿得正式一点 is dropped because it contains 最好, even though 很重要 is a valid use; this favours precision. Tagging errors are tolerated by accepting VA, VV or VE after the adverb. Patterns with an intervening adverb (e.g. 很不舒服) are not matched, which is intentional. 真 + 是 is also not matched.

@@ -1,0 +1,34 @@
+## 1-42
+**Point:** The progressive aspect. 在 / 正在 / 正 before a verb, or 呢 and 着 at the end, shows an action in progress (她在看书, 外边正在下雨, 我吃饭呢).
+
+**Covers:**
+- 在, 正在 or 正 tagged as an adverb (AD) directly before a verb, e.g. 她在看书, 我们正在上课, 他正上厕所呢, 我正吃着饭呢.
+- The tagger's occasional P-tag variant, but only for the fixed phrase 在上厕所.
+- Subject + verb + noun + 呢 with no 在 or 正, limited to common activity verbs (吃, 看, 上, 开, 打 …), e.g. 我吃饭呢, 爷爷看报纸呢.
+- Subject + verb + 着 + noun + 呢, e.g. 老板开着会呢, 我们上着汉语课呢.
+
+**Does not cover:**
+- 在 as a location preposition or verb (在上海上大学, 坐在…, 在床上吃东西, 他不在学校).
+- 早在, 在于, 在…内, 包括…在内, and 在…下/上.
+- 正好, and 正 + 是 (现在正是…).
+- 正 before a modal or intention verb (正要, 正想), which means "just about to" rather than "in progress".
+- 在乎.
+
+**Rule:** the AD tag separates progressive 在 from preposition 在 (P) and verb 在 (VV).
+
+```rule
+match: 在|正在|正/AD /VV
+match: 在/P 上/VV 厕所
+match: ^ /NN|PN 吃|看|上|开|打|做|写|听|玩|洗|喝|学|睡|说|画|读/VV /NN 呢/SP $
+match: ^ /NN|PN /VV 着/AS /NN /NN? 呢/SP $
+unless: 早 在
+unless: 正|正在/AD 要|想|会|能|可以|准备|打算|应该|得|需要|愿意/VV
+unless: 在/AD 在|于|乎
+```
+
+**Notes:**
+- Known misses:
+  - 谁在里面洗澡 (在/P + place + verb) is not matched, because it looks the same as the location-before-verb pattern (病人在医院休息), which must stay excluded.
+  - Progressive 在 that the tagger labels P is also missed, except the 在上厕所 case.
+- The 呢 patterns are deliberately narrow: a closed verb list, a bare NN or PN subject, and a clause-final 呢. Widening them risks matching 喜欢苹果呢 and similar sentences.
+- The 着…呢 pattern requires a noun object between 着 and 呢, which avoids existential sentences such as 墙上挂着画 and stative ones like 门开着呢.

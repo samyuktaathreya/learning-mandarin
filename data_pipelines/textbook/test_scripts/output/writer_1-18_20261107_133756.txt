@@ -1,0 +1,11 @@
+## 1-18
+**Point:** Basic 比 comparison: A + 比 + B + adjective, optionally with 更 before the adjective.
+**Covers:** Sentences where 比 is tagged as a preposition (P), followed by the thing compared and then an adjective (VA) in the same clause. This includes 更 + adjective, the question form with 吗, and a complement after the adjective such as 高一级 or 便宜得多. It also covers the case where 更 好 is tagged AD before a verb-tagged adjective, as in 比汉字更好玩.
+**Does not cover:** 比较 used as "rather". 跟/和/与…比 (起来) and 相比, because the tagger marks 比 there as VV. 比起…. 比赛, 比如 and 对比. Score expressions such as 三比一. 比 with a verb after 更, such as 我比他更喜欢…, which is excluded as borderline.
+
+```rule
+match: 比/P ... /VA
+match: 比/P ... 更/AD 好/AD
+```
+
+**Notes:** The rule relies on the tagger marking true comparison 比 as P and all the other uses as VV or part of a longer word (比较, 比赛, 比如 are single tokens). If the tagger starts tagging 比起 or 跟…比 as P, add an `unless:` for those patterns. A clause-initial 比, as in 我坐高铁去，比大巴快, still matches because patterns are clause-based.

@@ -1,0 +1,251 @@
+2026-11-07 14:42:23,054  INFO     === tag_sentences.py run started ===
+2026-11-07 14:42:23,096  INFO     OK        hanlp-valid   '我很好。' -> [('我', 'PN'), ('很', 'AD'), ('好', 'VA')]
+2026-11-07 14:42:23,099  INFO     TAGGED    '我很好。' (level 1, 3 tags)
+2026-11-07 14:42:23,110  INFO     OK        hanlp-valid   '你很漂亮。' -> [('你', 'PN'), ('很', 'AD'), ('漂亮', 'VA')]
+2026-11-07 14:42:23,112  INFO     TAGGED    '你很漂亮。' (level 1, 3 tags)
+2026-11-07 14:42:23,122  INFO     OK        hanlp-valid   '他很高兴。' -> [('他', 'PN'), ('很', 'AD'), ('高兴', 'VA')]
+2026-11-07 14:42:23,124  INFO     TAGGED    '他很高兴。' (level 1, 3 tags)
+2026-11-07 14:42:23,134  INFO     FALLBACK  '中文很难。' -- out-of-list word(s): ['很难']
+2026-11-07 14:42:23,134  WARNING    HAIKU resegment call for '中文很难。' (cache miss on [('很难', 'VA')])
+2026-11-07 14:42:23,972  INFO     TAGGED    '中文很难。' (level 3, 3 tags)
+2026-11-07 14:42:23,989  INFO     OK        hanlp-valid   '老板很生气。' -> [('老板', 'NN'), ('很', 'AD'), ('生气', 'VV')]
+2026-11-07 14:42:23,992  INFO     TAGGED    '老板很生气。' (level 5, 3 tags)
+2026-11-07 14:42:24,002  INFO     OK        hanlp-valid   '我们很累。' -> [('我们', 'PN'), ('很', 'AD'), ('累', 'VA')]
+2026-11-07 14:42:24,013  INFO     TAGGED    '我们很累。' (level 2, 3 tags)
+2026-11-07 14:42:24,023  INFO     OK        hanlp-valid   '我哥哥也很高。' -> [('我', 'PN'), ('哥哥', 'NN'), ('也', 'AD'), ('很', 'AD'), ('高', 'VA')]
+2026-11-07 14:42:24,026  INFO     TAGGED    '我哥哥也很高。' (level 2, 5 tags)
+2026-11-07 14:42:24,036  INFO     OK        hanlp-valid   '你家也很远吗？' -> [('你', 'PN'), ('家', 'NN'), ('也', 'AD'), ('很', 'AD'), ('远', 'VA'), ('吗', 'SP')]
+2026-11-07 14:42:24,038  INFO     TAGGED    '你家也很远吗？' (level 2, 6 tags)
+2026-11-07 14:42:24,049  INFO     OK        hanlp-valid   '爸爸很忙，妈妈也很忙。' -> [('爸爸', 'NN'), ('很', 'AD'), ('忙', 'VA'), ('妈妈', 'NN'), ('也', 'AD'), ('很', 'AD'), ('忙', 'VA')]
+2026-11-07 14:42:24,053  INFO     TAGGED    '爸爸很忙，妈妈也很忙。' (level 1, 7 tags)
+2026-11-07 14:42:24,063  INFO     OK        hanlp-valid   '他和他弟弟都很帅。' -> [('他', 'PN'), ('和', 'CC'), ('他', 'PN'), ('弟弟', 'NN'), ('都', 'AD'), ('很', 'AD'), ('帅', 'VA')]
+2026-11-07 14:42:24,066  INFO     TAGGED    '他和他弟弟都很帅。' (level 4, 7 tags)
+2026-11-07 14:42:24,077  INFO     FALLBACK  '哪个老师最好？' -- out-of-list word(s): ['哪个']
+2026-11-07 14:42:24,077  WARNING    HAIKU resegment call for '哪个老师最好？' (cache miss on [('哪个', 'DT')])
+2026-11-07 14:42:25,024  INFO     TAGGED    '哪个老师最好？' (level 2, 5 tags)
+2026-11-07 14:42:25,038  INFO     OK        hanlp-valid   '你们家谁最漂亮？' -> [('你们', 'PN'), ('家', 'NN'), ('谁', 'PN'), ('最', 'AD'), ('漂亮', 'VA')]
+2026-11-07 14:42:25,039  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-07 14:42:25,040  INFO     TAGGED    '你们家谁最漂亮？' (level 2, 5 tags)
+2026-11-07 14:42:25,051  INFO     FALLBACK  '谁最有钱？' -- out-of-list word(s): ['有钱']
+2026-11-07 14:42:25,051  INFO       CACHE-ONLY resegmentation -> [('谁', 'PN'), ('最', 'AD'), ('有', 'VV'), ('钱', 'NN')]
+2026-11-07 14:42:25,051  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-07 14:42:25,053  INFO     TAGGED    '谁最有钱？' (level 2, 4 tags)
+2026-11-07 14:42:25,063  INFO     OK        hanlp-valid   '汉语最难。' -> [('汉语', 'NN'), ('最', 'AD'), ('难', 'VA')]
+2026-11-07 14:42:25,065  INFO     TAGGED    '汉语最难。' (level 3, 3 tags)
+2026-11-07 14:42:25,075  INFO     FALLBACK  '这种事最麻烦。' -- out-of-list word(s): ['这种']
+2026-11-07 14:42:25,075  WARNING    HAIKU resegment call for '这种事最麻烦。' (cache miss on [('这种', 'DT')])
+2026-11-07 14:42:26,073  INFO     TAGGED    '这种事最麻烦。' (level 4, 5 tags)
+2026-11-07 14:42:26,086  INFO     OK        hanlp-valid   '小狗最可爱了。' -> [('小', 'JJ'), ('狗', 'NN'), ('最', 'AD'), ('可爱', 'VA'), ('了', 'SP')]
+2026-11-07 14:42:26,089  INFO     TAGGED    '小狗最可爱了。' (level 3, 5 tags)
+2026-11-07 14:42:26,100  INFO     FALLBACK  '四川菜最辣了。' -- out-of-list word(s): ['四川菜']
+2026-11-07 14:42:26,100  WARNING    HAIKU resegment call for '四川菜最辣了。' (cache miss on [('四川菜', 'NN')])
+2026-11-07 14:42:27,101  INFO       NON-LIST 四川 (NR) -> '(name) si4chuan1' [proper_noun]
+2026-11-07 14:42:27,105  INFO     TAGGED    '四川菜最辣了。' (level 4, 5 tags)
+2026-11-07 14:42:27,120  INFO     OK        hanlp-valid   '我的中国朋友最热情了。' -> [('我', 'PN'), ('的', 'DEG'), ('中国', 'NR'), ('朋友', 'NN'), ('最', 'AD'), ('热情', 'VA'), ('了', 'SP')]
+2026-11-07 14:42:27,123  INFO     TAGGED    '我的中国朋友最热情了。' (level 3, 7 tags)
+2026-11-07 14:42:27,136  INFO     OK        hanlp-valid   '他的学生最认真了。' -> [('他', 'PN'), ('的', 'DEG'), ('学生', 'NN'), ('最', 'AD'), ('认真', 'VA'), ('了', 'SP')]
+2026-11-07 14:42:27,139  INFO     TAGGED    '他的学生最认真了。' (level 3, 6 tags)
+2026-11-07 14:42:27,149  INFO     FALLBACK  '黄山的风景最美了。' -- out-of-list word(s): ['黄山']
+2026-11-07 14:42:27,149  WARNING    HAIKU resegment call for '黄山的风景最美了。' (cache miss on [('黄山', 'NR')])
+2026-11-07 14:42:28,371  INFO     TAGGED    '黄山的风景最美了。' (level 6, 7 tags)
+2026-11-07 14:42:28,387  INFO     OK        hanlp-valid   '老板最喜欢你了！' -> [('老板', 'NN'), ('最', 'AD'), ('喜欢', 'VV'), ('你', 'PN'), ('了', 'SP')]
+2026-11-07 14:42:28,390  INFO     TAGGED    '老板最喜欢你了！' (level 5, 5 tags)
+2026-11-07 14:42:28,401  INFO     OK        hanlp-valid   '你最怕什么？' -> [('你', 'PN'), ('最', 'AD'), ('怕', 'VV'), ('什么', 'PN')]
+2026-11-07 14:42:28,403  INFO     TAGGED    '你最怕什么？' (level 3, 4 tags)
+2026-11-07 14:42:28,413  INFO     OK        hanlp-valid   '我最爱中国菜。' -> [('我', 'PN'), ('最', 'AD'), ('爱', 'VV'), ('中国', 'NR'), ('菜', 'NN')]
+2026-11-07 14:42:28,416  INFO     TAGGED    '我最爱中国菜。' (level 2, 5 tags)
+2026-11-07 14:42:28,426  INFO     OK        hanlp-valid   '谁最了解你？' -> [('谁', 'PN'), ('最', 'AD'), ('了解', 'VV'), ('你', 'PN')]
+2026-11-07 14:42:28,426  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-07 14:42:28,428  INFO     TAGGED    '谁最了解你？' (level 3, 4 tags)
+2026-11-07 14:42:28,439  INFO     OK        hanlp-valid   '她最讨厌抽烟的男人了。' -> [('她', 'PN'), ('最', 'AD'), ('讨厌', 'VV'), ('抽烟', 'VV'), ('的', 'DEC'), ('男人', 'NN'), ('了', 'SP')]
+2026-11-07 14:42:28,445  INFO     TAGGED    '她最讨厌抽烟的男人了。' (level 5, 8 tags)
+2026-11-07 14:42:28,456  INFO     OK        hanlp-valid   '你最喜欢什么颜色？' -> [('你', 'PN'), ('最', 'AD'), ('喜欢', 'VV'), ('什么', 'DT'), ('颜色', 'NN')]
+2026-11-07 14:42:28,459  INFO     TAGGED    '你最喜欢什么颜色？' (level 2, 5 tags)
+2026-11-07 14:42:28,469  INFO     OK        hanlp-valid   '你最喜欢什么动物？' -> [('你', 'PN'), ('最', 'AD'), ('喜欢', 'VV'), ('什么', 'DT'), ('动物', 'NN')]
+2026-11-07 14:42:28,471  INFO     TAGGED    '你最喜欢什么动物？' (level 3, 5 tags)
+2026-11-07 14:42:28,482  INFO     OK        hanlp-valid   '米饭太多了。' -> [('米饭', 'NN'), ('太', 'AD'), ('多', 'VA'), ('了', 'SP')]
+2026-11-07 14:42:28,483  INFO     TAGGED    '米饭太多了。' (level 1, 4 tags)
+2026-11-07 14:42:28,493  INFO     OK        hanlp-valid   '老板太忙了。' -> [('老板', 'NN'), ('太', 'AD'), ('忙', 'VA'), ('了', 'SP')]
+2026-11-07 14:42:28,495  INFO     TAGGED    '老板太忙了。' (level 5, 4 tags)
+2026-11-07 14:42:28,505  INFO     OK        hanlp-valid   '老师太累了。' -> [('老师', 'NN'), ('太', 'AD'), ('累', 'VA'), ('了', 'SP')]
+2026-11-07 14:42:28,507  INFO     TAGGED    '老师太累了。' (level 2, 4 tags)
+2026-11-07 14:42:28,517  INFO     FALLBACK  '这个厕所太脏了。' -- out-of-list word(s): ['这个']
+2026-11-07 14:42:28,517  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('厕所', 'NN'), ('太', 'AD'), ('脏', 'VA'), ('了', 'SP')]
+2026-11-07 14:42:28,520  INFO     TAGGED    '这个厕所太脏了。' (level 4, 6 tags)
+2026-11-07 14:42:28,530  INFO     OK        hanlp-valid   '你太好了。' -> [('你', 'PN'), ('太', 'AD'), ('好', 'VA'), ('了', 'SP')]
+2026-11-07 14:42:28,532  INFO     TAGGED    '你太好了。' (level 1, 4 tags)
+2026-11-07 14:42:28,542  INFO     OK        hanlp-valid   '他太帅了。' -> [('他', 'PN'), ('太', 'AD'), ('帅', 'VA'), ('了', 'SP')]
+2026-11-07 14:42:28,543  INFO     TAGGED    '他太帅了。' (level 4, 4 tags)
+2026-11-07 14:42:28,554  INFO     FALLBACK  '这个女孩太漂亮了。' -- out-of-list word(s): ['这个', '女孩']
+2026-11-07 14:42:28,554  WARNING    HAIKU resegment call for '这个女孩太漂亮了。' (cache miss on [('女孩', 'NN')])
+2026-11-07 14:42:29,764  INFO       NON-LIST 女孩 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-07 14:42:29,768  INFO     TAGGED    '这个女孩太漂亮了。' (level 10, 6 tags)
+2026-11-07 14:42:29,784  INFO     OK        hanlp-valid   '小猫太可爱了！' -> [('小', 'JJ'), ('猫', 'NN'), ('太', 'AD'), ('可爱', 'VA'), ('了', 'SP')]
+2026-11-07 14:42:29,786  INFO     TAGGED    '小猫太可爱了！' (level 3, 5 tags)
+2026-11-07 14:42:29,798  INFO     OK        hanlp-valid   '你的孩子太聪明了。' -> [('你', 'PN'), ('的', 'DEG'), ('孩子', 'NN'), ('太', 'AD'), ('聪明', 'VA'), ('了', 'SP')]
+2026-11-07 14:42:29,801  INFO     TAGGED    '你的孩子太聪明了。' (level 3, 6 tags)
+2026-11-07 14:42:29,811  INFO     OK        hanlp-valid   '你真好！' -> [('你', 'PN'), ('真', 'AD'), ('好', 'VA')]
+2026-11-07 14:42:29,813  INFO     TAGGED    '你真好！' (level 1, 3 tags)
+2026-11-07 14:42:29,823  INFO     OK        hanlp-valid   '你女朋友真漂亮！' -> [('你', 'PN'), ('女朋友', 'NN'), ('真', 'AD'), ('漂亮', 'VA')]
+2026-11-07 14:42:29,825  INFO     TAGGED    '你女朋友真漂亮！' (level 1, 4 tags)
+2026-11-07 14:42:29,835  INFO     FALLBACK  '他家真有钱！' -- out-of-list word(s): ['有钱']
+2026-11-07 14:42:29,836  INFO       CACHE-ONLY resegmentation -> [('他', 'PN'), ('家', 'NN'), ('真', 'AD'), ('有', 'VV'), ('钱', 'NN')]
+2026-11-07 14:42:29,838  INFO     TAGGED    '他家真有钱！' (level 1, 5 tags)
+2026-11-07 14:42:29,848  INFO     OK        hanlp-valid   '小狗真可爱！' -> [('小', 'JJ'), ('狗', 'NN'), ('真', 'AD'), ('可爱', 'VA')]
+2026-11-07 14:42:29,850  INFO     TAGGED    '小狗真可爱！' (level 3, 4 tags)
+2026-11-07 14:42:29,860  INFO     OK        hanlp-valid   '今天真热！' -> [('今天', 'NT'), ('真', 'AD'), ('热', 'VA')]
+2026-11-07 14:42:29,861  INFO     TAGGED    '今天真热！' (level 1, 3 tags)
+2026-11-07 14:42:29,871  INFO     OK        hanlp-valid   '你妈妈真爱你！' -> [('你', 'PN'), ('妈妈', 'NN'), ('真', 'AD'), ('爱', 'VV'), ('你', 'PN')]
+2026-11-07 14:42:29,873  INFO     TAGGED    '你妈妈真爱你！' (level 1, 5 tags)
+2026-11-07 14:42:29,884  INFO     OK        hanlp-valid   '我真喜欢住在中国！' -> [('我', 'PN'), ('真', 'AD'), ('喜欢', 'VV'), ('住', 'VV'), ('在', 'P'), ('中国', 'NR')]
+2026-11-07 14:42:29,887  INFO     TAGGED    '我真喜欢住在中国！' (level 1, 6 tags)
+2026-11-07 14:42:29,897  INFO     FALLBACK  '我真讨厌这种男人！' -- out-of-list word(s): ['这种']
+2026-11-07 14:42:29,897  WARNING    HAIKU resegment call for '我真讨厌这种男人！' (cache miss on [('这种', 'JJ')])
+2026-11-07 14:42:31,092  INFO     TAGGED    '我真讨厌这种男人！' (level 4, 6 tags)
+2026-11-07 14:42:31,105  INFO     OK        hanlp-valid   '你真会说话！' -> [('你', 'PN'), ('真', 'AD'), ('会', 'VV'), ('说话', 'VV')]
+2026-11-07 14:42:31,107  INFO     TAGGED    '你真会说话！' (level 1, 4 tags)
+2026-11-07 14:42:31,118  INFO     OK        hanlp-valid   '你真能吃！' -> [('你', 'PN'), ('真', 'AD'), ('能', 'VV'), ('吃', 'VV')]
+2026-11-07 14:42:31,120  INFO     TAGGED    '你真能吃！' (level 1, 4 tags)
+2026-11-07 14:42:31,130  INFO     OK        hanlp-valid   '我很想你。' -> [('我', 'PN'), ('很', 'AD'), ('想', 'VV'), ('你', 'PN')]
+2026-11-07 14:42:31,132  INFO     TAGGED    '我很想你。' (level 1, 4 tags)
+2026-11-07 14:42:31,142  INFO     OK        hanlp-valid   '他很喜欢你。' -> [('他', 'PN'), ('很', 'AD'), ('喜欢', 'VV'), ('你', 'PN')]
+2026-11-07 14:42:31,144  INFO     TAGGED    '他很喜欢你。' (level 1, 4 tags)
+2026-11-07 14:42:31,154  INFO     OK        hanlp-valid   '你应该很小心。' -> [('你', 'PN'), ('应该', 'VV'), ('很', 'AD'), ('小心', 'VA')]
+2026-11-07 14:42:31,156  INFO     TAGGED    '你应该很小心。' (level 3, 4 tags)
+2026-11-07 14:42:31,167  INFO     FALLBACK  '我很怕晚上一个人在家。' -- out-of-list word(s): ['一个']
+2026-11-07 14:42:31,167  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('很', 'AD'), ('怕', 'VV'), ('晚上', 'NT'), ('一', 'CD'), ('个', 'M'), ('人', 'NN'), ('在家', 'VV')]
+2026-11-07 14:42:31,174  INFO     TAGGED    '我很怕晚上一个人在家。' (level 3, 9 tags)
+2026-11-07 14:42:31,185  INFO     OK        hanlp-valid   '你应该很了解自己的孩子。' -> [('你', 'PN'), ('应该', 'VV'), ('很', 'AD'), ('了解', 'VV'), ('自己', 'PN'), ('的', 'DEG'), ('孩子', 'NN')]
+2026-11-07 14:42:31,188  INFO     TAGGED    '你应该很了解自己的孩子。' (level 3, 7 tags)
+2026-11-07 14:42:31,199  INFO     FALLBACK  '外国人很讨厌中国的公共厕所。' -- out-of-list word(s): ['外国人']
+2026-11-07 14:42:31,199  WARNING    HAIKU resegment call for '外国人很讨厌中国的公共厕所。' (cache miss on [('外国人', 'NN')])
+2026-11-07 14:42:32,493  INFO     TAGGED    '外国人很讨厌中国的公共厕所。' (level 4, 8 tags)
+2026-11-07 14:42:32,506  INFO     FALLBACK  '你两天没回家，妈妈很担心你。' -- out-of-list word(s): ['两天']
+2026-11-07 14:42:32,506  WARNING    HAIKU resegment call for '你两天没回家，妈妈很担心你。' (cache miss on [('两天', 'AD')])
+2026-11-07 14:42:34,169  INFO     TAGGED    '你两天没回家，妈妈很担心你。' (level 3, 10 tags)
+2026-11-07 14:42:34,196  INFO     FALLBACK  '父母都很希望我能上一个好大学。' -- out-of-list word(s): ['一个']
+2026-11-07 14:42:34,196  INFO       CACHE-ONLY resegmentation -> [('父母', 'NN'), ('都', 'AD'), ('很', 'AD'), ('希望', 'VV'), ('我', 'PN'), ('能', 'VV'), ('上', 'VV'), ('一', 'CD'), ('个', 'M'), ('好', 'JJ'), ('大学', 'NN')]
+2026-11-07 14:42:34,201  INFO     TAGGED    '父母都很希望我能上一个好大学。' (level 4, 11 tags)
+2026-11-07 14:42:34,213  INFO     OK        hanlp-valid   '我非常喜欢这本书。' -> [('我', 'PN'), ('非常', 'AD'), ('喜欢', 'VV'), ('这', 'DT'), ('本', 'M'), ('书', 'NN')]
+2026-11-07 14:42:34,216  INFO     TAGGED    '我非常喜欢这本书。' (level 1, 6 tags)
+2026-11-07 14:42:34,227  INFO     FALLBACK  '那个本子很好看。' -- out-of-list word(s): ['那个']
+2026-11-07 14:42:34,227  INFO       CACHE-ONLY resegmentation -> [('那', 'DT'), ('个', 'M'), ('本子', 'NN'), ('很', 'AD'), ('好看', 'VA')]
+2026-11-07 14:42:34,229  INFO     TAGGED    '那个本子很好看。' (level 2, 5 tags)
+2026-11-07 14:42:34,240  INFO     FALLBACK  '你最好先休息一下。' -- out-of-list word(s): ['一下']
+2026-11-07 14:42:34,240  INFO       CACHE-ONLY resegmentation -> [('你', 'PN'), ('最好', 'AD'), ('先', 'AD'), ('休息', 'VV'), ('一', 'CD'), ('下', 'M')]
+2026-11-07 14:42:34,242  INFO     TAGGED    '你最好先休息一下。' (level 3, 6 tags)
+2026-11-07 14:42:34,253  INFO     FALLBACK  '你们最好给他打个电话问一下。' -- out-of-list word(s): ['一下']
+2026-11-07 14:42:34,253  INFO       CACHE-ONLY resegmentation -> [('你们', 'PN'), ('最好', 'AD'), ('给', 'P'), ('他', 'PN'), ('打', 'VV'), ('个', 'M'), ('电话', 'NN'), ('问', 'VV'), ('一', 'CD'), ('下', 'M')]
+2026-11-07 14:42:34,257  INFO     TAGGED    '你们最好给他打个电话问一下。' (level 3, 10 tags)
+2026-11-07 14:42:34,268  INFO     FALLBACK  '那个地方不好找，我们最好查一下百度地图。' -- out-of-list word(s): ['那个', '不好', '一下', '百度']
+2026-11-07 14:42:34,268  WARNING    HAIKU resegment call for '那个地方不好找，我们最好查一下百度地图。' (cache miss on [('不好', 'AD'), ('百度', 'NR')])
+2026-11-07 14:42:36,238  INFO     TAGGED    '那个地方不好找，我们最好查一下百度地图。' (level 5, 14 tags)
+2026-11-07 14:42:36,252  INFO     OK        hanlp-valid   '外面挺冷的，最好多穿点。' -> [('外面', 'NN'), ('挺', 'AD'), ('冷', 'VA'), ('的', 'SP'), ('最好', 'AD'), ('多', 'AD'), ('穿', 'VV'), ('点', 'CD')]
+2026-11-07 14:42:36,256  INFO     TAGGED    '外面挺冷的，最好多穿点。' (level 3, 8 tags)
+2026-11-07 14:42:36,269  INFO     FALLBACK  '这个活动很重要，我们最好穿得正式一点。' -- out-of-list word(s): ['这个', '一点']
+2026-11-07 14:42:36,269  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('活动', 'NN'), ('很', 'AD'), ('重要', 'VA'), ('我们', 'PN'), ('最好', 'AD'), ('穿', 'VV'), ('得', 'DER'), ('正式', 'VA'), ('一点', 'M')]
+2026-11-07 14:42:36,278  INFO     TAGGED    '这个活动很重要，我们最好穿得正式一点。' (level 4, 12 tags)
+2026-11-07 14:42:36,289  INFO     OK        hanlp-valid   '最好别去。' -> [('最好', 'AD'), ('别', 'AD'), ('去', 'VV')]
+2026-11-07 14:42:36,291  INFO     TAGGED    '最好别去。' (level 3, 3 tags)
+2026-11-07 14:42:36,301  INFO     OK        hanlp-valid   '最好不要这样说。' -> [('最好', 'AD'), ('不要', 'AD'), ('这样', 'AD'), ('说', 'VV')]
+2026-11-07 14:42:36,303  INFO     TAGGED    '最好不要这样说。' (level 3, 4 tags)
+2026-11-07 14:42:36,314  INFO     OK        hanlp-valid   '晚饭最好不要吃那么多。' -> [('晚饭', 'NN'), ('最好', 'AD'), ('不要', 'AD'), ('吃', 'VV'), ('那么', 'AD'), ('多', 'VA')]
+2026-11-07 14:42:36,317  INFO     TAGGED    '晚饭最好不要吃那么多。' (level 3, 6 tags)
+2026-11-07 14:42:36,328  INFO     OK        hanlp-valid   '雨这么大，最好别出门。' -> [('雨', 'NN'), ('这么', 'AD'), ('大', 'VA'), ('最好', 'AD'), ('别', 'AD'), ('出门', 'VV')]
+2026-11-07 14:42:36,331  INFO     TAGGED    '雨这么大，最好别出门。' (level 3, 6 tags)
+2026-11-07 14:42:36,342  INFO     FALLBACK  '这个问题是隐私的，最好不要问。' -- out-of-list word(s): ['这个']
+2026-11-07 14:42:36,342  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('问题', 'NN'), ('是', 'VC'), ('隐私', 'NN'), ('的', 'SP'), ('最好', 'AD'), ('不要', 'AD'), ('问', 'VV')]
+2026-11-07 14:42:36,346  INFO     TAGGED    '这个问题是隐私的，最好不要问。' (level 6, 9 tags)
+2026-11-07 14:42:36,357  INFO     OK        hanlp-valid   '这样做很是必要。' -> [('这样', 'AD'), ('做', 'VV'), ('很', 'AD'), ('是', 'VC'), ('必要', 'VA')]
+2026-11-07 14:42:36,359  INFO     TAGGED    '这样做很是必要。' (level 5, 5 tags)
+2026-11-07 14:42:36,369  INFO     OK        hanlp-valid   '你的工作表现让领导很是满意。' -> [('你', 'PN'), ('的', 'DEG'), ('工作', 'NN'), ('表现', 'NN'), ('让', 'VV'), ('领导', 'NN'), ('很', 'AD'), ('是', 'VC'), ('满意', 'VV')]
+2026-11-07 14:42:36,373  INFO     TAGGED    '你的工作表现让领导很是满意。' (level 5, 9 tags)
+2026-11-07 14:42:36,384  INFO     OK        hanlp-valid   '你穿西装看起来很是精神。' -> [('你', 'PN'), ('穿', 'VV'), ('西装', 'NN'), ('看起来', 'VV'), ('很', 'AD'), ('是', 'VC'), ('精神', 'NN')]
+2026-11-07 14:42:36,391  INFO     TAGGED    '你穿西装看起来很是精神。' (level 5, 8 tags)
+2026-11-07 14:42:36,402  INFO     OK        hanlp-valid   '这件事让我很是不舒服。' -> [('这', 'DT'), ('件', 'M'), ('事', 'NN'), ('让', 'VV'), ('我', 'PN'), ('很', 'AD'), ('是', 'VC'), ('不', 'AD'), ('舒服', 'VA')]
+2026-11-07 14:42:36,406  INFO     TAGGED    '这件事让我很是不舒服。' (level 2, 9 tags)
+2026-11-07 14:42:36,417  INFO     OK        hanlp-valid   '我老板很是喜欢你的设计风格。' -> [('我', 'PN'), ('老板', 'NN'), ('很', 'AD'), ('是', 'VC'), ('喜欢', 'VV'), ('你', 'PN'), ('的', 'DEG'), ('设计', 'NN'), ('风格', 'NN')]
+2026-11-07 14:42:36,421  INFO     TAGGED    '我老板很是喜欢你的设计风格。' (level 5, 9 tags)
+2026-11-07 14:42:36,433  INFO     OK        hanlp-valid   '他都退休了，还在创业，让人很是佩服。' -> [('他', 'PN'), ('都', 'AD'), ('退休', 'VV'), ('了', 'AS'), ('还', 'AD'), ('在', 'AD'), ('创业', 'VV'), ('让', 'VV'), ('人', 'NN'), ('很', 'AD'), ('是', 'VC'), ('佩服', 'VV')]
+2026-11-07 14:42:36,438  INFO     TAGGED    '他都退休了，还在创业，让人很是佩服。' (level 6, 12 tags)
+2026-11-07 14:42:36,450  INFO     OK        hanlp-valid   '你们的表演太夸张了，让人很是受不了。' -> [('你们', 'PN'), ('的', 'DEG'), ('表演', 'NN'), ('太', 'AD'), ('夸张', 'VA'), ('了', 'SP'), ('让', 'VV'), ('人', 'NN'), ('很', 'AD'), ('是', 'VC'), ('受不了', 'VV')]
+2026-11-07 14:42:36,453  INFO     TAGGED    '你们的表演太夸张了，让人很是受不了。' (level 6, 11 tags)
+2026-11-07 14:42:36,465  INFO     FALLBACK  '我爸爸当过大厨，他很是会吃。' -- out-of-list word(s): ['大厨']
+2026-11-07 14:42:36,465  WARNING    HAIKU resegment call for '我爸爸当过大厨，他很是会吃。' (cache miss on [('大厨', 'NN')])
+2026-11-07 14:42:38,325  INFO       NON-LIST 厨 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-07 14:42:38,328  INFO     TAGGED    '我爸爸当过大厨，他很是会吃。' (level 10, 11 tags)
+2026-11-07 14:42:38,342  INFO     OK        hanlp-valid   '我妹妹虽然小，但很是会说话。' -> [('我', 'PN'), ('妹妹', 'NN'), ('虽然', 'CS'), ('小', 'VA'), ('但', 'AD'), ('很', 'AD'), ('是', 'VC'), ('会', 'VV'), ('说话', 'VV')]
+2026-11-07 14:42:38,346  INFO     TAGGED    '我妹妹虽然小，但很是会说话。' (level 2, 9 tags)
+2026-11-07 14:42:38,358  INFO     FALLBACK  '这个男人很是会骗女人。' -- out-of-list word(s): ['这个']
+2026-11-07 14:42:38,358  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('男人', 'NN'), ('很', 'AD'), ('是', 'VC'), ('会', 'VV'), ('骗', 'VV'), ('女人', 'NN')]
+2026-11-07 14:42:38,361  INFO     TAGGED    '这个男人很是会骗女人。' (level 5, 8 tags)
+2026-11-07 14:42:38,372  INFO     OK        hanlp-valid   '大老板很是能喝。' -> [('大', 'JJ'), ('老板', 'NN'), ('很', 'AD'), ('是', 'VC'), ('能', 'VV'), ('喝', 'VV')]
+2026-11-07 14:42:38,374  INFO     TAGGED    '大老板很是能喝。' (level 5, 6 tags)
+2026-11-07 14:42:38,385  INFO     FALLBACK  '我好得很，你不用为我担心。' -- out-of-list word(s): ['好得很']
+2026-11-07 14:42:38,385  WARNING    HAIKU resegment call for '我好得很，你不用为我担心。' (cache miss on [('好得很', 'AD')])
+2026-11-07 14:42:40,005  INFO     TAGGED    '我好得很，你不用为我担心。' (level 3, 10 tags)
+2026-11-07 14:42:40,021  INFO     OK        hanlp-valid   '你觉得不好吃？我觉得好吃得很。' -> [('你', 'PN'), ('觉得', 'VV'), ('不', 'AD'), ('好吃', 'VA'), ('我', 'PN'), ('觉得', 'VV'), ('好吃', 'VA'), ('得', 'DER'), ('很', 'AD')]
+2026-11-07 14:42:40,025  INFO     TAGGED    '你觉得不好吃？我觉得好吃得很。' (level 2, 9 tags)
+2026-11-07 14:42:40,038  INFO     FALLBACK  '这个地方漂亮得很，非常推荐你去。' -- out-of-list word(s): ['这个']
+2026-11-07 14:42:40,038  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('地方', 'NN'), ('漂亮', 'VA'), ('得', 'DER'), ('很', 'AD'), ('非常', 'AD'), ('推荐', 'VV'), ('你', 'PN'), ('去', 'VV')]
+2026-11-07 14:42:40,042  INFO     TAGGED    '这个地方漂亮得很，非常推荐你去。' (level 5, 10 tags)
+2026-11-07 14:42:40,054  INFO     OK        hanlp-valid   '我现在时间多得很，你去哪儿我都可以陪你去。' -> [('我', 'PN'), ('现在', 'NT'), ('时间', 'NN'), ('多', 'VA'), ('得', 'DER'), ('很', 'AD'), ('你', 'PN'), ('去', 'VV'), ('哪儿', 'PN'), ('我', 'PN'), ('都', 'AD'), ('可以', 'VV'), ('陪', 'VV'), ('你', 'PN'), ('去', 'VV')]
+2026-11-07 14:42:40,059  INFO     TAGGED    '我现在时间多得很，你去哪儿我都可以陪你去。' (level 4, 15 tags)
+2026-11-07 14:42:40,071  INFO     FALLBACK  '不用担心，这次考试简单得很。' -- out-of-list word(s): ['这次']
+2026-11-07 14:42:40,071  INFO       CACHE-ONLY resegmentation -> [('不用', 'AD'), ('担心', 'VV'), ('这', 'DT'), ('次', 'M'), ('考试', 'NN'), ('简单', 'VA'), ('得', 'DER'), ('很', 'AD')]
+2026-11-07 14:42:40,074  INFO     TAGGED    '不用担心，这次考试简单得很。' (level 3, 8 tags)
+2026-11-07 14:42:40,085  INFO     FALLBACK  '离我远点儿！我现在烦得很！' -- out-of-list word(s): ['点儿']
+2026-11-07 14:42:40,085  WARNING    HAIKU resegment call for '离我远点儿！我现在烦得很！' (cache miss on [('点儿', 'AD')])
+2026-11-07 14:42:41,650  INFO     TAGGED    '离我远点儿！我现在烦得很！' (level 4, 10 tags)
+2026-11-07 14:42:41,663  INFO     OK        hanlp-valid   '你觉得他不高兴？我看他今天心情好得很！' -> [('你', 'PN'), ('觉得', 'VV'), ('他', 'PN'), ('不', 'AD'), ('高兴', 'VA'), ('我', 'PN'), ('看', 'VV'), ('他', 'PN'), ('今天', 'NT'), ('心情', 'NN'), ('好', 'VA'), ('得', 'DER'), ('很', 'AD')]
+2026-11-07 14:42:41,668  INFO     TAGGED    '你觉得他不高兴？我看他今天心情好得很！' (level 4, 13 tags)
+2026-11-07 14:42:41,680  INFO     FALLBACK  '我最近忙得很，每天都要加班。' -- out-of-list word(s): ['每天']
+2026-11-07 14:42:41,680  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('最近', 'NT'), ('忙', 'VA'), ('得', 'DER'), ('很', 'AD'), ('每天', 'NT'), ('都', 'AD'), ('要', 'VV'), ('加班', 'VV')]
+2026-11-07 14:42:41,688  INFO     TAGGED    '我最近忙得很，每天都要加班。' (level 4, 10 tags)
+2026-11-07 14:42:41,700  INFO     OK        hanlp-valid   '高峰期路上堵得很，我建议你上班坐地铁。' -> [('高峰期', 'NN'), ('路上', 'NN'), ('堵', 'VV'), ('得', 'DER'), ('很', 'AD'), ('我', 'PN'), ('建议', 'VV'), ('你', 'PN'), ('上班', 'VV'), ('坐', 'VV'), ('地铁', 'NN')]
+2026-11-07 14:42:41,708  INFO     TAGGED    '高峰期路上堵得很，我建议你上班坐地铁。' (level 6, 12 tags)
+2026-11-07 14:42:41,720  INFO     FALLBACK  '他这个人自私得很，从来不为别人考虑。' -- out-of-list word(s): ['这个']
+2026-11-07 14:42:41,720  INFO       CACHE-ONLY resegmentation -> [('他', 'PN'), ('这', 'DT'), ('个', 'M'), ('人', 'NN'), ('自私', 'VA'), ('得', 'DER'), ('很', 'AD'), ('从来', 'AD'), ('不', 'AD'), ('为', 'P'), ('别人', 'NN'), ('考虑', 'VV')]
+2026-11-07 14:42:41,724  INFO     TAGGED    '他这个人自私得很，从来不为别人考虑。' (level 7, 12 tags)
+2026-11-07 14:42:41,735  INFO     FALLBACK  '中西方的文化差很多。' -- out-of-list word(s): ['中西方', '很多']
+2026-11-07 14:42:41,736  WARNING    HAIKU resegment call for '中西方的文化差很多。' (cache miss on [('中西方', 'NN')])
+2026-11-07 14:42:42,877  INFO     TAGGED    '中西方的文化差很多。' (level 3, 7 tags)
+2026-11-07 14:42:42,892  INFO     FALLBACK  '这两个词的意思差不多，但是用法差很多。' -- out-of-list word(s): ['两个', '很多']
+2026-11-07 14:42:42,892  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('两', 'CD'), ('个', 'M'), ('词', 'NN'), ('的', 'DEG'), ('意思', 'NN'), ('差不多', 'VV'), ('但是', 'CC'), ('用法', 'NN'), ('差', 'VV'), ('很', 'AD'), ('多', 'A')]
+2026-11-07 14:42:42,897  INFO     TAGGED    '这两个词的意思差不多，但是用法差很多。' (level 5, 12 tags)
+2026-11-07 14:42:42,909  INFO     FALLBACK  '她和她老公的年龄差很多。' -- out-of-list word(s): ['很多']
+2026-11-07 14:42:42,909  INFO       CACHE-ONLY resegmentation -> [('她', 'PN'), ('和', 'CC'), ('她', 'PN'), ('老公', 'NN'), ('的', 'DEG'), ('年龄', 'NN'), ('差', 'VV'), ('很', 'AD'), ('多', 'A')]
+2026-11-07 14:42:42,912  INFO     TAGGED    '她和她老公的年龄差很多。' (level 5, 9 tags)
+2026-11-07 14:42:42,923  INFO     FALLBACK  '公司今年的收入跟去年差很多。' -- out-of-list word(s): ['很多']
+2026-11-07 14:42:42,923  INFO       CACHE-ONLY resegmentation -> [('公司', 'NN'), ('今年', 'NT'), ('的', 'DEG'), ('收入', 'NN'), ('跟', 'P'), ('去年', 'NT'), ('差', 'VV'), ('很', 'AD'), ('多', 'A')]
+2026-11-07 14:42:42,927  INFO     TAGGED    '公司今年的收入跟去年差很多。' (level 4, 9 tags)
+2026-11-07 14:42:42,938  INFO     FALLBACK  '这个服务员和经理的服务态度差很多。' -- out-of-list word(s): ['这个', '很多']
+2026-11-07 14:42:42,939  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('服务员', 'NN'), ('和', 'CC'), ('经理', 'NN'), ('的', 'DEG'), ('服务', 'NN'), ('态度', 'NN'), ('差', 'VV'), ('很', 'AD'), ('多', 'A')]
+2026-11-07 14:42:42,947  INFO     TAGGED    '这个服务员和经理的服务态度差很多。' (level 4, 12 tags)
+2026-11-07 14:42:42,958  INFO     FALLBACK  '我的生活习惯跟我父母差很多。' -- out-of-list word(s): ['很多']
+2026-11-07 14:42:42,958  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('的', 'DEG'), ('生活', 'NN'), ('习惯', 'NN'), ('跟', 'P'), ('我', 'PN'), ('父母', 'NN'), ('差', 'VV'), ('很', 'AD'), ('多', 'A')]
+2026-11-07 14:42:42,962  INFO     TAGGED    '我的生活习惯跟我父母差很多。' (level 4, 10 tags)
+2026-11-07 14:42:42,974  INFO     FALLBACK  '两个老师都很好，不过他们的学历差很多。' -- out-of-list word(s): ['两个', '很多']
+2026-11-07 14:42:42,974  WARNING    HAIKU resegment call for '两个老师都很好，不过他们的学历差很多。' (cache miss on [('两个', 'PN')])
+2026-11-07 14:42:44,926  INFO     TAGGED    '两个老师都很好，不过他们的学历差很多。' (level 5, 13 tags)
+2026-11-07 14:42:44,942  INFO     FALLBACK  '老版本跟新版本的功能差很多。' -- out-of-list word(s): ['很多']
+2026-11-07 14:42:44,942  INFO       CACHE-ONLY resegmentation -> [('老', 'JJ'), ('版本', 'NN'), ('跟', 'CC'), ('新', 'JJ'), ('版本', 'NN'), ('的', 'DEG'), ('功能', 'NN'), ('差', 'VV'), ('很', 'AD'), ('多', 'A')]
+2026-11-07 14:42:44,945  INFO     TAGGED    '老版本跟新版本的功能差很多。' (level 6, 10 tags)
+2026-11-07 14:42:44,958  INFO     FALLBACK  '这两件衣服看起来差不多，但是质量差很多。' -- out-of-list word(s): ['两件', '很多']
+2026-11-07 14:42:44,958  WARNING    HAIKU resegment call for '这两件衣服看起来差不多，但是质量差很多。' (cache miss on [('两件', 'CD')])
+2026-11-07 14:42:47,076  INFO     TAGGED    '这两件衣服看起来差不多，但是质量差很多。' (level 4, 14 tags)
+2026-11-07 14:42:47,094  INFO     FALLBACK  '他们是双胞胎，但是两个人的性格差很多。' -- out-of-list word(s): ['两个', '很多']
+2026-11-07 14:42:47,094  INFO       CACHE-ONLY resegmentation -> [('他们', 'PN'), ('是', 'VC'), ('双胞胎', 'NN'), ('但是', 'CC'), ('两', 'CD'), ('个', 'M'), ('人', 'NN'), ('的', 'DEG'), ('性格', 'NN'), ('差', 'VV'), ('很', 'AD'), ('多', 'A')]
+2026-11-07 14:42:47,100  INFO     TAGGED    '他们是双胞胎，但是两个人的性格差很多。' (level 7, 12 tags)
+2026-11-07 14:42:47,114  INFO     FALLBACK  '这个孩子自私得很。' -- out-of-list word(s): ['这个']
+2026-11-07 14:42:47,114  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('孩子', 'NN'), ('自私', 'VA'), ('得', 'DER'), ('很', 'AD')]
+2026-11-07 14:42:47,117  INFO     TAGGED    '这个孩子自私得很。' (level 7, 6 tags)
+2026-11-07 14:42:47,128  INFO     OK        hanlp-valid   '我老婆的工作轻松得很。' -> [('我', 'PN'), ('老婆', 'NN'), ('的', 'DEG'), ('工作', 'NN'), ('轻松', 'VA'), ('得', 'DER'), ('很', 'AD')]
+2026-11-07 14:42:47,131  INFO     TAGGED    '我老婆的工作轻松得很。' (level 5, 7 tags)
+2026-11-07 14:42:47,142  INFO     FALLBACK  '拼音比汉字容易很多。' -- out-of-list word(s): ['拼音', '很多']
+2026-11-07 14:42:47,142  WARNING    HAIKU resegment call for '拼音比汉字容易很多。' (cache miss on [('拼音', 'NN'), ('很多', 'AD')])
+2026-11-07 14:42:48,300  INFO       NON-LIST 拼音 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-07 14:42:48,305  INFO     TAGGED    '拼音比汉字容易很多。' (level 10, 6 tags)
+2026-11-07 14:42:48,321  INFO     FALLBACK  '坐高铁比坐飞机方便很多。' -- out-of-list word(s): ['很多']
+2026-11-07 14:42:48,321  WARNING    HAIKU resegment call for '坐高铁比坐飞机方便很多。' (cache miss on [('很多', 'AD')])
+2026-11-07 14:42:49,650  INFO     TAGGED    '坐高铁比坐飞机方便很多。' (level 3, 8 tags)

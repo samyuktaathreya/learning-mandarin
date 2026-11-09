@@ -1,0 +1,108 @@
+
+########## rules  2026-11-07 14:29 ##########
+31 page(s) use the word(s); asking about 31.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG95AL1  Auxiliary verb "yao" and its multiple meanings
+  ASGD88UO  Comparing "yao" and "xiang"
+  ASGT97VF  Expressing "would like to" with "xiang"
+  ASGXVEAR  Wanting to do something with "yao"
+
+not:
+  ASG30A60  Expressing "either... or..." with "yaome"
+  ASG8F7D4  Expressing "if it were not for" with "yaobushi"
+  ASGDFQP7  Expressing "how about" with "yaobu"
+  ASGIVZJU  Negative commands with "buyao"
+  ASGN4S8O  Expressing "if… then…" with "yaoshi"
+  ASGXGADL  Conditions_with_"yao"_and_"jiu"
+  ASG50DR1  Adding emphasis with "fei....buke"
+  ASG765HD  Expressing "it depends" with "kan"
+  ASG9B210  Expressing "about to" with "jiuyao"
+  ASGNGEU8  Expressing "about to happen" with "le"
+
+unsure:
+  ASGVT2KN  Expressing "be going to" with "yao"
+  ASGDUZ55  Expressing_"as_one_likes"_with_"jiu"
+
+unrelated:
+  ASG98C1A  Expressing "as long as" with "zhiyao"
+  ASG5KNWW  Topic-comment sentences
+  ASG8QS6H  Advanced_uses_of_"zong"
+  ASG9E5BB  Advanced degree complements
+  ASGF3F2Y  Expressing "would rather" with "ningke"
+  ASGIQPUJ  Expressing future with "jiang"
+  ASGMD0YY  Expressing "unless" with "chufei"
+  ASGTPGXK  Stating the effect before the cause
+  ASGYJQAG  Using "lai" and "qu" when "verbing around"
+  ASGZH7K3  Affirmative-negative question
+  ASG35CD7  Expressing "had better" with "zuihao"
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+  ASG6F157  Expressing "originally" with "benlai"
+  ASGB44F6  Expressing "the more... the more..." with "yue… yue…"
+  ASGH13JY  Idiomatic phrases with "zai"
+
+[note] ASG95AL1 is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+[note] ASGD88UO is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+[note] ASGXVEAR is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-03
+Tagging 161 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261107_142908.txt
+  ...100/161
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: answer has no '## 1-03' section (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-03_20261107_143109.txt)
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 1-03
+<!-- written by claude-sonnet-5-5 on 2026-11-07; edit freely -->
+**Point:** The modal verbs 想 and 要 used for "want (to)". This includes 想要, 要 + noun ("I want a cup of water"), and 想 + noun meaning "miss".
+
+**Covers:**
+- 要 or 想 directly governing a verb phrase, as in 我想学中文 and 他要去书店.
+- 要 + noun for ordering or wanting something, as in 我们要三碗米饭.
+- 想要.
+- The 要不要 question form.
+- 想 + noun meaning "miss", as in 我想你.
+- Negatives such as 不想, and 什么都不要.
+- 要 with a time word as a plan, as in 星期五我们要开会.
+
+**Does not cover:**
+- 要 in other patterns: 要是, 要不是, 要不, 要么, 要……就……, 非要……不可, 就要/快要/将要……了, and 要看 ("it depends"). Each of these is a different grammar point.
+- 不要 as a prohibition, since it is tagged AD.
+- Sentence-initial 要我说.
+- "About to happen" 要……了 with a noun subject, for example 圣诞节要到了. It is a separate point.
+
+```rule
+match: 想/VV _
+match: /PN|NN|NT|NR 要/VV /VV|NN|PN|CD|DT|NR|M|JJ
+match: /PN|NN|NT|NR 也|都|还|先|再 要/VV /VV|NN|PN|CD|DT|NR|M|JJ
+match: 要/VV 不/AD 要/VV
+match: 什么 都|也 不要/VV
+unless: 要是|如果/CS
+unless: 要不是|要不|要么
+unless: 非 ... 要
+unless: 就|快|将 要/VV
+unless: 要/VV ... 就/AD
+unless: 要/VV 看|得看
+unless: /NN 要/VV ...
+```
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-03
+Tagging 161 labeled example(s) (cached after this run)...
+  ...100/161
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-03: rule on labeled examples (no AI) ===
+  examples of 1-03 matched:    69/70
+  counter-examples wrongly matched: 3/91   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (3) ---
+  大家都有点累了，要不休息一会儿吧。  -- ASGDFQP7 Expressing "how about" with "yaobu"  [matched: ^ 要/VV /VV|NN|PN|CD|DT|NR|M|JJ|VA|AD|P]
+  快回家吧，要不你爸妈会担心的。  -- ASGDFQP7 Expressing "how about" with "yaobu"  [matched: ^ 要/VV /VV|NN|PN|CD|DT|NR|M|JJ|VA|AD|P]
+  9点了，超市要关门了。  -- ASGNGEU8 Expressing "about to happen" with "le"  [matched: /PN|NN|NT|NR|M 要/VV /VV|NN|PN|CD|DT|NR|M|JJ|VA|AD|P]
+
+--- examples of 1-03 the rule misses (1) ---
+  他们明年要结婚了。  -- ASG95AL1 Auxiliary verb "yao" and its multiple meanings

@@ -1,0 +1,27 @@
+## 1-02
+**Point:** The modal verbs 会 and 能 before a verb phrase: 会 for a learned skill or "will", 能 for ability, possibility or a polite request.
+
+**Covers:** 会 or 能 (also 不会, 不能, 很能, 太能) directly before a verb, adjective, preposition or adverb. For example 他会说中文, 明天会下雨吗, 你能帮我吗, 他很能说. It also covers 可不可以 and 可以 + verb, because the labeled examples include them.
+
+**Does not cover:**
+- 总会/总能/总不会/总不能 (the 总 construction) and 将会 (the 将 construction).
+- 会 as a noun (开会, 国会, 会议, 机会, 误会).
+- 能 inside nouns (能力, 功能, 能量) and 才能 as one token.
+- Resultative 学会/听会/看会/懂会/教会, and 会/能 with no following verb phrase (e.g. "我不会。").
+
+```rule
+match: 会|能 /VV|VA|P|AD
+match: 可 不 可以
+match: 可以 /VV
+unless: 总 ... 会|能
+unless: 将 ... 会|能
+unless: 会|能/NN
+unless: 学|学习|听|看|懂|教 会
+```
+
+**Notes:**
+- I avoided the tag MD, which is not in the allowed list. Words are matched untagged, and the following-word condition keeps out the noun uses and the bare "会/能" cases.
+- 不会/MD and 可以/MD are still caught because the match depends on the next word's tag, not on 会's own tag.
+- The 总 and 将 exclusions apply to the whole clause, so a clause with both 总 and a later 会 or 能 is dropped. That favors precision.
+- 可以 + verb is included only because the labeled examples require it. Remove the last two match lines if 可以 should belong to a different point.
+- A few real 会-as-"meet" or resultative uses may slip through when the tokenizer splits them.

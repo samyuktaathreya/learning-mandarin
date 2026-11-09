@@ -1,0 +1,17 @@
+## 1-08
+**Point:** Counting nouns with a number plus a measure word (Number + M + Noun), including 个 with the number 一 omitted, and the money pattern 块/毛 and 多少钱.
+**Covers:** A number followed by a common nominal measure word, such as 一个人, 四杯牛奶, 三条鱼, 两块五毛 and 三块. Also 是个 / 有个 + noun (他是个老外, 我有个儿子), and 多少钱 ("how much").
+**Does not cover:** Sentences that also contain 本来, 根本, 人家, 中间 or 之间, because those belong to other grammar points and the labeled counter-examples include such sentences. Time-unit and verbal measure words (年, 天, 分钟, 次, 顿) are not matched. 口 is left out because it usually acts as a verbal measure (吃一口). Bare 这个/那个 + noun is also not matched, since it is a demonstrative use and not counting.
+```rule
+match: /CD 个|杯|本|家|间|块|页|条|只|瓶|台|支|颗|盒|件|张/M
+match: 是/VC 个/M
+match: 有/VE 个/M
+match: 多少 钱
+unless: 本来
+unless: 根本
+unless: 人家
+unless: 中间
+unless: 之间
+```
+
+**Notes:** The measure-word list is open-ended; add more nominal measure words (本, 辆, 双, 位, 种 and so on) if more coverage is wanted. 多少 is tagged CD and 钱 NN, so the 多少 钱 line matches the literal words. The `unless` lines are what keep the counter-example sentences out (e.g. 一个小孩子 with 根本, 一个沙发 with 中间, 多少户人家 with 人家). 一块儿/一起 should be tokenized as one word, so it should not trigger the 块 line; check this if the tagger splits it.

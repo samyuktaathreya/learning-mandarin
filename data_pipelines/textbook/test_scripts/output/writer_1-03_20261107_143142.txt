@@ -1,0 +1,31 @@
+## 1-03
+**Point:** The modal verbs 想 and 要 used for "want (to)". This includes 想要, 要 + noun ("I want a cup of water"), and 想 + noun meaning "miss".
+
+**Covers:**
+- 要 or 想 directly governing a verb phrase, as in 我想学中文 and 他要去书店.
+- 要 + noun for ordering or wanting something, as in 我们要三碗米饭.
+- 想要.
+- The 要不要 question form.
+- 想 + noun meaning "miss", as in 我想你.
+- Negatives such as 不想, and 什么都不要.
+- 要 with a time word as a plan, as in 星期五我们要开会.
+
+**Does not cover:**
+- 要 in other patterns: 要是, 要不是, 要不, 要么, 要……就……, 非要……不可, 就要/快要/将要……了, and 要看 ("it depends"). Each of these is a different grammar point.
+- 不要 as a prohibition, since it is tagged AD.
+- Sentence-initial 要我说.
+- "About to happen" 要……了 with a noun subject, for example 圣诞节要到了. It is a separate point.
+
+```rule
+match: 想/VV _
+match: /PN|NN|NT|NR 要/VV /VV|NN|PN|CD|DT|NR|M|JJ
+match: /PN|NN|NT|NR 也|都|还|先|再 要/VV /VV|NN|PN|CD|DT|NR|M|JJ
+match: 要/VV 不/AD 要/VV
+match: 什么 都|也 不要/VV
+unless: 要是|如果/CS
+unless: 要不是|要不|要么
+unless: 非 ... 要
+unless: 就|快|将 要/VV
+unless: 要/VV ... 就/AD
+unless: 要/VV 看|得看
+unless: /NN 要/VV ... 

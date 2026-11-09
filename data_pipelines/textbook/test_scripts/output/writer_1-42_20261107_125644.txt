@@ -1,0 +1,20 @@
+## 1-42
+<!-- written by claude-sonnet-5-5 on 2026-11-07; edit freely -->
+**Point:** 进行态: 在 / 正在 / 正 before a verb, or 呢 at the end, shows an action in progress.
+**Covers:** (1) 在, 正在 or 正 tagged AD before a verb, e.g. 她在看书, 外边正在下雨, 我正吃着饭呢. 正在 may be followed by a prepositional phrase before the verb, as in 我正在跟朋友打游戏. (2) 在 mis-tagged P in the labeled patterns 在上厕所/上班 and 谁在里面+V. (3) V着+O+呢, e.g. 老板开着会呢. (4) Bare "Subj. + V + O + 呢" with a common activity verb, e.g. 我吃饭呢.
+**Does not cover:** 在 as a location verb or preposition (他不在学校, 在上海上大学, 站在…), 在于, 在内, 早在, 在…内/上/下/看来, and 正好 or 正是. Also excluded: 正 + 要/想/准备 ("just about to"), stative V着…呢 with no noun after 着, and the Taiwanese 有 + 在 + V pattern (你有在做兼职, 我有在考虑), which is the "Taiwanese you" point rather than 进行态.
+
+```rule
+match: 在|正在|正/AD /VV
+match: 正在/AD
+match: 在/P 上/VV 厕所|班
+match: 谁 在/P 里面 /VV
+match: /VV 着/AS /NN ... 呢/SP
+match: ^ /PN|NN 吃|看|上|开|写|做|打|玩|洗|听|喝|学|读|画|唱|睡 /NN 呢/SP $
+unless: 早 在|正在
+unless: 正/AD 要|想|准备
+unless: 在/P 上/NR
+unless: 有 在
+```
+
+**Notes:** 在/AD directly before a verb is the main signal. The tagger sometimes labels this 在 as P (他在上厕所, 谁在里面洗澡), so those two are handled by narrow lexical patterns. Do not widen them to 在/P + any verb, because that would match location uses such as 病人在医院休息 and 其余的人在外面等. The bare "V O 呢" pattern uses a verb whitelist so that stative verbs (想你呢, 喜欢你呢) are not matched. 正/AD + /VV could catch rare non-progressive uses, so 正 + modal verbs is excluded. 有 directly before 在 (有在做, 我妈妈有在吃素) is the Taiwanese "有 + V" construction, so any sentence containing it is excluded, whatever tag 有 gets (VE or VV).

@@ -1,0 +1,27 @@
+## 1-11
+**Point:** Time adverbs before a verb: 在/正/正在 for an action in progress (including the 着…呢 and verb + object + 呢 forms), plus 先 ("first") and 马上 ("right away") before a verb.
+**Covers:**
+- 在, 正 or 正在 directly before a verb: 她在看书, 我正在吃饭, 他正上厕所呢.
+- 在 tagged P directly before a verb after a subject: 他在上厕所.
+- Verb + 着 … 呢: 老板开着会呢.
+- Bare "Subj. + common action verb + object + 呢": 我吃饭呢, 爷爷看报纸呢.
+- 先 or 马上 directly before a verb: 我先说吧, 医生马上来.
+- 有时 tagged AD before a verb.
+
+**Does not cover:**
+- 正好 (a different word, covered by 2-20): "coincidentally" and "just right".
+- 正 before 是, as in 现在正是吃饺子的时候, and 正常, 正式, 正确, 先生, 先后, 真正.
+- 在 as a locative preposition followed by a place (在北京工作). It is not progressive and is excluded because it is borderline.
+- Sentences that contain 正好 anywhere are excluded.
+
+```rule
+match: 在|正在|正/AD /VV
+match: /PN|NN 在/P /VV
+match: 先|马上|有时/AD /VV
+match: /PN|NN /VV 着/AS ... 呢/SP
+match: ^ /PN|NN 吃|喝|看|听|写|读|洗|上|开|做|打|玩|学|睡|唱|找|等|修|画/VV /NN /NN? 呢/SP
+match: ^ /PN|NN 打电话|开会|上课|上班|洗澡|睡觉|做饭|开车/VV 呢/SP
+unless: 正好
+```
+
+**Notes:** Verb + object + 呢 is limited to a list of concrete action verbs because a generic pattern would wrongly catch stative verbs like 喜欢 (我喜欢猫呢). The 着…呢 line may also match existential 着 (墙上挂着画呢). 在/P + place + verb (谁在里面洗澡) is not matched on purpose, since 他在家吃饭 is not progressive. Add that pattern only if you can restrict the place word. 在/P followed directly by a verb could occasionally be a nominal use (在学习上); this is rare.

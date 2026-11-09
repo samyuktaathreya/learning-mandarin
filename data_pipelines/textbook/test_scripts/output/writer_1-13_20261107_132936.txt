@@ -1,0 +1,30 @@
+## 1-13
+**Point:** 关联副词 也 ("also / too") and 还 ("and also"). 也 goes after the subject and before the verb or adjective. 还 starts a second clause where the same subject does an additional thing.
+
+**Covers:**
+- 也 directly after a noun, pronoun or proper noun, as in 我也是学生, 她也有一个儿子, 房价涨了，租金也涨了, 他是我的偶像，也是我的向导. This covers the "another subject, same predicate" use and the "也 + 是/有/verb" use. The tagger sometimes tags 也 as CC, so both AD and CC are accepted.
+- A clause-initial 还 followed by a common additive verb or modal, as in 她有一个弟弟，还有一个妹妹 (only where the verb is 要/想/会/能/可以/喜欢/送/买/请/做/吃), 我想吃冰淇淋，还想吃汉堡, 你要一杯咖啡，还要什么？
+
+**Does not cover:**
+- Emphatic or fixed 也 patterns. These are 再也, 一点儿/一…也不, 连…也, 什么/谁/哪/怎么…也, and the concessive 即使/就是/就算/哪怕/不管/无论/尽管/虽然/宁可/即便 … 也. Also 除了…也 and 也好.
+- 还 meaning "still" (还没, 还在, 还很), 还是, 还好, 还有 after a subject, and comparative 还.
+- 也 that does not directly follow a noun or pronoun, such as 我们也都去 or 他也很高兴 with an adverb in between. These are skipped to keep precision.
+
+```rule
+match: /NN|PN|NR 也/AD|CC
+match: ^ 还/AD 要|想|会|能|可以|喜欢|送|买|请|做|吃
+unless: 再
+unless: 什么|谁|哪|哪儿|哪里|怎么|多
+unless: 连|都|一点|一点儿
+unless: 一/CD ... 也
+unless: 即使|即便|就是|就算|哪怕|不管|无论|尽管|虽然|宁可|宁愿|除了|既
+unless: 也好
+unless: 还是
+unless: 还好
+```
+
+**Notes:**
+- Clause-initial 还 plus a verb can still be a plain "still/even more" 还 at the start of a sentence, for example 还要更好. The verb list is deliberately narrow for this reason.
+- Add 还有 only if you can first require a preceding clause; as a bare pattern it would match 还有一个人没来.
+- 都 and 再 are blanket exclusions applied to the whole sentence. They cost some good sentences, which is accepted for precision.
+- No labeled positive examples were available, so the rule was checked against the unlabeled course sentences. Sentences such as 房价涨了，租金也涨了, 他是我的偶像，也是我的向导 and 他有勇气，也有活力 are expected to match. The unlabeled 他做事很冷静，也很细致 and 我记得你，也记住了你的话 have a clause-initial 也 after a comma with no noun before it, so they are not matched. The CC-tagged 也 in clause-initial position is likewise not matched.
