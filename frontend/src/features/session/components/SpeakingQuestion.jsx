@@ -312,6 +312,7 @@ export default function SpeakingQuestion({
                 transcriptionResult.error
                     ? <div className="error-container">
                         <p className="warning-text">⚠️ Couldn't check that — skip or try again</p>
+                        <p className="status-message">{transcriptionResult.error}</p>
                         <button onClick={onTryAgain}>Try Again</button>
                         {/* They spoke; only the check failed, so skipping still counts */}
                         <button type="button" onClick={() => onAdvanceQuestion(true)}>Skip</button>
