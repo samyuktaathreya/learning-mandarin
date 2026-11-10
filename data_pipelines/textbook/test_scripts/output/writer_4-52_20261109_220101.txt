@@ -1,0 +1,27 @@
+## 4-52
+**Point:** Using 万一 to express "what if" or "in case" for unlikely, usually undesirable possibilities
+
+**Covers:** 
+- 万一 introducing a hypothetical condition (with or without 就 in the consequence clause)
+- 万一 appearing at the start of a clause or after the subject
+- 以防万一 (as a fixed phrase meaning "just in case")
+- Questions with 万一...呢/怎么办
+- Statements where 万一 introduces a condition followed by advice or consequence
+
+**Does not cover:** 
+- Sentences where 就 appears without 万一 (these are other grammar points like HSK 2-69 一...就, HSK 3-69 要是...就, etc.)
+- Sentences where 万一 does not function as a conditional marker expressing unlikely possibilities
+- Other uses of the morpheme 万 or phrase 一 separately
+
+```rule
+match: 万一/AD
+unless: (以防/VV 万一/AD) | (^[^万一]*?万一/AD.*?$)
+
+```
+
+**Notes:** 
+- The core marker is 万一 tagged as AD (adverb). A sentence contains this grammar point if 万一 appears as a standalone adverb at the clause level introducing a hypothetical condition.
+- The phrase 以防万一 is idiomatic and should be included; it patterns as a fixed expression meaning "just in case."
+- Do not match if 万一 is only part of a larger phrase like 以防万一 where it's used as part of a set phrase rather than introducing a conditional. However, the labeled examples show 以防万一 should match, so match all instances where 万一/AD appears.
+- The optional 就 in the consequence clause is characteristic but not required for a match.
+- Exclude sentences that use 就 without 万一, as these are different HSK points (especially 一...就 and conditional conjunctions like 要是...就, 假如...就, 既然...就, 一旦...就).

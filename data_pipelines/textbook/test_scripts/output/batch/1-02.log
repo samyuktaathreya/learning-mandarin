@@ -243,3 +243,122 @@ Harder grammar points made only of HSK 1 words (the review is warned about them)
   我不会读。  -- no accurate English among: I can't pronounce it.
 
 Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-02_level1_20261107_145827.csv
+
+########## tatoeba  2026-11-09 22:03 ##########
+Filling 1-02 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 2-02, 2-04, 2-05, 2-07, 2-09, 2-12, 2-13, 2-15, 2-16, 2-19, 2-21, 2-22, 2-23, 2-26, 2-27, 2-28, 2-29, 2-30, 2-32, 2-33, 2-34, 2-43, 2-44, 2-45, 2-46, 2-47, 2-51, 2-55, 2-58, 2-59, 2-67, 2-69, 2-74, 2-75, 2-76, 2-78, 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-02 in: 5  -> Tatoeba needs to add 15 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 2) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-02 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2814  2. contain the point's word(s)
+     2808  3. new (not in DB, not a duplicate)
+     1045  4. at most 2 characters outside HSK 1 words
+      143  5. really HSK 1
+       23  5b. no harder grammar point (of the 57 with a rule)
+       15  6. the rule finds 1-02
+       14  6b. no hidden word a learner can't work out
+       14  7. both checks say 1-02, English chosen
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (6) ---
+  这里不能停车。  -- already in the database
+  您能帮我吗？  -- same text as tatoeba 4071817 (translations pooled)
+  你会开车吗？  -- already in the database
+  你会写多少汉字？  -- same text as tatoeba 6057136 (translations pooled)
+  你能说汉语吗？  -- same text as tatoeba 6057669 (translations pooled)
+  一切都会好起来的。  -- same text as tatoeba 7767746 (translations pooled)
+
+--- dropped at step 4 (1763), first 12 ---
+  我永远不会忘记你的亲切。  -- 6 characters no HSK 1 word uses: 亲切忘永记远
+  我们永远不会忘记你的亲切。  -- 6 characters no HSK 1 word uses: 亲切忘永记远
+  丽萨不但会说英文，而且会说法文。  -- 6 characters no HSK 1 word uses: 且丽但法而萨
+  只要你微笑，我就会快乐。  -- 5 characters no HSK 1 word uses: 乐就微快笑
+  一滴滴水能聚成湖泊。  -- 5 characters no HSK 1 word uses: 成泊湖滴聚
+  社会保障吗？他们在说什么笑话？  -- 4 characters no HSK 1 word uses: 保社笑障
+  我能在哪里乘上机场巴士？  -- 3 characters no HSK 1 word uses: 乘场巴
+  毕竟，即使是神也会偶尔出差错。  -- 9 characters no HSK 1 word uses: 使偶即尔差毕神竟错
+  会议明天就结束了。  -- 4 characters no HSK 1 word uses: 就束结议
+  木头能浮在水面上。  -- 3 characters no HSK 1 word uses: 头木浮
+  单凭力量不能保证取胜。  -- 8 characters no HSK 1 word uses: 保凭力单取胜证量
+  他会讲十门语言。  -- 3 characters no HSK 1 word uses: 言讲门
+
+--- dropped at step 5 (902), first 12 ---
+  她会十门语言。  -- level 3: 门 L2, 语言 L3
+  你等一会然后再给我打电话，可以吗？  -- level 3: 等 L2, 然后 L3, 打 L2
+  谁也不能帮我。  -- level 2: 帮 L2
+  您可能找不到。  -- level 2: 可能 L2
+  我知道他会画画。  -- level 2: 画 L2
+  我能帮你什么忙吗？  -- level 2: 帮 L2
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+  机会错过了。  -- level 4: 机会 L3, 错过 L4
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3, 打 L2
+  我休息一会没问题吧？  -- level 2: grammar 2-79
+  警察会来吗？  -- level 4: 警察 L4
+  他不会讲法语。我也不会。  -- level 10: 讲 L3, 法语 (not in list)
+
+--- dropped at step 5b (120), first 12 ---
+  我明天能来。  -- harder grammar: 2-04 (HSK 2)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  会，我会说中文。  -- harder grammar: 2-04 (HSK 2)
+  不， 我不会说英文。  -- harder grammar: 2-04 (HSK 2)
+  他会来吗?我觉得他不会来。  -- harder grammar: 2-04 (HSK 2)
+  我今天去大学读书，明天我会再去。  -- harder grammar: 3-16 (HSK 3)
+  你会来，我很高兴。  -- harder grammar: 2-04 (HSK 2)
+  他们明天晚上都会去北京大学上课。  -- harder grammar: 2-04 (HSK 2)
+  她不会读书写字。  -- harder grammar: 2-04 (HSK 2)
+  我会说中文。  -- harder grammar: 2-04 (HSK 2)
+  明天会下雨。  -- harder grammar: 2-04 (HSK 2)
+  你能看吗？  -- harder grammar: 2-04 (HSK 2)
+
+--- dropped at step 6 (8) ---
+  会是谁呢？  -- rule: no match: line matched
+  怎么会呢？  -- rule: no match: line matched
+  他在看奥运会。  -- rule: no match: line matched
+  她在看奥运会。  -- rule: no match: line matched
+  你觉得明天会有个好天气吗？  -- rule: no match: line matched
+  我能吗？  -- rule: no match: line matched
+  是你不能还是你不想？  -- rule: no match: line matched
+  我再也不能工作了。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我今天能早点下班吗？  -- hidden word a learner can't work out: 早点 (breakfast)
+
+--- dropped at step 8 (14) ---
+  我们会很忙。  -- difficulty review: (1/2); no answer from the review
+  我会很想他。  -- difficulty review: (1/2); no answer from the review
+  她会没事的。  -- difficulty review: (1/2); no answer from the review
+  汤姆不会高兴。  -- difficulty review: (1/2); no answer from the review
+  它不会太贵的。  -- difficulty review: (1/2); no answer from the review
+  下个月他会很忙。  -- difficulty review: (1/2); no answer from the review
+  玛丽明天会很忙。  -- difficulty review: (1/2); no answer from the review
+  我们会在那里见他。  -- difficulty review: (1/2); no answer from the review
+  我能在这里睡觉吗？  -- difficulty review: (1/2); no answer from the review
+  我觉得明天会很热。  -- difficulty review: (1/2); no answer from the review
+  他们说天气会很热。  -- difficulty review: (1/2); no answer from the review
+  我能在这里吃午饭吗？  -- difficulty review: (1/2); no answer from the review
+  我们能在哪里打电话？  -- difficulty review: (1/2); no answer from the review
+  人们怎么能在飞机上睡觉？  -- difficulty review: (2/2); '怎么能' construction expresses managed ability/way of doing, which is beyond HSK 1 level; learners at this level only know 怎么 as 'how?' in simple questions
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-02_level1_20261109_220339.csv

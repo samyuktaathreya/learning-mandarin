@@ -1,0 +1,12 @@
+## 3-26
+**Point:** Using 为了 or 为...而 to express the purpose or beneficiary of an action
+**Covers:** Sentences where 为了 or 为...而 introduces the purpose/beneficiary of an action, appearing before the main verb (or after 是 in copular sentences)
+**Does not cover:** Cases where 为 is part of other verbs like 成为 or 变为; sentences using only 因为 (which expresses reason/cause, not purpose)
+
+```rule
+match: 为了/P
+match: 为/P ... 而/MSP
+unless: 成为|变为
+```
+
+**Notes:** The rule matches two structures: (1) 为了 as a preposition introducing purpose, which can appear clause-initially or after 是; (2) the pattern 为...而 where 为 is tagged as P and 而 as MSP, with any number of words between them. The unless clause excludes verbs 成为 and 变为 where 为 is part of the verb root, not a preposition. The tagger sometimes marks 为了 as VV when it's part of a verb compound (e.g., 变为了), which the unless clause filters out. Sentences with 因为 alone are excluded because they express cause/reason rather than purpose.

@@ -1,0 +1,267 @@
+
+########## rules  2026-11-09 21:41 ##########
+27 page(s) use the word(s); asking about 27.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG79STE  Degree complement
+
+not:
+  ASG0C825  Expressing "have to" with "budebu"
+  ASG73H8K  Comparing "budebu" and "zhihao"
+  ASG9E5BB  Advanced degree complements
+  ASGA0098  Indicating negative impact with "haide"
+  ASGB8BWA  Adjectival complement "de budeliao"
+  ASGCPJPQ  Potential complement
+  ASGGJA6A  Expressing "to be worth" doing with "zhide"
+  ASGK0ZG7  Expressing “must" with "feidei"
+  ASGKQEG9  Comparing "xiande" and "kanqilai"
+  ASGPXLP9  Expressing "must" with "dei"
+  ASG516F9  Advanced potential complements
+  ASG765HD  Expressing "it depends" with "kan"
+  ASG8QS6H  Advanced_uses_of_"zong"
+  ASGFPV2C  Expressing "no wonder"
+  ASGG1ZBL  Adjectival complement "de hen"
+  ASGM5ZAB  Complement "-zhao"
+  ASGXXP6M  Advanced usages of the contrary "dao"
+
+unsure:
+  ASG5MOMM  Structural particle "de"
+  ASG5DG95  Expressing_comparable_degree_with_"you"
+  ASG8DVSO  Basic comparisons with "bu bi"
+
+unrelated:
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+  ASG6F157  Expressing "originally" with "benlai"
+  ASG6KUS5  Expressing "much more" in comparisons
+  ASGC701A  Asking how something is with "zenmeyang"
+  ASGHKZP4  Comparing "turan" and "huran"
+  ASGWH1D5  Comparisons with "buru"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-51
+Tagging 24 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_214124.txt
+  ...100/145
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-51
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Degree complement with 得: Verb + 得 + Adjective/Degree modifier to express how an action is performed or to what degree a quality is true
+
+**Covers:** Verb + 得 + adjective or degree modifier (including adverbs like 很, 太, 挺 + adjective; or bare adjectives), expressing the manner or result of a verb action
+
+**Does not cover:** Potential complements (得 + resultative verbs like 懂, 会, 了); Modal 得 meaning "must"; 不得不; 值得; 显得; 害得; 怪不得; adjectives + 得很/得不得了 (adjectival complements); 得 as a separate verb meaning "get/obtain"
+
+```rule
+match: /VV /DER /AD? /VA
+match: /VV /DER /VA
+match: /VV /VV /DER /AD? /VA
+unless: 不得不
+unless: 值得
+unless: 显得
+unless: 害
+unless: 怪不得
+unless: 难怪
+unless: /DER 倒 /VA
+unless: /DER 不得了
+unless: /DER 得很
+unless: /DER 得不得了
+unless: /DER 得很
+unless: /DER 很 /AD
+unless: /VV /DER /VV
+unless: /DER /VV 吗
+unless: /DER /VV 咦
+unless: /VV /DER 得 /VV
+```
+
+**Notes:** This rule captures the core structure of degree complements following verbs. It matches: (1) VV + 得 + optional AD + VA; (2) VV + 得 + VA directly; (3) VV + VV + 得 + optional AD + VA (for verb-repetition pattern with objects). Exclusions remove potential complements (得 followed by resultative verbs), the "倒" contrary pattern, modal uses, and related structures. The pattern /VV /DER /VV is excluded to avoid matching potential complements. Note that some counter-examples show 得 tagged as DEC (structural particle) rather than DER; these won't match the rule's DER requirement, so they're naturally excluded.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-51
+Tagging 24 labeled example(s) (cached after this run)...
+  ...100/145
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-51: rule on labeled examples (no AI) ===
+  examples of 2-51 matched:    23/24
+  counter-examples wrongly matched: 0/121   <- should be 0
+
+--- examples of 2-51 the rule misses (1) ---
+  你们谈得顺利吗？  -- ASG79STE Degree complement
+
+########## tatoeba  2026-11-09 22:10 ##########
+Filling 2-51 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 50 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_221100.txt
+  ...100/518
+  ...200/518
+  ...300/518
+  ...400/518
+  ...500/518
+  Deciding 3 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+  [warning] hidden-word call failed (JSONDecodeError('Extra data: line 3 column 1 (char 51)')); those words count as hidden this run
+    hidden  怎么说呢 = 怎么 + 说 + 呢  (Why is that?; How come?)
+    hidden  飞快 = 飞 + 快  (very fast)
+    hidden  跟不上 = 跟 + 不 + 上  (not able to keep up with)
+
+Course sentences at HSK 2 the rule already finds 2-51 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-51 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1003  2. contain the point's word(s)
+     1003  3. new (not in DB, not a duplicate)
+      518  4. at most 2 characters outside HSK 2 words
+      111  5. really HSK 2
+       90  5b. no harder grammar point (of the 20 with a rule)
+       38  6. the rule finds 2-51
+       34  6b. no hidden word a learner can't work out
+       19  7. both checks say 2-51, English chosen
+       19  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (14 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (19) ===
+  做得好！  (Good job!)  [tatoeba 4261676]
+  做得很好。  (It's well done.)  [tatoeba 1776598]
+  你做得对。  (You're doing it right.)  [tatoeba 10040469]
+  她吃得慢。  (She eats slowly.)  [tatoeba 10042058]
+  坐得舒服。  (Sit comfortably.)  [tatoeba 12278337]
+  她做得对。  (She's doing it right.)  [tatoeba 13563481]
+  雨下得很大。  (It is raining hard.)  [tatoeba 9992078]
+  雪下得很大。  (It's snowing heavily.)  [tatoeba 10648732]
+  你们说得对。  (You guys are right.)  [tatoeba 13149128]
+  我考得很好。  (I did well on the test.)  [tatoeba 13667864]
+  我的狗跑得快。  (My dog is fast.)  [tatoeba 1424275]
+  时间过得真快。  (Time flew.)  [tatoeba 5102222]
+  我住得太远了。  (I live too far away.)  [tatoeba 6149006]
+  别吃得这么快。  (Don't eat so fast.)  [tatoeba 6678404]
+  我工作得太多了。  (I work too much.)  [tatoeba 1783806]
+  他们玩得很高兴。  (They have a good time.)  [tatoeba 2357749]
+  那本书卖得很好。  (This book sells well.)  [tatoeba 5254679]
+  你知道得太多了。  (You know too much.)  [tatoeba 5663491]
+  学得快，忘得快。  (Soon learnt, soon forgotten.)  [tatoeba 7768304]
+
+--- dropped at step 4 (485), first 12 ---
+  这个城市的交通方便得很。  -- 3 characters no HSK 2 word uses: 城方通
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  不入虎穴，焉得虎子。  -- 4 characters no HSK 2 word uses: 入焉穴虎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  世界上已经够热的地方会变得让人无法忍受。  -- 9 characters no HSK 2 word uses: 世受变够忍方无法界
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  你不可能『得到』一段美好的感情,你只能找到一个你心爱的人来共同经营、造就、完成一段美好的感情。  -- 8 characters no HSK 2 word uses: 共心感成段美营造
+  如果你没决心做好男人,那你就得不到好女人。  -- 3 characters no HSK 2 word uses: 决如心
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  在英国，以珍稀物种为主题的公园变得越来越受人们的欢迎。  -- 10 characters no HSK 2 word uses: 主受变园物珍种稀越迎
+
+--- dropped at step 5 (407), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  我最近忙得很。  -- level 3: 最近 L3
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 分数 L4
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你干得很好。  -- level 3: 干 L3
+  我觉得很热。  -- level 1: no list words
+  中国发展得太快了。  -- level 3: 发展 L3
+  他性感得很。  -- level 7: 性感 L7
+  可能你工作得太拼命？  -- level 7: 拼命 L7
+  六除以二得三。  -- level 6: 除 L6, 以 L5
+
+--- dropped at step 5b (21), first 12 ---
+  你得等一等看。  -- harder grammar: 4-01 (HSK 4)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  这些都是你不得不做的吗？  -- harder grammar: 4-01 (HSK 4)
+  你们得快点。  -- harder grammar: 4-01 (HSK 4)
+  我们得洗衣服。  -- harder grammar: 4-01 (HSK 4)
+  我得找到他。  -- harder grammar: 4-01 (HSK 4)
+  我得说这事。  -- harder grammar: 4-01 (HSK 4)
+  我们还得回去。  -- harder grammar: 4-01 (HSK 4)
+  我得去医院。  -- harder grammar: 4-01 (HSK 4)
+  我得知道我们要什么时候到。  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (52) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  我真的得走了。  -- rule: unless 得/VV
+  说得也是。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  我记得见过他。  -- rule: no match: line matched
+  你游泳游得比我好。  -- rule: no match: line matched
+  他看得懂中文。  -- rule: no match: line matched
+  你真的吃得下这东西?  -- rule: no match: line matched
+  哪里都看得到好人。  -- rule: no match: line matched
+  你有听到他说得有多快吗？  -- rule: no match: line matched
+  我觉得你在笑我们。  -- rule: no match: line matched
+  你觉得累吗？  -- rule: no match: line matched
+  在德国过得怎么样？  -- rule: no match: line matched
+  他写得一手好字。  -- rule: no match: line matched
+  你可能得帮她。  -- rule: unless 得/VV
+  你比我记得好。  -- rule: no match: line matched
+  你觉得我能帮忙吗？  -- rule: no match: line matched
+  得有人做点事。  -- rule: unless 得/VV
+  雨大得让我不能走。  -- rule: no match: line matched
+  你来得很早。  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: unless /DER /AD? /VA 吗
+  我的意思不是她做得对。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  我记得你说你什么也没看到。  -- rule: no match: line matched
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  你来得很快。  -- rule: no match: line matched
+  我记得告诉过你了。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  要得。  -- rule: unless 得/VV
+  我不觉得他自己一个人会做到。  -- rule: no match: line matched
+  你觉得这个怎么样？  -- rule: no match: line matched
+  我听得到。  -- rule: no match: line matched
+  狗跑得比人快。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  他长得高吗？  -- rule: unless /DER /AD? /VA 吗
+  我们做得到吗？  -- rule: no match: line matched
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  你看得懂这本书吗？  -- rule: no match: line matched
+  她的新书卖得不错。  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  和他在一起我就没觉得舒服过。  -- rule: no match: line matched
+  你觉得周五怎么样？  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  汤姆做得有点过头了。  -- rule: no match: line matched
+  你不记得问题吗？  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+  我不记得有打电话给你。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  “你说得不对” “那怎么说呢？”  -- hidden word a learner can't work out: 怎么说呢 (Why is that?; How come?)
+  跑得飞快  -- hidden word a learner can't work out: 飞快 (very fast)
+  我很小的时候就游得很好了。  -- hidden word a learner can't work out: 小的 ((coll.) young child; the little one(s) of the family)
+  你走得太快我跟不上。  -- hidden word a learner can't work out: 跟不上 (not able to keep up with)
+
+--- dropped at step 7 (1) ---
+  我长得高。  -- no accurate English among: I'm big.
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-51_level2_20261109_221120.csv

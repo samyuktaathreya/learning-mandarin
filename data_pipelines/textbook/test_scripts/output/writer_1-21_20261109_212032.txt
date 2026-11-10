@@ -1,0 +1,20 @@
+## 1-21
+**Point:** Aspect particle 了 (le) expressing completion of an action
+**Covers:** Verb + 了 + Object constructions where 了 marks the completion of an action. Includes: (1) Verb + 了 + [Number + Measure Word] + Object; (2) Verb + 了 + Duration + Object; (3) Verb + 了 + Object (simple objects); (4) Verb + 了 + Object + 了 (le at end); (5) questions with 了吗; (6) sentences with time expressions, modifiers, or complements between verb and object.
+**Does not cover:** (1) Change of state (adjective + 了, intransitive verbs + 了 with no object); (2) Expressing "now" or realization (知道了, 懂了); (3) Expressing "not anymore" (不/没 + verb + 了); (4) Potential complements (得了, 不了, 得起, 不起); (5) Degree complements (极了, 死了, 坏了); (6) Duration expressions of ongoing actions; (7) About-to-happen (快了, 快要了); (8) Other uses of 了 that are not aspect particles (e.g., 为了, 除了, 极了, 太...了)
+
+```rule
+match: /VV .* /AS .* /NN
+match: /VV .* /AS .* /SP
+unless: /VA .* /AS .* /SP
+unless: /VA .* /VV .* /AS .* /SP
+unless: /AD 快 .* /VV .* /AS .* /SP
+unless: /AD 不 .* /VV .* /AS .* /SP
+unless: /AD 没 .* /VV .* /AS .* /SP
+unless: /VV .* 得 /VV
+unless: /VV .* 不 /AD .* /VV
+unless: P 除了
+unless: P 为了
+```
+
+**Notes:** The rule matches verbs (VV) followed by 了 as aspect particle (AS) and then either a noun (NN) or sentence-final particle (SP like 吗). It excludes constructions where 了 indicates change of state (adjective predicates), potential complements (得/不 patterns), imperative/prohibition patterns (不/没 before verb), about-to-happen expressions (快), and prepositions like 除了 or 为了. The pattern allows any intervening material (numbers, measures, duration, modifiers, complements) between verb and object since all of these are attested in labeled examples.

@@ -1,0 +1,99 @@
+
+########## rules  2026-11-09 21:56 ##########
+48 page(s) use the word(s); asking about 40.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGJIP2E  Conceding with "ba"
+  ASGL4O5E  Expressing indifference with "jiu"
+
+not:
+  ASG8RW47  Limiting scope with "jiu"
+  ASG9B210  Expressing "about to" with "jiuyao"
+  ASGDHC1H  Softening speech with "ba"
+  ASGEB54D  Expressing "then" with "jiu"
+  ASGELOTT  Reviewing options with "ba"
+  ASGEXR6R  Expressing the only two possibilities
+  ASGF1TQ2  Expressing "even if…" with "jiushi"
+  ASGKITRZ  Expressing earliness with "jiu"
+  ASGLI513  Expressing "even if…" with "jiusuan"
+  ASGMPZ6D  Suggestions with "ba"
+  ASGPW8PP  Expressing "small quantity" with "jiu"
+  ASGV55Y4  Comparing "youdian" and "yidian"
+  ASGY21RK  Emphasis with "jiushi"
+  ASG78FDE  Expressing a last chance with "zaibu... jiu..."
+  ASG7AUNJ  Using "zhe" when "verbing away"
+  ASG98C1A  Expressing "as long as" with "zhiyao"
+  ASGEHTV5  Expressing "a bit too"
+  ASGG4BX9  Expressing "since" with "jiran"
+  ASGGIVT0  Expressing "if... then..." with "ruguo... jiu..."
+  ASGHNDX4  Expressing "if… then…" with "jiaru"
+  ASGLOS9C  Comparing "cai" and "jiu"
+  ASGN4S8O  Expressing "if… then…" with "yaoshi"
+  ASGR6Q2J  Expressing "let alone" with "bie shuo"
+  ASGRURCZ  Expressing "not at all" with "yidianr ye bu"
+  ASGTFUD0  Events in quick succession with "yi... jiu..."
+  ASGU3ZV1  Expressing "once...then..." with "yidan...jiu..."
+  ASGVRGW2  Expressing "if… then…" with "jiashi"
+  ASG06EA8  Expressing "all at once" with "yixiazi"
+  ASG68F61  Expressing "when" with "dengdao"
+
+unsure:
+  ASGDUZ55  Expressing_"as_one_likes"_with_"jiu"
+  ASGXGADL  Conditions_with_"yao"_and_"jiu"
+
+unrelated:
+  ASGGOUJB  Expressing "almost" using "chadian mei"
+  ASG10CAE  Expressing "less than" with "budao"
+  ASG1RE80  Expressing contrariness with "dao"
+  ASG38F8A  Expressing "all" with "fanshi"
+  ASG3ZS9G  Expressing "let alone" with "hekuang"
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+  ASG6ESWW  Expressing "almost" using "chadian"
+
+[note] ASGJIP2E is tagged HSK [2] on the wiki, the point is HSK 3 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 3-80
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215700.txt
+  ...100/251
+  ...200/251
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-80
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing indifference or concession with "X就X(点儿)吧" — repeating a word/phrase with 就 and ending with 吧 to show resignation or "I don't care" attitude.
+
+**Covers:** 
+- Verb + 就 + Verb + 吧 (e.g., 走就走吧)
+- Adjective + 就 + Adjective + 吧 (e.g., 慢就慢吧)
+- Negation + Verb/Adj. + 就 + Negation + Verb/Adj. + 吧 (e.g., 不帮就不帮吧)
+- Optional 点儿 between repeated element and 吧 (e.g., 忙就忙点儿吧)
+
+**Does not cover:** 
+- Simple suggestions with 吧 without the X就X repetition (我们走吧)
+- 就 in conditional structures (只要...就, 如果...就)
+- 就 for other meanings (emphasis, earliness, scope, indifference without the repetition pattern)
+- 吧 for asking opinions or softening statements without 就 and repetition
+- Constructions where 就 and 吧 are present but not forming the X就X吧 pattern
+
+```rule
+match: _ 就/AD _ 吧/SP $
+unless: 只要|如果|既然|要是|假|万一|再不|一旦|就算|就是|只有|一下|等|说着|动着 ... 就
+unless: ^ ... 就/AD ... 就/AD
+```
+
+**Notes:** The core pattern requires (1) a word or short phrase, (2) 就 tagged as AD, (3) repetition of that same word/phrase (may include optional 点儿/CD or particles), (4) 吧/SP at clause end. The word/phrase can be a single verb, adjective, or negation+verb/adj. combination. The second "unless" prevents matching when 就 appears earlier in the clause in a different pattern (like conditionals or other uses).
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-80
+Tagging 12 labeled example(s) (cached after this run)...
+  ...100/251
+  ...200/251
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-80: rule on labeled examples (no AI) ===
+  examples of 3-80 matched:    11/12
+  counter-examples wrongly matched: 0/239   <- should be 0
+
+--- examples of 3-80 the rule misses (1) ---
+  忙就忙点儿吧，我们过几天就能休息了。  -- HSK list example

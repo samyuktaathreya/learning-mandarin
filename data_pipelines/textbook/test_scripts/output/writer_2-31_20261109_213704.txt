@@ -1,0 +1,32 @@
+## 2-31
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Degree complement (得) to modify how a verb is done or to what degree an adjective applies
+
+**Covers:** Verb + 得 + (adverb) + adjective (跑得快, 吃得太饱, 说得很好, 说得不太好); Verb + 得 + 怎么样 / (还)可以; Adjective + 极了 / 死了 / 坏了 (好极了, 可爱死了, 高兴坏了); repeated-verb and topic-fronted structures (你写字写得很漂亮, 你的字写得很漂亮)
+
+**Does not cover:** Modal 得 (have to); 值得 (worth); 不得不 (must); 显得 (appear); potential complements, including the question form with 吗 (看得清楚吗); complement 着; comparison 得多; 的 / 地 structures
+
+```rule
+match: /VV /DER /AD? /AD? /VA
+match: /VV /DER 怎么样/VV
+match: /VV /DER /AD? 可以/VV
+match: /VA /DER /AD|VA
+match: /VA 极了|极/AD
+match: /VA 死 了
+match: 急|高兴 坏 了
+unless: 值得/VV
+unless: 不得不/AD
+unless: 显得/VV
+unless: 得/VV
+unless: /DER 着/VV
+unless: /DER 多/VA
+unless: /DER ... 吗/SP
+```
+
+**Notes:** 
+- The first pattern allows up to two adverbs between 得 and the adjective, so 画得很好, 学得挺快的, 吃得太饱了 and 打得很不错 all match.
+- Verbs tagged VV as the complement (怎么样, 可以) are matched by their own patterns instead of a blanket /VV /DER /VV rule.
+- The modal 得 (tagged VV, as in 你得穿得正式一点) blocks the whole sentence.
+- A 吗 question after 得 is treated as a potential complement and blocked (看得清楚吗, 做得好吗). This also drops genuine degree questions like 谈得顺利吗, which is the price of favouring precision.
+- Adjective + 极了 / 死了 / 坏了 are included because they are labeled 2-31. The 坏了 pattern is limited to 急 and 高兴 so resultative uses like 弄坏了 are not caught.
+- The 的 / 地 examples carry no 得, so they are left unmatched. Matching them would let in far too many unrelated sentences.

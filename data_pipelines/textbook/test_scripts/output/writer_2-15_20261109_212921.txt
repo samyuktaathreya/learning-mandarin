@@ -1,0 +1,23 @@
+## 2-15
+**Point:** Time adverbs expressing "already" (已经), "all along" (一直), "just" (刚/刚刚), and "suddenly" (忽然/突然)
+**Covers:** 
+- 已经 with verb phrases, adjectives, or time expressions (with or without negation and 了)
+- 一直 expressing continuous/habitual actions or states
+- 刚/刚刚 expressing actions in the immediate past
+- 忽然/突然 expressing sudden or unexpected actions/states/adjectives
+
+**Does not cover:** 
+- 刚才 (expressing "just now" as a time point, not the immediate past) — this is a different grammar point
+- 刚好 (expressing coincidence/luck) — HSK 6 grammar point
+- Other uses of these words outside their adverbial time function
+
+```rule
+match: /AD (刚|刚刚|已经|一直|忽然|突然)
+unless: _ 刚才/AD
+```
+
+**Notes:** 
+- The rule matches when any of the six time adverbs appears in its adverbial form (tagged AD). 
+- The negative filter excludes 刚才 (which appears as a separate tokenized unit tagged AD) to avoid matching the "just now" grammar point.
+- This covers all structural patterns: 已经 + verb/adj/time ± 了, 一直 + predicate, 刚/刚刚 + verb ± duration, 忽然/突然 + verb/adj, and negations (已经 + 不). 
+- The rule does not require 了 or other elements because the core point is identified by the presence of these adverbs in their temporal function.

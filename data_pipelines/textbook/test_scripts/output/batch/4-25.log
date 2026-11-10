@@ -1,0 +1,44 @@
+
+########## rules  2026-11-09 22:00 ##########
+2 page(s) use the word(s); asking about 2.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGJPQ0Q  Assessing situations with "kanlai"
+
+not:
+
+unsure:
+  ASG54932  Comparing "kanqilai" and "kanlai"
+
+unrelated:
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 4-25
+Tagging 6 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220010.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 4-25
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 看来 to express the speaker's assessment or perspective on a situation
+**Covers:** Sentences where 看来 appears at or near the start of a clause to introduce an assessment ("it seems," "apparently," "in X's view"), with or without the 在...看来 structure
+**Does not cover:** Other uses of 看 and 来 as separate verbs; the HSK 5-31 point 在...看来 when it functions as a distinct framing structure without 看来 as a single unit
+
+```rule
+match: 看来/VV
+match: 在/P _ 看来/VV
+unless: 看起来/VV
+```
+
+**Notes:** The first pattern catches 看来 tagged as VV at the start of a clause or after a time word/adverb. The second pattern catches the 在 + NOUN/PN + 看来 structure. Both patterns treat 看来 as a unified adverbial marker of assessment. The rule excludes 看起来 (which means "looks like" visually, HSK 4-26) as a common false positive. One labeled example tags 看来 as AD (明天不会再下雨了), likely an error, but VV is the standard tag for this point; the VV match will still catch most correct instances. The 在...看来 pattern uses a wildcard for person/noun between 在 and 看来 to accommodate various subjects (我, 他, 朋友, 老板, etc.).
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 4-25
+Tagging 6 labeled example(s) (cached after this run)...
+
+=== A. 4-25: rule on labeled examples (no AI) ===
+  examples of 4-25 matched:    10/12
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+--- examples of 4-25 the rule misses (2) ---
+  在我看来，不会花钱的人就不会享受生活。  -- ASGJPQ0Q Assessing situations with "kanlai"
+  看来明天不会再下雨了。  -- HSK list example

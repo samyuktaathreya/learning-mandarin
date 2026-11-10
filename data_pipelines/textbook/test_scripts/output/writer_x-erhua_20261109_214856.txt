@@ -1,0 +1,11 @@
+## x-erhua
+**Point:** Erhua (儿化) — the pronunciation and written form of words with the erhua suffix in Mandarin Chinese
+**Covers:** Words with the erhua suffix 儿 added for pronunciation/colloquial effect (哪儿, 玩儿, 一会儿, etc.)
+**Does not cover:** Temporal expressions like "一会儿" used as time words; the word "儿" when it's a separate noun (like 女孩儿 as a noun); expressions with 都 that negate or universalize (谁都, 哪儿都)
+
+```rule
+match: 哪儿/PN | 哪里/PN | 怎么/VV | 为什么/VV | 什么/PN | 什么/DT | 多少/CD | 谁/PN | 哪/DT 个/M | 什么/DT 时候/NN | _/VV 儿/VV
+unless: 过/AS | 都/AD | 在/P ... 儿/PN | 在/P ... 儿/PN 见/VV | 在/P ... 儿/PN 听/VV | 在/P ... 儿/PN 看/VV
+```
+
+**Notes:** The rule targets question words (疑问代词) and the erhua suffix when attached to verbs. The "unless" clauses exclude counter-examples: sentences with 过 (perfective aspect, marking "have done before"), sentences with 都 (universalizing/negating contexts), and sentences with the pattern "在 + location + 儿 + verb + 过" (which express "have done X at location" rather than question formation). The erhua suffix 儿 attached to verbs (like 玩儿) is tagged as /VV and should match when it appears in the sentence.

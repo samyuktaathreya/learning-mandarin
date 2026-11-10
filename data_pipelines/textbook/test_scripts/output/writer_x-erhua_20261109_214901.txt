@@ -1,0 +1,11 @@
+## x-erhua
+**Point:** Erhua (儿化) - the retroflex diminutive suffix 儿 attached to nouns and verbs, commonly used in northern Mandarin speech.
+**Covers:** Words ending in 儿 where it functions as a diminutive or colloquial suffix (玩儿, 哪儿, 一会儿, 女孩儿, 男孩儿, 孩子儿, etc.)
+**Does not cover:** The word 儿 when tagged as a separate measure word or noun particle; other grammar points using question words or temporal expressions; "不一会儿" (HSK 2-42); "一会儿...一会儿..." constructions (HSK 3-61)
+
+```rule
+match: _/VV.*儿/VV|_/NN.*儿/NN|哪儿/PN|一会儿/AD|一会儿/NN
+unless: 都/AD|过/AS|在/P|_/AS.*儿
+```
+
+**Notes:** The rule matches: (1) verbs ending in 儿 tagged as VV (玩儿); (2) nouns ending in 儿 tagged as NN (女孩儿, 孩子儿); (3) the specific word 哪儿 tagged as PN (question word); (4) 一会儿 tagged as AD or NN (temporal expression). The unless clauses exclude counter-examples: sentences with 都 (expressing "every"), past tense aspect markers before 儿, and locative/prepositional constructions that indicate the "somewhere" meaning rather than true erhua.

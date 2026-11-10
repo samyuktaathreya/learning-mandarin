@@ -1,0 +1,38 @@
+## 1-14
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Negation with 不, 没/没有, 别, and 不要
+**Covers:** Negating verbs and adjectives with 不, including A-not-A questions such as 想不想 and 是不是. Negating past actions with 没/没有. Negating the verb 有 with 没/没有. Negative commands with 别 or 不要.
+**Does not cover:** Compounds and other constructions that use the same words: 不得不, 不怎么/没怎么, 不管, 不比, 不但, 岂不, 只好不, 少不了, 差不多, 不过, 不如, 不愧, 不屑, 要不是, 要不, 不到, 别说 (let alone), 不是…而是, comparisons with 没有 (没有 + noun + adjective), and potential complements (V+不+V).
+
+```rule
+match: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD
+match: ^ 不/AD /VV|VA|VC
+match: /PN|NN|NT|M|LC|AD 没有|没/VV /VV
+match: /PN|NN|NT|M|LC|AD 没/AD /VV
+match: ^ 没/AD /VV
+match: /PN|NN|NT|M|LC|AD 没有|没/VE /NN
+match: ^ 没有|没/VE /NN
+match: 别/AD /VV
+match: 不要/AD ... /VV
+unless: 不得不/AD
+unless: 不怎么/AD
+unless: 不/AD 怎么/AD
+unless: 没/AD 怎么/AD
+unless: 不过/AD
+unless: 差不多/AD
+unless: 差不多/VV
+unless: 少不了/AD
+unless: 不如/P
+unless: 不如/AD
+unless: 不管/VV
+unless: 不管/CS
+unless: 不管/CC
+unless: 不/AD 管/VV
+unless: 不/AD 比/VV
+unless: 不但/AD
+unless: 不但/CC
+unless: 岂不/AD
+unless: 只好/AD
+unless: 别说/VV
+unless: 别说/AD
+un

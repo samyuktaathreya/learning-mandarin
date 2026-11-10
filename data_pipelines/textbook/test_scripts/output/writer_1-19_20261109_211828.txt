@@ -1,0 +1,41 @@
+## 1-19
+**Point:** Linking words 跟/和 ("and", "with") and 还是 ("or" in questions).
+
+**Covers:**
+- 还是 as "or" between two options (还是/CC after something in the same clause), e.g. 你喝茶还是喝水？ 这是水还是酒？
+- A bare "pronoun 还是 pronoun" clause, e.g. 我还是他？
+- 和 or 跟 as "and" between nouns (和/CC, 跟/CC), e.g. 手机和电脑都很贵。
+- 或者 as "or" in statements.
+- 跟 as "with" (跟/P) before a verb, e.g. 我昨天跟朋友去海滩了。 你想跟我一起去吗？ 不要跟我说话！
+
+**Does not cover:**
+- 还是/AD meaning "still" or "had better".
+- 还是 at the start of a clause, which the tagger sometimes tags CC, as in 他闻了又闻，还是什么都没闻到。
+- 跟/和 in comparisons: 一样, 差不多, 差很多, 比/比起来, 似的, 有关.
+- 跟 + person + 说 ("tell"), which belongs to the 跟/对 contrast point.
+- 和/P, which is ambiguous with these other uses.
+
+```rule
+match: _ 还是/CC _
+match: ^ /PN 还是/AD /PN $
+match: _ 和/CC _
+match: _ 跟/CC _
+match: _ 或者/CC _
+match: 跟/P
+unless: 一样
+unless: 差不多
+unless: 差/VV
+unless: 比
+unless: 比起来
+unless: 似的
+unless: 有关
+unless: 说/VV
+unless: 要 跟/P 我 一起
+```
+
+**Notes:**
+- The pattern `_ 还是/CC` needs a word before 还是 in the same clause. This deliberately excludes clause-initial 还是 mis-tagged as CC.
+- `unless:` lines are checked against the whole sentence, so they are blunt. A sentence with both a good 还是 question and a stray 说 or 比 will be dropped, which is acceptable for precision.
+- The `要 跟/P 我 一起` exclusion exists only because the labeled counter-example 你要跟我一起去吗？ conflicts with the positive 你想跟我一起去吗？ and the two cannot be told apart structurally. Remove it if that counter-example turns out to be label noise.
+- 还是/AD in the bare 我还是他？ is matched only by the narrow pronoun-only clause pattern.
+- 和/P ("请和我联络") is left out because it cannot be reliably separated from the 一样/差不多/有关 uses.

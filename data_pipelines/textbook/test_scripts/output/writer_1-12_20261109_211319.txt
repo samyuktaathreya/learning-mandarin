@@ -1,0 +1,20 @@
+## 1-12
+**Point:** Frequency and repetition adverbs: 常、常常、再
+**Covers:** 常/常常 expressing "often" in present/habitual contexts; 再 expressing "again" in future contexts or sequential actions
+**Does not cover:** 一再/再三 (repetition emphasis); 再不...就... (conditional urgency); 再也不/没 (never again); 再说 (furthermore); other HSK points using these words
+
+```rule
+match: /AD 常 /VV
+match: /AD 常常 /VV
+match: /AD 经常 /VV
+match: /AD 往往 /VV
+match: /AD 再 /VV
+unless: 一再
+unless: 再三
+unless: 再/AD 也/AD
+unless: 再/AD 不/AD 走
+unless: 再/AD 不/AD _* 就
+unless: 再说/AD
+```
+
+**Notes:** The rule matches the core HSK 1-12 uses: (1) 常/常常/经常 for habitual/frequent actions, including negated forms like 不常; (2) 往往 for typical/usual situations (included here as official examples show it); (3) 再 for future repetition or sequential actions. Exclusions remove 一再/再三 (HSK 4), 再也不/没 (HSK 5), and 再说 (in-addition use). The 再不...就... pattern is excluded as it expresses conditional urgency, not simple repetition. Matches can occur with negation (不常, 不经常, 往往不) and are still valid for this point.

@@ -1,0 +1,53 @@
+2026-11-09 21:17:51,572  INFO     === tag_sentences.py run started ===
+2026-11-09 21:17:51,620  INFO     FALLBACK  '周末我想在家看书或者看电影。' -- out-of-list word(s): ['看书']
+2026-11-09 21:17:51,620  WARNING    HAIKU resegment call for '周末我想在家看书或者看电影。' (cache miss on [('看书', 'VV')])
+2026-11-09 21:17:51,638  INFO     TAGGED    '周末我想在家看书或者看电影。' (level 3, 10 tags)
+2026-11-09 21:17:51,647  INFO     FALLBACK  '你可以坐1号线或者2号线去人民广场。' -- out-of-list word(s): ['1号', '2号', '人民广场']
+2026-11-09 21:17:51,647  WARNING    HAIKU resegment call for '你可以坐1号线或者2号线去人民广场。' (cache miss on [('1号', 'NT'), ('2号', 'NT'), ('人民广场', 'NN')])
+2026-11-09 21:17:51,661  INFO       NON-LIST 1号 (NT) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:17:51,662  INFO       NON-LIST 2号 (NT) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:17:51,664  INFO     TAGGED    '你可以坐1号线或者2号线去人民广场。' (level 10, 11 tags)
+2026-11-09 21:17:51,674  INFO     OK        hanlp-valid   '我们可以电话或者邮件联系。' -> [('我们', 'PN'), ('可以', 'VV'), ('电话', 'NN'), ('或者', 'CC'), ('邮件', 'NN'), ('联系', 'VV')]
+2026-11-09 21:17:51,676  INFO     TAGGED    '我们可以电话或者邮件联系。' (level 4, 6 tags)
+2026-11-09 21:17:51,685  INFO     FALLBACK  '爸爸跟妈妈都不在家。' -- out-of-list word(s): ['不在']
+2026-11-09 21:17:51,685  WARNING    HAIKU resegment call for '爸爸跟妈妈都不在家。' (cache miss on [('不在', 'VV')])
+2026-11-09 21:17:51,699  INFO     TAGGED    '爸爸跟妈妈都不在家。' (level 2, 7 tags)
+2026-11-09 21:17:51,707  INFO     FALLBACK  '你喝茶还是喝水？' -- out-of-list word(s): ['喝茶', '喝水']
+2026-11-09 21:17:51,708  WARNING    HAIKU resegment call for '你喝茶还是喝水？' (cache miss on [('喝水', 'VV')])
+2026-11-09 21:17:51,724  INFO     TAGGED    '你喝茶还是喝水？' (level 2, 6 tags)
+2026-11-09 21:17:51,733  INFO     OK        hanlp-valid   '你爸爸和你妈妈谁大？' -> [('你', 'PN'), ('爸爸', 'NN'), ('和', 'CC'), ('你', 'PN'), ('妈妈', 'NN'), ('谁', 'PN'), ('大', 'VA')]
+2026-11-09 21:17:51,734  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-09 21:17:51,743  INFO     TAGGED    '你爸爸和你妈妈谁大？' (level 1, 7 tags)
+2026-11-09 21:17:52,007  INFO     OK        hanlp-valid   '他女朋友和他女儿一样大。' -> [('他', 'PN'), ('女朋友', 'NN'), ('和', 'P'), ('他', 'PN'), ('女儿', 'NN'), ('一样', 'AD'), ('大', 'VA')]
+2026-11-09 21:17:52,009  INFO     TAGGED    '他女朋友和他女儿一样大。' (level 3, 7 tags)
+2026-11-09 21:17:52,017  INFO     OK        hanlp-valid   '我爸爸和妈妈差不多大。' -> [('我', 'PN'), ('爸爸', 'NN'), ('和', 'P'), ('妈妈', 'NN'), ('差不多', 'AD'), ('大', 'VA')]
+2026-11-09 21:17:52,020  INFO     TAGGED    '我爸爸和妈妈差不多大。' (level 3, 6 tags)
+2026-11-09 21:17:52,028  INFO     FALLBACK  '这个人我看了又看，还是觉得我不认识他。' -- out-of-list word(s): ['这个']
+2026-11-09 21:17:52,028  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('人', 'NN'), ('我', 'PN'), ('看', 'VV'), ('了', 'AS'), ('又', 'AD'), ('看', 'VV'), ('还是', 'AD'), ('觉得', 'VV'), ('我', 'PN'), ('不', 'AD'), ('认识', 'VV'), ('他', 'PN')]
+2026-11-09 21:17:52,031  INFO     TAGGED    '这个人我看了又看，还是觉得我不认识他。' (level 3, 14 tags)
+2026-11-09 21:17:52,040  INFO     FALLBACK  '我想了又想，还是觉得不能这样做。' -- out-of-list word(s): ['不能']
+2026-11-09 21:17:52,040  WARNING    HAIKU resegment call for '我想了又想，还是觉得不能这样做。' (cache miss on [('不能', 'VV')])
+2026-11-09 21:17:52,054  INFO     TAGGED    '我想了又想，还是觉得不能这样做。' (level 3, 11 tags)
+2026-11-09 21:17:52,063  INFO     OK        hanlp-valid   '他找了又找，还是没找到他的钱包。' -> [('他', 'PN'), ('找', 'VV'), ('了', 'AS'), ('又', 'AD'), ('找', 'VV'), ('还是', 'AD'), ('没', 'AD'), ('找到', 'VV'), ('他', 'PN'), ('的', 'DEG'), ('钱包', 'NN')]
+2026-11-09 21:17:52,072  INFO     TAGGED    '他找了又找，还是没找到他的钱包。' (level 3, 13 tags)
+2026-11-09 21:17:52,080  INFO     OK        hanlp-valid   '他想了又想，还是不同意。' -> [('他', 'PN'), ('想', 'VV'), ('了', 'AS'), ('又', 'CC'), ('想', 'VV'), ('还是', 'AD'), ('不', 'AD'), ('同意', 'VV')]
+2026-11-09 21:17:52,082  INFO     TAGGED    '他想了又想，还是不同意。' (level 3, 8 tags)
+2026-11-09 21:17:52,092  INFO     OK        hanlp-valid   '我想了又尝，还是觉得这些菜坏了。' -> [('我', 'PN'), ('想', 'VV'), ('了', 'AS'), ('又', 'AD'), ('尝', 'VV'), ('还是', 'AD'), ('觉得', 'VV'), ('这些', 'DT'), ('菜', 'NN'), ('坏', 'VA'), ('了', 'AS')]
+2026-11-09 21:17:52,095  INFO     TAGGED    '我想了又尝，还是觉得这些菜坏了。' (level 3, 11 tags)
+2026-11-09 21:17:52,105  INFO     FALLBACK  '他闻了又闻，还是什么都没闻到。' -- out-of-list word(s): ['闻到']
+2026-11-09 21:17:52,105  WARNING    HAIKU resegment call for '他闻了又闻，还是什么都没闻到。' (cache miss on [('闻到', 'VV')])
+2026-11-09 21:17:52,118  INFO     TAGGED    '他闻了又闻，还是什么都没闻到。' (level 4, 11 tags)
+2026-11-09 21:17:52,129  INFO     FALLBACK  '尽管很多人批评他，他还是坚持这么做。' -- out-of-list word(s): ['很多']
+2026-11-09 21:17:52,129  INFO       CACHE-ONLY resegmentation -> [('尽管', 'CS'), ('很', 'AD'), ('多', 'A'), ('人', 'NN'), ('批评', 'VV'), ('他', 'PN'), ('他', 'PN'), ('还是', 'AD'), ('坚持', 'VV'), ('这么', 'AD'), ('做', 'VV')]
+2026-11-09 21:17:52,132  INFO     TAGGED    '尽管很多人批评他，他还是坚持这么做。' (level 4, 11 tags)
+2026-11-09 21:17:52,142  INFO     FALLBACK  '尽管老板最近不在，我们还是不能偷懒。' -- out-of-list word(s): ['不在', '不能']
+2026-11-09 21:17:52,142  WARNING    HAIKU resegment call for '尽管老板最近不在，我们还是不能偷懒。' (cache miss on [('不在', 'VV'), ('不能', 'VV')])
+2026-11-09 21:17:52,159  INFO     TAGGED    '尽管老板最近不在，我们还是不能偷懒。' (level 7, 10 tags)
+2026-11-09 21:17:52,169  INFO     FALLBACK  '尽管警察已经找到了一些证据，但是他们还是不能抓那个嫌疑人。' -- out-of-list word(s): ['不能', '那个', '嫌疑人']
+2026-11-09 21:17:52,170  WARNING    HAIKU resegment call for '尽管警察已经找到了一些证据，但是他们还是不能抓那个嫌疑人。' (cache miss on [('嫌疑人', 'NN')])
+2026-11-09 21:17:52,198  INFO     TAGGED    '尽管警察已经找到了一些证据，但是他们还是不能抓那个嫌疑人。' (level 7, 18 tags)
+2026-11-09 21:17:52,208  INFO     OK        hanlp-valid   '尽管他的书很有争议，但它还是出版了。' -> [('尽管', 'CS'), ('他', 'PN'), ('的', 'DEG'), ('书', 'NN'), ('很', 'AD'), ('有', 'VE'), ('争议', 'NN'), ('但', 'AD'), ('它', 'PN'), ('还是', 'AD'), ('出版', 'VV'), ('了', 'AS')]
+2026-11-09 21:17:52,212  INFO     TAGGED    '尽管他的书很有争议，但它还是出版了。' (level 6, 12 tags)
+2026-11-09 21:17:52,221  INFO     FALLBACK  '尽管当时很危险，消防员还是勇敢地冲了进去。' -- out-of-list word(s): ['消防员']
+2026-11-09 21:17:52,221  WARNING    HAIKU resegment call for '尽管当时很危险，消防员还是勇敢地冲了进去。' (cache miss on [('消防员', 'NN')])
+2026-11-09 21:17:52,235  INFO     TAGGED    '尽管当时很危险，消防员还是勇敢地冲了进去。' (level 6, 12 tags)

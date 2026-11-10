@@ -1,0 +1,26 @@
+## 3-80
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing indifference or concession with "X就X(点儿)(吧)": a word or phrase is repeated around 就, and the speaker accepts the situation with an "I don't care" or "fine then" attitude.
+
+**Covers:**
+- Verb + 就 + Verb, with or without 吧 (走就走, 走就走吧, 赌就赌)
+- Adjective + 就 + Adjective, with or without 吧 (慢就慢吧)
+- Verb/Adj. + 了 + 就 + Verb/Adj. + 了 (坏了就坏了)
+- Negation + Verb/Adj. + 就 + Negation + Verb/Adj., with an optional subject before it (不帮就不帮, 她不高兴就不高兴, 他没来就没来)
+- Optional 点儿 between the repeated element and 吧 (忙就忙点儿吧)
+
+**Does not cover:**
+- Simple suggestions with 吧 and no X就X repetition (我们走吧)
+- 就 in conditional or "then" structures (只要...就, 如果...就, 既然...那就买吧)
+- 就 with other meanings (emphasis, earliness, scope, 就要, 就是)
+- 吧 for asking opinions or softening statements
+- Clauses that contain both 就 and 吧 but do not form the X就X pattern (你们就分手吧)
+
+```rule
+match: ^ /VV|VA 就/AD /VV|VA 点/CD? 儿/CD? 吧/SP $
+match: ^ /VV|VA 了? 就/AD /VV|VA 了? $
+match: ^ /PN|NN|NR? 不|没/AD /VV|VA 了? 就/AD 不|没/AD /VV|VA 了? 吧/SP? $
+unless: 就/AD 懂|会|知道|行|好|对|能|有|成|算|够|清楚|明白|完|到|着|是
+```
+
+**Notes:** The rule cannot check that the two copies are identical, so it relies on structure instead. The clause must be just two verbs or adjectives around 就/AD, with an optional 了, 点儿 or 吧. Negated versions may also have a subject. This excludes "那就买吧" and "你们就分手吧", because their first word is not a VV or VA. The final `unless` blocks resultative or conditional readings such as 看就懂 and 吃了就好, where the second word differs from the first.

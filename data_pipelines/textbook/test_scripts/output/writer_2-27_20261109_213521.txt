@@ -1,0 +1,13 @@
+## 2-27
+**Point:** Expressing distance (in space or time) between two places or points using 离 (lí)
+**Covers:** 离 tagged as P, followed by a second place or time point, then 近/远 (including 多远, 有点儿远, and a trailing 吗). It also covers 离 + point + 有 + number, as in 现在离放假有一个星期的时间.
+**Does not cover:** Other uses of 离 as a verb meaning "leave" or "depart" (离开, 撤离, 远离, 脱离), compound verbs (离婚), and separable verb phrases (离不开). These are not tagged 离/P.
+
+```rule
+match: 离/P ... 近|远/VA
+match: 离/P _ 有/VE CD
+match: 离/P _ _ 有/VE CD
+unless: 离/VV
+```
+
+**Notes:** The original rule did not match any of the labelled examples. The parenthesised alternations such as (近|远) are not valid in this syntax, and the leading `_` forced an extra word before 离. The fix drops the parentheses and writes the alternation as 近|远/VA. Requiring 离 to be tagged P keeps out the verb uses (离开, 远离, 离婚 and so on), so most of the old 离开/撤离/远离 exclusions are no longer needed. 多远 is split into 多/AD and 远/VA, so 远/VA covers it. The pattern for 有 plus a number covers the time-distance example (离放假有一个星期).

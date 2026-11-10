@@ -1,0 +1,38 @@
+## 2-47
+**Point:** Expressing time relationships with 以前/以后 (before/after a specific time or action) or their shortened forms 前/后
+
+**Covers:** 
+- Time/action + 以前 (before a specific time or action)
+- Time/action + 以后 (after a specific time or action)
+- Time/action + 前 (shortened form of 以前)
+- Time/action + 后 (shortened form of 以后)
+- 以前/以后 at sentence start meaning "before/in the past" or "in the future"
+- Subject + 以前/以后 meaning "before/in the past" or "in the future"
+
+**Does not cover:**
+- Location expressions with 在 (in/at a place)
+- Existence with 在 (subject is at a location)
+- 在...内 (within a time period)
+- 在于 (to lie in/depend on)
+- 早在 (as early as)
+- 包括...在内 (including)
+- 后来 (later, sequencing past events)
+- Directional terms 前/后 (front/back, from HSK 1-01)
+
+```rule
+match: (以前|以后|前|后)/LC _ ... (^|‖)
+match: (以前|以后)/NT
+match: (以前|以后)/NN
+match: _ (以前|以后|前|后)/LC
+match: _ (以前|以后|前|后)/AD
+unless: 早/AD 在/P
+unless: 包括/VV _ _ 在/P (内|内/NN|内/LC)
+unless: 在/P _ _ 内/LC
+unless: 在于/VV
+unless: 后来/AD
+unless: 在/VV
+unless: 在/P _ (上|下|里|中间|旁边|前|后|左|右)/LC
+unless: 在/P (美|上|中|英|法|日|德|意|西|加|澳|新|俄|以|伊|沙|阿|土|印|泰|越|老|缅|柬|菲|巴|墨|巴西|阿根廷|加拿大|澳大利亚)/NR
+```
+
+**Notes:** The rule matches clauses containing 以前/以后/前/后 in time-marking positions (as LC localizer after verbs/times, or as NT/NN/AD adverbial markers). It excludes location-marking uses of 在, 早在 constructions, 在...内 duration expressions, 在于 idiomatic expressions, and 后来 sequencing. When 前/后 appear as LC (localizer), they typically indicate the time relationship (e.g., "睡觉以前" tagged as 睡觉/VV 以前/LC). Tags vary: 以前/以后 can be NT (time noun), NN (noun), AD (adverb), or LC (localizer) depending on position; the rule accepts all these variants in time-marking contexts.

@@ -1,0 +1,26 @@
+## 2-45
+**Point:** Expressing "had better" with 还是...吧 (háishì...ba)
+**Covers:** Suggesting a course of action after deliberation, with 还是 as an adverb meaning "had better" or "it would be better to", optionally followed by 吧. Includes negative suggestions (别/不 + verb) where 吧 may be omitted.
+**Does not cover:** 还是 as a coordinating conjunction offering choices (Option A 还是 Option B?); 还是 expressing continuation or "still" (with 尽管, 又, etc.); 还是 in fixed expressions like "我还是他" or repeated action patterns (了又); other grammar points using 吧 without 还是.
+
+```rule
+match: 还是/AD ... /VV
+match: 还是/AD /AD _ /VV
+match: 还是/AD _ /VV ... 吧/SP
+match: 还是/AD /AD /VV ... 吧/SP
+match: 还是/AD /AD /P
+unless: ^ ... 还是/CC
+unless: 尽管/CS
+unless: 了/AS 又/AD|CC
+unless: 又/AD|CC ... 还是/AD
+unless: 但是/CC|AD ... 还是/AD
+unless: 可是/AD ... 还是/AD
+unless: /CS ... 还是/AD
+unless: 还是/AD _ /PN
+unless: 还是/AD /VA 的/DEC
+unless: 呢/SP ... 还是/AD
+unless: 不要/AD ... 还是/AD
+unless: 想/VV ... 还是/AD ... /PN
+```
+
+**Notes:** The core pattern is 还是/AD followed by a verb phrase (starting with VV, or with optional adverbial modifiers before VV, or with a preposition). The "unless" clauses exclude: (1) 还是 as coordinating conjunction (tagged CC); (2) patterns with preceding conjunctions (尽管, 但是, 可是, CS) that indicate "although" or consequence, not deliberation; (3) the "repeated action + 还是" pattern (了又 or 又); (4) certain question-like structures (呢, 的, or pronoun objects that indicate choice questions rather than suggestions). The pattern allows for adverbial modifiers (快点/先/别) and prepositional phrases (在/跟) between 还是 and the main verb. Optional 吧 at end indicates a suggestion, but negative commands may omit it.

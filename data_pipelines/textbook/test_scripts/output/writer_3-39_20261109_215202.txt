@@ -1,0 +1,32 @@
+## 3-39
+**Point:** 从……起 marks the starting point of a time or event ("from now on"). This rule also accepts the closely related uses of 从 (starting point, source) and 离 (distance in time or space) that the course labels as this point.
+
+**Covers:**
+- 从 + time or event + 起 or 开始, e.g. 从今天起, 从现在起, 从我上小学开始.
+- 从那以后 and 从今以后 ("ever since then", "from now on").
+- 从 + person or place + 里 or 上 as a source, e.g. 从我包里拿, 从口袋里掏出.
+- 从这件事 + inference, e.g. 从这件事可以看出….
+- 离 as a preposition for distance or time gap, e.g. 离毕业还有几个月, 离结婚还远呢.
+
+**Does not cover:**
+- 看起来, 起来 as a direction complement, 比起, and 一起, because none of them has 从 or 离 as a preposition.
+- 从 used as an adverb, as in 从不, 从没, 从小.
+- 从事.
+- 从……来看 or 从这个角度看, which is the separate HSK 5 point.
+- Bare motion-from-place sentences such as 从入口进去 or 太阳从东方出来. These are left out for precision.
+
+```rule
+match: 从/P ... 起/LC
+match: 从/P ... 以后|以前/LC
+match: 从/P ... 开始
+match: 从今以后/NT
+match: 从/P ... 里|上/LC
+match: 从/P /PN 身上
+match: 从/P 这/DT M 事|事情/NN
+match: 离/P
+unless: 从/P ... 来/MSP 看
+unless: 从/P ... 看 $
+unless: 从/P ... 来看|来说|看来
+```
+
+**Notes:** 离/P is accepted on its own because it is almost always the distance or time-gap use. The 从/P patterns need a following cue (起, 以后, 开始, 里, 身上, or 这件事), so plain motion sentences are skipped; add cues carefully, since each one widens the rule. The `unless` lines remove 从……看 / 来看 sentences that belong to HSK 5-26. A sentence like 从那以后，我看… is only excluded if 看 ends the same clause as 从. 从今以后 is tagged as a single NT token, so it has its own pattern.

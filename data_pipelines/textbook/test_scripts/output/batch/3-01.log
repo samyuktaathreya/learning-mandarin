@@ -1,0 +1,53 @@
+
+########## rules  2026-11-09 21:49 ##########
+8 page(s) use the word(s); asking about 8.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGK904U  Ordinal numbers with "di"
+
+not:
+  ASGII66E  Using "always" as a complaint with "laoshi"
+  ASGE8810  Expressing "age difference" with "da and xiao"
+
+unsure:
+
+unrelated:
+  ASGCED31  Expressing "how often"
+  ASGDHE8S  Reduplication of adjectives
+  ASGJ36VN  Expressing duration with "le"
+  ASGJQPSC  Placement of question words
+  ASGH13JY  Idiomatic phrases with "zai"
+
+[note] ASGK904U is tagged HSK [2] on the wiki, the point is HSK 3 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 3-01
+Tagging 14 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_214940.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-01
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Ordinal numbers with 第 (dì)
+**Covers:** Sentences using 第 + number (+ measure word) (+ noun) to express ordinal positions like "first," "second," "third," etc.
+**Does not cover:** 老 or 小 used in other contexts (频率副词 "always," age/size comparison, or as part of common nouns like 老师, 小麦, 小说); 第 used as an OD tag in other contexts
+
+```rule
+match: 第/CD ... /M
+match: 第/CD ... /NN
+match: 第/CD
+unless: 老是/AD
+unless: 老/AD
+unless: 小/VA
+unless: /VA 几/CD 岁/M
+```
+
+**Notes:** The rule prioritizes precision by matching the core structure: 第 followed by a CD (number) tag, optionally followed by a measure word or noun. The main match pattern captures "第 + number + measure/noun" which is the canonical form shown in examples. The standalone "第/CD" match catches cases like "第一天" and "第二行" where the ordinal directly precedes a time noun or verb. The unless clauses exclude: (1) 老是 as an adverbial marker for habitual/repetitive actions; (2) bare 老 as an adverb (频率副词); (3) 小 as a VA (adjective predicate) including age/size comparisons with 岁. This approach avoids false positives on counter-examples while capturing the intended ordinal grammar point.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-01
+Tagging 14 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-01: rule on labeled examples (no AI) ===
+  examples of 3-01 matched:    14/14
+  counter-examples wrongly matched: 0/14   <- should be 0

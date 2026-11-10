@@ -1,0 +1,21 @@
+## 3-23
+**Point:** Using 为 as a preposition to express "for" (beneficiary or purpose)
+**Covers:** (1) 为 + beneficiary/goal + verb/adjective showing action/emotion done for them; (2) 为...而... structure expressing purpose with effort/action
+**Does not cover:** 为了 (weile, HSK 3-26); 因为 (yinwei, because); 以为 (yiwei, mistakenly think); 为 as main verb (是/变为); 为 in fixed expressions like 以...为, 作为, 为期, 为此, 为什么, 为难; 为 indicating effect after 因为
+
+```rule
+match: /PN|NN _ 为/P _ /PN|NN
+match: /PN|NN _ 为/P _ /PN|NN _ /VV|VA
+match: /PN|NN _ 为/P _ /NN _ /VV|VA
+match: 为/P _ /PN|NN _ 而/MSP
+match: 为/P _ /NN _ 而/MSP
+unless: 因为/P
+unless: /PN 以为/VV
+unless: _/P 为/VV
+unless: /VV 为/VC
+unless: 被/SB _ 为/VC
+unless: 为了/P
+unless: 作为/P
+```
+
+**Notes:** The rule prioritizes precision by requiring clear 为 + beneficiary/goal + action pattern. It excludes 为了 (different point), 因为/而 (causation), 以为 (mistaken belief), and cases where 为 is a main verb or copula (以...为, 被...为, 作为). The match patterns cover: basic "为 person verb/adj" structure with various noun/pronoun combinations, and "为...而..." purpose structure. The unless lines filter out related grammar points and structures where 为 functions differently.

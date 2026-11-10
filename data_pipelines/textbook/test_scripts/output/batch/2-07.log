@@ -1,0 +1,217 @@
+
+########## rules  2026-11-09 21:26 ##########
+7 page(s) use the word(s); asking about 7.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG1F4D1  Expressing "in this way" with "zheyang"
+  ASGNKKP6  Adjectives with "name" and "zheme"
+
+not:
+  ASGX298Z  Expressing "then…" with "name"
+
+unsure:
+  ASG1MD4N  Comparing specifically with "xiang"
+  ASG5DG95  Expressing_comparable_degree_with_"you"
+
+unrelated:
+  ASGGIVT0  Expressing "if... then..." with "ruguo... jiu..."
+  ASGD7NS3  Asking why with "zenme"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-07
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_212638.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-07
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Demonstrative adverbs 这样/那样/这么/那么 expressing manner, degree, or hypothetical condition
+**Covers:** 
+- 这样/那样 + verb (manner: "this/that way")
+- 这么/那么 + adjective (degree emphasis: "so/that")
+- 这样 in consequential clauses with 会/才 ("this way will/only")
+- 这样的话 for hypothetical "if this way"
+
+**Does not cover:** 那么 used as a discourse connector meaning "then/so" in response to a preceding clause (那么 + suggestion/decision), which is a different grammar point about logical sequence rather than manner/degree/hypothesis
+
+```rule
+match: (这样|那样|这么|那么)/AD ... (VA|VV)
+match: (这样|这么)/AD 的话
+match: (这样|那样)/AD VV
+unless: ^ (那么)/AD (我们|我|他|你|大家|他们) (VV|VC)
+unless: ^ (那么)/AD (这|是)
+unless: ^ (那么)/AD (就|让|开始|通过)
+```
+
+**Notes:** 
+- The first match pattern captures the core uses: demonstrative adverb followed eventually by a verb or adjective in the same clause
+- The second match covers 这样/这么 + 的话 pattern for hypothetical use
+- The third match is redundant with the first but included for clarity on the canonical "这样/那样 + VV" pattern
+- The unless clauses specifically block the "那么 as discourse connector" pattern: 那么 appearing after clause boundaries followed by pronouns + decisions/suggestions (VV for actions, VC for evaluations like 是)
+- The pattern is deliberately broad to avoid false negatives, relying on the unless clauses for precision
+- Some sentences may tag 这样 as PN or VV instead of AD (tagging errors); the rule accepts this risk to avoid missing valid examples, since "那么/这么 acting as discourse connectors" in the unless clauses are the key pattern to block
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-07
+Tagging 2 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-07: rule on labeled examples (no AI) ===
+  examples of 2-07 matched:    23/23
+  counter-examples wrongly matched: 0/5   <- should be 0
+
+########## tatoeba  2026-11-09 22:07 ##########
+Filling 2-07 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 31 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220727.txt
+  ...100/271
+  ...200/271
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  见过 = 见 + 过  (seen)
+     clear  四月 = 四 + 月  (April)
+
+Course sentences at HSK 2 the rule already finds 2-07 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+  2 check call(s) (20 sentences each)...
+
+=== 2-07 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      464  2. contain the point's word(s)
+      464  3. new (not in DB, not a duplicate)
+      271  4. at most 2 characters outside HSK 2 words
+       70  5. really HSK 2
+       68  5b. no harder grammar point (of the 20 with a rule)
+       31  6. the rule finds 2-07
+       27  6b. no hidden word a learner can't work out
+       25  7. both checks say 2-07, English chosen
+       22  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (22) ===
+  这么晚？  (This late?)  [tatoeba 9963195]
+  没那么冷。  (It wasn't that cold.)  [tatoeba 10537109]
+  请这样做。  (Please do that.)  [tatoeba 13563490]
+  这么快？！  (Already?!)  [tatoeba 13598226]
+  这么早？！  (Already?!)  [tatoeba 13598227]
+  请不要这样说。  (Please don't say that.)  [tatoeba 4885866]
+  别吃得这么快。  (Don't eat so fast.)  [tatoeba 6678404]
+  我没想这样做。  (I didn't mean to do it.)  [tatoeba 13138209]
+  有人会这样想。  (Some people would think this way.)  [tatoeba 13138787]  hidden: 有人
+  你这样做是错的。  (You're doing it the wrong way.)  [tatoeba 1221360]
+  我不能吃这么多。  (I can't eat this much food.)  [tatoeba 5694503]  hidden: 不能
+  你怎么这样对我？  (How can you do this to me?)  [tatoeba 5794121]
+  我没想那样做的。  (I didn't mean to do that.)  [tatoeba 8715852]
+  车别开得那么近。  (Don't drive that close to it.)  [tatoeba 9694396]
+  那样做没问题吗？  (Is that going to be OK?)  [tatoeba 13118940]  hidden: 没问题
+  你为什么那么高兴？  (Why are you so happy?)  [tatoeba 425558]
+  请不要说得那么快。  (Please don't speak so fast.)  [tatoeba 5344349]
+  我为什么要那样做？  (Why would I do that?)  [tatoeba 14013571]
+  你的眼睛为什么那么大？  (Why are your eyes so big?)  [tatoeba 399221]
+  你看过这么好看的电影吗？  (Have you ever seen such a nice film?)  [tatoeba 1366190]
+  你没告诉我玛丽这么漂亮。  (You didn't tell me Mary was so beautiful.)  [tatoeba 5780581]
+  都四月了天气怎么还是这么冷？  (It's April already; why is it still so cold?)  [tatoeba 9987038]  hidden: 四月
+
+--- dropped at step 4 (193), first 12 ---
+  你如果能利用重力，那就这么做吧。  -- 5 characters no HSK 2 word uses: 利力如用重
+  但是如果有一个人本身已经很好了，对你又是真心真意，真心爱你，那么你真的可以把一生托付给他。  -- 6 characters no HSK 2 word uses: 付又如心托把
+  二氧化碳是燃烧煤、石油或天然气这样的燃料时会产生的气体。  -- 11 characters no HSK 2 word uses: 产化或料氧油烧煤燃石碳
+  一些人只买有机的食物，他们认为这样可以使他们的健康不受污染的损害。  -- 10 characters no HSK 2 word uses: 使健受害康损染污物食
+  您不应该信任这样的人。  -- 4 characters no HSK 2 word uses: 任信应该
+  我很感激我能够领受到这样的人生体验。  -- 6 characters no HSK 2 word uses: 受够感激领验
+  在这么嘈杂的环境中无法学习。  -- 6 characters no HSK 2 word uses: 嘈境无杂法环
+  如果一个人有11只羊，除了9只之外，其他全部死了，那么他还剩下几只羊呢？  -- 9 characters no HSK 2 word uses: 之全其剩如死羊部除
+  她犯这样的错真的很粗心。  -- 3 characters no HSK 2 word uses: 心犯粗
+  你这样就是画饼充饥！  -- 3 characters no HSK 2 word uses: 充饥饼
+  我弟弟可能得了急性阑尾炎，要是这样他必须做个手术。  -- 8 characters no HSK 2 word uses: 尾必急性术炎阑须
+  问题在于，金钱没有时间那样重要。  -- 3 characters no HSK 2 word uses: 于重金
+
+--- dropped at step 5 (201), first 12 ---
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  我昨天买了一支像你那样的笔。  -- level 5: 支 L5, 像 L3
+  是。我也是这么想的。  -- level 10: 么 (not in list)
+  别那么着急。  -- level 3: 着急 L3
+  就是这样的。  -- level 4: 就是 L4
+  大家帮我这么大的忙，真心向大家道谢。  -- level 10: 真心 L7, 向 L3, 道谢 (not in list)
+  他是这么的无情。  -- level 7: 无情 L7
+  那就这样，一个月1500。  -- level 10: 1500 (not in list)
+  我们很久没有在一起这样快乐过了。  -- level 3: 久 L3
+  你这么担心做什么?  -- level 3: 担心 L3
+  我不那么会打网球。  -- level 3: 网球 L3
+  哦！已经这么晚了。  -- level 5: 哦 L5
+
+--- dropped at step 5b (2) ---
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  “你为什么跑这么快？”—“我得上火车。”  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (37) ---
+  我也这么想。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  我也是这么想的。  -- rule: no match: line matched
+  那样的事天天都有。  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  “汤姆不在那儿。”“那么他在哪儿？”  -- rule: unless ^ 那么/AD
+  没人想要你那样做。  -- rule: no match: line matched
+  大家都是这样想的。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  你为什么这么说？  -- rule: no match: line matched
+  她不是她看起来的那样。  -- rule: no match: line matched
+  你不能这么说。  -- rule: no match: line matched
+  “她也会来吗？” “我希望是这样。”  -- rule: no match: line matched
+  那样是错的。  -- rule: no match: line matched
+  不能这样！  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  我们不能让他们那么做。  -- rule: no match: line matched
+  她没这么想。  -- rule: no match: line matched
+  我真不这么想。  -- rule: no match: line matched
+  你怎么能这么对我说话！  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  她没说她为什么那么做。  -- rule: no match: line matched
+  你可以这么说。  -- rule: no match: line matched
+  这么说也可以。  -- rule: no match: line matched
+  他也这么做了。  -- rule: no match: line matched
+  不要这么叫他！  -- rule: no match: line matched
+  告诉我你没有这么做。  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  那么小！  -- rule: unless ^ 那么/AD
+  真的吗？你这么说我非常高兴。  -- rule: no match: line matched
+  你真的是想那么说吗？  -- rule: no match: line matched
+  我没想那么说。  -- rule: no match: line matched
+  你真的是想那么做吗？  -- rule: no match: line matched
+  有些人是这么想的。  -- rule: no match: line matched
+  我想你不会那么做的吧。  -- rule: no match: line matched
+  我知道汤姆不可能会那么做了。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  我从没见过你这么高兴。  -- hidden word a learner can't work out: 从没 (never (in the past); never did)
+  我从没这么高兴过。  -- hidden word a learner can't work out: 从没 (never (in the past); never did)
+  我没想到它有那么大。  -- hidden word a learner can't work out: 没想到 (didn't expect)
+  我们再也别这样做了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+
+--- dropped at step 7 (2) ---
+  这样好多了。  -- check said no (1/2): 这样 used as adverb before adjective, not standard pattern
+  让我们都这样做。  -- no accurate English among: Let's all do it.
+
+--- dropped at step 8 (3) ---
+  人们是这样说的。  -- difficulty review: (1/2); uses 们 (HSK 3-02 suffix grammar) not taught at HSK 2
+  你怎么回来得这么快？  -- difficulty review: (2/2); Uses 得 as a complement marker (3-48 possible complement structure), which is above HSK 2
+  她们不是想让我那样做吗？  -- difficulty review: (1/2); Uses 让 (causative) in a complex negation pattern that requires HSK 3+ constructions
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-07_level2_20261109_220753.csv

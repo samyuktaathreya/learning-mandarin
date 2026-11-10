@@ -1,0 +1,101 @@
+
+########## rules  2026-11-09 21:39 ##########
+1 page(s) use the word(s); asking about 1.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG7UE4H  Expressing "more and more" with "yuelaiyue"
+
+not:
+
+unsure:
+
+unrelated:
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-44
+Tagging 12 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213915.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-44, rule line 1: unknown tag(s) /VV) in '(/VA|/VV)' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-44_20261109_213921.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-44, rule line 1: unknown tag(s) /VV) in '(/VA|/VV)' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-44_20261109_213924.txt)
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 2-44
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** 越来越 + adjective/verb expresses "more and more": a quality or state increasing over time (e.g. 天气越来越热了).
+**Covers:** The simple fixed form 越 来 越 followed by a predicate (adjective or verb, possibly with 不 or an object), with or without 了. Includes the tagger variant where 来 is tagged VV. Also covers 得 + 越来越 + adjective (你说得越来越好了).
+**Does not cover:** The two-part correlative 越A越B (越多越好, 越吃越胖), which has no 来. Also excluded are 越来越 at the end of a clause with nothing following it, since there is no predicate to demonstrate. A 越来越 split across punctuation is excluded too.
+
+```rule
+match: 越 来/AD|VV 越 /VA|VV|AD
+unless: 越 来/AD|VV 越 $
+unless: 越 来/AD|VV 越 /AD $
+```
+
+**Notes:** The tokenizer splits 越来越 into three tokens, 越/AD 来/AD 越/AD. Occasionally 来 is tagged VV, so the rule allows both tags. The rule requires a predicate (VA, VV, or an AD such as 不) right after the second 越. Because patterns are matched within one clause, a bare 越来越 before punctuation is rejected by the `unless` lines. Simple patterns like these are precise because 越 来 越 as three consecutive tokens is essentially unambiguous. If a counter-example turns up, such as 越来越 used as a noun phrase, tighten the final slot.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-44
+Tagging 12 labeled example(s) (cached after this run)...
+
+=== A. 2-44: rule on labeled examples (no AI) ===
+  examples of 2-44 matched:    12/12
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+########## tatoeba  2026-11-09 22:10 ##########
+Filling 2-44 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 1 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_221041.txt
+
+Course sentences at HSK 2 the rule already finds 2-44 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+
+=== 2-44 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       25  2. contain the point's word(s)
+       25  3. new (not in DB, not a duplicate)
+        6  4. at most 2 characters outside HSK 2 words
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 4 (19), first 12 ---
+  在英国，以珍稀物种为主题的公园变得越来越受人们的欢迎。  -- 10 characters no HSK 2 word uses: 主受变园物珍种稀越迎
+  越来越多的环保者开始宣传和使用以环保的无铅汽油为燃料的汽车。  -- 14 characters no HSK 2 word uses: 传使保宣料无汽油燃环用者越铅
+  随著东西方之间的贸易及文化往来日渐发展，越来越多的阿拉伯和波斯商人开始沿著丝路拜访中国。  -- 21 characters no HSK 2 word uses: 丝之伯化及发展拉拜斯方易沿波渐著访贸越阿随
+  女孩子们似乎对科学表现出越来越大的兴趣。  -- 5 characters no HSK 2 word uses: 乎似科越趣
+  天空变得越来越暗了。  -- 4 characters no HSK 2 word uses: 变暗空越
+  十年来，人们越来越强烈地意识到需要改变自己的饮食习惯。  -- 9 characters no HSK 2 word uses: 变强惯改烈越需食饮
+  信赖域的算法越来越常用。  -- 7 characters no HSK 2 word uses: 信域法用算赖越
+  人们的感情生活越来越不稳定。  -- 5 characters no HSK 2 word uses: 定感活稳越
+  我肯定越来越接近了。  -- 4 characters no HSK 2 word uses: 定接肯越
+  在台湾，季节的变化越来越不明显。短春与短秋逐渐成为现在四季的特征。  -- 17 characters no HSK 2 word uses: 与化变台季征成春显渐湾特短秋节越逐
+  越来越多的人迁往市区。  -- 3 characters no HSK 2 word uses: 区越迁
+  汤姆越来越多疑了。  -- 4 characters no HSK 2 word uses: 姆汤疑越
+
+--- dropped at step 5 (6) ---
+  天气越来越热。  -- level 3: 越 L3
+  他越来越有名了。  -- level 3: 越 L3, 有名 L3
+  它变得越来越大。  -- level 3: 变 L3, 越 L3
+  我感觉我们会越来越好。  -- level 4: 感觉 L4, 越 L3
+  我们能看到越来越多的燕子。  -- level 7: 越 L3, 燕子 L7
+  蔬菜越来越贵了。  -- level 5: 蔬菜 L5, 越 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-44_level2_20261109_221042.csv

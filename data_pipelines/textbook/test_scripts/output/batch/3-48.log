@@ -1,0 +1,119 @@
+
+########## rules  2026-11-09 21:53 ##########
+172 page(s) use the word(s); asking about 40.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG516F9  Advanced potential complements
+  ASGCPJPQ  Potential complement
+
+not:
+  ASG0C825  Expressing "have to" with "budebu"
+  ASG1NAXO  Approximations with "chabuduo"
+  ASG3IR71  Expressing "can't do without" with "shaobuliao"
+  ASG73H8K  Comparing "budebu" and "zhihao"
+  ASG79STE  Degree complement
+  ASG9E5BB  Advanced degree complements
+  ASGA0098  Indicating negative impact with "haide"
+  ASGB8BWA  Adjectival complement "de budeliao"
+
+unsure:
+
+unrelated:
+  ASG0EQQJ  Expressing not knowing how to do something using "hao"
+  ASG0NDS6  Expressing "no matter" with "buguan"
+  ASG10CAE  Expressing "less than" with "budao"
+  ASG4D8XB  Tag questions with "bu"
+  ASG4K5WH  Advanced "le" after an object
+  ASG5BOGP  Expressing "not often" with "bu zenme"
+  ASG5HZG6  "Could it be that" with "qibushi"
+  ASG69RR8  Expressing ongoing duration with double "le"
+  ASG6ZI8L  Expressing "no matter" with "wulun"
+  ASG78FDE  Expressing a last chance with "zaibu... jiu..."
+  ASG7R8US  Expressing "never again" with "zai ye bu"
+  ASG87B11  Using "budan... geng" to express "not only... but also"
+  ASG890CA  Advanced "le" with complements
+  ASG8DVSO  Basic comparisons with "bu bi"
+  ASG8F7D4  Expressing "if it were not for" with "yaobushi"
+  ASGA0S4T  A softer "but" with "buguo"
+  ASGAA381  Expressing "even so" with "zaibu... ye..."
+  ASGAGDCQ  Expressing completion with "le"
+  ASGDFQP7  Expressing "how about" with "yaobu"
+  ASGE2U25  Expressing something is "not worth doing" with "buxie"
+  ASGE5Q4J  Expressing "now" with "le"
+  ASGECD0E  Expressing "don't need to" with "buyong"
+  ASGEEA2D  Expressing "double negation"
+  ASGF9320  Expressing "not only..., even..." using "budan..., shenzhi lian"
+  ASGFR96B  Expressing "not anymore" with "le"
+  ASGGJA6A  Expressing "to be worth" doing with "zhide"
+  ASGHFPGG  Expressing "except" and "in addition" with "chule… yiwai"
+  ASGIKHUH  Comparing "buduan" and "buting"
+  ASGIPYFV  Standard negation with "bu"
+  ASGIVZJU  Negative commands with "buyao"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 3-48
+Tagging 9 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215330.txt
+  ...100/137
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-48
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Potential complements showing whether an action is possible: Verb + 得/不 + complement (verb, adjective, or directional)
+
+**Covers:** 
+- Verb + 得 + complement (affirmative: can do/able to)
+- Verb + 不 + complement (negative: cannot do/unable to)
+- Complements include: result verbs (懂, 见, 完, 到, 着), adjectives (好, 清楚, 干净), direction verbs (来, 去, 上, 下, 进), and others (动, 起, 下, 了)
+
+**Does not cover:**
+- 不得不 "have to/must" (obligation, not ability)
+- 差不多 "about the same/approximately" (approximation)
+- 少不了 "unavoidable/bound to" (inevitability)
+- Degree complements with 得 (得很, 得不得了, 得死了) showing intensity
+- Result complements describing manner/state (得漂亮, 得还可以)
+- 害得 "causing an undesirable result" (causation with harm)
+- 得了 as a standalone verb meaning "okay/alright"
+
+```rule
+match: /VV /AD|DER _
+unless: 不得不|差不多|少不了|害得|不得了|得不得了|得很|得死了|得要命
+```
+
+**Notes:** 
+- The pattern matches: verb + (不 or 得) + any following word, which captures the complement
+- The "unless" list filters out common false positives that look similar but belong to other grammar points
+- The complement after 得/不 can be another verb (懂, 见, 完, 到, 着, 来, 去, 上, 下, 进, 动, 起, 下, 了) or an adjective (好, 清楚, 干净, 暖, etc.)
+- The rule intentionally does not distinguish between all complement types; if a verb+不/得+word pattern appears and isn't on the "unless" list, it should match
+- Must occur within a single clause (between punctuation)
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-48
+Tagging 9 labeled example(s) (cached after this run)...
+  ...100/137
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 3-48: no 'match:' line (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_3-48_20261109_215415.txt)
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-48: rule on labeled examples (no AI) ===
+  examples of 3-48 matched:    24/36
+  counter-examples wrongly matched: 4/101   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (4) ---
+  找不到孩子，妈妈急坏了。  -- ASG79STE Degree complement  [matched: /VV 不/AD 了|到|着|见|懂|完|下|起|动|上|来|去|出|进|过|开|住|通|会]
+  下午喝了两杯咖啡，害得我晚上睡不着。  -- ASGA0098 Indicating negative impact with "haide"  [matched: /VV 不/AD 了|到|着|见|懂|完|下|起|动|上|来|去|出|进|过|开|住|通|会]
+  你昨晚没回来，电话也打不通，害得我担心了一个晚上。  -- ASGA0098 Indicating negative impact with "haide"  [matched: /VV 不/AD 了|到|着|见|懂|完|下|起|动|上|来|去|出|进|过|开|住|通|会]
+  我的护照丢了，害得我现在哪里也去不了。  -- ASGA0098 Indicating negative impact with "haide"  [matched: /VV 不/AD 了|到|着|见|懂|完|下|起|动|上|来|去|出|进|过|开|住|通|会]
+
+--- examples of 3-48 the rule misses (12) ---
+  他那么老，走得了那么多路吗？  -- ASG516F9 Advanced potential complements
+  你没戴眼镜，看得清楚吗？  -- ASGCPJPQ Potential complement
+  他这么粗心，做得好吗？  -- ASGCPJPQ Potential complement
+  你这么聪明，肯定学得会。  -- ASGCPJPQ Potential complement
+  早上五点出发，孩子们起得来吗？  -- ASGCPJPQ Potential complement
+  这么高的山，你爬得上去吗？  -- ASGCPJPQ Potential complement
+  这里太暗了，我看不清楚。  -- ASGCPJPQ Potential complement
+  这个自行车太破了，谁都修不好。  -- ASGCPJPQ Potential complement
+  她的腿受伤了，站不起来了。  -- ASGCPJPQ Potential complement
+  包太小了，手机放不进去。  -- ASGCPJPQ Potential complement
+  我怕我做不好这份工作。  -- ASGCPJPQ Potential complement
+  这件衣服太脏了，洗不干净了。  -- HSK list example

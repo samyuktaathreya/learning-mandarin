@@ -1,0 +1,18 @@
+## 2-59
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Basic comparisons using 跟/和 + Noun 2 + 一样 (or 相同) to say that two things are the same or different
+
+**Covers:** Sentences with the structure Noun 1 + 跟/和 + Noun 2 + 一样 (+ optional adjective), including negations with 不一样 and the synonym 相同 (跟我相同).
+
+**Does not cover:** Comparisons using 像 instead of 跟/和. These follow the separate 像…一样 pattern, so any sentence containing 像 is excluded.
+
+```rule
+match: 跟|和/P ... 一样
+match: 跟|和/CC ... 一样
+match: 跟|和/P ... 相同
+match: 跟|和/CC ... 相同
+
+unless: 像
+```
+
+**Notes:** The old rule required 一样 to follow the preposition directly, or to have only one word between them. Real sentences put a whole noun phrase (他妈妈, 我的头发) between 跟/和 and 一样, so most of them were missed. The new rule allows any material between 跟/和 and 一样 within the same clause. It accepts 跟/和 tagged either P or CC, because the tagger may label them either way. It does not depend on how 一样 is tagged (VA or AD), so it covers 一样, 不一样 and 一样 + adjective. It also covers 相同, as in 他的想法跟我相同. Requiring 跟/和 keeps out other uses of 一样. The unless line removes 像…一样 sentences, which belong to a different point.

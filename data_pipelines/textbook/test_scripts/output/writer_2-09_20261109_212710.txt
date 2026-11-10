@@ -1,0 +1,11 @@
+## 2-09
+**Point:** Large number units 千, 万, 亿 (thousand, ten thousand, hundred million)
+**Covers:** Numbers formed using 千/万/亿 as part of a multi-digit number expressed in Chinese characters (e.g. 一百万, 五万两千一百五十二, 四亿一千四百二十九万四千一百八十二)
+**Does not cover:** 万一 as "what if"; 千万 as "make sure/must"; phrases like 以防万一; single instances of 千/万/亿 without number composition
+
+```rule
+match: /CD
+unless: 万一/AD|CS ... $ | /CD 千万/CD | 千万/CD ... (要|不要|不能|要|不|应该) | 以防/VV 万一/AD | 防/VV 万一/AD
+```
+
+**Notes:** The key insight is that this point demonstrates **large number composition** — multiple CD (number) tokens forming a complete number expression using the Chinese grouping system. Counter-examples show 万一 or 千万 used as adverbs/conjunctions for conditional/imperative meanings, or single quantifier uses. The rule matches clauses containing CD tokens but excludes those where 万一 functions as a conjunction/adverb (万一/AD|CS), where 千万 functions as an adverb (千万/CD followed by modal verbs), or where these appear in idiomatic phrases like 以防万一. Single instances like "一千块钱" still match as they are valid large number expressions; the distinction is that counter-examples show different grammar points using the same words, not different uses of numbers themselves.

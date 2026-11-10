@@ -1,0 +1,20 @@
+## 1-36
+<!-- written by claude-haiku-4-5 on 2026-11-09; revised -->
+**Point:** 是-sentences for connecting nouns, and "是……的" sentences of purpose (来/去 + Verb + 的, 用来 + Verb + 的, 给 + Person + Verb + 的)
+**Covers:** Subject + 是 + Noun/Pronoun (他是老师, 这是他的书); Person + 是 + 来/去 + Verb + 的 (我是来实习的); Thing + 是 + 用来 + Verb + 的 (钱是用来花的); Thing + 是 + 给 + Person + Verb + 的 (房间是给客人住的)
+**Does not cover:** 于是, 凡是, 要不是, 要是, 还是, 不是…就是, 老是/总是, 很是, 有的是, 就是, 岂不是, 是否, 不愧是, 不是…而是, and other 是 patterns in the exclusion list. It also misses 是…吗 and 是不是 questions, adjective + 的 sentences, and location + 是 sentences, to keep precision high.
+
+```rule
+match: /PN|NN|NR 是/VC /NN|NR|PN|DT|CD
+match: 是/VC 来|去/VV ... 的/SP|DEC|DEG
+match: 是/VC 用来/VV ... 的/SP|DEC|DEG
+match: 是/VC 给/P ... 的/SP|DEC|DEG
+unless: 于是 凡是 要是 老是 总是 很是 有的是 就是 是否 不愧 还是 或是 为的是 岂不 那倒
+unless: 就/AD 是/VC
+unless: 很/AD 是/VC
+unless: 要 不 是
+unless: 不 是 ... 就
+unless: 不 是 ... 而是
+```
+
+**Notes:** The match patterns are deliberately narrow. 是 must directly follow a pronoun or noun and be followed by a noun-like word, or it must appear in a purpose pattern ending in 的. Because 是 right after 不, 很, 就, 岂不 or 要不 is not preceded by a PN/NN/NR, most compound-adverb uses are not matched in the first place. The unless lines use tokenized forms (e.g. 就/AD 是/VC, 要 不 是) because the segmenter splits words like 要不是, 岂不是 and 很是. They remove sentences where another construction co-occurs with a plain 是 clause.

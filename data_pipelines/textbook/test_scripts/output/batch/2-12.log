@@ -1,0 +1,325 @@
+
+########## rules  2026-11-09 21:27 ##########
+10 page(s) use the word(s); asking about 10.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGJ36VN  Expressing duration with "le"
+
+not:
+  ASGBVSWQ  Comparing "yishi" and "yidu"
+
+unsure:
+  ASGCED31  Expressing "how often"
+  ASGAC1P9  Expressing "half" with "ban"
+
+unrelated:
+  ASGT3KF6  Structure of dates
+  ASG5KNWW  Topic-comment sentences
+  ASG5RWKO  Time words and word order
+  ASG6120A  Reduplication of measure words
+  ASGE8810  Expressing "age difference" with "da and xiao"
+  ASGVH4Q5  Structure of days of the week
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-12
+Tagging 4 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_212747.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-12
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing duration of completed actions with 了 (le) and a time measure word
+**Covers:** Sentences with the pattern: Verb + 了 + Duration (number + measure word like 年/天/周/分钟 or time nouns like 晚上/上午/下午) + optional 的 + Object. The duration describes how long a completed action took.
+**Does not cover:** Sentences where duration words appear without 了 after a verb (e.g. 清洁工每天打扫 "cleaners sweep every day"); sentences with 一度 as a VA adjective (一年一度 "once a year"); sentences where 了 is a sentence-final particle rather than an aspect marker; time expressions that don't measure duration (e.g. 今天 "today", 明年 "next year" as temporal location, not duration).
+
+```rule
+match: _ /VV /AS /CD _ /M ... $
+match: _ /VV /AS /CD _ /M /DEG ...
+unless: /VA
+unless: /SP $
+```
+
+**Notes:** The rule captures the core pattern where a verb is followed by 了 (AS tag), then a number (CD) and measure word (M) indicating duration. The measure word is key—it must be a measure (年/天/周/分钟/小时/个月) or time noun (晚上/上午/下午/晚上/夜间), not a general time marker. The second match line allows for 的 between duration and object. We exclude patterns ending with 了 as a sentence-final particle (SP tag at end), which would indicate different grammar. We exclude sentences containing VA (adjective) to filter out 一度 counter-examples. The pattern allows optional words after the measure word to capture both "verb + 了 + duration + object" and "verb + 了 + duration + 的 + object" structures.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-12
+Tagging 4 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-12: rule on labeled examples (no AI) ===
+  examples of 2-12 matched:    11/11
+  counter-examples wrongly matched: 0/4   <- should be 0
+
+########## tatoeba  2026-11-09 22:07 ##########
+Filling 2-12 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 189 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220757.txt
+  ...100/1095
+  ...200/1095
+  ...300/1095
+  ...400/1095
+  ...500/1095
+  ...600/1095
+  ...700/1095
+  ...800/1095
+  ...900/1095
+  ...1000/1095
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  星期五 = 星期 + 五  (Friday)
+
+Course sentences at HSK 2 the rule already finds 2-12 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-12 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1906  2. contain the point's word(s)
+     1894  3. new (not in DB, not a duplicate)
+     1095  4. at most 2 characters outside HSK 2 words
+      172  5. really HSK 2
+      161  5b. no harder grammar point (of the 20 with a rule)
+        2  6. the rule finds 2-12
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-12, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  雪下了一周。  (It snowed all week.)  [tatoeba 13504857]
+
+--- dropped at step 3 (12) ---
+  明天是星期天。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  今天是我的生日。  -- already in the database
+  一年有四季。  -- already in the database
+  今天不热，今天很冷。  -- same text as tatoeba 6092457 (translations pooled)
+  今天热吗？  -- same text as tatoeba 6092456 (translations pooled)
+  今天上午你们不在医院。  -- same text as tatoeba 6471004 (translations pooled)
+  今天是星期二，明天是星期几？  -- same text as tatoeba 6056545 (translations pooled)
+  明天见！  -- already in the database
+  明天中午他们不在学校。  -- same text as tatoeba 6471013 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  我昨天买了这头猪。  -- same text as tatoeba 2737460 (translations pooled)
+
+--- dropped at step 4 (799), first 12 ---
+  附近有没有青年旅舍？  -- 3 characters no HSK 2 word uses: 舍附青
+  天气预报一点也不可靠。  -- 3 characters no HSK 2 word uses: 报靠预
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  今天的使命：奶茶跟麻糬。  -- 4 characters no HSK 2 word uses: 使命糬麻
+  大部分观众是年幼的儿童。  -- 5 characters no HSK 2 word uses: 众幼童观部
+  他一周的收入不超过50美元。  -- 3 characters no HSK 2 word uses: 入收美
+  明天举行典礼。  -- 4 characters no HSK 2 word uses: 举典礼行
+  据广播里讲，明天会下雪。  -- 4 characters no HSK 2 word uses: 广据播讲
+  天气是如此地美好。  -- 3 characters no HSK 2 word uses: 如此美
+  我昨天刚收到你的信。  -- 3 characters no HSK 2 word uses: 信刚收
+  今天我要处理的事还没处理完，又要加班了。  -- 4 characters no HSK 2 word uses: 加又处理
+  现在许多年轻人工作都不太安分，朋友的儿子大学毕业不到两年，已经换了五个工作了。  -- 6 characters no HSK 2 word uses: 业安换毕许轻
+
+--- dropped at step 5 (923), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  这是昨天来的那个女孩。  -- level 10: 女孩 (not in list)
+  这本书我昨天买了。  -- level 1: no list words
+  这本书明年要出版。  -- level 5: 出版 L5
+  我今晨看见一位天使。  -- level 10: 今晨 (not in list), 天使 L7
+  你们今天下午在学校做些什么？  -- level 1: no list words
+  我昨天买了一支像你那样的笔。  -- level 5: 支 L5, 像 L3
+  其中一个学生今天没来。  -- level 4: 其中 L4
+  今天是几号？  -- level 1: no list words
+  若天准许......  -- level 7: 若 L7, 准许 L7
+  对了，我明天有事。  -- level 1: no list words
+  昨天的天气很热。  -- level 1: no list words
+
+--- dropped at step 5b (11) ---
+  离下课还有十分钟。  -- harder grammar: 3-39 (HSK 3)
+  我昨天第一次见到他。  -- harder grammar: 3-01 (HSK 3)
+  再给我五分钟。  -- harder grammar: 3-16 (HSK 3)
+  你从昨天开始就忙吗？  -- harder grammar: 3-39 (HSK 3)
+  下周再来。  -- harder grammar: 3-16 (HSK 3)
+  第一天怎么样？  -- harder grammar: 3-01 (HSK 3)
+  你得在星期天工作吗？  -- harder grammar: 4-01 (HSK 4)
+  再等十分钟！  -- harder grammar: 3-16 (HSK 3)
+  让我再睡十分钟！  -- harder grammar: 3-16 (HSK 3)
+  今天是第一天。  -- harder grammar: 3-01 (HSK 3)
+  他们从去年开始学英文。  -- harder grammar: 3-39 (HSK 3)
+
+--- dropped at step 6 (159) ---
+  您明天回来吗？  -- rule: unless /SP $
+  我还要等五分钟。  -- rule: no match: line matched
+  他年近四十。  -- rule: no match: line matched
+  学校下周开学。  -- rule: no match: line matched
+  你每天跑步吗？  -- rule: unless /SP $
+  明天爸爸就回来了。  -- rule: unless /SP $
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  你每天几点起床？  -- rule: no match: line matched
+  他不是每天都来这。  -- rule: no match: line matched
+  玛丽明天会来帮我们。  -- rule: no match: line matched
+  我在这里已经工作十年了。  -- rule: no match: line matched
+  那样的事天天都有。  -- rule: no match: line matched
+  一天有二十四个小时。  -- rule: no match: line matched
+  你们每天都读书吗？  -- rule: unless /SP $
+  您每天都读书吗？  -- rule: unless /SP $
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  她说她每天早上六点起床。  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: unless /SP $
+  她已经五天不上学了。  -- rule: no match: line matched
+  他每天都给她打电话。  -- rule: no match: line matched
+  我每天都说英语。  -- rule: no match: line matched
+  “他明天去游泳吗？” “没错”  -- rule: unless /SP $
+  为什么你每天都学习呢？  -- rule: unless /SP $
+  他说他每天早上六点起床。  -- rule: no match: line matched
+  他每天工作八个小时。  -- rule: no match: line matched
+  今天好热啊！  -- rule: unless /SP $
+  我每天读中文。  -- rule: no match: line matched
+  她就是今天回家来的。  -- rule: unless /SP $
+  我在两周前到了。  -- rule: no match: line matched
+  Tom每天在电脑前工作八小时。  -- rule: no match: line matched
+  昨天我和朋友们见了面。  -- rule: no match: line matched
+  我不知道今天是星期二还是星期三。  -- rule: no match: line matched
+  他明天不回来。  -- rule: no match: line matched
+  今天是个阴天。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: unless /SP $
+  周日我休息。  -- rule: no match: line matched
+  忘了今天的事儿吧。  -- rule: unless /SP $
+  我们明天回来。  -- rule: no match: line matched
+  你每天睡几个小时？  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  现在的天气怎么样了？  -- rule: unless /SP $
+  他今天从悉尼回来。  -- rule: no match: line matched
+  请在明天六点叫我起来。  -- rule: no match: line matched
+  我每天都跟他说。  -- rule: no match: line matched
+  我今天累，所以我睡得早。  -- rule: no match: line matched
+  我今天跟他吃午饭。  -- rule: no match: line matched
+  明天就要过年了。  -- rule: unless /SP $
+  今天不可能下雨。  -- rule: no match: line matched
+  你每天晚上都看电视。  -- rule: no match: line matched
+  我的手表每天走快五分钟。  -- rule: no match: line matched
+  汤姆三年前进了我们公司。  -- rule: no match: line matched
+  明天是她五岁生日。  -- rule: no match: line matched
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  我今天买了一个新书包。  -- rule: no match: line matched
+  明天新的一年就要开始了。  -- rule: unless /SP $
+  今天是星期二，明天是星期几？  -- rule: no match: line matched
+  明天是晴天，很热。  -- rule: no match: line matched
+  明天下雨，我不出门。  -- rule: no match: line matched
+  上个星期天天气怎么样？  -- rule: no match: line matched
+  你下周来吗？  -- rule: unless /SP $
+  我每周吃肉三次。  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: unless /SP $
+  汤姆去年上完了大学。  -- rule: no match: line matched
+  我想让你下周回来。  -- rule: no match: line matched
+  我在本周日上班。  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: unless /SP $
+  明天不是阴天。  -- rule: no match: line matched
+  今天天气怎么样？  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气怎么样？  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我会等一两天。  -- rule: no match: line matched
+  它花了我三年。  -- rule: no match: line matched
+  今天是我一个朋友的生日。  -- rule: no match: line matched
+  我希望汤姆有一天会来这里。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: unless /SP $
+  我下周去还你钱。  -- rule: no match: line matched
+  有今天有点头疼。  -- rule: no match: line matched
+  昨天我忘了去看医生。  -- rule: no match: line matched
+  我们明天上午开始。  -- rule: no match: line matched
+  我今天做了四个考试.  -- rule: no match: line matched
+  几天前我在站看到了他。  -- rule: no match: line matched
+  休息几天会对你好的。  -- rule: no match: line matched
+  我明天回来。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  他是最年长的儿子。  -- rule: no match: line matched
+  一周有几天？  -- rule: no match: line matched
+  我每天都给他打电话。  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: unless /SP $
+  那里的天气怎么样？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: unless /SP $
+  这周我非常忙。  -- rule: no match: line matched
+  你明天会踢足球。  -- rule: no match: line matched
+  他是前几天和你见过面的那个人。  -- rule: no match: line matched
+  周一可以吗？  -- rule: unless /SP $
+  我今年去了好几次外国。  -- rule: no match: line matched
+  明天晚上九点怎么样？  -- rule: no match: line matched
+  今天是周六，明天是周日。  -- rule: no match: line matched
+  我周一到周五，从早到晚都在工作。  -- rule: no match: line matched
+  我昨天早上看到了很多鸟。  -- rule: unless /SP $
+  我下周会去见他们。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+  我每周都去看电影。  -- rule: no match: line matched
+  我会在明天午饭前回来。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: unless /SP $
+  已经周一了？  -- rule: unless /SP $
+  今天天气不错，出去走走吧。  -- rule: unless /SP $
+  都四月了天气怎么还是这么冷？  -- rule: no match: line matched
+  昨天星期五，所以他就休息了。  -- rule: unless /SP $
+  今天是我生日。  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: unless /SP $
+  让我们一周后见！  -- rule: no match: line matched
+  明天是晴天。  -- rule: no match: line matched
+  可能明天吧。  -- rule: unless /SP $
+  他一周洗一次车。  -- rule: no match: line matched
+  汤姆每天都花八个小时看电脑。  -- rule: no match: line matched
+  昨天是谁过生日？  -- rule: no match: line matched
+  我每天都去学校。  -- rule: no match: line matched
+  天气比昨天好。  -- rule: no match: line matched
+  北京昨天天气怎么样？  -- rule: no match: line matched
+  你觉得周五怎么样？  -- rule: no match: line matched
+  我上周见到了他。  -- rule: no match: line matched
+  明天是星期一吧？  -- rule: unless /SP $
+  昨天晚饭吃的鱼。  -- rule: no match: line matched
+  今天我们住酒店吧。  -- rule: unless /SP $
+  我知道他昨天就回来了。  -- rule: unless /SP $
+  我会在三天后回来。  -- rule: no match: line matched
+  你下周也会在波士顿吗？  -- rule: unless /SP $
+  今天晚上怎么样？  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: unless /SP $
+  几分钟后见。  -- rule: no match: line matched
+  五分钟过去了。  -- rule: no match: line matched
+  我看看明天能不能吧。  -- rule: unless /SP $
+  天啊！  -- rule: no match: line matched
+  她一天比一天漂亮。  -- rule: no match: line matched
+  天气一天比一天冷。  -- rule: no match: line matched
+  周四后面是周五。  -- rule: no match: line matched
+  你一天喝几杯咖啡？  -- rule: no match: line matched
+  明天可能会下雪。  -- rule: no match: line matched
+  我周一和周五学习英语。  -- rule: no match: line matched
+  今天是本月最后一个星期二。  -- rule: no match: line matched
+  明天下午会是晴天。  -- rule: no match: line matched
+  下周见。  -- rule: no match: line matched
+  我们这里的天气怎么样？  -- rule: no match: line matched
+  今天天气不错。  -- rule: no match: line matched
+  今天也是我的生日。  -- rule: no match: line matched
+  已经过去二十年了。  -- rule: unless /SP $
+  今天时间过得好慢。  -- rule: no match: line matched
+  我还是希望哪天能做那件事。  -- rule: no match: line matched
+  我每天都会打电话给你。  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  萨米周二到周六在开罗。  -- rule: no match: line matched
+  汤姆今天考试拿了最高分。  -- rule: no match: line matched
+  明天回来见我。  -- rule: no match: line matched
+  下周一学校见。  -- rule: no match: line matched
+  天气好的时候我会去洗衣服。  -- rule: no match: line matched
+  你能每天早上叫我起床吗？  -- rule: unless /SP $
+
+--- dropped at step 7 (1) ---
+  昨天是星期五，所以他休息了一天。  -- no accurate English among: Yesterday was Friday, so he took a break.
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-12_level2_20261109_220809.csv

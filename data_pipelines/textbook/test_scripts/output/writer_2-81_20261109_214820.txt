@@ -1,0 +1,23 @@
+## 2-81
+**Point:** Expressing "about to" with 要/快要/就要⋯⋯了
+**Covers:** The imminent future using 就要 or 快要 followed by a verb and 了, with optional time expressions at the start (还有 + time duration)
+**Does not cover:** Other uses of 要 (desire, obligation, condition); 要不是 (if it weren't for); 要不 (how about); 不要 (don't); 要是 (if); 要 alone meaning intention; 要看 (depends); other auxiliary uses
+
+```rule
+match: 就/AD 要/VV _ ... /SP|AS$
+match: 快要/AD _ ... /SP|AS$
+match: 快/AD 要/VV _ ... /SP|AS$
+match: 还/AD 有/VV|VE ... 就/AD 要?/VV _ ... /SP|AS$
+match: 还/AD 有/VV|VE ... 就/AD _ ... /SP|AS$
+match: ^ 要/VV _ ... /SP|AS$
+unless: 不要
+unless: 要/VV 不/AD
+unless: 要/VV 是/VC
+unless: 要/VV 看/VV
+unless: 要/CS
+unless: 要/VV _ ... (/P|/VV|/PN|/DT|/NN|/JJ|/NT)$ 
+unless: 要/VV (/P|/VV|/PN|/DT|/NN|/JJ|/NT)
+unless: /NT _ 要/VV
+```
+
+**Notes:** The last two "unless" lines exclude cases where 要 is followed by or preceded by explicit time expressions (or other structures) that indicate future intent rather than imminence. The pattern `^ 要/VV` matches bare 要 without 就 (as in 要下雨了), but unless lines filter out cases like 明天要, 今年要, 我要请假 where 要 means plan/intent. The rule prioritizes 就要 and 快要 patterns as more reliable.

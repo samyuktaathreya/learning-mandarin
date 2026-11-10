@@ -1,0 +1,22 @@
+2026-11-09 22:12:23,579  INFO     === tag_sentences.py run started ===
+2026-11-09 22:12:23,891  INFO     OK        hanlp-valid   '请告诉我什么时候该走。' -> [('请', 'VV'), ('告诉', 'VV'), ('我', 'PN'), ('什么', 'DT'), ('时候', 'NN'), ('该', 'VV'), ('走', 'VV')]
+2026-11-09 22:12:23,893  INFO     TAGGED    '请告诉我什么时候该走。' (level 3, 7 tags)
+2026-11-09 22:12:24,266  INFO     OK        hanlp-valid   '告诉我什么时候停下。' -> [('告诉', 'VV'), ('我', 'PN'), ('什么', 'DT'), ('时候', 'NN'), ('停下', 'VV')]
+2026-11-09 22:12:24,270  INFO     TAGGED    '告诉我什么时候停下。' (level 4, 6 tags)
+2026-11-09 22:12:24,278  INFO     FALLBACK  '汤姆是什么时候让你去做的？' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:12:24,278  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('是', 'VC'), ('什么', 'DT'), ('时候', 'NN'), ('让', 'VV'), ('你', 'PN'), ('去', 'VV'), ('做', 'VV'), ('的', 'SP')]
+2026-11-09 22:12:24,280  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:12:24,281  INFO     TAGGED    '汤姆是什么时候让你去做的？' (level 10, 9 tags)
+2026-11-09 22:12:24,655  INFO     OK        hanlp-valid   '你们什么时候开始营业？' -> [('你们', 'PN'), ('什么', 'DT'), ('时候', 'NN'), ('开始', 'VV'), ('营业', 'VV')]
+2026-11-09 22:12:24,656  INFO     TAGGED    '你们什么时候开始营业？' (level 5, 5 tags)
+2026-11-09 22:12:25,028  INFO     FALLBACK  '汤姆想知道你什么时候完事。' -- out-of-list word(s): ['汤姆', '完事']
+2026-11-09 22:12:25,028  WARNING    HAIKU resegment call for '汤姆想知道你什么时候完事。' (cache miss on [('完事', 'VV')])
+2026-11-09 22:12:25,039  INFO       NON-LIST 汤姆 (NR) -> '(name) tang1mu3' [proper_noun]
+2026-11-09 22:12:25,050  INFO     TAGGED    '汤姆想知道你什么时候完事。' (level 2, 8 tags)
+2026-11-09 22:12:25,058  INFO     FALLBACK  '您上次吃鹿肉是什么时候？' -- out-of-list word(s): ['鹿肉']
+2026-11-09 22:12:25,058  WARNING    HAIKU resegment call for '您上次吃鹿肉是什么时候？' (cache miss on [('鹿肉', 'NN')])
+2026-11-09 22:12:25,073  INFO     TAGGED    '您上次吃鹿肉是什么时候？' (level 7, 9 tags)
+2026-11-09 22:12:25,081  INFO     FALLBACK  '汤姆是什么时候洗车的？' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:12:25,082  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('是', 'VC'), ('什么', 'DT'), ('时候', 'NN'), ('洗', 'VV'), ('车', 'NN'), ('的', 'SP')]
+2026-11-09 22:12:25,083  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:12:25,084  INFO     TAGGED    '汤姆是什么时候洗车的？' (level 10, 7 tags)

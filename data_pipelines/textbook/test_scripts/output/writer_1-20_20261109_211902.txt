@@ -1,0 +1,45 @@
+## 1-20
+**Point:** Structural particles 的, 地, 得 for modifying nouns and verbs
+
+**Covers:** 
+- 的 (de) for possessive/modifying nouns: Noun/Pronoun + 的 + Noun; Adj + 的 + Noun; Phrase + 的 + Noun
+- 地 (de) for adverbial phrases: Adj + 地 + Verb
+- Reduplication patterns with adjectives: AA的, AABB的, AABB地+Verb
+- Standalone 的 at clause end when it clearly follows one of the above patterns
+
+**Does not cover:**
+- Modal particle 的 in statements (他会好的)
+- 有的 as "some" (有的人, 有的是)
+- 的话 as conditional/topic marker
+- 似的 as "like/similar to"
+- 什么的 as list-ending marker
+- 之类的 as "such as/et cetera"
+- 得 as degree complement after verbs (做得很好 when just showing result quality, not reduplicated adj modifying)
+- 是...的 emphasis/purpose constructions (我是来玩的)
+- Determiner uses (这的, 那的)
+
+```rule
+match: /DEG|DEC|DEV ... /NN|VV
+match: /VA /DEV /VV
+match: /VA /DEC /NN
+match: /VA /DEG /NN
+match: /VA /VA /DEG? /NN?
+match: /VA /VA /VA /VA /DEV|DEC|DEG /NN?|VV
+match: /DT? /NN /DEG /NN
+match: _ /VV /DEC /NN
+match: _ /VV /DEG /NN
+match: /PN /DEG /NN
+match: /VA /DEC $
+match: /VA /DEV $
+match: /PN /VV /AS|DEC /NN
+unless: 的话/SP
+unless: 有的/PN
+unless: 之/DEG 类/M 的/DEG
+unless: 什么/PN 的/DEG
+unless: 似的/AD
+unless: 是/VC ... 的/SP
+unless: /PN 是/VC ... 的/SP
+unless: /VV 得/DER ... /VA $ 
+```
+
+**Notes:** The rule prioritizes precision by matching clear structural uses: possessive/attributive 的 (DEG/DEC) with nouns, adverbial 地 (DEV) with verbs, and adjective-based modification patterns. Reduplicated adjectives are matched as sequences of VA tags. The pattern `_ /VV /DEC|/DEG /NN` captures relative clauses. End-of-clause patterns catch standalone 的 after clear attributive structures. Unless clauses exclude common confusable grammar points that use identical character forms but serve different functions. Note that 得 as degree complement (verb + 得 + adjective/adverb) is generally not included as it's HSK 1-31 (degree complement), though the rule focuses on the structural particle uses listed for this point.

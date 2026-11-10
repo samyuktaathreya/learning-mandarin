@@ -1,0 +1,24 @@
+## 2-47
+**Point:** 以前/以后 (and the split form 以/前, 以/后) mark time before or after a time point or an action, or refer to "before" or "in the future" in general.
+
+**Covers:**
+- Time or verb phrase + 以前/以后, e.g. 睡觉以前，… / 吃完午饭以后，… / 几年以后，… / 在来中国以前，….
+- Sentence-initial 以前/以后 (以后你想来中国吗？).
+- 以前/以后 directly after the subject (爸爸以前很喜欢抽烟 / 我以后不喝酒了).
+- The tagger's split 以/P + 前/后, as in 两年以前 and 几个月以前.
+
+**Does not cover:**
+- Sentences with no 以前/以后 token. This leaves out the bare short forms 前/后 (e.g. 饭前, 后年), which are too ambiguous to detect safely.
+- 后来, 在内, 在于, 早在, 在…上/下, 在 + place, and other 在 or 前/后 uses, because they never contain 以前/以后.
+
+```rule
+match: 以前
+match: 以后
+match: 以 前
+match: 以 后
+```
+
+**Notes:**
+- Matching is by word, regardless of tag, because the tagger gives 以前/以后 many tags (NT, NN, AD, LC).
+- 以前/以后 almost always express this point, so there are no `unless:` lines.
+- Modifier uses like 以前的同学 would also match. They are rare and still teach the meaning of 以前. Add `unless: 以前 的` or `unless: 以后 的` if they should be excluded.

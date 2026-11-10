@@ -1,0 +1,11 @@
+## 2-76
+**Point:** Asking questions using 什么时候、什么样、怎么样、怎样 to inquire about when something happens or what something is like
+**Covers:** Questions with 怎么样/怎样 asking "how is...?" or "what is...like?"; Questions with 什么时候 asking "when?"; Questions with 什么样 asking "what kind of?"
+**Does not cover:** Using these words in statements (not questions); 为什么 questions (HSK 1-46); 怎么样 in non-interrogative contexts like "不怎么样" (HSK 6-30); 怎么样/怎样 in fixed expressions like "不管怎样" (HSK 5-65); questions that only use 吗 (HSK 1-45)
+
+```rule
+match: ... (什么时候|什么样|怎么样|怎样) (\?|$)
+unless: 为什么
+```
+
+**Notes:** The rule matches when one of the four question words appears near the end of a clause/sentence (indicated by ? or clause boundary $). The 为什么 exclusion prevents matching HSK 1-46 (general question words including 为什么). The tagger sometimes tags 怎么样/怎样 as VV, VA, or other parts of speech depending on context, so we match the raw word forms. Sentences like "这个电影不怎么样" are excluded because they don't end with a question mark—the rule requires interrogative structure.

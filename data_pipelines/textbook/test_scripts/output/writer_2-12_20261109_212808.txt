@@ -1,0 +1,13 @@
+## 2-12
+**Point:** Expressing the duration of a completed action with 了 and a time measure (verb + 了 + duration + optional 的 + object)
+
+**Covers:** Sentences with the pattern: Verb + 了 (aspect marker) + number + duration word (年, 天, 周, 分钟, 小时, 个月, 星期, or time nouns such as 晚上, 上午, 下午) + optional 的 + object. The duration says how long the completed action lasted. A time word before the verb (昨天, 刚才) is allowed.
+
+**Does not cover:** Duration words with no 了 after the verb (e.g. 清洁工每天打扫); 一年一度 and similar 一度/一时 uses; sentences with a sentence-final 了 (e.g. 我等了三天了), which are a different pattern for ongoing actions; time words that give a point in time rather than a duration (今天, 明年).
+
+```rule
+match: /VV 了/AS /CD 个? 年|天|周|分钟|小时|钟头|星期|月|晚上|上午|下午|早上|中午|夜
+unless: /SP $
+```
+
+**Notes:** The old rule required an extra word between the number and the measure word, so it never matched any of the labeled examples. The new rule puts the number directly after the verb and 了, with an optional 个, then a specific list of duration words. That list covers measure words (年/天), nouns tagged NN (小时), and time nouns tagged NT (晚上/上午). Because the pattern is not anchored to the end of the clause, it matches both the version with an object and the version with 的 plus an object. The old VA exclusion is dropped: the pattern already fails on 一年一度, and the exclusion would wrongly reject sentences that merely contain an adjective elsewhere. The exclusion for a clause-final sentence particle 了 is kept.

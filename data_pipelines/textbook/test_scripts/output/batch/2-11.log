@@ -1,0 +1,80 @@
+
+########## rules  2026-11-09 21:27 ##########
+21 page(s) use the word(s); asking about 21.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGWCESP  Verbing briefly with "yixia"
+  ASG5AODR  Measure words for verbs
+  ASGCED31  Expressing "how often"
+
+not:
+  ASG06EA8  Expressing "all at once" with "yixiazi"
+  ASG1PTJX  Result complement "-xiaqu"
+  ASG516F9  Advanced potential complements
+  ASG7AE5C  Defining upper and lower limits
+  ASGFBWZL  Expressing location with "zai... shang / xia / li"
+  ASGH13JY  Idiomatic phrases with "zai"
+
+unsure:
+  ASGXHQEF  Expressing "every time" with "mei" and "dou"
+  ASG5334C  Expressing "while you're at it" with "shunbian"
+
+unrelated:
+  ASG5KNWW  Topic-comment sentences
+  ASG5RWKO  Time words and word order
+  ASG6120A  Reduplication of measure words
+  ASG8LWBJ  Direction complement
+  ASGDHE8S  Reduplication of adjectives
+  ASGJ36VN  Expressing duration with "le"
+  ASGPRGAX  Actions in a row
+  ASGQRS3P  Advanced uses of "ba"
+  ASGSVF28  Expressing duration of inaction
+  ASGZH7K3  Affirmative-negative question
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-11
+Tagging 19 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_212719.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-11
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Measure words for verbs (动量词): 遍, 次, 场, 回, 下 and "一下" for brief actions
+**Covers:** (1) Verb + Number + Measure word (遍/次/场/回/下) showing frequency or repetition of an action; (2) Verb + 一下 expressing a brief or softened action
+**Does not cover:** 一下子 (sudden change), 下去 (result complement / continuation), potential complements with 得/不, location words (在...下/里), time/amount limits (以下/以上), or other uses of 下 as direction/location
+
+```rule
+match: /VV _ /CD /M
+match: /VV /CD 下/M
+match: /VV /CD 下
+unless: 下去/VV
+unless: 一/CD 下/M 子/NN
+unless: 一/AD 下
+unless: 以下
+unless: /LC
+unless: _ /AD 下/VV
+```
+
+**Notes:** 
+- The rule matches verb + any word + number + measure word (遍/次/场/回/下), and also verb + number + 下 (where 下 is tagged M).
+- Must exclude 下去 (always a result complement, tagged as one word /VV or as 下/VV 去/VV).
+- Must exclude 一下子 patterns (sudden action): these appear as 一/AD or 一/CD 下/M 子/NN.
+- Must exclude 以下 (time/amount limit) by checking for 以 before it.
+- Must exclude locational 下 (tagged /LC or following location prepositions).
+- The pattern 一/AD 下 in counter-examples indicates 下 is being used as an adverbial particle in 一下子 constructions, not as a measure word.
+- Common measure words to match: 遍 (biàn), 次 (cì), 下 (xià), 回 (huí), 场 (chǎng).
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-11
+Tagging 19 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-11: rule on labeled examples (no AI) ===
+  examples of 2-11 matched:    27/29
+  counter-examples wrongly matched: 1/36   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (1) ---
+  我走不动了，我们休息一下吧！  -- ASG516F9 Advanced potential complements  [matched: /VV /AS? /CD /CD? 遍|次|回|场|下/M]
+
+--- examples of 2-11 the rule misses (2) ---
+  那个红头发的男孩打了我三下。  -- ASG5AODR Measure words for verbs
+  他轻轻地拍了我两下。  -- ASG5AODR Measure words for verbs

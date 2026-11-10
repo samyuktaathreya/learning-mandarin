@@ -1,0 +1,41 @@
+2026-11-09 21:32:45,448  INFO     === tag_sentences.py run started ===
+2026-11-09 21:32:45,509  INFO     FALLBACK  '一直往前走。' -- out-of-list word(s): ['往前']
+2026-11-09 21:32:45,509  WARNING    HAIKU resegment call for '一直往前走。' (cache miss on [('往前', 'AD')])
+2026-11-09 21:32:45,521  INFO     TAGGED    '一直往前走。' (level 3, 4 tags)
+2026-11-09 21:32:45,529  INFO     OK        hanlp-valid   '往左拐。' -> [('往', 'P'), ('左', 'NN'), ('拐', 'VV')]
+2026-11-09 21:32:45,530  INFO     TAGGED    '往左拐。' (level 6, 3 tags)
+2026-11-09 21:32:45,537  INFO     OK        hanlp-valid   '往上看。' -> [('往', 'P'), ('上', 'NN'), ('看', 'VV')]
+2026-11-09 21:32:45,539  INFO     TAGGED    '往上看。' (level 2, 3 tags)
+2026-11-09 21:32:45,546  INFO     FALLBACK  '那个小偷往东跑了。' -- out-of-list word(s): ['那个']
+2026-11-09 21:32:45,546  INFO       CACHE-ONLY resegmentation -> [('那', 'DT'), ('个', 'M'), ('小偷', 'NN'), ('往', 'P'), ('东', 'NN'), ('跑', 'VV'), ('了', 'SP')]
+2026-11-09 21:32:45,552  INFO     TAGGED    '那个小偷往东跑了。' (level 6, 8 tags)
+2026-11-09 21:32:45,560  INFO     OK        hanlp-valid   '不要往楼下扔垃圾。' -> [('不要', 'AD'), ('往', 'P'), ('楼下', 'NN'), ('扔', 'VV'), ('垃圾', 'NN')]
+2026-11-09 21:32:45,573  INFO     TAGGED    '不要往楼下扔垃圾。' (level 4, 6 tags)
+2026-11-09 21:32:45,581  INFO     FALLBACK  '不要往小孩嘴巴里塞东西了！' -- out-of-list word(s): ['小孩']
+2026-11-09 21:32:45,581  WARNING    HAIKU resegment call for '不要往小孩嘴巴里塞东西了！' (cache miss on [('小孩', 'NN')])
+2026-11-09 21:32:45,590  INFO       NON-LIST 小孩 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:32:45,592  INFO     TAGGED    '不要往小孩嘴巴里塞东西了！' (level 10, 8 tags)
+2026-11-09 21:32:45,601  INFO     FALLBACK  '开往北京的火车' -- out-of-list word(s): ['开往']
+2026-11-09 21:32:45,601  WARNING    HAIKU resegment call for '开往北京的火车' (cache miss on [('开往', 'VV')])
+2026-11-09 21:32:45,613  INFO     TAGGED    '开往北京的火车' (level 2, 5 tags)
+2026-11-09 21:32:45,622  INFO     FALLBACK  '飞往纽约的飞机' -- out-of-list word(s): ['纽约']
+2026-11-09 21:32:45,622  INFO       CACHE-ONLY resegmentation -> [('飞往', 'VV'), ('纽约', 'NN'), ('的', 'DEC'), ('飞机', 'NN')]
+2026-11-09 21:32:45,627  INFO       NON-LIST 纽约 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:32:45,628  INFO     TAGGED    '飞往纽约的飞机' (level 10, 5 tags)
+2026-11-09 21:32:45,637  INFO     FALLBACK  '运往国外的货物' -- out-of-list word(s): ['运往']
+2026-11-09 21:32:45,637  WARNING    HAIKU resegment call for '运往国外的货物' (cache miss on [('运往', 'VV')])
+2026-11-09 21:32:45,662  INFO     TAGGED    '运往国外的货物' (level 5, 6 tags)
+2026-11-09 21:32:45,675  INFO     FALLBACK  '往下说。' -- out-of-list word(s): ['往下']
+2026-11-09 21:32:45,675  WARNING    HAIKU resegment call for '往下说。' (cache miss on [('往下', 'AD')])
+2026-11-09 21:32:45,687  INFO     TAGGED    '往下说。' (level 2, 3 tags)
+2026-11-09 21:32:45,695  INFO     FALLBACK  '往下读。' -- out-of-list word(s): ['往下']
+2026-11-09 21:32:45,695  WARNING    HAIKU resegment call for '往下读。' (cache miss on [('往下', 'AD')])
+2026-11-09 21:32:45,706  INFO     TAGGED    '往下读。' (level 2, 3 tags)
+2026-11-09 21:32:45,715  INFO     FALLBACK  '你往下看就知道了。' -- out-of-list word(s): ['往下']
+2026-11-09 21:32:45,715  WARNING    HAIKU resegment call for '你往下看就知道了。' (cache miss on [('往下', 'AD')])
+2026-11-09 21:32:45,728  INFO     TAGGED    '你往下看就知道了。' (level 2, 7 tags)
+2026-11-09 21:32:45,737  INFO     OK        hanlp-valid   '你往左走，就能看见洗手间。' -> [('你', 'PN'), ('往', 'P'), ('左', 'NN'), ('走', 'VV'), ('就', 'AD'), ('能', 'VV'), ('看见', 'VV'), ('洗手间', 'NN')]
+2026-11-09 21:32:45,739  INFO     TAGGED    '你往左走，就能看见洗手间。' (level 2, 8 tags)
+2026-11-09 21:32:45,754  INFO     FALLBACK  '你往前走一百米就到了。' -- out-of-list word(s): ['往前']
+2026-11-09 21:32:45,754  WARNING    HAIKU resegment call for '你往前走一百米就到了。' (cache miss on [('往前', 'AD')])
+2026-11-09 21:32:45,772  INFO     TAGGED    '你往前走一百米就到了。' (level 3, 8 tags)

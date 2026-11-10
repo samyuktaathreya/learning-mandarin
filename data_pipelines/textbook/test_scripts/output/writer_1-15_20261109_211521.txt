@@ -1,0 +1,23 @@
+## 1-15
+**Point:** Basic uses of 从 (cóng) meaning "from" in relation to place, time, source, or origin
+**Covers:** 从...到 (from X to Y for time/place); 从...中 (from X, gaining Y); 从+place/source+action (from X, doing Y); 离+event/time (distance from an event/time)
+**Does not cover:** 从来 as adverb meaning "always/never"; 从而 meaning "thus/thereby"; 自从 meaning "ever since"; 从 in compounds like 从小, 从此, 从前when used as time adverbs; 从事 (to engage in); 从+小/中/大 as size descriptors
+
+```rule
+match: /P ... (到|中|LC|起)/P|VV|LC|P
+unless: 从来/AD
+unless: 从而/AD
+unless: 自从/P
+unless: 从小/AD
+unless: 从中/AD
+unless: 从此/AD
+unless: 从前/NT
+unless: 从事/VV
+```
+
+**Notes:** 
+- The rule looks for 从 (tagged P) followed by some material, then followed by a connector: 到 (to), 中 (in/from), LC localizer like 里/上/以后/起/以来, or起 (starting from). This covers the three main uses: 从...到 (from-to), 从...中 (from-in), and 从+location/time+LC.
+- The unlesses filter out adverbial uses (从来, 从而, 从小, 从中, 从此, 从前) and the verb 从事.
+- Note: some examples show 到 tagged VV instead of P (e.g. "到机场"); the pattern allows both.
+- 离 (lí) is tagged P and follows the same pattern (离+noun/event+还/有+duration) so it's covered by the same rule.
+- The rule is deliberately conservative to avoid false positives with adverbial or phrasal uses.

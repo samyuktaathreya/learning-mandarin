@@ -1,0 +1,22 @@
+## 2-45
+**Point:** Expressing "had better" with 还是...吧 (háishì...ba)
+**Covers:** Suggesting a course of action after deliberation, with 还是 as an adverb meaning "had better" or "it would be better to", usually ending the clause with 吧. Also covers negative suggestions (还是 + 别/不要 + verb) where 吧 may be omitted.
+**Does not cover:** 还是 as a coordinating conjunction offering choices (Option A 还是 Option B?). Also excluded are 还是 meaning "still" or "nevertheless" (他还是买了, 尽管…还是…, 了又…还是), 呢 choice questions (打游戏呢，还是泡吧呢), and other uses of 吧 without 还是.
+
+```rule
+match: 还是/AD ... 吧/SP $
+match: ^ 还是/CC|AD 不要|别/AD
+match: 还是/AD 别/AD
+unless: 尽管/CS
+unless: 了/AS 又/AD|CC
+unless: 又/AD|CC ... 还是/AD
+unless: 但是/CC|AD ... 还是/AD
+unless: 可是/AD ... 还是/AD
+unless: /CS ... 还是/AD
+unless: 呢/SP ... 还是/AD
+unless: 还是/AD ... 呢/SP
+unless: 不要/AD ... 还是/AD
+unless: 想/VV ... 还是/AD ... /PN
+```
+
+**Notes:** The main pattern requires the clause to end in 吧 after 还是 used as an adverb, e.g. 还是让她进来吧 and 你还是坐地铁吧. This keeps out "still" sentences such as 他还是买了 and 她还是喝. Without 吧, only negative suggestions with 别 or 不要 are accepted. The tagger sometimes labels clause-initial 还是 as CC, as in 还是不要再问了, so that case is allowed only when 不要/别 follows directly. The unless lines exclude concessive, contrastive and repeated-action contexts and 呢 choice questions.

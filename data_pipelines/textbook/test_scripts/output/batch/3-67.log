@@ -1,0 +1,67 @@
+
+########## rules  2026-11-09 21:55 ##########
+19 page(s) use the word(s); asking about 19.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGEXR6R  Expressing the only two possibilities
+
+not:
+  ASG5HZG6  "Could it be that" with "qibushi"
+  ASG8F7D4  Expressing "if it were not for" with "yaobushi"
+  ASGF1TQ2  Expressing "even if…" with "jiushi"
+  ASGMX0ZS  Using "er" to explain contrasting ideas
+  ASGN4S8O  Expressing "if… then…" with "yaoshi"
+  ASGR6Q2J  Expressing "let alone" with "bie shuo"
+  ASGY21RK  Emphasis with "jiushi"
+  ASGT9Y8P  Conceding a point with "shi"
+
+unsure:
+
+unrelated:
+  ASG4D8XB  Tag questions with "bu"
+  ASGE662E  The "shi... de" construction for emphasizing details
+  ASGEEA2D  Expressing "double negation"
+  ASGUN7RX  Connecting nouns with "shi"
+  ASGZH7K3  Affirmative-negative question
+  ASG1RE80  Expressing contrariness with "dao"
+  ASG6TB4J  Expressing "that's all" with "eryi"
+  ASGD4EC8  Simple rhetorical questions
+  ASGF08B6  Repeated actions in the past with "you"
+  ASGOWBSL  Expressing "all" with "suoyou"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 3-67
+Tagging 11 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215507.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-67
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** 不是⋯⋯，就是⋯⋯ — expressing that a situation is one of only two possibilities
+**Covers:** The structure with 不是 + A，就是 + B where A and B are the two exhaustive alternatives (can be verbs, adjectives, nouns, or phrases), appearing in the same clause or across punctuation-separated clauses
+**Does not cover:** 要不是 (if it were not for), 就是 + hypothetical + 也 (even if), 而是 (but rather), 就是 when used for identification/emphasis alone, 别说⋯就是 (let alone), concessive 是⋯就是 (X is X, but...), 岂不是 (rhetorical), or 要是/就 (if-then conditional)
+
+```rule
+match: 不/AD 是/VC ... 就是/AD|CC
+match: 不/AD 是/VC ... 就/AD 是/VC
+unless: 而/AD|CC 是/VC
+unless: 要/VV 不/AD 是/VC
+unless: 也/AD 不/AD 是/VC
+unless: 别说/AD
+unless: 岂不/AD 是/VC
+unless: 是/VC ... 是/VC ‖ 就是/AD
+unless: /VA 是/VC /VA ‖ 就是/AD
+```
+
+**Notes:** The pattern looks for 不是 followed by content and then 就是 (tagged as AD or CC depending on position). The unless clauses exclude: (1) 而是 structures (different grammar), (2) 要不是 (counterfactual), (3) X也不是⋯ (different pattern from HSK 5-60), (4) 别说 (let alone structure), (5) 岂不是 (rhetorical), (6) concessive structures where an adjective + 是 + adjective precedes 就是. The core pattern requires both parts present in the sentence to confirm the two-alternatives meaning.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-67
+Tagging 11 labeled example(s) (cached after this run)...
+
+=== A. 3-67: rule on labeled examples (no AI) ===
+  examples of 3-67 matched:    10/12
+  counter-examples wrongly matched: 0/61   <- should be 0
+
+--- examples of 3-67 the rule misses (2) ---
+  他不是在办公室，就是在实验室。  -- HSK list example
+  这些衣服都不合适，不是太大，就是太小。  -- HSK list example

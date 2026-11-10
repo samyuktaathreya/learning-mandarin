@@ -1,0 +1,11 @@
+## 1-45
+**Point:** Yes-no questions, tag questions, and questions about completed actions using 吗
+**Covers:** Statements converted to yes-no questions by adding 吗 at the end; tag questions with confirmation words (好/对/是/可以) + 吗; questions about completed actions with 了吗
+**Does not cover:** Other uses of 吗 that are not questions; 吗 used as a pronoun (e.g. 你干吗去); questions formed with other methods (interrogative words like 谁/什么/哪儿 without 吗)
+
+```rule
+match: ... /SP $吗
+unless: ... 什么/PN|NN ... 吗/SP $
+```
+
+**Notes:** The rule detects 吗 (tagged as SP) at the end of a clause. The unless clause excludes rhetorical questions with 干吗 where 吗 functions as a pronoun rather than a question particle (detected by the pattern 什么 followed by 吗). All labeled examples end with 吗/SP, including tag questions after commas and questions with 了吗. The pattern allows any content before 吗 since the point applies to converting any statement into a question.

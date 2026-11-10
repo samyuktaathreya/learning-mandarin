@@ -1,0 +1,46 @@
+
+########## rules  2026-11-09 21:51 ##########
+4 page(s) use the word(s); asking about 4.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGQGJXT  Expressing purpose with "weile"
+  ASG6509E  Explaining purpose with "wei... er..."
+
+not:
+
+unsure:
+  ASGTPGXK  Stating the effect before the cause
+
+unrelated:
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 3-26
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215113.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-26
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 为了 or 为...而 to express the purpose or beneficiary of an action
+**Covers:** Sentences where 为了 or 为...而 introduces the purpose/beneficiary of an action, appearing before the main verb (or after 是 in copular sentences)
+**Does not cover:** Cases where 为 is part of other verbs like 成为 or 变为; sentences using only 因为 (which expresses reason/cause, not purpose)
+
+```rule
+match: 为了/P
+match: 为/P ... 而/MSP
+unless: 成为|变为
+```
+
+**Notes:** The rule matches two structures: (1) 为了 as a preposition introducing purpose, which can appear clause-initially or after 是; (2) the pattern 为...而 where 为 is tagged as P and 而 as MSP, with any number of words between them. The unless clause excludes verbs 成为 and 变为 where 为 is part of the verb root, not a preposition. The tagger sometimes marks 为了 as VV when it's part of a verb compound (e.g., 变为了), which the unless clause filters out. Sentences with 因为 alone are excluded because they express cause/reason rather than purpose.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-26
+Tagging 2 labeled example(s) (cached after this run)...
+
+=== A. 3-26: rule on labeled examples (no AI) ===
+  examples of 3-26 matched:    20/22
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+--- examples of 3-26 the rule misses (2) ---
+  你学中文是因为你的中国女朋友吗？  -- ASGQGJXT Expressing purpose with "weile"
+  我们之所以反对是因为风险太大。  -- ASGQGJXT Expressing purpose with "weile"

@@ -1,0 +1,126 @@
+2026-11-09 21:33:08,691  INFO     === tag_sentences.py run started ===
+2026-11-09 21:33:08,756  INFO     OK        hanlp-valid   '向东走。' -> [('向', 'P'), ('东', 'NN'), ('走', 'VV')]
+2026-11-09 21:33:08,758  INFO     TAGGED    '向东走。' (level 3, 3 tags)
+2026-11-09 21:33:08,765  INFO     FALLBACK  '向前看。' -- out-of-list word(s): ['向前看']
+2026-11-09 21:33:08,765  WARNING    HAIKU resegment call for '向前看。' (cache miss on [('向前看', 'VV')])
+2026-11-09 21:33:08,777  INFO       NON-LIST 向前 (AD) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:33:08,778  INFO     TAGGED    '向前看。' (level 10, 2 tags)
+2026-11-09 21:33:08,785  INFO     FALLBACK  '向左转。' -- out-of-list word(s): ['向左']
+2026-11-09 21:33:08,786  WARNING    HAIKU resegment call for '向左转。' (cache miss on [('向左', 'AD')])
+2026-11-09 21:33:08,796  INFO     TAGGED    '向左转。' (level 4, 3 tags)
+2026-11-09 21:33:08,804  INFO     FALLBACK  '老师正向我们走来。' -- out-of-list word(s): ['走来']
+2026-11-09 21:33:08,804  WARNING    HAIKU resegment call for '老师正向我们走来。' (cache miss on [('走来', 'VV')])
+2026-11-09 21:33:08,817  INFO     TAGGED    '老师正向我们走来。' (level 3, 6 tags)
+2026-11-09 21:33:08,826  INFO     OK        hanlp-valid   '火车已经开了，她还在向我招手。' -> [('火车', 'NN'), ('已经', 'AD'), ('开', 'VV'), ('了', 'AS'), ('她', 'PN'), ('还', 'AD'), ('在', 'AD'), ('向', 'P'), ('我', 'PN'), ('招手', 'VV')]
+2026-11-09 21:33:08,829  INFO     TAGGED    '火车已经开了，她还在向我招手。' (level 6, 10 tags)
+2026-11-09 21:33:08,838  INFO     OK        hanlp-valid   '你必须向他道歉！' -> [('你', 'PN'), ('必须', 'VV'), ('向', 'P'), ('他', 'PN'), ('道歉', 'VV')]
+2026-11-09 21:33:08,848  INFO     TAGGED    '你必须向他道歉！' (level 4, 5 tags)
+2026-11-09 21:33:08,856  INFO     FALLBACK  '这件事你应该向老板汇报一下。' -- out-of-list word(s): ['一下']
+2026-11-09 21:33:08,857  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('件', 'M'), ('事', 'NN'), ('你', 'PN'), ('应该', 'VV'), ('向', 'P'), ('老板', 'NN'), ('汇报', 'VV'), ('一', 'CD'), ('下', 'M')]
+2026-11-09 21:33:08,859  INFO     TAGGED    '这件事你应该向老板汇报一下。' (level 6, 10 tags)
+2026-11-09 21:33:08,867  INFO     FALLBACK  '向雷锋同志学习！' -- out-of-list word(s): ['雷锋']
+2026-11-09 21:33:08,867  WARNING    HAIKU resegment call for '向雷锋同志学习！' (cache miss on [('雷锋', 'NR')])
+2026-11-09 21:33:08,875  INFO       NON-LIST 雷锋 (NR) -> '(name) lei2feng1' [proper_noun]
+2026-11-09 21:33:08,876  INFO     TAGGED    '向雷锋同志学习！' (level 7, 4 tags)
+2026-11-09 21:33:08,885  INFO     FALLBACK  '我不喜欢向朋友借钱。' -- out-of-list word(s): ['借钱']
+2026-11-09 21:33:08,885  WARNING    HAIKU resegment call for '我不喜欢向朋友借钱。' (cache miss on [('借钱', 'VV')])
+2026-11-09 21:33:08,897  INFO     TAGGED    '我不喜欢向朋友借钱。' (level 3, 7 tags)
+2026-11-09 21:33:08,906  INFO     FALLBACK  '你会向陌生人求助吗？' -- out-of-list word(s): ['陌生人']
+2026-11-09 21:33:08,906  WARNING    HAIKU resegment call for '你会向陌生人求助吗？' (cache miss on [('陌生人', 'NN')])
+2026-11-09 21:33:08,919  INFO     TAGGED    '你会向陌生人求助吗？' (level 6, 7 tags)
+2026-11-09 21:33:08,927  INFO     OK        hanlp-valid   '我们都没经验，是来向你请教的。' -> [('我们', 'PN'), ('都', 'AD'), ('没', 'VE'), ('经验', 'NN'), ('是', 'VC'), ('来', 'VV'), ('向', 'P'), ('你', 'PN'), ('请教', 'VV'), ('的', 'SP')]
+2026-11-09 21:33:08,930  INFO     TAGGED    '我们都没经验，是来向你请教的。' (level 5, 10 tags)
+2026-11-09 21:33:08,944  INFO     OK        hanlp-valid   '从这里向/朝/往北走两百米就到了。' -> [('从', 'P'), ('这里', 'PN'), ('向', 'P'), ('朝', 'P'), ('往', 'P'), ('北', 'NN'), ('走', 'VV'), ('两百', 'NUM'), ('米', 'NN'), ('就', 'AD'), ('到', 'VV'), ('了', 'SP')]
+2026-11-09 21:33:08,947  INFO     TAGGED    '从这里向/朝/往北走两百米就到了。' (level 5, 11 tags)
+2026-11-09 21:33:08,956  INFO     FALLBACK  '这个小女孩向左看看又向右看看才过马路。' -- out-of-list word(s): ['这个', '女孩', '向左', '看看', '向右', '看看']
+2026-11-09 21:33:08,956  WARNING    HAIKU resegment call for '这个小女孩向左看看又向右看看才过马路。' (cache miss on [('女孩', 'NN'), ('向左', 'AD'), ('看看', 'VV'), ('向右', 'AD'), ('看看', 'VV')])
+2026-11-09 21:33:08,981  INFO       NON-LIST 女孩 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:33:08,984  INFO     TAGGED    '这个小女孩向左看看又向右看看才过马路。' (level 10, 16 tags)
+2026-11-09 21:33:08,992  INFO     OK        hanlp-valid   '我看见他朝你们家去了。' -> [('我', 'PN'), ('看见', 'VV'), ('他', 'PN'), ('朝', 'P'), ('你们', 'PN'), ('家', 'NN'), ('去', 'VV'), ('了', 'AS')]
+2026-11-09 21:33:08,994  INFO     TAGGED    '我看见他朝你们家去了。' (level 5, 8 tags)
+2026-11-09 21:33:09,002  INFO     FALLBACK  '往前走十分钟。' -- out-of-list word(s): ['往前', '十分钟']
+2026-11-09 21:33:09,002  WARNING    HAIKU resegment call for '往前走十分钟。' (cache miss on [('往前', 'AD'), ('十分钟', 'M')])
+2026-11-09 21:33:09,017  INFO     TAGGED    '往前走十分钟。' (level 2, 5 tags)
+2026-11-09 21:33:09,025  INFO     FALLBACK  '这趟火车开往沈阳。' -- out-of-list word(s): ['开往', '沈阳']
+2026-11-09 21:33:09,026  WARNING    HAIKU resegment call for '这趟火车开往沈阳。' (cache miss on [('开往', 'VV'), ('沈阳', 'NR')])
+2026-11-09 21:33:09,039  INFO       NON-LIST 沈阳 (NR) -> '(name) shen3yang2' [proper_noun]
+2026-11-09 21:33:09,040  INFO     TAGGED    '这趟火车开往沈阳。' (level 4, 6 tags)
+2026-11-09 21:33:09,049  INFO     FALLBACK  '这趟航班飞往纽约。' -- out-of-list word(s): ['纽约']
+2026-11-09 21:33:09,050  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('趟', 'M'), ('航班', 'NN'), ('飞往', 'VV'), ('纽约', 'NN')]
+2026-11-09 21:33:09,056  INFO       NON-LIST 纽约 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:33:09,057  INFO     TAGGED    '这趟航班飞往纽约。' (level 10, 6 tags)
+2026-11-09 21:33:09,067  INFO     FALLBACK  '一辆黑色的小轿车慢慢地从东驶向西。' -- out-of-list word(s): ['小轿车', '驶向']
+2026-11-09 21:33:09,067  WARNING    HAIKU resegment call for '一辆黑色的小轿车慢慢地从东驶向西。' (cache miss on [('小轿车', 'NN'), ('驶向', 'VV')])
+2026-11-09 21:33:09,085  INFO       NON-LIST 驶向 (VV) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:33:09,086  INFO     TAGGED    '一辆黑色的小轿车慢慢地从东驶向西。' (level 10, 13 tags)
+2026-11-09 21:33:09,096  INFO     FALLBACK  '像鸟儿一样飞向蓝天。' -- out-of-list word(s): ['鸟儿']
+2026-11-09 21:33:09,096  WARNING    HAIKU resegment call for '像鸟儿一样飞向蓝天。' (cache miss on [('鸟儿', 'NN')])
+2026-11-09 21:33:09,112  INFO     TAGGED    '像鸟儿一样飞向蓝天。' (level 3, 8 tags)
+2026-11-09 21:33:09,121  INFO     OK        hanlp-valid   '他向/朝我笑了笑。' -> [('他', 'PN'), ('向', 'P'), ('朝', 'P'), ('我', 'PN'), ('笑', 'VV'), ('了', 'AS'), ('笑', 'VV')]
+2026-11-09 21:33:09,123  INFO     TAGGED    '他向/朝我笑了笑。' (level 5, 7 tags)
+2026-11-09 21:33:09,132  INFO     OK        hanlp-valid   '我朝他开了一枪。' -> [('我', 'PN'), ('朝', 'P'), ('他', 'PN'), ('开', 'VV'), ('了', 'AS'), ('一', 'CD'), ('枪', 'NN')]
+2026-11-09 21:33:09,134  INFO     TAGGED    '我朝他开了一枪。' (level 6, 7 tags)
+2026-11-09 21:33:09,143  INFO     OK        hanlp-valid   '他已经向全体员工解释过了。' -> [('他', 'PN'), ('已经', 'AD'), ('向', 'P'), ('全体', 'DT'), ('员工', 'NN'), ('解释', 'VV'), ('过', 'AS'), ('了', 'SP')]
+2026-11-09 21:33:09,146  INFO     TAGGED    '他已经向全体员工解释过了。' (level 5, 8 tags)
+2026-11-09 21:33:09,155  INFO     OK        hanlp-valid   '他是优秀员工，我们都要向他学习。' -> [('他', 'PN'), ('是', 'VC'), ('优秀', 'JJ'), ('员工', 'NN'), ('我们', 'PN'), ('都', 'AD'), ('要', 'VV'), ('向', 'P'), ('他', 'PN'), ('学习', 'VV')]
+2026-11-09 21:33:09,158  INFO     TAGGED    '他是优秀员工，我们都要向他学习。' (level 5, 10 tags)
+2026-11-09 21:33:09,168  INFO     FALLBACK  '我们要向环保部门要求严查工厂排污。' -- out-of-list word(s): ['严查', '排污']
+2026-11-09 21:33:09,168  WARNING    HAIKU resegment call for '我们要向环保部门要求严查工厂排污。' (cache miss on [('严查', 'VV'), ('排污', 'NN')])
+2026-11-09 21:33:09,182  INFO       NON-LIST 排污 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:33:09,183  INFO     TAGGED    '我们要向环保部门要求严查工厂排污。' (level 10, 10 tags)
+2026-11-09 21:33:09,192  INFO     OK        hanlp-valid   '他往南走了。' -> [('他', 'PN'), ('往', 'P'), ('南', 'NN'), ('走', 'VV'), ('了', 'SP')]
+2026-11-09 21:33:09,193  INFO     TAGGED    '他往南走了。' (level 3, 5 tags)
+2026-11-09 21:33:09,202  INFO     OK        hanlp-valid   '笨蛋！你怎么让他往南走呢？南边很危险！' -> [('笨蛋', 'NN'), ('你', 'PN'), ('怎么', 'AD'), ('让', 'VV'), ('他', 'PN'), ('往', 'P'), ('南', 'NN'), ('走', 'VV'), ('呢', 'SP'), ('南边', 'NN'), ('很', 'AD'), ('危险', 'VA')]
+2026-11-09 21:33:09,208  INFO     TAGGED    '笨蛋！你怎么让他往南走呢？南边很危险！' (level 7, 13 tags)
+2026-11-09 21:33:09,218  INFO     OK        hanlp-valid   '你朝我发什么火？我说了他不听。' -> [('你', 'PN'), ('朝', 'P'), ('我', 'PN'), ('发', 'VV'), ('什么', 'DT'), ('火', 'NN'), ('我', 'PN'), ('说', 'VV'), ('了', 'AS'), ('他', 'PN'), ('不', 'AD'), ('听', 'VV')]
+2026-11-09 21:33:09,221  INFO     TAGGED    '你朝我发什么火？我说了他不听。' (level 5, 12 tags)
+2026-11-09 21:33:09,230  INFO     OK        hanlp-valid   '不好意思，我应该向你道歉。' -> [('不好意思', 'VA'), ('我', 'PN'), ('应该', 'VV'), ('向', 'P'), ('你', 'PN'), ('道歉', 'VV')]
+2026-11-09 21:33:09,232  INFO     TAGGED    '不好意思，我应该向你道歉。' (level 4, 6 tags)
+2026-11-09 21:33:09,240  INFO     FALLBACK  '你向西边看，看见西山了吗？' -- out-of-list word(s): ['西山']
+2026-11-09 21:33:09,240  WARNING    HAIKU resegment call for '你向西边看，看见西山了吗？' (cache miss on [('西山', 'NR')])
+2026-11-09 21:33:09,255  INFO     TAGGED    '你向西边看，看见西山了吗？' (level 3, 10 tags)
+2026-11-09 21:33:09,264  INFO     FALLBACK  '他向图书馆走去了。' -- out-of-list word(s): ['走去']
+2026-11-09 21:33:09,264  WARNING    HAIKU resegment call for '他向图书馆走去了。' (cache miss on [('走去', 'VV')])
+2026-11-09 21:33:09,276  INFO     TAGGED    '他向图书馆走去了。' (level 3, 6 tags)
+2026-11-09 21:33:09,285  INFO     FALLBACK  '小王一向上班很早，这次是怎么了？' -- out-of-list word(s): ['这次']
+2026-11-09 21:33:09,285  WARNING    HAIKU resegment call for '小王一向上班很早，这次是怎么了？' (cache miss on [('这次', 'AD')])
+2026-11-09 21:33:09,299  INFO     TAGGED    '小王一向上班很早，这次是怎么了？' (level 6, 11 tags)
+2026-11-09 21:33:09,308  INFO     OK        hanlp-valid   '我一向不喜欢点外卖。' -> [('我', 'PN'), ('一向', 'AD'), ('不', 'AD'), ('喜欢', 'VV'), ('点', 'VV'), ('外卖', 'NN')]
+2026-11-09 21:33:09,310  INFO     TAGGED    '我一向不喜欢点外卖。' (level 6, 6 tags)
+2026-11-09 21:33:09,318  INFO     OK        hanlp-valid   '妈妈一向支持我的决定。' -> [('妈妈', 'NN'), ('一向', 'AD'), ('支持', 'VV'), ('我', 'PN'), ('的', 'DEG'), ('决定', 'NN')]
+2026-11-09 21:33:09,320  INFO     TAGGED    '妈妈一向支持我的决定。' (level 6, 6 tags)
+2026-11-09 21:33:09,328  INFO     OK        hanlp-valid   '他一向是个好学生，怎么可能会作弊呢？' -> [('他', 'PN'), ('一向', 'AD'), ('是', 'VC'), ('个', 'M'), ('好', 'JJ'), ('学生', 'NN'), ('怎么', 'AD'), ('可能', 'VV'), ('会', 'VV'), ('作弊', 'VV'), ('呢', 'SP')]
+2026-11-09 21:33:09,331  INFO     TAGGED    '他一向是个好学生，怎么可能会作弊呢？' (level 7, 11 tags)
+2026-11-09 21:33:09,339  INFO     FALLBACK  '中国人一向把红色视为吉祥喜庆的颜色。' -- out-of-list word(s): ['中国人']
+2026-11-09 21:33:09,339  INFO       CACHE-ONLY resegmentation -> [('中国', 'NN'), ('人', 'NN'), ('一向', 'AD'), ('把', 'BA'), ('红色', 'NN'), ('视为', 'VV'), ('吉祥', 'NN'), ('喜庆', 'VA'), ('的', 'DEC'), ('颜色', 'NN')]
+2026-11-09 21:33:09,340  INFO       READING  视为 'shi4 wei4' matches no form -- offering every form
+2026-11-09 21:33:09,341  INFO     TAGGED    '中国人一向把红色视为吉祥喜庆的颜色。' (level 7, 10 tags)
+2026-11-09 21:33:09,349  INFO     FALLBACK  '云南的雨季一向来得很突然。' -- out-of-list word(s): ['云南', '雨季', '来得']
+2026-11-09 21:33:09,349  WARNING    HAIKU resegment call for '云南的雨季一向来得很突然。' (cache miss on [('云南', 'NR'), ('雨季', 'NN'), ('来得', 'VV')])
+2026-11-09 21:33:09,376  INFO     TAGGED    '云南的雨季一向来得很突然。' (level 6, 10 tags)
+2026-11-09 21:33:09,390  INFO     OK        hanlp-valid   '他的态度一向很认真。' -> [('他', 'PN'), ('的', 'DEG'), ('态度', 'NN'), ('一向', 'AD'), ('很', 'AD'), ('认真', 'VA')]
+2026-11-09 21:33:09,393  INFO     TAGGED    '他的态度一向很认真。' (level 6, 6 tags)
+2026-11-09 21:33:09,402  INFO     FALLBACK  '我一向都是这样做，没问题的。' -- out-of-list word(s): ['都是']
+2026-11-09 21:33:09,402  WARNING    HAIKU resegment call for '我一向都是这样做，没问题的。' (cache miss on [('都是', 'AD')])
+2026-11-09 21:33:09,415  INFO     TAGGED    '我一向都是这样做，没问题的。' (level 6, 9 tags)
+2026-11-09 21:33:09,425  INFO     OK        hanlp-valid   '我父母向来不喜欢我跟你们一起出去玩儿。' -> [('我', 'PN'), ('父母', 'NN'), ('向来', 'AD'), ('不', 'AD'), ('喜欢', 'VV'), ('我', 'PN'), ('跟', 'P'), ('你们', 'PN'), ('一起', 'AD'), ('出去', 'VV'), ('玩儿', 'VV')]
+2026-11-09 21:33:09,432  INFO     TAGGED    '我父母向来不喜欢我跟你们一起出去玩儿。' (level 7, 12 tags)
+2026-11-09 21:33:09,441  INFO     FALLBACK  '我向来努力，所以我每一次考试都得满分。' -- out-of-list word(s): ['一次', '满分']
+2026-11-09 21:33:09,441  WARNING    HAIKU resegment call for '我向来努力，所以我每一次考试都得满分。' (cache miss on [('满分', 'NN')])
+2026-11-09 21:33:09,459  INFO     TAGGED    '我向来努力，所以我每一次考试都得满分。' (level 7, 13 tags)
+2026-11-09 21:33:09,469  INFO     FALLBACK  '那个足球队员一向被称为“金脚”，因为他踢足球踢得非常好。' -- out-of-list word(s): ['那个']
+2026-11-09 21:33:09,469  INFO       CACHE-ONLY resegmentation -> [('那', 'DT'), ('个', 'M'), ('足球', 'NN'), ('队员', 'NN'), ('一向', 'AD'), ('被', 'SB'), ('称为', 'VV'), ('金', 'JJ'), ('脚', 'NN'), ('因为', 'P'), ('他', 'PN'), ('踢', 'VV'), ('足球', 'NN'), ('踢', 'VV'), ('得', 'DER'), ('非常', 'AD'), ('好', 'VA')]
+2026-11-09 21:33:09,473  INFO     TAGGED    '那个足球队员一向被称为“金脚”，因为他踢足球踢得非常好。' (level 10, 17 tags)
+2026-11-09 21:33:09,482  INFO     OK        hanlp-valid   '他一向不迟到，怎么今天还没到？' -> [('他', 'PN'), ('一向', 'AD'), ('不', 'AD'), ('迟到', 'VA'), ('怎么', 'AD'), ('今天', 'NT'), ('还', 'AD'), ('没', 'AD'), ('到', 'VV')]
+2026-11-09 21:33:09,484  INFO     TAGGED    '他一向不迟到，怎么今天还没到？' (level 6, 9 tags)
+2026-11-09 21:33:09,493  INFO     FALLBACK  '你知道妈妈一向不爱出门，所以她是不会跟我们去旅行的。' -- out-of-list word(s): ['不会']
+2026-11-09 21:33:09,493  WARNING    HAIKU resegment call for '你知道妈妈一向不爱出门，所以她是不会跟我们去旅行的。' (cache miss on [('不会', 'AD')])
+2026-11-09 21:33:09,507  INFO     TAGGED    '你知道妈妈一向不爱出门，所以她是不会跟我们去旅行的。' (level 6, 17 tags)
+2026-11-09 21:33:09,517  INFO     FALLBACK  '她这个人一向喜欢炫耀，很讨厌。' -- out-of-list word(s): ['这个']
+2026-11-09 21:33:09,517  INFO       CACHE-ONLY resegmentation -> [('她', 'PN'), ('这', 'DT'), ('个', 'M'), ('人', 'NN'), ('一向', 'AD'), ('喜欢', 'VV'), ('炫耀', 'VV'), ('很', 'AD'), ('讨厌', 'VV')]
+2026-11-09 21:33:09,520  INFO     TAGGED    '她这个人一向喜欢炫耀，很讨厌。' (level 7, 9 tags)
+2026-11-09 21:33:09,528  INFO     FALLBACK  '我这个朋友一向都很大方，今天肯定是他请客。' -- out-of-list word(s): ['这个']
+2026-11-09 21:33:09,528  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('这', 'DT'), ('个', 'M'), ('朋友', 'NN'), ('一向', 'AD'), ('都', 'AD'), ('很', 'AD'), ('大方', 'VA'), ('今天', 'NT'), ('肯定', 'AD'), ('是', 'VC'), ('他', 'PN'), ('请客', 'VV')]
+2026-11-09 21:33:09,531  INFO     TAGGED    '我这个朋友一向都很大方，今天肯定是他请客。' (level 6, 13 tags)
+2026-11-09 21:33:09,540  INFO     OK        hanlp-valid   '我一向不在乎这样的事情。' -> [('我', 'PN'), ('一向', 'AD'), ('不在乎', 'VV'), ('这样', 'PN'), ('的', 'DEG'), ('事情', 'NN')]
+2026-11-09 21:33:09,545  INFO     TAGGED    '我一向不在乎这样的事情。' (level 6, 7 tags)

@@ -1,0 +1,12 @@
+## 4-01
+**Point:** The auxiliary verb 得 (děi), "must / have to", placed before a verb phrase: Subj. + 得 + VP.
+**Covers:** 得 tagged as a verb (VV) and followed by a verb, adverb, adjective, preposition or 把. It must come at the start of a clause or after a pronoun, noun, proper noun, time word or adverb. Examples: 我们得走了, 你得先付钱再进去, 在学校就得听老师的话, and a subject-less 得去看医生 at the start of a clause.
+**Does not cover:** 得 tagged as the complement particle DER (degree, state and potential complements, 害得, 得很, 得不得了). It also excludes 得 meaning "to get" (他得了流感, 得了十分, 得出结果, 得知, 得到). The fixed words 不得不, 只得, 显得, 觉得, 记得, 值得 and 得分 are single tokens and do not match.
+
+```rule
+match: ^ 得/VV /VV|AD|VA|P|BA
+match: /PN|NN|NR|NT|AD 得/VV /VV|AD|VA|P|BA
+unless: 得/VV 出|知|到|以|胜|罪
+```
+
+**Notes:** The rule relies on the tagger giving děi the tag VV and the complement particle the tag DER. The "get" sense of 得 is also VV, so it is excluded by two checks. First, the word after 得 must be a verb, adverb, adjective, preposition or 把, which rules out 得了 (了 is tagged AS) and 得+noun. Second, the `unless:` line removes 得出, 得知 and similar splits. If a sentence such as "你得出去" is tokenized as 得 出 去, it will be missed, which is acceptable. A 得 with no overt subject in the middle of a clause (for example after a verb) is not matched, to keep precision high.

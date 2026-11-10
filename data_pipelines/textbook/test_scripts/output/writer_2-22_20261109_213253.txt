@@ -1,0 +1,16 @@
+## 2-22
+**Point:** Using 往 (wǎng) as a preposition or directional verb to express movement "towards" a location or direction.
+**Covers:** Sentences where 往 appears before a direction/location noun and a motion verb, indicating the direction of an action. Includes: 往 + direction/place + verb; verb + 往 + direction/place (postposed); 往下 + communication/sensory verbs; and modifier use in noun phrases (e.g., 开往北京的火车).
+**Does not cover:** 往往 (wǎngwǎng) used as a frequency adverb meaning "often/usually" (HSK 3-15); other noun uses like 来往, 交往, 往来, 往年, 往后 where 往 is part of a multi-character word or time noun; any use where 往往 appears as an adverb.
+
+```rule
+match: 往/P _ /VV
+match: 往/VV _ /NN
+match: _ 往/P _ /NN
+match: _ 往/VV _ /NN
+unless: 往往/AD
+unless: /NN 往/NN
+unless: /VV 往/NN
+```
+
+**Notes:** The tagger is inconsistent: 往 is tagged P (preposition) or VV (verb) depending on context. The rule captures the core pattern: 往 followed by a location noun and then a verb. Counter-examples like "有钱人往往比较迷信" are excluded by the `往往/AD` unless clause. The pattern `/NN 往/NN` excludes compound nouns like 来往, 交往. The pattern `/VV 往/NN` excludes cases like "运往国外" where 往 is part of a compound verb (which is a counter-example but tagged as NN in the data, so extra caution). Motion verbs expected after 往-phrases include: 走, 跑, 拐, 看, 说, 读, 写, 听, 看, 到, 扔, 塞, and action verbs in verb-往 compounds like 开, 飞, 运.

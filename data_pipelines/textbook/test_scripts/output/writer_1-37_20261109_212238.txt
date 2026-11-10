@@ -1,0 +1,11 @@
+## 1-37
+**Point:** Possession and existence with 有 (yǒu) and negation with 没有 (méiyǒu)
+**Covers:** Basic possession ("I have X"), existence ("There is X at place"), and their negations with 没有/没
+**Does not cover:** Comparisons (A 有 B 吗?), 有的 (some), 有点/有一点 (a little), 只有 (only if), 所有 (all), 有关 (related to), negation of past actions (没有 + verb), Taiwanese 有, 还有 (also), 有的是 (plenty of)
+
+```rule
+match: /VE/
+unless: ... 有的 ... | ... /VE _* /VA | ... /VE _ /VA 吗 | ... 有/VE _* 过 | ... 有/VE _* /VV | ... 有/VE 点 | ... 有/VE 一 点 | ... 有 一 点儿 | 只有 | 所有 | 有关 | 还/AD 有/VE | _* 没/AD _* /VV | _* 没有/AD _* /VV | / P/ ... 有/VE ... /VA 吗
+```
+
+**Notes:** The rule matches any VE tag (有, 没有, 没). The unless clauses exclude: (1) 有的 constructions, (2) 有 + adjective patterns (degree comparisons, 有点), (3) 有 + verb patterns (Taiwanese, past negation), (4) 只有/所有/有关/还有 which are separate grammar points. Negation of past actions is filtered by checking for AD 没 or 没有 before other verbs. Comparison patterns are excluded by looking for 有 + object + adjective ± 吗.

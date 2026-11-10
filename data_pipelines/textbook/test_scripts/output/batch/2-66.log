@@ -1,0 +1,68 @@
+
+########## rules  2026-11-09 21:43 ##########
+5 page(s) use the word(s); asking about 5.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGGIVT0  Expressing "if... then..." with "ruguo... jiu..."
+  ASGHNDX4  Expressing "if… then…" with "jiaru"
+  ASGN4S8O  Expressing "if… then…" with "yaoshi"
+  ASGN4VUU  Expressing "if" with "ruguo... dehua"
+
+not:
+
+unsure:
+
+unrelated:
+  ASG1F4D1  Expressing "in this way" with "zheyang"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-66
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_214336.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-66
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Conditional sentences expressing "if... then..." using 如果/要是/假如 paired with 就/那/那么, or using implicit conditionals
+**Covers:** Sentences with a conditional clause (marked by 如果/要是/假如/要不是 or ending in 的话) followed by a result clause (often marked by 就/那/那么), including cases where the conditional marker or result marker is dropped but the structure is clear
+**Does not cover:** Sentences using only 如果/要是/假如/那/就 as simple conjunctions without the conditional "if...then" relationship; sentences with only a condition or only a result, not both; other HSK grammar points that happen to use these words (2-30, 3-30, 3-69, 4-20, 4-51, 5-47)
+
+```rule
+match: (如果|要是|假如|要不是)/CS _ ...? ‖ (就|那|那么)/AD
+match: (如果|要是|假如|要不是)/CS _ ... 的话/SP ... (就|那|那么)?/AD
+match: (如果|要是|假如|要不是)/CS
+match: /CS _ ...? ‖ (就|那|那么)/AD
+match: _ ... 的话/SP ‖ (就|那|那么)/AD
+match: _ ... 的话/SP (就|那|那么)/AD
+match: ^ _ ... ‖ _ ... (就|那|那么)/AD
+match: 要/CS _
+unless: ^ /VE _ ...? ‖ (就|那|那么)/AD
+unless: ^ /VE _ ... 的话/SP
+```
+
+**Notes:** The rule captures several overlapping patterns: (1) explicit 如果/要是/假如 + 就/那/那么 structure across clause boundaries; (2) 的话 sandwich pattern; (3) implicit conditionals where the first clause is a simple condition followed by 就/那/那么 in the result clause; (4) 要 as an informal conditional marker. The unless clauses exclude cases where the first clause starts with 有/VE (possession/existence) without a conditional marker, as these are typically imperative or other structures, not conditionals. The rule prioritizes matching explicit conditional markers (如果/要是/假如/要不是) to maintain precision.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-66
+Tagging 2 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-66: rule on labeled examples (no AI) ===
+  examples of 2-66 matched:    29/44
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+--- examples of 2-66 the rule misses (15) ---
+  假如你的成绩再好一点儿，你就能申请北大了。  -- ASGHNDX4 Expressing "if… then…" with "jiaru"
+  假如我是你，我就戒烟。  -- ASGHNDX4 Expressing "if… then…" with "jiaru"
+  假如你的女朋友不爱你，你们就分手吧。  -- ASGHNDX4 Expressing "if… then…" with "jiaru"
+  假如有一点机会，我就会辞去现在的工作。  -- ASGHNDX4 Expressing "if… then…" with "jiaru"
+  假如这话是真的，我们也要考虑两天。  -- ASGHNDX4 Expressing "if… then…" with "jiaru"
+  假如一定要去的话，她就去。  -- ASGHNDX4 Expressing "if… then…" with "jiaru"
+  假如我们又见面了，你还会记得我吗？  -- ASGHNDX4 Expressing "if… then…" with "jiaru"
+  你要是真想我，就给我打电话。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要是我妈知道这件事，我就死定了!  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要是老板不同意，我们就不能跟客户签合同。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要我说，你先别告诉她。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要我说，他就是太懒。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要我说，什么时候开始都不晚。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  明天下雨，我们在家休息。  -- HSK list example
+  明天不下雨，我们出去玩儿。  -- HSK list example

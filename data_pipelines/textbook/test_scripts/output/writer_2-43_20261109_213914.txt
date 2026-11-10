@@ -1,0 +1,16 @@
+## 2-43
+**Point:** Using 什么的 to end a non-exhaustive list with "and so on"
+**Covers:** Sentences where 什么的 appears after a noun or list of nouns to indicate an open-ended category of similar items
+**Does not cover:** Uses of 什么 and 的 that are not together as the phrase 什么的 at the end of a list; uses where 什么的 is not functioning as a list-ender
+
+```rule
+match: _ 什么/PN 的/DEG|DEC $
+unless: 什么/PN 的/DEG|DEC _ 什么/PN 的/DEG|DEC
+```
+
+**Notes:** 
+- The pattern requires 什么的 at the end of a clause (before punctuation or end of sentence)
+- The pattern `_ 什么/PN 的/DEG|DEC $` matches any word followed by 什么的 at clause-end, capturing the core structure
+- Both DEG and DEC tags are included since the tagger uses both for 的 in this construction
+- The `unless` clause prevents false matches where 什么的 appears twice (which would indicate a different grammatical construction)
+- The rule correctly identifies the pattern across various sentence structures: after single nouns (练习什么的), after noun lists with punctuation separators (水果、面包什么的), and before continuation (什么的都要自己做)

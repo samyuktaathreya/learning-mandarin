@@ -1,0 +1,78 @@
+
+########## rules  2026-11-09 22:00 ##########
+39 page(s) use the word(s); asking about 39.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG25773  Expressing "what if" with "wanyi"
+
+not:
+
+unsure:
+
+unrelated:
+  ASG8RW47  Limiting scope with "jiu"
+  ASG9B210  Expressing "about to" with "jiuyao"
+  ASGDUZ55  Expressing_"as_one_likes"_with_"jiu"
+  ASGEB54D  Expressing "then" with "jiu"
+  ASGEXR6R  Expressing the only two possibilities
+  ASGF1TQ2  Expressing "even if…" with "jiushi"
+  ASGKITRZ  Expressing earliness with "jiu"
+  ASGL4O5E  Expressing indifference with "jiu"
+  ASGLI513  Expressing "even if…" with "jiusuan"
+  ASGPW8PP  Expressing "small quantity" with "jiu"
+  ASGY21RK  Emphasis with "jiushi"
+  ASG78FDE  Expressing a last chance with "zaibu... jiu..."
+  ASG7AUNJ  Using "zhe" when "verbing away"
+  ASG98C1A  Expressing "as long as" with "zhiyao"
+  ASGG4BX9  Expressing "since" with "jiran"
+  ASGGIVT0  Expressing "if... then..." with "ruguo... jiu..."
+  ASGHNDX4  Expressing "if… then…" with "jiaru"
+  ASGLOS9C  Comparing "cai" and "jiu"
+  ASGN4S8O  Expressing "if… then…" with "yaoshi"
+  ASGR6Q2J  Expressing "let alone" with "bie shuo"
+  ASGTFUD0  Events in quick succession with "yi... jiu..."
+  ASGU3ZV1  Expressing "once...then..." with "yidan...jiu..."
+  ASGVRGW2  Expressing "if… then…" with "jiashi"
+  ASGXGADL  Conditions_with_"yao"_and_"jiu"
+  ASG06EA8  Expressing "all at once" with "yixiazi"
+  ASG10CAE  Expressing "less than" with "budao"
+  ASG1RE80  Expressing contrariness with "dao"
+  ASG38F8A  Expressing "all" with "fanshi"
+  ASG3ZS9G  Expressing "let alone" with "hekuang"
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+  ASG68F61  Expressing "when" with "dengdao"
+  ASG6ESWW  Expressing "almost" using "chadian"
+  ASG6F157  Expressing "originally" with "benlai"
+  ASG6TB4J  Expressing "that's all" with "eryi"
+  ASGF08B6  Repeated actions in the past with "you"
+  ASGF273F  Advanced uses of "lian"
+  ASGN4VUU  Expressing "if" with "ruguo... dehua"
+  ASGT9Y8P  Conceding a point with "shi"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 4-52
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220053.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 4-52, rule line 2: unknown tag(s) AD) in '万一/AD)' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_4-52_20261109_220101.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 4-52
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 万一 to express "what if" or "in case" for unlikely/undesirable possibilities
+**Covers:** 万一 introducing a hypothetical scenario (as adverb AD), followed by a consequence or question; includes 以防万一 idiom
+**Does not cover:** Sentences where 就 appears without 万一; sentences using other conditional markers (要是, 假如, 一旦, etc.); other uses of 就 as aspect, time marker, or copula
+
+```rule
+match: 万一/AD
+unless: ^ ... 万一/AD ... $ (this catches single-clause patterns that aren't proper conditionals)
+```
+
+**Notes:** The core pattern is simply detecting 万一 tagged as AD (adverb). The 万一 construction naturally expresses the target grammar point—it introduces an unlikely/undesirable scenario. The conditional response (with optional 就) follows in the same or next clause. The pattern is minimal because 万一 itself is the distinctive marker of this point. The 以防万一 idiom also counts as an exemplar of the point (expressing "in case" precaution). Single-clause sentences with only 万一 (no consequence) are excluded to avoid borderline cases, though question forms like "万一...呢?" will still match as they appear in multi-clause tokenization.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 4-52
+Tagging 2 labeled example(s) (cached after this run)...
+
+=== A. 4-52: rule on labeled examples (no AI) ===
+  examples of 4-52 matched:    14/14
+  counter-examples wrongly matched: 0/0   <- should be 0

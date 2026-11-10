@@ -1,0 +1,164 @@
+
+########## rules  2026-11-09 21:37 ##########
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-32, rule line 2: unknown tag(s) ASP in '过/ASP' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-32_20261109_213717.txt)
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-32: rule on labeled examples (no AI) ===
+  examples of 2-32 matched:    12/12
+  counter-examples wrongly matched: 0/36   <- should be 0
+
+########## tatoeba  2026-11-09 22:09 ##########
+Filling 2-32 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  多次 = 多 + 次  (many times; repeatedly)
+
+Course sentences at HSK 2 the rule already finds 2-32 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-32 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      826  2. contain the point's word(s)
+      826  3. new (not in DB, not a duplicate)
+      427  4. at most 2 characters outside HSK 2 words
+       74  5. really HSK 2
+       71  5b. no harder grammar point (of the 20 with a rule)
+       31  6. the rule finds 2-32
+       24  6b. no hidden word a learner can't work out
+       21  7. both checks say 2-32, English chosen
+       18  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (18) ===
+  没人问过。  (Nobody asked.)  [tatoeba 5092545]
+  我见过他。  (I have met him before.)  [tatoeba 5780551]
+  我没听过。  (That's news to me.)  [tatoeba 13524029]
+  我记得见过他。  (I remember seeing him.)  [tatoeba 1415766]
+  有人来过这里。  (Someone has been here.)  [tatoeba 4950410]  hidden: 有人
+  医生可能说过。  (The doctor may have said so.)  [tatoeba 5585171]
+  没有人问过我。  (Nobody asked me.)  [tatoeba 12686145]
+  您去过非洲吗？  (Have you ever been to Africa?)  [tatoeba 13550627]
+  我看过她跳舞。  (I saw her dance once.)  [tatoeba 13663761]
+  你有去过巴黎吗？  (Have you ever been to Paris?)  [tatoeba 4635636]
+  我们没出过问题。  (We haven't had problems.)  [tatoeba 13531845]
+  我跟她去过波士顿。  (I once went to Boston with her.)  [tatoeba 5613623]
+  你说过你会帮我的。  (You said you'd help me.)  [tatoeba 9178041]
+  我在电视上看到过她。  (I saw her on TV.)  [tatoeba 12082062]  hidden: 看到
+  这个月你做过多少回？  (How many times have you done that this month?)  [tatoeba 13788202]  hidden: 这个
+  我还没看过那个电影。  (I haven't seen that movie yet.)  [tatoeba 13917525]  hidden: 那个
+  他说他没有做过那件事。  (He said that he hasn't done that.)  [tatoeba 9961240]
+  你看过这么好看的电影吗？  (Have you ever seen such a nice film?)  [tatoeba 1366190]
+
+--- dropped at step 4 (399), first 12 ---
+  透过薄雾，我隐约看见了我的未来。  -- 6 characters no HSK 2 word uses: 未约薄透隐雾
+  他一周的收入不超过50美元。  -- 3 characters no HSK 2 word uses: 入收美
+  这只不过全是个大误会而已。  -- 3 characters no HSK 2 word uses: 全而误
+  上大学的时候，小王担任过班长。  -- 3 characters no HSK 2 word uses: 任担王
+  他竟然厚着脸皮穿过我们的花园。  -- 5 characters no HSK 2 word uses: 厚园皮竟脸
+  不过，有趣的是，有人因为玩电脑玩出毛病，但也有人因为玩电脑而治好疾病。  -- 5 characters no HSK 2 word uses: 毛治疾而趣
+  当然，我在日本时透过课本了解中国，可是我自己在中国看到的跟那些课本描述的完全不一样。  -- 6 characters no HSK 2 word uses: 全当描解述透
+  过年时，小刘的单位给每位员工发一袋面粉。  -- 6 characters no HSK 2 word uses: 刘单发员粉袋
+  我通过汉语水平考试并考到了最高等第。  -- 3 characters no HSK 2 word uses: 平并通
+  在汤姆欣赏我的新车的同时，一辆卡车撞了过来。  -- 7 characters no HSK 2 word uses: 卡姆撞欣汤赏辆
+  死亡之后你便不会再复活。你不能死过之后又重回生命。如果你以为那会发生，你并非真正死去。  -- 11 characters no HSK 2 word uses: 之亡又发命复如并死活重
+  如果你通过这个考试，你下个月就可以毕业了。  -- 4 characters no HSK 2 word uses: 业如毕通
+
+--- dropped at step 5 (353), first 12 ---
+  机会错过了。  -- level 4: 机会 L3, 错过 L4
+  我从来没去过美国。  -- level 4: 从来 L4, 美 L4
+  他们的想法太过时了。  -- level 6: 想法 L4, 过时 L6
+  我当过老师。  -- level 4: 当 L4
+  我之前已经来过这里了。  -- level 4: 之前 L4
+  现在谈这件事还为时过早。  -- level 4: 谈 L4, 为 L3
+  知道你在那里过得不错，我替你感到高兴。  -- level 5: 替 L5, 感到 L3
+  他访问过法国三次。  -- level 5: 访问 L5, 法 L4
+  有是有的，不过远了一点。  -- level 4: 不过 L4
+  你太过分了。  -- level 5: 过分 L5
+  问人而知，并非过错。  -- level 10: 而 L4, 知 (not in list), 并 L4, 非 L7
+  你过来试试看。  -- level 3: 试 L3
+
+--- dropped at step 5b (3) ---
+  我告诉过你不要再来这里了。  -- harder grammar: 3-16 (HSK 3)
+  我说过让你离我的电脑远一点的。  -- harder grammar: 3-39 (HSK 3)
+  我一次也没见过他。  -- harder grammar: 3-41 (HSK 3)
+
+--- dropped at step 6 (40) ---
+  已经过了很长时间了。  -- rule: unless 过 ... 了 ; 过 了
+  很多学生考试没过。  -- rule: no match: line matched
+  我们睡过头了。  -- rule: unless 过/AS ... 了 ; 过 ... 了
+  我早就和他说过这些了。  -- rule: unless 过/AS ... 了 ; 过 ... 了
+  过来和我跳舞啊!  -- rule: no match: line matched
+  在德国过得怎么样？  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  时间过得真快。  -- rule: no match: line matched
+  什么时候想来就过来吧。  -- rule: no match: line matched
+  我在三小时前见过汤姆。  -- rule: no match: line matched
+  我从没这么高兴过。  -- rule: no match: line matched
+  你能过来一下吗？  -- rule: no match: line matched
+  他是你前些时候见过的那个人。  -- rule: no match: line matched
+  明天就要过年了。  -- rule: no match: line matched
+  我过会儿再跟你们一起。  -- rule: no match: line matched
+  我睡过头了。  -- rule: unless 过/AS ... 了 ; 过 ... 了
+  你们！过来。  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: unless 过 ... 了 ; 过 了
+  过了多长时间？  -- rule: unless 过 ... 了 ; 过 了
+  我记得告诉过你了。  -- rule: unless 过/AS ... 了 ; 过 ... 了
+  他是前几天和你见过面的那个人。  -- rule: no match: line matched
+  在做喜欢的事情的时候时间过去得很快。  -- rule: no match: line matched
+  时间过得真快啊！  -- rule: no match: line matched
+  你已经吃过饭了！  -- rule: unless 过/AS ... 了 ; 过 ... 了
+  和他在一起我就没觉得舒服过。  -- rule: no match: line matched
+  昨天是谁过生日？  -- rule: unless 过 日子|年|节|生日
+  你去过超市了吗？  -- rule: unless 过/AS ... 了 ; 过 ... 了
+  Rima过去喜欢Silya。  -- rule: no match: line matched
+  五分钟过去了。  -- rule: no match: line matched
+  五小时过去了。  -- rule: no match: line matched
+  汤姆做得有点过头了。  -- rule: unless 过 ... 了
+  我家九月有两人过生日。  -- rule: unless 过 日子|年|节|生日
+  已经过去二十年了。  -- rule: no match: line matched
+  今天时间过得好慢。  -- rule: no match: line matched
+  过来坐下。  -- rule: no match: line matched
+  过。  -- rule: no match: line matched
+  过水。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  我们不可能回到过去。  -- rule: no match: line matched
+
+--- dropped at step 6b (7) ---
+  我从没见她笑过。  -- hidden word a learner can't work out: 从没 (never (in the past); never did)
+  我从没喝过奶茶。  -- hidden word a learner can't work out: 从没 (never (in the past); never did)
+  我从没看过那个人。  -- hidden word a learner can't work out: 从没 (never (in the past); never did)
+  我从没见过你这么高兴。  -- hidden word a learner can't work out: 从没 (never (in the past); never did)
+  你从没来过这儿，对吗？  -- hidden word a learner can't work out: 从没 (never (in the past); never did)
+  他们说他们见过你好几次。  -- hidden word a learner can't work out: 好几 (several)
+  我从没看见过她笑。  -- hidden word a learner can't work out: 从没 (never (in the past); never did)
+
+--- dropped at step 7 (3) ---
+  我告诉过你出去。  -- check said no (2/2): 过 here means 'excessively', not experience marker
+  我现在还没有吃过午饭。  -- check said no (1/2): Unnatural; '过' misused with 没有
+  我也去过波士顿很多次。  -- check said no (2/2): 过 cannot be used with frequency expressions like 很多次
+
+--- dropped at step 8 (3) ---
+  我会告诉他你来问过。  -- difficulty review: (1/2); uses 来 as a directional complement (来问过), which requires understanding of complex verb structures beyond HSK 2
+  这是我读过的最好的书。  -- difficulty review: (1/2); Uses 是...的 construction (2-60) to emphasize, which is taught at HSK 2, but the combination with 最 (superlative) and 过 (experiential) creates a complex relative clause structure that exceeds HSK 2 level
+  不知道为什么没有人告诉过我。  -- difficulty review: (2/2); 为什么 in the sense of 'why' is taught at HSK 2 (2-05), but the phrase 不知道为什么 (wondering/unclear why) uses it in a way that's beyond simple question formation; additionally, the structure of reporting speech with embedded reason clause is complex for HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-32_level2_20261109_220941.csv

@@ -1,0 +1,19 @@
+## 2-66
+**Point:** Conditional sentences expressing "if... then..." using 如果/要是/假如 paired with 就/那/那么, or using implicit conditionals
+**Covers:** Sentences with a conditional clause (marked by 如果/要是/假如/要不是 or ending in 的话) followed by a result clause (often marked by 就/那/那么), including cases where the conditional marker or result marker is dropped but the structure is clear
+**Does not cover:** Sentences using only 如果/要是/假如/那/就 as simple conjunctions without the conditional "if...then" relationship; sentences with only a condition or only a result, not both; other HSK grammar points that happen to use these words (2-30, 3-30, 3-69, 4-20, 4-51, 5-47)
+
+```rule
+match: (如果|要是|假如|要不是)/CS _ ...? ‖ (就|那|那么)/AD
+match: (如果|要是|假如|要不是)/CS _ ... 的话/SP ... (就|那|那么)?/AD
+match: (如果|要是|假如|要不是)/CS
+match: /CS _ ...? ‖ (就|那|那么)/AD
+match: _ ... 的话/SP ‖ (就|那|那么)/AD
+match: _ ... 的话/SP (就|那|那么)/AD
+match: ^ _ ... ‖ _ ... (就|那|那么)/AD
+match: 要/CS _
+unless: ^ /VE _ ...? ‖ (就|那|那么)/AD
+unless: ^ /VE _ ... 的话/SP
+```
+
+**Notes:** The rule captures several overlapping patterns: (1) explicit 如果/要是/假如 + 就/那/那么 structure across clause boundaries; (2) 的话 sandwich pattern; (3) implicit conditionals where the first clause is a simple condition followed by 就/那/那么 in the result clause; (4) 要 as an informal conditional marker. The unless clauses exclude cases where the first clause starts with 有/VE (possession/existence) without a conditional marker, as these are typically imperative or other structures, not conditionals. The rule prioritizes matching explicit conditional markers (如果/要是/假如/要不是) to maintain precision.

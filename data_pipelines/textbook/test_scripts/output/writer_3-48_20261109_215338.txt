@@ -1,0 +1,28 @@
+## 3-48
+**Point:** Potential complements showing whether an action is possible: Verb + 得/不 + complement (verb, adjective, or directional)
+
+**Covers:** 
+- Verb + 得 + complement (affirmative: can do/able to)
+- Verb + 不 + complement (negative: cannot do/unable to)
+- Complements include: result verbs (懂, 见, 完, 到, 着), adjectives (好, 清楚, 干净), direction verbs (来, 去, 上, 下, 进), and others (动, 起, 下, 了)
+
+**Does not cover:**
+- 不得不 "have to/must" (obligation, not ability)
+- 差不多 "about the same/approximately" (approximation)
+- 少不了 "unavoidable/bound to" (inevitability)
+- Degree complements with 得 (得很, 得不得了, 得死了) showing intensity
+- Result complements describing manner/state (得漂亮, 得还可以)
+- 害得 "causing an undesirable result" (causation with harm)
+- 得了 as a standalone verb meaning "okay/alright"
+
+```rule
+match: /VV /AD|DER _
+unless: 不得不|差不多|少不了|害得|不得了|得不得了|得很|得死了|得要命
+```
+
+**Notes:** 
+- The pattern matches: verb + (不 or 得) + any following word, which captures the complement
+- The "unless" list filters out common false positives that look similar but belong to other grammar points
+- The complement after 得/不 can be another verb (懂, 见, 完, 到, 着, 来, 去, 上, 下, 进, 动, 起, 下, 了) or an adjective (好, 清楚, 干净, 暖, etc.)
+- The rule intentionally does not distinguish between all complement types; if a verb+不/得+word pattern appears and isn't on the "unless" list, it should match
+- Must occur within a single clause (between punctuation)

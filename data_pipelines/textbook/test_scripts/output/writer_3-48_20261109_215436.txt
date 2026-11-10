@@ -1,0 +1,30 @@
+## 3-48
+
+**Point:** Potential complements showing whether an action is possible: Verb + 得/不 + result, direction or ability complement (懂, 见, 完, 到, 着, 了, 下, 起, 动 ...).
+
+**Covers:**
+- Verb + 不 + complement, meaning "cannot" (看不懂, 去不了, 找不到, 吃不下, 听不见, 买不起, 走不动).
+- Verb + 得 + complement, meaning "can" (听得懂, 看得见, 吃得完, 放得下, 帮得了).
+- 得了 here is tagged as the particle AS, as in 帮得了 or 走得了.
+
+**Does not cover:**
+- 不得不 "have to".
+- 差不多 "approximately".
+- 少不了 "unavoidable".
+- Degree or state complements with 得 (说得清楚, 做得好, 画得怎么样, 堵得要命, 得很, 不得了).
+- 害得 "causing an undesirable result".
+- Repeated verb questions of the form A不A (去不去, 来不来).
+
+```rule
+match: /VV 不/AD 了|到|着|见|懂|完|下|起|动|上|来|去|出|进|过|开|住|通|会
+match: /VV 得/DER 了|到|着|见|懂|完|下|起|动|上
+match: /VV 得了/AS
+unless: 不得不|差不多|少不了|害得|不得了|得不得了|得很|得死了|得要命|去不去|来不来|上不上|下不下|对不对|急坏
+```
+
+**Notes:**
+- The 不 pattern needs a verb, then 不 tagged AD, then one of a closed list of complement words. This keeps out 不 + adjective or verb forms such as 想不想 and 好不好.
+- The 得/DER patterns accept only a closed list of result and direction complements. Adjective complements (好, 清楚, 干净) are left out because they are mostly degree or state complements, so a few true potential uses will be missed to keep precision high.
+- The "unless" list removes sentences with 害得, which are labelled as a different point even when they contain 睡不着 or 打不通.
+- It also removes 不得不, 差不多, 少不了, 得很 and the other degree-complement look-alikes.
+- Each pattern matches within a single clause.

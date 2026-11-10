@@ -1,0 +1,99 @@
+
+########## rules  2026-11-09 21:20 ##########
+64 page(s) use the word(s); asking about 40.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG4K5WH  Advanced "le" after an object
+  ASGAGDCQ  Expressing completion with "le"
+  ASGJ36VN  Expressing duration with "le"
+  ASGYKDNF  Questions with "le ma"
+
+not:
+  ASG516F9  Advanced potential complements
+  ASGE5Q4J  Expressing "now" with "le"
+  ASGFR96B  Expressing "not anymore" with "le"
+  ASGHFPGG  Expressing "except" and "in addition" with "chule… yiwai"
+  ASGQGJXT  Expressing purpose with "weile"
+  ASGT185D  Change of state with "le"
+  ASGVME5V  Adjectives with "-ji le"
+  ASG8HVFN  Expressing "excessively" with "tai"
+  ASGLEVUV  Negative adjectives with "-si le"
+  ASGNGEU8  Expressing "about to happen" with "le"
+  ASGT0GYL  Complement "-huai le"
+  ASGZ8OIF  Expressing "stop doing" with "bie… le"
+
+unsure:
+  ASG69RR8  Expressing ongoing duration with double "le"
+  ASG890CA  Advanced "le" with complements
+  ASGM055L  Expressing "already" with just "le"
+  ASGEHTV5  Expressing "a bit too"
+  ASGNQUC1  Result complement "-wan" for finishing
+  ASGNXI27  Expressing "already" with "yijing"
+  ASGP69JD  Using "guo" with "le"
+  ASG06EA8  Expressing "all at once" with "yixiazi"
+  ASG10CAE  Expressing "less than" with "budao"
+  ASG4FB55  Expressing "and then" with "yushi"
+
+unrelated:
+  ASG3IR71  Expressing "can't do without" with "shaobuliao"
+  ASG44TBS  Expressing "thanks to" with "duokui"
+  ASG49BE6  Expressing "enough" with "gou"
+  ASG6509E  Explaining purpose with "wei... er..."
+  ASG79STE  Degree complement
+  ASG7AUNJ  Using "zhe" when "verbing away"
+  ASG9E5BB  Advanced degree complements
+  ASGB8BWA  Adjectival complement "de budeliao"
+  ASGTPGXK  Stating the effect before the cause
+  ASGW7YXP  Softening the tone of questions with "ne"
+  ASG1PTJX  Result complement "-xiaqu"
+  ASG3544U  Superlative "zui"
+  ASG4GVRX  Separable verb
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-21
+Tagging 162 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_212021.txt
+  ...100/196
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 1-21
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Aspect particle 了 (le) expressing completion of an action
+**Covers:** Verb + 了 + Object constructions where 了 marks the completion of an action. Includes: (1) Verb + 了 + [Number + Measure Word] + Object; (2) Verb + 了 + Duration + Object; (3) Verb + 了 + Object (simple objects); (4) Verb + 了 + Object + 了 (le at end); (5) questions with 了吗; (6) sentences with time expressions, modifiers, or complements between verb and object.
+**Does not cover:** (1) Change of state (adjective + 了, intransitive verbs + 了 with no object); (2) Expressing "now" or realization (知道了, 懂了); (3) Expressing "not anymore" (不/没 + verb + 了); (4) Potential complements (得了, 不了, 得起, 不起); (5) Degree complements (极了, 死了, 坏了); (6) Duration expressions of ongoing actions; (7) About-to-happen (快了, 快要了); (8) Other uses of 了 that are not aspect particles (e.g., 为了, 除了, 极了, 太...了)
+
+```rule
+match: /VV .* /AS .* /NN
+match: /VV .* /AS .* /SP
+unless: /VA .* /AS .* /SP
+unless: /VA .* /VV .* /AS .* /SP
+unless: /AD 快 .* /VV .* /AS .* /SP
+unless: /AD 不 .* /VV .* /AS .* /SP
+unless: /AD 没 .* /VV .* /AS .* /SP
+unless: /VV .* 得 /VV
+unless: /VV .* 不 /AD .* /VV
+unless: P 除了
+unless: P 为了
+```
+
+**Notes:** The rule matches verbs (VV) followed by 了 as aspect particle (AS) and then either a noun (NN) or sentence-final particle (SP like 吗). It excludes constructions where 了 indicates change of state (adjective predicates), potential complements (得/不 patterns), imperative/prohibition patterns (不/没 before verb), about-to-happen expressions (快), and prepositions like 除了 or 为了. The pattern allows any intervening material (numbers, measures, duration, modifiers, complements) between verb and object since all of these are attested in labeled examples.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-21
+Tagging 162 labeled example(s) (cached after this run)...
+  ...100/196
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  [retry] the rule couldn't be read: answer has no '## 1-21' section (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-21_20261109_212108.txt)
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  [retry] the rule couldn't be read: answer has no '## 1-21' section (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-21_20261109_212144.txt)
+Traceback (most recent call last):
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 305, in main
+    rule_for(db, c, st, tagger, client, args.first_writer)
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 147, in rule_for
+    new = tg.ask_writer(client, point, prompt, trial_args(), "revise")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 727, in ask_writer
+    raise SystemExit(f"The writer's rule couldn't be read twice: {error}\nLast answer:\n{section}")
+SystemExit: The writer's rule couldn't be read twice: answer has no '## 1-21' section
+Last answer:
+None

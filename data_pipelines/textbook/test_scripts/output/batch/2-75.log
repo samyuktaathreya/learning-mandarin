@@ -1,0 +1,151 @@
+
+########## rules  2026-11-09 21:46 ##########
+3 page(s) use the word(s); asking about 3.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGC701A  Asking how something is with "zenmeyang"
+  ASGSJYZ2  Tag questions with "ma"
+
+not:
+
+unsure:
+
+unrelated:
+  ASG79STE  Degree complement
+
+[note] ASGC701A is tagged HSK [1] on the wiki, the point is HSK 2 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-75
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_214630.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-75
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Asking for confirmation or opinion using "怎么样", "好吗", "可以吗", "行吗"
+**Covers:** Tag questions with confirmation words (好/对/是/可以 + 吗) at the end of a sentence; open-ended questions asking "how is...?" or "what do you think of...?" using 怎么样
+**Does not cover:** Statements using 怎么样 as a predicate adjective (e.g., "这个电影不怎么样" = "this movie is not very good"); standalone 怎么样 questions that are tagged as part of HSK 2-76 (general "how/what" questions); uses of 吗 alone (HSK 1-45); other question words like 怎么, 什么, etc. (HSK 1-46)
+
+```rule
+match: 怎么样/VV _* $
+match: 怎么样/VA _* $
+match: _* ‖ (好|对|是|可以)/VA|VC 吗/SP $
+match: _* ‖ (好|对|是|可以)/VV 吗/SP $
+unless: 不/AD _* 怎么样/VA $
+unless: 很/AD _* 怎么样/VA $
+```
+
+**Notes:** The rule has two main patterns: (1) sentences ending with 怎么样 tagged as VV or VA, which captures open-ended opinion/state questions; (2) sentences with a tag question structure (confirmation word + 吗) in a final clause. The unless clauses exclude adverbial uses of 怎么样 as a predicate adjective (negated or intensified). The tag question pattern allows 好/对/是/可以 to be tagged either as VA (predicate adjective) or VV (verb), as tagging can vary. Clause boundaries (‖) are crucial for the tag question pattern to avoid false positives in multi-clause sentences.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-75
+Tagging 2 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-75: rule on labeled examples (no AI) ===
+  examples of 2-75 matched:    22/22
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+########## tatoeba  2026-11-09 22:12 ##########
+Filling 2-75 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 3 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_221213.txt
+
+Course sentences at HSK 2 the rule already finds 2-75 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-75 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      112  2. contain the point's word(s)
+      112  3. new (not in DB, not a duplicate)
+       99  4. at most 2 characters outside HSK 2 words
+       23  5. really HSK 2
+       21  5b. no harder grammar point (of the 20 with a rule)
+       15  6. the rule finds 2-75
+       12  6b. no hidden word a learner can't work out
+        9  7. both checks say 2-75, English chosen
+        7  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  学校怎么样？  (How's school?)  [tatoeba 5096478]
+  工作怎么样？  (How's your job going?)  [tatoeba 5100103]
+  今天天气怎么样？  (How's the weather today?)  [tatoeba 6092459]
+  明天天气怎么样？  (How will the weather be tomorrow?)  [tatoeba 6092461]
+  这个苹果怎么样？  (How's the apple?)  [tatoeba 6092463]  hidden: 这个
+  那里的天气怎么样？  (How is the weather there?)  [tatoeba 8292595]
+  北京昨天天气怎么样？  (How was the weather yesterday in Beijing?)  [tatoeba 10961069]
+
+--- dropped at step 4 (13), first 12 ---
+  汤姆知道在公众场合怎么样自处。  -- 5 characters no HSK 2 word uses: 众合处姆汤
+  麻烦了，请给我一把汤勺好吗？  -- 5 characters no HSK 2 word uses: 勺把汤烦麻
+  我跟汤姆出去逛，行吗？  -- 4 characters no HSK 2 word uses: 姆汤行逛
+  汤姆说法语比玛丽好吗？  -- 5 characters no HSK 2 word uses: 丽姆汤法玛
+  你媳妇怎么样，汤姆？  -- 4 characters no HSK 2 word uses: 妇姆媳汤
+  玛丽的测试结果怎么样？  -- 4 characters no HSK 2 word uses: 丽测玛结
+  你的项目进展得怎么样？  -- 3 characters no HSK 2 word uses: 展目项
+  我无权提出要求，而且你有权无视我写的这些垃圾，怎么样都随你的便。  -- 9 characters no HSK 2 word uses: 且圾垃提无权求而随
+  我不知道你怎么样，但我饥肠辘辘。  -- 3 characters no HSK 2 word uses: 肠辘饥
+  你觉得西班牙料理怎么样?  -- 3 characters no HSK 2 word uses: 料牙理
+  你在巴黎生活得好吗？  -- 3 characters no HSK 2 word uses: 巴活黎
+  嫌疑人对谋杀案细节显然知情一事，在本案中不得作为不利于他的证据，因为这是调查人员以诱导性提问所套出的。  -- 20 characters no HSK 2 word uses: 于利员套嫌导性据提显杀查案疑细节证诱调谋
+
+--- dropped at step 5 (76), first 12 ---
+  你等一会然后再给我打电话，可以吗？  -- level 3: 然后 L3
+  生活怎么样？  -- level 3: 生活 L3
+  生意怎么样？  -- level 4: 生意 L4
+  好久不见。你怎么样？  -- level 3: 好久 L3, 不见 L3
+  你们好吗？  -- level 1: no list words
+  最近过得好吗？  -- level 3: 最近 L3
+  是怎么样就是怎么样。  -- level 4: 就是 L4
+  我是谁？我是诗人。我做什么？我写作。我活得怎么样？我只是活着。  -- level 5: 诗人 L5, 写作 L5, 活 L4, 只是 L3
+  让我先讲完好吗？  -- level 3: 先 L3, 讲 L3
+  你觉得这些诗怎么样？  -- level 5: 诗 L5
+  你法语说得好吗？  -- level 10: 法语 (not in list)
+  明晚怎么样？  -- level 10: 明晚 (not in list)
+
+--- dropped at step 5b (2) ---
+  第一天怎么样？  -- harder grammar: 3-01 (HSK 3)
+  再来一杯咖啡怎么样？  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (6) ---
+  在德国过得怎么样？  -- rule: no match: line matched
+  现在的天气怎么样了？  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: no match: line matched
+  周一可以吗？  -- rule: no match: line matched
+  你眼睛不好吗?  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  你觉得周五怎么样？  -- hidden word a learner can't work out: 周五 (Friday)
+  帮我们一下，好吗？  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+  我们休息一下，好吗？  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+
+--- dropped at step 7 (3) ---
+  今天晚上怎么样？  -- no accurate English among: How did tonight go?
+  明天晚上九点怎么样？  -- check said no (1/2): 怎么样 here means 'how about' (suggestion), not HSK 2-75
+  我们这里的天气怎么样？  -- check said no (1/2): Translation unclear; awkward phrasing
+
+--- dropped at step 8 (2) ---
+  你觉得这个怎么样？  -- difficulty review: (1/2); 觉得 uses a meaning (subjective judgment/opinion) not established at HSK 2; it would typically be taught later as part of opinion expressions
+  上个星期天天气怎么样？  -- difficulty review: (1/2); Uses 上 as ordinal prefix (上个星期天) which is HSK 3 grammar point 3-01
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-75_level2_20261109_221223.csv

@@ -1,0 +1,94 @@
+
+########## rules  2026-11-09 21:15 ##########
+19 page(s) use the word(s); asking about 19.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG90DXK  Special cases of "zai" following verbs
+  ASGFBWZL  Expressing location with "zai... shang / xia / li"
+  ASGLRWT8  Expressing existence in a place with "zai"
+  ASGX0Z0N  Indicating location with "zai" before verbs
+
+not:
+  ASG23903  Expressing "as early as" using "zaozai……"
+  ASG50341  Expressing "including" with "zainei"
+  ASG5A494  Expressing "within" a period of time using "zai... nei"
+  ASG846EA  Expressing actions in progress with "zai"
+  ASGA632B  Expressing "lies in" with "zaiyu"
+  ASGEYQ9O  Expressing actions in progress (full form)
+  ASGJPQ0Q  Assessing situations with "kanlai"
+
+unsure:
+  ASGH13JY  Idiomatic phrases with "zai"
+
+unrelated:
+  ASG54932  Comparing "kanqilai" and "kanlai"
+  ASG5RWKO  Time words and word order
+  ASGIRILI  Continuation with "hai"
+  ASGWN185  Expressing "when" with "de shihou"
+  ASG16EF6  Expressing "once" with "cengjing"
+  ASGLOS9C  Comparing "cai" and "jiu"
+  ASGY2D79  Taiwanese "you"
+
+[note] ASG90DXK is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-16
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_211543.txt
+  ...100/107
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 1-16, rule line 2: unknown tag(s) /NN) in '(/LC|/NN)' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-16_20261109_211552.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 1-16
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 在 (zài) to indicate location of actions, existence, or position
+
+**Covers:** 
+- Location before verb: 在 + place + verb (哥哥在北京学中文)
+- Existence at location: subject + 在 + place (我在上海)
+- Location after special verbs (住/坐/站/放): verb + 在 + place (你住在上海吗)
+- Location with localizers (上/下/里/旁边): 在 + place + localizer (在桌子上)
+
+**Does not cover:**
+- Progressive aspect (在 as adverb with 正在): 她在看书 (expresses ongoing action, not location)
+- 在于 (zàiyú, "lies in"): 成功在于坚持
+- 早在 (zǎozài, "as early as"): 早在1942年就...
+- 在...内 (time period): 在三年内
+- 在...看来 (perspective): 在他看来
+- 包括...在内 (including): 包括我在内
+
+```rule
+match: 在/P ... /NN|NR
+match: 在/P ... /LC
+match: /NN|NR|PN .* /VV 在/P .* /NN|NR|LC
+match: /NN|NR|PN 在/VV /NN|NR|LC
+unless: 早/AD 在/P
+unless: 在/P .* 看来/VV
+unless: 包括/VV .* 在/P
+unless: 在于/VV
+unless: 内/P
+unless: 正在/AD
+unless: 在/AD /VV
+```
+
+**Notes:** The rule distinguishes 在 as preposition (P) before location vs. 在 as verb (VV) for existence. Progressive aspect (在 as adverb tagged AD) is explicitly excluded. Time expressions with 内 are excluded by checking for /P tagged 内. The pattern allows for localizers (上/下/里/旁边) tagged as LC, NN, or other location indicators following the place noun.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-16
+Tagging 2 labeled example(s) (cached after this run)...
+  ...100/107
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  [retry] the rule couldn't be read: answer has no '## 1-16' section (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-16_20261109_211632.txt)
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-16: rule on labeled examples (no AI) ===
+  examples of 1-16 matched:    44/47
+  counter-examples wrongly matched: 1/60   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (1) ---
+  在我看来，不会花钱的人就不会享受生活。  -- ASGJPQ0Q Assessing situations with "kanlai"  [matched: 在/P /NN|NR|PN]
+
+--- examples of 1-16 the rule misses (3) ---
+  在派对上  -- ASGFBWZL Expressing location with "zai... shang / xia / li"
+  你一直在这家公司工作吗？  -- ASGX0Z0N Indicating location with "zai" before verbs
+  现在我们在KTV唱歌。  -- ASGX0Z0N Indicating location with "zai" before verbs

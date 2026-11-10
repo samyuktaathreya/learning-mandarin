@@ -1,0 +1,22 @@
+2026-11-09 21:43:17,548  INFO     === tag_sentences.py run started ===
+2026-11-09 21:43:17,829  INFO     OK        hanlp-valid   '我的爱好跟姐姐一样。' -> [('我', 'PN'), ('的', 'DEG'), ('爱好', 'NN'), ('跟', 'P'), ('姐姐', 'NN'), ('一样', 'VA')]
+2026-11-09 21:43:17,831  INFO     TAGGED    '我的爱好跟姐姐一样。' (level 3, 6 tags)
+2026-11-09 21:43:17,840  INFO     OK        hanlp-valid   '他的想法跟我相同。' -> [('他', 'PN'), ('的', 'DEG'), ('想法', 'NN'), ('跟', 'P'), ('我', 'PN'), ('相同', 'VA')]
+2026-11-09 21:43:17,842  INFO     TAGGED    '他的想法跟我相同。' (level 4, 6 tags)
+2026-11-09 21:43:17,850  INFO     FALLBACK  '她有时候像小孩一样天真。' -- out-of-list word(s): ['小孩']
+2026-11-09 21:43:17,850  WARNING    HAIKU resegment call for '她有时候像小孩一样天真。' (cache miss on [('小孩', 'NN')])
+2026-11-09 21:43:17,862  INFO       NON-LIST 小孩 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:43:17,863  INFO     TAGGED    '她有时候像小孩一样天真。' (level 10, 7 tags)
+2026-11-09 21:43:17,872  INFO     FALLBACK  '这个老外的汉语像中国人一样地道。' -- out-of-list word(s): ['这个', '老外', '中国人']
+2026-11-09 21:43:17,872  WARNING    HAIKU resegment call for '这个老外的汉语像中国人一样地道。' (cache miss on [('老外', 'NN')])
+2026-11-09 21:43:17,892  INFO     TAGGED    '这个老外的汉语像中国人一样地道。' (level 6, 11 tags)
+2026-11-09 21:43:17,901  INFO     FALLBACK  '他很生气，像疯子一样大叫起来。' -- out-of-list word(s): ['大叫']
+2026-11-09 21:43:17,901  WARNING    HAIKU resegment call for '他很生气，像疯子一样大叫起来。' (cache miss on [('大叫', 'VV')])
+2026-11-09 21:43:17,914  INFO     TAGGED    '他很生气，像疯子一样大叫起来。' (level 7, 9 tags)
+2026-11-09 21:43:17,923  INFO     FALLBACK  '你怎么像我妈一样啰嗦！' -- out-of-list word(s): ['啰嗦']
+2026-11-09 21:43:17,923  WARNING    HAIKU resegment call for '你怎么像我妈一样啰嗦！' (cache miss on [('啰嗦', 'VV')])
+2026-11-09 21:43:17,940  INFO       NON-LIST 妈 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:43:17,941  INFO       NON-LIST 啰嗦 (VV) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:43:17,942  INFO     TAGGED    '你怎么像我妈一样啰嗦！' (level 10, 7 tags)
+2026-11-09 21:43:17,952  INFO     OK        hanlp-valid   '我像你一样大的时候，还不知道手机是什么。' -> [('我', 'PN'), ('像', 'P'), ('你', 'PN'), ('一样', 'VA'), ('大', 'VA'), ('的', 'DEC'), ('时候', 'NN'), ('还', 'AD'), ('不', 'AD'), ('知道', 'VV'), ('手机', 'NN'), ('是', 'VC'), ('什么', 'PN')]
+2026-11-09 21:43:17,955  INFO     TAGGED    '我像你一样大的时候，还不知道手机是什么。' (level 3, 13 tags)

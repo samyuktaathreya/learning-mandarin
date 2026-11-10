@@ -1,0 +1,30 @@
+## 2-14
+**Point:** Scope/coordination adverbs 全, 一共, 只 for indicating "all/whole," "altogether," or "only"
+**Covers:** 
+- 全/全都 indicating entirety (whole family, entire company, etc.) with pattern like "全 + Noun + 都" or "Subject + 全都 + Predicate"
+- 只/只有 meaning "only" before verbs or with auxiliary verbs 会/能/要
+- 一共 meaning "altogether/in total"
+
+**Does not cover:** 
+- 只好 (forced to, had no choice but) — marks necessity/forced action
+- 只要 (as long as) — marks conditions, typically appears as CS tag
+- 只有...才 (only if...then) — marks necessary conditions with 才
+- 只 as a measure word (一只虫子 = one insect) — tagged M
+- 只 in 不只...也 (not only...but also) — comparative structure with explicit negation
+- 全 as adjective meaning "complete" (齐全) or as preposition/adverb in other contexts (全力, 完全)
+
+```rule
+match: (全|全都|只|只有|一共)/AD
+unless: (只好|只要|只有)/CS ... 才/AD
+unless: _/M (只)
+unless: (不|不只) ... 只/VV
+unless: 只是/VC
+```
+
+**Notes:** 
+- The rule matches when 全, 全都, 只, 只有, or 一共 appear as adverbs (AD tag). These are the core adverbial forms of this point.
+- Counter-examples with 只好 (forced action), 只要 (condition), and 只有...才 (necessary condition) are excluded via the CS tag check.
+- 只 as a measure word (M tag) is excluded to avoid counting "a cat" (一只猫).
+- 不只 + verb construction (comparative "not only") is excluded because 只 tags as VV there.
+- 只是 (merely/just) as copula (VC tag) is excluded as it's a different usage.
+- 一共 and 一只 are distinguished by context: 一共 is AD (adverb), 一只 has 只/M (measure word).

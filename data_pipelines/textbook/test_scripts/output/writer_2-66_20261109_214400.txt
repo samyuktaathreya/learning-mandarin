@@ -1,0 +1,23 @@
+## 2-66
+<!-- revised: patterns now stay within one clause, since a pattern cannot span a clause boundary -->
+**Point:** Conditional "if… then…" sentences. The condition is marked by 如果 or 要不是, by a clause-final 的话, or left implicit. The result clause is often introduced by 就/那/那么.
+
+**Covers:** Sentences whose condition clause has 如果, 要不是 or 的话. Also the informal 你要再说 / 他要不听 type, 要我说, the "V/Adj + 就" type (喜欢就拿走吧), and the short "有事/有空 + request" type.
+
+**Does not cover:** 如果/就/那 used only as plain conjunctions or adverbs, and sentences with only a condition or only a result. Sentences with 要是 or 假如 are left to 3-69 and 4-51, so they are excluded.
+
+```rule
+match: 如果/CS
+match: 要不是
+match: 的话/SP
+match: ^ /PN 要不/AD /VV
+match: ^ /PN 要/VV 再说/VV
+match: ^ 要/VV 我/PN 说/VV
+match: ^ 喜欢/VV 就/AD
+match: ^ 有/VE 事|空/NN 给/P
+match: ^ 有/VE 事|空/NN 来/VV
+unless: 要是
+unless: 假如
+```
+
+**Notes:** The earlier rule used cross-clause patterns with ‖, which can never match because a pattern works inside a single clause. The marker in the condition clause is therefore matched directly. Plain 如果, 要不是 and 的话 are reliable signals of an "if" clause. Informal 要 and implicit conditionals are matched only in narrow, anchored forms to protect precision. Sentences containing 要是 or 假如 are excluded because they belong to other HSK points. Bare two-clause sentences such as 明天下雨，我们在家休息 are not matched, because nothing within one clause marks them as conditional.

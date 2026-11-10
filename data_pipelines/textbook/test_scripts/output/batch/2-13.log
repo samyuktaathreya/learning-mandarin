@@ -1,0 +1,157 @@
+
+########## rules  2026-11-09 21:28 ##########
+10 page(s) use the word(s); asking about 10.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG4NIPB  Expressing "even more" with "geng"
+  ASGDF1F7  Expressing "quite" with "ting"
+  ASGPM3MY  Expressing "a little too" with "you dian"
+  ASGV55Y4  Comparing "youdian" and "yidian"
+  ASG64E96  Expressing "even more" with "geng" or "hai"
+
+not:
+  ASGHOI8S  Expressing "let alone" with "geng buyong shuo"
+  ASG87B11  Using "budan... geng" to express "not only... but also"
+
+unsure:
+  ASG8SI2K  Basic comparisons with "bi"
+
+unrelated:
+  ASG79STE  Degree complement
+  ASG3ZS9G  Expressing "let alone" with "hekuang"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-13
+Tagging 34 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_212810.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-13
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Degree adverbs (多、多么、好、更、十分、特别、挺、有（一）点儿) to express intensity, comparison, or mild complaint
+**Covers:** Using 更/还 before adjectives to mean "even more"; using 挺 before adjectives/psych verbs to mean "quite"; using 有点/有一点 before adjectives to mean "a little too"; using 多么 before adjectives; using 特别/十分 before adjectives
+**Does not cover:** 更不用说 (let alone) pattern; 不但...更 (not only...but also) pattern; 更 as part of 更新/更改 (verb meanings change/update); 一点 after adjectives meaning "a little bit" in comparisons; 一点 before nouns meaning quantity; 点 as a measure word or time unit
+
+```rule
+match: (更|还|挺|多么|特别|十分)/AD _ (VA|VV)
+match: (有|VE) (点|一点|一点儿|点儿)/CD|AD ... (VA|VV)
+unless: 更 不用 说
+unless: 不但
+unless: 连 ... 都|也 ... 更 不用 说
+unless: _ _ _ 更 (不用|不|没)
+unless: 更 (新|改|新|加)
+unless: 更 是 VV
+```
+
+**Notes:** The first match pattern catches degree adverbs directly modifying predicates (adjectives or psych verbs like 喜欢, 怕, 后悔). The second match catches 有点/有一点 with optional negation (不/没) before the predicate, since "有点不喜欢" still demonstrates this grammar point. The unless clauses exclude 更不用说 patterns (which express "let alone"), 不但...更 patterns (which express "not only...but also"), and false positives where 更 is part of a verb (更新, 更改) or used as an intensifier with 是 (更是). Cases where an adjective appears after a negation following a degree adverb (e.g., 有点不舒服) are included because they demonstrate the grammar point despite the negation flipping the valence. The rule excludes 一点/点 appearing after adjectives in comparison structures, since that's a different grammatical use.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-13
+Tagging 34 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-13: rule on labeled examples (no AI) ===
+  examples of 2-13 matched:    44/54
+  counter-examples wrongly matched: 0/20   <- should be 0
+
+--- examples of 2-13 the rule misses (10) ---
+  请说慢一点。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  快点，要迟到了。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  老板，便宜点吧。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  这个比那个重一点。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  你脸上有一点番茄酱。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  你碗里还有点饭，吃完吧。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  我们有点没听懂。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  这个菜一点也不辣。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  作业你一点也没做？  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  这孩子多可爱啊！  -- HSK list example
+
+########## tatoeba  2026-11-09 22:08 ##########
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 34 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220810.txt
+  ...100/176
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+
+=== 2-13 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      463  2. contain the point's word(s)
+      462  3. new (not in DB, not a duplicate)
+      176  4. at most 2 characters outside HSK 2 words
+       14  5. really HSK 2
+       11  5b. no harder grammar point (of the 20 with a rule)
+        1  6. the rule finds 2-13
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (1) ---
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (286), first 12 ---
+  吉尔吉斯斯坦的情况十分混乱。  -- 7 characters no HSK 2 word uses: 乱况吉坦尔斯混
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  我更愿意走路，而不是骑自行车。  -- 5 characters no HSK 2 word uses: 愿更而行骑
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  我新年的新希望是更努力地学习。  -- 3 characters no HSK 2 word uses: 力努更
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  融化中的极地冰盖也可以使海平面上涨的势态更加严重。  -- 15 characters no HSK 2 word uses: 严使冰加势化平态更极海涨盖融重
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  如果我们不做更多的努力去保护雨林，很多其中的稀有物种将会灭绝。  -- 14 characters no HSK 2 word uses: 保其力努如将护更林灭物种稀绝
+  我对美国的印象挺好的。  -- 4 characters no HSK 2 word uses: 印挺美象
+  也就是说，我更加地了解了中国。  -- 3 characters no HSK 2 word uses: 加更解
+
+--- dropped at step 5 (162), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  我挺喜欢那个歌手的。  -- level 4: 挺 L3, 歌手 L4
+  他们四十分钟之后下课。  -- level 4: 之后 L4
+  充足的休息十分重要。  -- level 5: 充足 L5, 十分 L4, 重要 L3
+  不管你有多好，都还有人比你更好。  -- level 4: 不管 L4, 更 L3
+  热天气不仅仅意味着人们觉得有点不高兴。  -- level 5: 仅仅 L4, 意味着 L5
+  这个比那个更小。  -- level 3: 更 L3
+  空气有点冷。  -- level 4: 空气 L4
+  服务器有点儿慢。  -- level 7: 服务器 L7
+  我母亲十分生气。  -- level 4: 母亲 L4, 十分 L4, 生气 L3
+  他特别爱讲笑话。  -- level 4: 特别 L3, 讲 L3, 笑话 L4
+  我是一个特别的人吗？谢谢。;)  -- level 3: 特别 L3
+
+--- dropped at step 5b (3) ---
+  离下课还有十分钟。  -- harder grammar: 3-39 (HSK 3)
+  再等十分钟！  -- harder grammar: 3-16 (HSK 3)
+  让我再睡十分钟！  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (10) ---
+  因为我有点头疼，所以我早早上床睡觉。  -- rule: no match: line matched
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  她说她有点累了。  -- rule: no match: line matched
+  我有点累。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  他们可能有点什么。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  有今天有点头疼。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  汤姆做得有点过头了。  -- hidden word a learner can't work out: 有点 (a little)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-13_level2_20261109_220811.csv

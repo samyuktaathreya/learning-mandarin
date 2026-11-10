@@ -1,0 +1,303 @@
+2026-11-09 22:04:14,668  INFO     === tag_sentences.py run started ===
+2026-11-09 22:04:14,962  INFO     OK        hanlp-valid   '从她的年龄看来，我妈妈很年轻。' -> [('从', 'P'), ('她', 'PN'), ('的', 'DEG'), ('年龄', 'NN'), ('看来', 'VV'), ('我', 'PN'), ('妈妈', 'NN'), ('很', 'AD'), ('年轻', 'VA')]
+2026-11-09 22:04:14,965  INFO     TAGGED    '从她的年龄看来，我妈妈很年轻。' (level 4, 9 tags)
+2026-11-09 22:04:14,973  INFO     FALLBACK  '您在英国从事中医行业多长时间了？' -- out-of-list word(s): ['英国']
+2026-11-09 22:04:14,973  WARNING    HAIKU resegment call for '您在英国从事中医行业多长时间了？' (cache miss on [('英国', 'NR')])
+2026-11-09 22:04:14,982  INFO       NON-LIST 英国 (NR) -> '(name) ying1guo2' [proper_noun]
+2026-11-09 22:04:14,984  INFO     TAGGED    '您在英国从事中医行业多长时间了？' (level 5, 10 tags)
+2026-11-09 22:04:14,992  INFO     OK        hanlp-valid   '她从来不穿绿色的衣服。' -> [('她', 'PN'), ('从来', 'AD'), ('不', 'AD'), ('穿', 'VV'), ('绿色', 'JJ'), ('的', 'DEG'), ('衣服', 'NN')]
+2026-11-09 22:04:14,994  INFO     TAGGED    '她从来不穿绿色的衣服。' (level 4, 7 tags)
+2026-11-09 22:04:15,002  INFO     FALLBACK  '他们从巴西远道而来。' -- out-of-list word(s): ['巴西', '远道']
+2026-11-09 22:04:15,002  WARNING    HAIKU resegment call for '他们从巴西远道而来。' (cache miss on [('巴西', 'NR'), ('远道', 'AD')])
+2026-11-09 22:04:15,013  INFO       NON-LIST 巴西 (NR) -> '(name) ba1xi1' [proper_noun]
+2026-11-09 22:04:15,014  INFO     TAGGED    '他们从巴西远道而来。' (level 4, 7 tags)
+2026-11-09 22:04:15,022  INFO     FALLBACK  '这家店从星期一到星期六都营业。' -- out-of-list word(s): ['星期一', '星期六']
+2026-11-09 22:04:15,022  WARNING    HAIKU resegment call for '这家店从星期一到星期六都营业。' (cache miss on [('星期一', 'NT'), ('星期六', 'NT')])
+2026-11-09 22:04:15,046  INFO     TAGGED    '这家店从星期一到星期六都营业。' (level 5, 11 tags)
+2026-11-09 22:04:15,054  INFO     OK        hanlp-valid   '我从不喝啤酒。' -> [('我', 'PN'), ('从不', 'AD'), ('喝', 'VV'), ('啤酒', 'NN')]
+2026-11-09 22:04:15,055  INFO     TAGGED    '我从不喝啤酒。' (level 5, 4 tags)
+2026-11-09 22:04:15,063  INFO     FALLBACK  '从那以后，我再也没有他的音信了。' -- out-of-list word(s): ['再也没有', '音信']
+2026-11-09 22:04:15,063  WARNING    HAIKU resegment call for '从那以后，我再也没有他的音信了。' (cache miss on [('再也没有', 'AD'), ('音信', 'NN')])
+2026-11-09 22:04:15,075  INFO       NON-LIST 再也 (AD) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,076  INFO       NON-LIST 音信 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,077  INFO     TAGGED    '从那以后，我再也没有他的音信了。' (level 10, 10 tags)
+2026-11-09 22:04:15,085  INFO     OK        hanlp-valid   '老师从来不拿学生们的错误来开玩笑。' -> [('老师', 'NN'), ('从来', 'AD'), ('不', 'AD'), ('拿', 'P'), ('学生', 'NN'), ('们', 'NN'), ('的', 'DEG'), ('错误', 'NN'), ('来', 'MSP'), ('开玩笑', 'VV')]
+2026-11-09 22:04:15,088  INFO     TAGGED    '老师从来不拿学生们的错误来开玩笑。' (level 4, 10 tags)
+2026-11-09 22:04:15,096  INFO     OK        hanlp-valid   '我不指望从你身上得到什么。' -> [('我', 'PN'), ('不', 'AD'), ('指望', 'VV'), ('从', 'P'), ('你', 'PN'), ('身上', 'NN'), ('得到', 'VV'), ('什么', 'PN')]
+2026-11-09 22:04:15,098  INFO     TAGGED    '我不指望从你身上得到什么。' (level 10, 8 tags)
+2026-11-09 22:04:15,106  INFO     OK        hanlp-valid   '我的哥哥从来不听从我们的建议。' -> [('我', 'PN'), ('的', 'DEG'), ('哥哥', 'NN'), ('从来', 'AD'), ('不', 'AD'), ('听从', 'VV'), ('我们', 'PN'), ('的', 'DEG'), ('建议', 'NN')]
+2026-11-09 22:04:15,108  INFO     TAGGED    '我的哥哥从来不听从我们的建议。' (level 7, 9 tags)
+2026-11-09 22:04:15,116  INFO     FALLBACK  '从这开始走用不了两小时。' -- out-of-list word(s): ['两小时']
+2026-11-09 22:04:15,116  WARNING    HAIKU resegment call for '从这开始走用不了两小时。' (cache miss on [('两小时', 'NN')])
+2026-11-09 22:04:15,128  INFO     TAGGED    '从这开始走用不了两小时。' (level 3, 9 tags)
+2026-11-09 22:04:15,136  INFO     OK        hanlp-valid   '他从口袋中拿出了什么。' -> [('他', 'PN'), ('从', 'P'), ('口袋', 'NN'), ('中', 'LC'), ('拿出', 'VV'), ('了', 'AS'), ('什么', 'PN')]
+2026-11-09 22:04:15,140  INFO     TAGGED    '他从口袋中拿出了什么。' (level 5, 8 tags)
+2026-11-09 22:04:15,148  INFO     FALLBACK  '从2008年到2011年，我在美国生活。' -- out-of-list word(s): ['2008年', '2011年', '美国']
+2026-11-09 22:04:15,148  WARNING    HAIKU resegment call for '从2008年到2011年，我在美国生活。' (cache miss on [('2008年', 'NT'), ('2011年', 'NT'), ('美国', 'NR')])
+2026-11-09 22:04:15,159  INFO       NON-LIST 2008年 (NT) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,160  INFO       NON-LIST 2011年 (NT) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,162  INFO     TAGGED    '从2008年到2011年，我在美国生活。' (level 10, 9 tags)
+2026-11-09 22:04:15,170  INFO     FALLBACK  '从这里到银行足有三公里路。' -- out-of-list word(s): ['三公里']
+2026-11-09 22:04:15,170  WARNING    HAIKU resegment call for '从这里到银行足有三公里路。' (cache miss on [('三公里', 'M')])
+2026-11-09 22:04:15,181  INFO     TAGGED    '从这里到银行足有三公里路。' (level 6, 9 tags)
+2026-11-09 22:04:15,189  INFO     FALLBACK  '从无到有，这叫成就。' -- out-of-list word(s): ['从无到有']
+2026-11-09 22:04:15,189  WARNING    HAIKU resegment call for '从无到有，这叫成就。' (cache miss on [('从无到有', 'VV')])
+2026-11-09 22:04:15,200  INFO     TAGGED    '从无到有，这叫成就。' (level 5, 7 tags)
+2026-11-09 22:04:15,208  INFO     OK        hanlp-valid   '从太空中看，地球是什么模样呢?' -> [('从', 'P'), ('太空', 'NN'), ('中', 'LC'), ('看', 'VV'), ('地球', 'NN'), ('是', 'VC'), ('什么', 'DT'), ('模样', 'NN'), ('呢', 'SP')]
+2026-11-09 22:04:15,211  INFO     TAGGED    '从太空中看，地球是什么模样呢?' (level 6, 9 tags)
+2026-11-09 22:04:15,218  INFO     FALLBACK  '从窗旁走开。' -- out-of-list word(s): ['窗']
+2026-11-09 22:04:15,218  WARNING    HAIKU resegment call for '从窗旁走开。' (cache miss on [('窗', 'NN')])
+2026-11-09 22:04:15,229  INFO       NON-LIST 窗 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,230  INFO       NON-LIST 旁 (LC) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,231  INFO     TAGGED    '从窗旁走开。' (level 10, 5 tags)
+2026-11-09 22:04:15,238  INFO     FALLBACK  '从窗边走开。' -- out-of-list word(s): ['窗']
+2026-11-09 22:04:15,238  WARNING    HAIKU resegment call for '从窗边走开。' (cache miss on [('窗', 'NN')])
+2026-11-09 22:04:15,249  INFO       NON-LIST 窗 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,250  INFO     TAGGED    '从窗边走开。' (level 10, 5 tags)
+2026-11-09 22:04:15,258  INFO     OK        hanlp-valid   '他帮助一位老太太从位子上站起来。' -> [('他', 'PN'), ('帮助', 'VV'), ('一', 'CD'), ('位', 'M'), ('老太太', 'NN'), ('从', 'P'), ('位子', 'NN'), ('上', 'LC'), ('站', 'VV'), ('起来', 'VV')]
+2026-11-09 22:04:15,260  INFO     TAGGED    '他帮助一位老太太从位子上站起来。' (level 7, 10 tags)
+2026-11-09 22:04:15,268  INFO     OK        hanlp-valid   '他听从了我的建议。' -> [('他', 'PN'), ('听从', 'VV'), ('了', 'AS'), ('我', 'PN'), ('的', 'DEG'), ('建议', 'NN')]
+2026-11-09 22:04:15,269  INFO     TAGGED    '他听从了我的建议。' (level 7, 6 tags)
+2026-11-09 22:04:15,277  INFO     OK        hanlp-valid   '从父亲到儿子。' -> [('从', 'P'), ('父亲', 'NN'), ('到', 'P'), ('儿子', 'NN')]
+2026-11-09 22:04:15,278  INFO     TAGGED    '从父亲到儿子。' (level 4, 4 tags)
+2026-11-09 22:04:15,286  INFO     OK        hanlp-valid   '我们从前很穷，但很快乐。' -> [('我们', 'PN'), ('从前', 'NT'), ('很', 'AD'), ('穷', 'VA'), ('但', 'AD'), ('很', 'AD'), ('快乐', 'VA')]
+2026-11-09 22:04:15,288  INFO     TAGGED    '我们从前很穷，但很快乐。' (level 5, 7 tags)
+2026-11-09 22:04:15,296  INFO     OK        hanlp-valid   '她从那条路离开。' -> [('她', 'PN'), ('从', 'P'), ('那', 'DT'), ('条', 'M'), ('路', 'NN'), ('离开', 'VV')]
+2026-11-09 22:04:15,300  INFO     TAGGED    '她从那条路离开。' (level 3, 6 tags)
+2026-11-09 22:04:15,311  INFO     OK        hanlp-valid   'Kate的爸爸从车站走路回家。' -> [('Kate', 'NR'), ('的', 'DEG'), ('爸爸', 'NN'), ('从', 'P'), ('车站', 'NN'), ('走路', 'VV'), ('回家', 'VV')]
+2026-11-09 22:04:15,316  INFO     TAGGED    'Kate的爸爸从车站走路回家。' (level 2, 7 tags)
+2026-11-09 22:04:15,323  INFO     FALLBACK  '我是从罗马来的。' -- out-of-list word(s): ['罗马']
+2026-11-09 22:04:15,323  WARNING    HAIKU resegment call for '我是从罗马来的。' (cache miss on [('罗马', 'NR')])
+2026-11-09 22:04:15,334  INFO       NON-LIST 罗 (NR) -> '(name) luo2' [proper_noun]
+2026-11-09 22:04:15,335  INFO     TAGGED    '我是从罗马来的。' (level 3, 7 tags)
+2026-11-09 22:04:15,343  INFO     FALLBACK  '我从来没想到会发生那种事。' -- out-of-list word(s): ['那种']
+2026-11-09 22:04:15,343  WARNING    HAIKU resegment call for '我从来没想到会发生那种事。' (cache miss on [('那种', 'DT')])
+2026-11-09 22:04:15,358  INFO     TAGGED    '我从来没想到会发生那种事。' (level 4, 10 tags)
+2026-11-09 22:04:15,366  INFO     OK        hanlp-valid   '我的父母是从中国来的。' -> [('我', 'PN'), ('的', 'DEG'), ('父母', 'NN'), ('是', 'VC'), ('从', 'P'), ('中国', 'NR'), ('来', 'VV'), ('的', 'SP')]
+2026-11-09 22:04:15,368  INFO     TAGGED    '我的父母是从中国来的。' (level 4, 8 tags)
+2026-11-09 22:04:15,376  INFO     FALLBACK  '叉子从桌上掉了下来。' -- out-of-list word(s): ['桌']
+2026-11-09 22:04:15,376  WARNING    HAIKU resegment call for '叉子从桌上掉了下来。' (cache miss on [('桌', 'NN')])
+2026-11-09 22:04:15,383  INFO       NON-LIST 桌 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,385  INFO     TAGGED    '叉子从桌上掉了下来。' (level 10, 7 tags)
+2026-11-09 22:04:15,393  INFO     FALLBACK  '自从我开始学汉语以来已经有两年了。' -- out-of-list word(s): ['两年']
+2026-11-09 22:04:15,393  WARNING    HAIKU resegment call for '自从我开始学汉语以来已经有两年了。' (cache miss on [('两年', 'NT')])
+2026-11-09 22:04:15,405  INFO     TAGGED    '自从我开始学汉语以来已经有两年了。' (level 5, 11 tags)
+2026-11-09 22:04:15,413  INFO     OK        hanlp-valid   '我对你从不隐瞒。' -> [('我', 'PN'), ('对', 'P'), ('你', 'PN'), ('从不', 'AD'), ('隐瞒', 'VV')]
+2026-11-09 22:04:15,415  INFO     TAGGED    '我对你从不隐瞒。' (level 7, 5 tags)
+2026-11-09 22:04:15,422  INFO     FALLBACK  '我们叫汤姆做什么，他从来不做。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:04:15,423  INFO       CACHE-ONLY resegmentation -> [('我们', 'PN'), ('叫', 'VV'), ('汤姆', 'NN'), ('做', 'VV'), ('什么', 'PN'), ('他', 'PN'), ('从来', 'AD'), ('不', 'AD'), ('做', 'VV')]
+2026-11-09 22:04:15,424  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,426  INFO     TAGGED    '我们叫汤姆做什么，他从来不做。' (level 10, 9 tags)
+2026-11-09 22:04:15,434  INFO     OK        hanlp-valid   '从什么时候开始您就这里工作着的呢？' -> [('从', 'P'), ('什么', 'DT'), ('时候', 'NN'), ('开始', 'LC'), ('您', 'PN'), ('就', 'AD'), ('这里', 'PN'), ('工作', 'VV'), ('着', 'AS'), ('的', 'SP'), ('呢', 'SP')]
+2026-11-09 22:04:15,436  INFO     TAGGED    '从什么时候开始您就这里工作着的呢？' (level 2, 11 tags)
+2026-11-09 22:04:15,444  INFO     FALLBACK  '他今天从悉尼回来。' -- out-of-list word(s): ['悉尼']
+2026-11-09 22:04:15,444  WARNING    HAIKU resegment call for '他今天从悉尼回来。' (cache miss on [('悉尼', 'NR')])
+2026-11-09 22:04:15,451  INFO       NON-LIST 悉尼 (NR) -> '(name) xi1ni2' [proper_noun]
+2026-11-09 22:04:15,452  INFO     TAGGED    '他今天从悉尼回来。' (level 2, 5 tags)
+2026-11-09 22:04:15,460  INFO     OK        hanlp-valid   '从草地里出来。' -> [('从', 'P'), ('草地', 'NN'), ('里', 'LC'), ('出来', 'VV')]
+2026-11-09 22:04:15,461  INFO     TAGGED    '从草地里出来。' (level 3, 4 tags)
+2026-11-09 22:04:15,469  INFO     FALLBACK  '我们不该期望从Tom那得到太多帮助。' -- out-of-list word(s): ['不该']
+2026-11-09 22:04:15,469  WARNING    HAIKU resegment call for '我们不该期望从Tom那得到太多帮助。' (cache miss on [('不该', 'VV')])
+2026-11-09 22:04:15,480  INFO     TAGGED    '我们不该期望从Tom那得到太多帮助。' (level 6, 10 tags)
+2026-11-09 22:04:15,488  INFO     OK        hanlp-valid   '你们冷静下来，从头开始跟我说。' -> [('你们', 'PN'), ('冷静', 'VA'), ('下来', 'VV'), ('从头', 'AD'), ('开始', 'VV'), ('跟', 'P'), ('我', 'PN'), ('说', 'VV')]
+2026-11-09 22:04:15,490  INFO     TAGGED    '你们冷静下来，从头开始跟我说。' (level 7, 8 tags)
+2026-11-09 22:04:15,498  INFO     OK        hanlp-valid   '你冷静下来，从头开始跟我说。' -> [('你', 'PN'), ('冷静', 'VA'), ('下来', 'VV'), ('从头', 'AD'), ('开始', 'VV'), ('跟', 'P'), ('我', 'PN'), ('说', 'VV')]
+2026-11-09 22:04:15,500  INFO     TAGGED    '你冷静下来，从头开始跟我说。' (level 7, 8 tags)
+2026-11-09 22:04:15,508  INFO     OK        hanlp-valid   '我应该服从。' -> [('我', 'PN'), ('应该', 'VV'), ('服从', 'VV')]
+2026-11-09 22:04:15,509  INFO     TAGGED    '我应该服从。' (level 6, 3 tags)
+2026-11-09 22:04:15,517  INFO     FALLBACK  '汤姆不喜欢网球，从来都不喜欢。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:04:15,517  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('不', 'AD'), ('喜欢', 'VV'), ('网球', 'NN'), ('从来', 'AD'), ('都', 'AD'), ('不', 'AD'), ('喜欢', 'VV')]
+2026-11-09 22:04:15,518  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,520  INFO     TAGGED    '汤姆不喜欢网球，从来都不喜欢。' (level 10, 8 tags)
+2026-11-09 22:04:15,527  INFO     OK        hanlp-valid   '我从没认为你错了。' -> [('我', 'PN'), ('从没', 'AD'), ('认为', 'VV'), ('你', 'PN'), ('错', 'VA'), ('了', 'SP')]
+2026-11-09 22:04:15,532  INFO     TAGGED    '我从没认为你错了。' (level 3, 7 tags)
+2026-11-09 22:04:15,540  INFO     FALLBACK  '汤姆自从2003年就住在这里。' -- out-of-list word(s): ['汤姆', '2003年']
+2026-11-09 22:04:15,540  WARNING    HAIKU resegment call for '汤姆自从2003年就住在这里。' (cache miss on [('2003年', 'NT')])
+2026-11-09 22:04:15,548  INFO       NON-LIST 汤姆 (NR) -> '(name) tang1mu3' [proper_noun]
+2026-11-09 22:04:15,549  INFO       NON-LIST 2003年 (NT) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,550  INFO     TAGGED    '汤姆自从2003年就住在这里。' (level 10, 7 tags)
+2026-11-09 22:04:15,557  INFO     OK        hanlp-valid   '我会听从指示。' -> [('我', 'PN'), ('会', 'VV'), ('听从', 'VV'), ('指示', 'NN')]
+2026-11-09 22:04:15,559  INFO     TAGGED    '我会听从指示。' (level 7, 4 tags)
+2026-11-09 22:04:15,566  INFO     FALLBACK  '我从来不喝柠檬茶。' -- out-of-list word(s): ['柠檬茶']
+2026-11-09 22:04:15,566  WARNING    HAIKU resegment call for '我从来不喝柠檬茶。' (cache miss on [('柠檬茶', 'NN')])
+2026-11-09 22:04:15,574  INFO       NON-LIST 柠檬茶 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,575  INFO     TAGGED    '我从来不喝柠檬茶。' (level 10, 5 tags)
+2026-11-09 22:04:15,582  INFO     FALLBACK  '你是从哪里照的相？' -- out-of-list word(s): ['相']
+2026-11-09 22:04:15,582  WARNING    HAIKU resegment call for '你是从哪里照的相？' (cache miss on [('相', 'NN')])
+2026-11-09 22:04:15,590  INFO       NON-LIST 相 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,591  INFO     TAGGED    '你是从哪里照的相？' (level 10, 7 tags)
+2026-11-09 22:04:15,599  INFO     FALLBACK  '他的火车从十号站台发车。' -- out-of-list word(s): ['十号', '发车']
+2026-11-09 22:04:15,599  WARNING    HAIKU resegment call for '他的火车从十号站台发车。' (cache miss on [('十号', 'NT'), ('发车', 'VV')])
+2026-11-09 22:04:15,613  INFO     TAGGED    '他的火车从十号站台发车。' (level 5, 9 tags)
+2026-11-09 22:04:15,621  INFO     FALLBACK  '我从没这么以你为豪。' -- out-of-list word(s): ['为豪']
+2026-11-09 22:04:15,621  WARNING    HAIKU resegment call for '我从没这么以你为豪。' (cache miss on [('为豪', 'VV')])
+2026-11-09 22:04:15,633  INFO       NON-LIST 为豪 (VV) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,633  INFO     TAGGED    '我从没这么以你为豪。' (level 10, 7 tags)
+2026-11-09 22:04:15,641  INFO     OK        hanlp-valid   '你从昨天开始就忙吗？' -> [('你', 'PN'), ('从', 'P'), ('昨天', 'NT'), ('开始', 'LC'), ('就', 'AD'), ('忙', 'VA'), ('吗', 'SP')]
+2026-11-09 22:04:15,643  INFO     TAGGED    '你从昨天开始就忙吗？' (level 2, 7 tags)
+2026-11-09 22:04:15,650  INFO     FALLBACK  '那个男生从后门进来了。' -- out-of-list word(s): ['那个', '后门']
+2026-11-09 22:04:15,650  WARNING    HAIKU resegment call for '那个男生从后门进来了。' (cache miss on [('后门', 'NN')])
+2026-11-09 22:04:15,665  INFO     TAGGED    '那个男生从后门进来了。' (level 3, 8 tags)
+2026-11-09 22:04:15,673  INFO     FALLBACK  '汤姆从椅子上站了起来。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:04:15,673  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('从', 'P'), ('椅子', 'NN'), ('上', 'LC'), ('站', 'VV'), ('了', 'AS'), ('起来', 'VV')]
+2026-11-09 22:04:15,674  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:15,676  INFO     TAGGED    '汤姆从椅子上站了起来。' (level 10, 7 tags)
+2026-11-09 22:04:15,989  INFO     OK        hanlp-valid   '爱从不是错的。' -> [('爱', 'VV'), ('从不', 'AD'), ('是', 'VC'), ('错', 'VA'), ('的', 'SP')]
+2026-11-09 22:04:15,991  INFO     TAGGED    '爱从不是错的。' (level 5, 5 tags)
+2026-11-09 22:04:15,998  INFO     FALLBACK  '他从架子上拿下书。' -- out-of-list word(s): ['拿下']
+2026-11-09 22:04:15,998  WARNING    HAIKU resegment call for '他从架子上拿下书。' (cache miss on [('拿下', 'VV')])
+2026-11-09 22:04:16,009  INFO     TAGGED    '他从架子上拿下书。' (level 7, 7 tags)
+2026-11-09 22:04:16,017  INFO     FALLBACK  '汤姆从不想试试。' -- out-of-list word(s): ['汤姆', '试试']
+2026-11-09 22:04:16,017  WARNING    HAIKU resegment call for '汤姆从不想试试。' (cache miss on [('试试', 'VV')])
+2026-11-09 22:04:16,028  INFO       NON-LIST 汤姆 (NR) -> '(name) tang1mu3' [proper_noun]
+2026-11-09 22:04:16,029  INFO     TAGGED    '汤姆从不想试试。' (level 5, 5 tags)
+2026-11-09 22:04:16,037  INFO     OK        hanlp-valid   '我们从不放弃。' -> [('我们', 'PN'), ('从不', 'AD'), ('放弃', 'VV')]
+2026-11-09 22:04:16,038  INFO     TAGGED    '我们从不放弃。' (level 5, 3 tags)
+2026-11-09 22:04:16,045  INFO     OK        hanlp-valid   '我几乎从不说谎。' -> [('我', 'PN'), ('几乎', 'AD'), ('从不', 'AD'), ('说谎', 'VV')]
+2026-11-09 22:04:16,047  INFO     TAGGED    '我几乎从不说谎。' (level 7, 4 tags)
+2026-11-09 22:04:16,054  INFO     FALLBACK  '我从两点开始一直等你。' -- out-of-list word(s): ['两点']
+2026-11-09 22:04:16,054  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('从', 'P'), ('两', 'CD'), ('点', 'M'), ('开始', 'LC'), ('一直', 'AD'), ('等', 'VV'), ('你', 'PN')]
+2026-11-09 22:04:16,056  INFO     TAGGED    '我从两点开始一直等你。' (level 3, 8 tags)
+2026-11-09 22:04:16,064  INFO     FALLBACK  '汤姆从椅子上跳了起来。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:04:16,064  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('从', 'P'), ('椅子', 'NN'), ('上', 'LC'), ('跳', 'VV'), ('了', 'AS'), ('起来', 'VV')]
+2026-11-09 22:04:16,065  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:16,067  INFO     TAGGED    '汤姆从椅子上跳了起来。' (level 10, 7 tags)
+2026-11-09 22:04:16,074  INFO     FALLBACK  '汤姆从不高兴。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:04:16,074  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('从不', 'AD'), ('高兴', 'VA')]
+2026-11-09 22:04:16,076  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:16,077  INFO     TAGGED    '汤姆从不高兴。' (level 10, 3 tags)
+2026-11-09 22:04:16,084  INFO     FALLBACK  '她从马德里回来了。' -- out-of-list word(s): ['马德里']
+2026-11-09 22:04:16,084  WARNING    HAIKU resegment call for '她从马德里回来了。' (cache miss on [('马德里', 'NR')])
+2026-11-09 22:04:16,095  INFO       NON-LIST 德 (NR) -> '(name) de2' [proper_noun]
+2026-11-09 22:04:16,096  INFO     TAGGED    '她从马德里回来了。' (level 3, 7 tags)
+2026-11-09 22:04:16,104  INFO     FALLBACK  '你也是从波士顿来的吗？' -- out-of-list word(s): ['也是', '波士顿']
+2026-11-09 22:04:16,104  WARNING    HAIKU resegment call for '你也是从波士顿来的吗？' (cache miss on [('也是', 'AD'), ('波士顿', 'NR')])
+2026-11-09 22:04:16,115  INFO       NON-LIST 波士顿 (NR) -> '(name) bo1shi4dun4' [proper_noun]
+2026-11-09 22:04:16,116  INFO     TAGGED    '你也是从波士顿来的吗？' (level 2, 8 tags)
+2026-11-09 22:04:16,124  INFO     FALLBACK  '你从汤姆那里学到了吗？' -- out-of-list word(s): ['汤姆', '学到']
+2026-11-09 22:04:16,124  WARNING    HAIKU resegment call for '你从汤姆那里学到了吗？' (cache miss on [('学到', 'VV')])
+2026-11-09 22:04:16,134  INFO       NON-LIST 汤姆 (NR) -> '(name) tang1mu3' [proper_noun]
+2026-11-09 22:04:16,136  INFO     TAGGED    '你从汤姆那里学到了吗？' (level 2, 8 tags)
+2026-11-09 22:04:16,144  INFO     FALLBACK  '火车从什么地方开出？' -- out-of-list word(s): ['开出']
+2026-11-09 22:04:16,144  WARNING    HAIKU resegment call for '火车从什么地方开出？' (cache miss on [('开出', 'VV')])
+2026-11-09 22:04:16,154  INFO     TAGGED    '火车从什么地方开出？' (level 3, 6 tags)
+2026-11-09 22:04:16,162  INFO     FALLBACK  '我从不想离开波士顿。' -- out-of-list word(s): ['波士顿']
+2026-11-09 22:04:16,162  WARNING    HAIKU resegment call for '我从不想离开波士顿。' (cache miss on [('波士顿', 'NR')])
+2026-11-09 22:04:16,170  INFO       NON-LIST 波士顿 (NR) -> '(name) bo1shi4dun4' [proper_noun]
+2026-11-09 22:04:16,171  INFO     TAGGED    '我从不想离开波士顿。' (level 5, 5 tags)
+2026-11-09 22:04:16,178  INFO     FALLBACK  '你从不清扫你的房间吗？' -- out-of-list word(s): ['清扫']
+2026-11-09 22:04:16,178  WARNING    HAIKU resegment call for '你从不清扫你的房间吗？' (cache miss on [('清扫', 'VV')])
+2026-11-09 22:04:16,190  INFO     TAGGED    '你从不清扫你的房间吗？' (level 6, 8 tags)
+2026-11-09 22:04:16,197  INFO     FALLBACK  '我从没见汤姆笑。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:04:16,197  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('从没', 'AD'), ('见', 'VV'), ('汤姆', 'NN'), ('笑', 'VV')]
+2026-11-09 22:04:16,202  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:16,203  INFO     TAGGED    '我从没见汤姆笑。' (level 10, 6 tags)
+2026-11-09 22:04:16,211  INFO     OK        hanlp-valid   '你从来不听我们的建议。' -> [('你', 'PN'), ('从来', 'AD'), ('不', 'AD'), ('听', 'VV'), ('我们', 'PN'), ('的', 'DEG'), ('建议', 'NN')]
+2026-11-09 22:04:16,213  INFO     TAGGED    '你从来不听我们的建议。' (level 4, 7 tags)
+2026-11-09 22:04:16,220  INFO     FALLBACK  '萨米是从南边来的。' -- out-of-list word(s): ['萨米']
+2026-11-09 22:04:16,220  INFO       CACHE-ONLY resegmentation -> [('萨米', 'NN'), ('是', 'VC'), ('从', 'P'), ('南边', 'NN'), ('来', 'VV'), ('的', 'SP')]
+2026-11-09 22:04:16,224  INFO       NON-LIST 萨米 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:16,226  INFO     TAGGED    '萨米是从南边来的。' (level 10, 7 tags)
+2026-11-09 22:04:16,234  INFO     FALLBACK  '汤姆从出租车上下来了。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:04:16,234  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('从', 'P'), ('出租车', 'NN'), ('上', 'LC'), ('下来', 'VV'), ('了', 'AS')]
+2026-11-09 22:04:16,235  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:16,236  INFO     TAGGED    '汤姆从出租车上下来了。' (level 10, 6 tags)
+2026-11-09 22:04:16,244  INFO     OK        hanlp-valid   '她从梯子上摔了下来。' -> [('她', 'PN'), ('从', 'P'), ('梯子', 'NN'), ('上', 'LC'), ('摔', 'VV'), ('了', 'AS'), ('下来', 'VV')]
+2026-11-09 22:04:16,246  INFO     TAGGED    '她从梯子上摔了下来。' (level 7, 7 tags)
+2026-11-09 22:04:16,253  INFO     FALLBACK  '从网上退下来去洗个澡吧。' -- out-of-list word(s): ['澡']
+2026-11-09 22:04:16,253  WARNING    HAIKU resegment call for '从网上退下来去洗个澡吧。' (cache miss on [('澡', 'NN')])
+2026-11-09 22:04:16,262  INFO     TAGGED    '从网上退下来去洗个澡吧。' (level 10, 9 tags)
+2026-11-09 22:04:16,270  INFO     FALLBACK  '我们不想从你身上要任何东西。' -- out-of-list word(s): ['不想']
+2026-11-09 22:04:16,270  WARNING    HAIKU resegment call for '我们不想从你身上要任何东西。' (cache miss on [('不想', 'AD')])
+2026-11-09 22:04:16,282  INFO     TAGGED    '我们不想从你身上要任何东西。' (level 10, 9 tags)
+2026-11-09 22:04:16,289  INFO     FALLBACK  '那本书我从头到尾看完了。' -- out-of-list word(s): ['从头到尾', '看完']
+2026-11-09 22:04:16,289  WARNING    HAIKU resegment call for '那本书我从头到尾看完了。' (cache miss on [('从头到尾', 'AD'), ('看完', 'VV')])
+2026-11-09 22:04:16,301  INFO       NON-LIST 从头到尾 (AD) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:16,302  INFO     TAGGED    '那本书我从头到尾看完了。' (level 10, 8 tags)
+2026-11-09 22:04:16,309  INFO     OK        hanlp-valid   '从头开始。' -> [('从头', 'AD'), ('开始', 'VV')]
+2026-11-09 22:04:16,310  INFO     TAGGED    '从头开始。' (level 7, 2 tags)
+2026-11-09 22:04:16,318  INFO     OK        hanlp-valid   '她刚从洗手间回来。' -> [('她', 'PN'), ('刚', 'AD'), ('从', 'P'), ('洗手间', 'NN'), ('回来', 'VV')]
+2026-11-09 22:04:16,319  INFO     TAGGED    '她刚从洗手间回来。' (level 3, 5 tags)
+2026-11-09 22:04:16,327  INFO     OK        hanlp-valid   '我从窗口爬进来的。' -> [('我', 'PN'), ('从', 'P'), ('窗口', 'NN'), ('爬', 'VV'), ('进来', 'VV'), ('的', 'SP')]
+2026-11-09 22:04:16,328  INFO     TAGGED    '我从窗口爬进来的。' (level 6, 6 tags)
+2026-11-09 22:04:16,336  INFO     OK        hanlp-valid   '从月球上看的话，地球看起来像个皮球。' -> [('从', 'P'), ('月球', 'NN'), ('上', 'LC'), ('看', 'VV'), ('的话', 'SP'), ('地球', 'NN'), ('看起来', 'AD'), ('像', 'VV'), ('个', 'M'), ('皮球', 'NN')]
+2026-11-09 22:04:16,345  INFO     TAGGED    '从月球上看的话，地球看起来像个皮球。' (level 6, 12 tags)
+2026-11-09 22:04:16,353  INFO     OK        hanlp-valid   '请画一条从A到B的线。' -> [('请', 'VV'), ('画', 'VV'), ('一', 'CD'), ('条', 'M'), ('从', 'P'), ('A', 'NN'), ('到', 'P'), ('B', 'NN'), ('的', 'DEG'), ('线', 'NN')]
+2026-11-09 22:04:16,355  INFO     TAGGED    '请画一条从A到B的线。' (level 6, 8 tags)
+2026-11-09 22:04:16,362  INFO     FALLBACK  '他从酒壶里喝了一大口。' -- out-of-list word(s): ['酒壶']
+2026-11-09 22:04:16,363  WARNING    HAIKU resegment call for '他从酒壶里喝了一大口。' (cache miss on [('酒壶', 'NN')])
+2026-11-09 22:04:16,374  INFO     TAGGED    '他从酒壶里喝了一大口。' (level 6, 10 tags)
+2026-11-09 22:04:16,382  INFO     OK        hanlp-valid   '他从窗帘后出来了。' -> [('他', 'PN'), ('从', 'P'), ('窗帘', 'NN'), ('后', 'LC'), ('出来', 'VV'), ('了', 'AS')]
+2026-11-09 22:04:16,384  INFO     TAGGED    '他从窗帘后出来了。' (level 7, 6 tags)
+2026-11-09 22:04:16,391  INFO     OK        hanlp-valid   '他们服从了命令。' -> [('他们', 'PN'), ('服从', 'VV'), ('了', 'AS'), ('命令', 'NN')]
+2026-11-09 22:04:16,392  INFO     TAGGED    '他们服从了命令。' (level 6, 4 tags)
+2026-11-09 22:04:16,400  INFO     FALLBACK  '从那天起我一直在等他。' -- out-of-list word(s): ['那天']
+2026-11-09 22:04:16,400  WARNING    HAIKU resegment call for '从那天起我一直在等他。' (cache miss on [('那天', 'NT')])
+2026-11-09 22:04:16,411  INFO     TAGGED    '从那天起我一直在等他。' (level 3, 9 tags)
+2026-11-09 22:04:16,419  INFO     FALLBACK  '他从路上捡起一样白色的东西。' -- out-of-list word(s): ['捡起']
+2026-11-09 22:04:16,419  WARNING    HAIKU resegment call for '他从路上捡起一样白色的东西。' (cache miss on [('捡起', 'VV')])
+2026-11-09 22:04:16,431  INFO     TAGGED    '他从路上捡起一样白色的东西。' (level 5, 9 tags)
+2026-11-09 22:04:16,439  INFO     FALLBACK  '演唱会从晚上八点开始。' -- out-of-list word(s): ['晚上八点']
+2026-11-09 22:04:16,439  WARNING    HAIKU resegment call for '演唱会从晚上八点开始。' (cache miss on [('晚上八点', 'NT')])
+2026-11-09 22:04:16,453  INFO     TAGGED    '演唱会从晚上八点开始。' (level 4, 7 tags)
+2026-11-09 22:04:16,461  INFO     OK        hanlp-valid   '你哪一年从学校毕业的？' -> [('你', 'PN'), ('哪', 'DT'), ('一', 'CD'), ('年', 'M'), ('从', 'P'), ('学校', 'NN'), ('毕业', 'VV'), ('的', 'SP')]
+2026-11-09 22:04:16,463  INFO     TAGGED    '你哪一年从学校毕业的？' (level 4, 8 tags)
+2026-11-09 22:04:16,470  INFO     FALLBACK  '我刚从医院赶来。' -- out-of-list word(s): ['赶来']
+2026-11-09 22:04:16,470  WARNING    HAIKU resegment call for '我刚从医院赶来。' (cache miss on [('赶来', 'VV')])
+2026-11-09 22:04:16,481  INFO     TAGGED    '我刚从医院赶来。' (level 4, 6 tags)
+2026-11-09 22:04:16,489  INFO     OK        hanlp-valid   '我想从这家公司辞职。' -> [('我', 'PN'), ('想', 'VV'), ('从', 'P'), ('这', 'DT'), ('家', 'M'), ('公司', 'NN'), ('辞职', 'VV')]
+2026-11-09 22:04:16,491  INFO     TAGGED    '我想从这家公司辞职。' (level 5, 7 tags)
+2026-11-09 22:04:16,499  INFO     OK        hanlp-valid   '这本书不管读多少次，我都能从中有新发现。' -> [('这', 'DT'), ('本', 'M'), ('书', 'NN'), ('不管', 'CS'), ('读', 'VV'), ('多少', 'CD'), ('次', 'M'), ('我', 'PN'), ('都', 'AD'), ('能', 'VV'), ('从中', 'AD'), ('有', 'VE'), ('新', 'JJ'), ('发现', 'NN')]
+2026-11-09 22:04:16,502  INFO     TAGGED    '这本书不管读多少次，我都能从中有新发现。' (level 4, 14 tags)
+2026-11-09 22:04:16,510  INFO     FALLBACK  '一股冷风从门外进来。' -- out-of-list word(s): ['冷风', '门外']
+2026-11-09 22:04:16,510  WARNING    HAIKU resegment call for '一股冷风从门外进来。' (cache miss on [('冷风', 'NN'), ('门外', 'NN')])
+2026-11-09 22:04:16,525  INFO     TAGGED    '一股冷风从门外进来。' (level 7, 8 tags)
+2026-11-09 22:04:16,533  INFO     FALLBACK  '萨米曾经从事客服工作。' -- out-of-list word(s): ['萨米', '客服']
+2026-11-09 22:04:16,533  WARNING    HAIKU resegment call for '萨米曾经从事客服工作。' (cache miss on [('客服', 'NN')])
+2026-11-09 22:04:16,540  INFO       NON-LIST 萨米 (NR) -> '(name) sa4mi3' [proper_noun]
+2026-11-09 22:04:16,542  INFO       NON-LIST 客服 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:16,542  INFO     TAGGED    '萨米曾经从事客服工作。' (level 10, 5 tags)
+2026-11-09 22:04:16,555  INFO     OK        hanlp-valid   '从第一章开始吧。' -> [('从', 'P'), ('第一', 'NUM'), ('章', 'NR'), ('开始', 'VV'), ('吧', 'SP')]
+2026-11-09 22:04:16,557  INFO     TAGGED    '从第一章开始吧。' (level 6, 4 tags)
+2026-11-09 22:04:16,564  INFO     FALLBACK  '从那时起，我就爱上兔子了。' -- out-of-list word(s): ['爱上']
+2026-11-09 22:04:16,564  WARNING    HAIKU resegment call for '从那时起，我就爱上兔子了。' (cache miss on [('爱上', 'VV')])
+2026-11-09 22:04:16,579  INFO     TAGGED    '从那时起，我就爱上兔子了。' (level 5, 10 tags)
+2026-11-09 22:04:16,587  INFO     OK        hanlp-valid   '我们都从座位上站起来，开始跳舞。' -> [('我们', 'PN'), ('都', 'AD'), ('从', 'P'), ('座位', 'NN'), ('上', 'LC'), ('站', 'VV'), ('起来', 'VV'), ('开始', 'VV'), ('跳舞', 'VV')]
+2026-11-09 22:04:16,589  INFO     TAGGED    '我们都从座位上站起来，开始跳舞。' (level 4, 9 tags)
+2026-11-09 22:04:16,597  INFO     FALLBACK  '我明天要和一位从法国来的朋友见面。' -- out-of-list word(s): ['法国']
+2026-11-09 22:04:16,597  WARNING    HAIKU resegment call for '我明天要和一位从法国来的朋友见面。' (cache miss on [('法国', 'NR')])
+2026-11-09 22:04:16,609  INFO     TAGGED    '我明天要和一位从法国来的朋友见面。' (level 4, 13 tags)
+2026-11-09 22:04:16,618  INFO     OK        hanlp-valid   '从星期天开始就一直在下雨。' -> [('从', 'P'), ('星期天', 'NT'), ('开始', 'LC'), ('就', 'AD'), ('一直', 'AD'), ('在', 'AD'), ('下雨', 'VV')]
+2026-11-09 22:04:16,620  INFO     TAGGED    '从星期天开始就一直在下雨。' (level 3, 7 tags)
+2026-11-09 22:04:16,627  INFO     OK        hanlp-valid   '我从没想到事情会变成这样。' -> [('我', 'PN'), ('从没', 'AD'), ('想到', 'VV'), ('事情', 'NN'), ('会', 'VV'), ('变成', 'VV'), ('这样', 'VA')]
+2026-11-09 22:04:16,635  INFO     TAGGED    '我从没想到事情会变成这样。' (level 3, 9 tags)
+2026-11-09 22:04:16,643  INFO     FALLBACK  '我和汤姆从来不一起唱歌。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:04:16,643  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('和', 'CC'), ('汤姆', 'NN'), ('从来', 'AD'), ('不', 'AD'), ('一起', 'AD'), ('唱歌', 'VV')]
+2026-11-09 22:04:16,648  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:16,649  INFO     TAGGED    '我和汤姆从来不一起唱歌。' (level 10, 8 tags)
+2026-11-09 22:04:16,657  INFO     OK        hanlp-valid   '我得从头开始做吗？' -> [('我', 'PN'), ('得', 'VV'), ('从头', 'AD'), ('开始', 'VV'), ('做', 'VV'), ('吗', 'SP')]
+2026-11-09 22:04:16,658  INFO     TAGGED    '我得从头开始做吗？' (level 7, 6 tags)
+2026-11-09 22:04:16,666  INFO     FALLBACK  '他从事考古学工作。' -- out-of-list word(s): ['考古学']
+2026-11-09 22:04:16,666  WARNING    HAIKU resegment call for '他从事考古学工作。' (cache miss on [('考古学', 'NN')])
+2026-11-09 22:04:16,678  INFO     TAGGED    '他从事考古学工作。' (level 6, 5 tags)
+2026-11-09 22:04:16,994  INFO     OK        hanlp-valid   '她从不害怕。' -> [('她', 'PN'), ('从不', 'AD'), ('害怕', 'VV')]
+2026-11-09 22:04:16,995  INFO     TAGGED    '她从不害怕。' (level 5, 3 tags)
+2026-11-09 22:04:17,003  INFO     OK        hanlp-valid   '我上个月从公司离职了。' -> [('我', 'PN'), ('上个月', 'NT'), ('从', 'P'), ('公司', 'NN'), ('离职', 'VV'), ('了', 'SP')]
+2026-11-09 22:04:17,008  INFO     TAGGED    '我上个月从公司离职了。' (level 5, 8 tags)
+2026-11-09 22:04:17,016  INFO     FALLBACK  '自从你上次来这，已经有一段时间了。' -- out-of-list word(s): ['一段']
+2026-11-09 22:04:17,016  WARNING    HAIKU resegment call for '自从你上次来这，已经有一段时间了。' (cache miss on [('一段', 'CD')])
+2026-11-09 22:04:17,031  INFO     TAGGED    '自从你上次来这，已经有一段时间了。' (level 5, 12 tags)
+2026-11-09 22:04:17,039  INFO     OK        hanlp-valid   '我们从根本问题入手吧。' -> [('我们', 'PN'), ('从', 'P'), ('根本', 'JJ'), ('问题', 'NN'), ('入手', 'VV'), ('吧', 'SP')]
+2026-11-09 22:04:17,041  INFO     TAGGED    '我们从根本问题入手吧。' (level 7, 6 tags)
+2026-11-09 22:04:17,049  INFO     FALLBACK  '汤姆从上周一到现在都没来这里。' -- out-of-list word(s): ['汤姆', '上周一']
+2026-11-09 22:04:17,049  WARNING    HAIKU resegment call for '汤姆从上周一到现在都没来这里。' (cache miss on [('上周一', 'NT')])
+2026-11-09 22:04:17,060  INFO       NON-LIST 汤姆 (NR) -> '(name) tang1mu3' [proper_noun]
+2026-11-09 22:04:17,061  INFO       NON-LIST 上周 (NT) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:04:17,062  INFO     TAGGED    '汤姆从上周一到现在都没来这里。' (level 10, 10 tags)
+2026-11-09 22:04:17,071  INFO     FALLBACK  '事情从这里开始就变得有意思起来了。' -- out-of-list word(s): ['变得']
+2026-11-09 22:04:17,071  WARNING    HAIKU resegment call for '事情从这里开始就变得有意思起来了。' (cache miss on [('变得', 'VV')])
+2026-11-09 22:04:17,082  INFO     TAGGED    '事情从这里开始就变得有意思起来了。' (level 3, 10 tags)
+2026-11-09 22:04:17,090  INFO     FALLBACK  '汤姆从来不写字。' -- out-of-list word(s): ['汤姆', '写字']
+2026-11-09 22:04:17,090  WARNING    HAIKU resegment call for '汤姆从来不写字。' (cache miss on [('写字', 'VV')])
+2026-11-09 22:04:17,101  INFO       NON-LIST 汤姆 (NR) -> '(name) tang1mu3' [proper_noun]
+2026-11-09 22:04:17,102  INFO     TAGGED    '汤姆从来不写字。' (level 4, 5 tags)

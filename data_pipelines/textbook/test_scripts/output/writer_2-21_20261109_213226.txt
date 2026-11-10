@@ -1,0 +1,31 @@
+## 2-21
+**Point:** Using 当 (dāng) as a preposition meaning "when" to introduce a temporal clause
+**Covers:** Sentences with 当 + phrase (+ 时候) at the start of a clause, expressing "when" something happens, followed by a main clause describing what occurs at that time
+**Does not cover:** 当 as a time noun (当初、当时、当年、当代、当前、当地); 当 as a main verb meaning "to serve as" or "to act as"; 当 in 把...当作/当成/当回事 constructions; 当中 as a localizer meaning "among" or "in the middle of"; 当 in other fixed expressions (当场、当选、上当、应当、不敢当、恰当、正当、相当)
+
+```rule
+match: 当/P ... (时候/NN|时/LC)? ‖
+unless: 把/BA ... 当
+unless: 当中/LC
+unless: ^当初/NT
+unless: ^当时/NT
+unless: ^当年/NT
+unless: ^当代/NT
+unless: ^当前/NT
+unless: ^当地/NN
+unless: ^当/VV
+unless: 应当/VV
+unless: 不敢当/VV
+unless: 当作/VV
+unless: 当成/VV
+unless: 当回事/VV
+unless: 当场/AD
+unless: 当选/VV
+unless: 上当/VV
+unless: 当中/NN
+unless: 恰当/VA
+unless: 正当/VA
+unless: 相当/AD
+```
+
+**Notes:** The rule matches 当/P (preposition tag) followed by any content, then either 时候 or 时 ending the temporal phrase, which must be in the first clause before punctuation. The `unless` lines filter out other uses of 当: the BA construction (把...当作/当成/当回事), the localizer 当中, time nouns and other meanings. The rule is intentionally conservative to avoid false positives; sentences where 当 appears as a preposition but 时候/时 is absent are excluded to maintain precision (though the official examples show both patterns work, requiring both increases specificity).

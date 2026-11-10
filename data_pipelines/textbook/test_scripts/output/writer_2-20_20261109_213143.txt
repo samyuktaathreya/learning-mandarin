@@ -1,0 +1,35 @@
+## 2-20
+**Point:** Adverbs expressing lateness (才), earliness (就), coincidence (正好), and small quantity (才)
+**Covers:** 
+- 才 expressing lateness: "Subj. + Time + 才 + Verb" (e.g. 他二十五岁才上大学)
+- 才 expressing small quantity: "才 + Number/Measure + Noun" or "才 + Verb + Number" (e.g. 她才买了两本书, 你才二十岁)
+- 就 expressing earliness: "Subj. + Time + 就 + Verb" (e.g. 他下午四点就吃晚饭了)
+- 正好 expressing coincidence: "Subj. + 正好 + Verb Phrase" or standalone as predicate adjective (e.g. 我正好要出去, 这件衣服正好)
+
+**Does not cover:** 
+- Causal "才" requiring a preceding condition (只有...才, 直到...才, 等到...才, 多亏...才, 好容易/好不容易才)
+- Contrastive/emphatic 才 without time/number context (你才是笨蛋)
+- 才 as a noun meaning "talent" (人才, 天才)
+- 才 as part of compound adverbs (刚才, 才能 when tagged as single unit)
+- 正好 when part of other constructions or meaning "just now"
+
+```rule
+match: 才/AD ... /VV
+match: 才/AD /CD|NT
+match: 就/AD ... /VV
+match: 正好/AD
+match: 正好/VA
+unless: 只有|直到|等|多亏|好容易|好不容易
+unless: 才/AD 是/VC
+unless: ^刚才
+```
+
+**Notes:** 
+- The rule prioritizes precision by excluding common false positives (只有...才, 直到...才, etc.) with unless clauses
+- Pattern "才/AD ... /VV" captures lateness use with optional intervening words
+- Pattern "才/AD /CD|NT" captures small quantity use (numbers) and time-only contexts (现在才九点)
+- 就/AD pattern captures earliness
+- 正好 matches both as AD (adverbial) and VA (adjectival predicate)
+- Causal structures are excluded via subordinating markers in unless clause
+- Emphatic/contrastive 才是 is excluded
+- Note: Some tags may be imperfect in training data (e.g. 点 tagged NN vs M); rule accounts for this by allowing flexible matching

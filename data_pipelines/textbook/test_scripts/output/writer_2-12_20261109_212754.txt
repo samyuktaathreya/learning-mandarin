@@ -1,0 +1,13 @@
+## 2-12
+**Point:** Expressing duration of completed actions with 了 (le) and a time measure word
+**Covers:** Sentences with the pattern: Verb + 了 + Duration (number + measure word like 年/天/周/分钟 or time nouns like 晚上/上午/下午) + optional 的 + Object. The duration describes how long a completed action took.
+**Does not cover:** Sentences where duration words appear without 了 after a verb (e.g. 清洁工每天打扫 "cleaners sweep every day"); sentences with 一度 as a VA adjective (一年一度 "once a year"); sentences where 了 is a sentence-final particle rather than an aspect marker; time expressions that don't measure duration (e.g. 今天 "today", 明年 "next year" as temporal location, not duration).
+
+```rule
+match: _ /VV /AS /CD _ /M ... $
+match: _ /VV /AS /CD _ /M /DEG ...
+unless: /VA
+unless: /SP $
+```
+
+**Notes:** The rule captures the core pattern where a verb is followed by 了 (AS tag), then a number (CD) and measure word (M) indicating duration. The measure word is key—it must be a measure (年/天/周/分钟/小时/个月) or time noun (晚上/上午/下午/晚上/夜间), not a general time marker. The second match line allows for 的 between duration and object. We exclude patterns ending with 了 as a sentence-final particle (SP tag at end), which would indicate different grammar. We exclude sentences containing VA (adjective) to filter out 一度 counter-examples. The pattern allows optional words after the measure word to capture both "verb + 了 + duration + object" and "verb + 了 + duration + 的 + object" structures.

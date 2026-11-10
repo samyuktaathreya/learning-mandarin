@@ -1,0 +1,11 @@
+## 4-52
+**Point:** Using 万一 to express "what if" or "in case" for unlikely/undesirable possibilities
+**Covers:** 万一 introducing a hypothetical scenario (as adverb AD), followed by a consequence or question; includes 以防万一 idiom
+**Does not cover:** Sentences where 就 appears without 万一; sentences using other conditional markers (要是, 假如, 一旦, etc.); other uses of 就 as aspect, time marker, or copula
+
+```rule
+match: 万一/AD
+unless: ^ ... 万一/AD ... $ (this catches single-clause patterns that aren't proper conditionals)
+```
+
+**Notes:** The core pattern is simply detecting 万一 tagged as AD (adverb). The 万一 construction naturally expresses the target grammar point—it introduces an unlikely/undesirable scenario. The conditional response (with optional 就) follows in the same or next clause. The pattern is minimal because 万一 itself is the distinctive marker of this point. The 以防万一 idiom also counts as an exemplar of the point (expressing "in case" precaution). Single-clause sentences with only 万一 (no consequence) are excluded to avoid borderline cases, though question forms like "万一...呢?" will still match as they appear in multi-clause tokenization.

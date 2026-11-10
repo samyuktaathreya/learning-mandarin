@@ -1,0 +1,33 @@
+## 2-34
+**Point:** Sentence-final modal particles 吧 and 啊. 吧 softens a statement, makes a suggestion, concedes a point, or sets out two options (X吧…，Y吧…). 啊 adds exclamation, urgency, or a list-like "you know" feel.
+**Covers:** Any clause that contains the particle 吧 or 啊 tagged SP. This includes:
+- suggestions and commands: 我们走吧
+- softened statements and concessions: 太贵了吧
+- tag-style questions: 您是老师吧？
+- the double-吧 "options" pattern
+- exclamations: 今天真冷啊！
+- 啊 after a question or after each item in a list: 椅子啊，桌子啊
+
+**Does not cover:**
+- 吧 as a noun, as in 网吧, because it is not tagged SP.
+- The challenging "Adj + 什么 (+ Adj) + 啊" pattern, as in 累什么累啊 and 胖什么胖啊. This is a separate point (3-81 / 4-22). The rule excludes it by pattern, and also when 啊 is tagged UH or IJ.
+- 还是……吧 (2-45).
+- X就X吧 (3-80 / 6-57).
+- 你X你的吧 (4-74).
+
+```rule
+match: 吧/SP
+match: 啊/SP
+unless: /VA 什么 啊|呀
+unless: /VA|VV 什么/PN|DT /VA|VV 啊|呀
+unless: 难过|担心|紧张|害怕|生气|着急|郁闷|伤心|激动|发愁|客气|骄傲|怕 什么
+unless: 还是 ... 吧/SP
+unless: /VV 就 /VV 吧/SP
+unless: 你 /VV 你 的 吧/SP
+```
+
+**Notes:**
+- The rule relies on the tag SP for 吧 and 啊. When 啊 is tagged UH or IJ it is ignored, which is how some of the 什么-challenge counter-examples are already excluded.
+- The 什么 exclusions work on clause patterns. The counter-example 难过什么啊 has 难过 tagged VV, so it can't be separated from the positive 看什么啊？ by tag alone. That is why 难过 and similar emotion words are listed by name. Extend that list if more such sentences appear.
+- The 还是…吧 exclusion only applies when 还是 comes before 吧 in the same clause. So 不见面吧，还是会想他 is still matched, because 还是 sits in a different clause.
+- The 就 exclusion could occasionally drop a legitimate sentence like 你去就去吧. That is acceptable, since the rule favours precision.

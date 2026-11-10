@@ -1,0 +1,11 @@
+## 2-67
+**Point:** Expressing "as long as" with "zhiyao...jiu..." (只要⋯⋯，就⋯⋯)
+**Covers:** Conditional sentences where 只要 introduces a sufficient condition and 就 introduces the resulting consequence; the condition and result are in separate clauses divided by punctuation.
+**Does not cover:** Other uses of 就 such as: temporal expressions (early timing), "then" as discourse marker, emphasis, small quantity, indifference, "about to" (就要了), and other conditional patterns using different markers (如果, 要是, 假如, 既然, 一旦, etc.).
+
+```rule
+match: 只要/CS ... ‖ ... 就/AD
+unless: 就/AD 是/VC|只要/CS 不/AD|如果/CS|要是/CS|假如/CS|既然/CS|一旦/CS|要不是/AD|就算/CS|再不/AD|一/AD 下|/NT 就/AD|/NT 就/AD 要/VV|/NN 就/AD 是/VC|想/VV 就/AD|/VA 了/AS 就/AD|着/AS 说/VV 着/AS 我/PN 就/AD|要/VV 就/AD|/P 就/AD|/AD 就/AD _|就/AD 一/CD|/NN 就/AD 一/CD
+```
+
+**Notes:** The rule requires 只要 tagged as CS (subordinating conjunction) in one clause, followed by a clause boundary (punctuation), followed by 就 tagged as AD (adverb). The "unless" conditions exclude other conditional patterns, temporal uses of 就, discourse marker uses, emphasis uses, small quantity uses, and other non-matching structures. The pattern avoids matching 如果...就, 要是...就, 假如...就, 既然...就, 一旦...就, 就是...也, 要...就, Verb+就+Verb indifference pattern, and timing-related uses.

@@ -1,0 +1,440 @@
+
+########## rules  2026-11-09 21:44 ##########
+80 page(s) use the word(s); asking about 40.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGTFUD0  Events in quick succession with "yi... jiu..."
+
+not:
+  ASG47D26  Expressing "again and again" with "yizai"
+  ASGACMNQ  Expressing "since the beginning" with "yixiang"
+  ASGBC7A0  Expressing "one by one" with "yi"
+  ASGBVSWQ  Comparing "yishi" and "yidu"
+  ASGC8A38  Expressing "no exception" with "yilu"
+  ASGCWHNF  Expressing various aspects with "yi fangmian"
+  ASGET76G  An additional step with "jin yi bu"
+  ASGNVE15  Expressing "together" with "yiqi"
+  ASGP000J  Expressing "all along" with "yizhi"
+  ASGRURCZ  Expressing "not at all" with "yidianr ye bu"
+  ASGU3ZV1  Expressing "once...then..." with "yidan...jiu..."
+  ASGUQ861  Expressing "not even one"
+  ASGVEP8S  Comparing "yizhi" and "yixiang"
+  ASGWCESP  Verbing briefly with "yixia"
+  ASGWVZ0T  Expressing "some" with "yixie"
+
+unsure:
+  ASG06EA8  Expressing "all at once" with "yixiazi"
+
+unrelated:
+  ASG1QB4K  Expressing simultaneous actions with "yimian"
+  ASG25773  Expressing "what if" with "wanyi"
+  ASG2ZC5S  Simultaneous tasks with "yibian"
+  ASG8RW47  Limiting scope with "jiu"
+  ASG9B210  Expressing "about to" with "jiuyao"
+  ASGCRH6P  Structure of numbers
+  ASGDUZ55  Expressing_"as_one_likes"_with_"jiu"
+  ASGEB54D  Expressing "then" with "jiu"
+  ASGEHTV5  Expressing "a bit too"
+  ASGEXR6R  Expressing the only two possibilities
+  ASGF1TQ2  Expressing "even if…" with "jiushi"
+  ASGKITRZ  Expressing earliness with "jiu"
+  ASGL4O5E  Expressing indifference with "jiu"
+  ASGLI513  Expressing "even if…" with "jiusuan"
+  ASGMT1M1  Expressing "one of" with "zhiyi"
+  ASGPW8PP  Expressing "small quantity" with "jiu"
+  ASGY21RK  Emphasis with "jiushi"
+  ASGYC77J  Reduplication of verbs
+  ASG1MD4N  Comparing specifically with "xiang"
+  ASG78FDE  Expressing a last chance with "zaibu... jiu..."
+  ASG79STE  Degree complement
+  ASG7AUNJ  Using "zhe" when "verbing away"
+  ASG98C1A  Expressing "as long as" with "zhiyao"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-69
+Tagging 67 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_214452.txt
+  ...100/162
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-69, rule line 3: unknown tag(s) /CD in '下/M|/CD' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-69_20261109_214502.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-69
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Events in quick succession with "yi... jiu..." — as soon as one thing happens, another happens immediately
+**Covers:** Sentences with 一 + Event1, then 就 + Event2 in the same or different clauses, showing rapid succession or cause-result
+**Does not cover:** 一 used as number/measure word (一个, 一些, 一下 as measure); 一直/一时/一再/一旦/一起/一方面 and other fixed adverbial expressions; verb reduplication or other patterns
+
+```rule
+match: 一/AD ... 就/AD
+unless: 一/CD
+unless: 一再/AD
+unless: 一直/AD
+unless: 一时/AD
+unless: 一旦/CS
+unless: 一起/AD
+unless: 一/CD _/M
+unless: 一/CD 点/M
+unless: 一/CD 些/CD
+unless: 一/CD 方面/NN
+unless: 一天/M 一天/M
+unless: 一 _/M 一 _/M
+unless: 一/CD _/M 也/AD
+unless: 一/CD _/M 都/AD
+```
+
+**Notes:** The core pattern is 一/AD (adverbial) followed eventually by 就/AD. We exclude 一/CD (numeral) to avoid "一个, 一些" and similar measure constructions. We exclude fixed adverbials like 一再, 一直, 一时, 一旦, 一起. We also exclude patterns like "一点...也/都不", "一...一..." reduplication, and "一方面" which are separate grammar points. The pattern matches across multiple words between 一 and 就 (within a clause).
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-69
+Tagging 67 labeled example(s) (cached after this run)...
+  ...100/162
+
+=== A. 2-69: rule on labeled examples (no AI) ===
+  examples of 2-69 matched:    10/12
+  counter-examples wrongly matched: 0/150   <- should be 0
+
+--- examples of 2-69 the rule misses (2) ---
+  我一进门，小狗就跑了过来。  -- ASGTFUD0 Events in quick succession with "yi... jiu..."
+  一说到物理，我就头疼。  -- ASGTFUD0 Events in quick succession with "yi... jiu..."
+
+########## tatoeba  2026-11-09 22:11 ##########
+Filling 2-69 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-69 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-69 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3977  2. contain the point's word(s)
+     3972  3. new (not in DB, not a duplicate)
+     1804  4. at most 2 characters outside HSK 2 words
+      280  5. really HSK 2
+      247  5b. no harder grammar point (of the 20 with a rule)
+        2  6. the rule finds 2-69
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-69, English chosen
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (5) ---
+  请稍等一下。  -- already in the database
+  让我想一想。  -- same text as tatoeba 707208 (translations pooled)
+  一年有四季。  -- already in the database
+  一切都会好起来的。  -- same text as tatoeba 7767746 (translations pooled)
+  这是一次很棒的经历。  -- same text as tatoeba 13893787 (translations pooled)
+
+--- dropped at step 4 (2168), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  拜托您，请给我一张签证。  -- 5 characters no HSK 2 word uses: 张托拜签证
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  请把您的护照给我看一下。  -- 3 characters no HSK 2 word uses: 把护照
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  非方矩阵的逆阵是一个危险的东西。  -- 6 characters no HSK 2 word uses: 危方矩逆阵险
+  一滴滴水能聚成湖泊。  -- 5 characters no HSK 2 word uses: 成泊湖滴聚
+  那不是一把刀。这才是一把刀。  -- 3 characters no HSK 2 word uses: 刀才把
+  冰冻三尺，非一日之寒。  -- 5 characters no HSK 2 word uses: 之冰冻寒尺
+  天气预报一点也不可靠。  -- 3 characters no HSK 2 word uses: 报靠预
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+
+--- dropped at step 5 (1524), first 12 ---
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  我一点都不怕你。  -- level 3: 怕 L3
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  就在沙发上。  -- level 3: 沙发 L3
+  请给我找一把椅子。  -- level 3: 把 L3
+  哪一本书都行。  -- level 3: 行 L3
+  你等一会然后再给我打电话，可以吗？  -- level 3: 然后 L3
+  我马上就到了。  -- level 3: 马上 L3
+  在你的词典查一查这个词。  -- level 3: 词典 L3, 查 L3
+  我今晨看见一位天使。  -- level 10: 今晨 (not in list), 天使 L7
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  我买了一张日报。  -- level 7: 张 L3, 报 L7
+
+--- dropped at step 5b (33), first 12 ---
+  你得等一等看。  -- harder grammar: 4-01 (HSK 4)
+  这是第一次。  -- harder grammar: 3-01 (HSK 3)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  这是第一点。  -- harder grammar: 3-01 (HSK 3)
+  Tom要我离他远一点。  -- harder grammar: 3-39 (HSK 3)
+  再跟我说一次，你住哪？  -- harder grammar: 3-16 (HSK 3)
+  我一点英语也不懂。  -- harder grammar: 3-41 (HSK 3)
+  请再给我一点咖啡。  -- harder grammar: 3-16 (HSK 3)
+  我晚一点再打。  -- harder grammar: 3-16 (HSK 3)
+  从什么时候开始您就这里工作着的呢？  -- harder grammar: 3-39 (HSK 3)
+  我昨天第一次见到他。  -- harder grammar: 3-01 (HSK 3)
+  能再告诉我一点吗？  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (245) ---
+  说曹操，曹操就到。  -- rule: no match: line matched
+  你想怎么做就怎么做。  -- rule: no match: line matched
+  对我来说这就不是个问题。  -- rule: no match: line matched
+  你想拿什么就拿什么。  -- rule: no match: line matched
+  “喂，哪一位啊？”  -- rule: unless 一/CD
+  他很快就好了。  -- rule: no match: line matched
+  请坐一下。  -- rule: unless 一/CD
+  我休息一会没问题吧？  -- rule: unless 一/CD
+  我比你高一点。  -- rule: unless 一/CD ; 一/CD 点/M
+  我这就上路。  -- rule: no match: line matched
+  让我想一想。  -- rule: unless 一/CD
+  他比我高一个头。  -- rule: unless 一/CD
+  我和她在中学是一个班的。  -- rule: unless 一/CD
+  她一大早就起床了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  我希望很快就能见到你。  -- rule: no match: line matched
+  我写错了一个字。  -- rule: unless 一/CD
+  这一家人一起看电影。  -- rule: unless 一/CD ; 一起/AD
+  一天有二十四个小时。  -- rule: unless 一/CD
+  现在，让我们休息一会儿吧。  -- rule: no match: line matched
+  为什么你不休息一下?  -- rule: unless 一/CD
+  我介绍一下。  -- rule: unless 一/CD
+  不是每一个孩子都喜欢吃苹果。  -- rule: unless 一/CD
+  我没有朋友一起玩。  -- rule: unless 一起/AD
+  这是我的第一次。  -- rule: unless 一/CD
+  您能开一下门吗？  -- rule: unless 一/CD
+  你为什么不和我们一起来？  -- rule: unless 一起/AD
+  现在就跟我来。  -- rule: no match: line matched
+  请在这儿等一会儿。  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: unless 一起/AD
+  我跟你一起去买东西。  -- rule: unless 一起/AD
+  我不知道她想不想和我一起去。  -- rule: unless 一起/AD
+  我是一名大学生。  -- rule: unless 一/CD
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  我要一杯咖啡。  -- rule: unless 一/CD
+  问题就在这里。  -- rule: no match: line matched
+  她就是今天回家来的。  -- rule: no match: line matched
+  这是一条鱼。  -- rule: unless 一/CD
+  这是一条绿色的鱼。  -- rule: unless 一/CD
+  看一下, 吃一下，听一下， 学一下。  -- rule: unless 一/CD
+  我们一起工作。  -- rule: unless 一起/AD
+  我们一起去学校。  -- rule: unless 一起/AD
+  他有一千多本书。  -- rule: no match: line matched
+  他们一起去看电影。  -- rule: unless 一起/AD
+  他说：「我们休息一下。」  -- rule: unless 一/CD
+  你喜欢什么就拿吧。  -- rule: no match: line matched
+  我开始写一本书。  -- rule: unless 一/CD
+  我早就和他说过这些了。  -- rule: no match: line matched
+  他们早就认识了吗？  -- rule: no match: line matched
+  你们要和我一起去吗？  -- rule: unless 一起/AD
+  为什么您一个人？  -- rule: unless 一/CD
+  我看到我要等的那个人就站在那儿。  -- rule: no match: line matched
+  请在下一站让我下车。  -- rule: unless 一/CD
+  星期一是Tom的三十岁生日。  -- rule: no match: line matched
+  那是一条狗。  -- rule: unless 一/CD
+  对他好一点。  -- rule: unless 一/CD ; 一/CD 点/M
+  快一点！  -- rule: unless 一/CD ; 一/CD 点/M
+  告诉我们多一点。  -- rule: unless 一/CD ; 一/CD 点/M
+  慢一点。  -- rule: unless 一/CD ; 一/CD 点/M
+  给我多一点牛奶！  -- rule: unless 一/CD ; 一/CD 点/M
+  我会晚一点回来。  -- rule: unless 一/CD ; 一/CD 点/M
+  汤姆一个月来这里三四次。  -- rule: unless 一/CD
+  这就是真爱。  -- rule: no match: line matched
+  问他一下他的名字。  -- rule: unless 一/CD
+  我喜欢花时间和Tom在一起。  -- rule: unless 一起/AD
+  我们中午十二点半要一起吃午饭。  -- rule: unless 一起/AD
+  给我一杯水。  -- rule: unless 一/CD
+  他写得一手好字。  -- rule: unless 一/CD
+  等一下！  -- rule: unless 一/CD
+  为什么你不等等我就开始了？  -- rule: no match: line matched
+  我不在就别开始。  -- rule: no match: line matched
+  可以给我一些茶水吗？  -- rule: no match: line matched
+  我可以问您一个问题吗？  -- rule: unless 一/CD
+  什么时候想来就过来吧。  -- rule: no match: line matched
+  谢谢你一起和我跳舞。  -- rule: unless 一起/AD
+  Mary自己一个人来。  -- rule: unless 一/CD
+  Tom，快一点。  -- rule: unless 一/CD ; 一/CD 点/M
+  下次请晚一点到。  -- rule: unless 一/CD ; 一/CD 点/M
+  我们住在一起。  -- rule: unless 一起/AD
+  我能问你们一些问题吗？  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: unless 一/CD ; 一/CD 点/M
+  你有一只鸟吗？  -- rule: unless 一/CD
+  我十一点上床。  -- rule: no match: line matched
+  我知道。我就在那里。  -- rule: no match: line matched
+  一起吃晚饭吧。  -- rule: unless 一起/AD
+  可以等我们一下吗？  -- rule: unless 一/CD
+  我现在有钱，能想买就买。  -- rule: no match: line matched
+  汤姆不想一个人走。  -- rule: unless 一/CD
+  他很快就知道了。  -- rule: no match: line matched
+  我只吃了一口面包。  -- rule: unless 一/CD
+  你能过来一下吗？  -- rule: unless 一/CD
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  我就喜欢它。  -- rule: no match: line matched
+  我一开始不知道汤姆是谁。  -- rule: no match: line matched
+  还有什么事就告诉我。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: unless 一/CD ; 一/CD 点/M
+  明天就要过年了。  -- rule: no match: line matched
+  我就是不能说不。  -- rule: no match: line matched
+  我就要读完这本书了。  -- rule: no match: line matched
+  我们现在就去医院吧。  -- rule: no match: line matched
+  我知道你还是想跟我一起。  -- rule: no match: line matched
+  你想说就说。  -- rule: no match: line matched
+  那就是汤姆想要的。  -- rule: no match: line matched
+  请问能给我一杯牛奶吗？  -- rule: unless 一/CD
+  我今天买了一个新书包。  -- rule: unless 一/CD
+  想要什么就说。  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: unless 一/CD
+  我只想休息一下  -- rule: unless 一/CD
+  我过会儿再跟你们一起。  -- rule: unless 一起/AD
+  我的东西就是这些了。  -- rule: no match: line matched
+  明天新的一年就要开始了。  -- rule: unless 一/CD
+  我在学跳舞，每个星期一次课。  -- rule: unless 一/CD
+  我的姐姐经常就着牛奶喝茶。  -- rule: no match: line matched
+  你自己一个人能做吗？  -- rule: unless 一/CD
+  桌子下面有一只猫。  -- rule: unless 一/CD
+  我家就是你家。  -- rule: no match: line matched
+  你和谁一起去那？  -- rule: unless 一起/AD
+  我和她的男朋友在一起上班。  -- rule: no match: line matched
+  我会等一两天。  -- rule: no match: line matched
+  那就是我想要的。  -- rule: no match: line matched
+  今天是我一个朋友的生日。  -- rule: unless 一/CD
+  你和谁住在一起？  -- rule: no match: line matched
+  我希望汤姆有一天会来这里。  -- rule: unless 一/CD
+  我们在一家小咖啡店吃了午饭。  -- rule: unless 一/CD
+  现在等一下。  -- rule: unless 一/CD
+  我会跟你一起回家。  -- rule: unless 一起/AD
+  跟你一起吃午饭会让我高兴。  -- rule: unless 一起/AD
+  可以便宜一点吗？  -- rule: unless 一/CD ; 一/CD 点/M
+  我要看一下这个。  -- rule: unless 一/CD
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我会在星期一给你打电话。  -- rule: no match: line matched
+  家里人一起吃了晚饭。  -- rule: unless 一起/AD
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  我想让我们一起做。  -- rule: unless 一起/AD
+  我就是你要找的人。  -- rule: no match: line matched
+  他一看见我，就跑了。  -- rule: no match: line matched
+  一会儿见！  -- rule: no match: line matched
+  你不要跟我一起走吗？  -- rule: unless 一起/AD
+  这就是错的。  -- rule: no match: line matched
+  你能等一下吗？  -- rule: unless 一/CD
+  就让汤姆说吧。  -- rule: no match: line matched
+  我们现在就要吃饭。  -- rule: no match: line matched
+  他们在一起工作。  -- rule: unless 一起/AD
+  你是第一次来韩国吗？  -- rule: unless 一/CD
+  你不来跟我们一起吃晚饭吗？  -- rule: unless 一起/AD
+  您十一点时来看我吧。  -- rule: no match: line matched
+  我就是那个生病的人。  -- rule: no match: line matched
+  你一准备好，我们就走。  -- rule: no match: line matched
+  一周有几天？  -- rule: unless 一/CD
+  你为什么一个人？  -- rule: unless 一/CD
+  为什么你要读这样一本书？  -- rule: unless 一/CD
+  我只想要一件东西。  -- rule: unless 一/CD
+  我想和你一起走。  -- rule: unless 一起/AD
+  在这等一下，等我回来。  -- rule: unless 一/CD
+  我就坐这儿。  -- rule: no match: line matched
+  汤姆三岁的时候就能写自己的名字了。  -- rule: no match: line matched
+  我们一起玩吧！  -- rule: unless 一起/AD
+  我就是想让你看看这个。  -- rule: no match: line matched
+  我喜欢和你一起吃早饭。  -- rule: unless 一起/AD
+  不要自己一个人走回家。  -- rule: unless 一/CD
+  我不觉得他自己一个人会做到。  -- rule: unless 一/CD
+  我就想看看汤姆的房间。  -- rule: no match: line matched
+  你能帮我一点忙吗？  -- rule: unless 一/CD ; 一/CD 点/M
+  这次，我会和妹妹一起来。  -- rule: unless 一起/AD
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: unless 一/CD
+  想吃什么就吃什么吧。  -- rule: no match: line matched
+  周一可以吗？  -- rule: unless 一/CD
+  我在网上买了一本书。  -- rule: unless 一/CD
+  在车里等一下。  -- rule: unless 一/CD
+  给我一个苹果。  -- rule: unless 一/CD
+  我就在你后面。  -- rule: no match: line matched
+  请看一看。  -- rule: unless 一/CD
+  等一下。  -- rule: unless 一/CD
+  你就没在听。  -- rule: no match: line matched
+  你能帮我找一个工作吗？  -- rule: unless 一/CD
+  我周一到周五，从早到晚都在工作。  -- rule: unless 一/CD
+  您不喜欢她就是因为那件事吗？  -- rule: no match: line matched
+  已经周一了？  -- rule: unless 一/CD
+  她很快就来了。  -- rule: no match: line matched
+  我知道你在和她一起工作。  -- rule: unless 一起/AD
+  你不想去就别去。  -- rule: no match: line matched
+  昨天星期五，所以他就休息了。  -- rule: no match: line matched
+  我没告诉汤姆，就不会告诉你。  -- rule: no match: line matched
+  一打鸡蛋多少钱？  -- rule: unless 一/CD
+  下一位！  -- rule: unless 一/CD
+  是时候休息一下了。  -- rule: unless 一/CD
+  让我们一周后见！  -- rule: unless 一/CD
+  狗跟我一起睡在床上。  -- rule: unless 一起/AD
+  请看一下我妹妹在做什么。  -- rule: unless 一/CD
+  他一周洗一次车。  -- rule: unless 一/CD
+  你们一起走吗？  -- rule: unless 一起/AD
+  你是一条狗。  -- rule: unless 一/CD
+  和他在一起我就没觉得舒服过。  -- rule: unless 一起/AD
+  请笑一笑！  -- rule: unless 一/CD
+  好的，我们一会儿见。  -- rule: no match: line matched
+  我能认识一下你吗？  -- rule: unless 一/CD
+  我要你想一想。  -- rule: unless 一/CD
+  开了半小时，车就坏了。  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: no match: line matched
+  我买了一只手表。  -- rule: unless 一/CD
+  明天是星期一吧？  -- rule: no match: line matched
+  有谁想一起去吃饭吗？  -- rule: unless 一起/AD
+  我想和她一起去看电影。  -- rule: unless 一起/AD
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  玛莉一看到我，就跑走了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  想一想！  -- rule: unless 一/CD
+  一起工作。  -- rule: unless 一起/AD
+  一好球！  -- rule: unless 一/CD
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  帮我们一下，好吗？  -- rule: unless 一/CD
+  没人跟他一起玩。  -- rule: unless 一起/AD
+  我要去拿一些牛奶。  -- rule: no match: line matched
+  我和台湾站在一起。  -- rule: no match: line matched
+  不去做就不知道。  -- rule: no match: line matched
+  她一天比一天漂亮。  -- rule: unless 一/CD
+  天气一天比一天冷。  -- rule: unless 一/CD
+  雪下了一周。  -- rule: unless 一/CD
+  车站前有一家不错的商店。  -- rule: unless 一/CD
+  一起学习吧！  -- rule: unless 一起/AD
+  你一天喝几杯咖啡？  -- rule: unless 一/CD
+  昨天是星期五，所以他休息了一天。  -- rule: unless 一/CD
+  我周一和周五学习英语。  -- rule: unless 一/CD
+  今天是本月最后一个星期二。  -- rule: unless 一/CD
+  汤姆早早就睡了。  -- rule: no match: line matched
+  我们一起看电视。  -- rule: unless 一起/AD
+  她一个小时后回来。  -- rule: unless 一/CD
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+  我只认识一百来个国字。  -- rule: unless 一/CD
+  你不希望我和你一起去吗？  -- rule: unless 一起/AD
+  他会拿到一小笔钱。  -- rule: unless 一/CD
+  我拿了一个给他。  -- rule: unless 一/CD
+  我明天就能下床了。  -- rule: no match: line matched
+  汤姆说不会自己一个人做那件事。  -- rule: unless 一/CD
+  我一小时后给你打电话。  -- rule: unless 一/CD
+  出国不到一个月，他就生病了。  -- rule: unless 一/CD
+  做自己就好。  -- rule: no match: line matched
+  下周一学校见。  -- rule: unless 一/CD
+  我们休息一下，好吗？  -- rule: unless 一/CD
+  休息一下吧。  -- rule: unless 一/CD
+  玛莉说她很快就会回来。  -- rule: no match: line matched
+  笑一笑不会少一块肉。  -- rule: unless 一/CD
+  你到了就打我电话。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  她一看就是生病了的。  -- check said no (2/2): 一看 means 'evidently' not sequential events
+
+--- dropped at step 8 (1) ---
+  我工作一做完就来找你们。  -- difficulty review: (2/2); Uses 一...就... with a completed action (做完) in the first clause, which represents 2-69 紧缩复句 grammar. However, the structure here is 'verb+完+就', which requires understanding 结果补语 (2-49) - specifically that 完 functions as a result complement. While 2-49 is taught at this level, the combination of 一 with a verb+complement structure in 一...就... context may be unclear. More importantly, the word order 'work one finish just come' is unusually compressed even for this pattern and may confuse beginners about where 一 attaches.
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-69_level2_20261109_221158.csv

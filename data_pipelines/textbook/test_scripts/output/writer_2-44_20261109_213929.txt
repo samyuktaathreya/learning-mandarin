@@ -1,0 +1,12 @@
+## 2-44
+**Point:** 越来越 + adjective/verb expresses "more and more": a quality or state increasing over time (e.g. 天气越来越热了).
+**Covers:** The simple fixed form 越 来 越 followed by a predicate (adjective or verb, possibly with 不 or an object), with or without 了. Includes the tagger variant where 来 is tagged VV. Also covers 得 + 越来越 + adjective (你说得越来越好了).
+**Does not cover:** The two-part correlative 越A越B (越多越好, 越吃越胖), which has no 来. Also excluded are 越来越 at the end of a clause with nothing following it, since there is no predicate to demonstrate. A 越来越 split across punctuation is excluded too.
+
+```rule
+match: 越 来/AD|VV 越 /VA|VV|AD
+unless: 越 来/AD|VV 越 $
+unless: 越 来/AD|VV 越 /AD $
+```
+
+**Notes:** The tokenizer splits 越来越 into three tokens, 越/AD 来/AD 越/AD. Occasionally 来 is tagged VV, so the rule allows both tags. The rule requires a predicate (VA, VV, or an AD such as 不) right after the second 越. Because patterns are matched within one clause, a bare 越来越 before punctuation is rejected by the `unless` lines. Simple patterns like these are precise because 越 来 越 as three consecutive tokens is essentially unambiguous. If a counter-example turns up, such as 越来越 used as a noun phrase, tighten the final slot.

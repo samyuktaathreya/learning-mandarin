@@ -1,0 +1,201 @@
+
+########## rules  2026-11-09 21:29 ##########
+10 page(s) use the word(s); asking about 10.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGNXI27  Expressing "already" with "yijing"
+  ASGP000J  Expressing "all along" with "yizhi"
+  ASGQJJYO  Expressing "just" with "gang"
+  ASGHKZP4  Comparing "turan" and "huran"
+
+not:
+  ASGQ1KOY  Expressing "just now" with "gangcai"
+
+unsure:
+  ASGJFFWG  Comparing "gang" and "gangcai"
+  ASGVEP8S  Comparing "yizhi" and "yixiang"
+  ASG1CCAP  Expressing "until" with "dao"
+  ASGSVF28  Expressing duration of inaction
+
+unrelated:
+  ASGFR96B  Expressing "not anymore" with "le"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-15
+Tagging 73 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_212914.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-15
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Time adverbs expressing "already" (已经), "all along" (一直), "just" (刚/刚刚), and "suddenly" (忽然/突然)
+**Covers:** 
+- 已经 with verb phrases, adjectives, or time expressions (with or without negation and 了)
+- 一直 expressing continuous/habitual actions or states
+- 刚/刚刚 expressing actions in the immediate past
+- 忽然/突然 expressing sudden or unexpected actions/states/adjectives
+
+**Does not cover:** 
+- 刚才 (expressing "just now" as a time point, not the immediate past) — this is a different grammar point
+- 刚好 (expressing coincidence/luck) — HSK 6 grammar point
+- Other uses of these words outside their adverbial time function
+
+```rule
+match: /AD (刚|刚刚|已经|一直|忽然|突然)
+unless: _ 刚才/AD
+```
+
+**Notes:** 
+- The rule matches when any of the six time adverbs appears in its adverbial form (tagged AD). 
+- The negative filter excludes 刚才 (which appears as a separate tokenized unit tagged AD) to avoid matching the "just now" grammar point.
+- This covers all structural patterns: 已经 + verb/adj/time ± 了, 一直 + predicate, 刚/刚刚 + verb ± duration, 忽然/突然 + verb/adj, and negations (已经 + 不). 
+- The rule does not require 了 or other elements because the core point is identified by the presence of these adverbs in their temporal function.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-15
+Tagging 73 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-15: rule on labeled examples (no AI) ===
+  examples of 2-15 matched:    53/64
+  counter-examples wrongly matched: 0/10   <- should be 0
+
+--- examples of 2-15 the rule misses (11) ---
+  这是一场突然事故，我们都没想到。  -- ASGHKZP4 Comparing "turan" and "huran"
+  你知道怎么处理这种突然的情况吗？  -- ASGHKZP4 Comparing "turan" and "huran"
+  事情发生得太突然，我们不知道怎么办。  -- ASGHKZP4 Comparing "turan" and "huran"
+  这场雨下得太突然，都淋湿了。  -- ASGHKZP4 Comparing "turan" and "huran"
+  这个决定太突然了。  -- ASGHKZP4 Comparing "turan" and "huran"
+  对她来说，这次升职其实不突然。  -- ASGHKZP4 Comparing "turan" and "huran"
+  她离开上海突然得很。  -- ASGHKZP4 Comparing "turan" and "huran"
+  这次生病比上次突然得多。  -- ASGHKZP4 Comparing "turan" and "huran"
+  她说什么？  -- ASGHKZP4 Comparing "turan" and "huran"
+  她结婚了。  -- ASGHKZP4 Comparing "turan" and "huran"
+  啊，这个消息太突然了。  -- ASGHKZP4 Comparing "turan" and "huran"
+
+########## tatoeba  2026-11-09 22:08 ##########
+Filling 2-15 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 7 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220811.txt
+  ...100/188
+  Deciding 5 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  不下 = 不 + 下  (to be not less than (a certain quantity,)
+    hidden  到家 = 到 + 家  (perfect)
+     clear  十月 = 十 + 月  (October)
+     clear  知道了 = 知道 + 了  (OK!)
+    hidden  快点 = 快 + 点  (to do sth more quickly)
+
+Course sentences at HSK 2 the rule already finds 2-15 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+  2 check call(s) (20 sentences each)...
+
+=== 2-15 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      420  2. contain the point's word(s)
+      420  3. new (not in DB, not a duplicate)
+      188  4. at most 2 characters outside HSK 2 words
+       41  5. really HSK 2
+       40  5b. no harder grammar point (of the 20 with a rule)
+       40  6. the rule finds 2-15
+       36  6b. no hidden word a learner can't work out
+       32  7. both checks say 2-15, English chosen
+       29  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (29) ===
+  已经没事了。  (I'm fine now.)  [tatoeba 5096416]  hidden: 没事
+  他已经来了吗？  (Has he come yet?)  [tatoeba 4267322]
+  我已经不做了。  (I'm not doing that anymore.)  [tatoeba 8571941]
+  已经是十月了。  (It's already October.)  [tatoeba 10054258]  hidden: 十月
+  他已经去了英国。  (He has gone to Britain.)  [tatoeba 1423329]
+  你已经要走了吗？  (You're leaving already?)  [tatoeba 5862127]
+  我已经不爱他了。  (I no longer love him.)  [tatoeba 7772514]
+  你已经吃过饭了！  (You've already eaten!)  [tatoeba 9991927]
+  他们已经开学了。  (School has already started for them.)  [tatoeba 9991996]
+  我已经三十多了。  (I'm already over thirty.)  [tatoeba 10019662]
+  你已经买了票吗？  (Have you already bought the tickets?)  [tatoeba 10058527]
+  他已经去睡觉了。  (He has already gone to bed.)  [tatoeba 13598177]
+  已经开始下雨了。  (It's already started to rain.)  [tatoeba 13893352]
+  我已经会写中文了。  (I can already write in Chinese.)  [tatoeba 717388]
+  你已经在京都了吗？  (You're already in Kyoto?)  [tatoeba 1424336]
+  我已经会写汉字了。  (I'm already able to write Chinese characters.)  [tatoeba 1424770]
+  已经是早上七点了。  (It's already 7:00.)  [tatoeba 2109212]
+  你已经有孩子了吗？  (Do you have children already?)  [tatoeba 6109338]
+  她已经写了几本书。  (She has written several books.)  [tatoeba 10002025]
+  已经过了很长时间了。  (It's been a long time.)  [tatoeba 1417583]
+  我已经忘了他的名字。  (I've forgotten his name.)  [tatoeba 1746065]
+  她已经五天不上学了。  (She's been absent from school for five days.)  [tatoeba 1873014]
+  他们已经在这里了吗？  (Are they already here?)  [tatoeba 6581672]
+  这里已经两周没下雨了。  (There has been no rain here for the past two weeks.)  [tatoeba 9961416]
+  你已经知道了，不是吗？  (You knew about this already, didn't you?)  [tatoeba 10228204]  hidden: 不是吗, 知道了
+  你这个月已经做了几次？  (How many times have you done that this month?)  [tatoeba 13788201]  hidden: 这个, 几次
+  我在这里已经工作十年了。  (I've worked here for ten years.)  [tatoeba 1358689]
+  Ken 已经去了英格兰。  (Ken already went to England.)  [tatoeba 2027915]
+  我已经在这里工作几个小时了。  (I've already been working here for several hours.)  [tatoeba 5903472]  hidden: 几个
+
+--- dropped at step 4 (232), first 12 ---
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  我昨天刚收到你的信。  -- 3 characters no HSK 2 word uses: 信刚收
+  现在许多年轻人工作都不太安分，朋友的儿子大学毕业不到两年，已经换了五个工作了。  -- 6 characters no HSK 2 word uses: 业安换毕许轻
+  我们公司的技术已经达到了发达国家九十年代的水平。  -- 6 characters no HSK 2 word uses: 代发平技术达
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 10 characters no HSK 2 word uses: 且信合此永海相而适颗
+  但是如果有一个人本身已经很好了，对你又是真心真意，真心爱你，那么你真的可以把一生托付给他。  -- 6 characters no HSK 2 word uses: 付又如心托把
+  世界上已经够热的地方会变得让人无法忍受。  -- 9 characters no HSK 2 word uses: 世受变够忍方无法界
+  由于一些工厂使用矿物燃料，化学品的排放已经产生严重的环境问题。  -- 18 characters no HSK 2 word uses: 严于产使化厂品境排放料燃物环用由矿重
+  尤其是在中国北方，包饺子、吃饺子，已经成为大多数家庭欢度除夕的一个重要活动。  -- 12 characters no HSK 2 word uses: 其北夕尤度庭成数方活重除
+  超市现在已经关了，我们只能加减用一下冰箱里剩的食物。  -- 8 characters no HSK 2 word uses: 冰减剩加物用箱食
+  「我已经找到令他嫉妒的方法了。」「喔，说吧！」  -- 6 characters no HSK 2 word uses: 令喔妒嫉方法
+
+--- dropped at step 5 (147), first 12 ---
+  我刚才起床了。  -- level 3: 刚才 L3
+  我之前已经来过这里了。  -- level 4: 之前 L4
+  你已经没用了。  -- level 3: 用 L3
+  列车已经出发。  -- level 5: 列车 L5, 出发 L3
+  他刚请假走了。  -- level 3: 刚 L3, 请假 L3
+  我刚才正要找你。  -- level 3: 刚才 L3
+  我们已经有那篇课文了吗？  -- level 4: 篇 L4, 课文 L3
+  顾客们已经开始来了。  -- level 4: 顾客 L4
+  他有可能已经得知这消息。  -- level 6: 得知 L6, 消息 L4
+  他们结婚已经四年了。  -- level 3: 结婚 L3
+  哦！已经这么晚了。  -- level 5: 哦 L5
+  她的女儿已经变成一个漂亮的女人。  -- level 3: 变成 L3, 女人 L3
+
+--- dropped at step 5b (1) ---
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+
+--- dropped at step 6b (4) ---
+  已经不下雪了。  -- hidden word a learner can't work out: 不下 (to be not less than (a certain quantity, amount etc)), 下雪 (to snow)
+  你已经到家了吗？  -- hidden word a learner can't work out: 到家 (perfect)
+  已经周一了？  -- hidden word a learner can't work out: 周一 (Monday)
+  你能快点吗?我们已经很晚了。  -- hidden word a learner can't work out: 快点 (to do sth more quickly)
+
+--- dropped at step 7 (4) ---
+  我已经累了。  -- no accurate English among: I was already tired.
+  已经过去二十年了。  -- no accurate English among: Twenty years already passed.
+  已经五点了，我还没有睡觉。  -- check said no (1/2): Uses 还, a different grammar point
+  已经很晚了，但是他还在工作。  -- check said no (1/2): Uses 还, a different grammar point
+
+--- dropped at step 8 (3) ---
+  她已经睡下了。  -- difficulty review: (2/2); 结果补语 '睡下' uses 趋向补语 which requires HSK 2-50
+  我已经起来了。  -- difficulty review: (1/2); 趋向补语 '起来' uses 2-50 Trend complement
+  我已经不再做这个了。  -- difficulty review: (2/2); uses 再 as a frequency/repetition adverb (HSK 3-16), not the basic 再 taught at HSK 1-2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-15_level2_20261109_220843.csv

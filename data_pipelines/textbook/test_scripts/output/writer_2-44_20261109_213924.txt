@@ -1,0 +1,10 @@
+## 2-44
+**Point:** Expressing "more and more" (or "less and less") with 越来越
+**Covers:** Sentences with the pattern 越来越 followed by an adjective or verb, indicating increasing degree or frequency of a quality or action over time
+**Does not cover:** Other uses of 越 or 来 that don't follow the 越...来...越 pattern; sentences missing the complete 越来越 sequence
+
+```rule
+match: 越/AD 来/AD 越/AD (/VA|/VV)
+```
+
+**Notes:** The pattern requires the exact sequence: 越 (AD) + 来 (AD) + 越 (AD) followed by either a VA (adjective as predicate) or VV (other verb). The 了 particle at the end is optional (some examples lack it). Adverbs like 不 can appear between 越来越 and the adjective/verb without breaking the match. The rule correctly handles both positive adjectives (热, 漂亮) and negative forms (不相信, 不懂).

@@ -1,0 +1,22 @@
+## 3-69
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing "if… then…" with 要是/要/要不是 and 就
+
+**Covers:** Conditional sentences where 要是 (or 要 / 要不 after a subject) introduces the condition clause, with the result in the following clause (usually with 就). Also 要不是 ("if it weren't for") constructions and the fixed expression 要我说 ("if you ask me").
+
+**Does not cover:** 就 as a simple adverb with no conditional; 就是 used for emphasis or identification; 要 as a standalone modal verb; other conditionals such as 只要, 假如, 万一, 一旦.
+
+```rule
+match: 要是/CS|AD
+match: 要不是/CS|AD
+match: ^ 要/CS|VV 我/PN 说/VV $
+match: ^ PN 要/VV 再说/VV $
+match: ^ PN 要不/AD VV $
+```
+
+**Notes:**
+- A pattern can only match inside one clause, so the rule cannot require 就 in the second clause. The condition marker itself is the trigger: 要是, 要不是, or the narrow fixed forms above.
+- 要是 and 要不是 are accepted as CS or AD, because the tagger varies between them.
+- 要我说 is matched only when it is a whole clause, so 要我说话 and similar do not match.
+- Bare 要 is not matched, because it is usually a modal verb ("want to"). Only 你要再说 and 他要不听 are matched, and only as a complete clause.
+- Sentences with 就是 are not excluded. Labeled positives such as 要我说，他就是太懒 contain it, and the condition marker is what decides the match.

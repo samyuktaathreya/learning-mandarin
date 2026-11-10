@@ -1,0 +1,60 @@
+
+########## rules  2026-11-09 21:39 ##########
+8 page(s) use the word(s); asking about 8.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGPFUM2  Expressing "both A and B" with "you"
+
+not:
+  ASGD3C4S  Emphasizing negation with "you"
+  ASGF08B6  Repeated actions in the past with "you"
+  ASGN1JR5  Expressing "again" in the past with "you"
+  ASGTBHBG  Comparing "zai" and "you"
+
+unsure:
+  ASGZRPCK  Expressing "both… and…" with "ji...you"
+
+unrelated:
+  ASG1RE80  Expressing contrariness with "dao"
+  ASGBC7A0  Expressing "one by one" with "yi"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-46
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213957.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-46
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** 又⋯⋯又⋯⋯ (both A and B)
+**Covers:** Two adjectives or stative verbs connected by 又, expressing that a noun/subject has two qualities simultaneously (both positive or both negative)
+**Does not cover:** "又" used for repetition, negation emphasis, or "again"; uses where 又 appears only once; uses where the second 又 is not immediately followed by an adjective/stative predicate
+
+```rule
+match: _ 又/AD|CC /VA|VV 又/AD|CC /VA|VV
+match: _ 又/AD|CC _ 又/AD|CC /VA|VV
+unless: /VV 了/AS 又/AD|CC /VV
+unless: 又/AD|CC 不/AD
+unless: 又/AD|CC 没/AD
+unless: 又/AD|CC 能/VV
+unless: 又/AD|CC 可以/VV
+unless: 又/AD|CC 要/VV
+unless: /AS 又/AD|CC /VV
+unless: /AS 又/CC /VV
+unless: _ 又/AD|CC /VV 了/SP
+```
+
+**Notes:** The pattern allows for an optional modifier (like 不 for negation or 难 for "difficult to") between the two 又s. The unless clauses exclude: repeated actions with 了 + 又; negation emphasis (又 + 不/没); modal verbs (又能/又可以/又要); and the "again" sense (evident from /AS or /SP markers). The rule matches both cases where 又 is tagged AD or CC, as tagging varies in the examples.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-46
+Tagging 2 labeled example(s) (cached after this run)...
+
+=== A. 2-46: rule on labeled examples (no AI) ===
+  examples of 2-46 matched:    10/12
+  counter-examples wrongly matched: 0/36   <- should be 0
+
+--- examples of 2-46 the rule misses (2) ---
+  这里的咖啡又贵又难喝。  -- ASGPFUM2 Expressing "both A and B" with "you"
+  这球鞋又贵又不好看。  -- HSK list example
+
+########## tatoeba  2026-11-09 22:10 ##########

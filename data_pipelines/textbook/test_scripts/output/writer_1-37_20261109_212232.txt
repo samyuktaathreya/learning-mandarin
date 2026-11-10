@@ -1,0 +1,18 @@
+## 1-37
+**Point:** 有/没有 expressing possession or existence
+**Covers:** Sentences with 有 or 没有/没 where the subject possesses something, or a location/entity contains something (including negations with 没有/没)
+**Does not cover:** Comparative constructions (A 没有 B 形容词), "有关" (related to), "有的" (some), "有点/一点" (a little), "只有" (only if), "所有" (all), "有的是" (plenty of), past negation (没 + verb), Taiwanese 有 constructions, "还有" (also), or 有 in other contexts like "有觉悟" or verbs followed by 有
+
+```rule
+match: /PN|NN|NR|DT/ ... /VE|AD/ (有|没有|没) /NN|PN|CD|JJ|VA/
+unless: 有/VE _ (点|点儿|种种|紧张|吓|学|听|吃|做|见|在) 
+unless: _ 有/VE _ (忙|不舒服|冷|热|晚|高兴|道理|本领|觉悟|关联|驾照|能量) 吗?
+unless: _ 有/VE _ (忙|不舒服|冷|热|晚|高兴|道理|本领|觉悟|关联|驾照|能量) $
+unless: 有/VE _ 吗/SP $ 
+unless: (只有|所有|有的|还有|有关)/_ 
+unless: 没有/AD _ /VV
+unless: _ 没有/P _
+unless: 有/VE 紧张/VA
+```
+
+**Notes:** The rule matches a subject (pronoun, noun, or determiner + noun) followed eventually by 有/没有/没 and an object (noun, pronoun, or number + measure + noun structure). It excludes: (1) "有点/一点" + adjective (degree expressions), (2) "有" + verb patterns (Taiwanese, past actions, verb complements), (3) "有" before adjectives used predicatively without an object, (4) comparative 没有 (tagged P), (5) other fixed expressions. The pattern is deliberately broad to catch variations like subjects with modifiers, locative complements (里/上), and both full 没有 and short 没 forms.

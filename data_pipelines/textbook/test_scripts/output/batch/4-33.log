@@ -1,0 +1,93 @@
+
+########## rules  2026-11-09 22:00 ##########
+38 page(s) use the word(s); asking about 38.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGH13JY  Idiomatic phrases with "zai"
+
+not:
+  ASG1PTJX  Result complement "-xiaqu"
+  ASG23903  Expressing "as early as" using "zaozai……"
+  ASG50341  Expressing "including" with "zainei"
+  ASG5A494  Expressing "within" a period of time using "zai... nei"
+  ASG7AE5C  Defining upper and lower limits
+  ASG846EA  Expressing actions in progress with "zai"
+  ASG90DXK  Special cases of "zai" following verbs
+  ASGA632B  Expressing "lies in" with "zaiyu"
+  ASGD1LNT  Expressing "within (it/them)" with "qizhong"
+  ASGEYQ9O  Expressing actions in progress (full form)
+  ASGLRWT8  Expressing existence in a place with "zai"
+  ASGS4DBY  Expressing "among" with "dangzhong"
+  ASGX0Z0N  Indicating location with "zai" before verbs
+  ASGEB7F5  Expressing "from" with "cong... zhong"
+  ASGIRILI  Continuation with "hai"
+  ASGJPQ0Q  Assessing situations with "kanlai"
+  ASGN6O6J  Comparing "zhijian" and “zhongjian"
+
+unsure:
+  ASGFBWZL  Expressing location with "zai... shang / xia / li"
+
+unrelated:
+  ASG06EA8  Expressing "all at once" with "yixiazi"
+  ASGWCESP  Verbing briefly with "yixia"
+  ASG3JELV  Comparing "dui" and "duiyu"
+  ASG516F9  Advanced potential complements
+  ASG54932  Comparing "kanqilai" and "kanlai"
+  ASG5AODR  Measure words for verbs
+  ASG5KNWW  Topic-comment sentences
+  ASG5RWKO  Time words and word order
+  ASGC5Y86  Comparing "gen" and "dui"
+  ASGDHE8S  Reduplication of adjectives
+  ASGJ36VN  Expressing duration with "le"
+  ASGPRGAX  Actions in a row
+  ASGSVF28  Expressing duration of inaction
+  ASGWN185  Expressing "when" with "de shihou"
+  ASG16EF6  Expressing "once" with "cengjing"
+  ASG5334C  Expressing "while you're at it" with "shunbian"
+  ASG59C66  Comparing "li" and "cong"
+  ASGLOS9C  Comparing "cai" and "jiu"
+  ASGY2D79  Taiwanese "you"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 4-33
+Tagging 12 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220027.txt
+  ...100/157
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 4-33
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Idiomatic phrases with 在 (zài) marking topic/aspect (在...上/下/中)
+**Covers:** Sentences with structure 在 + Topic + (上/下/中) at the start of a clause, expressing "in regards to," "on the topic of," "under [conditions]," or "in [circumstances]"
+**Does not cover:** Location expressions (在 as simple preposition for place); temporal expressions (在...以前/以后, 在...内); action-in-progress (正在...); existence (在 marking location of subject); verbs followed by 在; 在于 "lies in"; 从...中 "from within"; phrases with 在...方面 (covered separately in 4-32); continuation 还在; assessment 在...看来; spatial relations 中间/当中; result complements with 下去; early expressions with 早在; inclusive 在内
+
+```rule
+match: ^ 在/P ... /LC ‖
+unless: 早/AD 在/P
+unless: 从/P
+unless: /VV 在/P
+unless: 以下/AD
+unless: 以上/AD
+unless: 在/P ... 看来/VV
+unless: 在于/VV
+unless: 在/P ... 内/P
+unless: 包括 ... 在/P 内/LC
+unless: 其中/NN
+unless: 当中/LC
+unless: 中间/NN
+unless: 正在/AD
+```
+
+**Notes:** The rule matches clauses starting with 在 + preposition + localizer (上/下/中/里) that introduce a topic or condition. The "unless" lines exclude other grammar points using similar words: 早在 (early), 从 (from), verbs taking 在, 在...看来 (in one's view), 在于 (lies in), 在...内 (within time), 在...中间 (spatial between), 正在 (progressive action), and inclusive phrases. The pattern `. . .` between 在/P and /LC allows noun phrases of any length (modifiers, measure words, etc.). Clauses with 中/LC following noun phrases typically introduce main clause assertions (in this context vs. spatial location), so matching this pattern captures the intended grammar point.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 4-33
+Tagging 12 labeled example(s) (cached after this run)...
+  ...100/157
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 4-33: rule on labeled examples (no AI) ===
+  examples of 4-33 matched:    5/6
+  counter-examples wrongly matched: 0/151   <- should be 0
+
+--- examples of 4-33 the rule misses (1) ---
+  在这样的环境下长大，孩子会快乐吗？  -- ASGH13JY Idiomatic phrases with "zai"

@@ -1,0 +1,46 @@
+
+########## rules  2026-11-09 21:32 ##########
+3 page(s) use the word(s); asking about 3.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG75EE1  Expressing "when" using "dang"
+
+not:
+  ASGS4DBY  Expressing "among" with "dangzhong"
+  ASGQRS3P  Advanced uses of "ba"
+
+unsure:
+
+unrelated:
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-21
+Tagging 29 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213219.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-21, rule line 1: unknown tag(s) 时/LC) in '(时候/NN|时/LC)' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-21_20261109_213226.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-21, rule line 1: unknown tag(s) 时/LC) in '(时候/NN|时/LC)' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-21_20261109_213232.txt)
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 2-21
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** 当 used as a preposition meaning "when", usually in the frame 当 + clause (+ 的时候 / 时), followed by the main clause.
+**Covers:** 当 tagged as a preposition (P) that opens a "when" clause, with or without a closing 的时候 or 时. This includes forms with a preceding time word, such as 每天当超市开门的时候. It also covers 当天 + clause + 的时候, because the tokenizer merges 当 and 天 in 当天快黑的时候.
+**Does not cover:** 当 as a verb ("to work as"/"to treat as"): 当老师, 当了官, 当成, 当作, 把…当回事. It also excludes 当中 ("among"/"in the midst of"), 当地, 当时, 当年, 当前, 当代, 当场, 当选, 应当, 上当, 正当, 相当, 不敢当, because these are different words or tags.
+
+```rule
+match: 当/P
+match: 当天/NT ... 的 时候/NN
+```
+
+**Notes:** The rule relies on the tagger marking the "when" 当 as P. The counter-examples have 当 as VV, or have the compounds 当作 and 当中 as single tokens, so they are not matched. If false positives appear, restrict the pattern to `当/P ... 时候|时` and add a separate clause-start pattern. The 当天 line may occasionally match "on that day … when" sentences, but it is needed for the labeled example.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-21
+Tagging 29 labeled example(s) (cached after this run)...
+
+=== A. 2-21: rule on labeled examples (no AI) ===
+  examples of 2-21 matched:    11/11
+  counter-examples wrongly matched: 0/18   <- should be 0
+
+########## tatoeba  2026-11-09 22:08 ##########

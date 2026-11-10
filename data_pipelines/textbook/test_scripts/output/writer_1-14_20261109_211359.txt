@@ -1,0 +1,31 @@
+## 1-14
+**Point:** Negation with 不, 没/没有, 别, and 不要
+**Covers:** Negating present/future actions or states with 不; negating past actions with 没/没有; negating the verb 有 with 没/没有; forming negative commands with 别 or 不要
+**Does not cover:** Compounds like 不得不, 不怎么, 不过, 差不多, 不如, 不管, 别说 (let alone), 不愧, 不屑, 要不是, 要不, 不到, 来不及, 说不定, and potential complements (V+不+V)
+
+```rule
+match: /AD 不? /VV
+match: /AD 没有? /VV
+match: /AD 没有? /NN
+match: /AD 别 /VV
+match: /AD 不要 /VV
+unless: 不得不/AD
+unless: 不怎么/AD
+unless: 不过/AD
+unless: 差不多/VV
+unless: 不如/P
+unless: 不如/AD
+unless: 不管/VV
+unless: 不管/CS
+unless: 别说/VV
+unless: 不愧/AD
+unless: 不屑/VV
+unless: 要不是/AD
+unless: 要不/AD
+unless: 不/AD 到/VV
+unless: 来/VV 不/AD 了/SP
+unless: 说不定/AD
+unless: /VV 不/AD /VV
+```
+
+**Notes:** The rule matches the core negation structures: 不/别/不要 + verb, and 没/没有 + verb/noun. The unless clauses exclude compounds and grammatical constructions that use these characters but represent different HSK points. Potential complements (verb + 不 + verb) are excluded because they represent a different grammar point. Comparisons with 没有 (没有 + noun + adjective) are excluded via the VV requirement, since those use 没有 as a preposition/comparison marker, not standard negation.

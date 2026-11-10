@@ -1,0 +1,213 @@
+
+########## rules  2026-11-09 21:25 ##########
+10 page(s) use the word(s); asking about 10.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGQ2AZA  Yes-no questions with "ma"
+  ASGSJYZ2  Tag questions with "ma"
+  ASGYKDNF  Questions with "le ma"
+
+not:
+  ASGD4EC8  Simple rhetorical questions
+
+unsure:
+  ASGI9WXT  Advanced yes-no questions with "ma"
+
+unrelated:
+  ASGUN7RX  Connecting nouns with "shi"
+  ASG22117  The use of Taiwanese Mandarin "hui"
+  ASG4807F  Advanced uses of "hai"
+  ASG5DG95  Expressing_comparable_degree_with_"you"
+  ASGI96BQ  Expressing distance with "li"
+
+[note] ASGSJYZ2 is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-45
+Tagging 21 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_212514.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 1-45, rule line 1: unknown tag(s) SP吗/SP in '/SP吗/SP' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-45_20261109_212520.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 1-45
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Yes-no questions, tag questions, and questions about completed actions using 吗
+**Covers:** Statements converted to yes-no questions by adding 吗 at the end; tag questions with confirmation words (好/对/是/可以) + 吗; questions about completed actions with 了吗
+**Does not cover:** Other uses of 吗 that are not questions; 吗 used as a pronoun (e.g. 你干吗去); questions formed with other methods (interrogative words like 谁/什么/哪儿 without 吗)
+
+```rule
+match: ... /SP $吗
+unless: ... 什么/PN|NN ... 吗/SP $
+```
+
+**Notes:** The rule detects 吗 (tagged as SP) at the end of a clause. The unless clause excludes rhetorical questions with 干吗 where 吗 functions as a pronoun rather than a question particle (detected by the pattern 什么 followed by 吗). All labeled examples end with 吗/SP, including tag questions after commas and questions with 了吗. The pattern allows any content before 吗 since the point applies to converting any statement into a question.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-45
+Tagging 21 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-45: rule on labeled examples (no AI) ===
+  examples of 1-45 matched:    31/32
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+--- examples of 1-45 the rule misses (1) ---
+  你喜欢咖啡。  -- ASGQ2AZA Yes-no questions with "ma"
+
+########## tatoeba  2026-11-09 22:05 ##########
+Filling 1-45 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 2-02, 2-04, 2-05, 2-07, 2-09, 2-12, 2-13, 2-15, 2-16, 2-19, 2-21, 2-22, 2-23, 2-26, 2-27, 2-28, 2-29, 2-30, 2-32, 2-33, 2-34, 2-43, 2-44, 2-45, 2-46, 2-47, 2-51, 2-55, 2-58, 2-59, 2-67, 2-69, 2-74, 2-75, 2-76, 2-78, 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 61 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220539.txt
+  ...100/1213
+  ...200/1213
+  ...300/1213
+  ...400/1213
+  ...500/1213
+  ...600/1213
+  ...700/1213
+  ...800/1213
+  ...900/1213
+  ...1000/1213
+  ...1100/1213
+  ...1200/1213
+  Deciding 9 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  什么事 = 什么 + 事  (What's up?; Is something the matter?)
+     clear  意大利人 = 意大利 + 人  (Italian person)
+    hidden  日本人 = 日 + 本 + 人  (Japanese person or people)
+    hidden  是日 = 是 + 日  ((formal) this day)
+     clear  中国人 = 中国 + 人  (Chinese person)
+    hidden  这不 = 这 + 不  ((coll.) As a matter of fact, ... (used t)
+    hidden  小的 = 小 + 的  ((coll.) young child; the little one(s) o)
+     clear  星期三 = 星期 + 三  (Wednesday)
+    hidden  有事 = 有 + 事  (to be occupied with sth; to have sth on )
+
+Course sentences at HSK 1 the rule already finds 1-45 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 2) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-45 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1954  2. contain the point's word(s)
+     1935  3. new (not in DB, not a duplicate)
+     1213  4. at most 2 characters outside HSK 1 words
+      303  5. really HSK 1
+      198  5b. no harder grammar point (of the 57 with a rule)
+      198  6. the rule finds 1-45
+      179  6b. no hidden word a learner can't work out
+       17  7. both checks say 1-45, English chosen
+       17  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (159 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (17) ===
+  忙吗？  (Are you busy?)  [tatoeba 13109172]
+  你在吗？  (Are you there?)  [tatoeba 479053]
+  你忙吗？  (Are you busy?)  [tatoeba 1241266]
+  好吃吗？  (Does it taste good?)  [tatoeba 4061623]
+  你好吗？  (How are you?)  [tatoeba 6559017]  hidden: 你好
+  我能吗？  (May I?)  [tatoeba 10194943]
+  是你吗？  (Is it you?)  [tatoeba 10696048]
+  吃了吗？  (Did you eat?)  [tatoeba 13274623]
+  狗叫了吗？  (Did the dog bark?)  [tatoeba 2509659]
+  是真的吗？  (Is it true?)  [tatoeba 3377988]  hidden: 真的
+  你喝茶吗？  (Do you drink tea?)  [tatoeba 3378236]  hidden: 喝茶
+  你想我吗？  (Do you miss me?)  [tatoeba 4835859]
+  你不热吗？  (Aren't you hot?)  [tatoeba 4956714]
+  今天热吗？  (Is it hot today?)  [tatoeba 6092456]
+  有大的吗？  (Do you have big ones?)  [tatoeba 6158461]
+  北京热吗？  (Is Beijing hot?)  [tatoeba 6172106]
+  您在忙吗？  (Are you busy?)  [tatoeba 7772049]
+
+--- dropped at step 3 (19), first 12 ---
+  你是认真的吗？  -- same text as tatoeba 4887667 (translations pooled)
+  你认识我吗？  -- same text as tatoeba 1790035 (translations pooled)
+  你需要帮助吗？  -- same text as tatoeba 1424333 (translations pooled)
+  用筷子吃饭难吗？  -- same text as tatoeba 5911762 (translations pooled)
+  您能帮我吗？  -- same text as tatoeba 4071817 (translations pooled)
+  今天热吗？  -- same text as tatoeba 6092456 (translations pooled)
+  你国家的人吃米吗?  -- same text as tatoeba 1485254 (translations pooled)
+  你会开车吗？  -- already in the database
+  你没看见那个人吗？  -- same text as tatoeba 1538712 (translations pooled)
+  你们吃饭了吗？  -- same text as tatoeba 6057697 (translations pooled)
+  你们认识吗？  -- same text as tatoeba 6147817 (translations pooled)
+  你们是朋友吗？  -- same text as tatoeba 6047118 (translations pooled)
+
+--- dropped at step 4 (722), first 12 ---
+  客观的历史存在吗？  -- 4 characters no HSK 1 word uses: 历史存观
+  社会保障吗？他们在说什么笑话？  -- 4 characters no HSK 1 word uses: 保社笑障
+  想吃一点巧克力奶酪吗？  -- 4 characters no HSK 1 word uses: 克力巧酪
+  您是乌鲁木齐人吗？  -- 4 characters no HSK 1 word uses: 乌木鲁齐
+  你可以把我的早餐送到305房间吗？  -- 3 characters no HSK 1 word uses: 把送餐
+  我们已经有那篇课文了吗？  -- 3 characters no HSK 1 word uses: 已篇经
+  骑自行车不能载人，你不知道吗？  -- 4 characters no HSK 1 word uses: 自行载骑
+  你每天跑步吗？  -- 3 characters no HSK 1 word uses: 步每跑
+  你能用C小调演奏吗？  -- 4 characters no HSK 1 word uses: 奏演用调
+  他买一把刀行，我买就不行了吗？  -- 4 characters no HSK 1 word uses: 刀就把行
+  不好意思，可以借过一下吗？  -- 4 characters no HSK 1 word uses: 借思意过
+  先生，我们可以检查一下您的行李吗？  -- 4 characters no HSK 1 word uses: 李查检行
+
+--- dropped at step 5 (910), first 12 ---
+  你等一会然后再给我打电话，可以吗？  -- level 3: 等 L2, 然后 L3, 打 L2
+  你记日记吗？  -- level 4: 记 L3, 日记 L4
+  你肚子饿吗？  -- level 4: 肚子 L4, 饿 L3
+  这是你的自行车吗？  -- level 3: 自行车 L3
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  你需要我帮忙吗？  -- level 3: 需要 L3, 帮忙 L2
+  我能帮你什么忙吗？  -- level 2: 帮 L2
+  您成家了吗？  -- level 7: 成家 L7
+  那个名字很普通吗？  -- level 4: 普通 L4
+  你是维族人吗？  -- level 10: 维族 (not in list)
+  您是维族人吗？  -- level 10: 维族 (not in list)
+  附近有出租车吗？  -- level 3: 附近 L3
+
+--- dropped at step 5b (105), first 12 ---
+  你不想吃饭吗？  -- harder grammar: 2-04 (HSK 2)
+  您不想吃饭吗？  -- harder grammar: 2-04 (HSK 2)
+  你们不想吃饭吗？  -- harder grammar: 2-04 (HSK 2)
+  您不想再喝点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  您今天一个人来的吗？  -- harder grammar: 2-09 (HSK 2)
+  你十岁了吗？  -- harder grammar: 2-09 (HSK 2)
+  他会来吗?我觉得他不会来。  -- harder grammar: 2-04 (HSK 2)
+  你能看吗？  -- harder grammar: 2-04 (HSK 2)
+  你会说中文吗?  -- harder grammar: 2-04 (HSK 2)
+  你还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  你们还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  你不会说英语，是吗？  -- harder grammar: 2-04 (HSK 2), 2-75 (HSK 2)
+
+--- dropped at step 6b (19), first 12 ---
+  他是日本人吗？  -- hidden word a learner can't work out: 日本人 (Japanese person or people), 是日 ((formal) this day)
+  她是日本人吗？  -- hidden word a learner can't work out: 日本人 (Japanese person or people), 是日 ((formal) this day)
+  你是日本学生吗？  -- hidden word a learner can't work out: 是日 ((formal) this day), 日本 (Japan)
+  那是爱吗？  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+  那是我的吗？  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+  有这回事吗？  -- hidden word a learner can't work out: 回事 ((old) to report to one's master)
+  你家里人都还好吗？  -- hidden word a learner can't work out: 里人 (person from the same village, town or province), 还好 (not bad; pretty good)
+  这真是真的吗？  -- hidden word a learner can't work out: 真是 (indeed; truly)
+  这不是汤姆要的吗？  -- hidden word a learner can't work out: 这不 ((coll.) As a matter of fact, ... (used to introduce evidence)
+  你家的电脑在桌子上吗？  -- hidden word a learner can't work out: 家的 ((old) wife)
+  那是我们的问题吗？  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+  有小的吗？  -- hidden word a learner can't work out: 小的 ((coll.) young child; the little one(s) of the family)
+
+--- dropped at step 7 (3) ---
+  不是吗？  -- check said no (2/2): Tag question structure, not basic yes-no
+  他对吗？  -- check said no (1/2): Uses 对吗 tag question pattern, HSK 2-75
+  你们好吗？  -- no accurate English among: How is it going? | How are you doing? | How's it going? | How are you? | How're you doing? | How are you all? | How are y'all?
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-45_level1_20261109_220559.csv

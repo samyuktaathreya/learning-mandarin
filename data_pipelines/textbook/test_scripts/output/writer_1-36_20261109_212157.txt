@@ -1,0 +1,11 @@
+## 1-36
+**Point:** 是-sentences for connecting nouns, describing purpose/function, or indicating location/existence
+**Covers:** Subject + 是 + Noun (他是老师); Subject + 是 + 来/去 + Verb + 的 (我是来实习的); Thing + 是 + 用来 + Verb + 的 (钱是用来花的); Thing + 是 + 给 + Person + Verb + 的 (房间是给客人住的); Location + 是 + Noun (桌子上是菜); Subject + 是 + Distinguishing Word + 的 (这是女的); Subject + 是 + Adjective + 的 where adjective is non-gradable (苹果是坏的); 是...吗 questions; 是不是 questions
+**Does not cover:** 于是 (then/so), 凡是 (all that), 要不是 (if not for), 要是 (if), 还是 (or/had better), 不是...就是 (not...then), 老是/总是 (always), 很是 (very), 有的是 (plenty of), 就是 (even if), 岂不是/是否 (rhetorical/whether), other 是 patterns in the exclusion list
+
+```rule
+match: /VC
+unless: 于是 凡是 要不是 要是 老是 总是 很是 有的是 就是 岂不是 是否 不愧是 这就是说 那倒 或是 为的是
+```
+
+**Notes:** This rule is intentionally broad to catch the core "是" sentence pattern (HSK 1-36) which involves 是/VC appearing in the sentence. The unless clause filters out other grammar points that contain 是 but represent different constructions. The rule will match any sentence with 是 tagged as VC (copula verb) that doesn't contain the excluded phrases. Most counter-examples involve compound adverbs (于是, 凡是, 要不是, 老是, 总是, 很是, 有的是, 就是, 岂不是, 是否) or other specific patterns (不愧是, 这就是说, 那倒, 或是, 为的是) that should not be tagged as simple 是 sentences for HSK 1 purposes.

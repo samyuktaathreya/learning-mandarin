@@ -1,0 +1,134 @@
+
+########## rules  2026-11-09 21:29 ##########
+38 page(s) use the word(s); asking about 38.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGEB54D  Expressing "then" with "jiu"
+  ASG98C1A  Expressing "as long as" with "zhiyao"
+  ASGG4BX9  Expressing "since" with "jiran"
+  ASGGIVT0  Expressing "if... then..." with "ruguo... jiu..."
+  ASGHNDX4  Expressing "if… then…" with "jiaru"
+  ASGN4S8O  Expressing "if… then…" with "yaoshi"
+  ASGVRGW2  Expressing "if… then…" with "jiashi"
+  ASGN4VUU  Expressing "if" with "ruguo... dehua"
+
+not:
+  ASG8RW47  Limiting scope with "jiu"
+  ASG9B210  Expressing "about to" with "jiuyao"
+  ASGDUZ55  Expressing_"as_one_likes"_with_"jiu"
+  ASGEXR6R  Expressing the only two possibilities
+  ASGF1TQ2  Expressing "even if…" with "jiushi"
+  ASGKITRZ  Expressing earliness with "jiu"
+  ASGL4O5E  Expressing indifference with "jiu"
+  ASGLI513  Expressing "even if…" with "jiusuan"
+  ASGPW8PP  Expressing "small quantity" with "jiu"
+  ASGY21RK  Emphasis with "jiushi"
+  ASG7AUNJ  Using "zhe" when "verbing away"
+  ASGLOS9C  Comparing "cai" and "jiu"
+  ASGR6Q2J  Expressing "let alone" with "bie shuo"
+  ASGXGADL  Conditions_with_"yao"_and_"jiu"
+
+unsure:
+  ASG78FDE  Expressing a last chance with "zaibu... jiu..."
+  ASGTFUD0  Events in quick succession with "yi... jiu..."
+  ASGU3ZV1  Expressing "once...then..." with "yidan...jiu..."
+  ASG68F61  Expressing "when" with "dengdao"
+
+unrelated:
+  ASG06EA8  Expressing "all at once" with "yixiazi"
+  ASG10CAE  Expressing "less than" with "budao"
+  ASG1RE80  Expressing contrariness with "dao"
+  ASG38F8A  Expressing "all" with "fanshi"
+  ASG3ZS9G  Expressing "let alone" with "hekuang"
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+  ASG6ESWW  Expressing "almost" using "chadian"
+  ASG6F157  Expressing "originally" with "benlai"
+  ASG6TB4J  Expressing "that's all" with "eryi"
+  ASGF08B6  Repeated actions in the past with "you"
+  ASGF273F  Advanced uses of "lian"
+  ASGT9Y8P  Conceding a point with "shi"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-17
+Tagging 147 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213006.txt
+  ...100/231
+  ...200/231
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-17
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing "then" with the adverb 就 (jiù) in conditional and causal structures
+**Covers:** Sentences with 就 that establish a condition (using 如果, 要是, 假如, 既然, 只要, etc.) or a causal setup in the first clause, then indicate a consequence/result/suggestion in the second clause introduced by 就. Includes "if...then", "since...then", "as long as...then" patterns and simple causal sequences (cause, then result).
+**Does not cover:** 就 used to express earliness/timing (他早就知道了), aboutness/scope (就这个问题), smallness (就他知道), the verb form 就要, "even if" patterns (就算/就是...也), emphasis (就是), verb repetition patterns (要买就买), location (就在), or conditionals where 就 does not mark the consequent clause.
+
+```rule
+match: ... /CS ... ‖ ... 就/AD ...
+match: ... 既然/CS ... ‖ ... 就/AD ...
+match: ... 只要/CS ... ‖ ... 就/AD ...
+match: ^ _ ... ‖ ... 就/AD /VV|P|AD
+unless: 就/AD /VV 了 /AS? /M /NN
+unless: 就/AD 在/VV
+unless: 就/AD /NN ... 吗/SP $
+unless: 就/AD 是/VC
+unless: 就/AD 要/VV /M /NN
+unless: /CS .* 就/AD 买|去|吃|说|做|走 ‖ .* /PN 就/AD 买|去|吃|说|做|走
+unless: 说|玩|走|坐|看 /AS 说|玩|走|坐|看 /AS .* 就/AD
+unless: 就/AD 算/VV
+unless: 不|别说 .* 就/AD 是/VC
+unless: 就/AD 不|他|你|这 /NN|PN
+unless: /VV 就/AD /VV ‖ 不|我们|别人 /PN 不|就/AD
+```
+
+**Notes:** The rule prioritizes the main pattern: a conditional/causal first clause followed by a result clause led by 就. The first three match patterns handle explicit conditional markers (如果, 要是, 假如, 既然, 只要). The fourth pattern catches implicit causal setups (first clause states a fact or condition, second clause with 就 gives the result). Many unless clauses exclude common non-target uses: timing expressions, locational 就, small-quantity 就, emphasis 就是, near-future 就要, verb repetition conditionals, "even if" patterns (就算), and emphasis patterns. The rule accepts some false negatives (e.g., sentences without explicit clause punctuation) to maintain high precision.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-17
+Tagging 147 labeled example(s) (cached after this run)...
+  ...100/231
+  ...200/231
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  [retry] the rule couldn't be read: answer has no '## 2-17' section (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-17_20261109_213057.txt)
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-17: rule on labeled examples (no AI) ===
+  examples of 2-17 matched:    59/79
+  counter-examples wrongly matched: 15/152   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (15) ---
+  就算你说的都是真的，我们也没办法证明。  -- ASGLI513 Expressing "even if…" with "jiusuan"  [matched: ^ 就/AD /VV|P|AD]
+  就算他说他请客，我也要买单。  -- ASGLI513 Expressing "even if…" with "jiusuan"  [matched: ^ 就/AD /VV|P|AD]
+  就算再穷，她也不去要饭。  -- ASGLI513 Expressing "even if…" with "jiusuan"  [matched: ^ 就/AD /VV|P|AD]
+  我就去过一次。  -- ASGPW8PP Expressing "small quantity" with "jiu"  [matched: ^ /PN 就/AD /VV|P|AD]
+  你就点了两个菜？  -- ASGPW8PP Expressing "small quantity" with "jiu"  [matched: ^ /PN 就/AD /VV|P|AD]
+  他的事，我们就知道一点点。  -- ASGPW8PP Expressing "small quantity" with "jiu"  [matched: ^ /PN 就/AD /VV|P|AD]
+  我就要去！  -- ASGY21RK Emphasis with "jiushi"  [matched: ^ /PN 就/AD /VV|P|AD]
+  我就不告诉你。  -- ASGY21RK Emphasis with "jiushi"  [matched: ^ /PN 就/AD /VV|P|AD]
+  我今天一直都在看《论语》，看着看着，就睡着了。  -- ASG7AUNJ Using "zhe" when "verbing away"  [matched: ^ 就/AD /VV|P|AD]
+  我听着听着歌，就唱起来了。  -- ASG7AUNJ Using "zhe" when "verbing away"  [matched: ^ 就/AD /VV|P|AD]
+  两个人吃着吃着饭，就吵起来了。  -- ASG7AUNJ Using "zhe" when "verbing away"  [matched: ^ 就/AD /VV|P|AD]
+  写着写着，就发现办公室大家都走了。  -- ASG7AUNJ Using "zhe" when "verbing away"  [matched: ^ 就/AD /VV|P|AD]
+  我上着上着课，就听到外面有人叫我。  -- ASG7AUNJ Using "zhe" when "verbing away"  [matched: ^ 就/AD /VV|P|AD]
+  我们有这么多人，你就买了一瓶可乐？  -- ASGLOS9C Comparing "cai" and "jiu"  [matched: ^ /PN 就/AD /VV|P|AD]
+  每个人都写了五页纸，你就写了一页纸！  -- ASGLOS9C Comparing "cai" and "jiu"  [matched: ^ /PN 就/AD /VV|P|AD]
+
+--- examples of 2-17 the rule misses (20) ---
+  你要再说，我真生气了。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  他要不听，我也没办法。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要不是他求我，我才不帮你呢。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要不是因为孩子，我早就离婚了。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要不是堵车，我早就到了。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要不是亲眼看到，我也不相信。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要不是你提醒我，我肯定忘了。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要我说，你先别告诉她。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要我说，他就是太懒。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要我说，我们应该早点做准备。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要我说，这个人不能信。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  要我说，什么时候开始都不晚。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+  假使你同意，我们立马签合同。  -- ASGVRGW2 Expressing "if… then…" with "jiashi"
+  假使你满意，我们会很开心。  -- ASGVRGW2 Expressing "if… then…" with "jiashi"
+  假使这些办法不可靠，我们还可以想其他的办法。  -- ASGVRGW2 Expressing "if… then…" with "jiashi"
+  假使你要去留学，现在情况也不允许你出国。  -- ASGVRGW2 Expressing "if… then…" with "jiashi"
+  不想去的话就别去了。  -- ASGN4VUU Expressing "if" with "ruguo... dehua"
+  喜欢就拿走吧。  -- ASGN4VUU Expressing "if" with "ruguo... dehua"
+  有事给我打电话。  -- ASGN4VUU Expressing "if" with "ruguo... dehua"
+  有空来我家玩。  -- ASGN4VUU Expressing "if" with "ruguo... dehua"

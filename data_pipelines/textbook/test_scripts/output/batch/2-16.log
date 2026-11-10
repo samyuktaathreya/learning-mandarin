@@ -1,0 +1,192 @@
+
+########## rules  2026-11-09 21:29 ##########
+11 page(s) use the word(s); asking about 11.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGII66E  Using "always" as a complaint with "laoshi"
+  ASGN1JR5  Expressing "again" in the past with "you"
+  ASGE8FLP  Comparing "changchang" and "jingchang"
+
+not:
+  ASGD3C4S  Emphasizing negation with "you"
+  ASGF08B6  Repeated actions in the past with "you"
+  ASGPFUM2  Expressing "both A and B" with "you"
+  ASGZRPCK  Expressing "both… and…" with "ji...you"
+
+unsure:
+  ASGTBHBG  Comparing "zai" and "you"
+
+unrelated:
+  ASG1RE80  Expressing contrariness with "dao"
+  ASGBC7A0  Expressing "one by one" with "yi"
+  ASGH13JY  Idiomatic phrases with "zai"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-16
+Tagging 42 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_212932.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-16
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Frequency and repetition adverbs: 重新, 经常, 老, 老是, 又
+
+**Covers:** 
+- 老是/老 expressing habitual or repeated action with a frustrated tone
+- 经常/常常 expressing frequent action
+- 又 expressing an action happening again (past or imminent)
+- 重新 expressing doing something again from the start
+
+**Does not cover:**
+- 又 used for emphasis of negation (又不/又没 meaning "definitely not")
+- 又 in repeated action patterns with 了...又... structure
+- 又 expressing both A and B qualities (又...又... with adjectives)
+- 既...又... patterns
+- 老 as an adjective meaning "old" (老师, 老人, 老家)
+- 常 as an adjective meaning "frequent/regular"
+
+```rule
+match: 老是/AD ... /VV|VA
+match: 老/AD ... /VV|VA
+match: 经常/AD ... /VV
+match: 常常/AD ... /VV
+match: 常/AD /VV
+match: 又/AD /VV|VA
+match: 又/AD 不/AD /VV|VA
+match: 又/AD 没/AD /VV
+match: 又/AD /VV ... 了/SP
+match: 又/AD 要/VV
+match: 又/AD 能/VV
+match: 又/AD 可以/VV
+match: 重新/AD ... /VV
+unless: ^ 既/AD
+unless: /VV 了/AS 又/AD /VV
+unless: /VV 了/AS 又/CC
+unless: 又/AD /VA 又/AD /VA
+unless: 又/CC
+unless: 又/AD 不/AD /VV ‖ /VV
+unless: 又/AD 没/AD /VV ‖ /VV
+unless: /VA ‖ 又/AD 不/AD
+unless: /VA ‖ 又/AD 没/AD
+unless: 经常/VA 的/DEC
+```
+
+**Notes:** 
+- The pattern for 老/老是 requires a verb or adjective after to distinguish from the noun adjective uses (老师, 老人). Often there are adverbs between (不, 很, 这么) but these aren't required.
+- For 又 expressing "again" in past: look for 又 + verb + 了, or 又 + 不/没 + verb pattern. Exclude cases where 又 is preceded by a perfective 了 (which signals repeated actions). 
+- For 又 expressing imminent repetition: 又 + 要/能/可以 + verb, often followed by 了.
+- Exclude the "又A又B" adjective patterns (both tagged VA or CC variant).
+- Exclude negation emphasis (又不/又没 as standalone complaint without expressing repetition).
+- The 经常/VA 的 pattern (expressing frequency as a property) counts as the grammar point.
+- 常 by itself (single character) counts when followed by verb, used in colloquial speech for future frequency.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-16
+Tagging 42 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-16: rule on labeled examples (no AI) ===
+  examples of 2-16 matched:    28/32
+  counter-examples wrongly matched: 0/35   <- should be 0
+
+--- examples of 2-16 the rule misses (4) ---
+  他又没来上课。  -- ASGN1JR5 Expressing "again" in the past with "you"
+  你们又不付钱？  -- ASGN1JR5 Expressing "again" in the past with "you"
+  你又不参加？  -- ASGN1JR5 Expressing "again" in the past with "you"
+  对不起，我又没带书。  -- ASGN1JR5 Expressing "again" in the past with "you"
+
+########## tatoeba  2026-11-09 22:08 ##########
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 35 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220844.txt
+  ...100/207
+  ...200/207
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  就着 = 就 + 着  ((eat sth) with (sth else))
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-16 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      491  2. contain the point's word(s)
+      491  3. new (not in DB, not a duplicate)
+      207  4. at most 2 characters outside HSK 2 words
+       16  5. really HSK 2
+       16  5b. no harder grammar point (of the 20 with a rule)
+        9  6. the rule finds 2-16
+        7  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-16, English chosen
+        6  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  我经常喝茶。  (I often drink tea.)  [tatoeba 3378025]  hidden: 喝茶
+  我经常唱歌。  (I often sing.)  [tatoeba 14057668]  hidden: 唱歌
+  我不经常上ＱＱ。  (I don't go on QQ very often.)  [tatoeba 470871]
+  我经常想去那里。  (I often feel like just going over there.)  [tatoeba 609847]
+  您经常来这儿吗？  (Do you often come here?)  [tatoeba 4879037]
+  我不经常自己去做。  (I don't often do that by myself.)  [tatoeba 6585438]
+
+--- dropped at step 4 (284), first 12 ---
+  波士顿的鸽子又胖又自豪。  -- 6 characters no HSK 2 word uses: 又波胖豪顿鸽
+  既要马好，又要马不吃草。  -- 4 characters no HSK 2 word uses: 又既草马
+  所有的老师都无法解决这个问题。  -- 4 characters no HSK 2 word uses: 决无法解
+  王老吉不是啤酒，是茶。  -- 3 characters no HSK 2 word uses: 吉啤王
+  今天我要处理的事还没处理完，又要加班了。  -- 4 characters no HSK 2 word uses: 加又处理
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  她老是弄丢她的手帕。  -- 3 characters no HSK 2 word uses: 丢帕弄
+  但是如果有一个人本身已经很好了，对你又是真心真意，真心爱你，那么你真的可以把一生托付给他。  -- 6 characters no HSK 2 word uses: 付又如心托把
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  在中国南方，旗袍又称“长衫”。  -- 7 characters no HSK 2 word uses: 南又方旗称衫袍
+
+--- dropped at step 5 (191), first 12 ---
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  我经常做噩梦。  -- level 10: 噩梦 (not in list)
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  老鼠来了！快去叫猫来！  -- level 6: 老鼠 L6
+  我当过老师。  -- level 4: 当 L4
+  我要叫你“老板”。  -- level 5: 老板 L5
+  这道题目没有一位老师会做。  -- level 5: 道 L4, 题目 L5
+  又下雨了！  -- level 3: 又 L3
+  你又来了。  -- level 3: 又 L3
+  他不服老。  -- level 6: 服 L6, 老 L3
+  我给我的老爸送了一个铃鼓。  -- level 10: 老 L3, 爸 (not in list), 铃 L5, 鼓 L5
+  他说话就像一位老师。  -- level 3: 像 L3
+
+--- dropped at step 6 (7) ---
+  你是不是老师？  -- rule: no match: line matched
+  您是老师，还是学生？  -- rule: no match: line matched
+  老师教我的。  -- rule: no match: line matched
+  我丈夫也是老师。  -- rule: no match: line matched
+  她是位老师。  -- rule: no match: line matched
+  你跟这位老师上课吗？  -- rule: no match: line matched
+  汤姆不是这里的老师吧？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我的姐姐经常就着牛奶喝茶。  -- hidden word a learner can't work out: 就着 ((eat sth) with (sth else))
+  那是我经常说的。  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+
+--- dropped at step 8 (1) ---
+  我经常想着它。  -- difficulty review: (1/2); uses 着 (continuous aspect marker) in a way that suggests HSK 3+ grammar (2-70 持续态 is allowed, but this specific usage with 想着 suggests a more advanced construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-16_level2_20261109_220853.csv

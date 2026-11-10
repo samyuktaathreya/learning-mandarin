@@ -1,0 +1,38 @@
+2026-11-09 21:59:44,231  INFO     === tag_sentences.py run started ===
+2026-11-09 21:59:44,514  INFO     FALLBACK  '这是别人的东西，我们一针一线都不能拿。' -- out-of-list word(s): ['这是', '一针一线', '不能']
+2026-11-09 21:59:44,514  WARNING    HAIKU resegment call for '这是别人的东西，我们一针一线都不能拿。' (cache miss on [('一针一线', 'NN'), ('不能', 'VV')])
+2026-11-09 21:59:44,533  INFO     TAGGED    '这是别人的东西，我们一针一线都不能拿。' (level 7, 13 tags)
+2026-11-09 21:59:44,547  INFO     OK        hanlp-valid   '他一五一十地把情况汇报给了老师。' -> [('他', 'PN'), ('一五一十', 'NUM'), ('地', 'DEV'), ('把', 'BA'), ('情况', 'NN'), ('汇报', 'VV'), ('给', 'VV'), ('了', 'AS'), ('老师', 'NN')]
+2026-11-09 21:59:44,549  INFO     TAGGED    '他一五一十地把情况汇报给了老师。' (level 6, 8 tags)
+2026-11-09 21:59:44,557  INFO     OK        hanlp-valid   '她是我最好的朋友之一。' -> [('她', 'PN'), ('是', 'VC'), ('我', 'PN'), ('最好', 'JJ'), ('的', 'DEC'), ('朋友', 'NN'), ('之一', 'NN')]
+2026-11-09 21:59:44,562  INFO     TAGGED    '她是我最好的朋友之一。' (level 4, 8 tags)
+2026-11-09 21:59:44,570  INFO     FALLBACK  'Frozen是我最喜欢的迪斯尼电影之一。' -- out-of-list word(s): ['迪斯尼']
+2026-11-09 21:59:44,570  WARNING    HAIKU resegment call for 'Frozen是我最喜欢的迪斯尼电影之一。' (cache miss on [('迪斯尼', 'NR')])
+2026-11-09 21:59:44,581  INFO       NON-LIST 迪斯尼 (NR) -> '(name) di2si1ni2' [proper_noun]
+2026-11-09 21:59:44,583  INFO     TAGGED    'Frozen是我最喜欢的迪斯尼电影之一。' (level 4, 9 tags)
+2026-11-09 21:59:44,591  INFO     FALLBACK  '纽约是世界上最国际化的城市之一。' -- out-of-list word(s): ['纽约', '国际化']
+2026-11-09 21:59:44,591  WARNING    HAIKU resegment call for '纽约是世界上最国际化的城市之一。' (cache miss on [('国际化', 'VV')])
+2026-11-09 21:59:44,604  INFO       NON-LIST 纽约 (NR) -> '(name) niu3yue1' [proper_noun]
+2026-11-09 21:59:44,616  INFO     TAGGED    '纽约是世界上最国际化的城市之一。' (level 5, 11 tags)
+2026-11-09 21:59:44,624  INFO     FALLBACK  '他是这个公司的创始人之一。' -- out-of-list word(s): ['这个']
+2026-11-09 21:59:44,624  INFO       CACHE-ONLY resegmentation -> [('他', 'PN'), ('是', 'VC'), ('这', 'DT'), ('个', 'M'), ('公司', 'NN'), ('的', 'DEG'), ('创始人', 'NN'), ('之一', 'NN')]
+2026-11-09 21:59:44,629  INFO     TAGGED    '他是这个公司的创始人之一。' (level 7, 9 tags)
+2026-11-09 21:59:44,638  INFO     FALLBACK  '成龙是最有名的中国明星之一。' -- out-of-list word(s): ['成龙']
+2026-11-09 21:59:44,638  WARNING    HAIKU resegment call for '成龙是最有名的中国明星之一。' (cache miss on [('成龙', 'NR')])
+2026-11-09 21:59:44,652  INFO     TAGGED    '成龙是最有名的中国明星之一。' (level 6, 10 tags)
+2026-11-09 21:59:44,661  INFO     OK        hanlp-valid   '我想离开北京的原因之一是空气污染。' -> [('我', 'PN'), ('想', 'VV'), ('离开', 'VV'), ('北京', 'NR'), ('的', 'DEC'), ('原因', 'NN'), ('之一', 'NN'), ('是', 'VC'), ('空气', 'NN'), ('污染', 'NN')]
+2026-11-09 21:59:44,667  INFO     TAGGED    '我想离开北京的原因之一是空气污染。' (level 4, 11 tags)
+2026-11-09 21:59:44,675  INFO     OK        hanlp-valid   '中秋节是中国重要的传统节日之一。' -> [('中秋节', 'NT'), ('是', 'VC'), ('中国', 'NR'), ('重要', 'VA'), ('的', 'DEC'), ('传统', 'JJ'), ('节日', 'NN'), ('之一', 'NN')]
+2026-11-09 21:59:44,680  INFO     TAGGED    '中秋节是中国重要的传统节日之一。' (level 10, 9 tags)
+2026-11-09 21:59:44,688  INFO     OK        hanlp-valid   '她是我最好的朋友……之一。' -> [('她', 'PN'), ('是', 'VC'), ('我', 'PN'), ('最好', 'JJ'), ('的', 'DEC'), ('朋友', 'NN'), ('之一', 'NN')]
+2026-11-09 21:59:44,693  INFO     TAGGED    '她是我最好的朋友……之一。' (level 4, 8 tags)
+2026-11-09 21:59:44,701  INFO     OK        hanlp-valid   '你是我最喜欢的老师……之一。' -> [('你', 'PN'), ('是', 'VC'), ('我', 'PN'), ('最', 'AD'), ('喜欢', 'VV'), ('的', 'DEC'), ('老师', 'NN'), ('之一', 'NN')]
+2026-11-09 21:59:44,706  INFO     TAGGED    '你是我最喜欢的老师……之一。' (level 4, 9 tags)
+2026-11-09 21:59:44,714  INFO     OK        hanlp-valid   '中国是我最爱的地方……之一。' -> [('中国', 'NR'), ('是', 'VC'), ('我', 'PN'), ('最', 'AD'), ('爱', 'VV'), ('的', 'DEC'), ('地方', 'NN'), ('之一', 'NN')]
+2026-11-09 21:59:44,719  INFO     TAGGED    '中国是我最爱的地方……之一。' (level 4, 9 tags)
+2026-11-09 21:59:45,034  INFO     FALLBACK  '已经确定了三个人，还差一个。' -- out-of-list word(s): ['三个', '一个']
+2026-11-09 21:59:45,034  WARNING    HAIKU resegment call for '已经确定了三个人，还差一个。' (cache miss on [('三个', 'DT'), ('一个', 'PN')])
+2026-11-09 21:59:45,049  INFO     TAGGED    '已经确定了三个人，还差一个。' (level 5, 10 tags)
+2026-11-09 21:59:45,057  INFO     FALLBACK  '请给我一个确定的回答，不要总是这么模糊。' -- out-of-list word(s): ['一个']
+2026-11-09 21:59:45,057  INFO       CACHE-ONLY resegmentation -> [('请', 'VV'), ('给', 'VV'), ('我', 'PN'), ('一', 'CD'), ('个', 'M'), ('确定', 'VA'), ('的', 'DEC'), ('回答', 'NN'), ('不要', 'AD'), ('总是', 'AD'), ('这么', 'AD'), ('模糊', 'VA')]
+2026-11-09 21:59:45,060  INFO     TAGGED    '请给我一个确定的回答，不要总是这么模糊。' (level 5, 12 tags)

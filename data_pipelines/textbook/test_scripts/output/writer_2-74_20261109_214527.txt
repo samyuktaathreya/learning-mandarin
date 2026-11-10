@@ -1,0 +1,29 @@
+## 2-74
+**Point:** Emphasis with 就 (jiù) placed before the predicate to add emphatic, intense feeling
+**Covers:** 就是 + Noun (identifying); 就 + Verb/就是 + Verb (emphasizing predicate); 就是 + (不) + Verb (emphatic negation)
+**Does not cover:** Temporal/sequential uses (about to, as soon as); conditional uses (if-then, only if); scope/topic marking; small quantity (only); indifference; quick succession; hypothetical concession; and other non-emphatic 就 constructions
+
+```rule
+match: /PN|DT|NN|NR _ 就/AD 是/VC
+match: /PN|DT|NN|NR _ 就/AD 是/AD 不/AD
+match: /PN _ 就/AD 是/VC /NN|VA
+match: /PN _ 就/AD 是/AD /VV|VA
+match: _ 就/AD 是/VC
+match: _ 就/AD 不/AD /VV|VA
+unless: 如果|假如|假使|要是|若|一旦|只要|既然|万一|就算|再不|一.*就
+unless: /CS
+unless: /P 就/AD
+unless: ^ 别/AD 说
+unless: 就/AD 要/VV
+unless: 就/AD /VV /AS
+unless: _ _ 就/AD _ /AS 就/AD
+unless: 想/VV .* 就/AD
+unless: 要/VV .* 就/AD
+unless: 赌|坏|走 了/AS 就/AD
+unless: 就/AD _ /CD|M
+unless: 就/AD /PN /CD|M
+unless: 就/AD /PN 聪明/VA
+unless: 就/AD /PN 没/AD /VV|VA
+```
+
+**Notes:** The rule prioritizes matching emphatic uses where 就 directly precedes a predicate (是, verb, or negated verb) with emphatic force. Key exclusions: (1) conditional/temporal frames (如果, 假如, etc.) mark different uses; (2) preposition use (就/P); (3) 就要 + verb (expressing imminence); (4) verb + 了 following 就 (temporal); (5) modal constructions with verbs of desire/obligation (想/要 patterns); (6) verb doubling + 了 pattern (indifference); (7) quantified subjects after 就; (8) special case 就你聪明 (small quantity, not emphasis); (9) "别说...就是" (concession, not emphasis). Prefer precision over recall—borderline cases excluded.

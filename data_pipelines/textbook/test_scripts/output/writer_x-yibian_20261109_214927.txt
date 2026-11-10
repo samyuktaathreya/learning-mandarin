@@ -1,0 +1,10 @@
+## x-yibian
+**Point:** Expressing two actions happening simultaneously using 一边...一边... structure
+**Covers:** Sentences with two 一边 markers each followed by a verb, indicating intentional multitasking or simultaneous actions
+**Does not cover:** Single 一边 without a matching second 一边; uses of 一边 for other purposes; passive or unintentional simultaneous events (use 的时候 instead)
+
+```rule
+match: 一边/AD _ 一边/AD
+```
+
+**Notes:** The pattern matches the core structure: first 一边 (tagged AD), then any word(s), then second 一边 (tagged AD). This is flexible enough to handle both adjacent instances (一边...一边 within one clause) and those separated by a comma (across two clauses). The verbs themselves don't need to be explicitly checked since the grammar point is defined by the presence of both 一边 markers; however, native sentences will naturally have verbs following each 一边. The rule does not require checking that actions are "intentional" since that is semantic and not reliably tagged. Shortened form 边 is not tagged as AD and would require a separate rule if coverage is needed.

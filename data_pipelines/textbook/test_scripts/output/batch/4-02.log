@@ -1,0 +1,44 @@
+
+########## rules  2026-11-09 21:58 ##########
+1 page(s) use the word(s); asking about 1.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGPINA4  Comparing "renjia" and "bieren"
+
+not:
+
+unsure:
+
+unrelated:
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 4-02
+Tagging 3 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215843.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 4-02, rule line 2: empty item '|' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_4-02_20261109_215848.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 4-02
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** The pronoun 人家 (renjia) used to refer to other people, oneself, or someone previously mentioned in context
+**Covers:** 人家 tagged as PN (pronoun) when used as a grammatical pronoun to refer to persons; includes colloquial uses where 人家 refers to others, to oneself (especially common in feminine speech), or to someone contextually known
+**Does not cover:** 人家 tagged as NN (noun) when referring to households/families as a countable noun (e.g., "十户人家" = ten households)
+
+```rule
+match: 人家/PN
+unless: 户/M ... 人家/NN
+```
+
+**Notes:** The rule targets 人家 specifically when tagged as PN (pronoun), which covers all the grammatical pronoun uses: referring to others, oneself, or contextually-known individuals. The unless clause filters out the household/family noun use (tagged NN, typically appearing with measure words like 户). This precision-first approach avoids false positives where 人家 functions as a noun rather than the HSK 4 pronoun grammar point.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 4-02
+Tagging 3 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 4-02: rule on labeled examples (no AI) ===
+  examples of 4-02 matched:    10/11
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+--- examples of 4-02 the rule misses (1) ---
+  别人怎么想我怎么知道？  -- ASGPINA4 Comparing "renjia" and "bieren"

@@ -1,0 +1,25 @@
+## 1-17
+**Point:** Using 跟, 和 to express "with," "and," or as prepositions in specific constructions
+
+**Covers:** 
+- 跟/和 as preposition meaning "with" before a verb (我跟朋友去海滩)
+- 跟/和 as coordinating conjunction linking nouns or noun phrases (我和你; 咖啡和茶)
+- 跟/和 as coordinating conjunction linking verbs (维护和修理) or adjectives (单纯和天真)
+- 跟/对 as preposition with 说 (跟他说; 对他说)
+- 对 as verb meaning "towards/point to" (对着, 对不上)
+- 跟 as verb meaning "follow" (跟着, 跟不上)
+
+**Does not cover:**
+- Comparisons with 一样 (A 跟 B 一样; A 跟 B 一样 + Adj.)
+- Approximations with 差不多 (A 跟 B 差不多; 差很多)
+- "Compared with" using 跟...比 (跟 A 比，B...)
+- "Similar to" with 跟...似的 (跟...似的)
+- "Related to" with 有关的 (跟...有关的)
+- These have different grammatical functions and semantic focus
+
+```rule
+match: (跟|和|对)/P _ | (跟|和|对)/P _ (说|见面|聊天|住|去|读|出差|联系|结婚|一起) | /P (跟|和|对) _ 一起 | /CC (跟|和|对) | (跟|和)/CC _ (和|跟) | (跟|和)/CC /VV | (跟|和)/CC /VA | 对/VV (着|不|上)? | 跟/VV (着|上|不上|得上)?
+unless: 一样 | 差不多 | 差很多 | 比 | 似的 | 有关 | 不同 | 暖和 | 温和
+```
+
+**Notes:** The rule must distinguish between 跟/和/对 as prepositions (linking to nouns/pronouns, appearing before verbs) versus uses in comparison structures (一样, 差不多, 比), similarity (似的), relation (有关), or adjectives meaning "harmonious" (暖和, 温和). The "unless" clause filters out these grammatically distinct uses. Tag ambiguity exists (和/对 sometimes tagged as P when functioning as preposition), so matching both helps catch real-world variation.

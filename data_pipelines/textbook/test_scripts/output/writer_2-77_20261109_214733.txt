@@ -1,0 +1,14 @@
+## 2-77
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Questions with "ne" (呢) — asking "what about...?" by stating a topic/noun/pronoun followed by 呢
+**Covers:** Elliptical "bounce back" questions where a short verbless clause consisting only of a noun, pronoun or noun phrase (a demonstrative plus measure word, a time word, a place name, or a possessive) is followed by 呢, e.g. 那个呢？ / 你呢？ / 明天晚上呢？ / 上海呢？
+**Does not cover:** Modal particle "ne" in statements (还早呢, 我吃饭呢); softening "ne" in 还是 or interrogative-word questions; 万一…呢; progressive 在/正/着…呢; A-not-A questions with 呢; any clause that contains a verb or adverb before 呢.
+
+```rule
+match: ^ /PN|NN|NR|NT|DT|M|JJ|DEG|DEC|OD _? _? 呢/SP $
+unless: /AD
+unless: /VV|VA|VE|VC|P|AS|CC|CS|BA|LB|SB|DER|DEV
+unless: 万一
+```
+
+**Notes:** The rule only fires when the clause containing 呢 is made up purely of nominal material (pronoun, noun, proper noun, time noun, demonstrative, measure word, modifier, 的) and then ends with 呢. This captures the elliptical "what about X?" question. Any verb, adjective predicate, adverb, preposition, aspect marker or conjunction in that clause blocks the match, which excludes modal-particle statements, progressive 呢, A-not-A and 还是 questions, and 谁的…呢 questions. 万一 is excluded explicitly. The optional wildcard slots `_?` allow up to three words, but the unless lines ensure none of them is a verb or other predicate material. Because the clause must start at the beginning, the question can follow a previous clause or sentence.

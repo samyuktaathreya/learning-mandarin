@@ -1,0 +1,19 @@
+## 2-76
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Asking questions with 什么时候, 什么样 and 怎么样 to ask "when?", "what kind of?" and "how is...?" / "what is...like?"
+
+**Covers:** 怎么样 at the end of a clause, asking how something is (X + 怎么样 / 你觉得 X 怎么样). 什么时候 asking "when?". 什么样 asking "what kind of?" (什么样的 + noun).
+
+**Does not cover:** These words in statements, such as "我不知道你什么时候来". 为什么 questions (HSK 1-46). 不怎么样 (HSK 6-30). 不管怎样 (HSK 5-65). A bare "怎么样？" tacked on to a suggestion, which is 2-75. Questions that use only 吗 (HSK 1-45).
+
+```rule
+match: 怎么样 $
+match: 什么 时候
+match: 什么 样
+unless: 不 怎么样
+unless: ^ 怎么样 $
+unless: 不管|无论
+unless: 知道
+```
+
+**Notes:** The tokenizer keeps 怎么样 as one word, usually tagged VV or VA. It splits 什么时候 into 什么 + 时候 and 什么样 into 什么 + 样, so the rule matches those pairs as separate tokens. 怎么样 only counts at the end of a clause, which covers "X 怎么样？" and "你觉得 X 怎么样？". The unless lines remove "不怎么样", a clause that is just "怎么样" (the 2-75 tag question), 不管/无论 concessives, and embedded questions after 知道. 怎样 is left out on purpose, because at the end of a clause it often appears in statements such as "想怎样就怎样". This favours precision over recall.

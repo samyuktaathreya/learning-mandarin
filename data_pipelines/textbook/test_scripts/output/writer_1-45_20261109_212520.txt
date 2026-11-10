@@ -1,0 +1,11 @@
+## 1-45
+**Point:** Yes-no questions, tag questions, and completion questions formed with 吗
+**Covers:** Statements converted to yes-no questions by adding 吗; tag questions with confirmation words (好/对/是/可以) + 吗; questions about completed actions with 了吗
+**Does not cover:** Sentences where 吗 is part of a word (干吗 "why"); other uses of 吗 that don't form questions; questions already marked by other question particles; the grammar points HSK 1-22 (吗 as general particle) or HSK 2-75 (specific confirmation phrases like 好吗/可以吗/行吗/怎么样)
+
+```rule
+match: ... /SP吗/SP $
+unless: 干/VV 吗/PN
+```
+
+**Notes:** This rule matches any clause ending with the particle 吗 tagged as SP (sentence-final particle). The unless clause excludes the word 干吗 which functions as "why" (a question word, not a question particle). All three main uses of this grammar point end with 吗/SP: simple yes-no questions (你喜欢咖啡吗), tag questions (对吗, 是吗, 好吗, 可以吗), and completion questions (了吗). The rule correctly handles clauses because 吗 only appears at the end of a clause before punctuation or end of sentence. Note that in the tagged example "妈妈，你昨天给我打电话了吗？", the last clause is "你/PN 昨天/NT 给/P 我/PN 打电话/VV 了/SP 吗/SP" which ends in 吗/SP, so it matches.

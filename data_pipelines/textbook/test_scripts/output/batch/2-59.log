@@ -1,0 +1,51 @@
+
+########## rules  2026-11-09 21:43 ##########
+5 page(s) use the word(s); asking about 5.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGC06N0  Basic comparisons with "yiyang"
+
+not:
+  ASG1MD4N  Comparing specifically with "xiang"
+
+unsure:
+  ASGE8810  Expressing "age difference" with "da and xiao"
+
+unrelated:
+  ASGC5Y86  Comparing "gen" and "dui"
+  ASGH13JY  Idiomatic phrases with "zai"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-59
+Tagging 7 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_214317.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-59
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Basic comparisons using 跟/和 + 一样 to express that two things are the same
+
+**Covers:** Sentences with the structure Noun 1 + 跟/和 + Noun 2 + 一样 (+ optional adjective), including negations with 不一样
+
+**Does not cover:** Comparisons using 像 instead of 跟/和, because 像 structures have a different grammatical pattern and are treated as a separate advanced point
+
+```rule
+match: /P 一样/VA
+match: /P 一样/AD _
+match: /P _ 一样/VA
+match: /P _ 一样/AD
+
+unless: 像/P
+```
+
+**Notes:** The rule matches the core pattern of 跟/和 + 一样 by detecting a preposition (P tag, which covers 跟, 和, etc.) followed by 一样 tagged as VA or AD, with optional material between them. The unless clause filters out sentences using 像, which marks the separate grammar point for simile-based comparisons. The rule captures both positive statements (一样) and negations (不一样, which appears as 不/AD 一样/VA in the examples).
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-59
+Tagging 7 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-59: rule on labeled examples (no AI) ===
+  examples of 2-59 matched:    12/12
+  counter-examples wrongly matched: 0/5   <- should be 0
+
+########## tatoeba  2026-11-09 22:11 ##########

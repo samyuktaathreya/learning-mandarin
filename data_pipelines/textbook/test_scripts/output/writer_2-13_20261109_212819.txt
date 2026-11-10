@@ -1,0 +1,17 @@
+## 2-13
+**Point:** Degree adverbs (多、多么、好、更、十分、特别、挺、有（一）点儿) to express intensity, comparison, or mild complaint
+**Covers:** Using 更/还 before adjectives to mean "even more"; using 挺 before adjectives/psych verbs to mean "quite"; using 有点/有一点 before adjectives to mean "a little too"; using 多么 before adjectives; using 特别/十分 before adjectives
+**Does not cover:** 更不用说 (let alone) pattern; 不但...更 (not only...but also) pattern; 更 as part of 更新/更改 (verb meanings change/update); 一点 after adjectives meaning "a little bit" in comparisons; 一点 before nouns meaning quantity; 点 as a measure word or time unit
+
+```rule
+match: (更|还|挺|多么|特别|十分)/AD _ (VA|VV)
+match: (有|VE) (点|一点|一点儿|点儿)/CD|AD ... (VA|VV)
+unless: 更 不用 说
+unless: 不但
+unless: 连 ... 都|也 ... 更 不用 说
+unless: _ _ _ 更 (不用|不|没)
+unless: 更 (新|改|新|加)
+unless: 更 是 VV
+```
+
+**Notes:** The first match pattern catches degree adverbs directly modifying predicates (adjectives or psych verbs like 喜欢, 怕, 后悔). The second match catches 有点/有一点 with optional negation (不/没) before the predicate, since "有点不喜欢" still demonstrates this grammar point. The unless clauses exclude 更不用说 patterns (which express "let alone"), 不但...更 patterns (which express "not only...but also"), and false positives where 更 is part of a verb (更新, 更改) or used as an intensifier with 是 (更是). Cases where an adjective appears after a negation following a degree adverb (e.g., 有点不舒服) are included because they demonstrate the grammar point despite the negation flipping the valence. The rule excludes 一点/点 appearing after adjectives in comparison structures, since that's a different grammatical use.

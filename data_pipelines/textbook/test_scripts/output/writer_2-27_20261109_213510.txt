@@ -1,0 +1,19 @@
+## 2-27
+**Point:** Expressing distance between two places using 离 (lí)
+**Covers:** Sentences with the structure: [Place/Person 1] + 离 (tagged as P) + [Place/Person 2] + (有/很/太/多/有点儿) + (近/远/多远) with optional 吗
+**Does not cover:** Other uses of 离 as a verb meaning "leave" or "depart" (离开, 撤离, 远离, 脱离), or compound verbs (离婚), or 离 as part of a separable verb phrase (离不开)
+
+```rule
+match: _ 离/P _ ... (近|远|多远)/VA
+match: _ 离/P _ ... (近|远|多远)/VA 吗/SP
+match: _ 离/P _ 有/VE ... (远|近)/VA
+match: _ 离/P _ 有点儿/AD (远|近)/VA
+unless: 离开/VV
+unless: 撤离/VV
+unless: 远离/VV
+unless: 脱离/VV
+unless: 离婚/VV
+unless: 离/VV _ ... 开/VV
+```
+
+**Notes:** The key distinguishing feature is that 离 must be tagged as P (preposition), not VV (verb). This filters out cases where 离 is part of a compound verb or used as a main verb meaning "to leave/depart." The pattern requires an evaluative adjective (近/远) or the question form (多远/近吗) to indicate distance comparison. Using VV exclusions catches most compound verbs, and the "开" pattern catches separable verb phrases like 离不开.

@@ -1,0 +1,11 @@
+## 2-44
+**Point:** Expressing "more and more" (or "less and less") with 越来越, showing increasing degree or frequency over time
+**Covers:** Sentences with the pattern 越来越 + adjective/verb, indicating progressive increase in a quality or state, typically with 了 at the end (though 了 is not required)
+**Does not cover:** Other uses of 越 or 来 that don't form the 越来越 pattern; sentences where 越来越 appears but doesn't express the "increasingly" meaning
+
+```rule
+match: /AD 来/AD /AD (/VA|/VV)
+unless: ...
+```
+
+**Notes:** The rule matches the core pattern: 越 tagged as AD, followed by 来 tagged as AD, followed by another 越 tagged as AD, followed by either an adjective (VA) or verb (VV). This captures the essential structure regardless of whether 了 appears at the end or not. The pattern deliberately doesn't require 了 because the grammar point is demonstrated even without the final particle (e.g., "城市越来越繁荣"). Any words or adverbs can appear between the adjectives/verbs and the 越来越 pattern (e.g., 不 in 不相信, or modifiers before the pattern). The rule avoids false positives by requiring the specific AD-AD-AD sequence that forms the idiom.

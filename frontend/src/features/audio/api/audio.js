@@ -1,19 +1,14 @@
 import { API_BASE_URL } from '../../../shared/config';
 import { apiFetch } from '../../../shared/api/client';
+import { synthesize, NonChineseTextError, ttsRequestsLeft, msUntilNextTtsSlot } from '../../../shared/speech';
 
 // Cache of in-flight/resolved audio fetches, keyed by "text::slow::pinyin::recording"
 const audioCache = new Map();
+const cacheKey = (text, slow, pinyin, preferRecording) => `${text}::${slow}::${pinyin || ''}::${preferRecording}`;
 
-// Resolves to something an <audio> element can play: a URL for real pinyin
-// recordings, or a base64 data URI for TTS.
-//
-// preferRecording: pinyin section only. The server plays a real recording of
-// the syllable if it has one, and falls back to TTS if not.
-const fetchAudioSrc = (text, slow = false, pinyin = null, preferRecording = false) => {
-    const key = `${text}::${slow}::${pinyin || ''}::${preferRecording}`;
-    if (audioCache.has(key)) return audioCache.get(key);
-
-    const promise = apiFetch(`${API_BASE_URL}/api/audio`, {
+// Our server: a real pinyin recording (a URL), or server-side TTS (base64).
+const fetchFromServer = (text, slow, pinyin, preferRecording) =>
+    apiFetch(`${API_BASE_URL}/api/audio`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, slow, pinyin, source: preferRecording ? 'pinyin' : undefined }),
@@ -33,12 +28,30 @@ const fetchAudioSrc = (text, slow = false, pinyin = null, preferRecording = fals
             return data.url
                 ? `${API_BASE_URL}${data.url}`
                 : `data:audio/mpeg;base64,${data.audio}`;
-        })
-        .catch(err => {
-            audioCache.delete(key);
-            throw err;
         });
 
+// Resolves to something an <audio> element can play.
+//
+// preferRecording (pinyin section): from our server, which plays a real
+// recording of the syllable if it has one and falls back to TTS if not.
+// Everything else: TTS straight from Azure (a blob URL). If Azure is
+// unavailable or at its free-tier limit, the server's TTS is the fallback.
+const fetchAudioSrc = (text, slow = false, pinyin = null, preferRecording = false) => {
+    const key = cacheKey(text, slow, pinyin, preferRecording);
+    if (audioCache.has(key)) return audioCache.get(key);
+
+    const source = preferRecording
+        ? fetchFromServer(text, slow, pinyin, true)
+        : synthesize({ text, slow, pinyin }).catch((err) => {
+            if (err instanceof NonChineseTextError) throw err; // nothing to say, from anywhere
+            console.warn(`[audio] Azure TTS unavailable for "${text}" (${err.message}), using the server`);
+            return fetchFromServer(text, slow, pinyin, false);
+        });
+
+    const promise = source.catch(err => {
+        audioCache.delete(key);
+        throw err;
+    });
     audioCache.set(key, promise);
     return promise;
 };
@@ -62,7 +75,31 @@ export const preloadAll = (items, concurrency = 3) => {
     return Promise.all(Array.from({ length: concurrency }, worker));
 };
 
-export const clearAudioCache = () => audioCache.clear();
+// Also frees the Azure audio (blob URLs) held in memory.
+// Fetches a list of Azure TTS sounds ({ text, slow, pinyin }) in order, one at a
+// time, as fast as Azure's free tier allows (20 a minute). `reserve` requests a
+// minute are left free for things the user plays that weren't preloaded
+// (🐢 Slow, replays). Stops when `signal` is aborted.
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export const preloadPaced = async (items, { reserve = 4, signal } = {}) => {
+    for (const { text, slow = false, pinyin = null } of items) {
+        if (signal?.aborted) return;
+        if (!text || audioCache.has(cacheKey(text, slow, pinyin, false))) continue;
+        while (ttsRequestsLeft() <= reserve) {
+            await sleep(Math.max(msUntilNextTtsSlot(), 1000));
+            if (signal?.aborted) return;
+        }
+        await fetchAudioSrc(text, slow, pinyin, false).catch(err => console.error("Failed to preload audio", err));
+    }
+};
+
+export const clearAudioCache = () => {
+    for (const promise of audioCache.values()) {
+        promise.then((src) => { if (src.startsWith('blob:')) URL.revokeObjectURL(src); }, () => {});
+    }
+    audioCache.clear();
+};
 
 // Tells the server it can drop its generated audio for this session.
 export const clearServerAudio = () => apiFetch(`${API_BASE_URL}/api/audio/clear`, { method: 'POST' });

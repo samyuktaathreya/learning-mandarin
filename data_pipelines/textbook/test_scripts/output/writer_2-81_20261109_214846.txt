@@ -1,0 +1,29 @@
+## 2-81
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing "about to" with 要/快要/就要⋯⋯了
+
+**Covers:** Sentences with 就要 or 快要 followed by a verb phrase and 了, and clause-initial 要 + verb + 了 (e.g. 要下雨了). Also covers 还有 + number + duration + 就 (要) + verb + 了, which marks an event that is a set time away.
+
+**Does not cover:** 要 meaning "want" or "need"; 要不是 "if it weren't for"; 要是 "if"; 不要 negative commands; 要 + verb as future intention with a specific future time; other uses of 要 with different meanings.
+
+```rule
+match: 就/AD 要/VV ... 了/SP
+match: 就/AD 要/VV ... 了/AS
+match: 快要/AD ... 了/SP
+match: 快要/AD ... 了/AS
+match: 快/AD 要/VV ... 了/SP
+match: 快/AD 要/VV ... 了/AS
+match: ^ 要/VV ... 了/SP
+match: 还/AD 有 /CD ... 就/AD ... 了/SP
+match: 还/AD 有 /CD ... 就/AD ... 了/AS
+unless: 不/AD 要/VV
+unless: 要/VV 不/AD
+unless: 想/VV 要/VV
+unless: 非/AD 要/VV
+unless: 总/AD 要/VV
+unless: 要/VV 看/VV
+unless: 要是
+unless: 要不是
+```
+
+**Notes:** The earlier rule used `.*`, which is not valid syntax, so nothing matched. The new rule uses only `...` for gaps and allows the final 了 to be tagged either SP or AS. Bare 要 is accepted only at the start of a clause and must end in sentence-final 了, which keeps out 要 meaning "want". The 还有 patterns require a number right after 有 and a 就 before the final 了, so 还有别的问题吗 does not match. The unless lines exclude negative commands, 要不, 想要, 非要, 总要, 要看, and 要是/要不是 conditionals.

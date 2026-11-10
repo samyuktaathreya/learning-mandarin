@@ -1,0 +1,31 @@
+## 4-58
+**Point:** Expressing purpose with 好 (hǎo), meaning "in order to" or "so that"
+
+**Covers:** Sentences of the form [Action/Clause]，好 + [Verb Phrase expressing purpose]. Here 好 is an adverb (AD) that opens the purpose clause. It may follow a personal-pronoun subject (我们好做笔记) or 这样 (这样好让客户满意). It may also follow a comma directly (好让…, 好考…). The tagger sometimes mis-segments 好听得懂 as 好听/VA 得 懂, and that case is covered.
+
+**Does not cover:** 最好, 好像, 只好, 好(不)容易, 好 as "easy" (很好写), 好 as adjective or result complement (定好了), 还好, 正好, 不知道…好, and 好 in tag questions (好吗).
+
+```rule
+match: ^ 好/AD /VV _
+match: ^ 我们|你们|他们|咱们|大家|我|你|他|她|人们/PN 好/AD /VV _
+match: 这样/AD 好/AD /VV _
+match: ^ 好听/VA 得/DER 懂/VV
+unless: 最好/AD
+unless: 最好
+unless: 好像/AD
+unless: 好像
+unless: 只好/AD
+unless: 只好
+unless: 好/AD 不/AD 容易/VA
+unless: 好不容易
+unless: 好容易
+unless: 不/AD 知道/VV
+unless: 还好
+unless: 正好
+unless: 好/VA 吗/SP
+unless: 好/AD 吗/SP
+unless: 很|太|真|挺|非常|最|比较|更|特别/AD 好/AD
+unless: 好/AD 几/CD
+```
+
+**Notes:** 好/AD must start a clause, follow 这样, or follow a personal-pronoun subject, and be followed directly by a verb and then more material. This captures the purposive "so that / in order to" reading. Degree adverbs before 好 (很好写) and the fixed compounds listed above are excluded to avoid the "easy to V" reading and other 好 grammar points.

@@ -1,0 +1,19 @@
+## 2-23
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 向/朝/往 as a preposition meaning "towards" to indicate the direction or target of an action
+
+**Covers:** 向/朝/往 + direction/person/place + verb (walk towards, look at, apologize to, learn from, report to). Also verb + 向/往 + destination after motion verbs (开往, 飞往, 飞向, 驶向), and 向前 + verb.
+
+**Does not cover:** Adverbial 一向 and 向来 (always); 转向 as a verb compound; 向 as a noun meaning direction or tendency.
+
+```rule
+match: 向|朝|往/P|VV _ _? _? /VV
+match: 向前/AD /VV
+match: 开|飞|发|运|送|寄|带|驶|奔|冲|流|跑|游|走 向|往/P|VV /NN|NR|PN|JJ
+match: 驶向|飞向|奔向|冲向|流向|跑向|开往|飞往|驶往|发往|运往|送往|寄往 /VV
+unless: 一向/AD
+unless: 向来/AD
+unless: 转/VV 向/VV
+```
+
+**Notes:** The old rule used invalid grouping syntax and required a single word between the preposition and the verb. That failed on 向雷锋同志学习 and 向环保部门要求, and the rule also missed 向 tagged VV. The first line now allows 向/朝/往 tagged P or VV, followed by up to three words and then a verb. Separate lines cover 向前 tagged as an adverb, and the post-verbal 开往/飞往/飞向/驶向 type, which has no following verb. 一向 and 向来 are single tokens and are still excluded explicitly. 转向 is excluded.

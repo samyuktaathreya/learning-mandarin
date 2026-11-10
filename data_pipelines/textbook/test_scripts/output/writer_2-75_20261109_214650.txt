@@ -1,0 +1,15 @@
+## 2-75
+<!-- revised: the old patterns used `_*` and `‖`, which the rule syntax does not support, so they never matched -->
+**Point:** Asking for opinion or confirmation with "怎么样" and with tag questions "好吗 / 可以吗 / 行吗 / 对吗 / 是吗"
+
+**Covers:** Open-ended questions that end in 怎么样 ("How is…?" / "What do you think of…?"). Tag questions in which a short final clause is just a confirmation word (好 / 对 / 是 / 可以 / 行) plus 吗, added after a statement or suggestion.
+
+**Does not cover:** 不怎么样 ("not so good", HSK 6-30). Plain 吗 questions such as 你好吗 or 好吃吗 (HSK 1-45). Other question words (HSK 1-46, 2-76). 怎么样 that is not at the end of its clause.
+
+```rule
+match: 怎么样/VV|VA $
+match: ^ 好|对|是|可以|行/VA|VC|VV 吗/SP $
+unless: 不|很/AD 怎么样
+```
+
+**Notes:** The patterns now use the supported syntax: `...`, `^` and `$`. Clause boundaries come from the punctuation, so the tag question has to be its own clause, made up only of the confirmation word and 吗. This keeps out 你好吗 and 好吃吗, where the word before 吗 sits inside a longer clause. 怎么样 is accepted when tagged VV or VA, because the tagger varies. 不怎么样 is excluded as HSK 6-30. Known risk: a bare 是吗？ used alone as a reply could still match.

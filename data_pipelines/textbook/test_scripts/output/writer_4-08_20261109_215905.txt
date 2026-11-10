@@ -1,0 +1,11 @@
+## 4-08
+**Point:** Expressing "again and again" or "repeatedly" with 一再 or 再三
+**Covers:** Adverbial use of 一再 or 再三 before a verb (with optional 地) to indicate repeated or emphatic action
+**Does not cover:** Other uses of these words that don't function as frequency adverbs modifying a verb phrase
+
+```rule
+match: 一再|再三/AD ... /VV
+unless: ...
+```
+
+**Notes:** The rule matches when 一再 or 再三 tagged as AD appears before a verb (VV tag), with any number of words (including zero, or just 地) between them. This covers both the core pattern (Subj + 一再/再三 + Verb) and the variant with 地 (一再/再三 + 地 + Verb). The pattern works within a single clause and will match fragments like "一再强调" as well as full sentences. Both labeled examples and unlabeled test sentences confirm this structure handles the full range of intended uses.

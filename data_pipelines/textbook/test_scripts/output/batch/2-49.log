@@ -1,0 +1,138 @@
+
+########## rules  2026-11-09 21:40 ##########
+38 page(s) use the word(s); asking about 38.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGNNMST  Result complements
+  ASGNQUC1  Result complement "-wan" for finishing
+
+not:
+  ASG18JOA  Expressing purpose with "hao"
+  ASG22117  The use of Taiwanese Mandarin "hui"
+  ASG35CD7  Expressing "had better" with "zuihao"
+  ASG3ROPY  Expressing "it seems" with "haoxiang"
+  ASG767A2  Declaring the only option with "zhihao"
+  ASG81QV3  Expressing difficulty with "hao (bu) rongyi"
+  ASGJQU93  Using "hao" to mean "easy"
+  ASGOB1BF  Expressing good luck with "haihao"
+  ASGRHM0E  Expressing a learned skill with "hui"
+  ASGUD25J  Coincidence with "zhenghao"
+  ASGW9737  Expressing "will" with "hui"
+  ASGZL717  Comparing "hui," "neng," "keyi"
+  ASG0EQQJ  Expressing not knowing how to do something using "hao"
+  ASG35T4H  Expressing "difficult" with "nan"
+  ASG73H8K  Comparing "budebu" and "zhihao"
+  ASGAY164  Moderating positive adjectives with "hai"
+  ASGSJYZ2  Tag questions with "ma"
+
+unsure:
+  ASG8R2V8  Potential complement "-bu dong" for not understanding
+
+unrelated:
+  ASG1DXUD  Passive verbs with "shou"
+  ASG4D8XB  Tag questions with "bu"
+  ASG4GVRX  Separable verb
+  ASG5KNWW  Topic-comment sentences
+  ASG79STE  Degree complement
+  ASG8QS6H  Advanced_uses_of_"zong"
+  ASGDHE8S  Reduplication of adjectives
+  ASGHC9CA  Using_"ji"_to_mean_"several"
+  ASGIQPUJ  Expressing future with "jiang"
+  ASGWN185  Expressing "when" with "de shihou"
+  ASGZH7K3  Affirmative-negative question
+  ASG1F4D1  Expressing "in this way" with "zheyang"
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+  ASG6F157  Expressing "originally" with "benlai"
+  ASGA1B87  Emphasizing with "henshi"
+  ASGD4EC8  Simple rhetorical questions
+  ASGEEA2D  Expressing "double negation"
+  ASGN8C8R  Expressing "only" with "zhi"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-49
+Tagging 82 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_214046.txt
+  ...100/188
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-49
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Result complements (结果补语) - verbs followed by complements indicating the result or completion of an action
+
+**Covers:** 
+- Verb + result complement (adjective or single-syllable verb: 错/懂/干净/好/会/清楚/完/到/见/走/掉/坏/晚/饱/破) indicating an action's result
+- With or without 了 after the complement
+- Negation with 没 instead of 不
+- BA construction with result complement
+
+**Does not cover:**
+- 会/能 as modal verbs expressing ability, possibility, or future (你会来吗？)
+- 好 as an adjective meaning "good" or in compound words like 好像, 好吃, 好听, 好看, 好玩, 好用, 好写, 好找
+- 好 expressing purpose (好 + verb to mean "in order to")
+- 最好, 只好, 好不容易, 正好, 还好 as adverbial expressions
+- 好 in tag questions (好吗？) 
+- 难 as an adverb meaning "difficult"
+- 不知道 + verb + 好 expressions
+
+```rule
+match: /VV /VA|VV /AS?
+match: /VV /VA|VV $ 
+match: /AD /VV /VA|VV
+unless: 会/VV 来/VV
+unless: 会/VV 做/VV
+unless: 会/VV 回/VV
+unless: 会/VV 来/VV 看/VV
+unless: 会/VV 赢/VV
+unless: 会/VV 哭/VV
+unless: 会/VV 冷/VV
+unless: 会/VV 辣/VV
+unless: 会/VV 火/VV
+unless: 会/VV 明白/VV
+unless: 能/VV 做/VV
+unless: 好像/AD
+unless: 最好/AD
+unless: 只好/AD
+unless: 正好/AD
+unless: 还好/AD
+unless: 好不容易/AD
+unless: 好/AD 不/AD 容易/VA
+unless: 不/AD 知道/VV _ _ 好/VA
+unless: 不/AD 知道/VV _ 好/VA
+unless: 不/AD 知道/VV 说/VV 什么/PN 好/VA
+unless: 很/AD 好/AD
+unless: 很/AD /VA
+unless: /AD 好/AD
+unless: 好/AD /VV
+unless: 好/AD 入/VV
+unless: 好/AD 让/VV
+unless: 好/AD 找/VV
+unless: 难/AD /VV
+```
+
+**Notes:** The rule targets the core pattern: verb followed directly by a result complement (adjective or single-syllable verb). Negation with 没 before the verb is included. The extensive unless: list is necessary to exclude near-homonyms (会/好/能 as modals or in other constructions, 好/难 as adjectives or adverbs, adverbial phrases). Patterns match complements with optional 了 immediately after, or at clause end. Focus on precision over recall given the many competing uses of these common words.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-49
+Tagging 91 labeled example(s) (cached after this run)...
+  ...100/188
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-49: rule on labeled examples (no AI) ===
+  examples of 2-49 matched:    29/41
+  counter-examples wrongly matched: 1/147   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (1) ---
+  我们好不容易才做完这个项目，结果合同取消了。  -- ASG81QV3 Expressing difficulty with "hao (bu) rongyi"  [matched: /VV 错|懂|干净|清楚|饱|坏|晚|破|完|好]
+
+--- examples of 2-49 the rule misses (12) ---
+  你踩到了我的脚。  -- ASGNNMST Result complements
+  我不小心撞到了墙。  -- ASGNNMST Result complements
+  我女儿学会了数数。  -- ASGNNMST Result complements
+  我爸爸还没学会用智能手机。  -- ASGNNMST Result complements
+  老师拿走了我的iPad。  -- ASGNNMST Result complements
+  小偷偷走了我的钱包。  -- ASGNNMST Result complements
+  他不小心推倒了一个老人。  -- ASGNNMST Result complements
+  你撞倒了我的自行车。  -- ASGNNMST Result complements
+  谁扔掉了我的袜子？  -- ASGNNMST Result complements
+  我卖掉了我的旧手机。  -- ASGNNMST Result complements
+  小偷把我的钱包偷走了。  -- ASGNNMST Result complements
+  你能吃完吗？  -- ASGNQUC1 Result complement "-wan" for finishing

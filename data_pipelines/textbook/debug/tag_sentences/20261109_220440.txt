@@ -1,0 +1,16 @@
+2026-11-09 22:04:40,398  INFO     === tag_sentences.py run started ===
+2026-11-09 22:04:40,654  INFO     OK        hanlp-valid   '好多朋友和熟人来了。' -> [('好多', 'CD'), ('朋友', 'NN'), ('和', 'CC'), ('熟人', 'NN'), ('来', 'VV'), ('了', 'AS')]
+2026-11-09 22:04:40,656  INFO     TAGGED    '好多朋友和熟人来了。' (level 5, 6 tags)
+2026-11-09 22:04:40,664  INFO     OK        hanlp-valid   '五和三的总和是八。' -> [('五', 'CD'), ('和', 'CC'), ('三', 'CD'), ('的', 'DEG'), ('总和', 'NN'), ('是', 'VC'), ('八', 'CD')]
+2026-11-09 22:04:40,668  INFO     TAGGED    '五和三的总和是八。' (level 7, 7 tags)
+2026-11-09 22:04:40,676  INFO     OK        hanlp-valid   'Tom和Mary是亲密的朋友。' -> [('Tom', 'NR'), ('和', 'CC'), ('Mary', 'NR'), ('是', 'VC'), ('亲密', 'JJ'), ('的', 'DEG'), ('朋友', 'NN')]
+2026-11-09 22:04:40,678  INFO     TAGGED    'Tom和Mary是亲密的朋友。' (level 6, 5 tags)
+2026-11-09 22:04:40,685  INFO     FALLBACK  'Tom和Mary有三只猫和两只狗。' -- out-of-list word(s): ['三只', '两只']
+2026-11-09 22:04:40,685  WARNING    HAIKU resegment call for 'Tom和Mary有三只猫和两只狗。' (cache miss on [('三只', 'CD')])
+2026-11-09 22:04:40,700  INFO     TAGGED    'Tom和Mary有三只猫和两只狗。' (level 1, 9 tags)
+2026-11-09 22:04:40,707  INFO     OK        hanlp-valid   '和气点。' -> [('和气', 'VA'), ('点', 'AD')]
+2026-11-09 22:04:40,708  INFO     TAGGED    '和气点。' (level 7, 2 tags)
+2026-11-09 22:04:41,333  INFO     OK        hanlp-valid   '天气暖和。' -> [('天气', 'NN'), ('暖和', 'VA')]
+2026-11-09 22:04:41,344  INFO     TAGGED    '天气暖和。' (level 4, 2 tags)
+2026-11-09 22:04:41,351  INFO     OK        hanlp-valid   '二加三加四的和是九。' -> [('二', 'CD'), ('加', 'VV'), ('三', 'CD'), ('加', 'VV'), ('四', 'CD'), ('的', 'DEG'), ('和', 'NN'), ('是', 'VC'), ('九', 'CD')]
+2026-11-09 22:04:41,354  INFO     TAGGED    '二加三加四的和是九。' (level 3, 9 tags)

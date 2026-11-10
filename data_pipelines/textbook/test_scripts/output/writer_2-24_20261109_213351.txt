@@ -1,0 +1,41 @@
+## 2-24
+**Point:** Using 从 (cóng) and 离 (lí) to express "from" in spatial, temporal, or source contexts
+
+**Covers:** 
+- 从 + Place + verb (motion/action from a location)
+- 从 + Place + 到 + Place (from place to place)
+- 从 + Time + 到 + Time (from time to time)
+- 从 + Time/Event + 开始/起 (starting from)
+- 从 + Source (noun/person/abstract) + verb (taking/learning from)
+- 离 + Event/State + 还/还有 + duration (distance in time from an event)
+- 离 + Time/Event + duration (time distance)
+
+**Does not cover:**
+- 从来 (AD) meaning "always" or "never" — this is a time adverb, not the spatial/temporal "from" preposition
+- 从而 (AD) meaning "thereby/thus" — this is a conjunctive adverb connecting clauses
+- 自从 — this is a separate HSK 3 grammar point
+- 从 + 开始/起 without a clear time/event — covered in HSK 3-39
+- 从...来看 — covered in HSK 5-26
+- Adverbial uses like 从小, 从中, 从此, 从前(these are fixed expressions/adverbs, not the preposition use)
+
+```rule
+match: 从/P ... (到|起|开始|里|上|身上|中)
+match: 离/P ... (还|有|远|近)
+unless: 从来/AD
+unless: 从而/AD
+unless: 自从/P
+unless: 从小/AD
+unless: 从中/AD
+unless: 从此/AD
+unless: 从前/NT
+unless: 从事/VV
+unless: 从不/AD
+unless: 从/AD 没
+```
+
+**Notes:** 
+- The rule focuses on 从 as preposition (P tag) and 离 as preposition (P tag), not as adverbs (AD tag)
+- Key pattern: preposition + (place/time/source/event) + directional/temporal marker or verb
+- Counter-examples show that when 从 appears as AD tag (从来, 从不, 从小, etc.), it's not this grammar point
+- Watch for 从事 which is a verb meaning "to engage in" — it uses 从 as part of a verb compound, not as the preposition
+- The "unless" lines exclude adverbial forms and other HSK levels' grammar points that use the same characters

@@ -1,0 +1,99 @@
+
+########## rules  2026-11-09 21:54 ##########
+26 page(s) use the word(s); asking about 26.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGG25MD  The "also" adverb "ye"
+
+not:
+  ASG7R8US  Expressing "never again" with "zai ye bu"
+  ASGAA381  Expressing "even so" with "zaibu... ye..."
+  ASGAQV6C  Expressing "everything" with "shenme dou"
+  ASGF1TQ2  Expressing "even if…" with "jiushi"
+  ASGF3F2Y  Expressing "would rather" with "ningke"
+  ASGF9320  Expressing "not only..., even..." using "budan..., shenzhi lian"
+  ASGHOI8S  Expressing "let alone" with "geng buyong shuo"
+  ASGLI513  Expressing "even if…" with "jiusuan"
+  ASGR6Q2J  Expressing "let alone" with "bie shuo"
+  ASGRURCZ  Expressing "not at all" with "yidianr ye bu"
+  ASGUQ861  Expressing "not even one"
+  ASGXX3NY  Expressing "even if…" with "napa"
+  ASG1RE80  Expressing contrariness with "dao"
+  ASG6ZI8L  Expressing "no matter" with "wulun"
+  ASGBUXN7  Expressing "even if…" with "jishi"
+  ASGKWV6F  Expressing "even" with "shenzhi"
+  ASGP8DXU  Expressing "any" with "renhe"
+
+unsure:
+  ASG8GSXY  Using "ye" and "dou" together
+  ASGZRPCK  Expressing "both… and…" with "ji...you"
+
+unrelated:
+  ASGHFPGG  Expressing "except" and "in addition" with "chule… yiwai"
+  ASGJ1VZQ  Many types of "not only... but also..."
+  ASGJBZKC  Expressing "and also" with "hai"
+  ASGTYJ3E  Expressing "not only... but also" with "budan... erqie..."
+  ASGV55Y4  Comparing "youdian" and "yidian"
+  ASGB781C  Expressing "moreover" with "bingqie"
+
+[note] ASGG25MD is tagged HSK [1] on the wiki, the point is HSK 3 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 3-60
+Tagging 8 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215438.txt
+  ...100/119
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-60
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** The adverb 也 (yě) meaning "also" or "too", placed after the subject and before the verb/adjective to express that someone/something shares the same quality or action as another.
+
+**Covers:** 
+- Subject + 也 + Verb (他也喜欢。)
+- Subject + 也 + Adjective with 很 (他也很胖。)
+- Subject + 也 + 是 + Noun (我也是学生。)
+- Subject + 也 + Negation + Verb (我也不知道。)
+- Subject + 也 + Modal Verb + Verb (他们也会去吗？)
+- Simple parallel structures showing "also" relationship between two similar clauses
+
+**Does not cover:** 
+- Conditional/concessive structures (即使...也, 就算...也, 哪怕...也, etc.) where 也 means "still/even so" in a condition-consequence relationship
+- "Never again" with 再也不/没
+- 甚至连...也 (even/let alone structure)
+- 宁可...也 (rather...than structure)
+- 一点儿也不 (not at all)
+- 连...也 (even...as well)
+- 倒也 (contrariness)
+- Structures with preceding markers like 别说, 就是, 不但, etc.
+
+```rule
+match: /PN|NN|NR|DT _ ... 也/AD ... /VV|VA|VC|VE
+unless: 再/AD 也/AD
+unless: 甚至/AD
+unless: 宁可/AD
+unless: 连/AD
+unless: 一/CD _ 也/AD
+unless: 就算|就是|即使|哪怕|别|倒|不但|更|无论|不管/CS|AD|CC
+```
+
+**Notes:** The rule looks for a subject (pronoun, noun, proper noun, or determiner + noun), followed somewhere by 也/AD tagged as adverb, then a predicate (verb, adjective, copula, or 有). It excludes 再也 (which marks "never again"), and excludes sentences with preceding markers that indicate other grammar points (conditionals, concessions, contrasts, emphasis structures). The pattern is deliberately loose with `...` to allow adverbials like 很 between subject and main predicate. Exclude sentences with 再也 early to avoid the HSK 5-57 point.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-60
+Tagging 8 labeled example(s) (cached after this run)...
+  ...100/119
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-60: rule on labeled examples (no AI) ===
+  examples of 3-60 matched:    26/26
+  counter-examples wrongly matched: 8/93   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (8) ---
+  就是降温了，我也要穿热裤，时尚嘛!  -- ASGF1TQ2 Expressing "even if…" with "jiushi"  [matched: /PN|NN|NR|NT 也/AD ... /VV|VA|VC|VE]
+  就是他变成一个穷光蛋，我也愿意跟他在一起。  -- ASGF1TQ2 Expressing "even if…" with "jiushi"  [matched: /PN|NN|NR|NT 也/AD ... /VV|VA|VC|VE]
+  我就是被炒鱿鱼了，我也不想做违法的事情。  -- ASGF1TQ2 Expressing "even if…" with "jiushi"  [matched: /PN|NN|NR|NT 也/AD ... /VV|VA|VC|VE]
+  就是你买了车，我也不会嫁给你的。  -- ASGF1TQ2 Expressing "even if…" with "jiushi"  [matched: /PN|NN|NR|NT 也/AD ... /VV|VA|VC|VE]
+  就是路上没有人，你也不应该闯红灯。  -- ASGF1TQ2 Expressing "even if…" with "jiushi"  [matched: /PN|NN|NR|NT 也/AD ... /VV|VA|VC|VE]
+  就算你说的都是真的，我们也没办法证明。  -- ASGLI513 Expressing "even if…" with "jiusuan"  [matched: /PN|NN|NR|NT 也/AD ... /VV|VA|VC|VE]
+  就算他说他请客，我也要买单。  -- ASGLI513 Expressing "even if…" with "jiusuan"  [matched: /PN|NN|NR|NT 也/AD ... /VV|VA|VC|VE]
+  就算再穷，她也不去要饭。  -- ASGLI513 Expressing "even if…" with "jiusuan"  [matched: /PN|NN|NR|NT 也/AD ... /VV|VA|VC|VE]

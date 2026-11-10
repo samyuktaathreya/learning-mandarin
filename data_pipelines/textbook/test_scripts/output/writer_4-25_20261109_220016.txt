@@ -1,0 +1,12 @@
+## 4-25
+**Point:** Using 看来 to express the speaker's assessment or perspective on a situation
+**Covers:** Sentences where 看来 appears at or near the start of a clause to introduce an assessment ("it seems," "apparently," "in X's view"), with or without the 在...看来 structure
+**Does not cover:** Other uses of 看 and 来 as separate verbs; the HSK 5-31 point 在...看来 when it functions as a distinct framing structure without 看来 as a single unit
+
+```rule
+match: 看来/VV
+match: 在/P _ 看来/VV
+unless: 看起来/VV
+```
+
+**Notes:** The first pattern catches 看来 tagged as VV at the start of a clause or after a time word/adverb. The second pattern catches the 在 + NOUN/PN + 看来 structure. Both patterns treat 看来 as a unified adverbial marker of assessment. The rule excludes 看起来 (which means "looks like" visually, HSK 4-26) as a common false positive. One labeled example tags 看来 as AD (明天不会再下雨了), likely an error, but VV is the standard tag for this point; the VV match will still catch most correct instances. The 在...看来 pattern uses a wildcard for person/noun between 在 and 看来 to accommodate various subjects (我, 他, 朋友, 老板, etc.).

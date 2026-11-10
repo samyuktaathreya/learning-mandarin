@@ -1,0 +1,12 @@
+## 4-30
+**Point:** Expressing "ever since" with 以来 or 来 after a time period or event
+**Covers:** Sentences with 以来 or 来 (tagged LC) that express a continuous state/action from a past time/event to the present, typically at the start of a clause
+**Does not cover:** The verb 来自 (to come from) which is tagged VV, not LC; uses of 自 as a preposition or in other contexts; other HSK 3 grammar points like 自从
+
+```rule
+match: ... 以来/LC
+match: ... 来/LC
+unless: 来自/VV
+```
+
+**Notes:** The key distinguishing feature is the LC (localizer) tag for 以来 or 来. The verb 来自 (meaning "to come from") will be tagged VV, so the unless clause filters it out. Sentences with 以来/LC or 来/LC should match whether or not they have optional preceding elements like 自/P or 从/P. The grammar point typically appears at or near the start of a clause followed by a predicate describing what has happened since that time.

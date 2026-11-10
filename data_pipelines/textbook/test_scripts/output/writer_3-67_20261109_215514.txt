@@ -1,0 +1,18 @@
+## 3-67
+**Point:** 不是⋯⋯，就是⋯⋯ — expressing that a situation is one of only two possibilities
+**Covers:** The structure with 不是 + A，就是 + B where A and B are the two exhaustive alternatives (can be verbs, adjectives, nouns, or phrases), appearing in the same clause or across punctuation-separated clauses
+**Does not cover:** 要不是 (if it were not for), 就是 + hypothetical + 也 (even if), 而是 (but rather), 就是 when used for identification/emphasis alone, 别说⋯就是 (let alone), concessive 是⋯就是 (X is X, but...), 岂不是 (rhetorical), or 要是/就 (if-then conditional)
+
+```rule
+match: 不/AD 是/VC ... 就是/AD|CC
+match: 不/AD 是/VC ... 就/AD 是/VC
+unless: 而/AD|CC 是/VC
+unless: 要/VV 不/AD 是/VC
+unless: 也/AD 不/AD 是/VC
+unless: 别说/AD
+unless: 岂不/AD 是/VC
+unless: 是/VC ... 是/VC ‖ 就是/AD
+unless: /VA 是/VC /VA ‖ 就是/AD
+```
+
+**Notes:** The pattern looks for 不是 followed by content and then 就是 (tagged as AD or CC depending on position). The unless clauses exclude: (1) 而是 structures (different grammar), (2) 要不是 (counterfactual), (3) X也不是⋯ (different pattern from HSK 5-60), (4) 别说 (let alone structure), (5) 岂不是 (rhetorical), (6) concessive structures where an adjective + 是 + adjective precedes 就是. The core pattern requires both parts present in the sentence to confirm the two-alternatives meaning.

@@ -1,0 +1,30 @@
+## 2-51
+**Point:** Degree complement with 得: Verb + 得 + Adjective/Degree modifier to express how an action is performed or to what degree a quality is true
+
+**Covers:** Verb + 得 + adjective or degree modifier (including adverbs like 很, 太, 挺 + adjective; or bare adjectives), expressing the manner or result of a verb action
+
+**Does not cover:** Potential complements (得 + resultative verbs like 懂, 会, 了); Modal 得 meaning "must"; 不得不; 值得; 显得; 害得; 怪不得; adjectives + 得很/得不得了 (adjectival complements); 得 as a separate verb meaning "get/obtain"
+
+```rule
+match: /VV /DER /AD? /VA
+match: /VV /DER /VA
+match: /VV /VV /DER /AD? /VA
+unless: 不得不
+unless: 值得
+unless: 显得
+unless: 害
+unless: 怪不得
+unless: 难怪
+unless: /DER 倒 /VA
+unless: /DER 不得了
+unless: /DER 得很
+unless: /DER 得不得了
+unless: /DER 得很
+unless: /DER 很 /AD
+unless: /VV /DER /VV
+unless: /DER /VV 吗
+unless: /DER /VV 咦
+unless: /VV /DER 得 /VV
+```
+
+**Notes:** This rule captures the core structure of degree complements following verbs. It matches: (1) VV + 得 + optional AD + VA; (2) VV + 得 + VA directly; (3) VV + VV + 得 + optional AD + VA (for verb-repetition pattern with objects). Exclusions remove potential complements (得 followed by resultative verbs), the "倒" contrary pattern, modal uses, and related structures. The pattern /VV /DER /VV is excluded to avoid matching potential complements. Note that some counter-examples show 得 tagged as DEC (structural particle) rather than DER; these won't match the rule's DER requirement, so they're naturally excluded.

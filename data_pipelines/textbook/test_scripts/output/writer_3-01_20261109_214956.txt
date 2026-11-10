@@ -1,0 +1,11 @@
+## 3-01
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Ordinal numbers with 第 (dì)
+**Covers:** 第 + number (+ measure word) (+ noun) used to express ordinal position ("first", "second", "third"). This includes 第一次, 第二个月, 第一周, and bare predicate use such as 我们班第一.
+**Does not cover:** 老 or 小 in other uses (频率副词 "always", age/size comparison, or inside words like 老师, 小说). It also does not cover floor numbers without 第, such as 七楼.
+
+```rule
+match: 第一|第二|第三|第四|第五|第六|第七|第八|第九|第十|第十一|第十二|第十三|第十四|第十五|第二十|第一百/CD
+```
+
+**Notes:** The tagger fuses 第 with the number into a single CD token (第一/CD, 第二/CD), so the earlier patterns on a standalone 第/CD never matched. The rule now matches the fused tokens directly. A fused 第N token is itself the ordinal structure, so the optional measure word, noun, or bare predicate use (班第一) does not need to be checked. The old unless clauses on 老 and 小 are removed. They could not help precision, because those words do not appear inside a 第N token, and they only risked blocking valid sentences that also contain 老 or 小. 老是 and 比…大/小 sentences contain no 第N token, so they are not matched.

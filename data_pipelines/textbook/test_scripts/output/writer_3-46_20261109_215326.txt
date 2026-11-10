@@ -1,0 +1,26 @@
+## 3-46
+
+**Point:** Result complements 到, 住, 开 and 出(来) after a verb, showing that the action reached its result (including 看见/听见 and 打开)
+
+**Covers:** Verb + 到/住/开/出/出来 where the complement marks the result of the action, e.g. 看到, 买到, 接住, 抓住, 张开, 想开, 想出, 做出来, 听出来. Also the fused sense-verb compounds 看见/听见/遇见 and 打开.
+
+**Does not cover:** 到 meaning "arrive at a place", "until (time)", "less than", or "from...to". Also excluded: 住 as a main verb "to live" (想住, 住在), 开 as "to drive/hold" (想开车), 出 in 出门/出国, and modal + 开/出/住 where the second verb is the main verb.
+
+```rule
+match: /VV 到|住|开|出|出来/VV
+match: 看见|听见|遇见|碰见|梦见|打开 /VV
+unless: 一直/AD ... 到/VV
+unless: 从/P ... 到
+unless: 来|去|回|走|跑|飞|坐|搬|送|带|赶|等|玩|睡|忙|工作|聊|坚持|待|站 到/VV
+unless: 到 /NR
+unless: 到 /NT
+unless: 到 /CD
+unless: 到 /VV 家|机场|现场|了解|达|时候|底
+unless: 想|要|会|能|可以|愿意|应该|敢|准备|打算|喜欢|希望|决定|得 住/VV
+unless: 要|会|能|可以|愿意|应该|敢|准备|打算|喜欢|希望|决定|得 开|出|出来/VV
+unless: 住/VV 在|着|进
+unless: 开/VV 车|门|会|店|灯|窗|玩笑|始|学|工|机|火|花|药|刀
+unless: 出/VV 门|国|差|发|席|版|名|现|院|事
+```
+
+**Notes:** The complements are tagged VV, so the match looks for a verb followed directly by 到/住/开/出/出来. Fused compounds (看见, 听见, 打开) are separate tokens and have their own match line. The unless lines remove 到 uses that mean arrival, "until" or "from…to" (a place or time word after 到, motion or duration verbs before it). They also remove cases where 开/出/住 are really main verbs after a modal (想开车, 

@@ -1,0 +1,41 @@
+## 2-49
+**Point:** Result complements (结果补语): a verb followed directly by 错/懂/干净/好/清楚/完 (also 饱/坏/晚/破), showing the result of the action.
+
+**Covers:**
+- Verb + result complement, with or without 了: 写错了, 没看懂, 做完, 吃好了, 听清楚, 玩坏了, 来晚了, 吃饱
+- Negation with 没: 我没吃饱, 他还没想好
+- Sentences where the object is moved to the front or into a 把 phrase, as long as the verb and complement stay adjacent
+
+**Does not cover:**
+- 会/能 as modals, or 会 in any other use (你会来吗？, 他会说中文)
+- 好 as an adjective, or in 好像, 好吃, 好看, 好玩, 好写, 好懂
+- 好 meaning "in order to"
+- 最好, 只好, 正好, 还好, 好(不)容易
+- 好 in tag questions (好吗？)
+- 不知道 + verb phrase + 好
+- 觉得好 and similar "think it's good" patterns
+- 到/见/走/掉 complements, which this rule leaves out for precision
+
+```rule
+match: /VV 错|懂|干净|清楚|饱|坏|晚|破|完|好
+unless: 会/VV
+unless: 能/VV
+unless: 还/AD 好/VA
+unless: 好/VA 容易/VA
+unless: 好容易/AD
+unless: 好不容易/AD
+unless: 好不容易
+unless: 好像/AD
+unless: 最好/AD
+unless: 只好/AD
+unless: 正好/AD
+unless: 还好/AD
+unless: 不/AD 知道/VV ... 好/VA
+unless: 不/AD 知道/VV ... 好
+unless: 觉得|认为|希望|祝|感觉 好
+unless: 好/AD 懂|写|找|用|学|做|看|吃
+unless: 难/AD /VV
+unless: 好/AD /VV
+```
+
+**Notes:** The rule matches only a verb immediately followed by one of the listed complement words. The old rule matched any two adjacent verbs, which let in every 会 + verb sentence. Any sentence containing 会 or 能 as a verb is now excluded, and so are the 好 constructions (还好, 好容易, 不知道…好, 觉得好). The rule favors precision over recall, so it misses complements that the tagger fuses into a single word, such as 看懂 if tokenized as one word.

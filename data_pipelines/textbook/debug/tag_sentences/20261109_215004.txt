@@ -1,0 +1,34 @@
+2026-11-09 21:50:04,331  INFO     === tag_sentences.py run started ===
+2026-11-09 21:50:04,585  INFO     FALLBACK  '先洗手再吃。' -- out-of-list word(s): ['洗手']
+2026-11-09 21:50:04,585  WARNING    HAIKU resegment call for '先洗手再吃。' (cache miss on [('洗手', 'VV')])
+2026-11-09 21:50:04,597  INFO     TAGGED    '先洗手再吃。' (level 3, 5 tags)
+2026-11-09 21:50:04,605  INFO     OK        hanlp-valid   '我喜欢先洗澡，再睡觉。' -> [('我', 'PN'), ('喜欢', 'VV'), ('先', 'AD'), ('洗澡', 'VV'), ('再', 'AD'), ('睡觉', 'VV')]
+2026-11-09 21:50:04,607  INFO     TAGGED    '我喜欢先洗澡，再睡觉。' (level 3, 6 tags)
+2026-11-09 21:50:04,615  INFO     FALLBACK  '请你先买票再进去。' -- out-of-list word(s): ['买票']
+2026-11-09 21:50:04,615  WARNING    HAIKU resegment call for '请你先买票再进去。' (cache miss on [('买票', 'VV')])
+2026-11-09 21:50:04,628  INFO     TAGGED    '请你先买票再进去。' (level 3, 7 tags)
+2026-11-09 21:50:04,637  INFO     OK        hanlp-valid   '你要先做作业，再看电视。' -> [('你', 'PN'), ('要', 'VV'), ('先', 'AD'), ('做', 'VV'), ('作业', 'NN'), ('再', 'AD'), ('看', 'VV'), ('电视', 'NN')]
+2026-11-09 21:50:04,640  INFO     TAGGED    '你要先做作业，再看电视。' (level 3, 8 tags)
+2026-11-09 21:50:04,648  INFO     OK        hanlp-valid   '我想先找工作，再搬家。' -> [('我', 'PN'), ('想', 'VV'), ('先', 'AD'), ('找', 'VV'), ('工作', 'NN'), ('再', 'AD'), ('搬家', 'VV')]
+2026-11-09 21:50:04,650  INFO     TAGGED    '我想先找工作，再搬家。' (level 3, 7 tags)
+2026-11-09 21:50:04,666  INFO     OK        hanlp-valid   '先吃饭再说。' -> [('先', 'AD'), ('吃饭', 'VV'), ('再说', 'VV')]
+2026-11-09 21:50:04,670  INFO     TAGGED    '先吃饭再说。' (level 4, 4 tags)
+2026-11-09 21:50:04,678  INFO     FALLBACK  '先休息一下再说。' -- out-of-list word(s): ['一下']
+2026-11-09 21:50:04,678  INFO       CACHE-ONLY resegmentation -> [('先', 'AD'), ('休息', 'VV'), ('一', 'CD'), ('下', 'M'), ('再说', 'VV')]
+2026-11-09 21:50:04,679  INFO     TAGGED    '先休息一下再说。' (level 4, 5 tags)
+2026-11-09 21:50:04,687  INFO     FALLBACK  '你先看完再说。' -- out-of-list word(s): ['看完']
+2026-11-09 21:50:04,687  WARNING    HAIKU resegment call for '你先看完再说。' (cache miss on [('看完', 'VV')])
+2026-11-09 21:50:04,698  INFO     TAGGED    '你先看完再说。' (level 4, 5 tags)
+2026-11-09 21:50:04,707  INFO     FALLBACK  '我先问一下老板再说。' -- out-of-list word(s): ['一下']
+2026-11-09 21:50:04,707  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('先', 'AD'), ('问', 'VV'), ('一', 'CD'), ('下', 'M'), ('老板', 'NN'), ('再说', 'VV')]
+2026-11-09 21:50:04,709  INFO     TAGGED    '我先问一下老板再说。' (level 5, 7 tags)
+2026-11-09 21:50:04,718  INFO     FALLBACK  '你们先讨论一下再说。' -- out-of-list word(s): ['一下']
+2026-11-09 21:50:04,718  INFO       CACHE-ONLY resegmentation -> [('你们', 'PN'), ('先', 'AD'), ('讨论', 'VV'), ('一', 'CD'), ('下', 'M'), ('再说', 'VV')]
+2026-11-09 21:50:04,720  INFO     TAGGED    '你们先讨论一下再说。' (level 4, 6 tags)
+2026-11-09 21:50:04,731  INFO     OK        hanlp-valid   '今天早上我起床以后先准备早饭，再叫孩子们起床，接着我们一起吃早饭，然后我送他们去学校。' -> [('今天', 'NT'), ('早上', 'NT'), ('我', 'PN'), ('起床', 'VV'), ('以后', 'LC'), ('先', 'AD'), ('准备', 'VV'), ('早饭', 'NN'), ('再', 'AD'), ('叫', 'VV'), ('孩子', 'NN'), ('们', 'NN'), ('起床', 'VV'), ('接着', 'AD'), ('我们', 'PN'), ('一起', 'AD'), ('吃', 'VV'), ('早饭', 'NN'), ('然后', 'AD'), ('我', 'PN'), ('送', 'VV'), ('他们', 'PN'), ('去', 'VV'), ('学校', 'NN')]
+2026-11-09 21:50:04,737  INFO     TAGGED    '今天早上我起床以后先准备早饭，再叫孩子们起床，接着我们一起吃早饭，然后我送他们去学校。' (level 4, 24 tags)
+2026-11-09 21:50:04,747  INFO     FALLBACK  '我们做完作业再玩儿游戏。' -- out-of-list word(s): ['做完']
+2026-11-09 21:50:04,747  INFO       CACHE-ONLY resegmentation -> [('我们', 'PN'), ('做', 'VV'), ('完', 'VV'), ('作业', 'NN'), ('再', 'AD'), ('玩儿', 'VV'), ('游戏', 'NN')]
+2026-11-09 21:50:04,752  INFO     TAGGED    '我们做完作业再玩儿游戏。' (level 3, 8 tags)
+2026-11-09 21:50:04,760  INFO     OK        hanlp-valid   '你洗了手再吃水果。' -> [('你', 'PN'), ('洗', 'VV'), ('了', 'AS'), ('手', 'NN'), ('再', 'AD'), ('吃', 'VV'), ('水果', 'NN')]
+2026-11-09 21:50:04,761  INFO     TAGGED    '你洗了手再吃水果。' (level 2, 7 tags)

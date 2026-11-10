@@ -1,0 +1,11 @@
+## 2-67
+**Point:** Expressing "as long as" with 只要……就…… (conditional structures where a sufficient condition leads to a result)
+**Covers:** Sentences with 只要 + Condition ‖ 就 + Result, where the condition is sufficient for the result to occur
+**Does not cover:** Other uses of 就 such as: expressing earliness/immediacy (时间意义), expressing small quantity, emphasis, indifference, "even if" (就是/就算), "not...then" patterns (不是...就是), scope marking with 就, or other conditional structures using different markers (如果, 假如, 要是, 一旦, etc.)
+
+```rule
+match: 只要/CS ... 就/AD
+unless: 不是/AD _ 就/AD | 就是/AD | 就算/CS | 一旦/CS _ 就/AD | 一/AD _ 就/AD | 再不/AD _ 就/AD | 要不是/AD | 要/VV _ 就/AD | /NT _ 就/AD | /P | /CS
+```
+
+**Notes:** The rule requires 只要 tagged as CS (subordinating conjunction) in an earlier clause, followed by 就 tagged as AD (adverb) in a later clause. The `unless` conditions exclude: (1) "不是...就是" pattern (expressing "either...or"), (2) "就是" when it introduces emphasis or "even if", (3) "就算" (expressing "even if"), (4) "一旦...就" (expressing "once"), (5) "一...就" (expressing quick succession), (6) "再不...就" (expressing last chance), (7) "要不是" (expressing "if not for"), (8) "要...就" (expressing conditionality with different nuance), (9) time nouns followed by 就 (expressing earliness), (10) 就 as a preposition (marking scope). The pattern matches across clause boundaries marked by punctuation.

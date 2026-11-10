@@ -1,0 +1,22 @@
+## 2-35
+
+**Point:** Using 的话 to express a conditional "if" (usually with 如果/要是/假如 before it, or a negative condition like 不…的话), and using 等 as "etc." after a list of items.
+
+**Covers:**
+- Conditional clauses framed as 如果/要是/假如/假设/若是 … 的话, with or without 就 in the next clause
+- Negative conditions of the form 不 … 的话, e.g. 不想去的话就别去了
+- 等 as an "et cetera" marker after a list of items
+
+**Does not cover:**
+- Topic marking with 的话, such as 北京的话，秋天去最好 or 买衣服的话，还是要去实体店试试的, where 的话 introduces a topic and no "if" is meant
+- 的话 as a noun meaning "words/speech" (tagged DEG, not SP)
+- Implied conditionals with no 的话, such as 喜欢就拿走吧 (too hard to separate from ordinary 就 sentences, so they are missed on purpose)
+- Bare verb-phrase + 的话 with no 如果-type word and no negation, which is too easily a topic
+
+```rule
+match: 如果|要是|假如|假设|假使|若是|如若 ... 的话/SP
+match: 不|没|没有 ... 的话/SP
+match: 等/ETC
+```
+
+**Notes:** The rule now requires explicit evidence of a condition before 的话: a conditional conjunction in the same clause, or a negation such as 不/没. Topic-marking 的话 almost never has either, so the topic counter-examples are no longer matched. Unmarked cases like 你要来的话 are given up for the sake of precision, because they look the same as topic uses. 等 as an etc. marker is kept as before.

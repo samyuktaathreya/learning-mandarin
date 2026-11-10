@@ -1,0 +1,54 @@
+## 2-49
+**Point:** Result complements (结果补语) - verbs followed by complements indicating the result or completion of an action
+
+**Covers:** 
+- Verb + result complement (adjective or single-syllable verb: 错/懂/干净/好/会/清楚/完/到/见/走/掉/坏/晚/饱/破) indicating an action's result
+- With or without 了 after the complement
+- Negation with 没 instead of 不
+- BA construction with result complement
+
+**Does not cover:**
+- 会/能 as modal verbs expressing ability, possibility, or future (你会来吗？)
+- 好 as an adjective meaning "good" or in compound words like 好像, 好吃, 好听, 好看, 好玩, 好用, 好写, 好找
+- 好 expressing purpose (好 + verb to mean "in order to")
+- 最好, 只好, 好不容易, 正好, 还好 as adverbial expressions
+- 好 in tag questions (好吗？) 
+- 难 as an adverb meaning "difficult"
+- 不知道 + verb + 好 expressions
+
+```rule
+match: /VV /VA|VV /AS?
+match: /VV /VA|VV $ 
+match: /AD /VV /VA|VV
+unless: 会/VV 来/VV
+unless: 会/VV 做/VV
+unless: 会/VV 回/VV
+unless: 会/VV 来/VV 看/VV
+unless: 会/VV 赢/VV
+unless: 会/VV 哭/VV
+unless: 会/VV 冷/VV
+unless: 会/VV 辣/VV
+unless: 会/VV 火/VV
+unless: 会/VV 明白/VV
+unless: 能/VV 做/VV
+unless: 好像/AD
+unless: 最好/AD
+unless: 只好/AD
+unless: 正好/AD
+unless: 还好/AD
+unless: 好不容易/AD
+unless: 好/AD 不/AD 容易/VA
+unless: 不/AD 知道/VV _ _ 好/VA
+unless: 不/AD 知道/VV _ 好/VA
+unless: 不/AD 知道/VV 说/VV 什么/PN 好/VA
+unless: 很/AD 好/AD
+unless: 很/AD /VA
+unless: /AD 好/AD
+unless: 好/AD /VV
+unless: 好/AD 入/VV
+unless: 好/AD 让/VV
+unless: 好/AD 找/VV
+unless: 难/AD /VV
+```
+
+**Notes:** The rule targets the core pattern: verb followed directly by a result complement (adjective or single-syllable verb). Negation with 没 before the verb is included. The extensive unless: list is necessary to exclude near-homonyms (会/好/能 as modals or in other constructions, 好/难 as adjectives or adverbs, adverbial phrases). Patterns match complements with optional 了 immediately after, or at clause end. Focus on precision over recall given the many competing uses of these common words.

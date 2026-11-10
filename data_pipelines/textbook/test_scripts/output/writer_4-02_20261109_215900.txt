@@ -1,0 +1,11 @@
+## 4-02
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** The word 人家 (rénjia / rénjiā): "other people", "I/me" (often coy, feminine speech), a previously mentioned or mutually known person, and "households" (户 + 人家)
+**Covers:** Any occurrence of the whole word 人家, whatever tag the tagger gives it (PN or NN). That includes 人家 as a pronoun for others, for oneself, or for a known third person, 人家 in a possessive phrase such as 人家的事 (the tagger often marks it NN), and 人家 meaning households, as in 十户人家.
+**Does not cover:** 别人 sentences that have no 人家. 别人 is a different word and appears in many sentences unrelated to this point, so the rule does not match it. Characters 人 and 家 that appear separately or inside other words (e.g. 人家庭) are also not covered, because the rule matches only the whole word 人家.
+
+```rule
+match: 人家
+```
+
+**Notes:** The earlier rule required the PN tag and excluded 户 + 人家/NN. The labeled examples show both are wrong. The tagger labels 人家 as NN in 那是人家的事, and the household use (多少户人家, 十户人家) is explicitly part of this grammar point. So the rule now matches the word 人家 under any tag and has no `unless` clause. Because it matches only the exact token 人家, it stays precise. The labeled 别人 example is deliberately left unmatched. Matching 别人 would let in many unrelated sentences, and a miss costs less than a wrong match.

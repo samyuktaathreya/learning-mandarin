@@ -1,0 +1,23 @@
+## 4-33
+**Point:** Idiomatic phrases with 在 (zài) marking topic/aspect (在...上/下/中)
+**Covers:** Sentences with structure 在 + Topic + (上/下/中) at the start of a clause, expressing "in regards to," "on the topic of," "under [conditions]," or "in [circumstances]"
+**Does not cover:** Location expressions (在 as simple preposition for place); temporal expressions (在...以前/以后, 在...内); action-in-progress (正在...); existence (在 marking location of subject); verbs followed by 在; 在于 "lies in"; 从...中 "from within"; phrases with 在...方面 (covered separately in 4-32); continuation 还在; assessment 在...看来; spatial relations 中间/当中; result complements with 下去; early expressions with 早在; inclusive 在内
+
+```rule
+match: ^ 在/P ... /LC ‖
+unless: 早/AD 在/P
+unless: 从/P
+unless: /VV 在/P
+unless: 以下/AD
+unless: 以上/AD
+unless: 在/P ... 看来/VV
+unless: 在于/VV
+unless: 在/P ... 内/P
+unless: 包括 ... 在/P 内/LC
+unless: 其中/NN
+unless: 当中/LC
+unless: 中间/NN
+unless: 正在/AD
+```
+
+**Notes:** The rule matches clauses starting with 在 + preposition + localizer (上/下/中/里) that introduce a topic or condition. The "unless" lines exclude other grammar points using similar words: 早在 (early), 从 (from), verbs taking 在, 在...看来 (in one's view), 在于 (lies in), 在...内 (within time), 在...中间 (spatial between), 正在 (progressive action), and inclusive phrases. The pattern `. . .` between 在/P and /LC allows noun phrases of any length (modifiers, measure words, etc.). Clauses with 中/LC following noun phrases typically introduce main clause assertions (in this context vs. spatial location), so matching this pattern captures the intended grammar point.

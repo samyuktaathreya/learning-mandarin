@@ -1,0 +1,35 @@
+## 2-33
+**Point:** Aspect particle 着 (zhe) indicating continuous action/state, and alternative existential sentences with 着 or 是
+
+**Covers:** 
+- Verb + 着 to show an action/state that continues or persists (e.g., 坐着 "sitting", 开着 "is on")
+- Verb1 + 着 + Verb2 where the first verb describes a state accompanying an action (e.g., 站着吃饭 "eat standing up")
+- Subj. + Verb + 着 + Object in commands/descriptions (e.g., 看着行李 "watch the luggage")
+- Place + Verb + 着 + NP for existential meaning (e.g., 桌子上放着书 "there is a book on the table")
+- Place + 是 + NP for existential meaning (e.g., 袋子里是我的午饭 "my lunch is in the bag")
+
+**Does not cover:**
+- 来着 (laizhe) meaning "was [formerly]" - counter-example: 我说什么来着
+- Complement 着 after verbs meaning "succeed in" (睡着 "fell asleep", 找着 "found") - counter-example: 宝宝刚睡着
+- 得着/不着 resultative complement - counter-example: 买不着, 找得着
+- 随着 (suizhe) meaning "along with" - counter-example: 随着风摇动
+- 沿着 (yánzhe) meaning "along" - counter-example: 沿着大道走
+- Perfective aspect 了 - only match 着/AS tag, not 了/AS
+
+```rule
+match: /VV 着/AS
+match: /LC 是/VC
+unless: 随着/P
+unless: 沿/P
+unless: /P 着/AS
+unless: 来/VV 着/AS
+unless: /VV 不/AD 着/VV
+unless: /VV 得/DER 着/VV
+```
+
+**Notes:** 
+- The rule prioritizes precision by excluding prepositions (随着, 沿着, and general /P 着/AS patterns) which would catch "along with" uses.
+- It excludes 来着 by matching the specific pattern "来/VV 着/AS".
+- It excludes resultative complements by matching /VV 不/AD 着/VV and /VV 得/DER 着/VV patterns (negation or 得 before 着).
+- The two match patterns cover: (1) the aspect particle case (VV 着), and (2) existential 是 sentences (LC 是).
+- Many unlabeled sentences show 着 used with transitive verbs describing states (摇着, 穿着, 抱着) which should match /VV 着/AS and are part of this grammar point.

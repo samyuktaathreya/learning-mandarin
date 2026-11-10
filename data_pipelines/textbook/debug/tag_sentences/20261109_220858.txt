@@ -1,0 +1,85 @@
+2026-11-09 22:08:58,787  INFO     === tag_sentences.py run started ===
+2026-11-09 22:08:59,096  INFO     FALLBACK  '她始终没致电给我。' -- out-of-list word(s): ['致电']
+2026-11-09 22:08:59,096  WARNING    HAIKU resegment call for '她始终没致电给我。' (cache miss on [('致电', 'VV')])
+2026-11-09 22:08:59,107  INFO     TAGGED    '她始终没致电给我。' (level 7, 7 tags)
+2026-11-09 22:08:59,115  INFO     FALLBACK  '我绝对不会借钱给别人。' -- out-of-list word(s): ['不会', '借钱']
+2026-11-09 22:08:59,115  WARNING    HAIKU resegment call for '我绝对不会借钱给别人。' (cache miss on [('不会', 'AD'), ('借钱', 'VV')])
+2026-11-09 22:08:59,130  INFO     TAGGED    '我绝对不会借钱给别人。' (level 5, 8 tags)
+2026-11-09 22:08:59,138  INFO     OK        hanlp-valid   '我想介绍你给我父母认识。' -> [('我', 'PN'), ('想', 'VV'), ('介绍', 'VV'), ('你', 'PN'), ('给', 'VV'), ('我', 'PN'), ('父母', 'NN'), ('认识', 'VV')]
+2026-11-09 22:08:59,140  INFO     TAGGED    '我想介绍你给我父母认识。' (level 4, 8 tags)
+2026-11-09 22:08:59,147  INFO     OK        hanlp-valid   '这条项链是我奶奶送给我的。' -> [('这', 'DT'), ('条', 'M'), ('项链', 'NN'), ('是', 'VC'), ('我', 'PN'), ('奶奶', 'NN'), ('送给', 'VV'), ('我', 'PN'), ('的', 'SP')]
+2026-11-09 22:08:59,153  INFO     TAGGED    '这条项链是我奶奶送给我的。' (level 6, 10 tags)
+2026-11-09 22:08:59,161  INFO     OK        hanlp-valid   '你什么时候才要给门上油?' -> [('你', 'PN'), ('什么', 'DT'), ('时候', 'NN'), ('才', 'AD'), ('要', 'VV'), ('给', 'P'), ('门', 'NN'), ('上', 'VV'), ('油', 'NN')]
+2026-11-09 22:08:59,163  INFO     TAGGED    '你什么时候才要给门上油?' (level 4, 9 tags)
+2026-11-09 22:08:59,171  INFO     FALLBACK  '亲爱的，给客人端点咖啡吧。' -- out-of-list word(s): ['亲爱的']
+2026-11-09 22:08:59,171  WARNING    HAIKU resegment call for '亲爱的，给客人端点咖啡吧。' (cache miss on [('亲爱的', 'JJ')])
+2026-11-09 22:08:59,191  INFO     TAGGED    '亲爱的，给客人端点咖啡吧。' (level 6, 8 tags)
+2026-11-09 22:08:59,199  INFO     FALLBACK  '不给糖就捣蛋。' -- out-of-list word(s): ['捣蛋']
+2026-11-09 22:08:59,199  WARNING    HAIKU resegment call for '不给糖就捣蛋。' (cache miss on [('捣蛋', 'VV')])
+2026-11-09 22:08:59,207  INFO       NON-LIST 捣蛋 (VV) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:08:59,208  INFO     TAGGED    '不给糖就捣蛋。' (level 10, 5 tags)
+2026-11-09 22:08:59,215  INFO     FALLBACK  '就算我富有，我也不会给他钱。' -- out-of-list word(s): ['不会']
+2026-11-09 22:08:59,215  WARNING    HAIKU resegment call for '就算我富有，我也不会给他钱。' (cache miss on [('不会', 'AD')])
+2026-11-09 22:08:59,227  INFO     TAGGED    '就算我富有，我也不会给他钱。' (level 6, 10 tags)
+2026-11-09 22:08:59,235  INFO     OK        hanlp-valid   '让我把你介绍给他。' -> [('让', 'VV'), ('我', 'PN'), ('把', 'BA'), ('你', 'PN'), ('介绍', 'VV'), ('给', 'P'), ('他', 'PN')]
+2026-11-09 22:08:59,237  INFO     TAGGED    '让我把你介绍给他。' (level 3, 7 tags)
+2026-11-09 22:08:59,244  INFO     FALLBACK  '汤姆没给我我跟他要的。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:08:59,245  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('没', 'AD'), ('给', 'VV'), ('我', 'PN'), ('我', 'PN'), ('跟', 'P'), ('他', 'PN'), ('要', 'VV'), ('的', 'SP')]
+2026-11-09 22:08:59,246  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:08:59,248  INFO     TAGGED    '汤姆没给我我跟他要的。' (level 10, 9 tags)
+2026-11-09 22:08:59,603  INFO     OK        hanlp-valid   '他是个非常浪漫的男朋友，每晚都给我送花。' -> [('他', 'PN'), ('是', 'VC'), ('个', 'M'), ('非常', 'AD'), ('浪漫', 'JJ'), ('的', 'DEG'), ('男朋友', 'NN'), ('每', 'DT'), ('晚', 'M'), ('都', 'AD'), ('给', 'P'), ('我', 'PN'), ('送', 'VV'), ('花', 'NN')]
+2026-11-09 22:08:59,606  INFO     TAGGED    '他是个非常浪漫的男朋友，每晚都给我送花。' (level 4, 14 tags)
+2026-11-09 22:08:59,614  INFO     OK        hanlp-valid   '我们会给你留个位置。' -> [('我们', 'PN'), ('会', 'VV'), ('给', 'P'), ('你', 'PN'), ('留', 'VV'), ('个', 'M'), ('位置', 'NN')]
+2026-11-09 22:08:59,616  INFO     TAGGED    '我们会给你留个位置。' (level 5, 7 tags)
+2026-11-09 22:08:59,624  INFO     FALLBACK  '让我们查查谁送给我们这个。' -- out-of-list word(s): ['查查', '这个']
+2026-11-09 22:08:59,624  WARNING    HAIKU resegment call for '让我们查查谁送给我们这个。' (cache miss on [('查查', 'VV')])
+2026-11-09 22:08:59,640  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-09 22:08:59,642  INFO     TAGGED    '让我们查查谁送给我们这个。' (level 3, 10 tags)
+2026-11-09 22:08:59,649  INFO     OK        hanlp-valid   '我会给你带些咖啡。' -> [('我', 'PN'), ('会', 'VV'), ('给', 'P'), ('你', 'PN'), ('带', 'VV'), ('些', 'M'), ('咖啡', 'NN')]
+2026-11-09 22:08:59,651  INFO     TAGGED    '我会给你带些咖啡。' (level 3, 7 tags)
+2026-11-09 22:08:59,659  INFO     OK        hanlp-valid   '我会给你所有必要的信息。' -> [('我', 'PN'), ('会', 'VV'), ('给', 'VV'), ('你', 'PN'), ('所有', 'DT'), ('必要', 'JJ'), ('的', 'DEC'), ('信息', 'NN')]
+2026-11-09 22:08:59,661  INFO     TAGGED    '我会给你所有必要的信息。' (level 5, 8 tags)
+2026-11-09 22:08:59,670  INFO     OK        hanlp-valid   '给猫喂点肉。' -> [('给', 'P'), ('猫', 'NN'), ('喂', 'VV'), ('点', 'M'), ('肉', 'NN')]
+2026-11-09 22:08:59,671  INFO     TAGGED    '给猫喂点肉。' (level 2, 5 tags)
+2026-11-09 22:08:59,679  INFO     FALLBACK  '“我找不到汤姆。”“给他打电话试试吧。”' -- out-of-list word(s): ['汤姆', '试试']
+2026-11-09 22:08:59,679  WARNING    HAIKU resegment call for '“我找不到汤姆。”“给他打电话试试吧。”' (cache miss on [('试试', 'VV')])
+2026-11-09 22:08:59,691  INFO       NON-LIST 汤姆 (NR) -> '(name) tang1mu3' [proper_noun]
+2026-11-09 22:08:59,692  INFO     TAGGED    '“我找不到汤姆。”“给他打电话试试吧。”' (level 3, 11 tags)
+2026-11-09 22:09:00,051  INFO     OK        hanlp-valid   '把我的啤酒给我。' -> [('把', 'BA'), ('我', 'PN'), ('的', 'DEG'), ('啤酒', 'NN'), ('给', 'VV'), ('我', 'PN')]
+2026-11-09 22:09:00,053  INFO     TAGGED    '把我的啤酒给我。' (level 3, 6 tags)
+2026-11-09 22:09:00,061  INFO     FALLBACK  '请给我最大的菠萝。' -- out-of-list word(s): ['最大', '菠萝']
+2026-11-09 22:09:00,061  WARNING    HAIKU resegment call for '请给我最大的菠萝。' (cache miss on [('最大', 'JJ'), ('菠萝', 'NN')])
+2026-11-09 22:09:00,073  INFO       NON-LIST 菠萝 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:09:00,074  INFO     TAGGED    '请给我最大的菠萝。' (level 10, 7 tags)
+2026-11-09 22:09:00,083  INFO     OK        hanlp-valid   '把笔记本给我。' -> [('把', 'BA'), ('笔记本', 'NN'), ('给', 'VV'), ('我', 'PN')]
+2026-11-09 22:09:00,084  INFO     TAGGED    '把笔记本给我。' (level 3, 4 tags)
+2026-11-09 22:09:00,092  INFO     FALLBACK  '准备好的话，致电给我吧。' -- out-of-list word(s): ['致电']
+2026-11-09 22:09:00,092  WARNING    HAIKU resegment call for '准备好的话，致电给我吧。' (cache miss on [('致电', 'VV')])
+2026-11-09 22:09:00,104  INFO     TAGGED    '准备好的话，致电给我吧。' (level 7, 8 tags)
+2026-11-09 22:09:00,112  INFO     FALLBACK  '他给自己的苹果削皮。' -- out-of-list word(s): ['削皮']
+2026-11-09 22:09:00,113  WARNING    HAIKU resegment call for '他给自己的苹果削皮。' (cache miss on [('削皮', 'VV')])
+2026-11-09 22:09:00,125  INFO     TAGGED    '他给自己的苹果削皮。' (level 7, 7 tags)
+2026-11-09 22:09:00,487  INFO     FALLBACK  '把球传给我！' -- out-of-list word(s): ['传给']
+2026-11-09 22:09:00,487  WARNING    HAIKU resegment call for '把球传给我！' (cache miss on [('传给', 'VV')])
+2026-11-09 22:09:00,498  INFO     TAGGED    '把球传给我！' (level 5, 5 tags)
+2026-11-09 22:09:00,506  INFO     FALLBACK  '我告诉他，我永远不会嫁给他。' -- out-of-list word(s): ['不会', '嫁给']
+2026-11-09 22:09:00,506  WARNING    HAIKU resegment call for '我告诉他，我永远不会嫁给他。' (cache miss on [('嫁给', 'VV')])
+2026-11-09 22:09:00,521  INFO     TAGGED    '我告诉他，我永远不会嫁给他。' (level 6, 10 tags)
+2026-11-09 22:09:00,529  INFO     FALLBACK  '汤姆给客服打电话。' -- out-of-list word(s): ['汤姆', '客服']
+2026-11-09 22:09:00,529  WARNING    HAIKU resegment call for '汤姆给客服打电话。' (cache miss on [('客服', 'NN')])
+2026-11-09 22:09:00,536  INFO       NON-LIST 汤姆 (NR) -> '(name) tang1mu3' [proper_noun]
+2026-11-09 22:09:00,538  INFO       NON-LIST 客服 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:09:00,538  INFO     TAGGED    '汤姆给客服打电话。' (level 10, 4 tags)
+2026-11-09 22:09:00,546  INFO     FALLBACK  '莎米给客服打电话。' -- out-of-list word(s): ['莎米', '客服']
+2026-11-09 22:09:00,546  WARNING    HAIKU resegment call for '莎米给客服打电话。' (cache miss on [('莎米', 'NR'), ('客服', 'NN')])
+2026-11-09 22:09:00,553  INFO       NON-LIST 莎米 (NR) -> '(name) sha1mi3' [proper_noun]
+2026-11-09 22:09:00,554  INFO       NON-LIST 客服 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:09:00,555  INFO     TAGGED    '莎米给客服打电话。' (level 10, 4 tags)
+2026-11-09 22:09:00,563  INFO     FALLBACK  '服务员，请给我三杯咖啡。' -- out-of-list word(s): ['三杯']
+2026-11-09 22:09:00,563  WARNING    HAIKU resegment call for '服务员，请给我三杯咖啡。' (cache miss on [('三杯', 'CD')])
+2026-11-09 22:09:00,577  INFO     TAGGED    '服务员，请给我三杯咖啡。' (level 3, 8 tags)
+2026-11-09 22:09:00,585  INFO     OK        hanlp-valid   '我想给肉加点盐。' -> [('我', 'PN'), ('想', 'VV'), ('给', 'P'), ('肉', 'NN'), ('加', 'VV'), ('点', 'M'), ('盐', 'NN')]
+2026-11-09 22:09:00,587  INFO     TAGGED    '我想给肉加点盐。' (level 4, 7 tags)
+2026-11-09 22:09:00,594  INFO     FALLBACK  '她告诉我说稍后会打给你。' -- out-of-list word(s): ['打给']
+2026-11-09 22:09:00,595  WARNING    HAIKU resegment call for '她告诉我说稍后会打给你。' (cache miss on [('打给', 'VV')])
+2026-11-09 22:09:00,606  INFO     TAGGED    '她告诉我说稍后会打给你。' (level 7, 9 tags)

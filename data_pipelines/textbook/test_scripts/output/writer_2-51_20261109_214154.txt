@@ -1,0 +1,32 @@
+## 2-51
+**Point:** Degree (state) complement with 得: Verb + 得 + Adjective or degree phrase, describing how an action is done. Also covers 极了, 死了 and 坏了 after an adjective, to express degree.
+
+**Covers:** Verb + 得 + adjective, with or without an adverb such as 很, 太, 挺 or 还. Also 得 + 怎么样 and 得 + 还可以. Also adjective + 极了 / 死了 / 坏了, and 急坏了.
+
+**Does not cover:** Potential complements asked as yes/no questions with 吗 (看得清楚吗). Modal 得 meaning "must". 不得不, 值得, 显得, 害得, 怪不得, 难怪. Adjective + 得很 or 得不得了. The 得倒 pattern.
+
+```rule
+match: /VV /DER /AD? /VA
+match: /VV /VV /DER /AD? /VA
+match: /VV /DER 怎么样
+match: /VV /DER 还 可以
+match: /VA 极了/AD
+match: /VA 极 了
+match: /VA 死 了
+match: /VA 坏 了
+match: 急 坏 了
+unless: 不得不
+unless: 值得
+unless: 显得
+unless: 害
+unless: 怪不得
+unless: 难怪
+unless: /DER 倒
+unless: /DER 不得了
+unless: /DER 得很
+unless: /DER 得不得了
+unless: /DER /AD? /VA 吗
+unless: 得/VV
+```
+
+**Notes:** The core pattern is VV + 得 + (AD) + VA, including the verb-repeated form (他英语说得…). I added special cases for 怎么样 and 还可以, since these are tagged VV and the VA pattern misses them. I also added degree endings after an adjective (好极了, 臭死了, 高兴坏了, 急坏了). Rather than a generic VV + 坏, these use 急坏了 and VA + 坏 only, so resultatives like 打坏了 are not matched. For precision, any sentence with modal 得 (tagged VV) is excluded, which removes 你得穿得… and 得去看医生. Questions of the form …得+adj+吗 are also excluded, because they are usually potential complements (看得清楚吗, 做得好吗). The cost is that genuine cases like 谈得顺利吗 are missed. The old unless lines on 得 followed by a VV were dropped, because they blocked 怎么样 and the VA matches already require an adjective after 得.

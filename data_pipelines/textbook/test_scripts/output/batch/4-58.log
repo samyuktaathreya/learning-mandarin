@@ -1,0 +1,74 @@
+
+########## rules  2026-11-09 22:01 ##########
+19 page(s) use the word(s); asking about 19.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG18JOA  Expressing purpose with "hao"
+
+not:
+  ASG35CD7  Expressing "had better" with "zuihao"
+  ASG3ROPY  Expressing "it seems" with "haoxiang"
+  ASG767A2  Declaring the only option with "zhihao"
+  ASG81QV3  Expressing difficulty with "hao (bu) rongyi"
+  ASGJQU93  Using "hao" to mean "easy"
+  ASGOB1BF  Expressing good luck with "haihao"
+  ASGUD25J  Coincidence with "zhenghao"
+  ASG0EQQJ  Expressing not knowing how to do something using "hao"
+  ASG73H8K  Comparing "budebu" and "zhihao"
+  ASGAY164  Moderating positive adjectives with "hai"
+  ASGSJYZ2  Tag questions with "ma"
+
+unsure:
+
+unrelated:
+  ASGNNMST  Result complements
+  ASG1DXUD  Passive verbs with "shou"
+  ASG4D8XB  Tag questions with "bu"
+  ASG4GVRX  Separable verb
+  ASG79STE  Degree complement
+  ASGHC9CA  Using_"ji"_to_mean_"several"
+  ASGZH7K3  Affirmative-negative question
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 4-58
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220108.txt
+  ...100/106
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 4-58
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing purpose with 好 (hǎo) - "in order to" or "for the sake of"
+**Covers:** Sentences with structure: [Action/Clause], 好 + [Verb Phrase expressing purpose], where 好 functions as a purposive marker between two clauses
+**Does not cover:** 最好 (zuihao - "had better"), 好像 (haoxiang - "seems"), 只好 (zhihao - "have no choice but"), 好容易 (difficulty), 好 as adjective meaning "easy" or "good", 还好 (haihao - "luckily"), 正好 (zhenghao - "coincidentally"), 不知道...好 (not knowing what to do), 好 in tag questions, or 好 as complement/result
+
+```rule
+match: 好/AD _ /VV
+match: 好/AD /P _ 
+match: 这样/AD 好/AD _ /VV
+unless: 最好/AD
+unless: 好像/AD
+unless: 只好/AD
+unless: 好/AD 不/AD 容易/VA
+unless: 好/AD 不/AD 容易/VA 才/AD
+unless: 不/AD 知道/VV
+unless: /PN 还/AD 好/VA
+unless: 正好/AD
+unless: /PN 好/VA 吗/SP
+unless: 不要/AD 好/VA 吗/SP
+unless: /PN 好/AD 几/CD
+```
+
+**Notes:** The core pattern is 好/AD followed by a verb phrase. The rule excludes 最好, 好像, 只好, and 好容易 which are fixed compounds. It also excludes 还好 (where 好 is VA adjective), 正好, question tags with 好吗, and instances where 好 functions as a result complement (tagged VA). The second match pattern accounts for purposive clauses with 好 + preposition + object + verb (e.g., 好给别人). The third match allows for 这样好 constructions found in examples.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 4-58
+Tagging 2 labeled example(s) (cached after this run)...
+  ...100/106
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 4-58: rule on labeled examples (no AI) ===
+  examples of 4-58 matched:    11/12
+  counter-examples wrongly matched: 0/94   <- should be 0
+
+--- examples of 4-58 the rule misses (1) ---
+  小明今天把自己打扮得很帅气，好给别人留一个好印象。  -- ASG18JOA Expressing purpose with "hao"

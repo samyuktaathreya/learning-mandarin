@@ -1,0 +1,172 @@
+
+########## rules  2026-11-09 21:13 ##########
+15 page(s) use the word(s); asking about 15.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGE09B4  Comparing "changchang" and "wangwang"
+  ASGE8FLP  Comparing "changchang" and "jingchang"
+  ASGIZQJ2  Expressing "again" in the future with "zai"
+  ASGTBHBG  Comparing "zai" and "you"
+
+not:
+  ASG47D26  Expressing "again and again" with "yizai"
+  ASG78FDE  Expressing a last chance with "zaibu... jiu..."
+  ASG7R8US  Expressing "never again" with "zai ye bu"
+  ASGAA381  Expressing "even so" with "zaibu... ye..."
+  ASGATDLX  Expressing "in addition" with "zaishuo"
+  ASGP6LVA  Expressing "over and over again" with "zaisan"
+
+unsure:
+  ASGLJM55  Sequencing with "xian" and "zai"
+  ASG68F61  Expressing "when" with "dengdao"
+
+unrelated:
+  ASGJOGGG  Comparing "pingshi" and "pingchang"
+  ASGLI513  Expressing "even if…" with "jiusuan"
+  ASGXX3NY  Expressing "even if…" with "napa"
+
+[note] ASGIZQJ2 is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-12
+Tagging 86 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_211301.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 1-12, rule line 1: empty item '/' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-12_20261109_211314.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 1-12
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Frequency and repetition adverbs: 常、常常、再
+**Covers:** 常/常常 expressing "often" in present/habitual contexts; 再 expressing "again" in future contexts or sequential actions
+**Does not cover:** 一再/再三 (repetition emphasis); 再不...就... (conditional urgency); 再也不/没 (never again); 再说 (furthermore); other HSK points using these words
+
+```rule
+match: /AD 常 /VV
+match: /AD 常常 /VV
+match: /AD 经常 /VV
+match: /AD 往往 /VV
+match: /AD 再 /VV
+unless: 一再
+unless: 再三
+unless: 再/AD 也/AD
+unless: 再/AD 不/AD 走
+unless: 再/AD 不/AD _* 就
+unless: 再说/AD
+```
+
+**Notes:** The rule matches the core HSK 1-12 uses: (1) 常/常常/经常 for habitual/frequent actions, including negated forms like 不常; (2) 往往 for typical/usual situations (included here as official examples show it); (3) 再 for future repetition or sequential actions. Exclusions remove 一再/再三 (HSK 4), 再也不/没 (HSK 5), and 再说 (in-addition use). The 再不...就... pattern is excluded as it expresses conditional urgency, not simple repetition. Matches can occur with negation (不常, 不经常, 往往不) and are still valid for this point.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-12
+Tagging 86 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_211319.txt
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-12: rule on labeled examples (no AI) ===
+  examples of 1-12 matched:    46/49
+  counter-examples wrongly matched: 0/49   <- should be 0
+
+--- examples of 1-12 the rule misses (3) ---
+  她忘带钥匙是经常的事情。  -- ASGE8FLP Comparing "changchang" and "jingchang"
+  夏天快到了，又可以吃冰淇淋了！  -- ASGTBHBG Comparing "zai" and "you"
+  如果我能瘦一些，我就又能穿我最喜欢的牛仔裤啦！  -- ASGTBHBG Comparing "zai" and "you"
+
+########## tatoeba  2026-11-09 22:04 ##########
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 2-02, 2-04, 2-05, 2-07, 2-09, 2-12, 2-13, 2-15, 2-16, 2-19, 2-21, 2-22, 2-23, 2-26, 2-27, 2-28, 2-29, 2-30, 2-32, 2-33, 2-34, 2-43, 2-44, 2-45, 2-46, 2-47, 2-51, 2-55, 2-58, 2-59, 2-67, 2-69, 2-74, 2-75, 2-76, 2-78, 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 23 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220403.txt
+  ...100/278
+  ...200/278
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 2) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-12 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      715  2. contain the point's word(s)
+      714  3. new (not in DB, not a duplicate)
+      278  4. at most 2 characters outside HSK 1 words
+       30  5. really HSK 1
+       13  5b. no harder grammar point (of the 57 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (1) ---
+  再见。  -- same text as tatoeba 2030795 (translations pooled)
+
+--- dropped at step 4 (436), first 12 ---
+  我经常忘记别人的名字。  -- 4 characters no HSK 1 word uses: 别忘经记
+  我经常做噩梦。  -- 3 characters no HSK 1 word uses: 噩梦经
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 1 word uses: 伊宁种类
+  人类在月球上居住已不再是梦想。  -- 5 characters no HSK 1 word uses: 居已梦球类
+  胜败是兵家常事。  -- 3 characters no HSK 1 word uses: 兵胜败
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 12 characters no HSK 1 word uses: 体别压就挺方查检王结血身
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  我打算绝不再喝酒。  -- 3 characters no HSK 1 word uses: 算绝酒
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 11 characters no HSK 1 word uses: 全化变室应效温球用词谈
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 16 characters no HSK 1 word uses: 且从信合已最此永海相经而记远适颗
+  为了给他生日惊喜，我准备了一个非常棒的蛋糕。  -- 6 characters no HSK 1 word uses: 为准备惊棒糕
+  这些高官和富商的大四合院常常有精美雕刻并粉刷的横梁和柱子，并伴有精心修剪的花园。  -- 19 characters no HSK 1 word uses: 伴修刷刻剪合园官富并心柱梁横粉精美花雕
+
+--- dropped at step 5 (248), first 12 ---
+  你等一会然后再给我打电话，可以吗？  -- level 3: 等 L2, 然后 L3, 打 L2
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3, 走 L2
+  我们经常下棋。  -- level 10: 经常 L2, 下棋 (not in list)
+  我们有一位非常好的厨师。  -- level 4: 位 L2, 厨师 L4
+  我不经常上ＱＱ。  -- level 2: 经常 L2
+  我再也不相信他了。  -- level 3: 相信 L3
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  他非常性感。  -- level 7: 性感 L7
+  他认为我非常的累。  -- level 3: 认为 L3, 累 L2
+  我经常想去那里。  -- level 2: 经常 L2
+  我七点钟再回来。  -- level 7: 钟 L7, 回来 L2
+  我们真的不知道，下次我们再也不这样了。  -- level 2: 次 L2, 这样 L2
+
+--- dropped at step 5b (17), first 12 ---
+  您不想再喝点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  我今天去大学读书，明天我会再去。  -- harder grammar: 3-16 (HSK 3)
+  我不想再玩了。  -- harder grammar: 3-16 (HSK 3)
+  汤姆再也不会见你了。  -- harder grammar: 2-04 (HSK 2)
+  我不想再见到他们。  -- harder grammar: 2-04 (HSK 2), 3-16 (HSK 3)
+  你想再要点茶吗？  -- harder grammar: 2-04 (HSK 2), 3-16 (HSK 3)
+  我不想再吃了。  -- harder grammar: 3-16 (HSK 3)
+  我还要再睡一会儿。  -- harder grammar: 2-09 (HSK 2), 3-16 (HSK 3)
+  我不想再听到这事。  -- harder grammar: 2-04 (HSK 2), 3-16 (HSK 3)
+  我不想再做这个了。  -- harder grammar: 3-16 (HSK 3)
+  我们不会再见你了。  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (13) ---
+  我非常喜欢英语。  -- rule: no match: line matched
+  我再也不喜欢你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  昨天天气非常好。  -- rule: no match: line matched
+  再见。  -- rule: no match: line matched
+  这是非常，非常不好的东西。  -- rule: no match: line matched
+  我们写汉字也非常好。  -- rule: no match: line matched
+  我非常喜欢这本书。  -- rule: no match: line matched
+  再见，Ian。  -- rule: no match: line matched
+  安娜再见！  -- rule: no match: line matched
+  我非常喜欢小狗。  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  非常好玩。  -- rule: no match: line matched
+  我再也不能工作了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-12_level1_20261109_220404.csv

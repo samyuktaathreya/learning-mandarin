@@ -1,0 +1,118 @@
+
+########## rules  2026-11-09 21:27 ##########
+4 page(s) use the word(s); asking about 4.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGIM3AX  Big numbers in Chinese
+
+not:
+  ASG25773  Expressing "what if" with "wanyi"
+  ASGIVGZO  Expressing "to make certain" with "qianwan"
+
+unsure:
+
+unrelated:
+  ASGHC9CA  Using_"ji"_to_mean_"several"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-09
+Tagging 32 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_212703.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-09, rule line 2: empty item '|' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-09_20261109_212710.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-09
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Large numbers using 千, 万, 亿 as units in numeric expressions
+**Covers:** Numbers expressed using 千 (thousand), 万 (ten thousand), and 亿 (hundred million) as numeric units, where these words form part of a complete number value tagged as CD (cardinal number)
+**Does not cover:** 千万 as an adverb meaning "must" or "make sure"; 万一 as a subordinating conjunction meaning "if" or "what if"; 万一 as an adverb in conditional expressions; idiomatic uses like "以防万一"
+
+```rule
+match: /CD
+unless: 千万/CD /VV|AD
+unless: 万一/AD
+unless: 万一/CS
+unless: 以/P 防/VV 万一/AD
+```
+
+**Notes:** The rule matches any clause containing a single /CD tag, which in the context of this point represents complete numeric expressions like "十四亿" or "五万两千一百五十二". The unless clauses exclude: (1) 千万 followed by a verb or adverb, which indicates the "make sure/must" usage; (2) 万一 tagged as AD (adverb), indicating conditional "what if" usage; (3) 万一 tagged as CS (subordinating conjunction), indicating conditional usage; (4) the phrase "以防万一" which is an idiomatic expression. The tagger appears to sometimes tag 万一 as CS in conditional contexts, and this should be excluded.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-09
+Tagging 32 labeled example(s) (cached after this run)...
+
+=== A. 2-09: rule on labeled examples (no AI) ===
+  examples of 2-09 matched:    10/10
+  counter-examples wrongly matched: 0/22   <- should be 0
+
+########## tatoeba  2026-11-09 22:07 ##########
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 8 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220753.txt
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-09 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      109  2. contain the point's word(s)
+      109  3. new (not in DB, not a duplicate)
+       26  4. at most 2 characters outside HSK 2 words
+        1  5. really HSK 2
+        1  5b. no harder grammar point (of the 20 with a rule)
+        1  6. the rule finds 2-09
+        1  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-09, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  他有一千多本书。  (He has more than a thousand books.)  [tatoeba 3378253]
+
+--- dropped at step 4 (83), first 12 ---
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  乌鲁木齐有四万个摄像机。  -- 6 characters no HSK 2 word uses: 乌像摄木鲁齐
+  每位会员每月需支付一万日元。  -- 4 characters no HSK 2 word uses: 付员支需
+  我朋友新工作的试用期每月工资三千人民币，试用期满后每月的工资三千五百人民币。  -- 5 characters no HSK 2 word uses: 币民满用资
+  中国与蒙古隔着万里长城。  -- 5 characters no HSK 2 word uses: 与古城蒙隔
+  你所要做的便是好好把握这千载难逢的机会。  -- 5 characters no HSK 2 word uses: 把握载逢难
+  成千上万的人死于瘟疫。  -- 5 characters no HSK 2 word uses: 于成死疫瘟
+  语言有时会变得很复杂，有时也会让人焦急万分，想说的总是说不出口，不过总有一天会传达给对方。  -- 10 characters no HSK 2 word uses: 传变复急总方杂焦言达
+  被突袭后宣告战争是可以预想的，但用炸弹屠杀万人以上的平民却是前所未闻的。  -- 17 characters no HSK 2 word uses: 争却宣屠平弹战未杀民炸用突被袭闻预
+  公元前七千年那段时间发生了很多重要的历史事件。  -- 5 characters no HSK 2 word uses: 历发史段重
+  他不久前是百万富翁。  -- 3 characters no HSK 2 word uses: 久富翁
+  台湾岛的面积是三万六千平方公里。  -- 6 characters no HSK 2 word uses: 台岛平方湾积
+
+--- dropped at step 5 (25), first 12 ---
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  钱是万能的。  -- level 7: 万能 L7
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  她有一千零一个愿望。  -- level 5: 愿望 L5
+  那台电脑是花三千块买的。  -- level 4: 台 L4
+  千万别误会我的意思。  -- level 4: 误会 L4
+  金钱万能。  -- level 7: 金钱 L6, 万能 L7
+  我希望万事如意。  -- level 7: 如意 L7
+  有两千小学生到校。  -- level 10: 到校 (not in list)
+  我的城市离首都五十千米。  -- level 4: 城市 L3, 首都 L4, 米 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-09_level2_20261109_220757.csv

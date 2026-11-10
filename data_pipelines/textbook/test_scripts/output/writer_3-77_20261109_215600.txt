@@ -1,0 +1,24 @@
+## 3-77
+**Point:** Emphasizing with 很是 (hěnshi) - a degree adverb that adds emphasis to statements
+**Covers:** Subj. + 很是 + Adj. (especially multi-syllable); Subj. + 很是 + 会/能 + Verb; sentences where 很是 modifies adjectives or psychological verbs to express strong emphasis
+**Does not cover:** Other uses of 是 (basic equative, 是...的, 凡是, 于是, 要不是, 岐不是, 有的是, 老是, 总是, 还是, 就是 in conditional/concessive meanings, or other patterns listed in the exclusions)
+
+```rule
+match: 很/AD 是/VC ... /VA|VV
+match: 很/AD 是/VC 会/VV
+match: 很/AD 是/VC 能/VV
+unless: 凡是
+unless: 于是
+unless: 要不是
+unless: 岐不是
+unless: 有的是
+unless: 老是
+unless: 总是
+unless: 还是 ... 吧
+unless: 就是 ... 也
+unless: 不是 ... 就是
+unless: 是 ... 的
+unless: 是否
+```
+
+**Notes:** The rule matches the core pattern of 很是 followed by an adjective or the construction 很是 + 会/能 + verb. The `... /VA|VV` in the first match allows intervening words (like negation 不) between 是 and the final adjective/verb, which occurs in examples like "很是不舒服". Exclusions are broad to avoid false positives from common 是-constructions. Precision is prioritized—the rule conservatively matches only clear cases of 很是 emphasis usage.

@@ -1,0 +1,18 @@
+## 3-39
+**Point:** 从...起/以后 and 离...还 patterns expressing time or distance relationships
+**Covers:** Sentences with 从 (P) + time/event + (起/LC or 以后/LC) meaning "from [time] onwards"; Sentences with 离 (P) + event/time + 还 (AD) + 有/远 expressing future distance or time remaining
+**Does not cover:** Other uses of 从 as a preposition (origin, source, means); 起来/VV as a direction complement or aspect marker; 一起 as an adverb meaning "together"; 看起来 meaning "appears to be"; 比起 in comparisons; 从事 meaning "to engage in"; 从小/从前/从来as time adverbs
+
+```rule
+match: 从/P ... (起/LC|以后/LC)
+match: 离/P ... 还/AD (有/VE|远/VA)
+unless: 起/VV
+unless: 起来/VV
+unless: 一起/AD
+unless: 从/AD
+unless: 从事/VV
+unless: 看/VV 起来/VV
+unless: 比/VV 起/VV
+```
+
+**Notes:** The first pattern captures 从 + temporal/event phrase + 起 or 以后. The second pattern captures 离 + event/time + 还 + 有/远. The unless clauses exclude direction complements (起来), the adverb 一起 (together), adverbial 从 (从小, 从来, etc.), the verb 从事, comparative 比起, and appearance 看起来. The patterns are deliberately loose to catch variations in what appears between the key elements.

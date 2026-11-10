@@ -1,0 +1,32 @@
+## 1-20
+**Point:** The structural particles 的 (links a modifier to a noun), 地 (links an adverbial to a verb) and 得 (links a verb to a degree complement).
+
+**Covers:**
+- 的 between a modifier and a following noun: possessive (我的手机), adjective (漂亮的衣服), or phrase (你教的学生, 妈妈做的菜).
+- 地 (tagged DEV) before a verb: 认真地听, 慢慢地走.
+- 得 (DER) after a verb or adjective, followed by an adverb or adjective: 做得很好, 开得很快.
+
+**Does not cover:**
+- Modal or sentence-final 的 (你可以的, 他不会道歉的). It has no following noun and is tagged SP.
+- 的话 and 有的 / 有的是. These are single words in the tagger, so the rule never sees a separate 的.
+- 什么的 and 之类的 lists.
+- 似的 comparisons like 热得跟…似的.
+- The 是…的 constructions. Sentences with 是 and a clause-final 的 are excluded.
+- Bare AA / AABB reduplication, and the nominalized "X的" with no noun. Detecting these is too error-prone.
+
+```rule
+match: _ 的/DEG|DEC /NN|NR|NT|JJ|CD|DT|PN
+match: /VV 的/AS /NN|NR|NT
+match: 地/DEV
+match: /VV|VA 得/DER /AD|VA
+unless: 什么 的/DEG
+unless: 类/M 的/DEG
+unless: 似的
+unless: 是/VC ... 的/DEG|DEC $
+```
+
+**Notes:**
+- Precision is favoured over recall. Labeled examples where 的 is tagged SP and sits at the end of a clause (我画的) are deliberately not matched. They look identical to the modal 的 in counter-examples such as 你可以的.
+- The `unless: 是/VC ... 的 $` line also rejects a sentence that has a good 的 earlier (他家的家具都是中式的). This is intentional, to keep 是…的 sentences out.
+- 得 is restricted to a verb or adjective followed by AD or VA, so 得 meaning "must/obtain" (VV) does not match.
+- The 的/AS line is there because the tagger sometimes tags 的 after a verb as AS (你教的学生).

@@ -1,0 +1,41 @@
+## 1-16
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 在 (zài) to indicate location of actions, existence, or position
+
+**Covers:**
+- Location before verb: 在 + place + verb (哥哥在北京学中文)
+- Existence at location: subject + 在 + place (我在上海, 他不在学校)
+- Location after special verbs (住/坐/站/放): verb + 在 + place (你住在上海吗, 衣服放在这里)
+- Location with localizers (上/下/里/旁边): 在 + place + localizer (在桌子上)
+
+**Does not cover:**
+- Progressive aspect (在 as adverb, 正在): 她在看书
+- 在于 (zàiyú, "lies in"): 成功在于坚持
+- 早在 (zǎozài, "as early as"): 早在1942年就...
+- 在...内 (time period): 在三年内
+- 在...看来 (perspective): 在他看来
+- 包括...在内 (including): 包括我在内
+
+```rule
+match: 在/P /NN|NR|PN
+match: 放|住|坐|站/VV 在/P|VV /NN|NR|PN
+match: ^ 在/VV /NN|NR /LC $
+match: /PN|NN|NR 在/VV /NN|NR|LC
+match: 不/AD 在/VV /NN|NR
+match: /NT 在/VV /NN|NR
+match: 想|要|会|能|可以|应该|喜欢/VV 在/VV /NN|NR
+match: 在/VV /PN|NN|NR /NN 旁边/NN
+unless: 早/AD 在/P
+unless: 在/P ... 看来/VV
+unless: 包括/VV ... 在/P
+unless: 包括/VV ... 在内/VV
+unless: 在内/VV
+unless: 在于/VV
+unless: 内/LC|NN|P
+unless: 正在/AD
+unless: 在/AD
+unless: 在/P 上/VV
+unless: 在/P 里面/NN
+```
+
+**Notes:** 在 is accepted as a preposition (P) before a place noun or pronoun, as a verb (VV) for existence, and after 住/坐/站/放 in either tag. Several extra patterns cover the tagger's habit of labelling 在 as VV, such as 不在学校, 现在在家 and 想在家睡觉. The unless lines remove 包括…在内, 在…内, 在…看来, 早在, 在于 and the progressive 在 (AD). Earlier unless lines used `.*`, which is not valid syntax, so they are now written with `...`. The 在/P 里面 and 在/P 上/VV exclusions are there because the labelled counter-examples 谁在里面洗澡 and 他在上厕所 must not match.

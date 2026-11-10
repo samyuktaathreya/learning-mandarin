@@ -1,0 +1,24 @@
+## 2-04
+**Point:** Reduplication of verbs to express brief action or "a little bit"
+**Covers:** AA pattern (verb repeated twice with neutral tone on second), A一A pattern (verb + 一 + same verb), A了A pattern (verb + 了 + same verb), and ABAB pattern (two-syllable verb repeated entirely)
+**Does not cover:** Sentences where 一 appears as a number/quantifier separate from verb reduplication, or where 了 is only a perfective aspect marker without verb reduplication, or other grammar patterns that happen to use repeated words
+
+```rule
+match: /VV /VV
+match: /VV CD|AD /VV
+match: /VV AS /VV
+unless: ... CD M ...
+unless: ... CD 个|部|场|次|遍|回|下|堆|番|篇 ...
+unless: /VV AS ... /VV
+```
+
+**Notes:** 
+- The first match pattern catches AA reduplication (two consecutive verbs, same or closely related)
+- The second match catches A一A and similar patterns where 一/CD or 一/AD appears between two verbs
+- The third match catches A了A patterns where 了/AS appears between verbs
+- The first unless excludes cases like "一个" or "一场" which are measure word constructions, not verb reduplication
+- The second unless specifically excludes measure word phrases that might falsely trigger the pattern
+- The third unless excludes sentences where 了 indicates perfective aspect on a single verb (not verb reduplication) followed by other content
+- Tagger sometimes marks 一 as AD or CD depending on context; both should match
+- Two-syllable verbs should still match as /VV /VV when both parts are tagged separately
+- Cases where the repeated verb is part of a larger compound (like 出去 走 走) still match because each word is tagged /VV separately

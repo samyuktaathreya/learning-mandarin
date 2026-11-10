@@ -1,0 +1,23 @@
+## 4-58
+**Point:** Expressing purpose with 好 (hǎo) - "in order to" or "for the sake of"
+**Covers:** Sentences with structure: [Action/Clause], 好 + [Verb Phrase expressing purpose], where 好 functions as a purposive marker between two clauses
+**Does not cover:** 最好 (zuihao - "had better"), 好像 (haoxiang - "seems"), 只好 (zhihao - "have no choice but"), 好容易 (difficulty), 好 as adjective meaning "easy" or "good", 还好 (haihao - "luckily"), 正好 (zhenghao - "coincidentally"), 不知道...好 (not knowing what to do), 好 in tag questions, or 好 as complement/result
+
+```rule
+match: 好/AD _ /VV
+match: 好/AD /P _ 
+match: 这样/AD 好/AD _ /VV
+unless: 最好/AD
+unless: 好像/AD
+unless: 只好/AD
+unless: 好/AD 不/AD 容易/VA
+unless: 好/AD 不/AD 容易/VA 才/AD
+unless: 不/AD 知道/VV
+unless: /PN 还/AD 好/VA
+unless: 正好/AD
+unless: /PN 好/VA 吗/SP
+unless: 不要/AD 好/VA 吗/SP
+unless: /PN 好/AD 几/CD
+```
+
+**Notes:** The core pattern is 好/AD followed by a verb phrase. The rule excludes 最好, 好像, 只好, and 好容易 which are fixed compounds. It also excludes 还好 (where 好 is VA adjective), 正好, question tags with 好吗, and instances where 好 functions as a result complement (tagged VA). The second match pattern accounts for purposive clauses with 好 + preposition + object + verb (e.g., 好给别人). The third match allows for 这样好 constructions found in examples.

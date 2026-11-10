@@ -1,0 +1,24 @@
+## 2-17
+**Point:** Expressing "then" with the adverb 就 (jiù) in conditional and causal structures
+**Covers:** Sentences with 就 that establish a condition (using 如果, 要是, 假如, 既然, 只要, etc.) or a causal setup in the first clause, then indicate a consequence/result/suggestion in the second clause introduced by 就. Includes "if...then", "since...then", "as long as...then" patterns and simple causal sequences (cause, then result).
+**Does not cover:** 就 used to express earliness/timing (他早就知道了), aboutness/scope (就这个问题), smallness (就他知道), the verb form 就要, "even if" patterns (就算/就是...也), emphasis (就是), verb repetition patterns (要买就买), location (就在), or conditionals where 就 does not mark the consequent clause.
+
+```rule
+match: ... /CS ... ‖ ... 就/AD ...
+match: ... 既然/CS ... ‖ ... 就/AD ...
+match: ... 只要/CS ... ‖ ... 就/AD ...
+match: ^ _ ... ‖ ... 就/AD /VV|P|AD
+unless: 就/AD /VV 了 /AS? /M /NN
+unless: 就/AD 在/VV
+unless: 就/AD /NN ... 吗/SP $
+unless: 就/AD 是/VC
+unless: 就/AD 要/VV /M /NN
+unless: /CS .* 就/AD 买|去|吃|说|做|走 ‖ .* /PN 就/AD 买|去|吃|说|做|走
+unless: 说|玩|走|坐|看 /AS 说|玩|走|坐|看 /AS .* 就/AD
+unless: 就/AD 算/VV
+unless: 不|别说 .* 就/AD 是/VC
+unless: 就/AD 不|他|你|这 /NN|PN
+unless: /VV 就/AD /VV ‖ 不|我们|别人 /PN 不|就/AD
+```
+
+**Notes:** The rule prioritizes the main pattern: a conditional/causal first clause followed by a result clause led by 就. The first three match patterns handle explicit conditional markers (如果, 要是, 假如, 既然, 只要). The fourth pattern catches implicit causal setups (first clause states a fact or condition, second clause with 就 gives the result). Many unless clauses exclude common non-target uses: timing expressions, locational 就, small-quantity 就, emphasis 就是, near-future 就要, verb repetition conditionals, "even if" patterns (就算), and emphasis patterns. The rule accepts some false negatives (e.g., sentences without explicit clause punctuation) to maintain high precision.

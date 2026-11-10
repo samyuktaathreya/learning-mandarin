@@ -1,0 +1,134 @@
+
+########## rules  2026-11-09 21:35 ##########
+2 page(s) use the word(s); asking about 2.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGI96BQ  Expressing distance with "li"
+
+not:
+
+unsure:
+  ASG59C66  Comparing "li" and "cong"
+
+unrelated:
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-27
+Tagging 13 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213504.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-27
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing distance between two places using 离 (lí)
+**Covers:** Sentences with the structure: [Place/Person 1] + 离 (tagged as P) + [Place/Person 2] + (有/很/太/多/有点儿) + (近/远/多远) with optional 吗
+**Does not cover:** Other uses of 离 as a verb meaning "leave" or "depart" (离开, 撤离, 远离, 脱离), or compound verbs (离婚), or 离 as part of a separable verb phrase (离不开)
+
+```rule
+match: _ 离/P _ ... (近|远|多远)/VA
+match: _ 离/P _ ... (近|远|多远)/VA 吗/SP
+match: _ 离/P _ 有/VE ... (远|近)/VA
+match: _ 离/P _ 有点儿/AD (远|近)/VA
+unless: 离开/VV
+unless: 撤离/VV
+unless: 远离/VV
+unless: 脱离/VV
+unless: 离婚/VV
+unless: 离/VV _ ... 开/VV
+```
+
+**Notes:** The key distinguishing feature is that 离 must be tagged as P (preposition), not VV (verb). This filters out cases where 离 is part of a compound verb or used as a main verb meaning "to leave/depart." The pattern requires an evaluative adjective (近/远) or the question form (多远/近吗) to indicate distance comparison. Using VV exclusions catches most compound verbs, and the "开" pattern catches separable verb phrases like 离不开.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-27
+Tagging 13 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-27: rule on labeled examples (no AI) ===
+  examples of 2-27 matched:    12/13
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+--- examples of 2-27 the rule misses (1) ---
+  现在离放假有一个星期的时间。  -- HSK list example
+
+########## tatoeba  2026-11-09 22:09 ##########
+Filling 2-27 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 21 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220913.txt
+
+Course sentences at HSK 2 the rule already finds 2-27 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+
+=== 2-27 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      172  2. contain the point's word(s)
+      171  3. new (not in DB, not a duplicate)
+       87  4. at most 2 characters outside HSK 2 words
+       10  5. really HSK 2
+        1  5b. no harder grammar point (of the 20 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (1) ---
+  悉尼离这里很远。  -- same text as tatoeba 1366182 (translations pooled)
+
+--- dropped at step 4 (84), first 12 ---
+  远离宫殿的北方及南方是平民、商人、工艺师傅和工人。  -- 10 characters no HSK 2 word uses: 傅北南及宫平方殿民艺
+  他们之间隔着很远的距离。  -- 3 characters no HSK 2 word uses: 之距隔
+  允许他去游泳只有一个条件，他不能离其他的男孩儿太远。  -- 3 characters no HSK 2 word uses: 允其许
+  我努力劝他远离那个计划，但是他不听。  -- 5 characters no HSK 2 word uses: 划力劝努计
+  离别总是让人悲伤。  -- 3 characters no HSK 2 word uses: 伤总悲
+  我会对我的父母说，我想要独自离开。  -- 3 characters no HSK 2 word uses: 母父独
+  我父母离婚了。  -- 3 characters no HSK 2 word uses: 婚母父
+  在图形上，正态分布是一种钟形曲线，越接近中心，取值越大，越远离中心，取值越小。  -- 12 characters no HSK 2 word uses: 值取图布形心态接曲种线越
+  婚姻是造成离婚的主因。  -- 5 characters no HSK 2 word uses: 主姻婚成造
+  我们必须在五分钟之内离开。  -- 4 characters no HSK 2 word uses: 之内必须
+  由于轨道是椭圆形的，行星和太阳之间的距离不会总是相同。  -- 12 characters no HSK 2 word uses: 之于圆形总椭由相行距轨阳
+  我们在天上的父，愿人都尊你的命为圣。愿你的国降临。愿你的旨意行在地上如同行在天上。我们日用的饮食，今日赐给我们，免我们的债，如同我们免了人的债，不叫我们遇见试探，救我们脱离凶恶。  -- 22 characters no HSK 2 word uses: 临债免凶命圣如尊恶愿探救旨父用脱行赐遇降食饮
+
+--- dropped at step 5 (77), first 12 ---
+  他八岁时离开了他的父母。  -- level 4: 离开 L3, 父母 L4
+  白粉可不是好东西，离它远一点！  -- level 7: 白 L5, 粉 L6, 可不是 L7
+  他的办公室离车站很近。  -- level 3: 办公室 L3
+  他不知道为什么他的妻子要离开他。  -- level 3: 离开 L3
+  他们一个接着一个地离开了。  -- level 4: 接着 L4, 离开 L3
+  别离开房间。  -- level 3: 离开 L3
+  城市已经不是我六年前离开时的城市。  -- level 3: 城市 L3, 离开 L3
+  他看了她一眼就马上离开了。  -- level 5: 眼 L5, 马上 L3, 离开 L3
+  1900年他离开英格兰后，就没有再回来。  -- level 10: 1900年 (not in list), 离开 L3
+  我五年前做了网膜剥离。  -- level 7: 网 L6, 膜 L7, 剥 L7
+  我的国家离日本很远。  -- level 3: 国家 L3
+  鸟儿渐渐飞离了视线。  -- level 7: 渐渐 L5, 视线 L7
+
+--- dropped at step 5b (9) ---
+  离这里不远。  -- harder grammar: 3-39 (HSK 3)
+  我的家离学校很近。  -- harder grammar: 3-39 (HSK 3)
+  悉尼离这里很远。  -- harder grammar: 3-39 (HSK 3)
+  离这里还远吗？  -- harder grammar: 3-39 (HSK 3), 4-73 (HSK 4)
+  Tom要我离他远一点。  -- harder grammar: 3-39 (HSK 3)
+  离下课还有十分钟。  -- harder grammar: 3-39 (HSK 3)
+  我说过让你离我的电脑远一点的。  -- harder grammar: 3-39 (HSK 3)
+  她家离我家太远了。  -- harder grammar: 3-39 (HSK 3)
+  我要你离我远一点  -- harder grammar: 3-39 (HSK 3)
+
+--- dropped at step 6 (1) ---
+  她十三岁的时候离家出走了。  -- rule: unless 离/VV
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-27_level2_20261109_220914.csv

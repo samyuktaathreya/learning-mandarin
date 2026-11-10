@@ -1,0 +1,57 @@
+
+########## rules  2026-11-09 21:50 ##########
+12 page(s) use the word(s); asking about 12.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGIZQJ2  Expressing "again" in the future with "zai"
+  ASGTBHBG  Comparing "zai" and "you"
+  ASGLJM55  Sequencing with "xian" and "zai"
+
+not:
+  ASG47D26  Expressing "again and again" with "yizai"
+  ASG78FDE  Expressing a last chance with "zaibu... jiu..."
+  ASG7R8US  Expressing "never again" with "zai ye bu"
+  ASGAA381  Expressing "even so" with "zaibu... ye..."
+  ASGATDLX  Expressing "in addition" with "zaishuo"
+  ASGP6LVA  Expressing "over and over again" with "zaisan"
+
+unsure:
+  ASG68F61  Expressing "when" with "dengdao"
+
+unrelated:
+  ASGLI513  Expressing "even if…" with "jiusuan"
+  ASGXX3NY  Expressing "even if…" with "napa"
+
+[note] ASGIZQJ2 is tagged HSK [2] on the wiki, the point is HSK 3 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 3-16
+Tagging 13 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215004.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-16
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 再 (zài) to express "again" for future actions, or "and then" for sequencing events
+**Covers:** Future repetition ("again"), sequential ordering with 先...再..., and "another" with quantity phrases
+**Does not cover:** 一再/再三 (repeatedly), 再不...就... (last chance warning), 再也不/没 (never again), 再也...也... (even so), 再说 as "in addition" (standalone at clause start)
+
+```rule
+match: 再/AD ... /VV
+match: 先/AD ... 再/AD
+unless: 再/AD 也/AD
+unless: 再/AD 不/AD
+unless: 一再/AD
+unless: 再三/AD
+unless: 再/AD 说/VV $
+```
+
+**Notes:** The rule matches 再 as an adverb followed by a verb in the same clause, which captures the main uses: future "again" and sequencing. The first pattern allows intervening words (objects, measure words, etc.). The second pattern specifically catches 先...再... sequencing. Exclusions filter out: 再也 combinations (never again), 再不 combinations (last chance warnings), 一再/再三 (frequency adverbs), and sentence-final 再说 (which is covered under a different HSK point about "in addition"). Counter-examples like 此后我们再没见过 (past tense with 没) should not match because the tagger likely handles 再没 as a unit or the context makes it clearly past; however the rule may over-match some past-tense cases—prioritize precision by excluding when 也/不 follow 再.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-16
+Tagging 13 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-16: rule on labeled examples (no AI) ===
+  examples of 3-16 matched:    35/35
+  counter-examples wrongly matched: 0/49   <- should be 0

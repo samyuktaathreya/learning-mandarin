@@ -1,0 +1,69 @@
+
+########## rules  2026-11-09 21:34 ##########
+10 page(s) use the word(s); asking about 10.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG3JELV  Comparing "dui" and "duiyu"
+  ASG8ICO9  Using "dui" with verbs
+  ASGC5Y86  Comparing "gen" and "dui"
+
+not:
+  ASGC01S0  Comparing "duiyu" and "zhiyu"
+  ASGD2A08  Expressing "for…" with "eryan"
+  ASG1HNBU  Comparing "guanyu" and "duiyu"
+  ASG4D8XB  Tag questions with "bu"
+  ASG84D65  Comparing "bici" and "duifang"
+  ASGD60A6  Phrases using "laishuo"
+  ASGSJYZ2  Tag questions with "ma"
+
+unsure:
+
+unrelated:
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-25
+Tagging 55 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213410.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-25
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 对 as a preposition meaning "to/towards" or as a verb meaning "to face/point at"
+**Covers:** 对 + Object + Verb (preposition directing action/emotion to a target); 对着/对上/对不上 (verb phrases); comparison with 跟 where both are prepositions with 说
+**Does not cover:** 对于 (formal variant, HSK 4-14); 对...来说 (HSK 3-40); 对...而言; 对方 (the pronoun "other party"); tag questions 对不对/对吗; 对 as adjective meaning "correct"
+
+```rule
+match: /P 对 _ ... /VV
+match: _ 对/VA 着/AS
+match: _ 对/VV (不|上)
+unless: 而言
+unless: 来说
+unless: 对方
+unless: 对/VA (不|) 对/VA $
+unless: 对/VA 吗 $
+```
+
+**Notes:** The first match captures the core prepositional use: 对 tagged as P followed by an object (any word) and then a verb. The second and third matches capture verbal uses (对着, 对上, 对不上) where 对 is tagged VA or VV. The unless clauses exclude 对...而言 constructions, 对...来说 constructions, uses of 对方 (the pronoun), and tag questions. The tag question pattern catches both 对不对 and 对吗 at clause end. Note: some examples show 对/P tagged as preposition before an object that may span multiple words before the verb; the pattern `_ ... /VV` allows for this intervening material.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-25
+Tagging 55 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-25: rule on labeled examples (no AI) ===
+  examples of 2-25 matched:    25/38
+  counter-examples wrongly matched: 0/38   <- should be 0
+
+--- examples of 2-25 the rule misses (13) ---
+  对(于)这种事情，你有什么看法？  -- ASG3JELV Comparing "dui" and "duiyu"
+  对于这件事，你怎么看？  -- ASG3JELV Comparing "dui" and "duiyu"
+  我跟她说了，但是她不信。  -- ASGC5Y86 Comparing "gen" and "dui"
+  他跟我说他爱我。  -- ASGC5Y86 Comparing "gen" and "dui"
+  刚才你跟他说什么了？  -- ASGC5Y86 Comparing "gen" and "dui"
+  这只小猫总是跟着我。  -- ASGC5Y86 Comparing "gen" and "dui"
+  你走得太快，我跟不上。  -- ASGC5Y86 Comparing "gen" and "dui"
+  我跟你们不一样，我还有孩子呢。  -- ASGC5Y86 Comparing "gen" and "dui"
+  上海跟纽约一样，都是国际大都市。  -- ASGC5Y86 Comparing "gen" and "dui"
+  我现在跟我爸一样高。  -- ASGC5Y86 Comparing "gen" and "dui"
+  你跟你妈一样喜欢买衣服。  -- ASGC5Y86 Comparing "gen" and "dui"
+  你要跟我一起去吗？  -- ASGC5Y86 Comparing "gen" and "dui"
+  鲜花跟巧克力是最好的礼物。  -- ASGC5Y86 Comparing "gen" and "dui"

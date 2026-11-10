@@ -1,0 +1,32 @@
+## 2-30
+**Point:** Conjunctions and adverbs that connect clauses to express conditions, contrasts, and logical relationships
+
+**Covers:** 
+- Conditionals with 如果...就/那(么) (if...then), 只要...就 (as long as...then), and 如果...的话 (if)
+- Contrasts with 但/但是 (but), 可是 (but), and 不过 (but, softer tone)
+- Concessions with 虽然...但是/可是 (although...but)
+- Additive/progressive relationships with 不但...而且/还/也 (not only...but also)
+- Clausal connectors like 那/那么 used after conditionals
+
+**Does not cover:**
+- 尽管...还是 (despite...still) — uses different grammar structure
+- 不但...更/甚至连...也 (not only...even more/even...) — uses 更 or 甚至连, which indicate escalation beyond HSK 2 scope
+- 却 as a contrastive adverb without the required conjunction pairing
+- 并且 (moreover/and) without the 不但 structure
+- Single instances of conjunctions without a multi-clause structure showing the relationship
+
+```rule
+match: /CS ... /AD|CC
+match: /CC ... /CC|AD
+match: /CC
+unless: 甚至/AD|CC
+unless: 更/AD
+unless: 尽管/CS
+unless: 却/AD
+```
+
+**Notes:** 
+- The rule is deliberately permissive to capture the variety of these connective structures across multiple clauses. All labeled examples contain at least one CS (subordinating conjunction like 如果, 虽然, 只要) or CC (coordinating conjunction like 但是, 可是, 不过, 而且, 不但) with corresponding clause markers (就, 那, 也, 还, etc.).
+- Some sentences use just a CC (like 可是, 但是, 不过, 而且, 不但) without an explicit CS, which is valid for this grammar point.
+- The unless clauses exclude counter-examples that involve 甚至 (even/even...), 更 (more/even more), 尽管 (despite), and 却 (but/yet) which represent different or higher-level grammar structures not in HSK 2-30.
+- Tag errors in parsing may occur (e.g., 不过 sometimes tagged as AD instead of CC), but the rule accounts for both possibilities.

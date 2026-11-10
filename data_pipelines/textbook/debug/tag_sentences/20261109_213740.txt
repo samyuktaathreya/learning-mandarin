@@ -1,0 +1,110 @@
+2026-11-09 21:37:40,880  INFO     === tag_sentences.py run started ===
+2026-11-09 21:37:40,931  INFO     OK        hanlp-valid   '我读，你听着。' -> [('我', 'PN'), ('读', 'VV'), ('你', 'PN'), ('听', 'VV'), ('着', 'AS')]
+2026-11-09 21:37:40,933  INFO     TAGGED    '我读，你听着。' (level 2, 5 tags)
+2026-11-09 21:37:40,942  INFO     OK        hanlp-valid   '我们做，你们看着。' -> [('我们', 'PN'), ('做', 'VV'), ('你们', 'PN'), ('看', 'VV'), ('着', 'AS')]
+2026-11-09 21:37:40,944  INFO     TAGGED    '我们做，你们看着。' (level 2, 5 tags)
+2026-11-09 21:37:40,951  INFO     OK        hanlp-valid   '你们坐着，我马上回来。' -> [('你们', 'PN'), ('坐', 'VV'), ('着', 'AS'), ('我', 'PN'), ('马上', 'AD'), ('回来', 'VV')]
+2026-11-09 21:37:40,953  INFO     TAGGED    '你们坐着，我马上回来。' (level 3, 6 tags)
+2026-11-09 21:37:40,961  INFO     FALLBACK  '我出去一下，你帮我看着行李。' -- out-of-list word(s): ['一下']
+2026-11-09 21:37:40,961  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('出去', 'VV'), ('一', 'CD'), ('下', 'M'), ('你', 'PN'), ('帮', 'VV'), ('我', 'PN'), ('看', 'VV'), ('着', 'AS'), ('行李', 'NN')]
+2026-11-09 21:37:40,964  INFO     TAGGED    '我出去一下，你帮我看着行李。' (level 3, 10 tags)
+2026-11-09 21:37:40,971  INFO     OK        hanlp-valid   '她喜欢站着吃饭。' -> [('她', 'PN'), ('喜欢', 'VV'), ('站', 'VV'), ('着', 'AS'), ('吃饭', 'VV')]
+2026-11-09 21:37:40,976  INFO     TAGGED    '她喜欢站着吃饭。' (level 2, 6 tags)
+2026-11-09 21:37:40,984  INFO     OK        hanlp-valid   '他笑着说“对不起”。' -> [('他', 'PN'), ('笑', 'VV'), ('着', 'AS'), ('说', 'VV'), ('对不起', 'VV')]
+2026-11-09 21:37:40,993  INFO     TAGGED    '他笑着说“对不起”。' (level 2, 5 tags)
+2026-11-09 21:37:41,001  INFO     OK        hanlp-valid   '孩子抱着爸爸哭了起来。' -> [('孩子', 'NN'), ('抱', 'VV'), ('着', 'AS'), ('爸爸', 'NN'), ('哭', 'VV'), ('了', 'AS'), ('起来', 'VV')]
+2026-11-09 21:37:41,004  INFO     TAGGED    '孩子抱着爸爸哭了起来。' (level 4, 7 tags)
+2026-11-09 21:37:41,011  INFO     OK        hanlp-valid   '听着!' -> [('听', 'VV'), ('着', 'AS')]
+2026-11-09 21:37:41,013  INFO     TAGGED    '听着!' (level 2, 2 tags)
+2026-11-09 21:37:41,020  INFO     OK        hanlp-valid   '别客气，拿着吧。' -> [('别', 'AD'), ('客气', 'VA'), ('拿', 'VV'), ('着', 'AS'), ('吧', 'SP')]
+2026-11-09 21:37:41,022  INFO     TAGGED    '别客气，拿着吧。' (level 4, 5 tags)
+2026-11-09 21:37:41,030  INFO     OK        hanlp-valid   '你们等着!' -> [('你们', 'PN'), ('等', 'VV'), ('着', 'AS')]
+2026-11-09 21:37:41,031  INFO     TAGGED    '你们等着!' (level 2, 3 tags)
+2026-11-09 21:37:41,039  INFO     OK        hanlp-valid   '你不要生气，我是说着玩的。' -> [('你', 'PN'), ('不要', 'AD'), ('生气', 'VV'), ('我', 'PN'), ('是', 'VC'), ('说', 'VV'), ('着', 'AS'), ('玩', 'VV'), ('的', 'SP')]
+2026-11-09 21:37:41,041  INFO     TAGGED    '你不要生气，我是说着玩的。' (level 3, 9 tags)
+2026-11-09 21:37:41,050  INFO     OK        hanlp-valid   '我听不懂英文歌，只是听着玩的。' -> [('我', 'PN'), ('听', 'VV'), ('不', 'AD'), ('懂', 'VV'), ('英文', 'NN'), ('歌', 'NN'), ('只是', 'AD'), ('听', 'VV'), ('着', 'AS'), ('玩', 'VV'), ('的', 'SP')]
+2026-11-09 21:37:41,052  INFO     TAGGED    '我听不懂英文歌，只是听着玩的。' (level 3, 11 tags)
+2026-11-09 21:37:41,060  INFO     OK        hanlp-valid   '门关着。/门没关着。' -> [('门', 'NN'), ('关', 'VV'), ('着', 'AS'), ('门', 'NN'), ('没', 'AD'), ('关', 'VV'), ('着', 'AS')]
+2026-11-09 21:37:41,062  INFO     TAGGED    '门关着。/门没关着。' (level 3, 7 tags)
+2026-11-09 21:37:41,069  INFO     FALLBACK  '电视开着呢。/电视没开着。' -- out-of-list word(s): ['着呢']
+2026-11-09 21:37:41,069  WARNING    HAIKU resegment call for '电视开着呢。/电视没开着。' (cache miss on [('着呢', 'SP')])
+2026-11-09 21:37:41,082  INFO     TAGGED    '电视开着呢。/电视没开着。' (level 2, 8 tags)
+2026-11-09 21:37:41,091  INFO     FALLBACK  '树枝随着风不停地摇动。' -- out-of-list word(s): ['摇动']
+2026-11-09 21:37:41,091  WARNING    HAIKU resegment call for '树枝随着风不停地摇动。' (cache miss on [('摇动', 'VV')])
+2026-11-09 21:37:41,110  INFO     TAGGED    '树枝随着风不停地摇动。' (level 6, 9 tags)
+2026-11-09 21:37:41,119  INFO     FALLBACK  '孩子们随着音乐跳起了舞。' -- out-of-list word(s): ['跳起']
+2026-11-09 21:37:41,119  WARNING    HAIKU resegment call for '孩子们随着音乐跳起了舞。' (cache miss on [('跳起', 'VV')])
+2026-11-09 21:37:41,131  INFO     TAGGED    '孩子们随着音乐跳起了舞。' (level 7, 8 tags)
+2026-11-09 21:37:41,140  INFO     FALLBACK  '污染物随着人的呼吸进入了人体内部。' -- out-of-list word(s): ['污染物']
+2026-11-09 21:37:41,141  WARNING    HAIKU resegment call for '污染物随着人的呼吸进入了人体内部。' (cache miss on [('污染物', 'NN')])
+2026-11-09 21:37:41,150  INFO       NON-LIST 污染物 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:37:41,152  INFO     TAGGED    '污染物随着人的呼吸进入了人体内部。' (level 10, 9 tags)
+2026-11-09 21:37:41,161  INFO     FALLBACK  '这些垃圾随着河水流到了大海。' -- out-of-list word(s): ['河水']
+2026-11-09 21:37:41,161  WARNING    HAIKU resegment call for '这些垃圾随着河水流到了大海。' (cache miss on [('河水', 'NN')])
+2026-11-09 21:37:41,177  INFO     TAGGED    '这些垃圾随着河水流到了大海。' (level 4, 10 tags)
+2026-11-09 21:37:41,186  INFO     FALLBACK  '我们随着他的琴声唱起了歌。' -- out-of-list word(s): ['琴声', '唱起']
+2026-11-09 21:37:41,186  WARNING    HAIKU resegment call for '我们随着他的琴声唱起了歌。' (cache miss on [('琴声', 'NN'), ('唱起', 'VV')])
+2026-11-09 21:37:41,204  INFO     TAGGED    '我们随着他的琴声唱起了歌。' (level 4, 10 tags)
+2026-11-09 21:37:41,215  INFO     OK        hanlp-valid   '随着经济的发展，人们的生活越来越好了。' -> [('随着', 'P'), ('经济', 'NN'), ('的', 'DEG'), ('发展', 'NN'), ('人们', 'NN'), ('的', 'DEG'), ('生活', 'NN'), ('越来越', 'AD'), ('好', 'VA'), ('了', 'SP')]
+2026-11-09 21:37:41,225  INFO     TAGGED    '随着经济的发展，人们的生活越来越好了。' (level 4, 13 tags)
+2026-11-09 21:37:41,237  INFO     FALLBACK  '随着石油价格的升高，粮食的价格涨了一点。' -- out-of-list word(s): ['一点']
+2026-11-09 21:37:41,237  INFO       CACHE-ONLY resegmentation -> [('随着', 'P'), ('石油', 'NN'), ('价格', 'NN'), ('的', 'DEG'), ('升高', 'NN'), ('粮食', 'NN'), ('的', 'DEG'), ('价格', 'NN'), ('涨', 'VV'), ('了', 'AS'), ('一', 'CD'), ('点', 'M')]
+2026-11-09 21:37:41,244  INFO     TAGGED    '随着石油价格的升高，粮食的价格涨了一点。' (level 6, 13 tags)
+2026-11-09 21:37:41,254  INFO     FALLBACK  '随着年龄的增加，他变得更加成熟了。' -- out-of-list word(s): ['变得']
+2026-11-09 21:37:41,254  WARNING    HAIKU resegment call for '随着年龄的增加，他变得更加成熟了。' (cache miss on [('变得', 'VV')])
+2026-11-09 21:37:41,268  INFO     TAGGED    '随着年龄的增加，他变得更加成熟了。' (level 5, 10 tags)
+2026-11-09 21:37:41,279  INFO     FALLBACK  '随着中国国际地位的提高，中国人也变得越来越有自信了。' -- out-of-list word(s): ['中国人', '变得']
+2026-11-09 21:37:41,279  WARNING    HAIKU resegment call for '随着中国国际地位的提高，中国人也变得越来越有自信了。' (cache miss on [('变得', 'VV')])
+2026-11-09 21:37:41,302  INFO     TAGGED    '随着中国国际地位的提高，中国人也变得越来越有自信了。' (level 5, 17 tags)
+2026-11-09 21:37:41,313  INFO     OK        hanlp-valid   '随着人口不断增加，大城市的社会问题越来越多了。' -> [('随着', 'P'), ('人口', 'NN'), ('不断', 'AD'), ('增加', 'VV'), ('大', 'JJ'), ('城市', 'NN'), ('的', 'DEG'), ('社会', 'NN'), ('问题', 'NN'), ('越来越', 'AD'), ('多', 'VA'), ('了', 'SP')]
+2026-11-09 21:37:41,319  INFO     TAGGED    '随着人口不断增加，大城市的社会问题越来越多了。' (level 5, 14 tags)
+2026-11-09 21:37:41,329  INFO     OK        hanlp-valid   '宝宝刚睡着。' -> [('宝宝', 'NN'), ('刚', 'AD'), ('睡着', 'VV')]
+2026-11-09 21:37:41,337  INFO     TAGGED    '宝宝刚睡着。' (level 5, 5 tags)
+2026-11-09 21:37:41,345  INFO     FALLBACK  '你的手机找着了吗？' -- out-of-list word(s): ['找着']
+2026-11-09 21:37:41,345  WARNING    HAIKU resegment call for '你的手机找着了吗？' (cache miss on [('找着', 'VV')])
+2026-11-09 21:37:41,357  INFO     TAGGED    '你的手机找着了吗？' (level 2, 7 tags)
+2026-11-09 21:37:41,366  INFO     FALLBACK  '超市关门了，你要的东西我没买着。' -- out-of-list word(s): ['关门']
+2026-11-09 21:37:41,366  WARNING    HAIKU resegment call for '超市关门了，你要的东西我没买着。' (cache miss on [('关门', 'VV')])
+2026-11-09 21:37:41,380  INFO     TAGGED    '超市关门了，你要的东西我没买着。' (level 3, 12 tags)
+2026-11-09 21:37:41,389  INFO     OK        hanlp-valid   '我终于见着你了。' -> [('我', 'PN'), ('终于', 'AD'), ('见', 'VV'), ('着', 'AS'), ('你', 'PN'), ('了', 'SP')]
+2026-11-09 21:37:41,391  INFO     TAGGED    '我终于见着你了。' (level 3, 6 tags)
+2026-11-09 21:37:41,399  INFO     OK        hanlp-valid   '最近太忙了，他累着了。' -> [('最近', 'NT'), ('太', 'AD'), ('忙', 'VA'), ('了', 'AS'), ('他', 'PN'), ('累', 'VA'), ('着', 'AS'), ('了', 'SP')]
+2026-11-09 21:37:41,401  INFO     TAGGED    '最近太忙了，他累着了。' (level 3, 8 tags)
+2026-11-09 21:37:41,409  INFO     OK        hanlp-valid   '现在买不着这样的衣服了。' -> [('现在', 'NT'), ('买', 'VV'), ('不', 'AD'), ('着', 'VV'), ('这样', 'PN'), ('的', 'DEG'), ('衣服', 'NN'), ('了', 'SP')]
+2026-11-09 21:37:41,411  INFO     TAGGED    '现在买不着这样的衣服了。' (level 2, 8 tags)
+2026-11-09 21:37:41,419  INFO     FALLBACK  '晚上我睡不着的时候就看书。' -- out-of-list word(s): ['看书']
+2026-11-09 21:37:41,419  WARNING    HAIKU resegment call for '晚上我睡不着的时候就看书。' (cache miss on [('看书', 'VV')])
+2026-11-09 21:37:41,432  INFO     TAGGED    '晚上我睡不着的时候就看书。' (level 2, 10 tags)
+2026-11-09 21:37:41,441  INFO     OK        hanlp-valid   '我的手机找不着了。' -> [('我', 'PN'), ('的', 'DEG'), ('手机', 'NN'), ('找', 'VV'), ('不', 'AD'), ('着', 'VV'), ('了', 'SP')]
+2026-11-09 21:37:41,443  INFO     TAGGED    '我的手机找不着了。' (level 2, 7 tags)
+2026-11-09 21:37:41,451  INFO     OK        hanlp-valid   '我在国外吃不着地道的中国菜。' -> [('我', 'PN'), ('在', 'P'), ('国外', 'NN'), ('吃', 'VV'), ('不', 'AD'), ('着', 'VV'), ('地道', 'VA'), ('的', 'DEC'), ('中国', 'NR'), ('菜', 'NN')]
+2026-11-09 21:37:41,457  INFO     TAGGED    '我在国外吃不着地道的中国菜。' (level 6, 11 tags)
+2026-11-09 21:37:41,465  INFO     FALLBACK  '昨天有人来找你来着。' -- out-of-list word(s): ['来着']
+2026-11-09 21:37:41,465  WARNING    HAIKU resegment call for '昨天有人来找你来着。' (cache miss on [('来着', 'SP')])
+2026-11-09 21:37:41,480  INFO     TAGGED    '昨天有人来找你来着。' (level 2, 8 tags)
+2026-11-09 21:37:41,489  INFO     FALLBACK  '那本书昨天还在这儿来着，今天怎么找不到了？' -- out-of-list word(s): ['来着']
+2026-11-09 21:37:41,489  WARNING    HAIKU resegment call for '那本书昨天还在这儿来着，今天怎么找不到了？' (cache miss on [('来着', 'SP')])
+2026-11-09 21:37:41,503  INFO     TAGGED    '那本书昨天还在这儿来着，今天怎么找不到了？' (level 2, 15 tags)
+2026-11-09 21:37:41,512  INFO     FALLBACK  '他叫什么来着？' -- out-of-list word(s): ['来着']
+2026-11-09 21:37:41,512  WARNING    HAIKU resegment call for '他叫什么来着？' (cache miss on [('来着', 'SP')])
+2026-11-09 21:37:41,524  INFO     TAGGED    '他叫什么来着？' (level 2, 5 tags)
+2026-11-09 21:37:41,533  INFO     FALLBACK  '那首歌是谁唱的来着？' -- out-of-list word(s): ['来着']
+2026-11-09 21:37:41,533  WARNING    HAIKU resegment call for '那首歌是谁唱的来着？' (cache miss on [('来着', 'SP')])
+2026-11-09 21:37:41,543  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-09 21:37:41,545  INFO     TAGGED    '那首歌是谁唱的来着？' (level 4, 9 tags)
+2026-11-09 21:37:41,554  INFO     FALLBACK  '我们上次说周末去哪儿玩来着？' -- out-of-list word(s): ['来着']
+2026-11-09 21:37:41,554  WARNING    HAIKU resegment call for '我们上次说周末去哪儿玩来着？' (cache miss on [('来着', 'SP')])
+2026-11-09 21:37:41,570  INFO     TAGGED    '我们上次说周末去哪儿玩来着？' (level 3, 10 tags)
+2026-11-09 21:37:41,580  INFO     FALLBACK  '我说什么来着！你一吃火锅就拉肚子！' -- out-of-list word(s): ['来着', '拉肚子']
+2026-11-09 21:37:41,580  WARNING    HAIKU resegment call for '我说什么来着！你一吃火锅就拉肚子！' (cache miss on [('来着', 'SP'), ('拉肚子', 'VV')])
+2026-11-09 21:37:41,595  INFO       READING  肚子 'du3 zi5' matches no form -- offering every form
+2026-11-09 21:37:41,596  INFO     TAGGED    '我说什么来着！你一吃火锅就拉肚子！' (level 5, 12 tags)
+2026-11-09 21:37:41,606  INFO     FALLBACK  '我说什么来着！这个东西肯定是假的！' -- out-of-list word(s): ['来着', '这个']
+2026-11-09 21:37:41,606  WARNING    HAIKU resegment call for '我说什么来着！这个东西肯定是假的！' (cache miss on [('来着', 'SP')])
+2026-11-09 21:37:41,622  INFO     TAGGED    '我说什么来着！这个东西肯定是假的！' (level 4, 12 tags)
+2026-11-09 21:37:41,631  INFO     FALLBACK  '我说什么来着！他不是真的喜欢你！' -- out-of-list word(s): ['来着', '不是']
+2026-11-09 21:37:41,631  WARNING    HAIKU resegment call for '我说什么来着！他不是真的喜欢你！' (cache miss on [('来着', 'SP'), ('不是', 'AD')])
+2026-11-09 21:37:41,650  INFO     TAGGED    '我说什么来着！他不是真的喜欢你！' (level 2, 12 tags)
+2026-11-09 21:37:41,660  INFO     FALLBACK  '我说什么来着！他们会回来的。' -- out-of-list word(s): ['来着']
+2026-11-09 21:37:41,660  WARNING    HAIKU resegment call for '我说什么来着！他们会回来的。' (cache miss on [('来着', 'SP')])
+2026-11-09 21:37:41,672  INFO     TAGGED    '我说什么来着！他们会回来的。' (level 2, 9 tags)

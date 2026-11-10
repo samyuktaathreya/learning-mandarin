@@ -1,0 +1,204 @@
+
+########## rules  2026-11-09 21:17 ##########
+25 page(s) use the word(s); asking about 25.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGA8NIB  Offering choices with "haishi"
+  ASGP0KFF  Expressing "and" with "he"
+  ASGQJ5IC  Comparing "haishi" and "huozhe"
+  ASGSZ0HP  Expressing "with" with "gen"
+
+not:
+  ASGC06N0  Basic comparisons with "yiyang"
+  ASGC5Y86  Comparing "gen" and "dui"
+  ASGWAR65  Expressing "had better" with "haishi"
+  ASG1NAXO  Approximations with "chabuduo"
+  ASG920B7  Expressing "compared with" using "gen"
+  ASGA77KW  Expressing "similar to" with "gen... shide"
+  ASGD19DA  Expressing "related to..." with "you guan de"
+  ASGIRILI  Continuation with "hai"
+  ASGE8810  Expressing "age difference" with "da and xiao"
+  ASGF08B6  Repeated actions in the past with "you"
+  ASGQAN74  The opposite of "chabuduo" is "cha hen duo"
+  ASGW863F  Expressing "although" with "jinguan"
+
+unsure:
+  ASGXN52R  Expressing "and" with "he" (advanced)
+  ASGW7YXP  Softening the tone of questions with "ne"
+  ASG0NDS6  Expressing "no matter" with "buguan"
+  ASGN6O6J  Comparing "zhijian" and “zhongjian"
+
+unrelated:
+  ASGE4B94  Comparisons with "biqi"
+  ASG4GVRX  Separable verb
+  ASGFNS52  Comparing "fan'er" and “xiangfan"
+  ASGH13JY  Idiomatic phrases with "zai"
+  ASGKU8FU  Expressing "at the same time" with "jian"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-19
+Tagging 19 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_211751.txt
+  ...100/118
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 1-19, rule line 2: unknown tag(s) 差 in '/VV|差' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-19_20261109_211759.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 1-19, rule line 2: empty item '|' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-19_20261109_211806.txt)
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 1-19
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** Linking words 跟/和 ("and", "with") and 还是 ("or" in questions).
+
+**Covers:**
+- 还是 as "or" between two options (还是/CC after something in the same clause), e.g. 你喝茶还是喝水？ 这是水还是酒？
+- A bare "pronoun 还是 pronoun" clause, e.g. 我还是他？
+- 和 or 跟 as "and" between nouns (和/CC, 跟/CC), e.g. 手机和电脑都很贵。
+- 或者 as "or" in statements.
+- 跟 as "with" (跟/P) before a verb, e.g. 我昨天跟朋友去海滩了。 你想跟我一起去吗？ 不要跟我说话！
+
+**Does not cover:**
+- 还是/AD meaning "still" or "had better".
+- 还是 at the start of a clause, which the tagger sometimes tags CC, as in 他闻了又闻，还是什么都没闻到。
+- 跟/和 in comparisons: 一样, 差不多, 差很多, 比/比起来, 似的, 有关.
+- 跟 + person + 说 ("tell"), which belongs to the 跟/对 contrast point.
+- 和/P, which is ambiguous with these other uses.
+
+```rule
+match: _ 还是/CC _
+match: ^ /PN 还是/AD /PN $
+match: _ 和/CC _
+match: _ 跟/CC _
+match: _ 或者/CC _
+match: 跟/P
+unless: 一样
+unless: 差不多
+unless: 差/VV
+unless: 比
+unless: 比起来
+unless: 似的
+unless: 有关
+unless: 说/VV
+unless: 要 跟/P 我 一起
+```
+
+**Notes:**
+- The pattern `_ 还是/CC` needs a word before 还是 in the same clause. This deliberately excludes clause-initial 还是 mis-tagged as CC.
+- `unless:` lines are checked against the whole sentence, so they are blunt. A sentence with both a good 还是 question and a stray 说 or 比 will be dropped, which is acceptable for precision.
+- The `要 跟/P 我 一起` exclusion exists only because the labeled counter-example 你要跟我一起去吗？ conflicts with the positive 你想跟我一起去吗？ and the two cannot be told apart structurally. Remove it if that counter-example turns out to be label noise.
+- 还是/AD in the bare 我还是他？ is matched only by the narrow pronoun-only clause pattern.
+- 和/P ("请和我联络") is left out because it cannot be reliably separated from the 一样/差不多/有关 uses.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-19
+Tagging 19 labeled example(s) (cached after this run)...
+  ...100/118
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-19: rule on labeled examples (no AI) ===
+  examples of 1-19 matched:    39/39
+  counter-examples wrongly matched: 0/79   <- should be 0
+
+########## tatoeba  2026-11-09 22:05 ##########
+Filling 1-19 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 2-02, 2-04, 2-05, 2-07, 2-09, 2-12, 2-13, 2-15, 2-16, 2-19, 2-21, 2-22, 2-23, 2-26, 2-27, 2-28, 2-29, 2-30, 2-32, 2-33, 2-34, 2-43, 2-44, 2-45, 2-46, 2-47, 2-51, 2-55, 2-58, 2-59, 2-67, 2-69, 2-74, 2-75, 2-76, 2-78, 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-19 in: 4  -> Tatoeba needs to add 16 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 2) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-19 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1500  2. contain the point's word(s)
+     1500  3. new (not in DB, not a duplicate)
+      366  4. at most 2 characters outside HSK 1 words
+       28  5. really HSK 1
+       22  5b. no harder grammar point (of the 57 with a rule)
+        8  6. the rule finds 1-19
+        5  6b. no hidden word a learner can't work out
+        4  7. both checks say 1-19, English chosen
+        4  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  爸爸和妈妈都在家。  (Both dad and mom are at home.)  [tatoeba 10961060]  hidden: 在家
+  我喜欢牛奶和面包。  (I like milk and bread.)  [tatoeba 13549578]
+  我们买了面包和牛奶。  (We bought bread and milk.)  [tatoeba 13544341]
+  Tom和Mary有个女儿和儿子。  (Tom and Mary have a daughter and a son.)  [tatoeba 4504442]
+
+--- dropped at step 4 (1134), first 12 ---
+  我跟父母联络了一下。  -- 5 characters no HSK 1 word uses: 母父络联跟
+  我跟他去钓鱼。  -- 3 characters no HSK 1 word uses: 跟钓鱼
+  今天的使命：奶茶跟麻糬。  -- 5 characters no HSK 1 word uses: 使命糬跟麻
+  他喜欢地理和历史。  -- 4 characters no HSK 1 word uses: 历史地理
+  在东京和莫斯科有一个航班。  -- 5 characters no HSK 1 word uses: 京斯科航莫
+  因为保险公司的需要，我能够留下您的姓名，您的地址和您的电话号码么？  -- 11 characters no HSK 1 word uses: 为保因地址够姓留码险需
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 13 characters no HSK 1 word uses: 交像头容就异形往性捡海石跟
+  跟异性交往最重要的不是他有多好,而是他对你有多好。  -- 8 characters no HSK 1 word uses: 交异往性最而跟重
+  现在女性考虑婚姻的唯一条件，应该就是妳爱不爱他，他爱不爱妳，是不是真心真意对妳，跟他在一起会不会有压力，会不会快乐，而非他拥有什么！  -- 19 characters no HSK 1 word uses: 乐力压唯妳姻婚就应心快性意拥考而虑该跟
+  这意味着对利用能源、耗费资金和制造污染的空调的使用有了大幅增长。  -- 20 characters no HSK 1 word uses: 使利制味增幅意染污源用着空耗调费资造金长
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 1 word uses: 使其婴尤幼重
+  因为有高而闭合的领子、紧身的剪裁和在直身裙两边的大开口，旗袍有着独一无二传达端庄和性感的能力。  -- 24 characters no HSK 1 word uses: 为传剪力合因庄性感旗无独直着端紧而袍裁裙身达闭领
+
+--- dropped at step 5 (338), first 12 ---
+  我跟那个事件没有什么关系。  -- level 5: 跟 L2, 事件 L5, 关系 L3
+  你还是去看病吧。  -- level 2: 还是 L2
+  你还是留在这儿吧。  -- level 4: 还是 L2, 留 L4
+  他岁数和你差不多。  -- level 6: 岁数 L6, 差不多 L3
+  你的问题和我没有关系。  -- level 3: 关系 L3
+  我们还是在这里坐下吧。  -- level 2: 还是 L2
+  你在跟我说话吗？  -- level 2: 跟 L2
+  “这”和“那”有什么区别？  -- level 4: 区别 L4
+  好多朋友和熟人来了。  -- level 5: 好多 L3, 熟人 L5
+  不喝酒的男人还是男人吗？  -- level 3: 酒 L3, 男人 L3, 还是 L2
+  没头脑和不高兴做了什么事？  -- level 6: 头脑 L6
+  我和她在中学是一个班的。  -- level 2: 班 L2
+
+--- dropped at step 5b (6) ---
+  我喜欢学中文和英文。  -- harder grammar: 2-04 (HSK 2)
+  Tom和Mary有三只猫和两只狗。  -- harder grammar: 2-09 (HSK 2)
+  Tom和Mary有三个儿子和一个女儿。  -- harder grammar: 2-09 (HSK 2)
+  她有一只狗和六只猫。  -- harder grammar: 2-09 (HSK 2)
+  他看到我的时候和我说话。  -- harder grammar: 2-04 (HSK 2)
+  我不想再和汤姆说话了。  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (14) ---
+  我和他是朋友。  -- rule: no match: line matched
+  谁和何塞是同学？  -- rule: unless 跟|和/CC _ 是/VC
+  谁和谁是同学？  -- rule: unless 跟|和/CC _ 是/VC
+  胡安，她是小雨，我和小雨是同学。  -- rule: unless 跟|和/CC _ _ 是/VC
+  小雨，他是胡安，我和胡安是朋友。  -- rule: unless 跟|和/CC _ 是/VC
+  你和谁说话呢？  -- rule: no match: line matched
+  我和他认识。  -- rule: no match: line matched
+  你和她是朋友吗？  -- rule: no match: line matched
+  你和他是朋友吗？  -- rule: no match: line matched
+  安娜和谁是同学？  -- rule: unless 跟|和/CC _ 是/VC
+  我想和她说话。  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: no match: line matched
+  你和我去商店吗？  -- rule: no match: line matched
+  是你不能还是你不想？  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  日本和英格兰哪个大？  -- hidden word a learner can't work out: 日本 (Japan)
+  我不想和他玩。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  他们不想和我说话。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+
+--- dropped at step 7 (1) ---
+  他和妈妈来的。  -- check said no (2/2): Translation error: says 'brother' not 'mom'
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-19_level1_20261109_220515.csv

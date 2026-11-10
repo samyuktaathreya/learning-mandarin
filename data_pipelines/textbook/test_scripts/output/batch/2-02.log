@@ -1,0 +1,43 @@
+
+########## rules  2026-11-09 21:25 ##########
+3 page(s) use the word(s); asking about 3.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGV01X9  Expressing "should" with "yinggai"
+
+not:
+
+unsure:
+
+unrelated:
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+  ASG6F157  Expressing "originally" with "benlai"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-02
+Tagging 12 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_212601.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-02
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Modal verbs 应该 and 该 expressing "should" or obligation
+**Covers:** Sentences where 应该 or 该 appears as a modal verb before another verb, expressing what someone should do or should not do
+**Does not cover:** Other uses of 该 (e.g., 该⋯⋯了 meaning "it's time to" or expressing a time-based obligation with different grammatical structure)
+
+```rule
+match: (应该|该)/VV _ /VV
+unless: (该|应该)/VV ... 了/SP $ 
+```
+
+**Notes:** The rule matches 应该 or 该 tagged as VV followed by any word and then a verb (the action being obligated). The negative construction (不 应该/该) is automatically captured since 不 comes before the modal verb in tokenization. The unless clause excludes sentences ending with 了 immediately after the verb phrase, which may belong to the 该⋯⋯了 construction (HSK 2-80), though this is a conservative filter—some 应该 sentences legitimately end with 了. The rule requires the modal to be directly followed by content that includes a verb to distinguish from other uses.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-02
+Tagging 12 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-02: rule on labeled examples (no AI) ===
+  examples of 2-02 matched:    12/12
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+########## tatoeba  2026-11-09 22:06 ##########

@@ -1,0 +1,32 @@
+2026-11-09 21:48:12,604  INFO     === tag_sentences.py run started ===
+2026-11-09 21:48:12,896  INFO     OK        hanlp-valid   '我们快要放假了。' -> [('我们', 'PN'), ('快要', 'AD'), ('放假', 'VV'), ('了', 'SP')]
+2026-11-09 21:48:12,897  INFO     TAGGED    '我们快要放假了。' (level 3, 4 tags)
+2026-11-09 21:48:12,905  INFO     FALLBACK  '我明天要买一个iPhone。' -- out-of-list word(s): ['一个']
+2026-11-09 21:48:12,906  WARNING    HAIKU resegment call for '我明天要买一个iPhone。' (cache miss on [('一个', 'PN')])
+2026-11-09 21:48:12,917  INFO     TAGGED    '我明天要买一个iPhone。' (level 1, 6 tags)
+2026-11-09 21:48:12,926  INFO     OK        hanlp-valid   '你们现在要出去吗？' -> [('你们', 'PN'), ('现在', 'NT'), ('要', 'VV'), ('出去', 'VV'), ('吗', 'SP')]
+2026-11-09 21:48:12,928  INFO     TAGGED    '你们现在要出去吗？' (level 2, 5 tags)
+2026-11-09 21:48:12,936  INFO     FALLBACK  '我们今年要去美国。' -- out-of-list word(s): ['美国']
+2026-11-09 21:48:12,936  WARNING    HAIKU resegment call for '我们今年要去美国。' (cache miss on [('美国', 'NR')])
+2026-11-09 21:48:12,947  INFO     TAGGED    '我们今年要去美国。' (level 4, 6 tags)
+2026-11-09 21:48:13,265  INFO     OK        hanlp-valid   '他下个月要来中国工作。' -> [('他', 'PN'), ('下个月', 'NT'), ('要', 'VV'), ('来', 'VV'), ('中国', 'NR'), ('工作', 'VV')]
+2026-11-09 21:48:13,271  INFO     TAGGED    '他下个月要来中国工作。' (level 1, 8 tags)
+2026-11-09 21:48:13,287  INFO     FALLBACK  '你下个星期要去她家吃晚饭吗？' -- out-of-list word(s): ['下个星期']
+2026-11-09 21:48:13,287  WARNING    HAIKU resegment call for '你下个星期要去她家吃晚饭吗？' (cache miss on [('下个星期', 'NT')])
+2026-11-09 21:48:13,300  INFO     TAGGED    '你下个星期要去她家吃晚饭吗？' (level 1, 11 tags)
+2026-11-09 21:48:13,309  INFO     FALLBACK  '这个星期天你要做什么？' -- out-of-list word(s): ['这个']
+2026-11-09 21:48:13,309  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('星期天', 'NT'), ('你', 'PN'), ('要', 'VV'), ('做', 'VV'), ('什么', 'PN')]
+2026-11-09 21:48:13,312  INFO     TAGGED    '这个星期天你要做什么？' (level 1, 7 tags)
+2026-11-09 21:48:13,320  INFO     OK        hanlp-valid   '我晚上要给妈妈打电话。' -> [('我', 'PN'), ('晚上', 'NT'), ('要', 'VV'), ('给', 'P'), ('妈妈', 'NN'), ('打电话', 'VV')]
+2026-11-09 21:48:13,322  INFO     TAGGED    '我晚上要给妈妈打电话。' (level 1, 6 tags)
+2026-11-09 21:48:13,330  INFO     OK        hanlp-valid   '下午老师要来我家。' -> [('下午', 'NT'), ('老师', 'NN'), ('要', 'VV'), ('来', 'VV'), ('我', 'PN'), ('家', 'NN')]
+2026-11-09 21:48:13,331  INFO     TAGGED    '下午老师要来我家。' (level 1, 6 tags)
+2026-11-09 21:48:13,339  INFO     OK        hanlp-valid   '老板明天要见他们吗？' -> [('老板', 'NN'), ('明天', 'NT'), ('要', 'VV'), ('见', 'VV'), ('他们', 'PN'), ('吗', 'SP')]
+2026-11-09 21:48:13,341  INFO     TAGGED    '老板明天要见他们吗？' (level 5, 6 tags)
+2026-11-09 21:48:13,349  INFO     OK        hanlp-valid   '下班以后你要回家吗？' -> [('下班', 'VV'), ('以后', 'LC'), ('你', 'PN'), ('要', 'VV'), ('回家', 'VV'), ('吗', 'SP')]
+2026-11-09 21:48:13,354  INFO     TAGGED    '下班以后你要回家吗？' (level 3, 7 tags)
+2026-11-09 21:48:13,362  INFO     OK        hanlp-valid   '不管发生了什么，人总要吃饭吧。' -> [('不管', 'CS'), ('发生', 'VV'), ('了', 'AS'), ('什么', 'PN'), ('人', 'NN'), ('总', 'AD'), ('要', 'VV'), ('吃饭', 'VV'), ('吧', 'SP')]
+2026-11-09 21:48:13,367  INFO     TAGGED    '不管发生了什么，人总要吃饭吧。' (level 4, 10 tags)
+2026-11-09 21:48:13,376  INFO     FALLBACK  '他是你爸爸，你总要礼貌一点吧。' -- out-of-list word(s): ['一点']
+2026-11-09 21:48:13,376  INFO       CACHE-ONLY resegmentation -> [('他', 'PN'), ('是', 'VC'), ('你', 'PN'), ('爸爸', 'NN'), ('你', 'PN'), ('总', 'AD'), ('要', 'VV'), ('礼貌', 'VA'), ('一点', 'M'), ('吧', 'SP')]
+2026-11-09 21:48:13,381  INFO     TAGGED    '他是你爸爸，你总要礼貌一点吧。' (level 4, 11 tags)

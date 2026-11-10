@@ -1,0 +1,20 @@
+## 2-05
+**Point:** Questioning words 怎么样/怎样, 为什么, 多久 used to ask open-ended questions about how something is, why something happened, or how long something took.
+
+**Covers:** 
+- 怎么样/怎样 asking "how is X?" or "what is X like?" (with or without 觉得)
+- 为什么 asking "why?"
+- 多久 asking "how long?"
+
+**Does not cover:** 
+- 怎么样/怎样 used as an adverbial modifier meaning "in some way" or in the phrase 不怎么样 (meaning "not very good")
+- These words in statements rather than questions (e.g., "这个电影不怎么样" is an opinion statement, not asking a question)
+
+```rule
+match: 怎么样|怎样/VV ... \?
+match: 多/AD 久/VA ... \?
+match: 为什么/AD ... \?
+unless: 不/AD 怎么样|怎样
+```
+
+**Notes:** The rule matches these question words when they appear tagged as VV (for 怎么样/怎样) or AD + VA (for 多久) or AD (for 为什么) in sentences ending with question marks. The unless clause excludes 不怎么样 constructions, which express opinions rather than asking genuine questions about how something is. The tagger occasionally tags 怎样 as VA rather than VV, but the question mark ending helps distinguish genuine questions from statements like "这个电影不怎么样" where the question mark would not appear.

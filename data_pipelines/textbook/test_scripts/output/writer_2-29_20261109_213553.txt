@@ -1,0 +1,17 @@
+## 2-29
+**Point:** Using 或/或者 to express "or" in statements (offering alternatives)
+**Covers:** Sentences where 或 or 或者 connects two alternatives in a statement, typically offering choices or possibilities (not yes/no questions)
+**Does not cover:** Sentences using 或许 (perhaps/maybe); sentences using 或是 (5-45); sentences using 或A或B pattern (6-25); sentences where 或/或者 appears only in titles or metalinguistic contexts
+
+```rule
+match: ... 或|或者/CC ...
+unless: 或许/AD
+```
+
+**Notes:** 
+- The rule is intentionally simple: it matches any clause containing 或 or 或者 tagged as CC (coordinating conjunction), which is how the tagger marks this specific usage.
+- The 除非: line excludes 或许 (meaning "perhaps"), which is an adverb and uses a different tag (AD).
+- Sentences can have the point even without 都 following—while many examples show 都, it's not required by the grammar point itself.
+- The pattern matches within a single clause, so multi-clause sentences will trigger if any clause has the pattern.
+- Counter-example "去或是不去" is excluded because 或是 is HSK 5-44, not HSK 2-29; tagging will show 或是/CC as a single token, not matching 或|或者.
+- Counter-example "或早或晚" follows the 或A或B pattern (HSK 6-25), but this rule will match it. If precision is critical, add `unless: ^或|或者 ... 或|或者 $` to exclude that pattern, but the examples provided suggest including it is acceptable at HSK 2 level.

@@ -144,3 +144,134 @@ Harder grammar points made only of HSK 1 words (the review is warned about them)
   这两本都是宋本。  -- difficulty review: (2/2); 宋本 uses 宋 (Song Dynasty) and 本 (edition/version) in a specialized historical/bibliographic sense that goes beyond basic HSK 1 vocabulary usage. While both words are on the list, their combination refers to a specific type of rare book that requires cultural/historical knowledge not expected at HSK 1 level.
 
 Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-10_level1_20261107_172217.csv
+
+########## tatoeba  2026-11-09 22:03 ##########
+Filling 1-10 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 2-02, 2-04, 2-05, 2-07, 2-09, 2-12, 2-13, 2-15, 2-16, 2-19, 2-21, 2-22, 2-23, 2-26, 2-27, 2-28, 2-29, 2-30, 2-32, 2-33, 2-34, 2-43, 2-44, 2-45, 2-46, 2-47, 2-51, 2-55, 2-58, 2-59, 2-67, 2-69, 2-74, 2-75, 2-76, 2-78, 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-10 in: 3  -> Tatoeba needs to add 17 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 2) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-10 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1137  2. contain the point's word(s)
+     1136  3. new (not in DB, not a duplicate)
+      418  4. at most 2 characters outside HSK 1 words
+       59  5. really HSK 1
+       38  5b. no harder grammar point (of the 57 with a rule)
+       13  6. the rule finds 1-10
+       12  6b. no hidden word a learner can't work out
+        7  7. both checks say 1-10, English chosen
+        6  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  人人都好。  (Everybody is fine.)  [tatoeba 5863313]  hidden: 人人
+  大家都认识我。  (Everyone knows me.)  [tatoeba 3957666]
+  那些事都是真的。  (All those things are true.)  [tatoeba 6585424]  hidden: 真的
+  同学们都在学英文。  (The students are all learning English.)  [tatoeba 4761463]
+  我很高兴你们都在。  (I'm glad you guys are here.)  [tatoeba 8463574]
+  爸爸和妈妈都在家。  (Both dad and mom are at home.)  [tatoeba 10961060]  hidden: 在家
+
+--- dropped at step 3 (1) ---
+  一切都会好起来的。  -- same text as tatoeba 7767746 (translations pooled)
+
+--- dropped at step 4 (718), first 12 ---
+  无论如何，都不关你的事。  -- 4 characters no HSK 1 word uses: 何如无论
+  我一辈子都是个流浪者。  -- 4 characters no HSK 1 word uses: 流浪者辈
+  他的突然出现，让我们都感到惊讶。  -- 6 characters no HSK 1 word uses: 惊感然突让讶
+  所有的老师都无法解决这个问题。  -- 5 characters no HSK 1 word uses: 决所无法解
+  什么都无法解释。  -- 4 characters no HSK 1 word uses: 无法解释
+  煤并不一定都是黑的。  -- 4 characters no HSK 1 word uses: 定并煤黑
+  什么都可以放在一锅杂烩里。  -- 4 characters no HSK 1 word uses: 放杂烩锅
+  现在许多年轻人工作都不太安分，朋友的儿子大学毕业不到两年，已经换了五个工作了。  -- 8 characters no HSK 1 word uses: 业安已换毕经许轻
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 12 characters no HSK 1 word uses: 体别压就挺方查检王结血身
+  他在各方面都比不上你。  -- 3 characters no HSK 1 word uses: 各方比
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 13 characters no HSK 1 word uses: 交像头容就异形往性捡海石跟
+  其实，每一个人的条件都是一样的。  -- 3 characters no HSK 1 word uses: 其实每
+
+--- dropped at step 5 (359), first 12 ---
+  我一点都不怕你。  -- level 3: 怕 L3
+  哪一本书都行。  -- level 3: 行 L3
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list), 鸟 L2
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  他们俩都在房间里。  -- level 4: 俩 L4
+  大家都同意你。  -- level 3: 同意 L3
+  他们什么都改。  -- level 4: 改 L4
+  无论你要我做什么，我都会去做的。  -- level 4: 无论 L4
+  不管你怎么做，结果都一样。  -- level 4: 不管 L4, 结果 L4, 一样 L3
+  都是我的错。  -- level 2: 错 L2
+  一切都会好的。  -- level 4: 一切 L4
+  靠！瑞士的火车什么都有！  -- level 5: 靠 L5
+
+--- dropped at step 5b (21), first 12 ---
+  我们三个都是学生。  -- harder grammar: 2-09 (HSK 2)
+  这两本都是宋本。  -- harder grammar: 2-09 (HSK 2)
+  她一个朋友都没有。  -- harder grammar: 3-41 (HSK 3), 2-09 (HSK 2)
+  他们明天晚上都会去北京大学上课。  -- harder grammar: 2-04 (HSK 2)
+  他们都喜欢唱歌。  -- harder grammar: 2-04 (HSK 2)
+  我什么事都没有做。  -- harder grammar: 2-04 (HSK 2)
+  一点问题都没有！  -- harder grammar: 2-04 (HSK 2), 2-09 (HSK 2)
+  他一个朋友都没有。  -- harder grammar: 3-41 (HSK 3), 2-09 (HSK 2)
+  你想去哪里都可以。  -- harder grammar: 2-04 (HSK 2)
+  他们什么都没看到。  -- harder grammar: 2-04 (HSK 2)
+  我能找到的都在那。  -- harder grammar: 2-04 (HSK 2)
+  人们都爱说话。  -- harder grammar: 2-04 (HSK 2)
+
+--- dropped at step 6 (25) ---
+  我什么都知道。  -- rule: unless 什么
+  那件事谁都知道。  -- rule: unless 谁
+  什么问题都没有！  -- rule: unless 什么
+  来的都是朋友。  -- rule: no match: line matched
+  我什么都不喜欢。  -- rule: unless 什么
+  他什么都不知道。  -- rule: unless 什么
+  她什么都不知道。  -- rule: unless 什么
+  他们都做了。  -- rule: unless 都 ... 了
+  我们什么都知道。  -- rule: unless 什么
+  我知道你们都是谁。  -- rule: unless 谁
+  人人都知道我不喜欢汤姆。  -- rule: no match: line matched
+  没，我什么都没在吃。  -- rule: unless 什么
+  我去哪里都开车。  -- rule: unless 哪里
+  我什么都不知道。  -- rule: unless 什么
+  我什么都不是。  -- rule: unless 什么
+  他们什么都不知道。  -- rule: unless 什么
+  你什么都没问我。  -- rule: unless 什么
+  他们什么都不给。  -- rule: unless 什么
+  钱都到哪里去了？  -- rule: unless 哪里 ; 都 ... 了
+  都很好。  -- rule: no match: line matched
+  都给我。  -- rule: no match: line matched
+  都是。  -- rule: no match: line matched
+  这些天你都在读些什么？  -- rule: unless 什么
+  我还什么都没写。  -- rule: unless 什么
+  国外都不好，帛琉也是。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  你家里人都还好吗？  -- hidden word a learner can't work out: 里人 (person from the same village, town or province), 还好 (not bad; pretty good)
+
+--- dropped at step 7 (5) ---
+  他们都知道。  -- no accurate English among: They all knew.
+  我的朋友人都很好。  -- check said no (1/2): Unnatural construction; '朋友人' is redundant
+  你做的事我都知道。  -- check said no (2/2): 都 here means 'everything'; expressing '什么都' point
+  你做的事我都喜欢。  -- check said no (2/2): 都 here means 'everything'; expressing '什么都' point
+  明天下午，我爸爸妈妈都在家。  -- no accurate English among: Tomorrow evening, both my dad and my mom are at home.
+
+--- dropped at step 8 (1) ---
+  他们都爱我。  -- difficulty review: (2/2); 爱 used as 'love/be fond of' has a meaning beyond everyday use at HSK 1
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-10_level1_20261109_220400.csv

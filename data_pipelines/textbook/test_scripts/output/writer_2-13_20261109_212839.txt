@@ -1,0 +1,18 @@
+## 2-13
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Degree adverbs (多、多么、好、更、十分、特别、挺、有（一）点儿) to express intensity, comparison, or mild complaint
+**Covers:** Using 更 (and 比…还) before adjectives to mean "even more"; using 挺 before adjectives/psych verbs to mean "quite"; using 有点/有一点 before adjectives to mean "a little too"; using 多么 before adjectives; using 特别/十分 before adjectives
+**Does not cover:** 更不用说 (let alone) pattern; 不但...更 (not only...but also) pattern; 更 as part of 更新/更改 (verb meanings change/update); 一点 after adjectives meaning "a little bit" in comparisons; 一点 before nouns meaning quantity; 点 as a measure word or time unit
+
+```rule
+match: 更|挺|多么|特别|十分/AD /VA|VV
+match: 挺/AD 有/VE
+match: 比 ... 还/AD /VA
+match: 有/VE 点|点儿 不? /VA|VV
+match: 有/VE 一 点|点儿 不? /VA|VV
+unless: 更 不用 说
+unless: 不但
+unless: 连 ... 都|也 ... 更 不用 说
+```
+
+**Notes:** The original rule did not match because it used parentheses (not supported) and put a wildcard between the adverb and the predicate, though the adverb sits directly before it. The first line now matches 更/挺/多么/特别/十分 directly before an adjective or verb (including psych verbs like 喜欢, 怕, 后悔). Line 2 covers 挺有钱, where 有 is tagged VE. Line 3 covers 比…还 + adjective ("even more"). The bare 还 + verb "still" reading is not matched. Lines 4 and 5 cover 有点/有一点(儿), with optional 不 before the predicate. The match requires a predicate right after 点, so 有点饭 and 有一点番茄酱 (quantity) are not matched, and neither is 一点 after an adjective (慢一点, 重一点). The unless lines exclude 更不用说 and 不但…更.

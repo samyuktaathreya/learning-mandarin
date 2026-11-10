@@ -1,0 +1,93 @@
+
+########## rules  2026-11-09 21:55 ##########
+68 page(s) use the word(s); asking about 40.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGA1B87  Emphasizing with "henshi"
+
+not:
+  ASG0UFR4  The "shi... de" construction for indicating purpose
+  ASG38F8A  Expressing "all" with "fanshi"
+  ASG4FB55  Expressing "and then" with "yushi"
+  ASG5HZG6  "Could it be that" with "qibushi"
+  ASG8F7D4  Expressing "if it were not for" with "yaobushi"
+  ASG8YTSF  The "shi... de" patterns: an overview
+  ASGA8NIB  Offering choices with "haishi"
+  ASGE662E  The "shi... de" construction for emphasizing details
+  ASGEXR6R  Expressing the only two possibilities
+  ASGF1TQ2  Expressing "even if…" with "jiushi"
+  ASGII66E  Using "always" as a complaint with "laoshi"
+  ASGMCX2H  Expressing "to be worthy of" with "bukuishi"
+  ASGN4S8O  Expressing "if… then…" with "yaoshi"
+  ASGNLGGX  Expressing "is or is not" with "shifou"
+  ASGQJ5IC  Comparing "haishi" and "huozhe"
+  ASGUN7RX  Connecting nouns with "shi"
+  ASGVACYB  Saying "a lot" with "youdeshi"
+  ASGWAR65  Expressing "had better" with "haishi"
+  ASGXJPJS  Expressing "always" with "zongshi"
+  ASGAC619  Alternative existential sentences
+  ASGMX0ZS  Using "er" to explain contrasting ideas
+  ASGTPGXK  Stating the effect before the cause
+
+unsure:
+  ASGT9Y8P  Conceding a point with "shi"
+
+unrelated:
+  ASGUD81S  Two words for "but"
+  ASG0K25S  Comparing "fan'er" and “que"
+  ASG4D8XB  Tag questions with "bu"
+  ASG6509E  Explaining purpose with "wei... er..."
+  ASG8KUHG  Expressing "always" with "conglai"
+  ASGEEA2D  Expressing "double negation"
+  ASGEG2QB  The "however" adverb "que"
+  ASGIRILI  Continuation with "hai"
+  ASGJDV3Y  Expressing "only if" with "zhiyou"
+  ASGQGJXT  Expressing purpose with "weile"
+  ASGR6Q2J  Expressing "let alone" with "bie shuo"
+  ASGRJ1BI  Comparing "bu" and "mei"
+  ASGSJYZ2  Tag questions with "ma"
+  ASGSVF28  Expressing duration of inaction
+  ASGW7YXP  Softening the tone of questions with "ne"
+  ASGXI560  Expressing "although" with "suiran" and "danshi"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 3-77
+Tagging 4 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215553.txt
+  ...100/194
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-77
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Emphasizing with 很是 (hěnshi) - a degree adverb that adds emphasis to statements
+**Covers:** Subj. + 很是 + Adj. (especially multi-syllable); Subj. + 很是 + 会/能 + Verb; sentences where 很是 modifies adjectives or psychological verbs to express strong emphasis
+**Does not cover:** Other uses of 是 (basic equative, 是...的, 凡是, 于是, 要不是, 岐不是, 有的是, 老是, 总是, 还是, 就是 in conditional/concessive meanings, or other patterns listed in the exclusions)
+
+```rule
+match: 很/AD 是/VC ... /VA|VV
+match: 很/AD 是/VC 会/VV
+match: 很/AD 是/VC 能/VV
+unless: 凡是
+unless: 于是
+unless: 要不是
+unless: 岐不是
+unless: 有的是
+unless: 老是
+unless: 总是
+unless: 还是 ... 吧
+unless: 就是 ... 也
+unless: 不是 ... 就是
+unless: 是 ... 的
+unless: 是否
+```
+
+**Notes:** The rule matches the core pattern of 很是 followed by an adjective or the construction 很是 + 会/能 + verb. The `... /VA|VV` in the first match allows intervening words (like negation 不) between 是 and the final adjective/verb, which occurs in examples like "很是不舒服". Exclusions are broad to avoid false positives from common 是-constructions. Precision is prioritized—the rule conservatively matches only clear cases of 很是 emphasis usage.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-77
+Tagging 4 labeled example(s) (cached after this run)...
+  ...100/194
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-77: rule on labeled examples (no AI) ===
+  examples of 3-77 matched:    13/13
+  counter-examples wrongly matched: 0/181   <- should be 0

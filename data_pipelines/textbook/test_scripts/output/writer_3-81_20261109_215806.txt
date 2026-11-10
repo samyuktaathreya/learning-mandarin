@@ -1,0 +1,26 @@
+## 3-81
+**Point:** Rhetorical challenge with 什么 after a verb or adjective (X什么（啊）)
+
+**Covers:** Verb/adjective + 什么 + repeated verb/adjective (你买什么买, 胖什么胖啊); separable verb split by 什么 at the start of a clause (离什么婚, 道什么歉啊, 开什么玩笑); clause-initial psychological verb or adjective + 什么 (+啊/呀) (担心什么啊, 难过什么啊, 高什么啊); 玩儿什么.
+
+**Does not cover:** 什么 as a genuine question word (你吃什么？); 什么都/也 meaning "everything"; 什么的 ending a list; 什么 in compounds like 什么时候.
+
+```rule
+match: /VV 什么/PN /VV
+match: /VA 什么/PN /VA
+match: ^ /VV 什么/PN /NN 啊|呀|吧? $
+match: ^ 开 什么 玩笑 啊|呀|吧?
+match: ^ 担心|难过|紧张|着急|害怕|生气|舒服|高兴|伤心|激动|累|急|怕|哭|笑|胖|大|高|聪明|忙|烦|愁|慌 什么/PN 啊|呀|吧? $
+match: ^ 玩 儿 什么/PN 啊|呀|吧? $
+unless: 什么 都
+unless: 什么 也
+unless: 什么 的
+unless: 什么/PN 都/AD
+unless: 什么/PN 也/AD
+unless: 什么/DT 的/DEG
+```
+
+**Notes:**
+- The old rule's whole-sentence `unless: 都/AD` and `unless: 也/AD` wrongly blocked sentences like 你买什么买，钱都花光了, so they are removed. The "everything" exclusion now only applies when 什么 is directly followed by 都/也.
+- In the data 什么 is tagged PN even in 离什么婚 and 道什么歉, so the rule uses 什么/PN. The broad "/VV 什么/DT" pattern is dropped because it matched genuine questions like 你喜欢什么颜色.
+- Non-repeated forms (X什么 with no repeat) are anchored to the start of a clause and end the clause. The bare-adjective/psych-verb form uses a word list, to avoid genuine questions like 吃什么？.

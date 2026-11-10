@@ -1,0 +1,164 @@
+
+########## rules  2026-11-09 21:25 ##########
+8 page(s) use the word(s); asking about 8.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGA8NIB  Offering choices with "haishi"
+  ASGQJ5IC  Comparing "haishi" and "huozhe"
+
+not:
+  ASGWAR65  Expressing "had better" with "haishi"
+  ASGIRILI  Continuation with "hai"
+  ASGF08B6  Repeated actions in the past with "you"
+  ASGW863F  Expressing "although" with "jinguan"
+
+unsure:
+  ASGW7YXP  Softening the tone of questions with "ne"
+  ASG0NDS6  Expressing "no matter" with "buguan"
+
+unrelated:
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-47
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_212535.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 1-47, rule line 2: unknown tag(s) SP$ in '/SP$' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-47_20261109_212541.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 1-47
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 还是 to offer choices in questions
+**Covers:** Questions with 还是/CC presenting two options where the asker expects the listener to choose one; includes questions with explicit verbs, implicit verbs, or adjective predicates; includes rhetorical questions and indirect questions (with 知道, 想知道, 不确定, etc.)
+**Does not cover:** 还是 as an adverb meaning "still" or "had better"; 还是 in statements (only questions); 还是 in coordination with 又 showing repeated past actions; 还是 after 尽管 expressing concession; 还是 + 吧 expressing suggestion/advice
+
+```rule
+match: 还是/CC
+unless: /CS ... 还是/CC
+unless: _ 还是/AD
+unless: /AS 又|CC _ ... 还是/AD
+unless: 还是/AD _ /SP
+unless: /SP $ 
+unless: /VV 了/AS 又
+```
+
+**Notes:** The rule matches any clause containing 还是 tagged as CC (coordinating conjunction), which is the tagger's way of marking 还是 in choice contexts. Counter-examples are excluded by: (1) clauses after 尽管 and other CS subordinating conjunctions; (2) 还是 tagged as AD (adverb for "still"); (3) patterns with 又...还是/AD showing repeated actions; (4) 还是/AD followed by action verb + 吧; (5) sentences ending with SP (sentence-final particles like 吧 at clause end). The last unless catches the "又...想/说/看" pattern of repeated actions.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-47
+Tagging 2 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-47: rule on labeled examples (no AI) ===
+  examples of 1-47 matched:    17/21
+  counter-examples wrongly matched: 0/26   <- should be 0
+
+--- examples of 1-47 the rule misses (4) ---
+  我还是他？  -- ASGA8NIB Offering choices with "haishi"
+  周末我想在家看书或者看电影。  -- ASGQJ5IC Comparing "haishi" and "huozhe"
+  你可以坐1号线或者2号线去人民广场。  -- ASGQJ5IC Comparing "haishi" and "huozhe"
+  我们可以电话或者邮件联系。  -- ASGQJ5IC Comparing "haishi" and "huozhe"
+
+########## tatoeba  2026-11-09 22:05 ##########
+Filling 1-47 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 8 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220600.txt
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  面条 = 面 + 条  (noodles)
+     clear  星期二 = 星期 + 二  (Tuesday)
+
+Course sentences at HSK 2 the rule already finds 1-47 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-47 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      159  2. contain the point's word(s)
+      159  3. new (not in DB, not a duplicate)
+       75  4. at most 2 characters outside HSK 2 words
+       27  5. really HSK 2
+       27  5b. no harder grammar point (of the 20 with a rule)
+       12  6. the rule finds 1-47
+       12  6b. no hidden word a learner can't work out
+       12  7. both checks say 1-47, English chosen
+       11  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (11) ===
+  肉还是鱼？  (Meat or fish?)  [tatoeba 1358670]
+  咖啡还是茶？  (Coffee or tea?)  [tatoeba 2347106]
+  这是猫还是狗？  (Is this a cat or a dog?)  [tatoeba 4264992]
+  要咖啡还是茶？  (Do you want coffee or tea?)  [tatoeba 13514629]
+  你吃面条还是吃饭？  (Do you want to eat noodles or rice?)  [tatoeba 1477275]  hidden: 面条, 吃饭
+  那个包是你的还是他的？  (Is this bag yours or his?)  [tatoeba 2040522]  hidden: 那个
+  这牛奶是冷的还是热的？  (Is the milk cold, or still hot?)  [tatoeba 6284529]
+  你要吃面条还是吃米饭？  (Do you want to eat noodles or rice?)  [tatoeba 8362583]  hidden: 面条
+  我不知道他比我大还是小。  (I don't know whether he's younger or older than me.)  [tatoeba 4282848]
+  我不知道今天是星期二还是星期三。  (I don't know if today is Tuesday or Wednesday.)  [tatoeba 4189395]  hidden: 星期二, 星期三
+  「您想要茶还是咖啡？」「咖啡，谢谢。」  ("Do you prefer tea or coffee?" "Coffee, please.")  [tatoeba 13544364]  hidden: 想要
+
+--- dropped at step 4 (84), first 12 ---
+  尽管他考试成绩不高，但他毕业后还是很成功。  -- 7 characters no HSK 2 word uses: 业功尽成毕管绩
+  从这来看，你能因此论定女权主义还是必要的。  -- 7 characters no HSK 2 word uses: 主义定必权此论
+  玩乐还是读书，全在你一念之间。  -- 3 characters no HSK 2 word uses: 之全念
+  庄子曾梦见自己化身为蝶，当他醒来，他分不清是自己刚刚梦见自己变成蝴蝶呢，还是蝴蝶正梦见它变成了庄子。  -- 12 characters no HSK 2 word uses: 刚化变庄当成曾梦清蝴蝶醒
+  尽管我恳切地要求，他们还是拒绝跟我说话。  -- 7 characters no HSK 2 word uses: 切尽恳拒求管绝
+  她喜欢他给她买的所有长裙，无论新买的还是旧的。  -- 4 characters no HSK 2 word uses: 无旧裙论
+  你煮饭用瓦斯还是电？  -- 4 characters no HSK 2 word uses: 斯煮瓦用
+  你煮饭用天然气还是电力？  -- 3 characters no HSK 2 word uses: 力煮用
+  其实我还是觉得好浪漫哦。  -- 5 characters no HSK 2 word uses: 其哦实浪漫
+  当人们认为战争残酷时，它还是很吸引人的。当人们认为战争粗俗时，它就没那么受欢迎了。  -- 11 characters no HSK 2 word uses: 争俗受吸引当战残粗迎酷
+  无论是战争，还是和平，我们军人是无法选择的。  -- 9 characters no HSK 2 word uses: 争军平战择无法论选
+  汤姆不知道玛丽是高兴呢，还是不高兴。  -- 4 characters no HSK 2 word uses: 丽姆汤玛
+
+--- dropped at step 5 (48), first 12 ---
+  你还是留在这儿吧。  -- level 4: 留 L4
+  不喝酒的男人还是男人吗？  -- level 3: 酒 L3, 男人 L3
+  有时候，我还是会想起她。  -- level 3: 起 L3
+  你要用走的还是搭公车？  -- level 6: 用 L3, 搭 L6, 公 L6
+  他来还是不来，结果是一样的。  -- level 4: 结果 L4, 一样 L3
+  这是一只钢笔还是铅笔？  -- level 6: 钢笔 L6, 铅笔 L3
+  去读大学还是去上班，我还没决定。  -- level 3: 决定 L3
+  这个毯子还是湿的。  -- level 7: 毯子 L7, 湿 L5
+  当我还是个孩子的时候，我在这个泳池里游过泳。  -- level 10: 当 L4, 泳池 (not in list), 泳 (not in list)
+  我今天、明天还是后天清理我的房间有什么不同吗？  -- level 6: 后天 L3, 清理 L6, 不同 L3
+  我还是一直想着他。  -- level 3: 一直 L3
+  我还是为那生气。  -- level 3: 为 L3, 生气 L3
+
+--- dropped at step 6 (15) ---
+  你还是去看病吧。  -- rule: unless _ 还是/AD ; /SP $
+  我们还是在这里坐下吧。  -- rule: unless _ 还是/AD ; /SP $
+  下雨也没关系，我还是可以去。  -- rule: unless _ 还是/AD
+  我知道你还是想我的。  -- rule: unless _ 还是/AD ; /SP $
+  我到现在还是不知道你的名字。  -- rule: unless _ 还是/AD
+  您是老师，还是学生？  -- rule: no match: line matched
+  还是要说谢谢的。  -- rule: unless /SP $
+  我知道你还是想跟我一起。  -- rule: unless _ 还是/AD
+  我还是你的朋友。  -- rule: unless _ 还是/AD
+  我们还是要告诉他们。  -- rule: unless _ 还是/AD
+  她还是个孩子的时候，唱歌很好听。  -- rule: unless _ 还是/AD
+  都四月了天气怎么还是这么冷？  -- rule: no match: line matched
+  我还是希望哪天能做那件事。  -- rule: unless _ 还是/AD
+  我还是没有手机。  -- rule: unless _ 还是/AD
+  你想做也还是可以做。  -- rule: unless _ 还是/AD
+
+--- dropped at step 8 (1) ---
+  是儿子还是女儿？  -- difficulty review: (2/2); uses -子 suffix (3-02, HSK 3 grammar)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-47_level2_20261109_220612.csv

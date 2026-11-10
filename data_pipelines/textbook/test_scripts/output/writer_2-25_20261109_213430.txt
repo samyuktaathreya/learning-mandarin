@@ -1,0 +1,22 @@
+## 2-25
+**Point:** Using 对 as a preposition meaning "to/towards/regarding" (the target of an action or emotion), or as a verb meaning "to face/point at/match" (对着, 对上, 对不上).
+
+**Covers:** 对 + Object + Verb/Adjective (preposition directing an action or attitude to a target, e.g. 对我笑, 对她说, 对工作很认真, 对你不满意); 对着/对上/对不上 (verb phrases); 对(于) written with the 于 split off; 对 and 跟 as prepositions with 说.
+
+**Does not cover:** 对于 as a single word (HSK 4-14); 对...来说 (HSK 3-40); 对...而言; 对方 (the pronoun "other party"); tag questions 对不对/对吗; 对 as adjective meaning "correct".
+
+```rule
+match: 对/P
+match: 对/VA 于/P
+match: 对/VA|VV 着/AS
+match: 对/VA|VV 上/VV
+match: 对/VV 不/AD 上/VV
+unless: 而言
+unless: 来说
+unless: 来 说
+unless: 对方
+unless: 对 不 对
+unless: 对 吗
+```
+
+**Notes:** The old first line used a literal "P" instead of the tag, so it never matched. Prepositional 对 is always tagged 对/P, and the object may be followed by a verb or an adjective, so the rule now matches 对/P on its own. The 对于 single-word token is a different word and is not matched. The 对/VA 于/P line covers the 对(于) examples where the tokenizer splits the word. The verbal uses (对着, 对上, 对不上) are matched explicitly, since the tagger gives 对 either VA or VV there. The unless lines exclude 来说, 而言, 对方 and the tag questions 对不对 and 对吗.

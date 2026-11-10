@@ -1,0 +1,200 @@
+
+########## rules  2026-11-09 21:42 ##########
+11 page(s) use the word(s); asking about 11.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG6KUS5  Expressing "much more" in comparisons
+  ASG8SI2K  Basic comparisons with "bi"
+  ASGE8810  Expressing "age difference" with "da and xiao"
+
+not:
+  ASG72HKP  Expressing "rather" with "bijiao"
+  ASG8DVSO  Basic comparisons with "bu bi"
+  ASG920B7  Expressing "compared with" using "gen"
+  ASGE4B94  Comparisons with "biqi"
+
+unsure:
+  ASG64E96  Expressing "even more" with "geng" or "hai"
+  ASG4NIPB  Expressing "even more" with "geng"
+  ASG7D4EC  Expressing "multiples" with "bei"
+
+unrelated:
+  ASGH13JY  Idiomatic phrases with "zai"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-58
+Tagging 18 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_214239.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-58
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing comparisons with 比 (bǐ), including basic comparisons, "more" with 更/很多/得多/多了, and age differences with 大/小 + number + 岁
+
+**Covers:** 
+- Basic comparisons: Noun1 + 比 + Noun2 + Adjective (e.g., 小李比小张高)
+- Comparisons with 更: Noun1 + 比 + Noun2 + 更 + Adjective (e.g., 小李比小张更高)
+- "Much more" comparisons: Noun1 + 比 + Noun2 + Adjective + 很多/得多/多了 (e.g., 拼音比汉字容易很多)
+- Age differences: A + 比 + B + 大/小 + Number + 岁 (e.g., 姐姐比我大两岁)
+- Standalone "much more": Subject + Adjective + 多了 with implied comparison (e.g., 我的感冒好多了)
+- Age questions without 比: Adjective (大/小) + Number + 岁/年纪 (e.g., 你几岁了？)
+- Same age: A + 和/跟 + B + 一样/差不多 + 大 (e.g., 他女朋友和他女儿一样大)
+
+**Does not cover:** 
+- 比较 used as an adverb meaning "rather/quite" (e.g., 这个问题比较简单)
+- 不比 negation patterns (e.g., 你不比我聪明)
+- 比起...来 patterns (e.g., 比起你来，我还差得远呢)
+- 相比 patterns (e.g., 相比网络广告，平面广告贵很多)
+- 跟...比 patterns (e.g., 跟上海比，我老家的物价很低)
+- 比 as a verb meaning "to compete/compare" or in compound words like 比赛, 对比
+- 比如 meaning "for example"
+
+```rule
+match: _ 比/P _ /VA
+match: _ 比/P _ /VA 更/AD _
+match: _ 比/P _ /VA /AD 多/AD
+match: _ 比/P _ /VA 得/DER 多/VA
+match: _ 比/P _ /VA /CD 岁/M
+match: _ 比/P _ /VA /CD _
+match: /VA 多/AD 了/SP
+match: /VA /CD 岁/M 了/SP
+match: _ 和/CC|P _ 一样/AD /VA
+match: _ 跟/CC|P _ 一样/AD /VA
+match: _ 和/CC|P _ 差不多/AD /VA
+match: _ 跟/CC|P _ 差不多/AD /VA
+match: /CD 岁/M 了/SP
+match: 多/AD /VA
+match: 谁/PN /VA
+
+unless: 比较/AD
+unless: 不/AD 比/VV
+unless: 比/VV 起/VV
+unless: 相比/VV
+unless: 跟/P _ 比/VV
+unless: 和/P _ 相比/VV
+unless: 与/P _ 相比/VV
+unless: 比/VV 赛/NN
+unless: 对比/VV
+unless: 比如/AD
+unless: 比/VV 一/CD
+```
+
+**Notes:** The rule prioritizes precision by excluding patterns with 比较, 比起, 相比, and 跟...比 which are other grammar points. It captures the core 比 comparison structure (P preposition tag for 比) while excluding 比 used as a verb (VV tag). The rule handles age comparisons with 大/小 + 岁, standalone 多了 improvements, and same-age comparisons with 一样/差不多. Some sentences with just 谁 + adjective (e.g., 你俩谁大？) are caught by the final match pattern to cover existential/interrogative comparisons.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-58
+Tagging 18 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-58: rule on labeled examples (no AI) ===
+  examples of 2-58 matched:    38/38
+  counter-examples wrongly matched: 0/40   <- should be 0
+
+########## tatoeba  2026-11-09 22:11 ##########
+Filling 2-58 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-58 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+  2 check call(s) (20 sentences each)...
+
+=== 2-58 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      377  2. contain the point's word(s)
+      375  3. new (not in DB, not a duplicate)
+      163  4. at most 2 characters outside HSK 2 words
+       28  5. really HSK 2
+       28  5b. no harder grammar point (of the 20 with a rule)
+       23  6. the rule finds 2-58
+       21  6b. no hidden word a learner can't work out
+       15  7. both checks say 2-58, English chosen
+       11  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (11) ===
+  他比我高。  (He's taller than me.)  [tatoeba 760547]
+  你比他好。  (You're better than him.)  [tatoeba 5829624]
+  你比她要高。  (You are taller than she is.)  [tatoeba 2031255]
+  你们比她高。  (You are taller than she.)  [tatoeba 4262712]
+  他比我大两岁。  (He's two years older than me.)  [tatoeba 713216]
+  他游泳比我好。  (He swims better than I do.)  [tatoeba 743739]
+  天气比昨天好。  (The weather's better than yesterday.)  [tatoeba 10696092]
+  茶比牛奶贵吗？  (Is tea more expensive than milk?)  [tatoeba 11698443]
+  她今天比昨天要好很多。  (She is far better today than yesterday.)  [tatoeba 1223824]
+  Ken的书比你多多了。  (Ken has a lot more books than you.)  [tatoeba 2661322]  hidden: 多多
+  我们的饭店比那家饭店好。  (Our restaurant is better than that restaurant.)  [tatoeba 431106]
+
+--- dropped at step 3 (2) ---
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (212), first 12 ---
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  有时候外婆比克格勃还危险。  -- 6 characters no HSK 2 word uses: 克勃危婆格险
+  理科比文科难。  -- 3 characters no HSK 2 word uses: 理科难
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  新的旗袍又修长又紧身，也有短裙摆，与传统式样构成了鲜明的对比。  -- 15 characters no HSK 2 word uses: 与传修又式成摆旗构短紧统袍裙鲜
+  虽然我们大多数人比我们的父母、祖父母还要富裕得多，但是与之相应的快乐程度却没有多大的改变。  -- 15 characters no HSK 2 word uses: 与之却变富应度改数母父相祖程裕
+  他们的四合院要小得多，设计和装饰也比较简单，胡同也比较窄。  -- 10 characters no HSK 2 word uses: 单合窄简胡装计设较饰
+  光速比音速快，所以某些人在开口前，看起来还挺聪明的。  -- 6 characters no HSK 2 word uses: 光挺某聪速音
+  没有任何东西比友情更重要。  -- 4 characters no HSK 2 word uses: 任何更重
+  带著希望旅行比达到目的地更为美好。  -- 7 characters no HSK 2 word uses: 带更目美著行达
+  良善和喜乐比道德更加重要，是我们所应尽的绝对义务。  -- 11 characters no HSK 2 word uses: 义加务善尽应德更绝良重
+  你比以前更容易上课迟到了。  -- 4 characters no HSK 2 word uses: 容易更迟
+
+--- dropped at step 5 (135), first 12 ---
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 分数 L4
+  他比我高两寸。  -- level 6: 寸 L6
+  今天顾客比较少。  -- level 4: 顾客 L4, 比较 L3
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  这条河比那条长三倍。  -- level 4: 河 L3, 倍 L4
+  日本的人口比英国多。  -- level 5: 人口 L5
+  我的工资比他少多了。  -- level 4: 工资 L4
+  你比我重十倍。  -- level 4: 重 L4, 倍 L4
+  我们的朋友完成了比赛，得了第二名。  -- level 6: 完成 L3, 比赛 L3, 得了 L6
+  他在各方面都比不上你。  -- level 4: 各 L4, 方面 L4
+  不管你有多好，都还有人比你更好。  -- level 4: 不管 L4, 更 L3
+  他比爸爸年轻三岁。  -- level 3: 年轻 L3
+
+--- dropped at step 6 (5) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  我比你高一点。  -- rule: no match: line matched
+  他比我高一个头。  -- rule: no match: line matched
+  我知道你比我有钱。  -- rule: no match: line matched
+  她一天比一天漂亮。  -- rule: unless 比/VV 一/CD
+
+--- dropped at step 6b (2) ---
+  他比她大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+  她比他大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+
+--- dropped at step 7 (6) ---
+  你们比我还高。  -- check said no (1/2): Uses 还 not part of 比较句2 patterns
+  他比地铁还快。  -- check said no (2/2): Uses 还 not part of 比较句2 patterns
+  天气一天比一天冷。  -- check said no (2/2): Iterative comparison pattern, not standard 比较句2
+  我们能比他们做得多。  -- check said no (2/2): Verb phrase with 多, not adjective comparison
+  我不知道他比我大还是小。  -- check said no (1/2): 还是 makes this a disjunctive question, not comparison
+  我看的比Tom知道得多。  -- check said no (2/2): Incorrect structure; 比 used with 得多 but sentence is malformed
+
+--- dropped at step 8 (4) ---
+  你比我记得好。  -- difficulty review: (1/2); Uses 记得 (to remember) with 好 as a complement in a way that requires understanding of complement structures beyond basic 比较句2
+  狗跑得比人快。  -- difficulty review: (2/2); Uses 得 as a complement particle (跑得比人快), which requires understanding of how complements work with 比较句2 beyond basic level
+  我的儿子比我高。  -- difficulty review: (1/2); 儿子 uses the -儿 suffix structure (3-02, HSK 3)
+  你游泳游得比我好。  -- difficulty review: (2/2); Uses 得 as a complement particle in a way that requires understanding of 2-31 结构助词：得, which is taught at HSK 2, but the specific construction 'verb+得+比较' requires more advanced understanding of how complements interact with 比较句2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-58_level2_20261109_221147.csv

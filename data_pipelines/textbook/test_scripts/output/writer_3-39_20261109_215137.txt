@@ -1,0 +1,38 @@
+## 3-39
+**Point:** 从⋯⋯起/以后/开始 and 离⋯⋯ expressing temporal or causal starting points
+
+**Covers:** 
+- 从 + time/event + 起/以后/开始 (starting from a time or event)
+- 离 + event/time + 还 + adjective/有 (distance in time from a future event, or time elapsed since past event)
+- 从 + location/source (extracting origin in non-spatial contexts like "learn from someone" or "see from something")
+
+**Does not cover:**
+- 起来 as direction complement or resultative suffix (verb + 起来)
+- 看起来 (appearance with "looks like")
+- 比起 (comparison)
+- 一起 (together)
+- 从 as simple preposition meaning physical origin (从家来 "come from home")
+- 从小/从前/从来/从不 as time or frequency adverbs
+- 从事 (engage in profession)
+
+```rule
+match: 从/P ... (起/LC|以后/LC|开始/VV) ...
+match: 离/P ... (还/AD ... (有/VE|远/VA|近/VA)|还有/VV)
+match: 从/P ... (看/VV|学/VV|看出/VV)
+unless: 起来/VV
+unless: 看/VV 起来/VV
+unless: 比/VV 起/VV
+unless: 一起/AD
+unless: 从小/AD
+unless: 从前/NT
+unless: 从来/AD
+unless: 从不/AD
+unless: 从事/VV
+```
+
+**Notes:** 
+- The third match pattern for 从⋯看/学 captures uses where 从 introduces a source of knowledge or perspective (learn from, see from). Must exclude 看起来 which is appearance, not this pattern.
+- 离⋯还有 and 离⋯还远 both express temporal distance; they appear in labeled examples.
+- Temporal uses of 从 with 起/以后/开始 are the core HSK 3-39 pattern.
+- Many counter-examples use 起来 as direction complement; the unless rule filters these effectively.
+- Adverbial uses of 从 (从小, 从来, 从不, 从前) should be excluded; these are other HSK points.

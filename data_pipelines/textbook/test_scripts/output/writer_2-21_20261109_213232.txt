@@ -1,0 +1,15 @@
+## 2-21
+**Point:** Expressing "when" using 当 (dāng) as a preposition meaning "when" or "at the time of"
+**Covers:** Sentences with structure 当 + phrase + (时候), where 当 functions as a preposition introducing a temporal clause, typically followed by a main clause describing what happens "when" that condition occurs
+**Does not cover:** Other uses of 当 including: 当 as a main verb meaning "to serve as" or "to be"; 当中 meaning "among"; 把…当作/当成/看成 constructions; 当 in time-related nouns like 当时, 当初, 当地, 当代, 当年, 当前; adverbs like 当场; 应当; and expressions like 不敢当
+
+```rule
+match: ^当/P _ ... (时候/NN|时/LC)?
+unless: 把/BA
+unless: 当中/LC
+unless: 当作/VV
+unless: 当成/VV
+unless: 当/VV
+```
+
+**Notes:** The rule looks for 当 tagged as preposition (P) at the start of a clause, followed by any content, optionally ending with 时候 or 时. The "unless" clauses filter out: sentences with 把 (which indicate 把…当作 constructions); sentences with 当中 (which indicates "among"); sentences with 当作 or 当成 as verbs (which are part of 把 constructions); and sentences where 当 is tagged as VV (main verb uses). This precision-first approach may miss some edge cases but should avoid false positives.

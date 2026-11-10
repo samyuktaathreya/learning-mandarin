@@ -1,0 +1,23 @@
+## 2-55
+**Point:** Using 有 to express comparisons ("as [adjective] as"), typically in questions.
+**Covers:** Comparative structures where 有 means "as [Adj.] as" with patterns like: A 有 B Adj./Verb得Adj., A 有 (B) 这么/那么 Adj., typically marked by question particle 吗.
+**Does not cover:** Possession (我有钱), existence (这里有人), 有点/有一点 (a little), 有的 (some), 只有 (only if), 还有 (also), 有关 (related to), Taiwanese 有, negation 没有, or when 有 simply means "to have."
+
+```rule
+match: _ 有/VE ... (VA|VV) .*吗/SP
+match: _ 有/VE (NR|NN|PN) _ (VA|VV) .*吗/SP
+match: _ 有/VE (这么|那么)/AD (VA|VV)
+match: _ 有/VE (这么|那么)/AD VA
+match: _ 有/VE (CD|M)+ (VA|NN)
+unless: 有/VE (点|一点|点儿|一点儿)
+unless: 有的/PN
+unless: 有/VE ... 过/AS
+unless: 只有/AD
+unless: 还/AD 有/VE
+unless: 有/VE (NN|NR) 吗/SP
+unless: (地|这里|那里|这儿|那儿|上|里|下|前|后|旁边|里面|外面) 有/VE
+unless: 有关/VV
+unless: 没有/VE
+```
+
+**Notes:** The core pattern requires 有 followed eventually by an adjective or verb (often with 得 degree complement), commonly ending in 吗 for questions. The rule must exclude possession/existence contexts by checking that the object after 有 is not simply a noun being possessed, and excluding locative expressions (place + 有). The patterns for 这么/那么 indicate high degree ("really that..."). Measurement expressions like "有一米八高" or "有三十多岁" are captured by the CD/M + VA pattern. Counter-example filtering focuses on 有点, 有的, 过 aspect, locative contexts, and possession statements without comparative markers.

@@ -1,0 +1,57 @@
+
+########## rules  2026-11-09 21:47 ##########
+4 page(s) use the word(s); asking about 4.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGZH7K3  Affirmative-negative question
+
+not:
+
+unsure:
+  ASG4D8XB  Tag questions with "bu"
+
+unrelated:
+  ASGE662E  The "shi... de" construction for emphasizing details
+  ASGUN7RX  Connecting nouns with "shi"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-78
+Tagging 31 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_214744.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-78, rule line 1: empty item '|' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-78_20261109_214750.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-78
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Affirmative-negative questions using verb/adjective repetition with 不
+**Covers:** Questions formed by stating a verb or adjective, then 不, then repeating the verb/adjective (or its first character for two-character words); also 有没有 pattern for yes/no questions
+**Does not cover:** Questions using 吗, 呢, 吧, 还是, or question words (什么、谁、怎么、etc.); tag questions with 是不是 at the end are only counted if the main clause itself shows the V/不V or A/不A pattern
+
+```rule
+match: /VV 不/AD /VV
+match: /VA 不/AD /VA
+match: /VA 不/AD /AD /VV
+match: /VV 不/AD /VV /AD /VV
+match: /VV 不/AD /VA
+match: /VE 没有/VE
+unless: SP
+```
+
+**Notes:** The rule prioritizes matching the core V/不V and A/不A patterns. Two-character verbs and adjectives are handled by allowing the first character to be followed by 不 and then either another single character or the full repeated form (captured by patterns like `/VV 不/AD /VV`). The 有没有 pattern is included as an alternative yes/no question form listed in the grammar point. The `unless: SP` line filters out sentences where these patterns appear with sentence-final particles like 吗, 呢, or 吧, since those represent different grammar points. Clauses are checked independently (separated by punctuation), so tag questions at the end of statements are excluded unless the statement itself demonstrates the affirmative-negative structure.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-78
+Tagging 31 labeled example(s) (cached after this run)...
+
+=== A. 2-78: rule on labeled examples (no AI) ===
+  examples of 2-78 matched:    26/31
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+--- examples of 2-78 the rule misses (5) ---
+  是不是？  -- ASGZH7K3 Affirmative-negative question
+  我去买咖啡，你要不要？  -- ASGZH7K3 Affirmative-negative question
+  那个地方好玩不好玩？  -- ASGZH7K3 Affirmative-negative question
+  你要去体育馆打球，是不是？  -- HSK list example
+  是不是你拿了我的笔？  -- HSK list example
+
+########## tatoeba  2026-11-09 22:12 ##########

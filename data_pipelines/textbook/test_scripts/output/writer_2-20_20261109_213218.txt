@@ -1,0 +1,41 @@
+## 2-20
+<!-- written by claude-haiku-4-5 on 2026-11-09; edited -->
+**Point:** Adverbs expressing lateness (才), earliness (就), coincidence (正好), and small quantity (才/就)
+
+**Covers:** 
+- 才 expressing lateness after a clock time or age: "Subj. + Time + 才 + Verb" (e.g. 他二十五岁才上大学, 我今天八点才起床)
+- 才 in complaints about lateness: 你怎么才来
+- 等了 + duration + 才 + Verb (e.g. 我等了两个小时才买到票)
+- 才 expressing small quantity: "才 + Number" or "才 + Verb + 了 + Number" (e.g. 她才买了两本书, 你才二十岁, 现在才九点)
+- 就 expressing earliness after a clock time or age: "Time + 就 + Verb" (e.g. 她十九岁就结婚了)
+- 就 expressing small quantity: "就 + Number + Measure + Noun" (e.g. 他们家就一个孩子)
+- 正好 expressing coincidence: "Subj. + 正好 + Verb Phrase" or as a predicate adjective (e.g. 我正好要出去, 这件衣服正好)
+
+**Does not cover:** 
+- Causal or "only after" 才 that follows a completed action or a quantity of effort (花了…才, 看了两遍才, 只有…才, 直到…才, 等到…才, 多亏…才, 好(不)容易才)
+- Contrastive/emphatic 才 (你才是笨蛋)
+- 才 as a noun meaning "talent" (人才, 天才)
+- 才 inside compounds (刚才, 才能)
+
+```rule
+match: /CD 点|岁/M|NN 半/CD? 才/AD /VV
+match: 怎么 才/AD /VV
+match: /NT 才/AD /VV
+match: 等/VV 了/AS ... 才/AD /VV
+match: 才/AD /CD
+match: 才/AD /VV /AS? /CD
+match: /CD 点|岁/M|NN 半/CD? 就/AD /VV
+match: 就/AD /CD /M /NN
+match: 正好/AD
+match: 正好/VA
+unless: 只有|直到|等到|多亏|好容易|好不容易
+unless: 好/AD 不? 容易/VA
+unless: 花/VV
+unless: 才/AD 是/VC
+```
+
+**Notes:** 
+- 才 only counts as lateness when it directly follows a clock time, age or time noun, or follows 怎么 or 等了; a bare "才 + Verb" is too often the "only after" pattern, so it no longer matches.
+- Sentences where 才 follows a quantity of effort (花了八千块才, 看了两遍才, 找了几个月才) are not matched, because they are the "only after" use.
+- 等 is no longer in the unless list. 等到 (tagged P) is excluded instead, so 等了…才 can still match.
+- 就 as earliness is lim

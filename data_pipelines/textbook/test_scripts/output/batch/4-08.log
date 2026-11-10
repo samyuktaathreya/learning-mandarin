@@ -1,0 +1,43 @@
+
+########## rules  2026-11-09 21:59 ##########
+2 page(s) use the word(s); asking about 2.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG47D26  Expressing "again and again" with "yizai"
+  ASGP6LVA  Expressing "over and over again" with "zaisan"
+
+not:
+
+unsure:
+
+unrelated:
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 4-08
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215901.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 4-08
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing "again and again" or "repeatedly" with 一再 or 再三
+**Covers:** Adverbial use of 一再 or 再三 before a verb (with optional 地) to indicate repeated or emphatic action
+**Does not cover:** Other uses of these words that don't function as frequency adverbs modifying a verb phrase
+
+```rule
+match: 一再|再三/AD ... /VV
+unless: ...
+```
+
+**Notes:** The rule matches when 一再 or 再三 tagged as AD appears before a verb (VV tag), with any number of words (including zero, or just 地) between them. This covers both the core pattern (Subj + 一再/再三 + Verb) and the variant with 地 (一再/再三 + 地 + Verb). The pattern works within a single clause and will match fragments like "一再强调" as well as full sentences. Both labeled examples and unlabeled test sentences confirm this structure handles the full range of intended uses.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 4-08
+Tagging 2 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 4-08: rule on labeled examples (no AI) ===
+  examples of 4-08 matched:    19/20
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+--- examples of 4-08 the rule misses (1) ---
+  我一再跟你说，出门在外要小心。  -- ASG47D26 Expressing "again and again" with "yizai"

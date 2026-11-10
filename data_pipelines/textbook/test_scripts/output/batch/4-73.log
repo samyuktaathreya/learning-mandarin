@@ -1,0 +1,98 @@
+
+########## rules  2026-11-09 22:02 ##########
+28 page(s) use the word(s); asking about 28.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG4807F  Advanced uses of "hai"
+
+not:
+  ASGA8NIB  Offering choices with "haishi"
+  ASGAY164  Moderating positive adjectives with "hai"
+  ASGHQRI1  Expressing "in addition" with "haiyou"
+  ASGIRILI  Continuation with "hai"
+  ASGJBZKC  Expressing "and also" with "hai"
+  ASGOB1BF  Expressing good luck with "haihao"
+  ASGQJ5IC  Comparing "haishi" and "huozhe"
+  ASGWAR65  Expressing "had better" with "haishi"
+  ASGHFPGG  Expressing "except" and "in addition" with "chule… yiwai"
+  ASGJ1VZQ  Many types of "not only... but also..."
+  ASG0NDS6  Expressing "no matter" with "buguan"
+  ASG64E96  Expressing "even more" with "geng" or "hai"
+  ASG9B210  Expressing "about to" with "jiuyao"
+  ASGB781C  Expressing "moreover" with "bingqie"
+  ASGF08B6  Repeated actions in the past with "you"
+  ASGW863F  Expressing "although" with "jinguan"
+
+unsure:
+
+unrelated:
+  ASGC8CB8  Modal particle "ne"
+  ASGMJHZO  Questions with "ne"
+  ASGW7YXP  Softening the tone of questions with "ne"
+  ASG3ZS9G  Expressing "let alone" with "hekuang"
+  ASG79STE  Degree complement
+  ASGGXSIR  Comparing "huifu" and "huanyuan"
+  ASGTYJ3E  Expressing "not only... but also" with "budan... erqie..."
+  ASG25773  Expressing "what if" with "wanyi"
+  ASG3AD49  Expressing "why" with "hebi"
+  ASG59C66  Comparing "li" and "cong"
+  ASGEYQ9O  Expressing actions in progress (full form)
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 4-73
+Tagging 4 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220231.txt
+  ...100/127
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 4-73, rule line 1: unknown tag(s) 吗) in '(/SP|吗)' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_4-73_20261109_220241.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 4-73, rule line 1: unknown tag(s) 吗/SP)?$ in '(呢/SP|吗/SP)?$' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_4-73_20261109_220247.txt)
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 4-73
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** 还 used for surprise, sarcasm or a rhetorical question: 还 + noun/verb phrase + 呢 ("What a ...!"), or 还 + verb + 吗 as a rhetorical question.
+
+**Covers:**
+- Clause-initial 还 + phrase + 呢, which mocks a claim ("还留过学呢，英语这么差").
+- 还 + verb phrase + 呢 after a pronoun subject ("你还生气呢").
+- Pronoun subject + 还 + verb + 吗 ("你还听吗", "这种人你还相信吗").
+- A clause-initial 还 ... 吗 ("还在乎这点钱吗").
+- 还真 + adjective ("这个小孩还真聪明").
+
+**Does not cover:**
+- 还好 (luckily), 还是 (or / had better / still), 还有 (also / there remain), and 还 meaning "also" or "still" (还在, 还没, 还不). None of these is the sarcastic or rhetorical use.
+- 还 ... 可以/不错, and comparisons with 比 ... 还.
+- "你还好吗？" (a plain "are you OK?"), "时间还够吗？" (a plain question with a noun subject), and other neutral questions.
+
+```rule
+match: ^ 还/AD ... 呢/SP $
+match: ^ 还/AD ... 吗/SP $
+match: PN 还/AD ... 吗/SP $
+match: PN 还/AD ... 呢/SP $
+match: 还/AD 真/AD
+unless: 还/AD 在/AD
+unless: 还/AD 没|不/AD
+unless: 还/AD 好/VA 吗/SP
+unless: 还/AD 可以|不错
+unless: 比/P
+unless: 不然
+unless: 还是
+unless: 还/AD 有/VE
+```
+
+**Notes:**
+- The pattern is high-precision and low-recall. It misses sentences with a noun subject and 呢 (e.g. "他还在睡呢"), and ones with 还 + adjective + 呢 after a noun subject.
+- "还 + 有/VE" is excluded outright to avoid 还有 (also / remaining). This also drops sarcastic cases like "还有钱呢".
+- "还 + 真" can occasionally appear in neutral statements; this is accepted.
+- Tagger quirks: 还 can be tagged CC, and 在 as AD or VV. The 在/AD exclusion relies on the tag. 还在乎 (在 tagged VV) is allowed through.
+- 呢 as a continuing-state particle ("他还没起来呢") is excluded by the 还 没|不 exclusion.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 4-73
+Tagging 4 labeled example(s) (cached after this run)...
+  ...100/127
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 4-73: rule on labeled examples (no AI) ===
+  examples of 4-73 matched:    13/13
+  counter-examples wrongly matched: 0/114   <- should be 0

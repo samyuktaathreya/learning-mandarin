@@ -1,0 +1,20 @@
+## 3-46
+**Point:** Result complements 到, 住, and 开/出(来) showing that an action achieves its result
+**Covers:** Verb + 到/住/开/出(来) where the complement shows the action succeeded or achieved its intended outcome (e.g., 看到 "see/achieve seeing", 接住 "catch/hold onto", 打开 "open", 想出 "come up with")
+**Does not cover:** 到 meaning "arrive at a place", "until (time)", "less than", or "from...to"; 住 as a main verb "to live"; uses where 到/开/出 are prepositions or other grammatical functions
+
+```rule
+match: _ /VV (到|住|开|出) _
+unless: /P (到|开|出)
+unless: ^|...到|住 /P
+unless: 到 /VV (家|机场|现场|了解|达|时候)
+unless: 不/AD 到 /CD
+unless: 到底/AD
+unless: 等到/P
+unless: 直到/P
+unless: 从/P _ 到/P
+unless: 住 /P
+unless: 住 /VV 着/AS
+```
+
+**Notes:** The rule matches a verb immediately followed by one of the four result complement particles. The "unless" lines exclude uses of 到 as a preposition (position before nouns like 到 /P 路口, 到 /P 时候, 到 /P 五号) and temporal/spatial expressions (直到, 等到, 从...到). It also excludes 到 when used to mean "arrive" at a specific location or "less than" (不到 + number). The pattern requires the complement to directly follow the verb, which naturally excludes many other uses. Some counter-examples like "他到底想明白了" still risk matching; the 到底/AD exclusion helps, but this may require tuning if the tagger is inconsistent.

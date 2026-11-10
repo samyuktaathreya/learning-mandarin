@@ -1,0 +1,24 @@
+## 1-47
+**Point:** Using 还是 to offer choices in questions
+
+**Covers:** Questions with 还是/CC presenting two options where the asker expects the listener to choose one. This includes questions with explicit verbs, implicit verbs, or adjective predicates, as well as rhetorical and indirect questions (with 知道, 想知道, 不确定, etc.).
+
+**Does not cover:** 还是 as an adverb meaning "still" or "had better"; 还是 in statements (only questions); 还是 after 又 showing repeated past actions; 还是 after 尽管 expressing concession; 还是 at the start of a clause as a suggestion (还是……吧).
+
+```rule
+match: _ 还是/CC
+unless: /CS ... 还是/CC
+unless: _ 还是/AD
+unless: /AS 又|CC _ ... 还是/AD
+unless: 还是/AD _ /SP
+unless: /SP $ 
+unless: /VV 了/AS 又
+```
+
+**Notes:** The rule matches 还是 tagged CC (coordinating conjunction) only when at least one word precedes it in the same clause. A real choice question has Option A before 还是. A clause-initial 还是, as in "她不想说，还是不要再问了", is the "had better" use of 还是 and is no longer matched. The unless lines remove the following cases:
+- Clauses after 尽管 or another CS (subordinating conjunction).
+- 还是 tagged AD (the "still" adverb).
+- Repeated-action patterns with 又.
+- Clauses ending in a sentence-final particle.
+
+Bare 还是 pairs that the tagger mis-tags as AD (e.g. 我还是他？) are deliberately not matched, to keep precision. Statements with 或者 are not matched either, because 或者 is not 还是.

@@ -1,0 +1,31 @@
+## 2-55
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 有 to express comparisons ("as [adjective] as"), typically in questions, plus 有 with a measured amount ("as tall as / about N years old").
+**Covers:** 
+- A 有 B Adj. 吗 (他有我帅吗)
+- A 有 B Verb 得 Adj. 吗 (他有我做得好吗)
+- A 有 (B) 这么/那么 Adj. 吗 (她有那么漂亮吗)
+- A 有 + number + measure + 高 (他有一米八高)
+- A 有 + number + 多 + 岁 (他有三十多岁)
+
+**Does not cover:** Possession (我有钱), existence (这里有人), 有点/有一点 (a little), 有的 (some), 只有 (only if), 还有 (also), 有关 (related to), Taiwanese 有, negation 没有, or when 有 simply means "to have."
+
+```rule
+match: 有/VE /PN|NN|NR /VA 吗/SP
+match: 有/VE /PN|NN|NR /PN|NN|NR /PN|NN|NR? /VA 吗/SP
+match: 有/VE /PN|NN|NR? /VV 得/DER /VA 吗/SP
+match: 有/VE /PN|NN|NR? 这么|那么/AD /VA|VV /NN? 吗/SP
+match: 有/VE /NR 吗/SP
+match: 有/VE /CD /M /CD? 高/NN
+match: 有/VE /CD /M 高/VA
+match: 有/VE /CD 多/CD 岁/M
+unless: 有的/PN
+unless: 没有/VE
+unless: 只有/AD
+unless: 还/AD 有/VE
+unless: 有关/VV
+unless: 有点/AD
+unless: 有一点/AD
+```
+
+**Notes:** The rule matches 有 followed by a comparison standard B and then an adjective, or a verb with 得 and an adjective, or 这么/那么 plus an adjective, usually ending in 吗. It also accepts the 有 + measurement pattern (有一米八高, 有三十多岁). The 有 + proper noun + 吗 line catches cases where the tagger merges B and the adjective (他有姚明高吗). Possession, existence, 有点, 有的, 只有, 还有, 有关 and 没有 are excluded.

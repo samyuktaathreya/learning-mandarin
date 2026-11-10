@@ -1,0 +1,71 @@
+
+########## rules  2026-11-09 21:50 ##########
+12 page(s) use the word(s); asking about 12.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG6509E  Explaining purpose with "wei... er..."
+  ASG68RBX  Expressing "for" with "wei"
+  ASG863DE  Comparing "gei" and "wei"
+
+not:
+  ASGL1V0A  Using "because" with "er" to indicate effect
+  ASGQGJXT  Expressing purpose with "weile"
+  ASGRBC43  Expressing "mistakenly think that" with "yiwei"
+  ASGTDUJO  Cause and effect with "yinwei" and "suoyi"
+  ASGTPGXK  Stating the effect before the cause
+  ASGWSSQL  Using "yi... wei..."
+  ASGMCX2H  Expressing "to be worthy of" with "bukuishi"
+
+unsure:
+
+unrelated:
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+  ASGJQPSC  Placement of question words
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 3-23
+Tagging 41 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215050.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-23
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 为 as a preposition to express "for" (beneficiary or purpose)
+**Covers:** (1) 为 + beneficiary/goal + verb/adjective showing action/emotion done for them; (2) 为...而... structure expressing purpose with effort/action
+**Does not cover:** 为了 (weile, HSK 3-26); 因为 (yinwei, because); 以为 (yiwei, mistakenly think); 为 as main verb (是/变为); 为 in fixed expressions like 以...为, 作为, 为期, 为此, 为什么, 为难; 为 indicating effect after 因为
+
+```rule
+match: /PN|NN _ 为/P _ /PN|NN
+match: /PN|NN _ 为/P _ /PN|NN _ /VV|VA
+match: /PN|NN _ 为/P _ /NN _ /VV|VA
+match: 为/P _ /PN|NN _ 而/MSP
+match: 为/P _ /NN _ 而/MSP
+unless: 因为/P
+unless: /PN 以为/VV
+unless: _/P 为/VV
+unless: /VV 为/VC
+unless: 被/SB _ 为/VC
+unless: 为了/P
+unless: 作为/P
+```
+
+**Notes:** The rule prioritizes precision by requiring clear 为 + beneficiary/goal + action pattern. It excludes 为了 (different point), 因为/而 (causation), 以为 (mistaken belief), and cases where 为 is a main verb or copula (以...为, 被...为, 作为). The match patterns cover: basic "为 person verb/adj" structure with various noun/pronoun combinations, and "为...而..." purpose structure. The unless lines filter out related grammar points and structures where 为 functions differently.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-23
+Tagging 41 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-23: rule on labeled examples (no AI) ===
+  examples of 3-23 matched:    27/36
+  counter-examples wrongly matched: 0/52   <- should be 0
+
+--- examples of 3-23 the rule misses (9) ---
+  他为了能去日本而苦学日语。  -- ASG6509E Explaining purpose with "wei... er..."
+  李甜为了男朋友而学的医生。  -- ASG6509E Explaining purpose with "wei... er..."
+  请给我拿一双筷子。  -- ASG863DE Comparing "gei" and "wei"
+  下飞机以后，我给你打电话。  -- ASG863DE Comparing "gei" and "wei"
+  你别忘了给我回邮件。  -- ASG863DE Comparing "gei" and "wei"
+  同事给我介绍了公司的情况。  -- ASG863DE Comparing "gei" and "wei"
+  这件事是你做得不对，给他道歉。  -- ASG863DE Comparing "gei" and "wei"
+  老板给我提了很多建议。  -- ASG863DE Comparing "gei" and "wei"
+  上海给我留下了很深的印象。  -- ASG863DE Comparing "gei" and "wei"

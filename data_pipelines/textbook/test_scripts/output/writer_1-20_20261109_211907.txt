@@ -1,0 +1,11 @@
+## 1-20
+**Point:** Structural particles 的, 地, 得 used to modify nouns, create adverbs, and mark complements
+**Covers:** (1) 的 modifying nouns with possessives/adjectives/phrases; (2) 地 converting adjectives to adverbs; (3) 得 marking degree complements after verbs; (4) reduplicated adjectives with 的/地
+**Does not cover:** Modal particle 的; 有的 "some"; 似的 "like"; 的话 "if/as for"; 之类的 "such as"; 有的是 "plenty of"; 是...的 constructions; 什么的 "and so on"; degree complements without the structural function
+
+```rule
+match: /DEG|DEC|DEV|DER/
+unless: ... 的话 $ | ... 之类 的 | 有的 ... | 似的 | 什么 的 | 为的是 | 用来 ... 的 $ | 来|去 ... 的 $ | 是 ... 的 $ | VC ... 的 $ | VC ... 的 DEC
+```
+
+**Notes:** The rule matches any occurrence of 的 (tagged DEG/DEC), 地 (DEV), or 得 (DER) in a clause, then excludes sentences containing the excluded patterns. DEG marks possession, DEV marks adverbial conversion, DEC marks attributive modification. The unless patterns filter out other grammatical uses of these particles that belong to different HSK grammar points. The rule is intentionally broad on match to catch all structural uses; the unless clauses narrow it to exclude other constructions.

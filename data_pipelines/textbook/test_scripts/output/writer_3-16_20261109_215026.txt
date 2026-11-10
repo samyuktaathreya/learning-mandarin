@@ -1,0 +1,24 @@
+## 3-16
+
+**Point:** Using 再 (zài) to express "again" for future actions, "and then" for sequencing events (including 先…再说), and the contrasting 又 for an expected repetition ("again" in the near future, as in 又要/又可以/又能/又是).
+
+**Covers:** Future repetition ("again", including 再说一遍), sequencing with 先…再… and 先…再说, "another" with quantity phrases, and 又 + 是/要/可以/能 for something expected to happen again.
+
+**Does not cover:** 一再/再三 (repeatedly), 再不…就… (last chance warning), 再也不/没 (never again), 再也…也… (even so), 再说 as "in addition" (clause-initial or standalone), and 又…又… (both…and).
+
+```rule
+match: 再/AD ... /VV
+match: 再说/VV /CD
+match: 先/AD ... 再/AD
+match: 先/AD ... 再说/VV $
+match: 又/AD 要|可以|能/VV
+match: 又/AD 是/VC
+unless: 再/AD 也/AD
+unless: 再/AD 不/AD
+unless: 一再/AD
+unless: 再三/AD
+unless: 再/AD 说/VV $
+unless: 又/AD ... 又/AD
+```
+
+**Notes:** The tagger often treats 再说 as a single verb token, so 你可以再说一遍吗 and 先…再说 need their own patterns. 再说 + number covers "say it again". 再说 at the end of a clause counts only after 先 (先吃饭再说). A clause-initial 再说 ("in addition") is not matched, because it is followed by a comma and not by a number. The 又 patterns cover the labeled examples where 又 marks an expected repetition (又是星期一, 又要开会, 又可以…, 就又能…). They are limited to 是/要/可以/能 to stay precise, and are blocked when a second 又 appears (又…又…). The earlier exclusions for 再也, 再不, 一再 and 再三 are unchanged.

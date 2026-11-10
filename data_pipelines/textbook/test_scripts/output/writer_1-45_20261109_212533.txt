@@ -1,0 +1,11 @@
+## 1-45
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Yes-no questions, tag questions, and questions about completed actions using 吗
+**Covers:** Statements converted to yes-no questions by adding 吗 at the end; tag questions with confirmation words (好/对/是/可以) + 吗; questions about completed actions with 了吗
+**Does not cover:** Other uses of 吗 that are not questions; 吗 used as a pronoun (e.g. 你干吗去); questions formed with other methods (interrogative words like 谁/什么/哪儿 without 吗)
+
+```rule
+match: 吗/SP $
+```
+
+**Notes:** The original rule was malformed (`... /SP $吗`) and matched none of the labeled examples. The fixed rule matches 吗 tagged as SP at the end of a clause. This covers plain yes-no questions, tag questions after a comma (好吗, 对吗, 是吗, 可以吗), and 了吗 questions. 干吗 is tokenized as one word, not as 吗/SP, so it is not matched and needs no separate exclusion. I dropped the old `unless` line, which was based on a wrong assumption and could wrongly block valid questions.

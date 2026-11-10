@@ -1,0 +1,58 @@
+## 2-58
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing comparisons with 比 (bǐ), including basic comparisons, "more" with 更/很多/得多/多了, and age differences with 大/小 + number + 岁
+
+**Covers:**
+- Basic comparisons: Noun1 + 比 + Noun2 + Adjective (e.g., 小李比小张高)
+- Comparisons with 更: Noun1 + 比 + Noun2 + 更 + Adjective (e.g., 小李比小张更高)
+- "Much more" comparisons: Noun1 + 比 + Noun2 + Adjective + 很多/得多/多了 (e.g., 拼音比汉字容易很多)
+- "A bit more": 比 + Noun2 + Adjective + 一些/一点 (e.g., 房间外边比里边凉快一些)
+- Age differences: A + 比 + B + 大/小 + Number + 岁 (e.g., 姐姐比我大两岁)
+- Standalone "much more": Subject + Adjective + 多了 with implied comparison (e.g., 我的感冒好多了)
+- Age questions without 比: 多大年纪/岁数, 谁大/谁最小, 哪年的
+- Same age: A + 和/跟 + B + 一样/差不多 + 大 (e.g., 他女朋友和他女儿一样大)
+
+**Does not cover:**
+- 比较 used as an adverb meaning "rather/quite" (e.g., 这个问题比较简单)
+- 不比 negation patterns (e.g., 你不比我聪明)
+- 比起...来 patterns (e.g., 比起你来，我还差得远呢)
+- 相比 patterns (e.g., 相比网络广告，平面广告贵很多)
+- 跟...比 patterns (e.g., 跟上海比，我老家的物价很低)
+- 比 as a verb meaning "to compete/compare" or in compound words like 比赛, 对比
+- 比如 meaning "for example"
+
+```rule
+match: 比/P ... /VA $
+match: 比/P ... /VA 吗/SP
+match: 比/P ... /VA 一些|一点/AD
+match: 比/P ... 更/AD
+match: 比/P ... /VA 很/AD 多/AD
+match: 比/P ... /VA 得/DER 多/VA
+match: 比/P ... 多/AD 了/SP
+match: 比/P ... /VA /CD 岁/M
+match: 比/P ... 大|小/VA /CD
+match: /VA 多/AD 了/SP
+match: /VA /CD 岁/M 了/SP
+match: /CD 岁/M 了/SP
+match: 和|跟/CC|P ... 一样|差不多/AD 大/VA
+match: 多/AD 大/JJ|VA 年纪|岁数/NN
+match: 哪/DT 年/M 的/DEG
+match: 谁/PN 大|小/VA
+match: 谁/PN 最/AD 大|小/VA
+
+unless: 比较/AD
+unless: 不/AD 比/VV
+unless: 不/AD 比/P
+unless: 比/VV 起/VV
+unless: 比/P 起/VV
+unless: 相比/VV
+unless: 跟/P _ 比/VV
+unless: 和/P _ 相比/VV
+unless: 与/P _ 相比/VV
+unless: 比/VV 赛/NN
+unless: 对比/VV
+unless: 比如/AD
+unless: 比/VV 一/CD
+```
+
+**Notes:** 比 tagged P (preposition) is required for the comparison patterns, with "..." allowing multi-word nouns between 比 and the adjective. Plain 比/P ... VA is accepted only when the adjective ends the clause or is followed by 吗 or 一些/一点. 不比, 比较, 比起, 相比 and 跟...比 are excluded by the unless lines. The 谁 and 一样 patterns are limited to 大/小 to keep them within the age sense.

@@ -1,0 +1,27 @@
+## 2-34
+**Point:** Particles 啊, 吧, 的 used as sentence-final mood particles to soften speech, make suggestions, list items, or express emotion.
+
+**Covers:** 
+- 吧 softening commands/statements into suggestions or polite requests
+- 吧 used twice to present two debated options
+- 吧 used to concede or accept something reluctantly
+- 啊 as sentence-final interjection expressing exclamation, emotion, urgency, or certainty
+- 啊 used after nouns in lists to indicate a non-exhaustive category (noun + 啊)
+- 的 as particle in "X什么的" (and such things) constructions within listing
+
+**Does not cover:**
+- "什么 + Adj./Verb + 啊/呀" challenge constructions (胖什么胖啊 = "Who are you calling fat?")
+- 吧 as yes/no question particle (用"吧"提问, HSK 2-79)
+- 还是...吧 (HSK 2-45)
+- X就X吧 (HSK 3-80)
+- X什么 standalone (HSK 3-81)
+- Standalone 啊 exclamation particle alone (HSK 4-22)
+- 吧 as sentence-final particle when tagged as NN (e.g., 网吧 = internet café)
+
+```rule
+match: /SP$
+unless: 什么/PN _ (什么|啊|呀)/SP$ 
+unless: _ 什么/PN (啊|呀|UH)/?
+```
+
+**Notes:** The rule matches any clause ending with a sentence-final particle (SP tag). The two unless clauses exclude the "challenging" construction patterns where 什么 appears between or after an adjective/verb and before the particle. This prevents false positives from structures like "累什么累啊" which are a different grammar point. The tagger sometimes tags these particles as UH (interjection) in challenging contexts; the unless clause accommodates this variation. The rule is broad by design to catch all five uses (吧 suggestions/concessions/options, 啊 interjections/lists, and 的 in listings) since they all end with SP-tagged particles in clause-final position.

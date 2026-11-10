@@ -1,0 +1,125 @@
+
+########## rules  2026-11-09 21:23 ##########
+64 page(s) use the word(s); asking about 40.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGE5Q4J  Expressing "now" with "le"
+  ASGFR96B  Expressing "not anymore" with "le"
+  ASGM055L  Expressing "already" with just "le"
+  ASGT185D  Change of state with "le"
+
+not:
+  ASG4K5WH  Advanced "le" after an object
+  ASG516F9  Advanced potential complements
+  ASG69RR8  Expressing ongoing duration with double "le"
+  ASG890CA  Advanced "le" with complements
+  ASGAGDCQ  Expressing completion with "le"
+  ASGJ36VN  Expressing duration with "le"
+  ASGVME5V  Adjectives with "-ji le"
+  ASGYKDNF  Questions with "le ma"
+  ASG8HVFN  Expressing "excessively" with "tai"
+  ASGEHTV5  Expressing "a bit too"
+  ASGLEVUV  Negative adjectives with "-si le"
+  ASGNGEU8  Expressing "about to happen" with "le"
+  ASGNQUC1  Result complement "-wan" for finishing
+  ASGP69JD  Using "guo" with "le"
+  ASGT0GYL  Complement "-huai le"
+  ASGZ8OIF  Expressing "stop doing" with "bie… le"
+
+unsure:
+  ASG49BE6  Expressing "enough" with "gou"
+  ASG7AUNJ  Using "zhe" when "verbing away"
+  ASGNXI27  Expressing "already" with "yijing"
+  ASG06EA8  Expressing "all at once" with "yixiazi"
+
+unrelated:
+  ASG3IR71  Expressing "can't do without" with "shaobuliao"
+  ASGHFPGG  Expressing "except" and "in addition" with "chule… yiwai"
+  ASGQGJXT  Expressing purpose with "weile"
+  ASG44TBS  Expressing "thanks to" with "duokui"
+  ASG6509E  Explaining purpose with "wei... er..."
+  ASG79STE  Degree complement
+  ASG9E5BB  Advanced degree complements
+  ASGB8BWA  Adjectival complement "de budeliao"
+  ASGTPGXK  Stating the effect before the cause
+  ASGW7YXP  Softening the tone of questions with "ne"
+  ASG10CAE  Expressing "less than" with "budao"
+  ASG1PTJX  Result complement "-xiaqu"
+  ASG3544U  Superlative "zui"
+  ASG4FB55  Expressing "and then" with "yushi"
+  ASG4GVRX  Separable verb
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+
+[note] ASGM055L is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-40
+Tagging 62 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_212339.txt
+  ...100/238
+  ...200/238
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 1-40, rule line 1: unknown tag(s) SP$ in '/SP$' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-40_20261109_212352.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 1-40, rule line 1: unknown tag(s) SP$ in '/SP$' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-40_20261109_212358.txt)
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: answer has no '## 1-40' section (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-40_20261109_212434.txt)
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: answer has no '## 1-40' section (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-40_20261109_212508.txt)
+Traceback (most recent call last):
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 127, in rule_for
+    tg.cmd_write(db, point, trial_args(code=code, redo=True, writer_model=first_writer))
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 757, in cmd_write
+    section = ask_writer(get_client(), point, prompt, args, "write")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 727, in ask_writer
+    raise SystemExit(f"The writer's rule couldn't be read twice: {error}\nLast answer:\n{section}")
+SystemExit: The writer's rule couldn't be read twice: 1-40, rule line 1: unknown tag(s) SP$ in '/SP$'
+Last answer:
+## 1-40
+**Point:** Change of state with 了 (le) - indicating a new situation or change in state
+**Covers:** Sentences where 了 appears sentence-finally (tagged SP) after a verb or adjective to indicate a change of state, including: (1) new situations with verbs or adjectives; (2) negated situations indicating "not anymore"; (3) idiomatic expressions meaning "now"
+**Does not cover:** 了 used for completion after an object, duration expressions, potential complements, complement constructions, or questions with 了吗
+
+```rule
+match: ... /VA /SP$
+match: ... /VV /SP$
+match: ... /AD 不/AD /VV /SP$
+match: ... /AD 没有/VE /SP$
+match: ... /VE _ /SP$
+unless: _ /SP 吗/SP
+unless: /VV /AS _ /NN
+unless: /VV /AS /M /NN
+unless: /VV /AS /CD /M /NN
+unless: /VV /AS /CD /M /NT /DEG /NN
+unless: /VV /AS /NT /NT /DEG /NN
+unless: /VV /AS /DT /M /NN
+unless: /VV /VV /AS
+unless: /VA /AS 点/CD
+unless: /VA 极/AD /SP
+unless: /VA 死/VV /AS
+unless: /VA 死/VV /SP
+unless: /VV 完/VV /AS
+unless: /VV /VV /AS
+unless: /VV 过/AS /SP
+unless: /AD 别/AD /VV /AS
+```
+
+**Notes:** The rule prioritizes matching sentence-final 了 tagged as SP (not AS). It excludes object-bearing completion patterns, duration expressions with time measures, result complements (坏了, 死了, 完了 when tagged AS), potential complements, 了吗 questions, and 极了 constructions. The negation patterns match 不/AD + verb + 了 and 没有/VE + noun + 了 structures common in "not anymore" expressions.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 305, in main
+    rule_for(db, c, st, tagger, client, args.first_writer)
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 129, in rule_for
+    tg.cmd_write(db, point, trial_args(code=code, redo=True))
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 757, in cmd_write
+    section = ask_writer(get_client(), point, prompt, args, "write")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 727, in ask_writer
+    raise SystemExit(f"The writer's rule couldn't be read twice: {error}\nLast answer:\n{section}")
+SystemExit: The writer's rule couldn't be read twice: answer has no '## 1-40' section
+Last answer:
+None

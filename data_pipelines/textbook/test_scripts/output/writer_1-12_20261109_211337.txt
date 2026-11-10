@@ -1,0 +1,26 @@
+## 1-12
+
+**Point:** Frequency and repetition adverbs: 常、常常、再
+
+**Covers:** 常/常常 (and 经常, 往往 as shown in the official wiki examples) expressing "often" or "usually"; 再 expressing "again" or "more" in future or sequential contexts; 又 + 是/要 for an upcoming repeat, as in the wiki comparison examples.
+
+**Does not cover:** 一再/再三 (repetition emphasis); 再不…就/也… (last chance, even so); 再也不/没 (never again); 再…也… (no matter how); 再说 (furthermore).
+
+```rule
+match: 常/AD
+match: 常常/AD
+match: 经常/AD
+match: 往往/AD
+match: 再/AD
+match: 再说/VV 一 遍
+match: 又/AD 是|要
+unless: 再/AD 也
+unless: 再/AD 不
+unless: 再/AD 没
+unless: 再/AD ... 也
+unless: 再说/AD
+unless: 一再
+unless: 再三
+```
+
+**Notes:** The earlier rule used patterns like `/AD 常 /VV`, which required an arbitrary adverb before 常 and a verb right after it, so it matched almost nothing. The rule now matches the adverb itself (常, 常常, 经常, 往往, 再, tagged AD), so negated forms, modal verbs and 比较 between the adverb and the verb no longer matter. The tagger sometimes merges 再说 + 一遍 into one verb (你可以再说一遍), so that case has its own line. 又 is limited to 又是 / 又要. The unless lines remove 再也不/没, 再不…就/也…, 再…也… and 再说 (in addition). 一再 and 再三 are single tokens and never match 再 on its own, but they are listed for safety.

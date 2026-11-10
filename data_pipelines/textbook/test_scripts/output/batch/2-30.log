@@ -1,0 +1,195 @@
+
+########## rules  2026-11-09 21:35 ##########
+24 page(s) use the word(s); asking about 24.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG98C1A  Expressing "as long as" with "zhiyao"
+  ASGA0S4T  A softer "but" with "buguo"
+  ASGGIVT0  Expressing "if... then..." with "ruguo... jiu..."
+  ASGJ1VZQ  Many types of "not only... but also..."
+  ASGN4VUU  Expressing "if" with "ruguo... dehua"
+  ASGTYJ3E  Expressing "not only... but also" with "budan... erqie..."
+  ASGUD81S  Two words for "but"
+  ASGXI560  Expressing "although" with "suiran" and "danshi"
+
+not:
+  ASG87B11  Using "budan... geng" to express "not only... but also"
+  ASGF9320  Expressing "not only..., even..." using "budan..., shenzhi lian"
+  ASGEG2QB  The "however" adverb "que"
+  ASGB781C  Expressing "moreover" with "bingqie"
+  ASGW863F  Expressing "although" with "jinguan"
+
+unsure:
+  ASGT9Y8P  Conceding a point with "shi"
+
+unrelated:
+  ASG0K25S  Comparing "fan'er" and “que"
+  ASG1F4D1  Expressing "in this way" with "zheyang"
+  ASG1RE80  Expressing contrariness with "dao"
+  ASG4V36Q  Expressing "after all" with "bijing"
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+  ASG6F157  Expressing "originally" with "benlai"
+  ASGCZ37R  Comparing "juran" and "fan'er"
+  ASGH13JY  Idiomatic phrases with "zai"
+  ASGIRILI  Continuation with "hai"
+  ASGX5QTV  Expressing "on the contrary" with "fan'er"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-30
+Tagging 26 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213556.txt
+  ...100/110
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-30
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Conjunctions and adverbs that connect clauses to express conditions, contrasts, and logical relationships
+
+**Covers:** 
+- Conditionals with 如果...就/那(么) (if...then), 只要...就 (as long as...then), and 如果...的话 (if)
+- Contrasts with 但/但是 (but), 可是 (but), and 不过 (but, softer tone)
+- Concessions with 虽然...但是/可是 (although...but)
+- Additive/progressive relationships with 不但...而且/还/也 (not only...but also)
+- Clausal connectors like 那/那么 used after conditionals
+
+**Does not cover:**
+- 尽管...还是 (despite...still) — uses different grammar structure
+- 不但...更/甚至连...也 (not only...even more/even...) — uses 更 or 甚至连, which indicate escalation beyond HSK 2 scope
+- 却 as a contrastive adverb without the required conjunction pairing
+- 并且 (moreover/and) without the 不但 structure
+- Single instances of conjunctions without a multi-clause structure showing the relationship
+
+```rule
+match: /CS ... /AD|CC
+match: /CC ... /CC|AD
+match: /CC
+unless: 甚至/AD|CC
+unless: 更/AD
+unless: 尽管/CS
+unless: 却/AD
+```
+
+**Notes:** 
+- The rule is deliberately permissive to capture the variety of these connective structures across multiple clauses. All labeled examples contain at least one CS (subordinating conjunction like 如果, 虽然, 只要) or CC (coordinating conjunction like 但是, 可是, 不过, 而且, 不但) with corresponding clause markers (就, 那, 也, 还, etc.).
+- Some sentences use just a CC (like 可是, 但是, 不过, 而且, 不但) without an explicit CS, which is valid for this grammar point.
+- The unless clauses exclude counter-examples that involve 甚至 (even/even...), 更 (more/even more), 尽管 (despite), and 却 (but/yet) which represent different or higher-level grammar structures not in HSK 2-30.
+- Tag errors in parsing may occur (e.g., 不过 sometimes tagged as AD instead of CC), but the rule accounts for both possibilities.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-30
+Tagging 26 labeled example(s) (cached after this run)...
+  ...100/110
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-30: rule on labeled examples (no AI) ===
+  examples of 2-30 matched:    76/84
+  counter-examples wrongly matched: 0/26   <- should be 0
+
+--- examples of 2-30 the rule misses (8) ---
+  王师傅不但会开车，还会修车。  -- ASGJ1VZQ Many types of "not only... but also..."
+  我不仅知道他，我而且认识他。  -- ASGJ1VZQ Many types of "not only... but also..."
+  这家餐厅的食物不但好吃，也便宜。  -- ASGJ1VZQ Many types of "not only... but also..."
+  他不仅懒，还馋。  -- ASGJ1VZQ Many types of "not only... but also..."
+  他不但喜欢吃中国菜，也会做几个中国菜！  -- ASGJ1VZQ Many types of "not only... but also..."
+  他不但聪明还很善良。难怪他这么受大家的喜爱！  -- ASGJ1VZQ Many types of "not only... but also..."
+  这道菜不但好看，也好吃。  -- ASGTYJ3E Expressing "not only... but also" with "budan... erqie..."
+  她不但离开了我，还拿走了我所有的钱。  -- ASGTYJ3E Expressing "not only... but also" with "budan... erqie..."
+
+########## tatoeba  2026-11-09 22:09 ##########
+Filling 2-30 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 52 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220914.txt
+  ...100/210
+  ...200/210
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  不可以 = 不 + 可以  (may not)
+
+Course sentences at HSK 2 the rule already finds 2-30 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-30 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      589  2. contain the point's word(s)
+      589  3. new (not in DB, not a duplicate)
+      210  4. at most 2 characters outside HSK 2 words
+       21  5. really HSK 2
+       21  5b. no harder grammar point (of the 20 with a rule)
+       21  6. the rule finds 2-30
+       17  6b. no hidden word a learner can't work out
+       11  7. both checks say 2-30, English chosen
+       11  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (11) ===
+  我想，但我不能。  (I want to, but I can't.)  [tatoeba 4189345]  hidden: 不能
+  我不懂汉语，但我想学。  (I don't understand Chinese, but I want to learn.)  [tatoeba 2031418]
+  我是学生，但是他不是。  (I'm a student, but he isn't.)  [tatoeba 6172117]  hidden: 不是
+  里面很热，但外面很冷。  (Inside, it's very hot, but outside its freezing.)  [tatoeba 13504833]
+  他想回家，但是他不可以。  (He wants to go home, but he can't.)  [tatoeba 12278090]  hidden: 回家, 不可以
+  我在工作，但是我妻子在家。  (I'm at work, but my wife is at home.)  [tatoeba 10913659]  hidden: 在家
+  已经很晚了，但是他还在工作。  (It's already very late, but he is still at work.)  [tatoeba 9054931]
+  我会说中文，但是我不会读中文。  (I can speak Chinese, but I can't read it.)  [tatoeba 1476139]  hidden: 不会
+  你可能不记得我了，但我记得你。  (You may not remember me, but I remember you.)  [tatoeba 6624743]
+  我想和你一起去，但是我没有时间。  (I would have liked to come with you, but I didn't have time.)  [tatoeba 1878426]
+  虽然他是中国人，但他不会说中文。  (Although he is Chinese, he doesn't speak Chinese.)  [tatoeba 10019733]  hidden: 中国人, 不会
+
+--- dropped at step 4 (379), first 12 ---
+  丽萨不但会说英文，而且会说法文。  -- 5 characters no HSK 2 word uses: 且丽法而萨
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 5 characters no HSK 2 word uses: 且串抓烤而
+  你如果能利用重力，那就这么做吧。  -- 5 characters no HSK 2 word uses: 利力如用重
+  我虽然在虎口里，却是安如泰山。  -- 6 characters no HSK 2 word uses: 却如安山泰虎
+  我走不动，但是肯定能跛行。  -- 4 characters no HSK 2 word uses: 定肯行跛
+  这只不过全是个大误会而已。  -- 3 characters no HSK 2 word uses: 全而误
+  “但请告诉我们，您究竟为了什么杀了他？”　“是为了爱情。”  -- 3 characters no HSK 2 word uses: 杀究竟
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 10 characters no HSK 2 word uses: 且信合此永海相而适颗
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  每一个男孩子都可以说：「虽然我不是世界上最好的男人，但我是世界对妳最好的男人。」  -- 3 characters no HSK 2 word uses: 世妳界
+  但是如果有一个人本身已经很好了，对你又是真心真意，真心爱你，那么你真的可以把一生托付给他。  -- 6 characters no HSK 2 word uses: 付又如心托把
+  结婚虽然是很美好的事，但是不要著急，该是你的就是你的。  -- 6 characters no HSK 2 word uses: 婚急结美著该
+
+--- dropped at step 5 (189), first 12 ---
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  她倒很可爱，但我不喜欢她。  -- level 4: 倒 L4, 可爱 L3
+  你如果咬我，我也要咬你。  -- level 5: 如果 L3, 咬 L5
+  但是我不会烤烤肉串！  -- level 10: 烤 L4, 烤肉 (not in list), 串 L6
+  他喜欢数学，但我不喜欢。  -- level 3: 数学 L3
+  但这咖啡并不好。  -- level 4: 并 L4
+  他本希望可以成功，但是他没有。  -- level 4: 成功 L4
+  你虽然做 不到一个『最好的人』,可是你却做得到一个『对对方最好的人』。  -- level 4: 最好 L3, 可是 L3, 却 L4, 对方 L4
+  有是有的，不过远了一点。  -- level 4: 不过 L4
+  我不知道你想讲的是什么，但是我喜欢。  -- level 3: 讲 L3
+  如果你发现什么，请打给我。  -- level 3: 如果 L3, 发现 L3
+  贝诗不过是个孩子。  -- level 10: 贝诗 (not in list), 不过 L4
+
+--- dropped at step 6b (4) ---
+  但是咖啡不好喝。  -- hidden word a learner can't work out: 好喝 (tasty (drinks))
+  我喜欢游泳，但我不想在这里游。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我们等了好几个小时，但他没来。  -- hidden word a learner can't work out: 好几 (several)
+  她想要孩子，但他不想。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+
+--- dropped at step 7 (6) ---
+  但咖啡不好。  -- check said no (2/2): Incomplete sentence; lacks contrasting clause
+  但是您有孩子。  -- check said no (2/2): Incomplete sentence; lacks contrasting clause
+  但是你有孩子。  -- check said no (2/2): Incomplete sentence; lacks contrasting clause
+  但是，我不要。  -- check said no (2/2): Incomplete sentence; lacks contrasting clause
+  虽然我没在火车上睡觉。  -- check said no (2/2): Incomplete sentence; lacks second clause after 虽然
+  我不喜欢足球，但是喜欢看足球。  -- check said no (1/2): Incomplete sentence; but clause lacks subject
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-30_level2_20261109_220929.csv

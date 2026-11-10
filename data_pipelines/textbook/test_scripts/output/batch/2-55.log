@@ -1,0 +1,298 @@
+
+########## rules  2026-11-09 21:41 ##########
+30 page(s) use the word(s); asking about 30.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG5DG95  Expressing_comparable_degree_with_"you"
+
+not:
+  ASG04ZCI  Expressing existence with "you"
+  ASG4NDHB  Using "youde" to mean "some"
+  ASGD19DA  Expressing "related to..." with "you guan de"
+  ASGHQRI1  Expressing "in addition" with "haiyou"
+  ASGJDV3Y  Expressing "only if" with "zhiyou"
+  ASGOOCVO  Expressing possession with "you"
+  ASGOWBSL  Expressing "all" with "suoyou"
+  ASGPM3MY  Expressing "a little too" with "you dian"
+  ASGV55Y4  Comparing "youdian" and "yidian"
+  ASGVACYB  Saying "a lot" with "youdeshi"
+  ASGY2D79  Taiwanese "you"
+  ASGAUCXK  Negation of past actions with "meiyou"
+  ASGPNV3Q  Negation of "you" with "mei"
+
+unsure:
+  ASGEAH5M  Basic comparisons with "meiyou"
+
+unrelated:
+  ASG8DVSO  Basic comparisons with "bu bi"
+  ASG8NM5E  Expressing "never" with "conglai"
+  ASGEEA2D  Expressing "double negation"
+  ASGFR96B  Expressing "not anymore" with "le"
+  ASGRJ1BI  Comparing "bu" and "mei"
+  ASGZH7K3  Affirmative-negative question
+  ASG16EF6  Expressing "once" with "cengjing"
+  ASG59C66  Comparing "li" and "cong"
+  ASG9B210  Expressing "about to" with "jiuyao"
+  ASGAQV6C  Expressing "everything" with "shenme dou"
+  ASGCZ37R  Comparing "juran" and "fan'er"
+  ASGH13JY  Idiomatic phrases with "zai"
+  ASGI96BQ  Expressing distance with "li"
+  ASGUQUPG  Emphasizing a negation with "bing"
+  ASGVA70K  Expressing "nearly" with "jihu"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-55
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_214202.txt
+  ...100/142
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-55
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 有 to express comparisons ("as [adjective] as"), typically in questions.
+**Covers:** Comparative structures where 有 means "as [Adj.] as" with patterns like: A 有 B Adj./Verb得Adj., A 有 (B) 这么/那么 Adj., typically marked by question particle 吗.
+**Does not cover:** Possession (我有钱), existence (这里有人), 有点/有一点 (a little), 有的 (some), 只有 (only if), 还有 (also), 有关 (related to), Taiwanese 有, negation 没有, or when 有 simply means "to have."
+
+```rule
+match: _ 有/VE ... (VA|VV) .*吗/SP
+match: _ 有/VE (NR|NN|PN) _ (VA|VV) .*吗/SP
+match: _ 有/VE (这么|那么)/AD (VA|VV)
+match: _ 有/VE (这么|那么)/AD VA
+match: _ 有/VE (CD|M)+ (VA|NN)
+unless: 有/VE (点|一点|点儿|一点儿)
+unless: 有的/PN
+unless: 有/VE ... 过/AS
+unless: 只有/AD
+unless: 还/AD 有/VE
+unless: 有/VE (NN|NR) 吗/SP
+unless: (地|这里|那里|这儿|那儿|上|里|下|前|后|旁边|里面|外面) 有/VE
+unless: 有关/VV
+unless: 没有/VE
+```
+
+**Notes:** The core pattern requires 有 followed eventually by an adjective or verb (often with 得 degree complement), commonly ending in 吗 for questions. The rule must exclude possession/existence contexts by checking that the object after 有 is not simply a noun being possessed, and excluding locative expressions (place + 有). The patterns for 这么/那么 indicate high degree ("really that..."). Measurement expressions like "有一米八高" or "有三十多岁" are captured by the CD/M + VA pattern. Counter-example filtering focuses on 有点, 有的, 过 aspect, locative contexts, and possession statements without comparative markers.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-55
+Tagging 2 labeled example(s) (cached after this run)...
+  ...100/142
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-55: rule on labeled examples (no AI) ===
+  examples of 2-55 matched:    12/12
+  counter-examples wrongly matched: 0/130   <- should be 0
+
+########## tatoeba  2026-11-09 22:11 ##########
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 153 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_221120.txt
+  ...100/1515
+  ...200/1515
+  ...300/1515
+  ...400/1515
+  ...500/1515
+  ...600/1515
+  ...700/1515
+  ...800/1515
+  ...900/1515
+  ...1000/1515
+  ...1100/1515
+  ...1200/1515
+  ...1300/1515
+  ...1400/1515
+  ...1500/1515
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+
+=== 2-55 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1515  4. at most 2 characters outside HSK 2 words
+      122  5. really HSK 2
+      121  5b. no harder grammar point (of the 20 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as tatoeba 6057701 (translations pooled)
+  你有学生证吗？  -- same text as tatoeba 6284495 (translations pooled)
+  你有朋友吗？  -- same text as tatoeba 9959099 (translations pooled)
+
+--- dropped at step 4 (1415), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  附近有没有青年旅舍？  -- 3 characters no HSK 2 word uses: 舍附青
+  我没有任何借口。  -- 3 characters no HSK 2 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 2 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 3 characters no HSK 2 word uses: 方无草
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 2 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 3 characters no HSK 2 word uses: 串烤种
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1393), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 事件 L5, 关系 L3
+  阿什兰也有水。  -- level 1: no list words
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list)
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  我不在的时候有没有人来？  -- level 1: no list words
+  桌子上有本书。  -- level 1: no list words
+  还有什么？  -- level 1: no list words
+
+--- dropped at step 5b (1) ---
+  离下课还有十分钟。  -- harder grammar: 3-39 (HSK 3)
+
+--- dropped at step 6 (121) ---
+  你有多高？  -- rule: no match: line matched
+  有时我去，有时不去。  -- rule: no match: line matched
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我们只有茶水。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  “没门儿！”　“有的，有门儿。”  -- rule: unless 有的/PN
+  楼下有人在等您。  -- rule: no match: line matched
+  因为我有点头疼，所以我早早上床睡觉。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  我现在还没有吃过午饭。  -- rule: no match: line matched
+  那样的事天天都有。  -- rule: no match: line matched
+  一天有二十四个小时。  -- rule: no match: line matched
+  他的书非常有意思。  -- rule: no match: line matched
+  我没有朋友一起玩。  -- rule: unless 没有/VE
+  因为他有钱，所以能去那儿。  -- rule: no match: line matched
+  她没有票。  -- rule: unless 没有/VE
+  有件事情我要对你说。  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: unless 没有/VE
+  她说她有点累了。  -- rule: no match: line matched
+  我家只有三口人。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  她有几百本书。  -- rule: no match: line matched
+  在日本，有站长是猫的车站。  -- rule: no match: line matched
+  我有告诉你我找到新工作了吗？  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  我们班有十多个学生。  -- rule: no match: line matched
+  它没有教她说话。  -- rule: no match: line matched
+  他有一千多本书。  -- rule: no match: line matched
+  我有点累。  -- rule: no match: line matched
+  有人在门口。  -- rule: no match: line matched
+  你有听到他说得有多快吗？  -- rule: no match: line matched
+  他有自己的房间。  -- rule: no match: line matched
+  没吃早饭，我有些不舒服。  -- rule: no match: line matched
+  你有去过巴黎吗？  -- rule: no match: line matched
+  有人跟我说这件事。  -- rule: no match: line matched
+  所以他没有去学校。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  你在班里有好朋友吗？  -- rule: no match: line matched
+  有人来过这里。  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 没有/VE
+  你有很多笔吗？  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  现在有票。  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  我现在有钱，能想买就买。  -- rule: no match: line matched
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  真高兴有人告诉我。  -- rule: no match: line matched
+  他们可能有点什么。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  还有什么事就告诉我。  -- rule: unless 还/AD 有/VE
+  有后门。  -- rule: no match: line matched
+  是有人花钱让你做这事吗？  -- rule: no match: line matched
+  我没想到它有那么大。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: no match: line matched
+  得有人做点事。  -- rule: no match: line matched
+  有人请我帮你。  -- rule: no match: line matched
+  你有可能不知道这事。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: no match: line matched
+  电话前面有四本中文书。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我没有真的准备好。  -- rule: no match: line matched
+  有你帮我真好。  -- rule: no match: line matched
+  有人告诉他吗？  -- rule: no match: line matched
+  我听到有人进来了。  -- rule: no match: line matched
+  你已经有孩子了吗？  -- rule: no match: line matched
+  我知道你比我有钱。  -- rule: no match: line matched
+  我知道有个人可能能帮忙。  -- rule: no match: line matched
+  我希望汤姆有一天会来这里。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  有学生票吗？  -- rule: no match: line matched
+  有今天有点头疼。  -- rule: no match: line matched
+  他们有时帮我们。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  她没有帮我。  -- rule: no match: line matched
+  但是您有孩子。  -- rule: no match: line matched
+  但是你有孩子。  -- rule: no match: line matched
+  我没有找Tom帮忙。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  我有东西想给你看看。  -- rule: no match: line matched
+  你有喜欢的颜色吗？  -- rule: no match: line matched
+  那个东西有多热？  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  他说他没有做过那件事。  -- rule: no match: line matched
+  所以，哪里有问题？  -- rule: no match: line matched
+  有什么你想让我买的吗？  -- rule: no match: line matched
+  告诉我你没有这么做。  -- rule: no match: line matched
+  我小时候的时候还没有电脑。  -- rule: unless 没有/VE
+  我看起来很有钱吗？  -- rule: no match: line matched
+  杯子里面有水。  -- rule: no match: line matched
+  她没有让我们帮忙。  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  没有人问过我。  -- rule: unless 没有/VE
+  有谁想一起去吃饭吗？  -- rule: no match: line matched
+  你没有希望。  -- rule: unless 没有/VE
+  有人会这样想。  -- rule: no match: line matched
+  我们有帮忙。  -- rule: no match: line matched
+  他有帮忙。  -- rule: no match: line matched
+  汤姆猫有帮忙。  -- rule: no match: line matched
+  我有帮忙。  -- rule: no match: line matched
+  汤姆做得有点过头了。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  什么事都有可能。  -- rule: no match: line matched
+  我的班上有三十名学生。  -- rule: no match: line matched
+  我们班有三十名学生。  -- rule: no match: line matched
+  我家九月有两人过生日。  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  有些人是这么想的。  -- rule: no match: line matched
+  我不记得有打电话给你。  -- rule: no match: line matched
+  我还是没有手机。  -- rule: unless 没有/VE
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  有些事情不能忘。  -- rule: no match: line matched
+  我们看看有没有人在家。  -- rule: no match: line matched
+  玛莉问我们有没有准备好。  -- rule: unless 没有/VE
+  这些里面有你喜欢的吗？  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-55_level2_20261109_221128.csv

@@ -1,0 +1,85 @@
+
+########## rules  2026-11-09 21:59 ##########
+47 page(s) use the word(s); asking about 40.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGBC7A0  Expressing "one by one" with "yi"
+
+not:
+  ASG06EA8  Expressing "all at once" with "yixiazi"
+  ASG47D26  Expressing "again and again" with "yizai"
+  ASGACMNQ  Expressing "since the beginning" with "yixiang"
+  ASGC8A38  Expressing "no exception" with "yilu"
+  ASGET76G  An additional step with "jin yi bu"
+  ASGMT1M1  Expressing "one of" with "zhiyi"
+  ASGNVE15  Expressing "together" with "yiqi"
+  ASGP000J  Expressing "all along" with "yizhi"
+  ASGRURCZ  Expressing "not at all" with "yidianr ye bu"
+  ASGTFUD0  Events in quick succession with "yi... jiu..."
+  ASGU3ZV1  Expressing "once...then..." with "yidan...jiu..."
+  ASGUQ861  Expressing "not even one"
+  ASGVEP8S  Comparing "yizhi" and "yixiang"
+  ASGWCESP  Verbing briefly with "yixia"
+  ASGWVZ0T  Expressing "some" with "yixie"
+  ASGYC77J  Reduplication of verbs
+  ASGC06N0  Basic comparisons with "yiyang"
+  ASGDPS0J  Comparing_"kending"_"queding"_and_“yiding"
+
+unsure:
+  ASG1QB4K  Expressing simultaneous actions with "yimian"
+  ASG2ZC5S  Simultaneous tasks with "yibian"
+  ASGBVSWQ  Comparing "yishi" and "yidu"
+  ASGCWHNF  Expressing various aspects with "yi fangmian"
+  ASGK4CGK  Stating two or more reasons with "yilai...erlai"
+
+unrelated:
+  ASG25773  Expressing "what if" with "wanyi"
+  ASGCRH6P  Structure of numbers
+  ASGEHTV5  Expressing "a bit too"
+  ASG1MD4N  Comparing specifically with "xiang"
+  ASG79STE  Degree complement
+  ASGC5Y86  Comparing "gen" and "dui"
+  ASGCED31  Expressing "how often"
+  ASGD60A6  Phrases using "laishuo"
+  ASGDHE8S  Reduplication of adjectives
+  ASGDU0XL  Expressing "always previously" with "xianglai"
+  ASGJ36VN  Expressing duration with "le"
+  ASGK904U  Ordinal numbers with "di"
+  ASGOUD8U  Approximating with sequential numbers
+  ASGPM3MY  Expressing "a little too" with "you dian"
+  ASGV55Y4  Comparing "youdian" and "yidian"
+  ASGVH4Q5  Structure of days of the week
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 4-24
+Tagging 14 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215944.txt
+  ...100/179
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 4-24
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing "one by one" or "gradually" with the pattern 一 + Measure Word + 一 + Measure Word
+**Covers:** Repetition of "一 + measure word" to mean "one by one", "little by little", "gradually", or "again and again"; includes optional 又 between the two parts; can be used with time units (day, year), classifiers (个, 次, 遍, 针, 线), or other measure words; the pattern describes how an action is performed or indicates the action repeats
+**Does not cover:** Single instances of 一 + measure word (e.g., 一下, 一些, 一点); adverbial uses of 一向, 一直, 一再, 一定, 一律, 一起, 一旦; "一下子" (suddenly); "之一" (one of); "一样" (same as); other 一-based expressions that are not repeated measure word patterns
+
+```rule
+match: CD M CD M
+match: CD M AD CD M
+unless: AD
+unless: CS
+unless: VC
+unless: VE
+unless: SP
+```
+
+**Notes:** The rule matches the core pattern of CD (一) + M (measure word) + [optional AD (又)] + CD (一) + M (measure word). The pattern appears when 一 is tagged as CD (number) and the measure words are tagged as M. The unless clauses exclude sentences where 一 appears in other grammatical contexts: as an adverb (AD) when it's part of fixed expressions like 一向/一直/一再/一定/一律/一起/一旦, or with copulas/existential verbs (VC, VE) that would indicate a different construction. Sentence-final particles (SP) are excluded to avoid overlap with other patterns. Note that 一下 is typically tagged CD+M but is a counter-example (verb + 一下 = brief action); precision requires being cautious with very common measure words. The example "一五一十" is tagged as a single CD token, so it won't match this rule—but it's an acceptable miss given the priority on precision.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 4-24
+Tagging 14 labeled example(s) (cached after this run)...
+  ...100/179
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 4-24: rule on labeled examples (no AI) ===
+  examples of 4-24 matched:    12/12
+  counter-examples wrongly matched: 0/167   <- should be 0

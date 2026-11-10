@@ -1,0 +1,130 @@
+
+########## rules  2026-11-09 21:18 ##########
+54 page(s) use the word(s); asking about 40.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG5MOMM  Structural particle "de"
+  ASGDHE8S  Reduplication of adjectives
+  ASGLQKD2  Modifying nouns with phrase + "de"
+  ASGMAFSX  Turning adjectives into adverbs
+  ASGUHQD2  Expressing possession with "de"
+  ASGVUFKX  Modifying nouns with adjective + "de"
+
+not:
+  ASG19S1M  Using "de" (modal particle)
+  ASG4NDHB  Using "youde" to mean "some"
+  ASGA77KW  Expressing "similar to" with "gen... shide"
+  ASGB0MXK  Marking a topic with "de hua"
+  ASGPY23Z  Expressing "stuff like that" with "zhileide"
+  ASGVACYB  Saying "a lot" with "youdeshi"
+  ASG0UFR4  The "shi... de" construction for indicating purpose
+  ASG79STE  Degree complement
+  ASG8YTSF  The "shi... de" patterns: an overview
+  ASGDIDAC  Ending a non-exhaustive list with "shenme de"
+  ASGE662E  The "shi... de" construction for emphasizing details
+  ASGN4VUU  Expressing "if" with "ruguo... dehua"
+
+unsure:
+  ASGCI0KG  Expressing close possession without "de"
+  ASG9D48A  Expressing "in the name of" with "yi... de mingyi"
+  ASGD19DA  Expressing "related to..." with "you guan de"
+  ASGIKHUH  Comparing "buduan" and "buting"
+  ASGOWBSL  Expressing "all" with "suoyou"
+  ASG49889  Expressing "about" with "guanyu"
+  ASG87D22  Expressing "especially" with "gewai"
+  ASGBVSWQ  Comparing "yishi" and "yidu"
+
+unrelated:
+  ASGWN185  Expressing "when" with "de shihou"
+  ASG1DXUD  Passive verbs with "shou"
+  ASG1F4D1  Expressing "in this way" with "zheyang"
+  ASG5KNWW  Topic-comment sentences
+  ASG75EE1  Expressing "when" using "dang"
+  ASG8F7D4  Expressing "if it were not for" with "yaobushi"
+  ASGD60A6  Phrases using "laishuo"
+  ASGGPG97  Listing things with "a"
+  ASGLNKZR  Comparing "yihou" and "de shihou"
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+  ASG6F157  Expressing "originally" with "benlai"
+  ASG7D4EC  Expressing "multiples" with "bei"
+  ASG84D65  Comparing "bici" and "duifang"
+  ASG84RE9  Expressing fractions with "fenzhi"
+
+[note] ASGLQKD2 is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-20
+Tagging 155 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_211848.txt
+  ...100/169
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 1-20, rule line 6: unknown tag(s) NN? in '/NN?|VV' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-20_20261109_211902.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 1-20, rule line 1: unknown tag(s) DER/ in '/DEG|DEC|DEV|DER/' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-20_20261109_211907.txt)
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: answer has no '## 1-20' section (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-20_20261109_211941.txt)
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 1-20
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** The structural particles 的 (links a modifier to a noun), 地 (links an adverbial to a verb) and 得 (links a verb to a degree complement).
+
+**Covers:**
+- 的 between a modifier and a following noun: possessive (我的手机), adjective (漂亮的衣服), or phrase (你教的学生, 妈妈做的菜).
+- 地 (tagged DEV) before a verb: 认真地听, 慢慢地走.
+- 得 (DER) after a verb or adjective, followed by an adverb or adjective: 做得很好, 开得很快.
+
+**Does not cover:**
+- Modal or sentence-final 的 (你可以的, 他不会道歉的). It has no following noun and is tagged SP.
+- 的话 and 有的 / 有的是. These are single words in the tagger, so the rule never sees a separate 的.
+- 什么的 and 之类的 lists.
+- 似的 comparisons like 热得跟…似的.
+- The 是…的 constructions. Sentences with 是 and a clause-final 的 are excluded.
+- Bare AA / AABB reduplication, and the nominalized "X的" with no noun. Detecting these is too error-prone.
+
+```rule
+match: _ 的/DEG|DEC /NN|NR|NT|JJ|CD|DT|PN
+match: /VV 的/AS /NN|NR|NT
+match: 地/DEV
+match: /VV|VA 得/DER /AD|VA
+unless: 什么 的/DEG
+unless: 类/M 的/DEG
+unless: 似的
+unless: 是/VC ... 的/DEG|DEC $
+```
+
+**Notes:**
+- Precision is favoured over recall. Labeled examples where 的 is tagged SP and sits at the end of a clause (我画的) are deliberately not matched. They look identical to the modal 的 in counter-examples such as 你可以的.
+- The `unless: 是/VC ... 的 $` line also rejects a sentence that has a good 的 earlier (他家的家具都是中式的). This is intentional, to keep 是…的 sentences out.
+- 得 is restricted to a verb or adjective followed by AD or VA, so 得 meaning "must/obtain" (VV) does not match.
+- The 的/AS line is there because the tagger sometimes tags 的 after a verb as AS (你教的学生).
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-20
+Tagging 155 labeled example(s) (cached after this run)...
+  ...100/169
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-20: rule on labeled examples (no AI) ===
+  examples of 1-20 matched:    57/76
+  counter-examples wrongly matched: 0/93   <- should be 0
+
+--- examples of 1-20 the rule misses (19) ---
+  你的脸红红的。  -- ASGDHE8S Reduplication of adjectives
+  宝宝的眼睛大大的。  -- ASGDHE8S Reduplication of adjectives
+  今晚的月亮圆圆的。  -- ASGDHE8S Reduplication of adjectives
+  她爸爸高高胖胖的。  -- ASGDHE8S Reduplication of adjectives
+  我妹妹瘦瘦小小的。  -- ASGDHE8S Reduplication of adjectives
+  高兴→高高兴兴  -- ASGDHE8S Reduplication of adjectives
+  热闹→热热闹闹  -- ASGDHE8S Reduplication of adjectives
+  漂亮→漂漂亮亮  -- ASGDHE8S Reduplication of adjectives
+  舒服→舒舒服服  -- ASGDHE8S Reduplication of adjectives
+  安静→安安静静  -- ASGDHE8S Reduplication of adjectives
+  妹妹快过生日了，我打算给她办一个生日派对，热闹热闹。  -- ASGDHE8S Reduplication of adjectives
+  来，喝点酒，高兴高兴。  -- ASGDHE8S Reduplication of adjectives
+  到这里来凉快凉快。  -- ASGDHE8S Reduplication of adjectives
+  我想去外面走走，安静一下。  -- ASGDHE8S Reduplication of adjectives
+  想不想去做个按摩，放松一下。  -- ASGDHE8S Reduplication of adjectives
+  妈妈做的  -- ASGLQKD2 Modifying nouns with phrase + "de"
+  我画的  -- ASGLQKD2 Modifying nouns with phrase + "de"
+  他写的  -- ASGLQKD2 Modifying nouns with phrase + "de"
+  你教的  -- ASGLQKD2 Modifying nouns with phrase + "de"

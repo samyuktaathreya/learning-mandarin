@@ -1,0 +1,91 @@
+
+########## rules  2026-11-09 21:31 ##########
+15 page(s) use the word(s); asking about 15.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG3WTCJ  Expressing lateness with "cai"
+  ASGLOS9C  Comparing "cai" and "jiu"
+  ASGUD25J  Coincidence with "zhenghao"
+  ASGYW5RS  Using "cai" for small numbers
+
+not:
+  ASG9E9A6  Expressing "only after" with "cai"
+  ASGJDV3Y  Expressing "only if" with "zhiyou"
+  ASG44TBS  Expressing "thanks to" with "duokui"
+  ASG68F61  Expressing "when" with "dengdao"
+  ASG81QV3  Expressing difficulty with "hao (bu) rongyi"
+  ASGC6E1C  Expressing "all the way until" with "zhidao"
+
+unsure:
+
+unrelated:
+  ASGQ1KOY  Expressing "just now" with "gangcai"
+  ASGJFFWG  Comparing "gang" and "gangcai"
+  ASGMD0YY  Expressing "unless" with "chufei"
+  ASG1F4D1  Expressing "in this way" with "zheyang"
+  ASG6TB4J  Expressing "that's all" with "eryi"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-20
+Tagging 59 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213133.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-20
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Adverbs expressing lateness (才), earliness (就), coincidence (正好), and small quantity (才)
+**Covers:** 
+- 才 expressing lateness: "Subj. + Time + 才 + Verb" (e.g. 他二十五岁才上大学)
+- 才 expressing small quantity: "才 + Number/Measure + Noun" or "才 + Verb + Number" (e.g. 她才买了两本书, 你才二十岁)
+- 就 expressing earliness: "Subj. + Time + 就 + Verb" (e.g. 他下午四点就吃晚饭了)
+- 正好 expressing coincidence: "Subj. + 正好 + Verb Phrase" or standalone as predicate adjective (e.g. 我正好要出去, 这件衣服正好)
+
+**Does not cover:** 
+- Causal "才" requiring a preceding condition (只有...才, 直到...才, 等到...才, 多亏...才, 好容易/好不容易才)
+- Contrastive/emphatic 才 without time/number context (你才是笨蛋)
+- 才 as a noun meaning "talent" (人才, 天才)
+- 才 as part of compound adverbs (刚才, 才能 when tagged as single unit)
+- 正好 when part of other constructions or meaning "just now"
+
+```rule
+match: 才/AD ... /VV
+match: 才/AD /CD|NT
+match: 就/AD ... /VV
+match: 正好/AD
+match: 正好/VA
+unless: 只有|直到|等|多亏|好容易|好不容易
+unless: 才/AD 是/VC
+unless: ^刚才
+```
+
+**Notes:** 
+- The rule prioritizes precision by excluding common false positives (只有...才, 直到...才, etc.) with unless clauses
+- Pattern "才/AD ... /VV" captures lateness use with optional intervening words
+- Pattern "才/AD /CD|NT" captures small quantity use (numbers) and time-only contexts (现在才九点)
+- 就/AD pattern captures earliness
+- 正好 matches both as AD (adverbial) and VA (adjectival predicate)
+- Causal structures are excluded via subordinating markers in unless clause
+- Emphatic/contrastive 才是 is excluded
+- Note: Some tags may be imperfect in training data (e.g. 点 tagged NN vs M); rule accounts for this by allowing flexible matching
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-20
+Tagging 59 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-20: rule on labeled examples (no AI) ===
+  examples of 2-20 matched:    38/50
+  counter-examples wrongly matched: 0/42   <- should be 0
+
+--- examples of 2-20 the rule misses (12) ---
+  飞机刚刚才起飞，晚点了两个小时。  -- ASG3WTCJ Expressing lateness with "cai"
+  这个项目最少要花两个月才能做完。  -- ASGLOS9C Comparing "cai" and "jiu"
+  我买了这么多东西，才花了五百块。  -- ASGLOS9C Comparing "cai" and "jiu"
+  你们这么早就下班了？  -- ASGLOS9C Comparing "cai" and "jiu"
+  我们有这么多人，你就买了一瓶可乐？  -- ASGLOS9C Comparing "cai" and "jiu"
+  你们每天就睡四个小时？  -- ASGLOS9C Comparing "cai" and "jiu"
+  每个人都写了五页纸，你就写了一页纸！  -- ASGLOS9C Comparing "cai" and "jiu"
+  你才来就要走？不多坐一会儿？  -- ASGLOS9C Comparing "cai" and "jiu"
+  电影才开始你就不想看了？  -- ASGLOS9C Comparing "cai" and "jiu"
+  他才毕业就找到了这么好的工作？  -- ASGLOS9C Comparing "cai" and "jiu"
+  已经两天了，你才看完一页？  -- ASGYW5RS Using "cai" for small numbers
+  我们才玩了一会儿，再玩一会儿吧？  -- ASGYW5RS Using "cai" for small numbers

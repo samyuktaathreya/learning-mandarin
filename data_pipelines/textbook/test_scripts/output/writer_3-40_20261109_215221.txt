@@ -1,0 +1,18 @@
+## 3-40
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** 对...来说 (and the fixed perspective phrases 相对/严格/具体来说) to express "for/to someone" or to set a viewpoint
+
+**Covers:** Sentences with 对 + [person/group/topic] + 来说 introducing a viewpoint before the comment. Also clause-initial 相对来说, 严格来说 and 具体来说.
+
+**Does not cover:** Sentences with 而言 instead of 来说. Sentences with 就...来说 (scope limiting, where 就 is the preposition). Sentences with 拿...来说 (HSK 5-29). Other uses of 对 as "towards/against" without 来说. Bare 一般来说, which is a separate point (4-28).
+
+```rule
+match: 对/P ... 来/MSP 说/VV
+match: ^ 相对|严格|具体 来/MSP 说/VV
+unless: 而言/LC
+unless: 而言
+unless: 就/P
+unless: 拿
+```
+
+**Notes:** The tagger splits 来说 into 来/MSP 说/VV. The main match now requires the preposition 对/P earlier in the same clause, so bare 来说 uses are no longer matched. The unless lines remove the 而言 variant, 就...来说 (the counter-examples 就这些事情来说 and 就我们家来说), and 拿...来说. 对于 is a different token and is not matched, because it belongs to 4-14. 总的来说 and 一般来说 are left out because their tokenization is uncertain and 一般来说 is a separate point.

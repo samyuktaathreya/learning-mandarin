@@ -1,0 +1,27 @@
+## 3-77
+**Point:** Emphasizing with 很是 (hěnshi), a degree adverb that adds emphasis to statements. The official HSK examples use the related order 是很 + Adj./Verb (这位经理是很负责, 那电影是很有意思).
+
+**Covers:** Subj. + 很是 + Adj. or psychological verb (including 很是不 + Adj., and 很是 + 会/能 + Verb). Also Subj. + 是很 + Adj./Verb at the end of a clause, as in the official examples.
+
+**Does not cover:** Other uses of 是: basic equative 是, 是…的, 凡是, 于是, 要不是, 岂不是, 有的是, 老是, 总是, 还是, 就是…也, 不是…就是, 是否, and negated or questioning 不是很… / 是不是很….
+
+```rule
+match: 很/AD 是/VC 不? /VA|VV
+match: 很/AD 是/VC 精神/NN
+match: /NN|PN|NR 是/VC 很/AD /VA|VV $
+unless: 凡是
+unless: 于是
+unless: 要不是
+unless: 岂不是
+unless: 有的是
+unless: 老是
+unless: 总是
+unless: 还是 ... 吧
+unless: 就是 ... 也
+unless: 不是 ... 就是
+unless: 不 是
+unless: 是否
+unless: 是 很 ... 的
+```
+
+**Notes:** The first two lines cover the 很是 + Adj./Verb pattern. This includes 很是喜欢 followed by an object containing 的, which the old `是 ... 的` exclusion wrongly blocked. The tagger labels 精神 as NN, so that word has its own line. The third line covers the official 是很 + Adj./Verb examples. It requires a noun or pronoun subject before 是 and the predicate to end the clause, which keeps out 就是很, 还是很, 总是很, and 是很…的 noun-modifier uses. Negated 不是很… and 是不是很… are excluded. The 是…的 exclusion is kept only in the narrow form `是 很 ... 的`.

@@ -1,0 +1,25 @@
+## 2-11
+**Point:** Measure words for verbs (动量词): 遍, 次, 场, 回, 下 and "一下" for brief actions
+**Covers:** (1) Verb + Number + Measure word (遍/次/场/回/下) showing frequency or repetition of an action; (2) Verb + 一下 expressing a brief or softened action
+**Does not cover:** 一下子 (sudden change), 下去 (result complement / continuation), potential complements with 得/不, location words (在...下/里), time/amount limits (以下/以上), or other uses of 下 as direction/location
+
+```rule
+match: /VV _ /CD /M
+match: /VV /CD 下/M
+match: /VV /CD 下
+unless: 下去/VV
+unless: 一/CD 下/M 子/NN
+unless: 一/AD 下
+unless: 以下
+unless: /LC
+unless: _ /AD 下/VV
+```
+
+**Notes:** 
+- The rule matches verb + any word + number + measure word (遍/次/场/回/下), and also verb + number + 下 (where 下 is tagged M).
+- Must exclude 下去 (always a result complement, tagged as one word /VV or as 下/VV 去/VV).
+- Must exclude 一下子 patterns (sudden action): these appear as 一/AD or 一/CD 下/M 子/NN.
+- Must exclude 以下 (time/amount limit) by checking for 以 before it.
+- Must exclude locational 下 (tagged /LC or following location prepositions).
+- The pattern 一/AD 下 in counter-examples indicates 下 is being used as an adverbial particle in 一下子 constructions, not as a measure word.
+- Common measure words to match: 遍 (biàn), 次 (cì), 下 (xià), 回 (huí), 场 (chǎng).

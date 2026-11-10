@@ -1,0 +1,34 @@
+## 1-17
+**Point:** Using 跟, 和 as prepositions or conjunctions to express "with" or "and"
+**Covers:** 
+- 跟/和 as preposition meaning "with" before a verb (我跟朋友去海滩)
+- 跟/和 as conjunction joining two nouns (你和我; 手机和电脑)
+- 跟/和 joining two verbs with similar formality/structure (维护和修理; 唱歌和跳舞)
+- 跟/和 joining two adjectives (单纯和天真; 安静和甜美)
+- 跟/对 as prepositions with 说 (跟他说话; 对他说话)
+
+**Does not cover:**
+- Comparisons with 一样 or 差不多 (他跟他妈妈一样高)
+- Comparisons with 比 (跟上海比，我老家物价很低)
+- Expressions with 似的 (跟在蒸笼里似的)
+- Expressions with 有关的 (跟中国有关的故事)
+- 跟 as a verb meaning "follow" (跟着; 跟上; 跟不上)
+- 对 as a verb with 着 meaning "towards/point at" (对着镜子; 枪口不要对着人)
+
+```rule
+match: /PN|NN|NR/ (和|跟)/CC|P (_|...)* /NN|NR|PN/
+match: /PN/ (和|跟)/P /PN|NN/ (_|...)* /VV/
+match: /VV/ (和|跟)/CC /VV/
+match: /VA/ (和|跟)/CC /VA/
+match: _ (和|跟|对)/P /PN|NN|NR/ 说/VV
+unless: 一样
+unless: 差不多
+unless: 差很多
+unless: 比
+unless: 似的
+unless: 有关
+unless: /VV/ 着/AS
+unless: 跟/VV 着/AS
+```
+
+**Notes:** The rule avoids matching comparison structures (一样, 差不多, 比, 似的) and 有关 patterns. It excludes 跟/对 as verbs (identified by preceding /VV/ with 着). The first pattern catches noun-conjunction-noun structures. The second pattern catches prepositions before "with" constructions. Patterns 3-4 catch verb/adjective conjunctions. Pattern 5 specifically handles 说 with 跟 or 对 as prepositions. Precision is prioritized; borderline verb/adjective conjunctions are excluded if they seem forced.

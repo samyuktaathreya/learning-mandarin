@@ -31,8 +31,8 @@ const TIMEOUT_MS = { assessment: 5000, transcription: 10000 };
 
 let sdkPromise = null;
 
-// The SDK is large, so it's only downloaded when speaking practice needs it.
-function loadSpeechSdk() {
+// The SDK is large, so it's only downloaded when speech or audio first needs it.
+export function loadSpeechSdk() {
     sdkPromise ??= import('microsoft-cognitiveservices-speech-sdk')
         .then((m) => (m.SpeechConfig ? m : m.default))
         .catch((err) => {

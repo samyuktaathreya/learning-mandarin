@@ -1,0 +1,11 @@
+## 2-28
+**Point:** Using 为 (wèi) as a preposition meaning "for" to indicate the beneficiary or target of an action or emotional response
+**Covers:** Prepositional 为 followed by a noun/pronoun (the beneficiary) and then a verb or adjective describing an action or feeling done/felt for that party. Includes formal obligations, spontaneous emotional reactions, and actions performed on behalf of someone.
+**Does not cover:** 为了 (purpose/reason); 因为 (because); 以...为... (taking X as Y); 为 as a verb (是/被+为, 分为, 变为, 以为, 为难, 为期, 为何, etc.); 为什么 (why); 作为 (as/in the capacity of); 为此 (therefore)
+
+```rule
+match: /P 为 _ ... /VV|/VA
+unless: 为了|因为|以|被|是|为什么|作为|为此|为难|为期|以为|分为|变为|被评选为|被选拔为|称为
+```
+
+**Notes:** The pattern looks for 为 tagged as P (preposition), followed by any word (the beneficiary), and then eventually a verb (VV) or adjective (VA) that represents the action/feeling. The unless clause filters out other uses of 为 including: purpose (为了), causation (因为), the 以...为 pattern, passive constructions, question words, and verbs where 为 functions differently. "为此" as an adverbial meaning "therefore" should be excluded. Note that 为+beneficiary+verb/adj is the core pattern; some sentences may have intervening modifiers (like 的) between beneficiary and the predicate.

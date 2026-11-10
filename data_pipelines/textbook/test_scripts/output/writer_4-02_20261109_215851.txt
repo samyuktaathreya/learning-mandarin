@@ -1,0 +1,11 @@
+## 4-02
+**Point:** The pronoun 人家 (renjia) used to refer to other people, oneself, or someone previously mentioned in context
+**Covers:** 人家 tagged as PN (pronoun) when used as a grammatical pronoun to refer to persons; includes colloquial uses where 人家 refers to others, to oneself (especially common in feminine speech), or to someone contextually known
+**Does not cover:** 人家 tagged as NN (noun) when referring to households/families as a countable noun (e.g., "十户人家" = ten households)
+
+```rule
+match: 人家/PN
+unless: 户/M ... 人家/NN
+```
+
+**Notes:** The rule targets 人家 specifically when tagged as PN (pronoun), which covers all the grammatical pronoun uses: referring to others, oneself, or contextually-known individuals. The unless clause filters out the household/family noun use (tagged NN, typically appearing with measure words like 户). This precision-first approach avoids false positives where 人家 functions as a noun rather than the HSK 4 pronoun grammar point.

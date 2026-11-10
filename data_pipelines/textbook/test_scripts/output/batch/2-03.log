@@ -1,0 +1,10 @@
+
+########## rules  2026-11-09 21:26 ##########
+Traceback (most recent call last):
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 305, in main
+    rule_for(db, c, st, tagger, client, args.first_writer)
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 119, in rule_for
+    tg.cmd_sources(db, point, trial_args(code=code))
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 672, in cmd_sources
+    raise SystemExit(f"No AllSet Learning page uses {' '.join(point.markers)}.")
+SystemExit: No AllSet Learning page uses 愿意.

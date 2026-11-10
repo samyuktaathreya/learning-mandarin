@@ -1,0 +1,25 @@
+## 2-23
+**Point:** Using 向/朝/往 as a preposition meaning "towards" to indicate direction or target of an action
+
+**Covers:** 向/朝/往 used as a preposition before a noun phrase (direction, location, or person) followed by a verb, expressing that the action is directed towards that target. Includes both concrete directional movement and abstract actions (apologizing, asking, learning, reporting, etc.). The preposition may appear before or after certain motion verbs (开/飞/驶/etc.).
+
+**Does not cover:** 
+- 一向 or 向来 used as adverbs meaning "always/consistently" (habitual or persistent states)
+- 向 as part of 向前 when tagged as a single AD adverb
+- Words containing 向 that are not the preposition itself (e.g., 倾向 as a noun, 方向 as a noun)
+- Directional complements (趋向补语) from HSK 2-50, 3-24, 3-47, 4-37, 5-34, 6-39
+
+```rule
+match: (向|朝|往)/P _ /VV
+match: /VV (向|朝|往)/VV _
+unless: 一向/AD
+unless: 向来/AD
+unless: 前/NN|方向/NN|倾向/NN
+```
+
+**Notes:** 
+- The first match pattern captures the standard "preposition + target + verb" structure
+- The second match pattern captures verb-medial constructions (e.g., 驶向, 飞往) where 向/往 appear between verbs or after the first verb
+- 向前 is sometimes tagged as a single AD adverb unit; exclude these by checking the context
+- Counter-examples with 一向/AD and 向来/AD must be excluded as these are adverbs indicating habitual aspect, not the preposition
+- The rule prioritizes precision; borderline cases where 向 might be tagged inconsistently (as VV vs P) are handled by matching both tags in motion-verb constructions

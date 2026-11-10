@@ -1,0 +1,37 @@
+2026-11-09 21:49:40,212  INFO     === tag_sentences.py run started ===
+2026-11-09 21:49:40,284  INFO     OK        hanlp-valid   '我是第一个到公司的人。' -> [('我', 'PN'), ('是', 'VC'), ('第一', 'NUM'), ('个', 'M'), ('到', 'VV'), ('公司', 'NN'), ('的', 'DEC'), ('人', 'NN')]
+2026-11-09 21:49:40,286  INFO     TAGGED    '我是第一个到公司的人。' (level 1, 7 tags)
+2026-11-09 21:49:40,300  INFO     OK        hanlp-valid   '他要坐早上第一班地铁去上班。' -> [('他', 'PN'), ('要', 'VV'), ('坐', 'VV'), ('早上', 'NT'), ('第一', 'NUM'), ('班', 'NN'), ('地铁', 'NN'), ('去', 'VV'), ('上班', 'VV')]
+2026-11-09 21:49:40,302  INFO     TAGGED    '他要坐早上第一班地铁去上班。' (level 2, 8 tags)
+2026-11-09 21:49:40,316  INFO     FALLBACK  '小李是她的第三个男朋友。' -- out-of-list word(s): ['小李']
+2026-11-09 21:49:40,316  WARNING    HAIKU resegment call for '小李是她的第三个男朋友。' (cache miss on [('小李', 'NR')])
+2026-11-09 21:49:40,331  INFO       NON-LIST 小李 (NR) -> '(name) xiao3li3' [proper_noun]
+2026-11-09 21:49:40,332  INFO     TAGGED    '小李是她的第三个男朋友。' (level 1, 6 tags)
+2026-11-09 21:49:40,347  INFO     FALLBACK  '我的第一个中文老师是美国人。' -- out-of-list word(s): ['美国人']
+2026-11-09 21:49:40,347  WARNING    HAIKU resegment call for '我的第一个中文老师是美国人。' (cache miss on [('美国人', 'NN')])
+2026-11-09 21:49:40,375  INFO     TAGGED    '我的第一个中文老师是美国人。' (level 4, 9 tags)
+2026-11-09 21:49:40,390  INFO     OK        hanlp-valid   '爸爸的第一个手机是NOKIA。' -> [('爸爸', 'NN'), ('的', 'NOI'), ('第一', 'NUM'), ('个', 'M'), ('手机', 'NN'), ('是', 'VC'), ('NOKIA', 'NR')]
+2026-11-09 21:49:40,392  INFO     TAGGED    '爸爸的第一个手机是NOKIA。' (level 1, 5 tags)
+2026-11-09 21:49:40,405  INFO     OK        hanlp-valid   '你的第一个工作是什么？' -> [('你', 'PN'), ('的', 'DEG'), ('第一', 'NUM'), ('个', 'M'), ('工作', 'NN'), ('是', 'VC'), ('什么', 'PN')]
+2026-11-09 21:49:40,415  INFO     TAGGED    '你的第一个工作是什么？' (level 1, 6 tags)
+2026-11-09 21:49:40,429  INFO     FALLBACK  '到美国的第二个月，我找到了工作。' -- out-of-list word(s): ['美国', '个月']
+2026-11-09 21:49:40,429  WARNING    HAIKU resegment call for '到美国的第二个月，我找到了工作。' (cache miss on [('美国', 'NR'), ('个月', 'NN')])
+2026-11-09 21:49:40,454  INFO     TAGGED    '到美国的第二个月，我找到了工作。' (level 4, 11 tags)
+2026-11-09 21:49:40,469  INFO     OK        hanlp-valid   '第二行第五个汉字怎么读？' -> [('第二', 'NUM'), ('行', 'VV'), ('第五', 'NUM'), ('个', 'M'), ('汉字', 'NN'), ('怎么', 'AD'), ('读', 'VV')]
+2026-11-09 21:49:40,471  INFO     TAGGED    '第二行第五个汉字怎么读？' (level 3, 5 tags)
+2026-11-09 21:49:40,485  INFO     FALLBACK  '这次考试，我是我们班第一。' -- out-of-list word(s): ['这次']
+2026-11-09 21:49:40,485  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('次', 'M'), ('考试', 'NN'), ('我', 'PN'), ('是', 'VC'), ('我们', 'PN'), ('班', 'NN'), ('第一', 'NUM')]
+2026-11-09 21:49:40,487  INFO     TAGGED    '这次考试，我是我们班第一。' (level 2, 7 tags)
+2026-11-09 21:49:40,506  INFO     FALLBACK  '这次比赛，我们班第一，他们班第二。' -- out-of-list word(s): ['这次']
+2026-11-09 21:49:40,507  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('次', 'M'), ('比赛', 'NN'), ('我们', 'PN'), ('班', 'NN'), ('第一', 'NUM'), ('他们', 'PN'), ('班', 'NN'), ('第二', 'NUM')]
+2026-11-09 21:49:40,509  INFO     TAGGED    '这次比赛，我们班第一，他们班第二。' (level 3, 7 tags)
+2026-11-09 21:49:40,516  INFO     OK        hanlp-valid   '第一天，我们在宾馆里。' -> [('第一', 'NUM'), ('天', 'IJ'), ('我们', 'PN'), ('在', 'VV'), ('宾馆', 'NN'), ('里', 'LC')]
+2026-11-09 21:49:40,518  INFO     TAGGED    '第一天，我们在宾馆里。' (level 3, 5 tags)
+2026-11-09 21:49:40,531  INFO     FALLBACK  '来上海以后的第二年，他开了这家公司。' -- out-of-list word(s): ['上海']
+2026-11-09 21:49:40,531  WARNING    HAIKU resegment call for '来上海以后的第二年，他开了这家公司。' (cache miss on [('上海', 'NR')])
+2026-11-09 21:49:40,550  INFO     TAGGED    '来上海以后的第二年，他开了这家公司。' (level 3, 12 tags)
+2026-11-09 21:49:40,567  INFO     OK        hanlp-valid   '下个月的第一周老板要出差。' -> [('下个月', 'NT'), ('的', 'DEG'), ('第一', 'NUM'), ('周', 'NR'), ('老板', 'NN'), ('要', 'VV'), ('出差', 'VV')]
+2026-11-09 21:49:40,573  INFO     TAGGED    '下个月的第一周老板要出差。' (level 5, 8 tags)
+2026-11-09 21:49:40,588  INFO     FALLBACK  '这是我第一次去北京。' -- out-of-list word(s): ['这是']
+2026-11-09 21:49:40,588  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('是', 'VC'), ('我', 'PN'), ('第一', 'NUM'), ('次', 'M'), ('去', 'VV'), ('北京', 'NR')]
+2026-11-09 21:49:40,591  INFO     TAGGED    '这是我第一次去北京。' (level 2, 6 tags)

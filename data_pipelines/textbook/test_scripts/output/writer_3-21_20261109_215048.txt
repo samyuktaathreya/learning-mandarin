@@ -1,0 +1,24 @@
+## 3-21
+**Point:** 自从 ("ever since") marks a starting point in the past. It is often paired with 以来 or 以后/后 at the end of the time phrase, and the shorter 自 or 从 can replace 自从 in the 以来 pattern.
+
+**Covers:**
+- 自从 + event or time, followed by a main clause, e.g. 自从来到中国，他就喜欢上了中国菜。
+- 自从 + event + 以后/后/以来.
+- 自/从 + event or time + 以来, e.g. 自改革开放以来… and 从毕业以来….
+
+**Does not cover:**
+- 从 on its own, which marks a place or future starting point ("from").
+- 从…以后/后 without 自, which is ambiguous with plain 从 + time ("from now on").
+- 以来 or 以后 with no 自/从/自从 before it.
+
+```rule
+match: 自从
+match: 自|从/P ... 以来
+```
+
+**Notes:**
+- The rule has no `unless:` line because 自从 is unambiguous in the course data.
+- 自从 is matched as a whole word with any tag, because the tagger could mis-tag it.
+- 自从 may appear after a subject, e.g. 我自从来了以后, so the pattern is not anchored to the clause start.
+- The 自|从 plus 以来 pattern requires the preposition tag P and both words in the same clause. This keeps out 从 used for place, such as 从北京来.
+- 从…后 and 从…以后 are deliberately left out for precision. Add them only with extra checks.

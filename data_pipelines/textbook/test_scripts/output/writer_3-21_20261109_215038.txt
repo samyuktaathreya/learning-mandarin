@@ -1,0 +1,15 @@
+## 3-21
+**Point:** Using 自从/从/自 to mark the starting point of a past action or event, often with 以来/以后/后 to show how things have changed since then.
+**Covers:** Sentences with 自从, 从, or 自 followed by a time/event phrase, typically followed by 以来, 以后, or 后, establishing a past starting point with consequences in the main clause.
+**Does not cover:** Uses of 从 to mark spatial starting points or future starting points; uses of these words in other contexts not expressing a past temporal starting point.
+
+```rule
+match: /P ... /LC
+match: 自从/P
+match: 从/P
+match: 自/P
+unless: 从 ... /LC?$ ... 从
+unless: 从/P ... /LC? ... 从/P
+```
+
+**Notes:** The rule looks for prepositions (自从, 从, or 自) in a clause that is followed by a localizer (以来, 以后, 后, etc.). The main structural clue is the pairing of the preposition with a localizer ending. The unless clauses guard against coordinate structures where multiple 从/自 phrases appear, which might indicate a different grammatical point. The tokenization splits clauses at punctuation, so the starting point clause and the result clause are separate.

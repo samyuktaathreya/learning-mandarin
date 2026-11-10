@@ -1,0 +1,11 @@
+## 4-01
+**Point:** Expressing "must" with the auxiliary verb 得 (děi)
+**Covers:** Sentences where 得 functions as an auxiliary verb meaning "must" or "have to," appearing between a subject and a verb phrase
+**Does not cover:** 得 as a structural particle (degree complements, potential complements, resultative complements), 不得不, 值得, 显得, 害得, 不得了, 得了, 来得及/来不及, or other fixed expressions
+
+```rule
+match: /PN|CS|P|AD|VV/ 得/VV _
+unless: 不得不|值得|显得|害|得了|不得了|来得及|来不及|只得|得分|记得|觉得 /PN 得/DER /AD|VA|VV|NN|CD|M|DT|JJ|P|LC|NR|NT
+```
+
+**Notes:** The core pattern requires a subject (pronoun, subordinating conjunction, preposition, or adverb acting as subject), followed by 得 tagged as VV (auxiliary verb), followed by any word. The subject can also be another verb in coordinate structures. The unless clauses exclude: (1) 不得不 (the fixed adverbial phrase); (2) 值得/显得/害 which take different structures; (3) 得了/不得了/来得及/来不及 which are separate grammar points; (4) 只得 which is an adverb; (5) 得分 which is a noun; (6) 记得/觉得 which are common verbs; (7) any instance where 得 is tagged DER (indicating a resultative/degree complement rather than auxiliary verb). The pattern intentionally stays broad on what follows 得 to catch various verb phrases, adverbial modifiers, and complements that follow the auxiliary verb.

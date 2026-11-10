@@ -1,0 +1,26 @@
+## 2-34
+**Point:** Softening speech, making suggestions, listing things, and conceding with the particles 吧, 啊, and 的
+
+**Covers:** 
+- 吧 at end of statement/command to soften, suggest, or concede
+- 啊 at end of statement to add exclamation, urgency, or certainty
+- 啊 after nouns in a list to mark non-exhaustive listing
+- Multiple 吧 in one sentence listing options the speaker is debating
+- Sentences with 的 used with 啊 for listing (e.g., 什么的)
+
+**Does not cover:** 
+- Challenging an adjective pattern (Adj. 什么 Adj. 啊) like "胖什么胖啊" — excluded because this is a separate grammar point
+- 吧 as a standalone noun (e.g., 网吧)
+- Questions with 吗, 呢, 吗呀, or other HSK 1-22 particles alone
+- 还是...吧 (HSK 2-45)
+- 用"吧"提问 (HSK 2-79)
+- X就X（点儿）吧 (HSK 3-80)
+- X什么（啊） as adjective challenge (HSK 3-81)
+- Other HSK 4+ uses of 啊
+
+```rule
+match: /SP$
+unless: _/VA 什么/PN _/VA 啊/SP
+```
+
+**Notes:** The rule matches any word tagged as a sentence-final particle (SP) at the end of a clause, which includes 吧, 啊, 了, and others. The unless clause specifically excludes the "challenging an adjective" pattern (Adjective + 什么 + Adjective + 啊), which is a different HSK point. This simple rule catches all the covered uses: suggestions and softening with 吧, exclamations with 啊, listing patterns with 啊, and concession uses. The particle 的 in listing contexts (like 什么的) appears before the 啊 and is naturally included when 啊 appears as SP at clause end.

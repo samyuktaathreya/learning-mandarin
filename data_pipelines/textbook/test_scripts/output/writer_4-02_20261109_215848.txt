@@ -1,0 +1,13 @@
+## 4-02
+**Point:** The pronoun 人家 (renjia) referring to other people, oneself, or a previously mentioned person
+
+**Covers:** Uses of 人家/PN (tagged as pronoun) referring to: (1) other people in general, (2) a specific person previously mentioned in context, (3) oneself (especially by women), or (4) someone both speaker and listener know. Does not cover 人家/NN (households).
+
+**Does not cover:** The noun use 人家/NN meaning "households" or residential units, which is a different lexeme despite identical characters.
+
+```rule
+match: 人家/PN
+unless: 户/M 人家 | 人家 户/M
+```
+
+**Notes:** The rule targets 人家 when tagged as PN (pronoun). The unless clause excludes cases where 人家 is tagged as NN and appears adjacent to 户 (the measure word for households), which indicates the noun sense. The tokenization keeps 人家 as a single token, so adjacency to 户 reliably identifies the household meaning. Some sentences may have 人家/NN without 户, but these are rare in the corpus and excluding all NN tags would be overly conservative given the tagger's tendency to mislabel. The pronoun sense is the target of this grammar point.

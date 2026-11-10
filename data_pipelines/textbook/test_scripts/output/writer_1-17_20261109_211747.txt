@@ -1,0 +1,40 @@
+## 1-17
+**Point:** 跟/和 as "and" (joining nouns, verbs or adjectives), 跟/和 as "with" (跟 + person + verb, often with 一起), 跟/对 + person + 说, 对 + person + verb ("toward"), and the verbs 跟着 and 对着/对不上.
+**Covers:** 
+- 和/跟 as a conjunction: 手机和电脑都很贵, 预防和治理污染…
+- 和/跟 as "with" before a verb: 我跟朋友去海滩了, 你想跟我一起去吗?, 不要跟我说话.
+- 对 + person + 说/笑/发脾气 and similar: 他对我说…, 那个美女正对我笑呢.
+- 跟着, 对着, and 对…不上 as verbs.
+
+**Does not cover:** 
+- Comparison patterns: 一样, 不一样, 差不多, 差很多, 不同/相同, 跟…比 and 比起来.
+- 跟…似的.
+- 跟/和…有关的.
+- 对 as a preposition in other frames, such as 对…感兴趣 or 对…很好. Only 说, 笑, 点头, 道歉 and 发 are allowed after 对 + noun.
+- These are separate grammar points, so any sentence containing those words is excluded entirely.
+
+```rule
+match: 和|跟/CC
+match: 和/P
+match: 跟/P
+match: 对/P _ 说|笑|点头|道歉|发
+match: 对/VV 着/AS
+match: 对/VA 着/AS
+match: 跟/VV 着/AS
+match: 对/VV 不/AD 上/VV
+unless: 一样
+unless: 差不多
+unless: 差
+unless: 似的
+unless: 有关
+unless: 比
+unless: 比起来
+unless: 不同
+unless: 相同
+```
+
+**Notes:** 
+- The `unless` lines check the whole sentence, so a sentence that also contains 一样 or 比 is dropped even if it shows 跟 as "with". For example, 你跟你妈一样喜欢买衣服 is lost this way. That cost is accepted to keep precision high.
+- 对 + noun + verb is deliberately narrow, with only a short verb list. Widen the list (for example 笑着, 鞠躬) only after checking it doesn't pull in 对…感兴趣 or 对…有好处.
+- The tagger gives 和/跟 either CC or P, so both tags are matched.
+- 对着/跟着 are matched as VV/VA plus the particle 着.

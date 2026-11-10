@@ -1,0 +1,11 @@
+## 3-79
+**Point:** Expressing "already" with 都⋯⋯了, used emphatically to indicate something has happened and often implying the speaker's attitude
+**Covers:** Sentences with the structure 都 + [time/predicate] + 了, where 都 appears before a time expression, adjective, or verb phrase, and 了 appears after it
+**Does not cover:** Other uses of 都 (universal quantifier "all/every", co-occurrence with 也, "except" with 除了, emphasis with question words, "no matter" with 不管/无论, "let alone" with 连/何况, "always" with 从来, "everything" with 什么都)
+
+```rule
+match: 都/AD ... 了/SP|AS $
+unless: 什么|谁|哪|怎么|哪儿|哪里|何况|从来|不管|无论|除了|连|全|每|一.*也|一.*都|也都|全都
+```
+
+**Notes:** The rule matches 都 followed eventually by 了 at the end of a clause. The unless clause excludes other grammar patterns that contain 都 and 了 but serve different functions: question words (什么/谁/哪/怎么/哪儿/哪里), "let alone" structures (何况/连), "always" (从来), "no matter" (不管/无论/怎么), "except" (除了), plural/quantifier forms (全/每/全都), and "also/both" constructions (也都/一...也/一...都). This precision-first approach may miss some borderline cases but avoids false positives.

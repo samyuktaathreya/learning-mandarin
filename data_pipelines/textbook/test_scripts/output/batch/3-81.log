@@ -1,0 +1,70 @@
+
+########## rules  2026-11-09 21:57 ##########
+12 page(s) use the word(s); asking about 12.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGN3IGH  Challenging a verb with "shenme"
+  ASGNV2TZ  Challenging an adjective with "shenme"
+
+not:
+  ASGAQV6C  Expressing "everything" with "shenme dou"
+  ASGDIDAC  Ending a non-exhaustive list with "shenme de"
+  ASGJQPSC  Placement of question words
+  ASG13ALM  Expressing "every" with question words
+  ASG7ED89  Expressing "some" with question words
+
+unsure:
+
+unrelated:
+  ASGGPG97  Listing things with "a"
+  ASGW66JM  Sentence-final interjection "a"
+  ASGGB3IV  Expressing "on the basis of" with "ping"
+  ASGH13JY  Idiomatic phrases with "zai"
+  ASGXXP6M  Advanced usages of the contrary "dao"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 3-81
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215734.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-81
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Rhetorical challenge with 什么 after verbs or adjectives
+**Covers:** Verb/Adjective + 什么 (+ repetition) (+ 啊/呀/吧) used to form a rhetorical question expressing disapproval or incredulity
+**Does not cover:** 什么 as a genuine question word; 什么都/也 expressing "everything"; 什么的 ending a list; 什么 in compounds like 什么时候
+
+```rule
+match: /VV 什么/PN /VV
+match: /VA 什么/PN /VA?
+match: /VV 什么/DT
+match: /VA 什么/DT /VA
+unless: 都/AD
+unless: 也/AD
+unless: 什么/DT 的/DEG
+unless: 什么/PN 都/AD
+unless: 什么/PN 也/AD
+```
+
+**Notes:** 
+- The pattern captures verb-什么-verb (你笑什么笑) and adjective-什么-adjective (胖什么胖啊) as the clearest rhetorical challenge patterns.
+- Also matches verb-什么 (玩儿什么) and adjective-什么 (舒服什么啊) where the verb/adjective is not immediately repeated but context is rhetorical.
+- Uses /DT to capture cases where 什么 functions as determiner (开什么玩笑, 还吃什么早饭) before a noun object, still forming a rhetorical challenge.
+- The unless clauses filter out "什么都/也" (expressing "everything") and "什么的" (list-ending).
+- Particle 啊/SP, 呀/IJ, 吧/SP are optional and don't need explicit matching (appear after the pattern).
+- Pattern searches within one clause only, respecting punctuation boundaries.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-81
+Tagging 2 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-81: rule on labeled examples (no AI) ===
+  examples of 3-81 matched:    16/21
+  counter-examples wrongly matched: 0/37   <- should be 0
+
+--- examples of 3-81 the rule misses (5) ---
+  开什么玩笑啊，你撞了我，我还要跟你说“对不起”？  -- ASGN3IGH Challenging a verb with "shenme"
+  没有钱看什么电影。  -- ASGN3IGH Challenging a verb with "shenme"
+  还吃什么早饭啊，要迟到了。  -- ASGN3IGH Challenging a verb with "shenme"
+  胖什么胖啊，在北方，这样的人很常见。  -- ASGNV2TZ Challenging an adjective with "shenme"
+  郁闷什么呀，看看这蓝蓝的天空，绿绿的田园，生活多美好啊！  -- ASGNV2TZ Challenging an adjective with "shenme"

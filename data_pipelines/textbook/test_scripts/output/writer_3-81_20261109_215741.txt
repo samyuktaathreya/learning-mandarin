@@ -1,0 +1,24 @@
+## 3-81
+**Point:** Rhetorical challenge with 什么 after verbs or adjectives
+**Covers:** Verb/Adjective + 什么 (+ repetition) (+ 啊/呀/吧) used to form a rhetorical question expressing disapproval or incredulity
+**Does not cover:** 什么 as a genuine question word; 什么都/也 expressing "everything"; 什么的 ending a list; 什么 in compounds like 什么时候
+
+```rule
+match: /VV 什么/PN /VV
+match: /VA 什么/PN /VA?
+match: /VV 什么/DT
+match: /VA 什么/DT /VA
+unless: 都/AD
+unless: 也/AD
+unless: 什么/DT 的/DEG
+unless: 什么/PN 都/AD
+unless: 什么/PN 也/AD
+```
+
+**Notes:** 
+- The pattern captures verb-什么-verb (你笑什么笑) and adjective-什么-adjective (胖什么胖啊) as the clearest rhetorical challenge patterns.
+- Also matches verb-什么 (玩儿什么) and adjective-什么 (舒服什么啊) where the verb/adjective is not immediately repeated but context is rhetorical.
+- Uses /DT to capture cases where 什么 functions as determiner (开什么玩笑, 还吃什么早饭) before a noun object, still forming a rhetorical challenge.
+- The unless clauses filter out "什么都/也" (expressing "everything") and "什么的" (list-ending).
+- Particle 啊/SP, 呀/IJ, 吧/SP are optional and don't need explicit matching (appear after the pattern).
+- Pattern searches within one clause only, respecting punctuation boundaries.

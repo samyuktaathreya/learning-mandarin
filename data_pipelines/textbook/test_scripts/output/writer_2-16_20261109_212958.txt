@@ -1,0 +1,42 @@
+## 2-16
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Frequency and repetition adverbs: 重新, 经常, 老, 老是, 又
+
+**Covers:** 
+- 老是/老 expressing habitual or repeated action with a frustrated tone
+- 经常/常常 expressing frequent action, including 经常 的 as a property ("是经常的事情")
+- 又 expressing an action happening again (past or imminent)
+- 重新 expressing doing something again from the start
+
+**Does not cover:**
+- 又 used for emphasis of negation (又不/又没 meaning "definitely not")
+- 又 in repeated action patterns with 了...又... structure
+- 又 expressing both A and B qualities (又...又... with adjectives)
+- 既...又... patterns
+- 老 as an adjective meaning "old" (老师, 老人, 老家)
+- 常 as an adjective meaning "frequent/regular"
+
+```rule
+match: 老是/AD ... /VV|VA
+match: 老/AD ... /VV|VA
+match: 经常/AD ... /VV
+match: 常常/AD ... /VV
+match: 常/AD /VV
+match: 经常/VA 的/DEC
+match: 又/AD /VV
+match: 又/AD /VA 了/SP
+match: 重新/AD ... /VV
+unless: 既/AD ... 又/AD
+unless: 又/AD ... 又/AD
+unless: 又/CC
+unless: /VV 了/AS 又/AD /VV
+unless: /VV 了/AS 又/CC
+```
+
+**Notes:** 
+- The pattern for 老/老是 requires a verb or adjective after to distinguish from the noun adjective uses (老师, 老人). Often there are adverbs between (不, 很, 这么) but these aren't required.
+- 又 is matched only when directly followed by a verb (又下雨了, 又迟到了, 又要/能/可以...) or by an adjective plus sentence-final 了. 又不/又没 are deliberately not matched. They are mostly the emphatic-negation use ("又不知道", "又没下雨"), which belongs to a different point, so this rule misses some genuine "again + negative" sentences.
+- Any clause with two 又, or with 既 and 又, is excluded (又A又B, 既A又B).
+- Exclude 了…又… repeated-action patterns (看了又看).
+- 经常/VA 的 (frequency as a property, e.g. 是经常的事情) counts as the grammar point.
+- 常 by itself (single character) counts when followed by a verb, used in colloquial speech.

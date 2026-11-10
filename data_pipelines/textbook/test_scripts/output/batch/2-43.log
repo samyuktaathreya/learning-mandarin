@@ -1,0 +1,93 @@
+
+########## rules  2026-11-09 21:39 ##########
+2 page(s) use the word(s); asking about 2.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGDIDAC  Ending a non-exhaustive list with "shenme de"
+
+not:
+
+unsure:
+  ASGGPG97  Listing things with "a"
+
+unrelated:
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-43
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213909.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-43
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 什么的 to end a non-exhaustive list with "and so on"
+**Covers:** Sentences where 什么的 appears after a noun or list of nouns to indicate an open-ended category of similar items
+**Does not cover:** Uses of 什么 and 的 that are not together as the phrase 什么的 at the end of a list; uses where 什么的 is not functioning as a list-ender
+
+```rule
+match: _ 什么/PN 的/DEG|DEC $
+unless: 什么/PN 的/DEG|DEC _ 什么/PN 的/DEG|DEC
+```
+
+**Notes:** 
+- The pattern requires 什么的 at the end of a clause (before punctuation or end of sentence)
+- The pattern `_ 什么/PN 的/DEG|DEC $` matches any word followed by 什么的 at clause-end, capturing the core structure
+- Both DEG and DEC tags are included since the tagger uses both for 的 in this construction
+- The `unless` clause prevents false matches where 什么的 appears twice (which would indicate a different grammatical construction)
+- The rule correctly identifies the pattern across various sentence structures: after single nouns (练习什么的), after noun lists with punctuation separators (水果、面包什么的), and before continuation (什么的都要自己做)
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-43
+Tagging 2 labeled example(s) (cached after this run)...
+
+=== A. 2-43: rule on labeled examples (no AI) ===
+  examples of 2-43 matched:    11/12
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+--- examples of 2-43 the rule misses (1) ---
+  一个人住，洗衣服、做饭什么的都要自己做。  -- ASGDIDAC Ending a non-exhaustive list with "shenme de"
+
+########## tatoeba  2026-11-09 22:10 ##########
+Filling 2-43 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-43 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+
+=== 2-43 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+        8  2. contain the point's word(s)
+        8  3. new (not in DB, not a duplicate)
+        5  4. at most 2 characters outside HSK 2 words
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 4 (3) ---
+  我们这周末应该干点什么的。  -- 4 characters no HSK 2 word uses: 干应末该
+  这太秘密了，连我都不知道它是关于什么的。  -- 4 characters no HSK 2 word uses: 于密秘连
+  拍火车的照片什么的，有什么好玩的呀？  -- 4 characters no HSK 2 word uses: 呀拍照片
+
+--- dropped at step 5 (5) ---
+  谢谢。还有其他什么的话来问我吧。  -- level 10: 其他 L3, 话 (not in list)
+  别慌。这没什么的。  -- level 7: 慌 L7
+  玩玩电玩游戏什么的吧。  -- level 3: 电 L3, 游戏 L3
+  你应该说点什么的。  -- level 3: 应该 L3
+  我不会背着你干什么的。  -- level 4: 背 L4, 干 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-43_level2_20261109_221041.csv

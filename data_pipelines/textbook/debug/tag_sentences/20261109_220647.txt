@@ -1,0 +1,229 @@
+2026-11-09 22:06:47,404  INFO     === tag_sentences.py run started ===
+2026-11-09 22:06:47,710  INFO     OK        hanlp-valid   '你的眼睛为什么那么大？' -> [('你', 'PN'), ('的', 'DEG'), ('眼睛', 'NN'), ('为什么', 'AD'), ('那么', 'AD'), ('大', 'VA')]
+2026-11-09 22:06:47,712  INFO     TAGGED    '你的眼睛为什么那么大？' (level 2, 6 tags)
+2026-11-09 22:06:47,720  INFO     OK        hanlp-valid   '告诉我她为什么哭。' -> [('告诉', 'VV'), ('我', 'PN'), ('她', 'PN'), ('为什么', 'AD'), ('哭', 'VV')]
+2026-11-09 22:06:47,721  INFO     TAGGED    '告诉我她为什么哭。' (level 3, 5 tags)
+2026-11-09 22:06:47,729  INFO     FALLBACK  '我的房间里为什么有蟋蟀？' -- out-of-list word(s): ['蟋蟀']
+2026-11-09 22:06:47,729  WARNING    HAIKU resegment call for '我的房间里为什么有蟋蟀？' (cache miss on [('蟋蟀', 'NN')])
+2026-11-09 22:06:47,738  INFO       NON-LIST 蟋蟀 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:47,739  INFO     TAGGED    '我的房间里为什么有蟋蟀？' (level 10, 7 tags)
+2026-11-09 22:06:47,746  INFO     OK        hanlp-valid   '女人为什么想被男人抱着睡觉？' -> [('女人', 'NN'), ('为什么', 'AD'), ('想', 'VV'), ('被', 'LB'), ('男人', 'NN'), ('抱', 'VV'), ('着', 'AS'), ('睡觉', 'VV')]
+2026-11-09 22:06:47,748  INFO     TAGGED    '女人为什么想被男人抱着睡觉？' (level 4, 8 tags)
+2026-11-09 22:06:47,756  INFO     OK        hanlp-valid   '他不知道为什么他的妻子要离开他。' -> [('他', 'PN'), ('不', 'AD'), ('知道', 'VV'), ('为什么', 'AD'), ('他', 'PN'), ('的', 'DEG'), ('妻子', 'NN'), ('要', 'VV'), ('离开', 'VV'), ('他', 'PN')]
+2026-11-09 22:06:47,759  INFO     TAGGED    '他不知道为什么他的妻子要离开他。' (level 3, 10 tags)
+2026-11-09 22:06:47,767  INFO     OK        hanlp-valid   '你为什么不读这杂志呢？' -> [('你', 'PN'), ('为什么', 'AD'), ('不', 'AD'), ('读', 'VV'), ('这', 'DT'), ('杂志', 'NN'), ('呢', 'SP')]
+2026-11-09 22:06:47,777  INFO     TAGGED    '你为什么不读这杂志呢？' (level 4, 7 tags)
+2026-11-09 22:06:47,785  INFO     OK        hanlp-valid   '为什么人们会自杀?' -> [('为什么', 'AD'), ('人们', 'NN'), ('会', 'VV'), ('自杀', 'VV')]
+2026-11-09 22:06:47,789  INFO     TAGGED    '为什么人们会自杀?' (level 6, 5 tags)
+2026-11-09 22:06:47,797  INFO     OK        hanlp-valid   '你为什么惩罚他们？' -> [('你', 'PN'), ('为什么', 'AD'), ('惩罚', 'VV'), ('他们', 'PN')]
+2026-11-09 22:06:47,798  INFO     TAGGED    '你为什么惩罚他们？' (level 6, 4 tags)
+2026-11-09 22:06:47,805  INFO     OK        hanlp-valid   '为什么你的耳朵这么大？' -> [('为什么', 'AD'), ('你', 'PN'), ('的', 'DEG'), ('耳朵', 'NN'), ('这么', 'AD'), ('大', 'VA')]
+2026-11-09 22:06:47,807  INFO     TAGGED    '为什么你的耳朵这么大？' (level 3, 6 tags)
+2026-11-09 22:06:47,815  INFO     OK        hanlp-valid   '为什么不让你的嘴巴休息呢？' -> [('为什么', 'AD'), ('不', 'AD'), ('让', 'VV'), ('你', 'PN'), ('的', 'DEG'), ('嘴巴', 'NN'), ('休息', 'VV'), ('呢', 'SP')]
+2026-11-09 22:06:47,817  INFO     TAGGED    '为什么不让你的嘴巴休息呢？' (level 5, 8 tags)
+2026-11-09 22:06:47,825  INFO     OK        hanlp-valid   '妈妈，为什么我没有长胡子的舅舅呢？' -> [('妈妈', 'NN'), ('为什么', 'AD'), ('我', 'PN'), ('没有', 'VE'), ('长', 'VV'), ('胡子', 'NN'), ('的', 'DEC'), ('舅舅', 'NN'), ('呢', 'SP')]
+2026-11-09 22:06:47,827  INFO     TAGGED    '妈妈，为什么我没有长胡子的舅舅呢？' (level 6, 9 tags)
+2026-11-09 22:06:47,835  INFO     OK        hanlp-valid   '你长大后想成为什么？' -> [('你', 'PN'), ('长大', 'VV'), ('后', 'LC'), ('想', 'VV'), ('成为', 'VV'), ('什么', 'PN')]
+2026-11-09 22:06:47,840  INFO     TAGGED    '你长大后想成为什么？' (level 4, 7 tags)
+2026-11-09 22:06:47,847  INFO     OK        hanlp-valid   '你为什么想成为护士呢？' -> [('你', 'PN'), ('为什么', 'AD'), ('想', 'VV'), ('成为', 'VV'), ('护士', 'NN'), ('呢', 'SP')]
+2026-11-09 22:06:47,849  INFO     TAGGED    '你为什么想成为护士呢？' (level 4, 6 tags)
+2026-11-09 22:06:47,856  INFO     OK        hanlp-valid   '您为什么没去办公室？' -> [('您', 'PN'), ('为什么', 'AD'), ('没', 'AD'), ('去', 'VV'), ('办公室', 'NN')]
+2026-11-09 22:06:47,858  INFO     TAGGED    '您为什么没去办公室？' (level 3, 5 tags)
+2026-11-09 22:06:47,866  INFO     OK        hanlp-valid   '你知道为什么吗？是猫的缘故。' -> [('你', 'PN'), ('知道', 'VV'), ('为什么', 'VV'), ('吗', 'SP'), ('是', 'VC'), ('猫', 'NN'), ('的', 'DEG'), ('缘故', 'NN')]
+2026-11-09 22:06:47,868  INFO     TAGGED    '你知道为什么吗？是猫的缘故。' (level 7, 8 tags)
+2026-11-09 22:06:47,876  INFO     OK        hanlp-valid   '因为你真的很臭，这就是为什么。' -> [('因为', 'P'), ('你', 'PN'), ('真的', 'AD'), ('很', 'AD'), ('臭', 'VA'), ('这', 'PN'), ('就', 'AD'), ('是', 'VC'), ('为什么', 'VV')]
+2026-11-09 22:06:47,881  INFO     TAGGED    '因为你真的很臭，这就是为什么。' (level 5, 10 tags)
+2026-11-09 22:06:47,891  INFO     OK        hanlp-valid   '我是谁？我是诗人。我做什么？我写作。我活得怎么样？我只是活着。' -> [('我', 'PN'), ('是', 'VC'), ('谁', 'PN'), ('我', 'PN'), ('是', 'VC'), ('诗人', 'NN'), ('我', 'PN'), ('做', 'VV'), ('什么', 'PN'), ('我', 'PN'), ('写作', 'VV'), ('我', 'PN'), ('活', 'VV'), ('得', 'DER'), ('怎么样', 'VV'), ('我', 'PN'), ('只是', 'AD'), ('活', 'VV'), ('着', 'AS')]
+2026-11-09 22:06:47,892  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-09 22:06:47,895  INFO     TAGGED    '我是谁？我是诗人。我做什么？我写作。我活得怎么样？我只是活着。' (level 5, 19 tags)
+2026-11-09 22:06:47,903  INFO     OK        hanlp-valid   '她问他为什么哭，但他没有回应。' -> [('她', 'PN'), ('问', 'VV'), ('他', 'PN'), ('为什么', 'AD'), ('哭', 'VV'), ('但', 'AD'), ('他', 'PN'), ('没有', 'VE'), ('回应', 'NN')]
+2026-11-09 22:06:47,906  INFO     TAGGED    '她问他为什么哭，但他没有回应。' (level 7, 9 tags)
+2026-11-09 22:06:47,913  INFO     OK        hanlp-valid   '你为什么逃走？' -> [('你', 'PN'), ('为什么', 'AD'), ('逃走', 'VV')]
+2026-11-09 22:06:47,917  INFO     TAGGED    '你为什么逃走？' (level 6, 4 tags)
+2026-11-09 22:06:47,925  INFO     OK        hanlp-valid   '为什么小朋友得背这么重的书包呢?' -> [('为什么', 'AD'), ('小朋友', 'NN'), ('得', 'VV'), ('背', 'VV'), ('这么', 'AD'), ('重', 'VA'), ('的', 'DEC'), ('书包', 'NN'), ('呢', 'SP')]
+2026-11-09 22:06:47,927  INFO     TAGGED    '为什么小朋友得背这么重的书包呢?' (level 4, 9 tags)
+2026-11-09 22:06:47,935  INFO     OK        hanlp-valid   '为什么这有警察？' -> [('为什么', 'AD'), ('这', 'PN'), ('有', 'VE'), ('警察', 'NN')]
+2026-11-09 22:06:47,937  INFO     TAGGED    '为什么这有警察？' (level 4, 4 tags)
+2026-11-09 22:06:47,944  INFO     OK        hanlp-valid   '为什么要担心？' -> [('为什么', 'AD'), ('要', 'VV'), ('担心', 'VV')]
+2026-11-09 22:06:47,945  INFO     TAGGED    '为什么要担心？' (level 3, 3 tags)
+2026-11-09 22:06:47,952  INFO     OK        hanlp-valid   '为什么要担心Tom？' -> [('为什么', 'AD'), ('要', 'VV'), ('担心', 'VV'), ('Tom', 'NR')]
+2026-11-09 22:06:47,953  INFO     TAGGED    '为什么要担心Tom？' (level 3, 3 tags)
+2026-11-09 22:06:47,960  INFO     OK        hanlp-valid   '为什么我们在这上面浪费时间？' -> [('为什么', 'AD'), ('我们', 'PN'), ('在', 'P'), ('这', 'PN'), ('上面', 'LC'), ('浪费', 'VV'), ('时间', 'NN')]
+2026-11-09 22:06:47,962  INFO     TAGGED    '为什么我们在这上面浪费时间？' (level 4, 7 tags)
+2026-11-09 22:06:47,970  INFO     OK        hanlp-valid   '为什么我要雇佣Tom？' -> [('为什么', 'AD'), ('我', 'PN'), ('要', 'VV'), ('雇佣', 'VV'), ('Tom', 'NR')]
+2026-11-09 22:06:47,971  INFO     TAGGED    '为什么我要雇佣Tom？' (level 7, 4 tags)
+2026-11-09 22:06:47,978  INFO     OK        hanlp-valid   '你为什么不去加入她？' -> [('你', 'PN'), ('为什么', 'AD'), ('不', 'AD'), ('去', 'VV'), ('加入', 'VV'), ('她', 'PN')]
+2026-11-09 22:06:47,980  INFO     TAGGED    '你为什么不去加入她？' (level 4, 6 tags)
+2026-11-09 22:06:47,988  INFO     FALLBACK  '为什么你对于这个有这样的想法？' -- out-of-list word(s): ['这个']
+2026-11-09 22:06:47,988  INFO       CACHE-ONLY resegmentation -> [('为什么', 'AD'), ('你', 'PN'), ('对于', 'P'), ('这个', 'DT'), ('有', 'VE'), ('这样', 'JJ'), ('的', 'DEG'), ('想法', 'NN')]
+2026-11-09 22:06:47,993  INFO     TAGGED    '为什么你对于这个有这样的想法？' (level 4, 9 tags)
+2026-11-09 22:06:48,001  INFO     OK        hanlp-valid   '为什么我要向你道歉？' -> [('为什么', 'AD'), ('我', 'PN'), ('要', 'VV'), ('向', 'P'), ('你', 'PN'), ('道歉', 'VV')]
+2026-11-09 22:06:48,003  INFO     TAGGED    '为什么我要向你道歉？' (level 4, 6 tags)
+2026-11-09 22:06:48,011  INFO     OK        hanlp-valid   '为什么你不告诉我真相？' -> [('为什么', 'AD'), ('你', 'PN'), ('不', 'AD'), ('告诉', 'VV'), ('我', 'PN'), ('真相', 'NN')]
+2026-11-09 22:06:48,012  INFO     TAGGED    '为什么你不告诉我真相？' (level 6, 6 tags)
+2026-11-09 22:06:48,020  INFO     OK        hanlp-valid   '为什么你的脑袋那么聪明呢？' -> [('为什么', 'AD'), ('你', 'PN'), ('的', 'DEG'), ('脑袋', 'NN'), ('那么', 'AD'), ('聪明', 'VA'), ('呢', 'SP')]
+2026-11-09 22:06:48,022  INFO     TAGGED    '为什么你的脑袋那么聪明呢？' (level 6, 7 tags)
+2026-11-09 22:06:48,029  INFO     OK        hanlp-valid   '是因为什么原因？' -> [('是', 'VC'), ('因为', 'P'), ('什么', 'DT'), ('原因', 'NN')]
+2026-11-09 22:06:48,030  INFO     TAGGED    '是因为什么原因？' (level 4, 4 tags)
+2026-11-09 22:06:48,037  INFO     FALLBACK  '我问汤姆为什么他昨天没在这里' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:06:48,038  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('问', 'VV'), ('汤姆', 'NN'), ('为什么', 'AD'), ('他', 'PN'), ('昨天', 'NT'), ('没', 'AD'), ('在', 'VV'), ('这里', 'PN')]
+2026-11-09 22:06:48,039  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:48,041  INFO     TAGGED    '我问汤姆为什么他昨天没在这里' (level 10, 9 tags)
+2026-11-09 22:06:48,048  INFO     FALLBACK  '你为什么不戒掉Facebook？' -- out-of-list word(s): ['戒掉']
+2026-11-09 22:06:48,048  WARNING    HAIKU resegment call for '你为什么不戒掉Facebook？' (cache miss on [('戒掉', 'VV')])
+2026-11-09 22:06:48,059  INFO     TAGGED    '你为什么不戒掉Facebook？' (level 7, 5 tags)
+2026-11-09 22:06:48,067  INFO     OK        hanlp-valid   '我们仍然不知道为什么。' -> [('我们', 'PN'), ('仍然', 'AD'), ('不', 'AD'), ('知道', 'VV'), ('为什么', 'AD')]
+2026-11-09 22:06:48,068  INFO     TAGGED    '我们仍然不知道为什么。' (level 4, 5 tags)
+2026-11-09 22:06:48,417  INFO     OK        hanlp-valid   '当然，为什么不？' -> [('当然', 'AD'), ('为什么', 'AD'), ('不', 'AD')]
+2026-11-09 22:06:48,419  INFO     TAGGED    '当然，为什么不？' (level 3, 3 tags)
+2026-11-09 22:06:48,426  INFO     FALLBACK  '为什么汤姆还在学校？' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:06:48,426  INFO       CACHE-ONLY resegmentation -> [('为什么', 'AD'), ('汤姆', 'NN'), ('还', 'AD'), ('在', 'VV'), ('学校', 'NN')]
+2026-11-09 22:06:48,428  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:48,429  INFO     TAGGED    '为什么汤姆还在学校？' (level 10, 5 tags)
+2026-11-09 22:06:48,437  INFO     OK        hanlp-valid   '为什么所有的小伙子都喜欢她？' -> [('为什么', 'AD'), ('所有', 'DT'), ('的', 'DEG'), ('小伙子', 'NN'), ('都', 'AD'), ('喜欢', 'VV'), ('她', 'PN')]
+2026-11-09 22:06:48,439  INFO     TAGGED    '为什么所有的小伙子都喜欢她？' (level 4, 7 tags)
+2026-11-09 22:06:48,446  INFO     OK        hanlp-valid   '你为什么这么害怕？' -> [('你', 'PN'), ('为什么', 'AD'), ('这么', 'AD'), ('害怕', 'VV')]
+2026-11-09 22:06:48,447  INFO     TAGGED    '你为什么这么害怕？' (level 3, 4 tags)
+2026-11-09 22:06:48,455  INFO     OK        hanlp-valid   '为什么你这么久不给我回信？' -> [('为什么', 'AD'), ('你', 'PN'), ('这么', 'AD'), ('久', 'VA'), ('不', 'AD'), ('给', 'P'), ('我', 'PN'), ('回信', 'VV')]
+2026-11-09 22:06:48,457  INFO     TAGGED    '为什么你这么久不给我回信？' (level 4, 8 tags)
+2026-11-09 22:06:48,465  INFO     FALLBACK  '现在穿越剧为什么这么火？' -- out-of-list word(s): ['穿越剧']
+2026-11-09 22:06:48,465  WARNING    HAIKU resegment call for '现在穿越剧为什么这么火？' (cache miss on [('穿越剧', 'NN')])
+2026-11-09 22:06:48,476  INFO     TAGGED    '现在穿越剧为什么这么火？' (level 10, 6 tags)
+2026-11-09 22:06:48,484  INFO     OK        hanlp-valid   '我不知道以前怎样，但现在我们有传真和电子邮件。' -> [('我', 'PN'), ('不', 'AD'), ('知道', 'VV'), ('以前', 'NT'), ('怎样', 'VV'), ('但', 'AD'), ('现在', 'NT'), ('我们', 'PN'), ('有', 'VE'), ('传真', 'NN'), ('和', 'CC'), ('电子邮件', 'NN')]
+2026-11-09 22:06:48,490  INFO     TAGGED    '我不知道以前怎样，但现在我们有传真和电子邮件。' (level 6, 14 tags)
+2026-11-09 22:06:48,499  INFO     FALLBACK  '为什么人们不总是讲真话？' -- out-of-list word(s): ['真话']
+2026-11-09 22:06:48,499  WARNING    HAIKU resegment call for '为什么人们不总是讲真话？' (cache miss on [('真话', 'NN')])
+2026-11-09 22:06:48,513  INFO     TAGGED    '为什么人们不总是讲真话？' (level 10, 8 tags)
+2026-11-09 22:06:48,521  INFO     OK        hanlp-valid   '你为什么在画花？' -> [('你', 'PN'), ('为什么', 'AD'), ('在', 'AD'), ('画', 'VV'), ('花', 'NN')]
+2026-11-09 22:06:48,522  INFO     TAGGED    '你为什么在画花？' (level 2, 5 tags)
+2026-11-09 22:06:48,530  INFO     OK        hanlp-valid   '你为什么会出现在我工作单位？' -> [('你', 'PN'), ('为什么', 'AD'), ('会', 'VV'), ('出现', 'VV'), ('在', 'P'), ('我', 'PN'), ('工作', 'NN'), ('单位', 'NN')]
+2026-11-09 22:06:48,532  INFO     TAGGED    '你为什么会出现在我工作单位？' (level 4, 8 tags)
+2026-11-09 22:06:48,539  INFO     OK        hanlp-valid   '为什么我们进度这么落后?' -> [('为什么', 'AD'), ('我们', 'PN'), ('进度', 'NN'), ('这么', 'AD'), ('落后', 'VA')]
+2026-11-09 22:06:48,541  INFO     TAGGED    '为什么我们进度这么落后?' (level 6, 5 tags)
+2026-11-09 22:06:48,549  INFO     OK        hanlp-valid   '我能教你怎样游泳。' -> [('我', 'PN'), ('能', 'VV'), ('教', 'VV'), ('你', 'PN'), ('怎样', 'AD'), ('游泳', 'VV')]
+2026-11-09 22:06:48,550  INFO     TAGGED    '我能教你怎样游泳。' (level 3, 6 tags)
+2026-11-09 22:06:48,558  INFO     FALLBACK  '怎么样才能让我的狗吃狗粮？' -- out-of-list word(s): ['狗粮']
+2026-11-09 22:06:48,558  WARNING    HAIKU resegment call for '怎么样才能让我的狗吃狗粮？' (cache miss on [('狗粮', 'NN')])
+2026-11-09 22:06:48,567  INFO       NON-LIST 狗粮 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:48,567  INFO     TAGGED    '怎么样才能让我的狗吃狗粮？' (level 10, 9 tags)
+2026-11-09 22:06:48,575  INFO     FALLBACK  '他为什么之前住在美国？' -- out-of-list word(s): ['美国']
+2026-11-09 22:06:48,575  WARNING    HAIKU resegment call for '他为什么之前住在美国？' (cache miss on [('美国', 'NR')])
+2026-11-09 22:06:48,586  INFO     TAGGED    '他为什么之前住在美国？' (level 4, 7 tags)
+2026-11-09 22:06:48,594  INFO     FALLBACK  '“你不能用问题来回答我的问题。” “为什么不能？”' -- out-of-list word(s): ['不能', '不能']
+2026-11-09 22:06:48,594  WARNING    HAIKU resegment call for '“你不能用问题来回答我的问题。” “为什么不能？”' (cache miss on [('不能', 'VV'), ('不能', 'VV')])
+2026-11-09 22:06:48,610  INFO     TAGGED    '“你不能用问题来回答我的问题。” “为什么不能？”' (level 3, 13 tags)
+2026-11-09 22:06:48,618  INFO     OK        hanlp-valid   '为什么大家突然对我这么好？' -> [('为什么', 'AD'), ('大家', 'PN'), ('突然', 'AD'), ('对', 'P'), ('我', 'PN'), ('这么', 'AD'), ('好', 'VA')]
+2026-11-09 22:06:48,620  INFO     TAGGED    '为什么大家突然对我这么好？' (level 3, 7 tags)
+2026-11-09 22:06:48,628  INFO     OK        hanlp-valid   '我也不知道为什么聚会会延期。' -> [('我', 'PN'), ('也', 'AD'), ('不', 'AD'), ('知道', 'VV'), ('为什么', 'AD'), ('聚会', 'NN'), ('会', 'VV'), ('延期', 'VV')]
+2026-11-09 22:06:48,630  INFO     TAGGED    '我也不知道为什么聚会会延期。' (level 6, 8 tags)
+2026-11-09 22:06:48,637  INFO     FALLBACK  '为什么她要做这种事情呢？' -- out-of-list word(s): ['这种']
+2026-11-09 22:06:48,638  WARNING    HAIKU resegment call for '为什么她要做这种事情呢？' (cache miss on [('这种', 'DT')])
+2026-11-09 22:06:48,649  INFO     TAGGED    '为什么她要做这种事情呢？' (level 3, 8 tags)
+2026-11-09 22:06:48,656  INFO     FALLBACK  '我不明白为什么我得跟着去。' -- out-of-list word(s): ['跟着']
+2026-11-09 22:06:48,656  WARNING    HAIKU resegment call for '我不明白为什么我得跟着去。' (cache miss on [('跟着', 'VV')])
+2026-11-09 22:06:48,669  INFO     TAGGED    '我不明白为什么我得跟着去。' (level 3, 9 tags)
+2026-11-09 22:06:48,677  INFO     FALLBACK  '你为什么不吃菠萝？' -- out-of-list word(s): ['菠萝']
+2026-11-09 22:06:48,677  WARNING    HAIKU resegment call for '你为什么不吃菠萝？' (cache miss on [('菠萝', 'NN')])
+2026-11-09 22:06:48,685  INFO       NON-LIST 菠萝 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:48,686  INFO     TAGGED    '你为什么不吃菠萝？' (level 10, 5 tags)
+2026-11-09 22:06:48,694  INFO     FALLBACK  '你知道春卷为什么叫春卷吗？' -- out-of-list word(s): ['春卷', '春卷']
+2026-11-09 22:06:48,694  WARNING    HAIKU resegment call for '你知道春卷为什么叫春卷吗？' (cache miss on [('春卷', 'NN'), ('春卷', 'NN')])
+2026-11-09 22:06:48,708  INFO       NON-LIST 春 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:48,709  INFO     TAGGED    '你知道春卷为什么叫春卷吗？' (level 10, 9 tags)
+2026-11-09 22:06:48,717  INFO     OK        hanlp-valid   '为什么没有人相信我？' -> [('为什么', 'AD'), ('没有', 'VE'), ('人', 'NN'), ('相信', 'VV'), ('我', 'PN')]
+2026-11-09 22:06:48,719  INFO     TAGGED    '为什么没有人相信我？' (level 3, 5 tags)
+2026-11-09 22:06:48,726  INFO     FALLBACK  '为什么鸵鸟不会飞？' -- out-of-list word(s): ['鸵鸟', '不会']
+2026-11-09 22:06:48,726  WARNING    HAIKU resegment call for '为什么鸵鸟不会飞？' (cache miss on [('鸵鸟', 'NN')])
+2026-11-09 22:06:48,737  INFO       NON-LIST 鸵鸟 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:48,738  INFO     TAGGED    '为什么鸵鸟不会飞？' (level 10, 5 tags)
+2026-11-09 22:06:48,746  INFO     FALLBACK  '汤姆不知道我为什么在这里。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:06:48,746  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('不', 'AD'), ('知道', 'VV'), ('我', 'PN'), ('为什么', 'AD'), ('在', 'VV'), ('这里', 'PN')]
+2026-11-09 22:06:48,747  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:48,748  INFO     TAGGED    '汤姆不知道我为什么在这里。' (level 10, 7 tags)
+2026-11-09 22:06:48,756  INFO     OK        hanlp-valid   '为什么没人来我的网站呢？' -> [('为什么', 'AD'), ('没', 'VE'), ('人', 'NN'), ('来', 'VV'), ('我', 'PN'), ('的', 'DEG'), ('网站', 'NN'), ('呢', 'SP')]
+2026-11-09 22:06:48,758  INFO     TAGGED    '为什么没人来我的网站呢？' (level 3, 8 tags)
+2026-11-09 22:06:49,109  INFO     OK        hanlp-valid   '要多久？' -> [('要', 'VV'), ('多久', 'PN')]
+2026-11-09 22:06:49,114  INFO     TAGGED    '要多久？' (level 3, 3 tags)
+2026-11-09 22:06:49,121  INFO     FALLBACK  '你为什么买这么多曲奇？' -- out-of-list word(s): ['曲奇']
+2026-11-09 22:06:49,121  WARNING    HAIKU resegment call for '你为什么买这么多曲奇？' (cache miss on [('曲奇', 'NN')])
+2026-11-09 22:06:49,129  INFO       NON-LIST 曲奇 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:49,130  INFO     TAGGED    '你为什么买这么多曲奇？' (level 10, 6 tags)
+2026-11-09 22:06:49,138  INFO     OK        hanlp-valid   '你为什么不阻止他们？' -> [('你', 'PN'), ('为什么', 'AD'), ('不', 'AD'), ('阻止', 'VV'), ('他们', 'PN')]
+2026-11-09 22:06:49,139  INFO     TAGGED    '你为什么不阻止他们？' (level 5, 5 tags)
+2026-11-09 22:06:49,147  INFO     FALLBACK  '汤姆想知道为什么。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:06:49,147  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('想', 'VV'), ('知道', 'VV'), ('为什么', 'AD')]
+2026-11-09 22:06:49,148  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:49,149  INFO     TAGGED    '汤姆想知道为什么。' (level 10, 4 tags)
+2026-11-09 22:06:49,156  INFO     OK        hanlp-valid   '我真的搞不懂为什么。' -> [('我', 'PN'), ('真的', 'AD'), ('搞', 'VV'), ('不', 'AD'), ('懂', 'VV'), ('为什么', 'VV')]
+2026-11-09 22:06:49,161  INFO     TAGGED    '我真的搞不懂为什么。' (level 5, 7 tags)
+2026-11-09 22:06:49,169  INFO     OK        hanlp-valid   '你为什么不安静？' -> [('你', 'PN'), ('为什么', 'AD'), ('不', 'AD'), ('安静', 'VA')]
+2026-11-09 22:06:49,171  INFO     TAGGED    '你为什么不安静？' (level 3, 4 tags)
+2026-11-09 22:06:49,179  INFO     OK        hanlp-valid   '“你为什么跑这么快？”—“我得上火车。”' -> [('你', 'PN'), ('为什么', 'AD'), ('跑', 'VV'), ('这么', 'AD'), ('快', 'VA'), ('我', 'PN'), ('得', 'VV'), ('上', 'VV'), ('火车', 'NN')]
+2026-11-09 22:06:49,181  INFO     TAGGED    '“你为什么跑这么快？”—“我得上火车。”' (level 2, 9 tags)
+2026-11-09 22:06:49,189  INFO     FALLBACK  '我想知道为什么汤姆要我们那样做。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:06:49,190  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('想', 'VV'), ('知道', 'VV'), ('为什么', 'AD'), ('汤姆', 'NN'), ('要', 'VV'), ('我们', 'PN'), ('那样', 'AD'), ('做', 'VV')]
+2026-11-09 22:06:49,191  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:49,193  INFO     TAGGED    '我想知道为什么汤姆要我们那样做。' (level 10, 9 tags)
+2026-11-09 22:06:49,201  INFO     FALLBACK  '我要知道为什么汤姆要我们那样做。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:06:49,201  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('要', 'VV'), ('知道', 'VV'), ('为什么', 'AD'), ('汤姆', 'NN'), ('要', 'VV'), ('我们', 'PN'), ('那样', 'AD'), ('做', 'VV')]
+2026-11-09 22:06:49,203  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:49,204  INFO     TAGGED    '我要知道为什么汤姆要我们那样做。' (level 10, 9 tags)
+2026-11-09 22:06:49,212  INFO     FALLBACK  '我想知道汤姆为什么要我们那样做。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:06:49,212  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('想', 'VV'), ('知道', 'VV'), ('汤姆', 'NN'), ('为什么', 'AD'), ('要', 'VV'), ('我们', 'PN'), ('那样', 'AD'), ('做', 'VV')]
+2026-11-09 22:06:49,214  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:49,215  INFO     TAGGED    '我想知道汤姆为什么要我们那样做。' (level 10, 9 tags)
+2026-11-09 22:06:49,223  INFO     FALLBACK  '我要知道汤姆为什么要我们那样做。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:06:49,223  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('要', 'VV'), ('知道', 'VV'), ('汤姆', 'NN'), ('为什么', 'AD'), ('要', 'VV'), ('我们', 'PN'), ('那样', 'AD'), ('做', 'VV')]
+2026-11-09 22:06:49,225  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:49,227  INFO     TAGGED    '我要知道汤姆为什么要我们那样做。' (level 10, 9 tags)
+2026-11-09 22:06:49,235  INFO     OK        hanlp-valid   '你为什么想学习那门语言？' -> [('你', 'PN'), ('为什么', 'AD'), ('想', 'VV'), ('学习', 'VV'), ('那', 'DT'), ('门', 'M'), ('语言', 'NN')]
+2026-11-09 22:06:49,236  INFO     TAGGED    '你为什么想学习那门语言？' (level 3, 7 tags)
+2026-11-09 22:06:49,244  INFO     FALLBACK  '我想知道汤姆为什么要那样做。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:06:49,244  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('想', 'VV'), ('知道', 'VV'), ('汤姆', 'NN'), ('为什么', 'AD'), ('要', 'VV'), ('那样', 'AD'), ('做', 'VV')]
+2026-11-09 22:06:49,246  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:49,247  INFO     TAGGED    '我想知道汤姆为什么要那样做。' (level 10, 8 tags)
+2026-11-09 22:06:49,255  INFO     FALLBACK  '我不知道汤姆为什么会这么做。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:06:49,255  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('不', 'AD'), ('知道', 'VV'), ('汤姆', 'NN'), ('为什么', 'AD'), ('会', 'VV'), ('这么', 'AD'), ('做', 'VV')]
+2026-11-09 22:06:49,256  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:49,258  INFO     TAGGED    '我不知道汤姆为什么会这么做。' (level 10, 8 tags)
+2026-11-09 22:06:49,265  INFO     FALLBACK  '为什么我要帮汤姆？' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:06:49,265  INFO       CACHE-ONLY resegmentation -> [('为什么', 'AD'), ('我', 'PN'), ('要', 'VV'), ('帮', 'VV'), ('汤姆', 'NN')]
+2026-11-09 22:06:49,267  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:49,268  INFO     TAGGED    '为什么我要帮汤姆？' (level 10, 5 tags)
+2026-11-09 22:06:49,276  INFO     OK        hanlp-valid   '为什么没写作业？快说！' -> [('为什么', 'AD'), ('没', 'AD'), ('写', 'VV'), ('作业', 'NN'), ('快', 'AD'), ('说', 'VV')]
+2026-11-09 22:06:49,277  INFO     TAGGED    '为什么没写作业？快说！' (level 3, 6 tags)
+2026-11-09 22:06:49,285  INFO     OK        hanlp-valid   '为什么选择这所学校？' -> [('为什么', 'AD'), ('选择', 'VV'), ('这', 'DT'), ('所', 'M'), ('学校', 'NN')]
+2026-11-09 22:06:49,286  INFO     TAGGED    '为什么选择这所学校？' (level 5, 5 tags)
+2026-11-09 22:06:49,294  INFO     FALLBACK  '你为什么觉得汤姆会这么做？' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:06:49,294  INFO       CACHE-ONLY resegmentation -> [('你', 'PN'), ('为什么', 'AD'), ('觉得', 'VV'), ('汤姆', 'NN'), ('会', 'VV'), ('这么', 'AD'), ('做', 'VV')]
+2026-11-09 22:06:49,296  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:49,297  INFO     TAGGED    '你为什么觉得汤姆会这么做？' (level 10, 7 tags)
+2026-11-09 22:06:49,304  INFO     FALLBACK  '为什么锅子里会有电瓶？' -- out-of-list word(s): ['锅子', '电瓶']
+2026-11-09 22:06:49,304  WARNING    HAIKU resegment call for '为什么锅子里会有电瓶？' (cache miss on [('锅子', 'NN'), ('电瓶', 'NN')])
+2026-11-09 22:06:49,319  INFO     TAGGED    '为什么锅子里会有电瓶？' (level 10, 8 tags)
+2026-11-09 22:06:49,326  INFO     OK        hanlp-valid   '你今天早上为什么心情这么差？' -> [('你', 'PN'), ('今天', 'NT'), ('早上', 'NT'), ('为什么', 'AD'), ('心情', 'NN'), ('这么', 'AD'), ('差', 'VA')]
+2026-11-09 22:06:49,328  INFO     TAGGED    '你今天早上为什么心情这么差？' (level 4, 7 tags)
+2026-11-09 22:06:49,336  INFO     OK        hanlp-valid   '猪为什么都那么肥？' -> [('猪', 'NN'), ('为什么', 'AD'), ('都', 'AD'), ('那么', 'AD'), ('肥', 'VA')]
+2026-11-09 22:06:49,337  INFO     TAGGED    '猪为什么都那么肥？' (level 6, 5 tags)
+2026-11-09 22:06:49,345  INFO     OK        hanlp-valid   '为什么要责怪我们？' -> [('为什么', 'AD'), ('要', 'VV'), ('责怪', 'VV'), ('我们', 'PN')]
+2026-11-09 22:06:49,346  INFO     TAGGED    '为什么要责怪我们？' (level 7, 4 tags)
+2026-11-09 22:06:49,353  INFO     OK        hanlp-valid   '为什么要怪到我们头上？' -> [('为什么', 'AD'), ('要', 'VV'), ('怪', 'VV'), ('到', 'VV'), ('我们', 'PN'), ('头', 'NN'), ('上', 'LC')]
+2026-11-09 22:06:49,355  INFO     TAGGED    '为什么要怪到我们头上？' (level 5, 7 tags)
+2026-11-09 22:06:49,363  INFO     FALLBACK  '我想知道汤姆为什么昨天没有来。' -- out-of-list word(s): ['汤姆']
+2026-11-09 22:06:49,363  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('想', 'VV'), ('知道', 'VV'), ('汤姆', 'NN'), ('为什么', 'AD'), ('昨天', 'NT'), ('没有', 'AD'), ('来', 'VV')]
+2026-11-09 22:06:49,365  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:49,366  INFO     TAGGED    '我想知道汤姆为什么昨天没有来。' (level 10, 8 tags)
+2026-11-09 22:06:49,374  INFO     OK        hanlp-valid   '为什么你不叫你的父母给你买车？' -> [('为什么', 'AD'), ('你', 'PN'), ('不', 'AD'), ('叫', 'VV'), ('你', 'PN'), ('的', 'DEG'), ('父母', 'NN'), ('给', 'P'), ('你', 'PN'), ('买', 'VV'), ('车', 'NN')]
+2026-11-09 22:06:49,376  INFO     TAGGED    '为什么你不叫你的父母给你买车？' (level 4, 11 tags)
+2026-11-09 22:06:49,384  INFO     FALLBACK  '为什么不去波士顿？' -- out-of-list word(s): ['波士顿']
+2026-11-09 22:06:49,384  WARNING    HAIKU resegment call for '为什么不去波士顿？' (cache miss on [('波士顿', 'NR')])
+2026-11-09 22:06:49,392  INFO       NON-LIST 波士顿 (NR) -> '(name) bo1shi4dun4' [proper_noun]
+2026-11-09 22:06:49,392  INFO     TAGGED    '为什么不去波士顿？' (level 2, 4 tags)
+2026-11-09 22:06:49,400  INFO     FALLBACK  '咖啡馆的三明治怎么样？' -- out-of-list word(s): ['咖啡馆']
+2026-11-09 22:06:49,400  WARNING    HAIKU resegment call for '咖啡馆的三明治怎么样？' (cache miss on [('咖啡馆', 'NN')])
+2026-11-09 22:06:49,408  INFO       NON-LIST 咖啡馆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 22:06:49,409  INFO     TAGGED    '咖啡馆的三明治怎么样？' (level 10, 4 tags)
+2026-11-09 22:06:49,416  INFO     OK        hanlp-valid   '你为什么站着？' -> [('你', 'PN'), ('为什么', 'AD'), ('站', 'VV'), ('着', 'AS')]
+2026-11-09 22:06:49,417  INFO     TAGGED    '你为什么站着？' (level 2, 4 tags)
+2026-11-09 22:06:49,425  INFO     OK        hanlp-valid   '那你为什么不报警呢？' -> [('那', 'AD'), ('你', 'PN'), ('为什么', 'AD'), ('不', 'AD'), ('报警', 'VV'), ('呢', 'SP')]
+2026-11-09 22:06:49,427  INFO     TAGGED    '那你为什么不报警呢？' (level 5, 6 tags)

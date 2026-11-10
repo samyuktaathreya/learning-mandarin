@@ -1,0 +1,17 @@
+## 2-67
+**Point:** Conditional complex sentence 只要……，就……: "as long as / whenever A, then B". A is a sufficient condition for B.
+
+**Covers:** 只要 opens the condition clause, and 就 (tagged AD) appears later, in the same clause or in a following clause, to introduce the result. Examples: 只要你努力学习，就会有进步。 只要下雨，她就会心情不好。 只要有你在，我就放心了。
+
+**Does not cover:** 就 uses with no 只要 before them: 如果/要是/假如/既然……就, 一……就, 再不……就, 就要……了, 就是/就算, 就 as a preposition (就……问题), 就 meaning "only", and X就X patterns. Sentences with 只要 but no 就 are also excluded, for example 只要 used as a plain "only need" verb phrase, or 只有……才……. The rule is also meant to skip 只要 sentences where 就 is only a fixed 就是/就算.
+
+```rule
+match: 只要/CS ... 就/AD
+match: 只要/CS ... ‖ ... 就/AD
+unless: 只要/CS ... 就/P
+unless: 只要/CS ... 就是|就算|就要/AD
+unless: 只要/CS ... 一/AD ... 就/AD
+unless: 只要/CS ... 再/AD 不/AD
+```
+
+**Notes:** 只要 is tagged CS in the labeled examples, so the rule requires that tag, which avoids 只要 used as a verb phrase ("only want"). Because patterns match within a single clause, the "‖" line is only a placeholder: I am unsure whether the engine accepts a clause break inside a pattern. If it does not, the first line already covers the same-clause case (只要 and 就 in one clause). Cross-clause cases may then need `只要/CS ...` plus a separate check for 就 at the start of the next clause, which this syntax does not express. An editor should test on the 12 positive examples. The unless lines are a conservative guard: they drop sentences where 就 is followed by 是/算/要 or where a 一……就 or 再不……就 pattern appears. They can also drop a few valid sentences, which is acceptable under the precision-first goal.

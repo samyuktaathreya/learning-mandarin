@@ -1,0 +1,233 @@
+
+########## rules  2026-11-09 21:39 ##########
+13 page(s) use the word(s); asking about 13.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGWAR65  Expressing "had better" with "haishi"
+
+not:
+  ASGA8NIB  Offering choices with "haishi"
+  ASGQJ5IC  Comparing "haishi" and "huozhe"
+  ASGIRILI  Continuation with "hai"
+  ASGW7YXP  Softening the tone of questions with "ne"
+  ASG0NDS6  Expressing "no matter" with "buguan"
+  ASGF08B6  Repeated actions in the past with "you"
+  ASGW863F  Expressing "although" with "jinguan"
+
+unsure:
+
+unrelated:
+  ASGDHC1H  Softening speech with "ba"
+  ASGELOTT  Reviewing options with "ba"
+  ASGJIP2E  Conceding with "ba"
+  ASGMPZ6D  Suggestions with "ba"
+  ASG8QS6H  Advanced_uses_of_"zong"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-45
+Tagging 4 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213932.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-45
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing "had better" with 还是...吧 (háishì...ba)
+**Covers:** Suggesting a course of action after deliberation, with 还是 as an adverb meaning "had better" or "it would be better to", optionally followed by 吧. Includes negative suggestions (别/不 + verb) where 吧 may be omitted.
+**Does not cover:** 还是 as a coordinating conjunction offering choices (Option A 还是 Option B?); 还是 expressing continuation or "still" (with 尽管, 又, etc.); 还是 in fixed expressions like "我还是他" or repeated action patterns (了又); other grammar points using 吧 without 还是.
+
+```rule
+match: 还是/AD ... /VV
+match: 还是/AD /AD _ /VV
+match: 还是/AD _ /VV ... 吧/SP
+match: 还是/AD /AD /VV ... 吧/SP
+match: 还是/AD /AD /P
+unless: ^ ... 还是/CC
+unless: 尽管/CS
+unless: 了/AS 又/AD|CC
+unless: 又/AD|CC ... 还是/AD
+unless: 但是/CC|AD ... 还是/AD
+unless: 可是/AD ... 还是/AD
+unless: /CS ... 还是/AD
+unless: 还是/AD _ /PN
+unless: 还是/AD /VA 的/DEC
+unless: 呢/SP ... 还是/AD
+unless: 不要/AD ... 还是/AD
+unless: 想/VV ... 还是/AD ... /PN
+```
+
+**Notes:** The core pattern is 还是/AD followed by a verb phrase (starting with VV, or with optional adverbial modifiers before VV, or with a preposition). The "unless" clauses exclude: (1) 还是 as coordinating conjunction (tagged CC); (2) patterns with preceding conjunctions (尽管, 但是, 可是, CS) that indicate "although" or consequence, not deliberation; (3) the "repeated action + 还是" pattern (了又 or 又); (4) certain question-like structures (呢, 的, or pronoun objects that indicate choice questions rather than suggestions). The pattern allows for adverbial modifiers (快点/先/别) and prepositional phrases (在/跟) between 还是 and the main verb. Optional 吧 at end indicates a suggestion, but negative commands may omit it.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-45
+Tagging 4 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-45: rule on labeled examples (no AI) ===
+  examples of 2-45 matched:    11/12
+  counter-examples wrongly matched: 0/36   <- should be 0
+
+--- examples of 2-45 the rule misses (1) ---
+  她不想说，还是不要再问了。  -- ASGWAR65 Expressing "had better" with "haishi"
+
+########## tatoeba  2026-11-09 22:10 ##########
+Filling 2-45 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  坐下 = 坐 + 下  (to sit down)
+
+Course sentences at HSK 2 the rule already finds 2-45 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-45 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      468  2. contain the point's word(s)
+      467  3. new (not in DB, not a duplicate)
+      306  4. at most 2 characters outside HSK 2 words
+       86  5. really HSK 2
+       86  5b. no harder grammar point (of the 20 with a rule)
+        2  6. the rule finds 2-45
+        1  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-45, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  你还是去看病吧。  (You'd better see a doctor.)  [tatoeba 395058]
+
+--- dropped at step 3 (1) ---
+  我们开始吧。  -- same text as tatoeba 7767999 (translations pooled)
+
+--- dropped at step 4 (161), first 12 ---
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  你如果能利用重力，那就这么做吧。  -- 5 characters no HSK 2 word uses: 利力如用重
+  胡萝卜我来切吧。  -- 4 characters no HSK 2 word uses: 切卜胡萝
+  可能是发生交通事故了吧。  -- 3 characters no HSK 2 word uses: 发故通
+  尽管他考试成绩不高，但他毕业后还是很成功。  -- 7 characters no HSK 2 word uses: 业功尽成毕管绩
+  这里人太多了。咱们换个地方吧。  -- 3 characters no HSK 2 word uses: 咱换方
+  从这来看，你能因此论定女权主义还是必要的。  -- 7 characters no HSK 2 word uses: 主义定必权此论
+  来玩捉迷藏吧！  -- 3 characters no HSK 2 word uses: 捉藏迷
+  玩乐还是读书，全在你一念之间。  -- 3 characters no HSK 2 word uses: 之全念
+  摄氏零度时水会结冰，对吧？  -- 5 characters no HSK 2 word uses: 冰度摄氏结
+  「我已经找到令他嫉妒的方法了。」「喔，说吧！」  -- 6 characters no HSK 2 word uses: 令喔妒嫉方法
+  庄子曾梦见自己化身为蝶，当他醒来，他分不清是自己刚刚梦见自己变成蝴蝶呢，还是蝴蝶正梦见它变成了庄子。  -- 12 characters no HSK 2 word uses: 刚化变庄当成曾梦清蝴蝶醒
+
+--- dropped at step 5 (220), first 12 ---
+  雨，雨，快点消失吧。  -- level 5: 消失 L5
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list)
+  你自己应该知道吧。  -- level 3: 应该 L3
+  你还是留在这儿吧。  -- level 4: 留 L4
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  您也来参加吧！  -- level 3: 参加 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  也许下一次吧。  -- level 4: 也许 L4
+  他一到，咱们就走了吧。  -- level 3: 咱们 L3
+  他们可能在等交警吧。  -- level 4: 交警 L4
+  不喝酒的男人还是男人吗？  -- level 3: 酒 L3, 男人 L3
+
+--- dropped at step 6 (84) ---
+  我休息一会没问题吧？  -- rule: no match: line matched
+  让我去商店吧。  -- rule: no match: line matched
+  你不忙，对吧？  -- rule: no match: line matched
+  让我们开始吧。  -- rule: no match: line matched
+  肉还是鱼？  -- rule: no match: line matched
+  现在，让我们休息一会儿吧。  -- rule: no match: line matched
+  你吃面条还是吃饭？  -- rule: no match: line matched
+  下雨也没关系，我还是可以去。  -- rule: no match: line matched
+  你在这里是要见谁吧？  -- rule: no match: line matched
+  那个包是你的还是他的？  -- rule: no match: line matched
+  咖啡还是茶？  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  我知道你还是想我的。  -- rule: no match: line matched
+  你喜欢什么就拿吧。  -- rule: no match: line matched
+  我到现在还是不知道你的名字。  -- rule: no match: line matched
+  我不知道今天是星期二还是星期三。  -- rule: no match: line matched
+  您是老师，还是学生？  -- rule: no match: line matched
+  这是猫还是狗？  -- rule: no match: line matched
+  我不知道他比我大还是小。  -- rule: no match: line matched
+  我们打车去吧！  -- rule: no match: line matched
+  忘了今天的事儿吧。  -- rule: no match: line matched
+  来吧。我想让你看点东西。  -- rule: no match: line matched
+  还是要说谢谢的。  -- rule: no match: line matched
+  拿走吧。  -- rule: no match: line matched
+  什么时候想来就过来吧。  -- rule: no match: line matched
+  一起吃晚饭吧。  -- rule: no match: line matched
+  我们现在就去医院吧。  -- rule: no match: line matched
+  我知道你还是想跟我一起。  -- rule: no match: line matched
+  我们走走吧。  -- rule: no match: line matched
+  我还是你的朋友。  -- rule: no match: line matched
+  来跟我喝茶吧。  -- rule: no match: line matched
+  我们还是要告诉他们。  -- rule: no match: line matched
+  让我们现在忘了它吧。  -- rule: no match: line matched
+  现在出去玩吧。  -- rule: no match: line matched
+  让我送你到车站吧。  -- rule: no match: line matched
+  这牛奶是冷的还是热的？  -- rule: no match: line matched
+  就让汤姆说吧。  -- rule: no match: line matched
+  您十一点时来看我吧。  -- rule: no match: line matched
+  我们开始吧。  -- rule: no match: line matched
+  我不知道，你睡觉去吧！  -- rule: no match: line matched
+  给我看下它吧。  -- rule: no match: line matched
+  帮帮我们吧！  -- rule: no match: line matched
+  她还是个孩子的时候，唱歌很好听。  -- rule: no match: line matched
+  我们一起玩吧！  -- rule: no match: line matched
+  你要吃面条还是吃米饭？  -- rule: no match: line matched
+  你喜欢雨对吧？  -- rule: no match: line matched
+  去洗洗吧。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  想吃什么就吃什么吧。  -- rule: no match: line matched
+  是儿子还是女儿？  -- rule: no match: line matched
+  那不对，对吧？  -- rule: no match: line matched
+  今天天气不错，出去走走吧。  -- rule: no match: line matched
+  都四月了天气怎么还是这么冷？  -- rule: no match: line matched
+  你懂吗？可能吧。  -- rule: no match: line matched
+  可能明天吧。  -- rule: no match: line matched
+  你没事吧？  -- rule: no match: line matched
+  我们去踢足球吧！  -- rule: no match: line matched
+  你会去问他们，对吧？  -- rule: no match: line matched
+  明天是星期一吧？  -- rule: no match: line matched
+  今天我们住酒店吧。  -- rule: no match: line matched
+  出来吧！  -- rule: no match: line matched
+  快点去吧！  -- rule: no match: line matched
+  我看看明天能不能吧。  -- rule: no match: line matched
+  让我们开始吧！  -- rule: no match: line matched
+  要咖啡还是茶？  -- rule: no match: line matched
+  很贵吧？  -- rule: no match: line matched
+  跟他们走吧。  -- rule: no match: line matched
+  一起学习吧！  -- rule: no match: line matched
+  你喜欢苹果吧？  -- rule: no match: line matched
+  「您想要茶还是咖啡？」「咖啡，谢谢。」  -- rule: no match: line matched
+  汤姆不是这里的老师吧？  -- rule: no match: line matched
+  快来吧，我真的很想见你。  -- rule: no match: line matched
+  快来吧，我真的很想见你们。  -- rule: no match: line matched
+  他是你的朋友吧？  -- rule: no match: line matched
+  她会帮我们吧？  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: no match: line matched
+  她不在那里吧？  -- rule: no match: line matched
+  我还是希望哪天能做那件事。  -- rule: no match: line matched
+  我还是没有手机。  -- rule: no match: line matched
+  我想你不会那么做的吧。  -- rule: no match: line matched
+  “都几点了？早点睡吧。”“你不也没睡？”  -- rule: no match: line matched
+  你想做也还是可以做。  -- rule: no match: line matched
+  她不是非常高吧？  -- rule: no match: line matched
+  休息一下吧。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我们还是在这里坐下吧。  -- hidden word a learner can't work out: 坐下 (to sit down)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-45_level2_20261109_221048.csv

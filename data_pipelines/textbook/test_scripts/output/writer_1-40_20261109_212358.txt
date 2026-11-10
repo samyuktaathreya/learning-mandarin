@@ -1,0 +1,30 @@
+## 1-40
+**Point:** Change of state with 了 (le) - indicating a new situation or change in state
+**Covers:** Sentences where 了 appears sentence-finally (tagged SP) after a verb or adjective to indicate a change of state, including: (1) new situations with verbs or adjectives; (2) negated situations indicating "not anymore"; (3) idiomatic expressions meaning "now"
+**Does not cover:** 了 used for completion after an object, duration expressions, potential complements, complement constructions, or questions with 了吗
+
+```rule
+match: ... /VA /SP$
+match: ... /VV /SP$
+match: ... /AD 不/AD /VV /SP$
+match: ... /AD 没有/VE /SP$
+match: ... /VE _ /SP$
+unless: _ /SP 吗/SP
+unless: /VV /AS _ /NN
+unless: /VV /AS /M /NN
+unless: /VV /AS /CD /M /NN
+unless: /VV /AS /CD /M /NT /DEG /NN
+unless: /VV /AS /NT /NT /DEG /NN
+unless: /VV /AS /DT /M /NN
+unless: /VV /VV /AS
+unless: /VA /AS 点/CD
+unless: /VA 极/AD /SP
+unless: /VA 死/VV /AS
+unless: /VA 死/VV /SP
+unless: /VV 完/VV /AS
+unless: /VV /VV /AS
+unless: /VV 过/AS /SP
+unless: /AD 别/AD /VV /AS
+```
+
+**Notes:** The rule prioritizes matching sentence-final 了 tagged as SP (not AS). It excludes object-bearing completion patterns, duration expressions with time measures, result complements (坏了, 死了, 完了 when tagged AS), potential complements, 了吗 questions, and 极了 constructions. The negation patterns match 不/AD + verb + 了 and 没有/VE + noun + 了 structures common in "not anymore" expressions.

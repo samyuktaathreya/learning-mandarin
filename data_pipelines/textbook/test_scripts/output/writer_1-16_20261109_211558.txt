@@ -1,0 +1,32 @@
+## 1-16
+**Point:** Using 在 (zài) to indicate location of actions, existence, or position
+
+**Covers:** 
+- Location before verb: 在 + place + verb (哥哥在北京学中文)
+- Existence at location: subject + 在 + place (我在上海)
+- Location after special verbs (住/坐/站/放): verb + 在 + place (你住在上海吗)
+- Location with localizers (上/下/里/旁边): 在 + place + localizer (在桌子上)
+
+**Does not cover:**
+- Progressive aspect (在 as adverb with 正在): 她在看书 (expresses ongoing action, not location)
+- 在于 (zàiyú, "lies in"): 成功在于坚持
+- 早在 (zǎozài, "as early as"): 早在1942年就...
+- 在...内 (time period): 在三年内
+- 在...看来 (perspective): 在他看来
+- 包括...在内 (including): 包括我在内
+
+```rule
+match: 在/P ... /NN|NR
+match: 在/P ... /LC
+match: /NN|NR|PN .* /VV 在/P .* /NN|NR|LC
+match: /NN|NR|PN 在/VV /NN|NR|LC
+unless: 早/AD 在/P
+unless: 在/P .* 看来/VV
+unless: 包括/VV .* 在/P
+unless: 在于/VV
+unless: 内/P
+unless: 正在/AD
+unless: 在/AD /VV
+```
+
+**Notes:** The rule distinguishes 在 as preposition (P) before location vs. 在 as verb (VV) for existence. Progressive aspect (在 as adverb tagged AD) is explicitly excluded. Time expressions with 内 are excluded by checking for /P tagged 内. The pattern allows for localizers (上/下/里/旁边) tagged as LC, NN, or other location indicators following the place noun.

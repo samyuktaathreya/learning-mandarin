@@ -1,0 +1,11 @@
+## 1-19
+**Point:** Coordinating conjunctions 和, 跟, 还是 to link nouns, express "with," or offer choices
+**Covers:** (1) 和 linking nouns as "and"; (2) 跟 as preposition meaning "with" in action; (3) 还是 in yes/no or choice questions
+**Does not cover:** 一样 comparisons, 比 comparisons, 似的 similarity, 有关 relatedness, continuation/persistence with 还是/还, 差不多/差很多 approximations, "had better" with 还是...吧, "follow/go with" verb uses of 跟, "tell" uses of 跟/对
+
+```rule
+match: /CC
+unless: 一样/VA ... /CC | /CC ... 一样/VA | 比/VV ... /CC | /CC ... 比/VV | 似的/AD | 有关/VV | ... 差/VV | /CC ... 差/VV | /CC ... 吧/SP | ^/CC ... /CC$ | 还是/AD | 跟/VV | 和/P ... 一起/AD | 和/P ... 说/VV | 对/P ... 说/VV | 和/P ... 比 | 跟/P ... 比 | 和/P ... 有关 | 跟/P ... 有关
+```
+
+**Notes:** The rule matches any coordinating conjunction (和/CC, 跟/CC, 还是/CC, 或者/CC). Unless lines exclude non-target uses: comparisons with 一样, 比, or 似的; relatedness with 有关; approximations with 差; "had better" endings with 吧; 还是 as adverb (continuation); 跟/和 as prepositions for "tell," "with someone," or comparisons; 和/跟 tagged as P in "with" contexts. When 和/跟 link nouns for "and," they're tagged CC. When they're prepositions for "with" or "tell," they're tagged P and should be excluded.

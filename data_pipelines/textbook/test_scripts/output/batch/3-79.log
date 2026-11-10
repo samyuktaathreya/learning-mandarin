@@ -1,0 +1,98 @@
+
+########## rules  2026-11-09 21:56 ##########
+90 page(s) use the word(s); asking about 40.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGT1CIR  Expressing "already" with "dou"
+
+not:
+  ASG13ALM  Expressing "every" with question words
+  ASG8GSXY  Using "ye" and "dou" together
+  ASG9YK09  The "all" adverb "dou"
+  ASGHFPGG  Expressing "except" and "in addition" with "chule… yiwai"
+  ASGWNEYM  Emphasizing quantity with "dou"
+  ASG0NDS6  Expressing "no matter" with "buguan"
+  ASG3ZS9G  Expressing "let alone" with "hekuang"
+  ASG6ZI8L  Expressing "no matter" with "wulun"
+  ASG8KUHG  Expressing "always" with "conglai"
+  ASGAQV6C  Expressing "everything" with "shenme dou"
+  ASGCPDSR  Indicating the whole with "quan"
+  ASGHOI8S  Expressing "let alone" with "geng buyong shuo"
+  ASGNP0WV  Expressing "even" with "lian" and "dou"
+
+unsure:
+  ASGQFW44  Advanced_uses_of_"dou"
+
+unrelated:
+  ASG3IR71  Expressing "can't do without" with "shaobuliao"
+  ASG4K5WH  Advanced "le" after an object
+  ASG516F9  Advanced potential complements
+  ASG69RR8  Expressing ongoing duration with double "le"
+  ASG890CA  Advanced "le" with complements
+  ASGAGDCQ  Expressing completion with "le"
+  ASGE5Q4J  Expressing "now" with "le"
+  ASGFR96B  Expressing "not anymore" with "le"
+  ASGJ36VN  Expressing duration with "le"
+  ASGM055L  Expressing "already" with just "le"
+  ASGQGJXT  Expressing purpose with "weile"
+  ASGT185D  Change of state with "le"
+  ASGVME5V  Adjectives with "-ji le"
+  ASGYKDNF  Questions with "le ma"
+  ASG44TBS  Expressing "thanks to" with "duokui"
+  ASG49BE6  Expressing "enough" with "gou"
+  ASG6509E  Explaining purpose with "wei... er..."
+  ASG79STE  Degree complement
+  ASG7AUNJ  Using "zhe" when "verbing away"
+  ASG8HVFN  Expressing "excessively" with "tai"
+  ASG9E5BB  Advanced degree complements
+  ASGB8BWA  Adjectival complement "de budeliao"
+  ASGEHTV5  Expressing "a bit too"
+  ASGLEVUV  Negative adjectives with "-si le"
+  ASGNGEU8  Expressing "about to happen" with "le"
+
+[note] ASGT1CIR is tagged HSK [2] on the wiki, the point is HSK 3 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 3-79
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215623.txt
+  ...100/169
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 3-79, rule line 2: unknown tag(s) 别/AD, 还在/AD in '还/AD|还在/AD|别/AD' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_3-79_20261109_215631.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-79
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing "already" with 都⋯⋯了, used emphatically to indicate something has happened and often implying the speaker's attitude
+**Covers:** Sentences with the structure 都 + [time/predicate] + 了, where 都 appears before a time expression, adjective, or verb phrase, and 了 appears after it
+**Does not cover:** Other uses of 都 (universal quantifier "all/every", co-occurrence with 也, "except" with 除了, emphasis with question words, "no matter" with 不管/无论, "let alone" with 连/何况, "always" with 从来, "everything" with 什么都)
+
+```rule
+match: 都/AD ... 了/SP|AS $
+unless: 什么|谁|哪|怎么|哪儿|哪里|何况|从来|不管|无论|除了|连|全|每|一.*也|一.*都|也都|全都
+```
+
+**Notes:** The rule matches 都 followed eventually by 了 at the end of a clause. The unless clause excludes other grammar patterns that contain 都 and 了 but serve different functions: question words (什么/谁/哪/怎么/哪儿/哪里), "let alone" structures (何况/连), "always" (从来), "no matter" (不管/无论/怎么), "except" (除了), plural/quantifier forms (全/每/全都), and "also/both" constructions (也都/一...也/一...都). This precision-first approach may miss some borderline cases but avoids false positives.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-79
+Tagging 2 labeled example(s) (cached after this run)...
+  ...100/169
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-79: rule on labeled examples (no AI) ===
+  examples of 3-79 matched:    0/12
+  counter-examples wrongly matched: 0/157   <- should be 0
+
+--- examples of 3-79 the rule misses (12) ---
+  都九点了，快点起床！  -- ASGT1CIR Expressing "already" with "dou"
+  都十二点了，你还不睡？  -- ASGT1CIR Expressing "already" with "dou"
+  都二十一世纪了，你还这么想？  -- ASGT1CIR Expressing "already" with "dou"
+  都一个小时了，他还在厕所里。  -- ASGT1CIR Expressing "already" with "dou"
+  都一个星期了，还在下雨。  -- ASGT1CIR Expressing "already" with "dou"
+  饭都凉了，快吃吧。  -- ASGT1CIR Expressing "already" with "dou"
+  牛奶都坏了，扔掉吧。  -- ASGT1CIR Expressing "already" with "dou"
+  我都说了三遍了。别烦我！  -- ASGT1CIR Expressing "already" with "dou"
+  这个电影你都看过了，看别的吧。  -- ASGT1CIR Expressing "already" with "dou"
+  他都道歉了，你别生气了。  -- ASGT1CIR Expressing "already" with "dou"
+  都十一点了，你别看电视了。  -- HSK list example
+  都三天了，他怎么还没回来？  -- HSK list example

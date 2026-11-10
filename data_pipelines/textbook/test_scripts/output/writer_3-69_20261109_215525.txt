@@ -1,0 +1,20 @@
+## 3-69
+**Point:** Expressing "if… then…" with 要是/要/要不是 and 就
+**Covers:** Conditional sentences with 要是 (or 要 when subject precedes) introducing a condition and 就 introducing the result; also 要不是 (if it weren't for) constructions
+**Does not cover:** Uses of 就 as a simple adverb of time/manner without a conditional structure; 就是 used for emphasis or identification; 要 as a standalone modal verb; other conditional structures like 只要, 假如, 万一, 一旦, etc.
+
+```rule
+match: (要是|要不是)/CS ... 就/AD
+match: _? 要是/CS ... 就/AD
+match: _? 要/CS _ _ 就/AD
+unless: 就/AD 是/VC
+unless: 就是/AD
+```
+
+**Notes:** 
+- The pattern must span exactly TWO clauses (separated by punctuation): the condition clause contains 要是/要不是/要, and the result clause contains 就
+- When a subject precedes 要是, the sentence can use 要/CS instead (e.g., 你要是来 or 你要来)
+- The construction 要我说 (if you ask me) counts as this pattern even without an explicit second clause with 就, as it's a recognized fixed expression
+- Exclude sentences where 就是 appears as a unit (whether tagged as two words or one), as these are emphasis or identification uses
+- Do not match sentences with 就 appearing in isolation without a preceding conditional 要是/要/要不是 structure
+- The unlabeled example "若下雨，我就不去" shows 若 is used for similar meaning but is a different HSK point (not 要是)

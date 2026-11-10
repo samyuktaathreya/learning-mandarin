@@ -1,0 +1,16 @@
+## 4-24
+**Point:** Expressing "one by one" or "gradually" with the pattern 一 + Measure Word + 一 + Measure Word
+**Covers:** Repetition of "一 + measure word" to mean "one by one", "little by little", "gradually", or "again and again"; includes optional 又 between the two parts; can be used with time units (day, year), classifiers (个, 次, 遍, 针, 线), or other measure words; the pattern describes how an action is performed or indicates the action repeats
+**Does not cover:** Single instances of 一 + measure word (e.g., 一下, 一些, 一点); adverbial uses of 一向, 一直, 一再, 一定, 一律, 一起, 一旦; "一下子" (suddenly); "之一" (one of); "一样" (same as); other 一-based expressions that are not repeated measure word patterns
+
+```rule
+match: CD M CD M
+match: CD M AD CD M
+unless: AD
+unless: CS
+unless: VC
+unless: VE
+unless: SP
+```
+
+**Notes:** The rule matches the core pattern of CD (一) + M (measure word) + [optional AD (又)] + CD (一) + M (measure word). The pattern appears when 一 is tagged as CD (number) and the measure words are tagged as M. The unless clauses exclude sentences where 一 appears in other grammatical contexts: as an adverb (AD) when it's part of fixed expressions like 一向/一直/一再/一定/一律/一起/一旦, or with copulas/existential verbs (VC, VE) that would indicate a different construction. Sentence-final particles (SP) are excluded to avoid overlap with other patterns. Note that 一下 is typically tagged CD+M but is a counter-example (verb + 一下 = brief action); precision requires being cautious with very common measure words. The example "一五一十" is tagged as a single CD token, so it won't match this rule—but it's an acceptable miss given the priority on precision.

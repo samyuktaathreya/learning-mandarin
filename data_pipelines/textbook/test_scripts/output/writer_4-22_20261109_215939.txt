@@ -1,0 +1,27 @@
+## 4-22
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Sentence-final interjection 啊 (a) that adds a tone of urgency, exclamation, excitement, certainty, or concern. This also covers 啊 as a standalone interjection opening a sentence ("啊，我明白了。").
+
+**Covers:** 
+- 啊 tagged IJ at the start of a clause, as in "啊，你怎么在这里？".
+- Exclamatory 啊/SP closing a clause after a degree adverb plus adjective ("这里好漂亮啊！", "你家真大啊！", "学中文真难啊！", "好香啊！").
+- 啊/SP closing a short reply such as 对啊, 是啊, 行啊 or 可以啊.
+
+**Does not cover:** 
+- 啊 in enumeration/listing patterns (A啊，B啊，C啊), where 啊 follows a noun, name or verb phrase.
+- 啊 in "X什么啊" patterns.
+- 啊 in the middle of a clause.
+
+```rule
+match: ^ 啊/IJ
+match: 真|太|好|多|这么|那么/AD /VA 啊/SP $
+match: ^ 对|行|好|不错/VA 啊/SP $
+match: ^ 是/VC 啊/SP $
+match: ^ 可以/VV 啊/SP $
+```
+
+**Notes:** 
+- Rules match within a single clause, so the earlier `unless` lines that tried to span clauses with ‖ could never work, and I removed them. The earlier pattern `^啊/IJ` was written without a space after `^`, so it most likely failed to parse. It is now `^ 啊/IJ`.
+- The bare "啊/SP $" pattern is gone. It matched every listing example, because each list item ends its clause with 啊/SP and the rule cannot see neighbouring clauses.
+- Instead, the sentence-final matches require an exclamatory context: degree adverb + adjective, or a short affirmative reply at the start of the clause. Listing 啊 follows nouns, names or verb phrases (花生啊, 小王啊, 看视频啊), so it is not matched.
+- Some real sentence-final 啊 after other words will be missed. That is accepted in favour of precision.

@@ -1,0 +1,14 @@
+## 2-23
+**Point:** Using 向/朝/往 as a preposition meaning "towards" to indicate direction or target of an action
+**Covers:** Prepositional uses of 向, 朝, or 往 before a direction/person/place with a verb (walk towards, look at, apologize to, learn from, report to, etc.)
+**Does not cover:** Adverbial uses like 一向 (always) or 向来 (always/traditionally); uses where 向 is part of a verb compound like 转向; uses where 向 is a noun meaning direction/tendency
+
+```rule
+match: (向|朝|往)/P _ /VV
+match: (向|朝|往)/VV _ /VV
+unless: 一向/AD
+unless: 向来/AD
+unless: 转/VV 向/VV
+```
+
+**Notes:** The rule matches when a preposition (向/朝/往 tagged P) or verb form (向/朝/往 tagged VV in directional compounds) is followed by any word and then a verb. Counter-examples with 一向 and 向来 are excluded as these are adverbial time expressions. The pattern 转向 is excluded because it's a verb compound, not a preposition expressing "towards." Some sentences may tag 向/朝/往 as VV when they function as part of verb compounds (like 驶向, 飞向) but these still represent the target/direction meaning so they should match.

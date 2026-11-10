@@ -1,0 +1,32 @@
+## 3-60
+**Point:** The adverb 也 (yě) meaning "also" or "too", placed after the subject and before the verb/adjective to express that someone/something shares the same quality or action as another.
+
+**Covers:** 
+- Subject + 也 + Verb (他也喜欢。)
+- Subject + 也 + Adjective with 很 (他也很胖。)
+- Subject + 也 + 是 + Noun (我也是学生。)
+- Subject + 也 + Negation + Verb (我也不知道。)
+- Subject + 也 + Modal Verb + Verb (他们也会去吗？)
+- Simple parallel structures showing "also" relationship between two similar clauses
+
+**Does not cover:** 
+- Conditional/concessive structures (即使...也, 就算...也, 哪怕...也, etc.) where 也 means "still/even so" in a condition-consequence relationship
+- "Never again" with 再也不/没
+- 甚至连...也 (even/let alone structure)
+- 宁可...也 (rather...than structure)
+- 一点儿也不 (not at all)
+- 连...也 (even...as well)
+- 倒也 (contrariness)
+- Structures with preceding markers like 别说, 就是, 不但, etc.
+
+```rule
+match: /PN|NN|NR|DT _ ... 也/AD ... /VV|VA|VC|VE
+unless: 再/AD 也/AD
+unless: 甚至/AD
+unless: 宁可/AD
+unless: 连/AD
+unless: 一/CD _ 也/AD
+unless: 就算|就是|即使|哪怕|别|倒|不但|更|无论|不管/CS|AD|CC
+```
+
+**Notes:** The rule looks for a subject (pronoun, noun, proper noun, or determiner + noun), followed somewhere by 也/AD tagged as adverb, then a predicate (verb, adjective, copula, or 有). It excludes 再也 (which marks "never again"), and excludes sentences with preceding markers that indicate other grammar points (conditionals, concessions, contrasts, emphasis structures). The pattern is deliberately loose with `...` to allow adverbials like 很 between subject and main predicate. Exclude sentences with 再也 early to avoid the HSK 5-57 point.

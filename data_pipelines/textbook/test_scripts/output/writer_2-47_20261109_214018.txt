@@ -1,0 +1,44 @@
+## 2-47
+**Point:** Expressing time relationships with 以前/以后 (before/after) and their shortened forms 前/后
+**Covers:** 
+- Before a specific time or action using 以前/前 (yǐqián/qián): "Time/Verb + 以前, ..." or "在 + Verb + 以前, ..."
+- After a specific time or action using 以后/后 (yǐhòu/hòu): "Time/Verb + 以后, ..." or "在 + Verb + 以后, ..."
+- General past with 以前/前 at sentence start or after subject: "以前 + Subj + Verb" or "Subj + 以前 + Verb"
+- General future with 以后/后 at sentence start or after subject: "以后 + Subj + Verb" or "Subj + 以后 + Verb"
+
+**Does not cover:**
+- Location expressions with 在 (在...上/下/里/旁边, 你住在上海吗)
+- Existence/presence with 在 (我在家, 他不在学校)
+- Progressive aspect 在 (正在, 在读书)
+- 早在 "as early as" (different grammar point)
+- 在...内 "within a period" (different grammar point)
+- 在于 "lies in" (different grammar point)
+- 包括...在内 "including" (different grammar point)
+- 后来 "later" for sequencing past events (different grammar point)
+- Directional/locative uses (前/后 as location words from HSK 1-01)
+
+```rule
+match: (以前|以后|前/LC|后/LC|前/NN|后/NN|前/AD|后/AD)
+match: (在/P _ (以前|以后))
+unless: 早/AD 在/P
+unless: 在/P ... 内/LC
+unless: 在/P ... 内/P
+unless: 在于/VV
+unless: 在/P 内/LC
+unless: 在/P 内/NN
+unless: 包括/VV ... 在/P 内
+unless: 后来/AD
+unless: /P (上|下|里|旁边|中间|东|西|南|北|外|前|后|左|右|方)/LC
+unless: /VV 在/P
+unless: /VV 在/VV
+unless: 不/AD 在/VV
+```
+
+**Notes:**
+- The rule matches 以前/以后 in any POS tag (NN, NT, LC, AD) since tagging is inconsistent across examples
+- 前/后 when tagged LC (localizer) in time expressions (毕业以前, 结婚以后) should match; when tagged LC as pure locatives (上面的前, 房间的后) they are location words and shouldn't match, but those won't have 以 before them
+- The pattern `在/P _ 以前|以后` catches the structure "在 + Verb + 以前/以后"
+- 早在 is excluded as it's a separate HSK 5 point
+- Location/existence uses of 在 are excluded by the unless conditions
+- Progressive 在 (正在, 在读) won't match because 以前/以后 won't follow directly
+- Counter-examples with 后来 (sequencing marker) are excluded

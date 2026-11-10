@@ -1,0 +1,25 @@
+## 2-11
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Measure words for verbs (动量词): 遍, 次, 场, 回, 下 and "一下" for brief actions
+**Covers:** (1) Verb + (了/过) + Number + measure word (遍/次/场/回/下) showing frequency or repetition of an action, including patterns like 一百多遍, 好几下, 很多次; (2) Verb + 一下 expressing a brief or softened action; (3) "how often" questions of the form 多长时间 + Verb + 一个/一次
+**Does not cover:** 一下子 (sudden change), 下去 (result complement / continuation), potential complements with 得/不, location words (在...下/里), time/amount limits (以下/以上), or other uses of 下 as direction/location
+
+```rule
+match: /VV /AS? /CD /CD? 遍|次|回|场|下/M
+match: /VV /AS? /AD /CD 遍|次|回|场|下/M
+match: /VV /AS? /PN? 很/AD 多 遍|次|回|场|下/M
+match: 多/AD 长/JJ 时间/NN /VV 一/CD 个/M
+unless: 下去
+unless: 下/M 子
+unless: 一下子
+unless: 以下
+```
+
+**Notes:** 
+- The main line matches a verb, an optional aspect particle (了/过), a number (optionally followed by 多, as in 一百多), and then a verb measure word tagged M (遍/次/回/场/下). This covers 说一遍, 说过一百多遍, 打了我三下 and 休息一下.
+- Verbs are allowed to take a pronoun object before the measure word, as in 问了他很多次. This is handled only for the 很多 form, to keep precision.
+- 好几下 is covered through the AD + CD form.
+- The "how often" frame 多长时间 + Verb + 一个 is covered by a specific line, because 个 is not otherwise a verbal measure word.
+- Exclusions: 下去 (result complement), 一下子 (suddenly), and 以下 (limit).
+- Time-word + 一/CD + M patterns such as 一周 or 两个月 are not matched on their own, because the number and measure word must directly follow a verb.
+- The sentence 我们休息一下吧 also has 一下, so it is kept as a match. It is a genuine brief-action use.

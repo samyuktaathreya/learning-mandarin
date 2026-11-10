@@ -1,0 +1,14 @@
+## 2-02
+
+**Point:** Modal verbs 应该 and 该 expressing "should" or obligation
+
+**Covers:** Sentences where 应该 or 该 is tagged as a verb (VV) and is followed, in the same clause, by another verb. The second verb is the action someone should or should not do. This includes negatives with 不 and sentences where a time phrase or object sits between the modal and the verb. It also includes 你该吃药了, which is an official example of this point.
+
+**Does not cover:** Uses of 该 that are not tagged as a verb, such as the determiner in 该公司 ("the said company"). It also does not cover 应该/该 with no following verb, such as 应该很好, where an adjective follows.
+
+```rule
+match: 应该/VV ... /VV
+match: 该/VV ... /VV
+```
+
+**Notes:** The old rule required exactly one word between the modal and the verb, so it missed almost every sentence. Examples such as 应该喝白酒 and 不应该迟到 have the verb directly after the modal. The new rule allows any number of words in between, which also covers 应该八点半来公司. The old `unless` clause is removed because it excluded the official example 你该吃药了. 该⋯⋯了 (2-80) cannot be reliably separated from this point on structure alone, so a sentence like 该走了 can still match.

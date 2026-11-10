@@ -1,0 +1,17 @@
+## 2-22
+**Point:** Using 往 (wǎng) as a preposition or directional verb to express movement "towards" a location or direction.
+**Covers:** Sentences where 往 appears before a direction/location word and then a verb, indicating the direction of an action. This includes 往 + direction/place + verb (including 往下 + 说/读/看); verb + 往 + place (开往, 飞往, 运往); and the modifier use in noun phrases (e.g., 开往北京的火车).
+**Does not cover:** 往往 (wǎngwǎng) used as a frequency adverb meaning "often/usually" (HSK 3-15); multi-character words or time nouns such as 来往, 交往, 往来, 往年, 往后, where 往 is not a separate word.
+
+```rule
+match: 往/P|VV /NN|LC|NR /VV
+match: 往/P|VV /NN|NR /NN|LC /VV
+match: 往/P|VV /NN|NR /NN /LC /VV
+match: /VV 往/VV /NN|NR
+match: /VV 往/NN /NN
+match: 往/P _ /VV
+unless: 往往/AD
+unless: /NN 往/NN
+```
+
+**Notes:** The tagger is inconsistent: 往 is tagged P, VV or occasionally NN, depending on context. The rule therefore accepts 往 as P or VV followed by a direction/place word and then a verb, which covers 一直往前走, 往下说 and 你往前走一百米. For verb-往 compounds (开往北京的, 飞往纽约的, 运往国外的), it accepts a verb followed by 往 (tagged VV or NN) and then a place noun. 往往 is a separate token tagged AD, so the `unless: 往往/AD` line removes the frequency-adverb sentences. Words like 来往 and 交往 are single tokens, so they never match 往 as a standalone word.

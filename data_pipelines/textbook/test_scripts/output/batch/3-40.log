@@ -1,0 +1,58 @@
+
+########## rules  2026-11-09 21:52 ##########
+12 page(s) use the word(s); asking about 12.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGD60A6  Phrases using "laishuo"
+
+not:
+  ASGD2A08  Expressing "for…" with "eryan"
+  ASG8RW47  Limiting scope with "jiu"
+
+unsure:
+  ASG8ICO9  Using "dui" with verbs
+
+unrelated:
+  ASG3JELV  Comparing "dui" and "duiyu"
+  ASGC01S0  Comparing "duiyu" and "zhiyu"
+  ASG1HNBU  Comparing "guanyu" and "duiyu"
+  ASG4D8XB  Tag questions with "bu"
+  ASG84D65  Comparing "bici" and "duifang"
+  ASGC5Y86  Comparing "gen" and "dui"
+  ASGSJYZ2  Tag questions with "ma"
+  ASGYJQAG  Using "lai" and "qu" when "verbing around"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 3-40
+Tagging 10 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215205.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-40
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** 对...来说 and other phrases with 来说 to express "for/to someone" or set perspective
+**Covers:** Sentences with the pattern (对 + [person/group] + 来说) or ([adverb] + 来说) that introduce a viewpoint or scope before a predicate
+**Does not cover:** Sentences using 而言 instead of 来说; sentences where 就 is the main preposition; other uses of 对 as a preposition meaning "towards/to/against"; sentences where 来说 appears but isn't paired with 对 or an adverb for perspective-setting
+
+```rule
+match: 来/MSP 说/VV
+unless: 而言/LC
+```
+
+**Notes:** The key distinguishing feature is that 来/MSP 说/VV must appear as a unit (never 来说/VV as one token, since the tagger splits it). The most reliable way to exclude 对...而言 is to check that 而言/LC does not appear in the sentence. The pattern is very simple because both 对 + person + 来说 and adverb + 来说 constructions both rely on the same 来/MSP 说/VV sequence. The unless clause prevents matching sentences that use the synonymous but different 而言/LC construction.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-40
+Tagging 10 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-40: rule on labeled examples (no AI) ===
+  examples of 3-40 matched:    9/15
+  counter-examples wrongly matched: 0/12   <- should be 0
+
+--- examples of 3-40 the rule misses (6) ---
+  一般来说，私立学校都比较贵。  -- ASGD60A6 Phrases using "laishuo"
+  一般来说，我们只要外国实习生。  -- ASGD60A6 Phrases using "laishuo"
+  一般来说，大城市有更多工作机会。  -- ASGD60A6 Phrases using "laishuo"
+  总的来说，这次活动很成功。  -- ASGD60A6 Phrases using "laishuo"
+  总的来说，这个情况在改善。  -- ASGD60A6 Phrases using "laishuo"
+  今天的考试相对来说有点难。  -- ASGD60A6 Phrases using "laishuo"

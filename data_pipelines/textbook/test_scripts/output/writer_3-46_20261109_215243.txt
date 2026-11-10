@@ -1,0 +1,16 @@
+## 3-46
+**Point:** Result complements 到, 住, and 开/出(来) indicating completion or change of state
+**Covers:** Verb + 到/住/开/出(来) where the complement shows the action achieved a result or reached a state (e.g. 看到 "see", 接住 "catch and hold", 打开 "open", 想出 "think up")
+**Does not cover:** 到 meaning "arrive at" or "go to"; 到 in time expressions (until, from...to); 不到 meaning "less than"; compound words like 听见/看见 as single lexical units; 住 meaning "to live/stay"; 开 as a standalone verb
+
+```rule
+match: _ /VV (到|住|开|出|出来)/VV
+unless: (到|住|开|出|出来)/VV (地|在|的) | /VV (到|住|开|出|出来)/VV /P | /VV (到|住|开|出|出来)/VV (/NN|/LC|/NT) (吃|玩|写|工作|睡|住|出差|来|去|回|过|结|退休|买|吃|聊)
+```
+
+**Notes:** 
+- The rule matches a verb immediately followed by a result complement from the target set.
+- The unless clauses exclude sentences where 到 is a preposition (followed by P tag), or where 到/住/开/出 indicate direction/duration/location rather than result (look for verbs of motion/state after the complement, or complement followed by place/time words).
+- Single-token compounds like 听见/看见 where both parts are tagged as one VV unit will match, which is correct.
+- Negation (没/不) before the verb is fine; the complement still shows result.
+- The rule is conservative to avoid false positives on other 到 uses which are very common.

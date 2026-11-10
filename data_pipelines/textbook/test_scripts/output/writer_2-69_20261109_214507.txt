@@ -1,0 +1,24 @@
+## 2-69
+**Point:** Events in quick succession with "yi... jiu..." — as soon as one thing happens, another happens immediately
+**Covers:** Sentences with 一 + Event1, then 就 + Event2 in the same or different clauses, showing rapid succession or cause-result
+**Does not cover:** 一 used as number/measure word (一个, 一些, 一下 as measure); 一直/一时/一再/一旦/一起/一方面 and other fixed adverbial expressions; verb reduplication or other patterns
+
+```rule
+match: 一/AD ... 就/AD
+unless: 一/CD
+unless: 一再/AD
+unless: 一直/AD
+unless: 一时/AD
+unless: 一旦/CS
+unless: 一起/AD
+unless: 一/CD _/M
+unless: 一/CD 点/M
+unless: 一/CD 些/CD
+unless: 一/CD 方面/NN
+unless: 一天/M 一天/M
+unless: 一 _/M 一 _/M
+unless: 一/CD _/M 也/AD
+unless: 一/CD _/M 都/AD
+```
+
+**Notes:** The core pattern is 一/AD (adverbial) followed eventually by 就/AD. We exclude 一/CD (numeral) to avoid "一个, 一些" and similar measure constructions. We exclude fixed adverbials like 一再, 一直, 一时, 一旦, 一起. We also exclude patterns like "一点...也/都不", "一...一..." reduplication, and "一方面" which are separate grammar points. The pattern matches across multiple words between 一 and 就 (within a clause).

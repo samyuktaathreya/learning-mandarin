@@ -1,0 +1,14 @@
+## 2-09
+**Point:** Large numbers using 千, 万, 亿 as units in numeric expressions
+**Covers:** Numbers expressed using 千 (thousand), 万 (ten thousand), and 亿 (hundred million) as numeric units, where these words form part of a complete number value tagged as CD (cardinal number)
+**Does not cover:** 千万 as an adverb meaning "must" or "make sure"; 万一 as a subordinating conjunction meaning "if" or "what if"; 万一 as an adverb in conditional expressions; idiomatic uses like "以防万一"
+
+```rule
+match: /CD
+unless: 千万/CD /VV|AD
+unless: 万一/AD
+unless: 万一/CS
+unless: 以/P 防/VV 万一/AD
+```
+
+**Notes:** The rule matches any clause containing a single /CD tag, which in the context of this point represents complete numeric expressions like "十四亿" or "五万两千一百五十二". The unless clauses exclude: (1) 千万 followed by a verb or adverb, which indicates the "make sure/must" usage; (2) 万一 tagged as AD (adverb), indicating conditional "what if" usage; (3) 万一 tagged as CS (subordinating conjunction), indicating conditional usage; (4) the phrase "以防万一" which is an idiomatic expression. The tagger appears to sometimes tag 万一 as CS in conditional contexts, and this should be excluded.

@@ -1,0 +1,16 @@
+## 3-01
+**Point:** Ordinal numbers with 第 (dì)
+**Covers:** Sentences using 第 + number (+ measure word) (+ noun) to express ordinal positions like "first," "second," "third," etc.
+**Does not cover:** 老 or 小 used in other contexts (频率副词 "always," age/size comparison, or as part of common nouns like 老师, 小麦, 小说); 第 used as an OD tag in other contexts
+
+```rule
+match: 第/CD ... /M
+match: 第/CD ... /NN
+match: 第/CD
+unless: 老是/AD
+unless: 老/AD
+unless: 小/VA
+unless: /VA 几/CD 岁/M
+```
+
+**Notes:** The rule prioritizes precision by matching the core structure: 第 followed by a CD (number) tag, optionally followed by a measure word or noun. The main match pattern captures "第 + number + measure/noun" which is the canonical form shown in examples. The standalone "第/CD" match catches cases like "第一天" and "第二行" where the ordinal directly precedes a time noun or verb. The unless clauses exclude: (1) 老是 as an adverbial marker for habitual/repetitive actions; (2) bare 老 as an adverb (频率副词); (3) 小 as a VA (adjective predicate) including age/size comparisons with 岁. This approach avoids false positives on counter-examples while capturing the intended ordinal grammar point.

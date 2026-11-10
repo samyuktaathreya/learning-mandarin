@@ -1,0 +1,23 @@
+## 3-79
+**Point:** Expressing "already" with 都⋯⋯了, implying the speaker's attitude and emphasis
+**Covers:** Sentences where 都 appears before a time expression, quantity, or predicate (verb/adjective), followed by 了, conveying that something has already happened with emphatic or attitudinal force
+**Does not cover:** Other uses of 都 (distributive "all", "every", quantifier emphasis, negation patterns with 连/不管/无论/从来); sentences where 都 marks scope over multiple subjects or appears without 了; sentences with 了 that don't have 都 in the same clause
+
+```rule
+match: 都/AD ... 了/AS|SP $
+match: 都/AD ... 了/AS|SP ... 还/AD|还在/AD|别/AD
+unless: 连/AD _ ... 都/AD
+unless: 不管/CS|VV
+unless: 无论/CS
+unless: 从来/AD 都/AD
+unless: 什么/DT|PN _ 都/AD
+unless: 全/DT|全都/AD
+unless: 怎么/AD _ 都/AD
+unless: 每/DT
+unless: 除了/P
+unless: 何况/AD
+unless: 更不用说/AD
+unless: 也/AD 都/AD
+```
+
+**Notes:** The key distinguishing feature is 都 + [time/quantity/predicate] + 了 in sequence, often with emphatic follow-up clauses containing 还, 还在, or 别. The pattern typically appears at clause start with a time word (十一点, 三天, 一个小时, 二十一世纪) or quantity (三遍) or adjective/state (凉, 坏). Exclude patterns with 连 (even), 不管 (no matter), 无论 (regardless), 从来 (always), 什么都 (everything), 每 (every), 怎么都 (no matter how), and 也都 (also all). The second match: line catches emphatic follow-ups with 还/还在/别 that don't immediately follow 了, allowing for intervening content.

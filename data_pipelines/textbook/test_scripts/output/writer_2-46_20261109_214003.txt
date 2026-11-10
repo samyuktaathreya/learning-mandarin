@@ -1,0 +1,20 @@
+## 2-46
+**Point:** 又⋯⋯又⋯⋯ (both A and B)
+**Covers:** Two adjectives or stative verbs connected by 又, expressing that a noun/subject has two qualities simultaneously (both positive or both negative)
+**Does not cover:** "又" used for repetition, negation emphasis, or "again"; uses where 又 appears only once; uses where the second 又 is not immediately followed by an adjective/stative predicate
+
+```rule
+match: _ 又/AD|CC /VA|VV 又/AD|CC /VA|VV
+match: _ 又/AD|CC _ 又/AD|CC /VA|VV
+unless: /VV 了/AS 又/AD|CC /VV
+unless: 又/AD|CC 不/AD
+unless: 又/AD|CC 没/AD
+unless: 又/AD|CC 能/VV
+unless: 又/AD|CC 可以/VV
+unless: 又/AD|CC 要/VV
+unless: /AS 又/AD|CC /VV
+unless: /AS 又/CC /VV
+unless: _ 又/AD|CC /VV 了/SP
+```
+
+**Notes:** The pattern allows for an optional modifier (like 不 for negation or 难 for "difficult to") between the two 又s. The unless clauses exclude: repeated actions with 了 + 又; negation emphasis (又 + 不/没); modal verbs (又能/又可以/又要); and the "again" sense (evident from /AS or /SP markers). The rule matches both cases where 又 is tagged AD or CC, as tagging varies in the examples.

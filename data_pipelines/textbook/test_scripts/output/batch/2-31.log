@@ -1,0 +1,95 @@
+
+########## rules  2026-11-09 21:36 ##########
+27 page(s) use the word(s); asking about 27.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG79STE  Degree complement
+  ASG5MOMM  Structural particle "de"
+
+not:
+  ASG0C825  Expressing "have to" with "budebu"
+  ASG73H8K  Comparing "budebu" and "zhihao"
+  ASGA0098  Indicating negative impact with "haide"
+  ASGCPJPQ  Potential complement
+  ASGGJA6A  Expressing "to be worth" doing with "zhide"
+  ASGK0ZG7  Expressing “must" with "feidei"
+  ASGKQEG9  Comparing "xiande" and "kanqilai"
+  ASGPXLP9  Expressing "must" with "dei"
+  ASG516F9  Advanced potential complements
+  ASG765HD  Expressing "it depends" with "kan"
+  ASG8QS6H  Advanced_uses_of_"zong"
+  ASGFPV2C  Expressing "no wonder"
+  ASGM5ZAB  Complement "-zhao"
+  ASG6KUS5  Expressing "much more" in comparisons
+
+unsure:
+  ASG9E5BB  Advanced degree complements
+  ASGB8BWA  Adjectival complement "de budeliao"
+  ASGG1ZBL  Adjectival complement "de hen"
+  ASG5DG95  Expressing_comparable_degree_with_"you"
+  ASG8DVSO  Basic comparisons with "bu bi"
+  ASGXXP6M  Advanced usages of the contrary "dao"
+
+unrelated:
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+  ASG6F157  Expressing "originally" with "benlai"
+  ASGC701A  Asking how something is with "zenmeyang"
+  ASGHKZP4  Comparing "turan" and "huran"
+  ASGWH1D5  Comparisons with "buru"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-31
+Tagging 90 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213632.txt
+  ...100/131
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-31
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Degree complement (得) to modify how a verb is done or to what degree an adjective applies
+**Covers:** Verb + 得 + degree modifier (adverb + adjective, or adjective alone); Adjective + 得 + intensifier (极了, 死了, etc.); structures with repeated verbs when object is present
+**Does not cover:** Modal 得 (have to); 值得 (worth); 不得不 (must); 显得 (appear); potential complements (得/不 + directional/ability verb); complement 着; 得 as auxiliary verb in other constructions; comparison intensifier (得多)
+
+```rule
+match: /VV /DER /VA
+match: /VA /DER /AD|VA
+unless: 值得/VV
+unless: 不得不/AD
+unless: 显得/VV
+unless: /VV /DER /VV
+unless: /DER 着/VV
+unless: /DER 多/VA
+unless: /VV /DER /VV /SP
+```
+
+**Notes:** 
+- The first pattern captures the most common HSK 2 use: verb + 得 + degree word (e.g., 跑得快, 吃得太饱, 说得很好)
+- The second pattern captures adjectives taking degree complements (e.g., 可爱死了, 高兴得很, 舒服极了)
+- Unless lines exclude other 得 uses: 值得/显得 (different grammar points), 不得不 (modal), potential complements with directional/ability verbs (得来, 得着, 得下, 得上), and comparison 得多
+- The pattern /VV /DER /VV is excluded because it catches potential complements (看得见, 做得好吗as potential) and other non-degree uses
+- Some borderline cases like "看得见" (potential complement) should not match due to the /VV /DER /VV exclusion
+- Sentences with verb repetition (你写字写得很漂亮) will match because the second verb instance + 得 + adjective pattern matches
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-31
+Tagging 90 labeled example(s) (cached after this run)...
+  ...100/131
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-31: rule on labeled examples (no AI) ===
+  examples of 2-31 matched:    29/42
+  counter-examples wrongly matched: 0/89   <- should be 0
+
+--- examples of 2-31 the rule misses (13) ---
+  你们谈得顺利吗？  -- ASG79STE Degree complement
+  小李的房子  -- ASG5MOMM Structural particle "de"
+  红色的自行车  -- ASG5MOMM Structural particle "de"
+  我的手机  -- ASG5MOMM Structural particle "de"
+  我们的老师  -- ASG5MOMM Structural particle "de"
+  漂亮的衣服  -- ASG5MOMM Structural particle "de"
+  热闹的酒吧  -- ASG5MOMM Structural particle "de"
+  我女朋友的公司  -- ASG5MOMM Structural particle "de"
+  生气地说  -- ASG5MOMM Structural particle "de"
+  开心地笑  -- ASG5MOMM Structural particle "de"
+  慢慢地走  -- ASG5MOMM Structural particle "de"
+  伤心地哭  -- ASG5MOMM Structural particle "de"
+  认真地听  -- ASG5MOMM Structural particle "de"

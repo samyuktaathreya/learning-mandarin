@@ -1,0 +1,38 @@
+## 2-14
+**Point:** Scope/coordination adverbs 全, 一共, 只 for indicating "all/whole," "altogether," or "only"
+
+**Covers:**
+- 全 / 全都 / 全+noun (全家, 全校, 全身, 全年, 全公司的人) followed by 都, meaning "all / whole"
+- 只 / 只能 / 只要 meaning "only", placed after a subject and before a verb or auxiliary (我只能说两句中文; 我老婆只要一个孩子)
+- 一共 meaning "altogether / in total"
+
+**Does not cover:**
+- 只好 (had no choice but)
+- 只要 meaning "as long as" (只要……就……)
+- 只有……才 (only if), including when 只有 and 才 fall in different clauses (this is why bare 只有/AD is not matched)
+- 只 as a measure word (一只猫)
+- 不只 / 不但 (not only…but also)
+- 完全, 全力 and other words that merely contain 全
+
+```rule
+match: (全|全都|一共)/AD
+match: 全/DT _ ... 都/AD
+match: (全校|全身|全家|全班|全国|全年|全世界|全公司) ... 都/AD
+match: (只|只能)/AD
+match: _ 只要/AD
+match: PN 只要/VV NN
+unless: 只要 ... 就
+unless: 只有 ... 才
+unless: 不只
+unless: 不/AD 只/AD
+unless: 只/M
+unless: 只好
+unless: 只是/VC
+```
+
+**Notes:**
+- The 全 patterns cover the tagging variants: 全/DT + noun/measure + 都, 全校/NN, 全身/AD, 全/AD and 全都/AD.
+- 只有 is deliberately not matched on its own. The 只有……才 sentences in the data split 只有 and 才 across clauses, so an unless: line cannot catch them, and bare 只有 is too risky.
+- 只要 is matched only when it follows a subject. Clause-initial 只要 is almost always the "as long as" condition, so it is skipped.
+- Within a clause, a 就 after 只要 rules out the "as long as" reading.
+- 只好, 不只 and 只 tagged as a measure word are excluded.

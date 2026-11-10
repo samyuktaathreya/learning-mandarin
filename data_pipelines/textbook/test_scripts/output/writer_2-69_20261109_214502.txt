@@ -1,0 +1,14 @@
+## 2-69
+**Point:** Events in quick succession with "一...就..." (as soon as one thing happens, another happens immediately)
+**Covers:** Sentences with 一 marking the first event and 就 marking the immediate consequence, showing two events in rapid succession or a repeated cause-effect relationship
+**Does not cover:** Other uses of 一 (numerals, measure words, quantifiers like 一些), other uses of 就 (emphasis, conditional clauses with 要是/如果/一旦), and other patterns like 一直, 一起, 一点, 一再, 一时, 一方面, etc.
+
+```rule
+match: 一/AD ... 就/AD
+unless: 一再|一直|一起|一点|一时|一天|一年|一次|一下|一口|一张|一个|一家|一片|一座|一杯|一封|一双|一台|一场|一道|一声|一阵
+unless: /CD 下/M|/CD 次/M|/CD 点/M|/CD 些|/CD 方面|/CD 日|/CD 周|/CD 月|/CD 秒|/CD 分钟|/CD 小时
+unless: 一旦/CS
+unless: 进一步|不一定|一定
+```
+
+**Notes:** The rule looks for 一/AD immediately before a verb (possibly with intervening words) followed by 就/AD in the same clause. The 一/AD must be the adverbial modifier marking the onset of the first event, not a numeral. Counter-examples are excluded by blocking: (1) other fixed adverbial expressions (一再, 一直, 一起, etc.), (2) numerical/quantifier patterns (CD + measure word or 方面/些), (3) 一旦 (different grammar point), and (4) fixed phrases (进一步, 不一定). The pattern "一/AD ... 就/AD" ensures we capture the structure while avoiding cases where 一 is tagged as CD (numeral). Some borderline cases like "只一天他就完成了" are rejected to maintain precision—these mix time expressions with 就.

@@ -1,0 +1,26 @@
+## 2-07
+**Point:** Demonstrative adverbs 这样/那样/这么/那么 expressing manner, degree, or hypothetical condition
+**Covers:** 
+- 这样/那样 + verb (manner: "this/that way")
+- 这么/那么 + adjective (degree emphasis: "so/that")
+- 这样 in consequential clauses with 会/才 ("this way will/only")
+- 这样的话 for hypothetical "if this way"
+
+**Does not cover:** 那么 used as a discourse connector meaning "then/so" in response to a preceding clause (那么 + suggestion/decision), which is a different grammar point about logical sequence rather than manner/degree/hypothesis
+
+```rule
+match: (这样|那样|这么|那么)/AD ... (VA|VV)
+match: (这样|这么)/AD 的话
+match: (这样|那样)/AD VV
+unless: ^ (那么)/AD (我们|我|他|你|大家|他们) (VV|VC)
+unless: ^ (那么)/AD (这|是)
+unless: ^ (那么)/AD (就|让|开始|通过)
+```
+
+**Notes:** 
+- The first match pattern captures the core uses: demonstrative adverb followed eventually by a verb or adjective in the same clause
+- The second match covers 这样/这么 + 的话 pattern for hypothetical use
+- The third match is redundant with the first but included for clarity on the canonical "这样/那样 + VV" pattern
+- The unless clauses specifically block the "那么 as discourse connector" pattern: 那么 appearing after clause boundaries followed by pronouns + decisions/suggestions (VV for actions, VC for evaluations like 是)
+- The pattern is deliberately broad to avoid false negatives, relying on the unless clauses for precision
+- Some sentences may tag 这样 as PN or VV instead of AD (tagging errors); the rule accepts this risk to avoid missing valid examples, since "那么/这么 acting as discourse connectors" in the unless clauses are the key pattern to block

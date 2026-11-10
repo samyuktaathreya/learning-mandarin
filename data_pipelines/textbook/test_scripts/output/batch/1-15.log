@@ -1,0 +1,188 @@
+
+########## rules  2026-11-09 21:15 ##########
+7 page(s) use the word(s); asking about 7.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG59C66  Comparing "li" and "cong"
+  ASGEB7F5  Expressing "from" with "cong... zhong"
+  ASGGGIW8  Expressing "from… to…" with "cong… dao…"
+
+not:
+  ASG610D0  Expressing "thus" with "cong'er"
+  ASG8KUHG  Expressing "always" with "conglai"
+  ASG8NM5E  Expressing "never" with "conglai"
+  ASGLI7GW  Expressing "ever since" with "zicong"
+
+unsure:
+
+unrelated:
+
+[note] ASGGGIW8 is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-15
+Tagging 56 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_211512.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 1-15
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Basic uses of 从 (cóng) meaning "from" in relation to place, time, source, or origin
+**Covers:** 从...到 (from X to Y for time/place); 从...中 (from X, gaining Y); 从+place/source+action (from X, doing Y); 离+event/time (distance from an event/time)
+**Does not cover:** 从来 as adverb meaning "always/never"; 从而 meaning "thus/thereby"; 自从 meaning "ever since"; 从 in compounds like 从小, 从此, 从前when used as time adverbs; 从事 (to engage in); 从+小/中/大 as size descriptors
+
+```rule
+match: /P ... (到|中|LC|起)/P|VV|LC|P
+unless: 从来/AD
+unless: 从而/AD
+unless: 自从/P
+unless: 从小/AD
+unless: 从中/AD
+unless: 从此/AD
+unless: 从前/NT
+unless: 从事/VV
+```
+
+**Notes:** 
+- The rule looks for 从 (tagged P) followed by some material, then followed by a connector: 到 (to), 中 (in/from), LC localizer like 里/上/以后/起/以来, or起 (starting from). This covers the three main uses: 从...到 (from-to), 从...中 (from-in), and 从+location/time+LC.
+- The unlesses filter out adverbial uses (从来, 从而, 从小, 从中, 从此, 从前) and the verb 从事.
+- Note: some examples show 到 tagged VV instead of P (e.g. "到机场"); the pattern allows both.
+- 离 (lí) is tagged P and follows the same pattern (离+noun/event+还/有+duration) so it's covered by the same rule.
+- The rule is deliberately conservative to avoid false positives with adverbial or phrasal uses.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-15
+Tagging 56 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-15: rule on labeled examples (no AI) ===
+  examples of 1-15 matched:    33/33
+  counter-examples wrongly matched: 0/31   <- should be 0
+
+########## tatoeba  2026-11-09 22:04 ##########
+Filling 1-15 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 104 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220414.txt
+  ...100/214
+  ...200/214
+  Deciding 7 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  上星期 = 上 + 星期  (last week)
+     clear  学到 = 学 + 到  (to learn (sth); to learn about)
+     clear  到了 = 到 + 了  (at last)
+    hidden  德国 = 德 + 国  (Germany)
+    hidden  周一 = 周 + 一  (Monday)
+    hidden  周五 = 周 + 五  (Friday)
+     clear  听到 = 听 + 到  (to hear)
+
+Course sentences at HSK 2 the rule already finds 1-15 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+  2 check call(s) (20 sentences each)...
+
+=== 1-15 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      446  2. contain the point's word(s)
+      446  3. new (not in DB, not a duplicate)
+      214  4. at most 2 characters outside HSK 2 words
+       37  5. really HSK 2
+       30  5b. no harder grammar point (of the 20 with a rule)
+       24  6. the rule finds 1-15
+       21  6b. no hidden word a learner can't work out
+       20  7. both checks say 1-15, English chosen
+       16  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (16) ===
+  它从哪里来？  (Where did it come from?)  [tatoeba 5883313]
+  从那儿下来！  (Get down from there.)  [tatoeba 7779226]
+  你从哪里来？  (Where did you come from?)  [tatoeba 9209961]
+  从哪儿来的？  (Where did it come from?)  [tatoeba 13337178]
+  我是从中国来的。  (I come from China.)  [tatoeba 717391]
+  我是从京都来的。  (I'm from Kyoto.)  [tatoeba 2848940]
+  这从谁那儿拿的？  (Who did you get this from?)  [tatoeba 4885113]
+  那些人从哪来的？  (Where are those people from?)  [tatoeba 5094999]
+  我从中国回来了。  (I returned from China.)  [tatoeba 13863118]
+  他今天从悉尼回来。  (He got back from Sydney today.)  [tatoeba 5115076]
+  我从他那里买了它。  (I bought it from him.)  [tatoeba 5698039]
+  这些是你从哪里买的？  (Where did you buy all this?)  [tatoeba 11768312]
+  你知道他们从哪里来吗？  (Do you know where they come from?)  [tatoeba 5640721]
+  你也是从波士顿来的吗？  (Are you also from Boston?)  [tatoeba 6309833]
+  上星期，我的爸爸从大阪回来了。  (My father came back from Osaka last week.)  [tatoeba 1749211]  hidden: 上星期
+  Kate的爸爸从车站走路回家。  (Kate's dad walks home from the bus stop.)  [tatoeba 3742641]  hidden: 回家
+
+--- dropped at step 4 (232), first 12 ---
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  「一见钟情」以及「从一而终」的感情是不切实际的，我们需要的不是这种不切实际而虚幻的感情。  -- 11 characters no HSK 2 word uses: 切及实幻感种终而虚际需
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 10 characters no HSK 2 word uses: 且信合此永海相而适颗
+  从这来看，你能因此论定女权主义还是必要的。  -- 7 characters no HSK 2 word uses: 主义定必权此论
+  我从马来西亚来的妈妈觉得那三匹马马马虎虎。  -- 4 characters no HSK 2 word uses: 亚匹虎马
+  老虎从动物园中逃出来了。  -- 4 characters no HSK 2 word uses: 园物虎逃
+  我从车站搭了一班到旅馆的计程车。  -- 3 characters no HSK 2 word uses: 搭程计
+  你必须在六点钟时从家中出发。  -- 3 characters no HSK 2 word uses: 发必须
+  他从没放弃达成那个目标的希望。  -- 6 characters no HSK 2 word uses: 弃成放标目达
+  他们并不总是服从父母。  -- 4 characters no HSK 2 word uses: 并总母父
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  从前人们害怕未来。现在，是未来该害怕人们。  -- 4 characters no HSK 2 word uses: 害怕未该
+
+--- dropped at step 5 (177), first 12 ---
+  你从哪得到它的？  -- level 3: 得到 L3
+  我从来没去过美国。  -- level 4: 从来 L4, 美 L4
+  从她的年龄看来，我妈妈很年轻。  -- level 4: 年龄 L4, 看来 L3, 年轻 L3
+  您在英国从事中医行业多长时间了？  -- level 5: 从事 L5, 中医 L5, 行业 L5
+  她从来不穿绿色的衣服。  -- level 4: 从来 L4
+  他们从巴西远道而来。  -- level 4: 道 L4, 而 L4
+  这家店从星期一到星期六都营业。  -- level 5: 营业 L5
+  我从不喝啤酒。  -- level 5: 从不 L5, 啤酒 L3
+  我从前学习英文、法文和中文。  -- level 7: 从前 L5, 法 L4, 文 L7
+  从那以后，我再也没有他的音信了。  -- level 10: 以后 L3, 再也 (not in list), 音信 (not in list)
+  老师从来不拿学生们的错误来开玩笑。  -- level 4: 从来 L4, 错误 L4, 开玩笑 L4
+  我还从来都没有写过简历呢！  -- level 5: 从来 L4, 简历 L5
+
+--- dropped at step 5b (7) ---
+  从什么时候开始您就这里工作着的呢？  -- harder grammar: 3-39 (HSK 3)
+  你从昨天开始就忙吗？  -- harder grammar: 3-39 (HSK 3)
+  你怎么从你的房间里出来？  -- harder grammar: 3-39 (HSK 3)
+  我从出租车上下来。  -- harder grammar: 3-39 (HSK 3)
+  从这里开始。  -- harder grammar: 3-39 (HSK 3)
+  我不太知道从哪里开始。  -- harder grammar: 3-39 (HSK 3)
+  他们从去年开始学英文。  -- harder grammar: 3-39 (HSK 3)
+
+--- dropped at step 6 (6) ---
+  我从没见她笑过。  -- rule: no match: line matched
+  我从没喝过奶茶。  -- rule: no match: line matched
+  我从没见过你这么高兴。  -- rule: no match: line matched
+  我从没这么高兴过。  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: no match: line matched
+  我从没看见过她笑。  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  我们两个人从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我们从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我周一到周五，从早到晚都在工作。  -- hidden word a learner can't work out: 周一 (Monday), 周五 (Friday)
+
+--- dropped at step 7 (1) ---
+  我从没看过那个人。  -- check said no (2/2): 从来 (never) is separate grammar point
+
+--- dropped at step 8 (4) ---
+  我从他那听到的。  -- difficulty review: (1/2); uses 听到 (hear/perceive through hearing) with potential complement, a structure above HSK 2
+  从你来时的路回家。  -- difficulty review: (2/2); 你来时的路 requires understanding a relative clause structure that is beyond HSK 2 level
+  你从汤姆那里学到了吗？  -- difficulty review: (2/2); 学到 uses result complement 到, which is HSK 3 grammar (3-46)
+  我从这里什么也看不见。  -- difficulty review: (2/2); 什么也看不见 uses construction 什么也不X, which is HSK 3 grammar (3-41)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-15_level2_20261109_220440.csv

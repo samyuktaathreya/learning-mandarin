@@ -1,0 +1,22 @@
+## 1-16
+**Point:** Using 在 (zài) to express location, either as a preposition before verbs or as a main verb expressing existence/position.
+**Covers:** (1) 在 + Place as a preposition indicating where an action occurs (Subj + 在 + Place + Verb); (2) 在 + Place/Location as the main verb expressing existence or state of being (Subj + 在 + Place); (3) Special verb + 在 + Location complement order (with verbs like 住, 坐, 站, 放, 走); (4) 在 + Place + Localizer (上/下/里/旁边) expressing position relative to an object.
+**Does not cover:** (1) 早在 (zaozai "as early as"); (2) 在内 (zainei "included in"); (3) 在...内 expressing time duration; (4) 在于 (zaiyu "lies in"); (5) 在 as progressive aspect marker (正在/在...着/...呢); (6) 在...看来 (assessing situations); (7) 在...方面 (regarding an aspect); (8) 在...以前/以后 (time relationships).
+
+```rule
+match: 在/P _ ... /VV
+match: 在/VV ... (/LC|/NN)
+match: /VV 在/P _ ... (/LC|/NN|/NR)?
+match: /VV 在/VV _ (/LC|/NN)
+unless: 早/AD 在/P
+unless: 在/P _ 内/LC
+unless: 在/P _ 内/P
+unless: 在/P .* 看来/VV
+unless: 在于/VV
+unless: 正在/AD
+unless: 在/AD /VV
+unless: /VV 在/P 内/NN
+unless: 包括/VV .* 在/P 内
+```
+
+**Notes:** The rule prioritizes precision by matching the four main legitimate patterns: (1) 在 as preposition before a verb; (2) 在 as main verb with location complement; (3) movement/location verbs followed by 在; (4) potential variations in tagging. Extensive unless clauses exclude all documented counter-examples including 早在, duration markers (在...内), 在于, progressive aspect (正在), and 在...看来 constructions. The rule handles variable tagging of localizers (sometimes /LC, sometimes /NN for less common ones) and distinguishes 内 as time marker (tagged /LC or /P) from other uses.

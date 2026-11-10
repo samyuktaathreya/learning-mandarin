@@ -1,0 +1,24 @@
+## 2-28
+**Point:** The preposition 为 (wèi), "for", introduces the person or party an action is done for: 为 + party + Verb/Adj. The labeled set also includes the parallel 给 + recipient + verb pattern.
+
+**Covers:** 为 tagged as a preposition before a person or thing and then a verb or adjective. Examples: 为你高兴, 为公司提供保障, 是为你准备的, 为美国政府工作, 为大家干杯. It also covers 给 tagged as a preposition ("for/to someone", as in 给我打电话, 给他道歉), because the course's labeled examples include these.
+
+**Does not cover:**
+- 为了 (purpose), which the tagger treats as a separate token.
+- 因为 (because), also a separate token.
+- 作为.
+- 以…为… ("take X as Y"), where 为 is tagged VV.
+- 成为, 分为, 称为, 以为, 为什么, 为何, 为此, 为期 and 为难, which are all single tokens or tagged differently.
+- 为 tagged VC or VV, as in 评选为模范.
+- 给 as a main verb ("give"), which is tagged VV.
+
+```rule
+match: 为/P
+match: 给/P
+unless: 以 ... 为/P
+```
+
+**Notes:**
+- The rule relies on the tagger giving bare 为 the tag P only in the "for" sense. The labeled counter-examples show 以…为 getting VV, but the extra `unless` line guards against a mis-tag.
+- The 给/P line is there only because the labeled positives include 给 sentences. Delete it if the point should cover 为 alone.
+- Bare 为 tagged VV or VC (e.g. 为荣, 评选为) is deliberately not matched.

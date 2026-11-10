@@ -1,0 +1,21 @@
+## 2-77
+**Point:** Questions with "ne" (呢) — asking "what about...?" by stating a topic/noun/pronoun followed by 呢
+**Covers:** Elliptical questions with the structure [Noun/Pronoun/Noun Phrase] + 呢？ that ask reciprocal "what about" questions, typically following a related statement in the previous clause
+**Does not cover:** Modal particle "ne" (used in statements like 还早呢 or 我吃饭呢); "ne" in softening tone questions with 还是; "ne" with 万一 (what-if constructions); "ne" marking ongoing actions (正在/在 + V + 呢 or V + 着 + 呢); interrogative pronoun questions (怎么会呢, 谁的呢); "ne" in rhetorical or descriptive statements without the elliptical question pattern
+
+```rule
+match: ... /PN|NN|DT 呢/SP $
+unless: /AD 呢/SP
+unless: /VV .* 呢/SP
+unless: 万一
+unless: 正/AD
+unless: 在/AD
+unless: /AS
+unless: 还/AD /VE|VA
+unless: 怎么/AD /VV
+unless: /PN 不/AD .* /VV 呢/SP
+unless: 还是/CC
+unless: 或者/CC
+```
+
+**Notes:** The core pattern matches noun/pronoun + 呢 at clause end. Exclusions target: adverbs directly before 呢 (indicating modal/statement use), verbs before 呢 (marking ongoing action), 万一 constructions, progressive markers (正/在/着), statements with 还/AD + state verbs, interrogative structures (怎么 + verb), A-not-A questions (V + 不 + V + 呢), and alternative questions (还是/或者). The pattern requires a preceding clause context for true "bounce back" questions but will match if the preceding clause is in a different sentence or separated by punctuation, which is acceptable since HSK materials often present these as independent questions.

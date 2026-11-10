@@ -1,0 +1,15 @@
+## 2-75
+**Point:** Asking for confirmation or opinion using "怎么样", "好吗", "可以吗", "行吗"
+**Covers:** Tag questions with confirmation words (好/对/是/可以 + 吗) at the end of a sentence; open-ended questions asking "how is...?" or "what do you think of...?" using 怎么样
+**Does not cover:** Statements using 怎么样 as a predicate adjective (e.g., "这个电影不怎么样" = "this movie is not very good"); standalone 怎么样 questions that are tagged as part of HSK 2-76 (general "how/what" questions); uses of 吗 alone (HSK 1-45); other question words like 怎么, 什么, etc. (HSK 1-46)
+
+```rule
+match: 怎么样/VV _* $
+match: 怎么样/VA _* $
+match: _* ‖ (好|对|是|可以)/VA|VC 吗/SP $
+match: _* ‖ (好|对|是|可以)/VV 吗/SP $
+unless: 不/AD _* 怎么样/VA $
+unless: 很/AD _* 怎么样/VA $
+```
+
+**Notes:** The rule has two main patterns: (1) sentences ending with 怎么样 tagged as VV or VA, which captures open-ended opinion/state questions; (2) sentences with a tag question structure (confirmation word + 吗) in a final clause. The unless clauses exclude adverbial uses of 怎么样 as a predicate adjective (negated or intensified). The tag question pattern allows 好/对/是/可以 to be tagged either as VA (predicate adjective) or VV (verb), as tagging can vary. Clause boundaries (‖) are crucial for the tag question pattern to avoid false positives in multi-clause sentences.

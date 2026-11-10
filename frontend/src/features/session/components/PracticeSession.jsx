@@ -4,7 +4,7 @@ import Question from './Question';
 import SpeakingQuestion from './SpeakingQuestion';
 import Results from './Results';
 import GrammarTipsSidebar from './GrammarTipsSidebar';
-import { playAudio, preloadAudio, preloadAll, stopCurrentAudio, clearAudioCache, clearServerAudio } from '../../audio';
+import { playAudio, preloadAudio, preloadAll, preloadPaced, stopCurrentAudio, clearAudioCache, clearServerAudio } from '../../audio';
 import { submitSession, checkAnswerRemotely } from '../api/practice';
 import useSpeechRecorder from '../hooks/useSpeechRecorder';
 import { useMic } from '../../../shared/speech';
@@ -71,18 +71,25 @@ export default function PracticeSession({ session, onExit, onFinished }) {
 
     useMic(isSpeaking);
 
-    // useEffect(() => { console.log('currentQuestionObj:', currentQuestionObj); }, [currentQuestionObj]);
+    useEffect(() => { console.log('currentQuestionObj:', currentQuestionObj); }, [currentQuestionObj]);
 
-    // Fetch every question's audio up front so it's ready before the user gets there.
+    // Fetch the whole session's audio in the background as soon as it starts.
+    // Pinyin recordings are plain files on our server, so they all go at once.
+    // Everything else comes from Azure (free tier: 20 requests a minute), so it's
+    // paced: most of it right away, the rest in question order, staying ahead of the user.
     useEffect(() => {
-        if (debugMode) return;
-        preloadAll(session.questions
-            .filter(q => getQuestionAudioMode(q, sessionType) !== 'none')
-            .map(q => ({
-                text: q.audio_text ?? q.question,
-                pinyin: q.audio_pinyin,
-                preferRecording: PINYIN_QUESTION_TYPES.has(q.question_type),
-            })));
+        if (debugMode) return undefined;
+        const withAudio = session.questions.filter(q => getQuestionAudioMode(q, sessionType) !== 'none');
+        const toItem = (q) => ({ text: q.audio_text ?? q.question, pinyin: q.audio_pinyin });
+
+        preloadAll(withAudio
+            .filter(q => PINYIN_QUESTION_TYPES.has(q.question_type))
+            .map(q => ({ ...toItem(q), preferRecording: true })));
+
+        const controller = new AbortController();
+        preloadPaced(withAudio.filter(q => !PINYIN_QUESTION_TYPES.has(q.question_type)).map(toItem),
+            { signal: controller.signal });
+        return () => controller.abort();
     }, []);
 
     // Reset per-question state and handle the question's audio whenever the question changes.

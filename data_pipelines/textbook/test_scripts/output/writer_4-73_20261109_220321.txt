@@ -1,0 +1,38 @@
+## 4-73
+**Point:** 还 used for surprise, sarcasm or a rhetorical question: 还 + noun/verb phrase + 呢 ("What a ...!"), or 还 + verb + 吗 as a rhetorical question.
+
+**Covers:**
+- Clause-initial 还 + phrase + 呢, which mocks a claim ("还留过学呢，英语这么差").
+- 还 + verb phrase + 呢 after a pronoun subject ("你还生气呢").
+- Pronoun subject + 还 + verb + 吗 ("你还听吗", "这种人你还相信吗", "过期的牛奶你还喝吗", "今天这么热，你还出门吗").
+- A clause-initial 还 ... 吗 ("还在乎这点钱吗").
+- 还真 + adjective ("这个小孩还真聪明").
+
+**Does not cover:**
+- 还好 (luckily), 还是 (or / had better / still), 还有 (also / there remain), and 还 meaning "also" or "still" (还在, 还没, 还不). None of these is the sarcastic or rhetorical use.
+- 还 ... 可以/不错, and comparisons with 比 ... 还.
+- "你还好吗？" (a plain "are you OK?"), "时间还够吗？" (a plain question with a noun subject), and other neutral questions.
+
+```rule
+match: ^ 还/AD ... 呢/SP $
+match: ^ 还/AD ... 吗/SP $
+match: /PN 还/AD ... 吗/SP
+match: /PN 还/AD ... 呢/SP
+match: 还/AD 真/AD
+unless: 还/AD 在/AD
+unless: 还/AD 没|不/AD
+unless: 还/AD 好/VA 吗/SP
+unless: 还/AD 可以|不错
+unless: 比/P
+unless: 不然
+unless: 还是
+unless: 还/AD 有/VE
+```
+
+**Notes:**
+- The earlier rule wrote `PN` without a leading slash, so it was read as the literal word "PN" and the two pronoun-subject patterns never matched. They now use `/PN`, which restores "你还生气呢" and the 你 + 还 + verb + 吗 questions.
+- The pattern is high-precision and low-recall. It misses sentences with a noun subject and 呢 (e.g. "他还在睡呢"), and ones with 还 + adjective + 呢 after a noun subject.
+- "还 + 有/VE" is excluded outright to avoid 还有 (also / remaining). This also drops sarcastic cases like "还有钱呢".
+- "还 + 真" can occasionally appear in neutral statements; this is accepted.
+- Tagger quirks: 还 can be tagged CC, and 在 as AD or VV. The 在/AD exclusion relies on the tag. 还在乎 (在 tagged VV) is allowed through.
+- 呢 as a continuing-state particle ("他还没起来呢") is excluded by the 还 没|不 exclusion.

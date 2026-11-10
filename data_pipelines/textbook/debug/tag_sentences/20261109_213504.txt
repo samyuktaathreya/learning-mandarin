@@ -1,0 +1,34 @@
+2026-11-09 21:35:04,723  INFO     === tag_sentences.py run started ===
+2026-11-09 21:35:04,783  INFO     OK        hanlp-valid   '我家离公司很近。' -> [('我', 'PN'), ('家', 'NN'), ('离', 'P'), ('公司', 'NN'), ('很', 'AD'), ('近', 'VA')]
+2026-11-09 21:35:04,785  INFO     TAGGED    '我家离公司很近。' (level 2, 6 tags)
+2026-11-09 21:35:04,793  INFO     FALLBACK  '美国离中国很远。' -- out-of-list word(s): ['美国']
+2026-11-09 21:35:04,793  WARNING    HAIKU resegment call for '美国离中国很远。' (cache miss on [('美国', 'NR')])
+2026-11-09 21:35:04,805  INFO     TAGGED    '美国离中国很远。' (level 4, 6 tags)
+2026-11-09 21:35:04,814  INFO     FALLBACK  '这个酒店离火车站很近。' -- out-of-list word(s): ['这个']
+2026-11-09 21:35:04,814  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('酒店', 'NN'), ('离', 'P'), ('火车站', 'NN'), ('很', 'AD'), ('近', 'VA')]
+2026-11-09 21:35:04,820  INFO     TAGGED    '这个酒店离火车站很近。' (level 4, 8 tags)
+2026-11-09 21:35:04,829  INFO     FALLBACK  '那个酒吧离这儿太远了，我不想去。' -- out-of-list word(s): ['那个', '不想']
+2026-11-09 21:35:04,829  WARNING    HAIKU resegment call for '那个酒吧离这儿太远了，我不想去。' (cache miss on [('不想', 'AD')])
+2026-11-09 21:35:04,845  INFO     TAGGED    '那个酒吧离这儿太远了，我不想去。' (level 5, 12 tags)
+2026-11-09 21:35:04,854  INFO     FALLBACK  '我不想去离家很远的地方工作。' -- out-of-list word(s): ['不想']
+2026-11-09 21:35:04,854  WARNING    HAIKU resegment call for '我不想去离家很远的地方工作。' (cache miss on [('不想', 'AD')])
+2026-11-09 21:35:04,868  INFO     TAGGED    '我不想去离家很远的地方工作。' (level 3, 11 tags)
+2026-11-09 21:35:04,877  INFO     OK        hanlp-valid   '你家离超市远吗？' -> [('你', 'PN'), ('家', 'NN'), ('离', 'P'), ('超市', 'NN'), ('远', 'VA'), ('吗', 'SP')]
+2026-11-09 21:35:04,887  INFO     TAGGED    '你家离超市远吗？' (level 2, 6 tags)
+2026-11-09 21:35:04,895  INFO     OK        hanlp-valid   '你的大学离你老家很远吗？' -> [('你', 'PN'), ('的', 'DEG'), ('大学', 'NN'), ('离', 'P'), ('你', 'PN'), ('老家', 'NN'), ('很', 'AD'), ('远', 'VA'), ('吗', 'SP')]
+2026-11-09 21:35:04,898  INFO     TAGGED    '你的大学离你老家很远吗？' (level 4, 9 tags)
+2026-11-09 21:35:04,906  INFO     OK        hanlp-valid   '你们公司离地铁站近吗？' -> [('你们', 'PN'), ('公司', 'NN'), ('离', 'P'), ('地铁站', 'NN'), ('近', 'VA'), ('吗', 'SP')]
+2026-11-09 21:35:04,912  INFO     TAGGED    '你们公司离地铁站近吗？' (level 2, 7 tags)
+2026-11-09 21:35:04,920  INFO     OK        hanlp-valid   '你家离学校多远？' -> [('你', 'PN'), ('家', 'NN'), ('离', 'P'), ('学校', 'NN'), ('多', 'AD'), ('远', 'VA')]
+2026-11-09 21:35:04,922  INFO     TAGGED    '你家离学校多远？' (level 2, 6 tags)
+2026-11-09 21:35:04,930  INFO     FALLBACK  '这个酒店离机场有多远？' -- out-of-list word(s): ['这个']
+2026-11-09 21:35:04,930  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('酒店', 'NN'), ('离', 'P'), ('机场', 'NN'), ('有', 'VE'), ('多', 'AD'), ('远', 'VA')]
+2026-11-09 21:35:04,932  INFO     TAGGED    '这个酒店离机场有多远？' (level 2, 8 tags)
+2026-11-09 21:35:04,941  INFO     FALLBACK  '你离我远点儿！' -- out-of-list word(s): ['点儿']
+2026-11-09 21:35:04,941  WARNING    HAIKU resegment call for '你离我远点儿！' (cache miss on [('点儿', 'AD')])
+2026-11-09 21:35:04,952  INFO     TAGGED    '你离我远点儿！' (level 2, 6 tags)
+2026-11-09 21:35:04,960  INFO     OK        hanlp-valid   '这儿离车站有点儿远。' -> [('这儿', 'PN'), ('离', 'P'), ('车站', 'NN'), ('有点儿', 'AD'), ('远', 'VA')]
+2026-11-09 21:35:04,962  INFO     TAGGED    '这儿离车站有点儿远。' (level 2, 5 tags)
+2026-11-09 21:35:04,969  INFO     FALLBACK  '现在离放假有一个星期的时间。' -- out-of-list word(s): ['一个星期']
+2026-11-09 21:35:04,969  INFO       CACHE-ONLY resegmentation -> [('现在', 'NT'), ('离', 'P'), ('放假', 'VV'), ('有', 'VE'), ('一', 'CD'), ('个', 'M'), ('星期', 'NN'), ('的', 'DEG'), ('时间', 'NN')]
+2026-11-09 21:35:04,972  INFO     TAGGED    '现在离放假有一个星期的时间。' (level 3, 9 tags)

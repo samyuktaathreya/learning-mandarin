@@ -1,0 +1,52 @@
+## 2-58
+**Point:** Expressing comparisons with 比 (bǐ), including basic comparisons, "more" with 更/很多/得多/多了, and age differences with 大/小 + number + 岁
+
+**Covers:** 
+- Basic comparisons: Noun1 + 比 + Noun2 + Adjective (e.g., 小李比小张高)
+- Comparisons with 更: Noun1 + 比 + Noun2 + 更 + Adjective (e.g., 小李比小张更高)
+- "Much more" comparisons: Noun1 + 比 + Noun2 + Adjective + 很多/得多/多了 (e.g., 拼音比汉字容易很多)
+- Age differences: A + 比 + B + 大/小 + Number + 岁 (e.g., 姐姐比我大两岁)
+- Standalone "much more": Subject + Adjective + 多了 with implied comparison (e.g., 我的感冒好多了)
+- Age questions without 比: Adjective (大/小) + Number + 岁/年纪 (e.g., 你几岁了？)
+- Same age: A + 和/跟 + B + 一样/差不多 + 大 (e.g., 他女朋友和他女儿一样大)
+
+**Does not cover:** 
+- 比较 used as an adverb meaning "rather/quite" (e.g., 这个问题比较简单)
+- 不比 negation patterns (e.g., 你不比我聪明)
+- 比起...来 patterns (e.g., 比起你来，我还差得远呢)
+- 相比 patterns (e.g., 相比网络广告，平面广告贵很多)
+- 跟...比 patterns (e.g., 跟上海比，我老家的物价很低)
+- 比 as a verb meaning "to compete/compare" or in compound words like 比赛, 对比
+- 比如 meaning "for example"
+
+```rule
+match: _ 比/P _ /VA
+match: _ 比/P _ /VA 更/AD _
+match: _ 比/P _ /VA /AD 多/AD
+match: _ 比/P _ /VA 得/DER 多/VA
+match: _ 比/P _ /VA /CD 岁/M
+match: _ 比/P _ /VA /CD _
+match: /VA 多/AD 了/SP
+match: /VA /CD 岁/M 了/SP
+match: _ 和/CC|P _ 一样/AD /VA
+match: _ 跟/CC|P _ 一样/AD /VA
+match: _ 和/CC|P _ 差不多/AD /VA
+match: _ 跟/CC|P _ 差不多/AD /VA
+match: /CD 岁/M 了/SP
+match: 多/AD /VA
+match: 谁/PN /VA
+
+unless: 比较/AD
+unless: 不/AD 比/VV
+unless: 比/VV 起/VV
+unless: 相比/VV
+unless: 跟/P _ 比/VV
+unless: 和/P _ 相比/VV
+unless: 与/P _ 相比/VV
+unless: 比/VV 赛/NN
+unless: 对比/VV
+unless: 比如/AD
+unless: 比/VV 一/CD
+```
+
+**Notes:** The rule prioritizes precision by excluding patterns with 比较, 比起, 相比, and 跟...比 which are other grammar points. It captures the core 比 comparison structure (P preposition tag for 比) while excluding 比 used as a verb (VV tag). The rule handles age comparisons with 大/小 + 岁, standalone 多了 improvements, and same-age comparisons with 一样/差不多. Some sentences with just 谁 + adjective (e.g., 你俩谁大？) are caught by the final match pattern to cover existential/interrogative comparisons.

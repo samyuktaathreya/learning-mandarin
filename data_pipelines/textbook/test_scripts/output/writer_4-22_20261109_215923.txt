@@ -1,0 +1,13 @@
+## 4-22
+**Point:** Sentence-final interjection 啊 (a) that adds tone of urgency, exclamation, excitement, certainty, or concern.
+**Covers:** 啊 tagged as SP or IJ at the end of a clause, used to express emotion, urgency, or concern; includes statements, questions, and exclamations where 啊 modifies the tone of the entire clause.
+**Does not cover:** 啊 used in enumeration/listing patterns (A啊, B啊, C啊 meaning "A, B, C, etc."); 啊 used in "X什么啊" patterns; 啊 appearing in the middle of a clause rather than at the end.
+
+```rule
+match: 啊/SP $
+match: ^啊/IJ
+unless: ... ‖ _ 啊/SP ‖ _ 啊/SP
+unless: ... ‖ _ 啊/SP ‖ _ 啊/SP ‖ _ 啊/SP
+```
+
+**Notes:** The first match pattern catches 啊 as a sentence-final particle (SP) at clause end, which is the primary use. The second match catches 啊 as an interjection (IJ) at clause start (like "啊，你怎么在这里？"). The unless patterns exclude enumeration cases where multiple clauses each end with 啊/SP followed by another clause with 啊/SP—these indicate the listing pattern rather than the sentence-final exclamatory use. The pattern `... ‖ _ 啊/SP ‖ _ 啊/SP` detects when 啊 appears in sequence across multiple clauses, which is characteristic of the listing pattern to exclude.

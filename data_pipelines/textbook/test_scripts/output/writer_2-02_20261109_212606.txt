@@ -1,0 +1,11 @@
+## 2-02
+**Point:** Modal verbs 应该 and 该 expressing "should" or obligation
+**Covers:** Sentences where 应该 or 该 appears as a modal verb before another verb, expressing what someone should do or should not do
+**Does not cover:** Other uses of 该 (e.g., 该⋯⋯了 meaning "it's time to" or expressing a time-based obligation with different grammatical structure)
+
+```rule
+match: (应该|该)/VV _ /VV
+unless: (该|应该)/VV ... 了/SP $ 
+```
+
+**Notes:** The rule matches 应该 or 该 tagged as VV followed by any word and then a verb (the action being obligated). The negative construction (不 应该/该) is automatically captured since 不 comes before the modal verb in tokenization. The unless clause excludes sentences ending with 了 immediately after the verb phrase, which may belong to the 该⋯⋯了 construction (HSK 2-80), though this is a conservative filter—some 应该 sentences legitimately end with 了. The rule requires the modal to be directly followed by content that includes a verb to distinguish from other uses.

@@ -1,0 +1,158 @@
+
+########## rules  2026-11-09 21:13 ##########
+131 page(s) use the word(s); asking about 40.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG9W0UX  Negative commands with "bie"
+  ASGAUCXK  Negation of past actions with "meiyou"
+  ASGIPYFV  Standard negation with "bu"
+  ASGIVZJU  Negative commands with "buyao"
+  ASGPNV3Q  Negation of "you" with "mei"
+  ASGRJ1BI  Comparing "bu" and "mei"
+
+not:
+  ASG0C825  Expressing "have to" with "budebu"
+  ASG0NDS6  Expressing "no matter" with "buguan"
+  ASG10CAE  Expressing "less than" with "budao"
+  ASG1NAXO  Approximations with "chabuduo"
+  ASG3IR71  Expressing "can't do without" with "shaobuliao"
+  ASG516F9  Advanced potential complements
+  ASG5BOGP  Expressing "not often" with "bu zenme"
+  ASG5HZG6  "Could it be that" with "qibushi"
+  ASG73H8K  Comparing "budebu" and "zhihao"
+  ASG87B11  Using "budan... geng" to express "not only... but also"
+  ASG8DVSO  Basic comparisons with "bu bi"
+  ASG8F7D4  Expressing "if it were not for" with "yaobushi"
+  ASGA0S4T  A softer "but" with "buguo"
+  ASGDFQP7  Expressing "how about" with "yaobu"
+  ASGE2U25  Expressing something is "not worth doing" with "buxie"
+  ASGEAH5M  Basic comparisons with "meiyou"
+  ASGECD0E  Expressing "don't need to" with "buyong"
+  ASGF9320  Expressing "not only..., even..." using "budan..., shenzhi lian"
+  ASGIKHUH  Comparing "buduan" and "buting"
+  ASGJ1VZQ  Many types of "not only... but also..."
+  ASGMCX2H  Expressing "to be worthy of" with "bukuishi"
+  ASGR6Q2J  Expressing "let alone" with "bie shuo"
+  ASGTYJ3E  Expressing "not only... but also" with "budan... erqie..."
+  ASGVYIZT  Expressing "not very" with "bu zenme"
+  ASGWH1D5  Comparisons with "buru"
+
+unsure:
+  ASG7R8US  Expressing "never again" with "zai ye bu"
+  ASGEEA2D  Expressing "double negation"
+  ASGSVF28  Expressing duration of inaction
+
+unrelated:
+  ASG0EQQJ  Expressing not knowing how to do something using "hao"
+  ASG4D8XB  Tag questions with "bu"
+  ASG6ZI8L  Expressing "no matter" with "wulun"
+  ASG78FDE  Expressing a last chance with "zaibu... jiu..."
+  ASGAA381  Expressing "even so" with "zaibu... ye..."
+  ASGGOUJB  Expressing "almost" using "chadian mei"
+
+[note] ASG9W0UX is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+[note] ASGIVZJU is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-14
+Tagging 236 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_211340.txt
+  ...100/336
+  ...200/336
+  ...300/336
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 1-14, rule line 1: empty item '|' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-14_20261109_211352.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 1-14
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Negation with 不, 没/没有, 别, and 不要
+**Covers:** Negating present/future actions or states with 不; negating past actions with 没/没有; negating the verb 有 with 没/没有; forming negative commands with 别 or 不要
+**Does not cover:** Compounds like 不得不, 不怎么, 不过, 差不多, 不如, 不管, 别说 (let alone), 不愧, 不屑, 要不是, 要不, 不到, 来不及, 说不定, and potential complements (V+不+V)
+
+```rule
+match: /AD 不? /VV
+match: /AD 没有? /VV
+match: /AD 没有? /NN
+match: /AD 别 /VV
+match: /AD 不要 /VV
+unless: 不得不/AD
+unless: 不怎么/AD
+unless: 不过/AD
+unless: 差不多/VV
+unless: 不如/P
+unless: 不如/AD
+unless: 不管/VV
+unless: 不管/CS
+unless: 别说/VV
+unless: 不愧/AD
+unless: 不屑/VV
+unless: 要不是/AD
+unless: 要不/AD
+unless: 不/AD 到/VV
+unless: 来/VV 不/AD 了/SP
+unless: 说不定/AD
+unless: /VV 不/AD /VV
+```
+
+**Notes:** The rule matches the core negation structures: 不/别/不要 + verb, and 没/没有 + verb/noun. The unless clauses exclude compounds and grammatical constructions that use these characters but represent different HSK points. Potential complements (verb + 不 + verb) are excluded because they represent a different grammar point. Comparisons with 没有 (没有 + noun + adjective) are excluded via the VV requirement, since those use 没有 as a preposition/comparison marker, not standard negation.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-14
+Tagging 236 labeled example(s) (cached after this run)...
+  ...100/336
+  ...200/336
+  ...300/336
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  [retry] the rule couldn't be read: answer has no '## 1-14' section (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-14_20261109_211437.txt)
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-14: rule on labeled examples (no AI) ===
+  examples of 1-14 matched:    67/80
+  counter-examples wrongly matched: 29/256   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (29) ---
+  我女儿不到三岁。  -- ASG10CAE Expressing "less than" with "budao"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  我家到公司不到五百米。  -- ASG10CAE Expressing "less than" with "budao"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  在美国，不到21岁不能喝酒。  -- ASG10CAE Expressing "less than" with "budao"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD ; ^ 不/AD /VV|VA|VC]
+  她的病不到一个星期就好了。  -- ASG10CAE Expressing "less than" with "budao"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  李医生不到55岁就退休了。  -- ASG10CAE Expressing "less than" with "budao"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  爷爷不到60岁就去世了。  -- ASG10CAE Expressing "less than" with "budao"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  老板不到30岁就有白头发了。  -- ASG10CAE Expressing "less than" with "budao"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  很多人不生二胎不是因为不想要，是因为成本太高，养不起。  -- ASG516F9 Advanced potential complements  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  要不是她帮忙，我们不可能这么快找到这个地方。  -- ASG8F7D4 Expressing "if it were not for" with "yaobushi"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  要不是你说你想吃，我不会做这个菜的。  -- ASG8F7D4 Expressing "if it were not for" with "yaobushi"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  要不是因为他是你朋友，我是不会帮他的。  -- ASG8F7D4 Expressing "if it were not for" with "yaobushi"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  要不你先走吧，我还没做完。  -- ASGDFQP7 Expressing "how about" with "yaobu"  [matched: /PN|NN|NT|M|LC|AD 没/AD /VV]
+  打车吧，要不会迟到的。  -- ASGDFQP7 Expressing "how about" with "yaobu"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  人家都不屑跟你说话，你就不要热脸贴在冷屁股上了。  -- ASGE2U25 Expressing something is "not worth doing" with "buxie"  [matched: 不要/AD ... /VV]
+  你们不用都来，我们不需要这么多人。  -- ASGECD0E Expressing "don't need to" with "buyong"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  在家里隔离的时候，不但小区出不去，甚至连家门也不让你出去。  -- ASGF9320 Expressing "not only..., even..." using "budan..., shenzhi lian"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  他怎么了？不但心情不好，甚至连饭也不想吃。  -- ASGF9320 Expressing "not only..., even..." using "budan..., shenzhi lian"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  我今天很困，不停地打哈欠。  -- ASGIKHUH Comparing "buduan" and "buting"  [matched: ^ 不/AD /VV|VA|VC]
+  感冒了，喉咙痛，还不停地流鼻涕。  -- ASGIKHUH Comparing "buduan" and "buting"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  吃饭的时候他一句话也不说，不停地吃。  -- ASGIKHUH Comparing "buduan" and "buting"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD ; ^ 不/AD /VV|VA|VC]
+  你一直说个不停，太吵了，不要再说了。  -- ASGIKHUH Comparing "buduan" and "buting"  [matched: 不要/AD ... /VV]
+  我不只对排球感兴趣，而且对足球也很感兴趣。  -- ASGJ1VZQ Many types of "not only... but also..."  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  他不只会唱歌，也会跳舞。  -- ASGJ1VZQ Many types of "not only... but also..."  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  这家超市不仅种类多，价格也不贵。  -- ASGJ1VZQ Many types of "not only... but also..."  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  这个外国人不只会唱民歌，还会说方言，真是了不起！  -- ASGJ1VZQ Many types of "not only... but also..."  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD]
+  别说一百，就是一块钱我也不给你。  -- ASGR6Q2J Expressing "let alone" with "bie shuo"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD ; 别/AD /VV]
+  别说旅游了，他连出门都不想出。  -- ASGR6Q2J Expressing "let alone" with "bie shuo"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD ; 别/AD /VV]
+  别说是我，连你妈妈也不会原谅你。  -- ASGR6Q2J Expressing "let alone" with "bie shuo"  [matched: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD ; 别/AD /VV]
+  别说你了，就是我弟弟来也要买票。  -- ASGR6Q2J Expressing "let alone" with "bie shuo"  [matched: 别/AD /VV]
+
+--- examples of 1-14 the rule misses (13) ---
+  上课的时候别说英文。  -- ASG9W0UX Negative commands with "bie"
+  我没有去上班。  -- ASGAUCXK Negation of past actions with "meiyou"
+  他们没有说话。  -- ASGAUCXK Negation of past actions with "meiyou"
+  她没有看到你。  -- ASGAUCXK Negation of past actions with "meiyou"
+  我们在北京没有房子。  -- ASGPNV3Q Negation of "you" with "mei"
+  你们在上海没有朋友吗？  -- ASGPNV3Q Negation of "you" with "mei"
+  你女朋友不跟你一起去吗？  -- ASGRJ1BI Comparing "bu" and "mei"
+  你不用手机看书吗？  -- ASGRJ1BI Comparing "bu" and "mei"
+  你是不是我的老师？  -- ASGRJ1BI Comparing "bu" and "mei"
+  她想不想来？  -- ASGRJ1BI Comparing "bu" and "mei"
+  你爱不爱我？  -- ASGRJ1BI Comparing "bu" and "mei"
+  你们周末上不上班？  -- ASGRJ1BI Comparing "bu" and "mei"
+  你的外国朋友们喜不喜欢吃中国菜？  -- ASGRJ1BI Comparing "bu" and "mei"

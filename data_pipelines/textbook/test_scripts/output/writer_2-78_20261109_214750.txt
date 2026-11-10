@@ -1,0 +1,13 @@
+## 2-78
+**Point:** Affirmative-negative questions (正反疑问句) using the pattern Verb/Adj + 不 + Verb/Adj, or 有 + 没有
+
+**Covers:** Questions formed by presenting both positive and negative versions of a verb or adjective in sequence, including two-character verbs where 不 is inserted after the first character, and the 有没有 pattern for existence/possession questions
+
+**Does not cover:** Questions using 吗, 呢, 吧, 还是, or interrogative words (什么、谁、怎么、哪里 etc.); tag questions that are merely appended; other question formation methods
+
+```rule
+match: _ /AD 是/VC | _ /VA 不/AD /VA | _ /VV 不/AD /VV | _ /VV 不/AD _ /VV | /VV 不/AD /VV | /VA 不/AD /VA | /VC 不/AD /VC | /VE 没有/VE
+unless: /SP | 吗/SP | 呢/SP | 吧/SP | 还是/CC | /CD|DT|OD|M 不
+```
+
+**Notes:** The rule covers the core A-不-A pattern for verbs (单字动词 and 双字动词 with 不 after the first character), adjectives, and the 有没有 pattern. The first match line handles single-character verbs/adjectives and the 是不是 pattern. The second match line catches two-character verbs where the pattern is X /VV 不/AD X/other-tag /VV. The unless clauses exclude other question types and filter out 不 used as negation in non-question contexts (number + 不, time + 不, etc.). Tag errors in real sentences are accepted as long as the core pattern is present.

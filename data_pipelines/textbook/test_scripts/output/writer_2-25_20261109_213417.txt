@@ -1,0 +1,17 @@
+## 2-25
+**Point:** Using 对 as a preposition meaning "to/towards" or as a verb meaning "to face/point at"
+**Covers:** 对 + Object + Verb (preposition directing action/emotion to a target); 对着/对上/对不上 (verb phrases); comparison with 跟 where both are prepositions with 说
+**Does not cover:** 对于 (formal variant, HSK 4-14); 对...来说 (HSK 3-40); 对...而言; 对方 (the pronoun "other party"); tag questions 对不对/对吗; 对 as adjective meaning "correct"
+
+```rule
+match: /P 对 _ ... /VV
+match: _ 对/VA 着/AS
+match: _ 对/VV (不|上)
+unless: 而言
+unless: 来说
+unless: 对方
+unless: 对/VA (不|) 对/VA $
+unless: 对/VA 吗 $
+```
+
+**Notes:** The first match captures the core prepositional use: 对 tagged as P followed by an object (any word) and then a verb. The second and third matches capture verbal uses (对着, 对上, 对不上) where 对 is tagged VA or VV. The unless clauses exclude 对...而言 constructions, 对...来说 constructions, uses of 对方 (the pronoun), and tag questions. The tag question pattern catches both 对不对 and 对吗 at clause end. Note: some examples show 对/P tagged as preposition before an object that may span multiple words before the verb; the pattern `_ ... /VV` allows for this intervening material.

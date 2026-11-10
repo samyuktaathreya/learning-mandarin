@@ -1,0 +1,15 @@
+## 1-19
+**Point:** Expressing "and" with 和/跟, offering choices with 还是, and expressing "with" using 跟
+**Covers:** (1) Linking nouns with 和 or 跟 in the sense of "and"; (2) Offering options in questions with 还是; (3) Using 跟 as a preposition meaning "with" to express accompanying or interacting with someone
+**Does not cover:** 还是 as an adverb meaning "still/yet/anyway"; 跟 when meaning "follow" or in comparisons with 比/一样/差不多/似的/有关; 和 as a preposition in specific grammatical structures; verb linking with 和/跟
+
+```rule
+match: /CC
+unless: 一样|差不多|有关|似的|比 ... /VV|差 ... /VV|比起来 ... /VV
+unless: ^ ... /CS .*
+unless: _ ... /AD 还是|/ ... (AD|VV) _ ... /AS|/ ... (AD|VV) _
+unless: 和/P _ 联络|和/P 此|和/P 这|和/P 那
+unless: _ 和/P _ (一样|差不多)
+```
+
+**Notes:** The rule matches any CC-tagged coordinating conjunction (和, 跟, or 还是) but must exclude several uses: (1) constructions with 一样, 差不多, 有关, 似的, or 比 following or preceding the coordinator that indicate comparison/similarity rather than simple coordination; (2) clauses in subordinating contexts (those beginning with CS tags); (3) 还是 used as an adverb (when tagged AD) meaning "still/anyway" rather than offering choices—detect this by checking if 还是 is preceded/followed by verbs or aspect particles without an option structure; (4) 和 as a preposition in specific frozen phrases (联络, etc.); (5) sequences like "A和B一样" which indicate the "same as" grammar point. The rule is conservative and excludes borderline cases to prioritize precision.

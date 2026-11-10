@@ -1,0 +1,16 @@
+## 2-78
+**Point:** Affirmative-negative questions using verb/adjective repetition with 不
+**Covers:** Questions formed by stating a verb or adjective, then 不, then repeating the verb/adjective (or its first character for two-character words); also 有没有 pattern for yes/no questions
+**Does not cover:** Questions using 吗, 呢, 吧, 还是, or question words (什么、谁、怎么、etc.); tag questions with 是不是 at the end are only counted if the main clause itself shows the V/不V or A/不A pattern
+
+```rule
+match: /VV 不/AD /VV
+match: /VA 不/AD /VA
+match: /VA 不/AD /AD /VV
+match: /VV 不/AD /VV /AD /VV
+match: /VV 不/AD /VA
+match: /VE 没有/VE
+unless: SP
+```
+
+**Notes:** The rule prioritizes matching the core V/不V and A/不A patterns. Two-character verbs and adjectives are handled by allowing the first character to be followed by 不 and then either another single character or the full repeated form (captured by patterns like `/VV 不/AD /VV`). The 有没有 pattern is included as an alternative yes/no question form listed in the grammar point. The `unless: SP` line filters out sentences where these patterns appear with sentence-final particles like 吗, 呢, or 吧, since those represent different grammar points. Clauses are checked independently (separated by punctuation), so tag questions at the end of statements are excluded unless the statement itself demonstrates the affirmative-negative structure.

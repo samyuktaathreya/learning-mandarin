@@ -1,0 +1,11 @@
+## 2-28
+**Point:** Expressing "for" with 为 (wèi) as a preposition indicating the beneficiary or target of an action
+**Covers:** Sentences where 为 + [person/entity] + [verb/adjective] shows someone doing an action or experiencing an emotion for/on behalf of another party, including work, service, emotional reactions, and responsibilities
+**Does not cover:** 为了 (purpose/reason), 以...为... (taking as), 为 as a copula/linking verb (在...为/被...为), 因为 (because), 为什么 (why), 为难/分为/变为/以为 (other verb meanings), 为期/为此/作为 (other fixed expressions), or 为 when tagged as VV
+
+```rule
+match: 为/P _ ... (/VV|/VA)
+unless: 为了/P|因为/P|以/P _ 为/VV|为/AD|为/VV|为/VC|/SB _ 为/VC|为什么|为难|分为|变为|以为|为期|为此|作为
+```
+
+**Notes:** The core pattern is 为 tagged as P (preposition), followed by any number of words (including modifiers and the object), then ending with either a verb (VV) or adjective (VA) that shows the action/emotion directed at that object. The unless clauses exclude: 为了 and 因为 (different grammar points), 以...为 structures (different pattern), 为 as a verb/copula, the question word 为什么, other verbs that happen to contain 为, and fixed expressions. The rule prioritizes precision by requiring clear preposition + object + action/emotion structure.

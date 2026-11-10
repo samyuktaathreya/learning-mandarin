@@ -1,0 +1,14 @@
+## 2-26
+**Point:** 给 (gěi) as a preposition marking the target/recipient of an action
+**Covers:** Subj. + 给 + Target/Recipient + Verb Phrase, where 给 indicates who/what the action is directed at (similar to "to give someone a call" in English)
+**Does not cover:** 给 as the main verb "to give"; 给 after the verb (verb + 给 + object); 给 in passive constructions (被/叫/让 + 给); 给 in 把-constructions where it's marked as MSP or VV; 给 as part of verb compounds like 嫁给, 赠给, 送给 where 给 follows the verb
+
+```rule
+match: _ 给/P _ /VV
+unless: /BA _ _ 给
+unless: 被|叫|让 _ 给
+unless: _ 给/VV
+unless: _ 给/MSP
+```
+
+**Notes:** The core pattern is: something + 给/P (preposition) + someone + verb. The unless clauses exclude: (1) 把-constructions where the object precedes 给; (2) passive voice with 被/叫/让; (3) 给 tagged as main verb (VV) instead of preposition (P); (4) 给 tagged as MSP (modal sense particle, used in passive constructions). This rule aims for high precision by only matching 给 explicitly tagged as P before a verb phrase, while filtering out constructions that belong to other grammar points.

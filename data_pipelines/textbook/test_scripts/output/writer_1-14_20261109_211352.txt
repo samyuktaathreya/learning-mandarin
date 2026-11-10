@@ -1,0 +1,27 @@
+## 1-14
+**Point:** Negation with 不, 没/没有, 别, and 不要
+
+**Covers:** 
+- Standard negation with 不 (present/future actions, habits, adjectives)
+- Negation of past actions with 没/没有
+- Negation of 有 with 没
+- Negative commands with 别
+- Negative commands with 不要
+
+**Does not cover:** 
+- Compound negatives like 不得不, 不管, 不但, 差不多, 不怎么 (as modal adverbs), 不愧, 要不是, 要不, 别说 (as "let alone"), 不如, 不屑, 不到, 不停, 从不 (as habitual marker), 不论, 不过 (as conjunction) — these are separate grammar points
+- 没 in "没怎么" (not very) — HSK 6-29
+- Potential complements with 不 (e.g., 吃不了, 做不起)
+- Comparison structures with 没有 or 不
+
+```rule
+match: (不|别|不要|没有?)/AD ... (VA|VV) | (没有?)/VE
+unless: 不得不|不管|不但|差不多|不愧|要不是|要不(?!/VV)|别说.*连|不如|不屑|不到(?!/VV)|不停(?!/VV)|从不|不论|不过(?!/VV)|没.*怎么|没有.*不|不.*比
+```
+
+**Notes:** 
+- The rule matches two main patterns: (1) negation adverbs (不/别/不要) before VA or VV; (2) 没/没有 as VE (indicating negation of 有)
+- "Unless" excludes related but distinct grammar points by checking for their characteristic patterns
+- 没/没有 tagged as VE specifically marks negation of 有 (possess), which is the core of this point
+- Potential complements (动词+不) are excluded since those are separate HSK points
+- The pattern doesn't require subject or objects, matching all sentence positions

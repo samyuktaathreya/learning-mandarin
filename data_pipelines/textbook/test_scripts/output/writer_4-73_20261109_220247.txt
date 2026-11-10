@@ -1,0 +1,23 @@
+## 4-73
+**Point:** Using 还 + predicate/noun (+ 呢/吗) to express surprise, sarcasm, or rhetorical disbelief
+**Covers:** Sentences where 还 precedes a verb phrase or noun phrase (optionally followed by 呢 or 吗) to convey an ironic or astonished tone about an unexpected or irrational situation
+**Does not cover:** 还好 (lucky that), 还是 (or/had better/still), 还有 (also/in addition/about to), 还在 (still in the process of), 还 in comparisons (even more), 还 expressing continuation, 还 in "not only...but also" structures
+
+```rule
+match: 还/AD ... (呢/SP|吗/SP)?$
+unless: 还是/AD
+unless: 还/AD 好/VA
+unless: 还/AD 有/VE
+unless: 还/AD 在/AD
+unless: 还/AD 在/VV
+unless: 还/AD 不/AD 错/VA
+unless: 还/AD 可以/VV
+unless: 还/AD 行/VV
+unless: 不/AD 仅|不/AD 光|不仅|不光
+unless: 除了/P
+unless: 哪怕/CS
+unless: 比/P .* 还/AD
+unless: 又/CC .* 还是/AD
+```
+
+**Notes:** The rule looks for 还 as an adverb at the start of a clause (after punctuation or at sentence start), followed by any words and optionally ending with 呢 or 吗. It excludes 还是 completely, and explicitly excludes other common non-target uses of 还 (lucky, addition, ongoing action, moderation, comparisons, repetition patterns, exception structures). The pattern requires 还 to appear early in the clause to capture the characteristic structure of this grammar point.

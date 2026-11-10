@@ -1,0 +1,28 @@
+## 2-81
+**Point:** Expressing "about to" with 要/快要/就要⋯⋯了
+**Covers:** Sentences with 就要 or 快要 + verb + 了, or 要 + verb + 了 (without other adverbs before 要), expressing imminence. Also covers time expressions with 还有 + duration + 就/就要 + verb + 了.
+**Does not cover:** 要 meaning "want" or "need"; 要不是 "if it weren't for"; 要是 "if"; 不要 negative commands; 要 + verb as future intention with a specific future time; other uses of 要 with different meanings.
+
+```rule
+match: 就/AD 要/VV ... /VV .* /SP|AS
+match: 快要/AD ... /VV .* /SP|AS
+match: 要/VV ... /VV .* /AS
+match: 还/AD 有/VV|VE ... 就/AD 要?/VV ... /VV .* /SP|AS
+match: 还/AD 有/VV|VE ... 就/AD ... /VV .* /SP|AS
+unless: _ 要 /NN
+unless: /PN 要/VV /VV
+unless: /PN 要/VV 去/VV
+unless: /PN 要/VV 回/VV
+unless: 不/AD 要/VV
+unless: 要/VV 不/AD
+unless: 要/VV /PN 说/VV
+unless: /NT 要/VV
+unless: 非/AD 要/VV
+unless: 总/AD 要/VV
+unless: 想/VV 要/VV
+unless: 要/VV 看/VV
+unless: 要/CS 吃/VV
+unless: ^ 要/VV 去/VV 就/AD
+```
+
+**Notes:** The rule prioritizes precision by excluding common other uses of 要 (desire, future intention with time markers, conditional structures). The match patterns capture the core structures: 就要...了, 快要...了, bare 要...了, and time duration + 就(要)...了. The unless clauses exclude: object nouns after 要 (want something), verbs of motion with future time, negative commands, 要不是/要是 conditionals, 要看 "it depends", and conditional 要...就 patterns. The match `要/VV ... /VV .* /AS` is broad but heavily filtered by unless clauses to avoid false positives.

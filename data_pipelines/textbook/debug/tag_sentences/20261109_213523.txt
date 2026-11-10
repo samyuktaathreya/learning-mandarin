@@ -1,0 +1,81 @@
+2026-11-09 21:35:23,317  INFO     === tag_sentences.py run started ===
+2026-11-09 21:35:23,369  INFO     OK        hanlp-valid   '我们都为你高兴。' -> [('我们', 'PN'), ('都', 'AD'), ('为', 'P'), ('你', 'PN'), ('高兴', 'VA')]
+2026-11-09 21:35:23,371  INFO     TAGGED    '我们都为你高兴。' (level 3, 5 tags)
+2026-11-09 21:35:23,379  INFO     OK        hanlp-valid   '谁为我考虑过？' -> [('谁', 'PN'), ('为', 'P'), ('我', 'PN'), ('考虑', 'VV'), ('过', 'AS')]
+2026-11-09 21:35:23,379  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-09 21:35:23,380  INFO     TAGGED    '谁为我考虑过？' (level 4, 5 tags)
+2026-11-09 21:35:23,389  INFO     OK        hanlp-valid   '你们可以来为我们加油。' -> [('你们', 'PN'), ('可以', 'VV'), ('来', 'VV'), ('为', 'P'), ('我们', 'PN'), ('加油', 'VV')]
+2026-11-09 21:35:23,391  INFO     TAGGED    '你们可以来为我们加油。' (level 4, 6 tags)
+2026-11-09 21:35:23,399  INFO     FALLBACK  '她是为美国政府工作的。' -- out-of-list word(s): ['美国']
+2026-11-09 21:35:23,399  WARNING    HAIKU resegment call for '她是为美国政府工作的。' (cache miss on [('美国', 'NR')])
+2026-11-09 21:35:23,412  INFO     TAGGED    '她是为美国政府工作的。' (level 5, 8 tags)
+2026-11-09 21:35:23,421  INFO     FALLBACK  '这个生日蛋糕是为你准备的。' -- out-of-list word(s): ['这个']
+2026-11-09 21:35:23,421  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('生日', 'NN'), ('蛋糕', 'NN'), ('是', 'VC'), ('为', 'P'), ('你', 'PN'), ('准备', 'VV'), ('的', 'SP')]
+2026-11-09 21:35:23,423  INFO     TAGGED    '这个生日蛋糕是为你准备的。' (level 3, 9 tags)
+2026-11-09 21:35:23,440  INFO     FALLBACK  '父母为家庭付出了很多。' -- out-of-list word(s): ['很多']
+2026-11-09 21:35:23,440  INFO       CACHE-ONLY resegmentation -> [('父母', 'NN'), ('为', 'P'), ('家庭', 'NN'), ('付出', 'VV'), ('了', 'AS'), ('很', 'AD'), ('多', 'A')]
+2026-11-09 21:35:23,442  INFO     TAGGED    '父母为家庭付出了很多。' (level 5, 7 tags)
+2026-11-09 21:35:23,450  INFO     OK        hanlp-valid   '你不为自己的孩子担心吗？' -> [('你', 'PN'), ('不', 'AD'), ('为', 'P'), ('自己', 'PN'), ('的', 'DEG'), ('孩子', 'NN'), ('担心', 'VV'), ('吗', 'SP')]
+2026-11-09 21:35:23,452  INFO     TAGGED    '你不为自己的孩子担心吗？' (level 3, 8 tags)
+2026-11-09 21:35:23,461  INFO     OK        hanlp-valid   '谢谢你为我们提供这么多资源。' -> [('谢谢', 'VV'), ('你', 'PN'), ('为', 'P'), ('我们', 'PN'), ('提供', 'VV'), ('这么', 'AD'), ('多', 'CD'), ('资源', 'NN')]
+2026-11-09 21:35:23,463  INFO     TAGGED    '谢谢你为我们提供这么多资源。' (level 5, 8 tags)
+2026-11-09 21:35:23,472  INFO     FALLBACK  '他为公司的发展贡献了很多。' -- out-of-list word(s): ['很多']
+2026-11-09 21:35:23,472  INFO       CACHE-ONLY resegmentation -> [('他', 'PN'), ('为', 'P'), ('公司', 'NN'), ('的', 'DEG'), ('发展', 'NN'), ('贡献', 'VV'), ('了', 'AS'), ('很', 'AD'), ('多', 'A')]
+2026-11-09 21:35:23,475  INFO     TAGGED    '他为公司的发展贡献了很多。' (level 5, 9 tags)
+2026-11-09 21:35:23,484  INFO     FALLBACK  '很多人都在为那些孩子祈祷。' -- out-of-list word(s): ['很多']
+2026-11-09 21:35:23,484  INFO       CACHE-ONLY resegmentation -> [('很', 'AD'), ('多', 'A'), ('人', 'NN'), ('都', 'AD'), ('在', 'AD'), ('为', 'P'), ('那些', 'DT'), ('孩子', 'NN'), ('祈祷', 'VV')]
+2026-11-09 21:35:23,486  INFO     TAGGED    '很多人都在为那些孩子祈祷。' (level 7, 9 tags)
+2026-11-09 21:35:23,495  INFO     OK        hanlp-valid   '为大家的健康干杯！' -> [('为', 'P'), ('大家', 'PN'), ('的', 'DEG'), ('健康', 'NN'), ('干杯', 'VV')]
+2026-11-09 21:35:23,497  INFO     TAGGED    '为大家的健康干杯！' (level 4, 5 tags)
+2026-11-09 21:35:23,505  INFO     OK        hanlp-valid   '我们都为你的好成绩高兴。' -> [('我们', 'PN'), ('都', 'AD'), ('为', 'P'), ('你', 'PN'), ('的', 'DEG'), ('好', 'JJ'), ('成绩', 'NN'), ('高兴', 'VA')]
+2026-11-09 21:35:23,507  INFO     TAGGED    '我们都为你的好成绩高兴。' (level 3, 8 tags)
+2026-11-09 21:35:23,516  INFO     OK        hanlp-valid   '我因为生病而请假。' -> [('我', 'PN'), ('因为', 'P'), ('生病', 'VV'), ('而', 'MSP'), ('请假', 'VV')]
+2026-11-09 21:35:23,518  INFO     TAGGED    '我因为生病而请假。' (level 4, 5 tags)
+2026-11-09 21:35:23,527  INFO     OK        hanlp-valid   '欧洲的经济因为债务危机而陷入衰退。' -> [('欧洲', 'NR'), ('的', 'DEG'), ('经济', 'NN'), ('因为', 'P'), ('债务', 'NN'), ('危机', 'NN'), ('而', 'MSP'), ('陷入', 'VV'), ('衰退', 'NN')]
+2026-11-09 21:35:23,530  INFO     TAGGED    '欧洲的经济因为债务危机而陷入衰退。' (level 7, 9 tags)
+2026-11-09 21:35:23,539  INFO     FALLBACK  '外婆只是因为孩子顽皮而想吓唬他一下。' -- out-of-list word(s): ['一下']
+2026-11-09 21:35:23,539  INFO       CACHE-ONLY resegmentation -> [('外婆', 'NN'), ('只是', 'AD'), ('因为', 'P'), ('孩子', 'NN'), ('顽皮', 'VA'), ('而', 'MSP'), ('想', 'VV'), ('吓唬', 'VV'), ('他', 'PN'), ('一', 'CD'), ('下', 'M')]
+2026-11-09 21:35:23,542  INFO     TAGGED    '外婆只是因为孩子顽皮而想吓唬他一下。' (level 7, 11 tags)
+2026-11-09 21:35:23,551  INFO     FALLBACK  '男女朋友之间经常因为吃醋而吵架。' -- out-of-list word(s): ['吃醋']
+2026-11-09 21:35:23,551  WARNING    HAIKU resegment call for '男女朋友之间经常因为吃醋而吵架。' (cache miss on [('吃醋', 'VV')])
+2026-11-09 21:35:23,569  INFO     TAGGED    '男女朋友之间经常因为吃醋而吵架。' (level 6, 10 tags)
+2026-11-09 21:35:23,578  INFO     OK        hanlp-valid   '首相因为受贿丑闻而下了台。' -> [('首相', 'NN'), ('因为', 'P'), ('受贿', 'NN'), ('丑闻', 'NN'), ('而', 'MSP'), ('下', 'VV'), ('了', 'AS'), ('台', 'NN')]
+2026-11-09 21:35:23,582  INFO     TAGGED    '首相因为受贿丑闻而下了台。' (level 10, 8 tags)
+2026-11-09 21:35:23,591  INFO     FALLBACK  '他因为熬夜而精神不能集中。' -- out-of-list word(s): ['不能']
+2026-11-09 21:35:23,591  INFO       CACHE-ONLY resegmentation -> [('他', 'PN'), ('因为', 'P'), ('熬夜', 'VV'), ('而', 'MSP'), ('精神', 'NN'), ('不', 'AD'), ('能', 'VV'), ('集中', 'VV')]
+2026-11-09 21:35:23,594  INFO     TAGGED    '他因为熬夜而精神不能集中。' (level 5, 8 tags)
+2026-11-09 21:35:23,603  INFO     OK        hanlp-valid   '你学中文是因为你的中国女朋友吗？' -> [('你', 'PN'), ('学', 'VV'), ('中文', 'NN'), ('是', 'VC'), ('因为', 'P'), ('你', 'PN'), ('的', 'DEG'), ('中国', 'NR'), ('女朋友', 'NN'), ('吗', 'SP')]
+2026-11-09 21:35:23,606  INFO     TAGGED    '你学中文是因为你的中国女朋友吗？' (level 2, 10 tags)
+2026-11-09 21:35:23,615  INFO     OK        hanlp-valid   '我们之所以反对是因为风险太大。' -> [('我们', 'PN'), ('之所以', 'AD'), ('反对', 'VV'), ('是', 'VC'), ('因为', 'P'), ('风险', 'NN'), ('太', 'AD'), ('大', 'VA')]
+2026-11-09 21:35:23,617  INFO     TAGGED    '我们之所以反对是因为风险太大。' (level 6, 8 tags)
+2026-11-09 21:35:23,626  INFO     FALLBACK  '以先进科技为手段，以发展生产力为目标。' -- out-of-list word(s): ['生产力']
+2026-11-09 21:35:23,627  WARNING    HAIKU resegment call for '以先进科技为手段，以发展生产力为目标。' (cache miss on [('生产力', 'NN')])
+2026-11-09 21:35:23,640  INFO     TAGGED    '以先进科技为手段，以发展生产力为目标。' (level 5, 11 tags)
+2026-11-09 21:35:23,652  INFO     FALLBACK  '许多外国企业在中国快速发展，以麦当劳为例，2000年有50家，现在有500家。' -- out-of-list word(s): ['麦当劳', '例', '2000年', '50家', '500家']
+2026-11-09 21:35:23,652  WARNING    HAIKU resegment call for '许多外国企业在中国快速发展，以麦当劳为例，2000年有50家，现在有500家。' (cache miss on [('麦当劳', 'NR'), ('例', 'NN'), ('2000年', 'NT'), ('50家', 'CD'), ('500家', 'M')])
+2026-11-09 21:35:23,665  INFO       NON-LIST 麦当劳 (NR) -> '(name) mai4dang1lao2' [proper_noun]
+2026-11-09 21:35:23,667  INFO       NON-LIST 例 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:35:23,668  INFO       NON-LIST 2000年 (NT) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:35:23,670  INFO       NON-LIST 50家 (CD) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:35:23,672  INFO       NON-LIST 500家 (M) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:35:23,673  INFO     TAGGED    '许多外国企业在中国快速发展，以麦当劳为例，2000年有50家，现在有500家。' (level 10, 17 tags)
+2026-11-09 21:35:23,685  INFO     FALLBACK  '我们公司是以亚洲市场为主，以欧美市场为辅。' -- out-of-list word(s): ['欧美', '为辅']
+2026-11-09 21:35:23,685  WARNING    HAIKU resegment call for '我们公司是以亚洲市场为主，以欧美市场为辅。' (cache miss on [('欧美', 'NR'), ('为辅', 'VV')])
+2026-11-09 21:35:23,697  INFO       NON-LIST 欧美 (NR) -> '(name) ou1mei3' [proper_noun]
+2026-11-09 21:35:23,699  INFO       NON-LIST 为辅 (VV) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:35:23,700  INFO     TAGGED    '我们公司是以亚洲市场为主，以欧美市场为辅。' (level 10, 11 tags)
+2026-11-09 21:35:23,710  INFO     OK        hanlp-valid   '以人为本' -> [('以', 'P'), ('人', 'NN'), ('为', 'VV'), ('本', 'NN')]
+2026-11-09 21:35:23,712  INFO     TAGGED    '以人为本' (level 5, 4 tags)
+2026-11-09 21:35:23,721  INFO     FALLBACK  '民以食为天' -- out-of-list word(s): ['民', '食']
+2026-11-09 21:35:23,721  WARNING    HAIKU resegment call for '民以食为天' (cache miss on [('民', 'NN'), ('食', 'NN')])
+2026-11-09 21:35:23,729  INFO       NON-LIST 民 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:35:23,731  INFO       NON-LIST 食 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:35:23,732  INFO     TAGGED    '民以食为天' (level 10, 5 tags)
+2026-11-09 21:35:23,740  INFO     FALLBACK  '以民生为本' -- out-of-list word(s): ['民生']
+2026-11-09 21:35:23,740  WARNING    HAIKU resegment call for '以民生为本' (cache miss on [('民生', 'NN')])
+2026-11-09 21:35:23,749  INFO       NON-LIST 民生 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:35:23,750  INFO     TAGGED    '以民生为本' (level 10, 4 tags)
+2026-11-09 21:35:23,759  INFO     FALLBACK  '以服务人民为荣' -- out-of-list word(s): ['荣']
+2026-11-09 21:35:23,759  WARNING    HAIKU resegment call for '以服务人民为荣' (cache miss on [('荣', 'NN')])
+2026-11-09 21:35:23,768  INFO       NON-LIST 荣 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:35:23,769  INFO     TAGGED    '以服务人民为荣' (level 10, 5 tags)

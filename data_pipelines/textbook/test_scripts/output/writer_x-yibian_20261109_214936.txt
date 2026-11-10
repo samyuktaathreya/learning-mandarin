@@ -1,0 +1,13 @@
+## x-yibian
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing two actions happening simultaneously using 一边...一边... structure
+
+**Covers:** Sentences where 一边 directly precedes a verb, as in 一边 V₁ (，) 一边 V₂. This includes the comma-separated form, where each 一边 sits in its own clause, and the single-clause form (我们一边走一边聊).
+
+**Does not cover:** 一边 as a noun or location word ("one side", 这一边); 一边是…一边是… contrasts (一边 followed by 是, not a verb); passive or unintentional simultaneous events (use 的时候 instead).
+
+```rule
+match: 一边/AD /VV
+```
+
+**Notes:** Patterns only match within one clause, so the earlier rule `一边/AD _ 一边/AD` could never fire on the usual comma-separated form (一边吃饭，一边玩). This rule instead looks for a 一边 tagged AD immediately followed by a verb (VV). That pattern appears in each half of the structure, so it matches both the comma-separated and the single-clause forms. Requiring a following verb excludes the noun/locative 一边 and 一边是… contrasts. The shortened form 边 is not covered and would need a separate rule.

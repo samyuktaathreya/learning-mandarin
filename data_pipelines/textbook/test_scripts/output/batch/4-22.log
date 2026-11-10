@@ -1,0 +1,56 @@
+
+########## rules  2026-11-09 21:59 ##########
+4 page(s) use the word(s); asking about 4.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGW66JM  Sentence-final interjection "a"
+
+not:
+  ASGGPG97  Listing things with "a"
+
+unsure:
+
+unrelated:
+  ASGNV2TZ  Challenging an adjective with "shenme"
+  ASGXXP6M  Advanced usages of the contrary "dao"
+
+[note] ASGW66JM is tagged HSK [1] on the wiki, the point is HSK 4 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 4-22
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215918.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 4-22
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Sentence-final interjection 啊 (a) that adds tone of urgency, exclamation, excitement, certainty, or concern.
+**Covers:** 啊 tagged as SP or IJ at the end of a clause, used to express emotion, urgency, or concern; includes statements, questions, and exclamations where 啊 modifies the tone of the entire clause.
+**Does not cover:** 啊 used in enumeration/listing patterns (A啊, B啊, C啊 meaning "A, B, C, etc."); 啊 used in "X什么啊" patterns; 啊 appearing in the middle of a clause rather than at the end.
+
+```rule
+match: 啊/SP $
+match: ^啊/IJ
+unless: ... ‖ _ 啊/SP ‖ _ 啊/SP
+unless: ... ‖ _ 啊/SP ‖ _ 啊/SP ‖ _ 啊/SP
+```
+
+**Notes:** The first match pattern catches 啊 as a sentence-final particle (SP) at clause end, which is the primary use. The second match catches 啊 as an interjection (IJ) at clause start (like "啊，你怎么在这里？"). The unless patterns exclude enumeration cases where multiple clauses each end with 啊/SP followed by another clause with 啊/SP—these indicate the listing pattern rather than the sentence-final exclamatory use. The pattern `... ‖ _ 啊/SP ‖ _ 啊/SP` detects when 啊 appears in sequence across multiple clauses, which is characteristic of the listing pattern to exclude.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 4-22
+Tagging 2 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 4-22: rule on labeled examples (no AI) ===
+  examples of 4-22 matched:    9/17
+  counter-examples wrongly matched: 0/8   <- should be 0
+
+--- examples of 4-22 the rule misses (8) ---
+  行啊！  -- ASGW66JM Sentence-final interjection "a"
+  小心啊！  -- ASGW66JM Sentence-final interjection "a"
+  吃啊！  -- ASGW66JM Sentence-final interjection "a"
+  你走不走啊？  -- ASGW66JM Sentence-final interjection "a"
+  你吃不吃啊？  -- ASGW66JM Sentence-final interjection "a"
+  谁说的啊？  -- ASGW66JM Sentence-final interjection "a"
+  你傻啊？  -- ASGW66JM Sentence-final interjection "a"
+  看什么啊？没见过漂亮姑娘啊？  -- ASGW66JM Sentence-final interjection "a"

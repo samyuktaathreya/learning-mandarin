@@ -1,0 +1,16 @@
+## 4-01
+**Point:** The auxiliary verb 得 (děi) meaning "must" or "have to"
+**Covers:** Sentences where 得 functions as an auxiliary verb (not a particle) expressing obligation or necessity, appearing between a subject and a verb phrase
+**Does not cover:** 得 as a structural particle (degree/potential complement marker after verbs), 得 in compounds like 不得不, 值得, 显得, 害得, 得不得了, 来得及, 只得, or 得 as part of other verb meanings (得分, 得了 meaning "got/contracted")
+
+```rule
+match: /PN|CS|P|AD|VV/ ... 得/VV /VV|AD|VA/
+unless: 不得不|值得|显得|害|得不得了|来得及|来不及|只得|得分|^.*得/DER
+```
+
+**Notes:** 
+- The core pattern requires 得/VV (tagged as a verb, not DER particle) immediately followed by another verb or adverb, which distinguishes it from degree/potential complements where 得 is tagged DER.
+- The pattern allows optional material before 得/VV to match: subject pronouns, subordinating conjunctions, prepositions, adverbs, or other verbs (for embedded clauses).
+- The first `unless` line filters out common fixed expressions and related grammar points that use 得 but aren't this point.
+- The second `unless` checks that 得 is not tagged as DER (structural particle) anywhere in the sentence, catching cases where the tagger might mark 得 as a particle even in clause-initial position.
+- Sentences like "他只得答应" are excluded because 只得 is a fixed expression meaning "have no choice but to," not the auxiliary verb construction we're teaching.

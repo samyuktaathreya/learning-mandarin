@@ -1,0 +1,15 @@
+## 3-21
+**Point:** Using 自从/从/自 to express "ever since" with a past starting point
+**Covers:** Sentences with 自从, 从, or 自 marking a past time/event starting point, followed by a consequence clause. The structure shows a past action/event as the beginning point, with the main clause describing what has happened since then.
+**Does not cover:** Uses of 从 for spatial starting points (location), uses for future time reference, or 从 in other contexts not expressing a temporal "ever since" relationship.
+
+```rule
+match: (自从|从|自)/P ... (以来|以后|后|，)/LC|P|LC|SP ... (就|一直|越来越|再也|很少)/AD
+unless: /LC$ ... /LC ...
+```
+
+**Notes:** 
+- The rule requires a preposition marking the starting point (自从/从/自) and looks for temporal markers (以来/以后/后/，) or punctuation after the time/event phrase, followed by consequence indicators (就, 一直, 越来越, 再也, 很少) in the main clause.
+- The "unless" clause prevents matching when there are two LC tags in sequence, which would indicate a different construction.
+- The main clause typically contains adverbs like 就, 一直, 越来越 that signal the consequence of the starting point.
+- Commas (，) can function as the boundary between the starting point clause and main clause when no explicit temporal marker like 以来/以后/后 is present.

@@ -1,0 +1,39 @@
+2026-11-09 21:31:25,471  INFO     === tag_sentences.py run started ===
+2026-11-09 21:31:25,525  INFO     FALLBACK  '他好像是英国人。' -- out-of-list word(s): ['英国人']
+2026-11-09 21:31:25,525  WARNING    HAIKU resegment call for '他好像是英国人。' (cache miss on [('英国人', 'NN')])
+2026-11-09 21:31:25,534  INFO       NON-LIST 英国人 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-09 21:31:25,535  INFO     TAGGED    '他好像是英国人。' (level 10, 4 tags)
+2026-11-09 21:31:25,543  INFO     FALLBACK  '你好像不是本地人。' -- out-of-list word(s): ['不是', '本地人']
+2026-11-09 21:31:25,543  WARNING    HAIKU resegment call for '你好像不是本地人。' (cache miss on [('不是', 'AD'), ('本地人', 'NN')])
+2026-11-09 21:31:25,559  INFO     TAGGED    '你好像不是本地人。' (level 5, 6 tags)
+2026-11-09 21:31:25,567  INFO     OK        hanlp-valid   '她好像生病了。' -> [('她', 'PN'), ('好像', 'AD'), ('生病', 'VV'), ('了', 'AS')]
+2026-11-09 21:31:25,569  INFO     TAGGED    '她好像生病了。' (level 3, 4 tags)
+2026-11-09 21:31:25,577  INFO     OK        hanlp-valid   '你好像很不喜欢她。' -> [('你', 'PN'), ('好像', 'AD'), ('很', 'AD'), ('不', 'AD'), ('喜欢', 'VV'), ('她', 'PN')]
+2026-11-09 21:31:25,580  INFO     TAGGED    '你好像很不喜欢她。' (level 3, 6 tags)
+2026-11-09 21:31:25,588  INFO     OK        hanlp-valid   '王先生好像很怕他老婆。' -> [('王', 'NR'), ('先生', 'NN'), ('好像', 'AD'), ('很', 'AD'), ('怕', 'VV'), ('他', 'PN'), ('老婆', 'NN')]
+2026-11-09 21:31:25,590  INFO     TAGGED    '王先生好像很怕他老婆。' (level 5, 7 tags)
+2026-11-09 21:31:25,597  INFO     FALLBACK  '他一个人坐在那儿，好像在想事情。' -- out-of-list word(s): ['一个']
+2026-11-09 21:31:25,598  INFO       CACHE-ONLY resegmentation -> [('他', 'PN'), ('一', 'CD'), ('个', 'M'), ('人', 'NN'), ('坐', 'VV'), ('在', 'P'), ('那儿', 'PN'), ('好像', 'AD'), ('在', 'AD'), ('想', 'VV'), ('事情', 'NN')]
+2026-11-09 21:31:25,608  INFO     TAGGED    '他一个人坐在那儿，好像在想事情。' (level 3, 11 tags)
+2026-11-09 21:31:25,616  INFO     OK        hanlp-valid   '好像不行。' -> [('好像', 'AD'), ('不行', 'VV')]
+2026-11-09 21:31:25,618  INFO     TAGGED    '好像不行。' (level 3, 2 tags)
+2026-11-09 21:31:25,625  INFO     OK        hanlp-valid   '好像要下雨了。' -> [('好像', 'AD'), ('要', 'VV'), ('下雨', 'VV'), ('了', 'SP')]
+2026-11-09 21:31:25,627  INFO     TAGGED    '好像要下雨了。' (level 3, 4 tags)
+2026-11-09 21:31:25,635  INFO     OK        hanlp-valid   '好像有人敲门。' -> [('好像', 'AD'), ('有人', 'AD'), ('敲门', 'VV')]
+2026-11-09 21:31:25,643  INFO     TAGGED    '好像有人敲门。' (level 4, 5 tags)
+2026-11-09 21:31:25,650  INFO     OK        hanlp-valid   '好像有人来过。' -> [('好像', 'AD'), ('有人', 'PN'), ('来', 'VV'), ('过', 'AS')]
+2026-11-09 21:31:25,655  INFO     TAGGED    '好像有人来过。' (level 3, 5 tags)
+2026-11-09 21:31:25,663  INFO     OK        hanlp-valid   '要取得好成绩，大家必须努力学习。' -> [('要', 'VV'), ('取得', 'VV'), ('好', 'JJ'), ('成绩', 'NN'), ('大家', 'PN'), ('必须', 'VV'), ('努力', 'AD'), ('学习', 'VV')]
+2026-11-09 21:31:25,665  INFO     TAGGED    '要取得好成绩，大家必须努力学习。' (level 4, 8 tags)
+2026-11-09 21:31:25,678  INFO     FALLBACK  '机票差不多要两千块钱。' -- out-of-list word(s): ['块钱']
+2026-11-09 21:31:25,679  WARNING    HAIKU resegment call for '机票差不多要两千块钱。' (cache miss on [('块钱', 'NN')])
+2026-11-09 21:31:25,696  INFO     TAGGED    '机票差不多要两千块钱。' (level 3, 5 tags)
+2026-11-09 21:31:25,704  INFO     OK        hanlp-valid   '明天你们一定要来。' -> [('明天', 'NT'), ('你们', 'PN'), ('一定', 'AD'), ('要', 'VV'), ('来', 'VV')]
+2026-11-09 21:31:25,706  INFO     TAGGED    '明天你们一定要来。' (level 3, 5 tags)
+2026-11-09 21:31:25,714  INFO     OK        hanlp-valid   '一定要小心。' -> [('一定', 'AD'), ('要', 'VV'), ('小心', 'VV')]
+2026-11-09 21:31:25,715  INFO     TAGGED    '一定要小心。' (level 3, 3 tags)
+2026-11-09 21:31:25,723  INFO     OK        hanlp-valid   '我们之间要保持一定距离。' -> [('我们', 'PN'), ('之间', 'LC'), ('要', 'VV'), ('保持', 'VV'), ('一定', 'JJ'), ('距离', 'NN')]
+2026-11-09 21:31:25,725  INFO     TAGGED    '我们之间要保持一定距离。' (level 5, 6 tags)
+2026-11-09 21:31:25,733  INFO     FALLBACK  '这件事和他有一定的关系，不能都怪你。' -- out-of-list word(s): ['不能']
+2026-11-09 21:31:25,734  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('件', 'M'), ('事', 'NN'), ('和', 'P'), ('他', 'PN'), ('有', 'VE'), ('一定', 'JJ'), ('的', 'DEG'), ('关系', 'NN'), ('不', 'AD'), ('能', 'VV'), ('都', 'AD'), ('怪', 'VV'), ('你', 'PN')]
+2026-11-09 21:31:25,737  INFO     TAGGED    '这件事和他有一定的关系，不能都怪你。' (level 5, 14 tags)

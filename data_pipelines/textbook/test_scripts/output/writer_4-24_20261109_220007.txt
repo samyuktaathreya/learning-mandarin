@@ -1,0 +1,27 @@
+## 4-24
+**Point:** Expressing "one by one", "little by little" or "again and again" with the pattern 一 + Measure Word + 一 + Measure Word
+**Covers:** Repeated "一 + measure word" meaning "one by one", "little by little", "gradually" or "again and again". It includes the optional 又 between the two parts (一遍又一遍). It works with time units (一天一天, 一年一年), classifiers and verb measure words (个, 点, 次, 遍, 步, 针), and with a noun repeated after the measure word (一个房间一个房间). It also covers the fixed forms 一针一线 and 一五一十.
+**Does not cover:** Single instances of 一 + measure word (一下, 一些, 一点); "once a day" type frequency phrases with different measure words (一天一次); adverbial uses of 一向, 一直, 一再, 一定, 一律, 一起, 一旦; 一下子; 之一; 一样; and other 一-based expressions that are not repeated measure word patterns.
+
+```rule
+match: 一/CD 个/M 一/CD 个/M
+match: 一/CD 点/M 一/CD 点/M
+match: 一/CD 天/M 一/CD 天/M
+match: 一/CD 年/M 一/CD 年/M
+match: 一/CD 次/M 一/CD 次/M
+match: 一/CD 遍/M 一/CD 遍/M
+match: 一/CD 步/M 一/CD 步/M
+match: 一/CD 句/M 一/CD 句/M
+match: 一/CD 口/M 一/CD 口/M
+match: 一/CD 月/M 一/CD 月/M
+match: 一/CD 个/M _ 一/CD 个/M
+match: 一/CD 个/M 又/AD 一/CD 个/M
+match: 一/CD 天/M 又/AD 一/CD 天/M
+match: 一/CD 年/M 又/AD 一/CD 年/M
+match: 一/CD 次/M 又/AD 一/CD 次/M
+match: 一/CD 遍/M 又/AD 一/CD 遍/M
+match: 一/CD 针/M 一线/NN
+match: 一五一十/CD
+```
+
+**Notes:** The previous rule used bare tag names (CD, M) as if they were words, so it never matched anything. The unless clauses also blocked ordinary sentences, because 别, 在 and 都 are tagged AD. This version matches the actual tokens: 一/CD, a specific measure word, then 一/CD and the same measure word. Listing each measure word explicitly keeps out mismatched frequency phrases such as 一天一次. The one-noun variant is limited to 个 (一个房间一个房间) to protect precision. 一针一线 is tokenized as 针 followed by the noun-tagged 一线, and 一五一十 is a single CD token, so both are listed as fixed forms.

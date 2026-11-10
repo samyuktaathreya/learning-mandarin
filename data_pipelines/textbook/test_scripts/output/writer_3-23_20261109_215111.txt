@@ -1,0 +1,19 @@
+## 3-23
+<!-- revised by claude on 2026-11-09; edit freely -->
+**Point:** Using 为 as a preposition to express "for" (beneficiary or purpose)
+**Covers:** (1) 为 + beneficiary/goal + verb/adjective showing an action or emotion done for them (including 是…为…的 and 不为…); (2) the 为…而… structure expressing purpose with effort or action
+**Does not cover:** 为了 (3-26, 6-37); 因为 (because); 以为 (mistakenly think); 为 as main verb or copula (是/变为/成为); fixed expressions such as 以…为, 作为, 为期, 为此, 为什么, 为难, 为的是, 为…所…
+
+```rule
+match: 为/P _ ... /VV|VA
+unless: 以 ... 为
+unless: 为/VC
+unless: 为 什么
+unless: 为 的 是
+unless: 为 ... 所
+unless: 作为
+unless: 因为
+unless: 以为
+```
+
+**Notes:** The earlier patterns required a stray extra word before 为 and a bare 为-plus-noun adjacency, so they missed nearly every example. The revised rule matches 为 only when the tagger marks it as a preposition (P), and requires a following word and then a verb or adjective later in the same clause. This covers 为我们高兴, 为孩子而活, 是为你准备的 and 为公司的发展贡献. 为了 is a separate token and so is never matched. The unless lines block 以…为, 为什么, 为的是, 为…所 passives, 作为, 因为 and 以为.

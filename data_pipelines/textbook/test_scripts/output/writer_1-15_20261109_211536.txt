@@ -1,0 +1,30 @@
+## 1-15
+<!-- written by claude-haiku-4-5 on 2026-11-09; edited -->
+**Point:** Basic uses of 从 (cóng) meaning "from" in relation to place, time, source, or origin, plus 离 (lí) for distance from a place, time, or event.
+
+**Covers:** 从...到 (from X to Y, for time or place); 从...中 (from a source, gaining a result); 从 + place/source + action (从我包里拿, 从哪儿来); 从...起/开始 and 从那以后/从今以后 (starting from); 离 + event/time/place + 还有/远/近 + duration.
+
+**Does not cover:** 从来 as adverb meaning "always/never"; 从而 meaning "thus/thereby"; 自从 meaning "ever since"; 从...以来; 从...来看/来说; adverbial compounds 从小, 从此, 从前, 从中; 从事 (to engage in).
+
+```rule
+match: 从/P
+match: 从今以后/NT
+match: 离/P
+unless: 从来
+unless: 从而
+unless: 自从
+unless: 从小
+unless: 从中
+unless: 从此
+unless: 从前
+unless: 从事
+unless: 从/P ... 以来
+unless: 从/P ... 来看
+unless: 从/P ... 来说
+```
+
+**Notes:**
+- Tagged as a preposition (P), 从 is almost always the basic "from" use. The rule therefore matches 从/P directly rather than requiring a specific connector. The labeled examples show that 从 can be followed by 到/P, 到/VV, 起/LC, 开始/VV, 以后/LC, 里/LC, a noun like 身上, or just a verb (从哪儿来, 从这件事可以看出).
+- 从今以后 is tokenized as a single NT, so it has its own match line.
+- 离 tagged P is covered because the labeled examples (离毕业还有几个月, 离结婚还远呢, 上次见面离今天快十年了) belong to this point.
+- Adverbial and other-point words (从来, 从而, 自从, 从小, 从中, 从此, 从前, 从事) are excluded by the unless lines. So are the 从...以来 and 从...来看/来说 frames, which belong to other points.

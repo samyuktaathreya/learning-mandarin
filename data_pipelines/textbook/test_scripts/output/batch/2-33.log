@@ -1,0 +1,201 @@
+
+########## rules  2026-11-09 21:37 ##########
+12 page(s) use the word(s); asking about 12.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGAC619  Alternative existential sentences
+  ASGOIDEO  Aspect particle "zhe"
+
+not:
+  ASGHVFRA  Expressing "along with…" with "suizhe"
+  ASGM5ZAB  Complement "-zhao"
+  ASGPV5Z2  Expressing that something has already happened with "laizhe"
+
+unsure:
+  ASG7AUNJ  Using "zhe" when "verbing away"
+  ASGEYQ9O  Expressing actions in progress (full form)
+
+unrelated:
+  ASG3JELV  Comparing "dui" and "duiyu"
+  ASG516F9  Advanced potential complements
+  ASGC5Y86  Comparing "gen" and "dui"
+  ASGGB3IV  Expressing "on the basis of" with "ping"
+  ASG4GVRX  Separable verb
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-33
+Tagging 42 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213740.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-33
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Aspect particle 着 (zhe) indicating continuous action/state, and alternative existential sentences with 着 or 是
+
+**Covers:** 
+- Verb + 着 to show an action/state that continues or persists (e.g., 坐着 "sitting", 开着 "is on")
+- Verb1 + 着 + Verb2 where the first verb describes a state accompanying an action (e.g., 站着吃饭 "eat standing up")
+- Subj. + Verb + 着 + Object in commands/descriptions (e.g., 看着行李 "watch the luggage")
+- Place + Verb + 着 + NP for existential meaning (e.g., 桌子上放着书 "there is a book on the table")
+- Place + 是 + NP for existential meaning (e.g., 袋子里是我的午饭 "my lunch is in the bag")
+
+**Does not cover:**
+- 来着 (laizhe) meaning "was [formerly]" - counter-example: 我说什么来着
+- Complement 着 after verbs meaning "succeed in" (睡着 "fell asleep", 找着 "found") - counter-example: 宝宝刚睡着
+- 得着/不着 resultative complement - counter-example: 买不着, 找得着
+- 随着 (suizhe) meaning "along with" - counter-example: 随着风摇动
+- 沿着 (yánzhe) meaning "along" - counter-example: 沿着大道走
+- Perfective aspect 了 - only match 着/AS tag, not 了/AS
+
+```rule
+match: /VV 着/AS
+match: /LC 是/VC
+unless: 随着/P
+unless: 沿/P
+unless: /P 着/AS
+unless: 来/VV 着/AS
+unless: /VV 不/AD 着/VV
+unless: /VV 得/DER 着/VV
+```
+
+**Notes:** 
+- The rule prioritizes precision by excluding prepositions (随着, 沿着, and general /P 着/AS patterns) which would catch "along with" uses.
+- It excludes 来着 by matching the specific pattern "来/VV 着/AS".
+- It excludes resultative complements by matching /VV 不/AD 着/VV and /VV 得/DER 着/VV patterns (negation or 得 before 着).
+- The two match patterns cover: (1) the aspect particle case (VV 着), and (2) existential 是 sentences (LC 是).
+- Many unlabeled sentences show 着 used with transitive verbs describing states (摇着, 穿着, 抱着) which should match /VV 着/AS and are part of this grammar point.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-33
+Tagging 42 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-33: rule on labeled examples (no AI) ===
+  examples of 2-33 matched:    19/19
+  counter-examples wrongly matched: 0/29   <- should be 0
+
+########## tatoeba  2026-11-09 22:09 ##########
+Filling 2-33 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 72 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220941.txt
+  ...100/160
+  Deciding 5 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  我等 = 我 + 等  (we)
+     clear  不舒服 = 不 + 舒服  (unwell)
+    hidden  慢慢 = 慢 + 慢  (slowly)
+    hidden  慢走 = 慢 + 走  (Stay a bit!)
+     clear  手里 = 手 + 里  (in hand; (a situation is) in sb's hands)
+
+Course sentences at HSK 2 the rule already finds 2-33 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+  2 check call(s) (20 sentences each)...
+
+=== 2-33 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      345  2. contain the point's word(s)
+      345  3. new (not in DB, not a duplicate)
+      160  4. at most 2 characters outside HSK 2 words
+       38  5. really HSK 2
+       37  5b. no harder grammar point (of the 20 with a rule)
+       29  6. the rule finds 2-33
+       27  6b. no hidden word a learner can't work out
+       14  7. both checks say 2-33, English chosen
+       10  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (10) ===
+  听着。  (Listen.)  [tatoeba 5092137]
+  看着我  (Look at me.)  [tatoeba 12615453]
+  在这等着。  (Wait here.)  [tatoeba 5102308]
+  在这等着！  (Wait here!)  [tatoeba 13878983]
+  你的包开着。  (Your bag's open.)  [tatoeba 4903415]
+  我们在看着你。  (We've been watching you.)  [tatoeba 4972582]
+  进来，门开着。  (Come in, it's open.)  [tatoeba 5767605]
+  听着，我要跑了。  (Listen, I've got to run.)  [tatoeba 9961318]
+  这个椅子坐着真舒服。  (This chair is really comfortable to sit on.)  [tatoeba 4859536]  hidden: 这个
+  这个椅子坐着不舒服。  (This chair is uncomfortable.)  [tatoeba 8815377]  hidden: 这个, 不舒服
+
+--- dropped at step 4 (185), first 12 ---
+  纸容易着火。  -- 3 characters no HSK 2 word uses: 容易纸
+  你还活着，斯斯克？  -- 3 characters no HSK 2 word uses: 克斯活
+  他竟然厚着脸皮穿过我们的花园。  -- 5 characters no HSK 2 word uses: 厚园皮竟脸
+  这意味着对利用能源、耗费资金和制造污染的空调的使用有了大幅增长。  -- 17 characters no HSK 2 word uses: 使利制味增幅染污源用空耗调费资造金
+  因为有高而闭合的领子、紧身的剪裁和在直身裙两边的大开口，旗袍有着独一无二传达端庄和性感的能力。  -- 20 characters no HSK 2 word uses: 传剪力合庄性感旗无独直端紧而袍裁裙达闭领
+  你们把自行车留下，明天带着身份证和20块钱到交通局领自行车。  -- 9 characters no HSK 2 word uses: 份局带把留行证通领
+  树上的叶子随着冬天的到来而掉落。  -- 7 characters no HSK 2 word uses: 冬叶掉树而落随
+  这意味着一种轻松有趣的工作氛围，团队成就受到高度重视，沟通很重要，传统的3小时会议已被排队喝咖啡的非正式聊天取代。  -- 24 characters no HSK 2 word uses: 代传取受味团围度式成排松氛沟种统聊被议趣轻通重队
+  这间教室与那间隔着一堵墙。  -- 4 characters no HSK 2 word uses: 与堵墙隔
+  中国与蒙古隔着万里长城。  -- 5 characters no HSK 2 word uses: 与古城蒙隔
+  我的家与他的隔着一条江。  -- 3 characters no HSK 2 word uses: 与江隔
+  中国与美国隔着哪个大洋？  -- 4 characters no HSK 2 word uses: 与洋美隔
+
+--- dropped at step 5 (122), first 12 ---
+  你不要着急。  -- level 3: 着急 L3
+  别那么着急。  -- level 3: 着急 L3
+  哦，不！我的房子着火了！  -- level 5: 哦 L5, 房子 L3, 着火 L4
+  你开着电视怎么能安心学习呢？  -- level 7: 安心 L7
+  热天气不仅仅意味着人们觉得有点不高兴。  -- level 5: 仅仅 L4, 意味着 L5
+  女人为什么想被男人抱着睡觉？  -- level 4: 女人 L3, 被 L3, 男人 L3, 抱 L4
+  好希望她还活着。  -- level 4: 活 L4
+  小心着凉啊！  -- level 5: 小心 L3, 着凉 L5
+  马在路上小跑着。  -- level 3: 马 L3
+  他常常坐着看书一连好几个小时。  -- level 4: 常常 L3, 连 L4
+  他们一个接着一个地离开了。  -- level 4: 接着 L4, 离开 L3
+  他的声音听着很舒服。  -- level 3: 声音 L3
+
+--- dropped at step 5b (1) ---
+  从什么时候开始您就这里工作着的呢？  -- harder grammar: 3-39 (HSK 3)
+
+--- dropped at step 6 (8) ---
+  在哪儿我能找着他们？  -- rule: unless 睡|找|买|见|猜|碰|遇|摸|够|赶|撞|抓/VV 着/AS
+  我们都睡着了。  -- rule: unless 睡|找|买|见|猜|碰|遇|摸|够|赶|撞|抓/VV 着/AS
+  他们会跟着她。  -- rule: no match: line matched
+  请跟着我们。  -- rule: no match: line matched
+  我睡不着觉。  -- rule: unless /VV 不/AD 着/VV
+  你睡着了吗？  -- rule: unless 睡|找|买|见|猜|碰|遇|摸|够|赶|撞|抓/VV 着/AS
+  你不能睡着。  -- rule: unless 睡|找|买|见|猜|碰|遇|摸|够|赶|撞|抓/VV 着/AS
+  我看电视时睡着了。  -- rule: unless 睡|找|买|见|猜|碰|遇|摸|够|赶|撞|抓/VV 着/AS
+
+--- dropped at step 6b (2) ---
+  我等着你帮我。  -- hidden word a learner can't work out: 我等 (we)
+  她在后面慢慢走着。  -- hidden word a learner can't work out: 慢慢 (slowly), 慢走 (Stay a bit!)
+
+--- dropped at step 7 (13) ---
+  汤姆跟着。  -- check said no (2/2): Follow: 跟着 is likely complement, not aspect particle
+  茱蒂看着我。  -- check said no (2/2): Looked at: past completed action, not continuous
+  别跟着来啊。  -- check said no (2/2): Follow: 跟着 is likely complement, not aspect
+  汤姆跟着我。  -- check said no (2/2): Follow: 跟着 is likely complement, not aspect
+  我经常想着它。  -- check said no (2/2): Thinking about: habitual action, not continuous
+  您可以拿着这个.  -- check said no (1/2): Hold this: resultative state, not grammar point
+  他手里拿着什么?  -- check said no (2/2): Holding something: resultative state, not this point
+  她看着我的眼睛。  -- check said no (2/2): Looking at: single action, not continuous state
+  她穿着白色的衣服。  -- check said no (1/2): Wearing clothes: state of dress, not grammar point
+  现在是时候等着了。  -- check said no (1/2): Unnatural Chinese; questionable grammar
+  到哪里我都会跟着你。  -- check said no (2/2): 着 is part of fixed expression 跟着
+  这只狗跟着我到了我家。  -- check said no (2/2): 着 is part of fixed expression 跟着
+  我的姐姐经常就着牛奶喝茶。  -- check said no (2/2): 着 is part of fixed expression 就着
+
+--- dropped at step 8 (4) ---
+  你为什么站着？  -- difficulty review: (1/2); 为什么 (why) is HSK 2-05, but this sentence uses 为 (for/on behalf of) which is HSK 3-23, a grammar point above this level
+  为什么电视开着？  -- difficulty review: (1/2); 为什么 (why) is HSK 2-05, but this sentence uses 为 (for/on behalf of) which is HSK 3-23, a grammar point above this level
+  有一只小狗在商店门口等着。  -- difficulty review: (1/2); Uses '只' as a measure word (动量词/classifier for animals), which is not in the HSK 2 (2025) list; HSK 2 measure words are: 层、封、件、条、位
+  我会在这里等着到他回来的。  -- difficulty review: (2/2); Uses 到 as a result complement (到 = until), which is 3-46 (HSK 3), above this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-33_level2_20261109_221007.csv

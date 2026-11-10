@@ -1,0 +1,17 @@
+## 2-59
+**Point:** Basic comparisons using 跟/和 + 一样 to express that two things are the same
+
+**Covers:** Sentences with the structure Noun 1 + 跟/和 + Noun 2 + 一样 (+ optional adjective), including negations with 不一样
+
+**Does not cover:** Comparisons using 像 instead of 跟/和, because 像 structures have a different grammatical pattern and are treated as a separate advanced point
+
+```rule
+match: /P 一样/VA
+match: /P 一样/AD _
+match: /P _ 一样/VA
+match: /P _ 一样/AD
+
+unless: 像/P
+```
+
+**Notes:** The rule matches the core pattern of 跟/和 + 一样 by detecting a preposition (P tag, which covers 跟, 和, etc.) followed by 一样 tagged as VA or AD, with optional material between them. The unless clause filters out sentences using 像, which marks the separate grammar point for simile-based comparisons. The rule captures both positive statements (一样) and negations (不一样, which appears as 不/AD 一样/VA in the examples).

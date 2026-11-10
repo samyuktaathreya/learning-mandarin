@@ -1,0 +1,82 @@
+
+########## rules  2026-11-09 21:33 ##########
+7 page(s) use the word(s); asking about 7.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG59C66  Comparing "li" and "cong"
+  ASGGGIW8  Expressing "from… to…" with "cong… dao…"
+
+not:
+  ASG610D0  Expressing "thus" with "cong'er"
+  ASG8KUHG  Expressing "always" with "conglai"
+  ASG8NM5E  Expressing "never" with "conglai"
+  ASGLI7GW  Expressing "ever since" with "zicong"
+
+unsure:
+  ASGEB7F5  Expressing "from" with "cong... zhong"
+
+unrelated:
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-24
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213342.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-24
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 从 (cóng) and 离 (lí) to express "from" in spatial, temporal, or source contexts
+
+**Covers:** 
+- 从 + Place + verb (motion/action from a location)
+- 从 + Place + 到 + Place (from place to place)
+- 从 + Time + 到 + Time (from time to time)
+- 从 + Time/Event + 开始/起 (starting from)
+- 从 + Source (noun/person/abstract) + verb (taking/learning from)
+- 离 + Event/State + 还/还有 + duration (distance in time from an event)
+- 离 + Time/Event + duration (time distance)
+
+**Does not cover:**
+- 从来 (AD) meaning "always" or "never" — this is a time adverb, not the spatial/temporal "from" preposition
+- 从而 (AD) meaning "thereby/thus" — this is a conjunctive adverb connecting clauses
+- 自从 — this is a separate HSK 3 grammar point
+- 从 + 开始/起 without a clear time/event — covered in HSK 3-39
+- 从...来看 — covered in HSK 5-26
+- Adverbial uses like 从小, 从中, 从此, 从前(these are fixed expressions/adverbs, not the preposition use)
+
+```rule
+match: 从/P ... (到|起|开始|里|上|身上|中)
+match: 离/P ... (还|有|远|近)
+unless: 从来/AD
+unless: 从而/AD
+unless: 自从/P
+unless: 从小/AD
+unless: 从中/AD
+unless: 从此/AD
+unless: 从前/NT
+unless: 从事/VV
+unless: 从不/AD
+unless: 从/AD 没
+```
+
+**Notes:** 
+- The rule focuses on 从 as preposition (P tag) and 离 as preposition (P tag), not as adverbs (AD tag)
+- Key pattern: preposition + (place/time/source/event) + directional/temporal marker or verb
+- Counter-examples show that when 从 appears as AD tag (从来, 从不, 从小, etc.), it's not this grammar point
+- Watch for 从事 which is a verb meaning "to engage in" — it uses 从 as part of a verb compound, not as the preposition
+- The "unless" lines exclude adverbial forms and other HSK levels' grammar points that use the same characters
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-24
+Tagging 2 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-24: rule on labeled examples (no AI) ===
+  examples of 2-24 matched:    22/23
+  counter-examples wrongly matched: 2/31   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (2) ---
+  从他爸爸去世以来，他一直没回过家。  -- ASGLI7GW Expressing "ever since" with "zicong"  [matched: 从/P]
+  从毕业以来，她一直在教汉语。  -- ASGLI7GW Expressing "ever since" with "zicong"  [matched: 从/P]
+
+--- examples of 2-24 the rule misses (1) ---
+  从今以后，我不用再加班了。  -- ASG59C66 Comparing "li" and "cong"

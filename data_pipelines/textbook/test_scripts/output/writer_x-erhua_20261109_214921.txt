@@ -1,0 +1,33 @@
+## x-erhua
+**Point:** Erhua words (哪儿, 玩儿) and question words that stay in the position of the thing being asked about (谁, 什么, 哪个, 哪里/哪儿, 什么时候, 为什么, 怎么, 多少).
+
+**Covers:** Real questions with a question word in place, such as 你的家在哪儿？, 你是谁？ and 他去哪儿了？. Also sentences with 玩儿 (我们出去玩儿吧), and the bare question words given as labeled examples.
+
+**Does not cover:**
+- "Some" uses with a question word, e.g. 我在哪儿见过他 (somewhere). These are excluded only through the 在 + 哪儿/哪里 … 过 pattern.
+- "Every" uses, with 都 or 也 after the question word, e.g. 哪儿都不想去, 谁都喜欢.
+- 不管/无论 + question word, which is a "no matter what" use.
+- 一会儿, which belongs to other HSK points.
+
+```rule
+match: 哪儿|哪里/PN
+match: 玩 儿
+match: 玩儿
+match: 谁/PN
+match: 什么/PN
+match: 什么/DT
+match: 哪/DT 个/M
+match: 多少/CD
+match: 怎么
+match: 为什么
+unless: 哪儿|哪里|哪|谁|什么|怎么|多少 ... 都|也/AD
+unless: 在/P 哪儿|哪里 ... 过/AS
+unless: 不管|无论
+```
+
+**Notes:**
+- The "some" and "every" filters are deliberately blunt, so some good questions will be lost. One example is 你在哪儿见过他？, which is a real question but is excluded by the 在 … 过 filter.
+- Embedded questions such as 我不知道他是谁 still match. Add an `unless` on 知道 if they should be dropped.
+- 什么/DT and 怎么 are matched under any tag because the tagger varies. 为什么 is tagged VV.
+- 好玩儿 tokenized as one word is not matched, because only 玩儿 and 玩 + 儿 are.
+- 一会儿 is deliberately not matched.

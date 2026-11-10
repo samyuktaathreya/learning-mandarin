@@ -1,0 +1,121 @@
+
+########## rules  2026-11-09 21:17 ##########
+
+=== A. 1-18: rule on labeled examples (no AI) ===
+  examples of 1-18 matched:    15/15
+  counter-examples wrongly matched: 0/31   <- should be 0
+
+########## tatoeba  2026-11-09 22:04 ##########
+Filling 1-18 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 4 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  个头 = 个 + 头  (size)
+    hidden  大三 = 大 + 三  (third-year university student)
+     clear  多多 = 多 + 多  (many)
+     clear  天冷 = 天 + 冷  (it's cold (weather))
+
+Course sentences at HSK 2 the rule already finds 1-18 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+  2 check call(s) (20 sentences each)...
+
+=== 1-18 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      377  2. contain the point's word(s)
+      375  3. new (not in DB, not a duplicate)
+      163  4. at most 2 characters outside HSK 2 words
+       28  5. really HSK 2
+       28  5b. no harder grammar point (of the 20 with a rule)
+       26  6. the rule finds 1-18
+       22  6b. no hidden word a learner can't work out
+       19  7. both checks say 1-18, English chosen
+       17  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (17) ===
+  他比我高。  (He's taller than me.)  [tatoeba 760547]
+  你比他好。  (You're better than him.)  [tatoeba 5829624]
+  你比她要高。  (You're taller than her.)  [tatoeba 2031255]
+  你们比她高。  (You are taller than she.)  [tatoeba 4262712]
+  我比你高一点。  (I'm a little taller than you.)  [tatoeba 431826]  hidden: 一点
+  他比我大两岁。  (He's two years older than me.)  [tatoeba 713216]
+  他游泳比我好。  (He swims better than I do.)  [tatoeba 743739]
+  你们比我还高。  (You're taller than me.)  [tatoeba 5500559]
+  你比我记得好。  (You remember it better than I do.)  [tatoeba 5763048]
+  狗跑得比人快。  (A dog can run faster than a man can.)  [tatoeba 8743952]
+  天气比昨天好。  (The weather's better than yesterday.)  [tatoeba 10696092]
+  茶比牛奶贵吗？  (Is tea more expensive than milk?)  [tatoeba 11698443]
+  他比地铁还快。  (He was faster than the subway.)  [tatoeba 13992468]
+  你游泳游得比我好。  (You swim better than me.)  [tatoeba 1749755]
+  她今天比昨天要好很多。  (She is far better today than yesterday.)  [tatoeba 1223824]
+  Ken的书比你多多了。  (Ken has a lot more books than you.)  [tatoeba 2661322]  hidden: 多多
+  我们的饭店比那家饭店好。  (Our restaurant is better than that restaurant.)  [tatoeba 431106]
+
+--- dropped at step 3 (2) ---
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (212), first 12 ---
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  有时候外婆比克格勃还危险。  -- 6 characters no HSK 2 word uses: 克勃危婆格险
+  理科比文科难。  -- 3 characters no HSK 2 word uses: 理科难
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  新的旗袍又修长又紧身，也有短裙摆，与传统式样构成了鲜明的对比。  -- 15 characters no HSK 2 word uses: 与传修又式成摆旗构短紧统袍裙鲜
+  虽然我们大多数人比我们的父母、祖父母还要富裕得多，但是与之相应的快乐程度却没有多大的改变。  -- 15 characters no HSK 2 word uses: 与之却变富应度改数母父相祖程裕
+  他们的四合院要小得多，设计和装饰也比较简单，胡同也比较窄。  -- 10 characters no HSK 2 word uses: 单合窄简胡装计设较饰
+  光速比音速快，所以某些人在开口前，看起来还挺聪明的。  -- 6 characters no HSK 2 word uses: 光挺某聪速音
+  没有任何东西比友情更重要。  -- 4 characters no HSK 2 word uses: 任何更重
+  带著希望旅行比达到目的地更为美好。  -- 7 characters no HSK 2 word uses: 带更目美著行达
+  良善和喜乐比道德更加重要，是我们所应尽的绝对义务。  -- 11 characters no HSK 2 word uses: 义加务善尽应德更绝良重
+  你比以前更容易上课迟到了。  -- 4 characters no HSK 2 word uses: 容易更迟
+
+--- dropped at step 5 (135), first 12 ---
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 分数 L4
+  他比我高两寸。  -- level 6: 寸 L6
+  今天顾客比较少。  -- level 4: 顾客 L4, 比较 L3
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  这条河比那条长三倍。  -- level 4: 河 L3, 倍 L4
+  日本的人口比英国多。  -- level 5: 人口 L5
+  我的工资比他少多了。  -- level 4: 工资 L4
+  你比我重十倍。  -- level 4: 重 L4, 倍 L4
+  我们的朋友完成了比赛，得了第二名。  -- level 6: 完成 L3, 比赛 L3, 得了 L6
+  他在各方面都比不上你。  -- level 4: 各 L4, 方面 L4
+  不管你有多好，都还有人比你更好。  -- level 4: 不管 L4, 更 L3
+  他比爸爸年轻三岁。  -- level 3: 年轻 L3
+
+--- dropped at step 6 (2) ---
+  我知道你比我有钱。  -- rule: no match: line matched
+  她一天比一天漂亮。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  中国比日本大得多。  -- hidden word a learner can't work out: 日本 (Japan)
+  他比我高一个头。  -- hidden word a learner can't work out: 个头 (size)
+  他比她大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+  她比他大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+
+--- dropped at step 7 (3) ---
+  我们能比他们做得多。  -- check said no (2/2): 比 used with verb phrase, not simple adjective comparison
+  我不知道他比我大还是小。  -- check said no (1/2): 比 used in 'whether...or' construction, not comparison
+  我看的比Tom知道得多。  -- check said no (1/2): Uses 比 in a 'more/less' quantity structure, not basic adjective comparison
+
+--- dropped at step 8 (2) ---
+  我的儿子比我高。  -- difficulty review: (2/2); 儿 is HSK 3 morpheme (3-02), not covered at HSK 2
+  天气一天比一天冷。  -- difficulty review: (1/2); Uses 一...一... structure (HSK 4-24: 一A一B), which is above HSK 2 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-18_level2_20261109_220510.csv

@@ -1,0 +1,24 @@
+## 4-33
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Idiomatic phrases with 在 (zài) marking topic/aspect (在...上/下/中)
+**Covers:** Sentences with a clause-initial 在 + Topic/Condition + 上/下/中, where the 在...上/下/中 phrase forms its own clause and expresses "in regards to," "on the topic of," "under [conditions]," or "in [circumstances]"
+**Does not cover:** Location expressions (在 as simple preposition for place); temporal expressions (在...以前/以后, 在...内); action-in-progress (正在...); existence (在 marking location of subject); verbs followed by 在; 在于 "lies in"; 从...中 "from within"; phrases with 在...方面 (covered separately in 4-32); continuation 还在; assessment 在...看来; spatial relations 中间/当中; result complements with 下去; early expressions with 早在; inclusive 在内
+
+```rule
+match: ^ 在/P ... 上|下|中/LC $
+unless: 早/AD 在/P
+unless: 从/P
+unless: /VV 在/P
+unless: 以下/AD
+unless: 以上/AD
+unless: 在/P ... 看来/VV
+unless: 在于/VV
+unless: 在/P ... 内/P
+unless: 包括 ... 在/P 内/LC
+unless: 其中/NN
+unless: 当中/LC
+unless: 中间/NN
+unless: 正在/AD
+```
+
+**Notes:** The earlier rule used `‖` in the pattern, which is not valid syntax, so it never matched. The pattern now anchors with `^` and `$`. It requires a clause that begins with 在 and ends with the localizer 上/下/中, with any noun phrase in between. That is the shape of the topic or condition clause in "在这种情况下，…", "在他的影响下，…" and "在这篇课文中，…". Because the clause must end on the localizer, ordinary spatial uses such as "在桌子上放着…" (where a verb follows in the same clause) are not matched. The "unless" lines exclude the look-alike points: 早在, 从, verbs taking 在, 在…看来, 在于, 在…内, 包括…在内, 其中, 当中, 中间, 正在, and 以上/以下.

@@ -1,0 +1,54 @@
+## 1-40
+**Point:** Expressing change of state, "now," or "not anymore" with sentence-final 了
+
+**Covers:** Sentences where 了 appears at the end of a clause to indicate:
+- A change to a new situation (adjective or verb predicate becoming true): 我饿了、下雨了、他当经理了
+- "Now" in idiomatic expressions: 知道了、懂了、我走了、上课了
+- "Not anymore" with negation (不/没有 + verb/noun + 了): 我不想吃了、没有纸了、手机没电了
+- Negation with 已经: 我已经不住这里了、他们已经不在一起了
+
+**Does not cover:** Other uses of 了 in the sentence, specifically:
+- Completion/perfective 了 with an object after the verb: 我吃了饭 (object follows 了)
+- Completion 了 before an object that ends the clause: 我做完了工作
+- Duration with double 了: 你睡了一天了
+- 了 in questions asking if action was completed: 你吃了吗、他们到了吗
+- Potential complements: 走不了、做得了
+- Degree complements: 累死了、好极了、短了点儿
+- "About to" expressions with 快: 快下雨了
+- 过 + 了: 吃过了
+- Other result/directional complements: 买到了、说完了
+- 别 + verb + 了: 别说了
+
+```rule
+match: ... /SP$ ... 了/SP
+match: ... /AS$ ... 了/AS
+unless: ... 点/CD 儿/CD$
+unless: ... 吗/SP$
+unless: ... 呢/SP$
+unless: ... 极/AD 了/SP$
+unless: /VA 死/VV 了/SP$
+unless: /VA 坏/VV 了/SP$
+unless: /VA 完/VV 了/SP$
+unless: /VV 完/VV 了/SP$
+unless: /VV 完/VV 了/AS
+unless: /VV 到/VV 了/SP$
+unless: /VV 到/VV 了/AS
+unless: /VV 过/AS 了/SP$
+unless: /VV 住/VV 了/SP$
+unless: /VV 住/VV 了/AS
+unless: /VV 见/VV 了/SP$
+unless: /VV 赢/VV 了/SP$
+unless: /VV 赢/VV 了/AS
+unless: /VV 下/VV 了/AS
+unless: /VA 了/AS _
+unless: 快/AD ... /VA 了/SP$
+```
+
+**Notes:** The rule matches sentence-final 了 (marked /SP or /AS at end of clause). Exclusions filter out:
+1. Degree expressions (极了, 死了, 坏了, 短了点儿)
+2. Questions with 吗/呢
+3. Potential/result complements before object (到了, 完了, 住了, 见了, 赢了, 下了 when followed by object)
+4. Duration pattern with 了...了
+5. "About to" with 快
+6. 过了 (experiential aspect)
+The distinction between /SP and /AS tags is preserved because both can indicate change of state at clause end, but complements typically use /AS before objects.

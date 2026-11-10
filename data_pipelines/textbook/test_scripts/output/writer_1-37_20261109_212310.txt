@@ -1,0 +1,28 @@
+## 1-37
+**Point:** The 有字句 as the basic verb 有: possession (Subj. + 有 + Obj.), existence (Place + 有 + Obj.), and negation with 没(有).
+**Covers:** 有, 没有 or 没 tagged as a verb (VE or VV) directly followed by a noun, proper noun, time noun, number, noun modifier, or 很 plus a degree word. Also 有 + pronoun + 的 (e.g. 有你的号码). Examples: 我有钱, 他没有哥哥, 房间里有人吗, 我们有三个女儿, 日本有很多中国人.
+**Does not cover:**
+- 有点(儿) and 有一点 + adjective, and 有一点 + noun (excluded to be safe).
+- 有 + verb phrase (Taiwanese 有 + V, e.g. 有见过).
+- Comparisons: 有 or 没有 + NP + adjective (他有我帅, 你有老板忙吗); 有这么/那么 + adjective.
+- 没有 + verb (past negation) and 没有 tagged P or AD.
+- 有的, 有的是, 有关, 只有, 所有, 具有.
+- Fixed 很/真/太/最/挺/特别/非常 + 有 (很有道理). It is not the possession/existence point.
+
+```rule
+match: 有|没有|没/VE|VV /NN|NR|NT|CD|JJ
+match: 有|没有|没/VE|VV /PN 的
+match: 有|没有|没/VE|VV 很/AD
+unless: 有 点
+unless: 有 点儿
+unless: 有 一 点
+unless: 没有 有
+unless: 有|没有|没 /PN|NN|NR /NN? /VA
+unless: 很|非常|特别|真|太|最|挺 有
+```
+
+**Notes:**
+- The tagger sometimes labels 没 as AD (我没工作), so those sentences are missed. This is accepted for precision.
+- The comparison exclusion (有/没有 + NP + VA) also blocks sentences like 我有钱很开心, which is acceptable.
+- 还有 + noun can still match, which is fine for existence. A bare 还有 at the end of a clause (the "in addition" use) has nothing after it, so it is not matched.
+- Because a pattern only matches inside one clause, the unless lines do not look across commas.

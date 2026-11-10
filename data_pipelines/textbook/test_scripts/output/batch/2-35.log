@@ -1,0 +1,58 @@
+
+########## rules  2026-11-09 21:38 ##########
+4 page(s) use the word(s); asking about 4.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGN4VUU  Expressing "if" with "ruguo... dehua"
+
+not:
+  ASGB0MXK  Marking a topic with "de hua"
+
+unsure:
+  ASG8F7D4  Expressing "if it were not for" with "yaobushi"
+
+unrelated:
+  ASG1F4D1  Expressing "in this way" with "zheyang"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-35
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213848.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-35
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 的话 (and variants with 如果/要是/假如) to express conditional "if" statements, or using 等 to indicate "etc."
+
+**Covers:** 
+- Conditional clauses with 的话 (with or without 如果/要是/假如/etc.), optionally followed by 就 in the consequent clause
+- Sentences using 等 as "et cetera" marker after a list of items
+
+**Does not cover:** 
+- Topic marking with 的话 (e.g., "北京的话，秋天去最好" where 的话 marks a topic for comment, not a condition)
+- 的话 when it means "words/speech" as a noun (tagged DEG, not SP)
+- Other conditional structures not using 的话 or 等
+
+```rule
+match: 的话/SP
+match: 等/ETC
+unless: ^ ... 的话/SP ‖ ... /VC|VV|VA|VE ...
+unless: /PN|NN|NR|NT 的话/SP ‖ /AD|VA
+```
+
+**Notes:** The first `unless` line excludes the topic-marking pattern by checking that a clause starting with a noun/pronoun followed by 的话 is followed by a comment clause (containing only descriptive predicates, not action verbs or copulas that would indicate a conditional consequent). The second `unless` catches cases where a single nominal or temporal expression + 的话 appears at clause start as a topic marker. The rule prioritizes precision: it will match clear conditional uses with 的话 (especially those with 如果 or 就, or with predicate verbs before 的话), and any use of 等, while excluding the most common topic-marking false positives.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-35
+Tagging 2 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-35: rule on labeled examples (no AI) ===
+  examples of 2-35 matched:    7/12
+  counter-examples wrongly matched: 0/10   <- should be 0
+
+--- examples of 2-35 the rule misses (5) ---
+  好吃的话，就多吃点。  -- ASGN4VUU Expressing "if" with "ruguo... dehua"
+  喜欢就拿走吧。  -- ASGN4VUU Expressing "if" with "ruguo... dehua"
+  有事给我打电话。  -- ASGN4VUU Expressing "if" with "ruguo... dehua"
+  有空来我家玩。  -- ASGN4VUU Expressing "if" with "ruguo... dehua"
+  你要来的话，就给我打个电话，我去接你。  -- HSK list example

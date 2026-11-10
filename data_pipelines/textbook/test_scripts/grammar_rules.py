@@ -86,6 +86,11 @@ def parse_item(tok: str) -> Item:
     if tok == "_":
         return Item("any", optional=optional)
     word_part, slash, tag_part = tok.partition("/")
+    if re.search(r"[.*+\\()\[\]{}]", word_part):
+        raise RuleError(f"{tok!r} looks like a regular expression -- this is not regex syntax: use ... for "
+                        "'any words' and _ for 'one word'")
+    if word_part and re.fullmatch(r"[A-Za-z|]+", word_part):
+        raise RuleError(f"{tok!r}: words must be Chinese -- for a tag, write /{word_part.upper()}")
     words = frozenset(w for w in word_part.split("|") if w) if word_part else None
     tags = frozenset(t.upper() for t in tag_part.split("|") if t) if slash else None
     if not words and not tags:
@@ -427,6 +432,32 @@ WORDS:
 {words}
 
 Respond with ONLY a JSON object mapping each word to "clear" or "hidden"."""
+
+
+CONTAINS_VERSION = 1
+
+
+def contains_prompt(code: str, context: str, items: list[dict]) -> str:
+    """Does each sentence CONTAIN the point at all -- even alongside a
+    harder construction? Used to clean the labeled test: a counter-example
+    that does contain the point isn't a counter-example."""
+    listing = "\n".join(f"[{it['n']}] {it['hanzi']}\n    words: {it['tagged']}" for it in items)
+    return f"""You are checking example sentences for a Mandarin course.
+
+{context}
+
+SENTENCES:
+{listing}
+
+For EACH sentence: does it contain grammar point {code} anywhere in it -- the word used the way
+this point uses it -- EVEN IF the sentence also uses another, harder construction? (For a point
+about negation with 不, 我一点也不累 DOES contain it: 不 negates 累, even though 一点也不 is a
+harder pattern. 不管你去不去 does NOT: there 不 is part of 不管 "no matter".) Answer false if the
+word only appears as part of another word or pattern with a different meaning, or if you are not
+sure.
+
+Respond with ONLY a JSON array, one object per sentence:
+[{{"n": <sentence number>, "contains": true or false}}, ...]"""
 
 
 def extract_json(text: str) -> dict:

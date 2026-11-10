@@ -1,0 +1,262 @@
+
+########## rules  2026-11-09 21:45 ##########
+38 page(s) use the word(s); asking about 38.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGY21RK  Emphasis with "jiushi"
+
+not:
+  ASG8RW47  Limiting scope with "jiu"
+  ASG9B210  Expressing "about to" with "jiuyao"
+  ASGDUZ55  Expressing_"as_one_likes"_with_"jiu"
+  ASGEB54D  Expressing "then" with "jiu"
+  ASGEXR6R  Expressing the only two possibilities
+  ASGF1TQ2  Expressing "even if…" with "jiushi"
+  ASGKITRZ  Expressing earliness with "jiu"
+  ASGL4O5E  Expressing indifference with "jiu"
+  ASGLI513  Expressing "even if…" with "jiusuan"
+  ASGPW8PP  Expressing "small quantity" with "jiu"
+  ASG78FDE  Expressing a last chance with "zaibu... jiu..."
+  ASG7AUNJ  Using "zhe" when "verbing away"
+  ASG98C1A  Expressing "as long as" with "zhiyao"
+  ASGG4BX9  Expressing "since" with "jiran"
+  ASGGIVT0  Expressing "if... then..." with "ruguo... jiu..."
+  ASGHNDX4  Expressing "if… then…" with "jiaru"
+  ASGLOS9C  Comparing "cai" and "jiu"
+  ASGN4S8O  Expressing "if… then…" with "yaoshi"
+  ASGR6Q2J  Expressing "let alone" with "bie shuo"
+  ASGTFUD0  Events in quick succession with "yi... jiu..."
+  ASGU3ZV1  Expressing "once...then..." with "yidan...jiu..."
+  ASGVRGW2  Expressing "if… then…" with "jiashi"
+  ASGXGADL  Conditions_with_"yao"_and_"jiu"
+  ASGN4VUU  Expressing "if" with "ruguo... dehua"
+
+unsure:
+
+unrelated:
+  ASG06EA8  Expressing "all at once" with "yixiazi"
+  ASG10CAE  Expressing "less than" with "budao"
+  ASG1RE80  Expressing contrariness with "dao"
+  ASG38F8A  Expressing "all" with "fanshi"
+  ASG3ZS9G  Expressing "let alone" with "hekuang"
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+  ASG68F61  Expressing "when" with "dengdao"
+  ASG6ESWW  Expressing "almost" using "chadian"
+  ASG6F157  Expressing "originally" with "benlai"
+  ASG6TB4J  Expressing "that's all" with "eryi"
+  ASGF08B6  Repeated actions in the past with "you"
+  ASGF273F  Advanced uses of "lian"
+  ASGT9Y8P  Conceding a point with "shi"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-74
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_214517.txt
+  ...100/228
+  ...200/228
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-74
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Emphasis with 就 (jiù) placed before the predicate to add emphatic, intense feeling
+**Covers:** 就是 + Noun (identifying); 就 + Verb/就是 + Verb (emphasizing predicate); 就是 + (不) + Verb (emphatic negation)
+**Does not cover:** Temporal/sequential uses (about to, as soon as); conditional uses (if-then, only if); scope/topic marking; small quantity (only); indifference; quick succession; hypothetical concession; and other non-emphatic 就 constructions
+
+```rule
+match: /PN|DT|NN|NR _ 就/AD 是/VC
+match: /PN|DT|NN|NR _ 就/AD 是/AD 不/AD
+match: /PN _ 就/AD 是/VC /NN|VA
+match: /PN _ 就/AD 是/AD /VV|VA
+match: _ 就/AD 是/VC
+match: _ 就/AD 不/AD /VV|VA
+unless: 如果|假如|假使|要是|若|一旦|只要|既然|万一|就算|再不|一.*就
+unless: /CS
+unless: /P 就/AD
+unless: ^ 别/AD 说
+unless: 就/AD 要/VV
+unless: 就/AD /VV /AS
+unless: _ _ 就/AD _ /AS 就/AD
+unless: 想/VV .* 就/AD
+unless: 要/VV .* 就/AD
+unless: 赌|坏|走 了/AS 就/AD
+unless: 就/AD _ /CD|M
+unless: 就/AD /PN /CD|M
+unless: 就/AD /PN 聪明/VA
+unless: 就/AD /PN 没/AD /VV|VA
+```
+
+**Notes:** The rule prioritizes matching emphatic uses where 就 directly precedes a predicate (是, verb, or negated verb) with emphatic force. Key exclusions: (1) conditional/temporal frames (如果, 假如, etc.) mark different uses; (2) preposition use (就/P); (3) 就要 + verb (expressing imminence); (4) verb + 了 following 就 (temporal); (5) modal constructions with verbs of desire/obligation (想/要 patterns); (6) verb doubling + 了 pattern (indifference); (7) quantified subjects after 就; (8) special case 就你聪明 (small quantity, not emphasis); (9) "别说...就是" (concession, not emphasis). Prefer precision over recall—borderline cases excluded.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-74
+Tagging 2 labeled example(s) (cached after this run)...
+  ...100/228
+  ...200/228
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-74: no 'match:' line (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-74_20261109_214600.txt)
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-74: rule on labeled examples (no AI) ===
+  examples of 2-74 matched:    14/17
+  counter-examples wrongly matched: 0/211   <- should be 0
+
+--- examples of 2-74 the rule misses (3) ---
+  他不去旅游就是不想花钱。  -- ASGY21RK Emphasis with "jiushi"
+  他这样说就是不喜欢我。  -- ASGY21RK Emphasis with "jiushi"
+  我就要去！  -- ASGY21RK Emphasis with "jiushi"
+
+########## tatoeba  2026-11-09 22:11 ##########
+Filling 2-74 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 3-01, 3-16, 3-21, 3-26, 3-39, 3-41, 3-67, 3-69, 3-77, 3-80, 4-01, 4-02, 4-08, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  真爱 = 真 + 爱  (true love)
+
+Course sentences at HSK 2 the rule already finds 2-74 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 81
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 3) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    3-46 (HSK 3) 结果补语2：动词+到/住/走
+    3-48 (HSK 3) 可能补语1：动词+得/不+动词/形容词；动词+得/不+了
+    ... and 69 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-74 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      781  2. contain the point's word(s)
+      781  3. new (not in DB, not a duplicate)
+      375  4. at most 2 characters outside HSK 2 words
+       78  5. really HSK 2
+       75  5b. no harder grammar point (of the 20 with a rule)
+       15  6. the rule finds 2-74
+       15  6b. no hidden word a learner can't work out
+       10  7. both checks say 2-74, English chosen
+        9  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (9) ===
+  这就是真爱。  (This is true love.)  [tatoeba 4761445]  hidden: 真爱
+  这就是错的。  (This is just wrong.)  [tatoeba 6624713]
+  我家就是你家。  (My home is your home.)  [tatoeba 6057775]
+  那就是我想要的。  (That's what I want.)  [tatoeba 6109333]  hidden: 想要
+  那就是汤姆想要的。  (That's what Tom requested.)  [tatoeba 5911640]  hidden: 想要
+  我就是你要找的人。  (I'm the one you want.)  [tatoeba 6483524]
+  我的东西就是这些了。  (That is all I have.)  [tatoeba 5983564]
+  我就是那个生病的人。  (I'm the one who's sick.)  [tatoeba 7768243]  hidden: 那个
+  我就是想让你看看这个。  (I just wanted you to look at this.)  [tatoeba 8500033]  hidden: 看看, 这个
+
+--- dropped at step 4 (406), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  自由的本质就是数学。  -- 3 characters no HSK 2 word uses: 数由质
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  我小睡后就感到生龙活虎。  -- 4 characters no HSK 2 word uses: 感活虎龙
+  我小睡后就感到精力充沛。  -- 5 characters no HSK 2 word uses: 充力感沛精
+  你如果能利用重力，那就这么做吧。  -- 5 characters no HSK 2 word uses: 利力如用重
+  明尼苏达州的官方鸟就是蚊子。  -- 7 characters no HSK 2 word uses: 官尼州方苏蚊达
+  西藏的好水就是世界的好水。  -- 3 characters no HSK 2 word uses: 世界藏
+  假如你没有这个程序，你现在就可以去下载。  -- 5 characters no HSK 2 word uses: 假如序程载
+  我在电视台的工作就是处理观众们写来的信。  -- 6 characters no HSK 2 word uses: 众信台处理观
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+
+--- dropped at step 5 (297), first 12 ---
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  就在沙发上。  -- level 3: 沙发 L3
+  我马上就到了。  -- level 3: 马上 L3
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  就是！  -- level 4: 就是 L4
+  敌人的敌人就是同伴。  -- level 6: 敌人 L5, 同伴 L6
+  出拳就是出拳。出脚就是出脚。  -- level 7: 拳 L7, 脚 L3
+  就是这样的。  -- level 4: 就是 L4
+  我马上就来。  -- level 3: 马上 L3
+  他一到，咱们就走了吧。  -- level 3: 咱们 L3
+  他说话就像一位老师。  -- level 3: 像 L3
+
+--- dropped at step 5b (3) ---
+  从什么时候开始您就这里工作着的呢？  -- harder grammar: 3-39 (HSK 3)
+  你从昨天开始就忙吗？  -- harder grammar: 3-39 (HSK 3)
+  你现在就得回家。  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (60) ---
+  说曹操，曹操就到。  -- rule: no match: line matched
+  你想怎么做就怎么做。  -- rule: unless 想/VV ... 就/AD
+  对我来说这就不是个问题。  -- rule: no match: line matched
+  你想拿什么就拿什么。  -- rule: unless 想/VV ... 就/AD
+  他很快就好了。  -- rule: unless /VV|VA 就/AD /VV|VA
+  我这就上路。  -- rule: no match: line matched
+  她一大早就起床了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  我希望很快就能见到你。  -- rule: unless /VV|VA 就/AD /VV|VA
+  现在就跟我来。  -- rule: no match: line matched
+  我工作一做完就来找你们。  -- rule: unless 一/AD ... 就/AD ; /VV|VA 就/AD /VV|VA
+  你喜欢什么就拿吧。  -- rule: no match: line matched
+  我早就和他说过这些了。  -- rule: no match: line matched
+  他们早就认识了吗？  -- rule: unless 就/AD /VV /AS
+  我看到我要等的那个人就站在那儿。  -- rule: unless 要/VV ... 就/AD
+  为什么你不等等我就开始了？  -- rule: no match: line matched
+  我不在就别开始。  -- rule: no match: line matched
+  什么时候想来就过来吧。  -- rule: unless 想/VV ... 就/AD ; /VV|VA 就/AD /VV|VA
+  我现在有钱，能想买就买。  -- rule: unless 想/VV ... 就/AD ; /VV|VA 就/AD /VV|VA
+  他很快就知道了。  -- rule: unless /VV|VA 就/AD /VV|VA
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  我就喜欢它。  -- rule: no match: line matched
+  还有什么事就告诉我。  -- rule: no match: line matched
+  明天就要过年了。  -- rule: unless 就/AD 要/VV
+  我就要读完这本书了。  -- rule: unless 就/AD 要/VV
+  我们现在就去医院吧。  -- rule: no match: line matched
+  你想说就说。  -- rule: unless 想/VV ... 就/AD ; /VV|VA 就/AD /VV|VA
+  想要什么就说。  -- rule: unless 想/VV ... 就/AD ; 要/VV ... 就/AD
+  明天新的一年就要开始了。  -- rule: unless 就/AD 要/VV ; 一/CD ... 就/AD
+  我的姐姐经常就着牛奶喝茶。  -- rule: no match: line matched
+  她一看就是生病了的。  -- rule: unless 一/AD ... 就/AD ; 就/AD 是/VC ... 了/AS
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  他一看见我，就跑了。  -- rule: unless 就/AD /VV /AS ; ^ 就/AD
+  就让汤姆说吧。  -- rule: unless ^ 就/AD
+  我们现在就要吃饭。  -- rule: unless 就/AD 要/VV
+  你一准备好，我们就走。  -- rule: no match: line matched
+  我就坐这儿。  -- rule: no match: line matched
+  汤姆三岁的时候就能写自己的名字了。  -- rule: no match: line matched
+  我就想看看汤姆的房间。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  想吃什么就吃什么吧。  -- rule: unless 想/VV ... 就/AD
+  你就没在听。  -- rule: no match: line matched
+  她很快就来了。  -- rule: unless /VV|VA 就/AD /VV|VA
+  你不想去就别去。  -- rule: unless 想/VV ... 就/AD
+  昨天星期五，所以他就休息了。  -- rule: no match: line matched
+  我没告诉汤姆，就不会告诉你。  -- rule: unless ^ 就/AD
+  和他在一起我就没觉得舒服过。  -- rule: no match: line matched
+  开了半小时，车就坏了。  -- rule: no match: line matched
+  我就说了这么多。  -- rule: unless 就/AD /VV /AS
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  玛莉一看到我，就跑走了。  -- rule: unless ^ 就/AD
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  不去做就不知道。  -- rule: unless /VV|VA 就/AD 不/AD
+  汤姆早早就睡了。  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  出国不到一个月，他就生病了。  -- rule: unless 就/AD /VV /AS
+  做自己就好。  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: unless /VV|VA 就/AD /VV|VA
+  你到了就打我电话。  -- rule: no match: line matched
+
+--- dropped at step 7 (5) ---
+  问题就在这里。  -- check said no (2/2): 就 indicates location/scope, not emphasis
+  我就在你后面。  -- check said no (2/2): 就 expresses location, not emphasis
+  她就是今天回家来的。  -- check said no (2/2): 就 expresses earliness with time, not emphasis
+  我知道。我就在那里。  -- check said no (2/2): 就 expresses location/earliness, not emphasis
+  您不喜欢她就是因为那件事吗？  -- check said no (1/2): 就是 here means 'is it because' (conditional), not emphasis
+
+--- dropped at step 8 (1) ---
+  我就是不能说不。  -- difficulty review: (1/2); uses 说不 in a non-literal sense (inability to refuse) that requires understanding an idiom beyond beginner level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-74_level2_20261109_221212.csv

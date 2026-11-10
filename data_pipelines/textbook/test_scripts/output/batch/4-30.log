@@ -1,0 +1,42 @@
+
+########## rules  2026-11-09 22:00 ##########
+4 page(s) use the word(s); asking about 4.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGNEMXP  Expressing "ever since" with "yilai"
+
+not:
+  ASG1CEA8  Expressing "to come from" with "laizi"
+
+unsure:
+  ASGLI7GW  Expressing "ever since" with "zicong"
+
+unrelated:
+  ASGH13JY  Idiomatic phrases with "zai"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 4-30
+Tagging 22 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_220017.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 4-30
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing "ever since" with 以来 or 来 after a time period or event
+**Covers:** Sentences with 以来 or 来 (tagged LC) that express a continuous state/action from a past time/event to the present, typically at the start of a clause
+**Does not cover:** The verb 来自 (to come from) which is tagged VV, not LC; uses of 自 as a preposition or in other contexts; other HSK 3 grammar points like 自从
+
+```rule
+match: ... 以来/LC
+match: ... 来/LC
+unless: 来自/VV
+```
+
+**Notes:** The key distinguishing feature is the LC (localizer) tag for 以来 or 来. The verb 来自 (meaning "to come from") will be tagged VV, so the unless clause filters it out. Sentences with 以来/LC or 来/LC should match whether or not they have optional preceding elements like 自/P or 从/P. The grammar point typically appears at or near the start of a clause followed by a predicate describing what has happened since that time.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 4-30
+Tagging 22 labeled example(s) (cached after this run)...
+
+=== A. 4-30: rule on labeled examples (no AI) ===
+  examples of 4-30 matched:    13/13
+  counter-examples wrongly matched: 0/10   <- should be 0

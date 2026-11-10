@@ -1,0 +1,98 @@
+
+########## rules  2026-11-09 21:52 ##########
+19 page(s) use the word(s); asking about 19.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG4OM4T  Advanced result complements "zhu", "kai", and "chulai"
+  ASGWNGEP  Result complements "-dao" and "-jian"
+
+not:
+  ASG10CAE  Expressing "less than" with "budao"
+  ASG1CCAP  Expressing "until" with "dao"
+  ASG68F61  Expressing "when" with "dengdao"
+  ASGC6E1C  Expressing "all the way until" with "zhidao"
+  ASGCUSIV  Tricky uses of "dao"
+  ASGLFX54  Using "dao" to mean "to go to"
+  ASGTVEHJ  Expressing "in the end" with "daodi"
+  ASGGGIW8  Expressing "from… to…" with "cong… dao…"
+  ASGMDJTD  Expressing "when the time comes" with "dao shihou"
+
+unsure:
+  ASGNNMST  Result complements
+
+unrelated:
+  ASG1DXUD  Passive verbs with "shou"
+  ASG9JK0B  Comparing "genben" and "daodi"
+  ASGWN185  Expressing "when" with "de shihou"
+  ASGYC77J  Reduplication of verbs
+  ASGYJQAG  Using "lai" and "qu" when "verbing around"
+  ASGN6O6J  Comparing "zhijian" and “zhongjian"
+  ASGY2D79  Taiwanese "you"
+
+[note] ASGWNGEP is tagged HSK [2] on the wiki, the point is HSK 3 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 3-46
+Tagging 96 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_215234.txt
+  ...100/126
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 3-46, rule line 2: empty item '|' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_3-46_20261109_215243.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-46
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Result complements 到, 住, and 开/出(来) showing that an action achieves its result
+**Covers:** Verb + 到/住/开/出(来) where the complement shows the action succeeded or achieved its intended outcome (e.g., 看到 "see/achieve seeing", 接住 "catch/hold onto", 打开 "open", 想出 "come up with")
+**Does not cover:** 到 meaning "arrive at a place", "until (time)", "less than", or "from...to"; 住 as a main verb "to live"; uses where 到/开/出 are prepositions or other grammatical functions
+
+```rule
+match: _ /VV (到|住|开|出) _
+unless: /P (到|开|出)
+unless: ^|...到|住 /P
+unless: 到 /VV (家|机场|现场|了解|达|时候)
+unless: 不/AD 到 /CD
+unless: 到底/AD
+unless: 等到/P
+unless: 直到/P
+unless: 从/P _ 到/P
+unless: 住 /P
+unless: 住 /VV 着/AS
+```
+
+**Notes:** The rule matches a verb immediately followed by one of the four result complement particles. The "unless" lines exclude uses of 到 as a preposition (position before nouns like 到 /P 路口, 到 /P 时候, 到 /P 五号) and temporal/spatial expressions (直到, 等到, 从...到). It also excludes 到 when used to mean "arrive" at a specific location or "less than" (不到 + number). The pattern requires the complement to directly follow the verb, which naturally excludes many other uses. Some counter-examples like "他到底想明白了" still risk matching; the 到底/AD exclusion helps, but this may require tuning if the tagger is inconsistent.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-46
+Tagging 96 labeled example(s) (cached after this run)...
+  ...100/126
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-46: rule on labeled examples (no AI) ===
+  examples of 3-46 matched:    30/38
+  counter-examples wrongly matched: 14/88   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (14) ---
+  你弟弟要在我们家住到什么时候？  -- ASG1CCAP Expressing "until" with "dao"  [matched: /VV 到|住|开|出|出来/VV]
+  她给男朋友打电话打到手机没电。  -- ASG1CCAP Expressing "until" with "dao"  [matched: /VV 到|住|开|出|出来/VV]
+  她直到十八岁才见到亲生父母。  -- ASGC6E1C Expressing "all the way until" with "zhidao"  [matched: /VV 到|住|开|出|出来/VV]
+  我相信你一定能做到。  -- ASGCUSIV Tricky uses of "dao"  [matched: /VV 到|住|开|出|出来/VV]
+  我没买到。  -- ASGCUSIV Tricky uses of "dao"  [matched: /VV 到|住|开|出|出来/VV]
+  在这个公司工作，我学到了很多东西。  -- ASGCUSIV Tricky uses of "dao"  [matched: /VV 到|住|开|出|出来/VV]
+  不知道什么时候能拿到我的工作签证。  -- ASGCUSIV Tricky uses of "dao"  [matched: /VV 到|住|开|出|出来/VV]
+  你想到了什么好办法？  -- ASGCUSIV Tricky uses of "dao"  [matched: /VV 到|住|开|出|出来/VV]
+  我们都没想到他这么生气。  -- ASGCUSIV Tricky uses of "dao"  [matched: /VV 到|住|开|出|出来/VV]
+  那个女孩子，你追到了吗？  -- ASGCUSIV Tricky uses of "dao"  [matched: /VV 到|住|开|出|出来/VV]
+  如果你追到她了，我就请你喝酒。  -- ASGCUSIV Tricky uses of "dao"  [matched: /VV 到|住|开|出|出来/VV]
+  从他那里，我了解到了真相。  -- ASGCUSIV Tricky uses of "dao"  [matched: /VV 到|住|开|出|出来/VV]
+  我下午在家，你可以到我家来。  -- ASGLFX54 Using "dao" to mean "to go to"  [matched: /VV 到|住|开|出|出来/VV]
+  今年春节我要到女朋友家见她的父母。  -- ASGLFX54 Using "dao" to mean "to go to"  [matched: /VV 到|住|开|出|出来/VV]
+
+--- examples of 3-46 the rule misses (8) ---
+  请打开书。  -- ASG4OM4T Advanced result complements "zhu", "kai", and "chulai"
+  一万字的文章我写不出来。  -- ASG4OM4T Advanced result complements "zhu", "kai", and "chulai"
+  你看见那个帅哥了吗？  -- ASGWNGEP Result complements "-dao" and "-jian"
+  我看见了。  -- ASGWNGEP Result complements "-dao" and "-jian"
+  你听见了吗？  -- ASGWNGEP Result complements "-dao" and "-jian"
+  你没看见那个帅哥吗？  -- ASGWNGEP Result complements "-dao" and "-jian"
+  我没有看见。  -- ASGWNGEP Result complements "-dao" and "-jian"
+  你没听见吗？  -- ASGWNGEP Result complements "-dao" and "-jian"

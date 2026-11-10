@@ -1,0 +1,22 @@
+## 2-26
+**Point:** 给 (gěi) as a preposition marking the target/recipient of an action
+
+**Covers:** Subj. + 给 + Target/Recipient + Verb Phrase, where 给 indicates who or what the action is directed at or done for. This includes clause-initial 给 (e.g. 给客人倒茶) and targets of two or three words (e.g. 给小狗洗澡, 给孩子们做饭).
+
+**Does not cover:** 给 as the main verb "to give"; 给 after the verb (verb + 给 + object, e.g. 送给, 嫁给); passive 给 (被/叫/让 + 给, or Receiver + 给 + Doer + Verb + 了, e.g. 这么好的机会给你浪费了); 给 in 把-constructions; 为 + person patterns (a different word, left out for precision).
+
+```rule
+match: 给/P _ /VV
+match: 给/P _ _ /VV
+match: 给/P _ _ _ /VV
+unless: /BA ... 给
+unless: 被|叫|让 _ 给
+unless: /LB|SB ... 给
+unless: _ 给/VV
+unless: _ 给/MSP
+unless: /DEC _ 给/P
+unless: 给/P _ /VV /AS $
+unless: 给/P _ _ /VV /AS $
+```
+
+**Notes:** The rule now matches 给/P at the start of a clause as well as after a subject, and allows 1–3 words between 给 and the verb. Two new unless clauses block the passive "这么好的机会给你浪费了" type. The first blocks a relative-clause 的 (DEC) + noun directly before 给. The second blocks 给 + target + verb + 了 with nothing after the verb, which is the typical passive shape. This also drops rare active sentences such as 我给你做了。, which is an acceptable loss for precision. The 为 examples in the labeled data are deliberately not matched, since loosening to 为 would let in many unrelated sentences.

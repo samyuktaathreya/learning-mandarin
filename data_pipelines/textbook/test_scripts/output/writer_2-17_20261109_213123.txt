@@ -1,0 +1,24 @@
+## 2-17
+
+**Point:** Expressing "then" with the adverb 就 (jiù) in conditional and causal structures
+
+**Covers:** Sentences whose first clause sets up a condition or cause (如果, 要是, 假如, 既然, 只要, or a plain fact or situation), and whose second clause, usually led by 就, gives the consequence, result or suggestion. This includes "if...then", "since...then", "as long as...then" and simple cause-then-result sequences.
+
+**Does not cover:** 就 for earliness or timing (他早就知道了), scope (就这个问题), small quantity (就他知道), near-future 就要...了, "even if" patterns (就算/就是...也), emphasis with 就是, "as you like" and verb-repetition patterns (想吃就吃, 要买就买), 不是...就是, 一...就, and verbs repeated with 着 (说着说着就...).
+
+```rule
+match: 如果|既然|只要|假如|要是/CS
+match: ^ 就/AD /VV|P|AD
+match: ^ /PN 就/AD /VV|P|AD
+unless: 就是
+unless: 就算
+unless: 就/AD 是/VC
+unless: 不是 ... 就是
+unless: 就/AD 要/VV ... 了/SP|AS $
+unless: 一/AD ... 就/AD
+unless: 着/AS 就/AD
+unless: 才/AD
+unless: 就/AD 在/VV
+```
+
+**Notes:** Patterns match within a single clause, so they cannot link a first clause to a second. The first line therefore marks a conditional or causal conjunction clause (如果, 既然, 只要, 假如, 要是). The second and third lines catch 就 as the lead item of a result clause, either alone or right after a pronoun subject, followed by a verb, preposition or adverb. The unless lines exclude the nearby non-target uses of 就: emphasis 就是, 就算, 就要...了, 不是...就是, 一...就, 着 repetition, 才 contrasts and verbal 在. The main trade-off is that a sentence with an explicit conjunction but no 就 still matches, which is correct for the 只要, 既然 and 如果 examples that carry their 就 in the other clause.

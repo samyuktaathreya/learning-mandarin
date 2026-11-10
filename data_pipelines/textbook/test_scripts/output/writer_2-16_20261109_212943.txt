@@ -1,0 +1,51 @@
+## 2-16
+**Point:** Frequency and repetition adverbs: 重新, 经常, 老, 老是, 又
+
+**Covers:** 
+- 老是/老 expressing habitual or repeated action with a frustrated tone
+- 经常/常常 expressing frequent action
+- 又 expressing an action happening again (past or imminent)
+- 重新 expressing doing something again from the start
+
+**Does not cover:**
+- 又 used for emphasis of negation (又不/又没 meaning "definitely not")
+- 又 in repeated action patterns with 了...又... structure
+- 又 expressing both A and B qualities (又...又... with adjectives)
+- 既...又... patterns
+- 老 as an adjective meaning "old" (老师, 老人, 老家)
+- 常 as an adjective meaning "frequent/regular"
+
+```rule
+match: 老是/AD ... /VV|VA
+match: 老/AD ... /VV|VA
+match: 经常/AD ... /VV
+match: 常常/AD ... /VV
+match: 常/AD /VV
+match: 又/AD /VV|VA
+match: 又/AD 不/AD /VV|VA
+match: 又/AD 没/AD /VV
+match: 又/AD /VV ... 了/SP
+match: 又/AD 要/VV
+match: 又/AD 能/VV
+match: 又/AD 可以/VV
+match: 重新/AD ... /VV
+unless: ^ 既/AD
+unless: /VV 了/AS 又/AD /VV
+unless: /VV 了/AS 又/CC
+unless: 又/AD /VA 又/AD /VA
+unless: 又/CC
+unless: 又/AD 不/AD /VV ‖ /VV
+unless: 又/AD 没/AD /VV ‖ /VV
+unless: /VA ‖ 又/AD 不/AD
+unless: /VA ‖ 又/AD 没/AD
+unless: 经常/VA 的/DEC
+```
+
+**Notes:** 
+- The pattern for 老/老是 requires a verb or adjective after to distinguish from the noun adjective uses (老师, 老人). Often there are adverbs between (不, 很, 这么) but these aren't required.
+- For 又 expressing "again" in past: look for 又 + verb + 了, or 又 + 不/没 + verb pattern. Exclude cases where 又 is preceded by a perfective 了 (which signals repeated actions). 
+- For 又 expressing imminent repetition: 又 + 要/能/可以 + verb, often followed by 了.
+- Exclude the "又A又B" adjective patterns (both tagged VA or CC variant).
+- Exclude negation emphasis (又不/又没 as standalone complaint without expressing repetition).
+- The 经常/VA 的 pattern (expressing frequency as a property) counts as the grammar point.
+- 常 by itself (single character) counts when followed by verb, used in colloquial speech for future frequency.

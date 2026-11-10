@@ -1,0 +1,48 @@
+
+########## rules  2026-11-09 21:35 ##########
+3 page(s) use the word(s); asking about 3.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG6HYOU  Expressing "or" in statements
+
+not:
+
+unsure:
+  ASGYXI5X  Providing two options with double "huozhe"
+  ASGQJ5IC  Comparing "haishi" and "huozhe"
+
+unrelated:
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-29
+Tagging 12 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_213547.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-29
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 或/或者 to express "or" in statements (offering alternatives)
+**Covers:** Sentences where 或 or 或者 connects two alternatives in a statement, typically offering choices or possibilities (not yes/no questions)
+**Does not cover:** Sentences using 或许 (perhaps/maybe); sentences using 或是 (5-45); sentences using 或A或B pattern (6-25); sentences where 或/或者 appears only in titles or metalinguistic contexts
+
+```rule
+match: ... 或|或者/CC ...
+unless: 或许/AD
+```
+
+**Notes:** 
+- The rule is intentionally simple: it matches any clause containing 或 or 或者 tagged as CC (coordinating conjunction), which is how the tagger marks this specific usage.
+- The 除非: line excludes 或许 (meaning "perhaps"), which is an adverb and uses a different tag (AD).
+- Sentences can have the point even without 都 following—while many examples show 都, it's not required by the grammar point itself.
+- The pattern matches within a single clause, so multi-clause sentences will trigger if any clause has the pattern.
+- Counter-example "去或是不去" is excluded because 或是 is HSK 5-44, not HSK 2-29; tagging will show 或是/CC as a single token, not matching 或|或者.
+- Counter-example "或早或晚" follows the 或A或B pattern (HSK 6-25), but this rule will match it. If precision is critical, add `unless: ^或|或者 ... 或|或者 $` to exclude that pattern, but the examples provided suggest including it is acceptable at HSK 2 level.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-29
+Tagging 12 labeled example(s) (cached after this run)...
+
+=== A. 2-29: rule on labeled examples (no AI) ===
+  examples of 2-29 matched:    12/12
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+########## tatoeba  2026-11-09 22:09 ##########

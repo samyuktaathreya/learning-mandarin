@@ -88,6 +88,8 @@ SCRATCH_DB = OUT_DIR / f"scratch_textbook_{os.getpid()}.db"   # one per run, so 
 RULES_PATH = TEST_DIR / "grammar_rules.md"
 SOURCES_PATH = TEST_DIR / "grammar_sources.json"
 HIDDEN_PATH = TEST_DIR / "hidden_words.json"
+MANUAL_PATH = TEST_DIR / "manual_points.json"
+LEVELS_PATH = TEST_DIR / "grammar_level_overrides.json"   # 2025-syllabus levels (match_grammar_levels.py)     # hand-written words/pages for points the AI can't match
 BATCH_STATE_PATH = TEST_DIR / "output" / "batch" / "state.json"
 ASG_PATH = DATA_DIR / "intermediate" / "allsetlearning" / "asg_points.json"
 CACHE_PATH = OUT_DIR / "check_cache.json"
@@ -127,6 +129,61 @@ def point_db_at_scratch_copy():
     if Path(db_utils.engine.url.database).resolve() != SCRATCH_DB.resolve():
         raise SystemExit(f"Safety stop: the app opened {db_utils.engine.url.database}, not the scratch copy.")
     return real
+
+
+class OutOfCredits(BaseException):
+    """The Anthropic account ran out of credit. A BaseException, so no
+    `except Exception` on the way swallows it: the run stops cleanly and
+    nothing half-done is saved as done."""
+
+
+def install_credit_guard():
+    """Every Anthropic call in this process (ours, the tagger's, the
+    review's) raises OutOfCredits when the balance is too low."""
+    try:
+        import anthropic
+        Messages = type(anthropic.Anthropic(api_key="unused").messages)   # the class every client uses
+    except Exception as e:
+        print(f"[warning] couldn't install the out-of-credit guard ({e!r}): if the credit runs out, "
+              "watch for many 'AI call failed' notes")
+        return
+    if getattr(Messages.create, "_credit_guard", False):
+        return
+    original = Messages.create
+
+    def guarded(self, *a, **kw):
+        try:
+            return original(self, *a, **kw)
+        except anthropic.APIStatusError as e:
+            text = str(e).lower()
+            if "credit balance" in text or "billing" in text or getattr(e, "status_code", 0) == 402:
+                raise OutOfCredits(str(e)) from None
+            raise
+    guarded._credit_guard = True
+    Messages.create = guarded
+
+
+# The tagger asks Haiku to re-split sentences with unusual words. Here that
+# is switched off (HanLP's split + the pipeline's own word-splitting rules
+# instead): it was most of the cost of tagging thousands of sentences, and
+# barely changes the result. RESEGMENT = True turns it back on.
+RESEGMENT = False
+
+
+def apply_level_overrides():
+    """Moves grammar points to their 2025-syllabus level (grammar_level_overrides.json)
+    in the SCRATCH database only, committed so every later step sees it."""
+    from app.textbook.db_utils import engine, get_session
+    from app.textbook.models import GrammarTip
+    if Path(engine.url.database).resolve() != SCRATCH_DB.resolve():
+        raise SystemExit("Safety stop: level overrides are only applied to the scratch copy.")
+    moves = {c: v for c, v in load_json(LEVELS_PATH, {}).items() if not c.startswith("_") and isinstance(v, dict)}
+    if not moves:
+        return
+    with get_session() as db:
+        for tip in db.query(GrammarTip).filter(GrammarTip.grammar_code.in_(list(moves))).all():
+            tip.hsk_level = int(moves[tip.grammar_code]["level"])
+    print(f"2025-syllabus levels applied to {len(moves)} grammar point(s) ({LEVELS_PATH.name})")
 
 
 def get_client():
@@ -187,8 +244,9 @@ class Point:
         content = load_json_str(tip.content_json)
         self.list_examples = list(dict.fromkeys(
             s for k, v in content.items() if "example" in k.lower() for s in _cjk_strings(v)))
+        manual = {k: v for k, v in load_json(MANUAL_PATH, {}).get(code, {}).items()}
         saved = load_json(SOURCES_PATH, {}).get(code, {}).get("_words")
-        words = contains or saved or dg.GRAMMAR_MARKERS.get(code) or EXTRA_MARKERS.get(code)
+        words = contains or manual.get("words") or saved or dg.GRAMMAR_MARKERS.get(code) or EXTRA_MARKERS.get(code)
         if not words:                       # the label's own words, if they are real words
             from app.textbook.models import Vocab as _V
             vocab = {h for (h,) in db.query(_V.hanzi).all()}
@@ -220,6 +278,13 @@ class Point:
             raise SystemExit(f"{ASG_PATH} is missing: run parse_asg.py first.")
         self.asg = asg
         sources = load_json(SOURCES_PATH, {}).get(code)
+        if manual.get("is") or manual.get("not"):   # hand-matched pages are added to the AI's
+            sources = {k: dict((sources or {}).get(k, {})) for k in ("is", "not", "unsure")}
+            for g in ("is", "not"):
+                for pid, title in manual.get(g, {}).items():
+                    for other in ("is", "not", "unsure"):
+                        sources[other].pop(pid, None)
+                    sources[g][pid] = title
         if not sources:
             if need_sources:
                 raise SystemExit(f"No entry for {code} in {SOURCES_PATH}: run  sources --code {code}  first.")
@@ -370,6 +435,8 @@ class Tagger:
         from data_pipelines.textbook.scripts import tag_sentences as ts
         from data_pipelines.textbook.scripts import detect_grammar as dg
         self.ts, self.dg = ts, dg
+        if not RESEGMENT:
+            ts.haiku_resegment_sentence = lambda hanzi, logger: ts.segment_sentence(hanzi)
         logger, _ = ts.setup_logging()
         self.run = ts.Run(logger, hvs.load_entries(str(ts.VOCAB_PATH)),
                           get_vocab_hanzi_through_level(self.db, hvs.MAX_LEVEL),
@@ -662,17 +729,63 @@ def cmd_sources(db, point: Point, args):
     print(f"\nSaved to {SOURCES_PATH}. No need to edit it unless validate shows a problem. Next: write --code {point.code}")
 
 
+# --------------------------------- CONTAINS CHECK (cached) ---------------------------------
+
+def contains_point(client, point: Point, items: list[tuple[str, str]], cache: dict) -> dict:
+    """{hanzi: True/False}: does the sentence contain the point at all (even
+    with something harder in it too)? items: [(hanzi, tagged)]. Haiku,
+    CHECK_BATCH per call, cached. A failed call or missing answer -> False
+    (the sentence stays a counter-example: the safe side)."""
+    key = lambda h: json.dumps(["contains", gr.CONTAINS_VERSION, point.code, h], ensure_ascii=False)
+    todo = [(h, t) for h, t in dict(items).items() if key(h) not in cache]
+    context = point.context(full=False)
+
+    def one(chunk):
+        listing = [{"n": k, "hanzi": h, "tagged": t} for k, (h, t) in enumerate(chunk, 1)]
+        try:
+            answers = gr.extract_json_array(call(client, CHECK_MODEL, gr.contains_prompt(point.code, context, listing),
+                                                 100 + 40 * len(chunk)))
+            by_n = {int(a["n"]): a for a in answers if isinstance(a, dict) and "n" in a}
+        except Exception:
+            return
+        for k, (h, _) in enumerate(chunk, 1):
+            a = by_n.get(k)
+            if a and isinstance(a.get("contains"), bool):
+                with _cache_lock:
+                    cache[key(h)] = a["contains"]
+
+    if todo:
+        chunks = [todo[i:i + CHECK_BATCH] for i in range(0, len(todo), CHECK_BATCH)]
+        print(f"  Checking {len(todo)} sentence(s) for {point.code} ({len(chunks)} call(s))...", flush=True)
+        with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+            list(pool.map(one, chunks))
+        save_json(CACHE_PATH, cache)
+    return {h: bool(cache.get(key(h), False)) for h, _ in items}
+
+
 # --------------------------------- WRITE ---------------------------------
 
-def ask_writer(client, point: Point, prompt: str, args, what: str) -> str:
+def ask_writer(client, point: Point, prompt: str, args, what: str, small_prompt: str | None = None) -> str:
+    """Asks for a rule section; retries once with the problem explained. An
+    EMPTY answer (very long prompts, e.g. for 了) is retried with
+    small_prompt, the same request with fewer example sentences."""
     error, section = None, None
     for attempt in range(2):
-        p = prompt if error is None else (prompt + f"\n\nYour previous answer could not be used: {error}\n"
-                                                   "Reply again with the corrected section only.")
+        base = small_prompt if (error == "the answer was empty" and small_prompt) else prompt
+        p = base if error is None or error == "the answer was empty" else (
+            base + f"\n\nYour previous answer could not be used: {error}\nReply again with the corrected section only.")
         print(f"  Asking {args.writer_model} to {what} the rule (usually under a minute)...", flush=True)
-        answer = call(client, args.writer_model, p, 4000)
+        response = client.messages.create(model=args.writer_model, max_tokens=4000,
+                                          messages=[{"role": "user", "content": p}])
+        answer = "".join(b.text for b in response.content if hasattr(b, "text"))
         raw = OUT_DIR / f"writer_{point.code}_{datetime.now():%Y%m%d_%H%M%S}.txt"
-        raw.write_text(answer, encoding="utf-8")
+        raw.write_text(f"<!-- model: {args.writer_model}; stop_reason: {getattr(response, 'stop_reason', '?')}; "
+                       f"prompt: {len(p)} characters -->\n{answer}", encoding="utf-8")
+        if not answer.strip():
+            error = "the answer was empty"
+            print(f"  [retry] the answer was empty (stop reason: {getattr(response, 'stop_reason', '?')})"
+                  + ("; retrying with fewer example sentences" if small_prompt else ""))
+            continue
         try:
             section = gr.normalize_section(gr.extract_section(point.code, answer))
             gr.parse_rule_block(point.code, section)
@@ -711,9 +824,10 @@ def cmd_write(db, point: Point, args):
         return items[:n]
     unl = [(s.hanzi, gr.render(clauses_of(s))) for s in pipeline_sentences(db, point)]
     rnd.shuffle(unl)
-    prompt = gr.writer_prompt(point.code, point.context(), sample(pos, WRITER_EXAMPLES),
-                              sample(neg, WRITER_EXAMPLES), unl[:WRITER_UNLABELED])
-    section = ask_writer(get_client(), point, prompt, args, "write")
+    pos_s, neg_s = sample(pos, WRITER_EXAMPLES), sample(neg, WRITER_EXAMPLES)
+    prompt = gr.writer_prompt(point.code, point.context(), pos_s, neg_s, unl[:WRITER_UNLABELED])
+    small = gr.writer_prompt(point.code, point.context(full=False), pos_s[:15], neg_s[:15], unl[:8])
+    section = ask_writer(get_client(), point, prompt, args, "write", small_prompt=small)
     gr.save_section(RULES_PATH, point.code, section)
     print(f"\n{section}\nWritten to {RULES_PATH}. Next: validate --code {point.code}")
 
@@ -860,9 +974,12 @@ def cmd_tatoeba(db, point: Point, args):
     # rules for HARDER points: a sentence showing one of them is too hard here
     from app.textbook.models import GrammarTip
     level_of = dict(db.query(GrammarTip.grammar_code, GrammarTip.hsk_level).all())
-    failed = {c for c, st in load_json(BATCH_STATE_PATH, {}).items() if isinstance(st, dict) and st.get("rule") == "failed"}
+    batch_state = load_json(BATCH_STATE_PATH, {})
+    failed = {c for c, st in batch_state.items() if isinstance(st, dict) and st.get("rule") in ("failed", "error")}
+    not_here = {c for c, st in batch_state.items()       # guards that wrongly flag this point's own examples
+                if isinstance(st, dict) and point.code in (st.get("not_for") or [])}
     harder = {c: r for c, r in rules.items()
-              if c != point.code and (level_of.get(c) or 0) > level and c not in failed}
+              if c != point.code and (level_of.get(c) or 0) > level and c not in failed | not_here}
     print(f"Harder-grammar rules checked (points above HSK {level} with a rule): "
           f"{', '.join(sorted(harder)) or 'none yet'}")
     tsv = Path(args.tsv) if args.tsv else DEFAULT_TSV
@@ -984,42 +1101,67 @@ def cmd_tatoeba(db, point: Point, args):
         print(f"    {c} (HSK {lv}) {lab}")
     if len(hard_easy) > 12:
         print(f"    ... and {len(hard_easy) - 12} more")
-    review_extra = (
-        f"\nTHIS SENTENCE WAS CHOSEN TO TEACH grammar point {point.code}: {point.label}. That point is taught at "
-        f"this level, so never count it -- or the words it uses -- as too hard.\n"
-        + ("\nTHESE GRAMMAR POINTS ARE ABOVE THIS LEVEL even though their words are easy. A sentence that uses "
-           "one of them IS TOO HARD:\n" + "\n".join(f"  {c} (HSK {lv}) {lab}" for c, lv, lab in hard_easy)
-           if hard_easy else ""))
+    known = "HSK 1" if level == 1 else f"HSK 1-{level}"
+    review_head = (
+        "You are checking example sentences for a Mandarin course for beginners. Every sentence below is "
+        f"taught at HSK {level} (2025 syllabus) as an example of grammar point {point.code}: {point.label}. That "
+        "point is taught at this level, so never count it -- or the words it uses -- as too hard.\n\n"
+        "VOCABULARY IS ALREADY CHECKED: every word of each sentence is in the course's word list for this level, "
+        "or is a name. Never reject a sentence because of vocabulary -- you do not have the list.\n\n"
+        f"Grammar points learners know ({known}):\n{scope}\n\n"
+        + ("THESE GRAMMAR POINTS ARE ABOVE THIS LEVEL even though their words are easy. A sentence that uses "
+           "one of them IS TOO HARD:\n" + "\n".join(f"  {c} (HSK {lv}) {lab}" for c, lv, lab in hard_easy) + "\n\n"
+           if hard_easy else "")
+        + "Mark a sentence TOO HARD only if a learner at this level clearly could NOT work it out:\n"
+        "1. it relies on a construction well beyond this level (not just a word you find advanced);\n"
+        "2. a word is used in a clearly different meaning from its everyday one;\n"
+        "3. it is an idiom whose meaning can't be guessed from its words (everyday set phrases like 不客气, "
+        "没关系, 对不起 are fine -- they are taught as words).\n"
+        + (rs.HSK1_EXAMPLES + "\n" if level == 1 else "") + rs.FINE_EXAMPLES + "\n"
+        "If you are unsure, it is FINE. Judge each sentence on its own.\n\nSENTENCES:\n")
 
-    def review_once(j, n):
-        key = json.dumps(["review5", dg.REVIEW_PROMPT_VERSION, point.code, level, j["hanzi"], j["chosen"], n],
-                         ensure_ascii=False)
-        if key not in cache:
-            prompt = rs.build_prompt(j["hanzi"], j["chosen"], level, scope, j["words"])
-            extra = review_extra
-            if j["hidden"]:
-                extra += ("\nHIDDEN WORDS: the course split these dictionary words into easier words, because the "
-                          "words themselves are not on its word list. Learners only know the parts. If the "
-                          "word's meaning can't be worked out from its parts, the sentence IS TOO HARD:\n"
-                          + "\n".join(f"  {w} = {' + '.join(parts)}  (dictionary: {g})" for w, parts, g in j["hidden"]))
-            prompt = prompt.replace("\nIf you are unsure, it is FINE.", extra + "\nIf you are unsure, it is FINE.")
-            try:
-                text = call(client, rs.HAIKU_MODEL, prompt, 300)
-                v = rs._extract_json(text)
-                if not isinstance(v.get("ok"), bool):
-                    raise ValueError(f"no true/false ok: {v!r}")
-                v = {"ok": v["ok"], "problems": [str(x) for x in (v.get("problems") or [])] if not v["ok"] else []}
-            except Exception as e:
-                return {"ok": False, "problems": [f"AI call failed: {e!r}"[:150]]}
-            with _cache_lock:
-                cache[key] = v
-        return cache[key]
+    def review_key(j, n):
+        return json.dumps(["review6", dg.REVIEW_PROMPT_VERSION, point.code, level, j["hanzi"], j["chosen"], n],
+                          ensure_ascii=False)
 
-    def review(j):
-        """Two independent reviews; too hard if either says so."""
-        vs = [review_once(j, n) for n in range(2)]
-        bad = [v for v in vs if not v.get("ok")]
-        return {"ok": True} if not bad else {"ok": False, "problems": [f"({len(bad)}/2)"] + (bad[0].get("problems") or [])}
+    def review_chunk(args_):
+        """One call reviews a whole round of sentences (the long grammar list is sent once)."""
+        n, chunk = args_
+        listing = "\n".join(f"[{k}] {j['hanzi']}\n    English: {j['chosen']}\n    words: {' / '.join(j['words'])}"
+                            for k, j in enumerate(chunk, 1))
+        prompt = (review_head + listing + '\n\nRespond with ONLY a JSON array, one object per sentence: '
+                  '[{"n": <sentence number>, "ok": true or false, "problems": ["<short reason>", ...]}, ...]')
+        try:
+            answers = gr.extract_json_array(call(client, rs.HAIKU_MODEL, prompt, 200 + 120 * len(chunk)))
+            by_n = {int(a["n"]): a for a in answers if isinstance(a, dict) and "n" in a}
+        except Exception:
+            return                                   # not cached: counts as too hard this run
+        for k, j in enumerate(chunk, 1):
+            a = by_n.get(k)
+            if a and isinstance(a.get("ok"), bool):
+                v = {"ok": a["ok"], "problems": [str(x) for x in (a.get("problems") or [])] if not a["ok"] else []}
+                with _cache_lock:
+                    cache[review_key(j, n)] = v
+
+    def review_all(items):
+        """Two independent reviews of every item (different order each time);
+        too hard if either says so, or if an answer is missing."""
+        jobs = []
+        for n in range(2):
+            todo = [j for j in items if review_key(j, n) not in cache]
+            random.Random(n).shuffle(todo)
+            jobs += [(n, todo[i:i + CHECK_BATCH]) for i in range(0, len(todo), CHECK_BATCH)]
+        if jobs:
+            with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+                list(pool.map(review_chunk, jobs))
+        out = []
+        for j in items:
+            vs = [cache.get(review_key(j, n), {"ok": False, "problems": ["no answer from the review"]})
+                  for n in range(2)]
+            bad = [v for v in vs if not v.get("ok")]
+            out.append({"ok": True} if not bad else
+                       {"ok": False, "problems": [f"({len(bad)}/2)"] + (bad[0].get("problems") or [])})
+        return out
 
     queue = sorted(passed_rule, key=lambda j: len(j["hanzi"]))
     for start in range(0, len(queue), CHECK_BATCH):
@@ -1042,8 +1184,7 @@ def cmd_tatoeba(db, point: Point, args):
                 j["chosen"] = j["english"][a[0]["english"]]
                 passed_check.append(j)
                 funnel[f"7. both checks say {point.code}, English chosen"] += 1
-        with ThreadPoolExecutor(max_workers=WORKERS) as pool:
-            verdicts = list(pool.map(review, passed_check))
+        verdicts = review_all(passed_check)
         for j, v in zip(passed_check, verdicts):
             if v.get("ok"):
                 funnel["8. both difficulty reviews pass it"] += 1
@@ -1118,10 +1259,12 @@ def main():
     args = parser.parse_args()
 
     CHECK_MODEL = args.check_model
+    install_credit_guard()
     t0 = time.time()
     real = point_db_at_scratch_copy()
     from app.textbook.db_utils import get_session, init_db
     init_db()
+    apply_level_overrides()
     print(f"Working on a copy of {real}\n")
     with get_session() as db:
         point = Point(db, args.code, args.contains, need_sources=args.step not in ("sources", "context"))

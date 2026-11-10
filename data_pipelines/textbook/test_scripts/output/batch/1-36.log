@@ -1,0 +1,118 @@
+
+########## rules  2026-11-09 21:21 ##########
+68 page(s) use the word(s); asking about 40.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG0UFR4  The "shi... de" construction for indicating purpose
+  ASG8YTSF  The "shi... de" patterns: an overview
+  ASGUN7RX  Connecting nouns with "shi"
+  ASGAC619  Alternative existential sentences
+
+not:
+  ASG38F8A  Expressing "all" with "fanshi"
+  ASG4FB55  Expressing "and then" with "yushi"
+  ASG5HZG6  "Could it be that" with "qibushi"
+  ASG8F7D4  Expressing "if it were not for" with "yaobushi"
+  ASGA1B87  Emphasizing with "henshi"
+  ASGA8NIB  Offering choices with "haishi"
+  ASGEXR6R  Expressing the only two possibilities
+  ASGF1TQ2  Expressing "even if…" with "jiushi"
+  ASGII66E  Using "always" as a complaint with "laoshi"
+  ASGMCX2H  Expressing "to be worthy of" with "bukuishi"
+  ASGN4S8O  Expressing "if… then…" with "yaoshi"
+  ASGNLGGX  Expressing "is or is not" with "shifou"
+  ASGQJ5IC  Comparing "haishi" and "huozhe"
+  ASGT9Y8P  Conceding a point with "shi"
+  ASGVACYB  Saying "a lot" with "youdeshi"
+  ASGWAR65  Expressing "had better" with "haishi"
+  ASGXJPJS  Expressing "always" with "zongshi"
+
+unsure:
+  ASGE662E  The "shi... de" construction for emphasizing details
+  ASGMX0ZS  Using "er" to explain contrasting ideas
+  ASGTPGXK  Stating the effect before the cause
+
+unrelated:
+  ASGUD81S  Two words for "but"
+  ASG0K25S  Comparing "fan'er" and “que"
+  ASG4D8XB  Tag questions with "bu"
+  ASG6509E  Explaining purpose with "wei... er..."
+  ASG8KUHG  Expressing "always" with "conglai"
+  ASGEEA2D  Expressing "double negation"
+  ASGEG2QB  The "however" adverb "que"
+  ASGIRILI  Continuation with "hai"
+  ASGJDV3Y  Expressing "only if" with "zhiyou"
+  ASGQGJXT  Expressing purpose with "weile"
+  ASGR6Q2J  Expressing "let alone" with "bie shuo"
+  ASGRJ1BI  Comparing "bu" and "mei"
+  ASGSJYZ2  Tag questions with "ma"
+  ASGSVF28  Expressing duration of inaction
+  ASGW7YXP  Softening the tone of questions with "ne"
+  ASGXI560  Expressing "although" with "suiran" and "danshi"
+
+[note] ASG0UFR4 is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+[note] ASG8YTSF is tagged HSK [2] on the wiki, the point is HSK 1 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-36
+Tagging 83 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261109_212148.txt
+  ...100/184
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 1-36
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** 是-sentences for connecting nouns, describing purpose/function, or indicating location/existence
+**Covers:** Subject + 是 + Noun (他是老师); Subject + 是 + 来/去 + Verb + 的 (我是来实习的); Thing + 是 + 用来 + Verb + 的 (钱是用来花的); Thing + 是 + 给 + Person + Verb + 的 (房间是给客人住的); Location + 是 + Noun (桌子上是菜); Subject + 是 + Distinguishing Word + 的 (这是女的); Subject + 是 + Adjective + 的 where adjective is non-gradable (苹果是坏的); 是...吗 questions; 是不是 questions
+**Does not cover:** 于是 (then/so), 凡是 (all that), 要不是 (if not for), 要是 (if), 还是 (or/had better), 不是...就是 (not...then), 老是/总是 (always), 很是 (very), 有的是 (plenty of), 就是 (even if), 岂不是/是否 (rhetorical/whether), other 是 patterns in the exclusion list
+
+```rule
+match: /VC
+unless: 于是 凡是 要不是 要是 老是 总是 很是 有的是 就是 岂不是 是否 不愧是 这就是说 那倒 或是 为的是
+```
+
+**Notes:** This rule is intentionally broad to catch the core "是" sentence pattern (HSK 1-36) which involves 是/VC appearing in the sentence. The unless clause filters out other grammar points that contain 是 but represent different constructions. The rule will match any sentence with 是 tagged as VC (copula verb) that doesn't contain the excluded phrases. Most counter-examples involve compound adverbs (于是, 凡是, 要不是, 老是, 总是, 很是, 有的是, 就是, 岂不是, 是否) or other specific patterns (不愧是, 这就是说, 那倒, 或是, 为的是) that should not be tagged as simple 是 sentences for HSK 1 purposes.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-36
+Tagging 83 labeled example(s) (cached after this run)...
+  ...100/184
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-36: rule on labeled examples (no AI) ===
+  examples of 1-36 matched:    16/39
+  counter-examples wrongly matched: 7/145   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (7) ---
+  你是警察，这样做岂不是知法犯法？  -- ASG5HZG6 "Could it be that" with "qibushi"  [matched: /PN|NN|NR 是/VC /NN|NR|PN|DT|CD]
+  这是水还是酒？  -- ASGA8NIB Offering choices with "haishi"  [matched: /PN|NN|NR 是/VC /NN|NR|PN|DT|CD]
+  他是美国人还是英国人？  -- ASGA8NIB Offering choices with "haishi"  [matched: /PN|NN|NR 是/VC /NN|NR|PN|DT|CD]
+  我不知道这本书是他的还是我的。  -- ASGQJ5IC Comparing "haishi" and "huozhe"  [matched: /PN|NN|NR 是/VC /NN|NR|PN|DT|CD]
+  他爸是大老板，有的是钱。  -- ASGVACYB Saying "a lot" with "youdeshi"  [matched: /PN|NN|NR 是/VC /NN|NR|PN|DT|CD]
+  她是全职妈妈，有的是时间。  -- ASGVACYB Saying "a lot" with "youdeshi"  [matched: /PN|NN|NR 是/VC /NN|NR|PN|DT|CD]
+  我一个大男人，有的是力气。  -- ASGVACYB Saying "a lot" with "youdeshi"  [matched: /PN|NN|NR 是/VC /NN|NR|PN|DT|CD]
+
+--- examples of 1-36 the rule misses (23) ---
+  这些钱是给孩子上大学的。  -- ASG0UFR4 The "shi... de" construction for indicating purpose
+  这个苹果是坏的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  你错了，那个人是女的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  他家的家具都是中式的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  这个东西是可以吃的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  我会去的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  我们能做到的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  你是John吗？  -- ASGUN7RX Connecting nouns with "shi"
+  他们是有钱人。  -- ASGUN7RX Connecting nouns with "shi"
+  这是我男朋友。  -- ASGUN7RX Connecting nouns with "shi"
+  这都是你的钱。  -- ASGUN7RX Connecting nouns with "shi"
+  我也是他的朋友。  -- ASGUN7RX Connecting nouns with "shi"
+  他没听到，是不是？  -- ASGUN7RX Connecting nouns with "shi"
+  你是不是还没吃饭？  -- ASGUN7RX Connecting nouns with "shi"
+  你们是不是中国人？  -- ASGUN7RX Connecting nouns with "shi"
+  你到了，是吗？  -- ASGUN7RX Connecting nouns with "shi"
+  你有两个孩子，是吗？  -- ASGUN7RX Connecting nouns with "shi"
+  洗衣机里是一些脏衣服。  -- ASGAC619 Alternative existential sentences
+  袋子里是我的午饭。  -- ASGAC619 Alternative existential sentences
+  墙上都是他家人的照片。  -- ASGAC619 Alternative existential sentences
+  盒子里是你的礼物。  -- ASGAC619 Alternative existential sentences
+  桌子上是昨天没吃完的菜。  -- ASGAC619 Alternative existential sentences
+  这是他的书。  -- HSK list example

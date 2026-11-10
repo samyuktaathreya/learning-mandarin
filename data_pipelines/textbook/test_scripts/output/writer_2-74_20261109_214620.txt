@@ -1,0 +1,46 @@
+## 2-74
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Emphasis with 就 (jiù) placed before the predicate to add emphatic, intense feeling
+**Covers:** 就是 + Noun (identifying); 就 + Verb / 就是 + Verb (emphasizing the predicate or a reason); 就是 + 不 + Verb (emphatic negation); 就在 + place (emphatic location)
+**Does not cover:** Temporal or sequential uses (about to, as soon as); conditional uses (if-then, only if); scope or topic marking; small quantity (only); indifference (X就X); quick succession; hypothetical concession; 不是……就是……; and other non-emphatic 就 constructions
+
+```rule
+match: /PN|DT|NN|NR 就/AD 是/VC
+match: /PN|NN|NR 就是/AD /VV|VA
+match: /PN|NN|NR 就是/AD 不/AD
+match: ^ 就是/AD /VV|VA
+match: /NN|NR|PN 就/AD 在/VV
+match: /PN|NN 就/AD 不/AD /VV|VA
+unless: 如果|假如|假使|要是|若|一旦|只要|既然|万一|就算|再不
+unless: /CS
+unless: /P 就/AD
+unless: ^ 别/AD 说
+unless: 就/AD 要/VV
+unless: 就/AD /VV /AS
+unless: 想/VV ... 就/AD
+unless: 要/VV ... 就/AD
+unless: 一/AD ... 就/AD
+unless: 一/CD ... 就/AD
+unless: 不/AD 是/VC ... 就/AD 是/VC
+unless: 不/AD 是/VC ... 就是/AD
+unless: /VV|VA 就/AD 不/AD
+unless: /VV|VA 就/AD /VV|VA
+unless: 就/AD 不/AD ... 了/SP
+unless: 就/AD 是/VC ... 了/AS
+unless: 就/AD /PN|NN|NR /CD|M
+unless: 就/AD /PN 聪明/VA
+unless: 就/AD /PN 没/AD /VV|VA
+unless: 就在/AD
+unless: 就/AD 在/VV 这/DT
+unless: ^ 就/AD
+```
+
+**Notes:** The rule matches 就 directly before 是, a verb, or a negated verb, with a subject (noun or pronoun) before it. It also accepts the fused 就是/AD token, and 就在 for emphatic location. Precision comes first, so borderline cases are excluded. The exclusions are:
+- conditional and temporal frames (如果, 一……就, 想/要……就);
+- preposition 就/P;
+- 就要 "about to";
+- 不是……就是……;
+- the X就X indifference pattern;
+- sentence-final 了 after 就不 (a temporal result rather than emphasis);
+- 就是……了 (concession);
+- 就 + quantified subject (small quantity).

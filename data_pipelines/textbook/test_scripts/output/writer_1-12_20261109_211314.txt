@@ -1,0 +1,19 @@
+## 1-12
+**Point:** Frequency and repetition adverbs: 常、常常、再
+**Covers:** 常/常常 expressing "often/frequently" (any tense); 再 expressing "again" in future or sequential contexts; 经常 as synonym for 常/常常; 往往 expressing "usually/tend to"
+**Does not cover:** 再也不/没 (never again); 再不...就... (urgency/last chance); 一再/再三 (over and over); 再说 (in addition); 先...再... when it's only about sequence without repetition sense
+
+```rule
+match: /AD (常|常常|经常|往往|再) /
+unless: (一再|再三|再说|再也) | (再 不 .* 就) | (先 .* 再)
+```
+
+**Notes:** 
+- The core match catches adverbs in the HSK 1-12 list in adverbial position before or after negation
+- "往往" is included because it's explicitly discussed in the grammar explanations as a frequency/tendency adverb that contrasts with 常常
+- The first unless blocks 一再/再三 (over and over), 再说 (moreover), and 再也 (never again) which are separate points
+- The second unless blocks "再不...就..." pattern (conditional urgency) which is HSK 5-06 or 3-16
+- The third unless tries to exclude pure sequencing "先...再" but may have false negatives; this is acceptable per instructions
+- "经常" appears in examples as synonym for 常/常常 and should match
+- Negation patterns like "不常/不经常" are included as they appear in examples
+- The rule is deliberately simple to avoid false positives; some marginal uses of 再 in sequential contexts may be missed

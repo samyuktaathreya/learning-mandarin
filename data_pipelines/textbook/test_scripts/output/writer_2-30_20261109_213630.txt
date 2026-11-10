@@ -1,0 +1,57 @@
+## 2-30
+**Point:** Conjunctions and adverbs that join clauses to express conditions, contrasts and progression (只要…就, 如果…就/那, 的话, 但是/可是/不过, 虽然…但是, 不但…而且/也/还)
+
+**Covers:**
+- Conditionals with 如果…就/那(么), 只要…就, and 如果…的话 or a bare 的话
+- Contrasts with 但/但是, 可是, and the softer 不过 at the start of a clause
+- Concessions with 虽然…但是/可是
+- Additive "not only…but also" with 不但/不仅/不只 plus 而且/也/还
+- 那/那么 opening the result clause after a condition
+- Implied conditions such as 喜欢就拿走吧 and 有事给我打电话
+
+**Does not cover:**
+- 尽管…还是 (despite…still)
+- 不但…更 and 不但…甚至连…也 (escalation)
+- 却 as a contrastive adverb
+- 并且 (moreover/and), including 不但…并且
+- 不但不/不但没有…反而 (HSK 6)
+- 不过是 (just/merely), where 不过 is not a conjunction
+
+```rule
+match: 只要/CS
+match: 如果/CS
+match: 虽然/CS
+match: 不但/AD
+match: 不仅/AD
+match: 不/AD 只/VV
+match: 的话/SP
+match: ^ 不过/AD
+match: ^ 不过/CC
+match: ^ 但是/AD
+match: ^ 但是/CC
+match: ^ 可是/AD
+match: ^ 可是/CC
+match: ^ 但/AD
+match: ^ 但/CC
+match: ^ 而且/AD
+match: ^ 而且/CC
+match: ^ 那/AD
+match: ^ 那么/AD
+match: ^ 喜欢/VV 就/AD
+match: ^ 有/VE 事|空 给/P
+match: ^ 有/VE 事|空 来/VV
+unless: 甚至
+unless: 更/AD
+unless: 尽管
+unless: 却/AD
+unless: 并且
+unless: 反而
+unless: 不过 是
+```
+
+**Notes:**
+- The original rule never matched because a pattern only looks inside one clause. The connectors sit in different clauses, so each one is now matched by itself, anchored with ^ where it must open a clause.
+- 不过, 但是, 可是 and 而且 are often tagged AD rather than CC, so both tags are listed.
+- 不过, 但, 可是 and 那 are restricted to clause-initial position so that mid-clause uses (不过是…, 他可是我老板, 那个) do not match.
+- The unless lines remove the neighbouring points: 甚至连, 更, 尽管, 却, 并且, 反而 and 不过是.
+- The implied-condition patterns (喜欢就…, 有事/有空…) are deliberately narrow to avoid false positives.

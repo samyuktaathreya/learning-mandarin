@@ -1,0 +1,39 @@
+## 4-73
+**Point:** Using 还 + predicate/noun phrase (+ 呢/吗) to express surprise, sarcasm, or astonishment about an irrational or unexpected situation
+
+**Covers:** 
+- 还 + verb/adjective phrase + 呢 (expressing irony: "He studied abroad, yet his English is terrible!")
+- 还 + noun phrase + 呢 (expressing sarcasm: "What a 'good friend'!")
+- 还 + verb phrase + 吗 (rhetorical question: "Would you really believe this kind of person?")
+- Sentences where 还 signals that the subject contradicts expectations (e.g., "This kid is brilliant!" with 还真)
+
+**Does not cover:**
+- 还是 (different grammatical structure: choices, "had better", contrast)
+- 还 + 好/可以/不错 (moderating adjectives)
+- 还有 (expressing "in addition" or "there is/remains")
+- 还在/还不/还没 (expressing continuation or negation of completion)
+- 还 in comparisons (比...还)
+- 还 meaning "and also" (coordinating two parallel actions)
+- 不仅...还 (not-only-but-also structure)
+- 还好...不然 (expressing luck/fortunate circumstance)
+
+```rule
+match: 还/AD ... (/SP|吗)? $
+match: 还/AD /NN.* 呢/SP
+unless: 还是/AD
+unless: 还/AD 好/VA
+unless: 还/AD 有/VE
+unless: 还/AD 在/AD
+unless: 还/AD 在/VV
+unless: 还/AD 不
+unless: 还/AD 没/AD
+unless: 还/AD 没有/VE
+unless: /P 还/AD
+unless: 比/P ... 还/AD
+unless: 除了/P
+unless: 不仅|不但|不只/AD
+unless: 不然|但是|可是/CC
+unless: 还/AD 款/NN
+```
+
+**Notes:** The rule targets the core pattern of 还 at the start of a clause followed by a predicate/noun, often ending with 呢 or 吗. It excludes 还是 entirely (different word), 还有 (different meaning), and 还 in continuation patterns (还在/还不/还没). The pattern `... (/SP|�mas)? $` captures both statement and rhetorical question forms. Noun phrases like "名牌儿呢" are matched by the second pattern. Counter-examples like "还好我们买了..." are excluded by checking for 还好 patterns and preceding context words like 除了, 不仅, etc.

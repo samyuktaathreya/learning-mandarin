@@ -1,0 +1,37 @@
+## 2-24
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 从 (cóng) and 离 (lí) as prepositions meaning "from" in spatial, temporal, or source contexts
+
+**Covers:** 
+- 从 + Place + verb (motion/action from a location)
+- 从 + Place + 到 + Place (from place to place)
+- 从 + Time + 到 + Time (from time to time)
+- 从 + Time/Event + 开始/起 (starting from)
+- 从 + 那/今 + 以后 (ever since then / from now on)
+- 从 + Source (noun/person/abstract) + verb (taking/learning from, seeing from)
+- 离 + Time/Event + duration, 离 + Event + 还有 + duration (time distance)
+- 离 + Place + 远/近 (distance)
+
+**Does not cover:**
+- 从来 meaning "always" or "never" (time adverb)
+- 从而 meaning "thereby/thus" (conjunctive adverb)
+- 自从 (a separate HSK 3 grammar point)
+- 从...来看 (HSK 5-26)
+- Adverbial or fixed uses such as 从小, 从中, 从此, 从前, 从不, and the verb 从事, none of which are tagged as the preposition 从/P
+
+```rule
+match: 从/P
+match: 离/P
+unless: 从来
+unless: 从而
+unless: 自从
+unless: 从事
+unless: 从/P ... 来看
+unless: 从/P ... 来 看
+```
+
+**Notes:** 
+- Matching on the preposition tag 从/P or 离/P is enough. The fixed adverbial forms are tokenized as separate words (从来, 从小, 从今以后 and so on) or tagged AD, so they never match.
+- The earlier rule demanded a particular following word (到, 起, 上 and so on). That missed many valid uses: 从 + noun + verb, 从那以后, and 从 + 到 where 到 is tagged as a verb or preposition.
+- The `unless` lines still remove sentences containing 从来, 从而, 自从, 从事 or 从...来看, so they cannot slip in on a stray 从/P.
+- The standalone token 从今以后 (tagged NT) is not covered by this rule, because it is not tagged 从/P.

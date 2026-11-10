@@ -1,0 +1,15 @@
+## 2-19
+**Point:** Modal adverbs expressing approximation (差不多), similarity (差不多), and appearance/seeming (好像)
+**Covers:** 差不多 used as an adverb or predicate to mean "more or less," "almost the same," or "approximately"; 好像 used as an adverb to mean "seems like" or "it seems that"
+**Does not cover:** 一定 and 必须 (different modal meanings); 也许 (expressing possibility); 差不多/好像 when tagged as other parts of speech; uses of 一定 as an attributive modifier (一定的关系)
+
+```rule
+match: 差不多/VV
+match: 差不多/AD
+match: 好像/AD
+unless: 一定/AD 要
+unless: 必须/VV
+unless: 也许/AD
+```
+
+**Notes:** The rule targets the two main adverbs from the official list: 差不多 and 好像. These appear with POS tags VV or AD depending on function. The unless clauses exclude 一定 and 必须 which are different modal meanings (necessity/certainty rather than approximation/seeming), and 也许 (possibility). The patterns are intentionally simple to avoid false negatives while maintaining precision—any sentence containing 差不多 or 好像 in their typical tags will demonstrate the grammar point.

@@ -1,0 +1,17 @@
+## 3-79
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Expressing "already" with 都⋯⋯了, used emphatically to indicate that something has already happened or reached a point, often implying the speaker's attitude (impatience, surprise, a push to act).
+
+**Covers:** Clause-initial 都 followed directly by a time or duration expression (number + measure word, optionally with a noun, or a time noun) and then sentence-final 了. Examples: 都十一点了, 都三天了, 都一个小时了, 都二十一世纪了.
+
+**Does not cover:** Other uses of 都: universal "all/every" with a subject before 都 (全校都放假了, 他们都在上海), 也都, 除了⋯⋯都, question-word 都, 不管/无论⋯⋯都, 连⋯⋯都, 何况, 从来都, 什么都, 全都. It also does not cover the subject + 都 + predicate + 了 form (饭都凉了), because it cannot be told apart from the "all" reading without more context.
+
+```rule
+match: ^ 都/AD CD M 了/SP
+match: ^ 都/AD CD M NN 了/SP
+match: ^ 都/AD CD NT 了/SP
+match: ^ 都/AD NT 了/SP
+unless: 不管|无论|何况|连|除了
+```
+
+**Notes:** The rule only matches 都 at the start of a clause, directly followed by a time or duration phrase and then 了. This is the clearest form of "already" 都⋯⋯了. It no longer requires 了 to end the clause, and it no longer excludes 怎么 or other question words, because the labeled example 都三天了，他怎么还没回来 uses 怎么 in a following clause. Subject + 都 + verb + 了 sentences like 全校都放假了 are not matched, since they are usually the "all" use of 都. The cost is that sentences like 饭都凉了 are missed, in return for precision.

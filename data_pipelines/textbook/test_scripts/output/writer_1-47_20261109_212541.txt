@@ -1,0 +1,22 @@
+## 1-47
+**Point:** Using 还是 to offer choices in questions
+**Covers:** Questions presenting two or more options where the asker expects the respondent to choose one, including yes/no questions with 是...还是 structure and questions with implied verbs/actions
+**Does not cover:** Uses of 还是 meaning "had better" (with 吧), "still/yet" in continuation, "after all" in statements, or other adverbial uses where it doesn't present alternatives to choose between
+
+```rule
+match: 还是/CC
+unless: /SP$ ... 还是/CC
+unless: CS ... 还是
+unless: ... 还是/CC ... 吧/SP
+unless: ... 又/CC ... 还是/AD
+unless: 还是/AD
+unless: ... 了/AS 又 ... 还是
+```
+
+**Notes:** 
+- The key distinguishing feature is 还是/CC (tagged as coordinating conjunction) vs 还是/AD (tagged as adverb). This point requires CC.
+- Counter-examples show 还是/AD in various contexts: after 尽管 concessive clauses, before 吧 for "had better", after 又 in repeated action patterns, and in general continuative statements (尽管...还是, 但是...还是, etc.).
+- Some sentences may have multiple clauses; the rule checks within a single clause.
+- The unless clauses catch: sentence-final 吧 patterns, concessive contexts with CS, repeated action patterns with 又, and the adverbial uses tagged AD.
+- Edge case: "他闻了又闻，还是什么都没闻到" has 还是/CC but is likely a counter-example due to the 又 pattern in previous clause — the second unless clause handles this.
+- The rule is deliberately strict to avoid false positives, which is worse for teaching than missing borderline cases.
