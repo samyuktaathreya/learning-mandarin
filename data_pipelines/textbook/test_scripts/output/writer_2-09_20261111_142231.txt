@@ -1,0 +1,18 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 7549 characters -->
+## 2-09
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Large numbers using 千, 万, 亿 as units in numeric expressions
+
+**Covers:** Cardinal numbers (tagged CD) whose token contains the unit 千 (thousand), 万 (ten thousand) or 亿 (hundred million), e.g. 三千, 五万, 一百万, 十四亿. This also covers the bare units 千, 万 and 亿 tagged CD.
+
+**Does not cover:** Ordinary small numbers or measure-word phrases such as 一个, 几个, 多少, 三本. Also excluded: 千万 as an adverb meaning "must" or "make sure", 万一 meaning "what if", and the idiom 以防万一.
+
+```rule
+match: 千|万|亿|一千|两千|三千|四千|五千|六千|七千|八千|九千|几千|数千|一万|两万|三万|四万|五万|六万|七万|八万|九万|十万|几万|数万|百万|一百万|两百万|三百万|五百万|千万|一千万|五千万|一亿|两亿|三亿|四亿|五亿|六亿|七亿|八亿|九亿|十亿|十四亿|百亿|几亿/CD
+unless: 千万/CD /VV|AD
+unless: 万一/AD
+unless: 万一/CS
+unless: 以/P 防/VV 万一/AD
+```
+
+**Notes:** The old rule matched any /CD token, so it wrongly caught everyday numbers such as 一, 几 and 多少. The new rule matches only CD tokens that contain 千, 万 or 亿. The tokenizer's exact segmentation of long numbers is unknown, so the rule lists common whole-word forms. Unlisted forms are simply missed, which is acceptable because precision comes first. 千万 tagged CD and followed by a verb or adverb is the "make sure" use and is excluded. The 万一 exclusions are kept as a safeguard.

@@ -1,0 +1,112 @@
+2026-11-14 14:29:49,950  INFO     === tag_sentences.py run started ===
+2026-11-14 14:29:49,989  INFO     FALLBACK  '这个手机三千块。' -- out-of-list word(s): ['这个']
+2026-11-14 14:29:49,989  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('手机', 'NN'), ('三千', 'NUM'), ('块', 'M')]
+2026-11-14 14:29:49,992  INFO     TAGGED    '这个手机三千块。' (level 1, 4 tags)
+2026-11-14 14:29:50,013  INFO     OK        hanlp-valid   '我们学校有两千个学生。' -> [('我们', 'PN'), ('学校', 'NN'), ('有', 'VE'), ('两千', 'NUM'), ('个', 'M'), ('学生', 'NN')]
+2026-11-14 14:29:50,016  INFO     TAGGED    '我们学校有两千个学生。' (level 1, 5 tags)
+2026-11-14 14:29:50,037  INFO     FALLBACK  '爸爸一个月有两万块钱。' -- out-of-list word(s): ['一个月', '块钱']
+2026-11-14 14:29:50,037  WARNING    HAIKU resegment call for '爸爸一个月有两万块钱。' (cache miss on [('一个月', 'CD'), ('块钱', 'NN')])
+2026-11-14 14:29:50,068  INFO     TAGGED    '爸爸一个月有两万块钱。' (level 1, 7 tags)
+2026-11-14 14:29:50,088  INFO     FALLBACK  '这个车八万块。' -- out-of-list word(s): ['这个']
+2026-11-14 14:29:50,088  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('车', 'NN'), ('八万', 'NUM'), ('块', 'M')]
+2026-11-14 14:29:50,090  INFO     TAGGED    '这个车八万块。' (level 1, 4 tags)
+2026-11-14 14:29:50,111  INFO     FALLBACK  '这个机票要两千五百块。' -- out-of-list word(s): ['这个']
+2026-11-14 14:29:50,111  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('机票', 'NN'), ('要', 'VV'), ('两千五百', 'NUM'), ('块', 'M')]
+2026-11-14 14:29:50,114  INFO     TAGGED    '这个机票要两千五百块。' (level 2, 5 tags)
+2026-11-14 14:29:50,133  INFO     FALLBACK  '我想买一个三千块的手机。' -- out-of-list word(s): ['一个']
+2026-11-14 14:29:50,133  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('想', 'VV'), ('买', 'VV'), ('一', 'CD'), ('个', 'M'), ('三千', 'NUM'), ('块', 'M'), ('的', 'DEG'), ('手机', 'NN')]
+2026-11-14 14:29:50,145  INFO     TAGGED    '我想买一个三千块的手机。' (level 1, 8 tags)
+2026-11-14 14:29:50,164  INFO     OK        hanlp-valid   '他的手表要十万块。' -> [('他', 'PN'), ('的', 'DEG'), ('手表', 'NN'), ('要', 'VV'), ('十万', 'NUM'), ('块', 'M')]
+2026-11-14 14:29:50,167  INFO     TAGGED    '他的手表要十万块。' (level 2, 5 tags)
+2026-11-14 14:29:50,186  INFO     FALLBACK  '他有三万块钱。' -- out-of-list word(s): ['块钱']
+2026-11-14 14:29:50,186  WARNING    HAIKU resegment call for '他有三万块钱。' (cache miss on [('块钱', 'NN')])
+2026-11-14 14:29:50,210  INFO     TAGGED    '他有三万块钱。' (level 1, 4 tags)
+2026-11-14 14:29:50,230  INFO     FALLBACK  '这个店一天卖两千个包子。' -- out-of-list word(s): ['这个', '一天']
+2026-11-14 14:29:50,230  WARNING    HAIKU resegment call for '这个店一天卖两千个包子。' (cache miss on [('一天', 'AD')])
+2026-11-14 14:29:50,261  INFO     TAGGED    '这个店一天卖两千个包子。' (level 1, 8 tags)
+2026-11-14 14:29:50,281  INFO     OK        hanlp-valid   '我们公司有三千个人。' -> [('我们', 'PN'), ('公司', 'NN'), ('有', 'VE'), ('三千', 'NUM'), ('个人', 'NN')]
+2026-11-14 14:29:50,286  INFO     TAGGED    '我们公司有三千个人。' (level 5, 4 tags)
+2026-11-14 14:29:50,305  INFO     FALLBACK  '这个大学有四万个学生。' -- out-of-list word(s): ['这个']
+2026-11-14 14:29:50,305  INFO       CACHE-ONLY resegmentation -> [('这个', 'DT'), ('大学', 'NN'), ('有', 'VE'), ('四万', 'NUM'), ('个', 'M'), ('学生', 'NN')]
+2026-11-14 14:29:50,312  INFO     TAGGED    '这个大学有四万个学生。' (level 1, 6 tags)
+2026-11-14 14:29:50,322  INFO     OK        hanlp-valid   '六千八百块。' -> [('六千八百', 'NUM'), ('块', 'M')]
+2026-11-14 14:29:50,324  INFO     TAGGED    '六千八百块。' (level 1, 1 tags)
+2026-11-14 14:29:50,342  INFO     FALLBACK  '这个歌有五百万人听过。' -- out-of-list word(s): ['这个']
+2026-11-14 14:29:50,342  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('歌', 'NN'), ('有', 'VE'), ('五百万', 'NUM'), ('人', 'NN'), ('听', 'VV'), ('过', 'AS')]
+2026-11-14 14:29:50,345  INFO     TAGGED    '这个歌有五百万人听过。' (level 2, 7 tags)
+2026-11-14 14:29:50,364  INFO     OK        hanlp-valid   '今年有八万人来看球。' -> [('今年', 'NT'), ('有', 'VE'), ('八万', 'NUM'), ('人', 'NN'), ('来', 'VV'), ('看', 'VV'), ('球', 'NN')]
+2026-11-14 14:29:50,367  INFO     TAGGED    '今年有八万人来看球。' (level 2, 6 tags)
+2026-11-14 14:29:50,385  INFO     OK        hanlp-valid   '昨天他花了一万二千块买电脑。' -> [('昨天', 'NT'), ('他', 'PN'), ('花', 'VV'), ('了', 'AS'), ('一万二千', 'NUM'), ('块', 'M'), ('买', 'VV'), ('电脑', 'NN')]
+2026-11-14 14:29:50,388  INFO     TAGGED    '昨天他花了一万二千块买电脑。' (level 2, 7 tags)
+2026-11-14 14:29:50,407  INFO     FALLBACK  '这个手表五万块,我不买。' -- out-of-list word(s): ['这个']
+2026-11-14 14:29:50,407  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('手表', 'NN'), ('五万', 'NUM'), ('块', 'NN'), ('我', 'PN'), ('不', 'AD'), ('买', 'VV')]
+2026-11-14 14:29:50,411  INFO     TAGGED    '这个手表五万块,我不买。' (level 2, 7 tags)
+2026-11-14 14:29:50,430  INFO     FALLBACK  '我有两千块钱,可以买这个吗?' -- out-of-list word(s): ['块钱', '这个']
+2026-11-14 14:29:50,430  WARNING    HAIKU resegment call for '我有两千块钱,可以买这个吗?' (cache miss on [('块钱', 'NN')])
+2026-11-14 14:29:50,463  INFO     TAGGED    '我有两千块钱,可以买这个吗?' (level 1, 9 tags)
+2026-11-14 14:29:50,485  INFO     FALLBACK  '他想给妈妈买一个六千块的包。' -- out-of-list word(s): ['一个']
+2026-11-14 14:29:50,485  INFO       CACHE-ONLY resegmentation -> [('他', 'PN'), ('想', 'VV'), ('给', 'P'), ('妈妈', 'NN'), ('买', 'VV'), ('一', 'CD'), ('个', 'M'), ('六千', 'NUM'), ('块', 'M'), ('的', 'DEG'), ('包', 'NN')]
+2026-11-14 14:29:50,489  INFO     TAGGED    '他想给妈妈买一个六千块的包。' (level 2, 10 tags)
+2026-11-14 14:29:50,509  INFO     FALLBACK  '这个商场一天有三万人来。' -- out-of-list word(s): ['这个', '一天']
+2026-11-14 14:29:50,509  WARNING    HAIKU resegment call for '这个商场一天有三万人来。' (cache miss on [('一天', 'AD')])
+2026-11-14 14:29:50,539  INFO     TAGGED    '这个商场一天有三万人来。' (level 2, 8 tags)
+2026-11-14 14:29:50,551  INFO     FALLBACK  '汉语有几万个汉字。' -- out-of-list word(s): ['几万个']
+2026-11-14 14:29:50,551  WARNING    HAIKU resegment call for '汉语有几万个汉字。' (cache miss on [('几万个', 'CD')])
+2026-11-14 14:29:50,568  INFO     TAGGED    '汉语有几万个汉字。' (level 2, 6 tags)
+2026-11-14 14:29:50,587  INFO     FALLBACK  '你有一万块钱吗?' -- out-of-list word(s): ['块钱']
+2026-11-14 14:29:50,587  WARNING    HAIKU resegment call for '你有一万块钱吗?' (cache miss on [('块钱', 'NN')])
+2026-11-14 14:29:50,611  INFO     TAGGED    '你有一万块钱吗?' (level 1, 5 tags)
+2026-11-14 14:29:50,629  INFO     FALLBACK  '这个桌子要九千块。' -- out-of-list word(s): ['这个']
+2026-11-14 14:29:50,629  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('桌子', 'NN'), ('要', 'VV'), ('九千', 'NUM'), ('块', 'M')]
+2026-11-14 14:29:50,632  INFO     TAGGED    '这个桌子要九千块。' (level 1, 5 tags)
+2026-11-14 14:29:50,650  INFO     OK        hanlp-valid   '她的新车二十万块。' -> [('她', 'PN'), ('的', 'DEG'), ('新', 'JJ'), ('车', 'NN'), ('二十万', 'NUM'), ('块', 'M')]
+2026-11-14 14:29:50,653  INFO     TAGGED    '她的新车二十万块。' (level 1, 5 tags)
+2026-11-14 14:29:50,672  INFO     FALLBACK  '这个饭店一天有一千个人来吃饭。' -- out-of-list word(s): ['这个', '一天']
+2026-11-14 14:29:50,672  WARNING    HAIKU resegment call for '这个饭店一天有一千个人来吃饭。' (cache miss on [('一天', 'AD')])
+2026-11-14 14:29:50,704  INFO     TAGGED    '这个饭店一天有一千个人来吃饭。' (level 5, 10 tags)
+2026-11-14 14:29:50,723  INFO     FALLBACK  '去年他有一百二十万块钱。' -- out-of-list word(s): ['块钱']
+2026-11-14 14:29:50,723  WARNING    HAIKU resegment call for '去年他有一百二十万块钱。' (cache miss on [('块钱', 'NN')])
+2026-11-14 14:29:50,747  INFO     TAGGED    '去年他有一百二十万块钱。' (level 1, 5 tags)
+2026-11-14 14:29:50,766  INFO     FALLBACK  '这个小学有两千个小学生。' -- out-of-list word(s): ['这个']
+2026-11-14 14:29:50,766  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('小学', 'NN'), ('有', 'VE'), ('两千', 'NUM'), ('个', 'M'), ('小学生', 'NN')]
+2026-11-14 14:29:50,769  INFO     TAGGED    '这个小学有两千个小学生。' (level 1, 6 tags)
+2026-11-14 14:29:50,787  INFO     FALLBACK  '这个手机九千九百九十九块。' -- out-of-list word(s): ['这个']
+2026-11-14 14:29:50,787  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('手机', 'NN'), ('九千九百九十九', 'NUM'), ('块', 'M')]
+2026-11-14 14:29:50,789  INFO     TAGGED    '这个手机九千九百九十九块。' (level 1, 4 tags)
+2026-11-14 14:29:50,807  INFO     OK        hanlp-valid   '我家的电视四千块。' -> [('我', 'PN'), ('家', 'NN'), ('的', 'DEG'), ('电视', 'NN'), ('四千', 'NUM'), ('块', 'M')]
+2026-11-14 14:29:50,810  INFO     TAGGED    '我家的电视四千块。' (level 1, 5 tags)
+2026-11-14 14:29:50,828  INFO     OK        hanlp-valid   '他的书卖了十万本。' -> [('他', 'PN'), ('的', 'DEG'), ('书', 'NN'), ('卖', 'VV'), ('了', 'SP'), ('十万', 'NUM'), ('本', 'NN')]
+2026-11-14 14:29:50,831  INFO     TAGGED    '他的书卖了十万本。' (level 1, 6 tags)
+2026-11-14 14:29:50,849  INFO     FALLBACK  '我弟弟有八千块钱。' -- out-of-list word(s): ['块钱']
+2026-11-14 14:29:50,849  WARNING    HAIKU resegment call for '我弟弟有八千块钱。' (cache miss on [('块钱', 'NN')])
+2026-11-14 14:29:50,873  INFO     TAGGED    '我弟弟有八千块钱。' (level 1, 5 tags)
+2026-11-14 14:29:50,892  INFO     FALLBACK  '他买了一个四万块的手表。' -- out-of-list word(s): ['一个']
+2026-11-14 14:29:50,892  INFO       CACHE-ONLY resegmentation -> [('他', 'PN'), ('买', 'VV'), ('了', 'AS'), ('一', 'CD'), ('个', 'M'), ('四万', 'NUM'), ('块', 'M'), ('的', 'DEG'), ('手表', 'NN')]
+2026-11-14 14:29:50,895  INFO     TAGGED    '他买了一个四万块的手表。' (level 2, 8 tags)
+2026-11-14 14:29:50,914  INFO     FALLBACK  '这个歌我听了一万次。' -- out-of-list word(s): ['这个']
+2026-11-14 14:29:50,914  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('歌', 'NN'), ('我', 'PN'), ('听', 'VV'), ('了', 'SP'), ('一万', 'NUM'), ('次', 'IJ')]
+2026-11-14 14:29:50,917  INFO     TAGGED    '这个歌我听了一万次。' (level 2, 7 tags)
+2026-11-14 14:29:50,936  INFO     FALLBACK  '妈妈说这个包要一万二。' -- out-of-list word(s): ['这个']
+2026-11-14 14:29:50,936  INFO       CACHE-ONLY resegmentation -> [('妈妈', 'NN'), ('说', 'VV'), ('这', 'DT'), ('个', 'M'), ('包', 'NN'), ('要', 'VV'), ('一万二', 'NUM')]
+2026-11-14 14:29:50,938  INFO     TAGGED    '妈妈说这个包要一万二。' (level 2, 6 tags)
+2026-11-14 14:29:50,956  INFO     FALLBACK  '这个酒店一个晚上一千块。' -- out-of-list word(s): ['这个', '一个晚上']
+2026-11-14 14:29:50,957  WARNING    HAIKU resegment call for '这个酒店一个晚上一千块。' (cache miss on [('一个晚上', 'NT')])
+2026-11-14 14:29:50,985  INFO     TAGGED    '这个酒店一个晚上一千块。' (level 2, 7 tags)
+2026-11-14 14:29:51,004  INFO     FALLBACK  '我想买一个五万块的电脑,可是太贵了。' -- out-of-list word(s): ['一个']
+2026-11-14 14:29:51,005  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('想', 'VV'), ('买', 'VV'), ('一', 'CD'), ('个', 'M'), ('五万', 'NUM'), ('块', 'NN'), ('的', 'DEG'), ('电脑', 'NN'), ('可是', 'AD'), ('太', 'AD'), ('贵', 'VA'), ('了', 'SP')]
+2026-11-14 14:29:51,009  INFO     TAGGED    '我想买一个五万块的电脑,可是太贵了。' (level 3, 12 tags)
+2026-11-14 14:29:51,029  INFO     FALLBACK  '那个医院有七千个医生。' -- out-of-list word(s): ['那个']
+2026-11-14 14:29:51,029  INFO       CACHE-ONLY resegmentation -> [('那', 'DT'), ('个', 'M'), ('医院', 'NN'), ('有', 'VE'), ('七千', 'NUM'), ('个', 'M'), ('医生', 'NN')]
+2026-11-14 14:29:51,032  INFO     TAGGED    '那个医院有七千个医生。' (level 1, 6 tags)
+2026-11-14 14:29:51,051  INFO     FALLBACK  '他一年花十万块学英语。' -- out-of-list word(s): ['一年']
+2026-11-14 14:29:51,051  WARNING    HAIKU resegment call for '他一年花十万块学英语。' (cache miss on [('一年', 'AD')])
+2026-11-14 14:29:51,075  INFO     TAGGED    '他一年花十万块学英语。' (level 2, 7 tags)
+2026-11-14 14:29:51,094  INFO     FALLBACK  '我的猫两岁了,买它花了三千块。' -- out-of-list word(s): ['两岁']
+2026-11-14 14:29:51,094  WARNING    HAIKU resegment call for '我的猫两岁了,买它花了三千块。' (cache miss on [('两岁', 'VV')])
+2026-11-14 14:29:51,120  INFO     TAGGED    '我的猫两岁了,买它花了三千块。' (level 2, 11 tags)
+2026-11-14 14:29:51,140  INFO     FALLBACK  '这个超市每天有两万人来买东西。' -- out-of-list word(s): ['这个', '每天']
+2026-11-14 14:29:51,140  INFO       CACHE-ONLY resegmentation -> [('这个', 'DT'), ('超市', 'NN'), ('每天', 'NT'), ('有', 'VE'), ('两万', 'NUM'), ('人', 'NN'), ('来', 'VV'), ('买', 'VV'), ('东西', 'NN')]
+2026-11-14 14:29:51,152  INFO     TAGGED    '这个超市每天有两万人来买东西。' (level 2, 10 tags)
+2026-11-14 14:29:51,172  INFO     FALLBACK  '这个门票一千五百块,太贵了。' -- out-of-list word(s): ['这个']
+2026-11-14 14:29:51,172  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('门票', 'NN'), ('一千五百', 'NUM'), ('块', 'M'), ('太', 'AD'), ('贵', 'VA'), ('了', 'SP')]
+2026-11-14 14:29:51,175  INFO     TAGGED    '这个门票一千五百块,太贵了。' (level 2, 7 tags)

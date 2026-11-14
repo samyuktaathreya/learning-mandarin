@@ -70,3 +70,1581 @@ Tagging 29 labeled example(s) (cached after this run)...
   今天晚上没空？明天晚上呢？  -- ASGMJHZO Questions with "ne"
   我去医院，你呢？  -- HSK list example
   书在桌子上，笔呢？  -- HSK list example
+
+########## rules  2026-11-10 21:26 ##########
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-77: rule on labeled examples (no AI) ===
+  examples of 2-77 matched:    15/15
+  counter-examples wrongly matched: 0/30   <- should be 0
+
+########## guard check  2026-11-10 21:32 ##########
+
+########## tatoeba  2026-11-10 21:38 ##########
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 7 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261110_213827.txt
+  ...100/125
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  准备好了 = 准备 + 好 + 了  (to be ready)
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-77 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      198  2. contain the point's word(s)
+      198  3. new (not in DB, not a duplicate)
+      125  4. at most 2 characters outside HSK 2 words
+       23  5. really HSK 2
+       22  5b. no harder grammar point (of the 34 with a rule)
+        3  6. the rule finds 2-77
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-77, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]  hidden: 准备好了
+
+--- dropped at step 4 (73), first 12 ---
+  谁不喜欢反叛者呢？  -- 3 characters no HSK 2 word uses: 反叛者
+  总统说，我才不屌呢。  -- 4 characters no HSK 2 word uses: 屌总才统
+  主人死后车子归谁呢？  -- 3 characters no HSK 2 word uses: 主归死
+  庄子曾梦见自己化身为蝶，当他醒来，他分不清是自己刚刚梦见自己变成蝴蝶呢，还是蝴蝶正梦见它变成了庄子。  -- 12 characters no HSK 2 word uses: 刚化变庄当成曾梦清蝴蝶醒
+  如果一个人有11只羊，除了9只之外，其他全部死了，那么他还剩下几只羊呢？  -- 9 characters no HSK 2 word uses: 之全其剩如死羊部除
+  谁将当选主席呢？  -- 5 characters no HSK 2 word uses: 主将席当选
+  有没有人翻译过我添加的中文句子呢？  -- 5 characters no HSK 2 word uses: 加句添翻译
+  显然，美国人连他们自己的问题都解决不了，所以他们怎么可能认为自己有足够的能力解决其他国家的问题呢？  -- 8 characters no HSK 2 word uses: 其决力够显美解连
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  汤姆不知道玛丽是高兴呢，还是不高兴。  -- 4 characters no HSK 2 word uses: 丽姆汤玛
+  一个由全善的上帝所创造出来的世界又怎么能产生出恶来呢？  -- 11 characters no HSK 2 word uses: 世产全创又善帝恶由界造
+  只有一个人能成为世界冠军。问题是：会是谁呢？  -- 5 characters no HSK 2 word uses: 世军冠成界
+
+--- dropped at step 5 (102), first 12 ---
+  该怎么办呢？  -- level 3: 该 L3, 怎么办 L3
+  现在呢？  -- level 1: no list words
+  然后呢？  -- level 3: 然后 L3
+  你开着电视怎么能安心学习呢？  -- level 7: 安心 L7
+  现在才6点半，怎么会堵车呢？  -- level 10: 才 L3, 6 (not in list), 堵 L5
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  你为什么不读这杂志呢？  -- level 4: 杂志 L4
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  你现在在哪里呢？  -- level 1: no list words
+  你们呢？  -- level 1: no list words
+  您呢？  -- level 1: no list words
+  她是怎样的人呢？  -- level 3: 怎样 L3
+
+--- dropped at step 5b (1) ---
+  请问可以在哪里买到票呢？  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (19) ---
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  快来，Emilia! 你爸爸在等你呢。  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  “你说得不对” “那怎么说呢？”  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  你在笑什么呢？  -- rule: no match: line matched
+  在笑什么呢？  -- rule: no match: line matched
+  你笑什么呢？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  你跟谁说话呢？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: no match: line matched
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  还在等什么呢！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  是的，我是小雨，你呢？  -- hidden word a learner can't work out: 是的 (yes, that's right)
+
+--- dropped at step 7 (1) ---
+  贝斯手呢？  -- check said no (1/2): Uses 呢 to ask location, not reciprocal/comparison question
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-77_level2_20261110_213835.csv
+
+########## guard check  2026-11-11 14:23 ##########
+
+########## tatoeba  2026-11-11 14:29 ##########
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-77 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      198  2. contain the point's word(s)
+      198  3. new (not in DB, not a duplicate)
+      125  4. at most 2 characters outside HSK 2 words
+       23  5. really HSK 2
+       22  5b. no harder grammar point (of the 39 with a rule)
+        3  6. the rule finds 2-77
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-77, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]  hidden: 准备好了
+
+--- dropped at step 4 (73), first 12 ---
+  谁不喜欢反叛者呢？  -- 3 characters no HSK 2 word uses: 反叛者
+  总统说，我才不屌呢。  -- 4 characters no HSK 2 word uses: 屌总才统
+  主人死后车子归谁呢？  -- 3 characters no HSK 2 word uses: 主归死
+  庄子曾梦见自己化身为蝶，当他醒来，他分不清是自己刚刚梦见自己变成蝴蝶呢，还是蝴蝶正梦见它变成了庄子。  -- 12 characters no HSK 2 word uses: 刚化变庄当成曾梦清蝴蝶醒
+  如果一个人有11只羊，除了9只之外，其他全部死了，那么他还剩下几只羊呢？  -- 9 characters no HSK 2 word uses: 之全其剩如死羊部除
+  谁将当选主席呢？  -- 5 characters no HSK 2 word uses: 主将席当选
+  有没有人翻译过我添加的中文句子呢？  -- 5 characters no HSK 2 word uses: 加句添翻译
+  显然，美国人连他们自己的问题都解决不了，所以他们怎么可能认为自己有足够的能力解决其他国家的问题呢？  -- 8 characters no HSK 2 word uses: 其决力够显美解连
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  汤姆不知道玛丽是高兴呢，还是不高兴。  -- 4 characters no HSK 2 word uses: 丽姆汤玛
+  一个由全善的上帝所创造出来的世界又怎么能产生出恶来呢？  -- 11 characters no HSK 2 word uses: 世产全创又善帝恶由界造
+  只有一个人能成为世界冠军。问题是：会是谁呢？  -- 5 characters no HSK 2 word uses: 世军冠成界
+
+--- dropped at step 5 (102), first 12 ---
+  该怎么办呢？  -- level 3: 该 L3, 怎么办 L3
+  现在呢？  -- level 1: no list words
+  然后呢？  -- level 3: 然后 L3
+  你开着电视怎么能安心学习呢？  -- level 7: 安心 L7
+  现在才6点半，怎么会堵车呢？  -- level 10: 才 L3, 6 (not in list), 堵 L5
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  你为什么不读这杂志呢？  -- level 4: 杂志 L4
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  你现在在哪里呢？  -- level 1: no list words
+  你们呢？  -- level 1: no list words
+  您呢？  -- level 1: no list words
+  她是怎样的人呢？  -- level 3: 怎样 L3
+
+--- dropped at step 5b (1) ---
+  请问可以在哪里买到票呢？  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (19) ---
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  快来，Emilia! 你爸爸在等你呢。  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  “你说得不对” “那怎么说呢？”  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  你在笑什么呢？  -- rule: no match: line matched
+  在笑什么呢？  -- rule: no match: line matched
+  你笑什么呢？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  你跟谁说话呢？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: no match: line matched
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  还在等什么呢！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  是的，我是小雨，你呢？  -- hidden word a learner can't work out: 是的 (yes, that's right)
+
+--- dropped at step 7 (1) ---
+  贝斯手呢？  -- check said no (1/2): Uses 呢 to ask location, not reciprocal/comparison question
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-77_level2_20261111_142937.csv
+
+########## rules  2026-11-12 17:32 ##########
+
+=== A. 2-77: rule on labeled examples (no AI) ===
+  examples of 2-77 matched:    15/15
+  counter-examples wrongly matched: 0/30   <- should be 0
+  easy examples (words all HSK 2 or below) matched: 9/9   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:41 ##########
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-77 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      198  2. contain the point's word(s)
+      198  3. new (not in DB, not a duplicate)
+      125  4. at most 2 characters outside HSK 2 words
+       23  5. really HSK 2
+       22  5b. no harder grammar point (of the 40 with a rule)
+        3  6. the rule finds 2-77
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-77, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]  hidden: 准备好了
+
+--- dropped at step 4 (73), first 12 ---
+  谁不喜欢反叛者呢？  -- 3 characters no HSK 2 word uses: 反叛者
+  总统说，我才不屌呢。  -- 4 characters no HSK 2 word uses: 屌总才统
+  主人死后车子归谁呢？  -- 3 characters no HSK 2 word uses: 主归死
+  庄子曾梦见自己化身为蝶，当他醒来，他分不清是自己刚刚梦见自己变成蝴蝶呢，还是蝴蝶正梦见它变成了庄子。  -- 12 characters no HSK 2 word uses: 刚化变庄当成曾梦清蝴蝶醒
+  如果一个人有11只羊，除了9只之外，其他全部死了，那么他还剩下几只羊呢？  -- 9 characters no HSK 2 word uses: 之全其剩如死羊部除
+  谁将当选主席呢？  -- 5 characters no HSK 2 word uses: 主将席当选
+  有没有人翻译过我添加的中文句子呢？  -- 5 characters no HSK 2 word uses: 加句添翻译
+  显然，美国人连他们自己的问题都解决不了，所以他们怎么可能认为自己有足够的能力解决其他国家的问题呢？  -- 8 characters no HSK 2 word uses: 其决力够显美解连
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  汤姆不知道玛丽是高兴呢，还是不高兴。  -- 4 characters no HSK 2 word uses: 丽姆汤玛
+  一个由全善的上帝所创造出来的世界又怎么能产生出恶来呢？  -- 11 characters no HSK 2 word uses: 世产全创又善帝恶由界造
+  只有一个人能成为世界冠军。问题是：会是谁呢？  -- 5 characters no HSK 2 word uses: 世军冠成界
+
+--- dropped at step 5 (102), first 12 ---
+  该怎么办呢？  -- level 3: 该 L3, 怎么办 L3
+  现在呢？  -- level 1: no list words
+  然后呢？  -- level 3: 然后 L3
+  你开着电视怎么能安心学习呢？  -- level 7: 安心 L7
+  现在才6点半，怎么会堵车呢？  -- level 10: 才 L3, 6 (not in list), 堵 L5
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  你为什么不读这杂志呢？  -- level 4: 杂志 L4
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  你现在在哪里呢？  -- level 1: no list words
+  你们呢？  -- level 1: no list words
+  您呢？  -- level 1: no list words
+  她是怎样的人呢？  -- level 3: 怎样 L3
+
+--- dropped at step 5b (1) ---
+  请问可以在哪里买到票呢？  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (19) ---
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  快来，Emilia! 你爸爸在等你呢。  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  “你说得不对” “那怎么说呢？”  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  你在笑什么呢？  -- rule: no match: line matched
+  在笑什么呢？  -- rule: no match: line matched
+  你笑什么呢？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  你跟谁说话呢？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: no match: line matched
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  还在等什么呢！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  是的，我是小雨，你呢？  -- hidden word a learner can't work out: 是的 (yes, that's right)
+
+--- dropped at step 7 (1) ---
+  贝斯手呢？  -- check said no (1/2): Uses 呢 to ask location, not reciprocal/comparison question
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-77_level2_20261112_174141.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-77 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      198  2. contain the point's word(s)
+      198  3. new (not in DB, not a duplicate)
+      125  4. at most 2 characters outside HSK 2 words
+       23  5. really HSK 2
+       22  5b. no harder grammar point (of the 40 with a rule)
+        3  6. the rule finds 2-77
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-77, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]  hidden: 准备好了
+
+--- dropped at step 4 (73), first 12 ---
+  谁不喜欢反叛者呢？  -- 3 characters no HSK 2 word uses: 反叛者
+  总统说，我才不屌呢。  -- 4 characters no HSK 2 word uses: 屌总才统
+  主人死后车子归谁呢？  -- 3 characters no HSK 2 word uses: 主归死
+  庄子曾梦见自己化身为蝶，当他醒来，他分不清是自己刚刚梦见自己变成蝴蝶呢，还是蝴蝶正梦见它变成了庄子。  -- 12 characters no HSK 2 word uses: 刚化变庄当成曾梦清蝴蝶醒
+  如果一个人有11只羊，除了9只之外，其他全部死了，那么他还剩下几只羊呢？  -- 9 characters no HSK 2 word uses: 之全其剩如死羊部除
+  谁将当选主席呢？  -- 5 characters no HSK 2 word uses: 主将席当选
+  有没有人翻译过我添加的中文句子呢？  -- 5 characters no HSK 2 word uses: 加句添翻译
+  显然，美国人连他们自己的问题都解决不了，所以他们怎么可能认为自己有足够的能力解决其他国家的问题呢？  -- 8 characters no HSK 2 word uses: 其决力够显美解连
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  汤姆不知道玛丽是高兴呢，还是不高兴。  -- 4 characters no HSK 2 word uses: 丽姆汤玛
+  一个由全善的上帝所创造出来的世界又怎么能产生出恶来呢？  -- 11 characters no HSK 2 word uses: 世产全创又善帝恶由界造
+  只有一个人能成为世界冠军。问题是：会是谁呢？  -- 5 characters no HSK 2 word uses: 世军冠成界
+
+--- dropped at step 5 (102), first 12 ---
+  该怎么办呢？  -- level 3: 该 L3, 怎么办 L3
+  现在呢？  -- level 1: no list words
+  然后呢？  -- level 3: 然后 L3
+  你开着电视怎么能安心学习呢？  -- level 7: 安心 L7
+  现在才6点半，怎么会堵车呢？  -- level 10: 才 L3, 6 (not in list), 堵 L5
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  你为什么不读这杂志呢？  -- level 4: 杂志 L4
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  你现在在哪里呢？  -- level 1: no list words
+  你们呢？  -- level 1: no list words
+  您呢？  -- level 1: no list words
+  她是怎样的人呢？  -- level 3: 怎样 L3
+
+--- dropped at step 5b (1) ---
+  请问可以在哪里买到票呢？  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (19) ---
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  快来，Emilia! 你爸爸在等你呢。  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  “你说得不对” “那怎么说呢？”  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  你在笑什么呢？  -- rule: no match: line matched
+  在笑什么呢？  -- rule: no match: line matched
+  你笑什么呢？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  你跟谁说话呢？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: no match: line matched
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  还在等什么呢！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  是的，我是小雨，你呢？  -- hidden word a learner can't work out: 是的 (yes, that's right)
+
+--- dropped at step 7 (1) ---
+  贝斯手呢？  -- check said no (1/2): Uses 呢 to ask location, not reciprocal/comparison question
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-77_level2_20261112_211547.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:55 ##########
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-77 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      198  2. contain the point's word(s)
+      198  3. new (not in DB, not a duplicate)
+      125  4. at most 2 characters outside HSK 2 words
+       23  5. really HSK 2
+       22  5b. no harder grammar point (of the 44 with a rule)
+        3  6. the rule finds 2-77
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-77, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]  hidden: 准备好了
+
+--- dropped at step 4 (73), first 12 ---
+  谁不喜欢反叛者呢？  -- 3 characters no HSK 2 word uses: 反叛者
+  总统说，我才不屌呢。  -- 4 characters no HSK 2 word uses: 屌总才统
+  主人死后车子归谁呢？  -- 3 characters no HSK 2 word uses: 主归死
+  庄子曾梦见自己化身为蝶，当他醒来，他分不清是自己刚刚梦见自己变成蝴蝶呢，还是蝴蝶正梦见它变成了庄子。  -- 12 characters no HSK 2 word uses: 刚化变庄当成曾梦清蝴蝶醒
+  如果一个人有11只羊，除了9只之外，其他全部死了，那么他还剩下几只羊呢？  -- 9 characters no HSK 2 word uses: 之全其剩如死羊部除
+  谁将当选主席呢？  -- 5 characters no HSK 2 word uses: 主将席当选
+  有没有人翻译过我添加的中文句子呢？  -- 5 characters no HSK 2 word uses: 加句添翻译
+  显然，美国人连他们自己的问题都解决不了，所以他们怎么可能认为自己有足够的能力解决其他国家的问题呢？  -- 8 characters no HSK 2 word uses: 其决力够显美解连
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  汤姆不知道玛丽是高兴呢，还是不高兴。  -- 4 characters no HSK 2 word uses: 丽姆汤玛
+  一个由全善的上帝所创造出来的世界又怎么能产生出恶来呢？  -- 11 characters no HSK 2 word uses: 世产全创又善帝恶由界造
+  只有一个人能成为世界冠军。问题是：会是谁呢？  -- 5 characters no HSK 2 word uses: 世军冠成界
+
+--- dropped at step 5 (102), first 12 ---
+  该怎么办呢？  -- level 3: 该 L3, 怎么办 L3
+  现在呢？  -- level 1: no list words
+  然后呢？  -- level 3: 然后 L3
+  你开着电视怎么能安心学习呢？  -- level 7: 安心 L7
+  现在才6点半，怎么会堵车呢？  -- level 10: 才 L3, 6 (not in list), 堵 L5
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  你为什么不读这杂志呢？  -- level 4: 杂志 L4
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  你现在在哪里呢？  -- level 1: no list words
+  你们呢？  -- level 1: no list words
+  您呢？  -- level 1: no list words
+  她是怎样的人呢？  -- level 3: 怎样 L3
+
+--- dropped at step 5b (1) ---
+  请问可以在哪里买到票呢？  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (19) ---
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  快来，Emilia! 你爸爸在等你呢。  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  “你说得不对” “那怎么说呢？”  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  你在笑什么呢？  -- rule: no match: line matched
+  在笑什么呢？  -- rule: no match: line matched
+  你笑什么呢？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  你跟谁说话呢？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: no match: line matched
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  还在等什么呢！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  是的，我是小雨，你呢？  -- hidden word a learner can't work out: 是的 (yes, that's right)
+
+--- dropped at step 7 (1) ---
+  贝斯手呢？  -- check said no (1/2): Uses 呢 to ask location, not reciprocal/comparison question
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-77_level2_20261113_135526.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:46 ##########
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 1 check and 0 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 2-77 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      198  2. contain the point's word(s)
+      198  3. new (not in DB, not a duplicate)
+      125  4. at most 2 characters outside HSK 2 words
+       23  5. really HSK 2
+       22  5b. no harder grammar point (of the 43 with a rule)
+        3  6. the rule finds 2-77
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-77, English chosen
+        1  7b. second opinion: it is the point (check)
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (2) ===
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]  hidden: 准备好了
+  贝斯手呢？  (Where's the bass player?)  [tatoeba 14048382]
+
+--- dropped at step 4 (73), first 12 ---
+  谁不喜欢反叛者呢？  -- 3 characters no HSK 2 word uses: 反叛者
+  总统说，我才不屌呢。  -- 4 characters no HSK 2 word uses: 屌总才统
+  主人死后车子归谁呢？  -- 3 characters no HSK 2 word uses: 主归死
+  庄子曾梦见自己化身为蝶，当他醒来，他分不清是自己刚刚梦见自己变成蝴蝶呢，还是蝴蝶正梦见它变成了庄子。  -- 12 characters no HSK 2 word uses: 刚化变庄当成曾梦清蝴蝶醒
+  如果一个人有11只羊，除了9只之外，其他全部死了，那么他还剩下几只羊呢？  -- 9 characters no HSK 2 word uses: 之全其剩如死羊部除
+  谁将当选主席呢？  -- 5 characters no HSK 2 word uses: 主将席当选
+  有没有人翻译过我添加的中文句子呢？  -- 5 characters no HSK 2 word uses: 加句添翻译
+  显然，美国人连他们自己的问题都解决不了，所以他们怎么可能认为自己有足够的能力解决其他国家的问题呢？  -- 8 characters no HSK 2 word uses: 其决力够显美解连
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  汤姆不知道玛丽是高兴呢，还是不高兴。  -- 4 characters no HSK 2 word uses: 丽姆汤玛
+  一个由全善的上帝所创造出来的世界又怎么能产生出恶来呢？  -- 11 characters no HSK 2 word uses: 世产全创又善帝恶由界造
+  只有一个人能成为世界冠军。问题是：会是谁呢？  -- 5 characters no HSK 2 word uses: 世军冠成界
+
+--- dropped at step 5 (102), first 12 ---
+  该怎么办呢？  -- level 3: 该 L3, 怎么办 L3
+  现在呢？  -- level 1: no list words
+  然后呢？  -- level 3: 然后 L3
+  你开着电视怎么能安心学习呢？  -- level 7: 安心 L7
+  现在才6点半，怎么会堵车呢？  -- level 10: 才 L3, 6 (not in list), 堵 L5
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  你为什么不读这杂志呢？  -- level 4: 杂志 L4
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  你现在在哪里呢？  -- level 1: no list words
+  你们呢？  -- level 1: no list words
+  您呢？  -- level 1: no list words
+  她是怎样的人呢？  -- level 3: 怎样 L3
+
+--- dropped at step 5b (1) ---
+  请问可以在哪里买到票呢？  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (19) ---
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  快来，Emilia! 你爸爸在等你呢。  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  “你说得不对” “那怎么说呢？”  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  你在笑什么呢？  -- rule: no match: line matched
+  在笑什么呢？  -- rule: no match: line matched
+  你笑什么呢？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  你跟谁说话呢？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: no match: line matched
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  还在等什么呢！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  是的，我是小雨，你呢？  -- hidden word a learner can't work out: 是的 (yes, that's right; variant of 似的[shi4 de5])
+
+--- dropped at step 7 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-77_level2_20261113_144650.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## ai  2026-11-14 14:46 ##########
+
+----- AI-written sentences for 2-77, round 1: 0 to check, 18 needed -----
+  Asking claude-sonnet-5-5 to write 45 sentence(s)...
+
+----- AI-written sentences for 2-77, round 2: 45 to check, 18 needed -----
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 45
+
+Tagging 45 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_144654.txt
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-77 at HSK 2: funnel ===
+       45  AI-written sentences
+       45  1. have an English translation
+       45  2. contain the point's word(s)
+       45  3. new (not in DB, not a duplicate)
+       45  4. at most 0 characters outside HSK 2 words
+        8  5. really HSK 2
+        8  5b. no harder grammar point (of the 43 with a rule)
+        7  6. the rule finds 2-77
+        7  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-77, English chosen
+        7  8. both difficulty reviews pass it
+
+=== Survivors (7) ===
+  家里很热，外面呢？  (It's hot at home. What about outside?)  [tatoeba ai-ca286da322]  hidden: 家里
+  我想喝绿茶，你呢？  (I'd like some green tea. What about you?)  [tatoeba ai-86eb30dc82]
+  左边是超市，右边呢？  (On the left is a supermarket. What about the right?)  [tatoeba ai-1c862cd3b1]
+  我的本子在这儿，你的呢？  (My notebook is here. Where's yours?)  [tatoeba ai-719b357e10]
+  学校前面有书店，后面呢？  (There's a bookstore in front of the school. What about behind it?)  [tatoeba ai-85d41a4b34]
+  我喜欢猫，你喜欢狗，他呢？  (I like cats and you like dogs. What about him?)  [tatoeba ai-5cc72ac137]
+  这个问题我懂了，那个问题呢？  (I understand this question. What about that one?)  [tatoeba ai-333e5c4f5c]  hidden: 这个, 那个
+
+--- dropped at step 5 (37), first 12 ---
+  我喝茶，你呢？  -- level 1: no list words
+  今天我很忙，明天呢？  -- level 1: no list words
+  这件衣服很漂亮，那件呢？  -- level 1: no list words
+  我喜欢吃面条儿，你呢？  -- level 1: no list words
+  爸爸在家，妈妈呢？  -- level 1: no list words
+  我在学校，你们呢？  -- level 1: no list words
+  今天晚上我有时间，明天晚上呢？  -- level 1: no list words
+  这个杯子五块，那个呢？  -- level 1: no list words
+  我有一个哥哥，你呢？  -- level 1: no list words
+  我是学生，你呢？  -- level 1: no list words
+  我不喝牛奶，你呢？  -- level 1: no list words
+  我的手机在这儿，你的呢？  -- level 1: no list words
+
+--- dropped at step 6 (1) ---
+  红色的很好看，白色的呢？  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-77_level2_20261114_144701.csv
+  Asking claude-sonnet-5-5 to write 28 sentence(s)...
+
+----- AI-written sentences for 2-77, round 3: 73 to check, 18 needed -----
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 73
+
+Tagging 28 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_144717.txt
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  飞机票 = 飞 + 机票  (air ticket; CL:張|张[zhang1])
+     clear  火车票 = 火车 + 票  (train ticket)
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-77 at HSK 2: funnel ===
+       73  AI-written sentences
+       73  1. have an English translation
+       73  2. contain the point's word(s)
+       73  3. new (not in DB, not a duplicate)
+       73  4. at most 0 characters outside HSK 2 words
+       17  5. really HSK 2
+       17  5b. no harder grammar point (of the 43 with a rule)
+       16  6. the rule finds 2-77
+       15  6b. no hidden word a learner can't work out
+       13  7. both checks say 2-77, English chosen
+       13  8. both difficulty reviews pass it
+
+=== Survivors (13) ===
+  我会游泳，你呢？  (I can swim. What about you?)  [tatoeba ai-88bfa53ad2]
+  家里很热，外面呢？  (It's hot at home. What about outside?)  [tatoeba ai-ca286da322]  hidden: 家里
+  我想喝绿茶，你呢？  (I'd like some green tea. What about you?)  [tatoeba ai-86eb30dc82]
+  左边是超市，右边呢？  (On the left is a supermarket. What about the right?)  [tatoeba ai-1c862cd3b1]
+  我的手表很贵，你的呢？  (My watch is expensive. What about yours?)  [tatoeba ai-841631eaf7]
+  飞机票很贵，火车票呢？  (Plane tickets are expensive. What about train tickets?)  [tatoeba ai-92928dfa84]  hidden: 飞机票, 火车票
+  我的本子在这儿，你的呢？  (My notebook is here. Where's yours?)  [tatoeba ai-719b357e10]
+  学校前面有书店，后面呢？  (There's a bookstore in front of the school. What about behind it?)  [tatoeba ai-85d41a4b34]
+  这条裤子很便宜，那条呢？  (These pants are cheap. What about those?)  [tatoeba ai-4aa9caec11]
+  我喜欢猫，你喜欢狗，他呢？  (I like cats and you like dogs. What about him?)  [tatoeba ai-5cc72ac137]
+  这个问题我懂了，那个问题呢？  (I understand this question. What about that one?)  [tatoeba ai-333e5c4f5c]  hidden: 这个, 那个
+  我喜欢这个颜色，那个颜色呢？  (I like this color. What about that color?)  [tatoeba ai-b8e4d5fea0]  hidden: 这个, 那个
+  小学生都在教室里，中学生呢？  (The primary school students are all in the classroom. What about the middle school students?)  [tatoeba ai-171b26f4c7]
+
+--- dropped at step 5 (56), first 12 ---
+  我喝茶，你呢？  -- level 1: no list words
+  今天我很忙，明天呢？  -- level 1: no list words
+  这件衣服很漂亮，那件呢？  -- level 1: no list words
+  我喜欢吃面条儿，你呢？  -- level 1: no list words
+  爸爸在家，妈妈呢？  -- level 1: no list words
+  我在学校，你们呢？  -- level 1: no list words
+  今天晚上我有时间，明天晚上呢？  -- level 1: no list words
+  这个杯子五块，那个呢？  -- level 1: no list words
+  我有一个哥哥，你呢？  -- level 1: no list words
+  我是学生，你呢？  -- level 1: no list words
+  我不喝牛奶，你呢？  -- level 1: no list words
+  我的手机在这儿，你的呢？  -- level 1: no list words
+
+--- dropped at step 6 (1) ---
+  红色的很好看，白色的呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我去过中国，你呢？  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  我爱吃肉，你女朋友呢？  -- check said no (1/2): Asks about girlfriend's meat preference, not parallel topic
+  我爱喝咖啡，你爸爸呢？  -- check said no (1/2): Asks about dad's coffee preference, not parallel topic
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-77_level2_20261114_144729.csv
+
+########## ai  2026-11-14 15:02 ##########
+
+----- AI-written sentences for 2-77, round 1: 73 to check, 18 needed -----
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 73
+
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-77 at HSK 2: funnel ===
+       73  AI-written sentences
+       73  1. have an English translation
+       73  2. contain the point's word(s)
+       73  3. new (not in DB, not a duplicate)
+       73  4. at most 0 characters outside HSK 2 words
+       17  5. really HSK 2
+       17  5b. no harder grammar point (of the 43 with a rule)
+       16  6. the rule finds 2-77
+       15  6b. no hidden word a learner can't work out
+       13  7. both checks say 2-77, English chosen
+       13  8. both difficulty reviews pass it
+
+=== Survivors (13) ===
+  我会游泳，你呢？  (I can swim. What about you?)  [tatoeba ai-88bfa53ad2]
+  家里很热，外面呢？  (It's hot at home. What about outside?)  [tatoeba ai-ca286da322]  hidden: 家里
+  我想喝绿茶，你呢？  (I'd like some green tea. What about you?)  [tatoeba ai-86eb30dc82]
+  左边是超市，右边呢？  (On the left is a supermarket. What about the right?)  [tatoeba ai-1c862cd3b1]
+  我的手表很贵，你的呢？  (My watch is expensive. What about yours?)  [tatoeba ai-841631eaf7]
+  飞机票很贵，火车票呢？  (Plane tickets are expensive. What about train tickets?)  [tatoeba ai-92928dfa84]  hidden: 飞机票, 火车票
+  我的本子在这儿，你的呢？  (My notebook is here. Where's yours?)  [tatoeba ai-719b357e10]
+  学校前面有书店，后面呢？  (There's a bookstore in front of the school. What about behind it?)  [tatoeba ai-85d41a4b34]
+  这条裤子很便宜，那条呢？  (These pants are cheap. What about those?)  [tatoeba ai-4aa9caec11]
+  我喜欢猫，你喜欢狗，他呢？  (I like cats and you like dogs. What about him?)  [tatoeba ai-5cc72ac137]
+  这个问题我懂了，那个问题呢？  (I understand this question. What about that one?)  [tatoeba ai-333e5c4f5c]  hidden: 这个, 那个
+  我喜欢这个颜色，那个颜色呢？  (I like this color. What about that color?)  [tatoeba ai-b8e4d5fea0]  hidden: 这个, 那个
+  小学生都在教室里，中学生呢？  (The primary school students are all in the classroom. What about the middle school students?)  [tatoeba ai-171b26f4c7]
+
+--- dropped at step 5 (56), first 12 ---
+  我喝茶，你呢？  -- level 1: no list words
+  今天我很忙，明天呢？  -- level 1: no list words
+  这件衣服很漂亮，那件呢？  -- level 1: no list words
+  我喜欢吃面条儿，你呢？  -- level 1: no list words
+  爸爸在家，妈妈呢？  -- level 1: no list words
+  我在学校，你们呢？  -- level 1: no list words
+  今天晚上我有时间，明天晚上呢？  -- level 1: no list words
+  这个杯子五块，那个呢？  -- level 1: no list words
+  我有一个哥哥，你呢？  -- level 1: no list words
+  我是学生，你呢？  -- level 1: no list words
+  我不喝牛奶，你呢？  -- level 1: no list words
+  我的手机在这儿，你的呢？  -- level 1: no list words
+
+--- dropped at step 6 (1) ---
+  红色的很好看，白色的呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我去过中国，你呢？  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  我爱吃肉，你女朋友呢？  -- check said no (1/2): Asks about girlfriend's meat preference, not parallel topic
+  我爱喝咖啡，你爸爸呢？  -- check said no (1/2): Asks about dad's coffee preference, not parallel topic
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-77_level2_20261114_150245.csv
+  Asking claude-sonnet-5-5 to write 13 sentence(s)...
+  The answer couldn't be read (no JSON array in the answer); trying once more next round.
+
+----- AI-written sentences for 2-77, round 2: 73 to check, 18 needed -----
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 73
+
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-77 at HSK 2: funnel ===
+       73  AI-written sentences
+       73  1. have an English translation
+       73  2. contain the point's word(s)
+       73  3. new (not in DB, not a duplicate)
+       73  4. at most 0 characters outside HSK 2 words
+       17  5. really HSK 2
+       17  5b. no harder grammar point (of the 43 with a rule)
+       16  6. the rule finds 2-77
+       15  6b. no hidden word a learner can't work out
+       13  7. both checks say 2-77, English chosen
+       13  8. both difficulty reviews pass it
+
+=== Survivors (13) ===
+  我会游泳，你呢？  (I can swim. What about you?)  [tatoeba ai-88bfa53ad2]
+  家里很热，外面呢？  (It's hot at home. What about outside?)  [tatoeba ai-ca286da322]  hidden: 家里
+  我想喝绿茶，你呢？  (I'd like some green tea. What about you?)  [tatoeba ai-86eb30dc82]
+  左边是超市，右边呢？  (On the left is a supermarket. What about the right?)  [tatoeba ai-1c862cd3b1]
+  我的手表很贵，你的呢？  (My watch is expensive. What about yours?)  [tatoeba ai-841631eaf7]
+  飞机票很贵，火车票呢？  (Plane tickets are expensive. What about train tickets?)  [tatoeba ai-92928dfa84]  hidden: 飞机票, 火车票
+  我的本子在这儿，你的呢？  (My notebook is here. Where's yours?)  [tatoeba ai-719b357e10]
+  学校前面有书店，后面呢？  (There's a bookstore in front of the school. What about behind it?)  [tatoeba ai-85d41a4b34]
+  这条裤子很便宜，那条呢？  (These pants are cheap. What about those?)  [tatoeba ai-4aa9caec11]
+  我喜欢猫，你喜欢狗，他呢？  (I like cats and you like dogs. What about him?)  [tatoeba ai-5cc72ac137]
+  这个问题我懂了，那个问题呢？  (I understand this question. What about that one?)  [tatoeba ai-333e5c4f5c]  hidden: 这个, 那个
+  我喜欢这个颜色，那个颜色呢？  (I like this color. What about that color?)  [tatoeba ai-b8e4d5fea0]  hidden: 这个, 那个
+  小学生都在教室里，中学生呢？  (The primary school students are all in the classroom. What about the middle school students?)  [tatoeba ai-171b26f4c7]
+
+--- dropped at step 5 (56), first 12 ---
+  我喝茶，你呢？  -- level 1: no list words
+  今天我很忙，明天呢？  -- level 1: no list words
+  这件衣服很漂亮，那件呢？  -- level 1: no list words
+  我喜欢吃面条儿，你呢？  -- level 1: no list words
+  爸爸在家，妈妈呢？  -- level 1: no list words
+  我在学校，你们呢？  -- level 1: no list words
+  今天晚上我有时间，明天晚上呢？  -- level 1: no list words
+  这个杯子五块，那个呢？  -- level 1: no list words
+  我有一个哥哥，你呢？  -- level 1: no list words
+  我是学生，你呢？  -- level 1: no list words
+  我不喝牛奶，你呢？  -- level 1: no list words
+  我的手机在这儿，你的呢？  -- level 1: no list words
+
+--- dropped at step 6 (1) ---
+  红色的很好看，白色的呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我去过中国，你呢？  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  我爱吃肉，你女朋友呢？  -- check said no (1/2): Asks about girlfriend's meat preference, not parallel topic
+  我爱喝咖啡，你爸爸呢？  -- check said no (1/2): Asks about dad's coffee preference, not parallel topic
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-77_level2_20261114_150301.csv
+  Asking claude-sonnet-5-5 to write 13 sentence(s)...
+
+----- AI-written sentences for 2-77, round 3: 86 to check, 18 needed -----
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 86
+
+Tagging 13 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_150314.txt
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-77 at HSK 2: funnel ===
+       86  AI-written sentences
+       86  1. have an English translation
+       86  2. contain the point's word(s)
+       86  3. new (not in DB, not a duplicate)
+       86  4. at most 0 characters outside HSK 2 words
+       21  5. really HSK 2
+       21  5b. no harder grammar point (of the 43 with a rule)
+       20  6. the rule finds 2-77
+       19  6b. no hidden word a learner can't work out
+       17  7. both checks say 2-77, English chosen
+       16  8. both difficulty reviews pass it
+
+=== Survivors (16) ===
+  我会游泳，你呢？  (I can swim. What about you?)  [tatoeba ai-88bfa53ad2]
+  家里很热，外面呢？  (It's hot at home. What about outside?)  [tatoeba ai-ca286da322]  hidden: 家里
+  我想喝绿茶，你呢？  (I'd like some green tea. What about you?)  [tatoeba ai-86eb30dc82]
+  左边是超市，右边呢？  (On the left is a supermarket. What about the right?)  [tatoeba ai-1c862cd3b1]
+  我要一杯咖啡，你呢？  (I'd like a cup of coffee. What about you?)  [tatoeba ai-d139c618b3]
+  我的手表很贵，你的呢？  (My watch is expensive. What about yours?)  [tatoeba ai-841631eaf7]
+  飞机票很贵，火车票呢？  (Plane tickets are expensive. What about train tickets?)  [tatoeba ai-92928dfa84]  hidden: 飞机票, 火车票
+  这条路很远，那条路呢？  (This road is very far. What about that one?)  [tatoeba ai-614ebeff02]
+  我的本子在这儿，你的呢？  (My notebook is here. Where's yours?)  [tatoeba ai-719b357e10]
+  学校前面有书店，后面呢？  (There's a bookstore in front of the school. What about behind it?)  [tatoeba ai-85d41a4b34]
+  这条裤子很便宜，那条呢？  (These pants are cheap. What about those?)  [tatoeba ai-4aa9caec11]
+  我喜欢踢足球，你弟弟呢？  (I like playing soccer. What about your younger brother?)  [tatoeba ai-0958284083]
+  我喜欢猫，你喜欢狗，他呢？  (I like cats and you like dogs. What about him?)  [tatoeba ai-5cc72ac137]
+  这个问题我懂了，那个问题呢？  (I understand this question. What about that one?)  [tatoeba ai-333e5c4f5c]  hidden: 这个, 那个
+  我喜欢这个颜色，那个颜色呢？  (I like this color. What about that color?)  [tatoeba ai-b8e4d5fea0]  hidden: 这个, 那个
+  小学生都在教室里，中学生呢？  (The primary school students are all in the classroom. What about the middle school students?)  [tatoeba ai-171b26f4c7]
+
+--- dropped at step 5 (65), first 12 ---
+  我喝茶，你呢？  -- level 1: no list words
+  今天我很忙，明天呢？  -- level 1: no list words
+  这件衣服很漂亮，那件呢？  -- level 1: no list words
+  我喜欢吃面条儿，你呢？  -- level 1: no list words
+  爸爸在家，妈妈呢？  -- level 1: no list words
+  我在学校，你们呢？  -- level 1: no list words
+  今天晚上我有时间，明天晚上呢？  -- level 1: no list words
+  这个杯子五块，那个呢？  -- level 1: no list words
+  我有一个哥哥，你呢？  -- level 1: no list words
+  我是学生，你呢？  -- level 1: no list words
+  我不喝牛奶，你呢？  -- level 1: no list words
+  我的手机在这儿，你的呢？  -- level 1: no list words
+
+--- dropped at step 6 (1) ---
+  红色的很好看，白色的呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我去过中国，你呢？  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  我爱吃肉，你女朋友呢？  -- check said no (1/2): Asks about girlfriend's meat preference, not parallel topic
+  我爱喝咖啡，你爸爸呢？  -- check said no (1/2): Asks about dad's coffee preference, not parallel topic
+
+--- dropped at step 8 (1) ---
+  我家在学校旁边，你家呢？  -- difficulty review: (1/2); 旁边 (pángbiān - beside/next to) is not in the HSK 2 word list
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-77_level2_20261114_150319.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:11 ##########
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 19  -> Tatoeba needs to add 1 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-77 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      198  2. contain the point's word(s)
+      190  3. new (not in DB, not a duplicate)
+      117  4. at most 2 characters outside HSK 2 words
+       19  5. really HSK 2
+       18  5b. no harder grammar point (of the 43 with a rule)
+        1  6. the rule finds 2-77
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (8) ---
+  “你说得不对” “那怎么说呢？”  -- already in the database
+  会是谁呢？  -- already in the database
+  在吃什么呢？  -- already in the database
+  你想坐哪儿呢？  -- already in the database
+  你和谁说话呢？  -- already in the database
+  不知道明天天气会怎么样呢？  -- already in the database
+  我准备好了，你们呢？  -- already in the database
+  贝斯手呢？  -- already in the database
+
+--- dropped at step 4 (73), first 12 ---
+  谁不喜欢反叛者呢？  -- 3 characters no HSK 2 word uses: 反叛者
+  总统说，我才不屌呢。  -- 4 characters no HSK 2 word uses: 屌总才统
+  主人死后车子归谁呢？  -- 3 characters no HSK 2 word uses: 主归死
+  庄子曾梦见自己化身为蝶，当他醒来，他分不清是自己刚刚梦见自己变成蝴蝶呢，还是蝴蝶正梦见它变成了庄子。  -- 12 characters no HSK 2 word uses: 刚化变庄当成曾梦清蝴蝶醒
+  如果一个人有11只羊，除了9只之外，其他全部死了，那么他还剩下几只羊呢？  -- 9 characters no HSK 2 word uses: 之全其剩如死羊部除
+  谁将当选主席呢？  -- 5 characters no HSK 2 word uses: 主将席当选
+  有没有人翻译过我添加的中文句子呢？  -- 5 characters no HSK 2 word uses: 加句添翻译
+  显然，美国人连他们自己的问题都解决不了，所以他们怎么可能认为自己有足够的能力解决其他国家的问题呢？  -- 8 characters no HSK 2 word uses: 其决力够显美解连
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  汤姆不知道玛丽是高兴呢，还是不高兴。  -- 4 characters no HSK 2 word uses: 丽姆汤玛
+  一个由全善的上帝所创造出来的世界又怎么能产生出恶来呢？  -- 11 characters no HSK 2 word uses: 世产全创又善帝恶由界造
+  只有一个人能成为世界冠军。问题是：会是谁呢？  -- 5 characters no HSK 2 word uses: 世军冠成界
+
+--- dropped at step 5 (98), first 12 ---
+  该怎么办呢？  -- level 3: 该 L3, 怎么办 L3
+  现在呢？  -- level 1: no list words
+  然后呢？  -- level 3: 然后 L3
+  你开着电视怎么能安心学习呢？  -- level 7: 安心 L7
+  现在才6点半，怎么会堵车呢？  -- level 10: 才 L3, 6 (not in list), 堵 L5
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  你为什么不读这杂志呢？  -- level 4: 杂志 L4
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  你现在在哪里呢？  -- level 1: no list words
+  你们呢？  -- level 1: no list words
+  您呢？  -- level 1: no list words
+  她是怎样的人呢？  -- level 3: 怎样 L3
+
+--- dropped at step 5b (1) ---
+  请问可以在哪里买到票呢？  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (17) ---
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  快来，Emilia! 你爸爸在等你呢。  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  你在笑什么呢？  -- rule: no match: line matched
+  在笑什么呢？  -- rule: no match: line matched
+  你笑什么呢？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  你跟谁说话呢？  -- rule: no match: line matched
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  还在等什么呢！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  是的，我是小雨，你呢？  -- hidden word a learner can't work out: 是的 (yes, that's right; variant of 似的[shi4 de5])
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-77_level2_20261114_161145.csv
+
+########## ai  2026-11-14 16:15 ##########
+
+----- AI-written sentences for 2-77, round 1: 86 to check, 1 needed -----
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 86
+
+Tagging 2 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161500.txt
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 19  -> Tatoeba needs to add 1 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-77 at HSK 2: funnel ===
+       86  AI-written sentences
+       86  1. have an English translation
+       86  2. contain the point's word(s)
+       70  3. new (not in DB, not a duplicate)
+       70  4. at most 0 characters outside HSK 2 words
+        5  5. really HSK 2
+        5  5b. no harder grammar point (of the 43 with a rule)
+        4  6. the rule finds 2-77
+        3  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-77, English chosen
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (16), first 12 ---
+  我喜欢猫，你喜欢狗，他呢？  -- already in the course or chosen from Tatoeba
+  家里很热，外面呢？  -- already in the course or chosen from Tatoeba
+  我的本子在这儿，你的呢？  -- already in the course or chosen from Tatoeba
+  学校前面有书店，后面呢？  -- already in the course or chosen from Tatoeba
+  左边是超市，右边呢？  -- already in the course or chosen from Tatoeba
+  我想喝绿茶，你呢？  -- already in the course or chosen from Tatoeba
+  这个问题我懂了，那个问题呢？  -- already in the course or chosen from Tatoeba
+  这条裤子很便宜，那条呢？  -- already in the course or chosen from Tatoeba
+  我喜欢这个颜色，那个颜色呢？  -- already in the course or chosen from Tatoeba
+  我的手表很贵，你的呢？  -- already in the course or chosen from Tatoeba
+  我会游泳，你呢？  -- already in the course or chosen from Tatoeba
+  小学生都在教室里，中学生呢？  -- already in the course or chosen from Tatoeba
+
+--- dropped at step 5 (65), first 12 ---
+  我喝茶，你呢？  -- level 1: no list words
+  今天我很忙，明天呢？  -- level 1: no list words
+  这件衣服很漂亮，那件呢？  -- level 1: no list words
+  我喜欢吃面条儿，你呢？  -- level 1: no list words
+  爸爸在家，妈妈呢？  -- level 1: no list words
+  我在学校，你们呢？  -- level 1: no list words
+  今天晚上我有时间，明天晚上呢？  -- level 1: no list words
+  这个杯子五块，那个呢？  -- level 1: no list words
+  我有一个哥哥，你呢？  -- level 1: no list words
+  我是学生，你呢？  -- level 1: no list words
+  我不喝牛奶，你呢？  -- level 1: no list words
+  我的手机在这儿，你的呢？  -- level 1: no list words
+
+--- dropped at step 6 (1) ---
+  红色的很好看，白色的呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我去过中国，你呢？  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  我爱吃肉，你女朋友呢？  -- check said no (1/2): Asks about girlfriend's meat preference, not parallel topic
+  我爱喝咖啡，你爸爸呢？  -- check said no (1/2): Asks about dad's coffee preference, not parallel topic
+
+--- dropped at step 8 (1) ---
+  我家在学校旁边，你家呢？  -- difficulty review: (1/2); 旁边 (pángbiān - beside/next to) is not in the HSK 2 word list
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-77_level2_20261114_161501.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+
+----- AI-written sentences for 2-77, round 2: 93 to check, 1 needed -----
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 93
+
+Tagging 7 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161511.txt
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 19  -> Tatoeba needs to add 1 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-77 at HSK 2: funnel ===
+       93  AI-written sentences
+       93  1. have an English translation
+       93  2. contain the point's word(s)
+       77  3. new (not in DB, not a duplicate)
+       77  4. at most 0 characters outside HSK 2 words
+        7  5. really HSK 2
+        7  5b. no harder grammar point (of the 43 with a rule)
+        6  6. the rule finds 2-77
+        5  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-77, English chosen
+        1  8. both difficulty reviews pass it
+
+=== Survivors (1) ===
+  你喝茶，我喝咖啡，孩子呢？  (You're having tea and I'm having coffee. What about the child?)  [tatoeba ai-31d6bdc204]  hidden: 喝茶
+
+--- dropped at step 3 (16), first 12 ---
+  我喜欢猫，你喜欢狗，他呢？  -- already in the course or chosen from Tatoeba
+  家里很热，外面呢？  -- already in the course or chosen from Tatoeba
+  我的本子在这儿，你的呢？  -- already in the course or chosen from Tatoeba
+  学校前面有书店，后面呢？  -- already in the course or chosen from Tatoeba
+  左边是超市，右边呢？  -- already in the course or chosen from Tatoeba
+  我想喝绿茶，你呢？  -- already in the course or chosen from Tatoeba
+  这个问题我懂了，那个问题呢？  -- already in the course or chosen from Tatoeba
+  这条裤子很便宜，那条呢？  -- already in the course or chosen from Tatoeba
+  我喜欢这个颜色，那个颜色呢？  -- already in the course or chosen from Tatoeba
+  我的手表很贵，你的呢？  -- already in the course or chosen from Tatoeba
+  我会游泳，你呢？  -- already in the course or chosen from Tatoeba
+  小学生都在教室里，中学生呢？  -- already in the course or chosen from Tatoeba
+
+--- dropped at step 5 (70), first 12 ---
+  我喝茶，你呢？  -- level 1: no list words
+  今天我很忙，明天呢？  -- level 1: no list words
+  这件衣服很漂亮，那件呢？  -- level 1: no list words
+  我喜欢吃面条儿，你呢？  -- level 1: no list words
+  爸爸在家，妈妈呢？  -- level 1: no list words
+  我在学校，你们呢？  -- level 1: no list words
+  今天晚上我有时间，明天晚上呢？  -- level 1: no list words
+  这个杯子五块，那个呢？  -- level 1: no list words
+  我有一个哥哥，你呢？  -- level 1: no list words
+  我是学生，你呢？  -- level 1: no list words
+  我不喝牛奶，你呢？  -- level 1: no list words
+  我的手机在这儿，你的呢？  -- level 1: no list words
+
+--- dropped at step 6 (1) ---
+  红色的很好看，白色的呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我去过中国，你呢？  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  我爱吃肉，你女朋友呢？  -- check said no (1/2): Asks about girlfriend's meat preference, not parallel topic
+  我爱喝咖啡，你爸爸呢？  -- check said no (1/2): Asks about dad's coffee preference, not parallel topic
+
+--- dropped at step 8 (2) ---
+  我家在学校旁边，你家呢？  -- difficulty review: (1/2); 旁边 (pángbiān - beside/next to) is not in the HSK 2 word list
+  前面有一家饭店，旁边呢？  -- difficulty review: (2/2); 旁边 (next to it) used as a standalone noun in the predicate position - this requires 2-48 (noun as predicate), which is taught at HSK 2, but the construction '前面有X，旁边呢？' with 旁边 as an implicit predicate (ellipsis of a verb like '有什么') may be slightly unclear for beginners
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-77_level2_20261114_161516.csv
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:32 ##########
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 1 check and 0 review rejection(s)...
+
+=== 2-77 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      198  2. contain the point's word(s)
+      198  3. new (not in DB, not a duplicate)
+      125  4. at most 2 characters outside HSK 2 words
+       23  5. really HSK 2
+       22  5b. no harder grammar point (of the 43 with a rule)
+        3  6. the rule finds 2-77
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-77, English chosen
+        1  7b. second opinion: it is the point (check)
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (2) ===
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]  hidden: 准备好了
+  贝斯手呢？  (Where's the bass player?)  [tatoeba 14048382]
+
+--- dropped at step 4 (73), first 12 ---
+  谁不喜欢反叛者呢？  -- 3 characters no HSK 2 word uses: 反叛者
+  总统说，我才不屌呢。  -- 4 characters no HSK 2 word uses: 屌总才统
+  主人死后车子归谁呢？  -- 3 characters no HSK 2 word uses: 主归死
+  庄子曾梦见自己化身为蝶，当他醒来，他分不清是自己刚刚梦见自己变成蝴蝶呢，还是蝴蝶正梦见它变成了庄子。  -- 12 characters no HSK 2 word uses: 刚化变庄当成曾梦清蝴蝶醒
+  如果一个人有11只羊，除了9只之外，其他全部死了，那么他还剩下几只羊呢？  -- 9 characters no HSK 2 word uses: 之全其剩如死羊部除
+  谁将当选主席呢？  -- 5 characters no HSK 2 word uses: 主将席当选
+  有没有人翻译过我添加的中文句子呢？  -- 5 characters no HSK 2 word uses: 加句添翻译
+  显然，美国人连他们自己的问题都解决不了，所以他们怎么可能认为自己有足够的能力解决其他国家的问题呢？  -- 8 characters no HSK 2 word uses: 其决力够显美解连
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  汤姆不知道玛丽是高兴呢，还是不高兴。  -- 4 characters no HSK 2 word uses: 丽姆汤玛
+  一个由全善的上帝所创造出来的世界又怎么能产生出恶来呢？  -- 11 characters no HSK 2 word uses: 世产全创又善帝恶由界造
+  只有一个人能成为世界冠军。问题是：会是谁呢？  -- 5 characters no HSK 2 word uses: 世军冠成界
+
+--- dropped at step 5 (102), first 12 ---
+  该怎么办呢？  -- level 3: 该 L3, 怎么办 L3
+  现在呢？  -- level 1: no list words
+  然后呢？  -- level 3: 然后 L3
+  你开着电视怎么能安心学习呢？  -- level 7: 安心 L7
+  现在才6点半，怎么会堵车呢？  -- level 10: 才 L3, 6 (not in list), 堵 L5
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  你为什么不读这杂志呢？  -- level 4: 杂志 L4
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  你现在在哪里呢？  -- level 1: no list words
+  你们呢？  -- level 1: no list words
+  您呢？  -- level 1: no list words
+  她是怎样的人呢？  -- level 3: 怎样 L3
+
+--- dropped at step 5b (1) ---
+  请问可以在哪里买到票呢？  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (19) ---
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  快来，Emilia! 你爸爸在等你呢。  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  “你说得不对” “那怎么说呢？”  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  你在笑什么呢？  -- rule: no match: line matched
+  在笑什么呢？  -- rule: no match: line matched
+  你笑什么呢？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  你跟谁说话呢？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: no match: line matched
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  还在等什么呢！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  是的，我是小雨，你呢？  -- hidden word a learner can't work out: 是的 (yes, that's right; variant of 似的[shi4 de5])
+
+--- dropped at step 7 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-77_level2_20261114_163254.csv
+
+########## ai  2026-11-14 16:36 ##########
+
+----- AI-written sentences for 2-77, round 1: 93 to check, 18 needed -----
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 93
+
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-77 at HSK 2: funnel ===
+       93  AI-written sentences
+       93  1. have an English translation
+       93  2. contain the point's word(s)
+       93  3. new (not in DB, not a duplicate)
+       93  4. at most 0 characters outside HSK 2 words
+       23  5. really HSK 2
+       23  5b. no harder grammar point (of the 43 with a rule)
+       22  6. the rule finds 2-77
+       21  6b. no hidden word a learner can't work out
+       19  7. both checks say 2-77, English chosen
+       17  8. both difficulty reviews pass it
+
+=== Survivors (17) ===
+  我会游泳，你呢？  (I can swim. What about you?)  [tatoeba ai-88bfa53ad2]
+  家里很热，外面呢？  (It's hot at home. What about outside?)  [tatoeba ai-ca286da322]  hidden: 家里
+  我想喝绿茶，你呢？  (I'd like some green tea. What about you?)  [tatoeba ai-86eb30dc82]
+  左边是超市，右边呢？  (On the left is a supermarket. What about the right?)  [tatoeba ai-1c862cd3b1]
+  我要一杯咖啡，你呢？  (I'd like a cup of coffee. What about you?)  [tatoeba ai-d139c618b3]
+  我的手表很贵，你的呢？  (My watch is expensive. What about yours?)  [tatoeba ai-841631eaf7]
+  飞机票很贵，火车票呢？  (Plane tickets are expensive. What about train tickets?)  [tatoeba ai-92928dfa84]  hidden: 飞机票, 火车票
+  这条路很远，那条路呢？  (This road is very far. What about that one?)  [tatoeba ai-614ebeff02]
+  我的本子在这儿，你的呢？  (My notebook is here. Where's yours?)  [tatoeba ai-719b357e10]
+  学校前面有书店，后面呢？  (There's a bookstore in front of the school. What about behind it?)  [tatoeba ai-85d41a4b34]
+  这条裤子很便宜，那条呢？  (These pants are cheap. What about those?)  [tatoeba ai-4aa9caec11]
+  我喜欢踢足球，你弟弟呢？  (I like playing soccer. What about your younger brother?)  [tatoeba ai-0958284083]
+  我喜欢猫，你喜欢狗，他呢？  (I like cats and you like dogs. What about him?)  [tatoeba ai-5cc72ac137]
+  你喝茶，我喝咖啡，孩子呢？  (You're having tea and I'm having coffee. What about the child?)  [tatoeba ai-31d6bdc204]  hidden: 喝茶
+  这个问题我懂了，那个问题呢？  (I understand this question. What about that one?)  [tatoeba ai-333e5c4f5c]  hidden: 这个, 那个
+  我喜欢这个颜色，那个颜色呢？  (I like this color. What about that color?)  [tatoeba ai-b8e4d5fea0]  hidden: 这个, 那个
+  小学生都在教室里，中学生呢？  (The primary school students are all in the classroom. What about the middle school students?)  [tatoeba ai-171b26f4c7]
+
+--- dropped at step 5 (70), first 12 ---
+  我喝茶，你呢？  -- level 1: no list words
+  今天我很忙，明天呢？  -- level 1: no list words
+  这件衣服很漂亮，那件呢？  -- level 1: no list words
+  我喜欢吃面条儿，你呢？  -- level 1: no list words
+  爸爸在家，妈妈呢？  -- level 1: no list words
+  我在学校，你们呢？  -- level 1: no list words
+  今天晚上我有时间，明天晚上呢？  -- level 1: no list words
+  这个杯子五块，那个呢？  -- level 1: no list words
+  我有一个哥哥，你呢？  -- level 1: no list words
+  我是学生，你呢？  -- level 1: no list words
+  我不喝牛奶，你呢？  -- level 1: no list words
+  我的手机在这儿，你的呢？  -- level 1: no list words
+
+--- dropped at step 6 (1) ---
+  红色的很好看，白色的呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我去过中国，你呢？  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  我爱吃肉，你女朋友呢？  -- check said no (1/2): Asks about girlfriend's meat preference, not parallel topic
+  我爱喝咖啡，你爸爸呢？  -- check said no (1/2): Asks about dad's coffee preference, not parallel topic
+
+--- dropped at step 8 (2) ---
+  我家在学校旁边，你家呢？  -- difficulty review: (1/2); 旁边 (pángbiān - beside/next to) is not in the HSK 2 word list
+  前面有一家饭店，旁边呢？  -- difficulty review: (2/2); 旁边 (next to it) used as a standalone noun in the predicate position - this requires 2-48 (noun as predicate), which is taught at HSK 2, but the construction '前面有X，旁边呢？' with 旁边 as an implicit predicate (ellipsis of a verb like '有什么') may be slightly unclear for beginners
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-77_level2_20261114_163635.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+
+----- AI-written sentences for 2-77, round 2: 103 to check, 18 needed -----
+Filling 2-77 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 103
+
+Tagging 10 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_163647.txt
+  ...100/103
+
+Course sentences at HSK 2 the rule already finds 2-77 in: 0  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-77 at HSK 2: funnel ===
+      103  AI-written sentences
+      103  1. have an English translation
+      103  2. contain the point's word(s)
+      103  3. new (not in DB, not a duplicate)
+      103  4. at most 0 characters outside HSK 2 words
+       25  5. really HSK 2
+       25  5b. no harder grammar point (of the 43 with a rule)
+       24  6. the rule finds 2-77
+       23  6b. no hidden word a learner can't work out
+       21  7. both checks say 2-77, English chosen
+       19  8. both difficulty reviews pass it
+
+=== Survivors (19) ===
+  我会游泳，你呢？  (I can swim. What about you?)  [tatoeba ai-88bfa53ad2]
+  家里很热，外面呢？  (It's hot at home. What about outside?)  [tatoeba ai-ca286da322]  hidden: 家里
+  我想喝绿茶，你呢？  (I'd like some green tea. What about you?)  [tatoeba ai-86eb30dc82]
+  左边是超市，右边呢？  (On the left is a supermarket. What about the right?)  [tatoeba ai-1c862cd3b1]
+  我要一杯咖啡，你呢？  (I'd like a cup of coffee. What about you?)  [tatoeba ai-d139c618b3]
+  我的手表很贵，你的呢？  (My watch is expensive. What about yours?)  [tatoeba ai-841631eaf7]
+  飞机票很贵，火车票呢？  (Plane tickets are expensive. What about train tickets?)  [tatoeba ai-92928dfa84]  hidden: 飞机票, 火车票
+  这条路很远，那条路呢？  (This road is very far. What about that one?)  [tatoeba ai-614ebeff02]
+  我今天穿白色的,你呢?  (I'm wearing white today. What about you?)  [tatoeba ai-d2b9b970dc]
+  我的本子在这儿，你的呢？  (My notebook is here. Where's yours?)  [tatoeba ai-719b357e10]
+  学校前面有书店，后面呢？  (There's a bookstore in front of the school. What about behind it?)  [tatoeba ai-85d41a4b34]
+  这条裤子很便宜，那条呢？  (These pants are cheap. What about those?)  [tatoeba ai-4aa9caec11]
+  我喜欢踢足球，你弟弟呢？  (I like playing soccer. What about your younger brother?)  [tatoeba ai-0958284083]
+  我家在学校旁边,你家呢?  (My home is next to the school. What about yours?)  [tatoeba ai-6ae0a86bdb]
+  我喜欢猫，你喜欢狗，他呢？  (I like cats and you like dogs. What about him?)  [tatoeba ai-5cc72ac137]
+  你喝茶，我喝咖啡，孩子呢？  (You're having tea and I'm having coffee. What about the child?)  [tatoeba ai-31d6bdc204]  hidden: 喝茶
+  这个问题我懂了，那个问题呢？  (I understand this question. What about that one?)  [tatoeba ai-333e5c4f5c]  hidden: 这个, 那个
+  我喜欢这个颜色，那个颜色呢？  (I like this color. What about that color?)  [tatoeba ai-b8e4d5fea0]  hidden: 这个, 那个
+  小学生都在教室里，中学生呢？  (The primary school students are all in the classroom. What about the middle school students?)  [tatoeba ai-171b26f4c7]
+
+--- dropped at step 5 (78), first 12 ---
+  我喝茶，你呢？  -- level 1: no list words
+  今天我很忙，明天呢？  -- level 1: no list words
+  这件衣服很漂亮，那件呢？  -- level 1: no list words
+  我喜欢吃面条儿，你呢？  -- level 1: no list words
+  爸爸在家，妈妈呢？  -- level 1: no list words
+  我在学校，你们呢？  -- level 1: no list words
+  今天晚上我有时间，明天晚上呢？  -- level 1: no list words
+  这个杯子五块，那个呢？  -- level 1: no list words
+  我有一个哥哥，你呢？  -- level 1: no list words
+  我是学生，你呢？  -- level 1: no list words
+  我不喝牛奶，你呢？  -- level 1: no list words
+  我的手机在这儿，你的呢？  -- level 1: no list words
+
+--- dropped at step 6 (1) ---
+  红色的很好看，白色的呢？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我去过中国，你呢？  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  我爱吃肉，你女朋友呢？  -- check said no (1/2): Asks about girlfriend's meat preference, not parallel topic
+  我爱喝咖啡，你爸爸呢？  -- check said no (1/2): Asks about dad's coffee preference, not parallel topic
+
+--- dropped at step 8 (2) ---
+  我家在学校旁边，你家呢？  -- difficulty review: (1/2); 旁边 (pángbiān - beside/next to) is not in the HSK 2 word list
+  前面有一家饭店，旁边呢？  -- difficulty review: (2/2); 旁边 (next to it) used as a standalone noun in the predicate position - this requires 2-48 (noun as predicate), which is taught at HSK 2, but the construction '前面有X，旁边呢？' with 旁边 as an implicit predicate (ellipsis of a verb like '有什么') may be slightly unclear for beginners
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-77_level2_20261114_163652.csv

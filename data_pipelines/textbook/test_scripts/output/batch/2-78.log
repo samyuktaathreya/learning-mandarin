@@ -55,3 +55,91 @@ Tagging 31 labeled example(s) (cached after this run)...
   是不是你拿了我的笔？  -- HSK list example
 
 ########## tatoeba  2026-11-09 22:12 ##########
+
+########## tatoeba  2026-11-10 21:38 ##########
+
+########## rules  2026-11-11 14:18 ##########
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-78
+<!-- written by claude-haiku-4-5 on 2026-11-11; edit freely -->
+**Point:** Affirmative-negative questions formed by placing 不 between a verb or adjective and its repetition, or using 有没有.
+**Covers:** Questions with structure Verb+不+Verb, Adj+不+Adj, or 有没有, where both positive and negative forms are presented as answer options.
+**Does not cover:** Questions using other question particles (吗, 呢, 吧), question words (什么, 谁, 怎么, etc.), 还是, or other interrogative structures that don't follow the affirmative-negative pattern.
+
+```rule
+match: /VV 不/AD /VV
+match: /VA 不/AD /VA
+match: /VA 不/AD /AD /VV
+match: /VV 不/AD /VV /VA
+match: /VC 不/AD /VC
+match: /VE 没有/VE
+unless: /SP
+unless: 还是
+unless: 什么|谁|怎么|怎样|怎么样|什么时候|什么样|为什么|哪|哪儿|哪里|哪些|多|多少|几
+```
+
+**Notes:** The rule matches the core affirmative-negative question patterns: verb+不+verb, adjective+不+adjective (including split two-character adjectives like 好+不+好玩), 是不是, and 有没有. The unless clauses exclude other question types that might coincidentally contain these words. Tag errors in real sentences are accepted (e.g., 没有/VE for what might be tagged differently). The rule must not match when sentence-final particles or other question structures are present, as those indicate different grammar points.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-78
+
+=== A. 2-78: rule on labeled examples (no AI) ===
+  examples of 2-78 matched:    29/31
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+--- examples of 2-78 the rule misses (2) ---
+  我去买咖啡，你要不要？  -- ASGZH7K3 Affirmative-negative question
+  那个地方好玩不好玩？  -- ASGZH7K3 Affirmative-negative question
+
+########## guard check  2026-11-11 14:23 ##########
+Flags examples of 1-03 that don't contain 2-78: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+The revised rule fails 2-78's own test (0 wrong, 28 missed): keeping the old rule.
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 大家要不要米饭？
+
+########## tatoeba  2026-11-11 14:29 ##########
+
+########## rules  2026-11-12 17:32 ##########
+Tagging 2 labeled example(s) (cached after this run)...
+
+=== A. 2-78: rule on labeled examples (no AI) ===
+  examples of 2-78 matched:    29/31
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+--- examples of 2-78 the rule misses (2) ---
+  我去买咖啡，你要不要？  -- ASGZH7K3 Affirmative-negative question
+  那个地方好玩不好玩？  -- ASGZH7K3 Affirmative-negative question
+  easy examples (words all HSK 5 or below) matched: 27/29   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 大家要不要米饭？
+
+########## tatoeba  2026-11-12 17:41 ##########
+
+########## guard check  2026-11-12 21:13 ##########
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 大家要不要米饭？
+
+########## tatoeba  2026-11-12 21:15 ##########
+
+########## guard check  2026-11-13 13:53 ##########
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 大家要不要米饭？
+
+########## tatoeba  2026-11-13 13:55 ##########
+
+########## guard check  2026-11-13 14:39 ##########
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 大家要不要米饭？
+
+########## tatoeba  2026-11-13 14:46 ##########
+
+########## guard check  2026-11-14 14:14 ##########
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 大家要不要米饭？
+
+########## tatoeba  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:11 ##########
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:32 ##########

@@ -1,0 +1,18 @@
+2026-11-14 16:08:50,042  INFO     === tag_sentences.py run started ===
+2026-11-14 16:08:50,079  INFO     OK        hanlp-valid   '小孩哭了。' -> [('小孩儿', 'NN'), ('哭', 'VV'), ('了', 'SP')]
+2026-11-14 16:08:50,081  INFO     TAGGED    '小孩哭了。' (level 3, 3 tags)
+2026-11-14 16:08:52,092  INFO     OK        hanlp-valid   '女孩们睡着了' -> [('女孩儿', 'NN'), ('们', 'NN'), ('睡着', 'VV'), ('了', 'SP')]
+2026-11-14 16:08:52,099  INFO     TAGGED    '女孩们睡着了' (level 2, 5 tags)
+2026-11-14 16:08:56,787  INFO     OK        hanlp-valid   '小偷跑了。' -> [('小偷儿', 'NN'), ('跑', 'VV'), ('了', 'SP')]
+2026-11-14 16:08:56,788  INFO       READING  小偷儿 'xiao3 tou1 er2' matches no form -- offering every form
+2026-11-14 16:08:56,789  INFO     TAGGED    '小偷跑了。' (level 6, 3 tags)
+2026-11-14 16:08:59,462  INFO     FALLBACK  '女孩长大成人了。' -- out-of-list word(s): ['长大成人']
+2026-11-14 16:08:59,463  WARNING    HAIKU resegment call for '女孩长大成人了。' (cache miss on [('长大成人', 'VV')])
+2026-11-14 16:08:59,480  INFO       NON-LIST 长大 (VV) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-14 16:08:59,482  INFO     TAGGED    '女孩长大成人了。' (level 10, 4 tags)
+2026-11-14 16:09:00,165  INFO     FALLBACK  '面包有点烤焦了。' -- out-of-list word(s): ['烤焦']
+2026-11-14 16:09:00,165  WARNING    HAIKU resegment call for '面包有点烤焦了。' (cache miss on [('烤焦', 'VV')])
+2026-11-14 16:09:00,182  INFO     TAGGED    '面包有点烤焦了。' (level 7, 5 tags)
+2026-11-14 16:09:00,883  INFO     FALLBACK  '小孩差点伤到了小狗。' -- out-of-list word(s): ['伤到']
+2026-11-14 16:09:00,883  WARNING    HAIKU resegment call for '小孩差点伤到了小狗。' (cache miss on [('伤到', 'VV')])
+2026-11-14 16:09:00,901  INFO     TAGGED    '小孩差点伤到了小狗。' (level 5, 7 tags)

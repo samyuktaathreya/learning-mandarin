@@ -1,0 +1,59 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 12268 characters -->
+## 3-60
+**Point:** The adverb 也 (yě) meaning "also" or "too", used in a parallel "A…, also B…" structure. The earlier clause states something about one topic. The later clause has a different fronted topic, then the subject, then 也 before the verb or adjective. Example: 篮球他喜欢，排球他也喜欢。
+
+**Covers:**
+- Topic (noun) + Subject (pronoun) + 也 + Verb, in a clause parallel to an earlier one (面条儿我也爱吃。)
+- The same with an adjective (这个我也很喜欢 type, with 也 before the adjective)
+- The same with a negation after 也 (米饭我也不爱吃。)
+- Simple parallel structures showing an "also" relationship between two similar clauses
+
+**Does not cover:**
+- Plain single-subject 也 sentences (我也喜欢。, 我也是学生。), which are easier points (1-03, 1-13)
+- Conditional/concessive structures (即使...也, 就算...也, 就是...也, 哪怕...也, etc.) where 也 means "still/even so"
+- Conditional sentences with 如果, 假如, 假使, 要是, 要不, 要不是 and similar
+- Any sentence containing a subordinating conjunction (CS) such as 因为 or 虽然
+- "Never again" with 再也不/没
+- 甚至连...也
+- 宁可...也
+- 一点儿也不 and 一 + Measure Word + Noun + 也 + 不/没
+- 什么/谁 + Noun + 也
+- 连...也
+- 倒也
+- Structures with preceding markers like 别说, 就是, 就算, 不但, 无论, 不管, etc.
+
+```rule
+match: ^ /NN|NR /PN 也/AD /VV|VA
+match: ^ /NN|NR /PN 也/AD 不/AD /VV|VA
+unless: 再/AD ... 也/AD
+unless: 甚至
+unless: 宁可
+unless: 连
+unless: 一/CD ... 也/AD
+unless: 一点儿
+unless: 什么 ... 也/AD
+unless: 谁 ... 也/AD
+unless: 就算
+unless: 就是
+unless: 就/AD 算/VV
+unless: 就/AD 是/VC
+unless: 即使
+unless: 哪怕
+unless: 别说
+unless: 倒
+unless: 不但
+unless: 无论
+unless: 不管
+unless: /CS
+unless: 要不
+unless: 要不是
+unless: 要是
+unless: 如果
+unless: 假如
+unless: 假使
+unless: 假设
+unless: 万一
+unless: 否则
+```
+
+**Notes:** The rule requires a fronted noun topic at the start of the clause, directly followed by a pronoun subject, then 也 and a verb or adjective. This is the topic-comment form in the official examples (排球他也喜欢, 米饭我也爱吃). It therefore does not fire on the basic "Subject + 也 + Verb" sentences (我也喜欢, 他们也会去吗), which belong to easier points. The `unless:` lines remove the concessive, emphatic, conditional and "never again" structures, including 别说, 再也, 连 and 甚至. They also remove any sentence containing a subordinating conjunction.

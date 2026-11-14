@@ -1,0 +1,18 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 6199 characters -->
+## 2-78
+<!-- written by claude-haiku-4-5 on 2026-11-11; revised -->
+**Point:** Questions with 是不是 (是 + 不 + 是), used to ask the listener to confirm a statement or a situation.
+
+**Covers:** 是不是 questions, whether the clause is just "是不是？" as a tag after a statement (你要去体育馆打球，是不是？) or 是不是 comes before the proposition (是不是你拿了我的笔？).
+
+**Does not cover:** Other verb+不+verb questions (要不要, 去不去, 好不好玩), 有没有 questions, and questions with 吗, 呢, 吧, 还是 or question words. Those belong to other points such as 1-48.
+
+```rule
+match: 是/VC 不/AD 是/VC
+match: 是不是
+unless: /SP
+unless: 还是
+unless: 什么|谁|怎么|怎样|怎么样|什么时候|什么样|为什么|哪|哪儿|哪里|哪些|多|多少|几
+```
+
+**Notes:** The earlier rule was too broad. It matched every affirmative-negative question, such as 要不要米饭, which belongs to the easier point 1-48. The official 2-78 point is specifically 是不是. The rule now matches only 是+不+是, either as three tokens or as a single token 是不是. The unless clauses remove sentences that also use sentence-final particles, 还是, or question words.

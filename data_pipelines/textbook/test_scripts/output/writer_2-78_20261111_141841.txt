@@ -1,0 +1,19 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 6539 characters -->
+## 2-78
+**Point:** Affirmative-negative questions formed by placing 不 between a verb or adjective and its repetition, or using 有没有.
+**Covers:** Questions with structure Verb+不+Verb, Adj+不+Adj, or 有没有, where both positive and negative forms are presented as answer options.
+**Does not cover:** Questions using other question particles (吗, 呢, 吧), question words (什么, 谁, 怎么, etc.), 还是, or other interrogative structures that don't follow the affirmative-negative pattern.
+
+```rule
+match: /VV 不/AD /VV
+match: /VA 不/AD /VA
+match: /VA 不/AD /AD /VV
+match: /VV 不/AD /VV /VA
+match: /VC 不/AD /VC
+match: /VE 没有/VE
+unless: /SP
+unless: 还是
+unless: 什么|谁|怎么|怎样|怎么样|什么时候|什么样|为什么|哪|哪儿|哪里|哪些|多|多少|几
+```
+
+**Notes:** The rule matches the core affirmative-negative question patterns: verb+不+verb, adjective+不+adjective (including split two-character adjectives like 好+不+好玩), 是不是, and 有没有. The unless clauses exclude other question types that might coincidentally contain these words. Tag errors in real sentences are accepted (e.g., 没有/VE for what might be tagged differently). The rule must not match when sentence-final particles or other question structures are present, as those indicate different grammar points.

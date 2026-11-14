@@ -1,0 +1,12 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 5847 characters -->
+## 2-27
+**Point:** Using 离 (lí) as a preposition to express distance between two places
+**Covers:** Sentences where 离 appears as a preposition (tagged P) between two places/entities, typically followed by an adverb and an adjective (近/远) or the construction with 有/多
+**Does not cover:** Other uses of 离 such as: 离开 (to leave), 撤离 (to evacuate), 远离 (to distance oneself from), 分离 (to separate), 离婚 (to divorce), or 离 as a verb in other compounds; sentences where 离 is tagged as VV
+
+```rule
+match: _ 离/P _ ... (近/VA|远/VA|有/VE)
+unless: 离开 撤离 远离 分离 离婚
+```
+
+**Notes:** The key distinguishing feature is that 离 must be tagged as P (preposition), not VV (verb). The pattern requires 离 to connect two entities (place/person) and be followed eventually by either 近 or 远 (adjectives tagged VA), or the 有 construction (有 tagged VE). The "unless" clause filters out common verb compounds and related words that use the character 离 but represent different grammar points. The counter-examples show that 离开, 撤离, etc. are tagged as VV (verb) and should not match this rule.

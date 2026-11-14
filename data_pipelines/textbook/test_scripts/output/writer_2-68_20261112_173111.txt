@@ -1,0 +1,23 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 7259 characters -->
+## 2-68
+<!-- written by claude-haiku-4-5 on 2026-11-12; edit freely -->
+**Point:** Cause and effect relationship expressed with 因为 (because) and/or 所以 (so/therefore) across clause boundaries
+
+**Covers:**
+- Result clause followed by a clause that begins with 因为 + reason
+- Cause clause followed by a clause that begins with 所以 + result
+- 因为 + cause clause followed by 所以 + result clause
+
+**Does not cover:**
+- Sentences using 因为...而... (because...as a result...), where 而 shows the effect within a single clause
+- Other causal connectors such as 由于 (even when followed by 所以)
+- Bare cause-effect clause pairs with no connector (e.g. 那个学生病了，没来上课). A pattern cannot match across clauses, so the rule cannot detect these.
+
+```rule
+match: ^ 因为/P ...
+match: ^ 所以/AD ...
+unless: 因为 ... 而
+unless: 由于
+```
+
+**Notes:** A pattern only matches inside one clause, so the connector is matched at the start of its own clause. A clause starting with 因为 covers both "Result, 因为 reason" and the first half of 因为…所以…. A clause starting with 所以 covers "Reason, 所以 result" and the second half of the full pattern. Mid-clause 因为, as in 我因为生病而请假, never starts a clause, and the unless line also rules out 因为…而…. 由于 sentences belong to the HSK 3 points and are excluded.

@@ -1,0 +1,75 @@
+2026-11-14 14:47:50,294  INFO     === tag_sentences.py run started ===
+2026-11-14 14:47:50,323  INFO     FALLBACK  '要下雪了,多穿一件衣服。' -- out-of-list word(s): ['一件']
+2026-11-14 14:47:50,323  WARNING    HAIKU resegment call for '要下雪了,多穿一件衣服。' (cache miss on [('一件', 'CD')])
+2026-11-14 14:47:50,345  INFO     TAGGED    '要下雪了,多穿一件衣服。' (level 1, 9 tags)
+2026-11-14 14:47:50,358  INFO     FALLBACK  '天气快要冷了,我想买一件新衣服。' -- out-of-list word(s): ['一件']
+2026-11-14 14:47:50,358  WARNING    HAIKU resegment call for '天气快要冷了,我想买一件新衣服。' (cache miss on [('一件', 'CD')])
+2026-11-14 14:47:50,377  INFO     TAGGED    '天气快要冷了,我想买一件新衣服。' (level 2, 11 tags)
+2026-11-14 14:47:50,390  INFO     FALLBACK  '还有五分钟就要上课了。' -- out-of-list word(s): ['五分钟']
+2026-11-14 14:47:50,390  WARNING    HAIKU resegment call for '还有五分钟就要上课了。' (cache miss on [('五分钟', 'CD')])
+2026-11-14 14:47:50,415  INFO     TAGGED    '还有五分钟就要上课了。' (level 2, 8 tags)
+2026-11-14 14:47:50,427  INFO     OK        hanlp-valid   '他们就要出国了。' -> [('他们', 'PN'), ('就要', 'AD'), ('出国', 'VV'), ('了', 'SP')]
+2026-11-14 14:47:50,433  INFO     TAGGED    '他们就要出国了。' (level 2, 5 tags)
+2026-11-14 14:47:50,444  INFO     OK        hanlp-valid   '我们快要下课了。' -> [('我们', 'PN'), ('快要', 'AD'), ('下课', 'VV'), ('了', 'SP')]
+2026-11-14 14:47:50,447  INFO     TAGGED    '我们快要下课了。' (level 2, 4 tags)
+2026-11-14 14:47:50,457  INFO     FALLBACK  '老师就要来了,大家坐好。' -- out-of-list word(s): ['坐好']
+2026-11-14 14:47:50,458  WARNING    HAIKU resegment call for '老师就要来了,大家坐好。' (cache miss on [('坐好', 'VV')])
+2026-11-14 14:47:50,492  INFO     TAGGED    '老师就要来了,大家坐好。' (level 2, 8 tags)
+2026-11-14 14:47:50,505  INFO     OK        hanlp-valid   '飞机快要到了,我们去机场吧。' -> [('飞机', 'NN'), ('快要', 'AD'), ('到', 'VV'), ('了', 'SP'), ('我们', 'PN'), ('去', 'VV'), ('机场', 'NN'), ('吧', 'SP')]
+2026-11-14 14:47:50,509  INFO     TAGGED    '飞机快要到了,我们去机场吧。' (level 2, 8 tags)
+2026-11-14 14:47:50,523  INFO     OK        hanlp-valid   '孩子就要睡觉了,请不要说话。' -> [('孩子', 'NN'), ('就要', 'AD'), ('睡觉', 'VV'), ('了', 'SP'), ('请', 'VV'), ('不要', 'AD'), ('说话', 'VV')]
+2026-11-14 14:47:50,531  INFO     TAGGED    '孩子就要睡觉了,请不要说话。' (level 2, 8 tags)
+2026-11-14 14:47:50,543  INFO     FALLBACK  '还有三天就要过年了。' -- out-of-list word(s): ['三天']
+2026-11-14 14:47:50,543  INFO       CACHE-ONLY resegmentation -> [('还有', 'AD'), ('三', 'CD'), ('天', 'M'), ('就', 'AD'), ('要', 'VV'), ('过年', 'VV'), ('了', 'SP')]
+2026-11-14 14:47:50,551  INFO     TAGGED    '还有三天就要过年了。' (level 2, 8 tags)
+2026-11-14 14:47:50,563  INFO     FALLBACK  '弟弟快要八岁了。' -- out-of-list word(s): ['八岁']
+2026-11-14 14:47:50,564  WARNING    HAIKU resegment call for '弟弟快要八岁了。' (cache miss on [('八岁', 'NT')])
+2026-11-14 14:47:50,581  INFO     TAGGED    '弟弟快要八岁了。' (level 2, 5 tags)
+2026-11-14 14:47:50,593  INFO     OK        hanlp-valid   '明天我就要去上班了。' -> [('明天', 'NT'), ('我', 'PN'), ('就要', 'AD'), ('去', 'VV'), ('上班', 'VV'), ('了', 'SP')]
+2026-11-14 14:47:50,601  INFO     TAGGED    '明天我就要去上班了。' (level 2, 7 tags)
+2026-11-14 14:47:50,614  INFO     OK        hanlp-valid   '我今年就要上大学了。' -> [('我', 'PN'), ('今年', 'NT'), ('就要', 'AD'), ('上', 'VV'), ('大学', 'NN'), ('了', 'SP')]
+2026-11-14 14:47:50,622  INFO     TAGGED    '我今年就要上大学了。' (level 2, 7 tags)
+2026-11-14 14:47:50,634  INFO     FALLBACK  '妈妈的饭快要做好了。' -- out-of-list word(s): ['做好']
+2026-11-14 14:47:50,634  WARNING    HAIKU resegment call for '妈妈的饭快要做好了。' (cache miss on [('做好', 'VV')])
+2026-11-14 14:47:50,651  INFO     TAGGED    '妈妈的饭快要做好了。' (level 2, 7 tags)
+2026-11-14 14:47:50,662  INFO     OK        hanlp-valid   '要上课了,快进教室!' -> [('要', 'VV'), ('上课', 'VV'), ('了', 'SP'), ('快', 'AD'), ('进', 'VV'), ('教室', 'NN')]
+2026-11-14 14:47:50,665  INFO     TAGGED    '要上课了,快进教室!' (level 2, 6 tags)
+2026-11-14 14:47:50,677  INFO     OK        hanlp-valid   '要下班了,我们去吃饭吧。' -> [('要', 'VV'), ('下班', 'VV'), ('了', 'AS'), ('我们', 'PN'), ('去', 'VV'), ('吃饭', 'VV'), ('吧', 'SP')]
+2026-11-14 14:47:50,684  INFO     TAGGED    '要下班了,我们去吃饭吧。' (level 1, 8 tags)
+2026-11-14 14:47:50,696  INFO     FALLBACK  '你快点儿,电影就要开始了。' -- out-of-list word(s): ['点儿']
+2026-11-14 14:47:50,696  WARNING    HAIKU resegment call for '你快点儿,电影就要开始了。' (cache miss on [('点儿', 'AD')])
+2026-11-14 14:47:50,717  INFO     TAGGED    '你快点儿,电影就要开始了。' (level 2, 9 tags)
+2026-11-14 14:47:50,729  INFO     OK        hanlp-valid   '考试就要开始了,别说话。' -> [('考试', 'NN'), ('就要', 'AD'), ('开始', 'VV'), ('了', 'SP'), ('别', 'AD'), ('说话', 'VV')]
+2026-11-14 14:47:50,736  INFO     TAGGED    '考试就要开始了,别说话。' (level 2, 7 tags)
+2026-11-14 14:47:50,748  INFO     FALLBACK  '我女儿就要一岁了。' -- out-of-list word(s): ['一岁']
+2026-11-14 14:47:50,748  WARNING    HAIKU resegment call for '我女儿就要一岁了。' (cache miss on [('一岁', 'CD')])
+2026-11-14 14:47:50,769  INFO     TAGGED    '我女儿就要一岁了。' (level 2, 7 tags)
+2026-11-14 14:47:50,781  INFO     FALLBACK  '还有一个小时,我们就要到家了。' -- out-of-list word(s): ['一个小时', '到家']
+2026-11-14 14:47:50,781  WARNING    HAIKU resegment call for '还有一个小时,我们就要到家了。' (cache miss on [('一个小时', 'NN'), ('到家', 'VV')])
+2026-11-14 14:47:50,812  INFO     TAGGED    '还有一个小时,我们就要到家了。' (level 2, 11 tags)
+2026-11-14 14:47:50,824  INFO     OK        hanlp-valid   '学校快要开学了,我很忙。' -> [('学校', 'NN'), ('快要', 'AD'), ('开学', 'VV'), ('了', 'SP'), ('我', 'PN'), ('很', 'AD'), ('忙', 'VA')]
+2026-11-14 14:47:50,828  INFO     TAGGED    '学校快要开学了,我很忙。' (level 2, 7 tags)
+2026-11-14 14:47:50,839  INFO     FALLBACK  '水快要开了,你来看看。' -- out-of-list word(s): ['看看']
+2026-11-14 14:47:50,839  WARNING    HAIKU resegment call for '水快要开了,你来看看。' (cache miss on [('看看', 'VV')])
+2026-11-14 14:47:50,856  INFO     TAGGED    '水快要开了,你来看看。' (level 2, 8 tags)
+2026-11-14 14:47:50,868  INFO     FALLBACK  '这本书我快要看完了。' -- out-of-list word(s): ['看完']
+2026-11-14 14:47:50,868  WARNING    HAIKU resegment call for '这本书我快要看完了。' (cache miss on [('看完', 'VV')])
+2026-11-14 14:47:50,885  INFO     TAGGED    '这本书我快要看完了。' (level 2, 8 tags)
+2026-11-14 14:47:50,897  INFO     OK        hanlp-valid   '我们快要到机场了。' -> [('我们', 'PN'), ('快要', 'AD'), ('到', 'VV'), ('机场', 'NN'), ('了', 'SP')]
+2026-11-14 14:47:50,900  INFO     TAGGED    '我们快要到机场了。' (level 2, 5 tags)
+2026-11-14 14:47:50,911  INFO     OK        hanlp-valid   '哥哥明年就要工作了。' -> [('哥哥', 'NN'), ('明年', 'NT'), ('就要', 'AD'), ('工作', 'VV'), ('了', 'SP')]
+2026-11-14 14:47:50,917  INFO     TAGGED    '哥哥明年就要工作了。' (level 2, 6 tags)
+2026-11-14 14:47:50,929  INFO     OK        hanlp-valid   '下午的课快要完了。' -> [('下午', 'NT'), ('的', 'DEG'), ('课', 'NN'), ('快要', 'AD'), ('完了', 'VV')]
+2026-11-14 14:47:50,935  INFO     TAGGED    '下午的课快要完了。' (level 2, 6 tags)
+2026-11-14 14:47:50,946  INFO     FALLBACK  '你看,要下大雨了。' -- out-of-list word(s): ['大雨']
+2026-11-14 14:47:50,947  WARNING    HAIKU resegment call for '你看,要下大雨了。' (cache miss on [('大雨', 'NN')])
+2026-11-14 14:47:50,963  INFO     TAGGED    '你看,要下大雨了。' (level 1, 7 tags)
+2026-11-14 14:47:50,975  INFO     OK        hanlp-valid   '妹妹的生日快要到了。' -> [('妹妹', 'NN'), ('的', 'DEG'), ('生日', 'NN'), ('快要', 'AD'), ('到', 'VV'), ('了', 'SP')]
+2026-11-14 14:47:50,978  INFO     TAGGED    '妹妹的生日快要到了。' (level 2, 6 tags)
+2026-11-14 14:47:50,989  INFO     OK        hanlp-valid   '车快要开了,快上来!' -> [('车', 'NN'), ('快要', 'AD'), ('开', 'VV'), ('了', 'SP'), ('快', 'AD'), ('上来', 'VV')]
+2026-11-14 14:47:50,992  INFO     TAGGED    '车快要开了,快上来!' (level 2, 6 tags)
+2026-11-14 14:47:51,003  INFO     FALLBACK  '还有两天就要考试了,我很累。' -- out-of-list word(s): ['两天']
+2026-11-14 14:47:51,003  WARNING    HAIKU resegment call for '还有两天就要考试了,我很累。' (cache miss on [('两天', 'CD')])
+2026-11-14 14:47:51,030  INFO     TAGGED    '还有两天就要考试了,我很累。' (level 2, 11 tags)
+2026-11-14 14:47:51,042  INFO     OK        hanlp-valid   '天就要晴了,我们明天去玩儿吧。' -> [('天', 'NN'), ('就要', 'AD'), ('晴', 'VA'), ('了', 'SP'), ('我们', 'PN'), ('明天', 'NT'), ('去', 'VV'), ('玩儿', 'VV'), ('吧', 'SP')]
+2026-11-14 14:47:51,055  INFO     TAGGED    '天就要晴了,我们明天去玩儿吧。' (level 2, 11 tags)

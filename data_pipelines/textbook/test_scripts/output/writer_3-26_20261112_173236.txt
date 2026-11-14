@@ -1,0 +1,15 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 6284 characters -->
+## 3-26
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Using 为了 or 为...而 to express the purpose or beneficiary of an action, and the related 是 + 为了 / 因为 pattern for explaining why something is done
+**Covers:** Sentences where 为了 or 为...而 introduces the purpose or beneficiary of an action, before the main verb or after 是 in copular sentences. Also covers the "……是因为……" pattern, where 因为 follows 是 and gives the reason, as the grammar wiki teaches it alongside 是为了.
+**Does not cover:** Cases where 为 is part of other verbs like 成为 or 变为. Also excludes sentences with 因为 only as a clause-initial conjunction, with no preceding 是 (e.g. 因为下雨，所以……), which gives plain cause and not the 是 + 因为 pattern.
+
+```rule
+match: 为了/P
+match: 为/P ... 而/MSP
+match: 是/VC 因为/P
+unless: 成为|变为
+```
+
+**Notes:** The rule matches three structures. (1) 为了 as a preposition introducing purpose, either clause-initially or after 是. (2) 为...而, where 为 is tagged P and 而 is tagged MSP, with any number of words between them. (3) 是 immediately followed by 因为 tagged P, as in "你学中文是因为你的中国女朋友吗？" and "我们之所以反对是因为风险太大。" The wiki teaches this as the counterpart of 是为了. The unless clause excludes 成为 and 变为, where 为 is part of the verb and not a preposition. A bare clause-initial 因为 does not match, because it lacks the preceding 是.

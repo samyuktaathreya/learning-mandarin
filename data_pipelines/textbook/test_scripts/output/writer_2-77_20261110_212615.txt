@@ -1,0 +1,16 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 7174 characters -->
+## 2-77
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** Questions with "ne" (呢) — asking "what about...?" by stating a topic/noun/pronoun followed by 呢
+**Covers:** Elliptical "bounce back" questions where a short verbless clause consisting only of a noun, pronoun or noun phrase (a demonstrative plus measure word, a time word, a place name, or a possessive) is followed by 呢, e.g. 那个呢？ / 你呢？ / 明天晚上呢？ / 上海呢？ The preceding clause or sentence may contain anything, including verbs.
+**Does not cover:** Modal particle "ne" in statements (还早呢, 我吃饭呢); softening "ne" in 还是 or interrogative-word questions; 万一…呢; progressive 在/正/着…呢; A-not-A questions with 呢; any clause that contains a verb or adverb before 呢.
+
+```rule
+match: ^ /PN|NN|NR|NT|DT|OD 呢/SP $
+match: ^ /PN|NN|NR|NT|DT|OD /PN|NN|NR|NT|M 呢/SP $
+match: ^ /PN|NN|NR|NT|DT|OD /PN|NN|NR|NT|M /NN|NR|NT|M 呢/SP $
+match: ^ /PN|NN|NR|NT /DEG 呢/SP $
+match: ^ /PN|NN|NR|NT /DEG /NN|NR|NT 呢/SP $
+```
+
+**Notes:** The earlier version failed because `unless:` lines are checked against the whole sentence, so a verb or adverb in the preceding clause (这个很好，那个呢？) blocked the match. The rule now has no `unless:` lines. Instead, the match patterns allow only nominal tags (pronoun, noun, proper noun, time noun, demonstrative, ordinal, measure word, possessive 的) in every slot between the start of the clause and 呢. A verb, adverb, preposition or conjunction inside the 呢 clause therefore makes the pattern fail, which still excludes 还早呢, progressive 呢, A-not-A questions, 还是 questions and 万一…呢 (the latter contains a verb or conjunction in its own clause). Because the match is anchored to a single clause, the question can follow any earlier clause or sentence.

@@ -1,0 +1,14 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 4788 characters -->
+## 2-05
+**Point:** Using interrogative pronouns to ask questions: 怎么样/怎样 (how is), 多久 (how long), 为什么 (why)
+**Covers:** Questions with 怎么样/怎样 asking "how is/what is it like"; questions with 多久 asking "how long"; questions with 为什么 asking "why"
+**Does not cover:** 怎么样/怎样 used in non-question contexts (e.g., "不怎么样" meaning "not so great" as a statement); other question words not in this list
+
+```rule
+match: 怎么样|怎样
+unless: 不/AD 怎么样|怎样
+match: 多久
+match: 为什么
+```
+
+**Notes:** The rule has three separate match conditions (OR logic). The first match catches 怎么样/怎样 but excludes the statement "不怎么样" (HSK 6-30). The unless clause checks the whole sentence to avoid matching that counter-pattern. The second and third match conditions catch 多久 and 为什么 in their interrogative uses. All three are question words from the HSK 2-05 list.

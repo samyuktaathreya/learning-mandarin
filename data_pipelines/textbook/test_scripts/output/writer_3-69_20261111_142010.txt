@@ -1,0 +1,19 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 7507 characters -->
+## 3-69
+**Point:** Expressing "if… then…" with 要是 / 要不是 / 要
+
+**Covers:** Conditional sentences whose condition clause is introduced by 要是, 要不是, or the shortened 要 (including 你要再说, 他要不听, 要我说). The consequence clause usually has 就, but not always.
+
+**Does not cover:** Other uses of 就 (emphasis, sequence, "then" without a condition); 就是 constructions; other conditional structures (如果, 只要, 假如, 万一, 一旦); 要是……否则 (5-47); 要不 as a suggestion ("要不我们去吧").
+
+```rule
+match: 要是/CS
+match: 要不是/CS
+match: 要不是/AD
+match: ^ 要/CS|VV 我/PN 说/VV $
+match: ^ /PN 要/VV 再说/VV $
+match: ^ /PN 要不/AD /VV $
+unless: 否则
+```
+
+**Notes:** The earlier rule never matched because patterns only work inside one clause, while the condition and the 就 consequence sit in different clauses. The rule now keys on the condition marker alone. 要是/CS and 要不是 are specific enough to do this safely. The shortened 要 forms are matched only in narrow patterns: 要我说 as a whole clause, 你要再说, and a pronoun + 要不 + one verb ending the clause. This keeps out suggestions like 要不我们…, as well as 要 meaning "want". Sentences with 否则 are excluded because they belong to 5-47.

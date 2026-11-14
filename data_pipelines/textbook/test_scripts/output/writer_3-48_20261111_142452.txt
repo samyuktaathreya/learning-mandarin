@@ -1,0 +1,60 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 13653 characters -->
+## 3-48
+<!-- written by claude-sonnet-5-5 on 2026-11-11; edit freely -->
+**Point:** Potential complements showing whether an action is possible: Verb + 得/不 + result, direction or ability complement (懂, 见, 完, 到, 着, 了, 下, 起, 动, 起来, 上去, 清楚, 好 ...).
+
+**Covers:**
+- Verb + 不 + complement, meaning "cannot" (看不懂, 去不了, 找不到, 吃不下, 听不见, 买不起, 走不动, 站不起来, 放不进去, 看不清楚, 修不好, 洗不干净).
+- Verb + 得 + complement, meaning "can" (听得懂, 看得见, 吃得完, 放得下, 帮得了, 学得会, 起得来, 爬得上去, 看得清楚).
+- 得了 after a verb, as in 帮得了 or 走得了. The tagger may label it VV or AS.
+
+**Does not cover:**
+- 不得不 "have to".
+- 差不多 "approximately".
+- 少不了 "unavoidable".
+- Degree or state complements with 得 (说得清楚, 画得怎么样, 堵得要命, 得很, 不得了).
+- Verb + 得好 + 吗 questions (他有我做得好吗？). These are usually state complements, often in comparisons, so they are not matched.
+- 害得 "causing an undesirable result". The whole sentence is excluded, even if it also contains a potential complement.
+- 急坏 and similar degree complements. The whole sentence is excluded.
+- Repeated verb questions of the form A不A (去不去, 来不来).
+
+```rule
+match: /VV 不/AD 了|到|着|见|懂|完|下|起|动|上|来|去|出|进|过|开|住|通|会
+match: /VV 不/AD 起来|上去|下去|进去|出来|回来|过来|过去|上来|下来|出去|回去|进来
+match: 做|修|洗|看|听|学|写|吃|睡|记|擦|弄|画|说|讲|拿|找/VV 不/AD 好|清楚|干净|明白|整齐
+match: /VV 得/DER 了|到|着|见|懂|完|下|起|动|上
+match: /VV 得/DER 起来|上去|下去|进去|出来|回来|过来|过去|上来|下来|出去|回去|进来
+match: 起|醒|回|过|出|进|上|下/VV 得/DER 来|去
+match: 学|听|看|做|记|用/VV 得/DER 会
+match: 看|听/VV 得/DER 清楚|清
+match: /VV 得了/AS|VV
+unless: 不得不
+unless: 不 得 不
+unless: 差不多
+unless: 少不了
+unless: 不得了
+unless: 得 不得了
+unless: 害得
+unless: 害 得
+unless: 得 很
+unless: 得 死了
+unless: 得 要命
+unless: 去 不 去
+unless: 来 不 来
+unless: 上 不 上
+unless: 下 不 下
+unless: 对 不 对
+unless: 急 坏
+unless: 气 坏
+unless: 累 坏
+unless: 急坏
+```
+
+**Notes:**
+- The 不 patterns need a verb, then 不 tagged AD, then a closed list of complement words. This keeps out 不 + adjective or verb forms such as 想不想 and 好不好.
+- Compound direction complements (起来, 上去, 进去) are single tokens, so they are listed separately.
+- Adjective complements are accepted only in narrow cases: 不 + 好/清楚/干净 after a fixed list of action verbs, and 看/听得清楚. Other 得 + adjective forms are mostly degree or state complements and stay excluded for precision.
+- The earlier 做得好吗 pattern was removed. It matched state-complement sentences such as 他有我做得好吗？, which belong to an easier point.
+- 得了 is tagged VV or AS depending on the sentence, so both are accepted after a verb. 不得了 is removed by the unless list.
+- Each unless line is a single token sequence, so each exclusion has its own line. Split forms such as 害/VV 得/DER and 急/VV 坏/VV are written as token sequences. This removes sentences such as 找不到孩子，妈妈急坏了 and 害得我睡不着, which belong to other points.
+- Each pattern matches within a single clause.

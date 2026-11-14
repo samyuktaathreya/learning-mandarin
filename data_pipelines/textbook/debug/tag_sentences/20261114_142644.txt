@@ -1,0 +1,65 @@
+2026-11-14 14:26:44,724  INFO     === tag_sentences.py run started ===
+2026-11-14 14:26:44,752  INFO     OK        hanlp-valid   '天气冷了。' -> [('天气', 'NN'), ('冷', 'VA'), ('了', 'SP')]
+2026-11-14 14:26:44,754  INFO     TAGGED    '天气冷了。' (level 1, 3 tags)
+2026-11-14 14:26:44,765  INFO     OK        hanlp-valid   '很晚了，我想睡觉了。' -> [('很', 'AD'), ('晚', 'VA'), ('了', 'AS'), ('我', 'PN'), ('想', 'VV'), ('睡觉', 'VV'), ('了', 'SP')]
+2026-11-14 14:26:44,768  INFO     TAGGED    '很晚了，我想睡觉了。' (level 1, 7 tags)
+2026-11-14 14:26:44,779  INFO     OK        hanlp-valid   '我想回家了。' -> [('我', 'PN'), ('想', 'VV'), ('回家', 'VV'), ('了', 'SP')]
+2026-11-14 14:26:44,786  INFO     TAGGED    '我想回家了。' (level 1, 5 tags)
+2026-11-14 14:26:44,796  INFO     OK        hanlp-valid   '孩子大了。' -> [('孩子', 'NN'), ('大', 'VA'), ('了', 'SP')]
+2026-11-14 14:26:44,798  INFO     TAGGED    '孩子大了。' (level 1, 3 tags)
+2026-11-14 14:26:44,809  INFO     FALLBACK  '我儿子八岁了。' -- out-of-list word(s): ['八岁']
+2026-11-14 14:26:44,809  WARNING    HAIKU resegment call for '我儿子八岁了。' (cache miss on [('八岁', 'NT')])
+2026-11-14 14:26:44,825  INFO     TAGGED    '我儿子八岁了。' (level 1, 5 tags)
+2026-11-14 14:26:44,836  INFO     FALLBACK  '他不喝茶了。' -- out-of-list word(s): ['喝茶']
+2026-11-14 14:26:44,836  INFO       CACHE-ONLY resegmentation -> [('他', 'PN'), ('不', 'AD'), ('喝', 'VV'), ('茶', 'NN'), ('了', 'SP')]
+2026-11-14 14:26:44,848  INFO     TAGGED    '他不喝茶了。' (level 1, 5 tags)
+2026-11-14 14:26:44,859  INFO     FALLBACK  '我不想看电视了。' -- out-of-list word(s): ['不想']
+2026-11-14 14:26:44,859  WARNING    HAIKU resegment call for '我不想看电视了。' (cache miss on [('不想', 'VV')])
+2026-11-14 14:26:44,876  INFO     TAGGED    '我不想看电视了。' (level 1, 6 tags)
+2026-11-14 14:26:44,888  INFO     OK        hanlp-valid   '家里没有米饭了。' -> [('家里', 'NN'), ('没有', 'VE'), ('米饭', 'NN'), ('了', 'SP')]
+2026-11-14 14:26:44,895  INFO     TAGGED    '家里没有米饭了。' (level 1, 5 tags)
+2026-11-14 14:26:44,906  INFO     FALLBACK  '他不在学校了。' -- out-of-list word(s): ['不在']
+2026-11-14 14:26:44,907  WARNING    HAIKU resegment call for '他不在学校了。' (cache miss on [('不在', 'VV')])
+2026-11-14 14:26:44,924  INFO     TAGGED    '他不在学校了。' (level 1, 5 tags)
+2026-11-14 14:26:44,935  INFO     OK        hanlp-valid   '我不爱喝牛奶了。' -> [('我', 'PN'), ('不', 'AD'), ('爱', 'VV'), ('喝', 'VV'), ('牛奶', 'NN'), ('了', 'SP')]
+2026-11-14 14:26:44,938  INFO     TAGGED    '我不爱喝牛奶了。' (level 1, 6 tags)
+2026-11-14 14:26:44,949  INFO     OK        hanlp-valid   '他有女朋友了。' -> [('他', 'PN'), ('有', 'VE'), ('女朋友', 'NN'), ('了', 'SP')]
+2026-11-14 14:26:44,951  INFO     TAGGED    '他有女朋友了。' (level 1, 4 tags)
+2026-11-14 14:26:44,962  INFO     OK        hanlp-valid   '我会说汉语了。' -> [('我', 'PN'), ('会', 'VV'), ('说', 'VV'), ('汉语', 'NN'), ('了', 'SP')]
+2026-11-14 14:26:44,965  INFO     TAGGED    '我会说汉语了。' (level 1, 5 tags)
+2026-11-14 14:26:44,975  INFO     OK        hanlp-valid   '我知道他的名字了。' -> [('我', 'PN'), ('知道', 'VV'), ('他', 'PN'), ('的', 'DEG'), ('名字', 'NN'), ('了', 'SP')]
+2026-11-14 14:26:44,978  INFO     TAGGED    '我知道他的名字了。' (level 1, 6 tags)
+2026-11-14 14:26:44,989  INFO     OK        hanlp-valid   '下雪了。' -> [('下雪', 'VV'), ('了', 'SP')]
+2026-11-14 14:26:44,995  INFO     TAGGED    '下雪了。' (level 1, 3 tags)
+2026-11-14 14:26:45,007  INFO     FALLBACK  '天气热了，我想喝水。' -- out-of-list word(s): ['喝水']
+2026-11-14 14:26:45,007  WARNING    HAIKU resegment call for '天气热了，我想喝水。' (cache miss on [('喝水', 'VV')])
+2026-11-14 14:26:45,025  INFO     TAGGED    '天气热了，我想喝水。' (level 1, 7 tags)
+2026-11-14 14:26:45,036  INFO     FALLBACK  '现在十点了。' -- out-of-list word(s): ['十点']
+2026-11-14 14:26:45,036  WARNING    HAIKU resegment call for '现在十点了。' (cache miss on [('十点', 'NT')])
+2026-11-14 14:26:45,054  INFO     TAGGED    '现在十点了。' (level 1, 4 tags)
+2026-11-14 14:26:45,065  INFO     OK        hanlp-valid   '饭好了，来吃吧。' -> [('饭', 'NN'), ('好', 'VA'), ('了', 'AS'), ('来', 'VV'), ('吃', 'VV'), ('吧', 'SP')]
+2026-11-14 14:26:45,068  INFO     TAGGED    '饭好了，来吃吧。' (level 1, 6 tags)
+2026-11-14 14:26:45,079  INFO     OK        hanlp-valid   '你的朋友来了。' -> [('你', 'PN'), ('的', 'DEG'), ('朋友', 'NN'), ('来', 'VV'), ('了', 'AS')]
+2026-11-14 14:26:45,082  INFO     TAGGED    '你的朋友来了。' (level 1, 5 tags)
+2026-11-14 14:26:45,092  INFO     OK        hanlp-valid   '我下班了。' -> [('我', 'PN'), ('下班', 'VV'), ('了', 'SP')]
+2026-11-14 14:26:45,095  INFO     TAGGED    '我下班了。' (level 1, 3 tags)
+2026-11-14 14:26:45,106  INFO     OK        hanlp-valid   '上课了，请坐。' -> [('上课', 'VV'), ('了', 'AS'), ('请坐', 'VV')]
+2026-11-14 14:26:45,113  INFO     TAGGED    '上课了，请坐。' (level 1, 4 tags)
+2026-11-14 14:26:45,124  INFO     OK        hanlp-valid   '爸爸不工作了。' -> [('爸爸', 'NN'), ('不', 'AD'), ('工作', 'VV'), ('了', 'SP')]
+2026-11-14 14:26:45,128  INFO     TAGGED    '爸爸不工作了。' (level 1, 4 tags)
+2026-11-14 14:26:45,141  INFO     OK        hanlp-valid   '我不住在这里了。' -> [('我', 'PN'), ('不', 'AD'), ('住', 'VV'), ('在', 'P'), ('这里', 'PN'), ('了', 'SP')]
+2026-11-14 14:26:45,144  INFO     TAGGED    '我不住在这里了。' (level 1, 6 tags)
+2026-11-14 14:26:45,157  INFO     OK        hanlp-valid   '这件衣服小了。' -> [('这', 'DT'), ('件', 'M'), ('衣服', 'NN'), ('小', 'VA'), ('了', 'SP')]
+2026-11-14 14:26:45,160  INFO     TAGGED    '这件衣服小了。' (level 1, 5 tags)
+2026-11-14 14:26:45,171  INFO     OK        hanlp-valid   '他的病好了。' -> [('他', 'PN'), ('的', 'DEG'), ('病', 'NN'), ('好', 'VA'), ('了', 'SP')]
+2026-11-14 14:26:45,173  INFO     TAGGED    '他的病好了。' (level 1, 5 tags)
+2026-11-14 14:26:45,185  INFO     OK        hanlp-valid   '猫睡觉了。' -> [('猫', 'NN'), ('睡觉', 'VV'), ('了', 'SP')]
+2026-11-14 14:26:45,187  INFO     TAGGED    '猫睡觉了。' (level 1, 3 tags)
+2026-11-14 14:26:45,198  INFO     OK        hanlp-valid   '妹妹会开车了。' -> [('妹妹', 'NN'), ('会', 'VV'), ('开车', 'VV'), ('了', 'SP')]
+2026-11-14 14:26:45,200  INFO     TAGGED    '妹妹会开车了。' (level 1, 4 tags)
+2026-11-14 14:26:45,211  INFO     OK        hanlp-valid   '他起床了。' -> [('他', 'PN'), ('起床', 'VV'), ('了', 'SP')]
+2026-11-14 14:26:45,216  INFO     TAGGED    '他起床了。' (level 1, 3 tags)
+2026-11-14 14:26:45,227  INFO     OK        hanlp-valid   '商店不卖苹果了。' -> [('商店', 'NN'), ('不', 'AD'), ('卖', 'VV'), ('苹果', 'NN'), ('了', 'SP')]
+2026-11-14 14:26:45,230  INFO     TAGGED    '商店不卖苹果了。' (level 1, 5 tags)
+2026-11-14 14:26:45,241  INFO     OK        hanlp-valid   '我今天不忙了。' -> [('我', 'PN'), ('今天', 'NT'), ('不', 'AD'), ('忙', 'VA'), ('了', 'SP')]
+2026-11-14 14:26:45,244  INFO     TAGGED    '我今天不忙了。' (level 1, 5 tags)

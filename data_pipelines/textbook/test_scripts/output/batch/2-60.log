@@ -8,3 +8,170 @@ Traceback (most recent call last):
   File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 672, in cmd_sources
     raise SystemExit(f"No AllSet Learning page uses {' '.join(point.markers)}.")
 SystemExit: No AllSet Learning page uses 动作者 方式 地点.
+
+########## rules  2026-11-10 21:26 ##########
+Traceback (most recent call last):
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 491, in main
+    rule_for(db, c, st, tagger, client, args.first_writer)
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 143, in rule_for
+    tg.cmd_sources(db, point, trial_args(code=code, redo=True))
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 698, in cmd_sources
+    raise SystemExit(f"No AllSet Learning page uses {' '.join(point.markers)}.")
+SystemExit: No AllSet Learning page uses 动作者 方式 地点.
+
+########## rules  2026-11-11 14:18 ##########
+Traceback (most recent call last):
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 515, in main
+    rule_for(db, c, st, tagger, client, args.first_writer)
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 143, in rule_for
+    tg.cmd_sources(db, point, trial_args(code=code, redo=True))
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 722, in cmd_sources
+    raise SystemExit(f"No AllSet Learning page uses {' '.join(point.markers)}.")
+SystemExit: No AllSet Learning page uses 动作者 方式 地点.
+
+########## rules  2026-11-12 17:26 ##########
+104 page(s) use the word(s); asking about 40.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGE662E  The "shi... de" construction for emphasizing details
+
+not:
+  ASG19S1M  Using "de" (modal particle)
+  ASG38F8A  Expressing "all" with "fanshi"
+  ASG4FB55  Expressing "and then" with "yushi"
+  ASG4NDHB  Using "youde" to mean "some"
+  ASG5HZG6  "Could it be that" with "qibushi"
+  ASG5MOMM  Structural particle "de"
+  ASG8F7D4  Expressing "if it were not for" with "yaobushi"
+  ASGA1B87  Emphasizing with "henshi"
+  ASGA77KW  Expressing "similar to" with "gen... shide"
+  ASGA8NIB  Offering choices with "haishi"
+  ASGB0MXK  Marking a topic with "de hua"
+  ASGCI0KG  Expressing close possession without "de"
+  ASGDHE8S  Reduplication of adjectives
+  ASGEXR6R  Expressing the only two possibilities
+  ASGF1TQ2  Expressing "even if…" with "jiushi"
+  ASGII66E  Using "always" as a complaint with "laoshi"
+  ASGLQKD2  Modifying nouns with phrase + "de"
+  ASGMCX2H  Expressing "to be worthy of" with "bukuishi"
+  ASGN4S8O  Expressing "if… then…" with "yaoshi"
+  ASGNLGGX  Expressing "is or is not" with "shifou"
+  ASGPY23Z  Expressing "stuff like that" with "zhileide"
+  ASGQJ5IC  Comparing "haishi" and "huozhe"
+  ASGT9Y8P  Conceding a point with "shi"
+  ASGUHQD2  Expressing possession with "de"
+  ASGUN7RX  Connecting nouns with "shi"
+  ASGVACYB  Saying "a lot" with "youdeshi"
+  ASGVUFKX  Modifying nouns with adjective + "de"
+  ASGWAR65  Expressing "had better" with "haishi"
+  ASGWN185  Expressing "when" with "de shihou"
+  ASGXJPJS  Expressing "always" with "zongshi"
+
+unsure:
+  ASG0UFR4  The "shi... de" construction for indicating purpose
+  ASG8YTSF  The "shi... de" patterns: an overview
+
+unrelated:
+  ASGUD81S  Two words for "but"
+  ASG0K25S  Comparing "fan'er" and “que"
+  ASG1DXUD  Passive verbs with "shou"
+  ASG1F4D1  Expressing "in this way" with "zheyang"
+  ASG4D8XB  Tag questions with "bu"
+  ASG5KNWW  Topic-comment sentences
+  ASG6509E  Explaining purpose with "wei... er..."
+
+[note] ASGE662E is tagged HSK [1] on the wiki, the point is HSK 2 (often fine: one point can cover a later page's word, like 1-10 and 一起).
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-60
+Tagging 10 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_172648.txt
+  ...100/283
+  ...200/283
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-60, rule line 1: 'VC': words must be Chinese -- for a tag, write /VC (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-60_20261112_172656.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-60
+<!-- written by claude-haiku-4-5 on 2026-11-12; edit freely -->
+**Point:** The 是⋯⋯的 construction for emphasizing details about past events or their circumstances
+**Covers:** Sentences with 是 + [emphasized information about time/place/manner/agent] + verb + 的, used to highlight specific details of a past action or state
+**Does not cover:** Possessive 的; adjective modification; 的 as a modal particle; "有的是" (plenty of); "不是⋯⋯，就是⋯⋯" (either/or); 的话 (if); reduplication patterns; or simple 是 equative sentences without 的
+
+```rule
+match: /VC ... /VV ... /SP|AS
+match: /VC ... /VV ... /DEC
+unless: ^ /VC /AD /VC
+unless: 有的/PN /VC
+unless: 不/AD /VC ... 就是/AD
+unless: 岂不/AD /VC
+unless: 要不是/AD
+unless: 的话/SP
+unless: ... /VV /AS /NN $
+unless: ... /VA /VA ... /VC /VA
+```
+
+**Notes:** The rule targets the core structure: 是 followed by some content, then a main verb, then either 的/SP (modal particle 的 at end) or 的/AS (aspect marker with following object). It excludes equative sentences (是 + adj + 是 + adj), the 有的是 construction, 不是⋯⋯就是⋯⋯ patterns, rhetorical 岂不是, conditional 要不是, topicalized 的话, and sentences ending with a noun after 的 (which indicate 的 as a nominalizer, not the 是⋯⋯的 pattern). The first unless line rejects simple equatives like "你们是不是中国人" (no emphasized information between 是 and verb).
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-60
+Tagging 10 labeled example(s) (cached after this run)...
+  ...100/283
+  ...200/283
+  Checking 13 sentence(s) for 2-60 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-60: rule on labeled examples (no AI) ===
+  examples of 2-60 matched:    7/15
+  counter-examples wrongly matched: 0/268   <- should be 0
+
+--- examples of 2-60 the rule misses (8) ---
+  这个苹果是坏的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  你错了，那个人是女的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  他家的家具都是中式的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  我是来实习的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  这个东西是可以吃的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  我会去的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  我们能做到的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  我是昨天到北京的。  -- HSK list example
+  easy examples (words all HSK 2 or below) matched: 4/10   <- needs 60%
+
+########## rules  2026-11-12 21:12 ##########
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  Checking 6 sentence(s) for 2-60 (1 call(s))...
+
+=== A. 2-60: rule on labeled examples (no AI) ===
+  examples of 2-60 matched:    15/15
+  counter-examples wrongly matched: 13/268   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (13) ---
+  她一定会来的。  -- ASG19S1M Using "de" (modal particle)  [matched: 会|能/VV /VV ... 的/SP $]
+  我们能搞定的。  -- ASG19S1M Using "de" (modal particle)  [matched: 会|能/VV /VV ... 的/SP $]
+  他不会道歉的。  -- ASG19S1M Using "de" (modal particle)  [matched: 会|能/VV /VV ... 的/SP $]
+  我不会骗你的。  -- ASG19S1M Using "de" (modal particle)  [matched: 会|能/VV /VV ... 的/SP $]
+  你的建议我们会考虑的。  -- ASG19S1M Using "de" (modal particle)  [matched: 会|能/VV /VV ... 的/SP $]
+  就是大家都同意这个方案，我也不会同意的。  -- ASGF1TQ2 Expressing "even if…" with "jiushi"  [matched: 会|能/VV /VV ... 的/SP $]
+  我是来玩的。  -- ASG0UFR4 The "shi... de" construction for indicating purpose  [matched: 是/VC 来|去|用来/VV ... 的/SP|DEC $]
+  我们都是去出差的。  -- ASG0UFR4 The "shi... de" construction for indicating purpose  [matched: 是/VC 来|去|用来/VV ... 的/SP|DEC $]
+  他们都是来实习的。  -- ASG0UFR4 The "shi... de" construction for indicating purpose  [matched: 是/VC 来|去|用来/VV ... 的/SP|DEC $]
+  我们不是去玩的，是去做调查的。  -- ASG0UFR4 The "shi... de" construction for indicating purpose  [matched: 是/VC 来|去|用来/VV ... 的/SP|DEC $]
+  这种菜是用来做汤的。  -- ASG0UFR4 The "shi... de" construction for indicating purpose  [matched: 是/VC 来|去|用来/VV ... 的/SP|DEC $]
+  这个房间是给客人住的。  -- ASG0UFR4 The "shi... de" construction for indicating purpose  [matched: 是/VC /NT|P ... /VV ... 的/SP|AS|DEC]
+  这些礼物是给客户准备的。  -- ASG0UFR4 The "shi... de" construction for indicating purpose  [matched: 是/VC /NT|P ... /VV ... 的/SP|AS|DEC]
+  easy examples (words all HSK 2 or below) matched: 10/10   <- needs 60%
+
+########## rules  2026-11-13 13:51 ##########
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-60: rule on labeled examples (no AI) ===
+  examples of 2-60 matched:    8/15
+  counter-examples wrongly matched: 0/268   <- should be 0
+
+--- examples of 2-60 the rule misses (7) ---
+  这个苹果是坏的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  你错了，那个人是女的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  他家的家具都是中式的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  我是来实习的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  这个东西是可以吃的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  我会去的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  我们能做到的。  -- ASG8YTSF The "shi... de" patterns: an overview
+  easy examples (words all HSK 2 or below) matched: 5/10   <- needs 60%

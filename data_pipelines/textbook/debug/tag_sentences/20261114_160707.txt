@@ -1,0 +1,59 @@
+2026-11-14 16:07:07,616  INFO     === tag_sentences.py run started ===
+2026-11-14 16:07:07,658  INFO     FALLBACK  '这是昨天来的那个女孩。' -- out-of-list word(s): ['这是', '那个']
+2026-11-14 16:07:07,658  INFO       CACHE-ONLY resegmentation -> [('这', 'PN'), ('是', 'VC'), ('昨天', 'NT'), ('来', 'VV'), ('的', 'DEC'), ('那', 'DT'), ('个', 'M'), ('女孩儿', 'NN')]
+2026-11-14 16:07:07,663  INFO     TAGGED    '这是昨天来的那个女孩。' (level 2, 8 tags)
+2026-11-14 16:07:07,682  INFO     FALLBACK  '这是一个小偷。' -- out-of-list word(s): ['这是', '一个']
+2026-11-14 16:07:07,682  WARNING    HAIKU resegment call for '这是一个小偷。' (cache miss on [('这是', 'VC')])
+2026-11-14 16:07:07,703  INFO       READING  小偷儿 'xiao3 tou1 er2' matches no form -- offering every form
+2026-11-14 16:07:07,705  INFO     TAGGED    '这是一个小偷。' (level 6, 5 tags)
+2026-11-14 16:07:07,722  INFO     FALLBACK  '这个女孩子在喝茶。' -- out-of-list word(s): ['这个', '女孩子', '喝茶']
+2026-11-14 16:07:07,722  WARNING    HAIKU resegment call for '这个女孩子在喝茶。' (cache miss on [('女孩子', 'NN')])
+2026-11-14 16:07:07,752  INFO     TAGGED    '这个女孩子在喝茶。' (level 1, 7 tags)
+2026-11-14 16:07:07,771  INFO     FALLBACK  '这个男孩子在跑步。' -- out-of-list word(s): ['这个']
+2026-11-14 16:07:07,771  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('男', 'JJ'), ('孩子', 'NN'), ('在', 'AD'), ('跑步', 'VV')]
+2026-11-14 16:07:07,774  INFO     TAGGED    '这个男孩子在跑步。' (level 2, 6 tags)
+2026-11-14 16:07:07,792  INFO     FALLBACK  '那个男孩在跑步。' -- out-of-list word(s): ['那个']
+2026-11-14 16:07:07,792  INFO       CACHE-ONLY resegmentation -> [('那', 'DT'), ('个', 'M'), ('男孩儿', 'NN'), ('在', 'AD'), ('跑步', 'VV')]
+2026-11-14 16:07:07,795  INFO     TAGGED    '那个男孩在跑步。' (level 2, 5 tags)
+2026-11-14 16:07:07,821  INFO     FALLBACK  '这个男孩子在吃面包。' -- out-of-list word(s): ['这个']
+2026-11-14 16:07:07,821  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('男', 'JJ'), ('孩子', 'NN'), ('在', 'AD'), ('吃', 'VV'), ('面包', 'NN')]
+2026-11-14 16:07:07,824  INFO     TAGGED    '这个男孩子在吃面包。' (level 1, 7 tags)
+2026-11-14 16:07:09,275  INFO     FALLBACK  '这个公园是小孩子的天堂。' -- out-of-list word(s): ['这个', '小孩子']
+2026-11-14 16:07:09,275  WARNING    HAIKU resegment call for '这个公园是小孩子的天堂。' (cache miss on [('小孩子', 'NN')])
+2026-11-14 16:07:09,300  INFO     TAGGED    '这个公园是小孩子的天堂。' (level 7, 8 tags)
+2026-11-14 16:07:09,319  INFO     OK        hanlp-valid   '这些是男孩，那些是女孩。' -> [('这些', 'PN'), ('是', 'VC'), ('男孩儿', 'NN'), ('那些', 'PN'), ('是', 'VC'), ('女孩儿', 'NN')]
+2026-11-14 16:07:09,323  INFO     TAGGED    '这些是男孩，那些是女孩。' (level 2, 6 tags)
+2026-11-14 16:07:10,074  INFO     FALLBACK  '那个女孩的爸爸是医生。' -- out-of-list word(s): ['那个']
+2026-11-14 16:07:10,074  INFO       CACHE-ONLY resegmentation -> [('那', 'DT'), ('个', 'M'), ('女孩儿', 'NN'), ('的', 'DEG'), ('爸爸', 'NN'), ('是', 'VC'), ('医生', 'NN')]
+2026-11-14 16:07:10,078  INFO     TAGGED    '那个女孩的爸爸是医生。' (level 2, 7 tags)
+2026-11-14 16:07:10,767  INFO     FALLBACK  '那个小女孩打开了窗户。' -- out-of-list word(s): ['那个']
+2026-11-14 16:07:10,767  INFO       CACHE-ONLY resegmentation -> [('那', 'DT'), ('个', 'M'), ('小', 'JJ'), ('女孩儿', 'NN'), ('打开', 'VV'), ('了', 'AS'), ('窗户', 'NN')]
+2026-11-14 16:07:10,771  INFO     TAGGED    '那个小女孩打开了窗户。' (level 4, 7 tags)
+2026-11-14 16:07:12,797  INFO     OK        hanlp-valid   '这有点意思。' -> [('这', 'PN'), ('有点儿', 'DT'), ('意思', 'NN')]
+2026-11-14 16:07:12,800  INFO     TAGGED    '这有点意思。' (level 2, 3 tags)
+2026-11-14 16:07:12,815  INFO     OK        hanlp-valid   '这小男孩怕黑。' -> [('这', 'DT'), ('小', 'JJ'), ('男孩儿', 'NN'), ('怕', 'VV'), ('黑', 'VA')]
+2026-11-14 16:07:12,818  INFO     TAGGED    '这小男孩怕黑。' (level 5, 5 tags)
+2026-11-14 16:07:13,494  INFO     OK        hanlp-valid   '那部电影是给小孩看的。' -> [('那', 'DT'), ('部', 'M'), ('电影', 'NN'), ('是', 'VC'), ('给', 'VV'), ('小孩儿', 'NN'), ('看', 'VV'), ('的', 'SP')]
+2026-11-14 16:07:13,498  INFO     TAGGED    '那部电影是给小孩看的。' (level 4, 8 tags)
+2026-11-14 16:07:14,838  INFO     FALLBACK  '这个男孩子很懒。' -- out-of-list word(s): ['这个']
+2026-11-14 16:07:14,838  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('男', 'JJ'), ('孩子', 'NN'), ('很', 'AD'), ('懒', 'VA')]
+2026-11-14 16:07:14,841  INFO     TAGGED    '这个男孩子很懒。' (level 4, 6 tags)
+2026-11-14 16:07:14,855  INFO     FALLBACK  '这果子还太酸，没法吃。' -- out-of-list word(s): ['果子']
+2026-11-14 16:07:14,856  WARNING    HAIKU resegment call for '这果子还太酸，没法吃。' (cache miss on [('果子', 'NN')])
+2026-11-14 16:07:14,868  INFO       NON-LIST 果子 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-14 16:07:14,869  INFO       READING  没法儿 'mei2 fa3 er2' matches no form -- offering every form
+2026-11-14 16:07:14,871  INFO     TAGGED    '这果子还太酸，没法吃。' (level 10, 7 tags)
+2026-11-14 16:07:15,550  INFO     FALLBACK  '这一点不容小觑。' -- out-of-list word(s): ['小觑']
+2026-11-14 16:07:15,550  WARNING    HAIKU resegment call for '这一点不容小觑。' (cache miss on [('小觑', 'VV')])
+2026-11-14 16:07:15,563  INFO       NON-LIST 小觑 (VV) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-14 16:07:15,564  INFO     TAGGED    '这一点不容小觑。' (level 10, 4 tags)
+2026-11-14 16:07:17,570  INFO     OK        hanlp-valid   '这一点都不容易。' -> [('这', 'PN'), ('一点儿', 'AD'), ('都', 'AD'), ('不', 'AD'), ('容易', 'VA')]
+2026-11-14 16:07:17,573  INFO     TAGGED    '这一点都不容易。' (level 3, 5 tags)
+2026-11-14 16:07:17,588  INFO     FALLBACK  '这个女孩在超市买牛奶。' -- out-of-list word(s): ['这个']
+2026-11-14 16:07:17,588  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('女孩儿', 'NN'), ('在', 'P'), ('超市', 'NN'), ('买', 'VV'), ('牛奶', 'NN')]
+2026-11-14 16:07:17,591  INFO     TAGGED    '这个女孩在超市买牛奶。' (level 2, 7 tags)
+2026-11-14 16:07:17,607  INFO     OK        hanlp-valid   '这一点用都没。' -> [('这', 'PN'), ('一点儿', 'CD'), ('用', 'NN'), ('都', 'AD'), ('没', 'VE')]
+2026-11-14 16:07:17,610  INFO     TAGGED    '这一点用都没。' (level 3, 5 tags)
+2026-11-14 16:07:19,631  INFO     FALLBACK  '那个男孩是汤姆的儿子。' -- out-of-list word(s): ['那个', '汤姆']
+2026-11-14 16:07:19,631  INFO       CACHE-ONLY resegmentation -> [('那', 'DT'), ('个', 'M'), ('男孩儿', 'NN'), ('是', 'VC'), ('汤姆', 'NN'), ('的', 'DEG'), ('儿子', 'NN')]
+2026-11-14 16:07:19,635  INFO     TAGGED    '那个男孩是汤姆的儿子。' (level 2, 7 tags)

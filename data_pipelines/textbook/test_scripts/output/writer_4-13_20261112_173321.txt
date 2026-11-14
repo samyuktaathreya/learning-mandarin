@@ -1,0 +1,14 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 7781 characters -->
+## 4-13
+**Point:** Using 自/自从/从 to mark the starting point of an action or state in the past, often paired with 以来/以后/后.
+**Covers:** Sentences where 自/自从/从 marks a temporal or event starting point, typically followed by a time phrase, event, or action, and often concluding with 以来/以后/后 in the same clause or across clause boundaries.
+**Does not cover:** 来自 (to come from), 自己 (self/oneself), 自动 (automatic), 自学 (self-study), 自愿 (voluntary), 自豪 (proud), 自来水 (tap water), 自言自语 (talking to oneself), or other lexicalized compounds where 自 is not functioning as a preposition marking a starting point.
+
+```rule
+match: (自从|从|自)/P ... (以来|以后|后)/LC
+match: (自从|从|自)/P ... (VV|NN) ‖
+unless: 来自/VV
+unless: 自己/PN
+```
+
+**Notes:** The first pattern captures the most typical "sandwich" structure with explicit ending markers (以来/以后/后). The second pattern catches cases where the temporal marker ends a clause without an explicit ending particle, relying on the clause boundary (‖) to prevent false matches. The unless clauses filter out 来自 (come from) and 自己 (self), which are the most common distractors from the unlabeled examples.

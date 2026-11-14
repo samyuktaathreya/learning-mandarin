@@ -1,0 +1,25 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 9578 characters -->
+## 2-73
+**Point:** Approximate quantities using 几 (several/a few) in the forms 几十/几百/好几, or a number + 多 (more than)
+
+**Covers:** 几十/几百/几千/几万 + measure + noun; 好几 + measure + noun; number + 多 + measure + noun; number + measure + 多 + noun (两个多小时)
+
+**Does not cover:** bare 几 + measure in "how many" questions (他有几个孩子, 你几岁了); 差不多 (about the same); 多亏 (thanks to); 多 in questions (多大); 多 for intensification (多好); 几乎 (almost); 多少 in questions; doing more with 多; 多 for degree of difference
+
+```rule
+match: 几 十|百|千|万
+match: 几十|几百|几千|几万
+match: 好/AD 几/CD ... /M
+match: 好几 ... /M
+match: /CD 多/CD ... /M
+match: /CD /M 多/AD /NN
+unless: 差不多
+unless: 多亏
+unless: 几乎
+unless: ^ ... 多/AD /VA
+unless: ^ ... 多/AD /JJ
+unless: 多/AD 长/JJ 时间
+unless: 多/AD 少/CD
+```
+
+**Notes:** Bare 几 + measure + noun looks identical in statements ("桌子上有几本书") and in quantity questions ("他有几个孩子？"). The rule cannot tell them apart, so it no longer matches bare 几 + measure, which costs some recall but keeps precision. It matches only the unambiguous 几十/几百/几千/几万 and 好几 forms. These patterns allow for 几 being tagged M or CD. For 多, it matches number + 多 + measure (二十多天), and also number + measure + 多 + noun (两个多小时), where 多 is tagged AD. I removed the old `unless: /CD 多/AD /M`, because it blocked valid cases like 三十多个. The exclusions for 差不多, 多亏, 几乎, and 多 as a degree adverb (多好, 多大, 多长时间, 多少) are kept.

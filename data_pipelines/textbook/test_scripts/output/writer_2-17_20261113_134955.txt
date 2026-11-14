@@ -1,0 +1,20 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 23953 characters -->
+## 2-17
+**Point:** Expressing "then" or consequence with the adverb 就 in multi-clause sentences
+**Covers:** 就 as a connective adverb meaning "then" or indicating result/consequence: (1) condition → result with 如果/要是/假如/既然 etc.; (2) simple cause → result without explicit condition word; (3) patterns like 只要...就, 一旦...就, 要不是...就
+**Does not cover:** 就 meaning earliness (时间就), emphasis (就是), small quantity (就...知道), scope/topic (就...来说), future immediacy (就要), alternatives (不是...就是), repeated action (Verb就Verb), or motion (在就在), or when 就 is a preposition
+
+```rule
+match: ... ‖ /PN|AD|_? 就/AD /VV
+unless: ^ /VV .* 就/AD .* /AS $
+unless: 就/AD 在/VV
+unless: 就/AD 要/VV
+unless: 就/AD .* 是/VC
+unless: 不/AD 是/VC .* 就是/AD
+unless: /VV 着/AS .* 就/AD
+unless: 就/P
+unless: 想/VV .* 就/AD
+unless: /VV 就/AD /VV ‖
+```
+
+**Notes:** The rule requires a clause break (‖) before 就, indicating two separate clauses where the second is a consequence or result clause. The main match pattern looks for (pronoun or adverb or any word) followed by 就 and a verb in the result clause. The first unless excludes single-clause sentences with just a time word before 就+了 (earliness usage). The 就在 unless excludes location statements. 就要 is future immediacy. 就是 patterns and 不是...就是 are excluded as emphasis or alternatives. Verb aspect patterns with 着 are excluded. Preposition uses of 就 are excluded. The pattern 想...就... (freedom/choice) is excluded. And the pattern Verb就Verb (repetition/indifference) is excluded when it appears as two identical actions in sequence.

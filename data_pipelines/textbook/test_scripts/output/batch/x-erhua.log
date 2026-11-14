@@ -152,3 +152,950 @@ Harder grammar points made only of HSK 1 words (the review is warned about them)
   你去年住在哪儿？  -- difficulty review: (1/2); 去年 (last year) is not in HSK 1 vocabulary
 
 Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_x-erhua_level1_20261109_221258.csv
+
+########## tatoeba  2026-11-10 21:38 ##########
+Filling x-erhua at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-55, 2-58, 2-59, 2-67, 2-69, 2-74, 2-75, 2-76, 2-77, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  想到 = 想 + 到  (to think of; to call to mind)
+
+Course sentences at HSK 1 the rule already finds x-erhua in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== x-erhua at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       55  2. contain the point's word(s)
+       55  3. new (not in DB, not a duplicate)
+       35  4. at most 2 characters outside HSK 1 words
+       10  5. really HSK 1
+        7  5b. no harder grammar point (of the 69 with a rule)
+        7  6. the rule finds x-erhua
+        6  6b. no hidden word a learner can't work out
+        5  7. both checks say x-erhua, English chosen
+        4  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  她家在哪儿？  (Where is her house?)  [tatoeba 1691786]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  那本书在哪儿？  (Where is the book?)  [tatoeba 1786106]
+  你想坐哪儿呢？  (And where do you want to sit?)  [tatoeba 5153289]
+
+--- dropped at step 4 (20), first 12 ---
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  你在土耳其哪儿生活?  -- 4 characters no HSK 1 word uses: 其土活耳
+  你打算去哪儿过夜？  -- 3 characters no HSK 1 word uses: 夜算过
+  我记得在哪儿听到过那首音乐。  -- 5 characters no HSK 1 word uses: 乐记过音首
+  约翰，你工作太辛苦了。坐下来休息一会儿。  -- 4 characters no HSK 1 word uses: 约翰苦辛
+  这张照片在哪儿照的？  -- 3 characters no HSK 1 word uses: 张照片
+  集合地点是哪儿？  -- 3 characters no HSK 1 word uses: 合地集
+  那女孩不管到哪儿都跟著母亲。  -- 5 characters no HSK 1 word uses: 亲母管著跟
+  抱歉，附近的公交车站在哪儿？  -- 6 characters no HSK 1 word uses: 交抱歉站近附
+  我在哪儿取行李？  -- 3 characters no HSK 1 word uses: 取李行
+  你看起来累了。你该歇息一会儿了。  -- 3 characters no HSK 1 word uses: 歇累该
+  请问在欧洲最高的山是哪儿呢？  -- 4 characters no HSK 1 word uses: 山最欧洲
+
+--- dropped at step 5 (25), first 12 ---
+  现在，让我们休息一会儿吧。  -- level 2: 让 L2, 一会儿 L2
+  明天晚上我们都去宿舍玩儿，你能不能去？  -- level 5: 宿舍 L5
+  请在这儿等一会儿。  -- level 2: 等 L2, 一会儿 L2
+  你在哪儿？ 我在花园中。  -- level 3: 花园 L3, 中 L3
+  “汤姆不在那儿。”“那么他在哪儿？”  -- level 2: 那么 L2
+  你们这些家伙去哪儿了？  -- level 7: 家伙 L7
+  在哪儿我能找着他们？  -- level 2: 着 L2
+  请问，图书馆在哪儿？  -- level 3: 图书馆 L3
+  你今天想去哪儿呀？  -- level 5: 呀 L5
+  要是你有架时光机，你想去哪儿？  -- level 10: 要是 L4, 架 L5, 时光机 (not in list)
+  你的鞋脱哪儿了？  -- level 4: 鞋 L3, 脱 L4
+  你知道汤姆住哪儿吗？  -- level 10: 汤姆 (not in list)
+
+--- dropped at step 5b (3) ---
+  你在哪儿看到了她？  -- harder grammar: 3-46 (HSK 3)
+  我还要再睡一会儿。  -- harder grammar: 3-16 (HSK 3)
+  我在哪儿都找不到她。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  他们想到哪儿去？  -- hidden word a learner can't work out: 想到 (to think of; to call to mind)
+
+--- dropped at step 7 (1) ---
+  没有人知道她在哪儿。  -- check said no (2/2): Embedded clause; not direct question formation
+
+--- dropped at step 8 (1) ---
+  你去年住在哪儿？  -- difficulty review: (1/2); 去年 (last year) is not in HSK 1 vocabulary
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_x-erhua_level1_20261110_213904.csv
+
+########## tatoeba  2026-11-11 14:29 ##########
+Filling x-erhua at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-55, 2-58, 2-59, 2-67, 2-69, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds x-erhua in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== x-erhua at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       55  2. contain the point's word(s)
+       55  3. new (not in DB, not a duplicate)
+       35  4. at most 2 characters outside HSK 1 words
+       10  5. really HSK 1
+        7  5b. no harder grammar point (of the 78 with a rule)
+        7  6. the rule finds x-erhua
+        6  6b. no hidden word a learner can't work out
+        5  7. both checks say x-erhua, English chosen
+        4  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  她家在哪儿？  (Where is her house?)  [tatoeba 1691786]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  那本书在哪儿？  (Where is the book?)  [tatoeba 1786106]
+  你想坐哪儿呢？  (And where do you want to sit?)  [tatoeba 5153289]
+
+--- dropped at step 4 (20), first 12 ---
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  你在土耳其哪儿生活?  -- 4 characters no HSK 1 word uses: 其土活耳
+  你打算去哪儿过夜？  -- 3 characters no HSK 1 word uses: 夜算过
+  我记得在哪儿听到过那首音乐。  -- 5 characters no HSK 1 word uses: 乐记过音首
+  约翰，你工作太辛苦了。坐下来休息一会儿。  -- 4 characters no HSK 1 word uses: 约翰苦辛
+  这张照片在哪儿照的？  -- 3 characters no HSK 1 word uses: 张照片
+  集合地点是哪儿？  -- 3 characters no HSK 1 word uses: 合地集
+  那女孩不管到哪儿都跟著母亲。  -- 5 characters no HSK 1 word uses: 亲母管著跟
+  抱歉，附近的公交车站在哪儿？  -- 6 characters no HSK 1 word uses: 交抱歉站近附
+  我在哪儿取行李？  -- 3 characters no HSK 1 word uses: 取李行
+  你看起来累了。你该歇息一会儿了。  -- 3 characters no HSK 1 word uses: 歇累该
+  请问在欧洲最高的山是哪儿呢？  -- 4 characters no HSK 1 word uses: 山最欧洲
+
+--- dropped at step 5 (25), first 12 ---
+  现在，让我们休息一会儿吧。  -- level 2: 让 L2, 一会儿 L2
+  明天晚上我们都去宿舍玩儿，你能不能去？  -- level 5: 宿舍 L5
+  请在这儿等一会儿。  -- level 2: 等 L2, 一会儿 L2
+  你在哪儿？ 我在花园中。  -- level 3: 花园 L3, 中 L3
+  “汤姆不在那儿。”“那么他在哪儿？”  -- level 2: 那么 L2
+  你们这些家伙去哪儿了？  -- level 7: 家伙 L7
+  在哪儿我能找着他们？  -- level 2: 着 L2
+  请问，图书馆在哪儿？  -- level 3: 图书馆 L3
+  你今天想去哪儿呀？  -- level 5: 呀 L5
+  要是你有架时光机，你想去哪儿？  -- level 10: 要是 L4, 架 L5, 时光机 (not in list)
+  你的鞋脱哪儿了？  -- level 4: 鞋 L3, 脱 L4
+  你知道汤姆住哪儿吗？  -- level 10: 汤姆 (not in list)
+
+--- dropped at step 5b (3) ---
+  你在哪儿看到了她？  -- harder grammar: 3-46 (HSK 3)
+  我还要再睡一会儿。  -- harder grammar: 3-16 (HSK 3)
+  我在哪儿都找不到她。  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  他们想到哪儿去？  -- hidden word a learner can't work out: 想到 (to think of; to call to mind)
+
+--- dropped at step 7 (1) ---
+  没有人知道她在哪儿。  -- check said no (2/2): Embedded clause; not direct question formation
+
+--- dropped at step 8 (1) ---
+  你去年住在哪儿？  -- difficulty review: (1/2); 去年 (last year) is not in HSK 1 vocabulary
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_x-erhua_level1_20261111_142940.csv
+
+########## rules  2026-11-12 17:32 ##########
+
+=== A. x-erhua: rule on labeled examples (no AI) ===
+  examples of x-erhua matched:    11/12
+  counter-examples wrongly matched: 0/5   <- should be 0
+
+--- examples of x-erhua the rule misses (1) ---
+  我是小李。  -- ASGJQPSC Placement of question words
+  easy examples (words all HSK 1 or below) matched: 9/10   <- needs 60%
+
+########## tatoeba  2026-11-12 17:41 ##########
+Filling x-erhua at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-14, 2-15, 2-16, 2-19, 2-21, 2-22, 2-23, 2-24, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds x-erhua in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== x-erhua at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       55  2. contain the point's word(s)
+       55  3. new (not in DB, not a duplicate)
+       35  4. at most 2 characters outside HSK 1 words
+        9  5. really HSK 1
+        7  5b. no harder grammar point (of the 82 with a rule)
+        7  6. the rule finds x-erhua
+        6  6b. no hidden word a learner can't work out
+        5  7. both checks say x-erhua, English chosen
+        4  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  她家在哪儿？  (Where is her house?)  [tatoeba 1691786]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  那本书在哪儿？  (Where is the book?)  [tatoeba 1786106]
+  你想坐哪儿呢？  (And where do you want to sit?)  [tatoeba 5153289]
+
+--- dropped at step 4 (20), first 12 ---
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  你在土耳其哪儿生活?  -- 4 characters no HSK 1 word uses: 其土活耳
+  你打算去哪儿过夜？  -- 3 characters no HSK 1 word uses: 夜算过
+  我记得在哪儿听到过那首音乐。  -- 5 characters no HSK 1 word uses: 乐记过音首
+  约翰，你工作太辛苦了。坐下来休息一会儿。  -- 4 characters no HSK 1 word uses: 约翰苦辛
+  这张照片在哪儿照的？  -- 3 characters no HSK 1 word uses: 张照片
+  集合地点是哪儿？  -- 3 characters no HSK 1 word uses: 合地集
+  那女孩不管到哪儿都跟著母亲。  -- 5 characters no HSK 1 word uses: 亲母管著跟
+  抱歉，附近的公交车站在哪儿？  -- 6 characters no HSK 1 word uses: 交抱歉站近附
+  我在哪儿取行李？  -- 3 characters no HSK 1 word uses: 取李行
+  你看起来累了。你该歇息一会儿了。  -- 3 characters no HSK 1 word uses: 歇累该
+  请问在欧洲最高的山是哪儿呢？  -- 4 characters no HSK 1 word uses: 山最欧洲
+
+--- dropped at step 5 (26), first 12 ---
+  现在，让我们休息一会儿吧。  -- level 2: 让 L2, 一会儿 L2
+  明天晚上我们都去宿舍玩儿，你能不能去？  -- level 5: 宿舍 L5
+  请在这儿等一会儿。  -- level 2: 等 L2, 一会儿 L2
+  你在哪儿？ 我在花园中。  -- level 3: 花园 L3, 中 L3
+  “汤姆不在那儿。”“那么他在哪儿？”  -- level 2: 那么 L2
+  你们这些家伙去哪儿了？  -- level 7: 家伙 L7
+  在哪儿我能找着他们？  -- level 2: 着 L2
+  请问，图书馆在哪儿？  -- level 3: 图书馆 L3
+  你今天想去哪儿呀？  -- level 5: 呀 L5
+  要是你有架时光机，你想去哪儿？  -- level 10: 要是 L4, 架 L5, 时光机 (not in list)
+  你的鞋脱哪儿了？  -- level 4: 鞋 L3, 脱 L4
+  你知道汤姆住哪儿吗？  -- level 10: 汤姆 (not in list)
+
+--- dropped at step 5b (2) ---
+  你在哪儿看到了她？  -- harder grammar: 3-46 (HSK 3)
+  我在哪儿都找不到她。  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  他们想到哪儿去？  -- hidden word a learner can't work out: 想到 (to think of; to call to mind)
+
+--- dropped at step 7 (1) ---
+  没有人知道她在哪儿。  -- check said no (2/2): Embedded clause; not direct question formation
+
+--- dropped at step 8 (1) ---
+  你去年住在哪儿？  -- difficulty review: (1/2); 去年 (last year) is not in HSK 1 vocabulary
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_x-erhua_level1_20261112_174143.csv
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling x-erhua at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds x-erhua in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== x-erhua at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       55  2. contain the point's word(s)
+       55  3. new (not in DB, not a duplicate)
+       35  4. at most 2 characters outside HSK 1 words
+        9  5. really HSK 1
+        7  5b. no harder grammar point (of the 86 with a rule)
+        7  6. the rule finds x-erhua
+        6  6b. no hidden word a learner can't work out
+        5  7. both checks say x-erhua, English chosen
+        4  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  她家在哪儿？  (Where is her house?)  [tatoeba 1691786]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  那本书在哪儿？  (Where is the book?)  [tatoeba 1786106]
+  你想坐哪儿呢？  (And where do you want to sit?)  [tatoeba 5153289]
+
+--- dropped at step 4 (20), first 12 ---
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  你在土耳其哪儿生活?  -- 4 characters no HSK 1 word uses: 其土活耳
+  你打算去哪儿过夜？  -- 3 characters no HSK 1 word uses: 夜算过
+  我记得在哪儿听到过那首音乐。  -- 5 characters no HSK 1 word uses: 乐记过音首
+  约翰，你工作太辛苦了。坐下来休息一会儿。  -- 4 characters no HSK 1 word uses: 约翰苦辛
+  这张照片在哪儿照的？  -- 3 characters no HSK 1 word uses: 张照片
+  集合地点是哪儿？  -- 3 characters no HSK 1 word uses: 合地集
+  那女孩不管到哪儿都跟著母亲。  -- 5 characters no HSK 1 word uses: 亲母管著跟
+  抱歉，附近的公交车站在哪儿？  -- 6 characters no HSK 1 word uses: 交抱歉站近附
+  我在哪儿取行李？  -- 3 characters no HSK 1 word uses: 取李行
+  你看起来累了。你该歇息一会儿了。  -- 3 characters no HSK 1 word uses: 歇累该
+  请问在欧洲最高的山是哪儿呢？  -- 4 characters no HSK 1 word uses: 山最欧洲
+
+--- dropped at step 5 (26), first 12 ---
+  现在，让我们休息一会儿吧。  -- level 2: 让 L2, 一会儿 L2
+  明天晚上我们都去宿舍玩儿，你能不能去？  -- level 5: 宿舍 L5
+  请在这儿等一会儿。  -- level 2: 等 L2, 一会儿 L2
+  你在哪儿？ 我在花园中。  -- level 3: 花园 L3, 中 L3
+  “汤姆不在那儿。”“那么他在哪儿？”  -- level 2: 那么 L2
+  你们这些家伙去哪儿了？  -- level 7: 家伙 L7
+  在哪儿我能找着他们？  -- level 2: 着 L2
+  请问，图书馆在哪儿？  -- level 3: 图书馆 L3
+  你今天想去哪儿呀？  -- level 5: 呀 L5
+  要是你有架时光机，你想去哪儿？  -- level 10: 要是 L4, 架 L5, 时光机 (not in list)
+  你的鞋脱哪儿了？  -- level 4: 鞋 L3, 脱 L4
+  你知道汤姆住哪儿吗？  -- level 10: 汤姆 (not in list)
+
+--- dropped at step 5b (2) ---
+  你在哪儿看到了她？  -- harder grammar: 3-46 (HSK 3)
+  我在哪儿都找不到她。  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  他们想到哪儿去？  -- hidden word a learner can't work out: 想到 (to think of; to call to mind)
+
+--- dropped at step 7 (1) ---
+  没有人知道她在哪儿。  -- check said no (2/2): Embedded clause; not direct question formation
+
+--- dropped at step 8 (1) ---
+  你去年住在哪儿？  -- difficulty review: (1/2); 去年 (last year) is not in HSK 1 vocabulary
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_x-erhua_level1_20261112_211549.csv
+
+########## tatoeba  2026-11-13 13:55 ##########
+Filling x-erhua at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds x-erhua in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== x-erhua at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       55  2. contain the point's word(s)
+       55  3. new (not in DB, not a duplicate)
+       35  4. at most 2 characters outside HSK 1 words
+        9  5. really HSK 1
+        7  5b. no harder grammar point (of the 86 with a rule)
+        7  6. the rule finds x-erhua
+        6  6b. no hidden word a learner can't work out
+        5  7. both checks say x-erhua, English chosen
+        4  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  她家在哪儿？  (Where is her house?)  [tatoeba 1691786]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  那本书在哪儿？  (Where is the book?)  [tatoeba 1786106]
+  你想坐哪儿呢？  (And where do you want to sit?)  [tatoeba 5153289]
+
+--- dropped at step 4 (20), first 12 ---
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  你在土耳其哪儿生活?  -- 4 characters no HSK 1 word uses: 其土活耳
+  你打算去哪儿过夜？  -- 3 characters no HSK 1 word uses: 夜算过
+  我记得在哪儿听到过那首音乐。  -- 5 characters no HSK 1 word uses: 乐记过音首
+  约翰，你工作太辛苦了。坐下来休息一会儿。  -- 4 characters no HSK 1 word uses: 约翰苦辛
+  这张照片在哪儿照的？  -- 3 characters no HSK 1 word uses: 张照片
+  集合地点是哪儿？  -- 3 characters no HSK 1 word uses: 合地集
+  那女孩不管到哪儿都跟著母亲。  -- 5 characters no HSK 1 word uses: 亲母管著跟
+  抱歉，附近的公交车站在哪儿？  -- 6 characters no HSK 1 word uses: 交抱歉站近附
+  我在哪儿取行李？  -- 3 characters no HSK 1 word uses: 取李行
+  你看起来累了。你该歇息一会儿了。  -- 3 characters no HSK 1 word uses: 歇累该
+  请问在欧洲最高的山是哪儿呢？  -- 4 characters no HSK 1 word uses: 山最欧洲
+
+--- dropped at step 5 (26), first 12 ---
+  现在，让我们休息一会儿吧。  -- level 2: 让 L2, 一会儿 L2
+  明天晚上我们都去宿舍玩儿，你能不能去？  -- level 5: 宿舍 L5
+  请在这儿等一会儿。  -- level 2: 等 L2, 一会儿 L2
+  你在哪儿？ 我在花园中。  -- level 3: 花园 L3, 中 L3
+  “汤姆不在那儿。”“那么他在哪儿？”  -- level 2: 那么 L2
+  你们这些家伙去哪儿了？  -- level 7: 家伙 L7
+  在哪儿我能找着他们？  -- level 2: 着 L2
+  请问，图书馆在哪儿？  -- level 3: 图书馆 L3
+  你今天想去哪儿呀？  -- level 5: 呀 L5
+  要是你有架时光机，你想去哪儿？  -- level 10: 要是 L4, 架 L5, 时光机 (not in list)
+  你的鞋脱哪儿了？  -- level 4: 鞋 L3, 脱 L4
+  你知道汤姆住哪儿吗？  -- level 10: 汤姆 (not in list)
+
+--- dropped at step 5b (2) ---
+  你在哪儿看到了她？  -- harder grammar: 3-46 (HSK 3)
+  我在哪儿都找不到她。  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  他们想到哪儿去？  -- hidden word a learner can't work out: 想到 (to think of; to call to mind)
+
+--- dropped at step 7 (1) ---
+  没有人知道她在哪儿。  -- check said no (2/2): Embedded clause; not direct question formation
+
+--- dropped at step 8 (1) ---
+  你去年住在哪儿？  -- difficulty review: (1/2); 去年 (last year) is not in HSK 1 vocabulary
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_x-erhua_level1_20261113_135529.csv
+
+########## tatoeba  2026-11-13 14:46 ##########
+Filling x-erhua at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  想到 = 想 + 到  (to think of; to call to mind)
+
+Course sentences at HSK 1 the rule already finds x-erhua in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 1 check and 1 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== x-erhua at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       55  2. contain the point's word(s)
+       55  3. new (not in DB, not a duplicate)
+       35  4. at most 2 characters outside HSK 1 words
+        9  5. really HSK 1
+        7  5b. no harder grammar point (of the 86 with a rule)
+        7  6. the rule finds x-erhua
+        6  6b. no hidden word a learner can't work out
+        5  7. both checks say x-erhua, English chosen
+        1  7b. second opinion: it is the point (check)
+        4  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  她家在哪儿？  (Where is her house?)  [tatoeba 1691786]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  那本书在哪儿？  (Where is the book?)  [tatoeba 1786106]
+  你想坐哪儿呢？  (And where do you want to sit?)  [tatoeba 5153289]
+  你去年住在哪儿？  (Where did you live last year?)  [tatoeba 8924835]
+  没有人知道她在哪儿。  (Nobody knows where she is.)  [tatoeba 4789689]
+
+--- dropped at step 4 (20), first 12 ---
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  你在土耳其哪儿生活?  -- 4 characters no HSK 1 word uses: 其土活耳
+  你打算去哪儿过夜？  -- 3 characters no HSK 1 word uses: 夜算过
+  我记得在哪儿听到过那首音乐。  -- 5 characters no HSK 1 word uses: 乐记过音首
+  约翰，你工作太辛苦了。坐下来休息一会儿。  -- 4 characters no HSK 1 word uses: 约翰苦辛
+  这张照片在哪儿照的？  -- 3 characters no HSK 1 word uses: 张照片
+  集合地点是哪儿？  -- 3 characters no HSK 1 word uses: 合地集
+  那女孩不管到哪儿都跟著母亲。  -- 5 characters no HSK 1 word uses: 亲母管著跟
+  抱歉，附近的公交车站在哪儿？  -- 6 characters no HSK 1 word uses: 交抱歉站近附
+  我在哪儿取行李？  -- 3 characters no HSK 1 word uses: 取李行
+  你看起来累了。你该歇息一会儿了。  -- 3 characters no HSK 1 word uses: 歇累该
+  请问在欧洲最高的山是哪儿呢？  -- 4 characters no HSK 1 word uses: 山最欧洲
+
+--- dropped at step 5 (26), first 12 ---
+  现在，让我们休息一会儿吧。  -- level 2: 让 L2, 一会儿 L2
+  明天晚上我们都去宿舍玩儿，你能不能去？  -- level 5: 宿舍 L5
+  请在这儿等一会儿。  -- level 2: 等 L2, 一会儿 L2
+  你在哪儿？ 我在花园中。  -- level 3: 花园 L3, 中 L3
+  “汤姆不在那儿。”“那么他在哪儿？”  -- level 2: 那么 L2
+  你们这些家伙去哪儿了？  -- level 7: 家伙 L7
+  在哪儿我能找着他们？  -- level 2: 着 L2
+  请问，图书馆在哪儿？  -- level 3: 图书馆 L3
+  你今天想去哪儿呀？  -- level 5: 呀 L5
+  要是你有架时光机，你想去哪儿？  -- level 10: 要是 L4, 架 L5, 时光机 (not in list)
+  你的鞋脱哪儿了？  -- level 4: 鞋 L3, 脱 L4
+  你知道汤姆住哪儿吗？  -- level 10: 汤姆 (not in list)
+
+--- dropped at step 5b (2) ---
+  你在哪儿看到了她？  -- harder grammar: 3-46 (HSK 3)
+  我在哪儿都找不到她。  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  他们想到哪儿去？  -- hidden word a learner can't work out: 想到 (to think of; to call to mind)
+
+--- dropped at step 7 (0) ---
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_x-erhua_level1_20261113_144700.csv
+
+########## ai  2026-11-14 14:48 ##########
+
+----- AI-written sentences for x-erhua, round 1: 0 to check, 13 needed -----
+  Asking claude-sonnet-5-5 to write 33 sentence(s)...
+
+----- AI-written sentences for x-erhua, round 2: 33 to check, 13 needed -----
+Filling x-erhua at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 33
+
+Tagging 30 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_144825.txt
+
+Course sentences at HSK 1 the rule already finds x-erhua in: 1  -> Tatoeba needs to add 13 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== x-erhua at HSK 1: funnel ===
+       33  AI-written sentences
+       33  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       30  4. at most 0 characters outside HSK 1 words
+       22  5. really HSK 1
+       22  5b. no harder grammar point (of the 86 with a rule)
+       20  6. the rule finds x-erhua
+       19  6b. no hidden word a learner can't work out
+       16  7. both checks say x-erhua, English chosen
+       16  8. both difficulty reviews pass it
+
+=== Survivors (16) ===
+  你在哪儿工作？  (Where do you work?)  [tatoeba ai-6317785a67]
+  他在哪儿上班？  (Where does he work?)  [tatoeba ai-c997e71a4f]
+  你的手机在哪儿？  (Where is your phone?)  [tatoeba ai-2b8e4daaf7]
+  你妈妈去哪儿了？  (Where did your mom go?)  [tatoeba ai-16d13833e8]
+  我们去哪儿吃饭？  (Where shall we go to eat?)  [tatoeba ai-ebf98c08c8]  hidden: 吃饭
+  你想去哪儿玩儿？  (Where do you want to go to have fun?)  [tatoeba ai-a20af9db88]
+  你在哪儿买衣服？  (Where do you buy clothes?)  [tatoeba ai-a2270eb76a]
+  你昨天去哪儿了？  (Where did you go yesterday?)  [tatoeba ai-e9912a1f5b]
+  你在哪儿学汉语？  (Where do you study Chinese?)  [tatoeba ai-4bec6869f9]
+  女儿在哪儿睡觉？  (Where does your daughter sleep?)  [tatoeba ai-abb98cc7fb]
+  孩子们在哪儿玩儿？  (Where are the children playing?)  [tatoeba ai-784b56759d]  hidden: 孩子们
+  今天下午你在哪儿？  (Where will you be this afternoon?)  [tatoeba ai-65eda18531]
+  你的朋友住在哪儿？  (Where does your friend live?)  [tatoeba ai-f2de47c8c8]
+  请问，医院在哪儿？  (Excuse me, where is the hospital?)  [tatoeba ai-b6e1260955]
+  请问，超市在哪儿？  (Excuse me, where is the supermarket?)  [tatoeba ai-a6d68087ad]
+  我们明天去哪儿玩儿？  (Where shall we go to have fun tomorrow?)  [tatoeba ai-2b7d499a06]
+
+--- dropped at step 5 (8) ---
+  我想在家休息一会儿。  -- level 2: 一会儿 L2
+  你坐一会儿吧。  -- level 2: 一会儿 L2
+  他睡了一会儿。  -- level 2: 一会儿 L2
+  我们看一会儿电视吧。  -- level 2: 一会儿 L2
+  我们在这儿坐一会儿吧。  -- level 2: 一会儿 L2
+  一会儿你想吃什么？  -- level 2: 一会儿 L2
+  我一会儿去商店。  -- level 2: 一会儿 L2
+  妈妈在做饭，你玩儿一会儿吧。  -- level 2: 一会儿 L2
+
+--- dropped at step 6 (2) ---
+  这里好玩儿吗？  -- rule: no match: line matched
+  那儿很好玩儿。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  你家的猫在哪儿？  -- hidden word a learner can't work out: 家的 ((old) wife)
+
+--- dropped at step 7 (3) ---
+  你喜欢玩儿电脑吗？  -- check said no (2/2): 玩儿 is erhua suffix, not question word
+  弟弟在家玩儿电脑。  -- check said no (2/2): 玩儿 is erhua suffix, not question word
+  今天我不上班，在家玩儿。  -- check said no (2/2): 玩儿 is erhua suffix, not question word
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_x-erhua_level1_20261114_144836.csv
+
+########## ai  2026-11-14 15:03 ##########
+
+----- AI-written sentences for x-erhua, round 1: 33 to check, 13 needed -----
+Filling x-erhua at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 33
+
+
+Course sentences at HSK 1 the rule already finds x-erhua in: 1  -> Tatoeba needs to add 13 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== x-erhua at HSK 1: funnel ===
+       33  AI-written sentences
+       33  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       30  4. at most 0 characters outside HSK 1 words
+       22  5. really HSK 1
+       22  5b. no harder grammar point (of the 86 with a rule)
+       20  6. the rule finds x-erhua
+       19  6b. no hidden word a learner can't work out
+       16  7. both checks say x-erhua, English chosen
+       16  8. both difficulty reviews pass it
+
+=== Survivors (16) ===
+  你在哪儿工作？  (Where do you work?)  [tatoeba ai-6317785a67]
+  他在哪儿上班？  (Where does he work?)  [tatoeba ai-c997e71a4f]
+  你的手机在哪儿？  (Where is your phone?)  [tatoeba ai-2b8e4daaf7]
+  你妈妈去哪儿了？  (Where did your mom go?)  [tatoeba ai-16d13833e8]
+  我们去哪儿吃饭？  (Where shall we go to eat?)  [tatoeba ai-ebf98c08c8]  hidden: 吃饭
+  你想去哪儿玩儿？  (Where do you want to go to have fun?)  [tatoeba ai-a20af9db88]
+  你在哪儿买衣服？  (Where do you buy clothes?)  [tatoeba ai-a2270eb76a]
+  你昨天去哪儿了？  (Where did you go yesterday?)  [tatoeba ai-e9912a1f5b]
+  你在哪儿学汉语？  (Where do you study Chinese?)  [tatoeba ai-4bec6869f9]
+  女儿在哪儿睡觉？  (Where does your daughter sleep?)  [tatoeba ai-abb98cc7fb]
+  孩子们在哪儿玩儿？  (Where are the children playing?)  [tatoeba ai-784b56759d]  hidden: 孩子们
+  今天下午你在哪儿？  (Where will you be this afternoon?)  [tatoeba ai-65eda18531]
+  你的朋友住在哪儿？  (Where does your friend live?)  [tatoeba ai-f2de47c8c8]
+  请问，医院在哪儿？  (Excuse me, where is the hospital?)  [tatoeba ai-b6e1260955]
+  请问，超市在哪儿？  (Excuse me, where is the supermarket?)  [tatoeba ai-a6d68087ad]
+  我们明天去哪儿玩儿？  (Where shall we go to have fun tomorrow?)  [tatoeba ai-2b7d499a06]
+
+--- dropped at step 5 (8) ---
+  我想在家休息一会儿。  -- level 2: 一会儿 L2
+  你坐一会儿吧。  -- level 2: 一会儿 L2
+  他睡了一会儿。  -- level 2: 一会儿 L2
+  我们看一会儿电视吧。  -- level 2: 一会儿 L2
+  我们在这儿坐一会儿吧。  -- level 2: 一会儿 L2
+  一会儿你想吃什么？  -- level 2: 一会儿 L2
+  我一会儿去商店。  -- level 2: 一会儿 L2
+  妈妈在做饭，你玩儿一会儿吧。  -- level 2: 一会儿 L2
+
+--- dropped at step 6 (2) ---
+  这里好玩儿吗？  -- rule: no match: line matched
+  那儿很好玩儿。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  你家的猫在哪儿？  -- hidden word a learner can't work out: 家的 ((old) wife)
+
+--- dropped at step 7 (3) ---
+  你喜欢玩儿电脑吗？  -- check said no (2/2): 玩儿 is erhua suffix, not question word
+  弟弟在家玩儿电脑。  -- check said no (2/2): 玩儿 is erhua suffix, not question word
+  今天我不上班，在家玩儿。  -- check said no (2/2): 玩儿 is erhua suffix, not question word
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_x-erhua_level1_20261114_150322.csv
+
+########## tatoeba  2026-11-14 16:11 ##########
+Filling x-erhua at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds x-erhua in: 20  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== x-erhua at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       55  2. contain the point's word(s)
+       48  3. new (not in DB, not a duplicate)
+       28  4. at most 2 characters outside HSK 1 words
+        3  5. really HSK 1
+        1  5b. no harder grammar point (of the 87 with a rule)
+        1  6. the rule finds x-erhua
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (7) ---
+  她家在哪儿？  -- already in the database
+  那本书在哪儿？  -- already in the database
+  没有人知道她在哪儿。  -- already in the database
+  你在哪儿写？  -- already in the database
+  你想坐哪儿呢？  -- already in the database
+  你去年住在哪儿？  -- already in the database
+  从哪儿来的？  -- already in the database
+
+--- dropped at step 4 (20), first 12 ---
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  你在土耳其哪儿生活?  -- 4 characters no HSK 1 word uses: 其土活耳
+  你打算去哪儿过夜？  -- 3 characters no HSK 1 word uses: 夜算过
+  我记得在哪儿听到过那首音乐。  -- 5 characters no HSK 1 word uses: 乐记过音首
+  约翰，你工作太辛苦了。坐下来休息一会儿。  -- 4 characters no HSK 1 word uses: 约翰苦辛
+  这张照片在哪儿照的？  -- 3 characters no HSK 1 word uses: 张照片
+  集合地点是哪儿？  -- 3 characters no HSK 1 word uses: 合地集
+  那女孩不管到哪儿都跟著母亲。  -- 5 characters no HSK 1 word uses: 亲母管著跟
+  抱歉，附近的公交车站在哪儿？  -- 6 characters no HSK 1 word uses: 交抱歉站近附
+  我在哪儿取行李？  -- 3 characters no HSK 1 word uses: 取李行
+  你看起来累了。你该歇息一会儿了。  -- 3 characters no HSK 1 word uses: 歇累该
+  请问在欧洲最高的山是哪儿呢？  -- 4 characters no HSK 1 word uses: 山最欧洲
+
+--- dropped at step 5 (25), first 12 ---
+  现在，让我们休息一会儿吧。  -- level 2: 让 L2, 一会儿 L2
+  明天晚上我们都去宿舍玩儿，你能不能去？  -- level 5: 宿舍 L5
+  请在这儿等一会儿。  -- level 2: 等 L2, 一会儿 L2
+  你在哪儿？ 我在花园中。  -- level 3: 花园 L3, 中 L3
+  “汤姆不在那儿。”“那么他在哪儿？”  -- level 2: 那么 L2
+  你们这些家伙去哪儿了？  -- level 7: 家伙 L7
+  在哪儿我能找着他们？  -- level 2: 着 L2
+  请问，图书馆在哪儿？  -- level 3: 图书馆 L3
+  你今天想去哪儿呀？  -- level 5: 呀 L5
+  要是你有架时光机，你想去哪儿？  -- level 10: 要是 L4, 架 L5, 时光机 (not in list)
+  你的鞋脱哪儿了？  -- level 4: 鞋 L3, 脱 L4
+  你知道汤姆住哪儿吗？  -- level 10: 汤姆 (not in list)
+
+--- dropped at step 5b (2) ---
+  你在哪儿看到了她？  -- harder grammar: 3-46 (HSK 3)
+  我在哪儿都找不到她。  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  他们想到哪儿去？  -- hidden word a learner can't work out: 想到 (to think of; to call to mind)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_x-erhua_level1_20261114_161148.csv
+
+########## ai  2026-11-14 16:15 ##########
+
+########## tatoeba  2026-11-14 16:32 ##########
+Filling x-erhua at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds x-erhua in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 1 check and 1 review rejection(s)...
+
+=== x-erhua at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       55  2. contain the point's word(s)
+       55  3. new (not in DB, not a duplicate)
+       35  4. at most 2 characters outside HSK 1 words
+        9  5. really HSK 1
+        7  5b. no harder grammar point (of the 87 with a rule)
+        7  6. the rule finds x-erhua
+        6  6b. no hidden word a learner can't work out
+        5  7. both checks say x-erhua, English chosen
+        1  7b. second opinion: it is the point (check)
+        4  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  她家在哪儿？  (Where is her house?)  [tatoeba 1691786]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  那本书在哪儿？  (Where is the book?)  [tatoeba 1786106]
+  你想坐哪儿呢？  (And where do you want to sit?)  [tatoeba 5153289]
+  你去年住在哪儿？  (Where did you live last year?)  [tatoeba 8924835]
+  没有人知道她在哪儿。  (Nobody knows where she is.)  [tatoeba 4789689]
+
+--- dropped at step 4 (20), first 12 ---
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  你在土耳其哪儿生活?  -- 4 characters no HSK 1 word uses: 其土活耳
+  你打算去哪儿过夜？  -- 3 characters no HSK 1 word uses: 夜算过
+  我记得在哪儿听到过那首音乐。  -- 5 characters no HSK 1 word uses: 乐记过音首
+  约翰，你工作太辛苦了。坐下来休息一会儿。  -- 4 characters no HSK 1 word uses: 约翰苦辛
+  这张照片在哪儿照的？  -- 3 characters no HSK 1 word uses: 张照片
+  集合地点是哪儿？  -- 3 characters no HSK 1 word uses: 合地集
+  那女孩不管到哪儿都跟著母亲。  -- 5 characters no HSK 1 word uses: 亲母管著跟
+  抱歉，附近的公交车站在哪儿？  -- 6 characters no HSK 1 word uses: 交抱歉站近附
+  我在哪儿取行李？  -- 3 characters no HSK 1 word uses: 取李行
+  你看起来累了。你该歇息一会儿了。  -- 3 characters no HSK 1 word uses: 歇累该
+  请问在欧洲最高的山是哪儿呢？  -- 4 characters no HSK 1 word uses: 山最欧洲
+
+--- dropped at step 5 (26), first 12 ---
+  现在，让我们休息一会儿吧。  -- level 2: 让 L2, 一会儿 L2
+  明天晚上我们都去宿舍玩儿，你能不能去？  -- level 5: 宿舍 L5
+  请在这儿等一会儿。  -- level 2: 等 L2, 一会儿 L2
+  你在哪儿？ 我在花园中。  -- level 3: 花园 L3, 中 L3
+  “汤姆不在那儿。”“那么他在哪儿？”  -- level 2: 那么 L2
+  你们这些家伙去哪儿了？  -- level 7: 家伙 L7
+  在哪儿我能找着他们？  -- level 2: 着 L2
+  请问，图书馆在哪儿？  -- level 3: 图书馆 L3
+  你今天想去哪儿呀？  -- level 5: 呀 L5
+  要是你有架时光机，你想去哪儿？  -- level 10: 要是 L4, 架 L5, 时光机 (not in list)
+  你的鞋脱哪儿了？  -- level 4: 鞋 L3, 脱 L4
+  你知道汤姆住哪儿吗？  -- level 10: 汤姆 (not in list)
+
+--- dropped at step 5b (2) ---
+  你在哪儿看到了她？  -- harder grammar: 3-46 (HSK 3)
+  我在哪儿都找不到她。  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  他们想到哪儿去？  -- hidden word a learner can't work out: 想到 (to think of; to call to mind)
+
+--- dropped at step 7 (0) ---
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_x-erhua_level1_20261114_163258.csv
+
+########## ai  2026-11-14 16:36 ##########
+
+----- AI-written sentences for x-erhua, round 1: 33 to check, 13 needed -----
+Filling x-erhua at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 33
+
+Tagging 10 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_163655.txt
+
+Course sentences at HSK 1 the rule already finds x-erhua in: 1  -> Tatoeba needs to add 13 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== x-erhua at HSK 1: funnel ===
+       33  AI-written sentences
+       33  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       30  4. at most 0 characters outside HSK 1 words
+       22  5. really HSK 1
+       22  5b. no harder grammar point (of the 87 with a rule)
+       20  6. the rule finds x-erhua
+       19  6b. no hidden word a learner can't work out
+       16  7. both checks say x-erhua, English chosen
+       16  8. both difficulty reviews pass it
+
+=== Survivors (16) ===
+  你在哪儿工作？  (Where do you work?)  [tatoeba ai-6317785a67]
+  他在哪儿上班？  (Where does he work?)  [tatoeba ai-c997e71a4f]
+  你的手机在哪儿？  (Where is your phone?)  [tatoeba ai-2b8e4daaf7]
+  你妈妈去哪儿了？  (Where did your mom go?)  [tatoeba ai-16d13833e8]
+  我们去哪儿吃饭？  (Where shall we go to eat?)  [tatoeba ai-ebf98c08c8]  hidden: 吃饭
+  你想去哪儿玩儿？  (Where do you want to go to have fun?)  [tatoeba ai-a20af9db88]
+  你在哪儿买衣服？  (Where do you buy clothes?)  [tatoeba ai-a2270eb76a]
+  你昨天去哪儿了？  (Where did you go yesterday?)  [tatoeba ai-e9912a1f5b]
+  你在哪儿学汉语？  (Where do you study Chinese?)  [tatoeba ai-4bec6869f9]
+  女儿在哪儿睡觉？  (Where does your daughter sleep?)  [tatoeba ai-abb98cc7fb]
+  孩子们在哪儿玩儿？  (Where are the children playing?)  [tatoeba ai-784b56759d]  hidden: 孩子们
+  今天下午你在哪儿？  (Where will you be this afternoon?)  [tatoeba ai-65eda18531]
+  你的朋友住在哪儿？  (Where does your friend live?)  [tatoeba ai-f2de47c8c8]
+  请问，医院在哪儿？  (Excuse me, where is the hospital?)  [tatoeba ai-b6e1260955]
+  请问，超市在哪儿？  (Excuse me, where is the supermarket?)  [tatoeba ai-a6d68087ad]
+  我们明天去哪儿玩儿？  (Where shall we go to have fun tomorrow?)  [tatoeba ai-2b7d499a06]
+
+--- dropped at step 5 (8) ---
+  我想在家休息一会儿。  -- level 2: 一会儿 L2
+  你坐一会儿吧。  -- level 2: 一会儿 L2
+  他睡了一会儿。  -- level 2: 一会儿 L2
+  我们看一会儿电视吧。  -- level 2: 一会儿 L2
+  我们在这儿坐一会儿吧。  -- level 2: 一会儿 L2
+  一会儿你想吃什么？  -- level 2: 一会儿 L2
+  我一会儿去商店。  -- level 2: 一会儿 L2
+  妈妈在做饭，你玩儿一会儿吧。  -- level 2: 一会儿 L2
+
+--- dropped at step 6 (2) ---
+  这里好玩儿吗？  -- rule: no match: line matched
+  那儿很好玩儿。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  你家的猫在哪儿？  -- hidden word a learner can't work out: 家的 ((old) wife)
+
+--- dropped at step 7 (3) ---
+  你喜欢玩儿电脑吗？  -- check said no (2/2): 玩儿 is erhua suffix, not question word
+  弟弟在家玩儿电脑。  -- check said no (2/2): 玩儿 is erhua suffix, not question word
+  今天我不上班，在家玩儿。  -- check said no (2/2): 玩儿 is erhua suffix, not question word
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_x-erhua_level1_20261114_163656.csv

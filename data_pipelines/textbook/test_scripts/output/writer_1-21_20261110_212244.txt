@@ -1,0 +1,33 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 11384 characters -->
+## 1-21
+**Point:** Aspect particle 了 marking completion of an action (dynamic aspect)
+**Covers:** Sentences with 了 right after a verb (Verb + 了 + Obj), including objects with a degree word, a number and measure word, or a duration. Also covers sentence-final 了 after an object that has a 的-modifier, and 了吗 questions about a completed action.
+**Does not cover:** Change of state (adjective + 了), expressing "now" (知道了), expressing "not anymore" (不/没 + Verb + 了), potential complements (得了/不了), "about to" (快…了), imperatives (别…了), and other uses of 了 that do not mark completion.
+
+```rule
+match: /VV /AS /NN
+match: /VV /AS /NR
+match: /VV /AS /PN
+match: /VV /AS /CD /M|NN|NT
+match: /VV /AS /AD ... /NN
+match: /VV /AS /DT ... /NN
+match: /VV /AS /NT ... /NN
+match: /VV ... /DEC /NN /SP $
+match: /VV /NN 了/SP 吗/SP
+unless: /VA /AS $
+unless: /VA _ /AS $
+unless: /VA /VV /AS $
+unless: ^ /VV /AS $
+unless: ^ _ /VV /AS $
+unless: 不 /VV /AS
+unless: 没 /VV /AS
+unless: /VV 得/VV /AS
+unless: /VV 不/AD /AS
+unless: 快 /VV /AS
+unless: 别 /VV /AS $
+unless: 想|要|想要|会|能|可以|应该|必须|快要|就要|不|别 ... /SP $
+unless: 除了 ...
+unless: 为了 ...
+```
+
+**Notes:** The original rule had a stray `_` before the object, so it never matched the plain Verb + 了 + Noun order (我上了课). The new patterns put 了 (AS) directly after the verb and then accept a noun, proper noun, number + measure word, or degree/determiner/time words before the noun. Sentence-final 了 (SP) is accepted only when the object has a 的-modifier (DEC + NN + 了), which is a typical completion pattern. Plain "Verb + Obj + 了" is left out because it is too often a change of state. The exclusions cover negation, potential complements, modals, 快/别…了, 除了 and 为了.

@@ -1,0 +1,52 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 14670 characters -->
+## 1-40
+<!-- written by claude-haiku-4-5 on 2026-11-13; edit freely -->
+**Point:** Expressing a change of state or a new situation with sentence-final 了
+
+**Covers:**
+- Adjectives or state verbs showing a change (我饿了、你胖了、雨小了、她病了、孩子们都累了)
+- Verbs showing a new situation (他来了、我走了、下雨了、他当经理了、你有女朋友了、到你了)
+- Idiomatic "now" with 了 (知道了、懂了、吃饭了、上课了、我20岁了)
+- "Not anymore" with 不 or 没(有) (我不想吃了、我不去看电影了、没有纸了、手机没电了、他已经不在这儿工作了、你不喜欢我了吗)
+
+**Does not cover:**
+- Completion 了 after a plain verb or verb complement (我买了、买到了、吃完了、我们都去了)
+- Potential complements (去不了)
+- Double 了 for duration (你睡了一天了)
+- 了点儿 and degree complements (极了、死了、坏了)
+- 快/快要/就要 ... 了, and 别 ... 了
+- 太 ... 了
+- 过了
+- 了吗 questions asking about past completion (吃饭了吗)
+
+```rule
+match: ^ /NN|PN /AD? /VA 了/SP|AS $
+match: ^ /NN|PN? 饿|病|累|渴|困|懂|醉|知道|明白|结婚|胖|瘦|生气|高兴/VV 了/SP|AS $
+match: ^ /NN|PN 来|走/VV 了/SP $
+match: ^ 下雨|下雪|刮风|起风/VV 了/SP|AS $
+match: ^ 吃|上|下|开|放/VV 饭|课|学|车|门/NN 了/SP $
+match: ^ 到|轮/VV /PN 了/SP $
+match: 当/VV /NN 了/SP|AS $
+match: 新/JJ /NN 了/SP $
+match: 有/VE /NN 了/SP $
+match: ^ /PN|NN? /NT 了/SP $
+match: 不/AD /VV|VE|VA ... 了/SP|AS 吗/SP? $
+match: 没有|没/VE /NN 了/SP|AS $
+
+unless: 了/AS _
+unless: 太/AD
+unless: 快/AD
+unless: 快要/AD
+unless: 就要/AD
+unless: 别/AD
+unless: 过/AS 了/SP
+unless: 了/SP 一/CD
+unless: 极/AD 了/SP
+unless: 死/VV 了/SP
+unless: 坏/VV|VA 了/SP
+unless: 了/AS 吗/SP
+unless: 昨天|上周|去年|刚才|昨晚/NT
+unless: 不/AD 知道|觉得|记得|看见|听说|相信/VV _ ... 了/SP|AS
+```
+
+**Notes:** The rule is split into narrow sentence-final 了 patterns: subject + adjective, a short list of state verbs, 来/走, weather verbs, 吃饭/上课-type phrases, 当 + noun, 新 + noun, 有 + noun, time/age + 了, 不 ... 了, and 没(有) + noun + 了. A bare "verb + 了" is deliberately not matched, because that is mostly completion 了 (我买了、买到了、吃完了). 了 is sometimes tagged AS at the end of a sentence, so the patterns accept both AS and SP there. The unless lines remove 太 ... 了, 快 ... 了, 别 ... 了, double 了, 极/死/坏了, 过了, past-time sentences, and "不知道他去了"-type embedded clauses.

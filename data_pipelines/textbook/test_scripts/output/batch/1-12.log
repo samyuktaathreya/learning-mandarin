@@ -170,3 +170,1245 @@ Harder grammar points made only of HSK 1 words (the review is warned about them)
   我再也不能工作了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
 
 Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-12_level1_20261109_220404.csv
+
+########## tatoeba  2026-11-10 21:33 ##########
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-55, 2-58, 2-59, 2-67, 2-69, 2-74, 2-75, 2-76, 2-77, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-12 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      715  2. contain the point's word(s)
+      714  3. new (not in DB, not a duplicate)
+      278  4. at most 2 characters outside HSK 1 words
+       30  5. really HSK 1
+       14  5b. no harder grammar point (of the 69 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (1) ---
+  再见。  -- same text as tatoeba 2030795 (translations pooled)
+
+--- dropped at step 4 (436), first 12 ---
+  我经常忘记别人的名字。  -- 4 characters no HSK 1 word uses: 别忘经记
+  我经常做噩梦。  -- 3 characters no HSK 1 word uses: 噩梦经
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 1 word uses: 伊宁种类
+  人类在月球上居住已不再是梦想。  -- 5 characters no HSK 1 word uses: 居已梦球类
+  胜败是兵家常事。  -- 3 characters no HSK 1 word uses: 兵胜败
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 12 characters no HSK 1 word uses: 体别压就挺方查检王结血身
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  我打算绝不再喝酒。  -- 3 characters no HSK 1 word uses: 算绝酒
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 11 characters no HSK 1 word uses: 全化变室应效温球用词谈
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 16 characters no HSK 1 word uses: 且从信合已最此永海相经而记远适颗
+  为了给他生日惊喜，我准备了一个非常棒的蛋糕。  -- 6 characters no HSK 1 word uses: 为准备惊棒糕
+  这些高官和富商的大四合院常常有精美雕刻并粉刷的横梁和柱子，并伴有精心修剪的花园。  -- 19 characters no HSK 1 word uses: 伴修刷刻剪合园官富并心柱梁横粉精美花雕
+
+--- dropped at step 5 (248), first 12 ---
+  你等一会然后再给我打电话，可以吗？  -- level 3: 等 L2, 然后 L3, 打 L2
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3, 走 L2
+  我们经常下棋。  -- level 10: 经常 L2, 下棋 (not in list)
+  我们有一位非常好的厨师。  -- level 4: 位 L2, 厨师 L4
+  我不经常上ＱＱ。  -- level 2: 经常 L2
+  我再也不相信他了。  -- level 3: 相信 L3
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  他非常性感。  -- level 7: 性感 L7
+  他认为我非常的累。  -- level 3: 认为 L3, 累 L2
+  我经常想去那里。  -- level 2: 经常 L2
+  我七点钟再回来。  -- level 7: 钟 L7, 回来 L2
+  我们真的不知道，下次我们再也不这样了。  -- level 2: 次 L2, 这样 L2
+
+--- dropped at step 5b (16), first 12 ---
+  您不想再喝点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  我今天去大学读书，明天我会再去。  -- harder grammar: 3-16 (HSK 3)
+  我们写汉字也非常好。  -- harder grammar: 3-60 (HSK 3)
+  我不想再玩了。  -- harder grammar: 3-16 (HSK 3)
+  我不想再见到他们。  -- harder grammar: 3-16 (HSK 3), 3-46 (HSK 3)
+  你想再要点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  我不想再吃了。  -- harder grammar: 3-16 (HSK 3)
+  我还要再睡一会儿。  -- harder grammar: 3-16 (HSK 3)
+  我不想再听到这事。  -- harder grammar: 3-16 (HSK 3), 3-46 (HSK 3)
+  我不想再做这个了。  -- harder grammar: 3-16 (HSK 3)
+  我们不会再见你了。  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (14) ---
+  我非常喜欢英语。  -- rule: no match: line matched
+  我再也不喜欢你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  昨天天气非常好。  -- rule: no match: line matched
+  再见。  -- rule: no match: line matched
+  这是非常，非常不好的东西。  -- rule: no match: line matched
+  我非常喜欢这本书。  -- rule: no match: line matched
+  再见，Ian。  -- rule: no match: line matched
+  汤姆再也不会见你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  安娜再见！  -- rule: no match: line matched
+  我非常喜欢小狗。  -- rule: no match: line matched
+  我非常想见她。  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  非常好玩。  -- rule: no match: line matched
+  我再也不能工作了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-12_level1_20261110_213337.csv
+
+########## tatoeba  2026-11-11 14:26 ##########
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-55, 2-58, 2-59, 2-67, 2-69, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-12 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      715  2. contain the point's word(s)
+      714  3. new (not in DB, not a duplicate)
+      278  4. at most 2 characters outside HSK 1 words
+       30  5. really HSK 1
+       27  5b. no harder grammar point (of the 77 with a rule)
+       13  6. the rule finds 1-12
+        7  6b. no hidden word a learner can't work out
+        5  7. both checks say 1-12, English chosen
+        4  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  再来！  (Again!)  [tatoeba 10981498]
+  再来一个！  (Another!)  [tatoeba 7767675]  hidden: 一个
+  我明天再做。  (I'll do it tomorrow.)  [tatoeba 8734952]
+  我今天去大学读书，明天我会再去。  (Today I went to university to study. Tomorrow I will go again.)  [tatoeba 1275314]
+
+--- dropped at step 3 (1) ---
+  再见。  -- same text as tatoeba 2030795 (translations pooled)
+
+--- dropped at step 4 (436), first 12 ---
+  我经常忘记别人的名字。  -- 4 characters no HSK 1 word uses: 别忘经记
+  我经常做噩梦。  -- 3 characters no HSK 1 word uses: 噩梦经
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 1 word uses: 伊宁种类
+  人类在月球上居住已不再是梦想。  -- 5 characters no HSK 1 word uses: 居已梦球类
+  胜败是兵家常事。  -- 3 characters no HSK 1 word uses: 兵胜败
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 12 characters no HSK 1 word uses: 体别压就挺方查检王结血身
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  我打算绝不再喝酒。  -- 3 characters no HSK 1 word uses: 算绝酒
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 11 characters no HSK 1 word uses: 全化变室应效温球用词谈
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 16 characters no HSK 1 word uses: 且从信合已最此永海相经而记远适颗
+  为了给他生日惊喜，我准备了一个非常棒的蛋糕。  -- 6 characters no HSK 1 word uses: 为准备惊棒糕
+  这些高官和富商的大四合院常常有精美雕刻并粉刷的横梁和柱子，并伴有精心修剪的花园。  -- 19 characters no HSK 1 word uses: 伴修刷刻剪合园官富并心柱梁横粉精美花雕
+
+--- dropped at step 5 (248), first 12 ---
+  你等一会然后再给我打电话，可以吗？  -- level 3: 等 L2, 然后 L3, 打 L2
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3, 走 L2
+  我们经常下棋。  -- level 10: 经常 L2, 下棋 (not in list)
+  我们有一位非常好的厨师。  -- level 4: 位 L2, 厨师 L4
+  我不经常上ＱＱ。  -- level 2: 经常 L2
+  我再也不相信他了。  -- level 3: 相信 L3
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  他非常性感。  -- level 7: 性感 L7
+  他认为我非常的累。  -- level 3: 认为 L3, 累 L2
+  我经常想去那里。  -- level 2: 经常 L2
+  我七点钟再回来。  -- level 7: 钟 L7, 回来 L2
+  我们真的不知道，下次我们再也不这样了。  -- level 2: 次 L2, 这样 L2
+
+--- dropped at step 5b (3) ---
+  我们写汉字也非常好。  -- harder grammar: 3-60 (HSK 3)
+  我不想再见到他们。  -- harder grammar: 3-46 (HSK 3)
+  我不想再听到这事。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (14) ---
+  我非常喜欢英语。  -- rule: no match: line matched
+  我再也不喜欢你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  昨天天气非常好。  -- rule: no match: line matched
+  再见。  -- rule: no match: line matched
+  这是非常，非常不好的东西。  -- rule: no match: line matched
+  我非常喜欢这本书。  -- rule: no match: line matched
+  再见，Ian。  -- rule: no match: line matched
+  汤姆再也不会见你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  安娜再见！  -- rule: no match: line matched
+  我非常喜欢小狗。  -- rule: no match: line matched
+  我非常想见她。  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  非常好玩。  -- rule: no match: line matched
+  我再也不能工作了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+
+--- dropped at step 6b (6) ---
+  您不想再喝点茶吗？  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再玩了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再吃了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我还要再睡一会儿。  -- hidden word a learner can't work out: 一会 (a moment)
+  我不想再做这个了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再和汤姆说话了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+
+--- dropped at step 7 (2) ---
+  我们不会再见你了。  -- check said no (2/2): Uses 再也不, which is NOT this point (expressing never again)
+  你不能再住在这边了。  -- check said no (1/2): 再 here means 'anymore/longer', not future repetition
+
+--- dropped at step 8 (1) ---
+  你想再要点茶吗？  -- difficulty review: (1/2); 点 used as a measure word for quantity ('some') is beyond HSK 1 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-12_level1_20261111_142651.csv
+
+########## rules  2026-11-12 17:20 ##########
+Tagging 3 labeled example(s) (cached after this run)...
+
+=== A. 1-12: rule on labeled examples (no AI) ===
+  examples of 1-12 matched:    46/49
+  counter-examples wrongly matched: 0/49   <- should be 0
+
+--- examples of 1-12 the rule misses (3) ---
+  她忘带钥匙是经常的事情。  -- ASGE8FLP Comparing "changchang" and "jingchang"
+  夏天快到了，又可以吃冰淇淋了！  -- ASGTBHBG Comparing "zai" and "you"
+  如果我能瘦一些，我就又能穿我最喜欢的牛仔裤啦！  -- ASGTBHBG Comparing "zai" and "you"
+  easy examples (words all HSK 1 or below) matched: 2/2   (too few to test)
+
+########## tatoeba  2026-11-12 17:37 ##########
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-14, 2-15, 2-16, 2-19, 2-21, 2-22, 2-23, 2-24, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-12 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      715  2. contain the point's word(s)
+      714  3. new (not in DB, not a duplicate)
+      278  4. at most 2 characters outside HSK 1 words
+       29  5. really HSK 1
+       26  5b. no harder grammar point (of the 81 with a rule)
+       12  6. the rule finds 1-12
+        7  6b. no hidden word a learner can't work out
+        5  7. both checks say 1-12, English chosen
+        4  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  再来！  (Again!)  [tatoeba 10981498]
+  再来一个！  (Another!)  [tatoeba 7767675]  hidden: 一个
+  我明天再做。  (I'll do it tomorrow.)  [tatoeba 8734952]
+  我今天去大学读书，明天我会再去。  (Today I went to university to study. Tomorrow I will go again.)  [tatoeba 1275314]
+
+--- dropped at step 3 (1) ---
+  再见。  -- same text as tatoeba 2030795 (translations pooled)
+
+--- dropped at step 4 (436), first 12 ---
+  我经常忘记别人的名字。  -- 4 characters no HSK 1 word uses: 别忘经记
+  我经常做噩梦。  -- 3 characters no HSK 1 word uses: 噩梦经
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 1 word uses: 伊宁种类
+  人类在月球上居住已不再是梦想。  -- 5 characters no HSK 1 word uses: 居已梦球类
+  胜败是兵家常事。  -- 3 characters no HSK 1 word uses: 兵胜败
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 12 characters no HSK 1 word uses: 体别压就挺方查检王结血身
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  我打算绝不再喝酒。  -- 3 characters no HSK 1 word uses: 算绝酒
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 11 characters no HSK 1 word uses: 全化变室应效温球用词谈
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 16 characters no HSK 1 word uses: 且从信合已最此永海相经而记远适颗
+  为了给他生日惊喜，我准备了一个非常棒的蛋糕。  -- 6 characters no HSK 1 word uses: 为准备惊棒糕
+  这些高官和富商的大四合院常常有精美雕刻并粉刷的横梁和柱子，并伴有精心修剪的花园。  -- 19 characters no HSK 1 word uses: 伴修刷刻剪合园官富并心柱梁横粉精美花雕
+
+--- dropped at step 5 (249), first 12 ---
+  你等一会然后再给我打电话，可以吗？  -- level 3: 等 L2, 一会儿 L2, 然后 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3, 走 L2
+  我们经常下棋。  -- level 10: 经常 L2, 下棋 (not in list)
+  我们有一位非常好的厨师。  -- level 4: 位 L2, 厨师 L4
+  我不经常上ＱＱ。  -- level 2: 经常 L2
+  我再也不相信他了。  -- level 3: 相信 L3
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  他非常性感。  -- level 7: 性感 L7
+  他认为我非常的累。  -- level 3: 认为 L3, 累 L2
+  我经常想去那里。  -- level 2: 经常 L2
+  我七点钟再回来。  -- level 7: 钟 L7, 回来 L2
+  我们真的不知道，下次我们再也不这样了。  -- level 2: 次 L2, 这样 L2
+
+--- dropped at step 5b (3) ---
+  我们写汉字也非常好。  -- harder grammar: 3-60 (HSK 3)
+  我不想再见到他们。  -- harder grammar: 3-46 (HSK 3)
+  我不想再听到这事。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (14) ---
+  我非常喜欢英语。  -- rule: no match: line matched
+  我再也不喜欢你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  昨天天气非常好。  -- rule: no match: line matched
+  再见。  -- rule: no match: line matched
+  这是非常，非常不好的东西。  -- rule: no match: line matched
+  我非常喜欢这本书。  -- rule: no match: line matched
+  再见，Ian。  -- rule: no match: line matched
+  汤姆再也不会见你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  安娜再见！  -- rule: no match: line matched
+  我非常喜欢小狗。  -- rule: no match: line matched
+  我非常想见她。  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  非常好玩。  -- rule: no match: line matched
+  我再也不能工作了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+
+--- dropped at step 6b (5) ---
+  您不想再喝点茶吗？  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再玩了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再吃了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再做这个了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再和汤姆说话了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+
+--- dropped at step 7 (2) ---
+  我们不会再见你了。  -- check said no (2/2): Uses 再也不, which is NOT this point (expressing never again)
+  你不能再住在这边了。  -- check said no (1/2): 再 here means 'anymore/longer', not future repetition
+
+--- dropped at step 8 (1) ---
+  你想再要点茶吗？  -- difficulty review: (1/2); 点 used as a measure word for quantity ('some') is beyond HSK 1 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-12_level1_20261112_173736.csv
+
+########## tatoeba  2026-11-12 21:14 ##########
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-12 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      715  2. contain the point's word(s)
+      714  3. new (not in DB, not a duplicate)
+      278  4. at most 2 characters outside HSK 1 words
+       29  5. really HSK 1
+       26  5b. no harder grammar point (of the 85 with a rule)
+       12  6. the rule finds 1-12
+        7  6b. no hidden word a learner can't work out
+        5  7. both checks say 1-12, English chosen
+        4  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  再来！  (Again!)  [tatoeba 10981498]
+  再来一个！  (Another!)  [tatoeba 7767675]  hidden: 一个
+  我明天再做。  (I'll do it tomorrow.)  [tatoeba 8734952]
+  我今天去大学读书，明天我会再去。  (Today I went to university to study. Tomorrow I will go again.)  [tatoeba 1275314]
+
+--- dropped at step 3 (1) ---
+  再见。  -- same text as tatoeba 2030795 (translations pooled)
+
+--- dropped at step 4 (436), first 12 ---
+  我经常忘记别人的名字。  -- 4 characters no HSK 1 word uses: 别忘经记
+  我经常做噩梦。  -- 3 characters no HSK 1 word uses: 噩梦经
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 1 word uses: 伊宁种类
+  人类在月球上居住已不再是梦想。  -- 5 characters no HSK 1 word uses: 居已梦球类
+  胜败是兵家常事。  -- 3 characters no HSK 1 word uses: 兵胜败
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 12 characters no HSK 1 word uses: 体别压就挺方查检王结血身
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  我打算绝不再喝酒。  -- 3 characters no HSK 1 word uses: 算绝酒
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 11 characters no HSK 1 word uses: 全化变室应效温球用词谈
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 16 characters no HSK 1 word uses: 且从信合已最此永海相经而记远适颗
+  为了给他生日惊喜，我准备了一个非常棒的蛋糕。  -- 6 characters no HSK 1 word uses: 为准备惊棒糕
+  这些高官和富商的大四合院常常有精美雕刻并粉刷的横梁和柱子，并伴有精心修剪的花园。  -- 19 characters no HSK 1 word uses: 伴修刷刻剪合园官富并心柱梁横粉精美花雕
+
+--- dropped at step 5 (249), first 12 ---
+  你等一会然后再给我打电话，可以吗？  -- level 3: 等 L2, 一会儿 L2, 然后 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3, 走 L2
+  我们经常下棋。  -- level 10: 经常 L2, 下棋 (not in list)
+  我们有一位非常好的厨师。  -- level 4: 位 L2, 厨师 L4
+  我不经常上ＱＱ。  -- level 2: 经常 L2
+  我再也不相信他了。  -- level 3: 相信 L3
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  他非常性感。  -- level 7: 性感 L7
+  他认为我非常的累。  -- level 3: 认为 L3, 累 L2
+  我经常想去那里。  -- level 2: 经常 L2
+  我七点钟再回来。  -- level 7: 钟 L7, 回来 L2
+  我们真的不知道，下次我们再也不这样了。  -- level 2: 次 L2, 这样 L2
+
+--- dropped at step 5b (3) ---
+  我们写汉字也非常好。  -- harder grammar: 3-60 (HSK 3)
+  我不想再见到他们。  -- harder grammar: 3-46 (HSK 3)
+  我不想再听到这事。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (14) ---
+  我非常喜欢英语。  -- rule: no match: line matched
+  我再也不喜欢你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  昨天天气非常好。  -- rule: no match: line matched
+  再见。  -- rule: no match: line matched
+  这是非常，非常不好的东西。  -- rule: no match: line matched
+  我非常喜欢这本书。  -- rule: no match: line matched
+  再见，Ian。  -- rule: no match: line matched
+  汤姆再也不会见你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  安娜再见！  -- rule: no match: line matched
+  我非常喜欢小狗。  -- rule: no match: line matched
+  我非常想见她。  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  非常好玩。  -- rule: no match: line matched
+  我再也不能工作了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+
+--- dropped at step 6b (5) ---
+  您不想再喝点茶吗？  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再玩了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再吃了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再做这个了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再和汤姆说话了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+
+--- dropped at step 7 (2) ---
+  我们不会再见你了。  -- check said no (2/2): Uses 再也不, which is NOT this point (expressing never again)
+  你不能再住在这边了。  -- check said no (1/2): 再 here means 'anymore/longer', not future repetition
+
+--- dropped at step 8 (1) ---
+  你想再要点茶吗？  -- difficulty review: (1/2); 点 used as a measure word for quantity ('some') is beyond HSK 1 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-12_level1_20261112_211419.csv
+
+########## tatoeba  2026-11-13 13:53 ##########
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-12 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      715  2. contain the point's word(s)
+      714  3. new (not in DB, not a duplicate)
+      278  4. at most 2 characters outside HSK 1 words
+       29  5. really HSK 1
+       26  5b. no harder grammar point (of the 85 with a rule)
+       12  6. the rule finds 1-12
+        7  6b. no hidden word a learner can't work out
+        5  7. both checks say 1-12, English chosen
+        4  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  再来！  (Again!)  [tatoeba 10981498]
+  再来一个！  (Another!)  [tatoeba 7767675]  hidden: 一个
+  我明天再做。  (I'll do it tomorrow.)  [tatoeba 8734952]
+  我今天去大学读书，明天我会再去。  (Today I went to university to study. Tomorrow I will go again.)  [tatoeba 1275314]
+
+--- dropped at step 3 (1) ---
+  再见。  -- same text as tatoeba 2030795 (translations pooled)
+
+--- dropped at step 4 (436), first 12 ---
+  我经常忘记别人的名字。  -- 4 characters no HSK 1 word uses: 别忘经记
+  我经常做噩梦。  -- 3 characters no HSK 1 word uses: 噩梦经
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 1 word uses: 伊宁种类
+  人类在月球上居住已不再是梦想。  -- 5 characters no HSK 1 word uses: 居已梦球类
+  胜败是兵家常事。  -- 3 characters no HSK 1 word uses: 兵胜败
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 12 characters no HSK 1 word uses: 体别压就挺方查检王结血身
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  我打算绝不再喝酒。  -- 3 characters no HSK 1 word uses: 算绝酒
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 11 characters no HSK 1 word uses: 全化变室应效温球用词谈
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 16 characters no HSK 1 word uses: 且从信合已最此永海相经而记远适颗
+  为了给他生日惊喜，我准备了一个非常棒的蛋糕。  -- 6 characters no HSK 1 word uses: 为准备惊棒糕
+  这些高官和富商的大四合院常常有精美雕刻并粉刷的横梁和柱子，并伴有精心修剪的花园。  -- 19 characters no HSK 1 word uses: 伴修刷刻剪合园官富并心柱梁横粉精美花雕
+
+--- dropped at step 5 (249), first 12 ---
+  你等一会然后再给我打电话，可以吗？  -- level 3: 等 L2, 一会儿 L2, 然后 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3, 走 L2
+  我们经常下棋。  -- level 10: 经常 L2, 下棋 (not in list)
+  我们有一位非常好的厨师。  -- level 4: 位 L2, 厨师 L4
+  我不经常上ＱＱ。  -- level 2: 经常 L2
+  我再也不相信他了。  -- level 3: 相信 L3
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  他非常性感。  -- level 7: 性感 L7
+  他认为我非常的累。  -- level 3: 认为 L3, 累 L2
+  我经常想去那里。  -- level 2: 经常 L2
+  我七点钟再回来。  -- level 7: 钟 L7, 回来 L2
+  我们真的不知道，下次我们再也不这样了。  -- level 2: 次 L2, 这样 L2
+
+--- dropped at step 5b (3) ---
+  我们写汉字也非常好。  -- harder grammar: 3-60 (HSK 3)
+  我不想再见到他们。  -- harder grammar: 3-46 (HSK 3)
+  我不想再听到这事。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (14) ---
+  我非常喜欢英语。  -- rule: no match: line matched
+  我再也不喜欢你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  昨天天气非常好。  -- rule: no match: line matched
+  再见。  -- rule: no match: line matched
+  这是非常，非常不好的东西。  -- rule: no match: line matched
+  我非常喜欢这本书。  -- rule: no match: line matched
+  再见，Ian。  -- rule: no match: line matched
+  汤姆再也不会见你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  安娜再见！  -- rule: no match: line matched
+  我非常喜欢小狗。  -- rule: no match: line matched
+  我非常想见她。  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  非常好玩。  -- rule: no match: line matched
+  我再也不能工作了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+
+--- dropped at step 6b (5) ---
+  您不想再喝点茶吗？  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再玩了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再吃了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再做这个了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+  我不想再和汤姆说话了。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+
+--- dropped at step 7 (2) ---
+  我们不会再见你了。  -- check said no (2/2): Uses 再也不, which is NOT this point (expressing never again)
+  你不能再住在这边了。  -- check said no (1/2): 再 here means 'anymore/longer', not future repetition
+
+--- dropped at step 8 (1) ---
+  你想再要点茶吗？  -- difficulty review: (1/2); 点 used as a measure word for quantity ('some') is beyond HSK 1 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-12_level1_20261113_135348.csv
+
+########## tatoeba  2026-11-13 14:40 ##########
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 4 check and 4 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 1-12 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      715  2. contain the point's word(s)
+      714  3. new (not in DB, not a duplicate)
+      278  4. at most 2 characters outside HSK 1 words
+       29  5. really HSK 1
+       26  5b. no harder grammar point (of the 85 with a rule)
+       12  6. the rule finds 1-12
+       12  6b. no hidden word a learner can't work out
+        8  7. both checks say 1-12, English chosen
+        4  7b. second opinion: it is the point (check)
+        4  8. both difficulty reviews pass it
+        8  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (12) ===
+  再来！  (Again!)  [tatoeba 10981498]
+  再来一个！  (Another!)  [tatoeba 7767675]  hidden: 一个
+  我明天再做。  (I'll do it tomorrow.)  [tatoeba 8734952]
+  我今天去大学读书，明天我会再去。  (Today I went to university to study. Tomorrow I will go again.)  [tatoeba 1275314]
+  我不想再玩了。  (I don't want to play anymore.)  [tatoeba 4517860]  hidden: 不想
+  我不想再吃了。  (I don't want to eat again.)  [tatoeba 5714619]  hidden: 不想
+  你想再要点茶吗？  (Do you want some more tea?)  [tatoeba 5637377]
+  我不想再做这个了。  (I won't do this again.)  [tatoeba 6903771]  hidden: 不想, 这个
+  您不想再喝点茶吗？  (Won't you have some more tea?)  [tatoeba 423140]  hidden: 不想
+  我们不会再见你了。  (We won't see you again.)  [tatoeba 6940041]  hidden: 不会
+  你不能再住在这边了。  (You can't live on this side anymore.)  [tatoeba 480125]  hidden: 不能
+  我不想再和汤姆说话了。  (I don't want to talk to Tom anymore.)  [tatoeba 12686921]  hidden: 不想
+
+--- dropped at step 3 (1) ---
+  再见。  -- same text as tatoeba 2030795 (translations pooled)
+
+--- dropped at step 4 (436), first 12 ---
+  我经常忘记别人的名字。  -- 4 characters no HSK 1 word uses: 别忘经记
+  我经常做噩梦。  -- 3 characters no HSK 1 word uses: 噩梦经
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 1 word uses: 伊宁种类
+  人类在月球上居住已不再是梦想。  -- 5 characters no HSK 1 word uses: 居已梦球类
+  胜败是兵家常事。  -- 3 characters no HSK 1 word uses: 兵胜败
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 12 characters no HSK 1 word uses: 体别压就挺方查检王结血身
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  我打算绝不再喝酒。  -- 3 characters no HSK 1 word uses: 算绝酒
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 11 characters no HSK 1 word uses: 全化变室应效温球用词谈
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 16 characters no HSK 1 word uses: 且从信合已最此永海相经而记远适颗
+  为了给他生日惊喜，我准备了一个非常棒的蛋糕。  -- 6 characters no HSK 1 word uses: 为准备惊棒糕
+  这些高官和富商的大四合院常常有精美雕刻并粉刷的横梁和柱子，并伴有精心修剪的花园。  -- 19 characters no HSK 1 word uses: 伴修刷刻剪合园官富并心柱梁横粉精美花雕
+
+--- dropped at step 5 (249), first 12 ---
+  你等一会然后再给我打电话，可以吗？  -- level 3: 等 L2, 一会儿 L2, 然后 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3, 走 L2
+  我们经常下棋。  -- level 10: 经常 L2, 下棋 (not in list)
+  我们有一位非常好的厨师。  -- level 4: 位 L2, 厨师 L4
+  我不经常上ＱＱ。  -- level 2: 经常 L2
+  我再也不相信他了。  -- level 3: 相信 L3
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  他非常性感。  -- level 7: 性感 L7
+  他认为我非常的累。  -- level 3: 认为 L3, 累 L2
+  我经常想去那里。  -- level 2: 经常 L2
+  我七点钟再回来。  -- level 7: 钟 L7, 回来 L2
+  我们真的不知道，下次我们再也不这样了。  -- level 2: 次 L2, 这样 L2
+
+--- dropped at step 5b (3) ---
+  我们写汉字也非常好。  -- harder grammar: 3-60 (HSK 3)
+  我不想再见到他们。  -- harder grammar: 3-46 (HSK 3)
+  我不想再听到这事。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (14) ---
+  我非常喜欢英语。  -- rule: no match: line matched
+  我再也不喜欢你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  昨天天气非常好。  -- rule: no match: line matched
+  再见。  -- rule: no match: line matched
+  这是非常，非常不好的东西。  -- rule: no match: line matched
+  我非常喜欢这本书。  -- rule: no match: line matched
+  再见，Ian。  -- rule: no match: line matched
+  汤姆再也不会见你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  安娜再见！  -- rule: no match: line matched
+  我非常喜欢小狗。  -- rule: no match: line matched
+  我非常想见她。  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  非常好玩。  -- rule: no match: line matched
+  我再也不能工作了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+
+--- dropped at step 7 (0) ---
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-12_level1_20261113_144058.csv
+
+########## ai  2026-11-14 14:25 ##########
+
+----- AI-written sentences for 1-12, round 1: 0 to check, 8 needed -----
+  Asking claude-sonnet-5-5 to write 20 sentence(s)...
+
+----- AI-written sentences for 1-12, round 2: 20 to check, 8 needed -----
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 20
+
+Tagging 20 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_142530.txt
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 0  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-12 at HSK 1: funnel ===
+       20  AI-written sentences
+       20  1. have an English translation
+       20  2. contain the point's word(s)
+       20  3. new (not in DB, not a duplicate)
+       20  4. at most 0 characters outside HSK 1 words
+        8  5. really HSK 1
+        6  5b. no harder grammar point (of the 85 with a rule)
+        5  6. the rule finds 1-12
+        5  6b. no hidden word a learner can't work out
+        5  7. both checks say 1-12, English chosen
+        5  8. both difficulty reviews pass it
+
+=== Survivors (5) ===
+  我想再喝一杯水。  (I want to drink another glass of water.)  [tatoeba ai-78a576bbfb]
+  我下午再打电话。  (I'll call again in the afternoon.)  [tatoeba ai-829b7b46fb]
+  我想再买一件衣服。  (I want to buy another piece of clothing.)  [tatoeba ai-73a970a169]
+  我们明年再来中国。  (We'll come to China again next year.)  [tatoeba ai-e07ed06089]
+  这个很好吃，我想再吃一个。  (This is delicious. I want to eat another one.)  [tatoeba ai-ef5d164b27]  hidden: 这个, 一个
+
+--- dropped at step 5 (12) ---
+  我常常早上喝牛奶。  -- level 3: 常常 L3
+  他常常看电影。  -- level 3: 常常 L3
+  妈妈常常做饺子。  -- level 3: 常常 L3
+  我们常常在学校吃午饭。  -- level 3: 常常 L3
+  弟弟常常不睡觉。  -- level 3: 常常 L3
+  她常去书店买书。  -- level 3: 常 L3
+  你常来玩吧！  -- level 3: 常 L3
+  爸爸不常看电视。  -- level 3: 常 L3
+  老师常常问我问题。  -- level 3: 常常 L3
+  你们常常去哪儿玩？  -- level 3: 常常 L3
+  她常常生病。  -- level 3: 常常 L3
+  你可以再说一点儿吗？  -- level 4: 再说 L4
+
+--- dropped at step 5b (2) ---
+  明天我们再来吧。  -- harder grammar: 2-34 (HSK 2)
+  今天太冷了，我们明天再去玩吧。  -- harder grammar: 2-34 (HSK 2)
+
+--- dropped at step 6 (1) ---
+  我们星期天再见。  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-12_level1_20261114_142535.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+
+----- AI-written sentences for 1-12, round 3: 30 to check, 8 needed -----
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 30
+
+Tagging 10 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_142548.txt
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 0  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-12 at HSK 1: funnel ===
+       30  AI-written sentences
+       30  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       30  4. at most 0 characters outside HSK 1 words
+       11  5. really HSK 1
+        7  5b. no harder grammar point (of the 85 with a rule)
+        6  6. the rule finds 1-12
+        6  6b. no hidden word a learner can't work out
+        6  7. both checks say 1-12, English chosen
+        6  8. both difficulty reviews pass it
+
+=== Survivors (6) ===
+  我想再喝一杯水。  (I want to drink another glass of water.)  [tatoeba ai-78a576bbfb]
+  我下午再打电话。  (I'll call again in the afternoon.)  [tatoeba ai-829b7b46fb]
+  我想再买一件衣服。  (I want to buy another piece of clothing.)  [tatoeba ai-73a970a169]
+  我们明年再来中国。  (We'll come to China again next year.)  [tatoeba ai-e07ed06089]
+  弟弟想再吃两个包子。  (My younger brother wants to eat two more baozi.)  [tatoeba ai-ad45e0ba8a]
+  这个很好吃，我想再吃一个。  (This is delicious. I want to eat another one.)  [tatoeba ai-ef5d164b27]  hidden: 这个, 一个
+
+--- dropped at step 5 (19), first 12 ---
+  我常常早上喝牛奶。  -- level 3: 常常 L3
+  他常常看电影。  -- level 3: 常常 L3
+  妈妈常常做饺子。  -- level 3: 常常 L3
+  我们常常在学校吃午饭。  -- level 3: 常常 L3
+  弟弟常常不睡觉。  -- level 3: 常常 L3
+  她常去书店买书。  -- level 3: 常 L3
+  你常来玩吧！  -- level 3: 常 L3
+  爸爸不常看电视。  -- level 3: 常 L3
+  老师常常问我问题。  -- level 3: 常常 L3
+  你们常常去哪儿玩？  -- level 3: 常常 L3
+  她常常生病。  -- level 3: 常常 L3
+  你可以再说一点儿吗？  -- level 4: 再说 L4
+
+--- dropped at step 5b (4) ---
+  明天我们再来吧。  -- harder grammar: 2-34 (HSK 2)
+  今天太冷了，我们明天再去玩吧。  -- harder grammar: 2-34 (HSK 2)
+  这个电影很好看，我们再看一个吧。  -- harder grammar: 2-34 (HSK 2)
+  我现在很忙，晚上再打电话吧。  -- harder grammar: 2-34 (HSK 2)
+
+--- dropped at step 6 (1) ---
+  我们星期天再见。  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-12_level1_20261114_142552.csv
+
+########## ai  2026-11-14 14:56 ##########
+
+----- AI-written sentences for 1-12, round 1: 30 to check, 8 needed -----
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 30
+
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 0  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-12 at HSK 1: funnel ===
+       30  AI-written sentences
+       30  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       30  4. at most 0 characters outside HSK 1 words
+       11  5. really HSK 1
+        7  5b. no harder grammar point (of the 85 with a rule)
+        6  6. the rule finds 1-12
+        6  6b. no hidden word a learner can't work out
+        6  7. both checks say 1-12, English chosen
+        6  8. both difficulty reviews pass it
+
+=== Survivors (6) ===
+  我想再喝一杯水。  (I want to drink another glass of water.)  [tatoeba ai-78a576bbfb]
+  我下午再打电话。  (I'll call again in the afternoon.)  [tatoeba ai-829b7b46fb]
+  我想再买一件衣服。  (I want to buy another piece of clothing.)  [tatoeba ai-73a970a169]
+  我们明年再来中国。  (We'll come to China again next year.)  [tatoeba ai-e07ed06089]
+  弟弟想再吃两个包子。  (My younger brother wants to eat two more baozi.)  [tatoeba ai-ad45e0ba8a]
+  这个很好吃，我想再吃一个。  (This is delicious. I want to eat another one.)  [tatoeba ai-ef5d164b27]  hidden: 这个, 一个
+
+--- dropped at step 5 (19), first 12 ---
+  我常常早上喝牛奶。  -- level 3: 常常 L3
+  他常常看电影。  -- level 3: 常常 L3
+  妈妈常常做饺子。  -- level 3: 常常 L3
+  我们常常在学校吃午饭。  -- level 3: 常常 L3
+  弟弟常常不睡觉。  -- level 3: 常常 L3
+  她常去书店买书。  -- level 3: 常 L3
+  你常来玩吧！  -- level 3: 常 L3
+  爸爸不常看电视。  -- level 3: 常 L3
+  老师常常问我问题。  -- level 3: 常常 L3
+  你们常常去哪儿玩？  -- level 3: 常常 L3
+  她常常生病。  -- level 3: 常常 L3
+  你可以再说一点儿吗？  -- level 4: 再说 L4
+
+--- dropped at step 5b (4) ---
+  明天我们再来吧。  -- harder grammar: 2-34 (HSK 2)
+  今天太冷了，我们明天再去玩吧。  -- harder grammar: 2-34 (HSK 2)
+  这个电影很好看，我们再看一个吧。  -- harder grammar: 2-34 (HSK 2)
+  我现在很忙，晚上再打电话吧。  -- harder grammar: 2-34 (HSK 2)
+
+--- dropped at step 6 (1) ---
+  我们星期天再见。  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-12_level1_20261114_145636.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+
+----- AI-written sentences for 1-12, round 2: 40 to check, 8 needed -----
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 40
+
+Tagging 10 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_145646.txt
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 0  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-12 at HSK 1: funnel ===
+       40  AI-written sentences
+       40  1. have an English translation
+       40  2. contain the point's word(s)
+       40  3. new (not in DB, not a duplicate)
+       40  4. at most 0 characters outside HSK 1 words
+       14  5. really HSK 1
+        9  5b. no harder grammar point (of the 85 with a rule)
+        8  6. the rule finds 1-12
+        8  6b. no hidden word a learner can't work out
+        8  7. both checks say 1-12, English chosen
+        8  8. both difficulty reviews pass it
+
+=== Survivors (8) ===
+  我想再喝一杯水。  (I want to drink another glass of water.)  [tatoeba ai-78a576bbfb]
+  我下午再打电话。  (I'll call again in the afternoon.)  [tatoeba ai-829b7b46fb]
+  我想再买一件衣服。  (I want to buy another piece of clothing.)  [tatoeba ai-73a970a169]
+  我们明年再来中国。  (We'll come to China again next year.)  [tatoeba ai-e07ed06089]
+  爸爸想再喝一杯茶。  (Dad wants to drink another cup of tea.)  [tatoeba ai-ec2abc149a]
+  弟弟想再吃两个包子。  (My younger brother wants to eat two more baozi.)  [tatoeba ai-ad45e0ba8a]
+  这个很好吃，我想再吃一个。  (This is delicious. I want to eat another one.)  [tatoeba ai-ef5d164b27]  hidden: 这个, 一个
+  这个菜很好吃，我想再吃一点儿。  (This dish is delicious. I want to eat a little more.)  [tatoeba ai-86b85400b1]  hidden: 这个
+
+--- dropped at step 5 (26), first 12 ---
+  我常常早上喝牛奶。  -- level 3: 常常 L3
+  他常常看电影。  -- level 3: 常常 L3
+  妈妈常常做饺子。  -- level 3: 常常 L3
+  我们常常在学校吃午饭。  -- level 3: 常常 L3
+  弟弟常常不睡觉。  -- level 3: 常常 L3
+  她常去书店买书。  -- level 3: 常 L3
+  你常来玩吧！  -- level 3: 常 L3
+  爸爸不常看电视。  -- level 3: 常 L3
+  老师常常问我问题。  -- level 3: 常常 L3
+  你们常常去哪儿玩？  -- level 3: 常常 L3
+  她常常生病。  -- level 3: 常常 L3
+  你可以再说一点儿吗？  -- level 4: 再说 L4
+
+--- dropped at step 5b (5) ---
+  明天我们再来吧。  -- harder grammar: 2-34 (HSK 2)
+  今天太冷了，我们明天再去玩吧。  -- harder grammar: 2-34 (HSK 2)
+  这个电影很好看，我们再看一个吧。  -- harder grammar: 2-34 (HSK 2)
+  我现在很忙，晚上再打电话吧。  -- harder grammar: 2-34 (HSK 2)
+  你明天再来吧。  -- harder grammar: 2-34 (HSK 2)
+
+--- dropped at step 6 (1) ---
+  我们星期天再见。  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-12_level1_20261114_145651.csv
+
+########## tatoeba  2026-11-14 16:07 ##########
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 20  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-12 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      715  2. contain the point's word(s)
+      692  3. new (not in DB, not a duplicate)
+      257  4. at most 2 characters outside HSK 1 words
+       17  5. really HSK 1
+       14  5b. no harder grammar point (of the 86 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (23), first 12 ---
+  您不想再喝点茶吗？  -- already in the database
+  我不经常上ＱＱ。  -- already in the database
+  你不能再住在这边了。  -- already in the database
+  我经常想去那里。  -- already in the database
+  我今天去大学读书，明天我会再去。  -- already in the database
+  水果对身体非常好。  -- already in the database
+  我经常喝茶。  -- already in the database
+  他汉字写得非常好。  -- already in the database
+  我不想再玩了。  -- already in the database
+  您经常来这儿吗？  -- already in the database
+  你想再要点茶吗？  -- already in the database
+  我不想再吃了。  -- already in the database
+
+--- dropped at step 4 (435), first 12 ---
+  我经常忘记别人的名字。  -- 4 characters no HSK 1 word uses: 别忘经记
+  我经常做噩梦。  -- 3 characters no HSK 1 word uses: 噩梦经
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 1 word uses: 伊宁种类
+  人类在月球上居住已不再是梦想。  -- 5 characters no HSK 1 word uses: 居已梦球类
+  胜败是兵家常事。  -- 3 characters no HSK 1 word uses: 兵胜败
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 12 characters no HSK 1 word uses: 体别压就挺方查检王结血身
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  我打算绝不再喝酒。  -- 3 characters no HSK 1 word uses: 算绝酒
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 11 characters no HSK 1 word uses: 全化变室应效温球用词谈
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 16 characters no HSK 1 word uses: 且从信合已最此永海相经而记远适颗
+  为了给他生日惊喜，我准备了一个非常棒的蛋糕。  -- 6 characters no HSK 1 word uses: 为准备惊棒糕
+  这些高官和富商的大四合院常常有精美雕刻并粉刷的横梁和柱子，并伴有精心修剪的花园。  -- 19 characters no HSK 1 word uses: 伴修刷刻剪合园官富并心柱梁横粉精美花雕
+
+--- dropped at step 5 (240), first 12 ---
+  你等一会然后再给我打电话，可以吗？  -- level 3: 等 L2, 一会儿 L2, 然后 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3, 走 L2
+  我们经常下棋。  -- level 10: 经常 L2, 下棋 (not in list)
+  我们有一位非常好的厨师。  -- level 4: 位 L2, 厨师 L4
+  我再也不相信他了。  -- level 3: 相信 L3
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  他非常性感。  -- level 7: 性感 L7
+  他认为我非常的累。  -- level 3: 认为 L3, 累 L2
+  我七点钟再回来。  -- level 7: 钟 L7, 回来 L2
+  我们真的不知道，下次我们再也不这样了。  -- level 2: 次 L2, 这样 L2
+  我不会再抽烟了。  -- level 5: 抽 L5, 烟 L4
+  很高兴再次见到你。  -- level 4: 再次 L4
+
+--- dropped at step 5b (3) ---
+  我们写汉字也非常好。  -- harder grammar: 3-60 (HSK 3)
+  我不想再见到他们。  -- harder grammar: 3-46 (HSK 3)
+  我不想再听到这事。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (14) ---
+  我非常喜欢英语。  -- rule: no match: line matched
+  我再也不喜欢你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  昨天天气非常好。  -- rule: no match: line matched
+  再见。  -- rule: no match: line matched
+  这是非常，非常不好的东西。  -- rule: no match: line matched
+  我非常喜欢这本书。  -- rule: no match: line matched
+  再见，Ian。  -- rule: no match: line matched
+  汤姆再也不会见你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  安娜再见！  -- rule: no match: line matched
+  我非常喜欢小狗。  -- rule: no match: line matched
+  我非常想见她。  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  非常好玩。  -- rule: no match: line matched
+  我再也不能工作了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-12_level1_20261114_160759.csv
+
+########## ai  2026-11-14 16:12 ##########
+
+########## tatoeba  2026-11-14 16:29 ##########
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 4 check and 4 review rejection(s)...
+
+=== 1-12 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      715  2. contain the point's word(s)
+      714  3. new (not in DB, not a duplicate)
+      278  4. at most 2 characters outside HSK 1 words
+       29  5. really HSK 1
+       26  5b. no harder grammar point (of the 86 with a rule)
+       12  6. the rule finds 1-12
+       12  6b. no hidden word a learner can't work out
+        8  7. both checks say 1-12, English chosen
+        4  7b. second opinion: it is the point (check)
+        4  8. both difficulty reviews pass it
+        8  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (12) ===
+  再来！  (Again!)  [tatoeba 10981498]
+  再来一个！  (Another!)  [tatoeba 7767675]  hidden: 一个
+  我明天再做。  (I'll do it tomorrow.)  [tatoeba 8734952]
+  我今天去大学读书，明天我会再去。  (Today I went to university to study. Tomorrow I will go again.)  [tatoeba 1275314]
+  我不想再玩了。  (I don't want to play anymore.)  [tatoeba 4517860]  hidden: 不想
+  我不想再吃了。  (I don't want to eat again.)  [tatoeba 5714619]  hidden: 不想
+  你想再要点茶吗？  (Do you want some more tea?)  [tatoeba 5637377]
+  我不想再做这个了。  (I won't do this again.)  [tatoeba 6903771]  hidden: 不想, 这个
+  您不想再喝点茶吗？  (Won't you have some more tea?)  [tatoeba 423140]  hidden: 不想
+  我们不会再见你了。  (We won't see you again.)  [tatoeba 6940041]  hidden: 不会
+  你不能再住在这边了。  (You can't live on this side anymore.)  [tatoeba 480125]  hidden: 不能
+  我不想再和汤姆说话了。  (I don't want to talk to Tom anymore.)  [tatoeba 12686921]  hidden: 不想
+
+--- dropped at step 3 (1) ---
+  再见。  -- same text as 2030795 (translations pooled)
+
+--- dropped at step 4 (436), first 12 ---
+  我经常忘记别人的名字。  -- 4 characters no HSK 1 word uses: 别忘经记
+  我经常做噩梦。  -- 3 characters no HSK 1 word uses: 噩梦经
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 1 word uses: 伊宁种类
+  人类在月球上居住已不再是梦想。  -- 5 characters no HSK 1 word uses: 居已梦球类
+  胜败是兵家常事。  -- 3 characters no HSK 1 word uses: 兵胜败
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 12 characters no HSK 1 word uses: 体别压就挺方查检王结血身
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  我打算绝不再喝酒。  -- 3 characters no HSK 1 word uses: 算绝酒
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 11 characters no HSK 1 word uses: 全化变室应效温球用词谈
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 16 characters no HSK 1 word uses: 且从信合已最此永海相经而记远适颗
+  为了给他生日惊喜，我准备了一个非常棒的蛋糕。  -- 6 characters no HSK 1 word uses: 为准备惊棒糕
+  这些高官和富商的大四合院常常有精美雕刻并粉刷的横梁和柱子，并伴有精心修剪的花园。  -- 19 characters no HSK 1 word uses: 伴修刷刻剪合园官富并心柱梁横粉精美花雕
+
+--- dropped at step 5 (249), first 12 ---
+  你等一会然后再给我打电话，可以吗？  -- level 3: 等 L2, 一会儿 L2, 然后 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3, 走 L2
+  我们经常下棋。  -- level 10: 经常 L2, 下棋 (not in list)
+  我们有一位非常好的厨师。  -- level 4: 位 L2, 厨师 L4
+  我不经常上ＱＱ。  -- level 2: 经常 L2
+  我再也不相信他了。  -- level 3: 相信 L3
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  他非常性感。  -- level 7: 性感 L7
+  他认为我非常的累。  -- level 3: 认为 L3, 累 L2
+  我经常想去那里。  -- level 2: 经常 L2
+  我七点钟再回来。  -- level 7: 钟 L7, 回来 L2
+  我们真的不知道，下次我们再也不这样了。  -- level 2: 次 L2, 这样 L2
+
+--- dropped at step 5b (3) ---
+  我们写汉字也非常好。  -- harder grammar: 3-60 (HSK 3)
+  我不想再见到他们。  -- harder grammar: 3-46 (HSK 3)
+  我不想再听到这事。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (14) ---
+  我非常喜欢英语。  -- rule: no match: line matched
+  我再也不喜欢你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  昨天天气非常好。  -- rule: no match: line matched
+  再见。  -- rule: no match: line matched
+  这是非常，非常不好的东西。  -- rule: no match: line matched
+  我非常喜欢这本书。  -- rule: no match: line matched
+  再见，Ian。  -- rule: no match: line matched
+  汤姆再也不会见你了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  安娜再见！  -- rule: no match: line matched
+  我非常喜欢小狗。  -- rule: no match: line matched
+  我非常想见她。  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+  非常好玩。  -- rule: no match: line matched
+  我再也不能工作了。  -- rule: unless 再/AD 也 ; 再/AD ... 也
+
+--- dropped at step 7 (0) ---
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-12_level1_20261114_162945.csv
+
+########## ai  2026-11-14 16:33 ##########
+
+----- AI-written sentences for 1-12, round 1: 40 to check, 8 needed -----
+Filling 1-12 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 40
+
+Tagging 1 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_163345.txt
+
+Course sentences at HSK 1 the rule already finds 1-12 in: 0  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-12 at HSK 1: funnel ===
+       40  AI-written sentences
+       40  1. have an English translation
+       40  2. contain the point's word(s)
+       40  3. new (not in DB, not a duplicate)
+       40  4. at most 0 characters outside HSK 1 words
+       14  5. really HSK 1
+        9  5b. no harder grammar point (of the 86 with a rule)
+        8  6. the rule finds 1-12
+        8  6b. no hidden word a learner can't work out
+        8  7. both checks say 1-12, English chosen
+        8  8. both difficulty reviews pass it
+
+=== Survivors (8) ===
+  我想再喝一杯水。  (I want to drink another glass of water.)  [tatoeba ai-78a576bbfb]
+  我下午再打电话。  (I'll call again in the afternoon.)  [tatoeba ai-829b7b46fb]
+  我想再买一件衣服。  (I want to buy another piece of clothing.)  [tatoeba ai-73a970a169]
+  我们明年再来中国。  (We'll come to China again next year.)  [tatoeba ai-e07ed06089]
+  爸爸想再喝一杯茶。  (Dad wants to drink another cup of tea.)  [tatoeba ai-ec2abc149a]
+  弟弟想再吃两个包子。  (My younger brother wants to eat two more baozi.)  [tatoeba ai-ad45e0ba8a]
+  这个很好吃，我想再吃一个。  (This is delicious. I want to eat another one.)  [tatoeba ai-ef5d164b27]  hidden: 这个, 一个
+  这个菜很好吃，我想再吃一点儿。  (This dish is delicious. I want to eat a little more.)  [tatoeba ai-86b85400b1]  hidden: 这个
+
+--- dropped at step 5 (26), first 12 ---
+  我常常早上喝牛奶。  -- level 3: 常常 L3
+  他常常看电影。  -- level 3: 常常 L3
+  妈妈常常做饺子。  -- level 3: 常常 L3
+  我们常常在学校吃午饭。  -- level 3: 常常 L3
+  弟弟常常不睡觉。  -- level 3: 常常 L3
+  她常去书店买书。  -- level 3: 常 L3
+  你常来玩吧！  -- level 3: 常 L3
+  爸爸不常看电视。  -- level 3: 常 L3
+  老师常常问我问题。  -- level 3: 常常 L3
+  你们常常去哪儿玩？  -- level 3: 常常 L3
+  她常常生病。  -- level 3: 常常 L3
+  你可以再说一点儿吗？  -- level 4: 再说 L4
+
+--- dropped at step 5b (5) ---
+  明天我们再来吧。  -- harder grammar: 2-34 (HSK 2)
+  今天太冷了，我们明天再去玩吧。  -- harder grammar: 2-34 (HSK 2)
+  这个电影很好看，我们再看一个吧。  -- harder grammar: 2-34 (HSK 2)
+  我现在很忙，晚上再打电话吧。  -- harder grammar: 2-34 (HSK 2)
+  你明天再来吧。  -- harder grammar: 2-34 (HSK 2)
+
+--- dropped at step 6 (1) ---
+  我们星期天再见。  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-12_level1_20261114_163345.csv

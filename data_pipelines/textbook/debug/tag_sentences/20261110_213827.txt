@@ -1,0 +1,21 @@
+2026-11-10 21:38:27,234  INFO     === tag_sentences.py run started ===
+2026-11-10 21:38:27,652  INFO     OK        hanlp-valid   '原因呢？' -> [('原因', 'NN'), ('呢', 'SP')]
+2026-11-10 21:38:27,653  INFO     TAGGED    '原因呢？' (level 4, 2 tags)
+2026-11-10 21:38:27,663  INFO     OK        hanlp-valid   '能不能请你告诉我Wi-Fi的密码呢?' -> [('能不能', 'VV'), ('请', 'VV'), ('你', 'PN'), ('告诉', 'VV'), ('我', 'PN'), ('Wi-Fi', 'NN'), ('的', 'DEG'), ('密码', 'NN'), ('呢', 'SP')]
+2026-11-10 21:38:27,669  INFO     TAGGED    '能不能请你告诉我Wi-Fi的密码呢?' (level 4, 10 tags)
+2026-11-10 21:38:27,678  INFO     FALLBACK  '我是同性恋，所以呢？' -- out-of-list word(s): ['同性恋']
+2026-11-10 21:38:27,678  WARNING    HAIKU resegment call for '我是同性恋，所以呢？' (cache miss on [('同性恋', 'NN')])
+2026-11-10 21:38:27,689  INFO       NON-LIST 同性恋 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-10 21:38:27,690  INFO     TAGGED    '我是同性恋，所以呢？' (level 10, 5 tags)
+2026-11-10 21:38:28,112  INFO     FALLBACK  '我以为汤姆要来这里呢。' -- out-of-list word(s): ['汤姆']
+2026-11-10 21:38:28,113  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('以为', 'VV'), ('汤姆', 'NN'), ('要', 'VV'), ('来', 'VV'), ('这里', 'PN'), ('呢', 'SP')]
+2026-11-10 21:38:28,115  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-10 21:38:28,116  INFO     TAGGED    '我以为汤姆要来这里呢。' (level 10, 7 tags)
+2026-11-10 21:38:28,125  INFO     OK        hanlp-valid   '不然呢！' -> [('不然', 'VV'), ('呢', 'SP')]
+2026-11-10 21:38:28,134  INFO     TAGGED    '不然呢！' (level 5, 2 tags)
+2026-11-10 21:38:28,143  INFO     OK        hanlp-valid   '我才不管你累不累呢。' -> [('我', 'PN'), ('才', 'AD'), ('不管', 'VV'), ('你', 'PN'), ('累', 'VA'), ('不', 'AD'), ('累', 'VA'), ('呢', 'SP')]
+2026-11-10 21:38:28,145  INFO     TAGGED    '我才不管你累不累呢。' (level 4, 8 tags)
+2026-11-10 21:38:28,154  INFO     FALLBACK  '贝斯手呢？' -- out-of-list word(s): ['贝斯']
+2026-11-10 21:38:28,154  WARNING    HAIKU resegment call for '贝斯手呢？' (cache miss on [('贝斯', 'NR')])
+2026-11-10 21:38:28,163  INFO       NON-LIST 贝斯 (NR) -> '(name) bei4si1' [proper_noun]
+2026-11-10 21:38:28,164  INFO     TAGGED    '贝斯手呢？' (level 2, 3 tags)

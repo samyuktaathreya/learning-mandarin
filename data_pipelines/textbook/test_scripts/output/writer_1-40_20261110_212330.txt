@@ -1,0 +1,54 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 15046 characters -->
+## 1-40
+**Point:** Expressing change of state, "now," "anymore," or "already" with sentence-final 了
+
+**Covers:** Sentences where 了 at the end of a clause indicates a new situation or change (adjectives becoming true, verbs describing new states, negated verbs/nouns indicating something no longer exists or is no longer done), including: "I'm hungry" (state change), "It's raining" (new situation), "I don't want to eat anymore" (negation + change), "He's coming now" (new situation), "There's no paper anymore" (negated noun + change).
+
+**Does not cover:** 
+- 了 after a verb but before an object or complement (completion/perfective aspect): 做完了工作, 买到了票
+- 了 in questions with 吗: 你吃饭了吗？, 他来了吗？
+- Expressions with 太...了 (excessively): 太脏了, 太好了
+- Expressions with ...点儿: 短了点儿, 咸了点儿
+- Expressions with ...死了 (intensifiers): 饿死了, 累坏了
+- Expressions with 快...了 (about to happen): 快下雨了, 快到了
+- Duration expressions with double 了: 睡了一天了, 开了两个小时了
+- Result complements: 完了, 坏了 in 说完了, 高兴坏了
+- 过...了 (experiential aspect): 吃过了, 洗过澡了
+- Other advanced le constructions and complement forms
+
+```rule
+match: ... /VA 了/SP $
+match: ... /VA 了/AS $
+match: ... /VV 了/SP $
+match: ... /VV 了/AS $
+match: ... /VE 了/SP $
+match: ... /VE 了/AS $
+match: ^ /VV 了/SP $
+match: ^ /VA 了/SP $
+match: /AD 不/AD /VV 了/SP $
+match: /AD 不/AD /VV 了/AS $
+match: /VE ... 了/SP $
+match: /VE ... 了/AS $
+match: /AD 已经/AD /AD 不/AD /VV 了/SP $
+match: /AD 已经/AD /AD 不/AD /VV 了/AS $
+match: /AD 已经/AD /VE 了/SP $
+match: /AD 已经/AD /VE 了/AS $
+unless: ... /AS 吗/SP $
+unless: 太/AD ... 了/SP $
+unless: ... 点/CD 儿/CD $
+unless: ... 极/AD 了/SP $
+unless: ... 死/VV 了/SP $
+unless: ... 坏/VV 了/SP $
+unless: 快/AD ... 了/SP $
+unless: 快/VA ... 了/SP $
+unless: ... /AS 一/CD ... 了/SP $
+unless: 别/AD ... 了/AS $
+unless: ... /VV /VV 了/AS
+unless: ... /VV 到/VV 了/AS
+unless: ... /VV 完/VV 了/AS
+unless: ... /VV 完/VV 了/SP
+unless: ... /VV 赢/VV 了/AS
+unless: ... /VV 过/AS 了/SP
+```
+
+**Notes:** The core pattern is sentence-final 了 (tagged SP or AS) that indicates a change of state. This excludes 了 that comes before objects or complements (tagged AS mid-clause). The rule requires 了 at the end of a clause ($). Negation patterns with 不 or 没有/VE are included. Watch for false positives with 吗 (questions should be excluded), 太 (excessively), and result complements like 坏/死. Duration double-了 is excluded via the "one/CD in middle" pattern.

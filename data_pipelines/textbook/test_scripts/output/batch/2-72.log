@@ -17,3 +17,777 @@ unrelated:
 [warning] no page teaches this point: the rule would only have the list's own examples to go on.
 
 Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-72
+
+########## rules  2026-11-10 21:26 ##########
+
+########## rules  2026-11-11 14:18 ##########
+
+########## rules  2026-11-12 17:31 ##########
+1 page(s) use the word(s); asking about 1.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGK904U  Ordinal numbers with "di"
+
+not:
+
+unsure:
+
+unrelated:
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-72
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-72
+<!-- written by claude-haiku-4-5 on 2026-11-12; edit freely -->
+**Point:** Ordinal numbers formed with 第 (dì) prefix + number, optionally followed by measure word and noun
+
+**Covers:** Sentences using 第 + number (tagged as CD or OD) to express ordinal position, with or without a following measure word and noun. Includes cases where 第 and number are tagged separately (第/OD 一/CD or 第/OD 一/OD) or together (第一/CD).
+
+**Does not cover:** Uses of 第 that are not ordinal expressions (e.g., as a particle in other contexts); ordinal nouns that form ordinals without 第 (like 七楼 "seventh floor"); HSK 3-01 usage of 第-, 老-, or 小- as prefixes modifying proper nouns.
+
+```rule
+match: 第 _ /CD|OD
+match: 第/CD _ /CD|OD
+match: 第/OD _ /CD|OD
+match: 第 _ /M
+match: 第/CD _ /M
+match: 第/OD _ /M
+unless: 第 _? /CD|OD /NR
+unless: 第/CD _? /CD|OD /NR
+unless: 第/OD _? /CD|OD /NR
+```
+
+**Notes:** The rule matches 第 followed by a number token (CD or OD tag), with optional intervening word. This covers both tagged-together (第一/CD) and tagged-separately (第/OD 一/OD) tokenizations seen in the data. The unless clauses prevent false matches when a proper noun immediately follows, which would indicate non-ordinal usage. The rule is intentionally broad to capture the full range of ordinal constructions (with and without measure words/nouns following), since the grammar point is about the ordinal formation itself, not the specific presence of modifying nouns.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-72
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-72: rule on labeled examples (no AI) ===
+  examples of 2-72 matched:    0/14
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+--- examples of 2-72 the rule misses (14) ---
+  我是第一个到公司的人。  -- ASGK904U Ordinal numbers with "di"
+  他要坐早上第一班地铁去上班。  -- ASGK904U Ordinal numbers with "di"
+  小李是她的第三个男朋友。  -- ASGK904U Ordinal numbers with "di"
+  我的第一个中文老师是美国人。  -- ASGK904U Ordinal numbers with "di"
+  爸爸的第一个手机是NOKIA。  -- ASGK904U Ordinal numbers with "di"
+  你的第一个工作是什么？  -- ASGK904U Ordinal numbers with "di"
+  到美国的第二个月，我找到了工作。  -- ASGK904U Ordinal numbers with "di"
+  第二行第五个汉字怎么读？  -- ASGK904U Ordinal numbers with "di"
+  这次考试，我是我们班第一。  -- ASGK904U Ordinal numbers with "di"
+  这次比赛，我们班第一，他们班第二。  -- ASGK904U Ordinal numbers with "di"
+  第一天，我们在宾馆里。  -- ASGK904U Ordinal numbers with "di"
+  来上海以后的第二年，他开了这家公司。  -- ASGK904U Ordinal numbers with "di"
+  下个月的第一周老板要出差。  -- ASGK904U Ordinal numbers with "di"
+  这是我第一次去北京。  -- ASGK904U Ordinal numbers with "di"
+  easy examples (words all HSK 2 or below) matched: 0/7   <- needs 60%
+
+########## rules  2026-11-12 21:12 ##########
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-72: rule on labeled examples (no AI) ===
+  examples of 2-72 matched:    14/14
+  counter-examples wrongly matched: 0/0   <- should be 0
+  easy examples (words all HSK 2 or below) matched: 7/7   <- needs 60%
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-72 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 3 Tatoeba candidate(s) (cached after this run)...
+  Written without 儿, counted as the list word: 一会=一会儿 一点=一点儿 个头=个头儿 人缘=人缘儿 冰棍=冰棍儿 大伙=大伙儿 女孩=女孩儿 好玩=好玩儿 小偷=小偷儿 小孩=小孩儿 差点=差点儿 干活=干活儿 心眼=心眼儿 打盹=打盹儿 有点=有点儿 模特=模特儿 没准=没准儿 没法=没法儿 玩意=玩意儿 男孩=男孩儿 离谱=离谱儿 纳闷=纳闷儿 老伴=老伴儿 聊天=聊天儿 面条=面条儿
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_211526.txt
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  是次 = 是 + 次  ((formal) this time)
+    hidden  开口 = 开 + 口  (to open one's mouth; to start to talk)
+
+Course sentences at HSK 2 the rule already finds 2-72 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-72 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      145  2. contain the point's word(s)
+      145  3. new (not in DB, not a duplicate)
+       63  4. at most 2 characters outside HSK 2 words
+       14  5. really HSK 2
+       11  5b. no harder grammar point (of the 39 with a rule)
+       11  6. the rule finds 2-72
+        8  6b. no hidden word a learner can't work out
+        6  7. both checks say 2-72, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  我是第一。  (I'm first.)  [tatoeba 8686688]
+  这是我的第一次。  (This is my first time.)  [tatoeba 1523540]  hidden: 一次
+  这次是我第二次去纽约了。  (I will have been to New York twice this time.)  [tatoeba 13890631]
+
+--- dropped at step 4 (82), first 12 ---
+  马来西亚第六任首相是拿督斯利纳吉·阿都拉萨。  -- 13 characters no HSK 2 word uses: 亚任利吉拉斯相督纳萨阿首马
+  我通过汉语水平考试并考到了最高等第。  -- 3 characters no HSK 2 word uses: 平并通
+  医生们拒绝做第二次手术。  -- 3 characters no HSK 2 word uses: 拒术绝
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  我们的国家于1941年设计了第一台电子计算机。  -- 5 characters no HSK 2 word uses: 于台算计设
+  我是倒数第二个得知这个坏消息的。  -- 3 characters no HSK 2 word uses: 倒数消
+  斯科特是第一个到达极点的人。  -- 5 characters no HSK 2 word uses: 斯极特科达
+  我们队输了第一场比赛。  -- 3 characters no HSK 2 word uses: 赛输队
+  传话游戏是世界通行的游戏。由第一个人传话给另一个，另一个再传给下一个，传至队伍尾端时，最后一位玩家将对其他玩家宣布所听到的词语。  -- 17 characters no HSK 2 word uses: 世伍传其另宣将尾布戏由界端至行通队
+  自信是伟大事业的第一要素。  -- 4 characters no HSK 2 word uses: 业伟信素
+  在人际交往中，第一印象决定着将要发生的事情内容的百分之五十以上。  -- 10 characters no HSK 2 word uses: 之内决印发定容将象际
+  在这个世界上，有一个我们不能涉足、不该涉足的领域。认识到这样的存在并接受它，对它表示绝对的敬意，是一切信仰的第一步。  -- 16 characters no HSK 2 word uses: 世仰信切受域存并接敬涉界示绝该领
+
+--- dropped at step 5 (49), first 12 ---
+  我们的朋友完成了比赛，得了第二名。  -- level 6: 完成 L3, 比赛 L3, 得了 L6
+  生活第一！  -- level 3: 生活 L3
+  他买的第一项东西是一个闹钟。  -- level 5: 项 L4, 闹钟 L5
+  人生里的第一次，Yuka 读完了一本英语书。  -- level 4: 人生 L4
+  那是她第一份工作。  -- level 4: 份 L4
+  第二课非常简单。  -- level 3: 简单 L3
+  我到家后做的第一件事便是脱鞋。  -- level 5: 便 L5, 脱 L4, 鞋 L3
+  我第一次知道这个网站。  -- level 3: 网站 L3
+  我永远不会忘记那天我第一次与他见面。  -- level 4: 永远 L4, 忘记 L3, 与 L4, 见面 L3
+  我大学里的第一天相当没意思。  -- level 5: 相当 L5
+  她以前是第一夫人。  -- level 6: 以前 L3, 夫人 L6
+  这是我第二次来到这座小镇。  -- level 6: 座 L4, 镇 L6
+
+--- dropped at step 5b (3) ---
+  我昨天第一次见到他。  -- harder grammar: 3-46 (HSK 3)
+  我第一次见到她是在京都。  -- harder grammar: 3-46 (HSK 3)
+  我第一次做到。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6b (3) ---
+  这是第一次。  -- hidden word a learner can't work out: 是次 ((formal) this time)
+  他这样已经不是第一次了。  -- hidden word a learner can't work out: 是次 ((formal) this time)
+  我是第一个开口说话的人。  -- hidden word a learner can't work out: 开口 (to open one's mouth; to start to talk)
+
+--- dropped at step 7 (2) ---
+  这是第一点。  -- check said no (1/2): 第一点 is fixed expression meaning 'first point/item'
+  我正在去第四医院的路上。  -- check said no (2/2): 第四医院 is proper noun (hospital name), not ordinal expression
+
+--- dropped at step 8 (3) ---
+  第一天怎么样？  -- difficulty review: (1/2); Uses 第 (ordinal marker) which is HSK 3 grammar point 3-01, not HSK 2
+  今天是第一天。  -- difficulty review: (1/2); Uses 第 (ordinal marker) which is HSK 3 grammar point 3-01, not HSK 2
+  你是第一次来韩国吗？  -- difficulty review: (1/2); Uses 第 (ordinal marker) which is HSK 3 grammar point 3-01, not HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-72_level2_20261112_211540.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:55 ##########
+Filling 2-72 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-72 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-72 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      145  2. contain the point's word(s)
+      145  3. new (not in DB, not a duplicate)
+       63  4. at most 2 characters outside HSK 2 words
+       14  5. really HSK 2
+       11  5b. no harder grammar point (of the 43 with a rule)
+       11  6. the rule finds 2-72
+        8  6b. no hidden word a learner can't work out
+        6  7. both checks say 2-72, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  我是第一。  (I'm first.)  [tatoeba 8686688]
+  这是我的第一次。  (This is my first time.)  [tatoeba 1523540]  hidden: 一次
+  这次是我第二次去纽约了。  (I will have been to New York twice this time.)  [tatoeba 13890631]
+
+--- dropped at step 4 (82), first 12 ---
+  马来西亚第六任首相是拿督斯利纳吉·阿都拉萨。  -- 13 characters no HSK 2 word uses: 亚任利吉拉斯相督纳萨阿首马
+  我通过汉语水平考试并考到了最高等第。  -- 3 characters no HSK 2 word uses: 平并通
+  医生们拒绝做第二次手术。  -- 3 characters no HSK 2 word uses: 拒术绝
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  我们的国家于1941年设计了第一台电子计算机。  -- 5 characters no HSK 2 word uses: 于台算计设
+  我是倒数第二个得知这个坏消息的。  -- 3 characters no HSK 2 word uses: 倒数消
+  斯科特是第一个到达极点的人。  -- 5 characters no HSK 2 word uses: 斯极特科达
+  我们队输了第一场比赛。  -- 3 characters no HSK 2 word uses: 赛输队
+  传话游戏是世界通行的游戏。由第一个人传话给另一个，另一个再传给下一个，传至队伍尾端时，最后一位玩家将对其他玩家宣布所听到的词语。  -- 17 characters no HSK 2 word uses: 世伍传其另宣将尾布戏由界端至行通队
+  自信是伟大事业的第一要素。  -- 4 characters no HSK 2 word uses: 业伟信素
+  在人际交往中，第一印象决定着将要发生的事情内容的百分之五十以上。  -- 10 characters no HSK 2 word uses: 之内决印发定容将象际
+  在这个世界上，有一个我们不能涉足、不该涉足的领域。认识到这样的存在并接受它，对它表示绝对的敬意，是一切信仰的第一步。  -- 16 characters no HSK 2 word uses: 世仰信切受域存并接敬涉界示绝该领
+
+--- dropped at step 5 (49), first 12 ---
+  我们的朋友完成了比赛，得了第二名。  -- level 6: 完成 L3, 比赛 L3, 得了 L6
+  生活第一！  -- level 3: 生活 L3
+  他买的第一项东西是一个闹钟。  -- level 5: 项 L4, 闹钟 L5
+  人生里的第一次，Yuka 读完了一本英语书。  -- level 4: 人生 L4
+  那是她第一份工作。  -- level 4: 份 L4
+  第二课非常简单。  -- level 3: 简单 L3
+  我到家后做的第一件事便是脱鞋。  -- level 5: 便 L5, 脱 L4, 鞋 L3
+  我第一次知道这个网站。  -- level 3: 网站 L3
+  我永远不会忘记那天我第一次与他见面。  -- level 4: 永远 L4, 忘记 L3, 与 L4, 见面 L3
+  我大学里的第一天相当没意思。  -- level 5: 相当 L5
+  她以前是第一夫人。  -- level 6: 以前 L3, 夫人 L6
+  这是我第二次来到这座小镇。  -- level 6: 座 L4, 镇 L6
+
+--- dropped at step 5b (3) ---
+  我昨天第一次见到他。  -- harder grammar: 3-46 (HSK 3)
+  我第一次见到她是在京都。  -- harder grammar: 3-46 (HSK 3)
+  我第一次做到。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6b (3) ---
+  这是第一次。  -- hidden word a learner can't work out: 是次 ((formal) this time)
+  他这样已经不是第一次了。  -- hidden word a learner can't work out: 是次 ((formal) this time)
+  我是第一个开口说话的人。  -- hidden word a learner can't work out: 开口 (to open one's mouth; to start to talk)
+
+--- dropped at step 7 (2) ---
+  这是第一点。  -- check said no (1/2): 第一点 is fixed expression meaning 'first point/item'
+  我正在去第四医院的路上。  -- check said no (2/2): 第四医院 is proper noun (hospital name), not ordinal expression
+
+--- dropped at step 8 (3) ---
+  第一天怎么样？  -- difficulty review: (1/2); Uses 第 (ordinal marker) which is HSK 3 grammar point 3-01, not HSK 2
+  今天是第一天。  -- difficulty review: (1/2); Uses 第 (ordinal marker) which is HSK 3 grammar point 3-01, not HSK 2
+  你是第一次来韩国吗？  -- difficulty review: (1/2); Uses 第 (ordinal marker) which is HSK 3 grammar point 3-01, not HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-72_level2_20261113_135519.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:46 ##########
+Filling 2-72 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  是次 = 是 + 次  ((formal) this time)
+    hidden  开口 = 开 + 口  (to open one's mouth; to start to talk)
+
+Course sentences at HSK 2 the rule already finds 2-72 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 2 check and 3 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 2-72 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      145  2. contain the point's word(s)
+      145  3. new (not in DB, not a duplicate)
+       63  4. at most 2 characters outside HSK 2 words
+       14  5. really HSK 2
+       11  5b. no harder grammar point (of the 42 with a rule)
+       11  6. the rule finds 2-72
+        8  6b. no hidden word a learner can't work out
+        6  7. both checks say 2-72, English chosen
+        1  7b. second opinion: it is the point (check)
+        3  8. both difficulty reviews pass it
+        3  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  我是第一。  (I'm first.)  [tatoeba 8686688]
+  这是我的第一次。  (This is my first time.)  [tatoeba 1523540]  hidden: 一次
+  这次是我第二次去纽约了。  (I will have been to New York twice this time.)  [tatoeba 13890631]
+  这是第一点。  (That’s the first point.)  [tatoeba 2367523]
+  第一天怎么样？  (How's the first day?)  [tatoeba 6172105]
+  今天是第一天。  (Today is the first day.)  [tatoeba 13203871]
+  你是第一次来韩国吗？  (Is this your first time in Korea?)  [tatoeba 7704622]  hidden: 一次
+
+--- dropped at step 4 (82), first 12 ---
+  马来西亚第六任首相是拿督斯利纳吉·阿都拉萨。  -- 13 characters no HSK 2 word uses: 亚任利吉拉斯相督纳萨阿首马
+  我通过汉语水平考试并考到了最高等第。  -- 3 characters no HSK 2 word uses: 平并通
+  医生们拒绝做第二次手术。  -- 3 characters no HSK 2 word uses: 拒术绝
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  我们的国家于1941年设计了第一台电子计算机。  -- 5 characters no HSK 2 word uses: 于台算计设
+  我是倒数第二个得知这个坏消息的。  -- 3 characters no HSK 2 word uses: 倒数消
+  斯科特是第一个到达极点的人。  -- 5 characters no HSK 2 word uses: 斯极特科达
+  我们队输了第一场比赛。  -- 3 characters no HSK 2 word uses: 赛输队
+  传话游戏是世界通行的游戏。由第一个人传话给另一个，另一个再传给下一个，传至队伍尾端时，最后一位玩家将对其他玩家宣布所听到的词语。  -- 17 characters no HSK 2 word uses: 世伍传其另宣将尾布戏由界端至行通队
+  自信是伟大事业的第一要素。  -- 4 characters no HSK 2 word uses: 业伟信素
+  在人际交往中，第一印象决定着将要发生的事情内容的百分之五十以上。  -- 10 characters no HSK 2 word uses: 之内决印发定容将象际
+  在这个世界上，有一个我们不能涉足、不该涉足的领域。认识到这样的存在并接受它，对它表示绝对的敬意，是一切信仰的第一步。  -- 16 characters no HSK 2 word uses: 世仰信切受域存并接敬涉界示绝该领
+
+--- dropped at step 5 (49), first 12 ---
+  我们的朋友完成了比赛，得了第二名。  -- level 6: 完成 L3, 比赛 L3, 得了 L6
+  生活第一！  -- level 3: 生活 L3
+  他买的第一项东西是一个闹钟。  -- level 5: 项 L4, 闹钟 L5
+  人生里的第一次，Yuka 读完了一本英语书。  -- level 4: 人生 L4
+  那是她第一份工作。  -- level 4: 份 L4
+  第二课非常简单。  -- level 3: 简单 L3
+  我到家后做的第一件事便是脱鞋。  -- level 5: 便 L5, 脱 L4, 鞋 L3
+  我第一次知道这个网站。  -- level 3: 网站 L3
+  我永远不会忘记那天我第一次与他见面。  -- level 4: 永远 L4, 忘记 L3, 与 L4, 见面 L3
+  我大学里的第一天相当没意思。  -- level 5: 相当 L5
+  她以前是第一夫人。  -- level 6: 以前 L3, 夫人 L6
+  这是我第二次来到这座小镇。  -- level 6: 座 L4, 镇 L6
+
+--- dropped at step 5b (3) ---
+  我昨天第一次见到他。  -- harder grammar: 3-46 (HSK 3)
+  我第一次见到她是在京都。  -- harder grammar: 3-46 (HSK 3)
+  我第一次做到。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6b (3) ---
+  这是第一次。  -- hidden word a learner can't work out: 是次 ((formal) this time)
+  他这样已经不是第一次了。  -- hidden word a learner can't work out: 是次 ((formal) this time)
+  我是第一个开口说话的人。  -- hidden word a learner can't work out: 开口 (to open one's mouth; to start to talk)
+
+--- dropped at step 7 (1) ---
+  我正在去第四医院的路上。  -- check said no (2/2): 第四医院 is proper noun (hospital name), not ordinal expression
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-72_level2_20261113_144621.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## ai  2026-11-14 14:43 ##########
+
+----- AI-written sentences for 2-72, round 1: 0 to check, 11 needed -----
+  Asking claude-sonnet-5-5 to write 28 sentence(s)...
+
+----- AI-written sentences for 2-72, round 2: 28 to check, 11 needed -----
+Filling 2-72 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 28
+
+Tagging 28 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_144414.txt
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  打的 = 打 + 的  ((coll.) to take a taxi; to go by taxi)
+     clear  完了 = 完 + 了  (to be finished; to be done for)
+
+Course sentences at HSK 2 the rule already finds 2-72 in: 2  -> Tatoeba needs to add 11 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-72 at HSK 2: funnel ===
+       28  AI-written sentences
+       28  1. have an English translation
+       28  2. contain the point's word(s)
+       28  3. new (not in DB, not a duplicate)
+       28  4. at most 0 characters outside HSK 2 words
+       28  5. really HSK 2
+       27  5b. no harder grammar point (of the 42 with a rule)
+       27  6. the rule finds 2-72
+       26  6b. no hidden word a learner can't work out
+       19  7. both checks say 2-72, English chosen
+       18  8. both difficulty reviews pass it
+  (6 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (18) ===
+  第二课很有意思。  (Lesson 2 is very interesting.)  [tatoeba ai-427c46f8fa]
+  他是第四个到的。  (He was the fourth to arrive.)  [tatoeba ai-44b2bbaf34]
+  你是第几个到的?  (What number were you to arrive?)  [tatoeba ai-006db46eec]  hidden: 几个
+  我女儿是第二名。  (My daughter came in second place.)  [tatoeba ai-db1b65a508]
+  他第六个到学校。  (He was the sixth to get to school.)  [tatoeba ai-dbc7527ba2]
+  第一个星期很忙。  (The first week was very busy.)  [tatoeba ai-e0d43b2765]
+  他是我们班第一名。  (He is first in our class.)  [tatoeba ai-d65dd2c94e]
+  明天第一课是汉语。  (Tomorrow's first class is Chinese.)  [tatoeba ai-6612a4e822]
+  第三个问题我不懂。  (I don't understand the third question.)  [tatoeba ai-24b422cb55]
+  第二件衣服很便宜。  (The second piece of clothing is very cheap.)  [tatoeba ai-8c22d4758d]
+  爷爷第一次看电影。  (Grandpa is watching a movie for the first time.)  [tatoeba ai-b7ebf5d619]
+  她第三次考试很好。  (She did very well on her third exam.)  [tatoeba ai-f74e3cd483]
+  弟弟第一个喝完了水。  (My younger brother was the first to finish his water.)  [tatoeba ai-39bad0b5b6]  hidden: 完了
+  我每天早上第一个起床。  (I'm the first to get up every morning.)  [tatoeba ai-2daf1108bf]  hidden: 每天
+  这是我今天第三杯咖啡。  (This is my third cup of coffee today.)  [tatoeba ai-aa689e5cfe]
+  我哥哥今年第一次出国。  (My older brother is going abroad for the first time this year.)  [tatoeba ai-12a2ab2532]
+  第二天,我们去游泳了。  (The next day, we went swimming.)  [tatoeba ai-e0d61d37ab]
+  今天是我工作的第三天。  (Today is my third day of work.)  [tatoeba ai-7168bbee21]
+
+--- dropped at step 5b (1) ---
+  请打开书,我们学第五课。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  第一个电话是妈妈打的。  -- hidden word a learner can't work out: 打的 ((coll.) to take a taxi; to go by taxi)
+
+--- dropped at step 7 (1) ---
+  这是你第几次来中国?  -- no accurate English among: How many times have you been to China?
+
+--- dropped at step 8 (1) ---
+  他的第二个孩子是女孩儿。  -- difficulty review: (2/2); 儿化 suffix (女孩儿) is HSK 3 construction 3-02
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-72_level2_20261114_144428.csv
+
+########## ai  2026-11-14 15:02 ##########
+
+----- AI-written sentences for 2-72, round 1: 28 to check, 11 needed -----
+Filling 2-72 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 28
+
+
+Course sentences at HSK 2 the rule already finds 2-72 in: 2  -> Tatoeba needs to add 11 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-72 at HSK 2: funnel ===
+       28  AI-written sentences
+       28  1. have an English translation
+       28  2. contain the point's word(s)
+       28  3. new (not in DB, not a duplicate)
+       28  4. at most 0 characters outside HSK 2 words
+       28  5. really HSK 2
+       27  5b. no harder grammar point (of the 42 with a rule)
+       27  6. the rule finds 2-72
+       26  6b. no hidden word a learner can't work out
+       19  7. both checks say 2-72, English chosen
+       18  8. both difficulty reviews pass it
+  (6 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (18) ===
+  第二课很有意思。  (Lesson 2 is very interesting.)  [tatoeba ai-427c46f8fa]
+  他是第四个到的。  (He was the fourth to arrive.)  [tatoeba ai-44b2bbaf34]
+  你是第几个到的?  (What number were you to arrive?)  [tatoeba ai-006db46eec]  hidden: 几个
+  我女儿是第二名。  (My daughter came in second place.)  [tatoeba ai-db1b65a508]
+  他第六个到学校。  (He was the sixth to get to school.)  [tatoeba ai-dbc7527ba2]
+  第一个星期很忙。  (The first week was very busy.)  [tatoeba ai-e0d43b2765]
+  他是我们班第一名。  (He is first in our class.)  [tatoeba ai-d65dd2c94e]
+  明天第一课是汉语。  (Tomorrow's first class is Chinese.)  [tatoeba ai-6612a4e822]
+  第三个问题我不懂。  (I don't understand the third question.)  [tatoeba ai-24b422cb55]
+  第二件衣服很便宜。  (The second piece of clothing is very cheap.)  [tatoeba ai-8c22d4758d]
+  爷爷第一次看电影。  (Grandpa is watching a movie for the first time.)  [tatoeba ai-b7ebf5d619]
+  她第三次考试很好。  (She did very well on her third exam.)  [tatoeba ai-f74e3cd483]
+  弟弟第一个喝完了水。  (My younger brother was the first to finish his water.)  [tatoeba ai-39bad0b5b6]  hidden: 完了
+  我每天早上第一个起床。  (I'm the first to get up every morning.)  [tatoeba ai-2daf1108bf]  hidden: 每天
+  这是我今天第三杯咖啡。  (This is my third cup of coffee today.)  [tatoeba ai-aa689e5cfe]
+  我哥哥今年第一次出国。  (My older brother is going abroad for the first time this year.)  [tatoeba ai-12a2ab2532]
+  第二天,我们去游泳了。  (The next day, we went swimming.)  [tatoeba ai-e0d61d37ab]
+  今天是我工作的第三天。  (Today is my third day of work.)  [tatoeba ai-7168bbee21]
+
+--- dropped at step 5b (1) ---
+  请打开书,我们学第五课。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  第一个电话是妈妈打的。  -- hidden word a learner can't work out: 打的 ((coll.) to take a taxi; to go by taxi)
+
+--- dropped at step 7 (1) ---
+  这是你第几次来中国?  -- no accurate English among: How many times have you been to China?
+
+--- dropped at step 8 (1) ---
+  他的第二个孩子是女孩儿。  -- difficulty review: (2/2); 儿化 suffix (女孩儿) is HSK 3 construction 3-02
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-72_level2_20261114_150201.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:11 ##########
+Filling 2-72 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-72 in: 20  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-72 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      145  2. contain the point's word(s)
+      138  3. new (not in DB, not a duplicate)
+       56  4. at most 2 characters outside HSK 2 words
+        7  5. really HSK 2
+        4  5b. no harder grammar point (of the 42 with a rule)
+        4  6. the rule finds 2-72
+        1  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (1 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (7) ---
+  这是我的第一次。  -- already in the database
+  这是第一点。  -- already in the database
+  第一天怎么样？  -- already in the database
+  你是第一次来韩国吗？  -- already in the database
+  我是第一。  -- already in the database
+  今天是第一天。  -- already in the database
+  这次是我第二次去纽约了。  -- already in the database
+
+--- dropped at step 4 (82), first 12 ---
+  马来西亚第六任首相是拿督斯利纳吉·阿都拉萨。  -- 13 characters no HSK 2 word uses: 亚任利吉拉斯相督纳萨阿首马
+  我通过汉语水平考试并考到了最高等第。  -- 3 characters no HSK 2 word uses: 平并通
+  医生们拒绝做第二次手术。  -- 3 characters no HSK 2 word uses: 拒术绝
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  我们的国家于1941年设计了第一台电子计算机。  -- 5 characters no HSK 2 word uses: 于台算计设
+  我是倒数第二个得知这个坏消息的。  -- 3 characters no HSK 2 word uses: 倒数消
+  斯科特是第一个到达极点的人。  -- 5 characters no HSK 2 word uses: 斯极特科达
+  我们队输了第一场比赛。  -- 3 characters no HSK 2 word uses: 赛输队
+  传话游戏是世界通行的游戏。由第一个人传话给另一个，另一个再传给下一个，传至队伍尾端时，最后一位玩家将对其他玩家宣布所听到的词语。  -- 17 characters no HSK 2 word uses: 世伍传其另宣将尾布戏由界端至行通队
+  自信是伟大事业的第一要素。  -- 4 characters no HSK 2 word uses: 业伟信素
+  在人际交往中，第一印象决定着将要发生的事情内容的百分之五十以上。  -- 10 characters no HSK 2 word uses: 之内决印发定容将象际
+  在这个世界上，有一个我们不能涉足、不该涉足的领域。认识到这样的存在并接受它，对它表示绝对的敬意，是一切信仰的第一步。  -- 16 characters no HSK 2 word uses: 世仰信切受域存并接敬涉界示绝该领
+
+--- dropped at step 5 (49), first 12 ---
+  我们的朋友完成了比赛，得了第二名。  -- level 6: 完成 L3, 比赛 L3, 得了 L6
+  生活第一！  -- level 3: 生活 L3
+  他买的第一项东西是一个闹钟。  -- level 5: 项 L4, 闹钟 L5
+  人生里的第一次，Yuka 读完了一本英语书。  -- level 4: 人生 L4
+  那是她第一份工作。  -- level 4: 份 L4
+  第二课非常简单。  -- level 3: 简单 L3
+  我到家后做的第一件事便是脱鞋。  -- level 5: 便 L5, 脱 L4, 鞋 L3
+  我第一次知道这个网站。  -- level 3: 网站 L3
+  我永远不会忘记那天我第一次与他见面。  -- level 4: 永远 L4, 忘记 L3, 与 L4, 见面 L3
+  我大学里的第一天相当没意思。  -- level 5: 相当 L5
+  她以前是第一夫人。  -- level 6: 以前 L3, 夫人 L6
+  这是我第二次来到这座小镇。  -- level 6: 座 L4, 镇 L6
+
+--- dropped at step 5b (3) ---
+  我昨天第一次见到他。  -- harder grammar: 3-46 (HSK 3)
+  我第一次见到她是在京都。  -- harder grammar: 3-46 (HSK 3)
+  我第一次做到。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6b (3) ---
+  这是第一次。  -- hidden word a learner can't work out: 是次 ((formal) this time)
+  他这样已经不是第一次了。  -- hidden word a learner can't work out: 是次 ((formal) this time)
+  我是第一个开口说话的人。  -- hidden word a learner can't work out: 开口 (to open one's mouth; to start to talk)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-72_level2_20261114_161133.csv
+
+########## ai  2026-11-14 16:14 ##########
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:32 ##########
+Filling 2-72 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-72 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 2 check and 3 review rejection(s)...
+
+=== 2-72 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      145  2. contain the point's word(s)
+      145  3. new (not in DB, not a duplicate)
+       63  4. at most 2 characters outside HSK 2 words
+       14  5. really HSK 2
+       11  5b. no harder grammar point (of the 42 with a rule)
+       11  6. the rule finds 2-72
+        8  6b. no hidden word a learner can't work out
+        6  7. both checks say 2-72, English chosen
+        1  7b. second opinion: it is the point (check)
+        3  8. both difficulty reviews pass it
+        3  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  我是第一。  (I'm first.)  [tatoeba 8686688]
+  这是我的第一次。  (This is my first time.)  [tatoeba 1523540]  hidden: 一次
+  这次是我第二次去纽约了。  (I will have been to New York twice this time.)  [tatoeba 13890631]
+  这是第一点。  (That’s the first point.)  [tatoeba 2367523]
+  第一天怎么样？  (How's the first day?)  [tatoeba 6172105]
+  今天是第一天。  (Today is the first day.)  [tatoeba 13203871]
+  你是第一次来韩国吗？  (Is this your first time in Korea?)  [tatoeba 7704622]  hidden: 一次
+
+--- dropped at step 4 (82), first 12 ---
+  马来西亚第六任首相是拿督斯利纳吉·阿都拉萨。  -- 13 characters no HSK 2 word uses: 亚任利吉拉斯相督纳萨阿首马
+  我通过汉语水平考试并考到了最高等第。  -- 3 characters no HSK 2 word uses: 平并通
+  医生们拒绝做第二次手术。  -- 3 characters no HSK 2 word uses: 拒术绝
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  我们的国家于1941年设计了第一台电子计算机。  -- 5 characters no HSK 2 word uses: 于台算计设
+  我是倒数第二个得知这个坏消息的。  -- 3 characters no HSK 2 word uses: 倒数消
+  斯科特是第一个到达极点的人。  -- 5 characters no HSK 2 word uses: 斯极特科达
+  我们队输了第一场比赛。  -- 3 characters no HSK 2 word uses: 赛输队
+  传话游戏是世界通行的游戏。由第一个人传话给另一个，另一个再传给下一个，传至队伍尾端时，最后一位玩家将对其他玩家宣布所听到的词语。  -- 17 characters no HSK 2 word uses: 世伍传其另宣将尾布戏由界端至行通队
+  自信是伟大事业的第一要素。  -- 4 characters no HSK 2 word uses: 业伟信素
+  在人际交往中，第一印象决定着将要发生的事情内容的百分之五十以上。  -- 10 characters no HSK 2 word uses: 之内决印发定容将象际
+  在这个世界上，有一个我们不能涉足、不该涉足的领域。认识到这样的存在并接受它，对它表示绝对的敬意，是一切信仰的第一步。  -- 16 characters no HSK 2 word uses: 世仰信切受域存并接敬涉界示绝该领
+
+--- dropped at step 5 (49), first 12 ---
+  我们的朋友完成了比赛，得了第二名。  -- level 6: 完成 L3, 比赛 L3, 得了 L6
+  生活第一！  -- level 3: 生活 L3
+  他买的第一项东西是一个闹钟。  -- level 5: 项 L4, 闹钟 L5
+  人生里的第一次，Yuka 读完了一本英语书。  -- level 4: 人生 L4
+  那是她第一份工作。  -- level 4: 份 L4
+  第二课非常简单。  -- level 3: 简单 L3
+  我到家后做的第一件事便是脱鞋。  -- level 5: 便 L5, 脱 L4, 鞋 L3
+  我第一次知道这个网站。  -- level 3: 网站 L3
+  我永远不会忘记那天我第一次与他见面。  -- level 4: 永远 L4, 忘记 L3, 与 L4, 见面 L3
+  我大学里的第一天相当没意思。  -- level 5: 相当 L5
+  她以前是第一夫人。  -- level 6: 以前 L3, 夫人 L6
+  这是我第二次来到这座小镇。  -- level 6: 座 L4, 镇 L6
+
+--- dropped at step 5b (3) ---
+  我昨天第一次见到他。  -- harder grammar: 3-46 (HSK 3)
+  我第一次见到她是在京都。  -- harder grammar: 3-46 (HSK 3)
+  我第一次做到。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6b (3) ---
+  这是第一次。  -- hidden word a learner can't work out: 是次 ((formal) this time)
+  他这样已经不是第一次了。  -- hidden word a learner can't work out: 是次 ((formal) this time)
+  我是第一个开口说话的人。  -- hidden word a learner can't work out: 开口 (to open one's mouth; to start to talk)
+
+--- dropped at step 7 (1) ---
+  我正在去第四医院的路上。  -- check said no (2/2): 第四医院 is proper noun (hospital name), not ordinal expression
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-72_level2_20261114_163244.csv
+
+########## ai  2026-11-14 16:36 ##########
+
+----- AI-written sentences for 2-72, round 1: 28 to check, 11 needed -----
+Filling 2-72 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 28
+
+Tagging 1 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_163622.txt
+
+Course sentences at HSK 2 the rule already finds 2-72 in: 2  -> Tatoeba needs to add 11 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-72 at HSK 2: funnel ===
+       28  AI-written sentences
+       28  1. have an English translation
+       28  2. contain the point's word(s)
+       28  3. new (not in DB, not a duplicate)
+       28  4. at most 0 characters outside HSK 2 words
+       28  5. really HSK 2
+       28  5b. no harder grammar point (of the 42 with a rule)
+       28  6. the rule finds 2-72
+       27  6b. no hidden word a learner can't work out
+       19  7. both checks say 2-72, English chosen
+       19  8. both difficulty reviews pass it
+  (7 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (19) ===
+  第二课很有意思。  (Lesson 2 is very interesting.)  [tatoeba ai-427c46f8fa]
+  他是第四个到的。  (He was the fourth to arrive.)  [tatoeba ai-44b2bbaf34]
+  你是第几个到的?  (What number were you to arrive?)  [tatoeba ai-006db46eec]  hidden: 几个
+  我女儿是第二名。  (My daughter came in second place.)  [tatoeba ai-db1b65a508]
+  他第六个到学校。  (He was the sixth to get to school.)  [tatoeba ai-dbc7527ba2]
+  第一个星期很忙。  (The first week was very busy.)  [tatoeba ai-e0d43b2765]
+  他是我们班第一名。  (He is first in our class.)  [tatoeba ai-d65dd2c94e]
+  明天第一课是汉语。  (Tomorrow's first class is Chinese.)  [tatoeba ai-6612a4e822]
+  第三个问题我不懂。  (I don't understand the third question.)  [tatoeba ai-24b422cb55]
+  第二件衣服很便宜。  (The second piece of clothing is very cheap.)  [tatoeba ai-8c22d4758d]
+  爷爷第一次看电影。  (Grandpa is watching a movie for the first time.)  [tatoeba ai-b7ebf5d619]
+  她第三次考试很好。  (She did very well on her third exam.)  [tatoeba ai-f74e3cd483]
+  弟弟第一个喝完了水。  (My younger brother was the first to finish his water.)  [tatoeba ai-39bad0b5b6]  hidden: 完了
+  我每天早上第一个起床。  (I'm the first to get up every morning.)  [tatoeba ai-2daf1108bf]  hidden: 每天
+  这是我今天第三杯咖啡。  (This is my third cup of coffee today.)  [tatoeba ai-aa689e5cfe]
+  我哥哥今年第一次出国。  (My older brother is going abroad for the first time this year.)  [tatoeba ai-12a2ab2532]
+  第二天,我们去游泳了。  (The next day, we went swimming.)  [tatoeba ai-e0d61d37ab]
+  今天是我工作的第三天。  (Today is my third day of work.)  [tatoeba ai-7168bbee21]
+  请打开书,我们学第五课。  (Please open your books; we're studying Lesson 5.)  [tatoeba ai-b3a10a5c12]
+
+--- dropped at step 6b (1) ---
+  第一个电话是妈妈打的。  -- hidden word a learner can't work out: 打的 ((coll.) to take a taxi; to go by taxi)
+
+--- dropped at step 7 (1) ---
+  这是你第几次来中国?  -- no accurate English among: How many times have you been to China?
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-72_level2_20261114_163625.csv

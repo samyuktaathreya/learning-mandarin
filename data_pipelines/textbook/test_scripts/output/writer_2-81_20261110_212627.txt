@@ -1,0 +1,33 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 8530 characters -->
+## 2-81
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** Expressing "about to" with 要/快要/就要⋯⋯了
+
+**Covers:** Sentences with 就要 or 快要 followed by a verb phrase and 了, and clause-initial 要 + verb or adjective + 了 (e.g. 要下雨了). Also covers 还有 + number + duration + 就 (要) + verb + 了, which marks an event that is a set time away.
+
+**Does not cover:** 要 meaning "want" or "need"; 要不是 "if it weren't for"; 要不然/不然 "otherwise"; 要不 "how about"; 要是 "if"; 不要 negative commands; 要 + verb as future intention with a specific future time; other uses of 要 with different meanings.
+
+```rule
+match: 就/AD 要/VV ... 了/SP
+match: 就/AD 要/VV ... 了/AS
+match: 快要/AD ... 了/SP
+match: 快要/AD ... 了/AS
+match: 快/AD 要/VV ... 了/SP
+match: 快/AD 要/VV ... 了/AS
+match: ^ 要/VV /VV|VA ... 了/SP
+match: 还/AD 有 /CD ... 就/AD ... 了/SP
+match: 还/AD 有 /CD ... 就/AD ... 了/AS
+unless: 不/AD 要/VV
+unless: 要/VV 不/AD
+unless: 要 不然
+unless: 要不然
+unless: 不然
+unless: 想/VV 要/VV
+unless: 非/AD 要/VV
+unless: 总/AD 要/VV
+unless: 要/VV 看/VV
+unless: 要是
+unless: 要不是
+```
+
+**Notes:** The counter-example 要不然饭就凉了 matched because 不然 is one token, so the old 要 不 exclusion missed it. I added exclusions for 要不然 and 不然. Bare clause-initial 要 now needs a verb or adjective right after it, so 要 followed by a conjunction or adverb (such as 不然) no longer matches. The other exclusions (不要, 要不, 想要, 非要, 总要, 要看, 要是/要不是) are unchanged.

@@ -1,0 +1,36 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 10214 characters -->
+## 3-79
+**Point:** Expressing "already" with 都⋯⋯了, emphasizing that something has already happened, with a tone implying the speaker's attitude
+
+**Covers:** (1) Clause-initial 都 + time/quantity expression + 了, e.g. 都九点了, 都三天了. (2) A singular subject + 都 + verb/adjective + 了, e.g. 饭都凉了, 他都道歉了, 我都说了三遍了, 你都看过了.
+
+**Does not cover:** 都 meaning "all/everyone" (plural or quantified subjects, question words), 也都, 从来都, 都 inside 不管/无论/何况/连 constructions, 全都, 除了⋯⋯都, and "no matter what/when" uses of 都.
+
+```rule
+match: ^ 都/AD /CD /M|NT|NN /NN? 了/AS|SP $
+match: ^ ... /NN 都/AD /VA 了/AS|SP
+match: ^ ... 我|你|他|她|它 都/AD /VV 了/AS|SP
+match: ^ ... 我|你|他|她|它 都/AD /VV 过/AS 了/SP
+match: ^ ... 我|你|他|她|它 都/AD /VV 了/AS ... 了/SP
+unless: 我们|你们|他们|她们|它们|咱们|大家 ... 都/AD
+unless: 每|各|所有|很多|许多|全部 ... 都/AD
+unless: ^ 都/AD ... /CS
+unless: 从来 ... 都/AD
+unless: 不管 ... 都/AD
+unless: 无论 ... 都/AD
+unless: 连 ... 都/AD
+unless: 全 ... 都/AD
+unless: 全都
+unless: 除了 ... 都/AD
+unless: 什么 ... 都/AD
+unless: 谁 ... 都/AD
+unless: 哪|哪儿|哪里 ... 都/AD
+unless: 什么时候 ... 都/AD
+unless: 怎么 ... 都/AD
+unless: 多少 ... 都/AD
+unless: 也/AD 都/AD
+unless: 何况
+unless: 更不用说
+```
+
+**Notes:** The first line handles the time/quantity type (都 + number + measure/noun + 了 at the end of the clause). The other lines handle the "subject + 都 + predicate + 了" type, deliberately limited to a noun subject with an adjective predicate or a singular pronoun (我/你/他/她/它) with a verb. This avoids the "all" reading of 都 in sentences like 他们都去了. The unless lines exclude plural or quantified subjects, question words, 也都, and the 连/不管/无论/除了/何况/从来/全 constructions.

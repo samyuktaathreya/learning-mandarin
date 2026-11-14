@@ -1,0 +1,22 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 12334 characters -->
+## 2-14
+**Point:** Adverbs 全, 只, 一共 to indicate scope: "all/entire," "only," or "total"
+**Covers:** 全/全都 meaning "all/entire" (with 都); 只/只有 meaning "only" (before verbs or with quantity); 一共 meaning "in total"
+**Does not cover:** 只好 (forced to), 只要 (as long as), 只有...才 (only if...then), 不只 (not only), 只 as a measure word, 全 as adjective modifier without 都, or 有 after other words
+
+```rule
+match: 全/DT ... 都/AD
+match: 全都/AD
+match: 全/AD ... (都/AD)?
+match: 只/AD (会|能)?/VV
+match: 只有/AD /CD
+match: 一共/AD
+unless: 只好/AD
+unless: 只要/CS
+unless: 只有/CS
+unless: 不/AD 只
+unless: _ 只/M _
+unless: 只/M _
+```
+
+**Notes:** The rule focuses on the canonical uses: 全 with 都 for "all," 只 before verbs for "only," 只有 before numbers for "only have," and 一共 for "total." The unless clauses filter out 只好, 只要, 只有...才, 不只...也, and 只 as a measure word (which has tag M). The pattern "全/AD" without 都 is included because 全身 (whole body) and similar fixed phrases may appear tagged as AD without following 都.

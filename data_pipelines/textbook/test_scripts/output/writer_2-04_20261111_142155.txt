@@ -1,0 +1,103 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 9722 characters -->
+## 2-04
+**Point:** Verb reduplication (AA, A一A, A了A, ABAB) to express "a little bit" or a brief action
+**Covers:** Sentences where the same verb is repeated: AA (看看), A一A (想一想), A了A (看了看), or a two-syllable verb repeated whole (ABAB, 休息休息). The rule lists specific common verbs because it cannot check that two tokens are identical.
+**Does not cover:** Two different consecutive verbs (e.g. 会说, 想吃, 能坐). Verb + 一 + measure word or noun. 了 used as a completion aspect particle. Any other use of 一 or 了 without verb reduplication.
+
+```rule
+match: 看看|试试|说说|玩玩|走走|听听|尝尝|找找|查查|读读|写写|想想|问问|学学|聊聊|逛逛|练练|洗洗|坐坐|讲讲|唱唱|跳跳|跑跑|歇歇
+match: 看 看
+match: 试 试
+match: 说 说
+match: 玩 玩
+match: 走 走
+match: 听 听
+match: 尝 尝
+match: 找 找
+match: 查 查
+match: 读 读
+match: 写 写
+match: 想 想
+match: 问 问
+match: 学 学
+match: 聊 聊
+match: 逛 逛
+match: 练 练
+match: 洗 洗
+match: 坐 坐
+match: 讲 讲
+match: 唱 唱
+match: 跳 跳
+match: 跑 跑
+match: 歇 歇
+match: 看 一 看
+match: 试 一 试
+match: 说 一 说
+match: 玩 一 玩
+match: 走 一 走
+match: 听 一 听
+match: 尝 一 尝
+match: 找 一 找
+match: 查 一 查
+match: 读 一 读
+match: 写 一 写
+match: 想 一 想
+match: 问 一 问
+match: 学 一 学
+match: 聊 一 聊
+match: 逛 一 逛
+match: 练 一 练
+match: 洗 一 洗
+match: 坐 一 坐
+match: 讲 一 讲
+match: 唱 一 唱
+match: 跳 一 跳
+match: 笑 一 笑
+match: 用 一 用
+match: 笑 笑
+match: 用 用
+match: 看 了 看
+match: 试 了 试
+match: 说 了 说
+match: 玩 了 玩
+match: 走 了 走
+match: 听 了 听
+match: 尝 了 尝
+match: 找 了 找
+match: 查 了 查
+match: 读 了 读
+match: 写 了 写
+match: 想 了 想
+match: 问 了 问
+match: 学 了 学
+match: 聊 了 聊
+match: 逛 了 逛
+match: 笑 了 笑
+match: 用 了 用
+match: 休息休息|考虑考虑|商量商量|介绍介绍|研究研究|锻炼锻炼|收拾收拾|了解了解|打扫打扫|放松放松|整理整理|准备准备|讨论讨论|复习复习|学习学习|参观参观|检查检查
+match: 休息 休息
+match: 考虑 考虑
+match: 商量 商量
+match: 介绍 介绍
+match: 研究 研究
+match: 锻炼 锻炼
+match: 收拾 收拾
+match: 了解 了解
+match: 打扫 打扫
+match: 放松 放松
+match: 整理 整理
+match: 准备 准备
+match: 讨论 讨论
+match: 复习 复习
+match: 学习 学习
+match: 参观 参观
+match: 检查 检查
+```
+
+**Notes:**
+- The old rule matched any two adjacent verbs (/VV /VV), which wrongly caught modal + verb sequences such as 会说, 想吃 and 能坐. The syntax has no way to require identical tokens.
+- The fix is to list the specific verbs that are commonly reduplicated, so only a true repetition can match.
+- Both tokenizations are covered: a reduplicated verb as one token (看看) and as two tokens (看 看).
+- Tags are left out of the patterns because the tagger's output for these tokens is unreliable. The repeated word itself is the evidence.
+- No unless lines are needed. The listed verbs can only match when repeated, and A一A and A了A require the exact 一 or 了 between the two identical verbs.
+- The list can be extended with more verbs, but it should stay limited to verbs that are really reduplicated.

@@ -40,6 +40,8 @@ async def grade_english_to_chinese(payload: dict, db: Session = Depends(get_db))
     """
     Branches on question_type:
       - LISTENING (transcription): strict pinyin comparison, word order enforced.
+      - FILL IN THE BLANK: characters only (no pinyin); a strict AI grade
+        (traditional characters or another fully correct word are fine).
       - TRANSLATION (everything else): meaning-based AI grade against the question.
       
     Expected payload: { user_answer, expected_answer, question_type, question? }

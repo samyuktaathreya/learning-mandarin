@@ -1,0 +1,16 @@
+2026-11-12 17:37:17,504  INFO     === tag_sentences.py run started ===
+2026-11-12 17:37:17,524  INFO     OK        hanlp-valid   '隔壁的男孩常常晚回家。' -> [('隔壁', 'NN'), ('的', 'DEG'), ('男孩儿', 'NN'), ('常常', 'AD'), ('晚', 'AD'), ('回家', 'VV')]
+2026-11-12 17:37:17,532  INFO     TAGGED    '隔壁的男孩常常晚回家。' (level 6, 7 tags)
+2026-11-12 17:37:20,336  INFO     FALLBACK  '男孩到家了。' -- out-of-list word(s): ['到家']
+2026-11-12 17:37:20,336  WARNING    HAIKU resegment call for '男孩到家了。' (cache miss on [('到家', 'VV')])
+2026-11-12 17:37:20,347  INFO     TAGGED    '男孩到家了。' (level 2, 4 tags)
+2026-11-12 17:37:21,559  INFO     FALLBACK  '汤姆是个小男孩。' -- out-of-list word(s): ['汤姆']
+2026-11-12 17:37:21,559  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('是', 'VC'), ('个', 'M'), ('小', 'JJ'), ('男孩儿', 'NN')]
+2026-11-12 17:37:21,561  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-12 17:37:21,562  INFO     TAGGED    '汤姆是个小男孩。' (level 10, 5 tags)
+2026-11-12 17:37:22,791  INFO     OK        hanlp-valid   '老师给小孩一本书。' -> [('老师', 'NN'), ('给', 'VV'), ('小孩儿', 'NN'), ('一', 'CD'), ('本', 'M'), ('书', 'NN')]
+2026-11-12 17:37:22,794  INFO     TAGGED    '老师给小孩一本书。' (level 2, 6 tags)
+2026-11-12 17:37:22,803  INFO     FALLBACK  '给汤姆一点时间。' -- out-of-list word(s): ['汤姆']
+2026-11-12 17:37:22,803  INFO       CACHE-ONLY resegmentation -> [('给', 'VV'), ('汤姆', 'NN'), ('一点儿', 'CD'), ('时间', 'NN')]
+2026-11-12 17:37:22,805  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-12 17:37:22,806  INFO     TAGGED    '给汤姆一点时间。' (level 10, 4 tags)

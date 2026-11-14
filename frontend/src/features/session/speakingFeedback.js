@@ -10,7 +10,8 @@
  *   { mode, transcription, transcription_pinyin, expected_pinyin, is_correct,
  *     error?, hallucination?,
  *     assessment only: accuracy, accuracy_threshold, accuracy_ok, tone_ok,
- *                      feedback, phonemes, weakest_phoneme }
+ *                      feedback, phonemes, weakest_phoneme,
+ *     characters: [{ char, syllable, accuracy, status }] (see scoreCharacters) }
  * is_correct means "sounded right". It drives the message and, for sentences,
  * whether shadowing is offered.
  */
@@ -95,6 +96,77 @@ function lcsLength(a, b) {
     return row[b.length];
 }
 
+// ---------------------------------------------------------------- per character
+
+const LOW_ACCURACY = 70;
+
+// Per target syllable: 'good' (heard as expected), 'off' (something was said
+// there, but not this) or 'missing' (nothing was said there). Exact matches,
+// in order, anchor the alignment; each gap between them is 'off' if the user
+// said something in it and 'missing' if not.
+function syllableStatuses(heard, target) {
+    const n = heard.length, m = target.length;
+    const t = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0));
+    for (let i = n - 1; i >= 0; i--) {
+        for (let j = m - 1; j >= 0; j--) {
+            t[i][j] = heard[i] === target[j] ? t[i + 1][j + 1] + 1 : Math.max(t[i + 1][j], t[i][j + 1]);
+        }
+    }
+    const status = new Array(m).fill(null);
+    let i = 0, j = 0;
+    let gap = [], heardInGap = 0;
+    const closeGap = () => {
+        gap.forEach((k) => { status[k] = heardInGap ? 'off' : 'missing'; });
+        gap = [];
+        heardInGap = 0;
+    };
+    while (j < m) {
+        if (i < n && heard[i] === target[j]) {
+            closeGap();
+            status[j] = 'good';
+            i++; j++;
+        } else if (i < n && t[i + 1][j] >= t[i][j + 1]) {
+            heardInGap++; i++;
+        } else {
+            gap.push(j); j++;
+        }
+    }
+    heardInGap += n - i;
+    closeGap();
+    return status;
+}
+
+// One entry per character of the text shown to the user: { char, status },
+// status 'good' | 'off' | 'missing', or null for punctuation.
+// scores (words only): Azure's per-character accuracy, which catches a bad
+// sound even when Azure "heard" the right character.
+function scoreCharacters(pinyin, text, heardSyllables, scores = null) {
+    const cjk = [...text].filter((ch) => CJK.test(ch));
+    const target = toNumbered(pinyin, cjk.join(''));
+    if (target.length !== cjk.length) return [];
+    const statuses = syllableStatuses(heardSyllables, target);
+    let idx = 0;
+    return [...text].map((char) => {
+        if (!CJK.test(char)) return { char, status: null };
+        const k = idx++;
+        let status = statuses[k];
+        if (status === 'good' && scores?.[k] != null && scores[k] < LOW_ACCURACY) status = 'off';
+        return { char, status };
+    });
+}
+
+// Azure's word scores flattened to one accuracy per character, or null if
+// they don't line up with the text.
+function accuracyPerChar(words = [], text) {
+    const scores = [];
+    for (const w of words) {
+        const chars = [...stripPunct(w.word)];
+        const perSyllable = w.syllables.length === chars.length;
+        chars.forEach((_, i) => scores.push(perSyllable ? (w.syllables[i].accuracy ?? w.accuracy) : w.accuracy));
+    }
+    return scores.length === [...stripPunct(text)].length ? scores : null;
+}
+
 // ---------------------------------------------------------------- results
 
 export async function buildSpeakingResult(raw, q) {
@@ -131,6 +203,22 @@ function tonesPlausible(pinyin, recognized, reference, answer) {
     });
 }
 
+// Words: what Azure heard, as syllables. A heard character with several
+// readings counts as the target syllable if any reading matches (as in tonesPlausible).
+function heardSyllables(pinyin, recognized, reference, answer) {
+    const heard = toNumbered(pinyin, recognized);
+    const target = toNumbered(pinyin, reference);
+    const heardChars = [...recognized];
+    if (heardChars.length !== heard.length) return heard;
+    const refChars = [...reference];
+    const display = splitSyllables(answer); // with sandhi (ni2hao3)
+    return heardChars.map((ch, i) => {
+        if (ch === refChars[i]) return target[i];
+        const readings = allReadings(pinyin, ch);
+        return [target[i], display[i]].some((t) => t && readingMatches(readings, t)) ? target[i] : heard[i];
+    });
+}
+
 function assessmentResult(pinyin, raw, q, base) {
     const recognized = stripPunct(raw.text);
     const reference = stripPunct(referenceTextFor(q));
@@ -162,6 +250,12 @@ function assessmentResult(pinyin, raw, q, base) {
         feedback,
         phonemes,
         weakest_phoneme,
+        characters: scoreCharacters(
+            pinyin,
+            referenceTextFor(q),
+            heardSyllables(pinyin, recognized, reference, q.answer),
+            accuracyPerChar(raw.words, reference),
+        ),
     };
 }
 
@@ -185,5 +279,6 @@ function transcriptionResult(pinyin, raw, q, base) {
         transcription_pinyin: heard.join(' '),
         is_correct: match >= SENTENCE_MATCH,
         match: Math.round(match * 100),
+        characters: reference ? scoreCharacters(pinyin, referenceTextFor(q), heard) : [],
     };
 }

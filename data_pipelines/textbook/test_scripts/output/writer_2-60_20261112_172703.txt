@@ -1,0 +1,20 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 19494 characters -->
+## 2-60
+**Point:** The 是⋯⋯的 construction for emphasizing details about past events or their circumstances
+**Covers:** Sentences with 是 + [emphasized information about time/place/manner/agent] + verb + 的, used to highlight specific details of a past action or state
+**Does not cover:** Possessive 的; adjective modification; 的 as a modal particle; "有的是" (plenty of); "不是⋯⋯，就是⋯⋯" (either/or); 的话 (if); reduplication patterns; or simple 是 equative sentences without 的
+
+```rule
+match: /VC ... /VV ... /SP|AS
+match: /VC ... /VV ... /DEC
+unless: ^ /VC /AD /VC
+unless: 有的/PN /VC
+unless: 不/AD /VC ... 就是/AD
+unless: 岂不/AD /VC
+unless: 要不是/AD
+unless: 的话/SP
+unless: ... /VV /AS /NN $
+unless: ... /VA /VA ... /VC /VA
+```
+
+**Notes:** The rule targets the core structure: 是 followed by some content, then a main verb, then either 的/SP (modal particle 的 at end) or 的/AS (aspect marker with following object). It excludes equative sentences (是 + adj + 是 + adj), the 有的是 construction, 不是⋯⋯就是⋯⋯ patterns, rhetorical 岂不是, conditional 要不是, topicalized 的话, and sentences ending with a noun after 的 (which indicate 的 as a nominalizer, not the 是⋯⋯的 pattern). The first unless line rejects simple equatives like "你们是不是中国人" (no emphasized information between 是 and verb).

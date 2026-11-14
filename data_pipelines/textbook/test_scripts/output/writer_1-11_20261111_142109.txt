@@ -1,0 +1,28 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 7438 characters -->
+## 1-11
+<!-- written by claude-sonnet-5-5 on 2026-11-07; edit freely -->
+**Point:** Time adverbs before a verb: 先 ("first"), 马上 ("right away"), 有时 ("sometimes"), and bare 正 for an action in progress. Plain 在/正在 progressives and the verb + object + 呢 pattern are left to the 进行态 point (1-42).
+
+**Covers:**
+- 先 directly before a verb: 我先说吧.
+- 马上 directly before a verb: 医生马上来.
+- 有时 tagged AD before a verb: 我有时看电影.
+- Bare 正 (not 正在) tagged AD directly before a verb: 他正上厕所呢.
+
+**Does not cover:**
+- 在 or 正在 + verb, such as 她在看书 and 我正在吃饭. These are the basic 进行态 sentences (1-42).
+- Verb + object + 呢, such as 我吃饭呢, which is also 1-42.
+- 正好 (a different word, covered by 2-20). Sentences containing 正好 anywhere are excluded.
+- 正 before 是, as in 现在正是吃饺子的时候, and 正常, 正式, 正确, 先生, 先后, 真正.
+- 在 as a locative preposition (在北京工作).
+- 先…然后… sequences (3-64).
+
+```rule
+match: 正/AD /VV
+match: 先|马上|有时/AD /VV
+unless: 正好
+unless: 然后
+unless: 正在
+```
+
+**Notes:** The earlier rule matched plain 在/正在 + verb and verb + object + 呢. These are standard 进行态 sentences from 1-42, so I removed those patterns to avoid false matches. What remains are the items that identify 1-11 itself: 先, 马上, 有时, and bare 正. Sentences with 正在 are excluded so they don't fall into 1-42 by accident. 先 in 先…然后… sequences is excluded as belonging to 3-64.

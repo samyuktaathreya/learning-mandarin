@@ -1,0 +1,26 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 7557 characters -->
+## 4-13
+**Point:** 自 / 自从 (and 从 … 以来) mark the starting point of an action or state, in time ("ever since") or, for 自, in place ("from").
+
+**Covers:** 
+- 自从 + event or time, with or without a closing 以来 or 后: 自从来到湖南，我越来越能吃辣了。
+- 自 + time/event + 以来: 自1978年以来，…
+- 自 + place as a preposition: 自北京出发。
+- 从 + time/event + 以来: 从毕业以来，她一直在教汉语。
+
+**Does not cover:**
+- 来自 ("come from"), which is a different point. It is one token, so it never matches.
+- 自己 and compounds such as 自学, 自动, 自愿, 自豪, 自来水 and 自言自语. These are whole words, not 自 as a preposition.
+- 从 + time + 后 / 以后 without 以来, and plain 从 meaning "from" a place. These are too ambiguous, so they are left out.
+
+```rule
+match: 自从
+match: 自/P
+match: 从/P ... 以来/LC
+```
+
+**Notes:** 
+- Matching is on whole tokens, so 自己, 各自 and 来自 can never trigger the rule.
+- 自/P is restricted to the P tag so that stray 自 tagged as another part of speech is ignored.
+- No unless: lines are needed on the given data. If 自/P ever shows up inside an unwanted fixed phrase, add an unless: for it.
+- The 从 line requires 以来 in the same clause, so ordinary 从 + place uses do not match.

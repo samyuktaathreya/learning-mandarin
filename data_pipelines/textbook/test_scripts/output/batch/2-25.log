@@ -67,3 +67,1847 @@ Tagging 55 labeled example(s) (cached after this run)...
   你跟你妈一样喜欢买衣服。  -- ASGC5Y86 Comparing "gen" and "dui"
   你要跟我一起去吗？  -- ASGC5Y86 Comparing "gen" and "dui"
   鲜花跟巧克力是最好的礼物。  -- ASGC5Y86 Comparing "gen" and "dui"
+
+########## rules  2026-11-10 21:25 ##########
+
+=== A. 2-25: rule on labeled examples (no AI) ===
+  examples of 2-25 matched:    25/38
+  counter-examples wrongly matched: 0/38   <- should be 0
+
+--- examples of 2-25 the rule misses (13) ---
+  对(于)这种事情，你有什么看法？  -- ASG3JELV Comparing "dui" and "duiyu"
+  对于这件事，你怎么看？  -- ASG3JELV Comparing "dui" and "duiyu"
+  我跟她说了，但是她不信。  -- ASGC5Y86 Comparing "gen" and "dui"
+  他跟我说他爱我。  -- ASGC5Y86 Comparing "gen" and "dui"
+  刚才你跟他说什么了？  -- ASGC5Y86 Comparing "gen" and "dui"
+  这只小猫总是跟着我。  -- ASGC5Y86 Comparing "gen" and "dui"
+  你走得太快，我跟不上。  -- ASGC5Y86 Comparing "gen" and "dui"
+  我跟你们不一样，我还有孩子呢。  -- ASGC5Y86 Comparing "gen" and "dui"
+  上海跟纽约一样，都是国际大都市。  -- ASGC5Y86 Comparing "gen" and "dui"
+  我现在跟我爸一样高。  -- ASGC5Y86 Comparing "gen" and "dui"
+  你跟你妈一样喜欢买衣服。  -- ASGC5Y86 Comparing "gen" and "dui"
+  你要跟我一起去吗？  -- ASGC5Y86 Comparing "gen" and "dui"
+  鲜花跟巧克力是最好的礼物。  -- ASGC5Y86 Comparing "gen" and "dui"
+
+########## guard check  2026-11-10 21:30 ##########
+  Checking 11 sentence(s) for 2-25 (1 call(s))...
+Flags examples of 1-17 that don't contain 2-25: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+########## tatoeba  2026-11-10 21:36 ##########
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 31 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261110_213637.txt
+  ...100/277
+  ...200/277
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-25 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      720  2. contain the point's word(s)
+      718  3. new (not in DB, not a duplicate)
+      277  4. at most 2 characters outside HSK 2 words
+       28  5. really HSK 2
+       25  5b. no harder grammar point (of the 34 with a rule)
+        7  6. the rule finds 2-25
+        7  6b. no hidden word a learner can't work out
+        4  7. both checks say 2-25, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  对他好一点。  (Treat him well.)  [tatoeba 4737561]  hidden: 一点
+  有件事情我要对你说。  (There's something I want to tell you.)  [tatoeba 1759719]
+  你怎么能这么对我说话！  (How dare you say that to me!)  [tatoeba 6483522]
+
+--- dropped at step 3 (2) ---
+  绝对不行！  -- already in the database
+  对吗？  -- same text as tatoeba 10981494 (translations pooled)
+
+--- dropped at step 4 (441), first 12 ---
+  对我来说，质量不如数量。  -- 4 characters no HSK 2 word uses: 如数质量
+  玛丽对政治感兴趣。  -- 6 characters no HSK 2 word uses: 丽感政治玛趣
+  你对音乐感不感兴趣？  -- 3 characters no HSK 2 word uses: 感趣音
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我对此毫不怀疑。  -- 4 characters no HSK 2 word uses: 怀此毫疑
+  总的来说，我对这个结果很满意。  -- 3 characters no HSK 2 word uses: 总满结
+  我对她的大公无私怀有敬意。  -- 4 characters no HSK 2 word uses: 怀敬无私
+  这个问题对我来讲很难回答。  -- 3 characters no HSK 2 word uses: 答讲难
+  我对自己的行为感到羞愧。  -- 4 characters no HSK 2 word uses: 感愧羞行
+  去美国学习对我来说是否有益处，还有待考虑。  -- 6 characters no HSK 2 word uses: 否处待益美虑
+  他对懒惰的人很严厉。  -- 4 characters no HSK 2 word uses: 严厉惰懒
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+
+--- dropped at step 5 (249), first 12 ---
+  对不起，我爱你。  -- level 1: no list words
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  您有什么事想对我说吗？  -- level 1: no list words
+  对了，我明天有事。  -- level 1: no list words
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你完全是对的！  -- level 4: 完全 L4
+  对不起， 我情不自禁。  -- level 7: 情不自禁 L7
+  你不是他的对手。  -- level 5: 对手 L5
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  对不起，我不会去。  -- level 3: 起 L3
+  这对我正合适。  -- level 3: 合适 L3
+  你虽然做 不到一个『最好的人』,可是你却做得到一个『对对方最好的人』。  -- level 4: 最好 L3, 可是 L3, 却 L4, 对方 L4
+
+--- dropped at step 5b (3) ---
+  对我来说这就不是个问题。  -- harder grammar: 3-40 (HSK 3)
+  别再对我做这事了。  -- harder grammar: 3-16 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (18) ---
+  你不忙，对吧？  -- rule: no match: line matched
+  “你说得不对” “那怎么说呢？”  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  你怎么这样对我？  -- rule: no match: line matched
+  我的意思不是她做得对。  -- rule: no match: line matched
+  我希望这是对的。  -- rule: no match: line matched
+  你喜欢雨对吧？  -- rule: no match: line matched
+  这是对的，不是吗？  -- rule: no match: line matched
+  那不对，对吧？  -- rule: no match: line matched
+  你做得对。  -- rule: no match: line matched
+  他告诉他她是对的。  -- rule: no match: line matched
+  你会去问他们，对吧？  -- rule: no match: line matched
+  「好大！」「对，这是 IMAX！」  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: unless 对 吗
+  你们说得对。  -- rule: no match: line matched
+  她做得对。  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: no match: line matched
+
+--- dropped at step 7 (3) ---
+  水果对身体非常好。  -- check said no (1/2): 对 here means 'good for', not the preposition usage
+  休息几天会对你好的。  -- check said no (1/2): 对 here means 'good for', not the preposition usage
+  你想知道为什么我对Tom说话吗？  -- check said no (2/2): Tom word missing in sentence; corrupted text
+
+--- dropped at step 8 (1) ---
+  我们对你知道得不多。  -- difficulty review: (2/2); Uses 得 in result complement position (得不多), which is grammar point 2-51, taught at HSK 2, but the specific structure 'verb+得+negation+adjective' requires understanding of negation with 得 complements that goes beyond typical HSK 2 application
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-25_level2_20261110_213648.csv
+
+########## guard check  2026-11-11 14:22 ##########
+Flags examples of 1-17 that don't contain 2-25: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+The revised rule fails 2-25's own test (0 wrong, 16 missed): keeping the old rule.
+Not used as a guard for 1-17: it still flags 1 of its examples, e.g. 他对我说他爱我。
+
+########## tatoeba  2026-11-11 14:29 ##########
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-25 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      720  2. contain the point's word(s)
+      718  3. new (not in DB, not a duplicate)
+      277  4. at most 2 characters outside HSK 2 words
+       28  5. really HSK 2
+       25  5b. no harder grammar point (of the 39 with a rule)
+        7  6. the rule finds 2-25
+        7  6b. no hidden word a learner can't work out
+        4  7. both checks say 2-25, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  对他好一点。  (Treat him well.)  [tatoeba 4737561]  hidden: 一点
+  有件事情我要对你说。  (There's something I want to tell you.)  [tatoeba 1759719]
+  你怎么能这么对我说话！  (How dare you say that to me!)  [tatoeba 6483522]
+
+--- dropped at step 3 (2) ---
+  绝对不行！  -- already in the database
+  对吗？  -- same text as tatoeba 10981494 (translations pooled)
+
+--- dropped at step 4 (441), first 12 ---
+  对我来说，质量不如数量。  -- 4 characters no HSK 2 word uses: 如数质量
+  玛丽对政治感兴趣。  -- 6 characters no HSK 2 word uses: 丽感政治玛趣
+  你对音乐感不感兴趣？  -- 3 characters no HSK 2 word uses: 感趣音
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我对此毫不怀疑。  -- 4 characters no HSK 2 word uses: 怀此毫疑
+  总的来说，我对这个结果很满意。  -- 3 characters no HSK 2 word uses: 总满结
+  我对她的大公无私怀有敬意。  -- 4 characters no HSK 2 word uses: 怀敬无私
+  这个问题对我来讲很难回答。  -- 3 characters no HSK 2 word uses: 答讲难
+  我对自己的行为感到羞愧。  -- 4 characters no HSK 2 word uses: 感愧羞行
+  去美国学习对我来说是否有益处，还有待考虑。  -- 6 characters no HSK 2 word uses: 否处待益美虑
+  他对懒惰的人很严厉。  -- 4 characters no HSK 2 word uses: 严厉惰懒
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+
+--- dropped at step 5 (249), first 12 ---
+  对不起，我爱你。  -- level 1: no list words
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  您有什么事想对我说吗？  -- level 1: no list words
+  对了，我明天有事。  -- level 1: no list words
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你完全是对的！  -- level 4: 完全 L4
+  对不起， 我情不自禁。  -- level 7: 情不自禁 L7
+  你不是他的对手。  -- level 5: 对手 L5
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  对不起，我不会去。  -- level 3: 起 L3
+  这对我正合适。  -- level 3: 合适 L3
+  你虽然做 不到一个『最好的人』,可是你却做得到一个『对对方最好的人』。  -- level 4: 最好 L3, 可是 L3, 却 L4, 对方 L4
+
+--- dropped at step 5b (3) ---
+  对我来说这就不是个问题。  -- harder grammar: 3-40 (HSK 3)
+  别再对我做这事了。  -- harder grammar: 3-16 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (18) ---
+  你不忙，对吧？  -- rule: no match: line matched
+  “你说得不对” “那怎么说呢？”  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  你怎么这样对我？  -- rule: no match: line matched
+  我的意思不是她做得对。  -- rule: no match: line matched
+  我希望这是对的。  -- rule: no match: line matched
+  你喜欢雨对吧？  -- rule: no match: line matched
+  这是对的，不是吗？  -- rule: no match: line matched
+  那不对，对吧？  -- rule: no match: line matched
+  你做得对。  -- rule: no match: line matched
+  他告诉他她是对的。  -- rule: no match: line matched
+  你会去问他们，对吧？  -- rule: no match: line matched
+  「好大！」「对，这是 IMAX！」  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: unless 对 吗
+  你们说得对。  -- rule: no match: line matched
+  她做得对。  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: no match: line matched
+
+--- dropped at step 7 (3) ---
+  水果对身体非常好。  -- check said no (1/2): 对 here means 'good for', not the preposition usage
+  休息几天会对你好的。  -- check said no (1/2): 对 here means 'good for', not the preposition usage
+  你想知道为什么我对Tom说话吗？  -- check said no (2/2): Tom word missing in sentence; corrupted text
+
+--- dropped at step 8 (1) ---
+  我们对你知道得不多。  -- difficulty review: (2/2); Uses 得 in result complement position (得不多), which is grammar point 2-51, taught at HSK 2, but the specific structure 'verb+得+negation+adjective' requires understanding of negation with 得 complements that goes beyond typical HSK 2 application
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-25_level2_20261111_142903.csv
+
+########## rules  2026-11-12 17:25 ##########
+Tagging 2 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  Checking 9 sentence(s) for 2-25 (1 call(s))...
+
+=== A. 2-25: rule on labeled examples (no AI) ===
+  examples of 2-25 matched:    37/38
+  counter-examples wrongly matched: 9/38   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (9) ---
+  对于电脑，我什么都不懂。  -- ASGC01S0 Comparing "duiyu" and "zhiyu"  [matched: 对于/P]
+  我对于电脑什么都不懂。  -- ASGC01S0 Comparing "duiyu" and "zhiyu"  [matched: 对于/P]
+  对于这种人，就不该跟他们讲道理。  -- ASGC01S0 Comparing "duiyu" and "zhiyu"  [matched: 对于/P ; 跟/P|CC|VV]
+  对于那个人我并不了解。  -- ASG1HNBU Comparing "guanyu" and "duiyu"  [matched: 对于/P]
+  对于我们的工作表现，老板很满意。  -- ASG1HNBU Comparing "guanyu" and "duiyu"  [matched: 对于/P]
+  对于这件事情他没什么看法。  -- ASG1HNBU Comparing "guanyu" and "duiyu"  [matched: 对于/P]
+  对于这个问题，你们还有什么意见？  -- ASG1HNBU Comparing "guanyu" and "duiyu"  [matched: 对于/P]
+  我的意见是对于中国市场我们还不了解，最好再等等。  -- ASG1HNBU Comparing "guanyu" and "duiyu"  [matched: 对于/P]
+  对于是不是开发中国市场我们已经决定了，现在的问题是什么时候开发。  -- ASG1HNBU Comparing "guanyu" and "duiyu"  [matched: 对于/P]
+
+--- examples of 2-25 the rule misses (1) ---
+  对(于)这种事情，你有什么看法？  -- ASG3JELV Comparing "dui" and "duiyu"
+  easy examples (words all HSK 2 or below) matched: 7/7   <- needs 60%
+
+########## rules  2026-11-12 21:11 ##########
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-25: rule on labeled examples (no AI) ===
+  examples of 2-25 matched:    37/38
+  counter-examples wrongly matched: 0/38   <- should be 0
+
+--- examples of 2-25 the rule misses (1) ---
+  对于这件事，你怎么看？  -- ASG3JELV Comparing "dui" and "duiyu"
+  easy examples (words all HSK 2 or below) matched: 7/7   <- needs 60%
+
+########## guard check  2026-11-12 21:13 ##########
+Not used as a guard for 1-17: it still flags 1 of its examples, e.g. 他对我说他爱我。
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-25 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      720  2. contain the point's word(s)
+      718  3. new (not in DB, not a duplicate)
+      277  4. at most 2 characters outside HSK 2 words
+       28  5. really HSK 2
+       25  5b. no harder grammar point (of the 40 with a rule)
+        7  6. the rule finds 2-25
+        7  6b. no hidden word a learner can't work out
+        4  7. both checks say 2-25, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  对他好一点。  (Treat him well.)  [tatoeba 4737561]
+  有件事情我要对你说。  (There's something I want to tell you.)  [tatoeba 1759719]
+  你怎么能这么对我说话！  (How dare you say that to me!)  [tatoeba 6483522]
+
+--- dropped at step 3 (2) ---
+  绝对不行！  -- already in the database
+  对吗？  -- same text as tatoeba 10981494 (translations pooled)
+
+--- dropped at step 4 (441), first 12 ---
+  对我来说，质量不如数量。  -- 4 characters no HSK 2 word uses: 如数质量
+  玛丽对政治感兴趣。  -- 6 characters no HSK 2 word uses: 丽感政治玛趣
+  你对音乐感不感兴趣？  -- 3 characters no HSK 2 word uses: 感趣音
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我对此毫不怀疑。  -- 4 characters no HSK 2 word uses: 怀此毫疑
+  总的来说，我对这个结果很满意。  -- 3 characters no HSK 2 word uses: 总满结
+  我对她的大公无私怀有敬意。  -- 4 characters no HSK 2 word uses: 怀敬无私
+  这个问题对我来讲很难回答。  -- 3 characters no HSK 2 word uses: 答讲难
+  我对自己的行为感到羞愧。  -- 4 characters no HSK 2 word uses: 感愧羞行
+  去美国学习对我来说是否有益处，还有待考虑。  -- 6 characters no HSK 2 word uses: 否处待益美虑
+  他对懒惰的人很严厉。  -- 4 characters no HSK 2 word uses: 严厉惰懒
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+
+--- dropped at step 5 (249), first 12 ---
+  对不起，我爱你。  -- level 1: no list words
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  您有什么事想对我说吗？  -- level 1: no list words
+  对了，我明天有事。  -- level 1: no list words
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你完全是对的！  -- level 4: 完全 L4
+  对不起， 我情不自禁。  -- level 7: 情不自禁 L7
+  你不是他的对手。  -- level 5: 对手 L5
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  对不起，我不会去。  -- level 3: 起 L3
+  这对我正合适。  -- level 3: 合适 L3
+  你虽然做 不到一个『最好的人』,可是你却做得到一个『对对方最好的人』。  -- level 4: 最好 L3, 可是 L3, 却 L4, 对方 L4
+
+--- dropped at step 5b (3) ---
+  对我来说这就不是个问题。  -- harder grammar: 3-40 (HSK 3)
+  别再对我做这事了。  -- harder grammar: 3-16 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (18) ---
+  你不忙，对吧？  -- rule: no match: line matched
+  “你说得不对” “那怎么说呢？”  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  你怎么这样对我？  -- rule: no match: line matched
+  我的意思不是她做得对。  -- rule: no match: line matched
+  我希望这是对的。  -- rule: no match: line matched
+  你喜欢雨对吧？  -- rule: no match: line matched
+  这是对的，不是吗？  -- rule: no match: line matched
+  那不对，对吧？  -- rule: no match: line matched
+  你做得对。  -- rule: no match: line matched
+  他告诉他她是对的。  -- rule: no match: line matched
+  你会去问他们，对吧？  -- rule: no match: line matched
+  「好大！」「对，这是 IMAX！」  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: unless 对 吗
+  你们说得对。  -- rule: no match: line matched
+  她做得对。  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: no match: line matched
+
+--- dropped at step 7 (3) ---
+  水果对身体非常好。  -- check said no (1/2): 对 here means 'good for', not the preposition usage
+  休息几天会对你好的。  -- check said no (1/2): 对 here means 'good for', not the preposition usage
+  你想知道为什么我对Tom说话吗？  -- check said no (2/2): Tom word missing in sentence; corrupted text
+
+--- dropped at step 8 (1) ---
+  我们对你知道得不多。  -- difficulty review: (2/2); Uses 得 in result complement position (得不多), which is grammar point 2-51, taught at HSK 2, but the specific structure 'verb+得+negation+adjective' requires understanding of negation with 得 complements that goes beyond typical HSK 2 application
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-25_level2_20261112_211506.csv
+
+########## guard check  2026-11-13 13:53 ##########
+Not used as a guard for 1-17: it still flags 1 of its examples, e.g. 他对我说他爱我。
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-25 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      720  2. contain the point's word(s)
+      718  3. new (not in DB, not a duplicate)
+      277  4. at most 2 characters outside HSK 2 words
+       28  5. really HSK 2
+       25  5b. no harder grammar point (of the 44 with a rule)
+        7  6. the rule finds 2-25
+        7  6b. no hidden word a learner can't work out
+        4  7. both checks say 2-25, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  对他好一点。  (Treat him well.)  [tatoeba 4737561]
+  有件事情我要对你说。  (There's something I want to tell you.)  [tatoeba 1759719]
+  你怎么能这么对我说话！  (How dare you say that to me!)  [tatoeba 6483522]
+
+--- dropped at step 3 (2) ---
+  绝对不行！  -- already in the database
+  对吗？  -- same text as tatoeba 10981494 (translations pooled)
+
+--- dropped at step 4 (441), first 12 ---
+  对我来说，质量不如数量。  -- 4 characters no HSK 2 word uses: 如数质量
+  玛丽对政治感兴趣。  -- 6 characters no HSK 2 word uses: 丽感政治玛趣
+  你对音乐感不感兴趣？  -- 3 characters no HSK 2 word uses: 感趣音
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我对此毫不怀疑。  -- 4 characters no HSK 2 word uses: 怀此毫疑
+  总的来说，我对这个结果很满意。  -- 3 characters no HSK 2 word uses: 总满结
+  我对她的大公无私怀有敬意。  -- 4 characters no HSK 2 word uses: 怀敬无私
+  这个问题对我来讲很难回答。  -- 3 characters no HSK 2 word uses: 答讲难
+  我对自己的行为感到羞愧。  -- 4 characters no HSK 2 word uses: 感愧羞行
+  去美国学习对我来说是否有益处，还有待考虑。  -- 6 characters no HSK 2 word uses: 否处待益美虑
+  他对懒惰的人很严厉。  -- 4 characters no HSK 2 word uses: 严厉惰懒
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+
+--- dropped at step 5 (249), first 12 ---
+  对不起，我爱你。  -- level 1: no list words
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  您有什么事想对我说吗？  -- level 1: no list words
+  对了，我明天有事。  -- level 1: no list words
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你完全是对的！  -- level 4: 完全 L4
+  对不起， 我情不自禁。  -- level 7: 情不自禁 L7
+  你不是他的对手。  -- level 5: 对手 L5
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  对不起，我不会去。  -- level 3: 起 L3
+  这对我正合适。  -- level 3: 合适 L3
+  你虽然做 不到一个『最好的人』,可是你却做得到一个『对对方最好的人』。  -- level 4: 最好 L3, 可是 L3, 却 L4, 对方 L4
+
+--- dropped at step 5b (3) ---
+  对我来说这就不是个问题。  -- harder grammar: 3-40 (HSK 3)
+  别再对我做这事了。  -- harder grammar: 3-16 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (18) ---
+  你不忙，对吧？  -- rule: no match: line matched
+  “你说得不对” “那怎么说呢？”  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  你怎么这样对我？  -- rule: no match: line matched
+  我的意思不是她做得对。  -- rule: no match: line matched
+  我希望这是对的。  -- rule: no match: line matched
+  你喜欢雨对吧？  -- rule: no match: line matched
+  这是对的，不是吗？  -- rule: no match: line matched
+  那不对，对吧？  -- rule: no match: line matched
+  你做得对。  -- rule: no match: line matched
+  他告诉他她是对的。  -- rule: no match: line matched
+  你会去问他们，对吧？  -- rule: no match: line matched
+  「好大！」「对，这是 IMAX！」  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: unless 对 吗
+  你们说得对。  -- rule: no match: line matched
+  她做得对。  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: no match: line matched
+
+--- dropped at step 7 (3) ---
+  水果对身体非常好。  -- check said no (1/2): 对 here means 'good for', not the preposition usage
+  休息几天会对你好的。  -- check said no (1/2): 对 here means 'good for', not the preposition usage
+  你想知道为什么我对Tom说话吗？  -- check said no (2/2): Tom word missing in sentence; corrupted text
+
+--- dropped at step 8 (1) ---
+  我们对你知道得不多。  -- difficulty review: (2/2); Uses 得 in result complement position (得不多), which is grammar point 2-51, taught at HSK 2, but the specific structure 'verb+得+negation+adjective' requires understanding of negation with 得 complements that goes beyond typical HSK 2 application
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-25_level2_20261113_135444.csv
+
+########## guard check  2026-11-13 14:39 ##########
+Not used as a guard for 1-17: it still flags 1 of its examples, e.g. 他对我说他爱我。
+
+########## tatoeba  2026-11-13 14:44 ##########
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 3 check and 1 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 2-25 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      720  2. contain the point's word(s)
+      718  3. new (not in DB, not a duplicate)
+      277  4. at most 2 characters outside HSK 2 words
+       28  5. really HSK 2
+       25  5b. no harder grammar point (of the 43 with a rule)
+        7  6. the rule finds 2-25
+        7  6b. no hidden word a learner can't work out
+        4  7. both checks say 2-25, English chosen
+        2  7b. second opinion: it is the point (check)
+        3  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  对他好一点。  (Treat him well.)  [tatoeba 4737561]
+  有件事情我要对你说。  (There's something I want to tell you.)  [tatoeba 1759719]
+  你怎么能这么对我说话！  (How dare you say that to me!)  [tatoeba 6483522]
+  水果对身体非常好。  (Fruit is very good for your body.)  [tatoeba 3377987]
+  休息几天会对你好的。  (A few days' rest will do you good.)  [tatoeba 6822553]  hidden: 几天, 你好
+  我们对你知道得不多。  (We know so little about you.)  [tatoeba 6635877]
+
+--- dropped at step 3 (2) ---
+  绝对不行！  -- already in the database
+  对吗？  -- same text as tatoeba 10981494 (translations pooled)
+
+--- dropped at step 4 (441), first 12 ---
+  对我来说，质量不如数量。  -- 4 characters no HSK 2 word uses: 如数质量
+  玛丽对政治感兴趣。  -- 6 characters no HSK 2 word uses: 丽感政治玛趣
+  你对音乐感不感兴趣？  -- 3 characters no HSK 2 word uses: 感趣音
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我对此毫不怀疑。  -- 4 characters no HSK 2 word uses: 怀此毫疑
+  总的来说，我对这个结果很满意。  -- 3 characters no HSK 2 word uses: 总满结
+  我对她的大公无私怀有敬意。  -- 4 characters no HSK 2 word uses: 怀敬无私
+  这个问题对我来讲很难回答。  -- 3 characters no HSK 2 word uses: 答讲难
+  我对自己的行为感到羞愧。  -- 4 characters no HSK 2 word uses: 感愧羞行
+  去美国学习对我来说是否有益处，还有待考虑。  -- 6 characters no HSK 2 word uses: 否处待益美虑
+  他对懒惰的人很严厉。  -- 4 characters no HSK 2 word uses: 严厉惰懒
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+
+--- dropped at step 5 (249), first 12 ---
+  对不起，我爱你。  -- level 1: no list words
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  您有什么事想对我说吗？  -- level 1: no list words
+  对了，我明天有事。  -- level 1: no list words
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你完全是对的！  -- level 4: 完全 L4
+  对不起， 我情不自禁。  -- level 7: 情不自禁 L7
+  你不是他的对手。  -- level 5: 对手 L5
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  对不起，我不会去。  -- level 3: 起 L3
+  这对我正合适。  -- level 3: 合适 L3
+  你虽然做 不到一个『最好的人』,可是你却做得到一个『对对方最好的人』。  -- level 4: 最好 L3, 可是 L3, 却 L4, 对方 L4
+
+--- dropped at step 5b (3) ---
+  对我来说这就不是个问题。  -- harder grammar: 3-40 (HSK 3)
+  别再对我做这事了。  -- harder grammar: 3-16 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (18) ---
+  你不忙，对吧？  -- rule: no match: line matched
+  “你说得不对” “那怎么说呢？”  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  你怎么这样对我？  -- rule: no match: line matched
+  我的意思不是她做得对。  -- rule: no match: line matched
+  我希望这是对的。  -- rule: no match: line matched
+  你喜欢雨对吧？  -- rule: no match: line matched
+  这是对的，不是吗？  -- rule: no match: line matched
+  那不对，对吧？  -- rule: no match: line matched
+  你做得对。  -- rule: no match: line matched
+  他告诉他她是对的。  -- rule: no match: line matched
+  你会去问他们，对吧？  -- rule: no match: line matched
+  「好大！」「对，这是 IMAX！」  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: unless 对 吗
+  你们说得对。  -- rule: no match: line matched
+  她做得对。  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  你想知道为什么我对Tom说话吗？  -- check said no (2/2): Tom word missing in sentence; corrupted text
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-25_level2_20261113_144408.csv
+
+########## guard check  2026-11-14 14:14 ##########
+Not used as a guard for 1-17: it still flags 1 of its examples, e.g. 他对我说他爱我。
+
+########## ai  2026-11-14 14:34 ##########
+
+----- AI-written sentences for 2-25, round 1: 0 to check, 14 needed -----
+  Asking claude-sonnet-5-5 to write 35 sentence(s)...
+
+----- AI-written sentences for 2-25, round 2: 35 to check, 14 needed -----
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 35
+
+Tagging 23 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_143510.txt
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 14 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-25 at HSK 2: funnel ===
+       35  AI-written sentences
+       35  1. have an English translation
+       24  2. contain the point's word(s)
+       24  3. new (not in DB, not a duplicate)
+       23  4. at most 0 characters outside HSK 2 words
+       12  5. really HSK 2
+       10  5b. no harder grammar point (of the 43 with a rule)
+       10  6. the rule finds 2-25
+       10  6b. no hidden word a learner can't work out
+        5  7. both checks say 2-25, English chosen
+        5  8. both difficulty reviews pass it
+
+=== Survivors (5) ===
+  别对我叫！  (Don't shout at me!)  [tatoeba ai-7959994d68]
+  他对医生说他头疼。  (He told the doctor that he has a headache.)  [tatoeba ai-62eb501aff]  hidden: 头疼
+  那个女孩儿对我笑了笑。  (That girl smiled at me.)  [tatoeba ai-a5c4efeda4]  hidden: 那个
+  妈妈对孩子说：快去睡觉。  (Mom said to the child, "Go to bed now.")  [tatoeba ai-9ffcd09317]
+  老师对我说，明天有考试。  (The teacher told me there's an exam tomorrow.)  [tatoeba ai-7998bbdf1a]
+
+--- dropped at step 4 (1) ---
+  她对着手机笑个不停。  -- 1 characters no HSK 2 word uses: 停
+
+--- dropped at step 5 (11) ---
+  老师对我们很好。  -- level 1: no list words
+  你对我不高兴吗？  -- level 1: no list words
+  他对我说：“明天见。”  -- level 1: no list words
+  这件事你对老师说了没有？  -- level 1: no list words
+  不要对别人说这件事。  -- level 3: 别人 L3
+  我们的时间对不上。  -- level 1: no list words
+  这两个字对上了。  -- level 1: no list words
+  爸爸对孩子很好。  -- level 1: no list words
+  医生对他说，要多休息。  -- level 1: no list words
+  她对我说谢谢。  -- level 1: no list words
+  她对我们都很好。  -- level 1: no list words
+
+--- dropped at step 5b (2) ---
+  你的名字跟票上的对不上。  -- harder grammar: 3-48 (HSK 3)
+  他对我笑，我也对他笑。  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 7 (5) ---
+  他对自己很好。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  哥哥对车很懂。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  请对着手机说话。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  他对着电视唱歌。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  那只小狗对着我叫。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-25_level2_20261114_143518.csv
+  Asking claude-sonnet-5-5 to write 23 sentence(s)...
+
+----- AI-written sentences for 2-25, round 3: 58 to check, 14 needed -----
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 58
+
+Tagging 15 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_143536.txt
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  早点儿 = 早 + 点 + 儿  (a bit earlier)
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 14 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-25 at HSK 2: funnel ===
+       58  AI-written sentences
+       58  1. have an English translation
+       39  2. contain the point's word(s)
+       39  3. new (not in DB, not a duplicate)
+       38  4. at most 0 characters outside HSK 2 words
+       20  5. really HSK 2
+       17  5b. no harder grammar point (of the 43 with a rule)
+       17  6. the rule finds 2-25
+       16  6b. no hidden word a learner can't work out
+       11  7. both checks say 2-25, English chosen
+        7  8. both difficulty reviews pass it
+
+=== Survivors (7) ===
+  别对我叫！  (Don't shout at me!)  [tatoeba ai-7959994d68]
+  他对医生说他头疼。  (He told the doctor that he has a headache.)  [tatoeba ai-62eb501aff]  hidden: 头疼
+  小朋友对老师笑了。  (The little child smiled at the teacher.)  [tatoeba ai-c1c2d77a42]
+  那个女孩儿对我笑了笑。  (That girl smiled at me.)  [tatoeba ai-a5c4efeda4]  hidden: 那个
+  妈妈对孩子说：快去睡觉。  (Mom said to the child, "Go to bed now.")  [tatoeba ai-9ffcd09317]
+  老师对我说，明天有考试。  (The teacher told me there's an exam tomorrow.)  [tatoeba ai-7998bbdf1a]
+  他对我不好，我不想跟他玩儿。  (He isn't nice to me, so I don't want to play with him.)  [tatoeba ai-25e42725e8]  hidden: 不好, 不想, 玩儿
+
+--- dropped at step 4 (1) ---
+  她对着手机笑个不停。  -- 1 characters no HSK 2 word uses: 停
+
+--- dropped at step 5 (18), first 12 ---
+  老师对我们很好。  -- level 1: no list words
+  你对我不高兴吗？  -- level 1: no list words
+  他对我说：“明天见。”  -- level 1: no list words
+  这件事你对老师说了没有？  -- level 1: no list words
+  不要对别人说这件事。  -- level 3: 别人 L3
+  我们的时间对不上。  -- level 1: no list words
+  这两个字对上了。  -- level 1: no list words
+  爸爸对孩子很好。  -- level 1: no list words
+  医生对他说，要多休息。  -- level 1: no list words
+  她对我说谢谢。  -- level 1: no list words
+  她对我们都很好。  -- level 1: no list words
+  弟弟对我说：“我想去玩儿。”  -- level 1: no list words
+
+--- dropped at step 5b (3) ---
+  你的名字跟票上的对不上。  -- harder grammar: 3-48 (HSK 3)
+  他对我笑，我也对他笑。  -- harder grammar: 3-60 (HSK 3)
+  你说的跟他说的对不上。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  爷爷对我说：“早点儿睡。”  -- hidden word a learner can't work out: 早点儿 (a bit earlier)
+
+--- dropped at step 7 (5) ---
+  他对自己很好。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  哥哥对车很懂。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  请对着手机说话。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  他对着电视唱歌。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  那只小狗对着我叫。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+
+--- dropped at step 8 (4) ---
+  他对着门口笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  狗对着那只猫叫。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  他对着电脑说话。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  孩子对着妈妈笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-25_level2_20261114_143547.csv
+
+########## ai  2026-11-14 15:00 ##########
+
+----- AI-written sentences for 2-25, round 1: 58 to check, 14 needed -----
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 58
+
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 14 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-25 at HSK 2: funnel ===
+       58  AI-written sentences
+       58  1. have an English translation
+       39  2. contain the point's word(s)
+       39  3. new (not in DB, not a duplicate)
+       38  4. at most 0 characters outside HSK 2 words
+       20  5. really HSK 2
+       17  5b. no harder grammar point (of the 43 with a rule)
+       17  6. the rule finds 2-25
+       16  6b. no hidden word a learner can't work out
+       11  7. both checks say 2-25, English chosen
+        7  8. both difficulty reviews pass it
+
+=== Survivors (7) ===
+  别对我叫！  (Don't shout at me!)  [tatoeba ai-7959994d68]
+  他对医生说他头疼。  (He told the doctor that he has a headache.)  [tatoeba ai-62eb501aff]  hidden: 头疼
+  小朋友对老师笑了。  (The little child smiled at the teacher.)  [tatoeba ai-c1c2d77a42]
+  那个女孩儿对我笑了笑。  (That girl smiled at me.)  [tatoeba ai-a5c4efeda4]  hidden: 那个
+  妈妈对孩子说：快去睡觉。  (Mom said to the child, "Go to bed now.")  [tatoeba ai-9ffcd09317]
+  老师对我说，明天有考试。  (The teacher told me there's an exam tomorrow.)  [tatoeba ai-7998bbdf1a]
+  他对我不好，我不想跟他玩儿。  (He isn't nice to me, so I don't want to play with him.)  [tatoeba ai-25e42725e8]  hidden: 不好, 不想, 玩儿
+
+--- dropped at step 4 (1) ---
+  她对着手机笑个不停。  -- 1 characters no HSK 2 word uses: 停
+
+--- dropped at step 5 (18), first 12 ---
+  老师对我们很好。  -- level 1: no list words
+  你对我不高兴吗？  -- level 1: no list words
+  他对我说：“明天见。”  -- level 1: no list words
+  这件事你对老师说了没有？  -- level 1: no list words
+  不要对别人说这件事。  -- level 3: 别人 L3
+  我们的时间对不上。  -- level 1: no list words
+  这两个字对上了。  -- level 1: no list words
+  爸爸对孩子很好。  -- level 1: no list words
+  医生对他说，要多休息。  -- level 1: no list words
+  她对我说谢谢。  -- level 1: no list words
+  她对我们都很好。  -- level 1: no list words
+  弟弟对我说：“我想去玩儿。”  -- level 1: no list words
+
+--- dropped at step 5b (3) ---
+  你的名字跟票上的对不上。  -- harder grammar: 3-48 (HSK 3)
+  他对我笑，我也对他笑。  -- harder grammar: 3-60 (HSK 3)
+  你说的跟他说的对不上。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  爷爷对我说：“早点儿睡。”  -- hidden word a learner can't work out: 早点儿 (a bit earlier)
+
+--- dropped at step 7 (5) ---
+  他对自己很好。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  哥哥对车很懂。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  请对着手机说话。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  他对着电视唱歌。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  那只小狗对着我叫。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+
+--- dropped at step 8 (4) ---
+  他对着门口笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  狗对着那只猫叫。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  他对着电脑说话。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  孩子对着妈妈笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-25_level2_20261114_150003.csv
+  Asking claude-sonnet-5-5 to write 18 sentence(s)...
+  The answer couldn't be read (no JSON array in the answer); trying once more next round.
+
+----- AI-written sentences for 2-25, round 2: 58 to check, 14 needed -----
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 58
+
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 14 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-25 at HSK 2: funnel ===
+       58  AI-written sentences
+       58  1. have an English translation
+       39  2. contain the point's word(s)
+       39  3. new (not in DB, not a duplicate)
+       38  4. at most 0 characters outside HSK 2 words
+       20  5. really HSK 2
+       17  5b. no harder grammar point (of the 43 with a rule)
+       17  6. the rule finds 2-25
+       16  6b. no hidden word a learner can't work out
+       11  7. both checks say 2-25, English chosen
+        7  8. both difficulty reviews pass it
+
+=== Survivors (7) ===
+  别对我叫！  (Don't shout at me!)  [tatoeba ai-7959994d68]
+  他对医生说他头疼。  (He told the doctor that he has a headache.)  [tatoeba ai-62eb501aff]  hidden: 头疼
+  小朋友对老师笑了。  (The little child smiled at the teacher.)  [tatoeba ai-c1c2d77a42]
+  那个女孩儿对我笑了笑。  (That girl smiled at me.)  [tatoeba ai-a5c4efeda4]  hidden: 那个
+  妈妈对孩子说：快去睡觉。  (Mom said to the child, "Go to bed now.")  [tatoeba ai-9ffcd09317]
+  老师对我说，明天有考试。  (The teacher told me there's an exam tomorrow.)  [tatoeba ai-7998bbdf1a]
+  他对我不好，我不想跟他玩儿。  (He isn't nice to me, so I don't want to play with him.)  [tatoeba ai-25e42725e8]  hidden: 不好, 不想, 玩儿
+
+--- dropped at step 4 (1) ---
+  她对着手机笑个不停。  -- 1 characters no HSK 2 word uses: 停
+
+--- dropped at step 5 (18), first 12 ---
+  老师对我们很好。  -- level 1: no list words
+  你对我不高兴吗？  -- level 1: no list words
+  他对我说：“明天见。”  -- level 1: no list words
+  这件事你对老师说了没有？  -- level 1: no list words
+  不要对别人说这件事。  -- level 3: 别人 L3
+  我们的时间对不上。  -- level 1: no list words
+  这两个字对上了。  -- level 1: no list words
+  爸爸对孩子很好。  -- level 1: no list words
+  医生对他说，要多休息。  -- level 1: no list words
+  她对我说谢谢。  -- level 1: no list words
+  她对我们都很好。  -- level 1: no list words
+  弟弟对我说：“我想去玩儿。”  -- level 1: no list words
+
+--- dropped at step 5b (3) ---
+  你的名字跟票上的对不上。  -- harder grammar: 3-48 (HSK 3)
+  他对我笑，我也对他笑。  -- harder grammar: 3-60 (HSK 3)
+  你说的跟他说的对不上。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  爷爷对我说：“早点儿睡。”  -- hidden word a learner can't work out: 早点儿 (a bit earlier)
+
+--- dropped at step 7 (5) ---
+  他对自己很好。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  哥哥对车很懂。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  请对着手机说话。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  他对着电视唱歌。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  那只小狗对着我叫。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+
+--- dropped at step 8 (4) ---
+  他对着门口笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  狗对着那只猫叫。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  他对着电脑说话。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  孩子对着妈妈笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-25_level2_20261114_150025.csv
+  Asking claude-sonnet-5-5 to write 18 sentence(s)...
+  The answer couldn't be read (no JSON array in the answer); trying once more next round.
+
+----- AI-written sentences for 2-25, round 3: 58 to check, 14 needed -----
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 58
+
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 14 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-25 at HSK 2: funnel ===
+       58  AI-written sentences
+       58  1. have an English translation
+       39  2. contain the point's word(s)
+       39  3. new (not in DB, not a duplicate)
+       38  4. at most 0 characters outside HSK 2 words
+       20  5. really HSK 2
+       17  5b. no harder grammar point (of the 43 with a rule)
+       17  6. the rule finds 2-25
+       16  6b. no hidden word a learner can't work out
+       11  7. both checks say 2-25, English chosen
+        7  8. both difficulty reviews pass it
+
+=== Survivors (7) ===
+  别对我叫！  (Don't shout at me!)  [tatoeba ai-7959994d68]
+  他对医生说他头疼。  (He told the doctor that he has a headache.)  [tatoeba ai-62eb501aff]  hidden: 头疼
+  小朋友对老师笑了。  (The little child smiled at the teacher.)  [tatoeba ai-c1c2d77a42]
+  那个女孩儿对我笑了笑。  (That girl smiled at me.)  [tatoeba ai-a5c4efeda4]  hidden: 那个
+  妈妈对孩子说：快去睡觉。  (Mom said to the child, "Go to bed now.")  [tatoeba ai-9ffcd09317]
+  老师对我说，明天有考试。  (The teacher told me there's an exam tomorrow.)  [tatoeba ai-7998bbdf1a]
+  他对我不好，我不想跟他玩儿。  (He isn't nice to me, so I don't want to play with him.)  [tatoeba ai-25e42725e8]  hidden: 不好, 不想, 玩儿
+
+--- dropped at step 4 (1) ---
+  她对着手机笑个不停。  -- 1 characters no HSK 2 word uses: 停
+
+--- dropped at step 5 (18), first 12 ---
+  老师对我们很好。  -- level 1: no list words
+  你对我不高兴吗？  -- level 1: no list words
+  他对我说：“明天见。”  -- level 1: no list words
+  这件事你对老师说了没有？  -- level 1: no list words
+  不要对别人说这件事。  -- level 3: 别人 L3
+  我们的时间对不上。  -- level 1: no list words
+  这两个字对上了。  -- level 1: no list words
+  爸爸对孩子很好。  -- level 1: no list words
+  医生对他说，要多休息。  -- level 1: no list words
+  她对我说谢谢。  -- level 1: no list words
+  她对我们都很好。  -- level 1: no list words
+  弟弟对我说：“我想去玩儿。”  -- level 1: no list words
+
+--- dropped at step 5b (3) ---
+  你的名字跟票上的对不上。  -- harder grammar: 3-48 (HSK 3)
+  他对我笑，我也对他笑。  -- harder grammar: 3-60 (HSK 3)
+  你说的跟他说的对不上。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  爷爷对我说：“早点儿睡。”  -- hidden word a learner can't work out: 早点儿 (a bit earlier)
+
+--- dropped at step 7 (5) ---
+  他对自己很好。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  哥哥对车很懂。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  请对着手机说话。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  他对着电视唱歌。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  那只小狗对着我叫。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+
+--- dropped at step 8 (4) ---
+  他对着门口笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  狗对着那只猫叫。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  他对着电脑说话。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  孩子对着妈妈笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-25_level2_20261114_150046.csv
+
+########## guard check  2026-11-14 16:05 ##########
+Not used as a guard for 1-17: it still flags 1 of its examples, e.g. 他对我说他爱我。
+
+########## tatoeba  2026-11-14 16:10 ##########
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 12  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 1 check and 0 review rejection(s)...
+
+=== 2-25 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      720  2. contain the point's word(s)
+      704  3. new (not in DB, not a duplicate)
+      263  4. at most 2 characters outside HSK 2 words
+       15  5. really HSK 2
+       12  5b. no harder grammar point (of the 43 with a rule)
+        1  6. the rule finds 2-25
+        1  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (16), first 12 ---
+  有件事情我要对你说。  -- already in the database
+  “你说得不对” “那怎么说呢？”  -- already in the database
+  水果对身体非常好。  -- already in the database
+  对他好一点。  -- already in the database
+  你怎么这样对我？  -- already in the database
+  你怎么能这么对我说话！  -- already in the database
+  我们对你知道得不多。  -- already in the database
+  休息几天会对你好的。  -- already in the database
+  你喜欢雨对吧？  -- already in the database
+  那不对，对吧？  -- already in the database
+  你做得对。  -- already in the database
+  不对。  -- already in the database
+
+--- dropped at step 4 (441), first 12 ---
+  对我来说，质量不如数量。  -- 4 characters no HSK 2 word uses: 如数质量
+  玛丽对政治感兴趣。  -- 6 characters no HSK 2 word uses: 丽感政治玛趣
+  你对音乐感不感兴趣？  -- 3 characters no HSK 2 word uses: 感趣音
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我对此毫不怀疑。  -- 4 characters no HSK 2 word uses: 怀此毫疑
+  总的来说，我对这个结果很满意。  -- 3 characters no HSK 2 word uses: 总满结
+  我对她的大公无私怀有敬意。  -- 4 characters no HSK 2 word uses: 怀敬无私
+  这个问题对我来讲很难回答。  -- 3 characters no HSK 2 word uses: 答讲难
+  我对自己的行为感到羞愧。  -- 4 characters no HSK 2 word uses: 感愧羞行
+  去美国学习对我来说是否有益处，还有待考虑。  -- 6 characters no HSK 2 word uses: 否处待益美虑
+  他对懒惰的人很严厉。  -- 4 characters no HSK 2 word uses: 严厉惰懒
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+
+--- dropped at step 5 (248), first 12 ---
+  对不起，我爱你。  -- level 1: no list words
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  您有什么事想对我说吗？  -- level 1: no list words
+  对了，我明天有事。  -- level 1: no list words
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你完全是对的！  -- level 4: 完全 L4
+  对不起， 我情不自禁。  -- level 7: 情不自禁 L7
+  你不是他的对手。  -- level 5: 对手 L5
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  对不起，我不会去。  -- level 3: 起 L3
+  这对我正合适。  -- level 3: 合适 L3
+  你虽然做 不到一个『最好的人』,可是你却做得到一个『对对方最好的人』。  -- level 4: 最好 L3, 可是 L3, 却 L4, 对方 L4
+
+--- dropped at step 5b (3) ---
+  对我来说这就不是个问题。  -- harder grammar: 3-40 (HSK 3)
+  别再对我做这事了。  -- harder grammar: 3-16 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (11) ---
+  你不忙，对吧？  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  我的意思不是她做得对。  -- rule: no match: line matched
+  我希望这是对的。  -- rule: no match: line matched
+  这是对的，不是吗？  -- rule: no match: line matched
+  他告诉他她是对的。  -- rule: no match: line matched
+  你会去问他们，对吧？  -- rule: no match: line matched
+  「好大！」「对，这是 IMAX！」  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: unless 对 吗
+  她会帮我们，对吧？  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  你想知道为什么我对Tom说话吗？  -- check said no (2/2): Tom word missing in sentence; corrupted text
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-25_level2_20261114_161037.csv
+
+########## ai  2026-11-14 16:13 ##########
+
+----- AI-written sentences for 2-25, round 1: 58 to check, 8 needed -----
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 58
+
+Tagging 1 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161314.txt
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 12  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-25 at HSK 2: funnel ===
+       58  AI-written sentences
+       58  1. have an English translation
+       39  2. contain the point's word(s)
+       32  3. new (not in DB, not a duplicate)
+       31  4. at most 0 characters outside HSK 2 words
+       13  5. really HSK 2
+       10  5b. no harder grammar point (of the 43 with a rule)
+       10  6. the rule finds 2-25
+        9  6b. no hidden word a learner can't work out
+        4  7. both checks say 2-25, English chosen
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (7) ---
+  那个女孩儿对我笑了笑。  -- already in the course or chosen from Tatoeba
+  别对我叫！  -- already in the course or chosen from Tatoeba
+  他对医生说他头疼。  -- already in the course or chosen from Tatoeba
+  妈妈对孩子说：快去睡觉。  -- already in the course or chosen from Tatoeba
+  老师对我说，明天有考试。  -- already in the course or chosen from Tatoeba
+  小朋友对老师笑了。  -- already in the course or chosen from Tatoeba
+  他对我不好，我不想跟他玩儿。  -- already in the course or chosen from Tatoeba
+
+--- dropped at step 4 (1) ---
+  她对着手机笑个不停。  -- 1 characters no HSK 2 word uses: 停
+
+--- dropped at step 5 (18), first 12 ---
+  老师对我们很好。  -- level 1: no list words
+  你对我不高兴吗？  -- level 1: no list words
+  他对我说：“明天见。”  -- level 1: no list words
+  这件事你对老师说了没有？  -- level 1: no list words
+  不要对别人说这件事。  -- level 3: 别人 L3
+  我们的时间对不上。  -- level 1: no list words
+  这两个字对上了。  -- level 1: no list words
+  爸爸对孩子很好。  -- level 1: no list words
+  医生对他说，要多休息。  -- level 1: no list words
+  她对我说谢谢。  -- level 1: no list words
+  她对我们都很好。  -- level 1: no list words
+  弟弟对我说：“我想去玩儿。”  -- level 1: no list words
+
+--- dropped at step 5b (3) ---
+  你的名字跟票上的对不上。  -- harder grammar: 3-48 (HSK 3)
+  他对我笑，我也对他笑。  -- harder grammar: 3-60 (HSK 3)
+  你说的跟他说的对不上。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  爷爷对我说：“早点儿睡。”  -- hidden word a learner can't work out: 早点儿 (a bit earlier)
+
+--- dropped at step 7 (5) ---
+  他对自己很好。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  哥哥对车很懂。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  请对着手机说话。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  他对着电视唱歌。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  那只小狗对着我叫。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+
+--- dropped at step 8 (4) ---
+  他对着门口笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  狗对着那只猫叫。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  他对着电脑说话。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  孩子对着妈妈笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-25_level2_20261114_161315.csv
+  Asking claude-sonnet-5-5 to write 20 sentence(s)...
+
+----- AI-written sentences for 2-25, round 2: 78 to check, 8 needed -----
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 78
+
+Tagging 12 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161333.txt
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 12  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-25 at HSK 2: funnel ===
+       78  AI-written sentences
+       78  1. have an English translation
+       51  2. contain the point's word(s)
+       44  3. new (not in DB, not a duplicate)
+       43  4. at most 0 characters outside HSK 2 words
+       22  5. really HSK 2
+       19  5b. no harder grammar point (of the 43 with a rule)
+       19  6. the rule finds 2-25
+       18  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-25, English chosen
+        3  8. both difficulty reviews pass it
+
+=== Survivors (3) ===
+  你在对谁笑呢？  (Who are you smiling at?)  [tatoeba ai-ea6dd9b2f3]
+  别对孩子说这些。  (Don't say these things to the child.)  [tatoeba ai-1e34136320]
+  那个老师对学生很好。  (That teacher is very nice to the students.)  [tatoeba ai-e196916ed4]  hidden: 那个
+
+--- dropped at step 3 (7) ---
+  那个女孩儿对我笑了笑。  -- already in the course or chosen from Tatoeba
+  别对我叫！  -- already in the course or chosen from Tatoeba
+  他对医生说他头疼。  -- already in the course or chosen from Tatoeba
+  妈妈对孩子说：快去睡觉。  -- already in the course or chosen from Tatoeba
+  老师对我说，明天有考试。  -- already in the course or chosen from Tatoeba
+  小朋友对老师笑了。  -- already in the course or chosen from Tatoeba
+  他对我不好，我不想跟他玩儿。  -- already in the course or chosen from Tatoeba
+
+--- dropped at step 4 (1) ---
+  她对着手机笑个不停。  -- 1 characters no HSK 2 word uses: 停
+
+--- dropped at step 5 (21), first 12 ---
+  老师对我们很好。  -- level 1: no list words
+  你对我不高兴吗？  -- level 1: no list words
+  他对我说：“明天见。”  -- level 1: no list words
+  这件事你对老师说了没有？  -- level 1: no list words
+  不要对别人说这件事。  -- level 3: 别人 L3
+  我们的时间对不上。  -- level 1: no list words
+  这两个字对上了。  -- level 1: no list words
+  爸爸对孩子很好。  -- level 1: no list words
+  医生对他说，要多休息。  -- level 1: no list words
+  她对我说谢谢。  -- level 1: no list words
+  她对我们都很好。  -- level 1: no list words
+  弟弟对我说：“我想去玩儿。”  -- level 1: no list words
+
+--- dropped at step 5b (3) ---
+  你的名字跟票上的对不上。  -- harder grammar: 3-48 (HSK 3)
+  他对我笑，我也对他笑。  -- harder grammar: 3-60 (HSK 3)
+  你说的跟他说的对不上。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  爷爷对我说：“早点儿睡。”  -- hidden word a learner can't work out: 早点儿 (a bit earlier)
+
+--- dropped at step 7 (10) ---
+  他对自己很好。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  哥哥对车很懂。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  请你对着我看。  -- check said no (1/2): 对着 is covered in 'other grammar' section
+  请对着手机说话。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  他对着电视唱歌。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  我对电脑不太懂。  -- check said no (1/2): This is 对于 usage (topic marker), not core 2-25
+  我对足球不太懂。  -- check said no (1/2): This is 对于 usage (topic marker), not core 2-25
+  那只小狗对着我叫。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  孩子对着电脑说英语。  -- check said no (1/2): 对着 is covered in 'other grammar' section
+  你写的字跟书上的对上了。  -- check said no (2/2): 对上 is verb phrase, not main grammar point
+
+--- dropped at step 8 (5) ---
+  他对着门口笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  狗对着那只猫叫。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  他对着电脑说话。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  孩子对着妈妈笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  小孩儿对我说再见。  -- difficulty review: (2/2); 小孩儿 uses the -儿 suffix (3-02, HSK 3)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-25_level2_20261114_161340.csv
+  Asking claude-sonnet-5-5 to write 13 sentence(s)...
+  The answer couldn't be read (no JSON array in the answer); trying once more next round.
+
+----- AI-written sentences for 2-25, round 3: 78 to check, 8 needed -----
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 78
+
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 12  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-25 at HSK 2: funnel ===
+       78  AI-written sentences
+       78  1. have an English translation
+       51  2. contain the point's word(s)
+       44  3. new (not in DB, not a duplicate)
+       43  4. at most 0 characters outside HSK 2 words
+       22  5. really HSK 2
+       19  5b. no harder grammar point (of the 43 with a rule)
+       19  6. the rule finds 2-25
+       18  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-25, English chosen
+        3  8. both difficulty reviews pass it
+
+=== Survivors (3) ===
+  你在对谁笑呢？  (Who are you smiling at?)  [tatoeba ai-ea6dd9b2f3]
+  别对孩子说这些。  (Don't say these things to the child.)  [tatoeba ai-1e34136320]
+  那个老师对学生很好。  (That teacher is very nice to the students.)  [tatoeba ai-e196916ed4]  hidden: 那个
+
+--- dropped at step 3 (7) ---
+  那个女孩儿对我笑了笑。  -- already in the course or chosen from Tatoeba
+  别对我叫！  -- already in the course or chosen from Tatoeba
+  他对医生说他头疼。  -- already in the course or chosen from Tatoeba
+  妈妈对孩子说：快去睡觉。  -- already in the course or chosen from Tatoeba
+  老师对我说，明天有考试。  -- already in the course or chosen from Tatoeba
+  小朋友对老师笑了。  -- already in the course or chosen from Tatoeba
+  他对我不好，我不想跟他玩儿。  -- already in the course or chosen from Tatoeba
+
+--- dropped at step 4 (1) ---
+  她对着手机笑个不停。  -- 1 characters no HSK 2 word uses: 停
+
+--- dropped at step 5 (21), first 12 ---
+  老师对我们很好。  -- level 1: no list words
+  你对我不高兴吗？  -- level 1: no list words
+  他对我说：“明天见。”  -- level 1: no list words
+  这件事你对老师说了没有？  -- level 1: no list words
+  不要对别人说这件事。  -- level 3: 别人 L3
+  我们的时间对不上。  -- level 1: no list words
+  这两个字对上了。  -- level 1: no list words
+  爸爸对孩子很好。  -- level 1: no list words
+  医生对他说，要多休息。  -- level 1: no list words
+  她对我说谢谢。  -- level 1: no list words
+  她对我们都很好。  -- level 1: no list words
+  弟弟对我说：“我想去玩儿。”  -- level 1: no list words
+
+--- dropped at step 5b (3) ---
+  你的名字跟票上的对不上。  -- harder grammar: 3-48 (HSK 3)
+  他对我笑，我也对他笑。  -- harder grammar: 3-60 (HSK 3)
+  你说的跟他说的对不上。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  爷爷对我说：“早点儿睡。”  -- hidden word a learner can't work out: 早点儿 (a bit earlier)
+
+--- dropped at step 7 (10) ---
+  他对自己很好。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  哥哥对车很懂。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  请你对着我看。  -- check said no (1/2): 对着 is covered in 'other grammar' section
+  请对着手机说话。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  他对着电视唱歌。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  我对电脑不太懂。  -- check said no (1/2): This is 对于 usage (topic marker), not core 2-25
+  我对足球不太懂。  -- check said no (1/2): This is 对于 usage (topic marker), not core 2-25
+  那只小狗对着我叫。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  孩子对着电脑说英语。  -- check said no (1/2): 对着 is covered in 'other grammar' section
+  你写的字跟书上的对上了。  -- check said no (2/2): 对上 is verb phrase, not main grammar point
+
+--- dropped at step 8 (5) ---
+  他对着门口笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  狗对着那只猫叫。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  他对着电脑说话。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  孩子对着妈妈笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  小孩儿对我说再见。  -- difficulty review: (2/2); 小孩儿 uses the -儿 suffix (3-02, HSK 3)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-25_level2_20261114_161358.csv
+
+########## guard check  2026-11-14 16:29 ##########
+Not used as a guard for 1-17: it still flags 1 of its examples, e.g. 他对我说他爱我。
+
+########## tatoeba  2026-11-14 16:31 ##########
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 3 check and 1 review rejection(s)...
+
+=== 2-25 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      720  2. contain the point's word(s)
+      718  3. new (not in DB, not a duplicate)
+      277  4. at most 2 characters outside HSK 2 words
+       28  5. really HSK 2
+       25  5b. no harder grammar point (of the 43 with a rule)
+        7  6. the rule finds 2-25
+        7  6b. no hidden word a learner can't work out
+        4  7. both checks say 2-25, English chosen
+        2  7b. second opinion: it is the point (check)
+        3  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  对他好一点。  (Treat him well.)  [tatoeba 4737561]
+  有件事情我要对你说。  (There's something I want to tell you.)  [tatoeba 1759719]
+  你怎么能这么对我说话！  (How dare you say that to me!)  [tatoeba 6483522]
+  水果对身体非常好。  (Fruit is very good for your body.)  [tatoeba 3377987]
+  休息几天会对你好的。  (A few days' rest will do you good.)  [tatoeba 6822553]  hidden: 几天, 你好
+  我们对你知道得不多。  (We know so little about you.)  [tatoeba 6635877]
+
+--- dropped at step 3 (2) ---
+  绝对不行！  -- already in the database
+  对吗？  -- same text as 10981494 (translations pooled)
+
+--- dropped at step 4 (441), first 12 ---
+  对我来说，质量不如数量。  -- 4 characters no HSK 2 word uses: 如数质量
+  玛丽对政治感兴趣。  -- 6 characters no HSK 2 word uses: 丽感政治玛趣
+  你对音乐感不感兴趣？  -- 3 characters no HSK 2 word uses: 感趣音
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我对此毫不怀疑。  -- 4 characters no HSK 2 word uses: 怀此毫疑
+  总的来说，我对这个结果很满意。  -- 3 characters no HSK 2 word uses: 总满结
+  我对她的大公无私怀有敬意。  -- 4 characters no HSK 2 word uses: 怀敬无私
+  这个问题对我来讲很难回答。  -- 3 characters no HSK 2 word uses: 答讲难
+  我对自己的行为感到羞愧。  -- 4 characters no HSK 2 word uses: 感愧羞行
+  去美国学习对我来说是否有益处，还有待考虑。  -- 6 characters no HSK 2 word uses: 否处待益美虑
+  他对懒惰的人很严厉。  -- 4 characters no HSK 2 word uses: 严厉惰懒
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+
+--- dropped at step 5 (249), first 12 ---
+  对不起，我爱你。  -- level 1: no list words
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  您有什么事想对我说吗？  -- level 1: no list words
+  对了，我明天有事。  -- level 1: no list words
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你完全是对的！  -- level 4: 完全 L4
+  对不起， 我情不自禁。  -- level 7: 情不自禁 L7
+  你不是他的对手。  -- level 5: 对手 L5
+  这些信息对我们非常重要。  -- level 4: 信息 L4, 重要 L3
+  对不起，我不会去。  -- level 3: 起 L3
+  这对我正合适。  -- level 3: 合适 L3
+  你虽然做 不到一个『最好的人』,可是你却做得到一个『对对方最好的人』。  -- level 4: 最好 L3, 可是 L3, 却 L4, 对方 L4
+
+--- dropped at step 5b (3) ---
+  对我来说这就不是个问题。  -- harder grammar: 3-40 (HSK 3)
+  别再对我做这事了。  -- harder grammar: 3-16 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (18) ---
+  你不忙，对吧？  -- rule: no match: line matched
+  “你说得不对” “那怎么说呢？”  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  你怎么这样对我？  -- rule: no match: line matched
+  我的意思不是她做得对。  -- rule: no match: line matched
+  我希望这是对的。  -- rule: no match: line matched
+  你喜欢雨对吧？  -- rule: no match: line matched
+  这是对的，不是吗？  -- rule: no match: line matched
+  那不对，对吧？  -- rule: no match: line matched
+  你做得对。  -- rule: no match: line matched
+  他告诉他她是对的。  -- rule: no match: line matched
+  你会去问他们，对吧？  -- rule: no match: line matched
+  「好大！」「对，这是 IMAX！」  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: unless 对 吗
+  你们说得对。  -- rule: no match: line matched
+  她做得对。  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  你想知道为什么我对Tom说话吗？  -- check said no (2/2): Tom word missing in sentence; corrupted text
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-25_level2_20261114_163102.csv
+
+########## ai  2026-11-14 16:34 ##########
+
+----- AI-written sentences for 2-25, round 1: 78 to check, 14 needed -----
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 78
+
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 14 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-25 at HSK 2: funnel ===
+       78  AI-written sentences
+       78  1. have an English translation
+       51  2. contain the point's word(s)
+       51  3. new (not in DB, not a duplicate)
+       50  4. at most 0 characters outside HSK 2 words
+       29  5. really HSK 2
+       26  5b. no harder grammar point (of the 43 with a rule)
+       26  6. the rule finds 2-25
+       25  6b. no hidden word a learner can't work out
+       15  7. both checks say 2-25, English chosen
+       10  8. both difficulty reviews pass it
+
+=== Survivors (10) ===
+  别对我叫！  (Don't shout at me!)  [tatoeba ai-7959994d68]
+  你在对谁笑呢？  (Who are you smiling at?)  [tatoeba ai-ea6dd9b2f3]
+  别对孩子说这些。  (Don't say these things to the child.)  [tatoeba ai-1e34136320]
+  他对医生说他头疼。  (He told the doctor that he has a headache.)  [tatoeba ai-62eb501aff]  hidden: 头疼
+  小朋友对老师笑了。  (The little child smiled at the teacher.)  [tatoeba ai-c1c2d77a42]
+  那个老师对学生很好。  (That teacher is very nice to the students.)  [tatoeba ai-e196916ed4]  hidden: 那个
+  那个女孩儿对我笑了笑。  (That girl smiled at me.)  [tatoeba ai-a5c4efeda4]  hidden: 那个
+  妈妈对孩子说：快去睡觉。  (Mom said to the child, "Go to bed now.")  [tatoeba ai-9ffcd09317]
+  老师对我说，明天有考试。  (The teacher told me there's an exam tomorrow.)  [tatoeba ai-7998bbdf1a]
+  他对我不好，我不想跟他玩儿。  (He isn't nice to me, so I don't want to play with him.)  [tatoeba ai-25e42725e8]  hidden: 不好, 不想, 玩儿
+
+--- dropped at step 4 (1) ---
+  她对着手机笑个不停。  -- 1 characters no HSK 2 word uses: 停
+
+--- dropped at step 5 (21), first 12 ---
+  老师对我们很好。  -- level 1: no list words
+  你对我不高兴吗？  -- level 1: no list words
+  他对我说：“明天见。”  -- level 1: no list words
+  这件事你对老师说了没有？  -- level 1: no list words
+  不要对别人说这件事。  -- level 3: 别人 L3
+  我们的时间对不上。  -- level 1: no list words
+  这两个字对上了。  -- level 1: no list words
+  爸爸对孩子很好。  -- level 1: no list words
+  医生对他说，要多休息。  -- level 1: no list words
+  她对我说谢谢。  -- level 1: no list words
+  她对我们都很好。  -- level 1: no list words
+  弟弟对我说：“我想去玩儿。”  -- level 1: no list words
+
+--- dropped at step 5b (3) ---
+  你的名字跟票上的对不上。  -- harder grammar: 3-48 (HSK 3)
+  他对我笑，我也对他笑。  -- harder grammar: 3-60 (HSK 3)
+  你说的跟他说的对不上。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  爷爷对我说：“早点儿睡。”  -- hidden word a learner can't work out: 早点儿 (a bit earlier)
+
+--- dropped at step 7 (10) ---
+  他对自己很好。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  哥哥对车很懂。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  请你对着我看。  -- check said no (1/2): 对着 is covered in 'other grammar' section
+  请对着手机说话。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  他对着电视唱歌。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  我对电脑不太懂。  -- check said no (1/2): This is 对于 usage (topic marker), not core 2-25
+  我对足球不太懂。  -- check said no (1/2): This is 对于 usage (topic marker), not core 2-25
+  那只小狗对着我叫。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  孩子对着电脑说英语。  -- check said no (1/2): 对着 is covered in 'other grammar' section
+  你写的字跟书上的对上了。  -- check said no (2/2): 对上 is verb phrase, not main grammar point
+
+--- dropped at step 8 (5) ---
+  他对着门口笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  狗对着那只猫叫。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  他对着电脑说话。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  孩子对着妈妈笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  小孩儿对我说再见。  -- difficulty review: (2/2); 小孩儿 uses the -儿 suffix (3-02, HSK 3)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-25_level2_20261114_163427.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+  The answer couldn't be read (no JSON array in the answer); trying once more next round.
+
+----- AI-written sentences for 2-25, round 2: 78 to check, 14 needed -----
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 78
+
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 14 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-25 at HSK 2: funnel ===
+       78  AI-written sentences
+       78  1. have an English translation
+       51  2. contain the point's word(s)
+       51  3. new (not in DB, not a duplicate)
+       50  4. at most 0 characters outside HSK 2 words
+       29  5. really HSK 2
+       26  5b. no harder grammar point (of the 43 with a rule)
+       26  6. the rule finds 2-25
+       25  6b. no hidden word a learner can't work out
+       15  7. both checks say 2-25, English chosen
+       10  8. both difficulty reviews pass it
+
+=== Survivors (10) ===
+  别对我叫！  (Don't shout at me!)  [tatoeba ai-7959994d68]
+  你在对谁笑呢？  (Who are you smiling at?)  [tatoeba ai-ea6dd9b2f3]
+  别对孩子说这些。  (Don't say these things to the child.)  [tatoeba ai-1e34136320]
+  他对医生说他头疼。  (He told the doctor that he has a headache.)  [tatoeba ai-62eb501aff]  hidden: 头疼
+  小朋友对老师笑了。  (The little child smiled at the teacher.)  [tatoeba ai-c1c2d77a42]
+  那个老师对学生很好。  (That teacher is very nice to the students.)  [tatoeba ai-e196916ed4]  hidden: 那个
+  那个女孩儿对我笑了笑。  (That girl smiled at me.)  [tatoeba ai-a5c4efeda4]  hidden: 那个
+  妈妈对孩子说：快去睡觉。  (Mom said to the child, "Go to bed now.")  [tatoeba ai-9ffcd09317]
+  老师对我说，明天有考试。  (The teacher told me there's an exam tomorrow.)  [tatoeba ai-7998bbdf1a]
+  他对我不好，我不想跟他玩儿。  (He isn't nice to me, so I don't want to play with him.)  [tatoeba ai-25e42725e8]  hidden: 不好, 不想, 玩儿
+
+--- dropped at step 4 (1) ---
+  她对着手机笑个不停。  -- 1 characters no HSK 2 word uses: 停
+
+--- dropped at step 5 (21), first 12 ---
+  老师对我们很好。  -- level 1: no list words
+  你对我不高兴吗？  -- level 1: no list words
+  他对我说：“明天见。”  -- level 1: no list words
+  这件事你对老师说了没有？  -- level 1: no list words
+  不要对别人说这件事。  -- level 3: 别人 L3
+  我们的时间对不上。  -- level 1: no list words
+  这两个字对上了。  -- level 1: no list words
+  爸爸对孩子很好。  -- level 1: no list words
+  医生对他说，要多休息。  -- level 1: no list words
+  她对我说谢谢。  -- level 1: no list words
+  她对我们都很好。  -- level 1: no list words
+  弟弟对我说：“我想去玩儿。”  -- level 1: no list words
+
+--- dropped at step 5b (3) ---
+  你的名字跟票上的对不上。  -- harder grammar: 3-48 (HSK 3)
+  他对我笑，我也对他笑。  -- harder grammar: 3-60 (HSK 3)
+  你说的跟他说的对不上。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  爷爷对我说：“早点儿睡。”  -- hidden word a learner can't work out: 早点儿 (a bit earlier)
+
+--- dropped at step 7 (10) ---
+  他对自己很好。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  哥哥对车很懂。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  请你对着我看。  -- check said no (1/2): 对着 is covered in 'other grammar' section
+  请对着手机说话。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  他对着电视唱歌。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  我对电脑不太懂。  -- check said no (1/2): This is 对于 usage (topic marker), not core 2-25
+  我对足球不太懂。  -- check said no (1/2): This is 对于 usage (topic marker), not core 2-25
+  那只小狗对着我叫。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  孩子对着电脑说英语。  -- check said no (1/2): 对着 is covered in 'other grammar' section
+  你写的字跟书上的对上了。  -- check said no (2/2): 对上 is verb phrase, not main grammar point
+
+--- dropped at step 8 (5) ---
+  他对着门口笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  狗对着那只猫叫。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  他对着电脑说话。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  孩子对着妈妈笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  小孩儿对我说再见。  -- difficulty review: (2/2); 小孩儿 uses the -儿 suffix (3-02, HSK 3)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-25_level2_20261114_163443.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+  The answer couldn't be read (no JSON array in the answer); trying once more next round.
+
+----- AI-written sentences for 2-25, round 3: 78 to check, 14 needed -----
+Filling 2-25 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 78
+
+
+Course sentences at HSK 2 the rule already finds 2-25 in: 0  -> Tatoeba needs to add 14 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-25 at HSK 2: funnel ===
+       78  AI-written sentences
+       78  1. have an English translation
+       51  2. contain the point's word(s)
+       51  3. new (not in DB, not a duplicate)
+       50  4. at most 0 characters outside HSK 2 words
+       29  5. really HSK 2
+       26  5b. no harder grammar point (of the 43 with a rule)
+       26  6. the rule finds 2-25
+       25  6b. no hidden word a learner can't work out
+       15  7. both checks say 2-25, English chosen
+       10  8. both difficulty reviews pass it
+
+=== Survivors (10) ===
+  别对我叫！  (Don't shout at me!)  [tatoeba ai-7959994d68]
+  你在对谁笑呢？  (Who are you smiling at?)  [tatoeba ai-ea6dd9b2f3]
+  别对孩子说这些。  (Don't say these things to the child.)  [tatoeba ai-1e34136320]
+  他对医生说他头疼。  (He told the doctor that he has a headache.)  [tatoeba ai-62eb501aff]  hidden: 头疼
+  小朋友对老师笑了。  (The little child smiled at the teacher.)  [tatoeba ai-c1c2d77a42]
+  那个老师对学生很好。  (That teacher is very nice to the students.)  [tatoeba ai-e196916ed4]  hidden: 那个
+  那个女孩儿对我笑了笑。  (That girl smiled at me.)  [tatoeba ai-a5c4efeda4]  hidden: 那个
+  妈妈对孩子说：快去睡觉。  (Mom said to the child, "Go to bed now.")  [tatoeba ai-9ffcd09317]
+  老师对我说，明天有考试。  (The teacher told me there's an exam tomorrow.)  [tatoeba ai-7998bbdf1a]
+  他对我不好，我不想跟他玩儿。  (He isn't nice to me, so I don't want to play with him.)  [tatoeba ai-25e42725e8]  hidden: 不好, 不想, 玩儿
+
+--- dropped at step 4 (1) ---
+  她对着手机笑个不停。  -- 1 characters no HSK 2 word uses: 停
+
+--- dropped at step 5 (21), first 12 ---
+  老师对我们很好。  -- level 1: no list words
+  你对我不高兴吗？  -- level 1: no list words
+  他对我说：“明天见。”  -- level 1: no list words
+  这件事你对老师说了没有？  -- level 1: no list words
+  不要对别人说这件事。  -- level 3: 别人 L3
+  我们的时间对不上。  -- level 1: no list words
+  这两个字对上了。  -- level 1: no list words
+  爸爸对孩子很好。  -- level 1: no list words
+  医生对他说，要多休息。  -- level 1: no list words
+  她对我说谢谢。  -- level 1: no list words
+  她对我们都很好。  -- level 1: no list words
+  弟弟对我说：“我想去玩儿。”  -- level 1: no list words
+
+--- dropped at step 5b (3) ---
+  你的名字跟票上的对不上。  -- harder grammar: 3-48 (HSK 3)
+  他对我笑，我也对他笑。  -- harder grammar: 3-60 (HSK 3)
+  你说的跟他说的对不上。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6b (1) ---
+  爷爷对我说：“早点儿睡。”  -- hidden word a learner can't work out: 早点儿 (a bit earlier)
+
+--- dropped at step 7 (10) ---
+  他对自己很好。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  哥哥对车很懂。  -- check said no (1/2): 对于 pattern (A 对 B Adj.), not verb usage
+  请你对着我看。  -- check said no (1/2): 对着 is covered in 'other grammar' section
+  请对着手机说话。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  他对着电视唱歌。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  我对电脑不太懂。  -- check said no (1/2): This is 对于 usage (topic marker), not core 2-25
+  我对足球不太懂。  -- check said no (1/2): This is 对于 usage (topic marker), not core 2-25
+  那只小狗对着我叫。  -- check said no (2/2): 对着 is fixed expression, not basic 对 usage
+  孩子对着电脑说英语。  -- check said no (1/2): 对着 is covered in 'other grammar' section
+  你写的字跟书上的对上了。  -- check said no (2/2): 对上 is verb phrase, not main grammar point
+
+--- dropped at step 8 (5) ---
+  他对着门口笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  狗对着那只猫叫。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  他对着电脑说话。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  孩子对着妈妈笑。  -- difficulty review: (2/2); 对着 (facing/directed at + 着) is a construction above HSK 2 level
+  小孩儿对我说再见。  -- difficulty review: (2/2); 小孩儿 uses the -儿 suffix (3-02, HSK 3)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-25_level2_20261114_163458.csv

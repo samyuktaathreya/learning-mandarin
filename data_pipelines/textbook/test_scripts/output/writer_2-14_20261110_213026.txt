@@ -1,0 +1,41 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 7801 characters -->
+## 2-14
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
+**Point:** Scope adverbs 全 ("all, whole"), 一共 ("altogether") and 只 ("only"), placed before the predicate.
+**Covers:** 
+- 全都 or 全 as an adverb before the verb or adjective (大家全都到了, 同学们全来了, 全都不怕, 没全都来).
+- 全 as a determiner on a noun, followed by 都 in the same clause (全家都, 全公司的人都不…, 这个地方全年都很热).
+- 全身 followed by 都.
+- 一共 + number or verb.
+- 只 or 只能 before a verb (我只想…, 他们只会说英文).
+- 只有 meaning "only have" after a subject (我们只有十块钱), 只要 meaning "only want" (你们只要咖啡吗).
+
+**Does not cover:**
+- 只好 (no other choice), 只要…就 (as long as), 只有…才 (only if) and 不只/不但 (not only). These are separate points.
+- 只 as a measure word (一只虫子).
+- 只是, 只不过 and 只见.
+- 全 inside other words (全部的, 全力, 完全, 齐全, 全国纪录 with no 都).
+- Subject-less clause-initial 只有 + quantity (只有几个人去过…), and 只要 + 几 + measure word meaning "it only takes a few…" (坐飞机只要几个小时). These are treated as ordinary 有/要 sentences of an easier point.
+
+```rule
+match: 全都|全|一共/AD
+match: 全身/AD 都/AD
+match: 全/DT ... 都/AD
+match: 只|只能/AD /VV|VE
+match: _ 只有/AD
+match: _ 只要/AD|VV
+unless: 才/AD
+unless: 就/AD
+unless: 不/AD 只|只有/AD|VV
+unless: 只/AD 见
+unless: 只/AD 不过
+unless: ^ 只/AD 有
+unless: 只/AD 要 几/CD
+```
+
+**Notes:** 
+- The tagger gives 只有 and 只要 the tag AD or CS/VV inconsistently. So the standalone 只有 and 只要 patterns require a word before them in the clause, which rules out the clause-initial conditional use. The global `unless` lines on 才 and 就 catch the "only if" and "as long as" sentences whose 才 or 就 is in a later clause.
+- Those two `unless` lines also drop some genuine sentences that happen to contain 就 or 才. That is intentional (precision first).
+- The tagger sometimes splits 只有 into 只/AD 有/VV, so `只 + VV|VE` could match clause-initial "只有几个人…". The `^ 只 有` unless line blocks that case, and `只 要 几/CD` blocks "只要几个小时".
+- 全/DT … 都 can occasionally match a clause where 全 is unrelated to 都. This is rare.
+- 只好 is a separate word and is never matched, because no pattern lists it.

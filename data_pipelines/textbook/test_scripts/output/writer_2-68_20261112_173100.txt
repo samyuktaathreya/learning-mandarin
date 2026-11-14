@@ -1,0 +1,21 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 6772 characters -->
+## 2-68
+**Point:** Cause and effect relationship expressed with 因为 (because) and/or 所以 (so/therefore) across clause boundaries
+
+**Covers:** 
+- Result clause followed by 因为 + reason clause
+- Cause clause followed by 所以 + result clause  
+- 因为 + cause clause followed by 所以 + result clause
+
+**Does not cover:**
+- Sentences using 因为...而... (because...as a result...) structure, which uses 而 to show effect within a single clause
+- Other causal connectors like 由于
+
+```rule
+match: ... 因为/P ... ‖ ...
+match: ... ‖ 所以/AD ...
+match: ^ 因为/P ... ‖ ... 所以/AD ...
+unless: 而/MSP
+```
+
+**Notes:** The three match lines capture the three structures: (1) result then reason, (2) reason then result, (3) full 因为...所以... pattern. The unless line excludes the 因为...而... structure used in counter-examples, which is a different grammar point. Sentences may have 因为 or 所以 alone (not both), which is acceptable per the official examples and grammar explanation.

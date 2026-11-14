@@ -1,0 +1,16 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 8242 characters -->
+## 2-09
+<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+**Point:** Large numbers using 千, 万, 亿 as units in numeric expressions
+
+**Covers:** Numbers in which 千 (thousand), 万 (ten thousand) or 亿 (hundred million) appears as its own numeric unit token tagged CD, e.g. 十四/CD 亿/CD, 五/CD 万/CD 两/CD 千/CD.
+
+**Does not cover:** 千万 as an adverb meaning "must" or "make sure"; 万一 as "if" or "what if"; idioms like "以防万一"; ordinary numbers and question words (几, 多少, 十二, 四十) that contain no 千/万/亿 unit.
+
+```rule
+match: 千|万|亿/CD
+unless: 千万 /VV|AD|VA
+unless: 万一
+```
+
+**Notes:** The earlier rule matched any /CD token, which wrongly caught plain numbers, 几 and 多少. Now the rule requires one of the unit words 千, 万 or 亿 itself to be a CD token, so it matches only numbers that use those units. Standalone 千万 and 万一 are separate whole tokens and are not matched. The unless lines are extra safeguards against the adverb and conditional uses.

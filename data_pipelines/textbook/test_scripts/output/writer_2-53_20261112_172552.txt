@@ -1,0 +1,24 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 10800 characters -->
+## 2-53
+**Point:** Adjective + quantifier/degree complement to express comparison or change
+**Covers:** Comparisons using 比/和/跟 with adjective + 多了/得多/很多, age expressions with 大/小 + number + 岁, and adjective + 多了/一点儿 to express change or degree
+**Does not cover:** 一点儿/一些 meaning "some" or "a little bit" (not as a complement); 一点儿 with negation (一点也/都不); adjective + 了 meaning "too" without a quantifier complement
+
+```rule
+match: /VA ... /CD /M $
+match: /VA ... /CD 岁
+match: /VA 多/AD 了/SP $
+match: /VA 得/DER 多/VA
+match: /VA 很/AD 多
+match: /VA 一点儿/AD $
+match: 差不多/AD /VA $
+match: 一样/AD /VA $
+
+unless: 一点/NN 也/AD
+unless: 一点/NN 都/AD
+unless: 一些/CD
+unless: 有/VE 一点儿
+unless: 有/VE 一点
+```
+
+**Notes:** The rule targets adjectives followed by quantifier complements (numbers + 岁, 多了, 得多, 很多, 一点儿) or special comparative forms (差不多大, 一样大). It excludes negation patterns (一点也/都不), the "some/a bit" uses of 一些 and 有一点儿, and distinguishes from HSK 2-13 (degree adverbs like 多 alone). Age expressions with 大/小 + CD + 岁 are included. The "多了" pattern requires end-of-clause to avoid false matches with verbs like 喝多了 (drank too much).

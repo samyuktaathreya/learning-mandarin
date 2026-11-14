@@ -8,3 +8,320 @@ Traceback (most recent call last):
   File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 672, in cmd_sources
     raise SystemExit(f"No AllSet Learning page uses {' '.join(point.markers)}.")
 SystemExit: No AllSet Learning page uses 承接.
+
+########## rules  2026-11-10 21:26 ##########
+Traceback (most recent call last):
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 491, in main
+    rule_for(db, c, st, tagger, client, args.first_writer)
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 143, in rule_for
+    tg.cmd_sources(db, point, trial_args(code=code, redo=True))
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 698, in cmd_sources
+    raise SystemExit(f"No AllSet Learning page uses {' '.join(point.markers)}.")
+SystemExit: No AllSet Learning page uses 承接.
+
+########## rules  2026-11-11 14:18 ##########
+Traceback (most recent call last):
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 515, in main
+    rule_for(db, c, st, tagger, client, args.first_writer)
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 143, in rule_for
+    tg.cmd_sources(db, point, trial_args(code=code, redo=True))
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 722, in cmd_sources
+    raise SystemExit(f"No AllSet Learning page uses {' '.join(point.markers)}.")
+SystemExit: No AllSet Learning page uses 承接.
+
+########## rules  2026-11-12 17:28 ##########
+13 page(s) use the word(s); asking about 13.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGLJM55  Sequencing with "xian" and "zai"
+  ASGNPJ7T  Comparing "yihou" "ranhou" "houlai"
+
+not:
+  ASG47D26  Expressing "again and again" with "yizai"
+  ASG78FDE  Expressing a last chance with "zaibu... jiu..."
+  ASG7R8US  Expressing "never again" with "zai ye bu"
+  ASGAA381  Expressing "even so" with "zaibu... ye..."
+  ASGATDLX  Expressing "in addition" with "zaishuo"
+  ASGIZQJ2  Expressing "again" in the future with "zai"
+  ASGP6LVA  Expressing "over and over again" with "zaisan"
+  ASGTBHBG  Comparing "zai" and "you"
+
+unsure:
+
+unrelated:
+  ASG68F61  Expressing "when" with "dengdao"
+  ASGLI513  Expressing "even if…" with "jiusuan"
+  ASGXX3NY  Expressing "even if…" with "napa"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-62
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_172818.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-62, rule line 1: '(再|然后|接着|又|又/AD)/AD' looks like a regular expression -- this is not regex syntax: use ... for 'any words' and _ for 'one word' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-62_20261112_172827.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-62
+<!-- written by claude-haiku-4-5 on 2026-11-12; edit freely -->
+**Point:** Sequencing consecutive events or actions (承接复句)
+**Covers:** Sentences showing two or more sequential actions/events connected by conjunctions like 先...再, 然后, 接着, or by simple juxtaposition with punctuation. Includes patterns with 以后 showing sequence after a completed event.
+**Does not cover:** Single actions with 再 meaning "again" or "once more"; 再说 meaning "in addition"; 一再/再三 meaning "repeatedly"; 再也不/没 meaning "never again"; 再不...就 meaning conditional threat; other uses of 再 as a future-tense marker.
+
+```rule
+match: 先/AD _ ... 再/AD
+match: 先/AD _ ... 然后/AD
+match: 先/AD _ ... 接着/AD
+match: /VV /AS? ... 然后/AD /VV
+match: /VV /AS? ... 接着/AD /VV
+match: /VV /AS? ... 再/AD /VV
+match: /VV /AS? ... 又/AD /VV
+match: /VV 了/AS ... /VV
+match: 然后/AD /VV
+match: 接着/AD /VV
+unless: 再/AD 也/AD
+unless: 一再/AD
+unless: 再三/AD
+unless: 再/AD 不/AD 就/AD
+unless: 再/AD 不/AD 也/AD
+unless: 再说/VV
+unless: 再说/AD ... 正在
+unless: 再/AD /CD /M
+unless: 再/AD _ /M
+unless: 再/AD 来/VV
+unless: 再/AD 给/VV
+unless: 再/AD 点/VV
+unless: 再/AD 找/VV
+unless: 再/AD 讲/VV
+unless: 再/AD 拿/VV
+unless: 再/AD 吃/VV
+unless: 再/AD 聊/VV
+unless: 再/AD 试/VV
+unless: 再/AD 买/VV
+unless: 再/AD 看/VV
+unless: 再/AD 说/VV
+unless: 再/AD 去/VV
+unless: 再/AD 等/VV
+unless: 再/AD 穿/VV
+unless: 再/AD 做/VV
+unless: 再/AD 搬/VV
+unless: 再/AD 来/VV _ 吧/SP $
+unless: 再/AD 下/VV 车/NN $
+```
+
+**Notes:** The rule uses two strategies: (1) matching explicit sequencing conjunctions (先...再, 先...然后, etc.) which clearly show this grammar point, and (2) matching action-then-conjunction patterns that indicate sequential events. The unless clauses exclude common non-sequencing uses of 再 (future "again," counting/quantification, conditional threats, "in addition" 再说). The rule prioritizes precision by excluding patterns likely to be other grammar points.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-62
+Tagging 2 labeled example(s) (cached after this run)...
+  Checking 1 sentence(s) for 2-62 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-62: rule on labeled examples (no AI) ===
+  examples of 2-62 matched:    21/21
+  counter-examples wrongly matched: 0/66   <- should be 0
+  easy examples (words all HSK 2 or below) matched: 2/2   (too few to test)
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:41 ##########
+Filling 2-62 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 1 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_174112.txt
+  ...100/266
+  ...200/266
+
+Course sentences at HSK 2 the rule already finds 2-62 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-62 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      469  2. contain the point's word(s)
+      468  3. new (not in DB, not a duplicate)
+      266  4. at most 2 characters outside HSK 2 words
+       45  5. really HSK 2
+       11  5b. no harder grammar point (of the 40 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (1) ---
+  再见。  -- same text as tatoeba 2030795 (translations pooled)
+
+--- dropped at step 4 (202), first 12 ---
+  人类在月球上居住已不再是梦想。  -- 3 characters no HSK 2 word uses: 居梦类
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 10 characters no HSK 2 word uses: 且信合此永海相而适颗
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  现在中国公认的标准旗袍的现代版本是首先在上海发展起来的。  -- 9 characters no HSK 2 word uses: 代发展旗标海版袍首
+  先生，我们可以检查一下您的行李吗？  -- 4 characters no HSK 2 word uses: 李查检行
+  死亡之后你便不会再复活。你不能死过之后又重回生命。如果你以为那会发生，你并非真正死去。  -- 11 characters no HSK 2 word uses: 之亡又发命复如并死活重
+  大脚怪并非宠物。首先，他们并不喜欢被人叫做「大脚怪」。  -- 7 characters no HSK 2 word uses: 宠并怪物脚被首
+  不好意思，让我指出先前文章的三个错误。  -- 3 characters no HSK 2 word uses: 指章误
+  为了健康，我不再抽烟。  -- 4 characters no HSK 2 word uses: 健康抽烟
+  我们再怎么认真管理核电站也不为过。  -- 3 characters no HSK 2 word uses: 核理管
+  不要再咬指甲了。  -- 3 characters no HSK 2 word uses: 咬指甲
+
+--- dropped at step 5 (221), first 12 ---
+  你等一会然后再给我打电话，可以吗？  -- level 3: 然后 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3
+  然后呢？  -- level 3: 然后 L3
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  您不想再喝点茶吗？  -- level 1: no list words
+  先生，请别生我的气！我是新来的工人！  -- level 4: 生 L4, 气 L4, 工人 L4
+  我再也不相信他了。  -- level 3: 相信 L3
+  你不能再住在这边了。  -- level 1: no list words
+  你在说话前应该先思考。  -- level 5: 应该 L3, 先 L3, 思考 L5
+  我打算绝不再喝酒。  -- level 7: 打算 L3, 绝 L7, 酒 L3
+  我七点钟再回来。  -- level 7: 钟 L7
+  再说，只能提前一周买火车票 。  -- level 4: 再说 L4, 只能 L3, 提前 L4
+
+--- dropped at step 5b (34), first 12 ---
+  我不想再次去那儿。  -- harder grammar: 3-16 (HSK 3)
+  别再给我打电话。  -- harder grammar: 2-28 (HSK 3), 3-16 (HSK 3)
+  再跟我说一次，你住哪？  -- harder grammar: 3-16 (HSK 3)
+  请再给我一点咖啡。  -- harder grammar: 3-16 (HSK 3)
+  我晚一点再打。  -- harder grammar: 3-16 (HSK 3)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  别再让我做那事了。  -- harder grammar: 3-16 (HSK 3)
+  能再告诉我一点吗？  -- harder grammar: 3-16 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  再给我五分钟。  -- harder grammar: 3-16 (HSK 3)
+  请你别再打我电话了。  -- harder grammar: 3-16 (HSK 3)
+  别再跟我说了！  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (11) ---
+  我们真的不知道，下次我们再也不这样了。  -- rule: unless 再/AD 也/AD
+  希望我可以不再想Tom。  -- rule: no match: line matched
+  我过会儿再跟你们一起。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: unless 再/AD 也/AD
+  我想问再你几个问题。  -- rule: no match: line matched
+  他什么时候不再书店工作？  -- rule: no match: line matched
+  他不再是个男孩。  -- rule: no match: line matched
+  我已经不再做这个了。  -- rule: no match: line matched
+  我再也不会跟你说话了。  -- rule: unless 再/AD 也/AD
+  我们再也别这样做了。  -- rule: unless 再/AD 也/AD
+  你认识高先生吗？  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-62_level2_20261112_174113.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-62 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-62 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-62 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      469  2. contain the point's word(s)
+      468  3. new (not in DB, not a duplicate)
+      266  4. at most 2 characters outside HSK 2 words
+       45  5. really HSK 2
+       11  5b. no harder grammar point (of the 40 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (1) ---
+  再见。  -- same text as tatoeba 2030795 (translations pooled)
+
+--- dropped at step 4 (202), first 12 ---
+  人类在月球上居住已不再是梦想。  -- 3 characters no HSK 2 word uses: 居梦类
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 10 characters no HSK 2 word uses: 且信合此永海相而适颗
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  现在中国公认的标准旗袍的现代版本是首先在上海发展起来的。  -- 9 characters no HSK 2 word uses: 代发展旗标海版袍首
+  先生，我们可以检查一下您的行李吗？  -- 4 characters no HSK 2 word uses: 李查检行
+  死亡之后你便不会再复活。你不能死过之后又重回生命。如果你以为那会发生，你并非真正死去。  -- 11 characters no HSK 2 word uses: 之亡又发命复如并死活重
+  大脚怪并非宠物。首先，他们并不喜欢被人叫做「大脚怪」。  -- 7 characters no HSK 2 word uses: 宠并怪物脚被首
+  不好意思，让我指出先前文章的三个错误。  -- 3 characters no HSK 2 word uses: 指章误
+  为了健康，我不再抽烟。  -- 4 characters no HSK 2 word uses: 健康抽烟
+  我们再怎么认真管理核电站也不为过。  -- 3 characters no HSK 2 word uses: 核理管
+  不要再咬指甲了。  -- 3 characters no HSK 2 word uses: 咬指甲
+
+--- dropped at step 5 (221), first 12 ---
+  你等一会然后再给我打电话，可以吗？  -- level 3: 然后 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3
+  然后呢？  -- level 3: 然后 L3
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  您不想再喝点茶吗？  -- level 1: no list words
+  先生，请别生我的气！我是新来的工人！  -- level 4: 生 L4, 气 L4, 工人 L4
+  我再也不相信他了。  -- level 3: 相信 L3
+  你不能再住在这边了。  -- level 1: no list words
+  你在说话前应该先思考。  -- level 5: 应该 L3, 先 L3, 思考 L5
+  我打算绝不再喝酒。  -- level 7: 打算 L3, 绝 L7, 酒 L3
+  我七点钟再回来。  -- level 7: 钟 L7
+  再说，只能提前一周买火车票 。  -- level 4: 再说 L4, 只能 L3, 提前 L4
+
+--- dropped at step 5b (34), first 12 ---
+  我不想再次去那儿。  -- harder grammar: 3-16 (HSK 3)
+  别再给我打电话。  -- harder grammar: 2-28 (HSK 3), 3-16 (HSK 3)
+  再跟我说一次，你住哪？  -- harder grammar: 3-16 (HSK 3)
+  请再给我一点咖啡。  -- harder grammar: 3-16 (HSK 3)
+  我晚一点再打。  -- harder grammar: 3-16 (HSK 3)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  别再让我做那事了。  -- harder grammar: 3-16 (HSK 3)
+  能再告诉我一点吗？  -- harder grammar: 3-16 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  再给我五分钟。  -- harder grammar: 3-16 (HSK 3)
+  请你别再打我电话了。  -- harder grammar: 3-16 (HSK 3)
+  别再跟我说了！  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (11) ---
+  我们真的不知道，下次我们再也不这样了。  -- rule: unless 再/AD 也/AD
+  希望我可以不再想Tom。  -- rule: no match: line matched
+  我过会儿再跟你们一起。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: unless 再/AD 也/AD
+  我想问再你几个问题。  -- rule: no match: line matched
+  他什么时候不再书店工作？  -- rule: no match: line matched
+  他不再是个男孩。  -- rule: no match: line matched
+  我已经不再做这个了。  -- rule: no match: line matched
+  我再也不会跟你说话了。  -- rule: unless 再/AD 也/AD
+  我们再也别这样做了。  -- rule: unless 再/AD 也/AD
+  你认识高先生吗？  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-62_level2_20261112_211523.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## guard check  2026-11-14 16:29 ##########

@@ -1,0 +1,33 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 17653 characters -->
+## 1-21
+**Point:** Aspect particle 了 marking completion of an action (dynamic aspect)
+**Covers:** Sentences with 了 immediately after a verb (with or without an object), or after an object, expressing that an action has been completed. Includes: simple completion (Verb + 了 + Obj), completion with time/duration (Verb + 了 + Duration + Obj), completion with quantified objects (Verb + 了 + Num + Measure + Obj), and yes/no questions with 了吗.
+**Does not cover:** Change of state (adjective + 了), expressing "now" (知道了), expressing "not anymore" (不/没 + Verb + 了), potential complements (得了/不了), and other uses of 了 that are not marking action completion.
+
+```rule
+match: _ /VV /AS _ /NN
+match: _ /VV /AS /CD /M _
+match: _ /VV /AS _ /NT _ /NN
+match: _ /VV /AS /CD /NT _ /NN
+match: _ /VV /AS _ /AD _ /NN
+match: _ /VV /AS _ /DT _ /NN
+match: _ /VV /VV /AS _
+match: /NN _ /VV /AS _ /SP
+match: /NN _ /VV /AS /SP
+match: _ /VV _ /NN /AS /SP
+match: _ /VV /AS _ /NN /AS /SP
+unless: /VA /AS $
+unless: /VA _ /AS $
+unless: /VA /VV /AS $
+unless: ^ /VV /AS $
+unless: ^ _ /VV /AS $
+unless: /AD 不 /VV /AS
+unless: /AD 没 /VV /AS
+unless: /VV 得/VV /AS
+unless: /VV 不/AD /AS
+unless: /AD 快 /VV /AS $
+unless: ^ 快 /VV /AS $
+unless: 别 /VV /AS $
+```
+
+**Notes:** This rule detects completion 了 by looking for patterns where 了 (tagged AS) appears after a verb (VV), typically followed by an object or object-related elements (nouns, numbers with measure words, time expressions, quantifiers, determiners). The unless clauses exclude state change (adjectives + 了), potential complements (得了/不了), negation patterns (不/没 + Verb + 了), and imperative structures (别 + Verb + 了). The rule avoids false matches on sentence-final 了 (SP tag) in state change contexts while still capturing completion 了 when it appears as SP at sentence end with an object earlier in the clause.

@@ -17,3 +17,913 @@ unrelated:
 [warning] no page teaches this point: the rule would only have the list's own examples to go on.
 
 Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-43
+
+########## rules  2026-11-10 21:24 ##########
+
+########## rules  2026-11-11 14:18 ##########
+
+########## rules  2026-11-12 17:22 ##########
+3 page(s) use the word(s); asking about 3.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGL6JOE  Counting money
+
+not:
+
+unsure:
+
+unrelated:
+  ASG5KNWW  Topic-comment sentences
+  ASG64BTE  Measure words for counting
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-43
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 1-43
+<!-- written by claude-haiku-4-5 on 2026-11-12; edit freely -->
+**Point:** 钱数表示法 (Expressing quantities of money)
+**Covers:** Questions asking "how much money?" using 多少钱, and statements giving prices using the pattern: number + 块/元 + (optional: number + 毛/分)
+**Does not cover:** Other uses of 钱 (money as a noun in other contexts), other uses of 块 as a measure word (for physical objects), or ordinal numbers with 块
+
+```rule
+match: 多少/CD 钱/NN
+match: /CD 块/M
+unless: 多少/CD 钱/NN ... 的|很|好|贵|坏|不|有|没|挣|有点|问题
+unless: /CD 块/M ... 肉|骨头|布|玉|塑料|肉|号|楼|单元|年
+unless: ... /OD 号/M
+unless: 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+```
+
+**Notes:** The first match catches the interrogative form (多少钱?). The second match catches the declarative form with 块 as the currency unit. The unless clauses exclude: (1) 钱 used in non-money-quantity contexts (possessive, description, problem, etc.); (2) 块 used as a measure word for physical objects (肉, 骨头, 布, 玉, 塑料) or ordinals (号楼); (3) sentences where 钱 or 块 are objects of verbs unrelated to pricing (挣, 支配, 掏, 丢, etc.). The rule prioritizes precision by excluding borderline cases where 块 might be ambiguous.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-43
+
+=== A. 1-43: rule on labeled examples (no AI) ===
+  examples of 1-43 matched:    12/12
+  counter-examples wrongly matched: 0/0   <- should be 0
+  easy examples (words all HSK 1 or below) matched: 5/5   <- needs 60%
+
+########## tatoeba  2026-11-12 17:38 ##########
+Filling 1-43 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-14, 2-15, 2-16, 2-19, 2-21, 2-22, 2-23, 2-24, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 1 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_173836.txt
+  ...100/188
+
+Course sentences at HSK 1 the rule already finds 1-43 in: 4  -> Tatoeba needs to add 16 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-43 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      460  2. contain the point's word(s)
+      456  3. new (not in DB, not a duplicate)
+      188  4. at most 2 characters outside HSK 1 words
+       23  5. really HSK 1
+       23  5b. no harder grammar point (of the 82 with a rule)
+        2  6. the rule finds 1-43
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 1-43, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  这个多少钱？  (How much is it?)  [tatoeba 10052325]  hidden: 这个
+
+--- dropped at step 3 (4) ---
+  门票多少钱？  -- already in the database
+  这本书多少钱？  -- already in the database
+  门票多少钱？  -- already in the database
+  我身上没有钱。  -- already in the database
+
+--- dropped at step 4 (268), first 12 ---
+  我不够钱去旅行。  -- 3 characters no HSK 1 word uses: 够旅行
+  二十美金等于一百四十元。  -- 4 characters no HSK 1 word uses: 于等美金
+  每位会员每月需支付一万日元。  -- 7 characters no HSK 1 word uses: 万付位员支每需
+  真正的友谊比金钱更有价值。  -- 6 characters no HSK 1 word uses: 价值更比谊金
+  他一周的收入不超过50美元。  -- 5 characters no HSK 1 word uses: 入周收美过
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  为了提高出生率，中国政府花了很多钱在大熊猫成功繁殖的研究上。  -- 13 characters no HSK 1 word uses: 为功府成提政殖熊率研究繁花
+  你们把自行车留下，明天带着身份证和20块钱到交通局领自行车。  -- 13 characters no HSK 1 word uses: 交份局带把留着自行证身通领
+  不过，有趣的是，有人因为玩电脑玩出毛病，但也有人因为玩电脑而治好疾病。  -- 9 characters no HSK 1 word uses: 为但因毛治疾而趣过
+  她存了一些钱，以备不时之需。  -- 4 characters no HSK 1 word uses: 之备存需
+  你欠汤姆多少钱？  -- 3 characters no HSK 1 word uses: 姆欠汤
+  他不是因为想家，而是因为没钱才回来的。  -- 4 characters no HSK 1 word uses: 为因才而
+
+--- dropped at step 5 (165), first 12 ---
+  我们的抓饭是四块钱。  -- level 5: 抓 L5
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  你每年捐多少钱？  -- level 5: 每 L2, 捐 L5
+  你怎么花的那些钱？  -- level 2: 花 L2
+  这是冰块。  -- level 3: 冰 L3
+  我欠你多少钱？  -- level 5: 欠 L5
+  这衬衫要十元。  -- level 3: 衬衫 L3
+  你能借我些钱吗？  -- level 3: 借 L3
+  她本来没必要付钱的。  -- level 5: 本来 L4, 必要 L5, 付 L4
+  我在这东西上花了十美元。  -- level 4: 花 L2, 美 L4
+  钱是万能的。  -- level 7: 万能 L7
+
+--- dropped at step 6 (21) ---
+  钱太多了吗？  -- rule: no match: line matched
+  我想要点钱。  -- rule: no match: line matched
+  他有很多钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  你有多少钱？  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有一些钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  Tom没有钱。  -- rule: no match: line matched
+  问题是他没钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有些钱。  -- rule: no match: line matched
+  我没有时间，也没有钱。  -- rule: no match: line matched
+  那是很多钱。  -- rule: no match: line matched
+  我一没钱，二没时间。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我现在没有钱。  -- rule: no match: line matched
+  那是我的钱。  -- rule: no match: line matched
+  萨米的妈妈给了他一些钱。  -- rule: no match: line matched
+  她给了他很多钱。  -- rule: no match: line matched
+  有钱人可以做他们想做的事。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我没钱了。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  钱都到哪里去了？  -- rule: no match: line matched
+  你认识钱先生吗？  -- rule: no match: line matched
+  那是公司的钱。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  这个几块？  -- check said no (2/2): Uses 块 as measure word, not money counting structure
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-43_level1_20261112_173839.csv
+
+########## tatoeba  2026-11-12 21:14 ##########
+Filling 1-43 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-43 in: 4  -> Tatoeba needs to add 16 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-43 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      460  2. contain the point's word(s)
+      456  3. new (not in DB, not a duplicate)
+      188  4. at most 2 characters outside HSK 1 words
+       23  5. really HSK 1
+       23  5b. no harder grammar point (of the 86 with a rule)
+        2  6. the rule finds 1-43
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 1-43, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  这个多少钱？  (How much is it?)  [tatoeba 10052325]  hidden: 这个
+
+--- dropped at step 3 (4) ---
+  门票多少钱？  -- already in the database
+  这本书多少钱？  -- already in the database
+  门票多少钱？  -- already in the database
+  我身上没有钱。  -- already in the database
+
+--- dropped at step 4 (268), first 12 ---
+  我不够钱去旅行。  -- 3 characters no HSK 1 word uses: 够旅行
+  二十美金等于一百四十元。  -- 4 characters no HSK 1 word uses: 于等美金
+  每位会员每月需支付一万日元。  -- 7 characters no HSK 1 word uses: 万付位员支每需
+  真正的友谊比金钱更有价值。  -- 6 characters no HSK 1 word uses: 价值更比谊金
+  他一周的收入不超过50美元。  -- 5 characters no HSK 1 word uses: 入周收美过
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  为了提高出生率，中国政府花了很多钱在大熊猫成功繁殖的研究上。  -- 13 characters no HSK 1 word uses: 为功府成提政殖熊率研究繁花
+  你们把自行车留下，明天带着身份证和20块钱到交通局领自行车。  -- 13 characters no HSK 1 word uses: 交份局带把留着自行证身通领
+  不过，有趣的是，有人因为玩电脑玩出毛病，但也有人因为玩电脑而治好疾病。  -- 9 characters no HSK 1 word uses: 为但因毛治疾而趣过
+  她存了一些钱，以备不时之需。  -- 4 characters no HSK 1 word uses: 之备存需
+  你欠汤姆多少钱？  -- 3 characters no HSK 1 word uses: 姆欠汤
+  他不是因为想家，而是因为没钱才回来的。  -- 4 characters no HSK 1 word uses: 为因才而
+
+--- dropped at step 5 (165), first 12 ---
+  我们的抓饭是四块钱。  -- level 5: 抓 L5
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  你每年捐多少钱？  -- level 5: 每 L2, 捐 L5
+  你怎么花的那些钱？  -- level 2: 花 L2
+  这是冰块。  -- level 3: 冰 L3
+  我欠你多少钱？  -- level 5: 欠 L5
+  这衬衫要十元。  -- level 3: 衬衫 L3
+  你能借我些钱吗？  -- level 3: 借 L3
+  她本来没必要付钱的。  -- level 5: 本来 L4, 必要 L5, 付 L4
+  我在这东西上花了十美元。  -- level 4: 花 L2, 美 L4
+  钱是万能的。  -- level 7: 万能 L7
+
+--- dropped at step 6 (21) ---
+  钱太多了吗？  -- rule: no match: line matched
+  我想要点钱。  -- rule: no match: line matched
+  他有很多钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  你有多少钱？  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有一些钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  Tom没有钱。  -- rule: no match: line matched
+  问题是他没钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有些钱。  -- rule: no match: line matched
+  我没有时间，也没有钱。  -- rule: no match: line matched
+  那是很多钱。  -- rule: no match: line matched
+  我一没钱，二没时间。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我现在没有钱。  -- rule: no match: line matched
+  那是我的钱。  -- rule: no match: line matched
+  萨米的妈妈给了他一些钱。  -- rule: no match: line matched
+  她给了他很多钱。  -- rule: no match: line matched
+  有钱人可以做他们想做的事。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我没钱了。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  钱都到哪里去了？  -- rule: no match: line matched
+  你认识钱先生吗？  -- rule: no match: line matched
+  那是公司的钱。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  这个几块？  -- check said no (2/2): Uses 块 as measure word, not money counting structure
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-43_level1_20261112_211436.csv
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 1-43 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-43 in: 4  -> Tatoeba needs to add 16 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-43 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      460  2. contain the point's word(s)
+      456  3. new (not in DB, not a duplicate)
+      188  4. at most 2 characters outside HSK 1 words
+       23  5. really HSK 1
+       23  5b. no harder grammar point (of the 86 with a rule)
+        2  6. the rule finds 1-43
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 1-43, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  这个多少钱？  (How much is it?)  [tatoeba 10052325]  hidden: 这个
+
+--- dropped at step 3 (4) ---
+  门票多少钱？  -- already in the database
+  这本书多少钱？  -- already in the database
+  门票多少钱？  -- already in the database
+  我身上没有钱。  -- already in the database
+
+--- dropped at step 4 (268), first 12 ---
+  我不够钱去旅行。  -- 3 characters no HSK 1 word uses: 够旅行
+  二十美金等于一百四十元。  -- 4 characters no HSK 1 word uses: 于等美金
+  每位会员每月需支付一万日元。  -- 7 characters no HSK 1 word uses: 万付位员支每需
+  真正的友谊比金钱更有价值。  -- 6 characters no HSK 1 word uses: 价值更比谊金
+  他一周的收入不超过50美元。  -- 5 characters no HSK 1 word uses: 入周收美过
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  为了提高出生率，中国政府花了很多钱在大熊猫成功繁殖的研究上。  -- 13 characters no HSK 1 word uses: 为功府成提政殖熊率研究繁花
+  你们把自行车留下，明天带着身份证和20块钱到交通局领自行车。  -- 13 characters no HSK 1 word uses: 交份局带把留着自行证身通领
+  不过，有趣的是，有人因为玩电脑玩出毛病，但也有人因为玩电脑而治好疾病。  -- 9 characters no HSK 1 word uses: 为但因毛治疾而趣过
+  她存了一些钱，以备不时之需。  -- 4 characters no HSK 1 word uses: 之备存需
+  你欠汤姆多少钱？  -- 3 characters no HSK 1 word uses: 姆欠汤
+  他不是因为想家，而是因为没钱才回来的。  -- 4 characters no HSK 1 word uses: 为因才而
+
+--- dropped at step 5 (165), first 12 ---
+  我们的抓饭是四块钱。  -- level 5: 抓 L5
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  你每年捐多少钱？  -- level 5: 每 L2, 捐 L5
+  你怎么花的那些钱？  -- level 2: 花 L2
+  这是冰块。  -- level 3: 冰 L3
+  我欠你多少钱？  -- level 5: 欠 L5
+  这衬衫要十元。  -- level 3: 衬衫 L3
+  你能借我些钱吗？  -- level 3: 借 L3
+  她本来没必要付钱的。  -- level 5: 本来 L4, 必要 L5, 付 L4
+  我在这东西上花了十美元。  -- level 4: 花 L2, 美 L4
+  钱是万能的。  -- level 7: 万能 L7
+
+--- dropped at step 6 (21) ---
+  钱太多了吗？  -- rule: no match: line matched
+  我想要点钱。  -- rule: no match: line matched
+  他有很多钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  你有多少钱？  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有一些钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  Tom没有钱。  -- rule: no match: line matched
+  问题是他没钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有些钱。  -- rule: no match: line matched
+  我没有时间，也没有钱。  -- rule: no match: line matched
+  那是很多钱。  -- rule: no match: line matched
+  我一没钱，二没时间。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我现在没有钱。  -- rule: no match: line matched
+  那是我的钱。  -- rule: no match: line matched
+  萨米的妈妈给了他一些钱。  -- rule: no match: line matched
+  她给了他很多钱。  -- rule: no match: line matched
+  有钱人可以做他们想做的事。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我没钱了。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  钱都到哪里去了？  -- rule: no match: line matched
+  你认识钱先生吗？  -- rule: no match: line matched
+  那是公司的钱。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  这个几块？  -- check said no (2/2): Uses 块 as measure word, not money counting structure
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-43_level1_20261113_135413.csv
+
+########## tatoeba  2026-11-13 14:42 ##########
+Filling 1-43 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-43 in: 4  -> Tatoeba needs to add 16 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 1 check and 0 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 1-43 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      460  2. contain the point's word(s)
+      456  3. new (not in DB, not a duplicate)
+      188  4. at most 2 characters outside HSK 1 words
+       23  5. really HSK 1
+       23  5b. no harder grammar point (of the 86 with a rule)
+        2  6. the rule finds 1-43
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 1-43, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  这个多少钱？  (How much is it?)  [tatoeba 10052325]  hidden: 这个
+
+--- dropped at step 3 (4) ---
+  门票多少钱？  -- already in the database
+  这本书多少钱？  -- already in the database
+  门票多少钱？  -- already in the database
+  我身上没有钱。  -- already in the database
+
+--- dropped at step 4 (268), first 12 ---
+  我不够钱去旅行。  -- 3 characters no HSK 1 word uses: 够旅行
+  二十美金等于一百四十元。  -- 4 characters no HSK 1 word uses: 于等美金
+  每位会员每月需支付一万日元。  -- 7 characters no HSK 1 word uses: 万付位员支每需
+  真正的友谊比金钱更有价值。  -- 6 characters no HSK 1 word uses: 价值更比谊金
+  他一周的收入不超过50美元。  -- 5 characters no HSK 1 word uses: 入周收美过
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  为了提高出生率，中国政府花了很多钱在大熊猫成功繁殖的研究上。  -- 13 characters no HSK 1 word uses: 为功府成提政殖熊率研究繁花
+  你们把自行车留下，明天带着身份证和20块钱到交通局领自行车。  -- 13 characters no HSK 1 word uses: 交份局带把留着自行证身通领
+  不过，有趣的是，有人因为玩电脑玩出毛病，但也有人因为玩电脑而治好疾病。  -- 9 characters no HSK 1 word uses: 为但因毛治疾而趣过
+  她存了一些钱，以备不时之需。  -- 4 characters no HSK 1 word uses: 之备存需
+  你欠汤姆多少钱？  -- 3 characters no HSK 1 word uses: 姆欠汤
+  他不是因为想家，而是因为没钱才回来的。  -- 4 characters no HSK 1 word uses: 为因才而
+
+--- dropped at step 5 (165), first 12 ---
+  我们的抓饭是四块钱。  -- level 5: 抓 L5
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  你每年捐多少钱？  -- level 5: 每 L2, 捐 L5
+  你怎么花的那些钱？  -- level 2: 花 L2
+  这是冰块。  -- level 3: 冰 L3
+  我欠你多少钱？  -- level 5: 欠 L5
+  这衬衫要十元。  -- level 3: 衬衫 L3
+  你能借我些钱吗？  -- level 3: 借 L3
+  她本来没必要付钱的。  -- level 5: 本来 L4, 必要 L5, 付 L4
+  我在这东西上花了十美元。  -- level 4: 花 L2, 美 L4
+  钱是万能的。  -- level 7: 万能 L7
+
+--- dropped at step 6 (21) ---
+  钱太多了吗？  -- rule: no match: line matched
+  我想要点钱。  -- rule: no match: line matched
+  他有很多钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  你有多少钱？  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有一些钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  Tom没有钱。  -- rule: no match: line matched
+  问题是他没钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有些钱。  -- rule: no match: line matched
+  我没有时间，也没有钱。  -- rule: no match: line matched
+  那是很多钱。  -- rule: no match: line matched
+  我一没钱，二没时间。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我现在没有钱。  -- rule: no match: line matched
+  那是我的钱。  -- rule: no match: line matched
+  萨米的妈妈给了他一些钱。  -- rule: no match: line matched
+  她给了他很多钱。  -- rule: no match: line matched
+  有钱人可以做他们想做的事。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我没钱了。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  钱都到哪里去了？  -- rule: no match: line matched
+  你认识钱先生吗？  -- rule: no match: line matched
+  那是公司的钱。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  这个几块？  -- check said no (2/2): Uses 块 as measure word, not money counting structure
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-43_level1_20261113_144214.csv
+
+########## ai  2026-11-14 14:27 ##########
+
+----- AI-written sentences for 1-43, round 1: 0 to check, 15 needed -----
+  Asking claude-sonnet-5-5 to write 38 sentence(s)...
+
+----- AI-written sentences for 1-43, round 2: 37 to check, 15 needed -----
+Filling 1-43 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 37
+
+Tagging 35 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_142725.txt
+
+Course sentences at HSK 1 the rule already finds 1-43 in: 4  -> Tatoeba needs to add 15 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-43 at HSK 1: funnel ===
+       37  AI-written sentences
+       37  1. have an English translation
+       37  2. contain the point's word(s)
+       37  3. new (not in DB, not a duplicate)
+       35  4. at most 0 characters outside HSK 1 words
+       34  5. really HSK 1
+       33  5b. no harder grammar point (of the 86 with a rule)
+       28  6. the rule finds 1-43
+       28  6b. no hidden word a learner can't work out
+       19  7. both checks say 1-43, English chosen
+       19  8. both difficulty reviews pass it
+  (8 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (19) ===
+  苹果多少钱?  (How much are the apples?)  [tatoeba ai-8823dfdf1b]
+  牛奶八块钱。  (The milk is 8 yuan.)  [tatoeba ai-3293b6602b]
+  面包一块五。  (The bread is 1.5 yuan.)  [tatoeba ai-5a435e19e6]
+  鸡蛋一块二。  (Eggs are 1.2 yuan.)  [tatoeba ai-5fe090480a]
+  饺子多少钱?  (How much are the dumplings?)  [tatoeba ai-7a43f49d7c]
+  米饭一块钱。  (Rice is 1 yuan.)  [tatoeba ai-df9c3efec2]
+  面条儿十块钱。  (The noodles are 10 yuan.)  [tatoeba ai-63ee4d40db]
+  这只狗多少钱?  (How much is this dog?)  [tatoeba ai-63dfa6cc1d]
+  这杯茶三十八块。  (This cup of tea is 38 yuan.)  [tatoeba ai-8bbee44ed7]
+  一个包子两块五。  (One baozi is 2.5 yuan.)  [tatoeba ai-e438e3b962]  hidden: 一个
+  这个杯子十五块。  (This cup is 15 yuan.)  [tatoeba ai-4a515f24f7]  hidden: 这个
+  他的新电脑多少钱?  (How much is his new computer?)  [tatoeba ai-3d46c83ce2]
+  水两块钱,茶五块。  (Water is 2 yuan and tea is 5 yuan.)  [tatoeba ai-2db9953bdd]
+  我买两个,六块钱。  (I'll buy two, that's 6 yuan.)  [tatoeba ai-a72ff20e89]
+  昨天的午饭二十块。  (Yesterday's lunch was 20 yuan.)  [tatoeba ai-d32622eabc]
+  妈妈,这个多少钱?  (Mom, how much is this?)  [tatoeba ai-62e973bafc]  hidden: 这个
+  这个很便宜,六块钱。  (This is very cheap, only 6 yuan.)  [tatoeba ai-2b245af107]  hidden: 这个
+  这个手机三千五百块。  (This phone is 3,500 yuan.)  [tatoeba ai-e13fe0fb77]  hidden: 这个
+  这件新衣服九十九块。  (This new piece of clothing is 99 yuan.)  [tatoeba ai-050b67be78]
+
+--- dropped at step 4 (2) ---
+  一个鸡蛋五毛钱。  -- 1 characters no HSK 1 word uses: 毛
+  这个三块两毛。  -- 1 characters no HSK 1 word uses: 毛
+
+--- dropped at step 5 (1) ---
+  我只有五块钱。  -- level 3: 只有 L3
+
+--- dropped at step 5b (1) ---
+  我的水果五十块,你的呢?  -- harder grammar: 2-77 (HSK 2)
+
+--- dropped at step 6 (5) ---
+  太贵了,五十块可以吗?  -- rule: no match: line matched
+  我有三百块钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  你有十块钱吗?  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  那个杯子五十元。  -- rule: no match: line matched
+  这本书店里卖十二块五。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+
+--- dropped at step 7 (1) ---
+  这个房间一天三百块。  -- check said no (1/2): 天 is time unit, not money counting
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-43_level1_20261114_142738.csv
+
+########## ai  2026-11-14 14:57 ##########
+
+----- AI-written sentences for 1-43, round 1: 37 to check, 15 needed -----
+Filling 1-43 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 37
+
+
+Course sentences at HSK 1 the rule already finds 1-43 in: 4  -> Tatoeba needs to add 15 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-43 at HSK 1: funnel ===
+       37  AI-written sentences
+       37  1. have an English translation
+       37  2. contain the point's word(s)
+       37  3. new (not in DB, not a duplicate)
+       35  4. at most 0 characters outside HSK 1 words
+       34  5. really HSK 1
+       33  5b. no harder grammar point (of the 86 with a rule)
+       28  6. the rule finds 1-43
+       28  6b. no hidden word a learner can't work out
+       19  7. both checks say 1-43, English chosen
+       19  8. both difficulty reviews pass it
+  (8 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (19) ===
+  苹果多少钱?  (How much are the apples?)  [tatoeba ai-8823dfdf1b]
+  牛奶八块钱。  (The milk is 8 yuan.)  [tatoeba ai-3293b6602b]
+  面包一块五。  (The bread is 1.5 yuan.)  [tatoeba ai-5a435e19e6]
+  鸡蛋一块二。  (Eggs are 1.2 yuan.)  [tatoeba ai-5fe090480a]
+  饺子多少钱?  (How much are the dumplings?)  [tatoeba ai-7a43f49d7c]
+  米饭一块钱。  (Rice is 1 yuan.)  [tatoeba ai-df9c3efec2]
+  面条儿十块钱。  (The noodles are 10 yuan.)  [tatoeba ai-63ee4d40db]
+  这只狗多少钱?  (How much is this dog?)  [tatoeba ai-63dfa6cc1d]
+  这杯茶三十八块。  (This cup of tea is 38 yuan.)  [tatoeba ai-8bbee44ed7]
+  一个包子两块五。  (One baozi is 2.5 yuan.)  [tatoeba ai-e438e3b962]  hidden: 一个
+  这个杯子十五块。  (This cup is 15 yuan.)  [tatoeba ai-4a515f24f7]  hidden: 这个
+  他的新电脑多少钱?  (How much is his new computer?)  [tatoeba ai-3d46c83ce2]
+  水两块钱,茶五块。  (Water is 2 yuan and tea is 5 yuan.)  [tatoeba ai-2db9953bdd]
+  我买两个,六块钱。  (I'll buy two, that's 6 yuan.)  [tatoeba ai-a72ff20e89]
+  昨天的午饭二十块。  (Yesterday's lunch was 20 yuan.)  [tatoeba ai-d32622eabc]
+  妈妈,这个多少钱?  (Mom, how much is this?)  [tatoeba ai-62e973bafc]  hidden: 这个
+  这个很便宜,六块钱。  (This is very cheap, only 6 yuan.)  [tatoeba ai-2b245af107]  hidden: 这个
+  这个手机三千五百块。  (This phone is 3,500 yuan.)  [tatoeba ai-e13fe0fb77]  hidden: 这个
+  这件新衣服九十九块。  (This new piece of clothing is 99 yuan.)  [tatoeba ai-050b67be78]
+
+--- dropped at step 4 (2) ---
+  一个鸡蛋五毛钱。  -- 1 characters no HSK 1 word uses: 毛
+  这个三块两毛。  -- 1 characters no HSK 1 word uses: 毛
+
+--- dropped at step 5 (1) ---
+  我只有五块钱。  -- level 3: 只有 L3
+
+--- dropped at step 5b (1) ---
+  我的水果五十块,你的呢?  -- harder grammar: 2-77 (HSK 2)
+
+--- dropped at step 6 (5) ---
+  太贵了,五十块可以吗?  -- rule: no match: line matched
+  我有三百块钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  你有十块钱吗?  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  那个杯子五十元。  -- rule: no match: line matched
+  这本书店里卖十二块五。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+
+--- dropped at step 7 (1) ---
+  这个房间一天三百块。  -- check said no (1/2): 天 is time unit, not money counting
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-43_level1_20261114_145725.csv
+
+########## tatoeba  2026-11-14 16:09 ##########
+Filling 1-43 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-43 in: 21  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-43 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      460  2. contain the point's word(s)
+      446  3. new (not in DB, not a duplicate)
+      179  4. at most 2 characters outside HSK 1 words
+       16  5. really HSK 1
+       16  5b. no harder grammar point (of the 87 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (14), first 12 ---
+  门票多少钱？  -- already in the database
+  他有很多钱。  -- already in the database
+  你有多少钱？  -- already in the database
+  因为他有钱，所以能去那儿。  -- already in the database
+  我有一些钱。  -- already in the database
+  这本书多少钱？  -- already in the database
+  我有钱。  -- already in the database
+  等我有钱了，我就买它。  -- already in the database
+  门票多少钱？  -- already in the database
+  我没钱了。  -- already in the database
+  这个几块？  -- already in the database
+  这个多少钱？  -- already in the database
+
+--- dropped at step 4 (267), first 12 ---
+  我不够钱去旅行。  -- 3 characters no HSK 1 word uses: 够旅行
+  二十美金等于一百四十元。  -- 4 characters no HSK 1 word uses: 于等美金
+  每位会员每月需支付一万日元。  -- 7 characters no HSK 1 word uses: 万付位员支每需
+  真正的友谊比金钱更有价值。  -- 6 characters no HSK 1 word uses: 价值更比谊金
+  他一周的收入不超过50美元。  -- 5 characters no HSK 1 word uses: 入周收美过
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  为了提高出生率，中国政府花了很多钱在大熊猫成功繁殖的研究上。  -- 13 characters no HSK 1 word uses: 为功府成提政殖熊率研究繁花
+  你们把自行车留下，明天带着身份证和20块钱到交通局领自行车。  -- 13 characters no HSK 1 word uses: 交份局带把留着自行证身通领
+  不过，有趣的是，有人因为玩电脑玩出毛病，但也有人因为玩电脑而治好疾病。  -- 9 characters no HSK 1 word uses: 为但因毛治疾而趣过
+  她存了一些钱，以备不时之需。  -- 4 characters no HSK 1 word uses: 之备存需
+  你欠汤姆多少钱？  -- 3 characters no HSK 1 word uses: 姆欠汤
+  他不是因为想家，而是因为没钱才回来的。  -- 4 characters no HSK 1 word uses: 为因才而
+
+--- dropped at step 5 (163), first 12 ---
+  我们的抓饭是四块钱。  -- level 5: 抓 L5
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  你每年捐多少钱？  -- level 5: 每 L2, 捐 L5
+  你怎么花的那些钱？  -- level 2: 花 L2
+  这是冰块。  -- level 3: 冰 L3
+  我欠你多少钱？  -- level 5: 欠 L5
+  这衬衫要十元。  -- level 3: 衬衫 L3
+  你能借我些钱吗？  -- level 3: 借 L3
+  她本来没必要付钱的。  -- level 5: 本来 L4, 必要 L5, 付 L4
+  我在这东西上花了十美元。  -- level 4: 花 L2, 美 L4
+  钱是万能的。  -- level 7: 万能 L7
+
+--- dropped at step 6 (16) ---
+  钱太多了吗？  -- rule: no match: line matched
+  我想要点钱。  -- rule: no match: line matched
+  Tom没有钱。  -- rule: no match: line matched
+  问题是他没钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有些钱。  -- rule: no match: line matched
+  我没有时间，也没有钱。  -- rule: no match: line matched
+  那是很多钱。  -- rule: no match: line matched
+  我一没钱，二没时间。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我现在没有钱。  -- rule: no match: line matched
+  那是我的钱。  -- rule: no match: line matched
+  萨米的妈妈给了他一些钱。  -- rule: no match: line matched
+  她给了他很多钱。  -- rule: no match: line matched
+  有钱人可以做他们想做的事。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  钱都到哪里去了？  -- rule: no match: line matched
+  你认识钱先生吗？  -- rule: no match: line matched
+  那是公司的钱。  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-43_level1_20261114_160918.csv
+
+########## ai  2026-11-14 16:12 ##########
+
+########## tatoeba  2026-11-14 16:30 ##########
+Filling 1-43 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-43 in: 3  -> Tatoeba needs to add 17 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 1 check and 0 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 1-43 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      460  2. contain the point's word(s)
+      456  3. new (not in DB, not a duplicate)
+      188  4. at most 2 characters outside HSK 1 words
+       23  5. really HSK 1
+       23  5b. no harder grammar point (of the 87 with a rule)
+        2  6. the rule finds 1-43
+        2  6b. no hidden word a learner can't work out
+        1  7. both checks say 1-43, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  这个多少钱？  (How much is it?)  [tatoeba 10052325]  hidden: 这个
+
+--- dropped at step 3 (4) ---
+  门票多少钱？  -- already in the database
+  这本书多少钱？  -- already in the database
+  门票多少钱？  -- already in the database
+  我身上没有钱。  -- already in the database
+
+--- dropped at step 4 (268), first 12 ---
+  我不够钱去旅行。  -- 3 characters no HSK 1 word uses: 够旅行
+  二十美金等于一百四十元。  -- 4 characters no HSK 1 word uses: 于等美金
+  每位会员每月需支付一万日元。  -- 7 characters no HSK 1 word uses: 万付位员支每需
+  真正的友谊比金钱更有价值。  -- 6 characters no HSK 1 word uses: 价值更比谊金
+  他一周的收入不超过50美元。  -- 5 characters no HSK 1 word uses: 入周收美过
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 5 characters no HSK 1 word uses: 成把换用表
+  为了提高出生率，中国政府花了很多钱在大熊猫成功繁殖的研究上。  -- 13 characters no HSK 1 word uses: 为功府成提政殖熊率研究繁花
+  你们把自行车留下，明天带着身份证和20块钱到交通局领自行车。  -- 13 characters no HSK 1 word uses: 交份局带把留着自行证身通领
+  不过，有趣的是，有人因为玩电脑玩出毛病，但也有人因为玩电脑而治好疾病。  -- 9 characters no HSK 1 word uses: 为但因毛治疾而趣过
+  她存了一些钱，以备不时之需。  -- 4 characters no HSK 1 word uses: 之备存需
+  你欠汤姆多少钱？  -- 3 characters no HSK 1 word uses: 姆欠汤
+  他不是因为想家，而是因为没钱才回来的。  -- 4 characters no HSK 1 word uses: 为因才而
+
+--- dropped at step 5 (165), first 12 ---
+  我们的抓饭是四块钱。  -- level 5: 抓 L5
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  你每年捐多少钱？  -- level 5: 每 L2, 捐 L5
+  你怎么花的那些钱？  -- level 2: 花 L2
+  这是冰块。  -- level 3: 冰 L3
+  我欠你多少钱？  -- level 5: 欠 L5
+  这衬衫要十元。  -- level 3: 衬衫 L3
+  你能借我些钱吗？  -- level 3: 借 L3
+  她本来没必要付钱的。  -- level 5: 本来 L4, 必要 L5, 付 L4
+  我在这东西上花了十美元。  -- level 4: 花 L2, 美 L4
+  钱是万能的。  -- level 7: 万能 L7
+
+--- dropped at step 6 (21) ---
+  钱太多了吗？  -- rule: no match: line matched
+  我想要点钱。  -- rule: no match: line matched
+  他有很多钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  你有多少钱？  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有一些钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  Tom没有钱。  -- rule: no match: line matched
+  问题是他没钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我有些钱。  -- rule: no match: line matched
+  我没有时间，也没有钱。  -- rule: no match: line matched
+  那是很多钱。  -- rule: no match: line matched
+  我一没钱，二没时间。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我现在没有钱。  -- rule: no match: line matched
+  那是我的钱。  -- rule: no match: line matched
+  萨米的妈妈给了他一些钱。  -- rule: no match: line matched
+  她给了他很多钱。  -- rule: no match: line matched
+  有钱人可以做他们想做的事。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  我没钱了。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  钱都到哪里去了？  -- rule: no match: line matched
+  你认识钱先生吗？  -- rule: no match: line matched
+  那是公司的钱。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  这个几块？  -- check said no (2/2): Uses 块 as measure word, not money counting structure
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-43_level1_20261114_163013.csv
+
+########## ai  2026-11-14 16:33 ##########
+
+----- AI-written sentences for 1-43, round 1: 37 to check, 16 needed -----
+Filling 1-43 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 37
+
+Tagging 1 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_163354.txt
+
+Course sentences at HSK 1 the rule already finds 1-43 in: 3  -> Tatoeba needs to add 16 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-43 at HSK 1: funnel ===
+       37  AI-written sentences
+       37  1. have an English translation
+       37  2. contain the point's word(s)
+       37  3. new (not in DB, not a duplicate)
+       35  4. at most 0 characters outside HSK 1 words
+       34  5. really HSK 1
+       32  5b. no harder grammar point (of the 87 with a rule)
+       27  6. the rule finds 1-43
+       27  6b. no hidden word a learner can't work out
+       19  7. both checks say 1-43, English chosen
+       19  8. both difficulty reviews pass it
+  (7 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (19) ===
+  苹果多少钱?  (How much are the apples?)  [tatoeba ai-8823dfdf1b]
+  牛奶八块钱。  (The milk is 8 yuan.)  [tatoeba ai-3293b6602b]
+  面包一块五。  (The bread is 1.5 yuan.)  [tatoeba ai-5a435e19e6]
+  鸡蛋一块二。  (Eggs are 1.2 yuan.)  [tatoeba ai-5fe090480a]
+  饺子多少钱?  (How much are the dumplings?)  [tatoeba ai-7a43f49d7c]
+  米饭一块钱。  (Rice is 1 yuan.)  [tatoeba ai-df9c3efec2]
+  面条儿十块钱。  (The noodles are 10 yuan.)  [tatoeba ai-63ee4d40db]
+  这只狗多少钱?  (How much is this dog?)  [tatoeba ai-63dfa6cc1d]
+  这杯茶三十八块。  (This cup of tea is 38 yuan.)  [tatoeba ai-8bbee44ed7]
+  一个包子两块五。  (One baozi is 2.5 yuan.)  [tatoeba ai-e438e3b962]  hidden: 一个
+  这个杯子十五块。  (This cup is 15 yuan.)  [tatoeba ai-4a515f24f7]  hidden: 这个
+  他的新电脑多少钱?  (How much is his new computer?)  [tatoeba ai-3d46c83ce2]
+  水两块钱,茶五块。  (Water is 2 yuan and tea is 5 yuan.)  [tatoeba ai-2db9953bdd]
+  我买两个,六块钱。  (I'll buy two, that's 6 yuan.)  [tatoeba ai-a72ff20e89]
+  昨天的午饭二十块。  (Yesterday's lunch was 20 yuan.)  [tatoeba ai-d32622eabc]
+  妈妈,这个多少钱?  (Mom, how much is this?)  [tatoeba ai-62e973bafc]  hidden: 这个
+  这个很便宜,六块钱。  (This is very cheap, only 6 yuan.)  [tatoeba ai-2b245af107]  hidden: 这个
+  这件新衣服九十九块。  (This new piece of clothing is 99 yuan.)  [tatoeba ai-050b67be78]
+  那件漂亮的衣服多少钱?  (How much is that pretty piece of clothing?)  [tatoeba ai-314e48f13a]
+
+--- dropped at step 4 (2) ---
+  一个鸡蛋五毛钱。  -- 1 characters no HSK 1 word uses: 毛
+  这个三块两毛。  -- 1 characters no HSK 1 word uses: 毛
+
+--- dropped at step 5 (1) ---
+  我只有五块钱。  -- level 3: 只有 L3
+
+--- dropped at step 5b (2) ---
+  这个手机三千五百块。  -- harder grammar: 2-09 (HSK 2)
+  我的水果五十块,你的呢?  -- harder grammar: 2-77 (HSK 2)
+
+--- dropped at step 6 (5) ---
+  太贵了,五十块可以吗?  -- rule: no match: line matched
+  我有三百块钱。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  你有十块钱吗?  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+  那个杯子五十元。  -- rule: no match: line matched
+  这本书店里卖十二块五。  -- rule: unless 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+
+--- dropped at step 7 (1) ---
+  这个房间一天三百块。  -- check said no (1/2): 天 is time unit, not money counting
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-43_level1_20261114_163357.csv

@@ -1,0 +1,22 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 7557 characters -->
+## 4-13
+**Point:** Using 自/自从/从 to mark a temporal starting point, expressing "ever since" with a past action or event.
+
+**Covers:** Sentences with 自/自从/从 + [time/event] + (以)后/以来, expressing when an action or state began in the past and continues to present. The preposition marks a temporal boundary point, not a spatial origin.
+
+**Does not cover:** The verb 来自 (to come from, to originate from), which expresses spatial or abstract origin rather than temporal starting points. Also excludes reflexive pronoun 自己, adverbs like 自动/自愿, and other words containing 自 as a bound morpheme.
+
+```rule
+match: (自从|从|自)/P ... (以来|以后|后)/LC
+match: (自从|从|自)/P ... $ 
+unless: 来自/VV
+unless: 自己/PN
+unless: /PN .* 来自/VV
+```
+
+**Notes:** 
+- The first match pattern captures the standard "sandwich" structure: preposition at the start, time marker (以来/以后/后) at the end. The `...` allows any intervening content (time noun, event verb, etc.).
+- The second match pattern catches cases where the starting point clause ends without an explicit time marker (e.g., "自从吵完架，..."), since punctuation acts as clause boundary.
+- The `unless: 来自/VV` filter excludes the "come from" sense, which uses 来自 as a main verb rather than the preposition 自/自从/从.
+- The additional `unless: /PN .* 来自/VV` is a safety check to avoid edge cases where 来自 appears later in the clause.
+- Counter-examples with 自己 (reflexive) and bound morphemes (自动, 自愿, 自言自语) are not caught by this pattern since they lack the /P tag on 自 or don't have the characteristic temporal structure.

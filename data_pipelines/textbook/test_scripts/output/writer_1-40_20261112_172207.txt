@@ -1,0 +1,68 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 13216 characters -->
+## 1-40
+<!-- written by claude-sonnet-5-5 on 2026-11-11; edit freely -->
+**Point:** Expressing change of state, "now," or "not anymore" with sentence-final 了
+
+**Covers:** Clauses ending in 了 that signal a new situation. The rule only matches safe shapes:
+- Negated verb phrases meaning "not anymore": 我不去看电影了, 我已经不住这里了, 你不喜欢我了吗？
+- 没(有) + noun + 了 and 有 + noun + 了: 没有纸了, 手机没电了, 他没有家了, 你有女朋友了？
+- A subject plus a listed state adjective or state verb plus 了: 我饿了, 孩子们都累了, 妈妈老了, 你胖了, 雨小了, 她病了.
+- Idiomatic "now" sentences: 知道了, 懂了, 他来了, 我走了, 我去睡觉了, 宝宝会说话了, 我20岁了, 到你了, 他当经理了, 吃饭了, 开会了, 找到新工作了.
+
+**Does not cover:**
+- Plain completion: 我买了, 他们到了, 我们都去了
+- 了 before an object or complement: 买到了, 做起来了
+- 太...了, ...点儿, 极了, 死了, 坏了
+- 快/要...了 (about to happen)
+- 别...了 (stop doing)
+- Double-了 duration: 睡了一天了
+- 过...了 and 完...了
+- Potential complements: 穿不了
+- Questions with 吗 that have no negation
+
+```rule
+match: ^ ... 不/AD ... 了/SP|AS $
+match: ^ ... 不/AD ... 了/SP 吗/SP $
+match: ^ ... 已经/AD 不/AD ... 了/SP|AS $
+match: ^ ... 没有|没/VE /NN 了/SP|AS $
+match: ^ ... 没有|没/VE /NN /NN 了/SP|AS $
+match: ^ /PN 有/VE /NN 了/SP $
+match: ^ /NN|PN|NR /NN? /AD? 饿|累|病|老|胖|瘦|渴|困|忙|冷|热|高|大|小|长|贵|远|新|旧|晚|早|好|生气|高兴|漂亮|多|少 了/SP|AS $
+match: ^ 饿|累|病|老|胖|瘦|渴|困|忙|冷|热|晚|早|好|生气|高兴 了/SP|AS $
+match: ^ 知道|懂|明白 了/SP $
+match: ^ /PN 来|走|知道|懂|明白 了/SP $
+match: ^ /PN 去/VV 睡觉|吃饭|上班|上学|上课|休息 了/SP $
+match: ^ /NN|PN 会/VV /VV 了/SP $
+match: ^ /PN 找/VV 到/VV 新/JJ /NN 了/SP $
+match: ^ /PN /NT 了/SP $
+match: ^ 到/VV /PN 了/SP $
+match: ^ /PN 当/VV /NN 了/SP $
+match: ^ 吃/VV 饭/NN 了/SP $
+match: ^ 开会|上课|下雨/VV 了/SP $
+unless: 太/AD ... 了/SP $
+unless: 太/AD ... 了/AS $
+unless: ... 了/AS|SP 点/CD 儿/CD
+unless: ... 了/AS|SP 一/CD 点/CD
+unless: ... 极/AD 了/SP
+unless: ... 死/VV 了/SP
+unless: ... 坏/VA 了/SP
+unless: ... 坏/VV 了/SP
+unless: 快/AD ... 了/SP $
+unless: 快/VA ... 了/SP $
+unless: 快要/AD ... 了/AS $
+unless: 快要/AD ... 了/SP $
+unless: 要/VV ... 了/SP $
+unless: 要/VV ... 了/AS $
+unless: 别/AD ... 了/SP $
+unless: 别/AD ... 了/AS $
+unless: ... /AS 一/CD ... 了/SP $
+unless: ... /VV 到/VV 了/AS
+unless: ... /VV 完/VV 了/AS
+unless: ... /VV 完/VV 了/SP
+unless: ... /VV 过/AS 了/SP
+unless: ... 不/AD 了/VV
+unless: ... 得/DER ... 了/SP $
+unless: ... 得/DER ... 了/AS $
+```
+
+**Notes:** Precision comes first. Bare "verb + 了" is not matched in general, because it cannot be told apart from completion 了 (我买了, 我们都去了). Verb + 了 is matched only for a short list of state or "now" verbs (知道, 懂, 来, 走, 去睡觉, 会...). Adjective + 了 is matched only with an adjacent subject and a listed adjective, and 太/快/极/死/坏/得 are blocked by unless lines. Negation + ... + 了 now also accepts 了 tagged AS and a trailing 吗. 没(有)/有 + noun + 了 is anchored to a noun directly before 了. The 点儿 unless line is anchored after 了, so that 快点儿，开会了 is not blocked by a different clause. 不/AD 了/VV (穿不了) is a potential complement and is blocked by an explicit unless line.

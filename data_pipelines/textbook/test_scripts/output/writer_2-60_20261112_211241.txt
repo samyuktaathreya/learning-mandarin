@@ -1,0 +1,41 @@
+<!-- model: claude-sonnet-5-5; stop_reason: max_tokens; prompt: 16898 characters -->
+## 2-60
+<!-- revised: the rule now covers the whole 是⋯⋯的 family the labeled examples treat as 2-60 -->
+**Point:** The 是⋯⋯的 construction. In its classic use it emphasizes the time, place, manner or agent of an action, usually one that has already happened. The same family also includes 是 + adjective or distinguishing word + 的, 是来/去…的 for purpose, and 会/能 + verb + 的 at the end of a clause.
+
+**Covers:**
+- 是 + a time word or preposition phrase (在/从/跟/用…) + verb (+ object) + 的, e.g. 我是昨天到北京的, 他是在网上买的手机.
+- Questions without 是 that ask for these details: 怎么/什么时候/哪儿/几点/多少钱 + verb + 的, and preposition phrase + verb + 的吗, e.g. 这个东西多少钱买的, 她用邮件回复的吗.
+- 是 + adjective or distinguishing word + 的, e.g. 这个苹果是坏的, 那个人是女的, 家具都是中式的.
+- 是 + 来/去 + verb + 的 for purpose, e.g. 我是来实习的.
+- 是 + modal + verb + 的 and 会/能 + verb + 的, e.g. 这个东西是可以吃的, 我会去的, 我们能做到的.
+
+**Does not cover:**
+- Possessive 的 and 的 modifying nouns.
+- 有的是, 不是…就是…, 的话, 岂不是, 要不是, 就是, 不愧是 and reduplication.
+- Simple equative 是 sentences.
+- Bare modal 的 with no following verb, e.g. 你可以的.
+
+```rule
+match: 是/VC /NT|P ... /VV ... 的/SP|AS|DEC
+match: 怎么|什么时候|哪儿|哪里|几点|多少 ... /VV 的/SP $
+match: /P ... /VV _? 的/SP 吗/SP
+match: 是/VC /VA|JJ 的/DEC|DEG|SP $
+match: 是/VC /JJ /NN 的/DEG $
+match: 是/VC 来|去|用来/VV ... 的/SP|DEC $
+match: 是/VC 可以|能|会|应该/VV /VV ... 的/SP|DEC $
+match: 会|能/VV /VV ... 的/SP $
+unless: 有的/PN /VC
+unless: 不/AD /VC ... 就是/AD
+unless: 就/AD 是/VC
+unless: 岂不/AD /VC
+unless: 不愧/AD /VC
+unless: 要不是/AD
+unless: 的话/SP
+unless: ^ /VC /AD /VC
+unless: 这|那/DT 是/VC
+unless: 是/VC ... 的/DEC /M|DT|CD
+unless: ... /VA /VA ... /VC /VA
+```
+
+**Notes:** The first three match lines are the classic pattern. They require 是 directly followed by a time word or preposition, with an object allowed between the verb and 的. The 是-less question lines need a question word or preposition phrase before the verb. The next lines add the other uses the labeled examples treat as 2-60: 是 + adjective/distinguishing word + 的 at the end of a clause, 是来/去…的, 是 + modal + verb + 的, and 会/能 + verb + 的. The modal line

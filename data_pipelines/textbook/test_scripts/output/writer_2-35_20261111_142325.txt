@@ -1,0 +1,27 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 6241 characters -->
+## 2-35
+<!-- revised: removed the implied-conditional patterns that matched sentences from other grammar points -->
+**Point:** Using 的话 to express a conditional "if" (usually with 如果/要是/假如 before it, with a negative condition like 不…的话, or with a modal verb + verb or an adjective directly before 的话). Also covers 等 as "etc." after a list of items.
+
+**Covers:**
+- Conditional clauses framed as 如果/要是/假如/假设/若是 … 的话, with or without 就 in the next clause
+- Negative conditions of the form 不 … 的话, e.g. 不想去的话就别去了
+- Modal + verb + 的话, e.g. 你要来的话，就给我打个电话
+- Adjective + 的话, e.g. 好吃的话，就多吃点
+- 等 as an "et cetera" marker after a list of items
+
+**Does not cover:**
+- Topic marking with 的话, such as 北京的话，秋天去最好 or 买衣服的话，还是要去实体店试试的, where 的话 introduces a topic and no "if" is meant
+- 的话 as a noun meaning "words/speech" (tagged DEG, not SP)
+- Implied conditionals with no 的话, such as 有事给我打电话 or 喜欢就拿走吧 (these are ordinary sentences of easier grammar points and cannot be reliably told apart from them)
+- Bare noun or other verb-phrase + 的话 with no conditional word, negation, modal verb or adjective, which is too easily a topic
+
+```rule
+match: 如果|要是|假如|假设|假使|若是|如若 ... 的话/SP
+match: 不|没|没有 ... 的话/SP
+match: 要|想|能|会|可以|应该|愿意|打算 /VV 的话/SP
+match: /VA 的话/SP
+match: 等/ETC
+```
+
+**Notes:** The 的话 patterns still require explicit evidence of a condition in the clause: a conditional conjunction, a negation, a modal verb followed directly by a verb, or an adjective directly before 的话. Topic-marking 的话 normally follows a noun or a verb-object phrase, so it is not matched. The implied-conditional patterns (clause-initial 有空/有事 + verb, 喜欢 + 就 + verb) were removed because they matched sentences that belong to other, easier grammar points (2-17, 2-30). 等 as an etc. marker is kept as before.

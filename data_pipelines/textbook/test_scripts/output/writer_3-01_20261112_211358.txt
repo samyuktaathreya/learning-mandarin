@@ -1,0 +1,13 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 6195 characters -->
+## 3-01
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** Ordinal numbers with 第 (dì)
+**Covers:** Multi-digit and larger ordinals formed with 第, such as 第十一, 第十二, 第二十 and 第一百. They can appear with a measure word and noun (第十二个月), or bare (我是第二十). The basic ordinals 第一 to 第十 are not matched here.
+**Does not cover:** The basic ordinals 第一 to 第十, including 第一次, 第一个, 第一班 and predicate use like 班第一. These belong to the easier point 2-72. It also does not cover 老 or 小 in other uses (频率副词 "always", age/size comparison, or inside words like 老师, 小说), or floor numbers without 第, such as 七楼.
+
+```rule
+match: 第十一|第十二|第十三|第十四|第十五|第二十|第一百/CD
+unless: 第一|第二|第三|第四|第五|第六|第七|第八|第九|第十/CD
+```
+
+**Notes:** The tagger fuses 第 with the number into one CD token, so the rule matches the fused tokens. The previous rule matched every 第一 to 第十 token. Those are the plain ordinals taught at the easier level (2-72). All six labeled counter-examples were 第一 sentences and were wrongly matched, so the basic ordinals are removed from this rule. The unless line also blocks any sentence that contains a basic ordinal, so a sentence with 第一 plus a larger ordinal is not matched either. The rule now matches only larger ordinals, which keeps precision high at the cost of some misses. 老 and 小 patterns are not used, because 老是 and 比…大/小 sentences contain no fused 第N token.

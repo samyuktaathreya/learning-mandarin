@@ -1,0 +1,19 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 5857 characters -->
+## 2-06
+**Point:** Third-person pronouns and collective pronouns referring to others or groups (别人、人家、大家、它、它们、咱、咱们、自己)
+**Covers:** Use of 别人, 人家, 大家, 它, 它们, 咱, 咱们, or 自己 as pronouns in sentences. Includes 人家 referring to "other people," "someone," or "households"; 别人 meaning "other people"; 大家 meaning "everyone"; and 自己 meaning "oneself."
+**Does not cover:** Sentences where these words are used but are not functioning as pronouns (e.g., 人家 as a noun meaning "household" when already clear from context); sentences that only use 自己 in a reflexive sense without showing the pronoun function; isolated uses that don't demonstrate the grammar point clearly.
+
+```rule
+match: 别人/PN
+match: 人家/PN
+match: 大家/PN
+match: 它/PN
+match: 它们/PN
+match: 咱/PN
+match: 咱们/PN
+match: 自己/PN
+match: 人家/NN
+```
+
+**Notes:** The rule includes both 人家/PN (when tagged as pronoun) and 人家/NN (when tagged as noun meaning "household"). The labeled example "村子里现在只剩十户人家了" shows 人家/NN referring to households, which is a valid HSK 2-06 use. All other pronouns are matched by their PN tag. The rule is deliberately inclusive to avoid false negatives, as the POS tagger may vary in how it tags these words.

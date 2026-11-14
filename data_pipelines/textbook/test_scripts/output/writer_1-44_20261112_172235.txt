@@ -1,0 +1,33 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 16027 characters -->
+## 1-44
+**Point:** Expressing times of day, dates, days of the week, and minutes using Chinese time structures
+**Covers:** Times with 点 (o'clock), dates with 年月日/号, days of week with 星期, half hours with 半, minutes with 分, quarter hours with 刻, and times with 差
+**Does not cover:** Uses of 点/分/一点/半 in other contexts (fractions with 分之, degree modifiers like 有点/一点儿 meaning "a bit/somewhat", separable verbs like 点头, or quantity phrases)
+
+```rule
+match: /CD 点/M
+match: /CD 点/M /CD
+match: 点/M 半/NT
+match: 点/M _ /CD 分
+match: 点/M /CD 刻
+match: 差 /CD 分 /CD 点
+match: /CD 年 /CD 月 /CD
+match: 星期 /NT
+match: /NT 点/M
+match: /NT /NT
+unless: 有点/NN
+unless: 一点/NN 也|都/AD
+unless: 分之
+unless: 点/CD 儿/CD
+unless: 点头/VV
+unless: 短/VA 了 点/CD
+unless: 长/VA 了 点/CD
+unless: 少/VA 了 点/CD
+unless: 多/VA 了 点/CD
+unless: 重/VA 了 点/CD
+unless: 轻/VA 了 点/CD
+unless: 快/VA 点/AD
+unless: 一度/VA
+```
+
+**Notes:** The rule matches basic time expressions with 点, dates with 年月日号, days of the week with 星期, and specific time structures (半, 分, 刻, 差). The unless clauses exclude: (1) 有点/一点 as degree modifiers meaning "somewhat"; (2) fractions with 分之; (3) 点儿 as a degree modifier suffix; (4) the separable verb 点头; (5) adjectives followed by 了点儿 meaning "too [adjective]"; (6) 快点 as an imperative; (7) 一度 meaning "once" or "at one point". Time nouns that appear as standalone tokens (/NT) are included to catch bare time references like in dates or day expressions.

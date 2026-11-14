@@ -1,0 +1,20 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 7263 characters -->
+## 2-23
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** Using 向 as a preposition meaning "towards" to indicate the direction or target of an action.
+
+**Covers:** 向 + direction/person/place + verb (walk towards, look towards, apologize to, learn from, report to). Also verb + 向 after motion verbs (飞向, 驶向, 奔向), and 向前 + verb.
+
+**Does not cover:** Adverbial 一向 and 向来 (always); 转向 as a verb compound; 向 as a noun meaning direction or tendency. Sentences with only 往 (e.g. 一直往前走, 开往, 飞往) are not counted here, because 往 belongs to a different, easier point. The same goes for 朝 alone.
+
+```rule
+match: 向/P|VV _ _? _? /VV
+match: 向前/AD /VV
+match: 开|飞|发|运|送|寄|带|驶|奔|冲|流|跑|游|走 向/P|VV /NN|NR|PN|JJ
+match: 驶向|飞向|奔向|冲向|流向|跑向 _
+unless: 一向/AD
+unless: 向来/AD
+unless: 转/VV 向/VV
+```
+
+**Notes:** The counter-example 一直往前走 was matched only because the first line accepted 往 (tagged VV) as a preposition. The rule is now restricted to 向, which is the official point; 往-only and 朝-only sentences no longer match. The post-verbal patterns were limited to 向 compounds for the same reason. 一向 and 向来 are single tokens and are still excluded, as is 转向.

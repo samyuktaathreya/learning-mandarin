@@ -1,0 +1,15 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 7257 characters -->
+## 2-68
+**Point:** Cause and effect compound sentences (因果复句) using 因为, 所以, or both
+**Covers:** Sentences with two clauses showing cause-effect relationship: (1) Result + 因为 + Reason; (2) Reason + 所以 + Result; (3) 因为 + Cause + 所以 + Effect. Also implicit cause-effect between two clauses without these conjunctions.
+**Does not cover:** Sentences using 因为...而... (because...and as a result...) which is HSK 3-25; sentences using 由于 or 因此 which are HSK 3-71.
+
+```rule
+match: ... ‖ 因为/P ...
+match: ... ‖ 所以/AD ...
+match: 因为/P ... ‖ 所以/AD ...
+match: ... /VV|VA ... ‖ ... /VV|VA ...
+unless: 而/MSP
+```
+
+**Notes:** The first three patterns explicitly match the conjunction-based cause-effect structures. The fourth pattern covers implicit cause-effect (two clauses with predicates, no explicit marker), as seen in "那个学生病了，没来上课" and "我今天太忙了，午饭都没吃". The `unless` line excludes the 因为...而... construction (HSK 3-25), which uses 而 to mark the result clause.

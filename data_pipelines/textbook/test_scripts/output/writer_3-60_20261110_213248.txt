@@ -1,0 +1,62 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 11421 characters -->
+## 3-60
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
+**Point:** The adverb 也 (yě) meaning "also" or "too", placed right after the subject and before the verb/adjective to express that someone/something shares the same quality or action as another.
+
+**Covers:**
+- Subject + 也 + Verb (他也喜欢。)
+- Subject + 也 + (很) + Adjective (他也很胖。)
+- Subject + 也 + 是 / 有 + Noun (我也是学生。)
+- Subject + 也 + Negation + Verb (我也不知道。)
+- Subject + 也 + Modal Verb + Verb (他们也会去吗？)
+- Subject + 也 + 没有 (他也没有。)
+- Simple parallel structures showing an "also" relationship between two similar clauses
+
+**Does not cover:**
+- Conditional/concessive structures (即使...也, 就算...也, 就是...也, 哪怕...也, etc.) where 也 means "still/even so"
+- Conditional sentences with 如果, 假如, 假使, 要是, 要不, 要不是 and similar, where 也 means "still/even so"
+- Any sentence containing a subordinating conjunction (CS) such as 因为 or 虽然
+- "Never again" with 再也不/没
+- 甚至连...也 (even/let alone structure)
+- 宁可...也 (rather...than structure)
+- 一点儿也不 and 一 + Measure Word + Noun + 也 + 不/没 (not at all / not even one)
+- 什么/谁 + Noun + 也 (everything / nothing)
+- 连...也 (even...as well)
+- 倒也 (contrariness)
+- Structures with preceding markers like 别说, 就是, 就算, 不但, 无论, 不管, etc.
+
+```rule
+match: /PN|NN|NR|NT 也/AD ... /VV|VA|VC|VE
+match: /PN|NN|NR|NT 也/AD 没有/AD
+unless: 再/AD ... 也/AD
+unless: 甚至
+unless: 宁可
+unless: 连
+unless: 一/CD ... 也/AD
+unless: 一点儿
+unless: 什么 ... 也/AD
+unless: 谁 ... 也/AD
+unless: 就算
+unless: 就是
+unless: 就/AD 算/VV
+unless: 就/AD 是/VC
+unless: 即使
+unless: 哪怕
+unless: 别说
+unless: 倒
+unless: 不但
+unless: 无论
+unless: 不管
+unless: /CS
+unless: 要不
+unless: 要不是
+unless: 要是
+unless: 如果
+unless: 假如
+unless: 假使
+unless: 假设
+unless: 万一
+unless: 否则
+```
+
+**Notes:** The subject (pronoun, noun, proper noun or time noun) must sit directly before 也/AD, and a predicate (verb, adjective, 是, 有, or 没有) must follow. The tagger splits 就是 and 就算 into two words (就/AD + 是/VC, 就/AD + 算/VV), so both split forms are listed explicitly. Conditional sentences such as 假如…，我们也要…, 他要不听，我也没办法, 要不是…，我也不相信 and 假使…，情况也不… use 也 to mean "still/even so", so they are now excluded. Any sentence with a subordinating conjunction (/CS) or with 要不, 要不是, 要是, 如果, 假如, 假使, 假设, 万一 or 否则 is excluded. The other `unless:` lines remove the concessive, emphatic, and "never again" structures, including 别说, 再也, 连, and 甚至.

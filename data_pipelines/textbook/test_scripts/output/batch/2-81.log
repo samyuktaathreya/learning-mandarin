@@ -100,3 +100,4037 @@ Tagging 13 labeled example(s) (cached after this run)...
 
 --- counter-examples the rule WRONGLY matches (1) ---
   你先吃吧，要不然饭就凉了。  -- ASGDFQP7 Expressing "how about" with "yaobu"  [matched: ^ 要/VV ... 了/SP]
+
+########## rules  2026-11-10 21:26 ##########
+  Checking 1 sentence(s) for 2-81 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-81: rule on labeled examples (no AI) ===
+  examples of 2-81 matched:    12/12
+  counter-examples wrongly matched: 0/125   <- should be 0
+
+########## guard check  2026-11-10 21:32 ##########
+
+########## tatoeba  2026-11-10 21:38 ##########
+Filling 2-81 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 94 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261110_213835.txt
+  ...100/3563
+  ...200/3563
+  ...300/3563
+  ...400/3563
+  ...500/3563
+  ...600/3563
+  ...700/3563
+  ...800/3563
+  ...900/3563
+  ...1000/3563
+  ...1100/3563
+  ...1200/3563
+  ...1300/3563
+  ...1400/3563
+  ...1500/3563
+  ...1600/3563
+  ...1700/3563
+  ...1800/3563
+  ...1900/3563
+  ...2000/3563
+  ...2100/3563
+  ...2200/3563
+  ...2300/3563
+  ...2400/3563
+  ...2500/3563
+  ...2600/3563
+  ...2700/3563
+  ...2800/3563
+  ...2900/3563
+  ...3000/3563
+  ...3100/3563
+  ...3200/3563
+  ...3300/3563
+  ...3400/3563
+  ...3500/3563
+
+Course sentences at HSK 2 the rule already finds 2-81 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-81 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     6994  2. contain the point's word(s)
+     6981  3. new (not in DB, not a duplicate)
+     3563  4. at most 2 characters outside HSK 2 words
+      440  5. really HSK 2
+      383  5b. no harder grammar point (of the 34 with a rule)
+        6  6. the rule finds 2-81
+        6  6b. no hidden word a learner can't work out
+        6  7. both checks say 2-81, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  你快要走了。  (You will be going soon.)  [tatoeba 395011]
+  他快要睡了。  (He was just on the verge of going to sleep.)  [tatoeba 8621495]
+  明天就要过年了。  (Tomorrow is the start of the new year.)  [tatoeba 5800371]
+  我觉得快要下雨了。  (I think it's going to start raining soon.)  [tatoeba 13786741]
+  明天新的一年就要开始了。  (Tomorrow a new year will begin.)  [tatoeba 6018326]
+
+--- dropped at step 3 (13), first 12 ---
+  要么你去，要么我去。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  太阳升起来了。  -- already in the database
+  我亲眼看见了。  -- already in the database
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  你需要帮助吗？  -- same text as tatoeba 1424333 (translations pooled)
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+  你怎么了？  -- already in the database
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你们吃饭了吗？  -- same text as tatoeba 6057697 (translations pooled)
+  我昨天买了这头猪。  -- same text as tatoeba 2737460 (translations pooled)
+  当然了。  -- same text as tatoeba 4970077 (translations pooled)
+
+--- dropped at step 4 (3418), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  我把旅费耗光了。  -- 4 characters no HSK 2 word uses: 光把耗费
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  去度假的时候我要租辆车。  -- 3 characters no HSK 2 word uses: 假度辆
+  你到了该去理发的时候了。  -- 3 characters no HSK 2 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 2 word uses: 极肚饿
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 5 characters no HSK 2 word uses: 且串抓烤而
+  公共汽车上发生什么了？  -- 3 characters no HSK 2 word uses: 共发汽
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  透过薄雾，我隐约看见了我的未来。  -- 6 characters no HSK 2 word uses: 未约薄透隐雾
+
+--- dropped at step 5 (3123), first 12 ---
+  喝茶时不要加糖。  -- level 3: 加 L3, 糖 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  你不要着急。  -- level 3: 着急 L3
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  好，定了。  -- level 4: 定 L4
+  麦克，你听到了没？  -- level 1: no list words
+  她的笔迹漂亮极了。  -- level 10: 笔迹 (not in list), 极 L3
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 电 L3
+
+--- dropped at step 5b (57), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  我拿到这个了。  -- harder grammar: 3-46 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  我看到我要等的那个人就站在那儿。  -- harder grammar: 3-46 (HSK 3)
+  别再让我做那事了。  -- harder grammar: 3-16 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (377) ---
+  我想要出国。  -- rule: unless 想/VV 要/VV
+  您可以走了。  -- rule: no match: line matched
+  我要回来了。  -- rule: no match: line matched
+  我走了。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: no match: line matched
+  我还要等五分钟。  -- rule: no match: line matched
+  饭前要洗手。  -- rule: no match: line matched
+  我的电话坏了。  -- rule: no match: line matched
+  我真的得走了。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  我上网了。  -- rule: no match: line matched
+  她一大早就起床了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  我写错了一个字。  -- rule: no match: line matched
+  我在这里已经工作十年了。  -- rule: no match: line matched
+  他不在这儿，因为他病了。  -- rule: no match: line matched
+  已经过了很长时间了。  -- rule: no match: line matched
+  他已经去了英国。  -- rule: no match: line matched
+  你已经在京都了吗？  -- rule: no match: line matched
+  我已经会写汉字了。  -- rule: no match: line matched
+  请问您要等吗?  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  我已经忘了他的名字。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  有件事情我要对你说。  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  他来了很多次了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你在这里是要见谁吧？  -- rule: no match: line matched
+  她已经五天不上学了。  -- rule: no match: line matched
+  她不在是因为病了。  -- rule: no match: line matched
+  Ken 已经去了英格兰。  -- rule: no match: line matched
+  你比她要高。  -- rule: no match: line matched
+  她说她有点累了。  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  没人想要你那样做。  -- rule: unless 想/VV 要/VV
+  已经是早上七点了。  -- rule: no match: line matched
+  我洗好了。  -- rule: no match: line matched
+  我要一杯咖啡。  -- rule: no match: line matched
+  我看错了。  -- rule: no match: line matched
+  我想错了。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我吃肉了。  -- rule: no match: line matched
+  我在两周前到了。  -- rule: no match: line matched
+  Ken的书比你多多了。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  我们都睡着了。  -- rule: no match: line matched
+  昨天我和朋友们见了面。  -- rule: no match: line matched
+  谁教了你说话？  -- rule: no match: line matched
+  他上学去了吗？  -- rule: no match: line matched
+  我们睡过头了。  -- rule: no match: line matched
+  别忘了你是谁。  -- rule: no match: line matched
+  Julián错了吗？  -- rule: no match: line matched
+  我早就和他说过这些了。  -- rule: no match: line matched
+  Tom要我离他远一点。  -- rule: no match: line matched
+  他们早就认识了吗？  -- rule: no match: line matched
+  你要走多远？  -- rule: no match: line matched
+  你们要和我一起去吗？  -- rule: no match: line matched
+  他已经来了吗？  -- rule: no match: line matched
+  他说话太快了。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  新月出来了。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  我想要跳舞。  -- rule: unless 想/VV 要/VV
+  我们中午十二点半要一起吃午饭。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  请不要这样说。  -- rule: no match: line matched
+  忘了今天的事儿吧。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  她笑了。  -- rule: no match: line matched
+  还是要说谢谢的。  -- rule: no match: line matched
+  他跑了。  -- rule: no match: line matched
+  我要咖啡，谢谢。  -- rule: no match: line matched
+  我们笑了。  -- rule: no match: line matched
+  现在的天气怎么样了？  -- rule: no match: line matched
+  为什么你不等等我就开始了？  -- rule: no match: line matched
+  已经没事了。  -- rule: no match: line matched
+  要我帮忙吗？  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  飞机快来了  -- rule: no match: line matched
+  你上网了吗？  -- rule: no match: line matched
+  我洗手了。  -- rule: no match: line matched
+  快来了  -- rule: no match: line matched
+  我的手机坏了。  -- rule: no match: line matched
+  请不要说得那么快。  -- rule: no match: line matched
+  你去了几回？  -- rule: no match: line matched
+  他去车站送爷爷了。  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: no match: line matched
+  这要花时间。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我在公交车上睡觉了。  -- rule: no match: line matched
+  告诉他们我们要来了。  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  他很快就知道了。  -- rule: no match: line matched
+  我只吃了一口面包。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  告诉她我们去了哪里。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  我走了，你会想我。  -- rule: no match: line matched
+  她想要孩子，但他不想。  -- rule: unless 想/VV 要/VV
+  我上路了！  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  我知道我做错了。  -- rule: no match: line matched
+  猫叫了叫。  -- rule: no match: line matched
+  她打了他。  -- rule: no match: line matched
+  每个人都做了。  -- rule: no match: line matched
+  我要花很长时间。  -- rule: no match: line matched
+  我从他那里买了它。  -- rule: no match: line matched
+  她叫了我很多次。  -- rule: no match: line matched
+  要多长时间？  -- rule: no match: line matched
+  别让他们忘了我。  -- rule: no match: line matched
+  吃完饭，大家都很累了。  -- rule: no match: line matched
+  汤姆三年前进了我们公司。  -- rule: no match: line matched
+  你已经要走了吗？  -- rule: no match: line matched
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  飞机准备好了。  -- rule: no match: line matched
+  我已经在这里工作几个小时了。  -- rule: no match: line matched
+  那就是汤姆想要的。  -- rule: unless 想/VV 要/VV
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  我今天买了一个新书包。  -- rule: no match: line matched
+  它花了几个月。  -- rule: no match: line matched
+  想要什么就说。  -- rule: unless 想/VV 要/VV
+  她进了房间。  -- rule: no match: line matched
+  她太累了学不动了  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  我自己写了它。  -- rule: no match: line matched
+  我的东西就是这些了。  -- rule: no match: line matched
+  我们能不打了吗？  -- rule: no match: line matched
+  我睡过头了。  -- rule: no match: line matched
+  我要学游泳。  -- rule: no match: line matched
+  我只睡了两小时。  -- rule: no match: line matched
+  我不喜欢吃肉了。  -- rule: no match: line matched
+  他去那个中国饭馆吃饭了。  -- rule: no match: line matched
+  我在这里很长时间了。  -- rule: no match: line matched
+  她一看就是生病了的。  -- rule: no match: line matched
+  汤姆去年上完了大学。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  现在谁要帮你？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我们还是要告诉他们。  -- rule: no match: line matched
+  我不能帮你了。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我知道我们要怎么帮忙。  -- rule: no match: line matched
+  让我们现在忘了它吧。  -- rule: no match: line matched
+  它花了我三年。  -- rule: no match: line matched
+  那就是我想要的。  -- rule: unless 想/VV 要/VV
+  你已经有孩子了吗？  -- rule: no match: line matched
+  这帮不了你。  -- rule: no match: line matched
+  它太长了。  -- rule: no match: line matched
+  谁拿了钱？  -- rule: no match: line matched
+  我们在一家小咖啡店吃了午饭。  -- rule: no match: line matched
+  你不要点咖啡吗？  -- rule: no match: line matched
+  我住得太远了。  -- rule: no match: line matched
+  我要看一下这个。  -- rule: unless 要/VV 看/VV
+  我看了日出。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们要去酒店。  -- rule: no match: line matched
+  家里人一起吃了晚饭。  -- rule: no match: line matched
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  你看完这本书要多少时间？  -- rule: no match: line matched
+  别忘了我。  -- rule: no match: line matched
+  我忘了问他。  -- rule: no match: line matched
+  你从汤姆那里学到了吗？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  昨天我忘了去看医生。  -- rule: no match: line matched
+  过了多长时间？  -- rule: no match: line matched
+  我就是你要找的人。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  那可能太晚了。  -- rule: no match: line matched
+  他们已经在这里了吗？  -- rule: no match: line matched
+  我今天做了四个考试.  -- rule: no match: line matched
+  学生都笑了。  -- rule: no match: line matched
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  你不要跟我一起走吗？  -- rule: no match: line matched
+  不是我告诉你不要去做的。  -- rule: unless 不/AD 要/VV
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  汤姆问了几个问题。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  她上楼了。  -- rule: no match: line matched
+  我们现在就要吃饭。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我记得告诉过你了。  -- rule: no match: line matched
+  我要游泳。  -- rule: no match: line matched
+  你现在可以开始了。  -- rule: no match: line matched
+  我已经累了。  -- rule: no match: line matched
+  你懂了吗？  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  别忘了我们。  -- rule: no match: line matched
+  我走不了。  -- rule: no match: line matched
+  你已经到家了吗？  -- rule: no match: line matched
+  谢谢，我说完了。  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  我已经不爱他了。  -- rule: no match: line matched
+  我已经不再做这个了。  -- rule: no match: line matched
+  我只想要一件东西。  -- rule: unless 想/VV 要/VV
+  你说完了吗？  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  要得。  -- rule: no match: line matched
+  汤姆三岁的时候就能写自己的名字了。  -- rule: no match: line matched
+  告诉她你想要什么。  -- rule: unless 想/VV 要/VV
+  火车到站了。  -- rule: no match: line matched
+  我开了门。  -- rule: no match: line matched
+  你要吃面条还是吃米饭？  -- rule: no match: line matched
+  我已经不做了。  -- rule: no match: line matched
+  门慢慢地开了。  -- rule: no match: line matched
+  不要自己一个人走回家。  -- rule: no match: line matched
+  太快了。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  但是，我不要。  -- rule: no match: line matched
+  她看起来病了。  -- rule: no match: line matched
+  我已经起来了。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我在网上买了一本书。  -- rule: no match: line matched
+  你听懂他说的了吗？  -- rule: no match: line matched
+  你要喝咖啡吗？  -- rule: no match: line matched
+  我今年去了好几次外国。  -- rule: no match: line matched
+  你们两个人都准备好了吗？  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  不要站在我前面。  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  已经很晚了，但是他还在工作。  -- rule: no match: line matched
+  你花太多钱了。  -- rule: no match: line matched
+  我再也不会跟你说话了。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+  你告诉了他们什么？  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  现在是时候等着了。  -- rule: no match: line matched
+  不要这么叫他！  -- rule: no match: line matched
+  你喝完咖啡了吗？  -- rule: no match: line matched
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  听着，我要跑了。  -- rule: no match: line matched
+  这条鱼不能吃了。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  你长大了。  -- rule: no match: line matched
+  我们帮不了他。  -- rule: no match: line matched
+  快点，没时间了。  -- rule: no match: line matched
+  我准备好了，你们呢？  -- rule: no match: line matched
+  不要让她开车。  -- rule: no match: line matched
+  你为什么卖了它？  -- rule: no match: line matched
+  我会告诉她，你来了。  -- rule: no match: line matched
+  不要告诉我。  -- rule: no match: line matched
+  已经周一了？  -- rule: no match: line matched
+  您走太快了。  -- rule: no match: line matched
+  她很快就来了。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  都四月了天气怎么还是这么冷？  -- rule: no match: line matched
+  他说错了，不是吗？  -- rule: no match: line matched
+  她家离我家太远了。  -- rule: no match: line matched
+  你已经吃过饭了！  -- rule: no match: line matched
+  他们已经开学了。  -- rule: no match: line matched
+  我想画画了。  -- rule: no match: line matched
+  她已经写了几本书。  -- rule: no match: line matched
+  昨天星期五，所以他就休息了。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  不要跑！  -- rule: no match: line matched
+  你睡着了吗？  -- rule: no match: line matched
+  已经是十月了。  -- rule: no match: line matched
+  你已经买了票吗？  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  是时候休息一下了。  -- rule: no match: line matched
+  我可以开始了吗？  -- rule: no match: line matched
+  你已经知道了，不是吗？  -- rule: no match: line matched
+  电影开始了吗？  -- rule: no match: line matched
+  我读错了。  -- rule: no match: line matched
+  我开始想我女朋友了。  -- rule: no match: line matched
+  他打了个车去车站。  -- rule: no match: line matched
+  您帮了我们。  -- rule: no match: line matched
+  我们帮了她。  -- rule: no match: line matched
+  我看电视时睡着了。  -- rule: no match: line matched
+  我们再也别这样做了。  -- rule: no match: line matched
+  你去过超市了吗？  -- rule: no match: line matched
+  他等了很长时间。  -- rule: no match: line matched
+  我要你想一想。  -- rule: no match: line matched
+  他们不会让她跑了的。  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  开了半小时，车就坏了。  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: no match: line matched
+  我要你离我远一点  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  买了票吗？  -- rule: no match: line matched
+  我说了没问题了啊！  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  累了吗？  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  你的电话出问题了吗？  -- rule: no match: line matched
+  我喝了太多咖啡。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  喝药了。  -- rule: no match: line matched
+  要走吗？  -- rule: no match: line matched
+  我要等她来。  -- rule: no match: line matched
+  我没想要拿。  -- rule: unless 想/VV 要/VV
+  他没想要打我。  -- rule: unless 想/VV 要/VV
+  我没想要打她。  -- rule: unless 想/VV 要/VV
+  我没想要打他。  -- rule: unless 想/VV 要/VV
+  快到家了……  -- rule: no match: line matched
+  学生们走了。  -- rule: no match: line matched
+  她洗了苹果。  -- rule: no match: line matched
+  他洗了苹果。  -- rule: no match: line matched
+  我洗了苹果。  -- rule: no match: line matched
+  快到四月了。  -- rule: no match: line matched
+  谁拿走了那些苹果？  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  五分钟过去了。  -- rule: no match: line matched
+  五小时过去了。  -- rule: no match: line matched
+  我们帮忙了。  -- rule: no match: line matched
+  他帮忙了。  -- rule: no match: line matched
+  汤姆猫帮忙了。  -- rule: no match: line matched
+  我帮忙了。  -- rule: no match: line matched
+  我要去拿一些牛奶。  -- rule: no match: line matched
+  汤姆做得有点过头了。  -- rule: no match: line matched
+  你可以告诉汤姆你想要什么。  -- rule: unless 想/VV 要/VV
+  你准备好了吗？  -- rule: no match: line matched
+  准备好了吗？  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  要咖啡还是茶？  -- rule: no match: line matched
+  我很忙，我帮不了你。  -- rule: no match: line matched
+  我太累了，走不动了。  -- rule: no match: line matched
+  我们要快点。  -- rule: no match: line matched
+  他跑了起来。  -- rule: no match: line matched
+  汤姆喝了三杯咖啡。  -- rule: no match: line matched
+  「您想要茶还是咖啡？」「咖啡，谢谢。」  -- rule: unless 想/VV 要/VV
+  昨天是星期五，所以他休息了一天。  -- rule: no match: line matched
+  他们跟我说生病了。  -- rule: no match: line matched
+  汤姆早早就睡了。  -- rule: no match: line matched
+  他已经去睡觉了。  -- rule: no match: line matched
+  我知道你想要快乐。  -- rule: unless 想/VV 要/VV
+  已经过去二十年了。  -- rule: no match: line matched
+  这个月你做了多少次？  -- rule: no match: line matched
+  你这个月已经做了几次？  -- rule: no match: line matched
+  弟弟出去了。  -- rule: no match: line matched
+  他们打了我。  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  告诉他我生病了。  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  那条裤子太大了。  -- rule: no match: line matched
+  他坐在了她的旁边。  -- rule: no match: line matched
+  他跟你说什么了？  -- rule: no match: line matched
+  他告诉你什么了？  -- rule: no match: line matched
+  出国不到一个月，他就生病了。  -- rule: no match: line matched
+  你让她开你的车了？  -- rule: no match: line matched
+  门开了。  -- rule: no match: line matched
+  汤姆今天考试拿了最高分。  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  我知道汤姆不可能会那么做了。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我没说我要帮你。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+  你能快点吗?我们已经很晚了。  -- rule: no match: line matched
+  你到了就打我电话。  -- rule: no match: line matched
+
+--- dropped at step 8 (1) ---
+  我就要读完这本书了。  -- difficulty review: (1/2); Uses result complement 读完 (2-49), which requires understanding the complement structure beyond basic 要⋯⋯了
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-81_level2_20261110_213858.csv
+
+########## guard check  2026-11-11 14:23 ##########
+
+########## tatoeba  2026-11-11 14:29 ##########
+Filling 2-81 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-81 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-81 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     6994  2. contain the point's word(s)
+     6981  3. new (not in DB, not a duplicate)
+     3563  4. at most 2 characters outside HSK 2 words
+      440  5. really HSK 2
+      375  5b. no harder grammar point (of the 39 with a rule)
+        6  6. the rule finds 2-81
+        6  6b. no hidden word a learner can't work out
+        6  7. both checks say 2-81, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  你快要走了。  (You will be going soon.)  [tatoeba 395011]
+  他快要睡了。  (He was just on the verge of going to sleep.)  [tatoeba 8621495]
+  明天就要过年了。  (Tomorrow is the start of the new year.)  [tatoeba 5800371]
+  我觉得快要下雨了。  (I think it's going to start raining soon.)  [tatoeba 13786741]
+  明天新的一年就要开始了。  (Tomorrow a new year will begin.)  [tatoeba 6018326]
+
+--- dropped at step 3 (13), first 12 ---
+  要么你去，要么我去。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  太阳升起来了。  -- already in the database
+  我亲眼看见了。  -- already in the database
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  你需要帮助吗？  -- same text as tatoeba 1424333 (translations pooled)
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+  你怎么了？  -- already in the database
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你们吃饭了吗？  -- same text as tatoeba 6057697 (translations pooled)
+  我昨天买了这头猪。  -- same text as tatoeba 2737460 (translations pooled)
+  当然了。  -- same text as tatoeba 4970077 (translations pooled)
+
+--- dropped at step 4 (3418), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  我把旅费耗光了。  -- 4 characters no HSK 2 word uses: 光把耗费
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  去度假的时候我要租辆车。  -- 3 characters no HSK 2 word uses: 假度辆
+  你到了该去理发的时候了。  -- 3 characters no HSK 2 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 2 word uses: 极肚饿
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 5 characters no HSK 2 word uses: 且串抓烤而
+  公共汽车上发生什么了？  -- 3 characters no HSK 2 word uses: 共发汽
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  透过薄雾，我隐约看见了我的未来。  -- 6 characters no HSK 2 word uses: 未约薄透隐雾
+
+--- dropped at step 5 (3123), first 12 ---
+  喝茶时不要加糖。  -- level 3: 加 L3, 糖 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  你不要着急。  -- level 3: 着急 L3
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  好，定了。  -- level 4: 定 L4
+  麦克，你听到了没？  -- level 1: no list words
+  她的笔迹漂亮极了。  -- level 10: 笔迹 (not in list), 极 L3
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 电 L3
+
+--- dropped at step 5b (65), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  我拿到这个了。  -- harder grammar: 3-46 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  我看到我要等的那个人就站在那儿。  -- harder grammar: 3-46 (HSK 3)
+  为什么你不等等我就开始了？  -- harder grammar: 2-35 (HSK 3)
+  别再让我做那事了。  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (369) ---
+  我想要出国。  -- rule: unless 想/VV 要/VV
+  您可以走了。  -- rule: no match: line matched
+  我要回来了。  -- rule: no match: line matched
+  我走了。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: no match: line matched
+  我还要等五分钟。  -- rule: no match: line matched
+  饭前要洗手。  -- rule: no match: line matched
+  我的电话坏了。  -- rule: no match: line matched
+  我真的得走了。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  我上网了。  -- rule: no match: line matched
+  她一大早就起床了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  我写错了一个字。  -- rule: no match: line matched
+  我在这里已经工作十年了。  -- rule: no match: line matched
+  他不在这儿，因为他病了。  -- rule: no match: line matched
+  已经过了很长时间了。  -- rule: no match: line matched
+  他已经去了英国。  -- rule: no match: line matched
+  你已经在京都了吗？  -- rule: no match: line matched
+  我已经会写汉字了。  -- rule: no match: line matched
+  请问您要等吗?  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  我已经忘了他的名字。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  有件事情我要对你说。  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  他来了很多次了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你在这里是要见谁吧？  -- rule: no match: line matched
+  她已经五天不上学了。  -- rule: no match: line matched
+  她不在是因为病了。  -- rule: no match: line matched
+  Ken 已经去了英格兰。  -- rule: no match: line matched
+  你比她要高。  -- rule: no match: line matched
+  她说她有点累了。  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  没人想要你那样做。  -- rule: unless 想/VV 要/VV
+  已经是早上七点了。  -- rule: no match: line matched
+  我洗好了。  -- rule: no match: line matched
+  我要一杯咖啡。  -- rule: no match: line matched
+  我看错了。  -- rule: no match: line matched
+  我想错了。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我吃肉了。  -- rule: no match: line matched
+  我在两周前到了。  -- rule: no match: line matched
+  Ken的书比你多多了。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  我们都睡着了。  -- rule: no match: line matched
+  昨天我和朋友们见了面。  -- rule: no match: line matched
+  谁教了你说话？  -- rule: no match: line matched
+  他上学去了吗？  -- rule: no match: line matched
+  我们睡过头了。  -- rule: no match: line matched
+  别忘了你是谁。  -- rule: no match: line matched
+  Julián错了吗？  -- rule: no match: line matched
+  我早就和他说过这些了。  -- rule: no match: line matched
+  Tom要我离他远一点。  -- rule: no match: line matched
+  他们早就认识了吗？  -- rule: no match: line matched
+  你要走多远？  -- rule: no match: line matched
+  你们要和我一起去吗？  -- rule: no match: line matched
+  他已经来了吗？  -- rule: no match: line matched
+  他说话太快了。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  新月出来了。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  我想要跳舞。  -- rule: unless 想/VV 要/VV
+  我们中午十二点半要一起吃午饭。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  请不要这样说。  -- rule: no match: line matched
+  忘了今天的事儿吧。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  她笑了。  -- rule: no match: line matched
+  还是要说谢谢的。  -- rule: no match: line matched
+  他跑了。  -- rule: no match: line matched
+  我要咖啡，谢谢。  -- rule: no match: line matched
+  我们笑了。  -- rule: no match: line matched
+  现在的天气怎么样了？  -- rule: no match: line matched
+  已经没事了。  -- rule: no match: line matched
+  要我帮忙吗？  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  飞机快来了  -- rule: no match: line matched
+  你上网了吗？  -- rule: no match: line matched
+  我洗手了。  -- rule: no match: line matched
+  快来了  -- rule: no match: line matched
+  我的手机坏了。  -- rule: no match: line matched
+  请不要说得那么快。  -- rule: no match: line matched
+  你去了几回？  -- rule: no match: line matched
+  他去车站送爷爷了。  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: no match: line matched
+  这要花时间。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我在公交车上睡觉了。  -- rule: no match: line matched
+  告诉他们我们要来了。  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  他很快就知道了。  -- rule: no match: line matched
+  我只吃了一口面包。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  告诉她我们去了哪里。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  我走了，你会想我。  -- rule: no match: line matched
+  她想要孩子，但他不想。  -- rule: unless 想/VV 要/VV
+  我上路了！  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  我知道我做错了。  -- rule: no match: line matched
+  猫叫了叫。  -- rule: no match: line matched
+  她打了他。  -- rule: no match: line matched
+  每个人都做了。  -- rule: no match: line matched
+  我要花很长时间。  -- rule: no match: line matched
+  我从他那里买了它。  -- rule: no match: line matched
+  她叫了我很多次。  -- rule: no match: line matched
+  要多长时间？  -- rule: no match: line matched
+  别让他们忘了我。  -- rule: no match: line matched
+  吃完饭，大家都很累了。  -- rule: no match: line matched
+  汤姆三年前进了我们公司。  -- rule: no match: line matched
+  你已经要走了吗？  -- rule: no match: line matched
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  飞机准备好了。  -- rule: no match: line matched
+  我已经在这里工作几个小时了。  -- rule: no match: line matched
+  那就是汤姆想要的。  -- rule: unless 想/VV 要/VV
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  我今天买了一个新书包。  -- rule: no match: line matched
+  它花了几个月。  -- rule: no match: line matched
+  想要什么就说。  -- rule: unless 想/VV 要/VV
+  她进了房间。  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  我自己写了它。  -- rule: no match: line matched
+  我的东西就是这些了。  -- rule: no match: line matched
+  我们能不打了吗？  -- rule: no match: line matched
+  我睡过头了。  -- rule: no match: line matched
+  我要学游泳。  -- rule: no match: line matched
+  我只睡了两小时。  -- rule: no match: line matched
+  我不喜欢吃肉了。  -- rule: no match: line matched
+  他去那个中国饭馆吃饭了。  -- rule: no match: line matched
+  我在这里很长时间了。  -- rule: no match: line matched
+  她一看就是生病了的。  -- rule: no match: line matched
+  汤姆去年上完了大学。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  现在谁要帮你？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我们还是要告诉他们。  -- rule: no match: line matched
+  我不能帮你了。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我知道我们要怎么帮忙。  -- rule: no match: line matched
+  让我们现在忘了它吧。  -- rule: no match: line matched
+  它花了我三年。  -- rule: no match: line matched
+  那就是我想要的。  -- rule: unless 想/VV 要/VV
+  你已经有孩子了吗？  -- rule: no match: line matched
+  它太长了。  -- rule: no match: line matched
+  谁拿了钱？  -- rule: no match: line matched
+  我们在一家小咖啡店吃了午饭。  -- rule: no match: line matched
+  你不要点咖啡吗？  -- rule: no match: line matched
+  我住得太远了。  -- rule: no match: line matched
+  我要看一下这个。  -- rule: unless 要/VV 看/VV
+  我看了日出。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们要去酒店。  -- rule: no match: line matched
+  家里人一起吃了晚饭。  -- rule: no match: line matched
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  你看完这本书要多少时间？  -- rule: no match: line matched
+  别忘了我。  -- rule: no match: line matched
+  我忘了问他。  -- rule: no match: line matched
+  你从汤姆那里学到了吗？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  昨天我忘了去看医生。  -- rule: no match: line matched
+  过了多长时间？  -- rule: no match: line matched
+  我就是你要找的人。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  那可能太晚了。  -- rule: no match: line matched
+  他们已经在这里了吗？  -- rule: no match: line matched
+  我今天做了四个考试.  -- rule: no match: line matched
+  学生都笑了。  -- rule: no match: line matched
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  你不要跟我一起走吗？  -- rule: no match: line matched
+  不是我告诉你不要去做的。  -- rule: unless 不/AD 要/VV
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  汤姆问了几个问题。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  她上楼了。  -- rule: no match: line matched
+  我们现在就要吃饭。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我记得告诉过你了。  -- rule: no match: line matched
+  我要游泳。  -- rule: no match: line matched
+  你现在可以开始了。  -- rule: no match: line matched
+  我已经累了。  -- rule: no match: line matched
+  你懂了吗？  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  别忘了我们。  -- rule: no match: line matched
+  你已经到家了吗？  -- rule: no match: line matched
+  谢谢，我说完了。  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  我已经不爱他了。  -- rule: no match: line matched
+  我已经不再做这个了。  -- rule: no match: line matched
+  我只想要一件东西。  -- rule: unless 想/VV 要/VV
+  你说完了吗？  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  要得。  -- rule: no match: line matched
+  汤姆三岁的时候就能写自己的名字了。  -- rule: no match: line matched
+  告诉她你想要什么。  -- rule: unless 想/VV 要/VV
+  火车到站了。  -- rule: no match: line matched
+  我开了门。  -- rule: no match: line matched
+  你要吃面条还是吃米饭？  -- rule: no match: line matched
+  我已经不做了。  -- rule: no match: line matched
+  门慢慢地开了。  -- rule: no match: line matched
+  不要自己一个人走回家。  -- rule: no match: line matched
+  太快了。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  但是，我不要。  -- rule: no match: line matched
+  她看起来病了。  -- rule: no match: line matched
+  我已经起来了。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我在网上买了一本书。  -- rule: no match: line matched
+  你听懂他说的了吗？  -- rule: no match: line matched
+  你要喝咖啡吗？  -- rule: no match: line matched
+  我今年去了好几次外国。  -- rule: no match: line matched
+  你们两个人都准备好了吗？  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  不要站在我前面。  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  已经很晚了，但是他还在工作。  -- rule: no match: line matched
+  你花太多钱了。  -- rule: no match: line matched
+  我再也不会跟你说话了。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+  你告诉了他们什么？  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  现在是时候等着了。  -- rule: no match: line matched
+  不要这么叫他！  -- rule: no match: line matched
+  你喝完咖啡了吗？  -- rule: no match: line matched
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  听着，我要跑了。  -- rule: no match: line matched
+  这条鱼不能吃了。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  你长大了。  -- rule: no match: line matched
+  快点，没时间了。  -- rule: no match: line matched
+  我准备好了，你们呢？  -- rule: no match: line matched
+  不要让她开车。  -- rule: no match: line matched
+  你为什么卖了它？  -- rule: no match: line matched
+  我会告诉她，你来了。  -- rule: no match: line matched
+  不要告诉我。  -- rule: no match: line matched
+  已经周一了？  -- rule: no match: line matched
+  您走太快了。  -- rule: no match: line matched
+  她很快就来了。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  都四月了天气怎么还是这么冷？  -- rule: no match: line matched
+  他说错了，不是吗？  -- rule: no match: line matched
+  她家离我家太远了。  -- rule: no match: line matched
+  你已经吃过饭了！  -- rule: no match: line matched
+  他们已经开学了。  -- rule: no match: line matched
+  我想画画了。  -- rule: no match: line matched
+  她已经写了几本书。  -- rule: no match: line matched
+  昨天星期五，所以他就休息了。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  不要跑！  -- rule: no match: line matched
+  你睡着了吗？  -- rule: no match: line matched
+  已经是十月了。  -- rule: no match: line matched
+  你已经买了票吗？  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  是时候休息一下了。  -- rule: no match: line matched
+  我可以开始了吗？  -- rule: no match: line matched
+  你已经知道了，不是吗？  -- rule: no match: line matched
+  电影开始了吗？  -- rule: no match: line matched
+  我读错了。  -- rule: no match: line matched
+  我开始想我女朋友了。  -- rule: no match: line matched
+  他打了个车去车站。  -- rule: no match: line matched
+  您帮了我们。  -- rule: no match: line matched
+  我们帮了她。  -- rule: no match: line matched
+  我看电视时睡着了。  -- rule: no match: line matched
+  我们再也别这样做了。  -- rule: no match: line matched
+  你去过超市了吗？  -- rule: no match: line matched
+  他等了很长时间。  -- rule: no match: line matched
+  我要你想一想。  -- rule: no match: line matched
+  他们不会让她跑了的。  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  开了半小时，车就坏了。  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: no match: line matched
+  我要你离我远一点  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  买了票吗？  -- rule: no match: line matched
+  我说了没问题了啊！  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  累了吗？  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  你的电话出问题了吗？  -- rule: no match: line matched
+  我喝了太多咖啡。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  喝药了。  -- rule: no match: line matched
+  要走吗？  -- rule: no match: line matched
+  我要等她来。  -- rule: no match: line matched
+  我没想要拿。  -- rule: unless 想/VV 要/VV
+  他没想要打我。  -- rule: unless 想/VV 要/VV
+  我没想要打她。  -- rule: unless 想/VV 要/VV
+  我没想要打他。  -- rule: unless 想/VV 要/VV
+  快到家了……  -- rule: no match: line matched
+  学生们走了。  -- rule: no match: line matched
+  她洗了苹果。  -- rule: no match: line matched
+  他洗了苹果。  -- rule: no match: line matched
+  我洗了苹果。  -- rule: no match: line matched
+  快到四月了。  -- rule: no match: line matched
+  谁拿走了那些苹果？  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  五分钟过去了。  -- rule: no match: line matched
+  五小时过去了。  -- rule: no match: line matched
+  我们帮忙了。  -- rule: no match: line matched
+  他帮忙了。  -- rule: no match: line matched
+  汤姆猫帮忙了。  -- rule: no match: line matched
+  我帮忙了。  -- rule: no match: line matched
+  我要去拿一些牛奶。  -- rule: no match: line matched
+  汤姆做得有点过头了。  -- rule: no match: line matched
+  你可以告诉汤姆你想要什么。  -- rule: unless 想/VV 要/VV
+  你准备好了吗？  -- rule: no match: line matched
+  准备好了吗？  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  要咖啡还是茶？  -- rule: no match: line matched
+  我们要快点。  -- rule: no match: line matched
+  他跑了起来。  -- rule: no match: line matched
+  汤姆喝了三杯咖啡。  -- rule: no match: line matched
+  「您想要茶还是咖啡？」「咖啡，谢谢。」  -- rule: unless 想/VV 要/VV
+  昨天是星期五，所以他休息了一天。  -- rule: no match: line matched
+  他们跟我说生病了。  -- rule: no match: line matched
+  汤姆早早就睡了。  -- rule: no match: line matched
+  他已经去睡觉了。  -- rule: no match: line matched
+  我知道你想要快乐。  -- rule: unless 想/VV 要/VV
+  已经过去二十年了。  -- rule: no match: line matched
+  这个月你做了多少次？  -- rule: no match: line matched
+  你这个月已经做了几次？  -- rule: no match: line matched
+  弟弟出去了。  -- rule: no match: line matched
+  他们打了我。  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  告诉他我生病了。  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  那条裤子太大了。  -- rule: no match: line matched
+  他坐在了她的旁边。  -- rule: no match: line matched
+  他跟你说什么了？  -- rule: no match: line matched
+  他告诉你什么了？  -- rule: no match: line matched
+  你让她开你的车了？  -- rule: no match: line matched
+  门开了。  -- rule: no match: line matched
+  汤姆今天考试拿了最高分。  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  我知道汤姆不可能会那么做了。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我没说我要帮你。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+  你能快点吗?我们已经很晚了。  -- rule: no match: line matched
+  你到了就打我电话。  -- rule: no match: line matched
+
+--- dropped at step 8 (1) ---
+  我就要读完这本书了。  -- difficulty review: (1/2); Uses result complement 读完 (2-49), which requires understanding the complement structure beyond basic 要⋯⋯了
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-81_level2_20261111_142938.csv
+
+########## rules  2026-11-12 17:32 ##########
+Tagging 1 labeled example(s) (cached after this run)...
+  ...100/137
+
+=== A. 2-81: rule on labeled examples (no AI) ===
+  examples of 2-81 matched:    12/12
+  counter-examples wrongly matched: 0/125   <- should be 0
+  easy examples (words all HSK 2 or below) matched: 6/6   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:41 ##########
+Filling 2-81 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-81 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-81 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     6994  2. contain the point's word(s)
+     6981  3. new (not in DB, not a duplicate)
+     3563  4. at most 2 characters outside HSK 2 words
+      442  5. really HSK 2
+      375  5b. no harder grammar point (of the 40 with a rule)
+        6  6. the rule finds 2-81
+        6  6b. no hidden word a learner can't work out
+        6  7. both checks say 2-81, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  你快要走了。  (You will be going soon.)  [tatoeba 395011]
+  他快要睡了。  (He was just on the verge of going to sleep.)  [tatoeba 8621495]
+  明天就要过年了。  (Tomorrow is the start of the new year.)  [tatoeba 5800371]
+  我觉得快要下雨了。  (I think it's going to start raining soon.)  [tatoeba 13786741]
+  明天新的一年就要开始了。  (Tomorrow a new year will begin.)  [tatoeba 6018326]
+
+--- dropped at step 3 (13), first 12 ---
+  要么你去，要么我去。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  太阳升起来了。  -- already in the database
+  我亲眼看见了。  -- already in the database
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  你需要帮助吗？  -- same text as tatoeba 1424333 (translations pooled)
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+  你怎么了？  -- already in the database
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你们吃饭了吗？  -- same text as tatoeba 6057697 (translations pooled)
+  我昨天买了这头猪。  -- same text as tatoeba 2737460 (translations pooled)
+  当然了。  -- same text as tatoeba 4970077 (translations pooled)
+
+--- dropped at step 4 (3418), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  我把旅费耗光了。  -- 4 characters no HSK 2 word uses: 光把耗费
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  去度假的时候我要租辆车。  -- 3 characters no HSK 2 word uses: 假度辆
+  你到了该去理发的时候了。  -- 3 characters no HSK 2 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 2 word uses: 极肚饿
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 5 characters no HSK 2 word uses: 且串抓烤而
+  公共汽车上发生什么了？  -- 3 characters no HSK 2 word uses: 共发汽
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  透过薄雾，我隐约看见了我的未来。  -- 6 characters no HSK 2 word uses: 未约薄透隐雾
+
+--- dropped at step 5 (3121), first 12 ---
+  喝茶时不要加糖。  -- level 3: 加 L3, 糖 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  你不要着急。  -- level 3: 着急 L3
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  好，定了。  -- level 4: 定 L4
+  麦克，你听到了没？  -- level 1: no list words
+  她的笔迹漂亮极了。  -- level 10: 笔迹 (not in list), 极 L3
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 电 L3
+
+--- dropped at step 5b (67), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  她不在是因为病了。  -- harder grammar: 3-26 (HSK 3)
+  我拿到这个了。  -- harder grammar: 3-46 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  我看到我要等的那个人就站在那儿。  -- harder grammar: 3-46 (HSK 3)
+  为什么你不等等我就开始了？  -- harder grammar: 2-35 (HSK 3)
+
+--- dropped at step 6 (369) ---
+  我想要出国。  -- rule: unless 想/VV 要/VV
+  您可以走了。  -- rule: no match: line matched
+  我要回来了。  -- rule: no match: line matched
+  我走了。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: no match: line matched
+  我还要等五分钟。  -- rule: no match: line matched
+  饭前要洗手。  -- rule: no match: line matched
+  我的电话坏了。  -- rule: no match: line matched
+  我真的得走了。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  我上网了。  -- rule: no match: line matched
+  她一大早就起床了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  我写错了一个字。  -- rule: no match: line matched
+  我在这里已经工作十年了。  -- rule: no match: line matched
+  他不在这儿，因为他病了。  -- rule: no match: line matched
+  已经过了很长时间了。  -- rule: no match: line matched
+  他已经去了英国。  -- rule: no match: line matched
+  你已经在京都了吗？  -- rule: no match: line matched
+  我已经会写汉字了。  -- rule: no match: line matched
+  请问您要等吗?  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  我已经忘了他的名字。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  有件事情我要对你说。  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  他来了很多次了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你在这里是要见谁吧？  -- rule: no match: line matched
+  她已经五天不上学了。  -- rule: no match: line matched
+  Ken 已经去了英格兰。  -- rule: no match: line matched
+  你比她要高。  -- rule: no match: line matched
+  她说她有点累了。  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  没人想要你那样做。  -- rule: unless 想/VV 要/VV
+  已经是早上七点了。  -- rule: no match: line matched
+  我洗好了。  -- rule: no match: line matched
+  我要一杯咖啡。  -- rule: no match: line matched
+  我看错了。  -- rule: no match: line matched
+  我想错了。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我吃肉了。  -- rule: no match: line matched
+  我在两周前到了。  -- rule: no match: line matched
+  Ken的书比你多多了。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  我们都睡着了。  -- rule: no match: line matched
+  昨天我和朋友们见了面。  -- rule: no match: line matched
+  谁教了你说话？  -- rule: no match: line matched
+  他上学去了吗？  -- rule: no match: line matched
+  我们睡过头了。  -- rule: no match: line matched
+  别忘了你是谁。  -- rule: no match: line matched
+  Julián错了吗？  -- rule: no match: line matched
+  我早就和他说过这些了。  -- rule: no match: line matched
+  Tom要我离他远一点。  -- rule: no match: line matched
+  他们早就认识了吗？  -- rule: no match: line matched
+  你要走多远？  -- rule: no match: line matched
+  你们要和我一起去吗？  -- rule: no match: line matched
+  他已经来了吗？  -- rule: no match: line matched
+  他说话太快了。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  新月出来了。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  我想要跳舞。  -- rule: unless 想/VV 要/VV
+  我们中午十二点半要一起吃午饭。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  请不要这样说。  -- rule: no match: line matched
+  忘了今天的事儿吧。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  她笑了。  -- rule: no match: line matched
+  还是要说谢谢的。  -- rule: no match: line matched
+  他跑了。  -- rule: no match: line matched
+  我要咖啡，谢谢。  -- rule: no match: line matched
+  我们笑了。  -- rule: no match: line matched
+  现在的天气怎么样了？  -- rule: no match: line matched
+  已经没事了。  -- rule: no match: line matched
+  要我帮忙吗？  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  飞机快来了  -- rule: no match: line matched
+  你上网了吗？  -- rule: no match: line matched
+  我洗手了。  -- rule: no match: line matched
+  快来了  -- rule: no match: line matched
+  我的手机坏了。  -- rule: no match: line matched
+  请不要说得那么快。  -- rule: no match: line matched
+  女孩们睡着了  -- rule: no match: line matched
+  你去了几回？  -- rule: no match: line matched
+  他去车站送爷爷了。  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: no match: line matched
+  这要花时间。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我在公交车上睡觉了。  -- rule: no match: line matched
+  告诉他们我们要来了。  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  他很快就知道了。  -- rule: no match: line matched
+  我只吃了一口面包。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  告诉她我们去了哪里。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  我走了，你会想我。  -- rule: no match: line matched
+  她想要孩子，但他不想。  -- rule: unless 想/VV 要/VV
+  我上路了！  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  我知道我做错了。  -- rule: no match: line matched
+  猫叫了叫。  -- rule: no match: line matched
+  她打了他。  -- rule: no match: line matched
+  每个人都做了。  -- rule: no match: line matched
+  我要花很长时间。  -- rule: no match: line matched
+  我从他那里买了它。  -- rule: no match: line matched
+  她叫了我很多次。  -- rule: no match: line matched
+  要多长时间？  -- rule: no match: line matched
+  别让他们忘了我。  -- rule: no match: line matched
+  吃完饭，大家都很累了。  -- rule: no match: line matched
+  汤姆三年前进了我们公司。  -- rule: no match: line matched
+  你已经要走了吗？  -- rule: no match: line matched
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  飞机准备好了。  -- rule: no match: line matched
+  我已经在这里工作几个小时了。  -- rule: no match: line matched
+  那就是汤姆想要的。  -- rule: unless 想/VV 要/VV
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  我今天买了一个新书包。  -- rule: no match: line matched
+  它花了几个月。  -- rule: no match: line matched
+  想要什么就说。  -- rule: unless 想/VV 要/VV
+  她进了房间。  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  我自己写了它。  -- rule: no match: line matched
+  我的东西就是这些了。  -- rule: no match: line matched
+  我们能不打了吗？  -- rule: no match: line matched
+  我睡过头了。  -- rule: no match: line matched
+  我要学游泳。  -- rule: no match: line matched
+  我只睡了两小时。  -- rule: no match: line matched
+  我不喜欢吃肉了。  -- rule: no match: line matched
+  他去那个中国饭馆吃饭了。  -- rule: no match: line matched
+  我在这里很长时间了。  -- rule: no match: line matched
+  她一看就是生病了的。  -- rule: no match: line matched
+  汤姆去年上完了大学。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  现在谁要帮你？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我们还是要告诉他们。  -- rule: no match: line matched
+  我不能帮你了。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我知道我们要怎么帮忙。  -- rule: no match: line matched
+  让我们现在忘了它吧。  -- rule: no match: line matched
+  它花了我三年。  -- rule: no match: line matched
+  那就是我想要的。  -- rule: unless 想/VV 要/VV
+  你已经有孩子了吗？  -- rule: no match: line matched
+  它太长了。  -- rule: no match: line matched
+  谁拿了钱？  -- rule: no match: line matched
+  我们在一家小咖啡店吃了午饭。  -- rule: no match: line matched
+  你不要点咖啡吗？  -- rule: no match: line matched
+  我住得太远了。  -- rule: no match: line matched
+  我要看一下这个。  -- rule: unless 要/VV 看/VV
+  我看了日出。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们要去酒店。  -- rule: no match: line matched
+  家里人一起吃了晚饭。  -- rule: no match: line matched
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  你看完这本书要多少时间？  -- rule: no match: line matched
+  别忘了我。  -- rule: no match: line matched
+  我忘了问他。  -- rule: no match: line matched
+  你从汤姆那里学到了吗？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  昨天我忘了去看医生。  -- rule: no match: line matched
+  过了多长时间？  -- rule: no match: line matched
+  我就是你要找的人。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  那可能太晚了。  -- rule: no match: line matched
+  他们已经在这里了吗？  -- rule: no match: line matched
+  我今天做了四个考试.  -- rule: no match: line matched
+  学生都笑了。  -- rule: no match: line matched
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  你不要跟我一起走吗？  -- rule: no match: line matched
+  不是我告诉你不要去做的。  -- rule: unless 不/AD 要/VV
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  汤姆问了几个问题。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  她上楼了。  -- rule: no match: line matched
+  我们现在就要吃饭。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我记得告诉过你了。  -- rule: no match: line matched
+  我要游泳。  -- rule: no match: line matched
+  你现在可以开始了。  -- rule: no match: line matched
+  我已经累了。  -- rule: no match: line matched
+  你懂了吗？  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  别忘了我们。  -- rule: no match: line matched
+  你已经到家了吗？  -- rule: no match: line matched
+  谢谢，我说完了。  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  我已经不爱他了。  -- rule: no match: line matched
+  男孩到家了。  -- rule: no match: line matched
+  我已经不再做这个了。  -- rule: no match: line matched
+  我只想要一件东西。  -- rule: unless 想/VV 要/VV
+  你说完了吗？  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  要得。  -- rule: no match: line matched
+  汤姆三岁的时候就能写自己的名字了。  -- rule: no match: line matched
+  告诉她你想要什么。  -- rule: unless 想/VV 要/VV
+  火车到站了。  -- rule: no match: line matched
+  我开了门。  -- rule: no match: line matched
+  你要吃面条还是吃米饭？  -- rule: no match: line matched
+  我已经不做了。  -- rule: no match: line matched
+  门慢慢地开了。  -- rule: no match: line matched
+  不要自己一个人走回家。  -- rule: no match: line matched
+  太快了。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  但是，我不要。  -- rule: no match: line matched
+  她看起来病了。  -- rule: no match: line matched
+  我已经起来了。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我在网上买了一本书。  -- rule: no match: line matched
+  你听懂他说的了吗？  -- rule: no match: line matched
+  你要喝咖啡吗？  -- rule: no match: line matched
+  我今年去了好几次外国。  -- rule: no match: line matched
+  你们两个人都准备好了吗？  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  不要站在我前面。  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  已经很晚了，但是他还在工作。  -- rule: no match: line matched
+  你花太多钱了。  -- rule: no match: line matched
+  我再也不会跟你说话了。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+  你告诉了他们什么？  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  现在是时候等着了。  -- rule: no match: line matched
+  不要这么叫他！  -- rule: no match: line matched
+  你喝完咖啡了吗？  -- rule: no match: line matched
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  听着，我要跑了。  -- rule: no match: line matched
+  这条鱼不能吃了。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  你长大了。  -- rule: no match: line matched
+  快点，没时间了。  -- rule: no match: line matched
+  我准备好了，你们呢？  -- rule: no match: line matched
+  不要让她开车。  -- rule: no match: line matched
+  你为什么卖了它？  -- rule: no match: line matched
+  我会告诉她，你来了。  -- rule: no match: line matched
+  不要告诉我。  -- rule: no match: line matched
+  已经周一了？  -- rule: no match: line matched
+  您走太快了。  -- rule: no match: line matched
+  她很快就来了。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  都四月了天气怎么还是这么冷？  -- rule: no match: line matched
+  他说错了，不是吗？  -- rule: no match: line matched
+  她家离我家太远了。  -- rule: no match: line matched
+  你已经吃过饭了！  -- rule: no match: line matched
+  他们已经开学了。  -- rule: no match: line matched
+  我想画画了。  -- rule: no match: line matched
+  她已经写了几本书。  -- rule: no match: line matched
+  昨天星期五，所以他就休息了。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  不要跑！  -- rule: no match: line matched
+  你睡着了吗？  -- rule: no match: line matched
+  已经是十月了。  -- rule: no match: line matched
+  你已经买了票吗？  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  是时候休息一下了。  -- rule: no match: line matched
+  我可以开始了吗？  -- rule: no match: line matched
+  你已经知道了，不是吗？  -- rule: no match: line matched
+  电影开始了吗？  -- rule: no match: line matched
+  我读错了。  -- rule: no match: line matched
+  我开始想我女朋友了。  -- rule: no match: line matched
+  他打了个车去车站。  -- rule: no match: line matched
+  您帮了我们。  -- rule: no match: line matched
+  我们帮了她。  -- rule: no match: line matched
+  我看电视时睡着了。  -- rule: no match: line matched
+  我们再也别这样做了。  -- rule: no match: line matched
+  你去过超市了吗？  -- rule: no match: line matched
+  他等了很长时间。  -- rule: no match: line matched
+  我要你想一想。  -- rule: no match: line matched
+  他们不会让她跑了的。  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  开了半小时，车就坏了。  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: no match: line matched
+  我要你离我远一点  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  买了票吗？  -- rule: no match: line matched
+  我说了没问题了啊！  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  累了吗？  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  你的电话出问题了吗？  -- rule: no match: line matched
+  我喝了太多咖啡。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  喝药了。  -- rule: no match: line matched
+  要走吗？  -- rule: no match: line matched
+  我要等她来。  -- rule: no match: line matched
+  我没想要拿。  -- rule: unless 想/VV 要/VV
+  他没想要打我。  -- rule: unless 想/VV 要/VV
+  我没想要打她。  -- rule: unless 想/VV 要/VV
+  我没想要打他。  -- rule: unless 想/VV 要/VV
+  快到家了……  -- rule: no match: line matched
+  学生们走了。  -- rule: no match: line matched
+  她洗了苹果。  -- rule: no match: line matched
+  他洗了苹果。  -- rule: no match: line matched
+  我洗了苹果。  -- rule: no match: line matched
+  快到四月了。  -- rule: no match: line matched
+  谁拿走了那些苹果？  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  五分钟过去了。  -- rule: no match: line matched
+  五小时过去了。  -- rule: no match: line matched
+  我们帮忙了。  -- rule: no match: line matched
+  他帮忙了。  -- rule: no match: line matched
+  汤姆猫帮忙了。  -- rule: no match: line matched
+  我帮忙了。  -- rule: no match: line matched
+  我要去拿一些牛奶。  -- rule: no match: line matched
+  你可以告诉汤姆你想要什么。  -- rule: unless 想/VV 要/VV
+  你准备好了吗？  -- rule: no match: line matched
+  准备好了吗？  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  要咖啡还是茶？  -- rule: no match: line matched
+  我们要快点。  -- rule: no match: line matched
+  他跑了起来。  -- rule: no match: line matched
+  汤姆喝了三杯咖啡。  -- rule: no match: line matched
+  「您想要茶还是咖啡？」「咖啡，谢谢。」  -- rule: unless 想/VV 要/VV
+  昨天是星期五，所以他休息了一天。  -- rule: no match: line matched
+  他们跟我说生病了。  -- rule: no match: line matched
+  汤姆早早就睡了。  -- rule: no match: line matched
+  他已经去睡觉了。  -- rule: no match: line matched
+  我知道你想要快乐。  -- rule: unless 想/VV 要/VV
+  已经过去二十年了。  -- rule: no match: line matched
+  这个月你做了多少次？  -- rule: no match: line matched
+  你这个月已经做了几次？  -- rule: no match: line matched
+  弟弟出去了。  -- rule: no match: line matched
+  他们打了我。  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  告诉他我生病了。  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  那条裤子太大了。  -- rule: no match: line matched
+  他坐在了她的旁边。  -- rule: no match: line matched
+  他跟你说什么了？  -- rule: no match: line matched
+  他告诉你什么了？  -- rule: no match: line matched
+  你让她开你的车了？  -- rule: no match: line matched
+  门开了。  -- rule: no match: line matched
+  汤姆今天考试拿了最高分。  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  我知道汤姆不可能会那么做了。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我没说我要帮你。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+  你能快点吗?我们已经很晚了。  -- rule: no match: line matched
+  你到了就打我电话。  -- rule: no match: line matched
+
+--- dropped at step 8 (1) ---
+  我就要读完这本书了。  -- difficulty review: (1/2); Uses result complement 读完 (2-49), which requires understanding the complement structure beyond basic 要⋯⋯了
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-81_level2_20261112_174142.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-81 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-81 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-81 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     6994  2. contain the point's word(s)
+     6981  3. new (not in DB, not a duplicate)
+     3563  4. at most 2 characters outside HSK 2 words
+      442  5. really HSK 2
+      375  5b. no harder grammar point (of the 40 with a rule)
+        6  6. the rule finds 2-81
+        6  6b. no hidden word a learner can't work out
+        6  7. both checks say 2-81, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  你快要走了。  (You will be going soon.)  [tatoeba 395011]
+  他快要睡了。  (He was just on the verge of going to sleep.)  [tatoeba 8621495]
+  明天就要过年了。  (Tomorrow is the start of the new year.)  [tatoeba 5800371]
+  我觉得快要下雨了。  (I think it's going to start raining soon.)  [tatoeba 13786741]
+  明天新的一年就要开始了。  (Tomorrow a new year will begin.)  [tatoeba 6018326]
+
+--- dropped at step 3 (13), first 12 ---
+  要么你去，要么我去。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  太阳升起来了。  -- already in the database
+  我亲眼看见了。  -- already in the database
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  你需要帮助吗？  -- same text as tatoeba 1424333 (translations pooled)
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+  你怎么了？  -- already in the database
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你们吃饭了吗？  -- same text as tatoeba 6057697 (translations pooled)
+  我昨天买了这头猪。  -- same text as tatoeba 2737460 (translations pooled)
+  当然了。  -- same text as tatoeba 4970077 (translations pooled)
+
+--- dropped at step 4 (3418), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  我把旅费耗光了。  -- 4 characters no HSK 2 word uses: 光把耗费
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  去度假的时候我要租辆车。  -- 3 characters no HSK 2 word uses: 假度辆
+  你到了该去理发的时候了。  -- 3 characters no HSK 2 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 2 word uses: 极肚饿
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 5 characters no HSK 2 word uses: 且串抓烤而
+  公共汽车上发生什么了？  -- 3 characters no HSK 2 word uses: 共发汽
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  透过薄雾，我隐约看见了我的未来。  -- 6 characters no HSK 2 word uses: 未约薄透隐雾
+
+--- dropped at step 5 (3121), first 12 ---
+  喝茶时不要加糖。  -- level 3: 加 L3, 糖 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  你不要着急。  -- level 3: 着急 L3
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  好，定了。  -- level 4: 定 L4
+  麦克，你听到了没？  -- level 1: no list words
+  她的笔迹漂亮极了。  -- level 10: 笔迹 (not in list), 极 L3
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 电 L3
+
+--- dropped at step 5b (67), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  她不在是因为病了。  -- harder grammar: 3-26 (HSK 3)
+  我拿到这个了。  -- harder grammar: 3-46 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  我看到我要等的那个人就站在那儿。  -- harder grammar: 3-46 (HSK 3)
+  为什么你不等等我就开始了？  -- harder grammar: 2-35 (HSK 3)
+
+--- dropped at step 6 (369) ---
+  我想要出国。  -- rule: unless 想/VV 要/VV
+  您可以走了。  -- rule: no match: line matched
+  我要回来了。  -- rule: no match: line matched
+  我走了。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: no match: line matched
+  我还要等五分钟。  -- rule: no match: line matched
+  饭前要洗手。  -- rule: no match: line matched
+  我的电话坏了。  -- rule: no match: line matched
+  我真的得走了。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  我上网了。  -- rule: no match: line matched
+  她一大早就起床了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  我写错了一个字。  -- rule: no match: line matched
+  我在这里已经工作十年了。  -- rule: no match: line matched
+  他不在这儿，因为他病了。  -- rule: no match: line matched
+  已经过了很长时间了。  -- rule: no match: line matched
+  他已经去了英国。  -- rule: no match: line matched
+  你已经在京都了吗？  -- rule: no match: line matched
+  我已经会写汉字了。  -- rule: no match: line matched
+  请问您要等吗?  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  我已经忘了他的名字。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  有件事情我要对你说。  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  他来了很多次了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你在这里是要见谁吧？  -- rule: no match: line matched
+  她已经五天不上学了。  -- rule: no match: line matched
+  Ken 已经去了英格兰。  -- rule: no match: line matched
+  你比她要高。  -- rule: no match: line matched
+  她说她有点累了。  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  没人想要你那样做。  -- rule: unless 想/VV 要/VV
+  已经是早上七点了。  -- rule: no match: line matched
+  我洗好了。  -- rule: no match: line matched
+  我要一杯咖啡。  -- rule: no match: line matched
+  我看错了。  -- rule: no match: line matched
+  我想错了。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我吃肉了。  -- rule: no match: line matched
+  我在两周前到了。  -- rule: no match: line matched
+  Ken的书比你多多了。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  我们都睡着了。  -- rule: no match: line matched
+  昨天我和朋友们见了面。  -- rule: no match: line matched
+  谁教了你说话？  -- rule: no match: line matched
+  他上学去了吗？  -- rule: no match: line matched
+  我们睡过头了。  -- rule: no match: line matched
+  别忘了你是谁。  -- rule: no match: line matched
+  Julián错了吗？  -- rule: no match: line matched
+  我早就和他说过这些了。  -- rule: no match: line matched
+  Tom要我离他远一点。  -- rule: no match: line matched
+  他们早就认识了吗？  -- rule: no match: line matched
+  你要走多远？  -- rule: no match: line matched
+  你们要和我一起去吗？  -- rule: no match: line matched
+  他已经来了吗？  -- rule: no match: line matched
+  他说话太快了。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  新月出来了。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  我想要跳舞。  -- rule: unless 想/VV 要/VV
+  我们中午十二点半要一起吃午饭。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  请不要这样说。  -- rule: no match: line matched
+  忘了今天的事儿吧。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  她笑了。  -- rule: no match: line matched
+  还是要说谢谢的。  -- rule: no match: line matched
+  他跑了。  -- rule: no match: line matched
+  我要咖啡，谢谢。  -- rule: no match: line matched
+  我们笑了。  -- rule: no match: line matched
+  现在的天气怎么样了？  -- rule: no match: line matched
+  已经没事了。  -- rule: no match: line matched
+  要我帮忙吗？  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  飞机快来了  -- rule: no match: line matched
+  你上网了吗？  -- rule: no match: line matched
+  我洗手了。  -- rule: no match: line matched
+  快来了  -- rule: no match: line matched
+  我的手机坏了。  -- rule: no match: line matched
+  请不要说得那么快。  -- rule: no match: line matched
+  女孩们睡着了  -- rule: no match: line matched
+  你去了几回？  -- rule: no match: line matched
+  他去车站送爷爷了。  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: no match: line matched
+  这要花时间。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我在公交车上睡觉了。  -- rule: no match: line matched
+  告诉他们我们要来了。  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  他很快就知道了。  -- rule: no match: line matched
+  我只吃了一口面包。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  告诉她我们去了哪里。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  我走了，你会想我。  -- rule: no match: line matched
+  她想要孩子，但他不想。  -- rule: unless 想/VV 要/VV
+  我上路了！  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  我知道我做错了。  -- rule: no match: line matched
+  猫叫了叫。  -- rule: no match: line matched
+  她打了他。  -- rule: no match: line matched
+  每个人都做了。  -- rule: no match: line matched
+  我要花很长时间。  -- rule: no match: line matched
+  我从他那里买了它。  -- rule: no match: line matched
+  她叫了我很多次。  -- rule: no match: line matched
+  要多长时间？  -- rule: no match: line matched
+  别让他们忘了我。  -- rule: no match: line matched
+  吃完饭，大家都很累了。  -- rule: no match: line matched
+  汤姆三年前进了我们公司。  -- rule: no match: line matched
+  你已经要走了吗？  -- rule: no match: line matched
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  飞机准备好了。  -- rule: no match: line matched
+  我已经在这里工作几个小时了。  -- rule: no match: line matched
+  那就是汤姆想要的。  -- rule: unless 想/VV 要/VV
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  我今天买了一个新书包。  -- rule: no match: line matched
+  它花了几个月。  -- rule: no match: line matched
+  想要什么就说。  -- rule: unless 想/VV 要/VV
+  她进了房间。  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  我自己写了它。  -- rule: no match: line matched
+  我的东西就是这些了。  -- rule: no match: line matched
+  我们能不打了吗？  -- rule: no match: line matched
+  我睡过头了。  -- rule: no match: line matched
+  我要学游泳。  -- rule: no match: line matched
+  我只睡了两小时。  -- rule: no match: line matched
+  我不喜欢吃肉了。  -- rule: no match: line matched
+  他去那个中国饭馆吃饭了。  -- rule: no match: line matched
+  我在这里很长时间了。  -- rule: no match: line matched
+  她一看就是生病了的。  -- rule: no match: line matched
+  汤姆去年上完了大学。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  现在谁要帮你？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我们还是要告诉他们。  -- rule: no match: line matched
+  我不能帮你了。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我知道我们要怎么帮忙。  -- rule: no match: line matched
+  让我们现在忘了它吧。  -- rule: no match: line matched
+  它花了我三年。  -- rule: no match: line matched
+  那就是我想要的。  -- rule: unless 想/VV 要/VV
+  你已经有孩子了吗？  -- rule: no match: line matched
+  它太长了。  -- rule: no match: line matched
+  谁拿了钱？  -- rule: no match: line matched
+  我们在一家小咖啡店吃了午饭。  -- rule: no match: line matched
+  你不要点咖啡吗？  -- rule: no match: line matched
+  我住得太远了。  -- rule: no match: line matched
+  我要看一下这个。  -- rule: unless 要/VV 看/VV
+  我看了日出。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们要去酒店。  -- rule: no match: line matched
+  家里人一起吃了晚饭。  -- rule: no match: line matched
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  你看完这本书要多少时间？  -- rule: no match: line matched
+  别忘了我。  -- rule: no match: line matched
+  我忘了问他。  -- rule: no match: line matched
+  你从汤姆那里学到了吗？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  昨天我忘了去看医生。  -- rule: no match: line matched
+  过了多长时间？  -- rule: no match: line matched
+  我就是你要找的人。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  那可能太晚了。  -- rule: no match: line matched
+  他们已经在这里了吗？  -- rule: no match: line matched
+  我今天做了四个考试.  -- rule: no match: line matched
+  学生都笑了。  -- rule: no match: line matched
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  你不要跟我一起走吗？  -- rule: no match: line matched
+  不是我告诉你不要去做的。  -- rule: unless 不/AD 要/VV
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  汤姆问了几个问题。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  她上楼了。  -- rule: no match: line matched
+  我们现在就要吃饭。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我记得告诉过你了。  -- rule: no match: line matched
+  我要游泳。  -- rule: no match: line matched
+  你现在可以开始了。  -- rule: no match: line matched
+  我已经累了。  -- rule: no match: line matched
+  你懂了吗？  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  别忘了我们。  -- rule: no match: line matched
+  你已经到家了吗？  -- rule: no match: line matched
+  谢谢，我说完了。  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  我已经不爱他了。  -- rule: no match: line matched
+  男孩到家了。  -- rule: no match: line matched
+  我已经不再做这个了。  -- rule: no match: line matched
+  我只想要一件东西。  -- rule: unless 想/VV 要/VV
+  你说完了吗？  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  要得。  -- rule: no match: line matched
+  汤姆三岁的时候就能写自己的名字了。  -- rule: no match: line matched
+  告诉她你想要什么。  -- rule: unless 想/VV 要/VV
+  火车到站了。  -- rule: no match: line matched
+  我开了门。  -- rule: no match: line matched
+  你要吃面条还是吃米饭？  -- rule: no match: line matched
+  我已经不做了。  -- rule: no match: line matched
+  门慢慢地开了。  -- rule: no match: line matched
+  不要自己一个人走回家。  -- rule: no match: line matched
+  太快了。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  但是，我不要。  -- rule: no match: line matched
+  她看起来病了。  -- rule: no match: line matched
+  我已经起来了。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我在网上买了一本书。  -- rule: no match: line matched
+  你听懂他说的了吗？  -- rule: no match: line matched
+  你要喝咖啡吗？  -- rule: no match: line matched
+  我今年去了好几次外国。  -- rule: no match: line matched
+  你们两个人都准备好了吗？  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  不要站在我前面。  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  已经很晚了，但是他还在工作。  -- rule: no match: line matched
+  你花太多钱了。  -- rule: no match: line matched
+  我再也不会跟你说话了。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+  你告诉了他们什么？  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  现在是时候等着了。  -- rule: no match: line matched
+  不要这么叫他！  -- rule: no match: line matched
+  你喝完咖啡了吗？  -- rule: no match: line matched
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  听着，我要跑了。  -- rule: no match: line matched
+  这条鱼不能吃了。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  你长大了。  -- rule: no match: line matched
+  快点，没时间了。  -- rule: no match: line matched
+  我准备好了，你们呢？  -- rule: no match: line matched
+  不要让她开车。  -- rule: no match: line matched
+  你为什么卖了它？  -- rule: no match: line matched
+  我会告诉她，你来了。  -- rule: no match: line matched
+  不要告诉我。  -- rule: no match: line matched
+  已经周一了？  -- rule: no match: line matched
+  您走太快了。  -- rule: no match: line matched
+  她很快就来了。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  都四月了天气怎么还是这么冷？  -- rule: no match: line matched
+  他说错了，不是吗？  -- rule: no match: line matched
+  她家离我家太远了。  -- rule: no match: line matched
+  你已经吃过饭了！  -- rule: no match: line matched
+  他们已经开学了。  -- rule: no match: line matched
+  我想画画了。  -- rule: no match: line matched
+  她已经写了几本书。  -- rule: no match: line matched
+  昨天星期五，所以他就休息了。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  不要跑！  -- rule: no match: line matched
+  你睡着了吗？  -- rule: no match: line matched
+  已经是十月了。  -- rule: no match: line matched
+  你已经买了票吗？  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  是时候休息一下了。  -- rule: no match: line matched
+  我可以开始了吗？  -- rule: no match: line matched
+  你已经知道了，不是吗？  -- rule: no match: line matched
+  电影开始了吗？  -- rule: no match: line matched
+  我读错了。  -- rule: no match: line matched
+  我开始想我女朋友了。  -- rule: no match: line matched
+  他打了个车去车站。  -- rule: no match: line matched
+  您帮了我们。  -- rule: no match: line matched
+  我们帮了她。  -- rule: no match: line matched
+  我看电视时睡着了。  -- rule: no match: line matched
+  我们再也别这样做了。  -- rule: no match: line matched
+  你去过超市了吗？  -- rule: no match: line matched
+  他等了很长时间。  -- rule: no match: line matched
+  我要你想一想。  -- rule: no match: line matched
+  他们不会让她跑了的。  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  开了半小时，车就坏了。  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: no match: line matched
+  我要你离我远一点  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  买了票吗？  -- rule: no match: line matched
+  我说了没问题了啊！  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  累了吗？  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  你的电话出问题了吗？  -- rule: no match: line matched
+  我喝了太多咖啡。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  喝药了。  -- rule: no match: line matched
+  要走吗？  -- rule: no match: line matched
+  我要等她来。  -- rule: no match: line matched
+  我没想要拿。  -- rule: unless 想/VV 要/VV
+  他没想要打我。  -- rule: unless 想/VV 要/VV
+  我没想要打她。  -- rule: unless 想/VV 要/VV
+  我没想要打他。  -- rule: unless 想/VV 要/VV
+  快到家了……  -- rule: no match: line matched
+  学生们走了。  -- rule: no match: line matched
+  她洗了苹果。  -- rule: no match: line matched
+  他洗了苹果。  -- rule: no match: line matched
+  我洗了苹果。  -- rule: no match: line matched
+  快到四月了。  -- rule: no match: line matched
+  谁拿走了那些苹果？  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  五分钟过去了。  -- rule: no match: line matched
+  五小时过去了。  -- rule: no match: line matched
+  我们帮忙了。  -- rule: no match: line matched
+  他帮忙了。  -- rule: no match: line matched
+  汤姆猫帮忙了。  -- rule: no match: line matched
+  我帮忙了。  -- rule: no match: line matched
+  我要去拿一些牛奶。  -- rule: no match: line matched
+  你可以告诉汤姆你想要什么。  -- rule: unless 想/VV 要/VV
+  你准备好了吗？  -- rule: no match: line matched
+  准备好了吗？  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  要咖啡还是茶？  -- rule: no match: line matched
+  我们要快点。  -- rule: no match: line matched
+  他跑了起来。  -- rule: no match: line matched
+  汤姆喝了三杯咖啡。  -- rule: no match: line matched
+  「您想要茶还是咖啡？」「咖啡，谢谢。」  -- rule: unless 想/VV 要/VV
+  昨天是星期五，所以他休息了一天。  -- rule: no match: line matched
+  他们跟我说生病了。  -- rule: no match: line matched
+  汤姆早早就睡了。  -- rule: no match: line matched
+  他已经去睡觉了。  -- rule: no match: line matched
+  我知道你想要快乐。  -- rule: unless 想/VV 要/VV
+  已经过去二十年了。  -- rule: no match: line matched
+  这个月你做了多少次？  -- rule: no match: line matched
+  你这个月已经做了几次？  -- rule: no match: line matched
+  弟弟出去了。  -- rule: no match: line matched
+  他们打了我。  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  告诉他我生病了。  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  那条裤子太大了。  -- rule: no match: line matched
+  他坐在了她的旁边。  -- rule: no match: line matched
+  他跟你说什么了？  -- rule: no match: line matched
+  他告诉你什么了？  -- rule: no match: line matched
+  你让她开你的车了？  -- rule: no match: line matched
+  门开了。  -- rule: no match: line matched
+  汤姆今天考试拿了最高分。  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  我知道汤姆不可能会那么做了。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我没说我要帮你。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+  你能快点吗?我们已经很晚了。  -- rule: no match: line matched
+  你到了就打我电话。  -- rule: no match: line matched
+
+--- dropped at step 8 (1) ---
+  我就要读完这本书了。  -- difficulty review: (1/2); Uses result complement 读完 (2-49), which requires understanding the complement structure beyond basic 要⋯⋯了
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-81_level2_20261112_211548.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:55 ##########
+Filling 2-81 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-81 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-81 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     6994  2. contain the point's word(s)
+     6981  3. new (not in DB, not a duplicate)
+     3563  4. at most 2 characters outside HSK 2 words
+      442  5. really HSK 2
+      365  5b. no harder grammar point (of the 44 with a rule)
+        6  6. the rule finds 2-81
+        6  6b. no hidden word a learner can't work out
+        6  7. both checks say 2-81, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  你快要走了。  (You will be going soon.)  [tatoeba 395011]
+  他快要睡了。  (He was just on the verge of going to sleep.)  [tatoeba 8621495]
+  明天就要过年了。  (Tomorrow is the start of the new year.)  [tatoeba 5800371]
+  我觉得快要下雨了。  (I think it's going to start raining soon.)  [tatoeba 13786741]
+  明天新的一年就要开始了。  (Tomorrow a new year will begin.)  [tatoeba 6018326]
+
+--- dropped at step 3 (13), first 12 ---
+  要么你去，要么我去。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  太阳升起来了。  -- already in the database
+  我亲眼看见了。  -- already in the database
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  你需要帮助吗？  -- same text as tatoeba 1424333 (translations pooled)
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+  你怎么了？  -- already in the database
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你们吃饭了吗？  -- same text as tatoeba 6057697 (translations pooled)
+  我昨天买了这头猪。  -- same text as tatoeba 2737460 (translations pooled)
+  当然了。  -- same text as tatoeba 4970077 (translations pooled)
+
+--- dropped at step 4 (3418), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  我把旅费耗光了。  -- 4 characters no HSK 2 word uses: 光把耗费
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  去度假的时候我要租辆车。  -- 3 characters no HSK 2 word uses: 假度辆
+  你到了该去理发的时候了。  -- 3 characters no HSK 2 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 2 word uses: 极肚饿
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 5 characters no HSK 2 word uses: 且串抓烤而
+  公共汽车上发生什么了？  -- 3 characters no HSK 2 word uses: 共发汽
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  透过薄雾，我隐约看见了我的未来。  -- 6 characters no HSK 2 word uses: 未约薄透隐雾
+
+--- dropped at step 5 (3121), first 12 ---
+  喝茶时不要加糖。  -- level 3: 加 L3, 糖 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  你不要着急。  -- level 3: 着急 L3
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  好，定了。  -- level 4: 定 L4
+  麦克，你听到了没？  -- level 1: no list words
+  她的笔迹漂亮极了。  -- level 10: 笔迹 (not in list), 极 L3
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 电 L3
+
+--- dropped at step 5b (77), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  她不在是因为病了。  -- harder grammar: 3-26 (HSK 3)
+  我拿到这个了。  -- harder grammar: 3-46 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  我看到我要等的那个人就站在那儿。  -- harder grammar: 3-46 (HSK 3)
+  为什么你不等等我就开始了？  -- harder grammar: 2-35 (HSK 3)
+
+--- dropped at step 6 (359) ---
+  我想要出国。  -- rule: unless 想/VV 要/VV
+  您可以走了。  -- rule: no match: line matched
+  我要回来了。  -- rule: no match: line matched
+  我走了。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: no match: line matched
+  我还要等五分钟。  -- rule: no match: line matched
+  饭前要洗手。  -- rule: no match: line matched
+  我的电话坏了。  -- rule: no match: line matched
+  我真的得走了。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  我上网了。  -- rule: no match: line matched
+  她一大早就起床了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  我写错了一个字。  -- rule: no match: line matched
+  我在这里已经工作十年了。  -- rule: no match: line matched
+  他不在这儿，因为他病了。  -- rule: no match: line matched
+  已经过了很长时间了。  -- rule: no match: line matched
+  他已经去了英国。  -- rule: no match: line matched
+  你已经在京都了吗？  -- rule: no match: line matched
+  我已经会写汉字了。  -- rule: no match: line matched
+  请问您要等吗?  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  我已经忘了他的名字。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  有件事情我要对你说。  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  他来了很多次了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你在这里是要见谁吧？  -- rule: no match: line matched
+  她已经五天不上学了。  -- rule: no match: line matched
+  Ken 已经去了英格兰。  -- rule: no match: line matched
+  你比她要高。  -- rule: no match: line matched
+  她说她有点累了。  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  没人想要你那样做。  -- rule: unless 想/VV 要/VV
+  已经是早上七点了。  -- rule: no match: line matched
+  我洗好了。  -- rule: no match: line matched
+  我要一杯咖啡。  -- rule: no match: line matched
+  我看错了。  -- rule: no match: line matched
+  我想错了。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我吃肉了。  -- rule: no match: line matched
+  我在两周前到了。  -- rule: no match: line matched
+  Ken的书比你多多了。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  我们都睡着了。  -- rule: no match: line matched
+  昨天我和朋友们见了面。  -- rule: no match: line matched
+  谁教了你说话？  -- rule: no match: line matched
+  他上学去了吗？  -- rule: no match: line matched
+  我们睡过头了。  -- rule: no match: line matched
+  别忘了你是谁。  -- rule: no match: line matched
+  Julián错了吗？  -- rule: no match: line matched
+  我早就和他说过这些了。  -- rule: no match: line matched
+  Tom要我离他远一点。  -- rule: no match: line matched
+  他们早就认识了吗？  -- rule: no match: line matched
+  你要走多远？  -- rule: no match: line matched
+  你们要和我一起去吗？  -- rule: no match: line matched
+  他已经来了吗？  -- rule: no match: line matched
+  他说话太快了。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  新月出来了。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  我想要跳舞。  -- rule: unless 想/VV 要/VV
+  我们中午十二点半要一起吃午饭。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  请不要这样说。  -- rule: no match: line matched
+  忘了今天的事儿吧。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  她笑了。  -- rule: no match: line matched
+  还是要说谢谢的。  -- rule: no match: line matched
+  他跑了。  -- rule: no match: line matched
+  我要咖啡，谢谢。  -- rule: no match: line matched
+  我们笑了。  -- rule: no match: line matched
+  现在的天气怎么样了？  -- rule: no match: line matched
+  已经没事了。  -- rule: no match: line matched
+  要我帮忙吗？  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  飞机快来了  -- rule: no match: line matched
+  你上网了吗？  -- rule: no match: line matched
+  我洗手了。  -- rule: no match: line matched
+  快来了  -- rule: no match: line matched
+  我的手机坏了。  -- rule: no match: line matched
+  请不要说得那么快。  -- rule: no match: line matched
+  女孩们睡着了  -- rule: no match: line matched
+  你去了几回？  -- rule: no match: line matched
+  他去车站送爷爷了。  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: no match: line matched
+  这要花时间。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我在公交车上睡觉了。  -- rule: no match: line matched
+  告诉他们我们要来了。  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  他很快就知道了。  -- rule: no match: line matched
+  我只吃了一口面包。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  告诉她我们去了哪里。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  我走了，你会想我。  -- rule: no match: line matched
+  她想要孩子，但他不想。  -- rule: unless 想/VV 要/VV
+  我上路了！  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  我知道我做错了。  -- rule: no match: line matched
+  猫叫了叫。  -- rule: no match: line matched
+  她打了他。  -- rule: no match: line matched
+  每个人都做了。  -- rule: no match: line matched
+  我要花很长时间。  -- rule: no match: line matched
+  她叫了我很多次。  -- rule: no match: line matched
+  要多长时间？  -- rule: no match: line matched
+  别让他们忘了我。  -- rule: no match: line matched
+  吃完饭，大家都很累了。  -- rule: no match: line matched
+  汤姆三年前进了我们公司。  -- rule: no match: line matched
+  你已经要走了吗？  -- rule: no match: line matched
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  飞机准备好了。  -- rule: no match: line matched
+  我已经在这里工作几个小时了。  -- rule: no match: line matched
+  那就是汤姆想要的。  -- rule: unless 想/VV 要/VV
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  我今天买了一个新书包。  -- rule: no match: line matched
+  想要什么就说。  -- rule: unless 想/VV 要/VV
+  她进了房间。  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  我的东西就是这些了。  -- rule: no match: line matched
+  我们能不打了吗？  -- rule: no match: line matched
+  我睡过头了。  -- rule: no match: line matched
+  我要学游泳。  -- rule: no match: line matched
+  我只睡了两小时。  -- rule: no match: line matched
+  我不喜欢吃肉了。  -- rule: no match: line matched
+  他去那个中国饭馆吃饭了。  -- rule: no match: line matched
+  我在这里很长时间了。  -- rule: no match: line matched
+  她一看就是生病了的。  -- rule: no match: line matched
+  汤姆去年上完了大学。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  现在谁要帮你？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我们还是要告诉他们。  -- rule: no match: line matched
+  我不能帮你了。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我知道我们要怎么帮忙。  -- rule: no match: line matched
+  那就是我想要的。  -- rule: unless 想/VV 要/VV
+  你已经有孩子了吗？  -- rule: no match: line matched
+  谁拿了钱？  -- rule: no match: line matched
+  我们在一家小咖啡店吃了午饭。  -- rule: no match: line matched
+  你不要点咖啡吗？  -- rule: no match: line matched
+  我住得太远了。  -- rule: no match: line matched
+  我要看一下这个。  -- rule: unless 要/VV 看/VV
+  我看了日出。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们要去酒店。  -- rule: no match: line matched
+  家里人一起吃了晚饭。  -- rule: no match: line matched
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  你看完这本书要多少时间？  -- rule: no match: line matched
+  别忘了我。  -- rule: no match: line matched
+  我忘了问他。  -- rule: no match: line matched
+  你从汤姆那里学到了吗？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  昨天我忘了去看医生。  -- rule: no match: line matched
+  过了多长时间？  -- rule: no match: line matched
+  我就是你要找的人。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  那可能太晚了。  -- rule: no match: line matched
+  他们已经在这里了吗？  -- rule: no match: line matched
+  我今天做了四个考试.  -- rule: no match: line matched
+  学生都笑了。  -- rule: no match: line matched
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  你不要跟我一起走吗？  -- rule: no match: line matched
+  不是我告诉你不要去做的。  -- rule: unless 不/AD 要/VV
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  汤姆问了几个问题。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  她上楼了。  -- rule: no match: line matched
+  我们现在就要吃饭。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我记得告诉过你了。  -- rule: no match: line matched
+  我要游泳。  -- rule: no match: line matched
+  你现在可以开始了。  -- rule: no match: line matched
+  我已经累了。  -- rule: no match: line matched
+  你懂了吗？  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  别忘了我们。  -- rule: no match: line matched
+  你已经到家了吗？  -- rule: no match: line matched
+  谢谢，我说完了。  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  我已经不爱他了。  -- rule: no match: line matched
+  男孩到家了。  -- rule: no match: line matched
+  我已经不再做这个了。  -- rule: no match: line matched
+  我只想要一件东西。  -- rule: unless 想/VV 要/VV
+  你说完了吗？  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  要得。  -- rule: no match: line matched
+  告诉她你想要什么。  -- rule: unless 想/VV 要/VV
+  火车到站了。  -- rule: no match: line matched
+  我开了门。  -- rule: no match: line matched
+  你要吃面条还是吃米饭？  -- rule: no match: line matched
+  我已经不做了。  -- rule: no match: line matched
+  门慢慢地开了。  -- rule: no match: line matched
+  太快了。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  但是，我不要。  -- rule: no match: line matched
+  她看起来病了。  -- rule: no match: line matched
+  我已经起来了。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我在网上买了一本书。  -- rule: no match: line matched
+  你听懂他说的了吗？  -- rule: no match: line matched
+  你要喝咖啡吗？  -- rule: no match: line matched
+  我今年去了好几次外国。  -- rule: no match: line matched
+  你们两个人都准备好了吗？  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  不要站在我前面。  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  已经很晚了，但是他还在工作。  -- rule: no match: line matched
+  你花太多钱了。  -- rule: no match: line matched
+  我再也不会跟你说话了。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+  你告诉了他们什么？  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  现在是时候等着了。  -- rule: no match: line matched
+  不要这么叫他！  -- rule: no match: line matched
+  你喝完咖啡了吗？  -- rule: no match: line matched
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  听着，我要跑了。  -- rule: no match: line matched
+  这条鱼不能吃了。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  你长大了。  -- rule: no match: line matched
+  快点，没时间了。  -- rule: no match: line matched
+  我准备好了，你们呢？  -- rule: no match: line matched
+  不要让她开车。  -- rule: no match: line matched
+  我会告诉她，你来了。  -- rule: no match: line matched
+  不要告诉我。  -- rule: no match: line matched
+  已经周一了？  -- rule: no match: line matched
+  您走太快了。  -- rule: no match: line matched
+  她很快就来了。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  都四月了天气怎么还是这么冷？  -- rule: no match: line matched
+  他说错了，不是吗？  -- rule: no match: line matched
+  她家离我家太远了。  -- rule: no match: line matched
+  你已经吃过饭了！  -- rule: no match: line matched
+  他们已经开学了。  -- rule: no match: line matched
+  我想画画了。  -- rule: no match: line matched
+  她已经写了几本书。  -- rule: no match: line matched
+  昨天星期五，所以他就休息了。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  不要跑！  -- rule: no match: line matched
+  你睡着了吗？  -- rule: no match: line matched
+  已经是十月了。  -- rule: no match: line matched
+  你已经买了票吗？  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  是时候休息一下了。  -- rule: no match: line matched
+  我可以开始了吗？  -- rule: no match: line matched
+  你已经知道了，不是吗？  -- rule: no match: line matched
+  电影开始了吗？  -- rule: no match: line matched
+  我读错了。  -- rule: no match: line matched
+  我开始想我女朋友了。  -- rule: no match: line matched
+  他打了个车去车站。  -- rule: no match: line matched
+  您帮了我们。  -- rule: no match: line matched
+  我们帮了她。  -- rule: no match: line matched
+  我看电视时睡着了。  -- rule: no match: line matched
+  我们再也别这样做了。  -- rule: no match: line matched
+  你去过超市了吗？  -- rule: no match: line matched
+  他等了很长时间。  -- rule: no match: line matched
+  我要你想一想。  -- rule: no match: line matched
+  他们不会让她跑了的。  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  开了半小时，车就坏了。  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: no match: line matched
+  我要你离我远一点  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  买了票吗？  -- rule: no match: line matched
+  我说了没问题了啊！  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  累了吗？  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  你的电话出问题了吗？  -- rule: no match: line matched
+  我喝了太多咖啡。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  喝药了。  -- rule: no match: line matched
+  要走吗？  -- rule: no match: line matched
+  我要等她来。  -- rule: no match: line matched
+  我没想要拿。  -- rule: unless 想/VV 要/VV
+  他没想要打我。  -- rule: unless 想/VV 要/VV
+  我没想要打她。  -- rule: unless 想/VV 要/VV
+  我没想要打他。  -- rule: unless 想/VV 要/VV
+  快到家了……  -- rule: no match: line matched
+  学生们走了。  -- rule: no match: line matched
+  她洗了苹果。  -- rule: no match: line matched
+  他洗了苹果。  -- rule: no match: line matched
+  我洗了苹果。  -- rule: no match: line matched
+  快到四月了。  -- rule: no match: line matched
+  谁拿走了那些苹果？  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  五分钟过去了。  -- rule: no match: line matched
+  五小时过去了。  -- rule: no match: line matched
+  我们帮忙了。  -- rule: no match: line matched
+  他帮忙了。  -- rule: no match: line matched
+  汤姆猫帮忙了。  -- rule: no match: line matched
+  我帮忙了。  -- rule: no match: line matched
+  我要去拿一些牛奶。  -- rule: no match: line matched
+  你可以告诉汤姆你想要什么。  -- rule: unless 想/VV 要/VV
+  你准备好了吗？  -- rule: no match: line matched
+  准备好了吗？  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  要咖啡还是茶？  -- rule: no match: line matched
+  我们要快点。  -- rule: no match: line matched
+  他跑了起来。  -- rule: no match: line matched
+  汤姆喝了三杯咖啡。  -- rule: no match: line matched
+  「您想要茶还是咖啡？」「咖啡，谢谢。」  -- rule: unless 想/VV 要/VV
+  昨天是星期五，所以他休息了一天。  -- rule: no match: line matched
+  他们跟我说生病了。  -- rule: no match: line matched
+  汤姆早早就睡了。  -- rule: no match: line matched
+  他已经去睡觉了。  -- rule: no match: line matched
+  我知道你想要快乐。  -- rule: unless 想/VV 要/VV
+  已经过去二十年了。  -- rule: no match: line matched
+  这个月你做了多少次？  -- rule: no match: line matched
+  你这个月已经做了几次？  -- rule: no match: line matched
+  弟弟出去了。  -- rule: no match: line matched
+  他们打了我。  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  告诉他我生病了。  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  那条裤子太大了。  -- rule: no match: line matched
+  他坐在了她的旁边。  -- rule: no match: line matched
+  他跟你说什么了？  -- rule: no match: line matched
+  他告诉你什么了？  -- rule: no match: line matched
+  你让她开你的车了？  -- rule: no match: line matched
+  门开了。  -- rule: no match: line matched
+  汤姆今天考试拿了最高分。  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  我知道汤姆不可能会那么做了。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我没说我要帮你。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+  你能快点吗?我们已经很晚了。  -- rule: no match: line matched
+  你到了就打我电话。  -- rule: no match: line matched
+
+--- dropped at step 8 (1) ---
+  我就要读完这本书了。  -- difficulty review: (1/2); Uses result complement 读完 (2-49), which requires understanding the complement structure beyond basic 要⋯⋯了
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-81_level2_20261113_135528.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:46 ##########
+Filling 2-81 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-81 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 0 check and 1 review rejection(s)...
+
+=== 2-81 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     6994  2. contain the point's word(s)
+     6981  3. new (not in DB, not a duplicate)
+     3563  4. at most 2 characters outside HSK 2 words
+      442  5. really HSK 2
+      375  5b. no harder grammar point (of the 43 with a rule)
+        6  6. the rule finds 2-81
+        6  6b. no hidden word a learner can't work out
+        6  7. both checks say 2-81, English chosen
+        5  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  你快要走了。  (You will be going soon.)  [tatoeba 395011]
+  他快要睡了。  (He was just on the verge of going to sleep.)  [tatoeba 8621495]
+  明天就要过年了。  (Tomorrow is the start of the new year.)  [tatoeba 5800371]
+  我觉得快要下雨了。  (I think it's going to start raining soon.)  [tatoeba 13786741]
+  明天新的一年就要开始了。  (Tomorrow a new year will begin.)  [tatoeba 6018326]
+  我就要读完这本书了。  (I'm almost finished reading this book.)  [tatoeba 5845658]
+
+--- dropped at step 3 (13), first 12 ---
+  要么你去，要么我去。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  太阳升起来了。  -- already in the database
+  我亲眼看见了。  -- already in the database
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  你需要帮助吗？  -- same text as tatoeba 1424333 (translations pooled)
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+  你怎么了？  -- already in the database
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你们吃饭了吗？  -- same text as tatoeba 6057697 (translations pooled)
+  我昨天买了这头猪。  -- same text as tatoeba 2737460 (translations pooled)
+  当然了。  -- same text as tatoeba 4970077 (translations pooled)
+
+--- dropped at step 4 (3418), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  我把旅费耗光了。  -- 4 characters no HSK 2 word uses: 光把耗费
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  去度假的时候我要租辆车。  -- 3 characters no HSK 2 word uses: 假度辆
+  你到了该去理发的时候了。  -- 3 characters no HSK 2 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 2 word uses: 极肚饿
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 5 characters no HSK 2 word uses: 且串抓烤而
+  公共汽车上发生什么了？  -- 3 characters no HSK 2 word uses: 共发汽
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  透过薄雾，我隐约看见了我的未来。  -- 6 characters no HSK 2 word uses: 未约薄透隐雾
+
+--- dropped at step 5 (3121), first 12 ---
+  喝茶时不要加糖。  -- level 3: 加 L3, 糖 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  你不要着急。  -- level 3: 着急 L3
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  好，定了。  -- level 4: 定 L4
+  麦克，你听到了没？  -- level 1: no list words
+  她的笔迹漂亮极了。  -- level 10: 笔迹 (not in list), 极 L3
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 电 L3
+
+--- dropped at step 5b (67), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  她不在是因为病了。  -- harder grammar: 3-26 (HSK 3)
+  我拿到这个了。  -- harder grammar: 3-46 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  我看到我要等的那个人就站在那儿。  -- harder grammar: 3-46 (HSK 3)
+  为什么你不等等我就开始了？  -- harder grammar: 2-35 (HSK 3)
+
+--- dropped at step 6 (369) ---
+  我想要出国。  -- rule: unless 想/VV 要/VV
+  您可以走了。  -- rule: no match: line matched
+  我要回来了。  -- rule: no match: line matched
+  我走了。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: no match: line matched
+  我还要等五分钟。  -- rule: no match: line matched
+  饭前要洗手。  -- rule: no match: line matched
+  我的电话坏了。  -- rule: no match: line matched
+  我真的得走了。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  我上网了。  -- rule: no match: line matched
+  她一大早就起床了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  我写错了一个字。  -- rule: no match: line matched
+  我在这里已经工作十年了。  -- rule: no match: line matched
+  他不在这儿，因为他病了。  -- rule: no match: line matched
+  已经过了很长时间了。  -- rule: no match: line matched
+  他已经去了英国。  -- rule: no match: line matched
+  你已经在京都了吗？  -- rule: no match: line matched
+  我已经会写汉字了。  -- rule: no match: line matched
+  请问您要等吗?  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  我已经忘了他的名字。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  有件事情我要对你说。  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  他来了很多次了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你在这里是要见谁吧？  -- rule: no match: line matched
+  她已经五天不上学了。  -- rule: no match: line matched
+  Ken 已经去了英格兰。  -- rule: no match: line matched
+  你比她要高。  -- rule: no match: line matched
+  她说她有点累了。  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  没人想要你那样做。  -- rule: unless 想/VV 要/VV
+  已经是早上七点了。  -- rule: no match: line matched
+  我洗好了。  -- rule: no match: line matched
+  我要一杯咖啡。  -- rule: no match: line matched
+  我看错了。  -- rule: no match: line matched
+  我想错了。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我吃肉了。  -- rule: no match: line matched
+  我在两周前到了。  -- rule: no match: line matched
+  Ken的书比你多多了。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  我们都睡着了。  -- rule: no match: line matched
+  昨天我和朋友们见了面。  -- rule: no match: line matched
+  谁教了你说话？  -- rule: no match: line matched
+  他上学去了吗？  -- rule: no match: line matched
+  我们睡过头了。  -- rule: no match: line matched
+  别忘了你是谁。  -- rule: no match: line matched
+  Julián错了吗？  -- rule: no match: line matched
+  我早就和他说过这些了。  -- rule: no match: line matched
+  Tom要我离他远一点。  -- rule: no match: line matched
+  他们早就认识了吗？  -- rule: no match: line matched
+  你要走多远？  -- rule: no match: line matched
+  你们要和我一起去吗？  -- rule: no match: line matched
+  他已经来了吗？  -- rule: no match: line matched
+  他说话太快了。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  新月出来了。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  我想要跳舞。  -- rule: unless 想/VV 要/VV
+  我们中午十二点半要一起吃午饭。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  请不要这样说。  -- rule: no match: line matched
+  忘了今天的事儿吧。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  她笑了。  -- rule: no match: line matched
+  还是要说谢谢的。  -- rule: no match: line matched
+  他跑了。  -- rule: no match: line matched
+  我要咖啡，谢谢。  -- rule: no match: line matched
+  我们笑了。  -- rule: no match: line matched
+  现在的天气怎么样了？  -- rule: no match: line matched
+  已经没事了。  -- rule: no match: line matched
+  要我帮忙吗？  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  飞机快来了  -- rule: no match: line matched
+  你上网了吗？  -- rule: no match: line matched
+  我洗手了。  -- rule: no match: line matched
+  快来了  -- rule: no match: line matched
+  我的手机坏了。  -- rule: no match: line matched
+  请不要说得那么快。  -- rule: no match: line matched
+  女孩们睡着了  -- rule: no match: line matched
+  你去了几回？  -- rule: no match: line matched
+  他去车站送爷爷了。  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: no match: line matched
+  这要花时间。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我在公交车上睡觉了。  -- rule: no match: line matched
+  告诉他们我们要来了。  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  他很快就知道了。  -- rule: no match: line matched
+  我只吃了一口面包。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  告诉她我们去了哪里。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  我走了，你会想我。  -- rule: no match: line matched
+  她想要孩子，但他不想。  -- rule: unless 想/VV 要/VV
+  我上路了！  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  我知道我做错了。  -- rule: no match: line matched
+  猫叫了叫。  -- rule: no match: line matched
+  她打了他。  -- rule: no match: line matched
+  每个人都做了。  -- rule: no match: line matched
+  我要花很长时间。  -- rule: no match: line matched
+  我从他那里买了它。  -- rule: no match: line matched
+  她叫了我很多次。  -- rule: no match: line matched
+  要多长时间？  -- rule: no match: line matched
+  别让他们忘了我。  -- rule: no match: line matched
+  吃完饭，大家都很累了。  -- rule: no match: line matched
+  汤姆三年前进了我们公司。  -- rule: no match: line matched
+  你已经要走了吗？  -- rule: no match: line matched
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  飞机准备好了。  -- rule: no match: line matched
+  我已经在这里工作几个小时了。  -- rule: no match: line matched
+  那就是汤姆想要的。  -- rule: unless 想/VV 要/VV
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  我今天买了一个新书包。  -- rule: no match: line matched
+  它花了几个月。  -- rule: no match: line matched
+  想要什么就说。  -- rule: unless 想/VV 要/VV
+  她进了房间。  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  我自己写了它。  -- rule: no match: line matched
+  我的东西就是这些了。  -- rule: no match: line matched
+  我们能不打了吗？  -- rule: no match: line matched
+  我睡过头了。  -- rule: no match: line matched
+  我要学游泳。  -- rule: no match: line matched
+  我只睡了两小时。  -- rule: no match: line matched
+  我不喜欢吃肉了。  -- rule: no match: line matched
+  他去那个中国饭馆吃饭了。  -- rule: no match: line matched
+  我在这里很长时间了。  -- rule: no match: line matched
+  她一看就是生病了的。  -- rule: no match: line matched
+  汤姆去年上完了大学。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  现在谁要帮你？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我们还是要告诉他们。  -- rule: no match: line matched
+  我不能帮你了。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我知道我们要怎么帮忙。  -- rule: no match: line matched
+  让我们现在忘了它吧。  -- rule: no match: line matched
+  它花了我三年。  -- rule: no match: line matched
+  那就是我想要的。  -- rule: unless 想/VV 要/VV
+  你已经有孩子了吗？  -- rule: no match: line matched
+  它太长了。  -- rule: no match: line matched
+  谁拿了钱？  -- rule: no match: line matched
+  我们在一家小咖啡店吃了午饭。  -- rule: no match: line matched
+  你不要点咖啡吗？  -- rule: no match: line matched
+  我住得太远了。  -- rule: no match: line matched
+  我要看一下这个。  -- rule: unless 要/VV 看/VV
+  我看了日出。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们要去酒店。  -- rule: no match: line matched
+  家里人一起吃了晚饭。  -- rule: no match: line matched
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  你看完这本书要多少时间？  -- rule: no match: line matched
+  别忘了我。  -- rule: no match: line matched
+  我忘了问他。  -- rule: no match: line matched
+  你从汤姆那里学到了吗？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  昨天我忘了去看医生。  -- rule: no match: line matched
+  过了多长时间？  -- rule: no match: line matched
+  我就是你要找的人。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  那可能太晚了。  -- rule: no match: line matched
+  他们已经在这里了吗？  -- rule: no match: line matched
+  我今天做了四个考试.  -- rule: no match: line matched
+  学生都笑了。  -- rule: no match: line matched
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  你不要跟我一起走吗？  -- rule: no match: line matched
+  不是我告诉你不要去做的。  -- rule: unless 不/AD 要/VV
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  汤姆问了几个问题。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  她上楼了。  -- rule: no match: line matched
+  我们现在就要吃饭。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我记得告诉过你了。  -- rule: no match: line matched
+  我要游泳。  -- rule: no match: line matched
+  你现在可以开始了。  -- rule: no match: line matched
+  我已经累了。  -- rule: no match: line matched
+  你懂了吗？  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  别忘了我们。  -- rule: no match: line matched
+  你已经到家了吗？  -- rule: no match: line matched
+  谢谢，我说完了。  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  我已经不爱他了。  -- rule: no match: line matched
+  男孩到家了。  -- rule: no match: line matched
+  我已经不再做这个了。  -- rule: no match: line matched
+  我只想要一件东西。  -- rule: unless 想/VV 要/VV
+  你说完了吗？  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  要得。  -- rule: no match: line matched
+  汤姆三岁的时候就能写自己的名字了。  -- rule: no match: line matched
+  告诉她你想要什么。  -- rule: unless 想/VV 要/VV
+  火车到站了。  -- rule: no match: line matched
+  我开了门。  -- rule: no match: line matched
+  你要吃面条还是吃米饭？  -- rule: no match: line matched
+  我已经不做了。  -- rule: no match: line matched
+  门慢慢地开了。  -- rule: no match: line matched
+  不要自己一个人走回家。  -- rule: no match: line matched
+  太快了。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  但是，我不要。  -- rule: no match: line matched
+  她看起来病了。  -- rule: no match: line matched
+  我已经起来了。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我在网上买了一本书。  -- rule: no match: line matched
+  你听懂他说的了吗？  -- rule: no match: line matched
+  你要喝咖啡吗？  -- rule: no match: line matched
+  我今年去了好几次外国。  -- rule: no match: line matched
+  你们两个人都准备好了吗？  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  不要站在我前面。  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  已经很晚了，但是他还在工作。  -- rule: no match: line matched
+  你花太多钱了。  -- rule: no match: line matched
+  我再也不会跟你说话了。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+  你告诉了他们什么？  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  现在是时候等着了。  -- rule: no match: line matched
+  不要这么叫他！  -- rule: no match: line matched
+  你喝完咖啡了吗？  -- rule: no match: line matched
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  听着，我要跑了。  -- rule: no match: line matched
+  这条鱼不能吃了。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  你长大了。  -- rule: no match: line matched
+  快点，没时间了。  -- rule: no match: line matched
+  我准备好了，你们呢？  -- rule: no match: line matched
+  不要让她开车。  -- rule: no match: line matched
+  你为什么卖了它？  -- rule: no match: line matched
+  我会告诉她，你来了。  -- rule: no match: line matched
+  不要告诉我。  -- rule: no match: line matched
+  已经周一了？  -- rule: no match: line matched
+  您走太快了。  -- rule: no match: line matched
+  她很快就来了。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  都四月了天气怎么还是这么冷？  -- rule: no match: line matched
+  他说错了，不是吗？  -- rule: no match: line matched
+  她家离我家太远了。  -- rule: no match: line matched
+  你已经吃过饭了！  -- rule: no match: line matched
+  他们已经开学了。  -- rule: no match: line matched
+  我想画画了。  -- rule: no match: line matched
+  她已经写了几本书。  -- rule: no match: line matched
+  昨天星期五，所以他就休息了。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  不要跑！  -- rule: no match: line matched
+  你睡着了吗？  -- rule: no match: line matched
+  已经是十月了。  -- rule: no match: line matched
+  你已经买了票吗？  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  是时候休息一下了。  -- rule: no match: line matched
+  我可以开始了吗？  -- rule: no match: line matched
+  你已经知道了，不是吗？  -- rule: no match: line matched
+  电影开始了吗？  -- rule: no match: line matched
+  我读错了。  -- rule: no match: line matched
+  我开始想我女朋友了。  -- rule: no match: line matched
+  他打了个车去车站。  -- rule: no match: line matched
+  您帮了我们。  -- rule: no match: line matched
+  我们帮了她。  -- rule: no match: line matched
+  我看电视时睡着了。  -- rule: no match: line matched
+  我们再也别这样做了。  -- rule: no match: line matched
+  你去过超市了吗？  -- rule: no match: line matched
+  他等了很长时间。  -- rule: no match: line matched
+  我要你想一想。  -- rule: no match: line matched
+  他们不会让她跑了的。  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  开了半小时，车就坏了。  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: no match: line matched
+  我要你离我远一点  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  买了票吗？  -- rule: no match: line matched
+  我说了没问题了啊！  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  累了吗？  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  你的电话出问题了吗？  -- rule: no match: line matched
+  我喝了太多咖啡。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  喝药了。  -- rule: no match: line matched
+  要走吗？  -- rule: no match: line matched
+  我要等她来。  -- rule: no match: line matched
+  我没想要拿。  -- rule: unless 想/VV 要/VV
+  他没想要打我。  -- rule: unless 想/VV 要/VV
+  我没想要打她。  -- rule: unless 想/VV 要/VV
+  我没想要打他。  -- rule: unless 想/VV 要/VV
+  快到家了……  -- rule: no match: line matched
+  学生们走了。  -- rule: no match: line matched
+  她洗了苹果。  -- rule: no match: line matched
+  他洗了苹果。  -- rule: no match: line matched
+  我洗了苹果。  -- rule: no match: line matched
+  快到四月了。  -- rule: no match: line matched
+  谁拿走了那些苹果？  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  五分钟过去了。  -- rule: no match: line matched
+  五小时过去了。  -- rule: no match: line matched
+  我们帮忙了。  -- rule: no match: line matched
+  他帮忙了。  -- rule: no match: line matched
+  汤姆猫帮忙了。  -- rule: no match: line matched
+  我帮忙了。  -- rule: no match: line matched
+  我要去拿一些牛奶。  -- rule: no match: line matched
+  你可以告诉汤姆你想要什么。  -- rule: unless 想/VV 要/VV
+  你准备好了吗？  -- rule: no match: line matched
+  准备好了吗？  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  要咖啡还是茶？  -- rule: no match: line matched
+  我们要快点。  -- rule: no match: line matched
+  他跑了起来。  -- rule: no match: line matched
+  汤姆喝了三杯咖啡。  -- rule: no match: line matched
+  「您想要茶还是咖啡？」「咖啡，谢谢。」  -- rule: unless 想/VV 要/VV
+  昨天是星期五，所以他休息了一天。  -- rule: no match: line matched
+  他们跟我说生病了。  -- rule: no match: line matched
+  汤姆早早就睡了。  -- rule: no match: line matched
+  他已经去睡觉了。  -- rule: no match: line matched
+  我知道你想要快乐。  -- rule: unless 想/VV 要/VV
+  已经过去二十年了。  -- rule: no match: line matched
+  这个月你做了多少次？  -- rule: no match: line matched
+  你这个月已经做了几次？  -- rule: no match: line matched
+  弟弟出去了。  -- rule: no match: line matched
+  他们打了我。  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  告诉他我生病了。  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  那条裤子太大了。  -- rule: no match: line matched
+  他坐在了她的旁边。  -- rule: no match: line matched
+  他跟你说什么了？  -- rule: no match: line matched
+  他告诉你什么了？  -- rule: no match: line matched
+  你让她开你的车了？  -- rule: no match: line matched
+  门开了。  -- rule: no match: line matched
+  汤姆今天考试拿了最高分。  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  我知道汤姆不可能会那么做了。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我没说我要帮你。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+  你能快点吗?我们已经很晚了。  -- rule: no match: line matched
+  你到了就打我电话。  -- rule: no match: line matched
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-81_level2_20261113_144653.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## ai  2026-11-14 14:47 ##########
+
+----- AI-written sentences for 2-81, round 1: 0 to check, 12 needed -----
+  Asking claude-sonnet-5-5 to write 30 sentence(s)...
+
+----- AI-written sentences for 2-81, round 2: 30 to check, 12 needed -----
+Filling 2-81 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 30
+
+Tagging 30 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_144750.txt
+  Deciding 3 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  坐好 = 坐 + 好  (to sit properly; to sit up straight)
+     clear  快进 = 快 + 进  (fast-forward (media player))
+    hidden  快点儿 = 快 + 点 + 儿  (erhua variant of 快点; to do smh more quic)
+
+Course sentences at HSK 2 the rule already finds 2-81 in: 2  -> Tatoeba needs to add 12 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-81 at HSK 2: funnel ===
+       30  AI-written sentences
+       30  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       30  4. at most 0 characters outside HSK 2 words
+       27  5. really HSK 2
+       27  5b. no harder grammar point (of the 43 with a rule)
+       27  6. the rule finds 2-81
+       25  6b. no hidden word a learner can't work out
+       16  7. both checks say 2-81, English chosen
+       15  8. both difficulty reviews pass it
+  (5 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (15) ===
+  他们就要出国了。  (They are about to go abroad.)  [tatoeba ai-8fd26cf8e2]
+  我们快要下课了。  (We're about to finish class.)  [tatoeba ai-cba5d00137]
+  弟弟快要八岁了。  (My younger brother is about to turn eight.)  [tatoeba ai-2a0cbef35a]
+  我女儿就要一岁了。  (My daughter is about to turn one.)  [tatoeba ai-4a6145e62d]
+  我们快要到机场了。  (We're about to reach the airport.)  [tatoeba ai-12a6391225]
+  下午的课快要完了。  (The afternoon class is about to end.)  [tatoeba ai-b197147fd5]
+  还有三天就要过年了。  (There are just three days until the New Year.)  [tatoeba ai-9d7fbd3f4c]  hidden: 还有
+  妈妈的饭快要做好了。  (Mom's meal is almost ready.)  [tatoeba ai-aea19bef72]
+  这本书我快要看完了。  (I'm about to finish reading this book.)  [tatoeba ai-d82f32b1f6]
+  妹妹的生日快要到了。  (My younger sister's birthday is coming soon.)  [tatoeba ai-a716c958ff]
+  车快要开了,快上来!  (The bus is about to leave. Get on quickly!)  [tatoeba ai-4be7130dc3]
+  还有五分钟就要上课了。  (Class starts in five minutes.)  [tatoeba ai-fc3d88ac8f]  hidden: 还有
+  考试就要开始了,别说话。  (The exam is about to begin. Don't talk.)  [tatoeba ai-cd50a88d6b]
+  学校快要开学了,我很忙。  (School is about to start, and I'm very busy.)  [tatoeba ai-b74e39677b]
+  飞机快要到了,我们去机场吧。  (The plane is about to arrive. Let's go to the airport.)  [tatoeba ai-f4bcf74899]
+
+--- dropped at step 5 (3) ---
+  要下雪了,多穿一件衣服。  -- level 1: no list words
+  要下班了,我们去吃饭吧。  -- level 1: no list words
+  你看,要下大雨了。  -- level 1: no list words
+
+--- dropped at step 6b (2) ---
+  老师就要来了,大家坐好。  -- hidden word a learner can't work out: 坐好 (to sit properly; to sit up straight)
+  你快点儿,电影就要开始了。  -- hidden word a learner can't work out: 快点儿 (erhua variant of 快点; to do smh more quickly)
+
+--- dropped at step 7 (4) ---
+  明天我就要去上班了。  -- check said no (2/2): 就要 marks specific time, not imminence
+  我今年就要上大学了。  -- check said no (1/2): 就要 marks specific time, not imminence
+  要上课了,快进教室!  -- check said no (1/2): 要 alone, not 要/快要/就要 pattern
+  哥哥明年就要工作了。  -- check said no (2/2): 就要 marks specific time, not imminence
+
+--- dropped at step 8 (1) ---
+  水快要开了,你来看看。  -- difficulty review: (1/2); 水开 (water boiling) uses 开 in a specialized sense not covered at HSK 2; learners would not naturally associate 开 with 'boil'
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-81_level2_20261114_144807.csv
+
+########## ai  2026-11-14 15:03 ##########
+
+----- AI-written sentences for 2-81, round 1: 30 to check, 12 needed -----
+Filling 2-81 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 30
+
+
+Course sentences at HSK 2 the rule already finds 2-81 in: 2  -> Tatoeba needs to add 12 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-81 at HSK 2: funnel ===
+       30  AI-written sentences
+       30  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       30  4. at most 0 characters outside HSK 2 words
+       27  5. really HSK 2
+       27  5b. no harder grammar point (of the 43 with a rule)
+       27  6. the rule finds 2-81
+       25  6b. no hidden word a learner can't work out
+       16  7. both checks say 2-81, English chosen
+       15  8. both difficulty reviews pass it
+  (5 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (15) ===
+  他们就要出国了。  (They are about to go abroad.)  [tatoeba ai-8fd26cf8e2]
+  我们快要下课了。  (We're about to finish class.)  [tatoeba ai-cba5d00137]
+  弟弟快要八岁了。  (My younger brother is about to turn eight.)  [tatoeba ai-2a0cbef35a]
+  我女儿就要一岁了。  (My daughter is about to turn one.)  [tatoeba ai-4a6145e62d]
+  我们快要到机场了。  (We're about to reach the airport.)  [tatoeba ai-12a6391225]
+  下午的课快要完了。  (The afternoon class is about to end.)  [tatoeba ai-b197147fd5]
+  还有三天就要过年了。  (There are just three days until the New Year.)  [tatoeba ai-9d7fbd3f4c]  hidden: 还有
+  妈妈的饭快要做好了。  (Mom's meal is almost ready.)  [tatoeba ai-aea19bef72]
+  这本书我快要看完了。  (I'm about to finish reading this book.)  [tatoeba ai-d82f32b1f6]
+  妹妹的生日快要到了。  (My younger sister's birthday is coming soon.)  [tatoeba ai-a716c958ff]
+  车快要开了,快上来!  (The bus is about to leave. Get on quickly!)  [tatoeba ai-4be7130dc3]
+  还有五分钟就要上课了。  (Class starts in five minutes.)  [tatoeba ai-fc3d88ac8f]  hidden: 还有
+  考试就要开始了,别说话。  (The exam is about to begin. Don't talk.)  [tatoeba ai-cd50a88d6b]
+  学校快要开学了,我很忙。  (School is about to start, and I'm very busy.)  [tatoeba ai-b74e39677b]
+  飞机快要到了,我们去机场吧。  (The plane is about to arrive. Let's go to the airport.)  [tatoeba ai-f4bcf74899]
+
+--- dropped at step 5 (3) ---
+  要下雪了,多穿一件衣服。  -- level 1: no list words
+  要下班了,我们去吃饭吧。  -- level 1: no list words
+  你看,要下大雨了。  -- level 1: no list words
+
+--- dropped at step 6b (2) ---
+  老师就要来了,大家坐好。  -- hidden word a learner can't work out: 坐好 (to sit properly; to sit up straight)
+  你快点儿,电影就要开始了。  -- hidden word a learner can't work out: 快点儿 (erhua variant of 快点; to do smh more quickly)
+
+--- dropped at step 7 (4) ---
+  明天我就要去上班了。  -- check said no (2/2): 就要 marks specific time, not imminence
+  我今年就要上大学了。  -- check said no (1/2): 就要 marks specific time, not imminence
+  要上课了,快进教室!  -- check said no (1/2): 要 alone, not 要/快要/就要 pattern
+  哥哥明年就要工作了。  -- check said no (2/2): 就要 marks specific time, not imminence
+
+--- dropped at step 8 (1) ---
+  水快要开了,你来看看。  -- difficulty review: (1/2); 水开 (water boiling) uses 开 in a specialized sense not covered at HSK 2; learners would not naturally associate 开 with 'boil'
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-81_level2_20261114_150320.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:11 ##########
+Filling 2-81 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-81 in: 20  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-81 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     6994  2. contain the point's word(s)
+     6828  3. new (not in DB, not a duplicate)
+     3410  4. at most 2 characters outside HSK 2 words
+      337  5. really HSK 2
+      285  5b. no harder grammar point (of the 43 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (166), first 12 ---
+  你快要走了。  -- already in the database
+  我也去了。  -- already in the database
+  要么你去，要么我去。  -- already in the database
+  我们时间不多了。  -- already in the database
+  你不能再住在这边了。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  我已经会写中文了。  -- already in the database
+  她今天比昨天要好很多。  -- already in the database
+  我写错了一个字。  -- already in the database
+  我在这里已经工作十年了。  -- already in the database
+  他不在这儿，因为他病了。  -- already in the database
+  已经过了很长时间了。  -- already in the database
+
+--- dropped at step 4 (3418), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  我把旅费耗光了。  -- 4 characters no HSK 2 word uses: 光把耗费
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  去度假的时候我要租辆车。  -- 3 characters no HSK 2 word uses: 假度辆
+  你到了该去理发的时候了。  -- 3 characters no HSK 2 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 2 word uses: 极肚饿
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 5 characters no HSK 2 word uses: 且串抓烤而
+  公共汽车上发生什么了？  -- 3 characters no HSK 2 word uses: 共发汽
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  透过薄雾，我隐约看见了我的未来。  -- 6 characters no HSK 2 word uses: 未约薄透隐雾
+
+--- dropped at step 5 (3073), first 12 ---
+  喝茶时不要加糖。  -- level 3: 加 L3, 糖 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  你不要着急。  -- level 3: 着急 L3
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  好，定了。  -- level 4: 定 L4
+  麦克，你听到了没？  -- level 1: no list words
+  她的笔迹漂亮极了。  -- level 10: 笔迹 (not in list), 极 L3
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 电 L3
+
+--- dropped at step 5b (52), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  我拿到这个了。  -- harder grammar: 3-46 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  我看到我要等的那个人就站在那儿。  -- harder grammar: 3-46 (HSK 3)
+  别再让我做那事了。  -- harder grammar: 3-16 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  请你别再打我电话了。  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (285) ---
+  我想要出国。  -- rule: unless 想/VV 要/VV
+  您可以走了。  -- rule: no match: line matched
+  我要回来了。  -- rule: no match: line matched
+  我走了。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: no match: line matched
+  我还要等五分钟。  -- rule: no match: line matched
+  饭前要洗手。  -- rule: no match: line matched
+  我的电话坏了。  -- rule: no match: line matched
+  我真的得走了。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  我上网了。  -- rule: no match: line matched
+  她一大早就起床了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  请问您要等吗?  -- rule: no match: line matched
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你在这里是要见谁吧？  -- rule: no match: line matched
+  她不在是因为病了。  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  没人想要你那样做。  -- rule: unless 想/VV 要/VV
+  我要一杯咖啡。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我吃肉了。  -- rule: no match: line matched
+  我在两周前到了。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  我们都睡着了。  -- rule: no match: line matched
+  昨天我和朋友们见了面。  -- rule: no match: line matched
+  谁教了你说话？  -- rule: no match: line matched
+  他上学去了吗？  -- rule: no match: line matched
+  我们睡过头了。  -- rule: no match: line matched
+  别忘了你是谁。  -- rule: no match: line matched
+  Julián错了吗？  -- rule: no match: line matched
+  我早就和他说过这些了。  -- rule: no match: line matched
+  Tom要我离他远一点。  -- rule: no match: line matched
+  他们早就认识了吗？  -- rule: no match: line matched
+  你要走多远？  -- rule: no match: line matched
+  因为下雪了，我什么也没能看见。  -- rule: no match: line matched
+  你们要和我一起去吗？  -- rule: no match: line matched
+  他说话太快了。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  新月出来了。  -- rule: no match: line matched
+  我们喝了一点水。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  我想要跳舞。  -- rule: unless 想/VV 要/VV
+  我们中午十二点半要一起吃午饭。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  她笑了。  -- rule: no match: line matched
+  还是要说谢谢的。  -- rule: no match: line matched
+  他跑了。  -- rule: no match: line matched
+  我要咖啡，谢谢。  -- rule: no match: line matched
+  我们笑了。  -- rule: no match: line matched
+  现在的天气怎么样了？  -- rule: no match: line matched
+  为什么你不等等我就开始了？  -- rule: no match: line matched
+  要我帮忙吗？  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  飞机快来了  -- rule: no match: line matched
+  你上网了吗？  -- rule: no match: line matched
+  我洗手了。  -- rule: no match: line matched
+  快来了  -- rule: no match: line matched
+  我的手机坏了。  -- rule: no match: line matched
+  女孩们睡着了  -- rule: no match: line matched
+  他去车站送爷爷了。  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  这要花时间。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我在公交车上睡觉了。  -- rule: no match: line matched
+  告诉他们我们要来了。  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  他很快就知道了。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  告诉她我们去了哪里。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  我走了，你会想我。  -- rule: no match: line matched
+  我上路了！  -- rule: no match: line matched
+  猫叫了叫。  -- rule: no match: line matched
+  她打了他。  -- rule: no match: line matched
+  每个人都做了。  -- rule: no match: line matched
+  我要花很长时间。  -- rule: no match: line matched
+  要多长时间？  -- rule: no match: line matched
+  别让他们忘了我。  -- rule: no match: line matched
+  汤姆三年前进了我们公司。  -- rule: no match: line matched
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  飞机准备好了。  -- rule: no match: line matched
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  我今天买了一个新书包。  -- rule: no match: line matched
+  它花了几个月。  -- rule: no match: line matched
+  想要什么就说。  -- rule: unless 想/VV 要/VV
+  她进了房间。  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  我们能不打了吗？  -- rule: no match: line matched
+  我睡过头了。  -- rule: no match: line matched
+  我要学游泳。  -- rule: no match: line matched
+  我不喜欢吃肉了。  -- rule: no match: line matched
+  他去那个中国饭馆吃饭了。  -- rule: no match: line matched
+  飞机上吃了一点，不多。  -- rule: no match: line matched
+  我在这里很长时间了。  -- rule: no match: line matched
+  她一看就是生病了的。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  现在谁要帮你？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我们还是要告诉他们。  -- rule: no match: line matched
+  我不能帮你了。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我知道我们要怎么帮忙。  -- rule: no match: line matched
+  让我们现在忘了它吧。  -- rule: no match: line matched
+  我给我自己买了书，不是给我妻子。  -- rule: no match: line matched
+  它花了我三年。  -- rule: no match: line matched
+  谁拿了钱？  -- rule: no match: line matched
+  我们在一家小咖啡店吃了午饭。  -- rule: no match: line matched
+  你不要点咖啡吗？  -- rule: no match: line matched
+  每个人都看见了。  -- rule: no match: line matched
+  我要看一下这个。  -- rule: unless 要/VV 看/VV
+  我看了日出。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们要去酒店。  -- rule: no match: line matched
+  家里人一起吃了晚饭。  -- rule: no match: line matched
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  别忘了我。  -- rule: no match: line matched
+  我忘了问他。  -- rule: no match: line matched
+  你从汤姆那里学到了吗？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  昨天我忘了去看医生。  -- rule: no match: line matched
+  过了多长时间？  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  他一看见我，就跑了。  -- rule: no match: line matched
+  那可能太晚了。  -- rule: no match: line matched
+  我今天做了四个考试.  -- rule: no match: line matched
+  学生都笑了。  -- rule: no match: line matched
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  你不要跟我一起走吗？  -- rule: no match: line matched
+  不是我告诉你不要去做的。  -- rule: unless 不/AD 要/VV
+  汤姆问了几个问题。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  她上楼了。  -- rule: no match: line matched
+  我们现在就要吃饭。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我记得告诉过你了。  -- rule: no match: line matched
+  我要游泳。  -- rule: no match: line matched
+  你现在可以开始了。  -- rule: no match: line matched
+  我已经累了。  -- rule: no match: line matched
+  你懂了吗？  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  别忘了我们。  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  男孩到家了。  -- rule: no match: line matched
+  我已经不再做这个了。  -- rule: no match: line matched
+  我只想要一件东西。  -- rule: unless 想/VV 要/VV
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  要得。  -- rule: no match: line matched
+  告诉她你想要什么。  -- rule: unless 想/VV 要/VV
+  火车到站了。  -- rule: no match: line matched
+  我开了门。  -- rule: no match: line matched
+  门慢慢地开了。  -- rule: no match: line matched
+  太快了。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  她看起来病了。  -- rule: no match: line matched
+  我已经起来了。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我在网上买了一本书。  -- rule: no match: line matched
+  你要喝咖啡吗？  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  不要站在我前面。  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  你花太多钱了。  -- rule: no match: line matched
+  我再也不会跟你说话了。  -- rule: no match: line matched
+  你不是要打电话给汤姆吗?  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+  你告诉了他们什么？  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  不要这么叫他！  -- rule: no match: line matched
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  这条鱼不能吃了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  你长大了。  -- rule: no match: line matched
+  快点，没时间了。  -- rule: no match: line matched
+  不要让她开车。  -- rule: no match: line matched
+  我会告诉她，你来了。  -- rule: no match: line matched
+  不要告诉我。  -- rule: no match: line matched
+  已经周一了？  -- rule: no match: line matched
+  您走太快了。  -- rule: no match: line matched
+  她很快就来了。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  我想画画了。  -- rule: no match: line matched
+  不要跑！  -- rule: no match: line matched
+  你睡着了吗？  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  是时候休息一下了。  -- rule: no match: line matched
+  我可以开始了吗？  -- rule: no match: line matched
+  电影开始了吗？  -- rule: no match: line matched
+  我开始想我女朋友了。  -- rule: no match: line matched
+  他打了个车去车站。  -- rule: no match: line matched
+  您帮了我们。  -- rule: no match: line matched
+  我们帮了她。  -- rule: no match: line matched
+  我看电视时睡着了。  -- rule: no match: line matched
+  我们再也别这样做了。  -- rule: no match: line matched
+  你去过超市了吗？  -- rule: no match: line matched
+  他等了很长时间。  -- rule: no match: line matched
+  他们不会让她跑了的。  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  开了半小时，车就坏了。  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: no match: line matched
+  我要你离我远一点  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  买了票吗？  -- rule: no match: line matched
+  我说了没问题了啊！  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  累了吗？  -- rule: no match: line matched
+  你的电话出问题了吗？  -- rule: no match: line matched
+  我喝了太多咖啡。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  喝药了。  -- rule: no match: line matched
+  要走吗？  -- rule: no match: line matched
+  我要等她来。  -- rule: no match: line matched
+  我没想要拿。  -- rule: unless 想/VV 要/VV
+  他没想要打我。  -- rule: unless 想/VV 要/VV
+  我没想要打她。  -- rule: unless 想/VV 要/VV
+  我没想要打他。  -- rule: unless 想/VV 要/VV
+  快到家了……  -- rule: no match: line matched
+  学生们走了。  -- rule: no match: line matched
+  她洗了苹果。  -- rule: no match: line matched
+  他洗了苹果。  -- rule: no match: line matched
+  我洗了苹果。  -- rule: no match: line matched
+  快到四月了。  -- rule: no match: line matched
+  谁拿走了那些苹果？  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  五分钟过去了。  -- rule: no match: line matched
+  五小时过去了。  -- rule: no match: line matched
+  我们帮忙了。  -- rule: no match: line matched
+  他帮忙了。  -- rule: no match: line matched
+  汤姆猫帮忙了。  -- rule: no match: line matched
+  我帮忙了。  -- rule: no match: line matched
+  我要去拿一些牛奶。  -- rule: no match: line matched
+  你可以告诉汤姆你想要什么。  -- rule: unless 想/VV 要/VV
+  你准备好了吗？  -- rule: no match: line matched
+  准备好了吗？  -- rule: no match: line matched
+  我们要快点。  -- rule: no match: line matched
+  他跑了起来。  -- rule: no match: line matched
+  汤姆喝了三杯咖啡。  -- rule: no match: line matched
+  昨天是星期五，所以他休息了一天。  -- rule: no match: line matched
+  他们跟我说生病了。  -- rule: no match: line matched
+  汤姆早早就睡了。  -- rule: no match: line matched
+  我正要给你打电话。  -- rule: no match: line matched
+  我知道你想要快乐。  -- rule: unless 想/VV 要/VV
+  已经过去二十年了。  -- rule: no match: line matched
+  汤姆还没准备好要做这件事。  -- rule: no match: line matched
+  弟弟出去了。  -- rule: no match: line matched
+  他们打了我。  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  告诉他我生病了。  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  我拿了一个给他。  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  那条裤子太大了。  -- rule: no match: line matched
+  我看见她进去了。  -- rule: no match: line matched
+  他坐在了她的旁边。  -- rule: no match: line matched
+  他跟你说什么了？  -- rule: no match: line matched
+  他告诉你什么了？  -- rule: no match: line matched
+  你让她开你的车了？  -- rule: no match: line matched
+  门开了。  -- rule: no match: line matched
+  汤姆今天考试拿了最高分。  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  我知道汤姆不可能会那么做了。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我没说我要帮你。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+  你能快点吗?我们已经很晚了。  -- rule: no match: line matched
+  你到了就打我电话。  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-81_level2_20261114_161147.csv
+
+########## ai  2026-11-14 16:15 ##########
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:32 ##########
+Filling 2-81 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-81 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 0 check and 1 review rejection(s)...
+
+=== 2-81 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     6994  2. contain the point's word(s)
+     6981  3. new (not in DB, not a duplicate)
+     3563  4. at most 2 characters outside HSK 2 words
+      446  5. really HSK 2
+      393  5b. no harder grammar point (of the 43 with a rule)
+        6  6. the rule finds 2-81
+        6  6b. no hidden word a learner can't work out
+        6  7. both checks say 2-81, English chosen
+        5  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  你快要走了。  (You will be going soon.)  [tatoeba 395011]
+  他快要睡了。  (He was just on the verge of going to sleep.)  [tatoeba 8621495]
+  明天就要过年了。  (Tomorrow is the start of the new year.)  [tatoeba 5800371]
+  我觉得快要下雨了。  (I think it's going to start raining soon.)  [tatoeba 13786741]
+  明天新的一年就要开始了。  (Tomorrow a new year will begin.)  [tatoeba 6018326]
+  我就要读完这本书了。  (I'm almost finished reading this book.)  [tatoeba 5845658]
+
+--- dropped at step 3 (13), first 12 ---
+  要么你去，要么我去。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  太阳升起来了。  -- already in the database
+  我亲眼看见了。  -- already in the database
+  我认为我们准备好了。  -- same text as 5500612 (translations pooled)
+  你需要帮助吗？  -- same text as 1424333 (translations pooled)
+  我只睡了两小时。  -- same text as 6047457 (translations pooled)
+  你怎么了？  -- already in the database
+  汤姆错了。  -- same text as 6293100 (translations pooled)
+  你们吃饭了吗？  -- same text as 6057697 (translations pooled)
+  我昨天买了这头猪。  -- same text as 2737460 (translations pooled)
+  当然了。  -- same text as 4970077 (translations pooled)
+
+--- dropped at step 4 (3418), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  我把旅费耗光了。  -- 4 characters no HSK 2 word uses: 光把耗费
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  去度假的时候我要租辆车。  -- 3 characters no HSK 2 word uses: 假度辆
+  你到了该去理发的时候了。  -- 3 characters no HSK 2 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 2 word uses: 极肚饿
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 5 characters no HSK 2 word uses: 且串抓烤而
+  公共汽车上发生什么了？  -- 3 characters no HSK 2 word uses: 共发汽
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  透过薄雾，我隐约看见了我的未来。  -- 6 characters no HSK 2 word uses: 未约薄透隐雾
+
+--- dropped at step 5 (3117), first 12 ---
+  喝茶时不要加糖。  -- level 3: 加 L3, 糖 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  你不要着急。  -- level 3: 着急 L3
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  好，定了。  -- level 4: 定 L4
+  麦克，你听到了没？  -- level 1: no list words
+  她的笔迹漂亮极了。  -- level 10: 笔迹 (not in list), 极 L3
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 电 L3
+
+--- dropped at step 5b (53), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  我拿到这个了。  -- harder grammar: 3-46 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  我看到我要等的那个人就站在那儿。  -- harder grammar: 3-46 (HSK 3)
+  别再让我做那事了。  -- harder grammar: 3-16 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  请你别再打我电话了。  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (387) ---
+  我想要出国。  -- rule: unless 想/VV 要/VV
+  您可以走了。  -- rule: no match: line matched
+  我要回来了。  -- rule: no match: line matched
+  我走了。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: no match: line matched
+  我还要等五分钟。  -- rule: no match: line matched
+  饭前要洗手。  -- rule: no match: line matched
+  我的电话坏了。  -- rule: no match: line matched
+  我真的得走了。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  我上网了。  -- rule: no match: line matched
+  她一大早就起床了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  我写错了一个字。  -- rule: no match: line matched
+  我在这里已经工作十年了。  -- rule: no match: line matched
+  他不在这儿，因为他病了。  -- rule: no match: line matched
+  已经过了很长时间了。  -- rule: no match: line matched
+  他已经去了英国。  -- rule: no match: line matched
+  你已经在京都了吗？  -- rule: no match: line matched
+  我已经会写汉字了。  -- rule: no match: line matched
+  请问您要等吗?  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  我已经忘了他的名字。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  有件事情我要对你说。  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  他来了很多次了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你在这里是要见谁吧？  -- rule: no match: line matched
+  她已经五天不上学了。  -- rule: no match: line matched
+  她不在是因为病了。  -- rule: no match: line matched
+  Ken 已经去了英格兰。  -- rule: no match: line matched
+  你比她要高。  -- rule: no match: line matched
+  她说她有点累了。  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  没人想要你那样做。  -- rule: unless 想/VV 要/VV
+  已经是早上七点了。  -- rule: no match: line matched
+  我洗好了。  -- rule: no match: line matched
+  我要一杯咖啡。  -- rule: no match: line matched
+  我看错了。  -- rule: no match: line matched
+  我想错了。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我吃肉了。  -- rule: no match: line matched
+  我在两周前到了。  -- rule: no match: line matched
+  Ken的书比你多多了。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  我们都睡着了。  -- rule: no match: line matched
+  昨天我和朋友们见了面。  -- rule: no match: line matched
+  谁教了你说话？  -- rule: no match: line matched
+  他上学去了吗？  -- rule: no match: line matched
+  我们睡过头了。  -- rule: no match: line matched
+  别忘了你是谁。  -- rule: no match: line matched
+  Julián错了吗？  -- rule: no match: line matched
+  我早就和他说过这些了。  -- rule: no match: line matched
+  Tom要我离他远一点。  -- rule: no match: line matched
+  他们早就认识了吗？  -- rule: no match: line matched
+  你要走多远？  -- rule: no match: line matched
+  因为下雪了，我什么也没能看见。  -- rule: no match: line matched
+  你们要和我一起去吗？  -- rule: no match: line matched
+  他已经来了吗？  -- rule: no match: line matched
+  他说话太快了。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  新月出来了。  -- rule: no match: line matched
+  我们喝了一点水。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  我想要跳舞。  -- rule: unless 想/VV 要/VV
+  我们中午十二点半要一起吃午饭。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  请不要这样说。  -- rule: no match: line matched
+  忘了今天的事儿吧。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  她笑了。  -- rule: no match: line matched
+  还是要说谢谢的。  -- rule: no match: line matched
+  他跑了。  -- rule: no match: line matched
+  我要咖啡，谢谢。  -- rule: no match: line matched
+  我们笑了。  -- rule: no match: line matched
+  现在的天气怎么样了？  -- rule: no match: line matched
+  为什么你不等等我就开始了？  -- rule: no match: line matched
+  已经没事了。  -- rule: no match: line matched
+  要我帮忙吗？  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  飞机快来了  -- rule: no match: line matched
+  你上网了吗？  -- rule: no match: line matched
+  我洗手了。  -- rule: no match: line matched
+  快来了  -- rule: no match: line matched
+  我的手机坏了。  -- rule: no match: line matched
+  请不要说得那么快。  -- rule: no match: line matched
+  女孩们睡着了  -- rule: no match: line matched
+  你去了几回？  -- rule: no match: line matched
+  他去车站送爷爷了。  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: no match: line matched
+  这要花时间。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我在公交车上睡觉了。  -- rule: no match: line matched
+  告诉他们我们要来了。  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  他很快就知道了。  -- rule: no match: line matched
+  我只吃了一口面包。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  告诉她我们去了哪里。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  我走了，你会想我。  -- rule: no match: line matched
+  她想要孩子，但他不想。  -- rule: unless 想/VV 要/VV
+  我上路了！  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  我知道我做错了。  -- rule: no match: line matched
+  猫叫了叫。  -- rule: no match: line matched
+  她打了他。  -- rule: no match: line matched
+  每个人都做了。  -- rule: no match: line matched
+  我要花很长时间。  -- rule: no match: line matched
+  我从他那里买了它。  -- rule: no match: line matched
+  她叫了我很多次。  -- rule: no match: line matched
+  要多长时间？  -- rule: no match: line matched
+  别让他们忘了我。  -- rule: no match: line matched
+  吃完饭，大家都很累了。  -- rule: no match: line matched
+  汤姆三年前进了我们公司。  -- rule: no match: line matched
+  你已经要走了吗？  -- rule: no match: line matched
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  飞机准备好了。  -- rule: no match: line matched
+  我已经在这里工作几个小时了。  -- rule: no match: line matched
+  那就是汤姆想要的。  -- rule: unless 想/VV 要/VV
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  我今天买了一个新书包。  -- rule: no match: line matched
+  他给我打了电话。  -- rule: no match: line matched
+  它花了几个月。  -- rule: no match: line matched
+  想要什么就说。  -- rule: unless 想/VV 要/VV
+  她进了房间。  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  我自己写了它。  -- rule: no match: line matched
+  我的东西就是这些了。  -- rule: no match: line matched
+  我们能不打了吗？  -- rule: no match: line matched
+  我睡过头了。  -- rule: no match: line matched
+  所以我给你打了电话。  -- rule: no match: line matched
+  我要学游泳。  -- rule: no match: line matched
+  我只睡了两小时。  -- rule: no match: line matched
+  我不喜欢吃肉了。  -- rule: no match: line matched
+  他去那个中国饭馆吃饭了。  -- rule: no match: line matched
+  飞机上吃了一点，不多。  -- rule: no match: line matched
+  我在这里很长时间了。  -- rule: no match: line matched
+  她一看就是生病了的。  -- rule: no match: line matched
+  汤姆去年上完了大学。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  现在谁要帮你？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我们还是要告诉他们。  -- rule: no match: line matched
+  我不能帮你了。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我知道我们要怎么帮忙。  -- rule: no match: line matched
+  让我们现在忘了它吧。  -- rule: no match: line matched
+  我给我自己买了书，不是给我妻子。  -- rule: no match: line matched
+  它花了我三年。  -- rule: no match: line matched
+  那就是我想要的。  -- rule: unless 想/VV 要/VV
+  你已经有孩子了吗？  -- rule: no match: line matched
+  它太长了。  -- rule: no match: line matched
+  谁拿了钱？  -- rule: no match: line matched
+  我们在一家小咖啡店吃了午饭。  -- rule: no match: line matched
+  你不要点咖啡吗？  -- rule: no match: line matched
+  我住得太远了。  -- rule: no match: line matched
+  每个人都看见了。  -- rule: no match: line matched
+  我要看一下这个。  -- rule: unless 要/VV 看/VV
+  我看了日出。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们要去酒店。  -- rule: no match: line matched
+  家里人一起吃了晚饭。  -- rule: no match: line matched
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  你看完这本书要多少时间？  -- rule: no match: line matched
+  别忘了我。  -- rule: no match: line matched
+  我忘了问他。  -- rule: no match: line matched
+  你从汤姆那里学到了吗？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  昨天我忘了去看医生。  -- rule: no match: line matched
+  过了多长时间？  -- rule: no match: line matched
+  我就是你要找的人。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  他一看见我，就跑了。  -- rule: no match: line matched
+  那可能太晚了。  -- rule: no match: line matched
+  他们已经在这里了吗？  -- rule: no match: line matched
+  我今天做了四个考试.  -- rule: no match: line matched
+  学生都笑了。  -- rule: no match: line matched
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  你不要跟我一起走吗？  -- rule: no match: line matched
+  不是我告诉你不要去做的。  -- rule: unless 不/AD 要/VV
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  汤姆问了几个问题。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  她上楼了。  -- rule: no match: line matched
+  我们现在就要吃饭。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我记得告诉过你了。  -- rule: no match: line matched
+  我要游泳。  -- rule: no match: line matched
+  你现在可以开始了。  -- rule: no match: line matched
+  我已经累了。  -- rule: no match: line matched
+  你懂了吗？  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  别忘了我们。  -- rule: no match: line matched
+  你已经到家了吗？  -- rule: no match: line matched
+  谢谢，我说完了。  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  我已经不爱他了。  -- rule: no match: line matched
+  男孩到家了。  -- rule: no match: line matched
+  我已经不再做这个了。  -- rule: no match: line matched
+  我只想要一件东西。  -- rule: unless 想/VV 要/VV
+  你说完了吗？  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  要得。  -- rule: no match: line matched
+  汤姆三岁的时候就能写自己的名字了。  -- rule: no match: line matched
+  告诉她你想要什么。  -- rule: unless 想/VV 要/VV
+  我忘了给他打电话。  -- rule: no match: line matched
+  火车到站了。  -- rule: no match: line matched
+  我开了门。  -- rule: no match: line matched
+  你要吃面条还是吃米饭？  -- rule: no match: line matched
+  我已经不做了。  -- rule: no match: line matched
+  门慢慢地开了。  -- rule: no match: line matched
+  不要自己一个人走回家。  -- rule: no match: line matched
+  太快了。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  但是，我不要。  -- rule: no match: line matched
+  她看起来病了。  -- rule: no match: line matched
+  我已经起来了。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我在网上买了一本书。  -- rule: no match: line matched
+  你听懂他说的了吗？  -- rule: no match: line matched
+  你要喝咖啡吗？  -- rule: no match: line matched
+  我今年去了好几次外国。  -- rule: no match: line matched
+  你们两个人都准备好了吗？  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  不要站在我前面。  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  已经很晚了，但是他还在工作。  -- rule: no match: line matched
+  你花太多钱了。  -- rule: no match: line matched
+  我再也不会跟你说话了。  -- rule: no match: line matched
+  你不是要打电话给汤姆吗?  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+  你告诉了他们什么？  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  现在是时候等着了。  -- rule: no match: line matched
+  不要这么叫他！  -- rule: no match: line matched
+  你喝完咖啡了吗？  -- rule: no match: line matched
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  听着，我要跑了。  -- rule: no match: line matched
+  这条鱼不能吃了。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  你长大了。  -- rule: no match: line matched
+  快点，没时间了。  -- rule: no match: line matched
+  我准备好了，你们呢？  -- rule: no match: line matched
+  不要让她开车。  -- rule: no match: line matched
+  你为什么卖了它？  -- rule: no match: line matched
+  我会告诉她，你来了。  -- rule: no match: line matched
+  不要告诉我。  -- rule: no match: line matched
+  已经周一了？  -- rule: no match: line matched
+  您走太快了。  -- rule: no match: line matched
+  她很快就来了。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  都四月了天气怎么还是这么冷？  -- rule: no match: line matched
+  他说错了，不是吗？  -- rule: no match: line matched
+  她家离我家太远了。  -- rule: no match: line matched
+  你已经吃过饭了！  -- rule: no match: line matched
+  他们已经开学了。  -- rule: no match: line matched
+  我想画画了。  -- rule: no match: line matched
+  她已经写了几本书。  -- rule: no match: line matched
+  昨天星期五，所以他就休息了。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  不要跑！  -- rule: no match: line matched
+  你睡着了吗？  -- rule: no match: line matched
+  已经是十月了。  -- rule: no match: line matched
+  你已经买了票吗？  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  是时候休息一下了。  -- rule: no match: line matched
+  我可以开始了吗？  -- rule: no match: line matched
+  你已经知道了，不是吗？  -- rule: no match: line matched
+  电影开始了吗？  -- rule: no match: line matched
+  我读错了。  -- rule: no match: line matched
+  我开始想我女朋友了。  -- rule: no match: line matched
+  他打了个车去车站。  -- rule: no match: line matched
+  您帮了我们。  -- rule: no match: line matched
+  我们帮了她。  -- rule: no match: line matched
+  我看电视时睡着了。  -- rule: no match: line matched
+  我们再也别这样做了。  -- rule: no match: line matched
+  你去过超市了吗？  -- rule: no match: line matched
+  他等了很长时间。  -- rule: no match: line matched
+  我要你想一想。  -- rule: no match: line matched
+  他们不会让她跑了的。  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  开了半小时，车就坏了。  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: no match: line matched
+  我要你离我远一点  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  买了票吗？  -- rule: no match: line matched
+  我说了没问题了啊！  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  累了吗？  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  你的电话出问题了吗？  -- rule: no match: line matched
+  我喝了太多咖啡。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  喝药了。  -- rule: no match: line matched
+  要走吗？  -- rule: no match: line matched
+  我要等她来。  -- rule: no match: line matched
+  我没想要拿。  -- rule: unless 想/VV 要/VV
+  他没想要打我。  -- rule: unless 想/VV 要/VV
+  我没想要打她。  -- rule: unless 想/VV 要/VV
+  我没想要打他。  -- rule: unless 想/VV 要/VV
+  快到家了……  -- rule: no match: line matched
+  学生们走了。  -- rule: no match: line matched
+  她洗了苹果。  -- rule: no match: line matched
+  他洗了苹果。  -- rule: no match: line matched
+  我洗了苹果。  -- rule: no match: line matched
+  快到四月了。  -- rule: no match: line matched
+  谁拿走了那些苹果？  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  五分钟过去了。  -- rule: no match: line matched
+  五小时过去了。  -- rule: no match: line matched
+  我们帮忙了。  -- rule: no match: line matched
+  他帮忙了。  -- rule: no match: line matched
+  汤姆猫帮忙了。  -- rule: no match: line matched
+  我帮忙了。  -- rule: no match: line matched
+  我要去拿一些牛奶。  -- rule: no match: line matched
+  你可以告诉汤姆你想要什么。  -- rule: unless 想/VV 要/VV
+  你准备好了吗？  -- rule: no match: line matched
+  准备好了吗？  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  要咖啡还是茶？  -- rule: no match: line matched
+  我们要快点。  -- rule: no match: line matched
+  他跑了起来。  -- rule: no match: line matched
+  汤姆喝了三杯咖啡。  -- rule: no match: line matched
+  「您想要茶还是咖啡？」「咖啡，谢谢。」  -- rule: unless 想/VV 要/VV
+  他给他的猫喂了些牛奶。  -- rule: no match: line matched
+  昨天是星期五，所以他休息了一天。  -- rule: no match: line matched
+  他们跟我说生病了。  -- rule: no match: line matched
+  汤姆早早就睡了。  -- rule: no match: line matched
+  他已经去睡觉了。  -- rule: no match: line matched
+  我正要给你打电话。  -- rule: no match: line matched
+  我知道你想要快乐。  -- rule: unless 想/VV 要/VV
+  已经过去二十年了。  -- rule: no match: line matched
+  汤姆还没准备好要做这件事。  -- rule: no match: line matched
+  这个月你做了多少次？  -- rule: no match: line matched
+  你这个月已经做了几次？  -- rule: no match: line matched
+  弟弟出去了。  -- rule: no match: line matched
+  他们打了我。  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  告诉他我生病了。  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  我拿了一个给他。  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  那条裤子太大了。  -- rule: no match: line matched
+  我看见她进去了。  -- rule: no match: line matched
+  他坐在了她的旁边。  -- rule: no match: line matched
+  他跟你说什么了？  -- rule: no match: line matched
+  他告诉你什么了？  -- rule: no match: line matched
+  你让她开你的车了？  -- rule: no match: line matched
+  门开了。  -- rule: no match: line matched
+  我要给你买块手表。  -- rule: no match: line matched
+  汤姆今天考试拿了最高分。  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  我知道汤姆不可能会那么做了。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我没说我要帮你。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+  你能快点吗?我们已经很晚了。  -- rule: no match: line matched
+  你到了就打我电话。  -- rule: no match: line matched
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-81_level2_20261114_163256.csv
+
+########## ai  2026-11-14 16:36 ##########
+
+----- AI-written sentences for 2-81, round 1: 30 to check, 12 needed -----
+Filling 2-81 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 30
+
+
+Course sentences at HSK 2 the rule already finds 2-81 in: 2  -> Tatoeba needs to add 12 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-81 at HSK 2: funnel ===
+       30  AI-written sentences
+       30  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       30  4. at most 0 characters outside HSK 2 words
+       27  5. really HSK 2
+       27  5b. no harder grammar point (of the 43 with a rule)
+       27  6. the rule finds 2-81
+       25  6b. no hidden word a learner can't work out
+       16  7. both checks say 2-81, English chosen
+       15  8. both difficulty reviews pass it
+  (5 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (15) ===
+  他们就要出国了。  (They are about to go abroad.)  [tatoeba ai-8fd26cf8e2]
+  我们快要下课了。  (We're about to finish class.)  [tatoeba ai-cba5d00137]
+  弟弟快要八岁了。  (My younger brother is about to turn eight.)  [tatoeba ai-2a0cbef35a]
+  我女儿就要一岁了。  (My daughter is about to turn one.)  [tatoeba ai-4a6145e62d]
+  我们快要到机场了。  (We're about to reach the airport.)  [tatoeba ai-12a6391225]
+  下午的课快要完了。  (The afternoon class is about to end.)  [tatoeba ai-b197147fd5]
+  还有三天就要过年了。  (There are just three days until the New Year.)  [tatoeba ai-9d7fbd3f4c]  hidden: 还有
+  妈妈的饭快要做好了。  (Mom's meal is almost ready.)  [tatoeba ai-aea19bef72]
+  这本书我快要看完了。  (I'm about to finish reading this book.)  [tatoeba ai-d82f32b1f6]
+  妹妹的生日快要到了。  (My younger sister's birthday is coming soon.)  [tatoeba ai-a716c958ff]
+  车快要开了,快上来!  (The bus is about to leave. Get on quickly!)  [tatoeba ai-4be7130dc3]
+  还有五分钟就要上课了。  (Class starts in five minutes.)  [tatoeba ai-fc3d88ac8f]  hidden: 还有
+  考试就要开始了,别说话。  (The exam is about to begin. Don't talk.)  [tatoeba ai-cd50a88d6b]
+  学校快要开学了,我很忙。  (School is about to start, and I'm very busy.)  [tatoeba ai-b74e39677b]
+  飞机快要到了,我们去机场吧。  (The plane is about to arrive. Let's go to the airport.)  [tatoeba ai-f4bcf74899]
+
+--- dropped at step 5 (3) ---
+  要下雪了,多穿一件衣服。  -- level 1: no list words
+  要下班了,我们去吃饭吧。  -- level 1: no list words
+  你看,要下大雨了。  -- level 1: no list words
+
+--- dropped at step 6b (2) ---
+  老师就要来了,大家坐好。  -- hidden word a learner can't work out: 坐好 (to sit properly; to sit up straight)
+  你快点儿,电影就要开始了。  -- hidden word a learner can't work out: 快点儿 (erhua variant of 快点; to do smh more quickly)
+
+--- dropped at step 7 (4) ---
+  明天我就要去上班了。  -- check said no (2/2): 就要 marks specific time, not imminence
+  我今年就要上大学了。  -- check said no (1/2): 就要 marks specific time, not imminence
+  要上课了,快进教室!  -- check said no (1/2): 要 alone, not 要/快要/就要 pattern
+  哥哥明年就要工作了。  -- check said no (2/2): 就要 marks specific time, not imminence
+
+--- dropped at step 8 (1) ---
+  水快要开了,你来看看。  -- difficulty review: (1/2); 水开 (water boiling) uses 开 in a specialized sense not covered at HSK 2; learners would not naturally associate 开 with 'boil'
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-81_level2_20261114_163654.csv

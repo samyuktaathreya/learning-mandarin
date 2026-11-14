@@ -481,7 +481,7 @@ export default function Question({
                     ) : needsIME(currentQuestionObj.question_type) ? (
                         <ChineseIMEInput value={userAnswer} onChange={(val) => setUserAnswer(val)} autoFocus disabled={isGrading} />
                     ) : (
-                        <input value={userAnswer} onChange={(e) => setUserAnswer(e.target.value)} autoFocus disabled={isGrading} />
+                        <input value={userAnswer} onChange={(e) => setUserAnswer(e.target.value)} autoFocus disabled={isGrading} autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck={false} />
                     )}
                     
                     <button type="submit" disabled={isGrading || (isMultipleChoice && !userAnswer)} className="btn-submit">

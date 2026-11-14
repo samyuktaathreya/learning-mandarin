@@ -1,0 +1,38 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 12194 characters -->
+## 2-14
+**Point:** Range and cooperative adverbs (全, 一共, 只) indicating entirety, totality, or exclusivity
+**Covers:** 
+- 全/全都 indicating "the whole/entire" of something (with or without 都)
+- 只/只有 meaning "only" (as basic adverb before verbs, or with 有 meaning "only have")
+- 一共 meaning "altogether/in total"
+
+**Does not cover:** 
+- 只好 (forced to, had no choice but)
+- 只要 (as long as, if only)
+- 只有...才 (only if...then) as a conditional structure
+- 不只/不但...而且 (not only...but also)
+- 只 as a measure word or as part of other phrases (这只是, 一只虫子)
+- 全 in compound words (全力, 齐全, 完全) or as 全部/全国/全校used attributively without 都
+- 一共 when used as predicate meaning "altogether" without showing totality of a set
+
+```rule
+match: 全/DT ... 都/AD
+match: 全都/AD
+match: 只/AD _ /VV|VA
+match: 只/AD 会/VV|能/VV
+match: 只有/AD _ /CD
+match: 一共/AD
+unless: 只好/AD
+unless: 只要/CS
+unless: 只有/CS
+unless: 不/AD 只/VV
+unless: 不/AD 只/AD 是/VC
+```
+
+**Notes:** 
+- The rule prioritizes precision. It matches 全都 as a single token and 全+DT+都 patterns (the main structures for "whole/entire").
+- For 只: matches basic adverb-before-verb patterns (只 + verb, 只 + 会/能 + verb) and 只有 + number + measure + noun (meaning "only have"). This avoids 只好, 只要, and 只有...才 structures which are separate grammar points.
+- 只有/AD indicates 只有 as adverb (only have); 只有/CS tags it as subordinating conjunction (only if...then).
+- The unless clauses exclude the confounding grammar points: 只好, 只要 (both can be tagged as CS or AD), and 只有 when functioning as a conditional connector.
+- Counter-example "只是" is avoided because 只 + 是 is a copula phrase, not the adverb use.
+- One-word 全都 and patterns like 没全都 are caught by match: 全都/AD.

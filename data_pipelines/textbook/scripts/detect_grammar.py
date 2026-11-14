@@ -35,12 +35,24 @@ HSK 1 GRAMMAR RESTRICTION
   HSK1_ALLOWED_ABOVE. Every bump is written to the report.
 
 HOW EACH POINT IS DETECTED (first that applies)
-  1. A hand-written rule on words + POS tags (RULES below) -- precise, and
+  1. A TESTED RULE from data/grammar/grammar_rules.md (grammar_dsl.py): written
+     by AI in the grammar trial (test_scripts/), tested against labeled
+     example sentences written by people, and only used if it passed
+     (data/grammar/rule_status.json). One grammar system: where a point has
+     one, the old detectors below are not used for it.
+  2. A hand-written rule on words + POS tags (RULES below) -- precise, and
      tells word senses apart (在 P vs 在 AD, 还是 "or" vs "still").
-  2. The grammar list's own `pattern` regex on the sentence text, with its
+  3. The grammar list's own `pattern` regex on the sentence text, with its
      `exclude` words removed first -- covers most HSK 2 points.
-  3. Neither -> not detectable yet. Listed in the summary so you can see
+  4. None -> not detectable yet. Listed in the summary so you can see
      the gaps (most HSK 3-6 points have no pattern in the list).
+
+HARDER GRAMMAR AT EVERY LEVEL (tested rules)
+  A tested rule for a point ABOVE a sentence's level that fires on it moves
+  the sentence up to that point's level, at every level -- a learner never
+  meets a grammar point before it is taught. Except where the trial found
+  the rule overlaps an easier point (rule_status "not_for": 1-11's 在 is also
+  1-42's progressive 在), when the sentence shows that easier point.
   Some points are deliberately never linked (SKIP): they describe every
   sentence (1-24 "noun as subject") and would only drown out real points.
 
@@ -66,7 +78,7 @@ from app.textbook.db_utils import (
 )
 from app.textbook.models import GrammarTip, Sentence, SentenceGrammar, SentenceVocab, OUT_OF_LIST_LEVEL
 
-from data_pipelines.textbook.scripts import hsa_source
+from data_pipelines.textbook.scripts import grammar_dsl, hsa_source
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 REPORT_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, "..", "debug", "detect_grammar"))
@@ -102,6 +114,12 @@ class Context:
             pos += len(w)
         return out
 
+    def clause_tokens(self) -> list[list[tuple[str, str]]]:
+        """The sentence as clauses of (word, tag) -- what tested rules match on."""
+        if not hasattr(self, "_clause_tokens"):
+            self._clause_tokens = clauses(self)
+        return self._clause_tokens
+
     def same_clause_after(self, i: int, n: int) -> list[tuple[str, str]]:
         """Up to n words after word i, stopping at the end of its clause."""
         return [tw for k, tw in enumerate(self.tagged[i + 1:i + 1 + n], start=i + 1)
@@ -129,13 +147,16 @@ def sentence_words(sentence: Sentence) -> list[tuple[str, str]]:
 
     for r in rows:
         word = r.vocab.hanzi
-        idx = text.find(word, pos)
+        idx, length = text.find(word, pos), len(word)
+        if idx == -1 and word.endswith("儿") and len(word) > 1:
+            # the text writes the list word without 儿 (有点 for 有点儿): that's this word, not a gap
+            idx, length = text.find(word[:-1], pos), len(word) - 1
         if idx == -1:
             out.append((word, r.pos_tag or "NN"))
             continue
         gap(text[pos:idx])
         out.append((word, r.pos_tag or "NN"))
-        pos = idx + len(word)
+        pos = idx + length
     gap(text[pos:])
     return out
 
@@ -684,6 +705,8 @@ HSK1_ALLOWED_ABOVE = {
     "2-54",   # noun predicate (number/time): 这本书三十块
     "2-60",   # 是……的: 我是坐飞机来的
     "2-57",   # serial verbs: 我去商店买东西 / 坐飞机来
+    "2-34",   # 吧 / 啊: the HSK 1 list already has 吧 (1-22, 语气助词：吧、了、吗、呢)
+    "2-77",   # 你呢？: the HSK 1 list already has 呢 (1-22)
 }
 RESTRICTED_LEVEL = 1
 
@@ -742,6 +765,25 @@ def apply_review_verdicts(s: Sentence):
         s.hsk_level += 1
 
 
+_NOT_FOR = {}            # tested rule -> easier points it must not be used against (build_detectors)
+
+
+def harder_grammar(c: Context, level: int, detectors: dict, level_of_point: dict) -> list[str]:
+    """Points above `level` whose detector shows the sentence uses them:
+    tested rules at every level, plus the hand-written rules at HSK 1 (as
+    before). A tested rule is ignored where the sentence shows one of the
+    easier points it overlaps (its not_for list)."""
+    out = []
+    for code, (how, rule) in detectors.items():
+        if level_of_point[code] <= level or (level == RESTRICTED_LEVEL and code in HSK1_ALLOWED_ABOVE):
+            continue
+        if how == "tested" or (how == "rule" and level == RESTRICTED_LEVEL):
+            if rule(c) and not any(detectors.get(low, (None, lambda _: False))[1](c)
+                                   for low in _NOT_FOR.get(code, ())):
+                out.append(code)
+    return sorted(out)
+
+
 def detect_sentence(db, s: Sentence, detectors: dict, level_of_point: dict):
     """Recomputes the sentence's level from its words, applies the HSK 1
     grammar restriction, then any stored AI "too hard" verdicts
@@ -753,10 +795,8 @@ def detect_sentence(db, s: Sentence, detectors: dict, level_of_point: dict):
     ds = hsa_source.get(s.external_id) if s.external_id else None
     c = Context(s.hanzi, sentence_words(s), ds.get("sentence_type") if ds else None)
     bump = None
-    if s.hsk_level == RESTRICTED_LEVEL:
-        above = sorted(code for code, (how, rule) in detectors.items()
-                       if how == "rule" and level_of_point[code] > RESTRICTED_LEVEL
-                       and code not in HSK1_ALLOWED_ABOVE and rule(c))
+    if s.hsk_level is not None and s.hsk_level < OUT_OF_LIST_LEVEL:
+        above = harder_grammar(c, s.hsk_level, detectors, level_of_point)
         if above:
             new_level = max(level_of_point[code] for code in above)
             bump = (s.hsk_level, new_level, above)
@@ -777,16 +817,18 @@ def write_links(db, s: Sentence, found: list[str], id_of: dict):
 def write_bump_report(bumps: list, path_prefix: str):
     """bumps: [(sentence hanzi, old, new, codes)]. CSV + console summary."""
     if not bumps:
-        print("  HSK 1 grammar restriction: no sentence moved up.")
+        print("  Harder grammar: no sentence moved up.")
         return None
-    path = f"{path_prefix}_hsk1_bumps.csv"
+    path = f"{path_prefix}_grammar_bumps.csv"
     with open(path, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
         w.writerow(["sentence", "from_level", "to_level", "grammar_codes"])
         for hanzi, old, new, codes in bumps:
             w.writerow([hanzi, old, new, " ".join(codes)])
     by_code = Counter(code for *_, codes in bumps for code in codes)
-    print(f"  HSK 1 grammar restriction: {len(bumps)} sentence(s) moved out of HSK 1. By point:")
+    by_from = Counter(old for _, old, _, _ in bumps)
+    print(f"  Harder grammar: {len(bumps)} sentence(s) moved up ("
+          + ", ".join(f"{n} from HSK {lv}" for lv, n in sorted(by_from.items())) + "). By point:")
     for code, n in by_code.most_common():
         example = next(h for h, *_, codes in bumps if code in codes)
         print(f"    {code}: {n}  e.g. {example}")
@@ -797,12 +839,22 @@ def write_bump_report(bumps: list, path_prefix: str):
 # --------------------------------- MAIN ---------------------------------
 
 def build_detectors(points: list[GrammarTip]) -> tuple[dict, dict]:
-    """code -> (how, rule). Second dict: code -> why it isn't detected."""
+    """code -> (how, rule). how: "tested" (data/grammar/grammar_rules.md),
+    "rule" (RULES below) or "pattern" (the list's regex). Second dict:
+    code -> why it isn't detected."""
+    tested, not_for, words = grammar_dsl.usable_rules()
+    _NOT_FOR.clear()
+    _NOT_FOR.update(not_for)
     detectors, undetected = {}, {}
     for p in points:
         code = p.grammar_code
         if code in SKIP:
             undetected[code] = f"skipped: {SKIP[code]}"
+            continue
+        if code in tested:
+            # only on sentences with one of the point's words -- as the rule was tested
+            detectors[code] = ("tested", lambda c, r=tested[code], ws=tuple(words.get(code) or ()):
+                               (not ws or any(w in c.text for w in ws)) and r.found(c.clause_tokens()))
             continue
         if code in RULES:
             detectors[code] = ("rule", RULES[code])
@@ -837,16 +889,17 @@ def write_report(points, detectors, undetected, counts, examples, levels_of_poin
         code, lvl = p.grammar_code, p.hsk_level
         by_level[lvl]["points"] += 1
         if code in detectors:
-            by_level[lvl]["by rule" if detectors[code][0] == "rule" else "by list pattern"] += 1
+            by_level[lvl][{"tested": "by tested rule", "rule": "by rule"}.get(detectors[code][0], "by list pattern")] += 1
             by_level[lvl]["found in 1+ sentence" if counts.get(code) else "detector found nothing"] += 1
             if counts.get(code, 0) >= 20:
                 by_level[lvl]["found in 20+ sentences"] += 1
         else:
             by_level[lvl]["not detectable yet" if code not in SKIP else "skipped (too general)"] += 1
-    keys = ["points", "by rule", "by list pattern", "not detectable yet", "skipped (too general)",
+    keys = ["points", "by tested rule", "by rule", "by list pattern", "not detectable yet", "skipped (too general)",
             "found in 1+ sentence", "found in 20+ sentences", "detector found nothing"]
-    print(f"  {'HSK':<5}" + "".join(f"{k:>14}" for k in ["points", "by rule", "by pattern", "undetectable",
-                                                          "skipped", "found", "found 20+", "found none"]))
+    print(f"  {'HSK':<5}" + "".join(f"{k:>14}" for k in ["points", "tested rule", "old rule", "by pattern",
+                                                          "undetectable", "skipped", "found", "found 20+",
+                                                          "found none"]))
     for lvl in sorted(by_level):
         print(f"  {lvl:<5}" + "".join(f"{by_level[lvl][k]:>14}" for k in keys))
     print(f"  Per-point counts and two example sentences each: {path}")

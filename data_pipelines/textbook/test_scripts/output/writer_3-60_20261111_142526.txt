@@ -1,0 +1,61 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 12111 characters -->
+## 3-60
+**Point:** The adverb 也 (yě), meaning "also" or "too", in the parallel pattern "Topic, Subject + 也 + Verb". A fronted object or topic is followed by a pronoun subject, and 也 comes after that subject and before the verb. This shows that the second clause shares the situation of the first (篮球他喜欢，排球他也喜欢。). Simple one-clause 我也…/你也… sentences belong to the easier point 1-13, not here.
+
+**Covers:**
+- Topic noun + Pronoun subject + 也 + Verb (面条儿我也爱吃。)
+- Topic noun + Pronoun subject + 也 + Adjective (这个菜我也很喜欢。)
+- Topic noun + Pronoun subject + 也 + 不 + Verb (排球他也不喜欢。)
+- Topic noun + Pronoun subject + 也 + 没有 (那本书他也没有。)
+- Parallel clauses where a fronted topic and a pronoun subject precede 也
+
+**Does not cover:**
+- Plain one-clause 也 sentences with no fronted topic (我也喜欢, 我也是学生, 他也没有), which belong to 1-13
+- Conditional/concessive structures (即使...也, 就算...也, 就是...也, 哪怕...也, etc.) where 也 means "still/even so"
+- Conditional sentences with 如果, 假如, 假使, 要是, 要不, 要不是 and similar, where 也 means "still/even so"
+- Any sentence containing a subordinating conjunction (CS) such as 因为 or 虽然
+- "Never again" with 再也不/没
+- 甚至连...也 (even/let alone structure)
+- 宁可...也 (rather...than structure)
+- 一点儿也不 and 一 + Measure Word + Noun + 也 + 不/没 (not at all / not even one)
+- 什么/谁 + Noun + 也 (everything / nothing)
+- 连...也 (even...as well)
+- 倒也 (contrariness)
+- Structures with preceding markers like 别说, 就是, 就算, 不但, 无论, 不管, etc.
+
+```rule
+match: ^ /NN|NR PN 也/AD /VV|VA|VE|VC
+match: ^ /NN|NR PN 也/AD /AD /VV|VA|VE|VC
+match: ^ /NN|NR PN 也/AD 没有/AD
+unless: 再/AD ... 也/AD
+unless: 甚至
+unless: 宁可
+unless: 连
+unless: 一/CD ... 也/AD
+unless: 一点儿
+unless: 什么 ... 也/AD
+unless: 谁 ... 也/AD
+unless: 就算
+unless: 就是
+unless: 就/AD 算/VV
+unless: 就/AD 是/VC
+unless: 即使
+unless: 哪怕
+unless: 别说
+unless: 倒
+unless: 不但
+unless: 无论
+unless: 不管
+unless: /CS
+unless: 要不
+unless: 要不是
+unless: 要是
+unless: 如果
+unless: 假如
+unless: 假使
+unless: 假设
+unless: 万一
+unless: 否则
+```
+
+**Notes:** The official 3-60 pattern is "（也）……，也……", for example 篮球他喜欢，排球他也喜欢。 The 也 clause starts with a fronted topic noun followed by a pronoun subject, then 也 and a predicate. The rule requires that opening, `^ NN/NR PN 也`, so the basic one-clause 也 sentences are no longer matched. Those sentences (我也喜欢, 我也是学生, 他们也会去吗, 我也不知道, 他也没有) are examples of 1-13. Sentences with a subject plus a time word or a possessive noun before 也 (我妈妈也…, 他们今天晚上也…) are also excluded, because they lack the topic + pronoun opening. The `unless:` lines still remove the concessive, conditional, emphatic and "never again" structures, including 别说, 再也, 连, 甚至, and any /CS.

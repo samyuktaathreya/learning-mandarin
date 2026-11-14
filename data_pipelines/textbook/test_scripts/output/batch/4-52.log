@@ -76,3 +76,54 @@ Tagging 2 labeled example(s) (cached after this run)...
 === A. 4-52: rule on labeled examples (no AI) ===
   examples of 4-52 matched:    14/14
   counter-examples wrongly matched: 0/0   <- should be 0
+
+########## rules  2026-11-11 14:20 ##########
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 4-52
+<!-- written by claude-haiku-4-5 on 2026-11-11; edit freely -->
+**Point:** Using 万一 to express "what if" or "in case" for unlikely/undesirable possibilities
+
+**Covers:** Sentences with 万一 introducing a hypothetical condition (often undesirable), either as a statement offering a solution or as a rhetorical question. Includes the phrase 以防万一 (to be on the safe side).
+
+**Does not cover:** Sentences with 就 that don't involve 万一; conditional structures using 要是/假如/一旦 without 万一; other uses of 万一 in non-hypothetical contexts (if any exist).
+
+```rule
+match: 万一/AD
+match: 以/P 防/VV 万一/AD
+unless: ^ ... 万一/AD ... $ 就/AD
+unless: 要是/CS
+unless: 假如/CS
+unless: 一旦/CS
+```
+
+**Notes:** The rule matches any clause containing 万一 tagged as AD (adverb), or the phrase 以防万一. The first `unless` line prevents matching cases where 万一 appears with 就 in the same clause—those would be caught as 万一...就... conditional statements (4-52), not other grammar points. The other `unless` lines exclude confusing conditional structures that use different conjunctions (which are separate HSK points). The phrase 以防万一 is idiomatic and should always match. Tag variation (万一 as AD, sometimes possibly as other tags) should be minimal based on examples.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 4-52
+
+=== A. 4-52: rule on labeled examples (no AI) ===
+  examples of 4-52 matched:    14/14
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+########## guard check  2026-11-11 14:25 ##########
+
+########## rules  2026-11-12 17:33 ##########
+
+=== A. 4-52: rule on labeled examples (no AI) ===
+  examples of 4-52 matched:    14/14
+  counter-examples wrongly matched: 0/0   <- should be 0
+  easy examples (words all HSK 4 or below) matched: 0/0   (too few to test)
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## guard check  2026-11-12 21:14 ##########
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## guard check  2026-11-14 16:29 ##########

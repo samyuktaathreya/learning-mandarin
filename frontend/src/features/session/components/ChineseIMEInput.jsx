@@ -138,6 +138,11 @@ export default function ChineseIMEInput({ value, onChange, autoFocus, placeholde
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 autoFocus={autoFocus}
+                // Phone keyboards would "fix" pinyin into English words
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck={false}
                 placeholder={placeholder || "Type pinyin..."}
                 style={{ width: '100%', fontSize: '1.2rem', padding: '6px 10px' }}
             />

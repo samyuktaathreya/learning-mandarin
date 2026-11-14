@@ -1,0 +1,13 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 6546 characters -->
+## 2-68
+**Point:** Cause and effect complex sentences (因果复句) using 因为, 所以, or both
+**Covers:** Sentences showing explicit cause-effect relationships across clause boundaries using: (1) Result + 因为 + Reason; (2) Reason + 所以 + Result; (3) 因为 + Cause + 所以 + Effect
+**Does not cover:** Sentences using 因为...而... structure (which marks effect with 而 particle within a single clause); sentences with only 由于 or only 因此; single-clause sentences with neither 因为 nor 所以
+
+```rule
+match: 因为/P ... (因为/P|所以/AD)
+match: ... 所以/AD
+unless: 而/MSP
+```
+
+**Notes:** The rule uses two match patterns to capture the three structural variants: (1) sentences with explicit 因为 (which signals the start of cause-effect marking); (2) sentences with 所以 in clause-initial position (which signals result in cause-effect structure). The key distinction from counter-examples is the presence of 而/MSP, which indicates the alternative 因为...而... structure that should be excluded. This approach prioritizes precision by requiring explicit marking particles (因为 or 所以) rather than relying on implicit cause-effect relationships. Sentences with only one particle (e.g., only 所以 without prior 因为) are included because 所以 alone sufficiently marks the cause-effect structure in multi-clause contexts, as shown in labeled examples like "我们公司有很多外国人，所以我们要说英文。"

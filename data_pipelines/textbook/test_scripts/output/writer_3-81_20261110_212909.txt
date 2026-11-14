@@ -1,0 +1,33 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 8654 characters -->
+## 3-81
+**Point:** Rhetorical challenge with 什么 after a verb or adjective (X什么（啊）)
+
+**Covers:** Verb/adjective + 什么 + repeated verb/adjective (你买什么买, 胖什么胖啊). Separable verb split by 什么 at the start of a clause (离什么婚, 道什么歉啊, 开什么玩笑啊). Clause-initial psychological verb or adjective + 什么 (+啊/呀) (担心什么啊, 郁闷什么呀, 高什么啊). 玩儿什么. Rhetorical 还 + verb + 什么 + noun + 啊 (还吃什么早饭啊). 没有钱 + verb + 什么 + noun (没有钱看什么电影).
+
+**Does not cover:** 什么 as a genuine question word (你吃什么？); 什么都/也 meaning "everything"; 什么的 ending a list; 什么 in compounds like 什么时候.
+
+```rule
+match: /VV 什么 /VV
+match: /VA 什么 /VA
+match: ^ /VV 什么/PN /NN 啊|呀|吧? $
+match: ^ 开 什么 玩笑 啊|呀|吧? $
+match: ^ 开 什么 玩 笑 啊|呀|吧? $
+match: ^ 担心|难过|紧张|着急|害怕|生气|舒服|高兴|伤心|激动|累|急|怕|哭|笑|胖|大|高|聪明|忙|烦|愁|慌|郁闷 什么 啊|呀|吧? $
+match: ^ /VA 什么 啊|呀|吧? $
+match: ^ 玩 儿 什么 啊|呀|吧? $
+match: ^ 还 /VV 什么 /NN 啊|呀 $
+match: ^ 没有 钱 /VV 什么 /NN $
+unless: 什么 都
+unless: 什么 也
+unless: 什么 的
+unless: 什么/PN 都/AD
+unless: 什么/PN 也/AD
+unless: 什么/DT 的/DEG
+```
+
+**Notes:**
+- The "everything" exclusion only applies when 什么 is directly followed by 都/也. A 都 elsewhere in the sentence (你买什么买，钱都花光了) does not block the match.
+- 什么 is tagged inconsistently (PN or DT) in the data. The repeat patterns (买什么买, 胖什么胖) therefore no longer depend on the tag, since repetition already marks the rhetorical use.
+- Patterns that do not repeat the verb (X什么 + noun) still require 什么/PN where possible. Otherwise they are anchored to a clause start and clause end, with a fixed frame (开什么玩笑, 还…啊, 没有钱…) to avoid genuine questions like 你喜欢什么颜色.
+- 玩笑 may be tokenized as 玩 笑, so both forms are covered.
+- A clause that is only an adjective plus 什么 (郁闷什么呀) is accepted for any VA. The psychological-verb word list covers verbs tagged VV.

@@ -1,0 +1,38 @@
+2026-11-14 14:36:02,146  INFO     === tag_sentences.py run started ===
+2026-11-14 14:36:02,176  INFO     OK        hanlp-valid   '妈妈给孩子做早饭。' -> [('妈妈', 'NN'), ('给', 'P'), ('孩子', 'NN'), ('做', 'VV'), ('早饭', 'NN')]
+2026-11-14 14:36:02,179  INFO     TAGGED    '妈妈给孩子做早饭。' (level 1, 5 tags)
+2026-11-14 14:36:02,190  INFO     OK        hanlp-valid   '老师给我们上课。' -> [('老师', 'NN'), ('给', 'P'), ('我们', 'PN'), ('上课', 'VV')]
+2026-11-14 14:36:02,192  INFO     TAGGED    '老师给我们上课。' (level 1, 4 tags)
+2026-11-14 14:36:02,204  INFO     FALLBACK  '我想给妈妈买一件衣服。' -- out-of-list word(s): ['一件']
+2026-11-14 14:36:02,204  WARNING    HAIKU resegment call for '我想给妈妈买一件衣服。' (cache miss on [('一件', 'CD')])
+2026-11-14 14:36:02,221  INFO     TAGGED    '我想给妈妈买一件衣服。' (level 1, 8 tags)
+2026-11-14 14:36:02,232  INFO     OK        hanlp-valid   '医生给他看病。' -> [('医生', 'NN'), ('给', 'P'), ('他', 'PN'), ('看病', 'VV')]
+2026-11-14 14:36:02,234  INFO     TAGGED    '医生给他看病。' (level 1, 4 tags)
+2026-11-14 14:36:02,245  INFO     FALLBACK  '你能给我开门吗？' -- out-of-list word(s): ['开门']
+2026-11-14 14:36:02,245  WARNING    HAIKU resegment call for '你能给我开门吗？' (cache miss on [('开门', 'VV')])
+2026-11-14 14:36:02,262  INFO     TAGGED    '你能给我开门吗？' (level 2, 7 tags)
+2026-11-14 14:36:02,273  INFO     OK        hanlp-valid   '明天我给你做饺子。' -> [('明天', 'NT'), ('我', 'PN'), ('给', 'P'), ('你', 'PN'), ('做', 'VV'), ('饺子', 'NN')]
+2026-11-14 14:36:02,286  INFO     TAGGED    '明天我给你做饺子。' (level 1, 6 tags)
+2026-11-14 14:36:02,298  INFO     FALLBACK  '哥哥给我买了一个新手机。' -- out-of-list word(s): ['一个']
+2026-11-14 14:36:02,298  INFO       CACHE-ONLY resegmentation -> [('哥哥', 'NN'), ('给', 'P'), ('我', 'PN'), ('买', 'VV'), ('了', 'AS'), ('一', 'CD'), ('个', 'M'), ('新', 'JJ'), ('手机', 'NN')]
+2026-11-14 14:36:02,302  INFO     TAGGED    '哥哥给我买了一个新手机。' (level 1, 9 tags)
+2026-11-14 14:36:02,314  INFO     OK        hanlp-valid   '他正在给女朋友打电话。' -> [('他', 'PN'), ('正在', 'AD'), ('给', 'P'), ('女朋友', 'NN'), ('打电话', 'VV')]
+2026-11-14 14:36:02,316  INFO     TAGGED    '他正在给女朋友打电话。' (level 1, 5 tags)
+2026-11-14 14:36:02,327  INFO     OK        hanlp-valid   '请给我写你的名字。' -> [('请', 'VV'), ('给', 'P'), ('我', 'PN'), ('写', 'VV'), ('你', 'PN'), ('的', 'DEG'), ('名字', 'NN')]
+2026-11-14 14:36:02,330  INFO     TAGGED    '请给我写你的名字。' (level 1, 7 tags)
+2026-11-14 14:36:02,342  INFO     FALLBACK  '你可以给我读这个字吗？' -- out-of-list word(s): ['这个']
+2026-11-14 14:36:02,342  INFO       CACHE-ONLY resegmentation -> [('你', 'PN'), ('可以', 'VV'), ('给', 'P'), ('我', 'PN'), ('读', 'VV'), ('这', 'DT'), ('个', 'M'), ('字', 'NN'), ('吗', 'SP')]
+2026-11-14 14:36:02,345  INFO     TAGGED    '你可以给我读这个字吗？' (level 1, 9 tags)
+2026-11-14 14:36:02,356  INFO     OK        hanlp-valid   '弟弟给狗买了肉。' -> [('弟弟', 'NN'), ('给', 'P'), ('狗', 'NN'), ('买', 'VV'), ('了', 'AS'), ('肉', 'NN')]
+2026-11-14 14:36:02,359  INFO     TAGGED    '弟弟给狗买了肉。' (level 2, 6 tags)
+2026-11-14 14:36:02,370  INFO     FALLBACK  '你给大家唱一个歌吧。' -- out-of-list word(s): ['一个']
+2026-11-14 14:36:02,370  INFO       CACHE-ONLY resegmentation -> [('你', 'PN'), ('给', 'P'), ('大家', 'PN'), ('唱', 'VV'), ('一', 'CD'), ('个', 'M'), ('歌', 'NN'), ('吧', 'SP')]
+2026-11-14 14:36:02,373  INFO     TAGGED    '你给大家唱一个歌吧。' (level 1, 8 tags)
+2026-11-14 14:36:02,385  INFO     FALLBACK  '每天给孩子做饭，妈妈很忙。' -- out-of-list word(s): ['每天']
+2026-11-14 14:36:02,385  INFO       CACHE-ONLY resegmentation -> [('每天', 'NT'), ('给', 'P'), ('孩子', 'NN'), ('做饭', 'VV'), ('妈妈', 'NN'), ('很', 'AD'), ('忙', 'VA')]
+2026-11-14 14:36:02,393  INFO     TAGGED    '每天给孩子做饭，妈妈很忙。' (level 2, 8 tags)
+2026-11-14 14:36:02,404  INFO     OK        hanlp-valid   '谁给你买的手机？' -> [('谁', 'PN'), ('给', 'P'), ('你', 'PN'), ('买', 'VV'), ('的', 'AS'), ('手机', 'NN')]
+2026-11-14 14:36:02,404  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-14 14:36:02,407  INFO     TAGGED    '谁给你买的手机？' (level 1, 6 tags)
+2026-11-14 14:36:02,418  INFO     OK        hanlp-valid   '下午我要给家人做饭。' -> [('下午', 'NT'), ('我', 'PN'), ('要', 'VV'), ('给', 'P'), ('家人', 'NN'), ('做饭', 'VV')]
+2026-11-14 14:36:02,421  INFO     TAGGED    '下午我要给家人做饭。' (level 1, 6 tags)

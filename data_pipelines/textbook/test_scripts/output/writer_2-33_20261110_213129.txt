@@ -1,0 +1,40 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 9812 characters -->
+## 2-33
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** Aspect particle 着 (zhe) indicating a continuous action or state. The Place + 是 + NP existential pattern is not matched.
+
+**Covers:**
+- Verb + 着 to show an action/state that continues or persists (e.g., 坐着 "sitting", 开着 "is on")
+- Verb1 + 着 + Verb2 where the first verb describes a state accompanying an action (e.g., 站着吃饭 "eat standing up")
+- Subj. + Verb + 着 + Object in commands/descriptions (e.g., 看着行李 "watch the luggage")
+- Place + Verb + 着 + NP for existential meaning (e.g., 桌子上放着书 "there is a book on the table")
+
+**Does not cover:**
+- Place + 是 + NP existential sentences (洗衣机里是一些脏衣服, 袋子里是我的午饭, 墙上都是照片). They are labeled as easier points (plain 是 sentences) and are too easily confused with them, so the rule no longer matches them.
+- 跟着 "follow" - counter-example: 这只小猫总是跟着我
+- 来着 (laizhe) meaning "was [formerly]" - counter-example: 我说什么来着
+- Resultative complement 着 meaning "succeed in" (睡着 "fell asleep", 找着 "found", 买着, 见着) - counter-examples: 宝宝刚睡着, 你的手机找着了吗, 我终于见着你了
+- 得着/不着 resultative complement - counter-example: 买不着, 找得着
+- 随着 (suizhe) meaning "along with" - counter-example: 随着风摇动
+- 沿着 (yánzhe) meaning "along" - counter-example: 沿着大道走
+- Perfective aspect 了 - only match 着/AS tag, not 了/AS
+
+```rule
+match: /VV 着/AS
+unless: 随着/P
+unless: 沿/P
+unless: /P 着/AS
+unless: 来/VV 着/AS
+unless: /VV 不/AD 着/VV
+unless: /VV 得/DER 着/VV
+unless: 睡|找|买|见|猜|碰|遇|摸|够|赶|撞|抓/VV 着/AS
+unless: 跟|接|顺|朝|向|趁|为|照/VV 着/AS
+```
+
+**Notes:**
+- The 是 existential match line was removed. Labeled sentences such as 洗衣机里是一些脏衣服 and 墙上都是他家人的照片 belong to easier points, and the LC + 是 pattern cannot tell them apart from ordinary 是 sentences.
+- 跟着 (as in 跟着我) is excluded because it is lexicalized as "follow" and is not the continuous aspect.
+- The same applies to 接着, 顺着, 朝着, 向着, 趁着, 为着 and 照着, which are excluded for precision.
+- 随着 and 沿着 are excluded through the P-tag rules. 来着 is excluded by the specific pattern.
+- Resultative 着 is excluded by the 不着/得着 patterns and by a verb list (睡着, 找着, 买着, 见着, etc.), because the tagger labels these 着 as AS, the same as the continuous 着.
+- The remaining match is /VV 着/AS, which covers 坐着, 开着, 穿着, 抱着 and the existential Place + V + 着 + NP.

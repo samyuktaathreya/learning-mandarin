@@ -1,0 +1,23 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 8638 characters -->
+## 2-04
+**Point:** Verb reduplication (AA, A一A, A了A, ABAB patterns) to express "a little bit" or brief action
+**Covers:** Any sentence with a reduplicated verb in one of these patterns: identical verb repeated (AA), verb + 一 + verb (A一A), verb + 了 + verb (A了A), or two-syllable verb repeated entirely (ABAB)
+**Does not cover:** Verbs followed by 一 + measure word or other noun (not the same verb); verbs with 了 as aspect particle marking completion (not reduplication); any other use of 一 or 了 that doesn't involve verb reduplication
+
+```rule
+match: /VV /VV
+match: /VV 一/CD /VV
+match: /VV 了/AS /VV
+unless: /VV 一/CD /M
+unless: /VV 一/CD /NN
+unless: /VV 了/AS /NN
+unless: /VV 了/AS /VA
+unless: /VV 了/AS /VE
+```
+
+**Notes:** 
+- The first match pattern (VV VV) covers AA and ABAB patterns where a verb is immediately followed by itself or its two-syllable equivalent
+- The second match pattern (VV 一 VV) covers A一A patterns; 一 is tagged CD (number) in this context
+- The third match pattern (VV 了 VV) covers A了A patterns; 了 is tagged AS (aspect particle) when used in reduplication
+- Unless clauses filter out false positives where 一 or 了 are followed by measure words or other noun-related tags, indicating completion aspect or quantity rather than reduplication
+- The rule is strict to avoid matching perfective aspect (了) or quantity expressions (一 + measure/noun) that are separate grammar points

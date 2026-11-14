@@ -136,3 +136,2808 @@ Tagging 91 labeled example(s) (cached after this run)...
   我卖掉了我的旧手机。  -- ASGNNMST Result complements
   小偷把我的钱包偷走了。  -- ASGNNMST Result complements
   你能吃完吗？  -- ASGNQUC1 Result complement "-wan" for finishing
+
+########## rules  2026-11-10 21:26 ##########
+  Checking 1 sentence(s) for 2-49 (1 call(s))...
+
+=== A. 2-49: rule on labeled examples (no AI) ===
+  examples of 2-49 matched:    29/41
+  counter-examples wrongly matched: 0/146   <- should be 0
+
+--- examples of 2-49 the rule misses (12) ---
+  你踩到了我的脚。  -- ASGNNMST Result complements
+  我不小心撞到了墙。  -- ASGNNMST Result complements
+  我女儿学会了数数。  -- ASGNNMST Result complements
+  我爸爸还没学会用智能手机。  -- ASGNNMST Result complements
+  老师拿走了我的iPad。  -- ASGNNMST Result complements
+  小偷偷走了我的钱包。  -- ASGNNMST Result complements
+  他不小心推倒了一个老人。  -- ASGNNMST Result complements
+  你撞倒了我的自行车。  -- ASGNNMST Result complements
+  谁扔掉了我的袜子？  -- ASGNNMST Result complements
+  我卖掉了我的旧手机。  -- ASGNNMST Result complements
+  小偷把我的钱包偷走了。  -- ASGNNMST Result complements
+  你能吃完吗？  -- ASGNQUC1 Result complement "-wan" for finishing
+
+########## guard check  2026-11-10 21:31 ##########
+  Checking 6 sentence(s) for 2-49 (1 call(s))...
+Flags examples of 1-04 that don't contain 2-49: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+########## tatoeba  2026-11-10 21:37 ##########
+Filling 2-49 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 178 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261110_213736.txt
+  ...100/1849
+  ...200/1849
+  ...300/1849
+  ...400/1849
+  ...500/1849
+  ...600/1849
+  ...700/1849
+  ...800/1849
+  ...900/1849
+  ...1000/1849
+  ...1100/1849
+  ...1200/1849
+  ...1300/1849
+  ...1400/1849
+  ...1500/1849
+  ...1600/1849
+  ...1700/1849
+  ...1800/1849
+
+Course sentences at HSK 2 the rule already finds 2-49 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+  2 check call(s) (20 sentences each)...
+
+=== 2-49 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3353  2. contain the point's word(s)
+     3344  3. new (not in DB, not a duplicate)
+     1849  4. at most 2 characters outside HSK 2 words
+      260  5. really HSK 2
+      248  5b. no harder grammar point (of the 34 with a rule)
+       36  6. the rule finds 2-49
+       35  6b. no hidden word a learner can't work out
+       25  7. both checks say 2-49, English chosen
+       23  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (23) ===
+  我洗好了。  (I'm all washed up.)  [tatoeba 2300033]
+  我看错了。  (I misread.)  [tatoeba 2302851]
+  我想错了。  (I was wrong.)  [tatoeba 2367643]
+  我读错了。  (I read it wrong.)  [tatoeba 10537182]
+  你说完了吗？  (Are you done talking?)  [tatoeba 7774372]
+  我上完课很累。  (I am very tired after a class.)  [tatoeba 5613688]
+  我写错了一个字。  (I miswrote a word.)  [tatoeba 1275227]  hidden: 一个
+  我知道我做错了。  (I know what I did was wrong.)  [tatoeba 5663534]
+  我会读完这本书。  (I'll finish reading this book.)  [tatoeba 6075166]
+  谢谢，我说完了。  (Thank you, I've finished talking.)  [tatoeba 7772146]
+  你喝完咖啡了吗？  (Have you finished your coffee?)  [tatoeba 9960212]
+  汤姆还没吃完午饭。  (Tom hasn't finished his lunch yet.)  [tatoeba 6103180]
+  我还没读完这本书。  (I haven't finished reading this book yet.)  [tatoeba 6623176]
+  你听懂他说的了吗？  (Did you understand what he said?)  [tatoeba 8778495]
+  她说她还没准备好。  (She said she wasn't ready.)  [tatoeba 9956328]
+  他说错了，不是吗？  (He is wrong, isn't he?)  [tatoeba 9987081]  hidden: 不是吗
+  我没听懂您的意思。  (I didn't understand you.)  [tatoeba 10457841]
+  汤姆去年上完了大学。  (Tom finished college last year.)  [tatoeba 6075706]
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]
+  你什么时候做完工作？  (When will you finish your work?)  [tatoeba 9968742]  hidden: 什么时候
+  吃完饭，大家都很累了。  (After eating the meal, everyone is tired.)  [tatoeba 5854742]
+  你看完这本书要多少时间？  (How long did it take you to finish reading that book?)  [tatoeba 6321865]
+  你们两个人都准备好了吗？  (Are you two ready?)  [tatoeba 8848653]
+
+--- dropped at step 3 (9) ---
+  我想吃点好吃的。  -- same text as tatoeba 4061626 (translations pooled)
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  这是个好主意。  -- already in the database
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你会开车吗？  -- already in the database
+  你会写多少汉字？  -- same text as tatoeba 6057136 (translations pooled)
+  一切都会好起来的。  -- same text as tatoeba 7767746 (translations pooled)
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (1495), first 12 ---
+  我永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  我们永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  丽萨不但会说英文，而且会说法文。  -- 5 characters no HSK 2 word uses: 且丽法而萨
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  这个城堡好美。  -- 3 characters no HSK 2 word uses: 城堡美
+  社会保障吗？他们在说什么笑话？  -- 3 characters no HSK 2 word uses: 保社障
+  毕竟，即使是神也会偶尔出差错。  -- 8 characters no HSK 2 word uses: 使偶即尔差毕神竟
+  请填好这张表格。  -- 3 characters no HSK 2 word uses: 填张格
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1589), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  她会十门语言。  -- level 3: 语言 L3
+  好，定了。  -- level 4: 定 L4
+  便宜的肉做不出好汤。  -- level 4: 汤 L4
+  你等一会然后再给我打电话，可以吗？  -- level 3: 然后 L3
+  我昨晚没睡好。  -- level 10: 昨晚 (not in list)
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  自助是最好的帮助。  -- level 6: 自助 L6, 最好 L3, 帮助 L3
+  这件事我实在不懂。  -- level 4: 实在 L4
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+
+--- dropped at step 5b (12) ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  我一点英语也不懂。  -- harder grammar: 3-41 (HSK 3)
+  “她也会来吗？” “我希望是这样。”  -- harder grammar: 3-60 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我不觉得他自己一个人会做到。  -- harder grammar: 3-46 (HSK 3)
+  他们说他们不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我好累啊。  -- harder grammar: 4-22 (HSK 4)
+  我告诉汤姆我不会再做了。  -- harder grammar: 3-16 (HSK 3)
+  这个好大啊。  -- harder grammar: 4-22 (HSK 4)
+  下次你来看我的时候，我会给你看那本书。  -- harder grammar: 2-28 (HSK 3)
+  我每天都会打电话给你。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (212) ---
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我知道他会画画。  -- rule: unless 会/VV
+  我不懂。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  我休息一会没问题吧？  -- rule: no match: line matched
+  我们的饭店比那家饭店好。  -- rule: no match: line matched
+  但咖啡不好。  -- rule: no match: line matched
+  都是我的错。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: unless 会/VV
+  他游泳比我好。  -- rule: no match: line matched
+  这是我的错。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  不会花很多时间的。  -- rule: unless 会/VV
+  你这样做是错的。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  真希望我会游泳。  -- rule: unless 会/VV
+  玛丽明天会来帮我们。  -- rule: unless 会/VV
+  很有可能还会下雨。  -- rule: unless 会/VV
+  你看过这么好看的电影吗？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: unless 会/VV
+  我不知道她什么时候会回来。  -- rule: unless 会/VV
+  我已经会写汉字了。  -- rule: unless 会/VV
+  我不懂你什么意思。  -- rule: no match: line matched
+  现在，让我们休息一会儿吧。  -- rule: no match: line matched
+  我会说中文，但是我不会读中文。  -- rule: unless 会/VV
+  因为我会说中文。  -- rule: unless 会/VV
+  你游泳游得比我好。  -- rule: no match: line matched
+  他看得懂中文。  -- rule: no match: line matched
+  做得很好。  -- rule: no match: line matched
+  请在这儿等一会儿。  -- rule: no match: line matched
+  看起来不错。  -- rule: no match: line matched
+  我真读不懂她。  -- rule: no match: line matched
+  你几点会到车站？  -- rule: unless 会/VV
+  我不懂汉语，但我想学。  -- rule: no match: line matched
+  “他明天去游泳吗？” “没错”  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  你不懂。  -- rule: no match: line matched
+  我想你快点好。  -- rule: no match: line matched
+  你的爱好是什么？  -- rule: no match: line matched
+  他的身体很好。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  我会在约翰来的时候走。  -- rule: unless 会/VV
+  这条鱼很好吃。  -- rule: no match: line matched
+  鸟会飞。  -- rule: unless 会/VV
+  但是咖啡不好喝。  -- rule: unless 好/AD
+  哪里都看得到好人。  -- rule: no match: line matched
+  水果对身体非常好。  -- rule: no match: line matched
+  我身体很好。  -- rule: no match: line matched
+  他汉字写得非常好。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  她很懂汉字。  -- rule: no match: line matched
+  Julián错了吗？  -- rule: no match: line matched
+  你会跳舞吗？  -- rule: unless 会/VV
+  做得好！  -- rule: no match: line matched
+  那不是我的错。  -- rule: no match: line matched
+  对他好一点。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: unless 会/VV
+  我想他会很快回来的。  -- rule: unless 会/VV
+  我真的好忙。  -- rule: unless 好/AD
+  不，我不懂。  -- rule: no match: line matched
+  我不知道在哪里开始好。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么会知道？  -- rule: unless 会/VV
+  他们会跟着她。  -- rule: unless 会/VV
+  你在班里有好朋友吗？  -- rule: unless 有 好
+  他写得一手好字。  -- rule: no match: line matched
+  都是你的错。  -- rule: no match: line matched
+  汤姆不会游泳。  -- rule: unless 会/VV
+  你看上去很好。  -- rule: no match: line matched
+  那样是错的。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  那本书卖得很好。  -- rule: no match: line matched
+  我会请Tom等。  -- rule: unless 会/VV
+  下一次我会早一点到。  -- rule: unless 会/VV
+  我不知道它是好是坏。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  他们不错。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  这画不错。  -- rule: no match: line matched
+  我会帮他。  -- rule: unless 会/VV
+  我不知道谁会在机场见我。  -- rule: unless 会/VV
+  他会跟我来。  -- rule: unless 会/VV
+  我走了，你会想我。  -- rule: unless 会/VV
+  他会告诉我真想吗？  -- rule: unless 会/VV
+  是雨的错？  -- rule: no match: line matched
+  你比他好。  -- rule: no match: line matched
+  他们告诉我这是你的错。  -- rule: no match: line matched
+  我不会让你去做。  -- rule: unless 会/VV
+  我可能会说是。  -- rule: unless 会/VV
+  我过会儿再跟你们一起。  -- rule: no match: line matched
+  这是最好的。  -- rule: no match: line matched
+  学校不会教你这个。  -- rule: unless 会/VV
+  北京哪里最好玩？  -- rule: unless 好/AD
+  你昨天晚上过得好吗？  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: unless 会/VV
+  有你帮我真好。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  这可能很好玩。  -- rule: unless 好/AD
+  这是我读过的最好的书。  -- rule: no match: line matched
+  我会自己走。  -- rule: unless 会/VV
+  我会等一两天。  -- rule: unless 会/VV
+  我希望汤姆有一天会来这里。  -- rule: unless 会/VV
+  我会跟你一起回家。  -- rule: unless 会/VV
+  跟你一起吃午饭会让我高兴。  -- rule: unless 会/VV
+  我会在星期一给你打电话。  -- rule: unless 会/VV
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  我会告诉我的妻子。  -- rule: unless 会/VV
+  一会儿见！  -- rule: no match: line matched
+  我只想做好事。  -- rule: no match: line matched
+  这就是错的。  -- rule: no match: line matched
+  休息几天会对你好的。  -- rule: unless 会/VV
+  那不是汤姆的错。  -- rule: no match: line matched
+  错在哪里？  -- rule: no match: line matched
+  我不知道你不会游泳。  -- rule: unless 会/VV
+  这什么时候能准备好？  -- rule: unless 能/VV
+  你懂了吗？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  她还是个孩子的时候，唱歌很好听。  -- rule: no match: line matched
+  我会告诉他你来问过。  -- rule: unless 会/VV
+  不知道明天天气会怎么样呢？  -- rule: unless 会/VV
+  不好意思，你的名字是什么？  -- rule: no match: line matched
+  这药会让你舒服些。  -- rule: unless 会/VV
+  你明天会踢足球。  -- rule: unless 会/VV
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  你看上去不太好。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: unless 会/VV
+  我今年去了好几次外国。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  你觉得好些了吗？  -- rule: unless 好 几|些|多|久 ; 觉得|认为|希望|祝|感觉 好
+  我再也不会跟你说话了。  -- rule: unless 会/VV
+  你说过你会帮我的。  -- rule: unless 会/VV
+  到哪里我都会跟着你。  -- rule: unless 会/VV
+  劳莉会游泳。  -- rule: unless 会/VV
+  我下周会去见他们。  -- rule: unless 会/VV
+  我会在明天午饭前回来。  -- rule: unless 会/VV
+  这样好多了。  -- rule: unless 好 几|些|多|久
+  她说她会等我们的。  -- rule: unless 会/VV
+  我会告诉她，你来了。  -- rule: unless 会/VV
+  你看得懂这本书吗？  -- rule: no match: line matched
+  今天天气不错，出去走走吧。  -- rule: no match: line matched
+  虽然他是中国人，但他不会说中文。  -- rule: unless 会/VV
+  不是每个人都会爱你。  -- rule: unless 会/VV
+  我没告诉汤姆，就不会告诉你。  -- rule: unless 会/VV
+  你懂吗？可能吧。  -- rule: no match: line matched
+  我懂。  -- rule: no match: line matched
+  我会唱歌跳舞。  -- rule: unless 会/VV
+  她的新书卖得不错。  -- rule: no match: line matched
+  你眼睛不好吗?  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  我会告诉你他们的名字。  -- rule: unless 会/VV
+  天气比昨天好。  -- rule: no match: line matched
+  好的，我们一会儿见。  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: unless 会/VV
+  他们不会让她跑了的。  -- rule: unless 会/VV
+  你会去问他们，对吧？  -- rule: unless 会/VV
+  不好意思，请问鸡蛋在哪儿？  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: unless 会/VV
+  「好大！」「对，这是 IMAX！」  -- rule: unless 好/AD
+  我只希望不会太晚。  -- rule: unless 会/VV
+  他懂义大利文吗？  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: unless 会/VV
+  你下周也会在波士顿吗？  -- rule: unless 会/VV
+  我会等等汤姆。  -- rule: unless 会/VV
+  听起来他是个好人。  -- rule: no match: line matched
+  你会做得很好的。  -- rule: unless 会/VV
+  有人会这样想。  -- rule: unless 会/VV
+  两好球！  -- rule: no match: line matched
+  一好球！  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  他会走的。  -- rule: unless 会/VV
+  汤姆猫会帮我们吗？  -- rule: unless 会/VV
+  帮我们一下，好吗？  -- rule: no match: line matched
+  看不懂。  -- rule: no match: line matched
+  我看不懂。  -- rule: no match: line matched
+  汤姆是个好人，不是吗 ?  -- rule: no match: line matched
+  错！  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: no match: line matched
+  我知道这是错的。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: unless 会/VV
+  明天可能会下雪。  -- rule: unless 会/VV
+  明天下午会是晴天。  -- rule: unless 会/VV
+  今天天气不错。  -- rule: no match: line matched
+  你家谁唱歌最好听？  -- rule: no match: line matched
+  没想到你会告诉我。  -- rule: unless 会/VV
+  我考得很好。  -- rule: no match: line matched
+  今天时间过得好慢。  -- rule: unless 好/AD
+  她会帮我们吧？  -- rule: unless 会/VV
+  她会帮我们的，不是吗？  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: unless 会/VV
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: unless 好 几|些|多|久
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  我想你不会那么做的吧。  -- rule: unless 会/VV
+  他会拿到一小笔钱。  -- rule: unless 会/VV
+  汤姆说不会自己一个人做那件事。  -- rule: unless 会/VV
+  我小时候很会游泳。  -- rule: unless 会/VV
+  做自己就好。  -- rule: no match: line matched
+  艾米丽会游泳。  -- rule: unless 会/VV
+  我们休息一下，好吗？  -- rule: no match: line matched
+  我没错！  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: unless 会/VV
+  笑一笑不会少一块肉。  -- rule: unless 会/VV
+  我知道汤姆不可能会那么做了。  -- rule: unless 会/VV
+  能回来真是太好了。  -- rule: unless 能/VV
+  天气好的时候我会去洗衣服。  -- rule: unless 会/VV
+
+--- dropped at step 6b (1) ---
+  我就要读完这本书了。  -- hidden word a learner can't work out: 就要 (will; shall)
+
+--- dropped at step 7 (10) ---
+  跟汤姆问好。  -- check said no (2/2): 问好 is fixed expression 'greet', not result complement
+  准备好了吗？  -- check said no (1/2): 好 means 'ready', not a result complement
+  你比我记得好。  -- check said no (2/2): 好 is comparative adverb 'better', not result complement
+  飞机准备好了。  -- check said no (1/2): 好 means 'ready', not a result complement
+  你准备好了吗？  -- check said no (1/2): 好 here means 'ready', not a result complement
+  还没怎么准备好。  -- check said no (1/2): 好 means 'ready', not a result complement
+  我想让你准备好。  -- check said no (2/2): 好 means 'ready/prepared', not a result complement
+  我没有真的准备好。  -- check said no (2/2): 好 means 'ready', not a result complement showing action result
+  玛莉问我们有没有准备好。  -- check said no (1/2): 准备好 means 'ready' (state), not action result
+  我在等你们。你们什么时候准备好？  -- check said no (1/2): 准备好 here means 'ready' (state), not result complement
+
+--- dropped at step 8 (2) ---
+  你一准备好，我们就走。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句) with 准备好 result complement, creating complex conditional structure
+  我工作一做完就来找你们。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句), which is HSK 2 but often paired with 2-57 连动句 creating complexity beyond the level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-49_level2_20261110_213814.csv
+
+########## guard check  2026-11-11 14:23 ##########
+
+########## tatoeba  2026-11-11 14:29 ##########
+Filling 2-49 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-49 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-49 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3353  2. contain the point's word(s)
+     3344  3. new (not in DB, not a duplicate)
+     1849  4. at most 2 characters outside HSK 2 words
+      260  5. really HSK 2
+      237  5b. no harder grammar point (of the 39 with a rule)
+       36  6. the rule finds 2-49
+       35  6b. no hidden word a learner can't work out
+       25  7. both checks say 2-49, English chosen
+       23  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (23) ===
+  我洗好了。  (I'm all washed up.)  [tatoeba 2300033]
+  我看错了。  (I misread.)  [tatoeba 2302851]
+  我想错了。  (I was wrong.)  [tatoeba 2367643]
+  我读错了。  (I read it wrong.)  [tatoeba 10537182]
+  你说完了吗？  (Are you done talking?)  [tatoeba 7774372]
+  我上完课很累。  (I am very tired after a class.)  [tatoeba 5613688]
+  我写错了一个字。  (I miswrote a word.)  [tatoeba 1275227]  hidden: 一个
+  我知道我做错了。  (I know what I did was wrong.)  [tatoeba 5663534]
+  我会读完这本书。  (I'll finish reading this book.)  [tatoeba 6075166]
+  谢谢，我说完了。  (Thank you, I've finished talking.)  [tatoeba 7772146]
+  你喝完咖啡了吗？  (Have you finished your coffee?)  [tatoeba 9960212]
+  汤姆还没吃完午饭。  (Tom hasn't finished his lunch yet.)  [tatoeba 6103180]
+  我还没读完这本书。  (I haven't finished reading this book yet.)  [tatoeba 6623176]
+  你听懂他说的了吗？  (Did you understand what he said?)  [tatoeba 8778495]
+  她说她还没准备好。  (She said she wasn't ready.)  [tatoeba 9956328]
+  他说错了，不是吗？  (He is wrong, isn't he?)  [tatoeba 9987081]  hidden: 不是吗
+  我没听懂您的意思。  (I didn't understand you.)  [tatoeba 10457841]
+  汤姆去年上完了大学。  (Tom finished college last year.)  [tatoeba 6075706]
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]
+  你什么时候做完工作？  (When will you finish your work?)  [tatoeba 9968742]  hidden: 什么时候
+  吃完饭，大家都很累了。  (After eating the meal, everyone is tired.)  [tatoeba 5854742]
+  你看完这本书要多少时间？  (How long did it take you to finish reading that book?)  [tatoeba 6321865]
+  你们两个人都准备好了吗？  (Are you two ready?)  [tatoeba 8848653]
+
+--- dropped at step 3 (9) ---
+  我想吃点好吃的。  -- same text as tatoeba 4061626 (translations pooled)
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  这是个好主意。  -- already in the database
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你会开车吗？  -- already in the database
+  你会写多少汉字？  -- same text as tatoeba 6057136 (translations pooled)
+  一切都会好起来的。  -- same text as tatoeba 7767746 (translations pooled)
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (1495), first 12 ---
+  我永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  我们永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  丽萨不但会说英文，而且会说法文。  -- 5 characters no HSK 2 word uses: 且丽法而萨
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  这个城堡好美。  -- 3 characters no HSK 2 word uses: 城堡美
+  社会保障吗？他们在说什么笑话？  -- 3 characters no HSK 2 word uses: 保社障
+  毕竟，即使是神也会偶尔出差错。  -- 8 characters no HSK 2 word uses: 使偶即尔差毕神竟
+  请填好这张表格。  -- 3 characters no HSK 2 word uses: 填张格
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1589), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  她会十门语言。  -- level 3: 语言 L3
+  好，定了。  -- level 4: 定 L4
+  便宜的肉做不出好汤。  -- level 4: 汤 L4
+  你等一会然后再给我打电话，可以吗？  -- level 3: 然后 L3
+  我昨晚没睡好。  -- level 10: 昨晚 (not in list)
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  自助是最好的帮助。  -- level 6: 自助 L6, 最好 L3, 帮助 L3
+  这件事我实在不懂。  -- level 4: 实在 L4
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+
+--- dropped at step 5b (23), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  我真读不懂她。  -- harder grammar: 3-48 (HSK 3)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  我一点英语也不懂。  -- harder grammar: 3-41 (HSK 3)
+  “她也会来吗？” “我希望是这样。”  -- harder grammar: 3-60 (HSK 3)
+  我会请Tom等。  -- harder grammar: 2-35 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我不觉得他自己一个人会做到。  -- harder grammar: 3-46 (HSK 3)
+  他们说他们不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  你看得懂这本书吗？  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (201) ---
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我知道他会画画。  -- rule: unless 会/VV
+  我不懂。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  我休息一会没问题吧？  -- rule: no match: line matched
+  我们的饭店比那家饭店好。  -- rule: no match: line matched
+  但咖啡不好。  -- rule: no match: line matched
+  都是我的错。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: unless 会/VV
+  他游泳比我好。  -- rule: no match: line matched
+  这是我的错。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  不会花很多时间的。  -- rule: unless 会/VV
+  你这样做是错的。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  真希望我会游泳。  -- rule: unless 会/VV
+  玛丽明天会来帮我们。  -- rule: unless 会/VV
+  很有可能还会下雨。  -- rule: unless 会/VV
+  你看过这么好看的电影吗？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: unless 会/VV
+  我不知道她什么时候会回来。  -- rule: unless 会/VV
+  我已经会写汉字了。  -- rule: unless 会/VV
+  我不懂你什么意思。  -- rule: no match: line matched
+  现在，让我们休息一会儿吧。  -- rule: no match: line matched
+  我会说中文，但是我不会读中文。  -- rule: unless 会/VV
+  因为我会说中文。  -- rule: unless 会/VV
+  你游泳游得比我好。  -- rule: no match: line matched
+  做得很好。  -- rule: no match: line matched
+  请在这儿等一会儿。  -- rule: no match: line matched
+  看起来不错。  -- rule: no match: line matched
+  你几点会到车站？  -- rule: unless 会/VV
+  我不懂汉语，但我想学。  -- rule: no match: line matched
+  “他明天去游泳吗？” “没错”  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  你不懂。  -- rule: no match: line matched
+  我想你快点好。  -- rule: no match: line matched
+  你的爱好是什么？  -- rule: no match: line matched
+  他的身体很好。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  我会在约翰来的时候走。  -- rule: unless 会/VV
+  这条鱼很好吃。  -- rule: no match: line matched
+  鸟会飞。  -- rule: unless 会/VV
+  但是咖啡不好喝。  -- rule: unless 好/AD
+  水果对身体非常好。  -- rule: no match: line matched
+  我身体很好。  -- rule: no match: line matched
+  他汉字写得非常好。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  她很懂汉字。  -- rule: no match: line matched
+  Julián错了吗？  -- rule: no match: line matched
+  你会跳舞吗？  -- rule: unless 会/VV
+  做得好！  -- rule: no match: line matched
+  那不是我的错。  -- rule: no match: line matched
+  对他好一点。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: unless 会/VV
+  我想他会很快回来的。  -- rule: unless 会/VV
+  我真的好忙。  -- rule: unless 好/AD
+  不，我不懂。  -- rule: no match: line matched
+  我不知道在哪里开始好。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么会知道？  -- rule: unless 会/VV
+  他们会跟着她。  -- rule: unless 会/VV
+  你在班里有好朋友吗？  -- rule: unless 有 好
+  他写得一手好字。  -- rule: no match: line matched
+  都是你的错。  -- rule: no match: line matched
+  汤姆不会游泳。  -- rule: unless 会/VV
+  你看上去很好。  -- rule: no match: line matched
+  那样是错的。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  那本书卖得很好。  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: unless 会/VV
+  我不知道它是好是坏。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  他们不错。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  这画不错。  -- rule: no match: line matched
+  我会帮他。  -- rule: unless 会/VV
+  我不知道谁会在机场见我。  -- rule: unless 会/VV
+  他会跟我来。  -- rule: unless 会/VV
+  我走了，你会想我。  -- rule: unless 会/VV
+  他会告诉我真想吗？  -- rule: unless 会/VV
+  是雨的错？  -- rule: no match: line matched
+  你比他好。  -- rule: no match: line matched
+  他们告诉我这是你的错。  -- rule: no match: line matched
+  我不会让你去做。  -- rule: unless 会/VV
+  我可能会说是。  -- rule: unless 会/VV
+  我过会儿再跟你们一起。  -- rule: no match: line matched
+  这是最好的。  -- rule: no match: line matched
+  学校不会教你这个。  -- rule: unless 会/VV
+  北京哪里最好玩？  -- rule: unless 好/AD
+  你昨天晚上过得好吗？  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: unless 会/VV
+  有你帮我真好。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  这可能很好玩。  -- rule: unless 好/AD
+  这是我读过的最好的书。  -- rule: no match: line matched
+  我会自己走。  -- rule: unless 会/VV
+  我会等一两天。  -- rule: unless 会/VV
+  我希望汤姆有一天会来这里。  -- rule: unless 会/VV
+  我会跟你一起回家。  -- rule: unless 会/VV
+  跟你一起吃午饭会让我高兴。  -- rule: unless 会/VV
+  我会在星期一给你打电话。  -- rule: unless 会/VV
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  我会告诉我的妻子。  -- rule: unless 会/VV
+  一会儿见！  -- rule: no match: line matched
+  我只想做好事。  -- rule: no match: line matched
+  这就是错的。  -- rule: no match: line matched
+  休息几天会对你好的。  -- rule: unless 会/VV
+  那不是汤姆的错。  -- rule: no match: line matched
+  错在哪里？  -- rule: no match: line matched
+  我不知道你不会游泳。  -- rule: unless 会/VV
+  这什么时候能准备好？  -- rule: unless 能/VV
+  你懂了吗？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  她还是个孩子的时候，唱歌很好听。  -- rule: no match: line matched
+  我会告诉他你来问过。  -- rule: unless 会/VV
+  不知道明天天气会怎么样呢？  -- rule: unless 会/VV
+  不好意思，你的名字是什么？  -- rule: no match: line matched
+  这药会让你舒服些。  -- rule: unless 会/VV
+  你明天会踢足球。  -- rule: unless 会/VV
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  你看上去不太好。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: unless 会/VV
+  我今年去了好几次外国。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  你觉得好些了吗？  -- rule: unless 好 几|些|多|久 ; 觉得|认为|希望|祝|感觉 好
+  我再也不会跟你说话了。  -- rule: unless 会/VV
+  你说过你会帮我的。  -- rule: unless 会/VV
+  到哪里我都会跟着你。  -- rule: unless 会/VV
+  劳莉会游泳。  -- rule: unless 会/VV
+  我下周会去见他们。  -- rule: unless 会/VV
+  我会在明天午饭前回来。  -- rule: unless 会/VV
+  这样好多了。  -- rule: unless 好 几|些|多|久
+  她说她会等我们的。  -- rule: unless 会/VV
+  我会告诉她，你来了。  -- rule: unless 会/VV
+  今天天气不错，出去走走吧。  -- rule: no match: line matched
+  虽然他是中国人，但他不会说中文。  -- rule: unless 会/VV
+  不是每个人都会爱你。  -- rule: unless 会/VV
+  我没告诉汤姆，就不会告诉你。  -- rule: unless 会/VV
+  你懂吗？可能吧。  -- rule: no match: line matched
+  我懂。  -- rule: no match: line matched
+  我会唱歌跳舞。  -- rule: unless 会/VV
+  她的新书卖得不错。  -- rule: no match: line matched
+  你眼睛不好吗?  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  我会告诉你他们的名字。  -- rule: unless 会/VV
+  天气比昨天好。  -- rule: no match: line matched
+  好的，我们一会儿见。  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: unless 会/VV
+  他们不会让她跑了的。  -- rule: unless 会/VV
+  你会去问他们，对吧？  -- rule: unless 会/VV
+  不好意思，请问鸡蛋在哪儿？  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: unless 会/VV
+  「好大！」「对，这是 IMAX！」  -- rule: unless 好/AD
+  他懂义大利文吗？  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: unless 会/VV
+  你下周也会在波士顿吗？  -- rule: unless 会/VV
+  听起来他是个好人。  -- rule: no match: line matched
+  你会做得很好的。  -- rule: unless 会/VV
+  有人会这样想。  -- rule: unless 会/VV
+  两好球！  -- rule: no match: line matched
+  一好球！  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  他会走的。  -- rule: unless 会/VV
+  汤姆猫会帮我们吗？  -- rule: unless 会/VV
+  帮我们一下，好吗？  -- rule: no match: line matched
+  汤姆是个好人，不是吗 ?  -- rule: no match: line matched
+  错！  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: no match: line matched
+  我知道这是错的。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: unless 会/VV
+  明天可能会下雪。  -- rule: unless 会/VV
+  明天下午会是晴天。  -- rule: unless 会/VV
+  今天天气不错。  -- rule: no match: line matched
+  你家谁唱歌最好听？  -- rule: no match: line matched
+  没想到你会告诉我。  -- rule: unless 会/VV
+  我考得很好。  -- rule: no match: line matched
+  今天时间过得好慢。  -- rule: unless 好/AD
+  她会帮我们吧？  -- rule: unless 会/VV
+  她会帮我们的，不是吗？  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: unless 会/VV
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: unless 好 几|些|多|久
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  我想你不会那么做的吧。  -- rule: unless 会/VV
+  他会拿到一小笔钱。  -- rule: unless 会/VV
+  我小时候很会游泳。  -- rule: unless 会/VV
+  做自己就好。  -- rule: no match: line matched
+  艾米丽会游泳。  -- rule: unless 会/VV
+  我们休息一下，好吗？  -- rule: no match: line matched
+  我没错！  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: unless 会/VV
+  我知道汤姆不可能会那么做了。  -- rule: unless 会/VV
+  能回来真是太好了。  -- rule: unless 能/VV
+  天气好的时候我会去洗衣服。  -- rule: unless 会/VV
+
+--- dropped at step 6b (1) ---
+  我就要读完这本书了。  -- hidden word a learner can't work out: 就要 (will; shall)
+
+--- dropped at step 7 (10) ---
+  跟汤姆问好。  -- check said no (2/2): 问好 is fixed expression 'greet', not result complement
+  准备好了吗？  -- check said no (1/2): 好 means 'ready', not a result complement
+  你比我记得好。  -- check said no (2/2): 好 is comparative adverb 'better', not result complement
+  飞机准备好了。  -- check said no (1/2): 好 means 'ready', not a result complement
+  你准备好了吗？  -- check said no (1/2): 好 here means 'ready', not a result complement
+  还没怎么准备好。  -- check said no (1/2): 好 means 'ready', not a result complement
+  我想让你准备好。  -- check said no (2/2): 好 means 'ready/prepared', not a result complement
+  我没有真的准备好。  -- check said no (2/2): 好 means 'ready', not a result complement showing action result
+  玛莉问我们有没有准备好。  -- check said no (1/2): 准备好 means 'ready' (state), not action result
+  我在等你们。你们什么时候准备好？  -- check said no (1/2): 准备好 here means 'ready' (state), not result complement
+
+--- dropped at step 8 (2) ---
+  你一准备好，我们就走。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句) with 准备好 result complement, creating complex conditional structure
+  我工作一做完就来找你们。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句), which is HSK 2 but often paired with 2-57 连动句 creating complexity beyond the level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-49_level2_20261111_142924.csv
+
+########## rules  2026-11-12 17:25 ##########
+Tagging 4 labeled example(s) (cached after this run)...
+  ...100/188
+
+=== A. 2-49: rule on labeled examples (no AI) ===
+  examples of 2-49 matched:    29/41
+  counter-examples wrongly matched: 0/147   <- should be 0
+
+--- examples of 2-49 the rule misses (12) ---
+  你踩到了我的脚。  -- ASGNNMST Result complements
+  我不小心撞到了墙。  -- ASGNNMST Result complements
+  我女儿学会了数数。  -- ASGNNMST Result complements
+  我爸爸还没学会用智能手机。  -- ASGNNMST Result complements
+  老师拿走了我的iPad。  -- ASGNNMST Result complements
+  小偷偷走了我的钱包。  -- ASGNNMST Result complements
+  他不小心推倒了一个老人。  -- ASGNNMST Result complements
+  你撞倒了我的自行车。  -- ASGNNMST Result complements
+  谁扔掉了我的袜子？  -- ASGNNMST Result complements
+  我卖掉了我的旧手机。  -- ASGNNMST Result complements
+  小偷把我的钱包偷走了。  -- ASGNNMST Result complements
+  你能吃完吗？  -- ASGNQUC1 Result complement "-wan" for finishing
+  easy examples (words all HSK 2 or below) matched: 14/16   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:40 ##########
+Filling 2-49 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 4 Tatoeba candidate(s) (cached after this run)...
+  ...100/1849
+  ...200/1849
+  ...300/1849
+  ...400/1849
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_174037.txt
+  ...500/1849
+  ...600/1849
+  ...700/1849
+  ...800/1849
+  ...900/1849
+  ...1000/1849
+  ...1100/1849
+  ...1200/1849
+  ...1300/1849
+  ...1400/1849
+  ...1500/1849
+  ...1600/1849
+  ...1700/1849
+  ...1800/1849
+
+Course sentences at HSK 2 the rule already finds 2-49 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-49 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3353  2. contain the point's word(s)
+     3344  3. new (not in DB, not a duplicate)
+     1849  4. at most 2 characters outside HSK 2 words
+      266  5. really HSK 2
+      243  5b. no harder grammar point (of the 40 with a rule)
+       36  6. the rule finds 2-49
+       35  6b. no hidden word a learner can't work out
+       25  7. both checks say 2-49, English chosen
+       23  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (23) ===
+  我洗好了。  (I'm all washed up.)  [tatoeba 2300033]
+  我看错了。  (I misread.)  [tatoeba 2302851]
+  我想错了。  (I was wrong.)  [tatoeba 2367643]
+  我读错了。  (I read it wrong.)  [tatoeba 10537182]
+  你说完了吗？  (Are you done talking?)  [tatoeba 7774372]
+  我上完课很累。  (I am very tired after a class.)  [tatoeba 5613688]
+  我写错了一个字。  (I miswrote a word.)  [tatoeba 1275227]  hidden: 一个
+  我知道我做错了。  (I know what I did was wrong.)  [tatoeba 5663534]
+  我会读完这本书。  (I'll finish reading this book.)  [tatoeba 6075166]
+  谢谢，我说完了。  (Thank you, I've finished talking.)  [tatoeba 7772146]
+  你喝完咖啡了吗？  (Have you finished your coffee?)  [tatoeba 9960212]
+  汤姆还没吃完午饭。  (Tom hasn't finished his lunch yet.)  [tatoeba 6103180]
+  我还没读完这本书。  (I haven't finished reading this book yet.)  [tatoeba 6623176]
+  你听懂他说的了吗？  (Did you understand what he said?)  [tatoeba 8778495]
+  她说她还没准备好。  (She said she wasn't ready.)  [tatoeba 9956328]
+  他说错了，不是吗？  (He is wrong, isn't he?)  [tatoeba 9987081]  hidden: 不是吗
+  我没听懂您的意思。  (I didn't understand you.)  [tatoeba 10457841]
+  汤姆去年上完了大学。  (Tom finished college last year.)  [tatoeba 6075706]
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]
+  你什么时候做完工作？  (When will you finish your work?)  [tatoeba 9968742]  hidden: 什么时候
+  吃完饭，大家都很累了。  (After eating the meal, everyone is tired.)  [tatoeba 5854742]
+  你看完这本书要多少时间？  (How long did it take you to finish reading that book?)  [tatoeba 6321865]
+  你们两个人都准备好了吗？  (Are you two ready?)  [tatoeba 8848653]
+
+--- dropped at step 3 (9) ---
+  我想吃点好吃的。  -- same text as tatoeba 4061626 (translations pooled)
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  这是个好主意。  -- already in the database
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你会开车吗？  -- already in the database
+  你会写多少汉字？  -- same text as tatoeba 6057136 (translations pooled)
+  一切都会好起来的。  -- same text as tatoeba 7767746 (translations pooled)
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (1495), first 12 ---
+  我永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  我们永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  丽萨不但会说英文，而且会说法文。  -- 5 characters no HSK 2 word uses: 且丽法而萨
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  这个城堡好美。  -- 3 characters no HSK 2 word uses: 城堡美
+  社会保障吗？他们在说什么笑话？  -- 3 characters no HSK 2 word uses: 保社障
+  毕竟，即使是神也会偶尔出差错。  -- 8 characters no HSK 2 word uses: 使偶即尔差毕神竟
+  请填好这张表格。  -- 3 characters no HSK 2 word uses: 填张格
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1583), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  她会十门语言。  -- level 3: 语言 L3
+  好，定了。  -- level 4: 定 L4
+  便宜的肉做不出好汤。  -- level 4: 汤 L4
+  你等一会然后再给我打电话，可以吗？  -- level 3: 然后 L3
+  我昨晚没睡好。  -- level 10: 昨晚 (not in list)
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  自助是最好的帮助。  -- level 6: 自助 L6, 最好 L3, 帮助 L3
+  这件事我实在不懂。  -- level 4: 实在 L4
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+
+--- dropped at step 5b (23), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  我真读不懂她。  -- harder grammar: 3-48 (HSK 3)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  “她也会来吗？” “我希望是这样。”  -- harder grammar: 3-60 (HSK 3)
+  我会请Tom等。  -- harder grammar: 2-35 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我还要再睡一会儿。  -- harder grammar: 3-16 (HSK 3)
+  我不觉得他自己一个人会做到。  -- harder grammar: 3-46 (HSK 3)
+  他们说他们不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  你看得懂这本书吗？  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (207) ---
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我知道他会画画。  -- rule: unless 会/VV
+  我不懂。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  我休息一会没问题吧？  -- rule: no match: line matched
+  我们的饭店比那家饭店好。  -- rule: no match: line matched
+  但咖啡不好。  -- rule: no match: line matched
+  都是我的错。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: unless 会/VV
+  他游泳比我好。  -- rule: no match: line matched
+  这是我的错。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  不会花很多时间的。  -- rule: unless 会/VV
+  你这样做是错的。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  真希望我会游泳。  -- rule: unless 会/VV
+  玛丽明天会来帮我们。  -- rule: unless 会/VV
+  很有可能还会下雨。  -- rule: unless 会/VV
+  你看过这么好看的电影吗？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: unless 会/VV
+  我不知道她什么时候会回来。  -- rule: unless 会/VV
+  我已经会写汉字了。  -- rule: unless 会/VV
+  我不懂你什么意思。  -- rule: no match: line matched
+  现在，让我们休息一会儿吧。  -- rule: no match: line matched
+  我会说中文，但是我不会读中文。  -- rule: unless 会/VV
+  因为我会说中文。  -- rule: unless 会/VV
+  你游泳游得比我好。  -- rule: no match: line matched
+  做得很好。  -- rule: no match: line matched
+  请在这儿等一会儿。  -- rule: no match: line matched
+  我是一个好男孩。  -- rule: no match: line matched
+  看起来不错。  -- rule: no match: line matched
+  你几点会到车站？  -- rule: unless 会/VV
+  我不懂汉语，但我想学。  -- rule: no match: line matched
+  “他明天去游泳吗？” “没错”  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  你不懂。  -- rule: no match: line matched
+  我想你快点好。  -- rule: no match: line matched
+  你的爱好是什么？  -- rule: no match: line matched
+  他的身体很好。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  我会在约翰来的时候走。  -- rule: unless 会/VV
+  这条鱼很好吃。  -- rule: no match: line matched
+  鸟会飞。  -- rule: unless 会/VV
+  但是咖啡不好喝。  -- rule: unless 好/AD
+  水果对身体非常好。  -- rule: no match: line matched
+  我身体很好。  -- rule: no match: line matched
+  他汉字写得非常好。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  她很懂汉字。  -- rule: no match: line matched
+  那个小男孩会走路。  -- rule: unless 会/VV
+  Julián错了吗？  -- rule: no match: line matched
+  你会跳舞吗？  -- rule: unless 会/VV
+  做得好！  -- rule: no match: line matched
+  我一点英语也不懂。  -- rule: no match: line matched
+  那不是我的错。  -- rule: no match: line matched
+  对他好一点。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: unless 会/VV
+  我想他会很快回来的。  -- rule: unless 会/VV
+  我真的好忙。  -- rule: unless 好/AD
+  不，我不懂。  -- rule: no match: line matched
+  我不知道在哪里开始好。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  我是个好男孩。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么会知道？  -- rule: unless 会/VV
+  他们会跟着她。  -- rule: unless 会/VV
+  你在班里有好朋友吗？  -- rule: unless 有 好
+  他写得一手好字。  -- rule: no match: line matched
+  都是你的错。  -- rule: no match: line matched
+  汤姆不会游泳。  -- rule: unless 会/VV
+  你看上去很好。  -- rule: no match: line matched
+  那样是错的。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  那本书卖得很好。  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: unless 会/VV
+  我不知道它是好是坏。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  他们不错。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  这画不错。  -- rule: no match: line matched
+  我会帮他。  -- rule: unless 会/VV
+  我不知道谁会在机场见我。  -- rule: unless 会/VV
+  他会跟我来。  -- rule: unless 会/VV
+  我走了，你会想我。  -- rule: unless 会/VV
+  他会告诉我真想吗？  -- rule: unless 会/VV
+  是雨的错？  -- rule: no match: line matched
+  她是一个很好的女孩。  -- rule: no match: line matched
+  你比他好。  -- rule: no match: line matched
+  他们告诉我这是你的错。  -- rule: no match: line matched
+  我不会让你去做。  -- rule: unless 会/VV
+  我可能会说是。  -- rule: unless 会/VV
+  我过会儿再跟你们一起。  -- rule: no match: line matched
+  这是最好的。  -- rule: no match: line matched
+  学校不会教你这个。  -- rule: unless 会/VV
+  北京哪里最好玩？  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: unless 会/VV
+  有你帮我真好。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  这可能很好玩。  -- rule: no match: line matched
+  这是我读过的最好的书。  -- rule: no match: line matched
+  我会自己走。  -- rule: unless 会/VV
+  我会等一两天。  -- rule: unless 会/VV
+  我希望汤姆有一天会来这里。  -- rule: unless 会/VV
+  我会跟你一起回家。  -- rule: unless 会/VV
+  跟你一起吃午饭会让我高兴。  -- rule: unless 会/VV
+  我会在星期一给你打电话。  -- rule: unless 会/VV
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  我会告诉我的妻子。  -- rule: unless 会/VV
+  一会儿见！  -- rule: no match: line matched
+  我只想做好事。  -- rule: no match: line matched
+  这就是错的。  -- rule: no match: line matched
+  休息几天会对你好的。  -- rule: unless 会/VV
+  那不是汤姆的错。  -- rule: no match: line matched
+  错在哪里？  -- rule: no match: line matched
+  我不知道你不会游泳。  -- rule: unless 会/VV
+  这什么时候能准备好？  -- rule: unless 能/VV
+  你懂了吗？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  她还是个孩子的时候，唱歌很好听。  -- rule: no match: line matched
+  我会告诉他你来问过。  -- rule: unless 会/VV
+  不知道明天天气会怎么样呢？  -- rule: unless 会/VV
+  不好意思，你的名字是什么？  -- rule: no match: line matched
+  请坐一会。  -- rule: no match: line matched
+  这药会让你舒服些。  -- rule: unless 会/VV
+  你明天会踢足球。  -- rule: unless 会/VV
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  你看上去不太好。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: unless 会/VV
+  我今年去了好几次外国。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  你觉得好些了吗？  -- rule: unless 好 几|些|多|久 ; 觉得|认为|希望|祝|感觉 好
+  我再也不会跟你说话了。  -- rule: unless 会/VV
+  你说过你会帮我的。  -- rule: unless 会/VV
+  到哪里我都会跟着你。  -- rule: unless 会/VV
+  劳莉会游泳。  -- rule: unless 会/VV
+  我下周会去见他们。  -- rule: unless 会/VV
+  我会在明天午饭前回来。  -- rule: unless 会/VV
+  这样好多了。  -- rule: unless 好 几|些|多|久
+  她说她会等我们的。  -- rule: unless 会/VV
+  我会告诉她，你来了。  -- rule: unless 会/VV
+  今天天气不错，出去走走吧。  -- rule: no match: line matched
+  虽然他是中国人，但他不会说中文。  -- rule: unless 会/VV
+  不是每个人都会爱你。  -- rule: unless 会/VV
+  我没告诉汤姆，就不会告诉你。  -- rule: unless 会/VV
+  你懂吗？可能吧。  -- rule: no match: line matched
+  我懂。  -- rule: no match: line matched
+  我会唱歌跳舞。  -- rule: unless 会/VV
+  她的新书卖得不错。  -- rule: no match: line matched
+  你眼睛不好吗?  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  我会告诉你他们的名字。  -- rule: unless 会/VV
+  天气比昨天好。  -- rule: no match: line matched
+  好的，我们一会儿见。  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: unless 会/VV
+  他们不会让她跑了的。  -- rule: unless 会/VV
+  你会去问他们，对吧？  -- rule: unless 会/VV
+  不好意思，请问鸡蛋在哪儿？  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: unless 会/VV
+  「好大！」「对，这是 IMAX！」  -- rule: unless 好/AD
+  他懂义大利文吗？  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: unless 会/VV
+  你下周也会在波士顿吗？  -- rule: unless 会/VV
+  听起来他是个好人。  -- rule: no match: line matched
+  你会做得很好的。  -- rule: unless 会/VV
+  有人会这样想。  -- rule: unless 会/VV
+  两好球！  -- rule: no match: line matched
+  一好球！  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  他会走的。  -- rule: unless 会/VV
+  汤姆猫会帮我们吗？  -- rule: unless 会/VV
+  帮我们一下，好吗？  -- rule: no match: line matched
+  汤姆是个好人，不是吗 ?  -- rule: no match: line matched
+  错！  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: no match: line matched
+  我知道这是错的。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: unless 会/VV
+  明天可能会下雪。  -- rule: unless 会/VV
+  明天下午会是晴天。  -- rule: unless 会/VV
+  今天天气不错。  -- rule: no match: line matched
+  你家谁唱歌最好听？  -- rule: no match: line matched
+  没想到你会告诉我。  -- rule: unless 会/VV
+  我考得很好。  -- rule: no match: line matched
+  今天时间过得好慢。  -- rule: unless 好/AD
+  她会帮我们吧？  -- rule: unless 会/VV
+  她会帮我们的，不是吗？  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: unless 会/VV
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: unless 好 几|些|多|久
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  我想你不会那么做的吧。  -- rule: unless 会/VV
+  他会拿到一小笔钱。  -- rule: unless 会/VV
+  我小时候很会游泳。  -- rule: unless 会/VV
+  做自己就好。  -- rule: no match: line matched
+  艾米丽会游泳。  -- rule: unless 会/VV
+  我们休息一下，好吗？  -- rule: no match: line matched
+  我没错！  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: unless 会/VV
+  我知道汤姆不可能会那么做了。  -- rule: unless 会/VV
+  能回来真是太好了。  -- rule: unless 能/VV
+  天气好的时候我会去洗衣服。  -- rule: unless 会/VV
+
+--- dropped at step 6b (1) ---
+  我就要读完这本书了。  -- hidden word a learner can't work out: 就要 (will; shall)
+
+--- dropped at step 7 (10) ---
+  跟汤姆问好。  -- check said no (2/2): 问好 is fixed expression 'greet', not result complement
+  准备好了吗？  -- check said no (1/2): 好 means 'ready', not a result complement
+  你比我记得好。  -- check said no (2/2): 好 is comparative adverb 'better', not result complement
+  飞机准备好了。  -- check said no (1/2): 好 means 'ready', not a result complement
+  你准备好了吗？  -- check said no (1/2): 好 here means 'ready', not a result complement
+  还没怎么准备好。  -- check said no (1/2): 好 means 'ready', not a result complement
+  我想让你准备好。  -- check said no (2/2): 好 means 'ready/prepared', not a result complement
+  我没有真的准备好。  -- check said no (2/2): 好 means 'ready', not a result complement showing action result
+  玛莉问我们有没有准备好。  -- check said no (1/2): 准备好 means 'ready' (state), not action result
+  我在等你们。你们什么时候准备好？  -- check said no (1/2): 准备好 here means 'ready' (state), not result complement
+
+--- dropped at step 8 (2) ---
+  你一准备好，我们就走。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句) with 准备好 result complement, creating complex conditional structure
+  我工作一做完就来找你们。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句), which is HSK 2 but often paired with 2-57 连动句 creating complexity beyond the level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-49_level2_20261112_174043.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-49 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-49 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-49 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3353  2. contain the point's word(s)
+     3344  3. new (not in DB, not a duplicate)
+     1849  4. at most 2 characters outside HSK 2 words
+      266  5. really HSK 2
+      243  5b. no harder grammar point (of the 40 with a rule)
+       36  6. the rule finds 2-49
+       35  6b. no hidden word a learner can't work out
+       25  7. both checks say 2-49, English chosen
+       23  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (23) ===
+  我洗好了。  (I'm all washed up.)  [tatoeba 2300033]
+  我看错了。  (I misread.)  [tatoeba 2302851]
+  我想错了。  (I was wrong.)  [tatoeba 2367643]
+  我读错了。  (I read it wrong.)  [tatoeba 10537182]
+  你说完了吗？  (Are you done talking?)  [tatoeba 7774372]
+  我上完课很累。  (I am very tired after a class.)  [tatoeba 5613688]
+  我写错了一个字。  (I miswrote a word.)  [tatoeba 1275227]  hidden: 一个
+  我知道我做错了。  (I know what I did was wrong.)  [tatoeba 5663534]
+  我会读完这本书。  (I'll finish reading this book.)  [tatoeba 6075166]
+  谢谢，我说完了。  (Thank you, I've finished talking.)  [tatoeba 7772146]
+  你喝完咖啡了吗？  (Have you finished your coffee?)  [tatoeba 9960212]
+  汤姆还没吃完午饭。  (Tom hasn't finished his lunch yet.)  [tatoeba 6103180]
+  我还没读完这本书。  (I haven't finished reading this book yet.)  [tatoeba 6623176]
+  你听懂他说的了吗？  (Did you understand what he said?)  [tatoeba 8778495]
+  她说她还没准备好。  (She said she wasn't ready.)  [tatoeba 9956328]
+  他说错了，不是吗？  (He is wrong, isn't he?)  [tatoeba 9987081]  hidden: 不是吗
+  我没听懂您的意思。  (I didn't understand you.)  [tatoeba 10457841]
+  汤姆去年上完了大学。  (Tom finished college last year.)  [tatoeba 6075706]
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]
+  你什么时候做完工作？  (When will you finish your work?)  [tatoeba 9968742]  hidden: 什么时候
+  吃完饭，大家都很累了。  (After eating the meal, everyone is tired.)  [tatoeba 5854742]
+  你看完这本书要多少时间？  (How long did it take you to finish reading that book?)  [tatoeba 6321865]
+  你们两个人都准备好了吗？  (Are you two ready?)  [tatoeba 8848653]
+
+--- dropped at step 3 (9) ---
+  我想吃点好吃的。  -- same text as tatoeba 4061626 (translations pooled)
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  这是个好主意。  -- already in the database
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你会开车吗？  -- already in the database
+  你会写多少汉字？  -- same text as tatoeba 6057136 (translations pooled)
+  一切都会好起来的。  -- same text as tatoeba 7767746 (translations pooled)
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (1495), first 12 ---
+  我永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  我们永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  丽萨不但会说英文，而且会说法文。  -- 5 characters no HSK 2 word uses: 且丽法而萨
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  这个城堡好美。  -- 3 characters no HSK 2 word uses: 城堡美
+  社会保障吗？他们在说什么笑话？  -- 3 characters no HSK 2 word uses: 保社障
+  毕竟，即使是神也会偶尔出差错。  -- 8 characters no HSK 2 word uses: 使偶即尔差毕神竟
+  请填好这张表格。  -- 3 characters no HSK 2 word uses: 填张格
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1583), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  她会十门语言。  -- level 3: 语言 L3
+  好，定了。  -- level 4: 定 L4
+  便宜的肉做不出好汤。  -- level 4: 汤 L4
+  你等一会然后再给我打电话，可以吗？  -- level 3: 然后 L3
+  我昨晚没睡好。  -- level 10: 昨晚 (not in list)
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  自助是最好的帮助。  -- level 6: 自助 L6, 最好 L3, 帮助 L3
+  这件事我实在不懂。  -- level 4: 实在 L4
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+
+--- dropped at step 5b (23), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  我真读不懂她。  -- harder grammar: 3-48 (HSK 3)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  “她也会来吗？” “我希望是这样。”  -- harder grammar: 3-60 (HSK 3)
+  我会请Tom等。  -- harder grammar: 2-35 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我还要再睡一会儿。  -- harder grammar: 3-16 (HSK 3)
+  我不觉得他自己一个人会做到。  -- harder grammar: 3-46 (HSK 3)
+  他们说他们不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  你看得懂这本书吗？  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (207) ---
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我知道他会画画。  -- rule: unless 会/VV
+  我不懂。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  我休息一会没问题吧？  -- rule: no match: line matched
+  我们的饭店比那家饭店好。  -- rule: no match: line matched
+  但咖啡不好。  -- rule: no match: line matched
+  都是我的错。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: unless 会/VV
+  他游泳比我好。  -- rule: no match: line matched
+  这是我的错。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  不会花很多时间的。  -- rule: unless 会/VV
+  你这样做是错的。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  真希望我会游泳。  -- rule: unless 会/VV
+  玛丽明天会来帮我们。  -- rule: unless 会/VV
+  很有可能还会下雨。  -- rule: unless 会/VV
+  你看过这么好看的电影吗？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: unless 会/VV
+  我不知道她什么时候会回来。  -- rule: unless 会/VV
+  我已经会写汉字了。  -- rule: unless 会/VV
+  我不懂你什么意思。  -- rule: no match: line matched
+  现在，让我们休息一会儿吧。  -- rule: no match: line matched
+  我会说中文，但是我不会读中文。  -- rule: unless 会/VV
+  因为我会说中文。  -- rule: unless 会/VV
+  你游泳游得比我好。  -- rule: no match: line matched
+  做得很好。  -- rule: no match: line matched
+  请在这儿等一会儿。  -- rule: no match: line matched
+  我是一个好男孩。  -- rule: no match: line matched
+  看起来不错。  -- rule: no match: line matched
+  你几点会到车站？  -- rule: unless 会/VV
+  我不懂汉语，但我想学。  -- rule: no match: line matched
+  “他明天去游泳吗？” “没错”  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  你不懂。  -- rule: no match: line matched
+  我想你快点好。  -- rule: no match: line matched
+  你的爱好是什么？  -- rule: no match: line matched
+  他的身体很好。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  我会在约翰来的时候走。  -- rule: unless 会/VV
+  这条鱼很好吃。  -- rule: no match: line matched
+  鸟会飞。  -- rule: unless 会/VV
+  但是咖啡不好喝。  -- rule: unless 好/AD
+  水果对身体非常好。  -- rule: no match: line matched
+  我身体很好。  -- rule: no match: line matched
+  他汉字写得非常好。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  她很懂汉字。  -- rule: no match: line matched
+  那个小男孩会走路。  -- rule: unless 会/VV
+  Julián错了吗？  -- rule: no match: line matched
+  你会跳舞吗？  -- rule: unless 会/VV
+  做得好！  -- rule: no match: line matched
+  我一点英语也不懂。  -- rule: no match: line matched
+  那不是我的错。  -- rule: no match: line matched
+  对他好一点。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: unless 会/VV
+  我想他会很快回来的。  -- rule: unless 会/VV
+  我真的好忙。  -- rule: unless 好/AD
+  不，我不懂。  -- rule: no match: line matched
+  我不知道在哪里开始好。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  我是个好男孩。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么会知道？  -- rule: unless 会/VV
+  他们会跟着她。  -- rule: unless 会/VV
+  你在班里有好朋友吗？  -- rule: unless 有 好
+  他写得一手好字。  -- rule: no match: line matched
+  都是你的错。  -- rule: no match: line matched
+  汤姆不会游泳。  -- rule: unless 会/VV
+  你看上去很好。  -- rule: no match: line matched
+  那样是错的。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  那本书卖得很好。  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: unless 会/VV
+  我不知道它是好是坏。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  他们不错。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  这画不错。  -- rule: no match: line matched
+  我会帮他。  -- rule: unless 会/VV
+  我不知道谁会在机场见我。  -- rule: unless 会/VV
+  他会跟我来。  -- rule: unless 会/VV
+  我走了，你会想我。  -- rule: unless 会/VV
+  他会告诉我真想吗？  -- rule: unless 会/VV
+  是雨的错？  -- rule: no match: line matched
+  她是一个很好的女孩。  -- rule: no match: line matched
+  你比他好。  -- rule: no match: line matched
+  他们告诉我这是你的错。  -- rule: no match: line matched
+  我不会让你去做。  -- rule: unless 会/VV
+  我可能会说是。  -- rule: unless 会/VV
+  我过会儿再跟你们一起。  -- rule: no match: line matched
+  这是最好的。  -- rule: no match: line matched
+  学校不会教你这个。  -- rule: unless 会/VV
+  北京哪里最好玩？  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: unless 会/VV
+  有你帮我真好。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  这可能很好玩。  -- rule: no match: line matched
+  这是我读过的最好的书。  -- rule: no match: line matched
+  我会自己走。  -- rule: unless 会/VV
+  我会等一两天。  -- rule: unless 会/VV
+  我希望汤姆有一天会来这里。  -- rule: unless 会/VV
+  我会跟你一起回家。  -- rule: unless 会/VV
+  跟你一起吃午饭会让我高兴。  -- rule: unless 会/VV
+  我会在星期一给你打电话。  -- rule: unless 会/VV
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  我会告诉我的妻子。  -- rule: unless 会/VV
+  一会儿见！  -- rule: no match: line matched
+  我只想做好事。  -- rule: no match: line matched
+  这就是错的。  -- rule: no match: line matched
+  休息几天会对你好的。  -- rule: unless 会/VV
+  那不是汤姆的错。  -- rule: no match: line matched
+  错在哪里？  -- rule: no match: line matched
+  我不知道你不会游泳。  -- rule: unless 会/VV
+  这什么时候能准备好？  -- rule: unless 能/VV
+  你懂了吗？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  她还是个孩子的时候，唱歌很好听。  -- rule: no match: line matched
+  我会告诉他你来问过。  -- rule: unless 会/VV
+  不知道明天天气会怎么样呢？  -- rule: unless 会/VV
+  不好意思，你的名字是什么？  -- rule: no match: line matched
+  请坐一会。  -- rule: no match: line matched
+  这药会让你舒服些。  -- rule: unless 会/VV
+  你明天会踢足球。  -- rule: unless 会/VV
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  你看上去不太好。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: unless 会/VV
+  我今年去了好几次外国。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  你觉得好些了吗？  -- rule: unless 好 几|些|多|久 ; 觉得|认为|希望|祝|感觉 好
+  我再也不会跟你说话了。  -- rule: unless 会/VV
+  你说过你会帮我的。  -- rule: unless 会/VV
+  到哪里我都会跟着你。  -- rule: unless 会/VV
+  劳莉会游泳。  -- rule: unless 会/VV
+  我下周会去见他们。  -- rule: unless 会/VV
+  我会在明天午饭前回来。  -- rule: unless 会/VV
+  这样好多了。  -- rule: unless 好 几|些|多|久
+  她说她会等我们的。  -- rule: unless 会/VV
+  我会告诉她，你来了。  -- rule: unless 会/VV
+  今天天气不错，出去走走吧。  -- rule: no match: line matched
+  虽然他是中国人，但他不会说中文。  -- rule: unless 会/VV
+  不是每个人都会爱你。  -- rule: unless 会/VV
+  我没告诉汤姆，就不会告诉你。  -- rule: unless 会/VV
+  你懂吗？可能吧。  -- rule: no match: line matched
+  我懂。  -- rule: no match: line matched
+  我会唱歌跳舞。  -- rule: unless 会/VV
+  她的新书卖得不错。  -- rule: no match: line matched
+  你眼睛不好吗?  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  我会告诉你他们的名字。  -- rule: unless 会/VV
+  天气比昨天好。  -- rule: no match: line matched
+  好的，我们一会儿见。  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: unless 会/VV
+  他们不会让她跑了的。  -- rule: unless 会/VV
+  你会去问他们，对吧？  -- rule: unless 会/VV
+  不好意思，请问鸡蛋在哪儿？  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: unless 会/VV
+  「好大！」「对，这是 IMAX！」  -- rule: unless 好/AD
+  他懂义大利文吗？  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: unless 会/VV
+  你下周也会在波士顿吗？  -- rule: unless 会/VV
+  听起来他是个好人。  -- rule: no match: line matched
+  你会做得很好的。  -- rule: unless 会/VV
+  有人会这样想。  -- rule: unless 会/VV
+  两好球！  -- rule: no match: line matched
+  一好球！  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  他会走的。  -- rule: unless 会/VV
+  汤姆猫会帮我们吗？  -- rule: unless 会/VV
+  帮我们一下，好吗？  -- rule: no match: line matched
+  汤姆是个好人，不是吗 ?  -- rule: no match: line matched
+  错！  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: no match: line matched
+  我知道这是错的。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: unless 会/VV
+  明天可能会下雪。  -- rule: unless 会/VV
+  明天下午会是晴天。  -- rule: unless 会/VV
+  今天天气不错。  -- rule: no match: line matched
+  你家谁唱歌最好听？  -- rule: no match: line matched
+  没想到你会告诉我。  -- rule: unless 会/VV
+  我考得很好。  -- rule: no match: line matched
+  今天时间过得好慢。  -- rule: unless 好/AD
+  她会帮我们吧？  -- rule: unless 会/VV
+  她会帮我们的，不是吗？  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: unless 会/VV
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: unless 好 几|些|多|久
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  我想你不会那么做的吧。  -- rule: unless 会/VV
+  他会拿到一小笔钱。  -- rule: unless 会/VV
+  我小时候很会游泳。  -- rule: unless 会/VV
+  做自己就好。  -- rule: no match: line matched
+  艾米丽会游泳。  -- rule: unless 会/VV
+  我们休息一下，好吗？  -- rule: no match: line matched
+  我没错！  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: unless 会/VV
+  我知道汤姆不可能会那么做了。  -- rule: unless 会/VV
+  能回来真是太好了。  -- rule: unless 能/VV
+  天气好的时候我会去洗衣服。  -- rule: unless 会/VV
+
+--- dropped at step 6b (1) ---
+  我就要读完这本书了。  -- hidden word a learner can't work out: 就要 (will; shall)
+
+--- dropped at step 7 (10) ---
+  跟汤姆问好。  -- check said no (2/2): 问好 is fixed expression 'greet', not result complement
+  准备好了吗？  -- check said no (1/2): 好 means 'ready', not a result complement
+  你比我记得好。  -- check said no (2/2): 好 is comparative adverb 'better', not result complement
+  飞机准备好了。  -- check said no (1/2): 好 means 'ready', not a result complement
+  你准备好了吗？  -- check said no (1/2): 好 here means 'ready', not a result complement
+  还没怎么准备好。  -- check said no (1/2): 好 means 'ready', not a result complement
+  我想让你准备好。  -- check said no (2/2): 好 means 'ready/prepared', not a result complement
+  我没有真的准备好。  -- check said no (2/2): 好 means 'ready', not a result complement showing action result
+  玛莉问我们有没有准备好。  -- check said no (1/2): 准备好 means 'ready' (state), not action result
+  我在等你们。你们什么时候准备好？  -- check said no (1/2): 准备好 here means 'ready' (state), not result complement
+
+--- dropped at step 8 (2) ---
+  你一准备好，我们就走。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句) with 准备好 result complement, creating complex conditional structure
+  我工作一做完就来找你们。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句), which is HSK 2 but often paired with 2-57 连动句 creating complexity beyond the level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-49_level2_20261112_211517.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 2-49 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-49 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-49 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3353  2. contain the point's word(s)
+     3344  3. new (not in DB, not a duplicate)
+     1849  4. at most 2 characters outside HSK 2 words
+      266  5. really HSK 2
+      239  5b. no harder grammar point (of the 44 with a rule)
+       36  6. the rule finds 2-49
+       35  6b. no hidden word a learner can't work out
+       25  7. both checks say 2-49, English chosen
+       23  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (23) ===
+  我洗好了。  (I'm all washed up.)  [tatoeba 2300033]
+  我看错了。  (I misread.)  [tatoeba 2302851]
+  我想错了。  (I was wrong.)  [tatoeba 2367643]
+  我读错了。  (I read it wrong.)  [tatoeba 10537182]
+  你说完了吗？  (Are you done talking?)  [tatoeba 7774372]
+  我上完课很累。  (I am very tired after a class.)  [tatoeba 5613688]
+  我写错了一个字。  (I miswrote a word.)  [tatoeba 1275227]  hidden: 一个
+  我知道我做错了。  (I know what I did was wrong.)  [tatoeba 5663534]
+  我会读完这本书。  (I'll finish reading this book.)  [tatoeba 6075166]
+  谢谢，我说完了。  (Thank you, I've finished talking.)  [tatoeba 7772146]
+  你喝完咖啡了吗？  (Have you finished your coffee?)  [tatoeba 9960212]
+  汤姆还没吃完午饭。  (Tom hasn't finished his lunch yet.)  [tatoeba 6103180]
+  我还没读完这本书。  (I haven't finished reading this book yet.)  [tatoeba 6623176]
+  你听懂他说的了吗？  (Did you understand what he said?)  [tatoeba 8778495]
+  她说她还没准备好。  (She said she wasn't ready.)  [tatoeba 9956328]
+  他说错了，不是吗？  (He is wrong, isn't he?)  [tatoeba 9987081]  hidden: 不是吗
+  我没听懂您的意思。  (I didn't understand you.)  [tatoeba 10457841]
+  汤姆去年上完了大学。  (Tom finished college last year.)  [tatoeba 6075706]
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]
+  你什么时候做完工作？  (When will you finish your work?)  [tatoeba 9968742]  hidden: 什么时候
+  吃完饭，大家都很累了。  (After eating the meal, everyone is tired.)  [tatoeba 5854742]
+  你看完这本书要多少时间？  (How long did it take you to finish reading that book?)  [tatoeba 6321865]
+  你们两个人都准备好了吗？  (Are you two ready?)  [tatoeba 8848653]
+
+--- dropped at step 3 (9) ---
+  我想吃点好吃的。  -- same text as tatoeba 4061626 (translations pooled)
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  这是个好主意。  -- already in the database
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你会开车吗？  -- already in the database
+  你会写多少汉字？  -- same text as tatoeba 6057136 (translations pooled)
+  一切都会好起来的。  -- same text as tatoeba 7767746 (translations pooled)
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (1495), first 12 ---
+  我永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  我们永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  丽萨不但会说英文，而且会说法文。  -- 5 characters no HSK 2 word uses: 且丽法而萨
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  这个城堡好美。  -- 3 characters no HSK 2 word uses: 城堡美
+  社会保障吗？他们在说什么笑话？  -- 3 characters no HSK 2 word uses: 保社障
+  毕竟，即使是神也会偶尔出差错。  -- 8 characters no HSK 2 word uses: 使偶即尔差毕神竟
+  请填好这张表格。  -- 3 characters no HSK 2 word uses: 填张格
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1583), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  她会十门语言。  -- level 3: 语言 L3
+  好，定了。  -- level 4: 定 L4
+  便宜的肉做不出好汤。  -- level 4: 汤 L4
+  你等一会然后再给我打电话，可以吗？  -- level 3: 然后 L3
+  我昨晚没睡好。  -- level 10: 昨晚 (not in list)
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  自助是最好的帮助。  -- level 6: 自助 L6, 最好 L3, 帮助 L3
+  这件事我实在不懂。  -- level 4: 实在 L4
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+
+--- dropped at step 5b (27), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  我真读不懂她。  -- harder grammar: 3-48 (HSK 3)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  “她也会来吗？” “我希望是这样。”  -- harder grammar: 3-60 (HSK 3)
+  我会请Tom等。  -- harder grammar: 2-35 (HSK 3)
+  我不知道它是好是坏。  -- harder grammar: 2-06 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我还要再睡一会儿。  -- harder grammar: 3-16 (HSK 3)
+  我会自己走。  -- harder grammar: 2-06 (HSK 3)
+  我不觉得他自己一个人会做到。  -- harder grammar: 3-46 (HSK 3), 2-06 (HSK 3)
+
+--- dropped at step 6 (203) ---
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我知道他会画画。  -- rule: unless 会/VV
+  我不懂。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  我休息一会没问题吧？  -- rule: no match: line matched
+  我们的饭店比那家饭店好。  -- rule: no match: line matched
+  但咖啡不好。  -- rule: no match: line matched
+  都是我的错。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: unless 会/VV
+  他游泳比我好。  -- rule: no match: line matched
+  这是我的错。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  不会花很多时间的。  -- rule: unless 会/VV
+  你这样做是错的。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  真希望我会游泳。  -- rule: unless 会/VV
+  玛丽明天会来帮我们。  -- rule: unless 会/VV
+  很有可能还会下雨。  -- rule: unless 会/VV
+  你看过这么好看的电影吗？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: unless 会/VV
+  我不知道她什么时候会回来。  -- rule: unless 会/VV
+  我已经会写汉字了。  -- rule: unless 会/VV
+  我不懂你什么意思。  -- rule: no match: line matched
+  现在，让我们休息一会儿吧。  -- rule: no match: line matched
+  我会说中文，但是我不会读中文。  -- rule: unless 会/VV
+  因为我会说中文。  -- rule: unless 会/VV
+  你游泳游得比我好。  -- rule: no match: line matched
+  做得很好。  -- rule: no match: line matched
+  请在这儿等一会儿。  -- rule: no match: line matched
+  我是一个好男孩。  -- rule: no match: line matched
+  看起来不错。  -- rule: no match: line matched
+  你几点会到车站？  -- rule: unless 会/VV
+  我不懂汉语，但我想学。  -- rule: no match: line matched
+  “他明天去游泳吗？” “没错”  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  你不懂。  -- rule: no match: line matched
+  我想你快点好。  -- rule: no match: line matched
+  你的爱好是什么？  -- rule: no match: line matched
+  他的身体很好。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  我会在约翰来的时候走。  -- rule: unless 会/VV
+  这条鱼很好吃。  -- rule: no match: line matched
+  鸟会飞。  -- rule: unless 会/VV
+  但是咖啡不好喝。  -- rule: unless 好/AD
+  水果对身体非常好。  -- rule: no match: line matched
+  我身体很好。  -- rule: no match: line matched
+  他汉字写得非常好。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  她很懂汉字。  -- rule: no match: line matched
+  那个小男孩会走路。  -- rule: unless 会/VV
+  Julián错了吗？  -- rule: no match: line matched
+  你会跳舞吗？  -- rule: unless 会/VV
+  做得好！  -- rule: no match: line matched
+  我一点英语也不懂。  -- rule: no match: line matched
+  那不是我的错。  -- rule: no match: line matched
+  对他好一点。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: unless 会/VV
+  我想他会很快回来的。  -- rule: unless 会/VV
+  我真的好忙。  -- rule: unless 好/AD
+  不，我不懂。  -- rule: no match: line matched
+  我不知道在哪里开始好。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  我是个好男孩。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么会知道？  -- rule: unless 会/VV
+  他们会跟着她。  -- rule: unless 会/VV
+  你在班里有好朋友吗？  -- rule: unless 有 好
+  他写得一手好字。  -- rule: no match: line matched
+  都是你的错。  -- rule: no match: line matched
+  汤姆不会游泳。  -- rule: unless 会/VV
+  你看上去很好。  -- rule: no match: line matched
+  那样是错的。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  那本书卖得很好。  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: unless 会/VV
+  他们不错。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  这画不错。  -- rule: no match: line matched
+  我会帮他。  -- rule: unless 会/VV
+  我不知道谁会在机场见我。  -- rule: unless 会/VV
+  他会跟我来。  -- rule: unless 会/VV
+  我走了，你会想我。  -- rule: unless 会/VV
+  他会告诉我真想吗？  -- rule: unless 会/VV
+  是雨的错？  -- rule: no match: line matched
+  她是一个很好的女孩。  -- rule: no match: line matched
+  你比他好。  -- rule: no match: line matched
+  他们告诉我这是你的错。  -- rule: no match: line matched
+  我不会让你去做。  -- rule: unless 会/VV
+  我可能会说是。  -- rule: unless 会/VV
+  我过会儿再跟你们一起。  -- rule: no match: line matched
+  这是最好的。  -- rule: no match: line matched
+  学校不会教你这个。  -- rule: unless 会/VV
+  北京哪里最好玩？  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: unless 会/VV
+  有你帮我真好。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  这可能很好玩。  -- rule: no match: line matched
+  这是我读过的最好的书。  -- rule: no match: line matched
+  我会等一两天。  -- rule: unless 会/VV
+  我希望汤姆有一天会来这里。  -- rule: unless 会/VV
+  我会跟你一起回家。  -- rule: unless 会/VV
+  跟你一起吃午饭会让我高兴。  -- rule: unless 会/VV
+  我会在星期一给你打电话。  -- rule: unless 会/VV
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  我会告诉我的妻子。  -- rule: unless 会/VV
+  一会儿见！  -- rule: no match: line matched
+  我只想做好事。  -- rule: no match: line matched
+  这就是错的。  -- rule: no match: line matched
+  休息几天会对你好的。  -- rule: unless 会/VV
+  那不是汤姆的错。  -- rule: no match: line matched
+  错在哪里？  -- rule: no match: line matched
+  我不知道你不会游泳。  -- rule: unless 会/VV
+  这什么时候能准备好？  -- rule: unless 能/VV
+  你懂了吗？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  她还是个孩子的时候，唱歌很好听。  -- rule: no match: line matched
+  我会告诉他你来问过。  -- rule: unless 会/VV
+  不知道明天天气会怎么样呢？  -- rule: unless 会/VV
+  不好意思，你的名字是什么？  -- rule: no match: line matched
+  请坐一会。  -- rule: no match: line matched
+  这药会让你舒服些。  -- rule: unless 会/VV
+  你明天会踢足球。  -- rule: unless 会/VV
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  你看上去不太好。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: unless 会/VV
+  我今年去了好几次外国。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  你觉得好些了吗？  -- rule: unless 好 几|些|多|久 ; 觉得|认为|希望|祝|感觉 好
+  我再也不会跟你说话了。  -- rule: unless 会/VV
+  你说过你会帮我的。  -- rule: unless 会/VV
+  到哪里我都会跟着你。  -- rule: unless 会/VV
+  劳莉会游泳。  -- rule: unless 会/VV
+  我下周会去见他们。  -- rule: unless 会/VV
+  我会在明天午饭前回来。  -- rule: unless 会/VV
+  这样好多了。  -- rule: unless 好 几|些|多|久
+  她说她会等我们的。  -- rule: unless 会/VV
+  我会告诉她，你来了。  -- rule: unless 会/VV
+  今天天气不错，出去走走吧。  -- rule: no match: line matched
+  虽然他是中国人，但他不会说中文。  -- rule: unless 会/VV
+  不是每个人都会爱你。  -- rule: unless 会/VV
+  我没告诉汤姆，就不会告诉你。  -- rule: unless 会/VV
+  你懂吗？可能吧。  -- rule: no match: line matched
+  我懂。  -- rule: no match: line matched
+  我会唱歌跳舞。  -- rule: unless 会/VV
+  她的新书卖得不错。  -- rule: no match: line matched
+  你眼睛不好吗?  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  我会告诉你他们的名字。  -- rule: unless 会/VV
+  天气比昨天好。  -- rule: no match: line matched
+  好的，我们一会儿见。  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: unless 会/VV
+  他们不会让她跑了的。  -- rule: unless 会/VV
+  你会去问他们，对吧？  -- rule: unless 会/VV
+  不好意思，请问鸡蛋在哪儿？  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: unless 会/VV
+  「好大！」「对，这是 IMAX！」  -- rule: unless 好/AD
+  他懂义大利文吗？  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: unless 会/VV
+  你下周也会在波士顿吗？  -- rule: unless 会/VV
+  听起来他是个好人。  -- rule: no match: line matched
+  你会做得很好的。  -- rule: unless 会/VV
+  有人会这样想。  -- rule: unless 会/VV
+  两好球！  -- rule: no match: line matched
+  一好球！  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  他会走的。  -- rule: unless 会/VV
+  汤姆猫会帮我们吗？  -- rule: unless 会/VV
+  帮我们一下，好吗？  -- rule: no match: line matched
+  汤姆是个好人，不是吗 ?  -- rule: no match: line matched
+  错！  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: no match: line matched
+  我知道这是错的。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: unless 会/VV
+  明天可能会下雪。  -- rule: unless 会/VV
+  明天下午会是晴天。  -- rule: unless 会/VV
+  今天天气不错。  -- rule: no match: line matched
+  你家谁唱歌最好听？  -- rule: no match: line matched
+  没想到你会告诉我。  -- rule: unless 会/VV
+  我考得很好。  -- rule: no match: line matched
+  今天时间过得好慢。  -- rule: unless 好/AD
+  她会帮我们吧？  -- rule: unless 会/VV
+  她会帮我们的，不是吗？  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: unless 会/VV
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: unless 好 几|些|多|久
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  我想你不会那么做的吧。  -- rule: unless 会/VV
+  他会拿到一小笔钱。  -- rule: unless 会/VV
+  我小时候很会游泳。  -- rule: unless 会/VV
+  艾米丽会游泳。  -- rule: unless 会/VV
+  我们休息一下，好吗？  -- rule: no match: line matched
+  我没错！  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: unless 会/VV
+  我知道汤姆不可能会那么做了。  -- rule: unless 会/VV
+  能回来真是太好了。  -- rule: unless 能/VV
+  天气好的时候我会去洗衣服。  -- rule: unless 会/VV
+
+--- dropped at step 6b (1) ---
+  我就要读完这本书了。  -- hidden word a learner can't work out: 就要 (will; shall)
+
+--- dropped at step 7 (10) ---
+  跟汤姆问好。  -- check said no (2/2): 问好 is fixed expression 'greet', not result complement
+  准备好了吗？  -- check said no (1/2): 好 means 'ready', not a result complement
+  你比我记得好。  -- check said no (2/2): 好 is comparative adverb 'better', not result complement
+  飞机准备好了。  -- check said no (1/2): 好 means 'ready', not a result complement
+  你准备好了吗？  -- check said no (1/2): 好 here means 'ready', not a result complement
+  还没怎么准备好。  -- check said no (1/2): 好 means 'ready', not a result complement
+  我想让你准备好。  -- check said no (2/2): 好 means 'ready/prepared', not a result complement
+  我没有真的准备好。  -- check said no (2/2): 好 means 'ready', not a result complement showing action result
+  玛莉问我们有没有准备好。  -- check said no (1/2): 准备好 means 'ready' (state), not action result
+  我在等你们。你们什么时候准备好？  -- check said no (1/2): 准备好 here means 'ready' (state), not result complement
+
+--- dropped at step 8 (2) ---
+  你一准备好，我们就走。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句) with 准备好 result complement, creating complex conditional structure
+  我工作一做完就来找你们。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句), which is HSK 2 but often paired with 2-57 连动句 creating complexity beyond the level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-49_level2_20261113_135459.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:45 ##########
+Filling 2-49 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  就要 = 就 + 要  (will; shall)
+
+Course sentences at HSK 2 the rule already finds 2-49 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-49 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3353  2. contain the point's word(s)
+     3344  3. new (not in DB, not a duplicate)
+     1849  4. at most 2 characters outside HSK 2 words
+      266  5. really HSK 2
+      243  5b. no harder grammar point (of the 43 with a rule)
+       36  6. the rule finds 2-49
+       35  6b. no hidden word a learner can't work out
+       25  7. both checks say 2-49, English chosen
+       23  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (23) ===
+  我洗好了。  (I'm all washed up.)  [tatoeba 2300033]
+  我看错了。  (I misread.)  [tatoeba 2302851]
+  我想错了。  (I was wrong.)  [tatoeba 2367643]
+  我读错了。  (I read it wrong.)  [tatoeba 10537182]
+  你说完了吗？  (Are you done talking?)  [tatoeba 7774372]
+  我上完课很累。  (I am very tired after a class.)  [tatoeba 5613688]
+  我写错了一个字。  (I miswrote a word.)  [tatoeba 1275227]  hidden: 一个
+  我知道我做错了。  (I know what I did was wrong.)  [tatoeba 5663534]
+  我会读完这本书。  (I'll finish reading this book.)  [tatoeba 6075166]
+  谢谢，我说完了。  (Thank you, I've finished talking.)  [tatoeba 7772146]
+  你喝完咖啡了吗？  (Have you finished your coffee?)  [tatoeba 9960212]
+  汤姆还没吃完午饭。  (Tom hasn't finished his lunch yet.)  [tatoeba 6103180]
+  我还没读完这本书。  (I haven't finished reading this book yet.)  [tatoeba 6623176]
+  你听懂他说的了吗？  (Did you understand what he said?)  [tatoeba 8778495]
+  她说她还没准备好。  (She said she wasn't ready.)  [tatoeba 9956328]
+  他说错了，不是吗？  (He is wrong, isn't he?)  [tatoeba 9987081]  hidden: 不是吗
+  我没听懂您的意思。  (I didn't understand you.)  [tatoeba 10457841]
+  汤姆去年上完了大学。  (Tom finished college last year.)  [tatoeba 6075706]
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]
+  你什么时候做完工作？  (When will you finish your work?)  [tatoeba 9968742]  hidden: 什么时候
+  吃完饭，大家都很累了。  (After eating the meal, everyone is tired.)  [tatoeba 5854742]
+  你看完这本书要多少时间？  (How long did it take you to finish reading that book?)  [tatoeba 6321865]
+  你们两个人都准备好了吗？  (Are you two ready?)  [tatoeba 8848653]
+
+--- dropped at step 3 (9) ---
+  我想吃点好吃的。  -- same text as tatoeba 4061626 (translations pooled)
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  这是个好主意。  -- already in the database
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你会开车吗？  -- already in the database
+  你会写多少汉字？  -- same text as tatoeba 6057136 (translations pooled)
+  一切都会好起来的。  -- same text as tatoeba 7767746 (translations pooled)
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (1495), first 12 ---
+  我永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  我们永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  丽萨不但会说英文，而且会说法文。  -- 5 characters no HSK 2 word uses: 且丽法而萨
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  这个城堡好美。  -- 3 characters no HSK 2 word uses: 城堡美
+  社会保障吗？他们在说什么笑话？  -- 3 characters no HSK 2 word uses: 保社障
+  毕竟，即使是神也会偶尔出差错。  -- 8 characters no HSK 2 word uses: 使偶即尔差毕神竟
+  请填好这张表格。  -- 3 characters no HSK 2 word uses: 填张格
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1583), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  她会十门语言。  -- level 3: 语言 L3
+  好，定了。  -- level 4: 定 L4
+  便宜的肉做不出好汤。  -- level 4: 汤 L4
+  你等一会然后再给我打电话，可以吗？  -- level 3: 然后 L3
+  我昨晚没睡好。  -- level 10: 昨晚 (not in list)
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  自助是最好的帮助。  -- level 6: 自助 L6, 最好 L3, 帮助 L3
+  这件事我实在不懂。  -- level 4: 实在 L4
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+
+--- dropped at step 5b (23), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  我真读不懂她。  -- harder grammar: 3-48 (HSK 3)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  “她也会来吗？” “我希望是这样。”  -- harder grammar: 3-60 (HSK 3)
+  我会请Tom等。  -- harder grammar: 2-35 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我还要再睡一会儿。  -- harder grammar: 3-16 (HSK 3)
+  我不觉得他自己一个人会做到。  -- harder grammar: 3-46 (HSK 3)
+  他们说他们不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  你看得懂这本书吗？  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (207) ---
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我知道他会画画。  -- rule: unless 会/VV
+  我不懂。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  我休息一会没问题吧？  -- rule: no match: line matched
+  我们的饭店比那家饭店好。  -- rule: no match: line matched
+  但咖啡不好。  -- rule: no match: line matched
+  都是我的错。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: unless 会/VV
+  他游泳比我好。  -- rule: no match: line matched
+  这是我的错。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  不会花很多时间的。  -- rule: unless 会/VV
+  你这样做是错的。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  真希望我会游泳。  -- rule: unless 会/VV
+  玛丽明天会来帮我们。  -- rule: unless 会/VV
+  很有可能还会下雨。  -- rule: unless 会/VV
+  你看过这么好看的电影吗？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: unless 会/VV
+  我不知道她什么时候会回来。  -- rule: unless 会/VV
+  我已经会写汉字了。  -- rule: unless 会/VV
+  我不懂你什么意思。  -- rule: no match: line matched
+  现在，让我们休息一会儿吧。  -- rule: no match: line matched
+  我会说中文，但是我不会读中文。  -- rule: unless 会/VV
+  因为我会说中文。  -- rule: unless 会/VV
+  你游泳游得比我好。  -- rule: no match: line matched
+  做得很好。  -- rule: no match: line matched
+  请在这儿等一会儿。  -- rule: no match: line matched
+  我是一个好男孩。  -- rule: no match: line matched
+  看起来不错。  -- rule: no match: line matched
+  你几点会到车站？  -- rule: unless 会/VV
+  我不懂汉语，但我想学。  -- rule: no match: line matched
+  “他明天去游泳吗？” “没错”  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  你不懂。  -- rule: no match: line matched
+  我想你快点好。  -- rule: no match: line matched
+  你的爱好是什么？  -- rule: no match: line matched
+  他的身体很好。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  我会在约翰来的时候走。  -- rule: unless 会/VV
+  这条鱼很好吃。  -- rule: no match: line matched
+  鸟会飞。  -- rule: unless 会/VV
+  但是咖啡不好喝。  -- rule: unless 好/AD
+  水果对身体非常好。  -- rule: no match: line matched
+  我身体很好。  -- rule: no match: line matched
+  他汉字写得非常好。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  她很懂汉字。  -- rule: no match: line matched
+  那个小男孩会走路。  -- rule: unless 会/VV
+  Julián错了吗？  -- rule: no match: line matched
+  你会跳舞吗？  -- rule: unless 会/VV
+  做得好！  -- rule: no match: line matched
+  我一点英语也不懂。  -- rule: no match: line matched
+  那不是我的错。  -- rule: no match: line matched
+  对他好一点。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: unless 会/VV
+  我想他会很快回来的。  -- rule: unless 会/VV
+  我真的好忙。  -- rule: unless 好/AD
+  不，我不懂。  -- rule: no match: line matched
+  我不知道在哪里开始好。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  我是个好男孩。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么会知道？  -- rule: unless 会/VV
+  他们会跟着她。  -- rule: unless 会/VV
+  你在班里有好朋友吗？  -- rule: unless 有 好
+  他写得一手好字。  -- rule: no match: line matched
+  都是你的错。  -- rule: no match: line matched
+  汤姆不会游泳。  -- rule: unless 会/VV
+  你看上去很好。  -- rule: no match: line matched
+  那样是错的。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  那本书卖得很好。  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: unless 会/VV
+  我不知道它是好是坏。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  他们不错。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  这画不错。  -- rule: no match: line matched
+  我会帮他。  -- rule: unless 会/VV
+  我不知道谁会在机场见我。  -- rule: unless 会/VV
+  他会跟我来。  -- rule: unless 会/VV
+  我走了，你会想我。  -- rule: unless 会/VV
+  他会告诉我真想吗？  -- rule: unless 会/VV
+  是雨的错？  -- rule: no match: line matched
+  她是一个很好的女孩。  -- rule: no match: line matched
+  你比他好。  -- rule: no match: line matched
+  他们告诉我这是你的错。  -- rule: no match: line matched
+  我不会让你去做。  -- rule: unless 会/VV
+  我可能会说是。  -- rule: unless 会/VV
+  我过会儿再跟你们一起。  -- rule: no match: line matched
+  这是最好的。  -- rule: no match: line matched
+  学校不会教你这个。  -- rule: unless 会/VV
+  北京哪里最好玩？  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: unless 会/VV
+  有你帮我真好。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  这可能很好玩。  -- rule: no match: line matched
+  这是我读过的最好的书。  -- rule: no match: line matched
+  我会自己走。  -- rule: unless 会/VV
+  我会等一两天。  -- rule: unless 会/VV
+  我希望汤姆有一天会来这里。  -- rule: unless 会/VV
+  我会跟你一起回家。  -- rule: unless 会/VV
+  跟你一起吃午饭会让我高兴。  -- rule: unless 会/VV
+  我会在星期一给你打电话。  -- rule: unless 会/VV
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  我会告诉我的妻子。  -- rule: unless 会/VV
+  一会儿见！  -- rule: no match: line matched
+  我只想做好事。  -- rule: no match: line matched
+  这就是错的。  -- rule: no match: line matched
+  休息几天会对你好的。  -- rule: unless 会/VV
+  那不是汤姆的错。  -- rule: no match: line matched
+  错在哪里？  -- rule: no match: line matched
+  我不知道你不会游泳。  -- rule: unless 会/VV
+  这什么时候能准备好？  -- rule: unless 能/VV
+  你懂了吗？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  她还是个孩子的时候，唱歌很好听。  -- rule: no match: line matched
+  我会告诉他你来问过。  -- rule: unless 会/VV
+  不知道明天天气会怎么样呢？  -- rule: unless 会/VV
+  不好意思，你的名字是什么？  -- rule: no match: line matched
+  请坐一会。  -- rule: no match: line matched
+  这药会让你舒服些。  -- rule: unless 会/VV
+  你明天会踢足球。  -- rule: unless 会/VV
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  你看上去不太好。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: unless 会/VV
+  我今年去了好几次外国。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  你觉得好些了吗？  -- rule: unless 好 几|些|多|久 ; 觉得|认为|希望|祝|感觉 好
+  我再也不会跟你说话了。  -- rule: unless 会/VV
+  你说过你会帮我的。  -- rule: unless 会/VV
+  到哪里我都会跟着你。  -- rule: unless 会/VV
+  劳莉会游泳。  -- rule: unless 会/VV
+  我下周会去见他们。  -- rule: unless 会/VV
+  我会在明天午饭前回来。  -- rule: unless 会/VV
+  这样好多了。  -- rule: unless 好 几|些|多|久
+  她说她会等我们的。  -- rule: unless 会/VV
+  我会告诉她，你来了。  -- rule: unless 会/VV
+  今天天气不错，出去走走吧。  -- rule: no match: line matched
+  虽然他是中国人，但他不会说中文。  -- rule: unless 会/VV
+  不是每个人都会爱你。  -- rule: unless 会/VV
+  我没告诉汤姆，就不会告诉你。  -- rule: unless 会/VV
+  你懂吗？可能吧。  -- rule: no match: line matched
+  我懂。  -- rule: no match: line matched
+  我会唱歌跳舞。  -- rule: unless 会/VV
+  她的新书卖得不错。  -- rule: no match: line matched
+  你眼睛不好吗?  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  我会告诉你他们的名字。  -- rule: unless 会/VV
+  天气比昨天好。  -- rule: no match: line matched
+  好的，我们一会儿见。  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: unless 会/VV
+  他们不会让她跑了的。  -- rule: unless 会/VV
+  你会去问他们，对吧？  -- rule: unless 会/VV
+  不好意思，请问鸡蛋在哪儿？  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: unless 会/VV
+  「好大！」「对，这是 IMAX！」  -- rule: unless 好/AD
+  他懂义大利文吗？  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: unless 会/VV
+  你下周也会在波士顿吗？  -- rule: unless 会/VV
+  听起来他是个好人。  -- rule: no match: line matched
+  你会做得很好的。  -- rule: unless 会/VV
+  有人会这样想。  -- rule: unless 会/VV
+  两好球！  -- rule: no match: line matched
+  一好球！  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  他会走的。  -- rule: unless 会/VV
+  汤姆猫会帮我们吗？  -- rule: unless 会/VV
+  帮我们一下，好吗？  -- rule: no match: line matched
+  汤姆是个好人，不是吗 ?  -- rule: no match: line matched
+  错！  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: no match: line matched
+  我知道这是错的。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: unless 会/VV
+  明天可能会下雪。  -- rule: unless 会/VV
+  明天下午会是晴天。  -- rule: unless 会/VV
+  今天天气不错。  -- rule: no match: line matched
+  你家谁唱歌最好听？  -- rule: no match: line matched
+  没想到你会告诉我。  -- rule: unless 会/VV
+  我考得很好。  -- rule: no match: line matched
+  今天时间过得好慢。  -- rule: unless 好/AD
+  她会帮我们吧？  -- rule: unless 会/VV
+  她会帮我们的，不是吗？  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: unless 会/VV
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: unless 好 几|些|多|久
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  我想你不会那么做的吧。  -- rule: unless 会/VV
+  他会拿到一小笔钱。  -- rule: unless 会/VV
+  我小时候很会游泳。  -- rule: unless 会/VV
+  做自己就好。  -- rule: no match: line matched
+  艾米丽会游泳。  -- rule: unless 会/VV
+  我们休息一下，好吗？  -- rule: no match: line matched
+  我没错！  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: unless 会/VV
+  我知道汤姆不可能会那么做了。  -- rule: unless 会/VV
+  能回来真是太好了。  -- rule: unless 能/VV
+  天气好的时候我会去洗衣服。  -- rule: unless 会/VV
+
+--- dropped at step 6b (1) ---
+  我就要读完这本书了。  -- hidden word a learner can't work out: 就要 (will; shall)
+
+--- dropped at step 7 (10) ---
+  跟汤姆问好。  -- check said no (2/2): 问好 is fixed expression 'greet', not result complement
+  准备好了吗？  -- check said no (1/2): 好 means 'ready', not a result complement
+  你比我记得好。  -- check said no (2/2): 好 is comparative adverb 'better', not result complement
+  飞机准备好了。  -- check said no (1/2): 好 means 'ready', not a result complement
+  你准备好了吗？  -- check said no (1/2): 好 here means 'ready', not a result complement
+  还没怎么准备好。  -- check said no (1/2): 好 means 'ready', not a result complement
+  我想让你准备好。  -- check said no (2/2): 好 means 'ready/prepared', not a result complement
+  我没有真的准备好。  -- check said no (2/2): 好 means 'ready', not a result complement showing action result
+  玛莉问我们有没有准备好。  -- check said no (1/2): 准备好 means 'ready' (state), not action result
+  我在等你们。你们什么时候准备好？  -- check said no (1/2): 准备好 here means 'ready' (state), not result complement
+
+--- dropped at step 8 (2) ---
+  你一准备好，我们就走。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句) with 准备好 result complement, creating complex conditional structure
+  我工作一做完就来找你们。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句), which is HSK 2 but often paired with 2-57 连动句 creating complexity beyond the level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-49_level2_20261113_144524.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:10 ##########
+Filling 2-49 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 3 Tatoeba candidate(s) (cached after this run)...
+  ...100/1758
+  ...200/1758
+  ...300/1758
+  ...400/1758
+  ...500/1758
+  ...600/1758
+  ...700/1758
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161103.txt
+  ...800/1758
+  ...900/1758
+  ...1000/1758
+  ...1100/1758
+  ...1200/1758
+  ...1300/1758
+  ...1400/1758
+  ...1500/1758
+  ...1600/1758
+  ...1700/1758
+
+Course sentences at HSK 2 the rule already finds 2-49 in: 31  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-49 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3353  2. contain the point's word(s)
+     3253  3. new (not in DB, not a duplicate)
+     1758  4. at most 2 characters outside HSK 2 words
+      201  5. really HSK 2
+      181  5b. no harder grammar point (of the 43 with a rule)
+       10  6. the rule finds 2-49
+       10  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (10 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (100), first 12 ---
+  我们的饭店比那家饭店好。  -- already in the database
+  但咖啡不好。  -- already in the database
+  我已经会写中文了。  -- already in the database
+  他游泳比我好。  -- already in the database
+  你这样做是错的。  -- already in the database
+  她今天比昨天要好很多。  -- already in the database
+  我写错了一个字。  -- already in the database
+  我今天去大学读书，明天我会再去。  -- already in the database
+  你看过这么好看的电影吗？  -- already in the database
+  我已经会写汉字了。  -- already in the database
+  他们明天晚上都会去北京大学上课。  -- already in the database
+  我会说中文，但是我不会读中文。  -- already in the database
+
+--- dropped at step 4 (1495), first 12 ---
+  我永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  我们永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  丽萨不但会说英文，而且会说法文。  -- 5 characters no HSK 2 word uses: 且丽法而萨
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  这个城堡好美。  -- 3 characters no HSK 2 word uses: 城堡美
+  社会保障吗？他们在说什么笑话？  -- 3 characters no HSK 2 word uses: 保社障
+  毕竟，即使是神也会偶尔出差错。  -- 8 characters no HSK 2 word uses: 使偶即尔差毕神竟
+  请填好这张表格。  -- 3 characters no HSK 2 word uses: 填张格
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1557), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  她会十门语言。  -- level 3: 语言 L3
+  好，定了。  -- level 4: 定 L4
+  便宜的肉做不出好汤。  -- level 4: 汤 L4
+  你等一会然后再给我打电话，可以吗？  -- level 3: 然后 L3
+  我昨晚没睡好。  -- level 10: 昨晚 (not in list)
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  自助是最好的帮助。  -- level 6: 自助 L6, 最好 L3, 帮助 L3
+  这件事我实在不懂。  -- level 4: 实在 L4
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+
+--- dropped at step 5b (20), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  我真读不懂她。  -- harder grammar: 3-48 (HSK 3)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  “她也会来吗？” “我希望是这样。”  -- harder grammar: 3-60 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我还要再睡一会儿。  -- harder grammar: 3-16 (HSK 3)
+  我不觉得他自己一个人会做到。  -- harder grammar: 3-46 (HSK 3)
+  他们说他们不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  你看得懂这本书吗？  -- harder grammar: 3-48 (HSK 3)
+  我好累啊。  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (171) ---
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我知道他会画画。  -- rule: unless 会/VV
+  我不懂。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  我休息一会没问题吧？  -- rule: no match: line matched
+  都是我的错。  -- rule: no match: line matched
+  这是我的错。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  不会花很多时间的。  -- rule: unless 会/VV
+  真希望我会游泳。  -- rule: unless 会/VV
+  玛丽明天会来帮我们。  -- rule: unless 会/VV
+  很有可能还会下雨。  -- rule: unless 会/VV
+  为什么他会做这样的事呢？  -- rule: unless 会/VV
+  我不知道她什么时候会回来。  -- rule: unless 会/VV
+  我不懂你什么意思。  -- rule: no match: line matched
+  现在，让我们休息一会儿吧。  -- rule: no match: line matched
+  因为我会说中文。  -- rule: unless 会/VV
+  请在这儿等一会儿。  -- rule: no match: line matched
+  我是一个好男孩。  -- rule: no match: line matched
+  看起来不错。  -- rule: no match: line matched
+  你几点会到车站？  -- rule: unless 会/VV
+  “他明天去游泳吗？” “没错”  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  你不懂。  -- rule: no match: line matched
+  我想你快点好。  -- rule: no match: line matched
+  你的爱好是什么？  -- rule: no match: line matched
+  他的身体很好。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  我会在约翰来的时候走。  -- rule: unless 会/VV
+  这条鱼很好吃。  -- rule: no match: line matched
+  鸟会飞。  -- rule: unless 会/VV
+  我身体很好。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  她很懂汉字。  -- rule: no match: line matched
+  那个小男孩会走路。  -- rule: unless 会/VV
+  Julián错了吗？  -- rule: no match: line matched
+  你会跳舞吗？  -- rule: unless 会/VV
+  我一点英语也不懂。  -- rule: no match: line matched
+  那不是我的错。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: unless 会/VV
+  我想他会很快回来的。  -- rule: unless 会/VV
+  我真的好忙。  -- rule: unless 好/AD
+  不，我不懂。  -- rule: no match: line matched
+  我不知道在哪里开始好。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  我是个好男孩。  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么会知道？  -- rule: unless 会/VV
+  他们会跟着她。  -- rule: unless 会/VV
+  你在班里有好朋友吗？  -- rule: unless 有 好
+  他写得一手好字。  -- rule: no match: line matched
+  都是你的错。  -- rule: no match: line matched
+  汤姆不会游泳。  -- rule: unless 会/VV
+  你看上去很好。  -- rule: no match: line matched
+  那样是错的。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  我会请Tom等。  -- rule: unless 会/VV
+  下一次我会早一点到。  -- rule: unless 会/VV
+  我不知道它是好是坏。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  他们不错。  -- rule: no match: line matched
+  这画不错。  -- rule: no match: line matched
+  我会帮他。  -- rule: unless 会/VV
+  我不知道谁会在机场见我。  -- rule: unless 会/VV
+  他会跟我来。  -- rule: unless 会/VV
+  我走了，你会想我。  -- rule: unless 会/VV
+  他会告诉我真想吗？  -- rule: unless 会/VV
+  是雨的错？  -- rule: no match: line matched
+  她是一个很好的女孩。  -- rule: no match: line matched
+  他们告诉我这是你的错。  -- rule: no match: line matched
+  我不会让你去做。  -- rule: unless 会/VV
+  我可能会说是。  -- rule: unless 会/VV
+  我过会儿再跟你们一起。  -- rule: no match: line matched
+  这是最好的。  -- rule: no match: line matched
+  学校不会教你这个。  -- rule: unless 会/VV
+  北京哪里最好玩？  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: unless 会/VV
+  有你帮我真好。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  这可能很好玩。  -- rule: no match: line matched
+  这是我读过的最好的书。  -- rule: no match: line matched
+  我会等一两天。  -- rule: unless 会/VV
+  我希望汤姆有一天会来这里。  -- rule: unless 会/VV
+  我会跟你一起回家。  -- rule: unless 会/VV
+  跟你一起吃午饭会让我高兴。  -- rule: unless 会/VV
+  我会在星期一给你打电话。  -- rule: unless 会/VV
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  我会告诉我的妻子。  -- rule: unless 会/VV
+  一会儿见！  -- rule: no match: line matched
+  那不是汤姆的错。  -- rule: no match: line matched
+  错在哪里？  -- rule: no match: line matched
+  我不知道你不会游泳。  -- rule: unless 会/VV
+  这什么时候能准备好？  -- rule: unless 能/VV
+  你懂了吗？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  她还是个孩子的时候，唱歌很好听。  -- rule: no match: line matched
+  不好意思，你的名字是什么？  -- rule: no match: line matched
+  请坐一会。  -- rule: no match: line matched
+  这药会让你舒服些。  -- rule: unless 会/VV
+  你明天会踢足球。  -- rule: unless 会/VV
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  你看上去不太好。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: unless 会/VV
+  你觉得好些了吗？  -- rule: unless 好 几|些|多|久 ; 觉得|认为|希望|祝|感觉 好
+  我再也不会跟你说话了。  -- rule: unless 会/VV
+  到哪里我都会跟着你。  -- rule: unless 会/VV
+  劳莉会游泳。  -- rule: unless 会/VV
+  我下周会去见他们。  -- rule: unless 会/VV
+  我会在明天午饭前回来。  -- rule: unless 会/VV
+  这样好多了。  -- rule: unless 好 几|些|多|久
+  她说她会等我们的。  -- rule: unless 会/VV
+  我会告诉她，你来了。  -- rule: unless 会/VV
+  今天天气不错，出去走走吧。  -- rule: no match: line matched
+  不是每个人都会爱你。  -- rule: unless 会/VV
+  我没告诉汤姆，就不会告诉你。  -- rule: unless 会/VV
+  你懂吗？可能吧。  -- rule: no match: line matched
+  我懂。  -- rule: no match: line matched
+  我会唱歌跳舞。  -- rule: unless 会/VV
+  她的新书卖得不错。  -- rule: no match: line matched
+  你眼睛不好吗?  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  我会告诉你他们的名字。  -- rule: unless 会/VV
+  好的，我们一会儿见。  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: unless 会/VV
+  他们不会让她跑了的。  -- rule: unless 会/VV
+  你会去问他们，对吧？  -- rule: unless 会/VV
+  不好意思，请问鸡蛋在哪儿？  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: unless 会/VV
+  「好大！」「对，这是 IMAX！」  -- rule: unless 好/AD
+  他懂义大利文吗？  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: unless 会/VV
+  你下周也会在波士顿吗？  -- rule: unless 会/VV
+  我会等等汤姆。  -- rule: unless 会/VV
+  听起来他是个好人。  -- rule: no match: line matched
+  两好球！  -- rule: no match: line matched
+  一好球！  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  他会走的。  -- rule: unless 会/VV
+  汤姆猫会帮我们吗？  -- rule: unless 会/VV
+  帮我们一下，好吗？  -- rule: no match: line matched
+  汤姆是个好人，不是吗 ?  -- rule: no match: line matched
+  错！  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: no match: line matched
+  我知道这是错的。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: unless 会/VV
+  明天可能会下雪。  -- rule: unless 会/VV
+  明天下午会是晴天。  -- rule: unless 会/VV
+  今天天气不错。  -- rule: no match: line matched
+  你家谁唱歌最好听？  -- rule: no match: line matched
+  没想到你会告诉我。  -- rule: unless 会/VV
+  她会帮我们的，不是吗？  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: unless 会/VV
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+  我每天都会打电话给你。  -- rule: unless 会/VV
+  他们说他们见过你好几次。  -- rule: unless 好 几|些|多|久
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  我想你不会那么做的吧。  -- rule: unless 会/VV
+  他会拿到一小笔钱。  -- rule: unless 会/VV
+  我小时候很会游泳。  -- rule: unless 会/VV
+  艾米丽会游泳。  -- rule: unless 会/VV
+  我没错！  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: unless 会/VV
+  我知道汤姆不可能会那么做了。  -- rule: unless 会/VV
+  能回来真是太好了。  -- rule: unless 能/VV
+  天气好的时候我会去洗衣服。  -- rule: unless 会/VV
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-49_level2_20261114_161110.csv
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:31 ##########
+Filling 2-49 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-49 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-49 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3353  2. contain the point's word(s)
+     3344  3. new (not in DB, not a duplicate)
+     1849  4. at most 2 characters outside HSK 2 words
+      268  5. really HSK 2
+      248  5b. no harder grammar point (of the 43 with a rule)
+       37  6. the rule finds 2-49
+       36  6b. no hidden word a learner can't work out
+       25  7. both checks say 2-49, English chosen
+       23  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (23) ===
+  我洗好了。  (I'm all washed up.)  [tatoeba 2300033]
+  我看错了。  (I misread.)  [tatoeba 2302851]
+  我想错了。  (I was wrong.)  [tatoeba 2367643]
+  我读错了。  (I read it wrong.)  [tatoeba 10537182]
+  你说完了吗？  (Are you done talking?)  [tatoeba 7774372]
+  我上完课很累。  (I am very tired after a class.)  [tatoeba 5613688]
+  我写错了一个字。  (I miswrote a word.)  [tatoeba 1275227]  hidden: 一个
+  我知道我做错了。  (I know what I did was wrong.)  [tatoeba 5663534]
+  我会读完这本书。  (I'll finish reading this book.)  [tatoeba 6075166]
+  谢谢，我说完了。  (Thank you, I've finished talking.)  [tatoeba 7772146]
+  你喝完咖啡了吗？  (Have you finished your coffee?)  [tatoeba 9960212]
+  汤姆还没吃完午饭。  (Tom hasn't finished his lunch yet.)  [tatoeba 6103180]
+  我还没读完这本书。  (I haven't finished reading this book yet.)  [tatoeba 6623176]
+  你听懂他说的了吗？  (Did you understand what he said?)  [tatoeba 8778495]
+  她说她还没准备好。  (She said she wasn't ready.)  [tatoeba 9956328]
+  他说错了，不是吗？  (He is wrong, isn't he?)  [tatoeba 9987081]  hidden: 不是吗
+  我没听懂您的意思。  (I didn't understand you.)  [tatoeba 10457841]
+  汤姆去年上完了大学。  (Tom finished college last year.)  [tatoeba 6075706]
+  我准备好了，你们呢？  (I'm ready. And you?)  [tatoeba 9965482]
+  你什么时候做完工作？  (When will you finish your work?)  [tatoeba 9968742]  hidden: 什么时候
+  吃完饭，大家都很累了。  (After eating the meal, everyone is tired.)  [tatoeba 5854742]
+  你看完这本书要多少时间？  (How long did it take you to finish reading that book?)  [tatoeba 6321865]
+  你们两个人都准备好了吗？  (Are you two ready?)  [tatoeba 8848653]
+
+--- dropped at step 3 (9) ---
+  我想吃点好吃的。  -- same text as 4061626 (translations pooled)
+  我认为我们准备好了。  -- same text as 5500612 (translations pooled)
+  这是个好主意。  -- already in the database
+  我回家比较好。  -- same text as 5829615 (translations pooled)
+  汤姆错了。  -- same text as 6293100 (translations pooled)
+  你会开车吗？  -- already in the database
+  你会写多少汉字？  -- same text as 6057136 (translations pooled)
+  一切都会好起来的。  -- same text as 7767746 (translations pooled)
+  这个水果比那个更好！  -- same text as 5378529 (translations pooled)
+
+--- dropped at step 4 (1495), first 12 ---
+  我永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  我们永远不会忘记你的亲切。  -- 3 characters no HSK 2 word uses: 亲切永
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  丽萨不但会说英文，而且会说法文。  -- 5 characters no HSK 2 word uses: 且丽法而萨
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  这个城堡好美。  -- 3 characters no HSK 2 word uses: 城堡美
+  社会保障吗？他们在说什么笑话？  -- 3 characters no HSK 2 word uses: 保社障
+  毕竟，即使是神也会偶尔出差错。  -- 8 characters no HSK 2 word uses: 使偶即尔差毕神竟
+  请填好这张表格。  -- 3 characters no HSK 2 word uses: 填张格
+  会议明天就结束了。  -- 3 characters no HSK 2 word uses: 束结议
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1581), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  她会十门语言。  -- level 3: 语言 L3
+  好，定了。  -- level 4: 定 L4
+  便宜的肉做不出好汤。  -- level 4: 汤 L4
+  你等一会然后再给我打电话，可以吗？  -- level 3: 然后 L3
+  我昨晚没睡好。  -- level 10: 昨晚 (not in list)
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他对什么都感好奇。  -- level 5: 感 L4, 好奇 L5
+  自助是最好的帮助。  -- level 6: 自助 L6, 最好 L3, 帮助 L3
+  这件事我实在不懂。  -- level 4: 实在 L4
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+
+--- dropped at step 5b (20), first 12 ---
+  鸡蛋也卖完了。  -- harder grammar: 3-60 (HSK 3)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  我真读不懂她。  -- harder grammar: 3-48 (HSK 3)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  “她也会来吗？” “我希望是这样。”  -- harder grammar: 3-60 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我还要再睡一会儿。  -- harder grammar: 3-16 (HSK 3)
+  我不觉得他自己一个人会做到。  -- harder grammar: 3-46 (HSK 3)
+  他们说他们不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  你看得懂这本书吗？  -- harder grammar: 3-48 (HSK 3)
+  我好累啊。  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (211) ---
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我知道他会画画。  -- rule: unless 会/VV
+  我不懂。  -- rule: no match: line matched
+  他很快就好了。  -- rule: no match: line matched
+  我休息一会没问题吧？  -- rule: no match: line matched
+  我们的饭店比那家饭店好。  -- rule: no match: line matched
+  但咖啡不好。  -- rule: no match: line matched
+  都是我的错。  -- rule: no match: line matched
+  我已经会写中文了。  -- rule: unless 会/VV
+  他游泳比我好。  -- rule: no match: line matched
+  这是我的错。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  不会花很多时间的。  -- rule: unless 会/VV
+  你这样做是错的。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  真希望我会游泳。  -- rule: unless 会/VV
+  玛丽明天会来帮我们。  -- rule: unless 会/VV
+  很有可能还会下雨。  -- rule: unless 会/VV
+  你看过这么好看的电影吗？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: unless 会/VV
+  我不知道她什么时候会回来。  -- rule: unless 会/VV
+  我已经会写汉字了。  -- rule: unless 会/VV
+  我不懂你什么意思。  -- rule: no match: line matched
+  现在，让我们休息一会儿吧。  -- rule: no match: line matched
+  我会说中文，但是我不会读中文。  -- rule: unless 会/VV
+  因为我会说中文。  -- rule: unless 会/VV
+  你游泳游得比我好。  -- rule: no match: line matched
+  做得很好。  -- rule: no match: line matched
+  请在这儿等一会儿。  -- rule: no match: line matched
+  我是一个好男孩。  -- rule: no match: line matched
+  看起来不错。  -- rule: no match: line matched
+  你几点会到车站？  -- rule: unless 会/VV
+  我不懂汉语，但我想学。  -- rule: no match: line matched
+  “他明天去游泳吗？” “没错”  -- rule: no match: line matched
+  懂了吗？  -- rule: no match: line matched
+  你不懂。  -- rule: no match: line matched
+  我想你快点好。  -- rule: no match: line matched
+  你的爱好是什么？  -- rule: no match: line matched
+  他的身体很好。  -- rule: no match: line matched
+  咖啡好了。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  我会在约翰来的时候走。  -- rule: unless 会/VV
+  这条鱼很好吃。  -- rule: no match: line matched
+  鸟会飞。  -- rule: unless 会/VV
+  但是咖啡不好喝。  -- rule: unless 好/AD
+  水果对身体非常好。  -- rule: no match: line matched
+  我身体很好。  -- rule: no match: line matched
+  他汉字写得非常好。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  她很懂汉字。  -- rule: no match: line matched
+  那个小男孩会走路。  -- rule: unless 会/VV
+  Julián错了吗？  -- rule: no match: line matched
+  你会跳舞吗？  -- rule: unless 会/VV
+  做得好！  -- rule: no match: line matched
+  我一点英语也不懂。  -- rule: no match: line matched
+  那不是我的错。  -- rule: no match: line matched
+  对他好一点。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: unless 会/VV
+  我想他会很快回来的。  -- rule: unless 会/VV
+  我真的好忙。  -- rule: unless 好/AD
+  不，我不懂。  -- rule: no match: line matched
+  我不知道在哪里开始好。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  我是个好男孩。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  对不起，我错了。  -- rule: no match: line matched
+  你为什么会知道？  -- rule: unless 会/VV
+  他们会跟着她。  -- rule: unless 会/VV
+  你在班里有好朋友吗？  -- rule: unless 有 好
+  他写得一手好字。  -- rule: no match: line matched
+  都是你的错。  -- rule: no match: line matched
+  汤姆不会游泳。  -- rule: unless 会/VV
+  你看上去很好。  -- rule: no match: line matched
+  那样是错的。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  那本书卖得很好。  -- rule: no match: line matched
+  我会请Tom等。  -- rule: unless 会/VV
+  下一次我会早一点到。  -- rule: unless 会/VV
+  我不知道它是好是坏。  -- rule: unless 不/AD 知道/VV ... 好/VA ; 不/AD 知道/VV ... 好
+  他们不错。  -- rule: no match: line matched
+  我们等了好几个小时，但他没来。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  这画不错。  -- rule: no match: line matched
+  我会帮他。  -- rule: unless 会/VV
+  我不知道谁会在机场见我。  -- rule: unless 会/VV
+  他会跟我来。  -- rule: unless 会/VV
+  我走了，你会想我。  -- rule: unless 会/VV
+  他会告诉我真想吗？  -- rule: unless 会/VV
+  是雨的错？  -- rule: no match: line matched
+  她是一个很好的女孩。  -- rule: no match: line matched
+  你比他好。  -- rule: no match: line matched
+  他们告诉我这是你的错。  -- rule: no match: line matched
+  我不会让你去做。  -- rule: unless 会/VV
+  我可能会说是。  -- rule: unless 会/VV
+  我过会儿再跟你们一起。  -- rule: no match: line matched
+  这是最好的。  -- rule: no match: line matched
+  学校不会教你这个。  -- rule: unless 会/VV
+  北京哪里最好玩？  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: unless 会/VV
+  有你帮我真好。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  这可能很好玩。  -- rule: no match: line matched
+  这是我读过的最好的书。  -- rule: no match: line matched
+  我会自己走。  -- rule: unless 会/VV
+  我会等一两天。  -- rule: unless 会/VV
+  我希望汤姆有一天会来这里。  -- rule: unless 会/VV
+  我会跟你一起回家。  -- rule: unless 会/VV
+  跟你一起吃午饭会让我高兴。  -- rule: unless 会/VV
+  我会在星期一给你打电话。  -- rule: unless 会/VV
+  我很小的时候就游得很好了。  -- rule: no match: line matched
+  我会告诉我的妻子。  -- rule: unless 会/VV
+  一会儿见！  -- rule: no match: line matched
+  我只想做好事。  -- rule: no match: line matched
+  这就是错的。  -- rule: no match: line matched
+  休息几天会对你好的。  -- rule: unless 会/VV
+  那不是汤姆的错。  -- rule: no match: line matched
+  错在哪里？  -- rule: no match: line matched
+  我不知道你不会游泳。  -- rule: unless 会/VV
+  这什么时候能准备好？  -- rule: unless 能/VV
+  你懂了吗？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  她还是个孩子的时候，唱歌很好听。  -- rule: no match: line matched
+  我会告诉他你来问过。  -- rule: unless 会/VV
+  不知道明天天气会怎么样呢？  -- rule: unless 会/VV
+  不好意思，你的名字是什么？  -- rule: no match: line matched
+  请坐一会。  -- rule: no match: line matched
+  这药会让你舒服些。  -- rule: unless 会/VV
+  你明天会踢足球。  -- rule: unless 会/VV
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  你看上去不太好。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: unless 会/VV
+  我今年去了好几次外国。  -- rule: unless 好 几|些|多|久 ; 好/AD
+  你觉得好些了吗？  -- rule: unless 好 几|些|多|久 ; 觉得|认为|希望|祝|感觉 好
+  我再也不会跟你说话了。  -- rule: unless 会/VV
+  你说过你会帮我的。  -- rule: unless 会/VV
+  到哪里我都会跟着你。  -- rule: unless 会/VV
+  劳莉会游泳。  -- rule: unless 会/VV
+  我下周会去见他们。  -- rule: unless 会/VV
+  我会在明天午饭前回来。  -- rule: unless 会/VV
+  这样好多了。  -- rule: unless 好 几|些|多|久
+  她说她会等我们的。  -- rule: unless 会/VV
+  我会告诉她，你来了。  -- rule: unless 会/VV
+  今天天气不错，出去走走吧。  -- rule: no match: line matched
+  虽然他是中国人，但他不会说中文。  -- rule: unless 会/VV
+  不是每个人都会爱你。  -- rule: unless 会/VV
+  我没告诉汤姆，就不会告诉你。  -- rule: unless 会/VV
+  你懂吗？可能吧。  -- rule: no match: line matched
+  我懂。  -- rule: no match: line matched
+  我会唱歌跳舞。  -- rule: unless 会/VV
+  她的新书卖得不错。  -- rule: no match: line matched
+  你眼睛不好吗?  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  我会告诉你他们的名字。  -- rule: unless 会/VV
+  天气比昨天好。  -- rule: no match: line matched
+  好的，我们一会儿见。  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: unless 会/VV
+  他们不会让她跑了的。  -- rule: unless 会/VV
+  你会去问他们，对吧？  -- rule: unless 会/VV
+  不好意思，请问鸡蛋在哪儿？  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: unless 会/VV
+  「好大！」「对，这是 IMAX！」  -- rule: unless 好/AD
+  他懂义大利文吗？  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: unless 会/VV
+  你下周也会在波士顿吗？  -- rule: unless 会/VV
+  我会等等汤姆。  -- rule: unless 会/VV
+  听起来他是个好人。  -- rule: no match: line matched
+  你会做得很好的。  -- rule: unless 会/VV
+  有人会这样想。  -- rule: unless 会/VV
+  两好球！  -- rule: no match: line matched
+  一好球！  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: no match: line matched
+  他会走的。  -- rule: unless 会/VV
+  汤姆猫会帮我们吗？  -- rule: unless 会/VV
+  帮我们一下，好吗？  -- rule: no match: line matched
+  汤姆是个好人，不是吗 ?  -- rule: no match: line matched
+  错！  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: no match: line matched
+  我知道这是错的。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: unless 会/VV
+  明天可能会下雪。  -- rule: unless 会/VV
+  明天下午会是晴天。  -- rule: unless 会/VV
+  今天天气不错。  -- rule: no match: line matched
+  你家谁唱歌最好听？  -- rule: no match: line matched
+  没想到你会告诉我。  -- rule: unless 会/VV
+  我考得很好。  -- rule: no match: line matched
+  下次你来看我的时候，我会给你看那本书。  -- rule: unless 会/VV
+  今天时间过得好慢。  -- rule: unless 好/AD
+  她会帮我们吧？  -- rule: unless 会/VV
+  她会帮我们的，不是吗？  -- rule: no match: line matched
+  她会帮我们，对吧？  -- rule: unless 会/VV
+  你怎么不去睡一会儿觉呢？  -- rule: no match: line matched
+  我每天都会打电话给你。  -- rule: unless 会/VV
+  他们说他们见过你好几次。  -- rule: unless 好 几|些|多|久
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  我想你不会那么做的吧。  -- rule: unless 会/VV
+  他会拿到一小笔钱。  -- rule: unless 会/VV
+  我小时候很会游泳。  -- rule: unless 会/VV
+  做自己就好。  -- rule: no match: line matched
+  艾米丽会游泳。  -- rule: unless 会/VV
+  我们休息一下，好吗？  -- rule: no match: line matched
+  我没错！  -- rule: no match: line matched
+  错了吗？  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: unless 会/VV
+  我知道汤姆不可能会那么做了。  -- rule: unless 会/VV
+  能回来真是太好了。  -- rule: unless 能/VV
+  天气好的时候我会去洗衣服。  -- rule: unless 会/VV
+
+--- dropped at step 6b (1) ---
+  我就要读完这本书了。  -- hidden word a learner can't work out: 就要 (will; shall)
+
+--- dropped at step 7 (11) ---
+  跟汤姆问好。  -- check said no (2/2): 问好 is fixed expression 'greet', not result complement
+  准备好了吗？  -- check said no (1/2): 好 means 'ready', not a result complement
+  你比我记得好。  -- check said no (2/2): 好 is comparative adverb 'better', not result complement
+  飞机准备好了。  -- check said no (1/2): 好 means 'ready', not a result complement
+  你准备好了吗？  -- check said no (1/2): 好 here means 'ready', not a result complement
+  还没怎么准备好。  -- check said no (1/2): 好 means 'ready', not a result complement
+  我想让你准备好。  -- check said no (2/2): 好 means 'ready/prepared', not a result complement
+  我没有真的准备好。  -- check said no (2/2): 好 means 'ready', not a result complement showing action result
+  玛莉问我们有没有准备好。  -- check said no (1/2): 准备好 means 'ready' (state), not action result
+  汤姆还没准备好要做这件事。  -- check said no (2/2): 好 means 'ready', not result complement here
+  我在等你们。你们什么时候准备好？  -- check said no (1/2): 准备好 here means 'ready' (state), not result complement
+
+--- dropped at step 8 (2) ---
+  你一准备好，我们就走。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句) with 准备好 result complement, creating complex conditional structure
+  我工作一做完就来找你们。  -- difficulty review: (1/2); uses 2-69 (一⋯⋯就⋯⋯紧缩复句), which is HSK 2 but often paired with 2-57 连动句 creating complexity beyond the level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-49_level2_20261114_163151.csv

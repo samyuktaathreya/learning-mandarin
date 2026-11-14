@@ -1,0 +1,18 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 23811 characters -->
+## 2-17
+**Point:** Adverbial 就 (jiù) meaning "then" in conditional/cause-effect structures
+**Covers:** Sentences with two clauses where the first establishes a condition/cause and the second clause contains 就 + verb phrase indicating the result or action that follows. Includes patterns with 如果, 要是, 假如, 假使, 既然, 只要, 要不是, and implicit conditions (adjective/verb phrase + 就).
+**Does not cover:** 就 expressing earliness in time (米饭二十分钟就好), limited scope (就这些事来说), small quantity (就一个孩子), emphasis/identification (就是 as copula), the pattern "Verb就Verb" for indifference, "as one likes" (想V就V), "about to" (就要), or use as a preposition meaning "on/regarding"
+
+```rule
+match: ... ‖ /PN? /AD{0,2}? 就/AD /VV|VA
+unless: /NT .* 就/AD|就 .* ‖ .* 也|还|一定|很|快|能|会|可以|应该|会|不用|不要
+unless: 不是.*就是|就算|就是|不|想
+unless: 一.*就|着.*就|Verb就Verb
+unless: ^ 要/VV /PN 说/VV ‖ .* 就/AD
+unless: 就/P
+unless: 要/VV .* 就/AD|要 .*就|想 .* 就
+unless: /AD 就/AD 要/VV
+```
+
+**Notes:** The rule looks for a clause break (‖) followed by an optional pronoun and optional adverbs, then 就 + a verb/adjective. The "unless" clauses exclude: time expressions (就 for "soon"), emphatic 就是, concessive patterns (就算/就是...也), the "as one likes" pattern, aspectual markers (Verb着Verb就), stand-alone "要我说" usage, 就 as a preposition, and "要+Verb就Verb" (conditions). The key pattern requires TWO CLAUSES separated by punctuation to capture the condition-result or cause-effect relationship that defines this grammar point.

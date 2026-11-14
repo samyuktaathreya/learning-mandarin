@@ -56,3 +56,59 @@ Tagging 2 labeled example(s) (cached after this run)...
   有事给我打电话。  -- ASGN4VUU Expressing "if" with "ruguo... dehua"
   有空来我家玩。  -- ASGN4VUU Expressing "if" with "ruguo... dehua"
   你要来的话，就给我打个电话，我去接你。  -- HSK list example
+
+########## rules  2026-11-10 21:26 ##########
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-35: rule on labeled examples (no AI) ===
+  examples of 2-35 matched:    9/12
+  counter-examples wrongly matched: 0/10   <- should be 0
+
+--- examples of 2-35 the rule misses (3) ---
+  喜欢就拿走吧。  -- ASGN4VUU Expressing "if" with "ruguo... dehua"
+  有事给我打电话。  -- ASGN4VUU Expressing "if" with "ruguo... dehua"
+  有空来我家玩。  -- ASGN4VUU Expressing "if" with "ruguo... dehua"
+
+########## rules  2026-11-11 14:18 ##########
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-35: rule on labeled examples (no AI) ===
+  examples of 2-35 matched:    12/12
+  counter-examples wrongly matched: 0/10   <- should be 0
+
+########## guard check  2026-11-11 14:23 ##########
+Flags examples of 2-17, 2-30 that don't contain 2-35: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+The revised rule fails 2-35's own test (0 wrong, 3 missed): keeping the old rule.
+Not used as a guard for 2-17: it still flags 2 of its examples, e.g. 喜欢就拿走吧。
+Not used as a guard for 2-30: it still flags 2 of its examples, e.g. 喜欢就拿走吧。
+
+########## rules  2026-11-12 17:32 ##########
+
+=== A. 2-35: rule on labeled examples (no AI) ===
+  examples of 2-35 matched:    12/12
+  counter-examples wrongly matched: 0/10   <- should be 0
+  easy examples (words all HSK 3 or below) matched: 9/9   <- needs 80%
+
+########## guard check  2026-11-12 17:35 ##########
+Not used as a guard for 2-30: it still flags 2 of its examples, e.g. 喜欢就拿走吧。
+
+########## guard check  2026-11-12 21:13 ##########
+Not used as a guard for 2-17: it still flags 2 of its examples, e.g. 喜欢就拿走吧。
+Not used as a guard for 2-30: it still flags 2 of its examples, e.g. 喜欢就拿走吧。
+
+########## guard check  2026-11-13 13:53 ##########
+Not used as a guard for 2-17: it still flags 2 of its examples, e.g. 喜欢就拿走吧。
+Not used as a guard for 2-30: it still flags 2 of its examples, e.g. 喜欢就拿走吧。
+
+########## guard check  2026-11-13 14:39 ##########
+Not used as a guard for 2-17: it still flags 2 of its examples, e.g. 喜欢就拿走吧。
+Not used as a guard for 2-30: it still flags 2 of its examples, e.g. 喜欢就拿走吧。
+
+########## guard check  2026-11-14 14:14 ##########
+Not used as a guard for 2-17: it still flags 2 of its examples, e.g. 喜欢就拿走吧。
+Not used as a guard for 2-30: it still flags 2 of its examples, e.g. 喜欢就拿走吧。
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## guard check  2026-11-14 16:29 ##########

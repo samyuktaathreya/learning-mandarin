@@ -1,0 +1,48 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 13621 characters -->
+## 2-62
+**Point:** Sequencing consecutive events or actions (承接复句)
+**Covers:** Sentences showing two or more sequential actions/events connected by conjunctions like 先...再, 然后, 接着, or by simple juxtaposition with punctuation. Includes patterns with 以后 showing sequence after a completed event.
+**Does not cover:** Single actions with 再 meaning "again" or "once more"; 再说 meaning "in addition"; 一再/再三 meaning "repeatedly"; 再也不/没 meaning "never again"; 再不...就 meaning conditional threat; other uses of 再 as a future-tense marker.
+
+```rule
+match: 先/AD _ ... 再/AD
+match: 先/AD _ ... 然后/AD
+match: 先/AD _ ... 接着/AD
+match: /VV /AS? ... 然后/AD /VV
+match: /VV /AS? ... 接着/AD /VV
+match: /VV /AS? ... 再/AD /VV
+match: /VV /AS? ... 又/AD /VV
+match: /VV 了/AS ... /VV
+match: 然后/AD /VV
+match: 接着/AD /VV
+unless: 再/AD 也/AD
+unless: 一再/AD
+unless: 再三/AD
+unless: 再/AD 不/AD 就/AD
+unless: 再/AD 不/AD 也/AD
+unless: 再说/VV
+unless: 再说/AD ... 正在
+unless: 再/AD /CD /M
+unless: 再/AD _ /M
+unless: 再/AD 来/VV
+unless: 再/AD 给/VV
+unless: 再/AD 点/VV
+unless: 再/AD 找/VV
+unless: 再/AD 讲/VV
+unless: 再/AD 拿/VV
+unless: 再/AD 吃/VV
+unless: 再/AD 聊/VV
+unless: 再/AD 试/VV
+unless: 再/AD 买/VV
+unless: 再/AD 看/VV
+unless: 再/AD 说/VV
+unless: 再/AD 去/VV
+unless: 再/AD 等/VV
+unless: 再/AD 穿/VV
+unless: 再/AD 做/VV
+unless: 再/AD 搬/VV
+unless: 再/AD 来/VV _ 吧/SP $
+unless: 再/AD 下/VV 车/NN $
+```
+
+**Notes:** The rule uses two strategies: (1) matching explicit sequencing conjunctions (先...再, 先...然后, etc.) which clearly show this grammar point, and (2) matching action-then-conjunction patterns that indicate sequential events. The unless clauses exclude common non-sequencing uses of 再 (future "again," counting/quantification, conditional threats, "in addition" 再说). The rule prioritizes precision by excluding patterns likely to be other grammar points.

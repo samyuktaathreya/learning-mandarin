@@ -1,0 +1,39 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 10578 characters -->
+## 2-53
+**Point:** Quantitative complement with adjectives: expressing comparison, age difference, and degree changes using adjectives with numbers, 多/多了/得多, or 一点儿
+
+**Covers:** 
+- Comparisons with 比 where an adjective is followed by a number + measure word (e.g. 大两岁)
+- Comparisons with 比/和 where an adjective is followed by 多了, 得多, or 很多
+- Age/difference expressions: A 比 B 大/小 + number + 岁
+- Degree changes: adjective + 多了 (without 比 structure, when context supports comparison/change meaning)
+- Questions about age: 几/多 + 大/小 + 岁/年纪/岁数
+- Neutral age statements: number + 岁
+
+**Does not cover:**
+- 一点儿 meaning "a little bit" of a noun (一点儿水, 一点儿意见) — this is a quantifier, not a quantitative complement
+- 一点儿 in "too Adj." expressions (短了一点儿) — this is a different structure (Adj + 了一点儿)
+- 一点也/都不 negation pattern — this is "not at all"
+- 一些 meaning "some" — this is a different quantifier
+- 有一点儿 meaning "somewhat" or "a bit" — this is an adverbial phrase
+- Casual 多 in non-comparative contexts (喝多了 meaning "drunk")
+
+```rule
+match: /VA (CD|/M)+ /VA
+match: /VA (多/AD|得/DER 多/VA|很/AD 多/VA|很/AD 多/AD) 了?/SP?
+match: (比|和|跟)/P ... /VA (CD /M|多/AD 了/SP|得/DER 多/VA|很/AD 多/VA|很/AD 多/AD)
+match: (几|多)/CD|AD 大/VA|小/VA
+match: (一样|差不多)/AD 大/VA
+match: CD /M (岁|年纪|岁数)
+
+unless: 一点儿|一点/NN|一些/CD 也/AD|都/AD
+unless: 有/VE 一点
+unless: 了/AS 一点儿
+```
+
+**Notes:** 
+- The rule prioritizes precision by excluding "一点儿" patterns that belong to other grammar points (negation, quantity noun, degree modifier).
+- Age questions with 几/多 before 大/小 are included as they directly express this point.
+- The pattern for 比/和/跟 comparisons uses `...` to allow for intervening words between the preposition and final adjective.
+- When 多了 appears without 比, it's only matched as a direct adjective + 多了 pattern to avoid false matches with unrelated contexts.
+- Measure words after numbers (岁, 年纪, 岁数) must be present for age expressions to count as this point.

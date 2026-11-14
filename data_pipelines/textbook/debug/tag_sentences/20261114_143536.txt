@@ -1,0 +1,40 @@
+2026-11-14 14:35:36,340  INFO     === tag_sentences.py run started ===
+2026-11-14 14:35:36,370  INFO     OK        hanlp-valid   '弟弟对我说：“我想去玩儿。”' -> [('弟弟', 'NN'), ('对', 'P'), ('我', 'PN'), ('说', 'VV'), ('我', 'PN'), ('想', 'VV'), ('去', 'VV'), ('玩儿', 'VV')]
+2026-11-14 14:35:36,380  INFO     TAGGED    '弟弟对我说：“我想去玩儿。”' (level 1, 9 tags)
+2026-11-14 14:35:36,393  INFO     OK        hanlp-valid   '小朋友对老师笑了。' -> [('小朋友', 'NN'), ('对', 'P'), ('老师', 'NN'), ('笑', 'VV'), ('了', 'AS')]
+2026-11-14 14:35:36,396  INFO     TAGGED    '小朋友对老师笑了。' (level 2, 5 tags)
+2026-11-14 14:35:36,409  INFO     FALLBACK  '他对着门口笑。' -- out-of-list word(s): ['对着']
+2026-11-14 14:35:36,409  WARNING    HAIKU resegment call for '他对着门口笑。' (cache miss on [('对着', 'P')])
+2026-11-14 14:35:36,427  INFO     TAGGED    '他对着门口笑。' (level 2, 5 tags)
+2026-11-14 14:35:36,441  INFO     FALLBACK  '狗对着那只猫叫。' -- out-of-list word(s): ['对着']
+2026-11-14 14:35:36,441  WARNING    HAIKU resegment call for '狗对着那只猫叫。' (cache miss on [('对着', 'P')])
+2026-11-14 14:35:36,460  INFO     TAGGED    '狗对着那只猫叫。' (level 2, 7 tags)
+2026-11-14 14:35:36,473  INFO     FALLBACK  '他对着电脑说话。' -- out-of-list word(s): ['对着']
+2026-11-14 14:35:36,474  WARNING    HAIKU resegment call for '他对着电脑说话。' (cache miss on [('对着', 'P')])
+2026-11-14 14:35:36,502  INFO     TAGGED    '他对着电脑说话。' (level 2, 5 tags)
+2026-11-14 14:35:36,517  INFO     FALLBACK  '孩子对着妈妈笑。' -- out-of-list word(s): ['对着']
+2026-11-14 14:35:36,517  WARNING    HAIKU resegment call for '孩子对着妈妈笑。' (cache miss on [('对着', 'P')])
+2026-11-14 14:35:36,537  INFO     TAGGED    '孩子对着妈妈笑。' (level 2, 5 tags)
+2026-11-14 14:35:36,550  INFO     OK        hanlp-valid   '你对他说了什么？' -> [('你', 'PN'), ('对', 'P'), ('他', 'PN'), ('说', 'VV'), ('了', 'AS'), ('什么', 'PN')]
+2026-11-14 14:35:36,552  INFO     TAGGED    '你对他说了什么？' (level 1, 6 tags)
+2026-11-14 14:35:36,566  INFO     FALLBACK  '我对妈妈说，我今天不想吃饭。' -- out-of-list word(s): ['不想']
+2026-11-14 14:35:36,566  WARNING    HAIKU resegment call for '我对妈妈说，我今天不想吃饭。' (cache miss on [('不想', 'AD')])
+2026-11-14 14:35:36,596  INFO     TAGGED    '我对妈妈说，我今天不想吃饭。' (level 1, 10 tags)
+2026-11-14 14:35:36,610  INFO     OK        hanlp-valid   '他对谁都很好。' -> [('他', 'PN'), ('对', 'P'), ('谁', 'PN'), ('都', 'AD'), ('很', 'AD'), ('好', 'VA')]
+2026-11-14 14:35:36,610  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-14 14:35:36,613  INFO     TAGGED    '他对谁都很好。' (level 1, 6 tags)
+2026-11-14 14:35:36,627  INFO     OK        hanlp-valid   '饭店的人对我们很好。' -> [('饭店', 'NN'), ('的', 'DEG'), ('人', 'NN'), ('对', 'P'), ('我们', 'PN'), ('很', 'AD'), ('好', 'VA')]
+2026-11-14 14:35:36,633  INFO     TAGGED    '饭店的人对我们很好。' (level 1, 7 tags)
+2026-11-14 14:35:36,649  INFO     FALLBACK  '爷爷对我说：“早点儿睡。”' -- out-of-list word(s): ['早点儿']
+2026-11-14 14:35:36,649  WARNING    HAIKU resegment call for '爷爷对我说：“早点儿睡。”' (cache miss on [('早点儿', 'AD')])
+2026-11-14 14:35:36,673  INFO     TAGGED    '爷爷对我说：“早点儿睡。”' (level 2, 8 tags)
+2026-11-14 14:35:36,687  INFO     OK        hanlp-valid   '我对他说的话有点儿不高兴。' -> [('我', 'PN'), ('对', 'P'), ('他', 'PN'), ('说', 'VV'), ('的', 'DEC'), ('话', 'NN'), ('有点儿', 'AD'), ('不', 'AD'), ('高兴', 'VA')]
+2026-11-14 14:35:36,692  INFO     TAGGED    '我对他说的话有点儿不高兴。' (level 10, 9 tags)
+2026-11-14 14:35:36,708  INFO     FALLBACK  '你说的跟他说的对不上。' -- out-of-list word(s): ['对不上']
+2026-11-14 14:35:36,708  WARNING    HAIKU resegment call for '你说的跟他说的对不上。' (cache miss on [('对不上', 'VV')])
+2026-11-14 14:35:36,736  INFO     TAGGED    '你说的跟他说的对不上。' (level 2, 10 tags)
+2026-11-14 14:35:36,752  INFO     FALLBACK  '他对我不好，我不想跟他玩儿。' -- out-of-list word(s): ['不好', '不想']
+2026-11-14 14:35:36,752  WARNING    HAIKU resegment call for '他对我不好，我不想跟他玩儿。' (cache miss on [('不好', 'VA'), ('不想', 'VV')])
+2026-11-14 14:35:36,784  INFO     TAGGED    '他对我不好，我不想跟他玩儿。' (level 2, 12 tags)
+2026-11-14 14:35:36,798  INFO     OK        hanlp-valid   '她对朋友很好，大家都喜欢她。' -> [('她', 'PN'), ('对', 'P'), ('朋友', 'NN'), ('很', 'AD'), ('好', 'VA'), ('大家', 'PN'), ('都', 'AD'), ('喜欢', 'VV'), ('她', 'PN')]
+2026-11-14 14:35:36,802  INFO     TAGGED    '她对朋友很好，大家都喜欢她。' (level 1, 9 tags)

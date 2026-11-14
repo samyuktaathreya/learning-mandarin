@@ -12,6 +12,16 @@ No OCR, no AI calls.
   data/raw/grammar_points.json
       -> one GrammarTip row per grammar point, keyed on its id ("1-16"). No
          unit: assign_units.py sets the unit where each point first appears.
+         Levels are then moved (data/grammar/, exported by the grammar trial):
+           grammar_level_overrides.json    the 2025 syllabus level, where the
+                                            list's 2021 level differs
+           grammar_level_by_examples.json  points whose own words are harder
+                                            than their level (2-47: 以前/以后
+                                            are HSK 3 words) -- applied last
+  data/grammar/grammar_explanations.json
+      -> GrammarExplanation rows: what each point is, copied from the
+         official list and the AllSet Learning wiki (no AI-written text).
+         A point's rows are replaced on every run.
 
 Both loads are idempotent: re-running updates rows in place, keeps every
 unit assignment, and never creates duplicates. A word or grammar point
@@ -43,8 +53,9 @@ from app.core.config.textbook import TEXTBOOK_RAW_DIR
 from app.textbook.db_utils import (
     get_session, init_db, upsert_hsk_vocab, get_or_create_grammar_point,
 )
-from app.textbook.models import Vocab, GrammarTip, WordType
+from app.textbook.models import Vocab, GrammarTip, GrammarExplanation, WordType
 
+from data_pipelines.textbook.scripts import grammar_dsl
 from data_pipelines.textbook.scripts import hsk_vocab_source as hvs
 
 VOCAB_PATH = TEXTBOOK_RAW_DIR / hvs.VOCAB_FILE
@@ -143,15 +154,68 @@ def load_grammar(db) -> dict:
         )
         by_level[int(p["level"])] += 1
 
+    moves = grammar_dsl.level_moves()
+    moved = []
+    for tip in db.query(GrammarTip).filter(GrammarTip.grammar_code.in_(list(moves))).all():
+        if tip.hsk_level != moves[tip.grammar_code]:
+            moved.append(f"{tip.grammar_code} {tip.hsk_level}->{moves[tip.grammar_code]}")
+            by_level[tip.hsk_level] -= 1
+            by_level[moves[tip.grammar_code]] += 1
+            tip.hsk_level = moves[tip.grammar_code]
+    db.flush()
+
     dropped = [c for (c,) in db.query(GrammarTip.grammar_code).all() if c not in seen]
     print(f"  grammar: {len(seen)} points loaded")
+    if moves:
+        print(f"    levels moved ({len(moved)}: 2025 syllabus, then the points' own examples; data/grammar/): "
+              + ", ".join(moved[:60]))
+    elif not grammar_dsl.LEVELS_2025_FILE.exists():
+        print(f"    [note] {grammar_dsl.LEVELS_2025_FILE} not found: the list's own levels are used")
     print("    by level: " + ", ".join(f"HSK {k}: {v}" for k, v in sorted(by_level.items())))
     if problems:
         print(f"    [warning] skipped {len(problems)} entr(y/ies) with no id/level or a duplicate id: {problems}")
     if dropped:
         print(f"    [warning] {len(dropped)} grammar point(s) in the DB are no longer in the list "
               f"(kept): {dropped}")
-    return {"points": len(seen), "skipped": len(problems), "dropped": len(dropped)}
+    return {"points": len(seen), "skipped": len(problems), "dropped": len(dropped), "moved": len(moved)}
+
+
+EXPLANATION_FIELDS = ("source", "source_ref", "title", "structure", "explanation", "level_hint",
+                      "url", "attribution", "license")
+
+
+def load_explanations(db) -> dict:
+    """GrammarExplanation rows from data/grammar/grammar_explanations.json
+    ({code: [row, ...]} in display order). A point's rows are replaced."""
+    data = grammar_dsl.read_json(grammar_dsl.EXPLANATIONS_FILE, None)
+    if data is None:
+        print(f"  explanations: {grammar_dsl.EXPLANATIONS_FILE} not found -- skipped "
+              "(run test_scripts/run_all_grammar.py --export)")
+        return {"points": 0, "rows": 0}
+    tips = {t.grammar_code: t for t in db.query(GrammarTip).all()}
+    unknown, rows, by_source, with_wiki = [], 0, Counter(), 0
+    for code, items in data.items():
+        if code.startswith("_"):
+            continue
+        tip = tips.get(code)
+        if tip is None:
+            unknown.append(code)
+            continue
+        db.query(GrammarExplanation).filter(GrammarExplanation.grammar_tip_id == tip.id).delete()
+        for pos, it in enumerate(items):
+            db.add(GrammarExplanation(grammar_tip_id=tip.id, position=pos,
+                                      examples=json.dumps(it.get("examples") or [], ensure_ascii=False),
+                                      **{k: it.get(k) for k in EXPLANATION_FIELDS}))
+            by_source[it.get("source")] += 1
+            rows += 1
+        with_wiki += any(it.get("source") == "allset_learning" for it in items)
+    db.flush()
+    print(f"  explanations: {rows} row(s) for {len(data) - len(unknown) - ('_readme' in data)} point(s) "
+          f"({', '.join(f'{k}: {v}' for k, v in sorted(by_source.items()))}); "
+          f"{with_wiki} point(s) have a wiki explanation, the rest only the official list's")
+    if unknown:
+        print(f"    [warning] {len(unknown)} code(s) not in the grammar list (skipped): {unknown[:10]}")
+    return {"points": len(data), "rows": rows}
 
 
 def main():
@@ -169,6 +233,7 @@ def main():
             load_vocab(db)
         if not args.vocab_only:
             load_grammar(db)
+            load_explanations(db)
     print(f"Done in {time.time() - t0:.1f}s.")
 
 

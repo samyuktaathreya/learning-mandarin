@@ -1,0 +1,93 @@
+2026-11-14 14:27:25,679  INFO     === tag_sentences.py run started ===
+2026-11-14 14:27:25,707  INFO     OK        hanlp-valid   '苹果多少钱?' -> [('苹果', 'NR'), ('多少', 'CD'), ('钱', 'NN')]
+2026-11-14 14:27:25,709  INFO     TAGGED    '苹果多少钱?' (level 1, 3 tags)
+2026-11-14 14:27:25,728  INFO     OK        hanlp-valid   '这杯茶三十八块。' -> [('这', 'DT'), ('杯', 'M'), ('茶', 'NN'), ('三十八', 'NUM'), ('块', 'M')]
+2026-11-14 14:27:25,731  INFO     TAGGED    '这杯茶三十八块。' (level 1, 4 tags)
+2026-11-14 14:27:25,741  INFO     FALLBACK  '一个包子两块五。' -- out-of-list word(s): ['一个', '两块五']
+2026-11-14 14:27:25,741  WARNING    HAIKU resegment call for '一个包子两块五。' (cache miss on [('两块五', 'CD')])
+2026-11-14 14:27:25,763  INFO     TAGGED    '一个包子两块五。' (level 1, 6 tags)
+2026-11-14 14:27:25,775  INFO     FALLBACK  '牛奶八块钱。' -- out-of-list word(s): ['八块钱']
+2026-11-14 14:27:25,775  WARNING    HAIKU resegment call for '牛奶八块钱。' (cache miss on [('八块钱', 'CD')])
+2026-11-14 14:27:25,791  INFO     TAGGED    '牛奶八块钱。' (level 1, 4 tags)
+2026-11-14 14:27:25,802  INFO     FALLBACK  '面包一块五。' -- out-of-list word(s): ['一块五']
+2026-11-14 14:27:25,802  WARNING    HAIKU resegment call for '面包一块五。' (cache miss on [('一块五', 'CD')])
+2026-11-14 14:27:25,818  INFO     TAGGED    '面包一块五。' (level 1, 4 tags)
+2026-11-14 14:27:25,829  INFO     OK        hanlp-valid   '那件漂亮的衣服多少钱?' -> [('那', 'DT'), ('件', 'M'), ('漂亮', 'VA'), ('的', 'DEC'), ('衣服', 'NN'), ('多少', 'CD'), ('钱', 'NN')]
+2026-11-14 14:27:25,841  INFO     TAGGED    '那件漂亮的衣服多少钱?' (level 1, 7 tags)
+2026-11-14 14:27:25,852  INFO     OK        hanlp-valid   '他的新电脑多少钱?' -> [('他', 'PN'), ('的', 'DEG'), ('新', 'JJ'), ('电脑', 'NN'), ('多少', 'CD'), ('钱', 'NN')]
+2026-11-14 14:27:25,855  INFO     TAGGED    '他的新电脑多少钱?' (level 1, 6 tags)
+2026-11-14 14:27:25,865  INFO     FALLBACK  '鸡蛋一块二。' -- out-of-list word(s): ['一块二']
+2026-11-14 14:27:25,865  WARNING    HAIKU resegment call for '鸡蛋一块二。' (cache miss on [('一块二', 'NN')])
+2026-11-14 14:27:25,881  INFO     TAGGED    '鸡蛋一块二。' (level 1, 4 tags)
+2026-11-14 14:27:25,900  INFO     FALLBACK  '这个杯子十五块。' -- out-of-list word(s): ['这个']
+2026-11-14 14:27:25,900  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('杯子', 'NN'), ('十五', 'NUM'), ('块', 'M')]
+2026-11-14 14:27:25,902  INFO     TAGGED    '这个杯子十五块。' (level 1, 4 tags)
+2026-11-14 14:27:25,913  INFO     FALLBACK  '面条儿十块钱。' -- out-of-list word(s): ['十块钱']
+2026-11-14 14:27:25,913  WARNING    HAIKU resegment call for '面条儿十块钱。' (cache miss on [('十块钱', 'NN')])
+2026-11-14 14:27:25,930  INFO     TAGGED    '面条儿十块钱。' (level 1, 5 tags)
+2026-11-14 14:27:25,941  INFO     OK        hanlp-valid   '饺子多少钱?' -> [('饺子', 'NN'), ('多少', 'CD'), ('钱', 'NN')]
+2026-11-14 14:27:25,943  INFO     TAGGED    '饺子多少钱?' (level 1, 3 tags)
+2026-11-14 14:27:25,954  INFO     FALLBACK  '米饭一块钱。' -- out-of-list word(s): ['一块钱']
+2026-11-14 14:27:25,955  WARNING    HAIKU resegment call for '米饭一块钱。' (cache miss on [('一块钱', 'NN')])
+2026-11-14 14:27:25,972  INFO     TAGGED    '米饭一块钱。' (level 1, 4 tags)
+2026-11-14 14:27:25,983  INFO     FALLBACK  '水两块钱,茶五块。' -- out-of-list word(s): ['两块钱', '五块']
+2026-11-14 14:27:25,983  WARNING    HAIKU resegment call for '水两块钱,茶五块。' (cache miss on [('两块钱', 'NN'), ('五块', 'CD')])
+2026-11-14 14:27:26,005  INFO     TAGGED    '水两块钱,茶五块。' (level 1, 7 tags)
+2026-11-14 14:27:26,024  INFO     OK        hanlp-valid   '太贵了,五十块可以吗?' -> [('太', 'AD'), ('贵', 'VA'), ('了', 'SP'), ('五十', 'NUM'), ('块', 'NN'), ('可以', 'VV'), ('吗', 'SP')]
+2026-11-14 14:27:26,027  INFO     TAGGED    '太贵了,五十块可以吗?' (level 1, 6 tags)
+2026-11-14 14:27:26,038  INFO     FALLBACK  '这个很便宜,六块钱。' -- out-of-list word(s): ['这个', '六块钱']
+2026-11-14 14:27:26,038  WARNING    HAIKU resegment call for '这个很便宜,六块钱。' (cache miss on [('六块钱', 'CD')])
+2026-11-14 14:27:26,060  INFO     TAGGED    '这个很便宜,六块钱。' (level 1, 7 tags)
+2026-11-14 14:27:26,078  INFO     FALLBACK  '我有三百块钱。' -- out-of-list word(s): ['块钱']
+2026-11-14 14:27:26,078  WARNING    HAIKU resegment call for '我有三百块钱。' (cache miss on [('块钱', 'NN')])
+2026-11-14 14:27:26,102  INFO     TAGGED    '我有三百块钱。' (level 1, 4 tags)
+2026-11-14 14:27:26,113  INFO     FALLBACK  '我只有五块钱。' -- out-of-list word(s): ['五块钱']
+2026-11-14 14:27:26,113  WARNING    HAIKU resegment call for '我只有五块钱。' (cache miss on [('五块钱', 'CD')])
+2026-11-14 14:27:26,129  INFO     TAGGED    '我只有五块钱。' (level 3, 5 tags)
+2026-11-14 14:27:26,140  INFO     FALLBACK  '你有十块钱吗?' -- out-of-list word(s): ['十块钱']
+2026-11-14 14:27:26,140  WARNING    HAIKU resegment call for '你有十块钱吗?' (cache miss on [('十块钱', 'NN')])
+2026-11-14 14:27:26,156  INFO     TAGGED    '你有十块钱吗?' (level 1, 6 tags)
+2026-11-14 14:27:26,175  INFO     OK        hanlp-valid   '这本书太贵了,两百块!' -> [('这', 'DT'), ('本', 'M'), ('书', 'NN'), ('太', 'AD'), ('贵', 'VA'), ('了', 'SP'), ('两百', 'NUM'), ('块', 'M')]
+2026-11-14 14:27:26,178  INFO     TAGGED    '这本书太贵了,两百块!' (level 1, 7 tags)
+2026-11-14 14:27:26,190  INFO     OK        hanlp-valid   '坐出租车去学校多少钱?' -> [('坐', 'VV'), ('出租车', 'NN'), ('去', 'VV'), ('学校', 'NN'), ('多少', 'CD'), ('钱', 'NN')]
+2026-11-14 14:27:26,193  INFO     TAGGED    '坐出租车去学校多少钱?' (level 1, 6 tags)
+2026-11-14 14:27:26,211  INFO     FALLBACK  '这个手机三千五百块。' -- out-of-list word(s): ['这个']
+2026-11-14 14:27:26,211  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('手机', 'NN'), ('三千五百', 'NUM'), ('块', 'M')]
+2026-11-14 14:27:26,214  INFO     TAGGED    '这个手机三千五百块。' (level 1, 4 tags)
+2026-11-14 14:27:26,225  INFO     FALLBACK  '那家店的面包很好吃,三块一个。' -- out-of-list word(s): ['三块', '一个']
+2026-11-14 14:27:26,225  WARNING    HAIKU resegment call for '那家店的面包很好吃,三块一个。' (cache miss on [('三块', 'NN'), ('一个', 'PN')])
+2026-11-14 14:27:26,248  INFO     TAGGED    '那家店的面包很好吃,三块一个。' (level 1, 11 tags)
+2026-11-14 14:27:26,260  INFO     FALLBACK  '我买两个,六块钱。' -- out-of-list word(s): ['两个', '六块钱']
+2026-11-14 14:27:26,260  WARNING    HAIKU resegment call for '我买两个,六块钱。' (cache miss on [('六块钱', 'CD')])
+2026-11-14 14:27:26,282  INFO     TAGGED    '我买两个,六块钱。' (level 1, 7 tags)
+2026-11-14 14:27:26,295  INFO     OK        hanlp-valid   '这只狗多少钱?' -> [('这', 'DT'), ('只', 'M'), ('狗', 'NN'), ('多少', 'CD'), ('钱', 'NN')]
+2026-11-14 14:27:26,298  INFO     TAGGED    '这只狗多少钱?' (level 1, 5 tags)
+2026-11-14 14:27:26,320  INFO     OK        hanlp-valid   '这件新衣服九十九块。' -> [('这', 'DT'), ('件', 'M'), ('新', 'JJ'), ('衣服', 'NN'), ('九十九', 'NUM'), ('块', 'M')]
+2026-11-14 14:27:26,322  INFO     TAGGED    '这件新衣服九十九块。' (level 1, 5 tags)
+2026-11-14 14:27:26,342  INFO     OK        hanlp-valid   '昨天的午饭二十块。' -> [('昨天', 'NT'), ('的', 'DEG'), ('午饭', 'NN'), ('二十', 'NUM'), ('块', 'M')]
+2026-11-14 14:27:26,345  INFO     TAGGED    '昨天的午饭二十块。' (level 1, 4 tags)
+2026-11-14 14:27:26,356  INFO     FALLBACK  '请问,这个水果多少钱?' -- out-of-list word(s): ['这个']
+2026-11-14 14:27:26,356  INFO       CACHE-ONLY resegmentation -> [('请问', 'VV'), ('这', 'DT'), ('个', 'M'), ('水果', 'NN'), ('多少', 'CD'), ('钱', 'NN')]
+2026-11-14 14:27:26,359  INFO     TAGGED    '请问,这个水果多少钱?' (level 1, 6 tags)
+2026-11-14 14:27:26,371  INFO     FALLBACK  '妈妈,这个多少钱?' -- out-of-list word(s): ['这个']
+2026-11-14 14:27:26,371  INFO       CACHE-ONLY resegmentation -> [('妈妈', 'NN'), ('这个', 'DT'), ('多少', 'CD'), ('钱', 'NN')]
+2026-11-14 14:27:26,378  INFO     TAGGED    '妈妈,这个多少钱?' (level 1, 5 tags)
+2026-11-14 14:27:26,390  INFO     FALLBACK  '今天苹果很便宜,四块八。' -- out-of-list word(s): ['四块八']
+2026-11-14 14:27:26,390  WARNING    HAIKU resegment call for '今天苹果很便宜,四块八。' (cache miss on [('四块八', 'CD')])
+2026-11-14 14:27:26,408  INFO     TAGGED    '今天苹果很便宜,四块八。' (level 1, 7 tags)
+2026-11-14 14:27:26,428  INFO     FALLBACK  '这个房间一天三百块。' -- out-of-list word(s): ['这个', '一天']
+2026-11-14 14:27:26,428  WARNING    HAIKU resegment call for '这个房间一天三百块。' (cache miss on [('一天', 'NN')])
+2026-11-14 14:27:26,457  INFO     TAGGED    '这个房间一天三百块。' (level 1, 6 tags)
+2026-11-14 14:27:26,468  INFO     OK        hanlp-valid   '你们的饭店,面条儿多少钱?' -> [('你们', 'PN'), ('的', 'DEG'), ('饭店', 'NN'), ('面条儿', 'NN'), ('儿', 'NN'), ('多少', 'CD'), ('钱', 'NN')]
+2026-11-14 14:27:26,471  INFO     TAGGED    '你们的饭店,面条儿多少钱?' (level 1, 7 tags)
+2026-11-14 14:27:26,490  INFO     FALLBACK  '那个杯子五十元。' -- out-of-list word(s): ['那个']
+2026-11-14 14:27:26,490  INFO       CACHE-ONLY resegmentation -> [('那', 'DT'), ('个', 'M'), ('杯子', 'NN'), ('五十', 'NUM'), ('元', 'NT')]
+2026-11-14 14:27:26,492  INFO     TAGGED    '那个杯子五十元。' (level 1, 4 tags)
+2026-11-14 14:27:26,511  INFO     FALLBACK  '这个小东西一块零五分。' -- out-of-list word(s): ['这个']
+2026-11-14 14:27:26,511  INFO       CACHE-ONLY resegmentation -> [('这个', 'DT'), ('小', 'JJ'), ('东西', 'NN'), ('一', 'CD'), ('块', 'M'), ('零五', 'NUM'), ('分', 'VV')]
+2026-11-14 14:27:26,519  INFO     TAGGED    '这个小东西一块零五分。' (level 1, 7 tags)
+2026-11-14 14:27:26,538  INFO     FALLBACK  '这本书店里卖十二块五。' -- out-of-list word(s): ['块五']
+2026-11-14 14:27:26,538  WARNING    HAIKU resegment call for '这本书店里卖十二块五。' (cache miss on [('块五', 'CD')])
+2026-11-14 14:27:26,562  INFO     TAGGED    '这本书店里卖十二块五。' (level 1, 7 tags)
+2026-11-14 14:27:26,581  INFO     OK        hanlp-valid   '我的水果五十块,你的呢?' -> [('我', 'PN'), ('的', 'DEG'), ('水果', 'NN'), ('五十', 'NUM'), ('块', 'M'), ('你', 'PN'), ('的', 'DEG'), ('呢', 'SP')]
+2026-11-14 14:27:26,585  INFO     TAGGED    '我的水果五十块,你的呢?' (level 1, 7 tags)

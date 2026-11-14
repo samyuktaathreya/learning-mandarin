@@ -1,0 +1,23 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 10357 characters -->
+## 3-39
+**Point:** 从⋯⋯起 / 离⋯⋯ — expressing a starting point in time or a distance/duration
+**Covers:** 
+- 从 + time/event + 起/以后 (starting from a time or event)
+- 离 + event/time + 还/还有 + duration (distance until a future event)
+- 离 + past event + duration (time elapsed since a past event)
+- 从 + place/person + (other content) expressing origin/source of action
+
+**Does not cover:**
+- 起来 as a direction complement or resultative (站起来, 吵起来, 听起来, 看起来 = appearance)
+- 从 as adverb meaning "always/never" (从不, 从来)
+- 从 in the phrase 从事 (to engage in a profession)
+- 一起 meaning "together"
+- 比起 (compared to)
+- 从 + place + 来/去 as simple motion from origin
+
+```rule
+match: 从/P _ (起/LC|以后/LC) | 离/P _ (还|还有)/AD (有/VE)?
+unless: 起来/VV | 从不/AD | 从来/AD | 从事/VV | 一起/AD | 比/VV 起/VV
+```
+
+**Notes:** The rule captures the two main patterns: (1) 从 + temporal/event element + 起 or 以后, and (2) 离 + element + 还/还有 + (有). The unless clauses filter out direction complements (起来), adverbial uses (从不/从来), the verb 从事, the adverb 一起, and the comparative 比起. The pattern allows flexible content between the preposition and the endpoint marker to accommodate different sentence structures.

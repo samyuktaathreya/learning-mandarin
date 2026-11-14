@@ -1,0 +1,52 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 14599 characters -->
+## 1-40
+<!-- written by claude-haiku-4-5 on 2026-11-10; edit freely -->
+**Point:** Expressing change of state, "now," or "not anymore" with sentence-final 了
+
+**Covers:** Clauses ending in 了 that signal a new situation. The rule only matches a few safe shapes:
+- Negated verb phrases meaning "not anymore": 我不去看电影了, 我已经不住这里了, 你不喜欢我了吗？
+- Idiomatic "now" sentences: 我20岁了, 到你了, 他当经理了, 吃饭了, 开会了.
+
+**Does not cover:**
+- Plain completion: 我买了, 他们到了, 我们都去了
+- 了 before an object or complement: 买到了, 做起来了
+- 太...了, ...点儿, 极了, 死了, 坏了
+- 快/要...了 (about to happen)
+- 别...了 (stop doing)
+- Double-了 duration: 睡了一天了
+- 过...了 and 完...了
+- Potential complements: 穿不了
+- Questions with 吗 that have no negation
+
+```rule
+match: ^ ... 不/AD ... 了/SP $
+match: ^ ... 已经/AD 不/AD ... 了/SP $
+match: ^ /PN /NT 了/SP $
+match: ^ 到/VV /PN 了/SP $
+match: ^ /PN 当/VV /NN 了/SP $
+match: ^ 吃/VV 饭/NN 了/SP $
+match: ^ 开会|上课|下雨/VV 了/SP $
+unless: 太/AD ... 了/SP $
+unless: 太/AD ... 了/AS $
+unless: ... 点/CD 儿/CD
+unless: ... 极/AD 了/SP
+unless: ... 死/VV 了/SP
+unless: ... 坏/VA 了/SP
+unless: ... 坏/VV 了/SP
+unless: 快/AD ... 了/SP $
+unless: 快/VA ... 了/SP $
+unless: 快要/AD ... 了/AS $
+unless: 快要/AD ... 了/SP $
+unless: 要/VV ... 了/SP $
+unless: 要/VV ... 了/AS $
+unless: 别/AD ... 了/SP $
+unless: 别/AD ... 了/AS $
+unless: ... /AS 一/CD ... 了/SP $
+unless: ... /VV 到/VV 了/AS
+unless: ... /VV 完/VV 了/AS
+unless: ... /VV 完/VV 了/SP
+unless: ... /VV 过/AS 了/SP
+unless: ... 不/AD 了/VV
+```
+
+**Notes:** Precision comes first. Bare "verb + 了" and "adjective + 了" are not matched, because they cannot be told apart from completion 了 (我买了, 我们都去了). The rule only fires on negation + ... + 了 (不...了) and on a few idiomatic anchored forms. Likely false positives are excluded by the unless lines: 太, 快/要, 别, 死/坏, 点儿, double-了 and complements. 不/AD 了/VV (穿不了) is a potential complement and is blocked by both the tag requirement and an explicit unless line.

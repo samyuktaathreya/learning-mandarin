@@ -17,3 +17,1439 @@ unrelated:
 [warning] no page teaches this point: the rule would only have the list's own examples to go on.
 
 Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-73
+
+########## rules  2026-11-10 21:26 ##########
+
+########## rules  2026-11-11 14:18 ##########
+
+########## rules  2026-11-12 17:31 ##########
+19 page(s) use the word(s); asking about 19.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASG004ZK  Indicating a number in excess
+  ASGHC9CA  Using_"ji"_to_mean_"several"
+
+not:
+  ASG1NAXO  Approximations with "chabuduo"
+  ASG44TBS  Expressing "thanks to" with "duokui"
+  ASG9LLJU  Asking about degree with "duo"
+  ASGGH7RR  Intensifying with "duo"
+  ASGL9KQM  Measure words in quantity questions
+  ASGLKGZP  Doing something more with "duo"
+  ASGQAN74  The opposite of "chabuduo" is "cha hen duo"
+  ASGVA70K  Expressing "nearly" with "jihu"
+  ASGCED31  Expressing "how often"
+  ASGE8810  Expressing "age difference" with "da and xiao"
+  ASGL6JOE  Counting money
+  ASG6KUS5  Expressing "much more" in comparisons
+
+unsure:
+
+unrelated:
+  ASG13ALM  Expressing "every" with question words
+  ASG1DXUD  Passive verbs with "shou"
+  ASG0NDS6  Expressing "no matter" with "buguan"
+  ASGH13JY  Idiomatic phrases with "zai"
+  ASGI96BQ  Expressing distance with "li"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-73
+Tagging 59 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_173135.txt
+  ...100/144
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-73, rule line 1: '(十|百|千|万)?/M' looks like a regular expression -- this is not regex syntax: use ... for 'any words' and _ for 'one word' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-73_20261112_173146.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-73
+<!-- written by claude-haiku-4-5 on 2026-11-12; edit freely -->
+**Point:** Approximate quantities using 几 (several/a few) or numbers with 多 (more than)
+**Covers:** 几 + measure + noun; 好几 + measure + noun; 几 + (十/百/千/万) + measure + noun; number + 多 + measure + noun
+**Does not cover:** 差不多 (about the same); 多亏 (thanks to); 多 in questions (多大); 多 for intensification (多好); 几乎 (almost); 多少 in questions; doing more with 多; 多 for degree of difference
+
+```rule
+match: 几/CD ... /M
+match: 好/AD 几/CD ... /M
+match: /CD 多/CD ... /M
+unless: 差不多
+unless: 多亏
+unless: 几乎
+unless: /CD 多/AD /M
+unless: ^ ... 多/AD /VA
+unless: ^ ... 多/AD /JJ
+unless: 多/AD 长/JJ 时间
+unless: 多/AD 少/CD
+```
+
+**Notes:** The rule matches 几 or 好几 followed eventually by a measure word (capturing patterns like 几十本 or 好几个). It also matches number + 多 + measure (like 二十多天). Key exclusions: 差不多 (approximation comparison), 多亏 (thanks to), 几乎 (almost), and constructions where 多 is an adverb modifying an adjective/noun rather than indicating quantity (多美, 多大 as questions, etc.). The pattern `/CD 多/AD /M` excludes cases like 两个多小时 where 多 is tagged as adverb between measure words.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-73
+Tagging 59 labeled example(s) (cached after this run)...
+  ...100/144
+  Checking 6 sentence(s) for 2-73 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-73: rule on labeled examples (no AI) ===
+  examples of 2-73 matched:    24/29
+  counter-examples wrongly matched: 0/115   <- should be 0
+
+--- examples of 2-73 the rule misses (5) ---
+  桌子上有几本书。  -- ASGHC9CA Using_"ji"_to_mean_"several"
+  只有几个人去过那个地方。  -- ASGHC9CA Using_"ji"_to_mean_"several"
+  从上海到东京坐飞机只要几个小时。  -- ASGHC9CA Using_"ji"_to_mean_"several"
+  我每天都要喝几杯咖啡。  -- ASGHC9CA Using_"ji"_to_mean_"several"
+  老板今天开了几个重要的会。  -- ASGHC9CA Using_"ji"_to_mean_"several"
+  easy examples (words all HSK 2 or below) matched: 12/14   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:41 ##########
+Filling 2-73 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 18 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_174127.txt
+  ...100/635
+  ...200/635
+  ...300/635
+  ...400/635
+  ...500/635
+  ...600/635
+
+Course sentences at HSK 2 the rule already finds 2-73 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-73 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1222  2. contain the point's word(s)
+     1215  3. new (not in DB, not a duplicate)
+      635  4. at most 2 characters outside HSK 2 words
+      100  5. really HSK 2
+       93  5b. no harder grammar point (of the 40 with a rule)
+        5  6. the rule finds 2-73
+        5  6b. no hidden word a learner can't work out
+        5  7. both checks say 2-73, English chosen
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (7) ---
+  门票多少钱？  -- already in the database
+  这本书多少钱？  -- already in the database
+  门票多少钱？  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  今天是星期二，明天是星期几？  -- same text as tatoeba 6056545 (translations pooled)
+  你会写多少汉字？  -- same text as tatoeba 6057136 (translations pooled)
+
+--- dropped at step 4 (580), first 12 ---
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 2 word uses: 伊宁种类
+  阿图什的无花果是甜蜜多汁的。  -- 6 characters no HSK 2 word uses: 图无汁甜蜜阿
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  你想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  您想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  你们想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  东京巨蛋的电话号码是多少？  -- 3 characters no HSK 2 word uses: 京巨码
+  胜败不能单靠兵力多少。  -- 6 characters no HSK 2 word uses: 兵力单胜败靠
+  很多公司实行8小时工作制。  -- 3 characters no HSK 2 word uses: 制实行
+  现在许多年轻人工作都不太安分，朋友的儿子大学毕业不到两年，已经换了五个工作了。  -- 6 characters no HSK 2 word uses: 业安换毕许轻
+
+--- dropped at step 5 (535), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  钱太多了吗？  -- level 1: no list words
+  你在日本住多久了？  -- level 3: 久 L3
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+  今天是几号？  -- level 1: no list words
+  您几点下课？  -- level 1: no list words
+  他岁数和你差不多。  -- level 6: 岁数 L6, 差不多 L3
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  您几点钟上班？  -- level 7: 钟 L7
+  我们时间不多了。  -- level 1: no list words
+
+--- dropped at step 5b (7) ---
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  我看我帮不上你多少忙。  -- harder grammar: 3-48 (HSK 3)
+  几天前我在站看到了他。  -- harder grammar: 3-46 (HSK 3)
+  我昨天早上看到了很多鸟。  -- harder grammar: 3-46 (HSK 3)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+
+--- dropped at step 6 (88) ---
+  你有多高？  -- rule: unless ^ ... 多/AD /VA
+  中国比日本大得多。  -- rule: no match: line matched
+  你们是几位？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: unless ^ ... 多/AD /VA
+  不会花很多时间的。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  你每天几点起床？  -- rule: no match: line matched
+  「你几岁？」「我十六岁。」  -- rule: no match: line matched
+  房间里没几个小孩子。  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  他来了很多次了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你几点会到车站？  -- rule: no match: line matched
+  很多学生考试没过。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  Ken的书比你多多了。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  你要走多远？  -- rule: unless ^ ... 多/AD /VA
+  告诉我们多一点。  -- rule: no match: line matched
+  我们做多一点。  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  你每天睡几个小时？  -- rule: no match: line matched
+  你有很多笔吗？  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  你花多少时间在Facebook上？  -- rule: no match: line matched
+  你去了几回？  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  我不能吃这么多。  -- rule: no match: line matched
+  她叫了我很多次。  -- rule: no match: line matched
+  要多长时间？  -- rule: unless ^ ... 多/AD /JJ ; 多/AD 长/JJ 时间
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  我已经在这里工作几个小时了。  -- rule: no match: line matched
+  它花了几个月。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: unless ^ ... 多/AD /VA
+  今天是星期二，明天是星期几？  -- rule: no match: line matched
+  我想问再你几个问题。  -- rule: no match: line matched
+  在我们学校里女孩比男孩多。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我们可以游到几点？  -- rule: no match: line matched
+  我们的房间在几楼？  -- rule: no match: line matched
+  你看完这本书要多少时间？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  过了多长时间？  -- rule: unless ^ ... 多/AD /JJ ; 多/AD 长/JJ 时间
+  很多外国人来日本工作。  -- rule: no match: line matched
+  他们多大？  -- rule: unless ^ ... 多/AD /VA
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  汤姆问了几个问题。  -- rule: no match: line matched
+  我们对你知道得不多。  -- rule: no match: line matched
+  休息几天会对你好的。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: no match: line matched
+  我们有多远了？  -- rule: unless ^ ... 多/AD /VA
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  他是前几天和你见过面的那个人。  -- rule: no match: line matched
+  这些裤子多少钱？  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  那个东西有多热？  -- rule: unless ^ ... 多/AD /VA
+  你花太多钱了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  她已经写了几本书。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  一打鸡蛋多少钱？  -- rule: no match: line matched
+  别吃太多。  -- rule: no match: line matched
+  你想让我买多少个苹果？  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: unless ^ ... 多/AD /VA
+  我喝了太多咖啡。  -- rule: no match: line matched
+  几分钟后见。  -- rule: no match: line matched
+  去南韩的机票多少钱？  -- rule: no match: line matched
+  几点出门？  -- rule: no match: line matched
+  你一天喝几杯咖啡？  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  这个月你做了多少次？  -- rule: no match: line matched
+  你这个月已经做了几次？  -- rule: no match: line matched
+  这个月你做过多少回？  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  「你们两个几岁？」「我二十七，他三十。」  -- rule: no match: line matched
+  中国姓王的人最多。  -- rule: no match: line matched
+
+--- dropped at step 8 (5) ---
+  她有几百本书。  -- difficulty review: (1/2); no answer from the review
+  他有一千多本书。  -- difficulty review: (1/2); no answer from the review
+  我们班有十多个学生。  -- difficulty review: (1/2); no answer from the review
+  我今年去了好几次外国。  -- difficulty review: (1/2); no answer from the review
+  我们等了好几个小时，但他没来。  -- difficulty review: (1/2); no answer from the review
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-73_level2_20261112_174137.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-73 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-73 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-73 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1222  2. contain the point's word(s)
+     1215  3. new (not in DB, not a duplicate)
+      635  4. at most 2 characters outside HSK 2 words
+      100  5. really HSK 2
+       93  5b. no harder grammar point (of the 40 with a rule)
+        5  6. the rule finds 2-73
+        5  6b. no hidden word a learner can't work out
+        5  7. both checks say 2-73, English chosen
+        4  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  她有几百本书。  (She has hundreds of books.)  [tatoeba 2638767]
+  我们班有十多个学生。  (Our class has more than ten students.)  [tatoeba 3378109]
+  我今年去了好几次外国。  (I have been abroad several times this year.)  [tatoeba 8835196]
+  我们等了好几个小时，但他没来。  (We've been waiting for hours, but he hasn't come.)  [tatoeba 5571064]
+
+--- dropped at step 3 (7) ---
+  门票多少钱？  -- already in the database
+  这本书多少钱？  -- already in the database
+  门票多少钱？  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  今天是星期二，明天是星期几？  -- same text as tatoeba 6056545 (translations pooled)
+  你会写多少汉字？  -- same text as tatoeba 6057136 (translations pooled)
+
+--- dropped at step 4 (580), first 12 ---
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 2 word uses: 伊宁种类
+  阿图什的无花果是甜蜜多汁的。  -- 6 characters no HSK 2 word uses: 图无汁甜蜜阿
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  你想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  您想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  你们想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  东京巨蛋的电话号码是多少？  -- 3 characters no HSK 2 word uses: 京巨码
+  胜败不能单靠兵力多少。  -- 6 characters no HSK 2 word uses: 兵力单胜败靠
+  很多公司实行8小时工作制。  -- 3 characters no HSK 2 word uses: 制实行
+  现在许多年轻人工作都不太安分，朋友的儿子大学毕业不到两年，已经换了五个工作了。  -- 6 characters no HSK 2 word uses: 业安换毕许轻
+
+--- dropped at step 5 (535), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  钱太多了吗？  -- level 1: no list words
+  你在日本住多久了？  -- level 3: 久 L3
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+  今天是几号？  -- level 1: no list words
+  您几点下课？  -- level 1: no list words
+  他岁数和你差不多。  -- level 6: 岁数 L6, 差不多 L3
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  您几点钟上班？  -- level 7: 钟 L7
+  我们时间不多了。  -- level 1: no list words
+
+--- dropped at step 5b (7) ---
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  我看我帮不上你多少忙。  -- harder grammar: 3-48 (HSK 3)
+  几天前我在站看到了他。  -- harder grammar: 3-46 (HSK 3)
+  我昨天早上看到了很多鸟。  -- harder grammar: 3-46 (HSK 3)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+
+--- dropped at step 6 (88) ---
+  你有多高？  -- rule: unless ^ ... 多/AD /VA
+  中国比日本大得多。  -- rule: no match: line matched
+  你们是几位？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: unless ^ ... 多/AD /VA
+  不会花很多时间的。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  你每天几点起床？  -- rule: no match: line matched
+  「你几岁？」「我十六岁。」  -- rule: no match: line matched
+  房间里没几个小孩子。  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  他来了很多次了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你几点会到车站？  -- rule: no match: line matched
+  很多学生考试没过。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  Ken的书比你多多了。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  你要走多远？  -- rule: unless ^ ... 多/AD /VA
+  告诉我们多一点。  -- rule: no match: line matched
+  我们做多一点。  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  你每天睡几个小时？  -- rule: no match: line matched
+  你有很多笔吗？  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  你花多少时间在Facebook上？  -- rule: no match: line matched
+  你去了几回？  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  我不能吃这么多。  -- rule: no match: line matched
+  她叫了我很多次。  -- rule: no match: line matched
+  要多长时间？  -- rule: unless ^ ... 多/AD /JJ ; 多/AD 长/JJ 时间
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  我已经在这里工作几个小时了。  -- rule: no match: line matched
+  它花了几个月。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: unless ^ ... 多/AD /VA
+  今天是星期二，明天是星期几？  -- rule: no match: line matched
+  我想问再你几个问题。  -- rule: no match: line matched
+  在我们学校里女孩比男孩多。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我们可以游到几点？  -- rule: no match: line matched
+  我们的房间在几楼？  -- rule: no match: line matched
+  你看完这本书要多少时间？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  过了多长时间？  -- rule: unless ^ ... 多/AD /JJ ; 多/AD 长/JJ 时间
+  很多外国人来日本工作。  -- rule: no match: line matched
+  他们多大？  -- rule: unless ^ ... 多/AD /VA
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  汤姆问了几个问题。  -- rule: no match: line matched
+  我们对你知道得不多。  -- rule: no match: line matched
+  休息几天会对你好的。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: no match: line matched
+  我们有多远了？  -- rule: unless ^ ... 多/AD /VA
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  他是前几天和你见过面的那个人。  -- rule: no match: line matched
+  这些裤子多少钱？  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  那个东西有多热？  -- rule: unless ^ ... 多/AD /VA
+  你花太多钱了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  她已经写了几本书。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  一打鸡蛋多少钱？  -- rule: no match: line matched
+  别吃太多。  -- rule: no match: line matched
+  你想让我买多少个苹果？  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: unless ^ ... 多/AD /VA
+  我喝了太多咖啡。  -- rule: no match: line matched
+  几分钟后见。  -- rule: no match: line matched
+  去南韩的机票多少钱？  -- rule: no match: line matched
+  几点出门？  -- rule: no match: line matched
+  你一天喝几杯咖啡？  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  这个月你做了多少次？  -- rule: no match: line matched
+  你这个月已经做了几次？  -- rule: no match: line matched
+  这个月你做过多少回？  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  「你们两个几岁？」「我二十七，他三十。」  -- rule: no match: line matched
+  中国姓王的人最多。  -- rule: no match: line matched
+
+--- dropped at step 8 (1) ---
+  他有一千多本书。  -- difficulty review: (1/2); Missing the quantity word (个) between the number and the measure word in the approximate number construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-73_level2_20261112_211543.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:55 ##########
+Filling 2-73 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-73 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-73 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1222  2. contain the point's word(s)
+     1215  3. new (not in DB, not a duplicate)
+      635  4. at most 2 characters outside HSK 2 words
+      100  5. really HSK 2
+       92  5b. no harder grammar point (of the 44 with a rule)
+        5  6. the rule finds 2-73
+        5  6b. no hidden word a learner can't work out
+        5  7. both checks say 2-73, English chosen
+        4  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  她有几百本书。  (She has hundreds of books.)  [tatoeba 2638767]
+  我们班有十多个学生。  (Our class has more than ten students.)  [tatoeba 3378109]
+  我今年去了好几次外国。  (I have been abroad several times this year.)  [tatoeba 8835196]
+  我们等了好几个小时，但他没来。  (We've been waiting for hours, but he hasn't come.)  [tatoeba 5571064]
+
+--- dropped at step 3 (7) ---
+  门票多少钱？  -- already in the database
+  这本书多少钱？  -- already in the database
+  门票多少钱？  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  今天是星期二，明天是星期几？  -- same text as tatoeba 6056545 (translations pooled)
+  你会写多少汉字？  -- same text as tatoeba 6057136 (translations pooled)
+
+--- dropped at step 4 (580), first 12 ---
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 2 word uses: 伊宁种类
+  阿图什的无花果是甜蜜多汁的。  -- 6 characters no HSK 2 word uses: 图无汁甜蜜阿
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  你想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  您想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  你们想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  东京巨蛋的电话号码是多少？  -- 3 characters no HSK 2 word uses: 京巨码
+  胜败不能单靠兵力多少。  -- 6 characters no HSK 2 word uses: 兵力单胜败靠
+  很多公司实行8小时工作制。  -- 3 characters no HSK 2 word uses: 制实行
+  现在许多年轻人工作都不太安分，朋友的儿子大学毕业不到两年，已经换了五个工作了。  -- 6 characters no HSK 2 word uses: 业安换毕许轻
+
+--- dropped at step 5 (535), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  钱太多了吗？  -- level 1: no list words
+  你在日本住多久了？  -- level 3: 久 L3
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+  今天是几号？  -- level 1: no list words
+  您几点下课？  -- level 1: no list words
+  他岁数和你差不多。  -- level 6: 岁数 L6, 差不多 L3
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  您几点钟上班？  -- level 7: 钟 L7
+  我们时间不多了。  -- level 1: no list words
+
+--- dropped at step 5b (8) ---
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  它花了几个月。  -- harder grammar: 2-06 (HSK 3)
+  我看我帮不上你多少忙。  -- harder grammar: 3-48 (HSK 3)
+  几天前我在站看到了他。  -- harder grammar: 3-46 (HSK 3)
+  我昨天早上看到了很多鸟。  -- harder grammar: 3-46 (HSK 3)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+
+--- dropped at step 6 (87) ---
+  你有多高？  -- rule: unless ^ ... 多/AD /VA
+  中国比日本大得多。  -- rule: no match: line matched
+  你们是几位？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: unless ^ ... 多/AD /VA
+  不会花很多时间的。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  你每天几点起床？  -- rule: no match: line matched
+  「你几岁？」「我十六岁。」  -- rule: no match: line matched
+  房间里没几个小孩子。  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  他来了很多次了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你几点会到车站？  -- rule: no match: line matched
+  很多学生考试没过。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  Ken的书比你多多了。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  你要走多远？  -- rule: unless ^ ... 多/AD /VA
+  告诉我们多一点。  -- rule: no match: line matched
+  我们做多一点。  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  你每天睡几个小时？  -- rule: no match: line matched
+  你有很多笔吗？  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  你花多少时间在Facebook上？  -- rule: no match: line matched
+  你去了几回？  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  我不能吃这么多。  -- rule: no match: line matched
+  她叫了我很多次。  -- rule: no match: line matched
+  要多长时间？  -- rule: unless ^ ... 多/AD /JJ ; 多/AD 长/JJ 时间
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  我已经在这里工作几个小时了。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: unless ^ ... 多/AD /VA
+  今天是星期二，明天是星期几？  -- rule: no match: line matched
+  我想问再你几个问题。  -- rule: no match: line matched
+  在我们学校里女孩比男孩多。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我们可以游到几点？  -- rule: no match: line matched
+  我们的房间在几楼？  -- rule: no match: line matched
+  你看完这本书要多少时间？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  过了多长时间？  -- rule: unless ^ ... 多/AD /JJ ; 多/AD 长/JJ 时间
+  很多外国人来日本工作。  -- rule: no match: line matched
+  他们多大？  -- rule: unless ^ ... 多/AD /VA
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  汤姆问了几个问题。  -- rule: no match: line matched
+  我们对你知道得不多。  -- rule: no match: line matched
+  休息几天会对你好的。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: no match: line matched
+  我们有多远了？  -- rule: unless ^ ... 多/AD /VA
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  他是前几天和你见过面的那个人。  -- rule: no match: line matched
+  这些裤子多少钱？  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  那个东西有多热？  -- rule: unless ^ ... 多/AD /VA
+  你花太多钱了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  她已经写了几本书。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  一打鸡蛋多少钱？  -- rule: no match: line matched
+  别吃太多。  -- rule: no match: line matched
+  你想让我买多少个苹果？  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: unless ^ ... 多/AD /VA
+  我喝了太多咖啡。  -- rule: no match: line matched
+  几分钟后见。  -- rule: no match: line matched
+  去南韩的机票多少钱？  -- rule: no match: line matched
+  几点出门？  -- rule: no match: line matched
+  你一天喝几杯咖啡？  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  这个月你做了多少次？  -- rule: no match: line matched
+  你这个月已经做了几次？  -- rule: no match: line matched
+  这个月你做过多少回？  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  「你们两个几岁？」「我二十七，他三十。」  -- rule: no match: line matched
+  中国姓王的人最多。  -- rule: no match: line matched
+
+--- dropped at step 8 (1) ---
+  他有一千多本书。  -- difficulty review: (1/2); Missing the quantity word (个) between the number and the measure word in the approximate number construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-73_level2_20261113_135521.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:46 ##########
+Filling 2-73 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-73 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 0 check and 1 review rejection(s)...
+
+=== 2-73 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1222  2. contain the point's word(s)
+     1215  3. new (not in DB, not a duplicate)
+      635  4. at most 2 characters outside HSK 2 words
+      100  5. really HSK 2
+       93  5b. no harder grammar point (of the 43 with a rule)
+        5  6. the rule finds 2-73
+        5  6b. no hidden word a learner can't work out
+        5  7. both checks say 2-73, English chosen
+        4  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  她有几百本书。  (She has hundreds of books.)  [tatoeba 2638767]
+  我们班有十多个学生。  (Our class has more than ten students.)  [tatoeba 3378109]
+  我今年去了好几次外国。  (I have been abroad several times this year.)  [tatoeba 8835196]
+  我们等了好几个小时，但他没来。  (We've been waiting for hours, but he hasn't come.)  [tatoeba 5571064]
+  他有一千多本书。  (He has more than a thousand books.)  [tatoeba 3378253]
+
+--- dropped at step 3 (7) ---
+  门票多少钱？  -- already in the database
+  这本书多少钱？  -- already in the database
+  门票多少钱？  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  今天是星期二，明天是星期几？  -- same text as tatoeba 6056545 (translations pooled)
+  你会写多少汉字？  -- same text as tatoeba 6057136 (translations pooled)
+
+--- dropped at step 4 (580), first 12 ---
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 2 word uses: 伊宁种类
+  阿图什的无花果是甜蜜多汁的。  -- 6 characters no HSK 2 word uses: 图无汁甜蜜阿
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  你想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  您想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  你们想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  东京巨蛋的电话号码是多少？  -- 3 characters no HSK 2 word uses: 京巨码
+  胜败不能单靠兵力多少。  -- 6 characters no HSK 2 word uses: 兵力单胜败靠
+  很多公司实行8小时工作制。  -- 3 characters no HSK 2 word uses: 制实行
+  现在许多年轻人工作都不太安分，朋友的儿子大学毕业不到两年，已经换了五个工作了。  -- 6 characters no HSK 2 word uses: 业安换毕许轻
+
+--- dropped at step 5 (535), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  钱太多了吗？  -- level 1: no list words
+  你在日本住多久了？  -- level 3: 久 L3
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+  今天是几号？  -- level 1: no list words
+  您几点下课？  -- level 1: no list words
+  他岁数和你差不多。  -- level 6: 岁数 L6, 差不多 L3
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  您几点钟上班？  -- level 7: 钟 L7
+  我们时间不多了。  -- level 1: no list words
+
+--- dropped at step 5b (7) ---
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  我看我帮不上你多少忙。  -- harder grammar: 3-48 (HSK 3)
+  几天前我在站看到了他。  -- harder grammar: 3-46 (HSK 3)
+  我昨天早上看到了很多鸟。  -- harder grammar: 3-46 (HSK 3)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+
+--- dropped at step 6 (88) ---
+  你有多高？  -- rule: unless ^ ... 多/AD /VA
+  中国比日本大得多。  -- rule: no match: line matched
+  你们是几位？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: unless ^ ... 多/AD /VA
+  不会花很多时间的。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  你每天几点起床？  -- rule: no match: line matched
+  「你几岁？」「我十六岁。」  -- rule: no match: line matched
+  房间里没几个小孩子。  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  他来了很多次了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你几点会到车站？  -- rule: no match: line matched
+  很多学生考试没过。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  Ken的书比你多多了。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  你要走多远？  -- rule: unless ^ ... 多/AD /VA
+  告诉我们多一点。  -- rule: no match: line matched
+  我们做多一点。  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  你每天睡几个小时？  -- rule: no match: line matched
+  你有很多笔吗？  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  你花多少时间在Facebook上？  -- rule: no match: line matched
+  你去了几回？  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  我不能吃这么多。  -- rule: no match: line matched
+  她叫了我很多次。  -- rule: no match: line matched
+  要多长时间？  -- rule: unless ^ ... 多/AD /JJ ; 多/AD 长/JJ 时间
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  我已经在这里工作几个小时了。  -- rule: no match: line matched
+  它花了几个月。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: unless ^ ... 多/AD /VA
+  今天是星期二，明天是星期几？  -- rule: no match: line matched
+  我想问再你几个问题。  -- rule: no match: line matched
+  在我们学校里女孩比男孩多。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我们可以游到几点？  -- rule: no match: line matched
+  我们的房间在几楼？  -- rule: no match: line matched
+  你看完这本书要多少时间？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  过了多长时间？  -- rule: unless ^ ... 多/AD /JJ ; 多/AD 长/JJ 时间
+  很多外国人来日本工作。  -- rule: no match: line matched
+  他们多大？  -- rule: unless ^ ... 多/AD /VA
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  汤姆问了几个问题。  -- rule: no match: line matched
+  我们对你知道得不多。  -- rule: no match: line matched
+  休息几天会对你好的。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: no match: line matched
+  我们有多远了？  -- rule: unless ^ ... 多/AD /VA
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  他是前几天和你见过面的那个人。  -- rule: no match: line matched
+  这些裤子多少钱？  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  那个东西有多热？  -- rule: unless ^ ... 多/AD /VA
+  你花太多钱了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  她已经写了几本书。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  一打鸡蛋多少钱？  -- rule: no match: line matched
+  别吃太多。  -- rule: no match: line matched
+  你想让我买多少个苹果？  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: unless ^ ... 多/AD /VA
+  我喝了太多咖啡。  -- rule: no match: line matched
+  几分钟后见。  -- rule: no match: line matched
+  去南韩的机票多少钱？  -- rule: no match: line matched
+  几点出门？  -- rule: no match: line matched
+  你一天喝几杯咖啡？  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  这个月你做了多少次？  -- rule: no match: line matched
+  你这个月已经做了几次？  -- rule: no match: line matched
+  这个月你做过多少回？  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  「你们两个几岁？」「我二十七，他三十。」  -- rule: no match: line matched
+  中国姓王的人最多。  -- rule: no match: line matched
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-73_level2_20261113_144623.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## ai  2026-11-14 14:44 ##########
+
+----- AI-written sentences for 2-73, round 1: 0 to check, 15 needed -----
+  Asking claude-sonnet-5-5 to write 38 sentence(s)...
+
+----- AI-written sentences for 2-73, round 2: 38 to check, 15 needed -----
+Filling 2-73 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 38
+
+Tagging 38 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_144451.txt
+
+Course sentences at HSK 2 the rule already finds 2-73 in: 0  -> Tatoeba needs to add 15 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-73 at HSK 2: funnel ===
+       38  AI-written sentences
+       38  1. have an English translation
+       38  2. contain the point's word(s)
+       38  3. new (not in DB, not a duplicate)
+       38  4. at most 0 characters outside HSK 2 words
+       31  5. really HSK 2
+       31  5b. no harder grammar point (of the 43 with a rule)
+       28  6. the rule finds 2-73
+       27  6b. no hidden word a learner can't work out
+       20  7. both checks say 2-73, English chosen
+       20  8. both difficulty reviews pass it
+  (7 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (20) ===
+  他今年四十多岁。  (He is over forty this year.)  [tatoeba ai-b0982d3fdc]
+  他喝了好几杯茶。  (He drank quite a few cups of tea.)  [tatoeba ai-b085f31f6f]
+  她买了几十本书。  (She bought several dozen books.)  [tatoeba ai-4a6ac6abf0]
+  这件衣服三百多块。  (This piece of clothing costs over three hundred kuai.)  [tatoeba ai-9f53eaba9a]
+  这本书五十多块钱。  (This book costs over fifty kuai.)  [tatoeba ai-e13a774a29]
+  他写了几百个汉字。  (He wrote several hundred Chinese characters.)  [tatoeba ai-0b8f02d802]
+  她买了好几件新衣服。  (She bought quite a few new clothes.)  [tatoeba ai-bc1fec6c26]
+  桌子上有几十个鸡蛋。  (There are several dozen eggs on the table.)  [tatoeba ai-34a58065c1]
+  这个手机两千多块钱。  (This phone costs over two thousand kuai.)  [tatoeba ai-30c7ddb770]  hidden: 这个
+  我有十多个中国朋友。  (I have more than ten Chinese friends.)  [tatoeba ai-93aa235967]
+  弟弟吃了好几个包子。  (My younger brother ate quite a few baozi.)  [tatoeba ai-eb7a9046bb]
+  我们学校有几千个学生。  (Our school has several thousand students.)  [tatoeba ai-3f772a2435]
+  昨天我睡了八个多小时。  (Yesterday I slept for more than eight hours.)  [tatoeba ai-456d8776bc]
+  我们公司有一百多个人。  (Our company has over a hundred people.)  [tatoeba ai-f24bda22dd]
+  这个电影我看了好几次。  (I've seen this movie quite a few times.)  [tatoeba ai-53ea73499d]  hidden: 这个
+  这个酒店有几百个房间。  (This hotel has several hundred rooms.)  [tatoeba ai-4448ec16f0]  hidden: 这个
+  我今天打了好几个电话。  (I made quite a few phone calls today.)  [tatoeba ai-92e649134c]
+  这个电影有两个多小时。  (This movie is over two hours long.)  [tatoeba ai-d8cf337f88]  hidden: 这个
+  今天商店里来了几百个人。  (Several hundred people came to the store today.)  [tatoeba ai-ddd6307f2d]
+  我们坐了三个多小时火车。  (We rode the train for more than three hours.)  [tatoeba ai-98c2e75bbf]
+
+--- dropped at step 5 (7) ---
+  我家离学校很近，走路十分钟左右。  -- level 4: 左右 L4
+  她女儿三岁多了。  -- level 1: no list words
+  明天下午三点左右我给你打电话。  -- level 4: 左右 L4
+  我早上六点左右起床。  -- level 4: 左右 L4
+  从我家到学校要二十分钟左右。  -- level 4: 左右 L4
+  我们认识十多年了。  -- level 10: 多年 (not in list)
+  昨天晚上我睡了六个小时左右。  -- level 4: 左右 L4
+
+--- dropped at step 6 (3) ---
+  我买了几个苹果。  -- rule: no match: line matched
+  我在中国住了两年多。  -- rule: no match: line matched
+  我只学了几个汉字。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我等了你二十多分钟。  -- hidden word a learner can't work out: 我等 (we; us (archaic))
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-73_level2_20261114_144504.csv
+
+########## ai  2026-11-14 15:02 ##########
+
+----- AI-written sentences for 2-73, round 1: 38 to check, 15 needed -----
+Filling 2-73 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 38
+
+
+Course sentences at HSK 2 the rule already finds 2-73 in: 0  -> Tatoeba needs to add 15 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-73 at HSK 2: funnel ===
+       38  AI-written sentences
+       38  1. have an English translation
+       38  2. contain the point's word(s)
+       38  3. new (not in DB, not a duplicate)
+       38  4. at most 0 characters outside HSK 2 words
+       31  5. really HSK 2
+       31  5b. no harder grammar point (of the 43 with a rule)
+       28  6. the rule finds 2-73
+       27  6b. no hidden word a learner can't work out
+       20  7. both checks say 2-73, English chosen
+       20  8. both difficulty reviews pass it
+  (7 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (20) ===
+  他今年四十多岁。  (He is over forty this year.)  [tatoeba ai-b0982d3fdc]
+  他喝了好几杯茶。  (He drank quite a few cups of tea.)  [tatoeba ai-b085f31f6f]
+  她买了几十本书。  (She bought several dozen books.)  [tatoeba ai-4a6ac6abf0]
+  这件衣服三百多块。  (This piece of clothing costs over three hundred kuai.)  [tatoeba ai-9f53eaba9a]
+  这本书五十多块钱。  (This book costs over fifty kuai.)  [tatoeba ai-e13a774a29]
+  他写了几百个汉字。  (He wrote several hundred Chinese characters.)  [tatoeba ai-0b8f02d802]
+  她买了好几件新衣服。  (She bought quite a few new clothes.)  [tatoeba ai-bc1fec6c26]
+  桌子上有几十个鸡蛋。  (There are several dozen eggs on the table.)  [tatoeba ai-34a58065c1]
+  这个手机两千多块钱。  (This phone costs over two thousand kuai.)  [tatoeba ai-30c7ddb770]  hidden: 这个
+  我有十多个中国朋友。  (I have more than ten Chinese friends.)  [tatoeba ai-93aa235967]
+  弟弟吃了好几个包子。  (My younger brother ate quite a few baozi.)  [tatoeba ai-eb7a9046bb]
+  我们学校有几千个学生。  (Our school has several thousand students.)  [tatoeba ai-3f772a2435]
+  昨天我睡了八个多小时。  (Yesterday I slept for more than eight hours.)  [tatoeba ai-456d8776bc]
+  我们公司有一百多个人。  (Our company has over a hundred people.)  [tatoeba ai-f24bda22dd]
+  这个电影我看了好几次。  (I've seen this movie quite a few times.)  [tatoeba ai-53ea73499d]  hidden: 这个
+  这个酒店有几百个房间。  (This hotel has several hundred rooms.)  [tatoeba ai-4448ec16f0]  hidden: 这个
+  我今天打了好几个电话。  (I made quite a few phone calls today.)  [tatoeba ai-92e649134c]
+  这个电影有两个多小时。  (This movie is over two hours long.)  [tatoeba ai-d8cf337f88]  hidden: 这个
+  今天商店里来了几百个人。  (Several hundred people came to the store today.)  [tatoeba ai-ddd6307f2d]
+  我们坐了三个多小时火车。  (We rode the train for more than three hours.)  [tatoeba ai-98c2e75bbf]
+
+--- dropped at step 5 (7) ---
+  我家离学校很近，走路十分钟左右。  -- level 4: 左右 L4
+  她女儿三岁多了。  -- level 1: no list words
+  明天下午三点左右我给你打电话。  -- level 4: 左右 L4
+  我早上六点左右起床。  -- level 4: 左右 L4
+  从我家到学校要二十分钟左右。  -- level 4: 左右 L4
+  我们认识十多年了。  -- level 10: 多年 (not in list)
+  昨天晚上我睡了六个小时左右。  -- level 4: 左右 L4
+
+--- dropped at step 6 (3) ---
+  我买了几个苹果。  -- rule: no match: line matched
+  我在中国住了两年多。  -- rule: no match: line matched
+  我只学了几个汉字。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我等了你二十多分钟。  -- hidden word a learner can't work out: 我等 (we; us (archaic))
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-73_level2_20261114_150203.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:11 ##########
+Filling 2-73 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 1 Tatoeba candidate(s) (cached after this run)...
+  ...100/596
+  ...200/596
+  ...300/596
+  ...400/596
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161137.txt
+  ...500/596
+
+Course sentences at HSK 2 the rule already finds 2-73 in: 20  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-73 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1222  2. contain the point's word(s)
+     1176  3. new (not in DB, not a duplicate)
+      596  4. at most 2 characters outside HSK 2 words
+       77  5. really HSK 2
+       70  5b. no harder grammar point (of the 43 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (46), first 12 ---
+  您几点下课？  -- already in the database
+  我们时间不多了。  -- already in the database
+  门票多少钱？  -- already in the database
+  他有很多钱。  -- already in the database
+  你有多少钱？  -- already in the database
+  她今天比昨天要好很多。  -- already in the database
+  我想我喝得太多了。  -- already in the database
+  他来了很多次了。  -- already in the database
+  我工作得太多了。  -- already in the database
+  他有很多书。  -- already in the database
+  她有几百本书。  -- already in the database
+  Ken的书比你多多了。  -- already in the database
+
+--- dropped at step 4 (580), first 12 ---
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 2 word uses: 伊宁种类
+  阿图什的无花果是甜蜜多汁的。  -- 6 characters no HSK 2 word uses: 图无汁甜蜜阿
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  你想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  您想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  你们想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  东京巨蛋的电话号码是多少？  -- 3 characters no HSK 2 word uses: 京巨码
+  胜败不能单靠兵力多少。  -- 6 characters no HSK 2 word uses: 兵力单胜败靠
+  很多公司实行8小时工作制。  -- 3 characters no HSK 2 word uses: 制实行
+  现在许多年轻人工作都不太安分，朋友的儿子大学毕业不到两年，已经换了五个工作了。  -- 6 characters no HSK 2 word uses: 业安换毕许轻
+
+--- dropped at step 5 (519), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  钱太多了吗？  -- level 1: no list words
+  你在日本住多久了？  -- level 3: 久 L3
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+  今天是几号？  -- level 1: no list words
+  他岁数和你差不多。  -- level 6: 岁数 L6, 差不多 L3
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  您几点钟上班？  -- level 7: 钟 L7
+  我们的拌面里有好多东西。  -- level 7: 拌 L7, 好多 L3
+  学中文的学生只有他们几个。  -- level 3: 只有 L3
+
+--- dropped at step 5b (7) ---
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  我看我帮不上你多少忙。  -- harder grammar: 3-48 (HSK 3)
+  几天前我在站看到了他。  -- harder grammar: 3-46 (HSK 3)
+  我昨天早上看到了很多鸟。  -- harder grammar: 3-46 (HSK 3)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+
+--- dropped at step 6 (70) ---
+  你有多高？  -- rule: unless ^ ... 多/AD /VA
+  中国比日本大得多。  -- rule: no match: line matched
+  你们是几位？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: unless ^ ... 多/AD /VA
+  不会花很多时间的。  -- rule: no match: line matched
+  你每天几点起床？  -- rule: no match: line matched
+  「你几岁？」「我十六岁。」  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你几点会到车站？  -- rule: no match: line matched
+  很多学生考试没过。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  你要走多远？  -- rule: unless ^ ... 多/AD /VA
+  告诉我们多一点。  -- rule: no match: line matched
+  我们做多一点。  -- rule: no match: line matched
+  给我多一点牛奶！  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  你每天睡几个小时？  -- rule: no match: line matched
+  你有很多笔吗？  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  你花多少时间在Facebook上？  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  要多长时间？  -- rule: unless ^ ... 多/AD /JJ ; 多/AD 长/JJ 时间
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  它花了几个月。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: unless ^ ... 多/AD /VA
+  今天是星期二，明天是星期几？  -- rule: no match: line matched
+  飞机上吃了一点，不多。  -- rule: no match: line matched
+  我想问再你几个问题。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我们可以游到几点？  -- rule: no match: line matched
+  我们的房间在几楼？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  过了多长时间？  -- rule: unless ^ ... 多/AD /JJ ; 多/AD 长/JJ 时间
+  很多外国人来日本工作。  -- rule: no match: line matched
+  他们多大？  -- rule: unless ^ ... 多/AD /VA
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  汤姆问了几个问题。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: no match: line matched
+  我们有多远了？  -- rule: unless ^ ... 多/AD /VA
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  他是前几天和你见过面的那个人。  -- rule: no match: line matched
+  这些裤子多少钱？  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  那个东西有多热？  -- rule: unless ^ ... 多/AD /VA
+  你花太多钱了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  一打鸡蛋多少钱？  -- rule: no match: line matched
+  别吃太多。  -- rule: no match: line matched
+  你想让我买多少个苹果？  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: unless ^ ... 多/AD /VA
+  我喝了太多咖啡。  -- rule: no match: line matched
+  几分钟后见。  -- rule: no match: line matched
+  去南韩的机票多少钱？  -- rule: no match: line matched
+  几点出门？  -- rule: no match: line matched
+  你一天喝几杯咖啡？  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  「你们两个几岁？」「我二十七，他三十。」  -- rule: no match: line matched
+  中国姓王的人最多。  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-73_level2_20261114_161138.csv
+
+########## ai  2026-11-14 16:14 ##########
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:32 ##########
+Filling 2-73 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-73 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 0 check and 1 review rejection(s)...
+
+=== 2-73 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1222  2. contain the point's word(s)
+     1215  3. new (not in DB, not a duplicate)
+      635  4. at most 2 characters outside HSK 2 words
+      101  5. really HSK 2
+       94  5b. no harder grammar point (of the 43 with a rule)
+        5  6. the rule finds 2-73
+        5  6b. no hidden word a learner can't work out
+        5  7. both checks say 2-73, English chosen
+        4  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  她有几百本书。  (She has hundreds of books.)  [tatoeba 2638767]
+  我们班有十多个学生。  (Our class has more than ten students.)  [tatoeba 3378109]
+  我今年去了好几次外国。  (I have been abroad several times this year.)  [tatoeba 8835196]
+  我们等了好几个小时，但他没来。  (We've been waiting for hours, but he hasn't come.)  [tatoeba 5571064]
+  他有一千多本书。  (He has more than a thousand books.)  [tatoeba 3378253]
+
+--- dropped at step 3 (7) ---
+  门票多少钱？  -- already in the database
+  这本书多少钱？  -- already in the database
+  门票多少钱？  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  今天是星期二，明天是星期几？  -- same text as 6056545 (translations pooled)
+  你会写多少汉字？  -- same text as 6057136 (translations pooled)
+
+--- dropped at step 4 (580), first 12 ---
+  伊宁的苹果种类非常多。  -- 4 characters no HSK 2 word uses: 伊宁种类
+  阿图什的无花果是甜蜜多汁的。  -- 6 characters no HSK 2 word uses: 图无汁甜蜜阿
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  你想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  您想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  你们想吃几串烤羊肉？  -- 3 characters no HSK 2 word uses: 串烤羊
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  东京巨蛋的电话号码是多少？  -- 3 characters no HSK 2 word uses: 京巨码
+  胜败不能单靠兵力多少。  -- 6 characters no HSK 2 word uses: 兵力单胜败靠
+  很多公司实行8小时工作制。  -- 3 characters no HSK 2 word uses: 制实行
+  现在许多年轻人工作都不太安分，朋友的儿子大学毕业不到两年，已经换了五个工作了。  -- 6 characters no HSK 2 word uses: 业安换毕许轻
+
+--- dropped at step 5 (534), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  钱太多了吗？  -- level 1: no list words
+  你在日本住多久了？  -- level 3: 久 L3
+  她写了好多诗。  -- level 5: 好多 L3, 诗 L5
+  今天是几号？  -- level 1: no list words
+  您几点下课？  -- level 1: no list words
+  他岁数和你差不多。  -- level 6: 岁数 L6, 差不多 L3
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  您几点钟上班？  -- level 7: 钟 L7
+  我们时间不多了。  -- level 1: no list words
+
+--- dropped at step 5b (7) ---
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  我看我帮不上你多少忙。  -- harder grammar: 3-48 (HSK 3)
+  几天前我在站看到了他。  -- harder grammar: 3-46 (HSK 3)
+  我昨天早上看到了很多鸟。  -- harder grammar: 3-46 (HSK 3)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+
+--- dropped at step 6 (89) ---
+  你有多高？  -- rule: unless ^ ... 多/AD /VA
+  中国比日本大得多。  -- rule: no match: line matched
+  你们是几位？  -- rule: no match: line matched
+  你的孩子多大了？  -- rule: unless ^ ... 多/AD /VA
+  不会花很多时间的。  -- rule: no match: line matched
+  她今天比昨天要好很多。  -- rule: no match: line matched
+  你每天几点起床？  -- rule: no match: line matched
+  「你几岁？」「我十六岁。」  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  他来了很多次了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  你几点会到车站？  -- rule: no match: line matched
+  很多学生考试没过。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  Ken的书比你多多了。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  你要走多远？  -- rule: unless ^ ... 多/AD /VA
+  告诉我们多一点。  -- rule: no match: line matched
+  我们做多一点。  -- rule: no match: line matched
+  给我多一点牛奶！  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: no match: line matched
+  你跟多少人说了？  -- rule: no match: line matched
+  你每天睡几个小时？  -- rule: no match: line matched
+  你有很多笔吗？  -- rule: no match: line matched
+  多少年过去了。  -- rule: no match: line matched
+  不好意思，请问您知道现在几点了吗？  -- rule: no match: line matched
+  你花多少时间在Facebook上？  -- rule: no match: line matched
+  你去了几回？  -- rule: no match: line matched
+  我要打几个电话。  -- rule: no match: line matched
+  你看这看了多少次？  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  要花很多钱。  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  我不能吃这么多。  -- rule: no match: line matched
+  她叫了我很多次。  -- rule: no match: line matched
+  要多长时间？  -- rule: unless ^ ... 多/AD /JJ ; 多/AD 长/JJ 时间
+  我问了汤姆几个问题。  -- rule: no match: line matched
+  我已经在这里工作几个小时了。  -- rule: no match: line matched
+  它花了几个月。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: unless ^ ... 多/AD /VA
+  今天是星期二，明天是星期几？  -- rule: no match: line matched
+  飞机上吃了一点，不多。  -- rule: no match: line matched
+  我想问再你几个问题。  -- rule: no match: line matched
+  在我们学校里女孩比男孩多。  -- rule: no match: line matched
+  我很多年前就开始在这里工作了。  -- rule: no match: line matched
+  我们可以游到几点？  -- rule: no match: line matched
+  我们的房间在几楼？  -- rule: no match: line matched
+  你看完这本书要多少时间？  -- rule: no match: line matched
+  他在衣服上花了很多钱。  -- rule: no match: line matched
+  过了多长时间？  -- rule: unless ^ ... 多/AD /JJ ; 多/AD 长/JJ 时间
+  很多外国人来日本工作。  -- rule: no match: line matched
+  他们多大？  -- rule: unless ^ ... 多/AD /VA
+  我们在这里花了太多时间。  -- rule: no match: line matched
+  汤姆问了几个问题。  -- rule: no match: line matched
+  我们对你知道得不多。  -- rule: no match: line matched
+  休息几天会对你好的。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: no match: line matched
+  我们有多远了？  -- rule: unless ^ ... 多/AD /VA
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  懂的不多说，说的多不懂。  -- rule: no match: line matched
+  你在波士顿花了多少钱？  -- rule: no match: line matched
+  他是前几天和你见过面的那个人。  -- rule: no match: line matched
+  这些裤子多少钱？  -- rule: no match: line matched
+  她睡了几小时。  -- rule: no match: line matched
+  那个东西有多热？  -- rule: unless ^ ... 多/AD /VA
+  你花太多钱了。  -- rule: no match: line matched
+  这样好多了。  -- rule: no match: line matched
+  她已经写了几本书。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  一打鸡蛋多少钱？  -- rule: no match: line matched
+  别吃太多。  -- rule: no match: line matched
+  你想让我买多少个苹果？  -- rule: no match: line matched
+  我就说了这么多。  -- rule: no match: line matched
+  告诉我你多大了。  -- rule: unless ^ ... 多/AD /VA
+  我喝了太多咖啡。  -- rule: no match: line matched
+  几分钟后见。  -- rule: no match: line matched
+  去南韩的机票多少钱？  -- rule: no match: line matched
+  几点出门？  -- rule: no match: line matched
+  你一天喝几杯咖啡？  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  这个月你做了多少次？  -- rule: no match: line matched
+  你这个月已经做了几次？  -- rule: no match: line matched
+  这个月你做过多少回？  -- rule: no match: line matched
+  他花了很多时间帮她。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  「你们两个几岁？」「我二十七，他三十。」  -- rule: no match: line matched
+  中国姓王的人最多。  -- rule: no match: line matched
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-73_level2_20261114_163246.csv
+
+########## ai  2026-11-14 16:36 ##########
+
+----- AI-written sentences for 2-73, round 1: 38 to check, 15 needed -----
+Filling 2-73 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 38
+
+
+Course sentences at HSK 2 the rule already finds 2-73 in: 0  -> Tatoeba needs to add 15 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-73 at HSK 2: funnel ===
+       38  AI-written sentences
+       38  1. have an English translation
+       38  2. contain the point's word(s)
+       38  3. new (not in DB, not a duplicate)
+       38  4. at most 0 characters outside HSK 2 words
+       31  5. really HSK 2
+       31  5b. no harder grammar point (of the 43 with a rule)
+       28  6. the rule finds 2-73
+       27  6b. no hidden word a learner can't work out
+       20  7. both checks say 2-73, English chosen
+       20  8. both difficulty reviews pass it
+  (7 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (20) ===
+  他今年四十多岁。  (He is over forty this year.)  [tatoeba ai-b0982d3fdc]
+  他喝了好几杯茶。  (He drank quite a few cups of tea.)  [tatoeba ai-b085f31f6f]
+  她买了几十本书。  (She bought several dozen books.)  [tatoeba ai-4a6ac6abf0]
+  这件衣服三百多块。  (This piece of clothing costs over three hundred kuai.)  [tatoeba ai-9f53eaba9a]
+  这本书五十多块钱。  (This book costs over fifty kuai.)  [tatoeba ai-e13a774a29]
+  他写了几百个汉字。  (He wrote several hundred Chinese characters.)  [tatoeba ai-0b8f02d802]
+  她买了好几件新衣服。  (She bought quite a few new clothes.)  [tatoeba ai-bc1fec6c26]
+  桌子上有几十个鸡蛋。  (There are several dozen eggs on the table.)  [tatoeba ai-34a58065c1]
+  这个手机两千多块钱。  (This phone costs over two thousand kuai.)  [tatoeba ai-30c7ddb770]  hidden: 这个
+  我有十多个中国朋友。  (I have more than ten Chinese friends.)  [tatoeba ai-93aa235967]
+  弟弟吃了好几个包子。  (My younger brother ate quite a few baozi.)  [tatoeba ai-eb7a9046bb]
+  我们学校有几千个学生。  (Our school has several thousand students.)  [tatoeba ai-3f772a2435]
+  昨天我睡了八个多小时。  (Yesterday I slept for more than eight hours.)  [tatoeba ai-456d8776bc]
+  我们公司有一百多个人。  (Our company has over a hundred people.)  [tatoeba ai-f24bda22dd]
+  这个电影我看了好几次。  (I've seen this movie quite a few times.)  [tatoeba ai-53ea73499d]  hidden: 这个
+  这个酒店有几百个房间。  (This hotel has several hundred rooms.)  [tatoeba ai-4448ec16f0]  hidden: 这个
+  我今天打了好几个电话。  (I made quite a few phone calls today.)  [tatoeba ai-92e649134c]
+  这个电影有两个多小时。  (This movie is over two hours long.)  [tatoeba ai-d8cf337f88]  hidden: 这个
+  今天商店里来了几百个人。  (Several hundred people came to the store today.)  [tatoeba ai-ddd6307f2d]
+  我们坐了三个多小时火车。  (We rode the train for more than three hours.)  [tatoeba ai-98c2e75bbf]
+
+--- dropped at step 5 (7) ---
+  我家离学校很近，走路十分钟左右。  -- level 4: 左右 L4
+  她女儿三岁多了。  -- level 1: no list words
+  明天下午三点左右我给你打电话。  -- level 4: 左右 L4
+  我早上六点左右起床。  -- level 4: 左右 L4
+  从我家到学校要二十分钟左右。  -- level 4: 左右 L4
+  我们认识十多年了。  -- level 10: 多年 (not in list)
+  昨天晚上我睡了六个小时左右。  -- level 4: 左右 L4
+
+--- dropped at step 6 (3) ---
+  我买了几个苹果。  -- rule: no match: line matched
+  我在中国住了两年多。  -- rule: no match: line matched
+  我只学了几个汉字。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我等了你二十多分钟。  -- hidden word a learner can't work out: 我等 (we; us (archaic))
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-73_level2_20261114_163626.csv

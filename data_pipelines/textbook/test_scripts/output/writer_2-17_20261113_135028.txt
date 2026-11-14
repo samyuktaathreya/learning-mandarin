@@ -1,0 +1,23 @@
+<!-- model: claude-sonnet-5-5; stop_reason: max_tokens; prompt: 23811 characters -->
+## 2-17
+**Point:** 就 as a linking adverb meaning "then", placed in the result or consequence clause after a condition or premise clause. Typical frames are 如果/要是/假如/假使/若/只要/既然/一旦 … ，就 …, or X 的话，就 ….
+**Covers:** A clause opened by a conditional or inferential conjunction (如果, 要是, 假如, 假使, 若, 倘若, 只要, 既然, 一旦, 要不是), followed by a clause in which 就/AD comes right after the subject (optionally with 那) and before a verb, adverb, preposition or adjective. It also covers 的话 or a conjunction clause followed by 就 within the same clause, such as 不想去的话就别去了. It also covers 就 opening a result clause, as in 你最有经验，就听你的吧.
+**Does not cover:** Other uses of 就, each excluded by a different part of the rule:
+- 就 meaning "only", "as early as", "exactly" or "about to".
+- 就 as a preposition ("regarding").
+- 就是 and 就算.
+- 要 V 就 V, V 着 V 着就, 一…就 and 不是…就是.
+- Clause-initial 就 followed by a noun or determiner, as in 就老板还没走.
+
+Sentences with no 就 at all are not matched either. The labeled examples 要我说…, 有事给我打电话 and 如果你们不来的话，一定会后悔的 are therefore missed on purpose.
+```rule
+match: 如果|要是|假如|假使|若|倘若|假若|既然|只要|一旦|要不是 ... ‖ 就/AD /AD|VV|P|VA
+match: 如果|要是|假如|假使|若|倘若|假若|既然|只要|一旦|要不是 ... ‖ /PN|NN|NR 就/AD /AD|VV|P|VA
+match: 如果|要是|假如|假使|若|倘若|假若|既然|只要|一旦|要不是 ... ‖ 那/AD 就/AD /AD|VV|P|VA
+match: 如果|要是|假如|假使|若|倘若|假若|既然|只要|一旦|要不是 ... ‖ /PN|NN|NR 那/AD 就/AD /AD|VV|P|VA
+match: 如果|要是|假如|假使|若|倘若|假若|既然|只要|一旦|要不是 ... /VV|VA|NN|PN|AS|SP 就/AD /AD|VV|P|VA
+match: 的话/SP ‖ 就/AD /AD|VV|P|VA
+match: 的话/SP ‖ /PN|NN|NR 就/AD /AD|VV|P|VA
+match: 的话/SP /PN|NN|NR? 就/AD /AD|VV|P|VA
+unless: 就/AD 算/VV
+unless: 

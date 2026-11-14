@@ -1,0 +1,24 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 12840 characters -->
+## 3-79
+**Point:** Expressing "already" with emphatic attitude using 都⋯⋯了
+**Covers:** Sentences where 都 precedes a time expression, quantity, or predicate (verb/adjective), followed by 了, expressing that something has already happened with speaker attitude/emphasis
+**Does not cover:** Uses of 都 meaning "all/everyone" (distributive), "every" with question words, "even" with 连, "no matter" with 不管/无论, "always" with 从来, "everything" with 什么都, quantity emphasis, or 全都 variants
+
+```rule
+match: 都/AD ... 了/AS|SP $
+match: 都/AD ... 了/SP ‖
+unless: ^ /DT 时候/NN ... 都/AD
+unless: ^ 什么/DT ... 都/AD
+unless: 连/AD ... 都/AD
+unless: 不管/CS
+unless: 无论/CS
+unless: 从来/AD 都/AD
+unless: 全都/AD
+unless: /DT 天/M 都/AD
+unless: /DT 地方/NN 都/AD
+unless: /DT 房间/NN 都/AD
+unless: ^ ... /PN 都/AD [^了]*$ 
+unless: 除了/P
+```
+
+**Notes:** The core pattern is 都 + predicate/time/quantity + 了 within a clause. Emphasis is on 了 appearing after 都 (not before in "都了"). The pattern must occur with 了 as AS (aspect) or SP (sentence-final particle) to catch the emphatic complete-action sense. Exclude all question-word 都 patterns (什么时候都, 怎么都, etc.) as these express "no matter" or "any time". Exclude 全都 which is a separate emphatic form. Exclude distributive 都 with subjects in subordinate position before the verb where 了 doesn't follow immediately. The second match line catches clauses not at sentence end.

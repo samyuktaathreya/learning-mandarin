@@ -78,3 +78,2261 @@ Tagging 19 labeled example(s) (cached after this run)...
 --- examples of 2-11 the rule misses (2) ---
   那个红头发的男孩打了我三下。  -- ASG5AODR Measure words for verbs
   他轻轻地拍了我两下。  -- ASG5AODR Measure words for verbs
+
+########## rules  2026-11-10 21:24 ##########
+  Checking 1 sentence(s) for 2-11 (1 call(s))...
+
+=== A. 2-11: rule on labeled examples (no AI) ===
+  examples of 2-11 matched:    27/29
+  counter-examples wrongly matched: 0/35   <- should be 0
+
+--- examples of 2-11 the rule misses (2) ---
+  那个红头发的男孩打了我三下。  -- ASG5AODR Measure words for verbs
+  他轻轻地拍了我两下。  -- ASG5AODR Measure words for verbs
+
+########## guard check  2026-11-10 21:30 ##########
+  Checking 7 sentence(s) for 2-11 (1 call(s))...
+
+########## tatoeba  2026-11-10 21:35 ##########
+Filling 2-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 52 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261110_213526.txt
+  ...100/858
+  ...200/858
+  ...300/858
+  ...400/858
+  ...500/858
+  ...600/858
+  ...700/858
+  ...800/858
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  一周 = 一 + 周  (one week)
+
+Course sentences at HSK 2 the rule already finds 2-11 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+  2 check call(s) (20 sentences each)...
+
+=== 2-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1663  2. contain the point's word(s)
+     1657  3. new (not in DB, not a duplicate)
+      858  4. at most 2 characters outside HSK 2 words
+      198  5. really HSK 2
+      177  5b. no harder grammar point (of the 32 with a rule)
+       29  6. the rule finds 2-11
+       26  6b. no hidden word a learner can't work out
+       23  7. both checks say 2-11, English chosen
+       20  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (20) ===
+  等一下！  (Wait!)  [tatoeba 5092613]
+  等一下。  (Wait a moment.)  [tatoeba 9007563]
+  我介绍一下。  (Let me introduce it.)  [tatoeba 1441829]
+  你去了几回？  (How many trips did you make?)  [tatoeba 5550146]
+  现在等一下。  (Now, wait a second.)  [tatoeba 6147564]
+  休息一下吧。  (Take a break.)  [tatoeba 14004679]
+  我只想休息一下  (I just need a break.)  [tatoeba 5975078]
+  你能等一下吗？  (Can you hold on a second?)  [tatoeba 6628383]
+  在车里等一下。  (Wait for a bit in the car.)  [tatoeba 8792067]
+  您能开一下门吗？  (Could you open the door, please?)  [tatoeba 1753100]
+  他来了很多次了。  (He came several times.)  [tatoeba 1776634]
+  你能过来一下吗？  (Could you come up here?)  [tatoeba 5617217]
+  她叫了我很多次。  (She called me many a time.)  [tatoeba 5780505]
+  他一周洗一次车。  (He washes his car once a week.)  [tatoeba 10537127]  hidden: 一周
+  为什么你不休息一下?  (Why don't you rest a bit?)  [tatoeba 1441776]
+  这个月你做了多少次？  (How many times have you done that this month?)  [tatoeba 13788200]  hidden: 这个
+  这个月你做过多少回？  (How many times have you done that this month?)  [tatoeba 13788202]  hidden: 这个
+  我们休息一下，好吗？  (Let's take a break, OK?)  [tatoeba 13994932]
+  他说：「我们休息一下。」  (He said, "Let's take a short rest.")  [tatoeba 3472409]
+  请看一下我妹妹在做什么。  (Could you take a look at what my little sister is doing?)  [tatoeba 10460397]  hidden: 请看
+
+--- dropped at step 3 (6) ---
+  请稍等一下。  -- already in the database
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  打电话回家！  -- same text as tatoeba 5092540 (translations pooled)
+  这是一次很棒的经历。  -- same text as tatoeba 13893787 (translations pooled)
+
+--- dropped at step 4 (799), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  请把您的护照给我看一下。  -- 3 characters no HSK 2 word uses: 把护照
+  连超级英雄们也该偶尔休息一下。  -- 6 characters no HSK 2 word uses: 偶尔级该连雄
+  把土豆切一下。  -- 4 characters no HSK 2 word uses: 切土把豆
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  假如你没有这个程序，你现在就可以去下载。  -- 5 characters no HSK 2 word uses: 假如序程载
+  Linux是一个免费的操作系统。你应该去试用一下。  -- 7 characters no HSK 2 word uses: 免应操用统该费
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  他不会抛下落难的朋友不管。  -- 4 characters no HSK 2 word uses: 抛管落难
+  她收下了他的礼物。  -- 3 characters no HSK 2 word uses: 收物礼
+  据广播里讲，明天会下雪。  -- 4 characters no HSK 2 word uses: 广据播讲
+  这个问题很容易回答。  -- 3 characters no HSK 2 word uses: 容易答
+
+--- dropped at step 5 (660), first 12 ---
+  雨下个不停。  -- level 4: 停 L4
+  你们今天下午在学校做些什么？  -- level 1: no list words
+  我能在哪里乘上机场巴士？  -- level 10: 乘 L4, 巴士 (not in list)
+  在下雨。  -- level 1: no list words
+  您几点下课？  -- level 1: no list words
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我今天要早点回家。  -- level 1: no list words
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+
+--- dropped at step 5b (21), first 12 ---
+  这是第一次。  -- harder grammar: 3-01 (HSK 3)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  我不想再次去那儿。  -- harder grammar: 3-16 (HSK 3)
+  再跟我说一次，你住哪？  -- harder grammar: 3-16 (HSK 3)
+  我昨天第一次见到他。  -- harder grammar: 3-01 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  我们还得回去。  -- harder grammar: 4-01 (HSK 4)
+  我不知道我能不能再做一次。  -- harder grammar: 3-16 (HSK 3)
+  下周再来。  -- harder grammar: 3-16 (HSK 3)
+  你现在就得回家。  -- harder grammar: 4-01 (HSK 4)
+  不要再来一次了！  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (148) ---
+  我要回来了。  -- rule: no match: line matched
+  您明天回来吗？  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  我们还是在这里坐下吧。  -- rule: no match: line matched
+  学校下周开学。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  楼下有人在等您。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  你为什么不回家呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: no match: line matched
+  这是我的第一次。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  下雨也没关系，我还是可以去。  -- rule: no match: line matched
+  你给我下来！  -- rule: no match: line matched
+  你真的吃得下这东西?  -- rule: no match: line matched
+  她就是今天回家来的。  -- rule: no match: line matched
+  很高兴看到你回来了。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  外面在下雪。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  Kate的爸爸从车站走路回家。  -- rule: no match: line matched
+  因为下雪了，我什么也没能看见。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他明天不回来。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  请在下一站让我下车。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: no match: line matched
+  汤姆一个月来这里三四次。  -- rule: no match: line matched
+  我想他会很快回来的。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  问他一下他的名字。  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  我们明天回来。  -- rule: no match: line matched
+  打电话回家！  -- rule: no match: line matched
+  我去下洗手间。  -- rule: no match: line matched
+  他今天从悉尼回来。  -- rule: no match: line matched
+  李明家下面那家衣服店。  -- rule: no match: line matched
+  下次请晚一点到。  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: no match: line matched
+  我想去商场。  -- rule: no match: line matched
+  可以等我们一下吗？  -- rule: no match: line matched
+  我不知道谁会在机场见我。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  我在叫他们回来。  -- rule: no match: line matched
+  我在回波士顿。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  今天不可能下雨。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  你怎么回来得这么快？  -- rule: no match: line matched
+  在楼下等我  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  还回去  -- rule: no match: line matched
+  请回来。  -- rule: no match: line matched
+  我在学跳舞，每个星期一次课。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  明天下雨，我不出门。  -- rule: no match: line matched
+  你下周来吗？  -- rule: no match: line matched
+  我每周吃肉三次。  -- rule: no match: line matched
+  我想让你下周回来。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我不回去。  -- rule: no match: line matched
+  我会跟你一起回家。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们现在能回去吗？  -- rule: no match: line matched
+  我下周去还你钱。  -- rule: no match: line matched
+  他晚上回来得很晚。  -- rule: no match: line matched
+  我在哪站下？  -- rule: no match: line matched
+  我希望你慢下来。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我明天回来。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  你是第一次来韩国吗？  -- rule: no match: line matched
+  给我看下它吧。  -- rule: no match: line matched
+  巴黎在下雪。  -- rule: no match: line matched
+  从那儿下来！  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  不要自己一个人走回家。  -- rule: no match: line matched
+  我每次去他家，他都不在家。  -- rule: no match: line matched
+  回来的路上买点牛奶。  -- rule: no match: line matched
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  我在她手下工作。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我十点回来。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: no match: line matched
+  我从出租车上下来。  -- rule: no match: line matched
+  我去机场。  -- rule: no match: line matched
+  机场很近。  -- rule: no match: line matched
+  我下周会去见他们。  -- rule: no match: line matched
+  我会在明天午饭前回来。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  我不想回去。  -- rule: no match: line matched
+  等等。回来。  -- rule: no match: line matched
+  她在等你回来。  -- rule: no match: line matched
+  我的朋友还没回来。  -- rule: no match: line matched
+  雨下得很大。  -- rule: no match: line matched
+  下一位！  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  雪下得很大。  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: no match: line matched
+  他想回家，但是他不可以。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: no match: line matched
+  你下周也会在波士顿吗？  -- rule: no match: line matched
+  这次你找什么？  -- rule: no match: line matched
+  从你来时的路回家。  -- rule: no match: line matched
+  打电话回家。  -- rule: no match: line matched
+  回去吃饭。  -- rule: no match: line matched
+  回去找他。  -- rule: no match: line matched
+  回去睡觉。  -- rule: no match: line matched
+  回去工作！  -- rule: no match: line matched
+  回去工作。  -- rule: no match: line matched
+  帮我们一下，好吗？  -- rule: no match: line matched
+  写下来！  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  明天可能会下雪。  -- rule: no match: line matched
+  明天下午会是晴天。  -- rule: no match: line matched
+  下周见。  -- rule: no match: line matched
+  下次你来看我的时候，我会给你看那本书。  -- rule: no match: line matched
+  她一个小时后回来。  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+  我可以送他回家。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你在回家的路上吗？  -- rule: no match: line matched
+  过来坐下。  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  明天回来见我。  -- rule: no match: line matched
+  下周一学校见。  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  我们不可能回到过去。  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  请坐一下。  -- hidden word a learner can't work out: 请坐 (please, have a seat)
+  我要看一下这个。  -- hidden word a learner can't work out: 要看 ((it) depends on ...)
+  我今年去了好几次外国。  -- hidden word a learner can't work out: 好几 (several)
+
+--- dropped at step 7 (3) ---
+  你看这看了多少次？  -- check said no (1/2): Sentence structure awkward/unclear
+  你这个月已经做了几次？  -- check said no (1/2): Measure word 次 for frequency, not 一下
+  看一下, 吃一下，听一下， 学一下。  -- no accurate English among: Look, eat, listen, learn.
+
+--- dropped at step 8 (3) ---
+  是时候休息一下了。  -- difficulty review: (1/2); '时候' used with 是 in this construction (是时候⋯了) is beyond HSK 2 grammar
+  我能认识一下你吗？  -- difficulty review: (1/2); awkward usage: 认识一下你 suggests a one-time momentary action with 一下, but 认识 (to know/be acquainted with) is not typically used this way; this construction is unnatural
+  在这等一下，等我回来。  -- difficulty review: (1/2); '在这等一下' uses 在 as a locative adverb in a way that requires understanding of locative complement structures beyond HSK 2; the construction 'verb + 一下' followed by another full clause without clear separation is structurally complex for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-11_level2_20261110_213553.csv
+
+########## guard check  2026-11-11 14:22 ##########
+
+########## tatoeba  2026-11-11 14:28 ##########
+Filling 2-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-11 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1663  2. contain the point's word(s)
+     1657  3. new (not in DB, not a duplicate)
+      858  4. at most 2 characters outside HSK 2 words
+      198  5. really HSK 2
+      171  5b. no harder grammar point (of the 39 with a rule)
+       29  6. the rule finds 2-11
+       26  6b. no hidden word a learner can't work out
+       23  7. both checks say 2-11, English chosen
+       20  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (20) ===
+  等一下！  (Wait!)  [tatoeba 5092613]
+  等一下。  (Wait a moment.)  [tatoeba 9007563]
+  我介绍一下。  (Let me introduce it.)  [tatoeba 1441829]
+  你去了几回？  (How many trips did you make?)  [tatoeba 5550146]
+  现在等一下。  (Now, wait a second.)  [tatoeba 6147564]
+  休息一下吧。  (Take a break.)  [tatoeba 14004679]
+  我只想休息一下  (I just need a break.)  [tatoeba 5975078]
+  你能等一下吗？  (Can you hold on a second?)  [tatoeba 6628383]
+  在车里等一下。  (Wait for a bit in the car.)  [tatoeba 8792067]
+  您能开一下门吗？  (Could you open the door, please?)  [tatoeba 1753100]
+  他来了很多次了。  (He came several times.)  [tatoeba 1776634]
+  你能过来一下吗？  (Could you come up here?)  [tatoeba 5617217]
+  她叫了我很多次。  (She called me many a time.)  [tatoeba 5780505]
+  他一周洗一次车。  (He washes his car once a week.)  [tatoeba 10537127]  hidden: 一周
+  为什么你不休息一下?  (Why don't you rest a bit?)  [tatoeba 1441776]
+  这个月你做了多少次？  (How many times have you done that this month?)  [tatoeba 13788200]  hidden: 这个
+  这个月你做过多少回？  (How many times have you done that this month?)  [tatoeba 13788202]  hidden: 这个
+  我们休息一下，好吗？  (Let's take a break, OK?)  [tatoeba 13994932]
+  他说：「我们休息一下。」  (He said, "Let's take a short rest.")  [tatoeba 3472409]
+  请看一下我妹妹在做什么。  (Could you take a look at what my little sister is doing?)  [tatoeba 10460397]  hidden: 请看
+
+--- dropped at step 3 (6) ---
+  请稍等一下。  -- already in the database
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  打电话回家！  -- same text as tatoeba 5092540 (translations pooled)
+  这是一次很棒的经历。  -- same text as tatoeba 13893787 (translations pooled)
+
+--- dropped at step 4 (799), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  请把您的护照给我看一下。  -- 3 characters no HSK 2 word uses: 把护照
+  连超级英雄们也该偶尔休息一下。  -- 6 characters no HSK 2 word uses: 偶尔级该连雄
+  把土豆切一下。  -- 4 characters no HSK 2 word uses: 切土把豆
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  假如你没有这个程序，你现在就可以去下载。  -- 5 characters no HSK 2 word uses: 假如序程载
+  Linux是一个免费的操作系统。你应该去试用一下。  -- 7 characters no HSK 2 word uses: 免应操用统该费
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  他不会抛下落难的朋友不管。  -- 4 characters no HSK 2 word uses: 抛管落难
+  她收下了他的礼物。  -- 3 characters no HSK 2 word uses: 收物礼
+  据广播里讲，明天会下雪。  -- 4 characters no HSK 2 word uses: 广据播讲
+  这个问题很容易回答。  -- 3 characters no HSK 2 word uses: 容易答
+
+--- dropped at step 5 (660), first 12 ---
+  雨下个不停。  -- level 4: 停 L4
+  你们今天下午在学校做些什么？  -- level 1: no list words
+  我能在哪里乘上机场巴士？  -- level 10: 乘 L4, 巴士 (not in list)
+  在下雨。  -- level 1: no list words
+  您几点下课？  -- level 1: no list words
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我今天要早点回家。  -- level 1: no list words
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+
+--- dropped at step 5b (27), first 12 ---
+  这是第一次。  -- harder grammar: 3-01 (HSK 3)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  你给我下来！  -- harder grammar: 2-28 (HSK 3)
+  我不想再次去那儿。  -- harder grammar: 3-16 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  再跟我说一次，你住哪？  -- harder grammar: 3-16 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  我昨天第一次见到他。  -- harder grammar: 3-01 (HSK 3), 3-46 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  我们还得回去。  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (142) ---
+  我要回来了。  -- rule: no match: line matched
+  您明天回来吗？  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  我们还是在这里坐下吧。  -- rule: no match: line matched
+  学校下周开学。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  楼下有人在等您。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  你为什么不回家呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: no match: line matched
+  这是我的第一次。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  下雨也没关系，我还是可以去。  -- rule: no match: line matched
+  她就是今天回家来的。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  外面在下雪。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  Kate的爸爸从车站走路回家。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他明天不回来。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  请在下一站让我下车。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: no match: line matched
+  汤姆一个月来这里三四次。  -- rule: no match: line matched
+  我想他会很快回来的。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  问他一下他的名字。  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  我们明天回来。  -- rule: no match: line matched
+  打电话回家！  -- rule: no match: line matched
+  我去下洗手间。  -- rule: no match: line matched
+  他今天从悉尼回来。  -- rule: no match: line matched
+  李明家下面那家衣服店。  -- rule: no match: line matched
+  下次请晚一点到。  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: no match: line matched
+  我想去商场。  -- rule: no match: line matched
+  可以等我们一下吗？  -- rule: no match: line matched
+  我不知道谁会在机场见我。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  我在叫他们回来。  -- rule: no match: line matched
+  我在回波士顿。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  今天不可能下雨。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  你怎么回来得这么快？  -- rule: no match: line matched
+  在楼下等我  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  还回去  -- rule: no match: line matched
+  请回来。  -- rule: no match: line matched
+  我在学跳舞，每个星期一次课。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  明天下雨，我不出门。  -- rule: no match: line matched
+  你下周来吗？  -- rule: no match: line matched
+  我每周吃肉三次。  -- rule: no match: line matched
+  我想让你下周回来。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我不回去。  -- rule: no match: line matched
+  我会跟你一起回家。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们现在能回去吗？  -- rule: no match: line matched
+  我下周去还你钱。  -- rule: no match: line matched
+  他晚上回来得很晚。  -- rule: no match: line matched
+  我在哪站下？  -- rule: no match: line matched
+  我希望你慢下来。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我明天回来。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  你是第一次来韩国吗？  -- rule: no match: line matched
+  给我看下它吧。  -- rule: no match: line matched
+  巴黎在下雪。  -- rule: no match: line matched
+  从那儿下来！  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  不要自己一个人走回家。  -- rule: no match: line matched
+  我每次去他家，他都不在家。  -- rule: no match: line matched
+  回来的路上买点牛奶。  -- rule: no match: line matched
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  我在她手下工作。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我十点回来。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: no match: line matched
+  我从出租车上下来。  -- rule: no match: line matched
+  我去机场。  -- rule: no match: line matched
+  机场很近。  -- rule: no match: line matched
+  我下周会去见他们。  -- rule: no match: line matched
+  我会在明天午饭前回来。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  我不想回去。  -- rule: no match: line matched
+  她在等你回来。  -- rule: no match: line matched
+  我的朋友还没回来。  -- rule: no match: line matched
+  雨下得很大。  -- rule: no match: line matched
+  下一位！  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  雪下得很大。  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: no match: line matched
+  他想回家，但是他不可以。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: no match: line matched
+  你下周也会在波士顿吗？  -- rule: no match: line matched
+  这次你找什么？  -- rule: no match: line matched
+  从你来时的路回家。  -- rule: no match: line matched
+  打电话回家。  -- rule: no match: line matched
+  回去吃饭。  -- rule: no match: line matched
+  回去找他。  -- rule: no match: line matched
+  回去睡觉。  -- rule: no match: line matched
+  回去工作！  -- rule: no match: line matched
+  回去工作。  -- rule: no match: line matched
+  帮我们一下，好吗？  -- rule: no match: line matched
+  写下来！  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  明天可能会下雪。  -- rule: no match: line matched
+  明天下午会是晴天。  -- rule: no match: line matched
+  下周见。  -- rule: no match: line matched
+  她一个小时后回来。  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+  我可以送他回家。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你在回家的路上吗？  -- rule: no match: line matched
+  过来坐下。  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  明天回来见我。  -- rule: no match: line matched
+  下周一学校见。  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  我们不可能回到过去。  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  请坐一下。  -- hidden word a learner can't work out: 请坐 (please, have a seat)
+  我要看一下这个。  -- hidden word a learner can't work out: 要看 ((it) depends on ...)
+  我今年去了好几次外国。  -- hidden word a learner can't work out: 好几 (several)
+
+--- dropped at step 7 (3) ---
+  你看这看了多少次？  -- check said no (1/2): Sentence structure awkward/unclear
+  你这个月已经做了几次？  -- check said no (1/2): Measure word 次 for frequency, not 一下
+  看一下, 吃一下，听一下， 学一下。  -- no accurate English among: Look, eat, listen, learn.
+
+--- dropped at step 8 (3) ---
+  是时候休息一下了。  -- difficulty review: (1/2); '时候' used with 是 in this construction (是时候⋯了) is beyond HSK 2 grammar
+  我能认识一下你吗？  -- difficulty review: (1/2); awkward usage: 认识一下你 suggests a one-time momentary action with 一下, but 认识 (to know/be acquainted with) is not typically used this way; this construction is unnatural
+  在这等一下，等我回来。  -- difficulty review: (1/2); '在这等一下' uses 在 as a locative adverb in a way that requires understanding of locative complement structures beyond HSK 2; the construction 'verb + 一下' followed by another full clause without clear separation is structurally complex for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-11_level2_20261111_142851.csv
+
+########## rules  2026-11-12 17:23 ##########
+Tagging 1 labeled example(s) (cached after this run)...
+  Checking 1 sentence(s) for 2-11 (1 call(s))...
+
+=== A. 2-11: rule on labeled examples (no AI) ===
+  examples of 2-11 matched:    27/29
+  counter-examples wrongly matched: 0/35   <- should be 0
+
+--- examples of 2-11 the rule misses (2) ---
+  那个红头发的男孩打了我三下。  -- ASG5AODR Measure words for verbs
+  他轻轻地拍了我两下。  -- ASG5AODR Measure words for verbs
+  easy examples (words all HSK 2 or below) matched: 9/9   <- needs 60%
+
+########## guard check  2026-11-12 17:34 ##########
+
+########## tatoeba  2026-11-12 17:39 ##########
+Filling 2-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-11 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1663  2. contain the point's word(s)
+     1657  3. new (not in DB, not a duplicate)
+      858  4. at most 2 characters outside HSK 2 words
+      198  5. really HSK 2
+      171  5b. no harder grammar point (of the 40 with a rule)
+       29  6. the rule finds 2-11
+       26  6b. no hidden word a learner can't work out
+       23  7. both checks say 2-11, English chosen
+       20  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (20) ===
+  等一下！  (Wait!)  [tatoeba 5092613]
+  等一下。  (Wait a moment.)  [tatoeba 9007563]
+  我介绍一下。  (Let me introduce it.)  [tatoeba 1441829]
+  你去了几回？  (How many trips did you make?)  [tatoeba 5550146]
+  现在等一下。  (Now, wait a second.)  [tatoeba 6147564]
+  休息一下吧。  (Take a break.)  [tatoeba 14004679]
+  我只想休息一下  (I just need a break.)  [tatoeba 5975078]
+  你能等一下吗？  (Can you hold on a second?)  [tatoeba 6628383]
+  在车里等一下。  (Wait for a bit in the car.)  [tatoeba 8792067]
+  您能开一下门吗？  (Could you open the door, please?)  [tatoeba 1753100]
+  他来了很多次了。  (He came several times.)  [tatoeba 1776634]
+  你能过来一下吗？  (Could you come up here?)  [tatoeba 5617217]
+  她叫了我很多次。  (She called me many a time.)  [tatoeba 5780505]
+  他一周洗一次车。  (He washes his car once a week.)  [tatoeba 10537127]  hidden: 一周
+  为什么你不休息一下?  (Why don't you rest a bit?)  [tatoeba 1441776]
+  这个月你做了多少次？  (How many times have you done that this month?)  [tatoeba 13788200]  hidden: 这个
+  这个月你做过多少回？  (How many times have you done that this month?)  [tatoeba 13788202]  hidden: 这个
+  我们休息一下，好吗？  (Let's take a break, OK?)  [tatoeba 13994932]
+  他说：「我们休息一下。」  (He said, "Let's take a short rest.")  [tatoeba 3472409]
+  请看一下我妹妹在做什么。  (Could you take a look at what my little sister is doing?)  [tatoeba 10460397]  hidden: 请看
+
+--- dropped at step 3 (6) ---
+  请稍等一下。  -- already in the database
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  打电话回家！  -- same text as tatoeba 5092540 (translations pooled)
+  这是一次很棒的经历。  -- same text as tatoeba 13893787 (translations pooled)
+
+--- dropped at step 4 (799), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  请把您的护照给我看一下。  -- 3 characters no HSK 2 word uses: 把护照
+  连超级英雄们也该偶尔休息一下。  -- 6 characters no HSK 2 word uses: 偶尔级该连雄
+  把土豆切一下。  -- 4 characters no HSK 2 word uses: 切土把豆
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  假如你没有这个程序，你现在就可以去下载。  -- 5 characters no HSK 2 word uses: 假如序程载
+  Linux是一个免费的操作系统。你应该去试用一下。  -- 7 characters no HSK 2 word uses: 免应操用统该费
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  他不会抛下落难的朋友不管。  -- 4 characters no HSK 2 word uses: 抛管落难
+  她收下了他的礼物。  -- 3 characters no HSK 2 word uses: 收物礼
+  据广播里讲，明天会下雪。  -- 4 characters no HSK 2 word uses: 广据播讲
+  这个问题很容易回答。  -- 3 characters no HSK 2 word uses: 容易答
+
+--- dropped at step 5 (660), first 12 ---
+  雨下个不停。  -- level 4: 停 L4
+  你们今天下午在学校做些什么？  -- level 1: no list words
+  我能在哪里乘上机场巴士？  -- level 10: 乘 L4, 巴士 (not in list)
+  在下雨。  -- level 1: no list words
+  您几点下课？  -- level 1: no list words
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我今天要早点回家。  -- level 1: no list words
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+
+--- dropped at step 5b (27), first 12 ---
+  这是第一次。  -- harder grammar: 3-01 (HSK 3)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  你给我下来！  -- harder grammar: 2-28 (HSK 3)
+  我不想再次去那儿。  -- harder grammar: 3-16 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  再跟我说一次，你住哪？  -- harder grammar: 3-16 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  我昨天第一次见到他。  -- harder grammar: 3-01 (HSK 3), 3-46 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  我们还得回去。  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (142) ---
+  我要回来了。  -- rule: no match: line matched
+  您明天回来吗？  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  我们还是在这里坐下吧。  -- rule: no match: line matched
+  学校下周开学。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  楼下有人在等您。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  你为什么不回家呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: no match: line matched
+  这是我的第一次。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  下雨也没关系，我还是可以去。  -- rule: no match: line matched
+  她就是今天回家来的。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  外面在下雪。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  Kate的爸爸从车站走路回家。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他明天不回来。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  请在下一站让我下车。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: no match: line matched
+  汤姆一个月来这里三四次。  -- rule: no match: line matched
+  我想他会很快回来的。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  问他一下他的名字。  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  我们明天回来。  -- rule: no match: line matched
+  打电话回家！  -- rule: no match: line matched
+  我去下洗手间。  -- rule: no match: line matched
+  他今天从悉尼回来。  -- rule: no match: line matched
+  李明家下面那家衣服店。  -- rule: no match: line matched
+  下次请晚一点到。  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: no match: line matched
+  我想去商场。  -- rule: no match: line matched
+  可以等我们一下吗？  -- rule: no match: line matched
+  我不知道谁会在机场见我。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  我在叫他们回来。  -- rule: no match: line matched
+  我在回波士顿。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  今天不可能下雨。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  你怎么回来得这么快？  -- rule: no match: line matched
+  在楼下等我  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  还回去  -- rule: no match: line matched
+  请回来。  -- rule: no match: line matched
+  我在学跳舞，每个星期一次课。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  明天下雨，我不出门。  -- rule: no match: line matched
+  你下周来吗？  -- rule: no match: line matched
+  我每周吃肉三次。  -- rule: no match: line matched
+  我想让你下周回来。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我不回去。  -- rule: no match: line matched
+  我会跟你一起回家。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们现在能回去吗？  -- rule: no match: line matched
+  我下周去还你钱。  -- rule: no match: line matched
+  他晚上回来得很晚。  -- rule: no match: line matched
+  我在哪站下？  -- rule: no match: line matched
+  我希望你慢下来。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我明天回来。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  你是第一次来韩国吗？  -- rule: no match: line matched
+  给我看下它吧。  -- rule: no match: line matched
+  巴黎在下雪。  -- rule: no match: line matched
+  从那儿下来！  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  不要自己一个人走回家。  -- rule: no match: line matched
+  我每次去他家，他都不在家。  -- rule: no match: line matched
+  回来的路上买点牛奶。  -- rule: no match: line matched
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  我在她手下工作。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我十点回来。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: no match: line matched
+  我从出租车上下来。  -- rule: no match: line matched
+  我去机场。  -- rule: no match: line matched
+  机场很近。  -- rule: no match: line matched
+  我下周会去见他们。  -- rule: no match: line matched
+  我会在明天午饭前回来。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  我不想回去。  -- rule: no match: line matched
+  她在等你回来。  -- rule: no match: line matched
+  我的朋友还没回来。  -- rule: no match: line matched
+  雨下得很大。  -- rule: no match: line matched
+  下一位！  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  雪下得很大。  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: no match: line matched
+  他想回家，但是他不可以。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: no match: line matched
+  你下周也会在波士顿吗？  -- rule: no match: line matched
+  这次你找什么？  -- rule: no match: line matched
+  从你来时的路回家。  -- rule: no match: line matched
+  打电话回家。  -- rule: no match: line matched
+  回去吃饭。  -- rule: no match: line matched
+  回去找他。  -- rule: no match: line matched
+  回去睡觉。  -- rule: no match: line matched
+  回去工作！  -- rule: no match: line matched
+  回去工作。  -- rule: no match: line matched
+  帮我们一下，好吗？  -- rule: no match: line matched
+  写下来！  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  明天可能会下雪。  -- rule: no match: line matched
+  明天下午会是晴天。  -- rule: no match: line matched
+  下周见。  -- rule: no match: line matched
+  她一个小时后回来。  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+  我可以送他回家。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你在回家的路上吗？  -- rule: no match: line matched
+  过来坐下。  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  明天回来见我。  -- rule: no match: line matched
+  下周一学校见。  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  我们不可能回到过去。  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  请坐一下。  -- hidden word a learner can't work out: 请坐 (please, have a seat)
+  我要看一下这个。  -- hidden word a learner can't work out: 要看 ((it) depends on ...)
+  我今年去了好几次外国。  -- hidden word a learner can't work out: 好几 (several)
+
+--- dropped at step 7 (3) ---
+  你看这看了多少次？  -- check said no (1/2): Sentence structure awkward/unclear
+  你这个月已经做了几次？  -- check said no (1/2): Measure word 次 for frequency, not 一下
+  看一下, 吃一下，听一下， 学一下。  -- no accurate English among: Look, eat, listen, learn.
+
+--- dropped at step 8 (3) ---
+  是时候休息一下了。  -- difficulty review: (1/2); '时候' used with 是 in this construction (是时候⋯了) is beyond HSK 2 grammar
+  我能认识一下你吗？  -- difficulty review: (1/2); awkward usage: 认识一下你 suggests a one-time momentary action with 一下, but 认识 (to know/be acquainted with) is not typically used this way; this construction is unnatural
+  在这等一下，等我回来。  -- difficulty review: (1/2); '在这等一下' uses 在 as a locative adverb in a way that requires understanding of locative complement structures beyond HSK 2; the construction 'verb + 一下' followed by another full clause without clear separation is structurally complex for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-11_level2_20261112_173953.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:14 ##########
+Filling 2-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-11 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1663  2. contain the point's word(s)
+     1657  3. new (not in DB, not a duplicate)
+      858  4. at most 2 characters outside HSK 2 words
+      198  5. really HSK 2
+      171  5b. no harder grammar point (of the 40 with a rule)
+       29  6. the rule finds 2-11
+       26  6b. no hidden word a learner can't work out
+       23  7. both checks say 2-11, English chosen
+       20  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (20) ===
+  等一下！  (Wait!)  [tatoeba 5092613]
+  等一下。  (Wait a moment.)  [tatoeba 9007563]
+  我介绍一下。  (Let me introduce it.)  [tatoeba 1441829]
+  你去了几回？  (How many trips did you make?)  [tatoeba 5550146]
+  现在等一下。  (Now, wait a second.)  [tatoeba 6147564]
+  休息一下吧。  (Take a break.)  [tatoeba 14004679]
+  我只想休息一下  (I just need a break.)  [tatoeba 5975078]
+  你能等一下吗？  (Can you hold on a second?)  [tatoeba 6628383]
+  在车里等一下。  (Wait for a bit in the car.)  [tatoeba 8792067]
+  您能开一下门吗？  (Could you open the door, please?)  [tatoeba 1753100]
+  他来了很多次了。  (He came several times.)  [tatoeba 1776634]
+  你能过来一下吗？  (Could you come up here?)  [tatoeba 5617217]
+  她叫了我很多次。  (She called me many a time.)  [tatoeba 5780505]
+  他一周洗一次车。  (He washes his car once a week.)  [tatoeba 10537127]  hidden: 一周
+  为什么你不休息一下?  (Why don't you rest a bit?)  [tatoeba 1441776]
+  这个月你做了多少次？  (How many times have you done that this month?)  [tatoeba 13788200]  hidden: 这个
+  这个月你做过多少回？  (How many times have you done that this month?)  [tatoeba 13788202]  hidden: 这个
+  我们休息一下，好吗？  (Let's take a break, OK?)  [tatoeba 13994932]
+  他说：「我们休息一下。」  (He said, "Let's take a short rest.")  [tatoeba 3472409]
+  请看一下我妹妹在做什么。  (Could you take a look at what my little sister is doing?)  [tatoeba 10460397]  hidden: 请看
+
+--- dropped at step 3 (6) ---
+  请稍等一下。  -- already in the database
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  打电话回家！  -- same text as tatoeba 5092540 (translations pooled)
+  这是一次很棒的经历。  -- same text as tatoeba 13893787 (translations pooled)
+
+--- dropped at step 4 (799), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  请把您的护照给我看一下。  -- 3 characters no HSK 2 word uses: 把护照
+  连超级英雄们也该偶尔休息一下。  -- 6 characters no HSK 2 word uses: 偶尔级该连雄
+  把土豆切一下。  -- 4 characters no HSK 2 word uses: 切土把豆
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  假如你没有这个程序，你现在就可以去下载。  -- 5 characters no HSK 2 word uses: 假如序程载
+  Linux是一个免费的操作系统。你应该去试用一下。  -- 7 characters no HSK 2 word uses: 免应操用统该费
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  他不会抛下落难的朋友不管。  -- 4 characters no HSK 2 word uses: 抛管落难
+  她收下了他的礼物。  -- 3 characters no HSK 2 word uses: 收物礼
+  据广播里讲，明天会下雪。  -- 4 characters no HSK 2 word uses: 广据播讲
+  这个问题很容易回答。  -- 3 characters no HSK 2 word uses: 容易答
+
+--- dropped at step 5 (660), first 12 ---
+  雨下个不停。  -- level 4: 停 L4
+  你们今天下午在学校做些什么？  -- level 1: no list words
+  我能在哪里乘上机场巴士？  -- level 10: 乘 L4, 巴士 (not in list)
+  在下雨。  -- level 1: no list words
+  您几点下课？  -- level 1: no list words
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我今天要早点回家。  -- level 1: no list words
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+
+--- dropped at step 5b (27), first 12 ---
+  这是第一次。  -- harder grammar: 3-01 (HSK 3)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  你给我下来！  -- harder grammar: 2-28 (HSK 3)
+  我不想再次去那儿。  -- harder grammar: 3-16 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  再跟我说一次，你住哪？  -- harder grammar: 3-16 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  我昨天第一次见到他。  -- harder grammar: 3-01 (HSK 3), 3-46 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  我们还得回去。  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (142) ---
+  我要回来了。  -- rule: no match: line matched
+  您明天回来吗？  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  我们还是在这里坐下吧。  -- rule: no match: line matched
+  学校下周开学。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  楼下有人在等您。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  你为什么不回家呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: no match: line matched
+  这是我的第一次。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  下雨也没关系，我还是可以去。  -- rule: no match: line matched
+  她就是今天回家来的。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  外面在下雪。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  Kate的爸爸从车站走路回家。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他明天不回来。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  请在下一站让我下车。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: no match: line matched
+  汤姆一个月来这里三四次。  -- rule: no match: line matched
+  我想他会很快回来的。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  问他一下他的名字。  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  我们明天回来。  -- rule: no match: line matched
+  打电话回家！  -- rule: no match: line matched
+  我去下洗手间。  -- rule: no match: line matched
+  他今天从悉尼回来。  -- rule: no match: line matched
+  李明家下面那家衣服店。  -- rule: no match: line matched
+  下次请晚一点到。  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: no match: line matched
+  我想去商场。  -- rule: no match: line matched
+  可以等我们一下吗？  -- rule: no match: line matched
+  我不知道谁会在机场见我。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  我在叫他们回来。  -- rule: no match: line matched
+  我在回波士顿。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  今天不可能下雨。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  你怎么回来得这么快？  -- rule: no match: line matched
+  在楼下等我  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  还回去  -- rule: no match: line matched
+  请回来。  -- rule: no match: line matched
+  我在学跳舞，每个星期一次课。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  明天下雨，我不出门。  -- rule: no match: line matched
+  你下周来吗？  -- rule: no match: line matched
+  我每周吃肉三次。  -- rule: no match: line matched
+  我想让你下周回来。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我不回去。  -- rule: no match: line matched
+  我会跟你一起回家。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们现在能回去吗？  -- rule: no match: line matched
+  我下周去还你钱。  -- rule: no match: line matched
+  他晚上回来得很晚。  -- rule: no match: line matched
+  我在哪站下？  -- rule: no match: line matched
+  我希望你慢下来。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我明天回来。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  你是第一次来韩国吗？  -- rule: no match: line matched
+  给我看下它吧。  -- rule: no match: line matched
+  巴黎在下雪。  -- rule: no match: line matched
+  从那儿下来！  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  不要自己一个人走回家。  -- rule: no match: line matched
+  我每次去他家，他都不在家。  -- rule: no match: line matched
+  回来的路上买点牛奶。  -- rule: no match: line matched
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  我在她手下工作。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我十点回来。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: no match: line matched
+  我从出租车上下来。  -- rule: no match: line matched
+  我去机场。  -- rule: no match: line matched
+  机场很近。  -- rule: no match: line matched
+  我下周会去见他们。  -- rule: no match: line matched
+  我会在明天午饭前回来。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  我不想回去。  -- rule: no match: line matched
+  她在等你回来。  -- rule: no match: line matched
+  我的朋友还没回来。  -- rule: no match: line matched
+  雨下得很大。  -- rule: no match: line matched
+  下一位！  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  雪下得很大。  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: no match: line matched
+  他想回家，但是他不可以。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: no match: line matched
+  你下周也会在波士顿吗？  -- rule: no match: line matched
+  这次你找什么？  -- rule: no match: line matched
+  从你来时的路回家。  -- rule: no match: line matched
+  打电话回家。  -- rule: no match: line matched
+  回去吃饭。  -- rule: no match: line matched
+  回去找他。  -- rule: no match: line matched
+  回去睡觉。  -- rule: no match: line matched
+  回去工作！  -- rule: no match: line matched
+  回去工作。  -- rule: no match: line matched
+  帮我们一下，好吗？  -- rule: no match: line matched
+  写下来！  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  明天可能会下雪。  -- rule: no match: line matched
+  明天下午会是晴天。  -- rule: no match: line matched
+  下周见。  -- rule: no match: line matched
+  她一个小时后回来。  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+  我可以送他回家。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你在回家的路上吗？  -- rule: no match: line matched
+  过来坐下。  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  明天回来见我。  -- rule: no match: line matched
+  下周一学校见。  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  我们不可能回到过去。  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  请坐一下。  -- hidden word a learner can't work out: 请坐 (please, have a seat)
+  我要看一下这个。  -- hidden word a learner can't work out: 要看 ((it) depends on ...)
+  我今年去了好几次外国。  -- hidden word a learner can't work out: 好几 (several)
+
+--- dropped at step 7 (3) ---
+  你看这看了多少次？  -- check said no (1/2): Sentence structure awkward/unclear
+  你这个月已经做了几次？  -- check said no (1/2): Measure word 次 for frequency, not 一下
+  看一下, 吃一下，听一下， 学一下。  -- no accurate English among: Look, eat, listen, learn.
+
+--- dropped at step 8 (3) ---
+  是时候休息一下了。  -- difficulty review: (1/2); '时候' used with 是 in this construction (是时候⋯了) is beyond HSK 2 grammar
+  我能认识一下你吗？  -- difficulty review: (1/2); awkward usage: 认识一下你 suggests a one-time momentary action with 一下, but 认识 (to know/be acquainted with) is not typically used this way; this construction is unnatural
+  在这等一下，等我回来。  -- difficulty review: (1/2); '在这等一下' uses 在 as a locative adverb in a way that requires understanding of locative complement structures beyond HSK 2; the construction 'verb + 一下' followed by another full clause without clear separation is structurally complex for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-11_level2_20261112_211445.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 2-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-11 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1663  2. contain the point's word(s)
+     1657  3. new (not in DB, not a duplicate)
+      858  4. at most 2 characters outside HSK 2 words
+      198  5. really HSK 2
+      169  5b. no harder grammar point (of the 44 with a rule)
+       29  6. the rule finds 2-11
+       26  6b. no hidden word a learner can't work out
+       23  7. both checks say 2-11, English chosen
+       20  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (20) ===
+  等一下！  (Wait!)  [tatoeba 5092613]
+  等一下。  (Wait a moment.)  [tatoeba 9007563]
+  我介绍一下。  (Let me introduce it.)  [tatoeba 1441829]
+  你去了几回？  (How many trips did you make?)  [tatoeba 5550146]
+  现在等一下。  (Now, wait a second.)  [tatoeba 6147564]
+  休息一下吧。  (Take a break.)  [tatoeba 14004679]
+  我只想休息一下  (I just need a break.)  [tatoeba 5975078]
+  你能等一下吗？  (Can you hold on a second?)  [tatoeba 6628383]
+  在车里等一下。  (Wait for a bit in the car.)  [tatoeba 8792067]
+  您能开一下门吗？  (Could you open the door, please?)  [tatoeba 1753100]
+  他来了很多次了。  (He came several times.)  [tatoeba 1776634]
+  你能过来一下吗？  (Could you come up here?)  [tatoeba 5617217]
+  她叫了我很多次。  (She called me many a time.)  [tatoeba 5780505]
+  他一周洗一次车。  (He washes his car once a week.)  [tatoeba 10537127]  hidden: 一周
+  为什么你不休息一下?  (Why don't you rest a bit?)  [tatoeba 1441776]
+  这个月你做了多少次？  (How many times have you done that this month?)  [tatoeba 13788200]  hidden: 这个
+  这个月你做过多少回？  (How many times have you done that this month?)  [tatoeba 13788202]  hidden: 这个
+  我们休息一下，好吗？  (Let's take a break, OK?)  [tatoeba 13994932]
+  他说：「我们休息一下。」  (He said, "Let's take a short rest.")  [tatoeba 3472409]
+  请看一下我妹妹在做什么。  (Could you take a look at what my little sister is doing?)  [tatoeba 10460397]  hidden: 请看
+
+--- dropped at step 3 (6) ---
+  请稍等一下。  -- already in the database
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  打电话回家！  -- same text as tatoeba 5092540 (translations pooled)
+  这是一次很棒的经历。  -- same text as tatoeba 13893787 (translations pooled)
+
+--- dropped at step 4 (799), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  请把您的护照给我看一下。  -- 3 characters no HSK 2 word uses: 把护照
+  连超级英雄们也该偶尔休息一下。  -- 6 characters no HSK 2 word uses: 偶尔级该连雄
+  把土豆切一下。  -- 4 characters no HSK 2 word uses: 切土把豆
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  假如你没有这个程序，你现在就可以去下载。  -- 5 characters no HSK 2 word uses: 假如序程载
+  Linux是一个免费的操作系统。你应该去试用一下。  -- 7 characters no HSK 2 word uses: 免应操用统该费
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  他不会抛下落难的朋友不管。  -- 4 characters no HSK 2 word uses: 抛管落难
+  她收下了他的礼物。  -- 3 characters no HSK 2 word uses: 收物礼
+  据广播里讲，明天会下雪。  -- 4 characters no HSK 2 word uses: 广据播讲
+  这个问题很容易回答。  -- 3 characters no HSK 2 word uses: 容易答
+
+--- dropped at step 5 (660), first 12 ---
+  雨下个不停。  -- level 4: 停 L4
+  你们今天下午在学校做些什么？  -- level 1: no list words
+  我能在哪里乘上机场巴士？  -- level 10: 乘 L4, 巴士 (not in list)
+  在下雨。  -- level 1: no list words
+  您几点下课？  -- level 1: no list words
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我今天要早点回家。  -- level 1: no list words
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+
+--- dropped at step 5b (29), first 12 ---
+  这是第一次。  -- harder grammar: 3-01 (HSK 3)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  你给我下来！  -- harder grammar: 2-28 (HSK 3)
+  我不想再次去那儿。  -- harder grammar: 3-16 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  再跟我说一次，你住哪？  -- harder grammar: 3-16 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  我昨天第一次见到他。  -- harder grammar: 3-01 (HSK 3), 3-46 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  我们还得回去。  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (140) ---
+  我要回来了。  -- rule: no match: line matched
+  您明天回来吗？  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  我们还是在这里坐下吧。  -- rule: no match: line matched
+  学校下周开学。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  楼下有人在等您。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  你为什么不回家呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: no match: line matched
+  这是我的第一次。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  下雨也没关系，我还是可以去。  -- rule: no match: line matched
+  她就是今天回家来的。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  外面在下雪。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  Kate的爸爸从车站走路回家。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他明天不回来。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  请在下一站让我下车。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: no match: line matched
+  汤姆一个月来这里三四次。  -- rule: no match: line matched
+  我想他会很快回来的。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  问他一下他的名字。  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  我们明天回来。  -- rule: no match: line matched
+  打电话回家！  -- rule: no match: line matched
+  我去下洗手间。  -- rule: no match: line matched
+  他今天从悉尼回来。  -- rule: no match: line matched
+  李明家下面那家衣服店。  -- rule: no match: line matched
+  下次请晚一点到。  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: no match: line matched
+  我想去商场。  -- rule: no match: line matched
+  可以等我们一下吗？  -- rule: no match: line matched
+  我不知道谁会在机场见我。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  我在叫他们回来。  -- rule: no match: line matched
+  我在回波士顿。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  今天不可能下雨。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  你怎么回来得这么快？  -- rule: no match: line matched
+  在楼下等我  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  还回去  -- rule: no match: line matched
+  请回来。  -- rule: no match: line matched
+  我在学跳舞，每个星期一次课。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  明天下雨，我不出门。  -- rule: no match: line matched
+  你下周来吗？  -- rule: no match: line matched
+  我每周吃肉三次。  -- rule: no match: line matched
+  我想让你下周回来。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我不回去。  -- rule: no match: line matched
+  我会跟你一起回家。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们现在能回去吗？  -- rule: no match: line matched
+  我下周去还你钱。  -- rule: no match: line matched
+  他晚上回来得很晚。  -- rule: no match: line matched
+  我在哪站下？  -- rule: no match: line matched
+  我希望你慢下来。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我明天回来。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  你是第一次来韩国吗？  -- rule: no match: line matched
+  巴黎在下雪。  -- rule: no match: line matched
+  从那儿下来！  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  我每次去他家，他都不在家。  -- rule: no match: line matched
+  回来的路上买点牛奶。  -- rule: no match: line matched
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  我在她手下工作。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我十点回来。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: no match: line matched
+  我从出租车上下来。  -- rule: no match: line matched
+  我去机场。  -- rule: no match: line matched
+  机场很近。  -- rule: no match: line matched
+  我下周会去见他们。  -- rule: no match: line matched
+  我会在明天午饭前回来。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  我不想回去。  -- rule: no match: line matched
+  她在等你回来。  -- rule: no match: line matched
+  我的朋友还没回来。  -- rule: no match: line matched
+  雨下得很大。  -- rule: no match: line matched
+  下一位！  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  雪下得很大。  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: no match: line matched
+  他想回家，但是他不可以。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: no match: line matched
+  你下周也会在波士顿吗？  -- rule: no match: line matched
+  这次你找什么？  -- rule: no match: line matched
+  从你来时的路回家。  -- rule: no match: line matched
+  打电话回家。  -- rule: no match: line matched
+  回去吃饭。  -- rule: no match: line matched
+  回去找他。  -- rule: no match: line matched
+  回去睡觉。  -- rule: no match: line matched
+  回去工作！  -- rule: no match: line matched
+  回去工作。  -- rule: no match: line matched
+  帮我们一下，好吗？  -- rule: no match: line matched
+  写下来！  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  明天可能会下雪。  -- rule: no match: line matched
+  明天下午会是晴天。  -- rule: no match: line matched
+  下周见。  -- rule: no match: line matched
+  她一个小时后回来。  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+  我可以送他回家。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你在回家的路上吗？  -- rule: no match: line matched
+  过来坐下。  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  明天回来见我。  -- rule: no match: line matched
+  下周一学校见。  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  我们不可能回到过去。  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  请坐一下。  -- hidden word a learner can't work out: 请坐 (please, have a seat)
+  我要看一下这个。  -- hidden word a learner can't work out: 要看 ((it) depends on ...)
+  我今年去了好几次外国。  -- hidden word a learner can't work out: 好几 (several)
+
+--- dropped at step 7 (3) ---
+  你看这看了多少次？  -- check said no (1/2): Sentence structure awkward/unclear
+  你这个月已经做了几次？  -- check said no (1/2): Measure word 次 for frequency, not 一下
+  看一下, 吃一下，听一下， 学一下。  -- no accurate English among: Look, eat, listen, learn.
+
+--- dropped at step 8 (3) ---
+  是时候休息一下了。  -- difficulty review: (1/2); '时候' used with 是 in this construction (是时候⋯了) is beyond HSK 2 grammar
+  我能认识一下你吗？  -- difficulty review: (1/2); awkward usage: 认识一下你 suggests a one-time momentary action with 一下, but 认识 (to know/be acquainted with) is not typically used this way; this construction is unnatural
+  在这等一下，等我回来。  -- difficulty review: (1/2); '在这等一下' uses 在 as a locative adverb in a way that requires understanding of locative complement structures beyond HSK 2; the construction 'verb + 一下' followed by another full clause without clear separation is structurally complex for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-11_level2_20261113_135426.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:42 ##########
+Filling 2-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  要看 = 要 + 看  ((it) depends on ...)
+    hidden  好几 = 好 + 几  (several; quite a few)
+
+Course sentences at HSK 2 the rule already finds 2-11 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1663  2. contain the point's word(s)
+     1657  3. new (not in DB, not a duplicate)
+      858  4. at most 2 characters outside HSK 2 words
+      198  5. really HSK 2
+      171  5b. no harder grammar point (of the 43 with a rule)
+       29  6. the rule finds 2-11
+       27  6b. no hidden word a learner can't work out
+       24  7. both checks say 2-11, English chosen
+       21  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (21) ===
+  等一下！  (Wait!)  [tatoeba 5092613]
+  等一下。  (Wait a moment.)  [tatoeba 9007563]
+  请坐一下。  (Please have a seat.)  [tatoeba 415599]  hidden: 请坐
+  我介绍一下。  (Let me introduce it.)  [tatoeba 1441829]
+  你去了几回？  (How many trips did you make?)  [tatoeba 5550146]
+  现在等一下。  (Now, wait a second.)  [tatoeba 6147564]
+  休息一下吧。  (Take a break.)  [tatoeba 14004679]
+  我只想休息一下  (I just need a break.)  [tatoeba 5975078]
+  你能等一下吗？  (Can you hold on a second?)  [tatoeba 6628383]
+  在车里等一下。  (Wait for a bit in the car.)  [tatoeba 8792067]
+  您能开一下门吗？  (Could you open the door, please?)  [tatoeba 1753100]
+  他来了很多次了。  (He came several times.)  [tatoeba 1776634]
+  你能过来一下吗？  (Could you come up here?)  [tatoeba 5617217]
+  她叫了我很多次。  (She called me many a time.)  [tatoeba 5780505]
+  他一周洗一次车。  (He washes his car once a week.)  [tatoeba 10537127]  hidden: 一周
+  为什么你不休息一下?  (Why don't you rest a bit?)  [tatoeba 1441776]
+  这个月你做了多少次？  (How many times have you done that this month?)  [tatoeba 13788200]  hidden: 这个
+  这个月你做过多少回？  (How many times have you done that this month?)  [tatoeba 13788202]  hidden: 这个
+  我们休息一下，好吗？  (Let's take a break, OK?)  [tatoeba 13994932]
+  他说：「我们休息一下。」  (He said, "Let's take a short rest.")  [tatoeba 3472409]
+  请看一下我妹妹在做什么。  (Could you take a look at what my little sister is doing?)  [tatoeba 10460397]  hidden: 请看
+
+--- dropped at step 3 (6) ---
+  请稍等一下。  -- already in the database
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  我回家比较好。  -- same text as tatoeba 5829615 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  打电话回家！  -- same text as tatoeba 5092540 (translations pooled)
+  这是一次很棒的经历。  -- same text as tatoeba 13893787 (translations pooled)
+
+--- dropped at step 4 (799), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  请把您的护照给我看一下。  -- 3 characters no HSK 2 word uses: 把护照
+  连超级英雄们也该偶尔休息一下。  -- 6 characters no HSK 2 word uses: 偶尔级该连雄
+  把土豆切一下。  -- 4 characters no HSK 2 word uses: 切土把豆
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  假如你没有这个程序，你现在就可以去下载。  -- 5 characters no HSK 2 word uses: 假如序程载
+  Linux是一个免费的操作系统。你应该去试用一下。  -- 7 characters no HSK 2 word uses: 免应操用统该费
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  他不会抛下落难的朋友不管。  -- 4 characters no HSK 2 word uses: 抛管落难
+  她收下了他的礼物。  -- 3 characters no HSK 2 word uses: 收物礼
+  据广播里讲，明天会下雪。  -- 4 characters no HSK 2 word uses: 广据播讲
+  这个问题很容易回答。  -- 3 characters no HSK 2 word uses: 容易答
+
+--- dropped at step 5 (660), first 12 ---
+  雨下个不停。  -- level 4: 停 L4
+  你们今天下午在学校做些什么？  -- level 1: no list words
+  我能在哪里乘上机场巴士？  -- level 10: 乘 L4, 巴士 (not in list)
+  在下雨。  -- level 1: no list words
+  您几点下课？  -- level 1: no list words
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我今天要早点回家。  -- level 1: no list words
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+
+--- dropped at step 5b (27), first 12 ---
+  这是第一次。  -- harder grammar: 3-01 (HSK 3)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  你给我下来！  -- harder grammar: 2-28 (HSK 3)
+  我不想再次去那儿。  -- harder grammar: 3-16 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  再跟我说一次，你住哪？  -- harder grammar: 3-16 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  我昨天第一次见到他。  -- harder grammar: 3-01 (HSK 3), 3-46 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  我们还得回去。  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (142) ---
+  我要回来了。  -- rule: no match: line matched
+  您明天回来吗？  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  我们还是在这里坐下吧。  -- rule: no match: line matched
+  学校下周开学。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  楼下有人在等您。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  你为什么不回家呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: no match: line matched
+  这是我的第一次。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  下雨也没关系，我还是可以去。  -- rule: no match: line matched
+  她就是今天回家来的。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  外面在下雪。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  Kate的爸爸从车站走路回家。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他明天不回来。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  请在下一站让我下车。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: no match: line matched
+  汤姆一个月来这里三四次。  -- rule: no match: line matched
+  我想他会很快回来的。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  问他一下他的名字。  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  我们明天回来。  -- rule: no match: line matched
+  打电话回家！  -- rule: no match: line matched
+  我去下洗手间。  -- rule: no match: line matched
+  他今天从悉尼回来。  -- rule: no match: line matched
+  李明家下面那家衣服店。  -- rule: no match: line matched
+  下次请晚一点到。  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: no match: line matched
+  我想去商场。  -- rule: no match: line matched
+  可以等我们一下吗？  -- rule: no match: line matched
+  我不知道谁会在机场见我。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  我在叫他们回来。  -- rule: no match: line matched
+  我在回波士顿。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  今天不可能下雨。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  你怎么回来得这么快？  -- rule: no match: line matched
+  在楼下等我  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  还回去  -- rule: no match: line matched
+  请回来。  -- rule: no match: line matched
+  我在学跳舞，每个星期一次课。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  明天下雨，我不出门。  -- rule: no match: line matched
+  你下周来吗？  -- rule: no match: line matched
+  我每周吃肉三次。  -- rule: no match: line matched
+  我想让你下周回来。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我不回去。  -- rule: no match: line matched
+  我会跟你一起回家。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们现在能回去吗？  -- rule: no match: line matched
+  我下周去还你钱。  -- rule: no match: line matched
+  他晚上回来得很晚。  -- rule: no match: line matched
+  我在哪站下？  -- rule: no match: line matched
+  我希望你慢下来。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我明天回来。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  你是第一次来韩国吗？  -- rule: no match: line matched
+  给我看下它吧。  -- rule: no match: line matched
+  巴黎在下雪。  -- rule: no match: line matched
+  从那儿下来！  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  不要自己一个人走回家。  -- rule: no match: line matched
+  我每次去他家，他都不在家。  -- rule: no match: line matched
+  回来的路上买点牛奶。  -- rule: no match: line matched
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  我在她手下工作。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我十点回来。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: no match: line matched
+  我从出租车上下来。  -- rule: no match: line matched
+  我去机场。  -- rule: no match: line matched
+  机场很近。  -- rule: no match: line matched
+  我下周会去见他们。  -- rule: no match: line matched
+  我会在明天午饭前回来。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  我不想回去。  -- rule: no match: line matched
+  她在等你回来。  -- rule: no match: line matched
+  我的朋友还没回来。  -- rule: no match: line matched
+  雨下得很大。  -- rule: no match: line matched
+  下一位！  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  雪下得很大。  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: no match: line matched
+  他想回家，但是他不可以。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: no match: line matched
+  你下周也会在波士顿吗？  -- rule: no match: line matched
+  这次你找什么？  -- rule: no match: line matched
+  从你来时的路回家。  -- rule: no match: line matched
+  打电话回家。  -- rule: no match: line matched
+  回去吃饭。  -- rule: no match: line matched
+  回去找他。  -- rule: no match: line matched
+  回去睡觉。  -- rule: no match: line matched
+  回去工作！  -- rule: no match: line matched
+  回去工作。  -- rule: no match: line matched
+  帮我们一下，好吗？  -- rule: no match: line matched
+  写下来！  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  明天可能会下雪。  -- rule: no match: line matched
+  明天下午会是晴天。  -- rule: no match: line matched
+  下周见。  -- rule: no match: line matched
+  她一个小时后回来。  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+  我可以送他回家。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你在回家的路上吗？  -- rule: no match: line matched
+  过来坐下。  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  明天回来见我。  -- rule: no match: line matched
+  下周一学校见。  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  我们不可能回到过去。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我要看一下这个。  -- hidden word a learner can't work out: 要看 ((it) depends on ...)
+  我今年去了好几次外国。  -- hidden word a learner can't work out: 好几 (several; quite a few)
+
+--- dropped at step 7 (3) ---
+  你看这看了多少次？  -- check said no (1/2): Sentence structure awkward/unclear
+  你这个月已经做了几次？  -- check said no (1/2): Measure word 次 for frequency, not 一下
+  看一下, 吃一下，听一下， 学一下。  -- no accurate English among: Look, eat, listen, learn.
+
+--- dropped at step 8 (3) ---
+  是时候休息一下了。  -- difficulty review: (1/2); '时候' used with 是 in this construction (是时候⋯了) is beyond HSK 2 grammar
+  我能认识一下你吗？  -- difficulty review: (1/2); awkward usage: 认识一下你 suggests a one-time momentary action with 一下, but 认识 (to know/be acquainted with) is not typically used this way; this construction is unnatural
+  在这等一下，等我回来。  -- difficulty review: (1/2); '在这等一下' uses 在 as a locative adverb in a way that requires understanding of locative complement structures beyond HSK 2; the construction 'verb + 一下' followed by another full clause without clear separation is structurally complex for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-11_level2_20261113_144303.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:10 ##########
+Filling 2-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-11 in: 11  -> Tatoeba needs to add 9 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 2 check and 3 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 2-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1663  2. contain the point's word(s)
+     1602  3. new (not in DB, not a duplicate)
+      803  4. at most 2 characters outside HSK 2 words
+      152  5. really HSK 2
+      130  5b. no harder grammar point (of the 43 with a rule)
+        6  6. the rule finds 2-11
+        5  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-11, English chosen
+        3  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  是时候休息一下了。  (It's time for a break.)  [tatoeba 10182741]
+  我能认识一下你吗？  (Can I get to know you for a bit?)  [tatoeba 10989120]
+  在这等一下，等我回来。  (Wait a while, I'll be right back.)  [tatoeba 7781686]
+
+--- dropped at step 3 (61), first 12 ---
+  在下雨。  -- already in the database
+  您几点下课？  -- already in the database
+  请坐一下。  -- already in the database
+  请稍等一下。  -- already in the database
+  我们还是在这里坐下吧。  -- already in the database
+  为什么你不休息一下?  -- already in the database
+  我介绍一下。  -- already in the database
+  明天会下雨。  -- already in the database
+  这是我的第一次。  -- already in the database
+  上星期，我的爸爸从大阪回来了。  -- already in the database
+  您能开一下门吗？  -- already in the database
+  今天下雨，所以他不能来了。  -- already in the database
+
+--- dropped at step 4 (799), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  请把您的护照给我看一下。  -- 3 characters no HSK 2 word uses: 把护照
+  连超级英雄们也该偶尔休息一下。  -- 6 characters no HSK 2 word uses: 偶尔级该连雄
+  把土豆切一下。  -- 4 characters no HSK 2 word uses: 切土把豆
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  假如你没有这个程序，你现在就可以去下载。  -- 5 characters no HSK 2 word uses: 假如序程载
+  Linux是一个免费的操作系统。你应该去试用一下。  -- 7 characters no HSK 2 word uses: 免应操用统该费
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  他不会抛下落难的朋友不管。  -- 4 characters no HSK 2 word uses: 抛管落难
+  她收下了他的礼物。  -- 3 characters no HSK 2 word uses: 收物礼
+  据广播里讲，明天会下雪。  -- 4 characters no HSK 2 word uses: 广据播讲
+  这个问题很容易回答。  -- 3 characters no HSK 2 word uses: 容易答
+
+--- dropped at step 5 (651), first 12 ---
+  雨下个不停。  -- level 4: 停 L4
+  你们今天下午在学校做些什么？  -- level 1: no list words
+  我能在哪里乘上机场巴士？  -- level 10: 乘 L4, 巴士 (not in list)
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我今天要早点回家。  -- level 1: no list words
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+  他们四十分钟之后下课。  -- level 4: 之后 L4
+  最近的大卖场在哪里？  -- level 4: 最近 L3, 场 L4
+
+--- dropped at step 5b (22), first 12 ---
+  这是第一次。  -- harder grammar: 3-01 (HSK 3)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  我不想再次去那儿。  -- harder grammar: 3-16 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  再跟我说一次，你住哪？  -- harder grammar: 3-16 (HSK 3)
+  我昨天第一次见到他。  -- harder grammar: 3-01 (HSK 3), 3-46 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  我们还得回去。  -- harder grammar: 4-01 (HSK 4)
+  我不知道我能不能再做一次。  -- harder grammar: 3-16 (HSK 3)
+  下周再来。  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (124) ---
+  我要回来了。  -- rule: no match: line matched
+  您明天回来吗？  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  学校下周开学。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  楼下有人在等您。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  你为什么不回家呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  下雨也没关系，我还是可以去。  -- rule: no match: line matched
+  你给我下来！  -- rule: no match: line matched
+  她就是今天回家来的。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  外面在下雪。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  因为下雪了，我什么也没能看见。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他明天不回来。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  请在下一站让我下车。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: no match: line matched
+  汤姆一个月来这里三四次。  -- rule: no match: line matched
+  我想他会很快回来的。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  问他一下他的名字。  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  我们明天回来。  -- rule: no match: line matched
+  打电话回家！  -- rule: no match: line matched
+  我去下洗手间。  -- rule: no match: line matched
+  李明家下面那家衣服店。  -- rule: no match: line matched
+  下次请晚一点到。  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: no match: line matched
+  我想去商场。  -- rule: no match: line matched
+  可以等我们一下吗？  -- rule: no match: line matched
+  我不知道谁会在机场见我。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  我在叫他们回来。  -- rule: no match: line matched
+  我在回波士顿。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  今天不可能下雨。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  你怎么回来得这么快？  -- rule: no match: line matched
+  在楼下等我  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  还回去  -- rule: no match: line matched
+  请回来。  -- rule: no match: line matched
+  我在学跳舞，每个星期一次课。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  明天下雨，我不出门。  -- rule: no match: line matched
+  你下周来吗？  -- rule: no match: line matched
+  我每周吃肉三次。  -- rule: no match: line matched
+  我想让你下周回来。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我不回去。  -- rule: no match: line matched
+  我会跟你一起回家。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们现在能回去吗？  -- rule: no match: line matched
+  我下周去还你钱。  -- rule: no match: line matched
+  我在哪站下？  -- rule: no match: line matched
+  我希望你慢下来。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我明天回来。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  巴黎在下雪。  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  我每次去他家，他都不在家。  -- rule: no match: line matched
+  回来的路上买点牛奶。  -- rule: no match: line matched
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  我在她手下工作。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我十点回来。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: no match: line matched
+  我去机场。  -- rule: no match: line matched
+  机场很近。  -- rule: no match: line matched
+  我下周会去见他们。  -- rule: no match: line matched
+  我会在明天午饭前回来。  -- rule: no match: line matched
+  我不想回去。  -- rule: no match: line matched
+  等等。回来。  -- rule: no match: line matched
+  她在等你回来。  -- rule: no match: line matched
+  我的朋友还没回来。  -- rule: no match: line matched
+  下一位！  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: no match: line matched
+  你下周也会在波士顿吗？  -- rule: no match: line matched
+  这次你找什么？  -- rule: no match: line matched
+  打电话回家。  -- rule: no match: line matched
+  回去吃饭。  -- rule: no match: line matched
+  回去找他。  -- rule: no match: line matched
+  回去睡觉。  -- rule: no match: line matched
+  回去工作！  -- rule: no match: line matched
+  回去工作。  -- rule: no match: line matched
+  帮我们一下，好吗？  -- rule: no match: line matched
+  写下来！  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  明天可能会下雪。  -- rule: no match: line matched
+  明天下午会是晴天。  -- rule: no match: line matched
+  下周见。  -- rule: no match: line matched
+  她一个小时后回来。  -- rule: no match: line matched
+  我可以送他回家。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你在回家的路上吗？  -- rule: no match: line matched
+  过来坐下。  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  明天回来见我。  -- rule: no match: line matched
+  下周一学校见。  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  我们不可能回到过去。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我要看一下这个。  -- hidden word a learner can't work out: 要看 ((it) depends on ...)
+
+--- dropped at step 7 (2) ---
+  你看这看了多少次？  -- check said no (1/2): Sentence structure awkward/unclear
+  看一下, 吃一下，听一下， 学一下。  -- no accurate English among: Look, eat, listen, learn.
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-11_level2_20261114_161013.csv
+
+########## ai  2026-11-14 16:12 ##########
+
+----- AI-written sentences for 2-11, round 1: 0 to check, 6 needed -----
+  Asking claude-sonnet-5-5 to write 15 sentence(s)...
+
+----- AI-written sentences for 2-11, round 2: 15 to check, 6 needed -----
+Filling 2-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 15
+
+Tagging 11 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161251.txt
+
+Course sentences at HSK 2 the rule already finds 2-11 in: 11  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-11 at HSK 2: funnel ===
+       15  AI-written sentences
+       15  1. have an English translation
+       15  2. contain the point's word(s)
+       15  3. new (not in DB, not a duplicate)
+       11  4. at most 0 characters outside HSK 2 words
+        8  5. really HSK 2
+        8  5b. no harder grammar point (of the 43 with a rule)
+        8  6. the rule finds 2-11
+        8  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-11, English chosen
+        7  8. both difficulty reviews pass it
+
+=== Survivors (7) ===
+  他去过两回中国。  (He has been to China twice.)  [tatoeba ai-de9c7645f9]
+  你穿一下这件衣服吧。  (Try wearing this piece of clothing.)  [tatoeba ai-f8ca52ad5e]
+  你帮我看一下电脑吧。  (Please take a look at my computer for me.)  [tatoeba ai-1f563ed01d]
+  他一个星期去两次超市。  (He goes to the supermarket twice a week.)  [tatoeba ai-5be2a0c545]  hidden: 一个
+  我一个星期洗两次衣服。  (I wash clothes twice a week.)  [tatoeba ai-2517ddb69d]  hidden: 一个
+  妈妈给我打了三次电话。  (Mom called me three times.)  [tatoeba ai-c6a54e0c43]
+  你多长时间给妈妈打一次电话？  (How often do you call your mom?)  [tatoeba ai-cba3fe9efd]
+
+--- dropped at step 4 (4) ---
+  这个字请你写一遍。  -- 1 characters no HSK 2 word uses: 遍
+  这个电影我看了两遍。  -- 1 characters no HSK 2 word uses: 遍
+  老师说了好几遍，我还是不懂。  -- 1 characters no HSK 2 word uses: 遍
+  这个歌太好听了，我听了十遍。  -- 1 characters no HSK 2 word uses: 遍
+
+--- dropped at step 5 (3) ---
+  昨天下了一场大雨。  -- level 4: 场 L4
+  我昨天看了一场电影。  -- level 4: 场 L4
+  今天下午我们踢了一场足球。  -- level 4: 场 L4
+
+--- dropped at step 7 (1) ---
+  请问一下，洗手间在哪儿？  -- check said no (1/2): 一下 softens tone, not main grammar point
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-11_level2_20261114_161258.csv
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:30 ##########
+Filling 2-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-11 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1663  2. contain the point's word(s)
+     1657  3. new (not in DB, not a duplicate)
+      858  4. at most 2 characters outside HSK 2 words
+      198  5. really HSK 2
+      175  5b. no harder grammar point (of the 43 with a rule)
+       29  6. the rule finds 2-11
+       27  6b. no hidden word a learner can't work out
+       24  7. both checks say 2-11, English chosen
+       21  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (21) ===
+  等一下！  (Wait!)  [tatoeba 5092613]
+  等一下。  (Wait a moment.)  [tatoeba 9007563]
+  请坐一下。  (Please have a seat.)  [tatoeba 415599]  hidden: 请坐
+  我介绍一下。  (Let me introduce it.)  [tatoeba 1441829]
+  你去了几回？  (How many trips did you make?)  [tatoeba 5550146]
+  现在等一下。  (Now, wait a second.)  [tatoeba 6147564]
+  休息一下吧。  (Take a break.)  [tatoeba 14004679]
+  我只想休息一下  (I just need a break.)  [tatoeba 5975078]
+  你能等一下吗？  (Can you hold on a second?)  [tatoeba 6628383]
+  在车里等一下。  (Wait for a bit in the car.)  [tatoeba 8792067]
+  您能开一下门吗？  (Could you open the door, please?)  [tatoeba 1753100]
+  他来了很多次了。  (He came several times.)  [tatoeba 1776634]
+  你能过来一下吗？  (Could you come up here?)  [tatoeba 5617217]
+  她叫了我很多次。  (She called me many a time.)  [tatoeba 5780505]
+  他一周洗一次车。  (He washes his car once a week.)  [tatoeba 10537127]  hidden: 一周
+  为什么你不休息一下?  (Why don't you rest a bit?)  [tatoeba 1441776]
+  这个月你做了多少次？  (How many times have you done that this month?)  [tatoeba 13788200]  hidden: 这个
+  这个月你做过多少回？  (How many times have you done that this month?)  [tatoeba 13788202]  hidden: 这个
+  我们休息一下，好吗？  (Let's take a break, OK?)  [tatoeba 13994932]
+  他说：「我们休息一下。」  (He said, "Let's take a short rest.")  [tatoeba 3472409]
+  请看一下我妹妹在做什么。  (Could you take a look at what my little sister is doing?)  [tatoeba 10460397]  hidden: 请看
+
+--- dropped at step 3 (6) ---
+  请稍等一下。  -- already in the database
+  你到底怎么回事啊？  -- same text as 3897850 (translations pooled)
+  我回家比较好。  -- same text as 5829615 (translations pooled)
+  你明天下午在哪里？  -- same text as 6056532 (translations pooled)
+  打电话回家！  -- same text as 5092540 (translations pooled)
+  这是一次很棒的经历。  -- same text as 13893787 (translations pooled)
+
+--- dropped at step 4 (799), first 12 ---
+  我跟父母联络了一下。  -- 4 characters no HSK 2 word uses: 母父络联
+  请把您的护照给我看一下。  -- 3 characters no HSK 2 word uses: 把护照
+  连超级英雄们也该偶尔休息一下。  -- 6 characters no HSK 2 word uses: 偶尔级该连雄
+  把土豆切一下。  -- 4 characters no HSK 2 word uses: 切土把豆
+  这场革命已经带来了很多改变。  -- 5 characters no HSK 2 word uses: 变命带改革
+  假如你没有这个程序，你现在就可以去下载。  -- 5 characters no HSK 2 word uses: 假如序程载
+  Linux是一个免费的操作系统。你应该去试用一下。  -- 7 characters no HSK 2 word uses: 免应操用统该费
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  他不会抛下落难的朋友不管。  -- 4 characters no HSK 2 word uses: 抛管落难
+  她收下了他的礼物。  -- 3 characters no HSK 2 word uses: 收物礼
+  据广播里讲，明天会下雪。  -- 4 characters no HSK 2 word uses: 广据播讲
+  这个问题很容易回答。  -- 3 characters no HSK 2 word uses: 容易答
+
+--- dropped at step 5 (660), first 12 ---
+  雨下个不停。  -- level 4: 停 L4
+  你们今天下午在学校做些什么？  -- level 1: no list words
+  我能在哪里乘上机场巴士？  -- level 10: 乘 L4, 巴士 (not in list)
+  在下雨。  -- level 1: no list words
+  您几点下课？  -- level 1: no list words
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我今天要早点回家。  -- level 1: no list words
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+
+--- dropped at step 5b (23), first 12 ---
+  这是第一次。  -- harder grammar: 3-01 (HSK 3)
+  他这样已经不是第一次了。  -- harder grammar: 3-01 (HSK 3)
+  我不想再次去那儿。  -- harder grammar: 3-16 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  很高兴看到你回来了。  -- harder grammar: 3-46 (HSK 3)
+  再跟我说一次，你住哪？  -- harder grammar: 3-16 (HSK 3)
+  我昨天第一次见到他。  -- harder grammar: 3-01 (HSK 3), 3-46 (HSK 3)
+  我不会再回来了。  -- harder grammar: 3-16 (HSK 3)
+  我也去过波士顿很多次。  -- harder grammar: 3-60 (HSK 3)
+  我们还得回去。  -- harder grammar: 4-01 (HSK 4)
+  我不知道我能不能再做一次。  -- harder grammar: 3-16 (HSK 3)
+  下周再来。  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (146) ---
+  我要回来了。  -- rule: no match: line matched
+  您明天回来吗？  -- rule: no match: line matched
+  你回来了吗？  -- rule: no match: line matched
+  您回来了吗？  -- rule: no match: line matched
+  你们回来了吗？  -- rule: no match: line matched
+  我们还是在这里坐下吧。  -- rule: no match: line matched
+  学校下周开学。  -- rule: no match: line matched
+  我们真的不知道，下次我们再也不这样了。  -- rule: no match: line matched
+  明天爸爸就回来了。  -- rule: no match: line matched
+  楼下有人在等您。  -- rule: no match: line matched
+  可能要下雨了。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  你为什么不回家呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: no match: line matched
+  这是我的第一次。  -- rule: no match: line matched
+  上星期，我的爸爸从大阪回来了。  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  下雨也没关系，我还是可以去。  -- rule: no match: line matched
+  你给我下来！  -- rule: no match: line matched
+  她就是今天回家来的。  -- rule: no match: line matched
+  走吧，没在下雨了。  -- rule: no match: line matched
+  外面在下雪。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  Kate的爸爸从车站走路回家。  -- rule: no match: line matched
+  因为下雪了，我什么也没能看见。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他明天不回来。  -- rule: no match: line matched
+  她已经睡下了。  -- rule: no match: line matched
+  请在下一站让我下车。  -- rule: no match: line matched
+  我会晚一点回来。  -- rule: no match: line matched
+  汤姆一个月来这里三四次。  -- rule: no match: line matched
+  我想他会很快回来的。  -- rule: no match: line matched
+  天开始下雨了。  -- rule: no match: line matched
+  问他一下他的名字。  -- rule: no match: line matched
+  外面在下雪呢。  -- rule: no match: line matched
+  我们明天回来。  -- rule: no match: line matched
+  打电话回家！  -- rule: no match: line matched
+  我去下洗手间。  -- rule: no match: line matched
+  他今天从悉尼回来。  -- rule: no match: line matched
+  李明家下面那家衣服店。  -- rule: no match: line matched
+  下次请晚一点到。  -- rule: no match: line matched
+  下一次我会早一点到。  -- rule: no match: line matched
+  我想去商场。  -- rule: no match: line matched
+  可以等我们一下吗？  -- rule: no match: line matched
+  我不知道谁会在机场见我。  -- rule: no match: line matched
+  我很高兴你回来了。  -- rule: no match: line matched
+  我在叫他们回来。  -- rule: no match: line matched
+  我在回波士顿。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  今天不可能下雨。  -- rule: no match: line matched
+  我在机场见了个朋友。  -- rule: no match: line matched
+  昨天下了雨，还下了雪。  -- rule: no match: line matched
+  你怎么回来得这么快？  -- rule: no match: line matched
+  在楼下等我  -- rule: no match: line matched
+  Tom让我等了一下午  -- rule: no match: line matched
+  还回去  -- rule: no match: line matched
+  请回来。  -- rule: no match: line matched
+  我在学跳舞，每个星期一次课。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  明天下雨，我不出门。  -- rule: no match: line matched
+  你下周来吗？  -- rule: no match: line matched
+  我每周吃肉三次。  -- rule: no match: line matched
+  我想让你下周回来。  -- rule: no match: line matched
+  我再也不会回来了。  -- rule: no match: line matched
+  你要回来吗？  -- rule: no match: line matched
+  昨天他回来晚了。  -- rule: no match: line matched
+  今天天气很好，不下雨，是晴天，不冷不热。  -- rule: no match: line matched
+  明天天气不好，不是晴天，要下雪，很冷。  -- rule: no match: line matched
+  我不回去。  -- rule: no match: line matched
+  我会跟你一起回家。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  我准备回家了。  -- rule: no match: line matched
+  我们现在能回去吗？  -- rule: no match: line matched
+  我下周去还你钱。  -- rule: no match: line matched
+  他晚上回来得很晚。  -- rule: no match: line matched
+  我在哪站下？  -- rule: no match: line matched
+  我希望你慢下来。  -- rule: no match: line matched
+  已经不下雪了。  -- rule: no match: line matched
+  我明天回来。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  你是第一次来韩国吗？  -- rule: no match: line matched
+  给我看下它吧。  -- rule: no match: line matched
+  巴黎在下雪。  -- rule: no match: line matched
+  从那儿下来！  -- rule: no match: line matched
+  他说他不回来了。  -- rule: no match: line matched
+  不要自己一个人走回家。  -- rule: no match: line matched
+  我每次去他家，他都不在家。  -- rule: no match: line matched
+  回来的路上买点牛奶。  -- rule: no match: line matched
+  这次，我会和妹妹一起来。  -- rule: no match: line matched
+  我在她手下工作。  -- rule: no match: line matched
+  萨米写下了我们的名字。  -- rule: no match: line matched
+  我十点回来。  -- rule: no match: line matched
+  我会在这里等着到他回来的。  -- rule: no match: line matched
+  我从出租车上下来。  -- rule: no match: line matched
+  我去机场。  -- rule: no match: line matched
+  机场很近。  -- rule: no match: line matched
+  我下周会去见他们。  -- rule: no match: line matched
+  我会在明天午饭前回来。  -- rule: no match: line matched
+  这里已经两周没下雨了。  -- rule: no match: line matched
+  我不想回去。  -- rule: no match: line matched
+  等等。回来。  -- rule: no match: line matched
+  她在等你回来。  -- rule: no match: line matched
+  我的朋友还没回来。  -- rule: no match: line matched
+  雨下得很大。  -- rule: no match: line matched
+  下一位！  -- rule: no match: line matched
+  我回来了！  -- rule: no match: line matched
+  我们在下周的这个时候要做些什么呢。  -- rule: no match: line matched
+  雪下得很大。  -- rule: no match: line matched
+  汤姆只会在这里一下下。  -- rule: no match: line matched
+  他想回家，但是他不可以。  -- rule: no match: line matched
+  我知道他昨天就回来了。  -- rule: no match: line matched
+  我会在三天后回来。  -- rule: no match: line matched
+  你下周也会在波士顿吗？  -- rule: no match: line matched
+  这次你找什么？  -- rule: no match: line matched
+  从你来时的路回家。  -- rule: no match: line matched
+  打电话回家。  -- rule: no match: line matched
+  回去吃饭。  -- rule: no match: line matched
+  回去找他。  -- rule: no match: line matched
+  回去睡觉。  -- rule: no match: line matched
+  回去工作！  -- rule: no match: line matched
+  回去工作。  -- rule: no match: line matched
+  帮我们一下，好吗？  -- rule: no match: line matched
+  写下来！  -- rule: no match: line matched
+  雪下了一周。  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  明天可能会下雪。  -- rule: no match: line matched
+  明天下午会是晴天。  -- rule: no match: line matched
+  下周见。  -- rule: no match: line matched
+  下次你来看我的时候，我会给你看那本书。  -- rule: no match: line matched
+  她一个小时后回来。  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+  我可以送他回家。  -- rule: no match: line matched
+  我从中国回来了。  -- rule: no match: line matched
+  他们说他们见过你好几次。  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你在回家的路上吗？  -- rule: no match: line matched
+  过来坐下。  -- rule: no match: line matched
+  我明天就能下床了。  -- rule: no match: line matched
+  已经开始下雨了。  -- rule: no match: line matched
+  明天回来见我。  -- rule: no match: line matched
+  下周一学校见。  -- rule: no match: line matched
+  玛莉说她很快就会回来。  -- rule: no match: line matched
+  能回来真是太好了。  -- rule: no match: line matched
+  我回到了过去。  -- rule: no match: line matched
+  我们不可能回到过去。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我要看一下这个。  -- hidden word a learner can't work out: 要看 ((it) depends on ...)
+  我今年去了好几次外国。  -- hidden word a learner can't work out: 好几 (several; quite a few)
+
+--- dropped at step 7 (3) ---
+  你看这看了多少次？  -- check said no (1/2): Sentence structure awkward/unclear
+  你这个月已经做了几次？  -- check said no (1/2): Measure word 次 for frequency, not 一下
+  看一下, 吃一下，听一下， 学一下。  -- no accurate English among: Look, eat, listen, learn.
+
+--- dropped at step 8 (3) ---
+  是时候休息一下了。  -- difficulty review: (1/2); '时候' used with 是 in this construction (是时候⋯了) is beyond HSK 2 grammar
+  我能认识一下你吗？  -- difficulty review: (1/2); awkward usage: 认识一下你 suggests a one-time momentary action with 一下, but 认识 (to know/be acquainted with) is not typically used this way; this construction is unnatural
+  在这等一下，等我回来。  -- difficulty review: (1/2); '在这等一下' uses 在 as a locative adverb in a way that requires understanding of locative complement structures beyond HSK 2; the construction 'verb + 一下' followed by another full clause without clear separation is structurally complex for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-11_level2_20261114_163046.csv
+
+########## ai  2026-11-14 16:34 ##########

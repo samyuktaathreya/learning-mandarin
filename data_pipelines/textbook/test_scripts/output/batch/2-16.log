@@ -190,3 +190,1216 @@ Harder grammar points made only of HSK 1-2 words (the review is warned about the
   我经常想着它。  -- difficulty review: (1/2); uses 着 (continuous aspect marker) in a way that suggests HSK 3+ grammar (2-70 持续态 is allowed, but this specific usage with 想着 suggests a more advanced construction
 
 Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-16_level2_20261109_220853.csv
+
+########## guard check  2026-11-10 21:30 ##########
+  Checking 25 sentence(s) for 2-16 (2 call(s))...
+Flags examples of 1-12 that don't contain 2-16: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+########## tatoeba  2026-11-10 21:36 ##########
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-16 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      491  2. contain the point's word(s)
+      491  3. new (not in DB, not a duplicate)
+      207  4. at most 2 characters outside HSK 2 words
+       16  5. really HSK 2
+       15  5b. no harder grammar point (of the 33 with a rule)
+        9  6. the rule finds 2-16
+        7  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-16, English chosen
+        6  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  我经常喝茶。  (I often drink tea.)  [tatoeba 3378025]  hidden: 喝茶
+  我经常唱歌。  (I often sing.)  [tatoeba 14057668]  hidden: 唱歌
+  我不经常上ＱＱ。  (I don't go on QQ very often.)  [tatoeba 470871]
+  我经常想去那里。  (I often feel like just going over there.)  [tatoeba 609847]
+  您经常来这儿吗？  (Do you often come here?)  [tatoeba 4879037]
+  我不经常自己去做。  (I don't often do that by myself.)  [tatoeba 6585438]
+
+--- dropped at step 4 (284), first 12 ---
+  波士顿的鸽子又胖又自豪。  -- 6 characters no HSK 2 word uses: 又波胖豪顿鸽
+  既要马好，又要马不吃草。  -- 4 characters no HSK 2 word uses: 又既草马
+  所有的老师都无法解决这个问题。  -- 4 characters no HSK 2 word uses: 决无法解
+  王老吉不是啤酒，是茶。  -- 3 characters no HSK 2 word uses: 吉啤王
+  今天我要处理的事还没处理完，又要加班了。  -- 4 characters no HSK 2 word uses: 加又处理
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  她老是弄丢她的手帕。  -- 3 characters no HSK 2 word uses: 丢帕弄
+  但是如果有一个人本身已经很好了，对你又是真心真意，真心爱你，那么你真的可以把一生托付给他。  -- 6 characters no HSK 2 word uses: 付又如心托把
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  在中国南方，旗袍又称“长衫”。  -- 7 characters no HSK 2 word uses: 南又方旗称衫袍
+
+--- dropped at step 5 (191), first 12 ---
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  我经常做噩梦。  -- level 10: 噩梦 (not in list)
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  老鼠来了！快去叫猫来！  -- level 6: 老鼠 L6
+  我当过老师。  -- level 4: 当 L4
+  我要叫你“老板”。  -- level 5: 老板 L5
+  这道题目没有一位老师会做。  -- level 5: 道 L4, 题目 L5
+  又下雨了！  -- level 3: 又 L3
+  你又来了。  -- level 3: 又 L3
+  他不服老。  -- level 6: 服 L6, 老 L3
+  我给我的老爸送了一个铃鼓。  -- level 10: 老 L3, 爸 (not in list), 铃 L5, 鼓 L5
+  他说话就像一位老师。  -- level 3: 像 L3
+
+--- dropped at step 5b (1) ---
+  我丈夫也是老师。  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 6 (6) ---
+  你是不是老师？  -- rule: no match: line matched
+  您是老师，还是学生？  -- rule: no match: line matched
+  老师教我的。  -- rule: no match: line matched
+  她是位老师。  -- rule: no match: line matched
+  你跟这位老师上课吗？  -- rule: no match: line matched
+  汤姆不是这里的老师吧？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我的姐姐经常就着牛奶喝茶。  -- hidden word a learner can't work out: 就着 ((eat sth) with (sth else))
+  那是我经常说的。  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+
+--- dropped at step 8 (1) ---
+  我经常想着它。  -- difficulty review: (1/2); uses 着 (continuous aspect marker) in a way that suggests HSK 3+ grammar (2-70 持续态 is allowed, but this specific usage with 想着 suggests a more advanced construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-16_level2_20261110_213612.csv
+
+########## guard check  2026-11-11 14:22 ##########
+
+########## tatoeba  2026-11-11 14:28 ##########
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-16 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      491  2. contain the point's word(s)
+      491  3. new (not in DB, not a duplicate)
+      207  4. at most 2 characters outside HSK 2 words
+       16  5. really HSK 2
+       15  5b. no harder grammar point (of the 39 with a rule)
+        9  6. the rule finds 2-16
+        7  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-16, English chosen
+        6  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  我经常喝茶。  (I often drink tea.)  [tatoeba 3378025]  hidden: 喝茶
+  我经常唱歌。  (I often sing.)  [tatoeba 14057668]  hidden: 唱歌
+  我不经常上ＱＱ。  (I don't go on QQ very often.)  [tatoeba 470871]
+  我经常想去那里。  (I often feel like just going over there.)  [tatoeba 609847]
+  您经常来这儿吗？  (Do you often come here?)  [tatoeba 4879037]
+  我不经常自己去做。  (I don't often do that by myself.)  [tatoeba 6585438]
+
+--- dropped at step 4 (284), first 12 ---
+  波士顿的鸽子又胖又自豪。  -- 6 characters no HSK 2 word uses: 又波胖豪顿鸽
+  既要马好，又要马不吃草。  -- 4 characters no HSK 2 word uses: 又既草马
+  所有的老师都无法解决这个问题。  -- 4 characters no HSK 2 word uses: 决无法解
+  王老吉不是啤酒，是茶。  -- 3 characters no HSK 2 word uses: 吉啤王
+  今天我要处理的事还没处理完，又要加班了。  -- 4 characters no HSK 2 word uses: 加又处理
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  她老是弄丢她的手帕。  -- 3 characters no HSK 2 word uses: 丢帕弄
+  但是如果有一个人本身已经很好了，对你又是真心真意，真心爱你，那么你真的可以把一生托付给他。  -- 6 characters no HSK 2 word uses: 付又如心托把
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  在中国南方，旗袍又称“长衫”。  -- 7 characters no HSK 2 word uses: 南又方旗称衫袍
+
+--- dropped at step 5 (191), first 12 ---
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  我经常做噩梦。  -- level 10: 噩梦 (not in list)
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  老鼠来了！快去叫猫来！  -- level 6: 老鼠 L6
+  我当过老师。  -- level 4: 当 L4
+  我要叫你“老板”。  -- level 5: 老板 L5
+  这道题目没有一位老师会做。  -- level 5: 道 L4, 题目 L5
+  又下雨了！  -- level 3: 又 L3
+  你又来了。  -- level 3: 又 L3
+  他不服老。  -- level 6: 服 L6, 老 L3
+  我给我的老爸送了一个铃鼓。  -- level 10: 老 L3, 爸 (not in list), 铃 L5, 鼓 L5
+  他说话就像一位老师。  -- level 3: 像 L3
+
+--- dropped at step 5b (1) ---
+  我丈夫也是老师。  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 6 (6) ---
+  你是不是老师？  -- rule: no match: line matched
+  您是老师，还是学生？  -- rule: no match: line matched
+  老师教我的。  -- rule: no match: line matched
+  她是位老师。  -- rule: no match: line matched
+  你跟这位老师上课吗？  -- rule: no match: line matched
+  汤姆不是这里的老师吧？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我的姐姐经常就着牛奶喝茶。  -- hidden word a learner can't work out: 就着 ((eat sth) with (sth else))
+  那是我经常说的。  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+
+--- dropped at step 8 (1) ---
+  我经常想着它。  -- difficulty review: (1/2); uses 着 (continuous aspect marker) in a way that suggests HSK 3+ grammar (2-70 持续态 is allowed, but this specific usage with 想着 suggests a more advanced construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-16_level2_20261111_142858.csv
+
+########## rules  2026-11-12 17:23 ##########
+
+=== A. 2-16: rule on labeled examples (no AI) ===
+  examples of 2-16 matched:    22/32
+  counter-examples wrongly matched: 0/35   <- should be 0
+
+--- examples of 2-16 the rule misses (10) ---
+  他又没来上课。  -- ASGN1JR5 Expressing "again" in the past with "you"
+  你们又不付钱？  -- ASGN1JR5 Expressing "again" in the past with "you"
+  你又不参加？  -- ASGN1JR5 Expressing "again" in the past with "you"
+  对不起，我又没带书。  -- ASGN1JR5 Expressing "again" in the past with "you"
+  今天又要加班了！  -- ASGN1JR5 Expressing "again" in the past with "you"
+  老板请客，又可以吃大餐了！  -- ASGN1JR5 Expressing "again" in the past with "you"
+  快过年了，我们又能拿红包了！  -- ASGN1JR5 Expressing "again" in the past with "you"
+  常来玩！  -- ASGE8FLP Comparing "changchang" and "jingchang"
+  常联系！  -- ASGE8FLP Comparing "changchang" and "jingchang"
+  他不常抽烟。  -- ASGE8FLP Comparing "changchang" and "jingchang"
+  easy examples (words all HSK 2 or below) matched: 0/0   (too few to test)
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:40 ##########
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-16 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      491  2. contain the point's word(s)
+      491  3. new (not in DB, not a duplicate)
+      207  4. at most 2 characters outside HSK 2 words
+       17  5. really HSK 2
+       16  5b. no harder grammar point (of the 40 with a rule)
+        9  6. the rule finds 2-16
+        7  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-16, English chosen
+        6  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  我经常喝茶。  (I often drink tea.)  [tatoeba 3378025]  hidden: 喝茶
+  我经常唱歌。  (I often sing.)  [tatoeba 14057668]  hidden: 唱歌
+  我不经常上ＱＱ。  (I don't go on QQ very often.)  [tatoeba 470871]
+  我经常想去那里。  (I often feel like just going over there.)  [tatoeba 609847]
+  您经常来这儿吗？  (Do you often come here?)  [tatoeba 4879037]
+  我不经常自己去做。  (I don't often do that by myself.)  [tatoeba 6585438]
+
+--- dropped at step 4 (284), first 12 ---
+  波士顿的鸽子又胖又自豪。  -- 6 characters no HSK 2 word uses: 又波胖豪顿鸽
+  既要马好，又要马不吃草。  -- 4 characters no HSK 2 word uses: 又既草马
+  所有的老师都无法解决这个问题。  -- 4 characters no HSK 2 word uses: 决无法解
+  王老吉不是啤酒，是茶。  -- 3 characters no HSK 2 word uses: 吉啤王
+  今天我要处理的事还没处理完，又要加班了。  -- 4 characters no HSK 2 word uses: 加又处理
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  她老是弄丢她的手帕。  -- 3 characters no HSK 2 word uses: 丢帕弄
+  但是如果有一个人本身已经很好了，对你又是真心真意，真心爱你，那么你真的可以把一生托付给他。  -- 6 characters no HSK 2 word uses: 付又如心托把
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  在中国南方，旗袍又称“长衫”。  -- 7 characters no HSK 2 word uses: 南又方旗称衫袍
+
+--- dropped at step 5 (190), first 12 ---
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  我经常做噩梦。  -- level 10: 噩梦 (not in list)
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  老鼠来了！快去叫猫来！  -- level 6: 老鼠 L6
+  我当过老师。  -- level 4: 当 L4
+  我要叫你“老板”。  -- level 5: 老板 L5
+  这道题目没有一位老师会做。  -- level 5: 道 L4, 题目 L5
+  又下雨了！  -- level 3: 又 L3
+  你又来了。  -- level 3: 又 L3
+  他不服老。  -- level 6: 服 L6, 老 L3
+  我给我的老爸送了一个铃鼓。  -- level 10: 老 L3, 爸 (not in list), 铃 L5, 鼓 L5
+  他说话就像一位老师。  -- level 3: 像 L3
+
+--- dropped at step 5b (1) ---
+  我丈夫也是老师。  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 6 (7) ---
+  你是不是老师？  -- rule: no match: line matched
+  您是老师，还是学生？  -- rule: no match: line matched
+  老师教我的。  -- rule: no match: line matched
+  她是位老师。  -- rule: no match: line matched
+  你跟这位老师上课吗？  -- rule: no match: line matched
+  汤姆不是这里的老师吧？  -- rule: no match: line matched
+  老师给小孩一本书。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我的姐姐经常就着牛奶喝茶。  -- hidden word a learner can't work out: 就着 ((eat sth) with (sth else))
+  那是我经常说的。  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+
+--- dropped at step 8 (1) ---
+  我经常想着它。  -- difficulty review: (1/2); uses 着 (continuous aspect marker) in a way that suggests HSK 3+ grammar (2-70 持续态 is allowed, but this specific usage with 想着 suggests a more advanced construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-16_level2_20261112_174002.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:14 ##########
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-16 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      491  2. contain the point's word(s)
+      491  3. new (not in DB, not a duplicate)
+      207  4. at most 2 characters outside HSK 2 words
+       17  5. really HSK 2
+       16  5b. no harder grammar point (of the 40 with a rule)
+        9  6. the rule finds 2-16
+        7  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-16, English chosen
+        6  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  我经常喝茶。  (I often drink tea.)  [tatoeba 3378025]  hidden: 喝茶
+  我经常唱歌。  (I often sing.)  [tatoeba 14057668]  hidden: 唱歌
+  我不经常上ＱＱ。  (I don't go on QQ very often.)  [tatoeba 470871]
+  我经常想去那里。  (I often feel like just going over there.)  [tatoeba 609847]
+  您经常来这儿吗？  (Do you often come here?)  [tatoeba 4879037]
+  我不经常自己去做。  (I don't often do that by myself.)  [tatoeba 6585438]
+
+--- dropped at step 4 (284), first 12 ---
+  波士顿的鸽子又胖又自豪。  -- 6 characters no HSK 2 word uses: 又波胖豪顿鸽
+  既要马好，又要马不吃草。  -- 4 characters no HSK 2 word uses: 又既草马
+  所有的老师都无法解决这个问题。  -- 4 characters no HSK 2 word uses: 决无法解
+  王老吉不是啤酒，是茶。  -- 3 characters no HSK 2 word uses: 吉啤王
+  今天我要处理的事还没处理完，又要加班了。  -- 4 characters no HSK 2 word uses: 加又处理
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  她老是弄丢她的手帕。  -- 3 characters no HSK 2 word uses: 丢帕弄
+  但是如果有一个人本身已经很好了，对你又是真心真意，真心爱你，那么你真的可以把一生托付给他。  -- 6 characters no HSK 2 word uses: 付又如心托把
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  在中国南方，旗袍又称“长衫”。  -- 7 characters no HSK 2 word uses: 南又方旗称衫袍
+
+--- dropped at step 5 (190), first 12 ---
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  我经常做噩梦。  -- level 10: 噩梦 (not in list)
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  老鼠来了！快去叫猫来！  -- level 6: 老鼠 L6
+  我当过老师。  -- level 4: 当 L4
+  我要叫你“老板”。  -- level 5: 老板 L5
+  这道题目没有一位老师会做。  -- level 5: 道 L4, 题目 L5
+  又下雨了！  -- level 3: 又 L3
+  你又来了。  -- level 3: 又 L3
+  他不服老。  -- level 6: 服 L6, 老 L3
+  我给我的老爸送了一个铃鼓。  -- level 10: 老 L3, 爸 (not in list), 铃 L5, 鼓 L5
+  他说话就像一位老师。  -- level 3: 像 L3
+
+--- dropped at step 5b (1) ---
+  我丈夫也是老师。  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 6 (7) ---
+  你是不是老师？  -- rule: no match: line matched
+  您是老师，还是学生？  -- rule: no match: line matched
+  老师教我的。  -- rule: no match: line matched
+  她是位老师。  -- rule: no match: line matched
+  你跟这位老师上课吗？  -- rule: no match: line matched
+  汤姆不是这里的老师吧？  -- rule: no match: line matched
+  老师给小孩一本书。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我的姐姐经常就着牛奶喝茶。  -- hidden word a learner can't work out: 就着 ((eat sth) with (sth else))
+  那是我经常说的。  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+
+--- dropped at step 8 (1) ---
+  我经常想着它。  -- difficulty review: (1/2); uses 着 (continuous aspect marker) in a way that suggests HSK 3+ grammar (2-70 持续态 is allowed, but this specific usage with 想着 suggests a more advanced construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-16_level2_20261112_211500.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-16 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      491  2. contain the point's word(s)
+      491  3. new (not in DB, not a duplicate)
+      207  4. at most 2 characters outside HSK 2 words
+       17  5. really HSK 2
+       14  5b. no harder grammar point (of the 44 with a rule)
+        7  6. the rule finds 2-16
+        5  6b. no hidden word a learner can't work out
+        5  7. both checks say 2-16, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  我经常喝茶。  (I often drink tea.)  [tatoeba 3378025]  hidden: 喝茶
+  我经常唱歌。  (I often sing.)  [tatoeba 14057668]  hidden: 唱歌
+  我不经常上ＱＱ。  (I don't go on QQ very often.)  [tatoeba 470871]
+  我经常想去那里。  (I often feel like just going over there.)  [tatoeba 609847]
+  您经常来这儿吗？  (Do you often come here?)  [tatoeba 4879037]
+
+--- dropped at step 4 (284), first 12 ---
+  波士顿的鸽子又胖又自豪。  -- 6 characters no HSK 2 word uses: 又波胖豪顿鸽
+  既要马好，又要马不吃草。  -- 4 characters no HSK 2 word uses: 又既草马
+  所有的老师都无法解决这个问题。  -- 4 characters no HSK 2 word uses: 决无法解
+  王老吉不是啤酒，是茶。  -- 3 characters no HSK 2 word uses: 吉啤王
+  今天我要处理的事还没处理完，又要加班了。  -- 4 characters no HSK 2 word uses: 加又处理
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  她老是弄丢她的手帕。  -- 3 characters no HSK 2 word uses: 丢帕弄
+  但是如果有一个人本身已经很好了，对你又是真心真意，真心爱你，那么你真的可以把一生托付给他。  -- 6 characters no HSK 2 word uses: 付又如心托把
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  在中国南方，旗袍又称“长衫”。  -- 7 characters no HSK 2 word uses: 南又方旗称衫袍
+
+--- dropped at step 5 (190), first 12 ---
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  我经常做噩梦。  -- level 10: 噩梦 (not in list)
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  老鼠来了！快去叫猫来！  -- level 6: 老鼠 L6
+  我当过老师。  -- level 4: 当 L4
+  我要叫你“老板”。  -- level 5: 老板 L5
+  这道题目没有一位老师会做。  -- level 5: 道 L4, 题目 L5
+  又下雨了！  -- level 3: 又 L3
+  你又来了。  -- level 3: 又 L3
+  他不服老。  -- level 6: 服 L6, 老 L3
+  我给我的老爸送了一个铃鼓。  -- level 10: 老 L3, 爸 (not in list), 铃 L5, 鼓 L5
+  他说话就像一位老师。  -- level 3: 像 L3
+
+--- dropped at step 5b (3) ---
+  我经常想着它。  -- harder grammar: 2-06 (HSK 3)
+  我不经常自己去做。  -- harder grammar: 2-06 (HSK 3)
+  我丈夫也是老师。  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 6 (7) ---
+  你是不是老师？  -- rule: no match: line matched
+  您是老师，还是学生？  -- rule: no match: line matched
+  老师教我的。  -- rule: no match: line matched
+  她是位老师。  -- rule: no match: line matched
+  你跟这位老师上课吗？  -- rule: no match: line matched
+  汤姆不是这里的老师吧？  -- rule: no match: line matched
+  老师给小孩一本书。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我的姐姐经常就着牛奶喝茶。  -- hidden word a learner can't work out: 就着 ((eat sth) with (sth else))
+  那是我经常说的。  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-16_level2_20261113_135433.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:43 ##########
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  就着 = 就 + 着  ((eat sth) with (sth else); taking advant)
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 0 check and 1 review rejection(s)...
+
+=== 2-16 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      491  2. contain the point's word(s)
+      491  3. new (not in DB, not a duplicate)
+      207  4. at most 2 characters outside HSK 2 words
+       17  5. really HSK 2
+       16  5b. no harder grammar point (of the 43 with a rule)
+        9  6. the rule finds 2-16
+        7  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-16, English chosen
+        6  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  我经常喝茶。  (I often drink tea.)  [tatoeba 3378025]  hidden: 喝茶
+  我经常唱歌。  (I often sing.)  [tatoeba 14057668]  hidden: 唱歌
+  我不经常上ＱＱ。  (I don't go on QQ very often.)  [tatoeba 470871]
+  我经常想去那里。  (I often feel like just going over there.)  [tatoeba 609847]
+  您经常来这儿吗？  (Do you often come here?)  [tatoeba 4879037]
+  我不经常自己去做。  (I don't often do that by myself.)  [tatoeba 6585438]
+  我经常想着它。  (I think about it often.)  [tatoeba 6015160]
+
+--- dropped at step 4 (284), first 12 ---
+  波士顿的鸽子又胖又自豪。  -- 6 characters no HSK 2 word uses: 又波胖豪顿鸽
+  既要马好，又要马不吃草。  -- 4 characters no HSK 2 word uses: 又既草马
+  所有的老师都无法解决这个问题。  -- 4 characters no HSK 2 word uses: 决无法解
+  王老吉不是啤酒，是茶。  -- 3 characters no HSK 2 word uses: 吉啤王
+  今天我要处理的事还没处理完，又要加班了。  -- 4 characters no HSK 2 word uses: 加又处理
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  她老是弄丢她的手帕。  -- 3 characters no HSK 2 word uses: 丢帕弄
+  但是如果有一个人本身已经很好了，对你又是真心真意，真心爱你，那么你真的可以把一生托付给他。  -- 6 characters no HSK 2 word uses: 付又如心托把
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  在中国南方，旗袍又称“长衫”。  -- 7 characters no HSK 2 word uses: 南又方旗称衫袍
+
+--- dropped at step 5 (190), first 12 ---
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  我经常做噩梦。  -- level 10: 噩梦 (not in list)
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  老鼠来了！快去叫猫来！  -- level 6: 老鼠 L6
+  我当过老师。  -- level 4: 当 L4
+  我要叫你“老板”。  -- level 5: 老板 L5
+  这道题目没有一位老师会做。  -- level 5: 道 L4, 题目 L5
+  又下雨了！  -- level 3: 又 L3
+  你又来了。  -- level 3: 又 L3
+  他不服老。  -- level 6: 服 L6, 老 L3
+  我给我的老爸送了一个铃鼓。  -- level 10: 老 L3, 爸 (not in list), 铃 L5, 鼓 L5
+  他说话就像一位老师。  -- level 3: 像 L3
+
+--- dropped at step 5b (1) ---
+  我丈夫也是老师。  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 6 (7) ---
+  你是不是老师？  -- rule: no match: line matched
+  您是老师，还是学生？  -- rule: no match: line matched
+  老师教我的。  -- rule: no match: line matched
+  她是位老师。  -- rule: no match: line matched
+  你跟这位老师上课吗？  -- rule: no match: line matched
+  汤姆不是这里的老师吧？  -- rule: no match: line matched
+  老师给小孩一本书。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我的姐姐经常就着牛奶喝茶。  -- hidden word a learner can't work out: 就着 ((eat sth) with (sth else); taking advantage of; using)
+  那是我经常说的。  -- hidden word a learner can't work out: 那是 ((coll.) of course; naturally; indeed)
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-16_level2_20261113_144334.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## ai  2026-11-14 14:32 ##########
+
+----- AI-written sentences for 2-16, round 1: 0 to check, 12 needed -----
+  Asking claude-sonnet-5-5 to write 30 sentence(s)...
+
+----- AI-written sentences for 2-16, round 2: 30 to check, 12 needed -----
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 30
+
+Tagging 16 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_143252.txt
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 1  -> Tatoeba needs to add 12 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-16 at HSK 2: funnel ===
+       30  AI-written sentences
+       30  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       16  4. at most 0 characters outside HSK 2 words
+        7  5. really HSK 2
+        6  5b. no harder grammar point (of the 43 with a rule)
+        6  6. the rule finds 2-16
+        6  6b. no hidden word a learner can't work out
+        6  7. both checks say 2-16, English chosen
+        6  8. both difficulty reviews pass it
+
+=== Survivors (6) ===
+  我经常在家做饭。  (I often cook at home.)  [tatoeba ai-9fb4e86971]  hidden: 在家
+  哥哥经常去游泳。  (My older brother often goes swimming.)  [tatoeba ai-69a2b52b98]
+  你们经常一起玩吗？  (Do you often hang out together?)  [tatoeba ai-d0a150cf3c]
+  他经常不回家吃晚饭。  (He often doesn't come home for dinner.)  [tatoeba ai-8164318d4d]  hidden: 回家
+  同学们经常问老师问题。  (The students often ask the teacher questions.)  [tatoeba ai-e885571ec8]
+  星期天我经常十点起床。  (On Sundays I often get up at ten.)  [tatoeba ai-3fc57fd329]
+
+--- dropped at step 4 (14), first 12 ---
+  你怎么又睡觉了？  -- 1 characters no HSK 2 word uses: 又
+  昨天又下雨了。  -- 1 characters no HSK 2 word uses: 又
+  他又忘了我的名字。  -- 1 characters no HSK 2 word uses: 又
+  这个字写错了，我要重新写。  -- 1 characters no HSK 2 word uses: 重
+  电脑坏了，我想重新买一个。  -- 1 characters no HSK 2 word uses: 重
+  我们重新开始吧。  -- 1 characters no HSK 2 word uses: 重
+  老师让我重新做。  -- 1 characters no HSK 2 word uses: 重
+  小狗又跑出去了。  -- 1 characters no HSK 2 word uses: 又
+  姐姐又买新衣服了。  -- 1 characters no HSK 2 word uses: 又
+  妹妹昨天又生病了。  -- 1 characters no HSK 2 word uses: 又
+  他又给我打电话了。  -- 1 characters no HSK 2 word uses: 又
+  今天又吃饺子了。  -- 1 characters no HSK 2 word uses: 又
+
+--- dropped at step 5 (9) ---
+  他老是忘东西。  -- level 4: 老是 L4
+  弟弟老是玩手机。  -- level 4: 老是 L4
+  你怎么老是这么晚来？  -- level 4: 老是 L4
+  他老是不吃早饭。  -- level 4: 老是 L4
+  我的猫老是睡觉。  -- level 4: 老是 L4
+  这家店的东西老是这么贵。  -- level 4: 老是 L4
+  爸爸老是这么忙。  -- level 4: 老是 L4
+  你怎么老看手机？  -- level 3: 老 L3
+  他老说他很忙。  -- level 3: 老 L3
+
+--- dropped at step 5b (1) ---
+  妈妈经常给我打电话。  -- harder grammar: 2-28 (HSK 3)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-16_level2_20261114_143257.csv
+  Asking claude-sonnet-5-5 to write 15 sentence(s)...
+
+----- AI-written sentences for 2-16, round 3: 45 to check, 12 needed -----
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 45
+
+Tagging 8 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_143310.txt
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 1  -> Tatoeba needs to add 12 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-16 at HSK 2: funnel ===
+       45  AI-written sentences
+       45  1. have an English translation
+       45  2. contain the point's word(s)
+       45  3. new (not in DB, not a duplicate)
+       24  4. at most 0 characters outside HSK 2 words
+       11  5. really HSK 2
+       10  5b. no harder grammar point (of the 43 with a rule)
+       10  6. the rule finds 2-16
+       10  6b. no hidden word a learner can't work out
+       10  7. both checks say 2-16, English chosen
+        9  8. both difficulty reviews pass it
+
+=== Survivors (9) ===
+  你经常运动吗？  (Do you exercise often?)  [tatoeba ai-0b0b1ae406]
+  我经常在家做饭。  (I often cook at home.)  [tatoeba ai-9fb4e86971]  hidden: 在家
+  哥哥经常去游泳。  (My older brother often goes swimming.)  [tatoeba ai-69a2b52b98]
+  你们经常一起玩吗？  (Do you often hang out together?)  [tatoeba ai-d0a150cf3c]
+  他经常去书店看书。  (He often goes to the bookstore to read.)  [tatoeba ai-9478d6eced]  hidden: 看书
+  他经常不回家吃晚饭。  (He often doesn't come home for dinner.)  [tatoeba ai-8164318d4d]  hidden: 回家
+  我经常在网上买东西。  (I often buy things online.)  [tatoeba ai-d68f8ef595]  hidden: 买东西
+  同学们经常问老师问题。  (The students often ask the teacher questions.)  [tatoeba ai-e885571ec8]
+  星期天我经常十点起床。  (On Sundays I often get up at ten.)  [tatoeba ai-3fc57fd329]
+
+--- dropped at step 4 (21), first 12 ---
+  你怎么又睡觉了？  -- 1 characters no HSK 2 word uses: 又
+  昨天又下雨了。  -- 1 characters no HSK 2 word uses: 又
+  他又忘了我的名字。  -- 1 characters no HSK 2 word uses: 又
+  这个字写错了，我要重新写。  -- 1 characters no HSK 2 word uses: 重
+  电脑坏了，我想重新买一个。  -- 1 characters no HSK 2 word uses: 重
+  我们重新开始吧。  -- 1 characters no HSK 2 word uses: 重
+  老师让我重新做。  -- 1 characters no HSK 2 word uses: 重
+  小狗又跑出去了。  -- 1 characters no HSK 2 word uses: 又
+  姐姐又买新衣服了。  -- 1 characters no HSK 2 word uses: 又
+  妹妹昨天又生病了。  -- 1 characters no HSK 2 word uses: 又
+  他又给我打电话了。  -- 1 characters no HSK 2 word uses: 又
+  今天又吃饺子了。  -- 1 characters no HSK 2 word uses: 又
+
+--- dropped at step 5 (13), first 12 ---
+  他老是忘东西。  -- level 4: 老是 L4
+  弟弟老是玩手机。  -- level 4: 老是 L4
+  你怎么老是这么晚来？  -- level 4: 老是 L4
+  他老是不吃早饭。  -- level 4: 老是 L4
+  我的猫老是睡觉。  -- level 4: 老是 L4
+  这家店的东西老是这么贵。  -- level 4: 老是 L4
+  爸爸老是这么忙。  -- level 4: 老是 L4
+  你怎么老看手机？  -- level 3: 老 L3
+  他老说他很忙。  -- level 3: 老 L3
+  他老是生病。  -- level 4: 老是 L4
+  我们老是吃面条儿。  -- level 4: 老是 L4
+  妈妈老说我睡得太晚。  -- level 3: 老 L3
+
+--- dropped at step 5b (1) ---
+  妈妈经常给我打电话。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 8 (1) ---
+  我同学经常来我家玩儿。  -- difficulty review: (1/2); 儿化 suffix is x-erhua (HSK 2 level but special rule), not a standard grammar point at this level for production in example sentences
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-16_level2_20261114_143315.csv
+
+########## ai  2026-11-14 14:59 ##########
+
+----- AI-written sentences for 2-16, round 1: 45 to check, 12 needed -----
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 45
+
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 1  -> Tatoeba needs to add 12 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-16 at HSK 2: funnel ===
+       45  AI-written sentences
+       45  1. have an English translation
+       45  2. contain the point's word(s)
+       45  3. new (not in DB, not a duplicate)
+       24  4. at most 0 characters outside HSK 2 words
+       11  5. really HSK 2
+       10  5b. no harder grammar point (of the 43 with a rule)
+       10  6. the rule finds 2-16
+       10  6b. no hidden word a learner can't work out
+       10  7. both checks say 2-16, English chosen
+        9  8. both difficulty reviews pass it
+
+=== Survivors (9) ===
+  你经常运动吗？  (Do you exercise often?)  [tatoeba ai-0b0b1ae406]
+  我经常在家做饭。  (I often cook at home.)  [tatoeba ai-9fb4e86971]  hidden: 在家
+  哥哥经常去游泳。  (My older brother often goes swimming.)  [tatoeba ai-69a2b52b98]
+  你们经常一起玩吗？  (Do you often hang out together?)  [tatoeba ai-d0a150cf3c]
+  他经常去书店看书。  (He often goes to the bookstore to read.)  [tatoeba ai-9478d6eced]  hidden: 看书
+  他经常不回家吃晚饭。  (He often doesn't come home for dinner.)  [tatoeba ai-8164318d4d]  hidden: 回家
+  我经常在网上买东西。  (I often buy things online.)  [tatoeba ai-d68f8ef595]  hidden: 买东西
+  同学们经常问老师问题。  (The students often ask the teacher questions.)  [tatoeba ai-e885571ec8]
+  星期天我经常十点起床。  (On Sundays I often get up at ten.)  [tatoeba ai-3fc57fd329]
+
+--- dropped at step 4 (21), first 12 ---
+  你怎么又睡觉了？  -- 1 characters no HSK 2 word uses: 又
+  昨天又下雨了。  -- 1 characters no HSK 2 word uses: 又
+  他又忘了我的名字。  -- 1 characters no HSK 2 word uses: 又
+  这个字写错了，我要重新写。  -- 1 characters no HSK 2 word uses: 重
+  电脑坏了，我想重新买一个。  -- 1 characters no HSK 2 word uses: 重
+  我们重新开始吧。  -- 1 characters no HSK 2 word uses: 重
+  老师让我重新做。  -- 1 characters no HSK 2 word uses: 重
+  小狗又跑出去了。  -- 1 characters no HSK 2 word uses: 又
+  姐姐又买新衣服了。  -- 1 characters no HSK 2 word uses: 又
+  妹妹昨天又生病了。  -- 1 characters no HSK 2 word uses: 又
+  他又给我打电话了。  -- 1 characters no HSK 2 word uses: 又
+  今天又吃饺子了。  -- 1 characters no HSK 2 word uses: 又
+
+--- dropped at step 5 (13), first 12 ---
+  他老是忘东西。  -- level 4: 老是 L4
+  弟弟老是玩手机。  -- level 4: 老是 L4
+  你怎么老是这么晚来？  -- level 4: 老是 L4
+  他老是不吃早饭。  -- level 4: 老是 L4
+  我的猫老是睡觉。  -- level 4: 老是 L4
+  这家店的东西老是这么贵。  -- level 4: 老是 L4
+  爸爸老是这么忙。  -- level 4: 老是 L4
+  你怎么老看手机？  -- level 3: 老 L3
+  他老说他很忙。  -- level 3: 老 L3
+  他老是生病。  -- level 4: 老是 L4
+  我们老是吃面条儿。  -- level 4: 老是 L4
+  妈妈老说我睡得太晚。  -- level 3: 老 L3
+
+--- dropped at step 5b (1) ---
+  妈妈经常给我打电话。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 8 (1) ---
+  我同学经常来我家玩儿。  -- difficulty review: (1/2); 儿化 suffix is x-erhua (HSK 2 level but special rule), not a standard grammar point at this level for production in example sentences
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-16_level2_20261114_145940.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+
+----- AI-written sentences for 2-16, round 2: 55 to check, 12 needed -----
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 55
+
+Tagging 6 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_145954.txt
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 1  -> Tatoeba needs to add 12 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-16 at HSK 2: funnel ===
+       55  AI-written sentences
+       55  1. have an English translation
+       55  2. contain the point's word(s)
+       55  3. new (not in DB, not a duplicate)
+       30  4. at most 0 characters outside HSK 2 words
+       14  5. really HSK 2
+       13  5b. no harder grammar point (of the 43 with a rule)
+       13  6. the rule finds 2-16
+       13  6b. no hidden word a learner can't work out
+       13  7. both checks say 2-16, English chosen
+       12  8. both difficulty reviews pass it
+
+=== Survivors (12) ===
+  你经常运动吗？  (Do you exercise often?)  [tatoeba ai-0b0b1ae406]
+  我经常在家做饭。  (I often cook at home.)  [tatoeba ai-9fb4e86971]  hidden: 在家
+  哥哥经常去游泳。  (My older brother often goes swimming.)  [tatoeba ai-69a2b52b98]
+  你们经常一起玩吗？  (Do you often hang out together?)  [tatoeba ai-d0a150cf3c]
+  他经常去书店看书。  (He often goes to the bookstore to read.)  [tatoeba ai-9478d6eced]  hidden: 看书
+  他经常不回家吃晚饭。  (He often doesn't come home for dinner.)  [tatoeba ai-8164318d4d]  hidden: 回家
+  我经常在网上买东西。  (I often buy things online.)  [tatoeba ai-d68f8ef595]  hidden: 买东西
+  同学们经常问老师问题。  (The students often ask the teacher questions.)  [tatoeba ai-e885571ec8]
+  星期天我经常十点起床。  (On Sundays I often get up at ten.)  [tatoeba ai-3fc57fd329]
+  我们经常在学校吃午饭。  (We often eat lunch at school.)  [tatoeba ai-0b46e0a385]
+  他爸爸经常开车去上班。  (His dad often drives to work.)  [tatoeba ai-f7d06797e9]
+  我们老师上课经常说汉语。  (Our teacher often speaks Chinese in class.)  [tatoeba ai-93d7fc501c]
+
+--- dropped at step 4 (25), first 12 ---
+  你怎么又睡觉了？  -- 1 characters no HSK 2 word uses: 又
+  昨天又下雨了。  -- 1 characters no HSK 2 word uses: 又
+  他又忘了我的名字。  -- 1 characters no HSK 2 word uses: 又
+  这个字写错了，我要重新写。  -- 1 characters no HSK 2 word uses: 重
+  电脑坏了，我想重新买一个。  -- 1 characters no HSK 2 word uses: 重
+  我们重新开始吧。  -- 1 characters no HSK 2 word uses: 重
+  老师让我重新做。  -- 1 characters no HSK 2 word uses: 重
+  小狗又跑出去了。  -- 1 characters no HSK 2 word uses: 又
+  姐姐又买新衣服了。  -- 1 characters no HSK 2 word uses: 又
+  妹妹昨天又生病了。  -- 1 characters no HSK 2 word uses: 又
+  他又给我打电话了。  -- 1 characters no HSK 2 word uses: 又
+  今天又吃饺子了。  -- 1 characters no HSK 2 word uses: 又
+
+--- dropped at step 5 (16), first 12 ---
+  他老是忘东西。  -- level 4: 老是 L4
+  弟弟老是玩手机。  -- level 4: 老是 L4
+  你怎么老是这么晚来？  -- level 4: 老是 L4
+  他老是不吃早饭。  -- level 4: 老是 L4
+  我的猫老是睡觉。  -- level 4: 老是 L4
+  这家店的东西老是这么贵。  -- level 4: 老是 L4
+  爸爸老是这么忙。  -- level 4: 老是 L4
+  你怎么老看手机？  -- level 3: 老 L3
+  他老说他很忙。  -- level 3: 老 L3
+  他老是生病。  -- level 4: 老是 L4
+  我们老是吃面条儿。  -- level 4: 老是 L4
+  妈妈老说我睡得太晚。  -- level 3: 老 L3
+
+--- dropped at step 5b (1) ---
+  妈妈经常给我打电话。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 8 (1) ---
+  我同学经常来我家玩儿。  -- difficulty review: (1/2); 儿化 suffix is x-erhua (HSK 2 level but special rule), not a standard grammar point at this level for production in example sentences
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-16_level2_20261114_145958.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:10 ##########
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 22  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-16 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      491  2. contain the point's word(s)
+      484  3. new (not in DB, not a duplicate)
+      200  4. at most 2 characters outside HSK 2 words
+       10  5. really HSK 2
+        9  5b. no harder grammar point (of the 43 with a rule)
+        2  6. the rule finds 2-16
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (7) ---
+  我不经常上ＱＱ。  -- already in the database
+  我经常想去那里。  -- already in the database
+  我经常喝茶。  -- already in the database
+  您经常来这儿吗？  -- already in the database
+  我经常想着它。  -- already in the database
+  我不经常自己去做。  -- already in the database
+  我经常唱歌。  -- already in the database
+
+--- dropped at step 4 (284), first 12 ---
+  波士顿的鸽子又胖又自豪。  -- 6 characters no HSK 2 word uses: 又波胖豪顿鸽
+  既要马好，又要马不吃草。  -- 4 characters no HSK 2 word uses: 又既草马
+  所有的老师都无法解决这个问题。  -- 4 characters no HSK 2 word uses: 决无法解
+  王老吉不是啤酒，是茶。  -- 3 characters no HSK 2 word uses: 吉啤王
+  今天我要处理的事还没处理完，又要加班了。  -- 4 characters no HSK 2 word uses: 加又处理
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  她老是弄丢她的手帕。  -- 3 characters no HSK 2 word uses: 丢帕弄
+  但是如果有一个人本身已经很好了，对你又是真心真意，真心爱你，那么你真的可以把一生托付给他。  -- 6 characters no HSK 2 word uses: 付又如心托把
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  在中国南方，旗袍又称“长衫”。  -- 7 characters no HSK 2 word uses: 南又方旗称衫袍
+
+--- dropped at step 5 (190), first 12 ---
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  我经常做噩梦。  -- level 10: 噩梦 (not in list)
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  老鼠来了！快去叫猫来！  -- level 6: 老鼠 L6
+  我当过老师。  -- level 4: 当 L4
+  我要叫你“老板”。  -- level 5: 老板 L5
+  这道题目没有一位老师会做。  -- level 5: 道 L4, 题目 L5
+  又下雨了！  -- level 3: 又 L3
+  你又来了。  -- level 3: 又 L3
+  他不服老。  -- level 6: 服 L6, 老 L3
+  我给我的老爸送了一个铃鼓。  -- level 10: 老 L3, 爸 (not in list), 铃 L5, 鼓 L5
+  他说话就像一位老师。  -- level 3: 像 L3
+
+--- dropped at step 5b (1) ---
+  我丈夫也是老师。  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 6 (7) ---
+  你是不是老师？  -- rule: no match: line matched
+  您是老师，还是学生？  -- rule: no match: line matched
+  老师教我的。  -- rule: no match: line matched
+  她是位老师。  -- rule: no match: line matched
+  你跟这位老师上课吗？  -- rule: no match: line matched
+  汤姆不是这里的老师吧？  -- rule: no match: line matched
+  老师给小孩一本书。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我的姐姐经常就着牛奶喝茶。  -- hidden word a learner can't work out: 就着 ((eat sth) with (sth else); taking advantage of; using)
+  那是我经常说的。  -- hidden word a learner can't work out: 那是 ((coll.) of course; naturally; indeed)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-16_level2_20261114_161029.csv
+
+########## ai  2026-11-14 16:13 ##########
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:30 ##########
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 0 check and 1 review rejection(s)...
+
+=== 2-16 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      491  2. contain the point's word(s)
+      491  3. new (not in DB, not a duplicate)
+      207  4. at most 2 characters outside HSK 2 words
+       17  5. really HSK 2
+       16  5b. no harder grammar point (of the 43 with a rule)
+        9  6. the rule finds 2-16
+        7  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-16, English chosen
+        6  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  我经常喝茶。  (I often drink tea.)  [tatoeba 3378025]  hidden: 喝茶
+  我经常唱歌。  (I often sing.)  [tatoeba 14057668]  hidden: 唱歌
+  我不经常上ＱＱ。  (I don't go on QQ very often.)  [tatoeba 470871]
+  我经常想去那里。  (I often feel like just going over there.)  [tatoeba 609847]
+  您经常来这儿吗？  (Do you often come here?)  [tatoeba 4879037]
+  我不经常自己去做。  (I don't often do that by myself.)  [tatoeba 6585438]
+  我经常想着它。  (I think about it often.)  [tatoeba 6015160]
+
+--- dropped at step 4 (284), first 12 ---
+  波士顿的鸽子又胖又自豪。  -- 6 characters no HSK 2 word uses: 又波胖豪顿鸽
+  既要马好，又要马不吃草。  -- 4 characters no HSK 2 word uses: 又既草马
+  所有的老师都无法解决这个问题。  -- 4 characters no HSK 2 word uses: 决无法解
+  王老吉不是啤酒，是茶。  -- 3 characters no HSK 2 word uses: 吉啤王
+  今天我要处理的事还没处理完，又要加班了。  -- 4 characters no HSK 2 word uses: 加又处理
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  她老是弄丢她的手帕。  -- 3 characters no HSK 2 word uses: 丢帕弄
+  但是如果有一个人本身已经很好了，对你又是真心真意，真心爱你，那么你真的可以把一生托付给他。  -- 6 characters no HSK 2 word uses: 付又如心托把
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  在中国南方，旗袍又称“长衫”。  -- 7 characters no HSK 2 word uses: 南又方旗称衫袍
+
+--- dropped at step 5 (190), first 12 ---
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  我经常做噩梦。  -- level 10: 噩梦 (not in list)
+  我们经常下棋。  -- level 10: 下棋 (not in list)
+  老鼠来了！快去叫猫来！  -- level 6: 老鼠 L6
+  我当过老师。  -- level 4: 当 L4
+  我要叫你“老板”。  -- level 5: 老板 L5
+  这道题目没有一位老师会做。  -- level 5: 道 L4, 题目 L5
+  又下雨了！  -- level 3: 又 L3
+  你又来了。  -- level 3: 又 L3
+  他不服老。  -- level 6: 服 L6, 老 L3
+  我给我的老爸送了一个铃鼓。  -- level 10: 老 L3, 爸 (not in list), 铃 L5, 鼓 L5
+  他说话就像一位老师。  -- level 3: 像 L3
+
+--- dropped at step 5b (1) ---
+  我丈夫也是老师。  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 6 (7) ---
+  你是不是老师？  -- rule: no match: line matched
+  您是老师，还是学生？  -- rule: no match: line matched
+  老师教我的。  -- rule: no match: line matched
+  她是位老师。  -- rule: no match: line matched
+  你跟这位老师上课吗？  -- rule: no match: line matched
+  汤姆不是这里的老师吧？  -- rule: no match: line matched
+  老师给小孩一本书。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我的姐姐经常就着牛奶喝茶。  -- hidden word a learner can't work out: 就着 ((eat sth) with (sth else); taking advantage of; using)
+  那是我经常说的。  -- hidden word a learner can't work out: 那是 ((coll.) of course; naturally; indeed)
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-16_level2_20261114_163054.csv
+
+########## ai  2026-11-14 16:34 ##########
+
+----- AI-written sentences for 2-16, round 1: 55 to check, 12 needed -----
+Filling 2-16 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 55
+
+Tagging 1 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_163413.txt
+
+Course sentences at HSK 2 the rule already finds 2-16 in: 1  -> Tatoeba needs to add 12 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-16 at HSK 2: funnel ===
+       55  AI-written sentences
+       55  1. have an English translation
+       55  2. contain the point's word(s)
+       55  3. new (not in DB, not a duplicate)
+       30  4. at most 0 characters outside HSK 2 words
+       14  5. really HSK 2
+       14  5b. no harder grammar point (of the 43 with a rule)
+       14  6. the rule finds 2-16
+       14  6b. no hidden word a learner can't work out
+       14  7. both checks say 2-16, English chosen
+       13  8. both difficulty reviews pass it
+
+=== Survivors (13) ===
+  你经常运动吗？  (Do you exercise often?)  [tatoeba ai-0b0b1ae406]
+  我经常在家做饭。  (I often cook at home.)  [tatoeba ai-9fb4e86971]  hidden: 在家
+  哥哥经常去游泳。  (My older brother often goes swimming.)  [tatoeba ai-69a2b52b98]
+  你们经常一起玩吗？  (Do you often hang out together?)  [tatoeba ai-d0a150cf3c]
+  他经常去书店看书。  (He often goes to the bookstore to read.)  [tatoeba ai-9478d6eced]  hidden: 看书
+  妈妈经常给我打电话。  (Mom often calls me.)  [tatoeba ai-10e1ea5f1e]
+  他经常不回家吃晚饭。  (He often doesn't come home for dinner.)  [tatoeba ai-8164318d4d]  hidden: 回家
+  我经常在网上买东西。  (I often buy things online.)  [tatoeba ai-d68f8ef595]  hidden: 买东西
+  同学们经常问老师问题。  (The students often ask the teacher questions.)  [tatoeba ai-e885571ec8]
+  星期天我经常十点起床。  (On Sundays I often get up at ten.)  [tatoeba ai-3fc57fd329]
+  我们经常在学校吃午饭。  (We often eat lunch at school.)  [tatoeba ai-0b46e0a385]
+  他爸爸经常开车去上班。  (His dad often drives to work.)  [tatoeba ai-f7d06797e9]
+  我们老师上课经常说汉语。  (Our teacher often speaks Chinese in class.)  [tatoeba ai-93d7fc501c]
+
+--- dropped at step 4 (25), first 12 ---
+  你怎么又睡觉了？  -- 1 characters no HSK 2 word uses: 又
+  昨天又下雨了。  -- 1 characters no HSK 2 word uses: 又
+  他又忘了我的名字。  -- 1 characters no HSK 2 word uses: 又
+  这个字写错了，我要重新写。  -- 1 characters no HSK 2 word uses: 重
+  电脑坏了，我想重新买一个。  -- 1 characters no HSK 2 word uses: 重
+  我们重新开始吧。  -- 1 characters no HSK 2 word uses: 重
+  老师让我重新做。  -- 1 characters no HSK 2 word uses: 重
+  小狗又跑出去了。  -- 1 characters no HSK 2 word uses: 又
+  姐姐又买新衣服了。  -- 1 characters no HSK 2 word uses: 又
+  妹妹昨天又生病了。  -- 1 characters no HSK 2 word uses: 又
+  他又给我打电话了。  -- 1 characters no HSK 2 word uses: 又
+  今天又吃饺子了。  -- 1 characters no HSK 2 word uses: 又
+
+--- dropped at step 5 (16), first 12 ---
+  他老是忘东西。  -- level 4: 老是 L4
+  弟弟老是玩手机。  -- level 4: 老是 L4
+  你怎么老是这么晚来？  -- level 4: 老是 L4
+  他老是不吃早饭。  -- level 4: 老是 L4
+  我的猫老是睡觉。  -- level 4: 老是 L4
+  这家店的东西老是这么贵。  -- level 4: 老是 L4
+  爸爸老是这么忙。  -- level 4: 老是 L4
+  你怎么老看手机？  -- level 3: 老 L3
+  他老说他很忙。  -- level 3: 老 L3
+  他老是生病。  -- level 4: 老是 L4
+  我们老是吃面条儿。  -- level 4: 老是 L4
+  妈妈老说我睡得太晚。  -- level 3: 老 L3
+
+--- dropped at step 8 (1) ---
+  我同学经常来我家玩儿。  -- difficulty review: (1/2); 儿化 suffix is x-erhua (HSK 2 level but special rule), not a standard grammar point at this level for production in example sentences
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-16_level2_20261114_163416.csv

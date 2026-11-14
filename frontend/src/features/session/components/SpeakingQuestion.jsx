@@ -5,6 +5,7 @@ import { API_BASE_URL } from '../../../shared/config';
 import { apiFetch } from '../../../shared/api/client';
 import { PINYIN_QUESTION_TYPES } from '../questionHelpers';
 import { playSrc } from '../../audio';
+import PronunciationHighlight from './PronunciationHighlight';
 
 const questionTypeToInstruction = (question_type) => {
     switch (question_type) {
@@ -341,6 +342,8 @@ export default function SpeakingQuestion({
                                         : currentQuestionObj.answer}
                                 </strong> ({transcriptionResult.expected_pinyin})
                             </p>
+
+                            <PronunciationHighlight characters={transcriptionResult.characters} />
 
                             {isAssessment && (
                                 <div className="assessment-stats">

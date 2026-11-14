@@ -1,0 +1,20 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 10431 characters -->
+## 3-16
+**Point:** Using 再 (zài) as a sequencing word meaning "and then": 先…再…, 先…再说, and "do A (finished), then do B" (做完作业再玩儿, 洗了手再吃). The plain "again/more" use of 再 (再来, 再吃一点, 再说一遍) is a separate, easier HSK 1 point and is not covered here. 又 is also a different point.
+
+**Covers:** 先…再… sequencing, 先…再说 ("let's do this first, then see"), and V完/V了 + (object) + 再 + V ("after finishing X, then Y").
+
+**Does not cover:** Bare 再 + verb meaning "again" or "another/more" (我们明年再来, 再吃一点, 再说一遍), which belongs to HSK 1. Also not covered: 又 in any use, 一再/再三 (repeatedly), 再不…就… (last chance warning), 再也不/没 (never again), 再不…也… (even so), and 再说 as "in addition" (clause-initial or standalone).
+
+```rule
+match: 先/AD ... 再/AD
+match: 先/AD ... 再说/VV $
+match: 完/VV _ _? 再/AD /VV
+match: 了/AS _ _? 再/AD /VV
+unless: 再/AD 也/AD
+unless: 再/AD 不/AD
+unless: 一再/AD
+unless: 再三/AD
+```
+
+**Notes:** The labeled data show that bare 再 + verb sentences such as 我们明年再来 and 再吃一点 belong to HSK 1, so the old patterns that matched any 再 + verb were removed. What remains is the "then" sense, which is what the official examples show (我们做完作业再玩儿游戏, 你洗了手再吃水果) along with the 先…再… pattern. The tagger often treats 再说 as a single verb token, so 先…再说 has its own pattern. The 完/了 patterns allow at most two words between the completed verb and 再. The exclusions for 再也, 再不, 一再 and 再三 are kept. The old exclusion for 再说 at the end of a clause was dropped because 先…再说 is now wanted. A clause-initial 再说 ("in addition") is still not matched, since it needs a preceding 先 in the same clause.

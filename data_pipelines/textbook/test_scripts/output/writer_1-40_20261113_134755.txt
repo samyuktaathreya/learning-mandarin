@@ -1,0 +1,43 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 15550 characters -->
+## 1-40
+**Point:** Expressing change of state or a new situation with sentence-final 了
+
+**Covers:** 
+- Adjectives indicating a change of state (我饿了、你胖了)
+- Verbs indicating a new situation or change (他来了、下雨了、我走了)
+- Negative constructions indicating "not anymore" (我不想吃了、没有纸了、他没有家了)
+- Idiomatic expressions of "now" (知道了、懂了、吃饭了、上课了)
+
+**Does not cover:**
+- Completion aspect with 了 after the verb before an object (我做完了工作、他找到新工作)
+- Potential complements (动词+得了/不了)
+- Duration with double 了 (你睡了一天了)
+- Completion markers with objects (我买到了票)
+- Adjective modifiers with 了点儿 (好像短了点儿)
+- Degree complements (极了、死了、坏了 as morphological compounds)
+- Questions with 了吗 when they ask about past completion (吃了吗、看过了吗)
+- Sentences where 快/要/就 precede the verb (天快黑了、我要生气了)
+- Duration with 了...了 pattern (这个会开了两个小时了)
+- Expressive 太...了 (太好了、太脏了)
+
+```rule
+match: ... /VA|VV 了/SP $
+match: ... /VE|AD 不/AD /VV|VE ... 了/SP $
+match: ... /VE 没有/VE ... 了/SP $
+
+unless: _ 了/AS _
+unless: 太/AD _ 了/SP $
+unless: _ 了/AS 点/CD
+unless: _ 快/AD
+unless: _ 快要/AD
+unless: _ 要/VV
+unless: _ 就要/AD
+unless: _ 了/SP 一/CD _|NT 了/SP
+unless: /AD 极/AD 了/SP $
+unless: /VA 死/VV 了/SP $
+unless: /VA|VV 坏/VV 了/SP $
+unless: 了/AS 吗/SP $
+unless: 过/AS 了/SP $
+```
+
+**Notes:** The rule uses sentence-final position (ending with 了/SP) to distinguish change-of-state 了 from completion aspect 了/AS before objects. Negation patterns require either 不 or 没有 before the verb/noun. The unless clauses filter out common competing patterns: completion before objects (了/AS _), degree expressions (极了、死了、坏了、太...了), duration double-了, past tense questions (了吗), perfective aspect (了点儿), and imminent future (快/要/就). Note that some counter-examples show tagging inconsistency (了 tagged as AS vs SP); the rule prioritizes sentence-final SP marking as the signal for change-of-state.

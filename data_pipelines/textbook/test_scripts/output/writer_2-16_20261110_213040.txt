@@ -1,0 +1,45 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 9592 characters -->
+## 2-16
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** Frequency and repetition adverbs: 重新, 经常, 老, 老是, 又
+
+**Covers:** 
+- 老是/老 expressing habitual or repeated action with a frustrated tone
+- 经常/常常 expressing frequent action, including 经常 的 as a property ("是经常的事情")
+- 又 + ordinary verb expressing an action that happened again (又下雨了, 你又迟到了)
+- 重新 expressing doing something again from the start
+
+**Does not cover:**
+- 又 used for emphasis of negation (又不/又没 meaning "definitely not")
+- 又 before a modal verb (又要/又能/又可以/又会), which belongs to the modal verb points
+- 又 in repeated action patterns with 了...又... structure
+- 又 expressing both A and B qualities (又...又... with adjectives)
+- 既...又... patterns
+- 老 as an adjective meaning "old" (老师, 老人, 老家)
+- Single 常 before a verb (他常去饭店吃饭), a simpler colloquial use
+
+```rule
+match: 老是/AD ... /VV|VA
+match: 老/AD ... /VV|VA
+match: 经常/AD ... /VV
+match: 常常/AD ... /VV
+match: 经常/VA 的/DEC
+match: 又/AD /VV
+match: 又/AD /VA 了/SP
+match: 重新/AD ... /VV
+unless: 又/AD 要|能|可以|会|想|得|应该|可能|必须/VV
+unless: 既/AD ... 又/AD
+unless: 又/AD ... 又/AD
+unless: 又/CC
+unless: /VV 了/AS 又/AD /VV
+unless: /VV 了/AS 又/CC
+```
+
+**Notes:** 
+- The pattern for 老/老是 requires a verb or adjective after it, to distinguish it from the "old" uses (老师, 老人). Adverbs such as 不, 很, 这么 often come between, but they are not required.
+- 又 is matched only when directly followed by an ordinary verb (又下雨了, 又迟到了, 又忘了) or by an adjective plus sentence-final 了. 又不/又没 are deliberately not matched, because they are mostly the emphatic-negation use ("又不知道"), which belongs to a different point. So the rule misses some genuine "again + negative" sentences.
+- 又 before a modal verb (又要, 又能, 又可以, 又会) is excluded. These sentences are taught under the modal verb points, and including them let in wrong matches. The rule therefore also misses the "about to happen again" use.
+- Any clause with two 又, or with 既 and 又, is excluded (又A又B, 既A又B).
+- 了…又… repeated-action patterns (看了又看) are excluded.
+- 经常/VA 的 (frequency as a property, e.g. 是经常的事情) counts as the grammar point.
+- Single 常 before a verb is deliberately not matched. It is mostly a simpler use, and matching it produced wrong matches.

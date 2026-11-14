@@ -1,0 +1,26 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 10501 characters -->
+## 3-46
+**Point:** Result complements 到 and 住 after a verb, showing that the action reached its result (e.g. 买到, 接住, 抓住, 看到)
+
+**Covers:** Verb + 到/住 where the complement marks the result of the action, e.g. 看到, 买到, 听到, 找到, 想到, 接住, 抓住, 记住, 挡住. It also covers the potential forms with 不/得 (看不到, 接不住).
+
+**Does not cover:** 到 meaning "arrive at a place", "until (time)", "less than", or "from...to". Also excluded: 直到, "speaking of" uses (说到, 谈到, 提到), 住 as a main verb "to live" (想住, 住在, 住到…), and modal + 到/住 where the second verb is the main verb (可以到我家, 要到女朋友家). The 出/出来/开 complements and the fused compounds 看见/听见/遇见/打开 are not matched, because they belong to easier or separate points.
+
+```rule
+match: /VV 到|住/VV
+match: /VV 不|得 到|住/VV
+unless: 直到
+unless: 一直/AD ... 到/VV
+unless: 从/P ... 到
+unless: 说|谈|讲|提|聊|论 到/VV
+unless: 来|去|回|走|跑|飞|坐|搬|送|带|赶|等|玩|睡|忙|工作|坚持|待|站|住 到/VV
+unless: 想|要|会|能|可以|愿意|应该|该|敢|准备|打算|喜欢|希望|决定|得 到/VV
+unless: 到/VV /NR
+unless: 到/VV /NT
+unless: 到/VV /CD
+unless: 到/VV 家|机场|现场|了解|达|时候|底|什么
+unless: 想|要|会|能|可以|愿意|应该|敢|准备|打算|喜欢|希望|决定|得 住/VV
+unless: 住/VV 在|着|进
+```
+
+**Notes:** The earlier rule was too broad: it matched 出/出来 complements (看出, 找出来, 听出) and the fused 看见/听见 compounds, all of which appear in easier grammar points. It also matched 说到 in "一说到物理", which means "when it comes to" rather than a result. The rule now keeps only 到 and 住 after a verb, which are the official 3-46 complements, plus the 不/得 potential forms. The unless lines still remove arrival, "until", "from…to", 直到, motion and duration verbs before 到, a place, time or number after 到, and modal + 到/住 where the second verb is the main verb. They also remove the "speaking of" verbs (说/谈/讲/提/聊/论) before 到.

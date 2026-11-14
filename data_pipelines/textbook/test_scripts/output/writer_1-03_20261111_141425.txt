@@ -1,0 +1,54 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 13109 characters -->
+## 1-03
+<!-- written by claude-sonnet-5-5 on 2026-11-07; edit freely -->
+**Point:** The modal verbs 想 and 要 used for "want (to)". This includes 想要, 要 + noun ("I want a cup of water"), and 想 + noun meaning "miss".
+
+**Covers:**
+- 要 or 想 directly governing a verb phrase, as in 我想学中文 and 他要去书店. This includes 要 followed by an adverb, preposition or adjective before the verb, as in 我要跟你一起去 and 你要早点睡觉.
+- 要 after a noun, pronoun, time word or measure word subject, as in 爸爸要买一个新手机 and 老板下周要出差吗.
+- 要 at the start of a clause when the subject is dropped, as in 要好好休息.
+- 要 + noun for ordering or wanting something, as in 我们要三碗米饭 and 你们都要冰可乐吗.
+- 想要.
+- The 要不要 question form.
+- 想 + noun meaning "miss", as in 我想你.
+- Negatives such as 不想, and 什么都不要.
+- 要 with a time word as a plan, as in 星期五我们要开会 and 他们明年要结婚了. A time word directly before 要 marks a plan, even if the clause ends in 了.
+
+**Does not cover:**
+- 要 in other patterns: 要是, 要不是, 要不, 要么, 要……就……, 非要……不可, 就要/快要/将要……了, and 要看 ("it depends"). Each of these is a different grammar point.
+- 不要 as a prohibition, since it is tagged AD.
+- Sentence-initial 要我说.
+- "About to happen" 要……了, as in 圣诞节要到了, 超市要关门了 and 我要生气了. It is a separate point.
+- Conditional 要再说 ("if you say more"), as in 你要再说，我真生气了.
+- Clause-initial 要不 ("how about"), as in 要不休息一会儿吧.
+
+```rule
+match: 想/VV _
+match: /PN|NN|NT|NR|M 要/VV /VV|NN|PN|CD|DT|NR|M|JJ|VA|AD|P
+match: /PN|NN|NT|NR|M 也|都|还|先|再 要/VV /VV|NN|PN|CD|DT|NR|M|JJ|VA|AD|P
+match: ^ 要/VV /VV|NN|PN|CD|DT|NR|M|JJ|VA|AD|P
+match: 要/VV 不/AD 要/VV
+match: 什么 都|也 不要/VV
+unless: 要是|如果/CS
+unless: 要是
+unless: 要/VV 不/AD 是/VC
+unless: 要不是|要不|要么
+unless: ^ 要/VV 不/AD
+unless: 非 ... 要
+unless: 就|快|将 要/VV
+unless: 要/VV ... 就/AD
+unless: 要/VV 看|得看
+unless: ^ /NT 要/VV ... 了/SP|AS
+unless: /PN|NN|NR|M 要/VV ... 了/SP|AS
+unless: ^ 要/VV ... 了/SP|AS
+unless: 要/VV 再说
+unless: 要/VV 我/PN 说
+```
+
+**Notes:**
+- The old `unless: /NN 要/VV ...` blocked every noun subject, such as 爸爸要买 and 宝宝要睡觉. It was removed.
+- "About to" 要……了 is blocked when 要 directly follows a pronoun, noun, proper noun or measure word (超市要关门了, 我要生气了). It is also blocked when a time word starts the clause (圣诞节要到了), and when 要 starts the clause. The 了 may be tagged SP or AS, because the tagger is inconsistent.
+- 他们明年要结婚了 is kept as a plan. The time word 明年 follows the subject and directly precedes 要, so none of the 要……了 blocks apply.
+- 要不 is tokenized as 要/VV 不/AD, so the single-word unless never fires. A clause-initial `^ 要/VV 不/AD` block now removes "how about" 要不 sentences. This also drops a subjectless clause-initial 要不要 question, which is rare and an acceptable miss. 要不要 with an explicit subject is unaffected.
+- 要不是 is tokenized as 要/VV 不/AD 是/VC and is blocked as a sequence.
+- 你要再说，我真生气了 is a conditional, so it is blocked by `要/VV 再说`. This is narrow on purpose, to avoid blocking ordinary 要再 + verb sentences.

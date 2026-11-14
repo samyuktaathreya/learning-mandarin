@@ -1,0 +1,20 @@
+2026-11-12 17:41:01,541  INFO     === tag_sentences.py run started ===
+2026-11-12 17:41:01,562  INFO     FALLBACK  '因为我有点头疼，所以我早早上床睡觉。' -- out-of-list word(s): ['早早', '上床']
+2026-11-12 17:41:01,562  WARNING    HAIKU resegment call for '因为我有点头疼，所以我早早上床睡觉。' (cache miss on [('早早', 'AD'), ('上床', 'VV')])
+2026-11-12 17:41:01,583  INFO     TAGGED    '因为我有点头疼，所以我早早上床睡觉。' (level 2, 12 tags)
+2026-11-12 17:41:01,988  INFO     FALLBACK  '有人告诉我这个男孩耳聋。' -- out-of-list word(s): ['这个', '耳聋']
+2026-11-12 17:41:01,988  WARNING    HAIKU resegment call for '有人告诉我这个男孩耳聋。' (cache miss on [('耳聋', 'VV')])
+2026-11-12 17:41:02,004  INFO       NON-LIST 耳聋 (VV) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-12 17:41:02,005  INFO     TAGGED    '有人告诉我这个男孩耳聋。' (level 10, 8 tags)
+2026-11-12 17:41:02,013  INFO     OK        hanlp-valid   '服务器有点儿慢。' -> [('服务器', 'NN'), ('有点儿', 'AD'), ('慢', 'VA')]
+2026-11-12 17:41:02,016  INFO     TAGGED    '服务器有点儿慢。' (level 7, 3 tags)
+2026-11-12 17:41:02,807  INFO     OK        hanlp-valid   '我最近压力有点大。' -> [('我', 'PN'), ('最近', 'NT'), ('压力', 'NN'), ('有点儿', 'AD'), ('大', 'VA')]
+2026-11-12 17:41:02,809  INFO     TAGGED    '我最近压力有点大。' (level 4, 5 tags)
+2026-11-12 17:41:04,771  INFO     OK        hanlp-valid   '论文的进度有点慢。' -> [('论文', 'NN'), ('的', 'DEG'), ('进度', 'NN'), ('有点儿', 'AD'), ('慢', 'VA')]
+2026-11-12 17:41:04,773  INFO     TAGGED    '论文的进度有点慢。' (level 6, 5 tags)
+2026-11-12 17:41:04,790  INFO     FALLBACK  '没有工作，我就没法存钱。' -- out-of-list word(s): ['存钱']
+2026-11-12 17:41:04,790  WARNING    HAIKU resegment call for '没有工作，我就没法存钱。' (cache miss on [('存钱', 'VV')])
+2026-11-12 17:41:04,801  INFO       READING  没法儿 'mei2 fa3 er2' matches no form -- offering every form
+2026-11-12 17:41:04,802  INFO     TAGGED    '没有工作，我就没法存钱。' (level 5, 7 tags)
+2026-11-12 17:41:04,811  INFO     OK        hanlp-valid   '医生认为病人的脉搏有点快。' -> [('医生', 'NN'), ('认为', 'VV'), ('病人', 'NN'), ('的', 'DEG'), ('脉搏', 'NN'), ('有点儿', 'AD'), ('快', 'VA')]
+2026-11-12 17:41:04,814  INFO     TAGGED    '医生认为病人的脉搏有点快。' (level 7, 7 tags)

@@ -96,3 +96,51 @@ Tagging 96 labeled example(s) (cached after this run)...
   你没看见那个帅哥吗？  -- ASGWNGEP Result complements "-dao" and "-jian"
   我没有看见。  -- ASGWNGEP Result complements "-dao" and "-jian"
   你没听见吗？  -- ASGWNGEP Result complements "-dao" and "-jian"
+
+########## rules  2026-11-10 21:27 ##########
+  Checking 14 sentence(s) for 3-46 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  Checking 2 sentence(s) for 3-46 (1 call(s))...
+
+=== A. 3-46: rule on labeled examples (no AI) ===
+  examples of 3-46 matched:    38/38
+  counter-examples wrongly matched: 0/76   <- should be 0
+
+########## guard check  2026-11-10 21:32 ##########
+  Checking 23 sentence(s) for 3-46 (2 call(s))...
+Flags examples of 1-15, 2-11, 2-16, 2-22, 2-24, 2-69 that don't contain 3-46: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+The revised rule fails 3-46's own test (0 wrong, 23 missed): keeping the old rule.
+Not used as a guard for 1-15: it still flags 3 of its examples, e.g. 从这件事可以看出你的工作态度。
+Not used as a guard for 2-11: it still flags 1 of its examples, e.g. 你没听见吗？我敲了好几下。
+Not used as a guard for 2-16: it still flags 1 of its examples, e.g. 我经常看见他在图书馆学习。
+Not used as a guard for 2-22: it still flags 1 of its examples, e.g. 你往左走，就能看见洗手间。
+Not used as a guard for 2-24: it still flags 1 of its examples, e.g. 从这件事可以看出你的工作态度。
+Not used as a guard for 2-69: it still flags 1 of its examples, e.g. 一说到物理，我就头疼。
+
+########## guard check  2026-11-11 14:24 ##########
+
+########## rules  2026-11-12 17:32 ##########
+Tagging 5 labeled example(s) (cached after this run)...
+  ...100/126
+  Checking 10 sentence(s) for 3-46 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-46: rule on labeled examples (no AI) ===
+  examples of 3-46 matched:    38/38
+  counter-examples wrongly matched: 0/79   <- should be 0
+  easy examples (words all HSK 3 or below) matched: 19/19   <- needs 80%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## guard check  2026-11-12 21:14 ##########
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## guard check  2026-11-14 16:29 ##########

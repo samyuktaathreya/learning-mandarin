@@ -1,0 +1,38 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 13486 characters -->
+## 2-73
+**Point:** Using 几 to mean "several/a few" and expressing numbers in excess with 多
+
+**Covers:** 
+- 几 + measure word + noun (e.g., 几个人, 几本书)
+- 好几 + measure word + noun (e.g., 好几个孩子)
+- 几 + 十/百/千/万 + measure word + noun (e.g., 几十个员工, 几百双鞋)
+- Number + 多 + measure word + noun expressing "more than" (e.g., 五十多岁, 两个多小时, 三十多条)
+
+**Does not cover:**
+- Questions asking "how many" (几 as interrogative)
+- 多 used as an intensifier (多好, 多聪明)
+- 多 asking "how" (多大, 多远)
+- 多 meaning "more/additional" (多吃点, 多运动)
+- 差不多 (approximation meaning "about the same")
+- 多亏 (thanks to)
+- 几乎 (almost/nearly)
+- Standalone 多 or 很多 as adjectives
+- 多少 (how many/how much)
+
+```rule
+match: 几/CD (十|百|千|万)?/M? /M ... /NN
+match: 好/AD 几/CD /M ... /NN
+match: /CD (十|百|千|万)?/M 多/CD /M
+unless: 差不多
+unless: 多亏
+unless: 几乎
+unless: 多/AD (大|远|长|高|胖|聪明|美|可爱|麻烦|好)
+unless: 多/AD (给|吃|喝|穿|运动|做|锻炼|放)
+unless: 多/AD 少
+unless: 多少/CD
+unless: (很|特别|十分)/AD 多
+unless: 多/AD 了/SP
+unless: (比|跟|和)/P ... 多
+```
+
+**Notes:** The first two match: patterns capture 几/好几 structures. The third match: pattern captures the "number + 多" structure (e.g., 五十多, 两个多, 三万多). The unless: lines exclude other uses of 多 and 几 that are not part of this grammar point. Note that 多 can appear either before or after the measure word depending on number size; this rule accepts both positions. Be careful to exclude questions (除unless lines handle intensifiers and comparative/degree uses) and colloquial variants like "好多人" (which should not match the strict HSK patterns).

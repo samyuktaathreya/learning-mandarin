@@ -17,3 +17,1406 @@ unrelated:
 [warning] no page teaches this point: the rule would only have the list's own examples to go on.
 
 Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-44
+
+########## rules  2026-11-10 21:24 ##########
+
+########## rules  2026-11-11 14:18 ##########
+
+########## rules  2026-11-12 17:22 ##########
+20 page(s) use the word(s); asking about 20.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGDTO07  Structure of times (advanced)
+  ASGN6BBU  Structure of times (basic)
+  ASGT3KF6  Structure of dates
+  ASGVH4Q5  Structure of days of the week
+
+not:
+  ASG84RE9  Expressing fractions with "fenzhi"
+  ASGEHTV5  Expressing "a bit too"
+  ASGPM3MY  Expressing "a little too" with "you dian"
+  ASGRURCZ  Expressing "not at all" with "yidianr ye bu"
+  ASGV55Y4  Comparing "youdian" and "yidian"
+  ASGBVSWQ  Comparing "yishi" and "yidu"
+
+unsure:
+  ASG5RWKO  Time words and word order
+
+unrelated:
+  ASG6ESWW  Expressing "almost" using "chadian"
+  ASGGOUJB  Expressing "almost" using "chadian mei"
+  ASG5KNWW  Topic-comment sentences
+  ASGCED31  Expressing "how often"
+  ASGE8810  Expressing "age difference" with "da and xiao"
+  ASGJ36VN  Expressing duration with "le"
+  ASGQRS3P  Advanced uses of "ba"
+  ASGAC1P9  Expressing "half" with "ban"
+  ASGH13JY  Idiomatic phrases with "zai"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 1-44
+Tagging 69 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_172218.txt
+  ...100/109
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 1-44, rule line 15: '(年|月|日|号|星期|早上|上午|下午|中午|晚上)' looks like a regular expression -- this is not regex syntax: use ... for 'any words' and _ for 'one word' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-44_20261112_172228.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 1-44
+<!-- written by claude-haiku-4-5 on 2026-11-12; edit freely -->
+**Point:** Expressing times of day, dates, days of the week, and minutes using Chinese time structures
+**Covers:** Times with 点 (o'clock), dates with 年月日/号, days of week with 星期, half hours with 半, minutes with 分, quarter hours with 刻, and times with 差
+**Does not cover:** Uses of 点/分/一点/半 in other contexts (fractions with 分之, degree modifiers like 有点/一点儿 meaning "a bit/somewhat", separable verbs like 点头, or quantity phrases)
+
+```rule
+match: /CD 点/M
+match: /CD 点/M /CD
+match: 点/M 半/NT
+match: 点/M _ /CD 分
+match: 点/M /CD 刻
+match: 差 /CD 分 /CD 点
+match: /CD 年 /CD 月 /CD
+match: 星期 /NT
+match: /NT 点/M
+match: /NT /NT
+unless: 有点/NN
+unless: 一点/NN 也|都/AD
+unless: 分之
+unless: 点/CD 儿/CD
+unless: 点头/VV
+unless: 短/VA 了 点/CD
+unless: 长/VA 了 点/CD
+unless: 少/VA 了 点/CD
+unless: 多/VA 了 点/CD
+unless: 重/VA 了 点/CD
+unless: 轻/VA 了 点/CD
+unless: 快/VA 点/AD
+unless: 一度/VA
+```
+
+**Notes:** The rule matches basic time expressions with 点, dates with 年月日号, days of the week with 星期, and specific time structures (半, 分, 刻, 差). The unless clauses exclude: (1) 有点/一点 as degree modifiers meaning "somewhat"; (2) fractions with 分之; (3) 点儿 as a degree modifier suffix; (4) the separable verb 点头; (5) adjectives followed by 了点儿 meaning "too [adjective]"; (6) 快点 as an imperative; (7) 一度 meaning "once" or "at one point". Time nouns that appear as standalone tokens (/NT) are included to catch bare time references like in dates or day expressions.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-44
+Tagging 69 labeled example(s) (cached after this run)...
+  ...100/109
+  Checking 2 sentence(s) for 1-44 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-44: rule on labeled examples (no AI) ===
+  examples of 1-44 matched:    38/49
+  counter-examples wrongly matched: 0/60   <- should be 0
+
+--- examples of 1-44 the rule misses (11) ---
+  9月9号早上六点  -- ASGN6BBU Structure of times (basic)
+  1868年1月18号  -- ASGT3KF6 Structure of dates
+  1910年8月9号  -- ASGT3KF6 Structure of dates
+  2001年7月20日  -- ASGT3KF6 Structure of dates
+  1月1日是新年。  -- ASGT3KF6 Structure of dates
+  12月24日是平安夜。  -- ASGT3KF6 Structure of dates
+  10月1号我们去上海。  -- ASGT3KF6 Structure of dates
+  我1990年7月出生。  -- ASGT3KF6 Structure of dates
+  你的生日是11月11号吗？  -- ASGT3KF6 Structure of dates
+  我2006年4月17号认识了他。  -- ASGT3KF6 Structure of dates
+  1980年9月4号我们结婚了。  -- ASGT3KF6 Structure of dates
+  easy examples (words all HSK 1 or below) matched: 25/25   <- needs 60%
+
+########## tatoeba  2026-11-12 17:38 ##########
+Filling 1-44 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-14, 2-15, 2-16, 2-19, 2-21, 2-22, 2-23, 2-24, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 38 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_173840.txt
+  ...100/760
+  ...200/760
+  ...300/760
+  ...400/760
+  ...500/760
+  ...600/760
+  ...700/760
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  在下 = 在 + 下  (under)
+    hidden  下个 = 下 + 个  (second (of two parts))
+
+Course sentences at HSK 1 the rule already finds 1-44 in: 10  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-44 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1887  2. contain the point's word(s)
+     1877  3. new (not in DB, not a duplicate)
+      760  4. at most 2 characters outside HSK 1 words
+      165  5. really HSK 1
+      151  5b. no harder grammar point (of the 82 with a rule)
+       56  6. the rule finds 1-44
+       52  6b. no hidden word a learner can't work out
+       18  7. both checks say 1-44, English chosen
+       18  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (32 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (18) ===
+  几点了？  (What time is it?)  [tatoeba 6559031]
+  下午四点。  (At four o'clock in the afternoon.)  [tatoeba 6486893]
+  现在三点。  (It is three o'clock right now.)  [tatoeba 6486895]
+  两点可以。  (Two o'clock would be OK.)  [tatoeba 13839318]
+  您几点下课？  (What time does your class end?)  [tatoeba 410476]
+  现在几点了？  (What time is it?)  [tatoeba 3377949]
+  昨天星期几？  (What day was yesterday?)  [tatoeba 5390925]
+  我五点在家。  (I will be at home at five.)  [tatoeba 5390927]  hidden: 在家
+  你九点上班。  (You start working at nine.)  [tatoeba 5390934]
+  我八点起床。  (I wake up at eight.)  [tatoeba 6486887]
+  昨天星期六。  (Yesterday was Saturday.)  [tatoeba 6486900]
+  现在十点半。  (It's now half past ten.)  [tatoeba 13513731]
+  三点可以吗？  (Would three o'clock be OK?)  [tatoeba 13860144]
+  今天是星期四。  (Today is Thursday.)  [tatoeba 5142184]
+  明天几月几号？  (What is the date tomorrow?)  [tatoeba 5390924]
+  昨天是星期五。  (Yesterday was Friday.)  [tatoeba 5500482]
+  我星期天在家。  (I stay at home on Sundays.)  [tatoeba 5911623]  hidden: 在家
+  今天是星期二。  (Today is Tuesday.)  [tatoeba 10961177]
+
+--- dropped at step 3 (10) ---
+  明天是星期天。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  我想吃点好吃的。  -- same text as tatoeba 4061626 (translations pooled)
+  一年有四季。  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  今天上午你们不在医院。  -- same text as tatoeba 6471004 (translations pooled)
+  今天是星期二，明天是星期几？  -- same text as tatoeba 6056545 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  快点。  -- same text as tatoeba 5092239 (translations pooled)
+
+--- dropped at step 4 (1117), first 12 ---
+  雨，雨，快点消失吧。  -- 3 characters no HSK 1 word uses: 失快消
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 1 word uses: 必才瑞行须
+  天气预报一点也不可靠。  -- 3 characters no HSK 1 word uses: 报靠预
+  吉尔吉斯斯坦的情况十分混乱。  -- 8 characters no HSK 1 word uses: 乱况吉坦尔情斯混
+  想吃一点巧克力奶酪吗？  -- 4 characters no HSK 1 word uses: 克力巧酪
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 1 word uses: 差臭踩鼬
+  我百分之百赞成。  -- 3 characters no HSK 1 word uses: 之成赞
+  大部分观众是年幼的儿童。  -- 5 characters no HSK 1 word uses: 众幼童观部
+  每位会员每月需支付一万日元。  -- 7 characters no HSK 1 word uses: 万付位员支每需
+  充足的休息十分重要。  -- 3 characters no HSK 1 word uses: 充足重
+  你今天下午想不想去动物园？  -- 3 characters no HSK 1 word uses: 动园物
+
+--- dropped at step 5 (595), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  我一点都不怕你。  -- level 3: 怕 L3
+  这本书明年要出版。  -- level 5: 出版 L5
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 比 L2, 高 L2, 分数 L4
+  现在是八点一刻。  -- level 3: 刻 L3
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  您几点钟上班？  -- level 7: 钟 L7
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我比你高一点。  -- level 2: 比 L2, 高 L2
+  我有一个Facebook的帐号。  -- level 10: 帐号 (not in list)
+
+--- dropped at step 5b (14), first 12 ---
+  您不想再喝点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  做点什么吧！  -- harder grammar: 2-34 (HSK 2)
+  给我多一点牛奶！  -- harder grammar: 2-26 (HSK 2), 2-28 (HSK 3)
+  明天九点打电话给我吧。  -- harder grammar: 2-28 (HSK 3), 2-34 (HSK 2)
+  那，我们五点后去买衣服，好吗？  -- harder grammar: 2-30 (HSK 2), 2-75 (HSK 2)
+  你想再要点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  你星期一下午五点在做什么？  -- harder grammar: 1-11 (HSK 2)
+  明年这个时候我在做什么？  -- harder grammar: 1-11 (HSK 2)
+  你今天晚上有没有要上班?  -- harder grammar: 2-78 (HSK 2)
+  四点前我都在忙。  -- harder grammar: 1-11 (HSK 2)
+  我们去坐四点十分的火车吧。  -- harder grammar: 2-34 (HSK 2)
+  你这些年在做什么？  -- harder grammar: 1-11 (HSK 2)
+
+--- dropped at step 6 (95) ---
+  你们今天下午在学校做些什么？  -- rule: no match: line matched
+  请吃点菜。  -- rule: no match: line matched
+  我想要点钱。  -- rule: no match: line matched
+  今天是几号？  -- rule: no match: line matched
+  我想喝点什么。  -- rule: no match: line matched
+  我今天要早点回家。  -- rule: no match: line matched
+  我明天晚上来。  -- rule: no match: line matched
+  两年前，我去了中国。  -- rule: no match: line matched
+  十二月有三十一天。  -- rule: no match: line matched
+  他们明天晚上都会去北京大学上课。  -- rule: no match: line matched
+  我去买点东西。  -- rule: no match: line matched
+  明年你会是几岁？  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  你要喝点什么吗?  -- rule: no match: line matched
+  我是上个月来的北京。  -- rule: no match: line matched
+  他想在中国工作两年。  -- rule: no match: line matched
+  我想吃点好吃的。  -- rule: no match: line matched
+  不知道怎么回事，她昨天晚上没回家。  -- rule: no match: line matched
+  你一个月读几本书？  -- rule: no match: line matched
+  我们喝了一点水。  -- rule: no match: line matched
+  下个月他会很忙。  -- rule: no match: line matched
+  今天是五号。  -- rule: no match: line matched
+  写点什么。  -- rule: no match: line matched
+  今年是二零一一年。  -- rule: no match: line matched
+  今天几号？  -- rule: no match: line matched
+  明天下午你在家吗？  -- rule: no match: line matched
+  你想吃点午饭吗？  -- rule: no match: line matched
+  一点也不好玩。  -- rule: unless 一点/NN 也|都/AD
+  我会给点你好东西。  -- rule: no match: line matched
+  汤姆在这里工作了几年？  -- rule: no match: line matched
+  我想睡点觉。  -- rule: no match: line matched
+  他十年前去了那里。  -- rule: no match: line matched
+  那天晚上你在哪里？  -- rule: no match: line matched
+  是晚上了。  -- rule: no match: line matched
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  下个月我在英国。  -- rule: no match: line matched
+  你中午十二点吃午饭吗？  -- rule: no match: line matched
+  飞机上吃了一点，不多。  -- rule: no match: line matched
+  她二十五号去。  -- rule: no match: line matched
+  我想明天下午见他。  -- rule: no match: line matched
+  我在晚上看电视。  -- rule: no match: line matched
+  今天下午下雨。  -- rule: no match: line matched
+  今天上午下雨。  -- rule: no match: line matched
+  明天下午不下雪。  -- rule: no match: line matched
+  到了做点事的时候了。  -- rule: no match: line matched
+  那是一个月前了。  -- rule: no match: line matched
+  今天晚上吃什么？  -- rule: no match: line matched
+  我穿三十七号。  -- rule: no match: line matched
+  我上个月在波士顿。  -- rule: no match: line matched
+  可以便宜点吗？  -- rule: no match: line matched
+  我今年没做多少事。  -- rule: no match: line matched
+  今天上午你们不在医院。  -- rule: no match: line matched
+  明天下午你在家吗?  -- rule: no match: line matched
+  明天下午他在医院。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你上午有时间吗?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  上午你有时间吗?  -- rule: no match: line matched
+  昨天上午我在学校。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  昨天晚上我们不在家。  -- rule: no match: line matched
+  胡安今年三十五岁。  -- rule: no match: line matched
+  今天三号。  -- rule: no match: line matched
+  明天四月五号。  -- rule: no match: line matched
+  他十二点吃饭。  -- rule: no match: line matched
+  我们十一点睡觉。  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: no match: line matched
+  晚上好！  -- rule: no match: line matched
+  能来点茶吗？  -- rule: no match: line matched
+  您想吃点什么吗？  -- rule: no match: line matched
+  他四月十八日来了。  -- rule: no match: line matched
+  你要买点东西吗？  -- rule: no match: line matched
+  喝点儿什么。  -- rule: unless 点/CD 儿/CD
+  我可以吃点什么吗？  -- rule: no match: line matched
+  你今天下午会在家吗？  -- rule: no match: line matched
+  你穿点东西。  -- rule: no match: line matched
+  我昨天晚上买的书到了。  -- rule: no match: line matched
+  我一点英文都不会说。  -- rule: no match: line matched
+  你去年住在哪儿？  -- rule: no match: line matched
+  我还有点事。  -- rule: unless 有点/NN
+  我上星期在这里玩。  -- rule: no match: line matched
+  多穿点衣服，今天真的很冷。  -- rule: no match: line matched
+  我可以多来点牛奶吗？  -- rule: no match: line matched
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  你明年去中国吗？  -- rule: no match: line matched
+  你明天上午吃什么？  -- rule: no match: line matched
+  我明年十七岁。  -- rule: no match: line matched
+  四月到了。  -- rule: no match: line matched
+  他下个月要去那里。  -- rule: no match: line matched
+  今年六月下雨天不多。  -- rule: no match: line matched
+  我今天能早点下班吗？  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  请在下个星期日休息。  -- hidden word a learner can't work out: 在下 (under), 下个 (second (of two parts))
+  是的，下个星期二。  -- hidden word a learner can't work out: 是的 (yes, that's right), 下个 (second (of two parts))
+  我七点回到家。  -- hidden word a learner can't work out: 到家 (perfect)
+  明天星期一，我去学校。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  两点了。  -- check said no (2/2): 两点了 means 'two points', not time
+  星期三在吗？  -- check said no (1/2): Missing verb; unnatural construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-44_level1_20261112_173900.csv
+
+########## tatoeba  2026-11-12 21:14 ##########
+Filling 1-44 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-44 in: 10  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-44 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1887  2. contain the point's word(s)
+     1877  3. new (not in DB, not a duplicate)
+      760  4. at most 2 characters outside HSK 1 words
+      165  5. really HSK 1
+      149  5b. no harder grammar point (of the 86 with a rule)
+       56  6. the rule finds 1-44
+       52  6b. no hidden word a learner can't work out
+       18  7. both checks say 1-44, English chosen
+       18  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (32 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (18) ===
+  几点了？  (What time is it?)  [tatoeba 6559031]
+  下午四点。  (At four o'clock in the afternoon.)  [tatoeba 6486893]
+  现在三点。  (It is three o'clock right now.)  [tatoeba 6486895]
+  两点可以。  (Two o'clock would be OK.)  [tatoeba 13839318]
+  您几点下课？  (What time does your class end?)  [tatoeba 410476]
+  现在几点了？  (What time is it?)  [tatoeba 3377949]
+  昨天星期几？  (What day was yesterday?)  [tatoeba 5390925]
+  我五点在家。  (I will be at home at five.)  [tatoeba 5390927]  hidden: 在家
+  你九点上班。  (You start working at nine.)  [tatoeba 5390934]
+  我八点起床。  (I wake up at eight.)  [tatoeba 6486887]
+  昨天星期六。  (Yesterday was Saturday.)  [tatoeba 6486900]
+  现在十点半。  (It's now half past ten.)  [tatoeba 13513731]
+  三点可以吗？  (Would three o'clock be OK?)  [tatoeba 13860144]
+  今天是星期四。  (Today is Thursday.)  [tatoeba 5142184]
+  明天几月几号？  (What is the date tomorrow?)  [tatoeba 5390924]
+  昨天是星期五。  (Yesterday was Friday.)  [tatoeba 5500482]
+  我星期天在家。  (I stay at home on Sundays.)  [tatoeba 5911623]  hidden: 在家
+  今天是星期二。  (Today is Tuesday.)  [tatoeba 10961177]
+
+--- dropped at step 3 (10) ---
+  明天是星期天。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  我想吃点好吃的。  -- same text as tatoeba 4061626 (translations pooled)
+  一年有四季。  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  今天上午你们不在医院。  -- same text as tatoeba 6471004 (translations pooled)
+  今天是星期二，明天是星期几？  -- same text as tatoeba 6056545 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  快点。  -- same text as tatoeba 5092239 (translations pooled)
+
+--- dropped at step 4 (1117), first 12 ---
+  雨，雨，快点消失吧。  -- 3 characters no HSK 1 word uses: 失快消
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 1 word uses: 必才瑞行须
+  天气预报一点也不可靠。  -- 3 characters no HSK 1 word uses: 报靠预
+  吉尔吉斯斯坦的情况十分混乱。  -- 8 characters no HSK 1 word uses: 乱况吉坦尔情斯混
+  想吃一点巧克力奶酪吗？  -- 4 characters no HSK 1 word uses: 克力巧酪
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 1 word uses: 差臭踩鼬
+  我百分之百赞成。  -- 3 characters no HSK 1 word uses: 之成赞
+  大部分观众是年幼的儿童。  -- 5 characters no HSK 1 word uses: 众幼童观部
+  每位会员每月需支付一万日元。  -- 7 characters no HSK 1 word uses: 万付位员支每需
+  充足的休息十分重要。  -- 3 characters no HSK 1 word uses: 充足重
+  你今天下午想不想去动物园？  -- 3 characters no HSK 1 word uses: 动园物
+
+--- dropped at step 5 (595), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  我一点都不怕你。  -- level 3: 怕 L3
+  这本书明年要出版。  -- level 5: 出版 L5
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 比 L2, 高 L2, 分数 L4
+  现在是八点一刻。  -- level 3: 刻 L3
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  您几点钟上班？  -- level 7: 钟 L7
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我比你高一点。  -- level 2: 比 L2, 高 L2
+  我有一个Facebook的帐号。  -- level 10: 帐号 (not in list)
+
+--- dropped at step 5b (16), first 12 ---
+  您不想再喝点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  做点什么吧！  -- harder grammar: 2-34 (HSK 2)
+  给我多一点牛奶！  -- harder grammar: 2-26 (HSK 2), 2-28 (HSK 3)
+  明天九点打电话给我吧。  -- harder grammar: 2-28 (HSK 3), 2-34 (HSK 2)
+  那，我们五点后去买衣服，好吗？  -- harder grammar: 2-30 (HSK 2), 2-75 (HSK 2)
+  你想再要点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  一点也不好玩。  -- harder grammar: 2-13 (HSK 2)
+  你星期一下午五点在做什么？  -- harder grammar: 1-11 (HSK 2)
+  明年这个时候我在做什么？  -- harder grammar: 1-11 (HSK 2)
+  你今天晚上有没有要上班?  -- harder grammar: 2-78 (HSK 2)
+  可以便宜点吗？  -- harder grammar: 2-13 (HSK 2)
+  四点前我都在忙。  -- harder grammar: 1-11 (HSK 2)
+
+--- dropped at step 6 (93) ---
+  你们今天下午在学校做些什么？  -- rule: no match: line matched
+  请吃点菜。  -- rule: no match: line matched
+  我想要点钱。  -- rule: no match: line matched
+  今天是几号？  -- rule: no match: line matched
+  我想喝点什么。  -- rule: no match: line matched
+  我今天要早点回家。  -- rule: no match: line matched
+  我明天晚上来。  -- rule: no match: line matched
+  两年前，我去了中国。  -- rule: no match: line matched
+  十二月有三十一天。  -- rule: no match: line matched
+  他们明天晚上都会去北京大学上课。  -- rule: no match: line matched
+  我去买点东西。  -- rule: no match: line matched
+  明年你会是几岁？  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  你要喝点什么吗?  -- rule: no match: line matched
+  我是上个月来的北京。  -- rule: no match: line matched
+  他想在中国工作两年。  -- rule: no match: line matched
+  我想吃点好吃的。  -- rule: no match: line matched
+  不知道怎么回事，她昨天晚上没回家。  -- rule: no match: line matched
+  你一个月读几本书？  -- rule: no match: line matched
+  我们喝了一点水。  -- rule: no match: line matched
+  下个月他会很忙。  -- rule: no match: line matched
+  今天是五号。  -- rule: no match: line matched
+  写点什么。  -- rule: no match: line matched
+  今年是二零一一年。  -- rule: no match: line matched
+  今天几号？  -- rule: no match: line matched
+  明天下午你在家吗？  -- rule: no match: line matched
+  你想吃点午饭吗？  -- rule: no match: line matched
+  我会给点你好东西。  -- rule: no match: line matched
+  汤姆在这里工作了几年？  -- rule: no match: line matched
+  我想睡点觉。  -- rule: no match: line matched
+  他十年前去了那里。  -- rule: no match: line matched
+  那天晚上你在哪里？  -- rule: no match: line matched
+  是晚上了。  -- rule: no match: line matched
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  下个月我在英国。  -- rule: no match: line matched
+  你中午十二点吃午饭吗？  -- rule: no match: line matched
+  飞机上吃了一点，不多。  -- rule: no match: line matched
+  她二十五号去。  -- rule: no match: line matched
+  我想明天下午见他。  -- rule: no match: line matched
+  我在晚上看电视。  -- rule: no match: line matched
+  今天下午下雨。  -- rule: no match: line matched
+  今天上午下雨。  -- rule: no match: line matched
+  明天下午不下雪。  -- rule: no match: line matched
+  到了做点事的时候了。  -- rule: no match: line matched
+  那是一个月前了。  -- rule: no match: line matched
+  今天晚上吃什么？  -- rule: no match: line matched
+  我穿三十七号。  -- rule: no match: line matched
+  我上个月在波士顿。  -- rule: no match: line matched
+  我今年没做多少事。  -- rule: no match: line matched
+  今天上午你们不在医院。  -- rule: no match: line matched
+  明天下午你在家吗?  -- rule: no match: line matched
+  明天下午他在医院。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你上午有时间吗?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  上午你有时间吗?  -- rule: no match: line matched
+  昨天上午我在学校。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  昨天晚上我们不在家。  -- rule: no match: line matched
+  胡安今年三十五岁。  -- rule: no match: line matched
+  今天三号。  -- rule: no match: line matched
+  明天四月五号。  -- rule: no match: line matched
+  他十二点吃饭。  -- rule: no match: line matched
+  我们十一点睡觉。  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: no match: line matched
+  晚上好！  -- rule: no match: line matched
+  能来点茶吗？  -- rule: no match: line matched
+  您想吃点什么吗？  -- rule: no match: line matched
+  他四月十八日来了。  -- rule: no match: line matched
+  你要买点东西吗？  -- rule: no match: line matched
+  喝点儿什么。  -- rule: unless 点/CD 儿/CD
+  我可以吃点什么吗？  -- rule: no match: line matched
+  你今天下午会在家吗？  -- rule: no match: line matched
+  你穿点东西。  -- rule: no match: line matched
+  我昨天晚上买的书到了。  -- rule: no match: line matched
+  我一点英文都不会说。  -- rule: no match: line matched
+  你去年住在哪儿？  -- rule: no match: line matched
+  我还有点事。  -- rule: unless 有点/NN
+  我上星期在这里玩。  -- rule: no match: line matched
+  多穿点衣服，今天真的很冷。  -- rule: no match: line matched
+  我可以多来点牛奶吗？  -- rule: no match: line matched
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  你明年去中国吗？  -- rule: no match: line matched
+  你明天上午吃什么？  -- rule: no match: line matched
+  我明年十七岁。  -- rule: no match: line matched
+  四月到了。  -- rule: no match: line matched
+  他下个月要去那里。  -- rule: no match: line matched
+  今年六月下雨天不多。  -- rule: no match: line matched
+  我今天能早点下班吗？  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  请在下个星期日休息。  -- hidden word a learner can't work out: 在下 (under), 下个 (second (of two parts))
+  是的，下个星期二。  -- hidden word a learner can't work out: 是的 (yes, that's right), 下个 (second (of two parts))
+  我七点回到家。  -- hidden word a learner can't work out: 到家 (perfect)
+  明天星期一，我去学校。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  两点了。  -- check said no (2/2): 两点了 means 'two points', not time
+  星期三在吗？  -- check said no (1/2): Missing verb; unnatural construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-44_level1_20261112_211437.csv
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 1-44 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-44 in: 10  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-44 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1887  2. contain the point's word(s)
+     1877  3. new (not in DB, not a duplicate)
+      760  4. at most 2 characters outside HSK 1 words
+      165  5. really HSK 1
+      149  5b. no harder grammar point (of the 86 with a rule)
+       56  6. the rule finds 1-44
+       52  6b. no hidden word a learner can't work out
+       18  7. both checks say 1-44, English chosen
+       18  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (32 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (18) ===
+  几点了？  (What time is it?)  [tatoeba 6559031]
+  下午四点。  (At four o'clock in the afternoon.)  [tatoeba 6486893]
+  现在三点。  (It is three o'clock right now.)  [tatoeba 6486895]
+  两点可以。  (Two o'clock would be OK.)  [tatoeba 13839318]
+  您几点下课？  (What time does your class end?)  [tatoeba 410476]
+  现在几点了？  (What time is it?)  [tatoeba 3377949]
+  昨天星期几？  (What day was yesterday?)  [tatoeba 5390925]
+  我五点在家。  (I will be at home at five.)  [tatoeba 5390927]  hidden: 在家
+  你九点上班。  (You start working at nine.)  [tatoeba 5390934]
+  我八点起床。  (I wake up at eight.)  [tatoeba 6486887]
+  昨天星期六。  (Yesterday was Saturday.)  [tatoeba 6486900]
+  现在十点半。  (It's now half past ten.)  [tatoeba 13513731]
+  三点可以吗？  (Would three o'clock be OK?)  [tatoeba 13860144]
+  今天是星期四。  (Today is Thursday.)  [tatoeba 5142184]
+  明天几月几号？  (What is the date tomorrow?)  [tatoeba 5390924]
+  昨天是星期五。  (Yesterday was Friday.)  [tatoeba 5500482]
+  我星期天在家。  (I stay at home on Sundays.)  [tatoeba 5911623]  hidden: 在家
+  今天是星期二。  (Today is Tuesday.)  [tatoeba 10961177]
+
+--- dropped at step 3 (10) ---
+  明天是星期天。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  我想吃点好吃的。  -- same text as tatoeba 4061626 (translations pooled)
+  一年有四季。  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  今天上午你们不在医院。  -- same text as tatoeba 6471004 (translations pooled)
+  今天是星期二，明天是星期几？  -- same text as tatoeba 6056545 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  快点。  -- same text as tatoeba 5092239 (translations pooled)
+
+--- dropped at step 4 (1117), first 12 ---
+  雨，雨，快点消失吧。  -- 3 characters no HSK 1 word uses: 失快消
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 1 word uses: 必才瑞行须
+  天气预报一点也不可靠。  -- 3 characters no HSK 1 word uses: 报靠预
+  吉尔吉斯斯坦的情况十分混乱。  -- 8 characters no HSK 1 word uses: 乱况吉坦尔情斯混
+  想吃一点巧克力奶酪吗？  -- 4 characters no HSK 1 word uses: 克力巧酪
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 1 word uses: 差臭踩鼬
+  我百分之百赞成。  -- 3 characters no HSK 1 word uses: 之成赞
+  大部分观众是年幼的儿童。  -- 5 characters no HSK 1 word uses: 众幼童观部
+  每位会员每月需支付一万日元。  -- 7 characters no HSK 1 word uses: 万付位员支每需
+  充足的休息十分重要。  -- 3 characters no HSK 1 word uses: 充足重
+  你今天下午想不想去动物园？  -- 3 characters no HSK 1 word uses: 动园物
+
+--- dropped at step 5 (595), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  我一点都不怕你。  -- level 3: 怕 L3
+  这本书明年要出版。  -- level 5: 出版 L5
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 比 L2, 高 L2, 分数 L4
+  现在是八点一刻。  -- level 3: 刻 L3
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  您几点钟上班？  -- level 7: 钟 L7
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我比你高一点。  -- level 2: 比 L2, 高 L2
+  我有一个Facebook的帐号。  -- level 10: 帐号 (not in list)
+
+--- dropped at step 5b (16), first 12 ---
+  您不想再喝点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  做点什么吧！  -- harder grammar: 2-34 (HSK 2)
+  给我多一点牛奶！  -- harder grammar: 2-26 (HSK 2), 2-28 (HSK 3)
+  明天九点打电话给我吧。  -- harder grammar: 2-28 (HSK 3), 2-34 (HSK 2)
+  那，我们五点后去买衣服，好吗？  -- harder grammar: 2-30 (HSK 2), 2-75 (HSK 2)
+  你想再要点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  一点也不好玩。  -- harder grammar: 2-13 (HSK 2)
+  你星期一下午五点在做什么？  -- harder grammar: 1-11 (HSK 2)
+  明年这个时候我在做什么？  -- harder grammar: 1-11 (HSK 2)
+  你今天晚上有没有要上班?  -- harder grammar: 2-78 (HSK 2)
+  可以便宜点吗？  -- harder grammar: 2-13 (HSK 2)
+  四点前我都在忙。  -- harder grammar: 1-11 (HSK 2)
+
+--- dropped at step 6 (93) ---
+  你们今天下午在学校做些什么？  -- rule: no match: line matched
+  请吃点菜。  -- rule: no match: line matched
+  我想要点钱。  -- rule: no match: line matched
+  今天是几号？  -- rule: no match: line matched
+  我想喝点什么。  -- rule: no match: line matched
+  我今天要早点回家。  -- rule: no match: line matched
+  我明天晚上来。  -- rule: no match: line matched
+  两年前，我去了中国。  -- rule: no match: line matched
+  十二月有三十一天。  -- rule: no match: line matched
+  他们明天晚上都会去北京大学上课。  -- rule: no match: line matched
+  我去买点东西。  -- rule: no match: line matched
+  明年你会是几岁？  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  你要喝点什么吗?  -- rule: no match: line matched
+  我是上个月来的北京。  -- rule: no match: line matched
+  他想在中国工作两年。  -- rule: no match: line matched
+  我想吃点好吃的。  -- rule: no match: line matched
+  不知道怎么回事，她昨天晚上没回家。  -- rule: no match: line matched
+  你一个月读几本书？  -- rule: no match: line matched
+  我们喝了一点水。  -- rule: no match: line matched
+  下个月他会很忙。  -- rule: no match: line matched
+  今天是五号。  -- rule: no match: line matched
+  写点什么。  -- rule: no match: line matched
+  今年是二零一一年。  -- rule: no match: line matched
+  今天几号？  -- rule: no match: line matched
+  明天下午你在家吗？  -- rule: no match: line matched
+  你想吃点午饭吗？  -- rule: no match: line matched
+  我会给点你好东西。  -- rule: no match: line matched
+  汤姆在这里工作了几年？  -- rule: no match: line matched
+  我想睡点觉。  -- rule: no match: line matched
+  他十年前去了那里。  -- rule: no match: line matched
+  那天晚上你在哪里？  -- rule: no match: line matched
+  是晚上了。  -- rule: no match: line matched
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  下个月我在英国。  -- rule: no match: line matched
+  你中午十二点吃午饭吗？  -- rule: no match: line matched
+  飞机上吃了一点，不多。  -- rule: no match: line matched
+  她二十五号去。  -- rule: no match: line matched
+  我想明天下午见他。  -- rule: no match: line matched
+  我在晚上看电视。  -- rule: no match: line matched
+  今天下午下雨。  -- rule: no match: line matched
+  今天上午下雨。  -- rule: no match: line matched
+  明天下午不下雪。  -- rule: no match: line matched
+  到了做点事的时候了。  -- rule: no match: line matched
+  那是一个月前了。  -- rule: no match: line matched
+  今天晚上吃什么？  -- rule: no match: line matched
+  我穿三十七号。  -- rule: no match: line matched
+  我上个月在波士顿。  -- rule: no match: line matched
+  我今年没做多少事。  -- rule: no match: line matched
+  今天上午你们不在医院。  -- rule: no match: line matched
+  明天下午你在家吗?  -- rule: no match: line matched
+  明天下午他在医院。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你上午有时间吗?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  上午你有时间吗?  -- rule: no match: line matched
+  昨天上午我在学校。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  昨天晚上我们不在家。  -- rule: no match: line matched
+  胡安今年三十五岁。  -- rule: no match: line matched
+  今天三号。  -- rule: no match: line matched
+  明天四月五号。  -- rule: no match: line matched
+  他十二点吃饭。  -- rule: no match: line matched
+  我们十一点睡觉。  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: no match: line matched
+  晚上好！  -- rule: no match: line matched
+  能来点茶吗？  -- rule: no match: line matched
+  您想吃点什么吗？  -- rule: no match: line matched
+  他四月十八日来了。  -- rule: no match: line matched
+  你要买点东西吗？  -- rule: no match: line matched
+  喝点儿什么。  -- rule: unless 点/CD 儿/CD
+  我可以吃点什么吗？  -- rule: no match: line matched
+  你今天下午会在家吗？  -- rule: no match: line matched
+  你穿点东西。  -- rule: no match: line matched
+  我昨天晚上买的书到了。  -- rule: no match: line matched
+  我一点英文都不会说。  -- rule: no match: line matched
+  你去年住在哪儿？  -- rule: no match: line matched
+  我还有点事。  -- rule: unless 有点/NN
+  我上星期在这里玩。  -- rule: no match: line matched
+  多穿点衣服，今天真的很冷。  -- rule: no match: line matched
+  我可以多来点牛奶吗？  -- rule: no match: line matched
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  你明年去中国吗？  -- rule: no match: line matched
+  你明天上午吃什么？  -- rule: no match: line matched
+  我明年十七岁。  -- rule: no match: line matched
+  四月到了。  -- rule: no match: line matched
+  他下个月要去那里。  -- rule: no match: line matched
+  今年六月下雨天不多。  -- rule: no match: line matched
+  我今天能早点下班吗？  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  请在下个星期日休息。  -- hidden word a learner can't work out: 在下 (under), 下个 (second (of two parts))
+  是的，下个星期二。  -- hidden word a learner can't work out: 是的 (yes, that's right), 下个 (second (of two parts))
+  我七点回到家。  -- hidden word a learner can't work out: 到家 (perfect)
+  明天星期一，我去学校。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  两点了。  -- check said no (2/2): 两点了 means 'two points', not time
+  星期三在吗？  -- check said no (1/2): Missing verb; unnatural construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-44_level1_20261113_135415.csv
+
+########## tatoeba  2026-11-13 14:42 ##########
+Filling 1-44 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 3 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  在下 = 在 + 下  (under; myself (humble))
+     clear  下个 = 下 + 个  (second (of two parts); next (week etc); )
+     clear  到家 = 到 + 家  (perfect; excellent; brought to the utmos)
+
+Course sentences at HSK 1 the rule already finds 1-44 in: 10  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-44 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1887  2. contain the point's word(s)
+     1877  3. new (not in DB, not a duplicate)
+      760  4. at most 2 characters outside HSK 1 words
+      165  5. really HSK 1
+      149  5b. no harder grammar point (of the 86 with a rule)
+       56  6. the rule finds 1-44
+       53  6b. no hidden word a learner can't work out
+       18  7. both checks say 1-44, English chosen
+       18  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (33 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (18) ===
+  几点了？  (What time is it?)  [tatoeba 6559031]
+  下午四点。  (At four o'clock in the afternoon.)  [tatoeba 6486893]
+  现在三点。  (It is three o'clock right now.)  [tatoeba 6486895]
+  两点可以。  (Two o'clock would be OK.)  [tatoeba 13839318]
+  您几点下课？  (What time does your class end?)  [tatoeba 410476]
+  现在几点了？  (What time is it?)  [tatoeba 3377949]
+  昨天星期几？  (What day was yesterday?)  [tatoeba 5390925]
+  我五点在家。  (I will be at home at five.)  [tatoeba 5390927]  hidden: 在家
+  你九点上班。  (You start working at nine.)  [tatoeba 5390934]
+  我八点起床。  (I wake up at eight.)  [tatoeba 6486887]
+  昨天星期六。  (Yesterday was Saturday.)  [tatoeba 6486900]
+  现在十点半。  (It's now half past ten.)  [tatoeba 13513731]
+  三点可以吗？  (Would three o'clock be OK?)  [tatoeba 13860144]
+  今天是星期四。  (Today is Thursday.)  [tatoeba 5142184]
+  明天几月几号？  (What is the date tomorrow?)  [tatoeba 5390924]
+  昨天是星期五。  (Yesterday was Friday.)  [tatoeba 5500482]
+  我星期天在家。  (I stay at home on Sundays.)  [tatoeba 5911623]  hidden: 在家
+  我七点回到家。  (I got home at seven.)  [tatoeba 8388716]  hidden: 回到, 到家
+
+--- dropped at step 3 (10) ---
+  明天是星期天。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  我想吃点好吃的。  -- same text as tatoeba 4061626 (translations pooled)
+  一年有四季。  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  今天上午你们不在医院。  -- same text as tatoeba 6471004 (translations pooled)
+  今天是星期二，明天是星期几？  -- same text as tatoeba 6056545 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  快点。  -- same text as tatoeba 5092239 (translations pooled)
+
+--- dropped at step 4 (1117), first 12 ---
+  雨，雨，快点消失吧。  -- 3 characters no HSK 1 word uses: 失快消
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 1 word uses: 必才瑞行须
+  天气预报一点也不可靠。  -- 3 characters no HSK 1 word uses: 报靠预
+  吉尔吉斯斯坦的情况十分混乱。  -- 8 characters no HSK 1 word uses: 乱况吉坦尔情斯混
+  想吃一点巧克力奶酪吗？  -- 4 characters no HSK 1 word uses: 克力巧酪
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 1 word uses: 差臭踩鼬
+  我百分之百赞成。  -- 3 characters no HSK 1 word uses: 之成赞
+  大部分观众是年幼的儿童。  -- 5 characters no HSK 1 word uses: 众幼童观部
+  每位会员每月需支付一万日元。  -- 7 characters no HSK 1 word uses: 万付位员支每需
+  充足的休息十分重要。  -- 3 characters no HSK 1 word uses: 充足重
+  你今天下午想不想去动物园？  -- 3 characters no HSK 1 word uses: 动园物
+
+--- dropped at step 5 (595), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  我一点都不怕你。  -- level 3: 怕 L3
+  这本书明年要出版。  -- level 5: 出版 L5
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 比 L2, 高 L2, 分数 L4
+  现在是八点一刻。  -- level 3: 刻 L3
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  您几点钟上班？  -- level 7: 钟 L7
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我比你高一点。  -- level 2: 比 L2, 高 L2
+  我有一个Facebook的帐号。  -- level 10: 帐号 (not in list)
+
+--- dropped at step 5b (16), first 12 ---
+  您不想再喝点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  做点什么吧！  -- harder grammar: 2-34 (HSK 2)
+  给我多一点牛奶！  -- harder grammar: 2-26 (HSK 2), 2-28 (HSK 3)
+  明天九点打电话给我吧。  -- harder grammar: 2-28 (HSK 3), 2-34 (HSK 2)
+  那，我们五点后去买衣服，好吗？  -- harder grammar: 2-30 (HSK 2), 2-75 (HSK 2)
+  你想再要点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  一点也不好玩。  -- harder grammar: 2-13 (HSK 2)
+  你星期一下午五点在做什么？  -- harder grammar: 1-11 (HSK 2)
+  明年这个时候我在做什么？  -- harder grammar: 1-11 (HSK 2)
+  你今天晚上有没有要上班?  -- harder grammar: 2-78 (HSK 2)
+  可以便宜点吗？  -- harder grammar: 2-13 (HSK 2)
+  四点前我都在忙。  -- harder grammar: 1-11 (HSK 2)
+
+--- dropped at step 6 (93) ---
+  你们今天下午在学校做些什么？  -- rule: no match: line matched
+  请吃点菜。  -- rule: no match: line matched
+  我想要点钱。  -- rule: no match: line matched
+  今天是几号？  -- rule: no match: line matched
+  我想喝点什么。  -- rule: no match: line matched
+  我今天要早点回家。  -- rule: no match: line matched
+  我明天晚上来。  -- rule: no match: line matched
+  两年前，我去了中国。  -- rule: no match: line matched
+  十二月有三十一天。  -- rule: no match: line matched
+  他们明天晚上都会去北京大学上课。  -- rule: no match: line matched
+  我去买点东西。  -- rule: no match: line matched
+  明年你会是几岁？  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  你要喝点什么吗?  -- rule: no match: line matched
+  我是上个月来的北京。  -- rule: no match: line matched
+  他想在中国工作两年。  -- rule: no match: line matched
+  我想吃点好吃的。  -- rule: no match: line matched
+  不知道怎么回事，她昨天晚上没回家。  -- rule: no match: line matched
+  你一个月读几本书？  -- rule: no match: line matched
+  我们喝了一点水。  -- rule: no match: line matched
+  下个月他会很忙。  -- rule: no match: line matched
+  今天是五号。  -- rule: no match: line matched
+  写点什么。  -- rule: no match: line matched
+  今年是二零一一年。  -- rule: no match: line matched
+  今天几号？  -- rule: no match: line matched
+  明天下午你在家吗？  -- rule: no match: line matched
+  你想吃点午饭吗？  -- rule: no match: line matched
+  我会给点你好东西。  -- rule: no match: line matched
+  汤姆在这里工作了几年？  -- rule: no match: line matched
+  我想睡点觉。  -- rule: no match: line matched
+  他十年前去了那里。  -- rule: no match: line matched
+  那天晚上你在哪里？  -- rule: no match: line matched
+  是晚上了。  -- rule: no match: line matched
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  下个月我在英国。  -- rule: no match: line matched
+  你中午十二点吃午饭吗？  -- rule: no match: line matched
+  飞机上吃了一点，不多。  -- rule: no match: line matched
+  她二十五号去。  -- rule: no match: line matched
+  我想明天下午见他。  -- rule: no match: line matched
+  我在晚上看电视。  -- rule: no match: line matched
+  今天下午下雨。  -- rule: no match: line matched
+  今天上午下雨。  -- rule: no match: line matched
+  明天下午不下雪。  -- rule: no match: line matched
+  到了做点事的时候了。  -- rule: no match: line matched
+  那是一个月前了。  -- rule: no match: line matched
+  今天晚上吃什么？  -- rule: no match: line matched
+  我穿三十七号。  -- rule: no match: line matched
+  我上个月在波士顿。  -- rule: no match: line matched
+  我今年没做多少事。  -- rule: no match: line matched
+  今天上午你们不在医院。  -- rule: no match: line matched
+  明天下午你在家吗?  -- rule: no match: line matched
+  明天下午他在医院。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你上午有时间吗?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  上午你有时间吗?  -- rule: no match: line matched
+  昨天上午我在学校。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  昨天晚上我们不在家。  -- rule: no match: line matched
+  胡安今年三十五岁。  -- rule: no match: line matched
+  今天三号。  -- rule: no match: line matched
+  明天四月五号。  -- rule: no match: line matched
+  他十二点吃饭。  -- rule: no match: line matched
+  我们十一点睡觉。  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: no match: line matched
+  晚上好！  -- rule: no match: line matched
+  能来点茶吗？  -- rule: no match: line matched
+  您想吃点什么吗？  -- rule: no match: line matched
+  他四月十八日来了。  -- rule: no match: line matched
+  你要买点东西吗？  -- rule: no match: line matched
+  喝点儿什么。  -- rule: unless 点/CD 儿/CD
+  我可以吃点什么吗？  -- rule: no match: line matched
+  你今天下午会在家吗？  -- rule: no match: line matched
+  你穿点东西。  -- rule: no match: line matched
+  我昨天晚上买的书到了。  -- rule: no match: line matched
+  我一点英文都不会说。  -- rule: no match: line matched
+  你去年住在哪儿？  -- rule: no match: line matched
+  我还有点事。  -- rule: unless 有点/NN
+  我上星期在这里玩。  -- rule: no match: line matched
+  多穿点衣服，今天真的很冷。  -- rule: no match: line matched
+  我可以多来点牛奶吗？  -- rule: no match: line matched
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  你明年去中国吗？  -- rule: no match: line matched
+  你明天上午吃什么？  -- rule: no match: line matched
+  我明年十七岁。  -- rule: no match: line matched
+  四月到了。  -- rule: no match: line matched
+  他下个月要去那里。  -- rule: no match: line matched
+  今年六月下雨天不多。  -- rule: no match: line matched
+  我今天能早点下班吗？  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  请在下个星期日休息。  -- hidden word a learner can't work out: 在下 (under; myself (humble))
+  是的，下个星期二。  -- hidden word a learner can't work out: 是的 (yes, that's right; variant of 似的[shi4 de5])
+  明天星期一，我去学校。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  两点了。  -- check said no (2/2): 两点了 means 'two points', not time
+  星期三在吗？  -- check said no (1/2): Missing verb; unnatural construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-44_level1_20261113_144221.csv
+
+########## tatoeba  2026-11-14 16:09 ##########
+Filling 1-44 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 9 Tatoeba candidate(s) (cached after this run)...
+  ...100/706
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_160920.txt
+  ...200/706
+  ...300/706
+  ...400/706
+  ...500/706
+  ...600/706
+  ...700/706
+
+Course sentences at HSK 1 the rule already finds 1-44 in: 27  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-44 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1887  2. contain the point's word(s)
+     1819  3. new (not in DB, not a duplicate)
+      706  4. at most 2 characters outside HSK 1 words
+      137  5. really HSK 1
+      132  5b. no harder grammar point (of the 87 with a rule)
+       40  6. the rule finds 1-44
+       37  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (37 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (68), first 12 ---
+  明天是星期天。  -- already in the database
+  您几点下课？  -- already in the database
+  您不想再喝点茶吗？  -- already in the database
+  我比你高一点。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  因为我有点头疼，所以我早早上床睡觉。  -- already in the database
+  我在这里已经工作十年了。  -- already in the database
+  他们明天晚上都会去北京大学上课。  -- already in the database
+  上星期，我的爸爸从大阪回来了。  -- already in the database
+  她说她有点累了。  -- already in the database
+  已经是早上七点了。  -- already in the database
+  这是第一点。  -- already in the database
+
+--- dropped at step 4 (1113), first 12 ---
+  雨，雨，快点消失吧。  -- 3 characters no HSK 1 word uses: 失快消
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 1 word uses: 必才瑞行须
+  天气预报一点也不可靠。  -- 3 characters no HSK 1 word uses: 报靠预
+  吉尔吉斯斯坦的情况十分混乱。  -- 8 characters no HSK 1 word uses: 乱况吉坦尔情斯混
+  想吃一点巧克力奶酪吗？  -- 4 characters no HSK 1 word uses: 克力巧酪
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 1 word uses: 差臭踩鼬
+  我百分之百赞成。  -- 3 characters no HSK 1 word uses: 之成赞
+  大部分观众是年幼的儿童。  -- 5 characters no HSK 1 word uses: 众幼童观部
+  每位会员每月需支付一万日元。  -- 7 characters no HSK 1 word uses: 万付位员支每需
+  充足的休息十分重要。  -- 3 characters no HSK 1 word uses: 充足重
+  你今天下午想不想去动物园？  -- 3 characters no HSK 1 word uses: 动园物
+
+--- dropped at step 5 (569), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  我一点都不怕你。  -- level 3: 怕 L3
+  这本书明年要出版。  -- level 5: 出版 L5
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 比 L2, 高 L2, 分数 L4
+  现在是八点一刻。  -- level 3: 刻 L3
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  您几点钟上班？  -- level 7: 钟 L7
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我有一个Facebook的帐号。  -- level 10: 帐号 (not in list)
+  他们四十分钟之后下课。  -- level 4: 之后 L4
+
+--- dropped at step 5b (5) ---
+  做点什么吧！  -- harder grammar: 2-34 (HSK 2)
+  明天九点打电话给我吧。  -- harder grammar: 2-34 (HSK 2)
+  那，我们五点后去买衣服，好吗？  -- harder grammar: 2-75 (HSK 2)
+  我们去坐四点十分的火车吧。  -- harder grammar: 2-34 (HSK 2)
+  你能给我做点东西吃吗？  -- harder grammar: 2-26 (HSK 2)
+
+--- dropped at step 6 (92) ---
+  你们今天下午在学校做些什么？  -- rule: no match: line matched
+  请吃点菜。  -- rule: no match: line matched
+  我想要点钱。  -- rule: no match: line matched
+  今天是几号？  -- rule: no match: line matched
+  我想喝点什么。  -- rule: no match: line matched
+  我今天要早点回家。  -- rule: no match: line matched
+  我明天晚上来。  -- rule: no match: line matched
+  两年前，我去了中国。  -- rule: no match: line matched
+  十二月有三十一天。  -- rule: no match: line matched
+  我去买点东西。  -- rule: no match: line matched
+  明年你会是几岁？  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  你要喝点什么吗?  -- rule: no match: line matched
+  我是上个月来的北京。  -- rule: no match: line matched
+  他想在中国工作两年。  -- rule: no match: line matched
+  我想吃点好吃的。  -- rule: no match: line matched
+  不知道怎么回事，她昨天晚上没回家。  -- rule: no match: line matched
+  你一个月读几本书？  -- rule: no match: line matched
+  下个月他会很忙。  -- rule: no match: line matched
+  今天是五号。  -- rule: no match: line matched
+  写点什么。  -- rule: no match: line matched
+  今年是二零一一年。  -- rule: no match: line matched
+  明天下午你在家吗？  -- rule: no match: line matched
+  你想吃点午饭吗？  -- rule: no match: line matched
+  一点也不好玩。  -- rule: no match: line matched
+  我会给点你好东西。  -- rule: no match: line matched
+  汤姆在这里工作了几年？  -- rule: no match: line matched
+  我想睡点觉。  -- rule: no match: line matched
+  他十年前去了那里。  -- rule: no match: line matched
+  那天晚上你在哪里？  -- rule: no match: line matched
+  是晚上了。  -- rule: no match: line matched
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  下个月我在英国。  -- rule: no match: line matched
+  你中午十二点吃午饭吗？  -- rule: no match: line matched
+  她二十五号去。  -- rule: no match: line matched
+  我想明天下午见他。  -- rule: no match: line matched
+  我在晚上看电视。  -- rule: no match: line matched
+  今天下午下雨。  -- rule: no match: line matched
+  今天上午下雨。  -- rule: no match: line matched
+  明天下午不下雪。  -- rule: no match: line matched
+  到了做点事的时候了。  -- rule: no match: line matched
+  那是一个月前了。  -- rule: no match: line matched
+  今天晚上吃什么？  -- rule: no match: line matched
+  明年这个时候我在做什么？  -- rule: no match: line matched
+  你今天晚上有没有要上班?  -- rule: no match: line matched
+  我穿三十七号。  -- rule: no match: line matched
+  我上个月在波士顿。  -- rule: no match: line matched
+  可以便宜点吗？  -- rule: no match: line matched
+  我今年没做多少事。  -- rule: no match: line matched
+  今天上午你们不在医院。  -- rule: no match: line matched
+  明天下午你在家吗?  -- rule: no match: line matched
+  明天下午他在医院。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你上午有时间吗?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  上午你有时间吗?  -- rule: no match: line matched
+  昨天上午我在学校。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  昨天晚上我们不在家。  -- rule: no match: line matched
+  胡安今年三十五岁。  -- rule: no match: line matched
+  今天三号。  -- rule: no match: line matched
+  明天四月五号。  -- rule: no match: line matched
+  他十二点吃饭。  -- rule: no match: line matched
+  晚上好！  -- rule: no match: line matched
+  能来点茶吗？  -- rule: no match: line matched
+  您想吃点什么吗？  -- rule: no match: line matched
+  他四月十八日来了。  -- rule: no match: line matched
+  你要买点东西吗？  -- rule: no match: line matched
+  喝点儿什么。  -- rule: unless 点/CD 儿/CD
+  我可以吃点什么吗？  -- rule: no match: line matched
+  你今天下午会在家吗？  -- rule: no match: line matched
+  你穿点东西。  -- rule: no match: line matched
+  我昨天晚上买的书到了。  -- rule: no match: line matched
+  我一点英文都不会说。  -- rule: no match: line matched
+  我还有点事。  -- rule: no match: line matched
+  我上星期在这里玩。  -- rule: no match: line matched
+  多穿点衣服，今天真的很冷。  -- rule: no match: line matched
+  我可以多来点牛奶吗？  -- rule: no match: line matched
+  你这些年在做什么？  -- rule: no match: line matched
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  你明年去中国吗？  -- rule: no match: line matched
+  你明天上午吃什么？  -- rule: no match: line matched
+  我明年十七岁。  -- rule: no match: line matched
+  四月到了。  -- rule: no match: line matched
+  要不要来点牛奶？  -- rule: no match: line matched
+  他下个月要去那里。  -- rule: no match: line matched
+  今年六月下雨天不多。  -- rule: no match: line matched
+  我今天能早点下班吗？  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  请在下个星期日休息。  -- hidden word a learner can't work out: 在下 (under; myself (humble))
+  是的，下个星期二。  -- hidden word a learner can't work out: 是的 (yes, that's right; variant of 似的[shi4 de5])
+  明天星期一，我去学校。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-44_level1_20261114_160925.csv
+
+########## tatoeba  2026-11-14 16:30 ##########
+Filling 1-44 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-44 in: 10  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-44 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1887  2. contain the point's word(s)
+     1877  3. new (not in DB, not a duplicate)
+      760  4. at most 2 characters outside HSK 1 words
+      160  5. really HSK 1
+      153  5b. no harder grammar point (of the 87 with a rule)
+       58  6. the rule finds 1-44
+       55  6b. no hidden word a learner can't work out
+       18  7. both checks say 1-44, English chosen
+       18  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (35 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (18) ===
+  几点了？  (What time is it?)  [tatoeba 6559031]
+  下午四点。  (At four o'clock in the afternoon.)  [tatoeba 6486893]
+  现在三点。  (It is three o'clock right now.)  [tatoeba 6486895]
+  两点可以。  (Two o'clock would be OK.)  [tatoeba 13839318]
+  您几点下课？  (What time does your class end?)  [tatoeba 410476]
+  现在几点了？  (What time is it?)  [tatoeba 3377949]
+  昨天星期几？  (What day was yesterday?)  [tatoeba 5390925]
+  我五点在家。  (I will be at home at five.)  [tatoeba 5390927]  hidden: 在家
+  你九点上班。  (You start working at nine.)  [tatoeba 5390934]
+  我八点起床。  (I wake up at eight.)  [tatoeba 6486887]
+  昨天星期六。  (Yesterday was Saturday.)  [tatoeba 6486900]
+  现在十点半。  (It's now half past ten.)  [tatoeba 13513731]
+  三点可以吗？  (Would three o'clock be OK?)  [tatoeba 13860144]
+  今天是星期四。  (Today is Thursday.)  [tatoeba 5142184]
+  明天几月几号？  (What is the date tomorrow?)  [tatoeba 5390924]
+  昨天是星期五。  (Yesterday was Friday.)  [tatoeba 5500482]
+  我星期天在家。  (I stay at home on Sundays.)  [tatoeba 5911623]  hidden: 在家
+  我七点回到家。  (I got home at seven.)  [tatoeba 8388716]  hidden: 回到, 到家
+
+--- dropped at step 3 (10) ---
+  明天是星期天。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  我想吃点好吃的。  -- same text as 4061626 (translations pooled)
+  一年有四季。  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  今天上午你们不在医院。  -- same text as 6471004 (translations pooled)
+  今天是星期二，明天是星期几？  -- same text as 6056545 (translations pooled)
+  你明天下午在哪里？  -- same text as 6056532 (translations pooled)
+  快点。  -- same text as 5092239 (translations pooled)
+
+--- dropped at step 4 (1117), first 12 ---
+  雨，雨，快点消失吧。  -- 3 characters no HSK 1 word uses: 失快消
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 1 word uses: 必才瑞行须
+  天气预报一点也不可靠。  -- 3 characters no HSK 1 word uses: 报靠预
+  吉尔吉斯斯坦的情况十分混乱。  -- 8 characters no HSK 1 word uses: 乱况吉坦尔情斯混
+  想吃一点巧克力奶酪吗？  -- 4 characters no HSK 1 word uses: 克力巧酪
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 1 word uses: 差臭踩鼬
+  我百分之百赞成。  -- 3 characters no HSK 1 word uses: 之成赞
+  大部分观众是年幼的儿童。  -- 5 characters no HSK 1 word uses: 众幼童观部
+  每位会员每月需支付一万日元。  -- 7 characters no HSK 1 word uses: 万付位员支每需
+  充足的休息十分重要。  -- 3 characters no HSK 1 word uses: 充足重
+  你今天下午想不想去动物园？  -- 3 characters no HSK 1 word uses: 动园物
+
+--- dropped at step 5 (600), first 12 ---
+  我们明天几点出发？  -- level 3: 出发 L3
+  我一点都不怕你。  -- level 3: 怕 L3
+  这本书明年要出版。  -- level 5: 出版 L5
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 比 L2, 高 L2, 分数 L4
+  现在是八点一刻。  -- level 3: 刻 L3
+  你一般几点下班？  -- level 3: 一般 L3
+  你们一般几点下班？  -- level 3: 一般 L3
+  您一般几点下班？  -- level 3: 一般 L3
+  您几点钟上班？  -- level 7: 钟 L7
+  我下个月要搬家了。  -- level 3: 搬家 L3
+  我比你高一点。  -- level 2: 比 L2, 高 L2
+  我有一个Facebook的帐号。  -- level 10: 帐号 (not in list)
+
+--- dropped at step 5b (7) ---
+  您不想再喝点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  做点什么吧！  -- harder grammar: 2-34 (HSK 2)
+  明天九点打电话给我吧。  -- harder grammar: 2-34 (HSK 2)
+  那，我们五点后去买衣服，好吗？  -- harder grammar: 2-75 (HSK 2)
+  你想再要点茶吗？  -- harder grammar: 3-16 (HSK 3)
+  我们去坐四点十分的火车吧。  -- harder grammar: 2-34 (HSK 2)
+  你能给我做点东西吃吗？  -- harder grammar: 2-26 (HSK 2)
+
+--- dropped at step 6 (95) ---
+  你们今天下午在学校做些什么？  -- rule: no match: line matched
+  请吃点菜。  -- rule: no match: line matched
+  我想要点钱。  -- rule: no match: line matched
+  今天是几号？  -- rule: no match: line matched
+  我想喝点什么。  -- rule: no match: line matched
+  我今天要早点回家。  -- rule: no match: line matched
+  我明天晚上来。  -- rule: no match: line matched
+  两年前，我去了中国。  -- rule: no match: line matched
+  十二月有三十一天。  -- rule: no match: line matched
+  他们明天晚上都会去北京大学上课。  -- rule: no match: line matched
+  我去买点东西。  -- rule: no match: line matched
+  明年你会是几岁？  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  你要喝点什么吗?  -- rule: no match: line matched
+  我是上个月来的北京。  -- rule: no match: line matched
+  他想在中国工作两年。  -- rule: no match: line matched
+  我想吃点好吃的。  -- rule: no match: line matched
+  不知道怎么回事，她昨天晚上没回家。  -- rule: no match: line matched
+  你一个月读几本书？  -- rule: no match: line matched
+  下个月他会很忙。  -- rule: no match: line matched
+  今天是五号。  -- rule: no match: line matched
+  写点什么。  -- rule: no match: line matched
+  今年是二零一一年。  -- rule: no match: line matched
+  今天几号？  -- rule: no match: line matched
+  明天下午你在家吗？  -- rule: no match: line matched
+  你想吃点午饭吗？  -- rule: no match: line matched
+  一点也不好玩。  -- rule: no match: line matched
+  我会给点你好东西。  -- rule: no match: line matched
+  汤姆在这里工作了几年？  -- rule: no match: line matched
+  我想睡点觉。  -- rule: no match: line matched
+  他十年前去了那里。  -- rule: no match: line matched
+  那天晚上你在哪里？  -- rule: no match: line matched
+  是晚上了。  -- rule: no match: line matched
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  下个月我在英国。  -- rule: no match: line matched
+  你中午十二点吃午饭吗？  -- rule: no match: line matched
+  她二十五号去。  -- rule: no match: line matched
+  我想明天下午见他。  -- rule: no match: line matched
+  我在晚上看电视。  -- rule: no match: line matched
+  今天下午下雨。  -- rule: no match: line matched
+  今天上午下雨。  -- rule: no match: line matched
+  明天下午不下雪。  -- rule: no match: line matched
+  到了做点事的时候了。  -- rule: no match: line matched
+  那是一个月前了。  -- rule: no match: line matched
+  今天晚上吃什么？  -- rule: no match: line matched
+  明年这个时候我在做什么？  -- rule: no match: line matched
+  你今天晚上有没有要上班?  -- rule: no match: line matched
+  我穿三十七号。  -- rule: no match: line matched
+  我上个月在波士顿。  -- rule: no match: line matched
+  可以便宜点吗？  -- rule: no match: line matched
+  我今年没做多少事。  -- rule: no match: line matched
+  今天上午你们不在医院。  -- rule: no match: line matched
+  明天下午你在家吗?  -- rule: no match: line matched
+  明天下午他在医院。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你上午有时间吗?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  上午你有时间吗?  -- rule: no match: line matched
+  昨天上午我在学校。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  昨天晚上我们不在家。  -- rule: no match: line matched
+  胡安今年三十五岁。  -- rule: no match: line matched
+  今天三号。  -- rule: no match: line matched
+  明天四月五号。  -- rule: no match: line matched
+  他十二点吃饭。  -- rule: no match: line matched
+  晚上好！  -- rule: no match: line matched
+  能来点茶吗？  -- rule: no match: line matched
+  您想吃点什么吗？  -- rule: no match: line matched
+  他四月十八日来了。  -- rule: no match: line matched
+  你要买点东西吗？  -- rule: no match: line matched
+  喝点儿什么。  -- rule: unless 点/CD 儿/CD
+  我可以吃点什么吗？  -- rule: no match: line matched
+  你今天下午会在家吗？  -- rule: no match: line matched
+  你穿点东西。  -- rule: no match: line matched
+  我昨天晚上买的书到了。  -- rule: no match: line matched
+  我一点英文都不会说。  -- rule: no match: line matched
+  你去年住在哪儿？  -- rule: no match: line matched
+  我还有点事。  -- rule: no match: line matched
+  我上星期在这里玩。  -- rule: no match: line matched
+  多穿点衣服，今天真的很冷。  -- rule: no match: line matched
+  我可以多来点牛奶吗？  -- rule: no match: line matched
+  你这些年在做什么？  -- rule: no match: line matched
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  你明年去中国吗？  -- rule: no match: line matched
+  你明天上午吃什么？  -- rule: no match: line matched
+  我明年十七岁。  -- rule: no match: line matched
+  四月到了。  -- rule: no match: line matched
+  要不要来点牛奶？  -- rule: no match: line matched
+  他下个月要去那里。  -- rule: no match: line matched
+  今年六月下雨天不多。  -- rule: no match: line matched
+  我今天能早点下班吗？  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  请在下个星期日休息。  -- hidden word a learner can't work out: 在下 (under; myself (humble))
+  是的，下个星期二。  -- hidden word a learner can't work out: 是的 (yes, that's right; variant of 似的[shi4 de5])
+  明天星期一，我去学校。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  两点了。  -- check said no (2/2): 两点了 means 'two points', not time
+  星期三在吗？  -- check said no (1/2): Missing verb; unnatural construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-44_level1_20261114_163014.csv

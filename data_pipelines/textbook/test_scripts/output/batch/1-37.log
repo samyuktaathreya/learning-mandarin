@@ -269,3 +269,1425 @@ Harder grammar points made only of HSK 1 words (the review is warned about them)
   你有问题吗？  -- no accurate English among: Are you having problems?
 
 Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-37_level1_20261109_220534.csv
+
+########## tatoeba  2026-11-10 21:35 ##########
+Filling 1-37 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-55, 2-58, 2-59, 2-67, 2-69, 2-74, 2-75, 2-76, 2-77, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  多事 = 多 + 事  (meddlesome)
+
+Course sentences at HSK 1 the rule already finds 1-37 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-37 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1160  4. at most 2 characters outside HSK 1 words
+      194  5. really HSK 1
+      173  5b. no harder grammar point (of the 69 with a rule)
+      119  6. the rule finds 1-37
+      114  6b. no hidden word a learner can't work out
+       17  7. both checks say 1-37, English chosen
+       17  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (94 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (17) ===
+  没有水。  (There is no water.)  [tatoeba 1444292]
+  我有钱。  (I have money.)  [tatoeba 3378145]
+  有很多水。  (There's plenty of water.)  [tatoeba 3365840]
+  我没有狗。  (I don't have a dog.)  [tatoeba 7772409]
+  这里有人。  (Somebody's in here.)  [tatoeba 10026346]
+  他有苹果。  (He has apples.)  [tatoeba 13166868]
+  他有很多钱。  (He has a lot of money.)  [tatoeba 480581]
+  你有多少钱？  (How much money do you have?)  [tatoeba 771082]
+  你有弟弟吗？  (Do you have younger brothers?)  [tatoeba 1441728]
+  我有一个家。  (I have a home.)  [tatoeba 1786136]  hidden: 一个
+  你有孩子吗？  (Do you have children?)  [tatoeba 1960023]
+  我有一些钱。  (I have some money.)  [tatoeba 1962158]
+  他有很多书。  (He has books galore.)  [tatoeba 2032311]
+  他没有朋友。  (He doesn't have any friends.)  [tatoeba 2241812]
+  你有妹妹吗？  (Have you got a little sister?)  [tatoeba 3378193]
+  我没有电脑。  (I don't have a computer.)  [tatoeba 4104421]
+  您有几只猫？  (How many cats do you have?)  [tatoeba 4264866]
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as tatoeba 6057701 (translations pooled)
+  你有学生证吗？  -- same text as tatoeba 6284495 (translations pooled)
+  你有朋友吗？  -- same text as tatoeba 9959099 (translations pooled)
+
+--- dropped at step 4 (1770), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 5 characters no HSK 1 word uses: 唤被醒闹鸟
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  我没有任何借口。  -- 3 characters no HSK 1 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 1 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 1 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 4 characters no HSK 1 word uses: 地方无草
+  要是你有空的话，我们就去购物吧。  -- 4 characters no HSK 1 word uses: 就物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 1 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 1 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 4 characters no HSK 1 word uses: 串烤种肉
+  若有大地震，房屋会倒塌呀！  -- 7 characters no HSK 1 word uses: 倒呀地塌屋若震
+
+--- dropped at step 5 (966), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  你有多高？  -- level 2: 高 L2
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 跟 L2, 事件 L5, 关系 L3
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  有时我去，有时不去。  -- level 2: 有时 L2
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  有的人是好的，有的人是坏的。  -- level 2: 坏 L2
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list), 鸟 L2
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+
+--- dropped at step 5b (21), first 12 ---
+  阿什兰也有水。  -- harder grammar: 3-60 (HSK 3)
+  您有什么事想对我说吗？  -- harder grammar: 2-25 (HSK 2)
+  他有一个鸡蛋，他在吃鸡蛋。  -- harder grammar: 1-11 (HSK 2)
+  有人在吃东西。  -- harder grammar: 1-11 (HSK 2)
+  她一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  您没有看见那个人吗？  -- harder grammar: 3-46 (HSK 3)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  他一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  没有人会看到我们。  -- harder grammar: 3-46 (HSK 3)
+  有人给我打电话吗？  -- harder grammar: 2-26 (HSK 2), 2-28 (HSK 3)
+  对不起，我没有听到你说话。  -- harder grammar: 3-46 (HSK 3)
+  我们没有做好。  -- harder grammar: 2-49 (HSK 2)
+
+--- dropped at step 6 (54) ---
+  桌子上有本书。  -- rule: no match: line matched
+  还有什么？  -- rule: no match: line matched
+  有什么喝的吗？  -- rule: no match: line matched
+  你们有什么菜？  -- rule: no match: line matched
+  知道了没有？  -- rule: no match: line matched
+  我有些东西要给你。  -- rule: no match: line matched
+  有什么问题吗？  -- rule: no match: line matched
+  昨天你没有去学校。  -- rule: no match: line matched
+  我什么事都没有做。  -- rule: no match: line matched
+  什么问题都没有！  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  那有什么不好？  -- rule: no match: line matched
+  我没有休息的时间。  -- rule: no match: line matched
+  Tom和Mary有个女儿和儿子。  -- rule: no match: line matched
+  Tom有个十三岁的女儿。  -- rule: no match: line matched
+  我还有个姐姐。  -- rule: no match: line matched
+  他们的苹果没有我们的好吃。  -- rule: no match: line matched
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  有什么想吃的吗？  -- rule: no match: line matched
+  Tom有说什么吗？  -- rule: no match: line matched
+  他们的苹果没有我们的好。  -- rule: no match: line matched
+  我有个好东西给你。  -- rule: no match: line matched
+  我有些事。  -- rule: no match: line matched
+  我有些钱。  -- rule: no match: line matched
+  有你不能做的事吗？  -- rule: no match: line matched
+  我们没有太多时间。  -- rule: no match: line matched
+  你的电脑有什么问题？  -- rule: no match: line matched
+  你有多爱我？  -- rule: no match: line matched
+  你们有什么不吃的吗？  -- rule: no match: line matched
+  我没有不喜欢的。  -- rule: no match: line matched
+  还有谁知道它？  -- rule: no match: line matched
+  我知道有些事不对。  -- rule: no match: line matched
+  我还有个问题。  -- rule: no match: line matched
+  你今天晚上有没有要上班?  -- rule: no match: line matched
+  有大的吗？  -- rule: no match: line matched
+  有小的吗？  -- rule: no match: line matched
+  有什么事我可以做吗？  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: unless 有 一 点
+  有些人不知道那件事。  -- rule: no match: line matched
+  这还有什么能做的？  -- rule: no match: line matched
+  你还有什么想说的？  -- rule: no match: line matched
+  桌子上有什么？  -- rule: no match: line matched
+  我还有点事。  -- rule: unless 有 点
+  你觉得明天会有个好天气吗？  -- rule: no match: line matched
+  这里有点冷。  -- rule: unless 有 点
+  我没有吃饭的时间。  -- rule: no match: line matched
+  没有，我不喜欢猫。  -- rule: no match: line matched
+  没有人高兴。  -- rule: unless 有|没有|没 /PN|NN|NR /NN? /VA
+  他们有。  -- rule: no match: line matched
+  有！  -- rule: no match: line matched
+  现在有什么电影？  -- rule: no match: line matched
+  米莉没有吃苹果。  -- rule: no match: line matched
+  还有什么好说的？  -- rule: no match: line matched
+
+--- dropped at step 6b (5) ---
+  对了，我明天有事。  -- hidden word a learner can't work out: 对了 (Correct!)
+  有这回事吗？  -- hidden word a learner can't work out: 回事 ((old) to report to one's master)
+  我们有很多事要做。  -- hidden word a learner can't work out: 多事 (meddlesome)
+  我有很多日本朋友。  -- hidden word a learner can't work out: 日本 (Japan)
+  有一个人想见你。  -- hidden word a learner can't work out: 想见 (to infer)
+
+--- dropped at step 7 (3) ---
+  有问题？  -- no accurate English among: Problem?
+  我有时间。  -- check said no (1/2): 有时间 is not grammar point 1-37 usage
+  有人来了。  -- check said no (2/2): Taiwanese 有 + verb construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-37_level1_20261110_213515.csv
+
+########## tatoeba  2026-11-11 14:28 ##########
+Filling 1-37 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-55, 2-58, 2-59, 2-67, 2-69, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-37 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-37 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1160  4. at most 2 characters outside HSK 1 words
+      194  5. really HSK 1
+      170  5b. no harder grammar point (of the 78 with a rule)
+      117  6. the rule finds 1-37
+      112  6b. no hidden word a learner can't work out
+       17  7. both checks say 1-37, English chosen
+       17  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (92 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (17) ===
+  没有水。  (There is no water.)  [tatoeba 1444292]
+  我有钱。  (I have money.)  [tatoeba 3378145]
+  有很多水。  (There's plenty of water.)  [tatoeba 3365840]
+  我没有狗。  (I don't have a dog.)  [tatoeba 7772409]
+  这里有人。  (Somebody's in here.)  [tatoeba 10026346]
+  他有苹果。  (He has apples.)  [tatoeba 13166868]
+  他有很多钱。  (He has a lot of money.)  [tatoeba 480581]
+  你有多少钱？  (How much money do you have?)  [tatoeba 771082]
+  你有弟弟吗？  (Do you have younger brothers?)  [tatoeba 1441728]
+  我有一个家。  (I have a home.)  [tatoeba 1786136]  hidden: 一个
+  你有孩子吗？  (Do you have children?)  [tatoeba 1960023]
+  我有一些钱。  (I have some money.)  [tatoeba 1962158]
+  他有很多书。  (He has books galore.)  [tatoeba 2032311]
+  他没有朋友。  (He doesn't have any friends.)  [tatoeba 2241812]
+  你有妹妹吗？  (Have you got a little sister?)  [tatoeba 3378193]
+  我没有电脑。  (I don't have a computer.)  [tatoeba 4104421]
+  您有几只猫？  (How many cats do you have?)  [tatoeba 4264866]
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as tatoeba 6057701 (translations pooled)
+  你有学生证吗？  -- same text as tatoeba 6284495 (translations pooled)
+  你有朋友吗？  -- same text as tatoeba 9959099 (translations pooled)
+
+--- dropped at step 4 (1770), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 5 characters no HSK 1 word uses: 唤被醒闹鸟
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  我没有任何借口。  -- 3 characters no HSK 1 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 1 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 1 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 4 characters no HSK 1 word uses: 地方无草
+  要是你有空的话，我们就去购物吧。  -- 4 characters no HSK 1 word uses: 就物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 1 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 1 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 4 characters no HSK 1 word uses: 串烤种肉
+  若有大地震，房屋会倒塌呀！  -- 7 characters no HSK 1 word uses: 倒呀地塌屋若震
+
+--- dropped at step 5 (966), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  你有多高？  -- level 2: 高 L2
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 跟 L2, 事件 L5, 关系 L3
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  有时我去，有时不去。  -- level 2: 有时 L2
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  有的人是好的，有的人是坏的。  -- level 2: 坏 L2
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list), 鸟 L2
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+
+--- dropped at step 5b (24), first 12 ---
+  阿什兰也有水。  -- harder grammar: 3-60 (HSK 3)
+  家里有没有人？  -- harder grammar: 2-78 (HSK 2)
+  您有什么事想对我说吗？  -- harder grammar: 2-25 (HSK 2)
+  他有一个鸡蛋，他在吃鸡蛋。  -- harder grammar: 1-11 (HSK 2)
+  有人在吃东西。  -- harder grammar: 1-11 (HSK 2)
+  她一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  您没有看见那个人吗？  -- harder grammar: 3-46 (HSK 3)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  他一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  没有人会看到我们。  -- harder grammar: 3-46 (HSK 3)
+  我不知道有没有时间。  -- harder grammar: 2-78 (HSK 2)
+  有人给我打电话吗？  -- harder grammar: 2-26 (HSK 2), 2-28 (HSK 3)
+
+--- dropped at step 6 (53) ---
+  桌子上有本书。  -- rule: no match: line matched
+  还有什么？  -- rule: no match: line matched
+  有什么喝的吗？  -- rule: no match: line matched
+  你们有什么菜？  -- rule: no match: line matched
+  知道了没有？  -- rule: no match: line matched
+  我有些东西要给你。  -- rule: no match: line matched
+  有什么问题吗？  -- rule: no match: line matched
+  昨天你没有去学校。  -- rule: no match: line matched
+  我什么事都没有做。  -- rule: no match: line matched
+  什么问题都没有！  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  那有什么不好？  -- rule: no match: line matched
+  我没有休息的时间。  -- rule: no match: line matched
+  Tom和Mary有个女儿和儿子。  -- rule: no match: line matched
+  Tom有个十三岁的女儿。  -- rule: no match: line matched
+  我还有个姐姐。  -- rule: no match: line matched
+  他们的苹果没有我们的好吃。  -- rule: no match: line matched
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  有什么想吃的吗？  -- rule: no match: line matched
+  Tom有说什么吗？  -- rule: no match: line matched
+  他们的苹果没有我们的好。  -- rule: no match: line matched
+  我有个好东西给你。  -- rule: no match: line matched
+  我有些事。  -- rule: no match: line matched
+  我有些钱。  -- rule: no match: line matched
+  有你不能做的事吗？  -- rule: no match: line matched
+  我们没有太多时间。  -- rule: no match: line matched
+  你的电脑有什么问题？  -- rule: no match: line matched
+  你有多爱我？  -- rule: no match: line matched
+  你们有什么不吃的吗？  -- rule: no match: line matched
+  我没有不喜欢的。  -- rule: no match: line matched
+  还有谁知道它？  -- rule: no match: line matched
+  我知道有些事不对。  -- rule: no match: line matched
+  我还有个问题。  -- rule: no match: line matched
+  有大的吗？  -- rule: no match: line matched
+  有小的吗？  -- rule: no match: line matched
+  有什么事我可以做吗？  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: unless 有 一 点
+  有些人不知道那件事。  -- rule: no match: line matched
+  这还有什么能做的？  -- rule: no match: line matched
+  你还有什么想说的？  -- rule: no match: line matched
+  桌子上有什么？  -- rule: no match: line matched
+  我还有点事。  -- rule: unless 有 点
+  你觉得明天会有个好天气吗？  -- rule: no match: line matched
+  这里有点冷。  -- rule: unless 有 点
+  我没有吃饭的时间。  -- rule: no match: line matched
+  没有，我不喜欢猫。  -- rule: no match: line matched
+  没有人高兴。  -- rule: unless 有|没有|没 /PN|NN|NR /NN? /VA
+  他们有。  -- rule: no match: line matched
+  有！  -- rule: no match: line matched
+  现在有什么电影？  -- rule: no match: line matched
+  米莉没有吃苹果。  -- rule: no match: line matched
+  还有什么好说的？  -- rule: no match: line matched
+
+--- dropped at step 6b (5) ---
+  对了，我明天有事。  -- hidden word a learner can't work out: 对了 (Correct!)
+  有这回事吗？  -- hidden word a learner can't work out: 回事 ((old) to report to one's master)
+  我们有很多事要做。  -- hidden word a learner can't work out: 多事 (meddlesome)
+  我有很多日本朋友。  -- hidden word a learner can't work out: 日本 (Japan)
+  有一个人想见你。  -- hidden word a learner can't work out: 想见 (to infer)
+
+--- dropped at step 7 (3) ---
+  有问题？  -- no accurate English among: Problem?
+  我有时间。  -- check said no (1/2): 有时间 is not grammar point 1-37 usage
+  有人来了。  -- check said no (2/2): Taiwanese 有 + verb construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-37_level1_20261111_142824.csv
+
+########## rules  2026-11-12 17:20 ##########
+Tagging 19 labeled example(s) (cached after this run)...
+  ...100/159
+  Checking 2 sentence(s) for 1-37 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-37: rule on labeled examples (no AI) ===
+  examples of 1-37 matched:    37/37
+  counter-examples wrongly matched: 0/121   <- should be 0
+  easy examples (words all HSK 1 or below) matched: 27/27   <- needs 60%
+
+########## tatoeba  2026-11-12 17:38 ##########
+Filling 1-37 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-14, 2-15, 2-16, 2-19, 2-21, 2-22, 2-23, 2-24, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 5 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_173820.txt
+  ...100/1160
+  ...200/1160
+  ...300/1160
+  ...400/1160
+  ...500/1160
+  ...600/1160
+  ...700/1160
+  ...800/1160
+  ...900/1160
+  ...1000/1160
+  ...1100/1160
+
+Course sentences at HSK 1 the rule already finds 1-37 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-37 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1160  4. at most 2 characters outside HSK 1 words
+      190  5. really HSK 1
+      169  5b. no harder grammar point (of the 82 with a rule)
+      117  6. the rule finds 1-37
+      112  6b. no hidden word a learner can't work out
+       17  7. both checks say 1-37, English chosen
+       17  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (92 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (17) ===
+  没有水。  (There is no water.)  [tatoeba 1444292]
+  我有钱。  (I have money.)  [tatoeba 3378145]
+  有很多水。  (There's plenty of water.)  [tatoeba 3365840]
+  我没有狗。  (I don't have a dog.)  [tatoeba 7772409]
+  这里有人。  (Somebody's in here.)  [tatoeba 10026346]
+  他有苹果。  (He has apples.)  [tatoeba 13166868]
+  他有很多钱。  (He has a lot of money.)  [tatoeba 480581]
+  你有多少钱？  (How much money do you have?)  [tatoeba 771082]
+  你有弟弟吗？  (Do you have younger brothers?)  [tatoeba 1441728]
+  我有一个家。  (I have a home.)  [tatoeba 1786136]  hidden: 一个
+  你有孩子吗？  (Do you have children?)  [tatoeba 1960023]
+  我有一些钱。  (I have some money.)  [tatoeba 1962158]
+  他有很多书。  (He has books galore.)  [tatoeba 2032311]
+  他没有朋友。  (He doesn't have any friends.)  [tatoeba 2241812]
+  你有妹妹吗？  (Have you got a little sister?)  [tatoeba 3378193]
+  我没有电脑。  (I don't have a computer.)  [tatoeba 4104421]
+  您有几只猫？  (How many cats do you have?)  [tatoeba 4264866]
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as tatoeba 6057701 (translations pooled)
+  你有学生证吗？  -- same text as tatoeba 6284495 (translations pooled)
+  你有朋友吗？  -- same text as tatoeba 9959099 (translations pooled)
+
+--- dropped at step 4 (1770), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 5 characters no HSK 1 word uses: 唤被醒闹鸟
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  我没有任何借口。  -- 3 characters no HSK 1 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 1 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 1 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 4 characters no HSK 1 word uses: 地方无草
+  要是你有空的话，我们就去购物吧。  -- 4 characters no HSK 1 word uses: 就物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 1 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 1 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 4 characters no HSK 1 word uses: 串烤种肉
+  若有大地震，房屋会倒塌呀！  -- 7 characters no HSK 1 word uses: 倒呀地塌屋若震
+
+--- dropped at step 5 (970), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  你有多高？  -- level 2: 高 L2
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 跟 L2, 事件 L5, 关系 L3
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  有时我去，有时不去。  -- level 2: 有时 L2
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  有的人是好的，有的人是坏的。  -- level 2: 坏 L2
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list), 鸟 L2
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+
+--- dropped at step 5b (21), first 12 ---
+  阿什兰也有水。  -- harder grammar: 3-60 (HSK 3)
+  家里有没有人？  -- harder grammar: 2-78 (HSK 2)
+  他有一个鸡蛋，他在吃鸡蛋。  -- harder grammar: 1-11 (HSK 2)
+  有人在吃东西。  -- harder grammar: 1-11 (HSK 2)
+  她一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  您没有看见那个人吗？  -- harder grammar: 3-46 (HSK 3)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  他一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  没有人会看到我们。  -- harder grammar: 3-46 (HSK 3)
+  我不知道有没有时间。  -- harder grammar: 2-78 (HSK 2)
+  有人给我打电话吗？  -- harder grammar: 2-26 (HSK 2), 2-28 (HSK 3)
+  对不起，我没有听到你说话。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (52) ---
+  桌子上有本书。  -- rule: no match: line matched
+  还有什么？  -- rule: no match: line matched
+  您有什么事想对我说吗？  -- rule: no match: line matched
+  有什么喝的吗？  -- rule: no match: line matched
+  你们有什么菜？  -- rule: no match: line matched
+  知道了没有？  -- rule: no match: line matched
+  我有些东西要给你。  -- rule: no match: line matched
+  有什么问题吗？  -- rule: no match: line matched
+  昨天你没有去学校。  -- rule: no match: line matched
+  我什么事都没有做。  -- rule: no match: line matched
+  什么问题都没有！  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  那有什么不好？  -- rule: no match: line matched
+  我没有休息的时间。  -- rule: no match: line matched
+  Tom和Mary有个女儿和儿子。  -- rule: no match: line matched
+  Tom有个十三岁的女儿。  -- rule: no match: line matched
+  我还有个姐姐。  -- rule: no match: line matched
+  他们的苹果没有我们的好吃。  -- rule: no match: line matched
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  有什么想吃的吗？  -- rule: no match: line matched
+  Tom有说什么吗？  -- rule: no match: line matched
+  他们的苹果没有我们的好。  -- rule: no match: line matched
+  我有个好东西给你。  -- rule: no match: line matched
+  我有些事。  -- rule: no match: line matched
+  我有些钱。  -- rule: no match: line matched
+  有你不能做的事吗？  -- rule: no match: line matched
+  我们没有太多时间。  -- rule: no match: line matched
+  你的电脑有什么问题？  -- rule: no match: line matched
+  你有多爱我？  -- rule: no match: line matched
+  你们有什么不吃的吗？  -- rule: no match: line matched
+  我没有不喜欢的。  -- rule: no match: line matched
+  我知道有些事不对。  -- rule: no match: line matched
+  我还有个问题。  -- rule: no match: line matched
+  有大的吗？  -- rule: no match: line matched
+  有小的吗？  -- rule: no match: line matched
+  有什么事我可以做吗？  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: unless 有 一点儿
+  有些人不知道那件事。  -- rule: no match: line matched
+  这还有什么能做的？  -- rule: no match: line matched
+  你还有什么想说的？  -- rule: no match: line matched
+  桌子上有什么？  -- rule: no match: line matched
+  我还有点事。  -- rule: unless 有点 ; 有点儿
+  你觉得明天会有个好天气吗？  -- rule: no match: line matched
+  我没有吃饭的时间。  -- rule: no match: line matched
+  没有，我不喜欢猫。  -- rule: no match: line matched
+  没有人高兴。  -- rule: unless 有|没有|没 /PN|NN|NR /NN? /VA
+  他们有。  -- rule: no match: line matched
+  有！  -- rule: no match: line matched
+  现在有什么电影？  -- rule: no match: line matched
+  米莉没有吃苹果。  -- rule: no match: line matched
+  还有什么好说的？  -- rule: no match: line matched
+
+--- dropped at step 6b (5) ---
+  对了，我明天有事。  -- hidden word a learner can't work out: 对了 (Correct!)
+  有这回事吗？  -- hidden word a learner can't work out: 回事 ((old) to report to one's master)
+  我们有很多事要做。  -- hidden word a learner can't work out: 多事 (meddlesome)
+  我有很多日本朋友。  -- hidden word a learner can't work out: 日本 (Japan)
+  有一个人想见你。  -- hidden word a learner can't work out: 想见 (to infer)
+
+--- dropped at step 7 (3) ---
+  有问题？  -- no accurate English among: Problem?
+  我有时间。  -- check said no (1/2): 有时间 is not grammar point 1-37 usage
+  有人来了。  -- check said no (2/2): Taiwanese 有 + verb construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-37_level1_20261112_173826.csv
+
+########## tatoeba  2026-11-12 21:14 ##########
+Filling 1-37 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-37 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-37 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1160  4. at most 2 characters outside HSK 1 words
+      190  5. really HSK 1
+      168  5b. no harder grammar point (of the 86 with a rule)
+      117  6. the rule finds 1-37
+      112  6b. no hidden word a learner can't work out
+       17  7. both checks say 1-37, English chosen
+       17  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (92 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (17) ===
+  没有水。  (There is no water.)  [tatoeba 1444292]
+  我有钱。  (I have money.)  [tatoeba 3378145]
+  有很多水。  (There's plenty of water.)  [tatoeba 3365840]
+  我没有狗。  (I don't have a dog.)  [tatoeba 7772409]
+  这里有人。  (Somebody's in here.)  [tatoeba 10026346]
+  他有苹果。  (He has apples.)  [tatoeba 13166868]
+  他有很多钱。  (He has a lot of money.)  [tatoeba 480581]
+  你有多少钱？  (How much money do you have?)  [tatoeba 771082]
+  你有弟弟吗？  (Do you have younger brothers?)  [tatoeba 1441728]
+  我有一个家。  (I have a home.)  [tatoeba 1786136]  hidden: 一个
+  你有孩子吗？  (Do you have children?)  [tatoeba 1960023]
+  我有一些钱。  (I have some money.)  [tatoeba 1962158]
+  他有很多书。  (He has books galore.)  [tatoeba 2032311]
+  他没有朋友。  (He doesn't have any friends.)  [tatoeba 2241812]
+  你有妹妹吗？  (Have you got a little sister?)  [tatoeba 3378193]
+  我没有电脑。  (I don't have a computer.)  [tatoeba 4104421]
+  您有几只猫？  (How many cats do you have?)  [tatoeba 4264866]
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as tatoeba 6057701 (translations pooled)
+  你有学生证吗？  -- same text as tatoeba 6284495 (translations pooled)
+  你有朋友吗？  -- same text as tatoeba 9959099 (translations pooled)
+
+--- dropped at step 4 (1770), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 5 characters no HSK 1 word uses: 唤被醒闹鸟
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  我没有任何借口。  -- 3 characters no HSK 1 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 1 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 1 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 4 characters no HSK 1 word uses: 地方无草
+  要是你有空的话，我们就去购物吧。  -- 4 characters no HSK 1 word uses: 就物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 1 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 1 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 4 characters no HSK 1 word uses: 串烤种肉
+  若有大地震，房屋会倒塌呀！  -- 7 characters no HSK 1 word uses: 倒呀地塌屋若震
+
+--- dropped at step 5 (970), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  你有多高？  -- level 2: 高 L2
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 跟 L2, 事件 L5, 关系 L3
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  有时我去，有时不去。  -- level 2: 有时 L2
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  有的人是好的，有的人是坏的。  -- level 2: 坏 L2
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list), 鸟 L2
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+
+--- dropped at step 5b (22), first 12 ---
+  阿什兰也有水。  -- harder grammar: 3-60 (HSK 3)
+  家里有没有人？  -- harder grammar: 2-78 (HSK 2)
+  您有什么事想对我说吗？  -- harder grammar: 2-25 (HSK 2)
+  他有一个鸡蛋，他在吃鸡蛋。  -- harder grammar: 1-11 (HSK 2)
+  有人在吃东西。  -- harder grammar: 1-11 (HSK 2)
+  她一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  您没有看见那个人吗？  -- harder grammar: 3-46 (HSK 3)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  他一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  没有人会看到我们。  -- harder grammar: 3-46 (HSK 3)
+  我不知道有没有时间。  -- harder grammar: 2-78 (HSK 2)
+  有人给我打电话吗？  -- harder grammar: 2-26 (HSK 2), 2-28 (HSK 3)
+
+--- dropped at step 6 (51) ---
+  桌子上有本书。  -- rule: no match: line matched
+  还有什么？  -- rule: no match: line matched
+  有什么喝的吗？  -- rule: no match: line matched
+  你们有什么菜？  -- rule: no match: line matched
+  知道了没有？  -- rule: no match: line matched
+  我有些东西要给你。  -- rule: no match: line matched
+  有什么问题吗？  -- rule: no match: line matched
+  昨天你没有去学校。  -- rule: no match: line matched
+  我什么事都没有做。  -- rule: no match: line matched
+  什么问题都没有！  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  那有什么不好？  -- rule: no match: line matched
+  我没有休息的时间。  -- rule: no match: line matched
+  Tom和Mary有个女儿和儿子。  -- rule: no match: line matched
+  Tom有个十三岁的女儿。  -- rule: no match: line matched
+  我还有个姐姐。  -- rule: no match: line matched
+  他们的苹果没有我们的好吃。  -- rule: no match: line matched
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  有什么想吃的吗？  -- rule: no match: line matched
+  Tom有说什么吗？  -- rule: no match: line matched
+  他们的苹果没有我们的好。  -- rule: no match: line matched
+  我有个好东西给你。  -- rule: no match: line matched
+  我有些事。  -- rule: no match: line matched
+  我有些钱。  -- rule: no match: line matched
+  有你不能做的事吗？  -- rule: no match: line matched
+  我们没有太多时间。  -- rule: no match: line matched
+  你的电脑有什么问题？  -- rule: no match: line matched
+  你有多爱我？  -- rule: no match: line matched
+  你们有什么不吃的吗？  -- rule: no match: line matched
+  我没有不喜欢的。  -- rule: no match: line matched
+  我知道有些事不对。  -- rule: no match: line matched
+  我还有个问题。  -- rule: no match: line matched
+  有大的吗？  -- rule: no match: line matched
+  有小的吗？  -- rule: no match: line matched
+  有什么事我可以做吗？  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: unless 有 一点儿
+  有些人不知道那件事。  -- rule: no match: line matched
+  这还有什么能做的？  -- rule: no match: line matched
+  你还有什么想说的？  -- rule: no match: line matched
+  桌子上有什么？  -- rule: no match: line matched
+  我还有点事。  -- rule: unless 有点 ; 有点儿
+  你觉得明天会有个好天气吗？  -- rule: no match: line matched
+  我没有吃饭的时间。  -- rule: no match: line matched
+  没有，我不喜欢猫。  -- rule: no match: line matched
+  没有人高兴。  -- rule: unless 有|没有|没 /PN|NN|NR /NN? /VA
+  他们有。  -- rule: no match: line matched
+  有！  -- rule: no match: line matched
+  现在有什么电影？  -- rule: no match: line matched
+  米莉没有吃苹果。  -- rule: no match: line matched
+  还有什么好说的？  -- rule: no match: line matched
+
+--- dropped at step 6b (5) ---
+  对了，我明天有事。  -- hidden word a learner can't work out: 对了 (Correct!)
+  有这回事吗？  -- hidden word a learner can't work out: 回事 ((old) to report to one's master)
+  我们有很多事要做。  -- hidden word a learner can't work out: 多事 (meddlesome)
+  我有很多日本朋友。  -- hidden word a learner can't work out: 日本 (Japan)
+  有一个人想见你。  -- hidden word a learner can't work out: 想见 (to infer)
+
+--- dropped at step 7 (3) ---
+  有问题？  -- no accurate English among: Problem?
+  我有时间。  -- check said no (1/2): 有时间 is not grammar point 1-37 usage
+  有人来了。  -- check said no (2/2): Taiwanese 有 + verb construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-37_level1_20261112_211432.csv
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 1-37 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-37 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-37 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1160  4. at most 2 characters outside HSK 1 words
+      190  5. really HSK 1
+      168  5b. no harder grammar point (of the 86 with a rule)
+      117  6. the rule finds 1-37
+      112  6b. no hidden word a learner can't work out
+       17  7. both checks say 1-37, English chosen
+       17  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (92 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (17) ===
+  没有水。  (There is no water.)  [tatoeba 1444292]
+  我有钱。  (I have money.)  [tatoeba 3378145]
+  有很多水。  (There's plenty of water.)  [tatoeba 3365840]
+  我没有狗。  (I don't have a dog.)  [tatoeba 7772409]
+  这里有人。  (Somebody's in here.)  [tatoeba 10026346]
+  他有苹果。  (He has apples.)  [tatoeba 13166868]
+  他有很多钱。  (He has a lot of money.)  [tatoeba 480581]
+  你有多少钱？  (How much money do you have?)  [tatoeba 771082]
+  你有弟弟吗？  (Do you have younger brothers?)  [tatoeba 1441728]
+  我有一个家。  (I have a home.)  [tatoeba 1786136]  hidden: 一个
+  你有孩子吗？  (Do you have children?)  [tatoeba 1960023]
+  我有一些钱。  (I have some money.)  [tatoeba 1962158]
+  他有很多书。  (He has books galore.)  [tatoeba 2032311]
+  他没有朋友。  (He doesn't have any friends.)  [tatoeba 2241812]
+  你有妹妹吗？  (Have you got a little sister?)  [tatoeba 3378193]
+  我没有电脑。  (I don't have a computer.)  [tatoeba 4104421]
+  您有几只猫？  (How many cats do you have?)  [tatoeba 4264866]
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as tatoeba 6057701 (translations pooled)
+  你有学生证吗？  -- same text as tatoeba 6284495 (translations pooled)
+  你有朋友吗？  -- same text as tatoeba 9959099 (translations pooled)
+
+--- dropped at step 4 (1770), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 5 characters no HSK 1 word uses: 唤被醒闹鸟
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  我没有任何借口。  -- 3 characters no HSK 1 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 1 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 1 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 4 characters no HSK 1 word uses: 地方无草
+  要是你有空的话，我们就去购物吧。  -- 4 characters no HSK 1 word uses: 就物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 1 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 1 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 4 characters no HSK 1 word uses: 串烤种肉
+  若有大地震，房屋会倒塌呀！  -- 7 characters no HSK 1 word uses: 倒呀地塌屋若震
+
+--- dropped at step 5 (970), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  你有多高？  -- level 2: 高 L2
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 跟 L2, 事件 L5, 关系 L3
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  有时我去，有时不去。  -- level 2: 有时 L2
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  有的人是好的，有的人是坏的。  -- level 2: 坏 L2
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list), 鸟 L2
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+
+--- dropped at step 5b (22), first 12 ---
+  阿什兰也有水。  -- harder grammar: 3-60 (HSK 3)
+  家里有没有人？  -- harder grammar: 2-78 (HSK 2)
+  您有什么事想对我说吗？  -- harder grammar: 2-25 (HSK 2)
+  他有一个鸡蛋，他在吃鸡蛋。  -- harder grammar: 1-11 (HSK 2)
+  有人在吃东西。  -- harder grammar: 1-11 (HSK 2)
+  她一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  您没有看见那个人吗？  -- harder grammar: 3-46 (HSK 3)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  他一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  没有人会看到我们。  -- harder grammar: 3-46 (HSK 3)
+  我不知道有没有时间。  -- harder grammar: 2-78 (HSK 2)
+  有人给我打电话吗？  -- harder grammar: 2-26 (HSK 2), 2-28 (HSK 3)
+
+--- dropped at step 6 (51) ---
+  桌子上有本书。  -- rule: no match: line matched
+  还有什么？  -- rule: no match: line matched
+  有什么喝的吗？  -- rule: no match: line matched
+  你们有什么菜？  -- rule: no match: line matched
+  知道了没有？  -- rule: no match: line matched
+  我有些东西要给你。  -- rule: no match: line matched
+  有什么问题吗？  -- rule: no match: line matched
+  昨天你没有去学校。  -- rule: no match: line matched
+  我什么事都没有做。  -- rule: no match: line matched
+  什么问题都没有！  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  那有什么不好？  -- rule: no match: line matched
+  我没有休息的时间。  -- rule: no match: line matched
+  Tom和Mary有个女儿和儿子。  -- rule: no match: line matched
+  Tom有个十三岁的女儿。  -- rule: no match: line matched
+  我还有个姐姐。  -- rule: no match: line matched
+  他们的苹果没有我们的好吃。  -- rule: no match: line matched
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  有什么想吃的吗？  -- rule: no match: line matched
+  Tom有说什么吗？  -- rule: no match: line matched
+  他们的苹果没有我们的好。  -- rule: no match: line matched
+  我有个好东西给你。  -- rule: no match: line matched
+  我有些事。  -- rule: no match: line matched
+  我有些钱。  -- rule: no match: line matched
+  有你不能做的事吗？  -- rule: no match: line matched
+  我们没有太多时间。  -- rule: no match: line matched
+  你的电脑有什么问题？  -- rule: no match: line matched
+  你有多爱我？  -- rule: no match: line matched
+  你们有什么不吃的吗？  -- rule: no match: line matched
+  我没有不喜欢的。  -- rule: no match: line matched
+  我知道有些事不对。  -- rule: no match: line matched
+  我还有个问题。  -- rule: no match: line matched
+  有大的吗？  -- rule: no match: line matched
+  有小的吗？  -- rule: no match: line matched
+  有什么事我可以做吗？  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: unless 有 一点儿
+  有些人不知道那件事。  -- rule: no match: line matched
+  这还有什么能做的？  -- rule: no match: line matched
+  你还有什么想说的？  -- rule: no match: line matched
+  桌子上有什么？  -- rule: no match: line matched
+  我还有点事。  -- rule: unless 有点 ; 有点儿
+  你觉得明天会有个好天气吗？  -- rule: no match: line matched
+  我没有吃饭的时间。  -- rule: no match: line matched
+  没有，我不喜欢猫。  -- rule: no match: line matched
+  没有人高兴。  -- rule: unless 有|没有|没 /PN|NN|NR /NN? /VA
+  他们有。  -- rule: no match: line matched
+  有！  -- rule: no match: line matched
+  现在有什么电影？  -- rule: no match: line matched
+  米莉没有吃苹果。  -- rule: no match: line matched
+  还有什么好说的？  -- rule: no match: line matched
+
+--- dropped at step 6b (5) ---
+  对了，我明天有事。  -- hidden word a learner can't work out: 对了 (Correct!)
+  有这回事吗？  -- hidden word a learner can't work out: 回事 ((old) to report to one's master)
+  我们有很多事要做。  -- hidden word a learner can't work out: 多事 (meddlesome)
+  我有很多日本朋友。  -- hidden word a learner can't work out: 日本 (Japan)
+  有一个人想见你。  -- hidden word a learner can't work out: 想见 (to infer)
+
+--- dropped at step 7 (3) ---
+  有问题？  -- no accurate English among: Problem?
+  我有时间。  -- check said no (1/2): 有时间 is not grammar point 1-37 usage
+  有人来了。  -- check said no (2/2): Taiwanese 有 + verb construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-37_level1_20261113_135406.csv
+
+########## tatoeba  2026-11-13 14:41 ##########
+Filling 1-37 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-37 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-37 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1160  4. at most 2 characters outside HSK 1 words
+      190  5. really HSK 1
+      168  5b. no harder grammar point (of the 86 with a rule)
+      117  6. the rule finds 1-37
+      112  6b. no hidden word a learner can't work out
+       17  7. both checks say 1-37, English chosen
+       17  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (92 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (17) ===
+  没有水。  (There is no water.)  [tatoeba 1444292]
+  我有钱。  (I have money.)  [tatoeba 3378145]
+  有很多水。  (There's plenty of water.)  [tatoeba 3365840]
+  我没有狗。  (I don't have a dog.)  [tatoeba 7772409]
+  这里有人。  (Somebody's in here.)  [tatoeba 10026346]
+  他有苹果。  (He has apples.)  [tatoeba 13166868]
+  他有很多钱。  (He has a lot of money.)  [tatoeba 480581]
+  你有多少钱？  (How much money do you have?)  [tatoeba 771082]
+  你有弟弟吗？  (Do you have younger brothers?)  [tatoeba 1441728]
+  我有一个家。  (I have a home.)  [tatoeba 1786136]  hidden: 一个
+  你有孩子吗？  (Do you have children?)  [tatoeba 1960023]
+  我有一些钱。  (I have some money.)  [tatoeba 1962158]
+  他有很多书。  (He has books galore.)  [tatoeba 2032311]
+  他没有朋友。  (He doesn't have any friends.)  [tatoeba 2241812]
+  你有妹妹吗？  (Have you got a little sister?)  [tatoeba 3378193]
+  我没有电脑。  (I don't have a computer.)  [tatoeba 4104421]
+  您有几只猫？  (How many cats do you have?)  [tatoeba 4264866]
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as tatoeba 6057701 (translations pooled)
+  你有学生证吗？  -- same text as tatoeba 6284495 (translations pooled)
+  你有朋友吗？  -- same text as tatoeba 9959099 (translations pooled)
+
+--- dropped at step 4 (1770), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 5 characters no HSK 1 word uses: 唤被醒闹鸟
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  我没有任何借口。  -- 3 characters no HSK 1 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 1 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 1 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 4 characters no HSK 1 word uses: 地方无草
+  要是你有空的话，我们就去购物吧。  -- 4 characters no HSK 1 word uses: 就物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 1 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 1 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 4 characters no HSK 1 word uses: 串烤种肉
+  若有大地震，房屋会倒塌呀！  -- 7 characters no HSK 1 word uses: 倒呀地塌屋若震
+
+--- dropped at step 5 (970), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  你有多高？  -- level 2: 高 L2
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 跟 L2, 事件 L5, 关系 L3
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  有时我去，有时不去。  -- level 2: 有时 L2
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  有的人是好的，有的人是坏的。  -- level 2: 坏 L2
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list), 鸟 L2
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+
+--- dropped at step 5b (22), first 12 ---
+  阿什兰也有水。  -- harder grammar: 3-60 (HSK 3)
+  家里有没有人？  -- harder grammar: 2-78 (HSK 2)
+  您有什么事想对我说吗？  -- harder grammar: 2-25 (HSK 2)
+  他有一个鸡蛋，他在吃鸡蛋。  -- harder grammar: 1-11 (HSK 2)
+  有人在吃东西。  -- harder grammar: 1-11 (HSK 2)
+  她一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  您没有看见那个人吗？  -- harder grammar: 3-46 (HSK 3)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  他一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  没有人会看到我们。  -- harder grammar: 3-46 (HSK 3)
+  我不知道有没有时间。  -- harder grammar: 2-78 (HSK 2)
+  有人给我打电话吗？  -- harder grammar: 2-26 (HSK 2), 2-28 (HSK 3)
+
+--- dropped at step 6 (51) ---
+  桌子上有本书。  -- rule: no match: line matched
+  还有什么？  -- rule: no match: line matched
+  有什么喝的吗？  -- rule: no match: line matched
+  你们有什么菜？  -- rule: no match: line matched
+  知道了没有？  -- rule: no match: line matched
+  我有些东西要给你。  -- rule: no match: line matched
+  有什么问题吗？  -- rule: no match: line matched
+  昨天你没有去学校。  -- rule: no match: line matched
+  我什么事都没有做。  -- rule: no match: line matched
+  什么问题都没有！  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  那有什么不好？  -- rule: no match: line matched
+  我没有休息的时间。  -- rule: no match: line matched
+  Tom和Mary有个女儿和儿子。  -- rule: no match: line matched
+  Tom有个十三岁的女儿。  -- rule: no match: line matched
+  我还有个姐姐。  -- rule: no match: line matched
+  他们的苹果没有我们的好吃。  -- rule: no match: line matched
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  有什么想吃的吗？  -- rule: no match: line matched
+  Tom有说什么吗？  -- rule: no match: line matched
+  他们的苹果没有我们的好。  -- rule: no match: line matched
+  我有个好东西给你。  -- rule: no match: line matched
+  我有些事。  -- rule: no match: line matched
+  我有些钱。  -- rule: no match: line matched
+  有你不能做的事吗？  -- rule: no match: line matched
+  我们没有太多时间。  -- rule: no match: line matched
+  你的电脑有什么问题？  -- rule: no match: line matched
+  你有多爱我？  -- rule: no match: line matched
+  你们有什么不吃的吗？  -- rule: no match: line matched
+  我没有不喜欢的。  -- rule: no match: line matched
+  我知道有些事不对。  -- rule: no match: line matched
+  我还有个问题。  -- rule: no match: line matched
+  有大的吗？  -- rule: no match: line matched
+  有小的吗？  -- rule: no match: line matched
+  有什么事我可以做吗？  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: unless 有 一点儿
+  有些人不知道那件事。  -- rule: no match: line matched
+  这还有什么能做的？  -- rule: no match: line matched
+  你还有什么想说的？  -- rule: no match: line matched
+  桌子上有什么？  -- rule: no match: line matched
+  我还有点事。  -- rule: unless 有点 ; 有点儿
+  你觉得明天会有个好天气吗？  -- rule: no match: line matched
+  我没有吃饭的时间。  -- rule: no match: line matched
+  没有，我不喜欢猫。  -- rule: no match: line matched
+  没有人高兴。  -- rule: unless 有|没有|没 /PN|NN|NR /NN? /VA
+  他们有。  -- rule: no match: line matched
+  有！  -- rule: no match: line matched
+  现在有什么电影？  -- rule: no match: line matched
+  米莉没有吃苹果。  -- rule: no match: line matched
+  还有什么好说的？  -- rule: no match: line matched
+
+--- dropped at step 6b (5) ---
+  对了，我明天有事。  -- hidden word a learner can't work out: 对了 (Correct!; Oh, that's right, ... (when one suddenly remembers sth one wanted to mention); Oh, by the way, ...)
+  有这回事吗？  -- hidden word a learner can't work out: 回事 ((old) to report to one's master)
+  我们有很多事要做。  -- hidden word a learner can't work out: 多事 (meddlesome; eventful)
+  我有很多日本朋友。  -- hidden word a learner can't work out: 日本 (Japan)
+  有一个人想见你。  -- hidden word a learner can't work out: 想见 (to infer; to gather)
+
+--- dropped at step 7 (3) ---
+  有问题？  -- no accurate English among: Problem?
+  我有时间。  -- check said no (1/2): 有时间 is not grammar point 1-37 usage
+  有人来了。  -- check said no (2/2): Taiwanese 有 + verb construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-37_level1_20261113_144200.csv
+
+########## tatoeba  2026-11-14 16:09 ##########
+Filling 1-37 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 3 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_160904.txt
+  ...100/1110
+  ...200/1110
+  ...300/1110
+  ...400/1110
+  ...500/1110
+  ...600/1110
+  ...700/1110
+  ...800/1110
+  ...900/1110
+  ...1000/1110
+  ...1100/1110
+
+Course sentences at HSK 1 the rule already finds 1-37 in: 43  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-37 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2875  3. new (not in DB, not a duplicate)
+     1110  4. at most 2 characters outside HSK 1 words
+      164  5. really HSK 1
+      151  5b. no harder grammar point (of the 87 with a rule)
+       99  6. the rule finds 1-37
+       94  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (94 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (62), first 12 ---
+  阿什兰也有水。  -- already in the database
+  我们只有茶水。  -- already in the database
+  他有很多钱。  -- already in the database
+  你有多少钱？  -- already in the database
+  有人在吃东西。  -- already in the database
+  因为我有点头疼，所以我早早上床睡觉。  -- already in the database
+  你有弟弟吗？  -- already in the database
+  没有水。  -- already in the database
+  因为他有钱，所以能去那儿。  -- already in the database
+  有件事情我要对你说。  -- already in the database
+  我有一个家。  -- already in the database
+  我想和你一起去，但是我没有时间。  -- already in the database
+
+--- dropped at step 4 (1765), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 5 characters no HSK 1 word uses: 唤被醒闹鸟
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  我没有任何借口。  -- 3 characters no HSK 1 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 1 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 1 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 4 characters no HSK 1 word uses: 地方无草
+  要是你有空的话，我们就去购物吧。  -- 4 characters no HSK 1 word uses: 就物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 1 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 1 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 4 characters no HSK 1 word uses: 串烤种肉
+  若有大地震，房屋会倒塌呀！  -- 7 characters no HSK 1 word uses: 倒呀地塌屋若震
+
+--- dropped at step 5 (946), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  你有多高？  -- level 2: 高 L2
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 跟 L2, 事件 L5, 关系 L3
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  有时我去，有时不去。  -- level 2: 有时 L2
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  有的人是好的，有的人是坏的。  -- level 2: 坏 L2
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list), 鸟 L2
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+
+--- dropped at step 5b (13), first 12 ---
+  您有什么事想对我说吗？  -- harder grammar: 2-25 (HSK 2)
+  她一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  他一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  没有人会看到我们。  -- harder grammar: 3-46 (HSK 3)
+  有人给我打电话吗？  -- harder grammar: 2-26 (HSK 2)
+  对不起，我没有听到你说话。  -- harder grammar: 3-46 (HSK 3)
+  我们没有做好。  -- harder grammar: 2-49 (HSK 2)
+  还有谁知道它？  -- harder grammar: 2-06 (HSK 2)
+  还有什么想要的吗？  -- harder grammar: 3-81 (HSK 3), 4-73 (HSK 4)
+  这里一个人都没有。大家都去哪了?  -- harder grammar: 3-41 (HSK 3)
+  Tom没有找到他要找到东西。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (52) ---
+  桌子上有本书。  -- rule: no match: line matched
+  还有什么？  -- rule: no match: line matched
+  有什么喝的吗？  -- rule: no match: line matched
+  你们有什么菜？  -- rule: no match: line matched
+  知道了没有？  -- rule: no match: line matched
+  我有些东西要给你。  -- rule: no match: line matched
+  您没有看见那个人吗？  -- rule: no match: line matched
+  有什么问题吗？  -- rule: no match: line matched
+  昨天你没有去学校。  -- rule: no match: line matched
+  我什么事都没有做。  -- rule: no match: line matched
+  什么问题都没有！  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  那有什么不好？  -- rule: no match: line matched
+  我没有休息的时间。  -- rule: no match: line matched
+  Tom有个十三岁的女儿。  -- rule: no match: line matched
+  我还有个姐姐。  -- rule: no match: line matched
+  他们的苹果没有我们的好吃。  -- rule: no match: line matched
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  有什么想吃的吗？  -- rule: no match: line matched
+  Tom有说什么吗？  -- rule: no match: line matched
+  他们的苹果没有我们的好。  -- rule: no match: line matched
+  我有个好东西给你。  -- rule: no match: line matched
+  我有些事。  -- rule: no match: line matched
+  我有些钱。  -- rule: no match: line matched
+  有你不能做的事吗？  -- rule: no match: line matched
+  我们没有太多时间。  -- rule: no match: line matched
+  你的电脑有什么问题？  -- rule: no match: line matched
+  你有多爱我？  -- rule: no match: line matched
+  你们有什么不吃的吗？  -- rule: no match: line matched
+  我没有不喜欢的。  -- rule: no match: line matched
+  我知道有些事不对。  -- rule: no match: line matched
+  我还有个问题。  -- rule: no match: line matched
+  你今天晚上有没有要上班?  -- rule: no match: line matched
+  有大的吗？  -- rule: no match: line matched
+  有小的吗？  -- rule: no match: line matched
+  有什么事我可以做吗？  -- rule: no match: line matched
+  有些人不知道那件事。  -- rule: no match: line matched
+  这还有什么能做的？  -- rule: no match: line matched
+  你还有什么想说的？  -- rule: no match: line matched
+  桌子上有什么？  -- rule: no match: line matched
+  我还有点事。  -- rule: unless 有点儿
+  你觉得明天会有个好天气吗？  -- rule: no match: line matched
+  我没有吃饭的时间。  -- rule: no match: line matched
+  没有，我不喜欢猫。  -- rule: no match: line matched
+  没有人高兴。  -- rule: unless 有|没有|没 /PN|NN|NR /NN? /VA
+  他们有。  -- rule: no match: line matched
+  有！  -- rule: no match: line matched
+  现在有什么电影？  -- rule: no match: line matched
+  米莉没有吃苹果。  -- rule: no match: line matched
+  我有些东西给 Tom。  -- rule: no match: line matched
+  还有什么好说的？  -- rule: no match: line matched
+
+--- dropped at step 6b (5) ---
+  对了，我明天有事。  -- hidden word a learner can't work out: 对了 (Correct!; Oh, that's right, ... (when one suddenly remembers sth one wanted to mention); Oh, by the way, ...)
+  有这回事吗？  -- hidden word a learner can't work out: 回事 ((old) to report to one's master)
+  我们有很多事要做。  -- hidden word a learner can't work out: 多事 (meddlesome; eventful)
+  我有很多日本朋友。  -- hidden word a learner can't work out: 日本 (Japan)
+  有一个人想见你。  -- hidden word a learner can't work out: 想见 (to infer; to gather)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-37_level1_20261114_160913.csv
+
+########## tatoeba  2026-11-14 16:30 ##########
+Filling 1-37 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-37 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-37 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1160  4. at most 2 characters outside HSK 1 words
+      189  5. really HSK 1
+      175  5b. no harder grammar point (of the 87 with a rule)
+      122  6. the rule finds 1-37
+      117  6b. no hidden word a learner can't work out
+       17  7. both checks say 1-37, English chosen
+       17  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (97 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (17) ===
+  没有水。  (There is no water.)  [tatoeba 1444292]
+  我有钱。  (I have money.)  [tatoeba 3378145]
+  有很多水。  (There's plenty of water.)  [tatoeba 3365840]
+  我没有狗。  (I don't have a dog.)  [tatoeba 7772409]
+  这里有人。  (Somebody's in here.)  [tatoeba 10026346]
+  他有苹果。  (He has apples.)  [tatoeba 13166868]
+  他有很多钱。  (He has a lot of money.)  [tatoeba 480581]
+  你有多少钱？  (How much money do you have?)  [tatoeba 771082]
+  你有弟弟吗？  (Do you have younger brothers?)  [tatoeba 1441728]
+  我有一个家。  (I have a home.)  [tatoeba 1786136]  hidden: 一个
+  你有孩子吗？  (Do you have children?)  [tatoeba 1960023]
+  我有一些钱。  (I have some money.)  [tatoeba 1962158]
+  他有很多书。  (He has books galore.)  [tatoeba 2032311]
+  他没有朋友。  (He doesn't have any friends.)  [tatoeba 2241812]
+  你有妹妹吗？  (Have you got a little sister?)  [tatoeba 3378193]
+  我没有电脑。  (I don't have a computer.)  [tatoeba 4104421]
+  您有几只猫？  (How many cats do you have?)  [tatoeba 4264866]
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as 6057701 (translations pooled)
+  你有学生证吗？  -- same text as 6284495 (translations pooled)
+  你有朋友吗？  -- same text as 9959099 (translations pooled)
+
+--- dropped at step 4 (1770), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 5 characters no HSK 1 word uses: 唤被醒闹鸟
+  附近有没有青年旅舍？  -- 5 characters no HSK 1 word uses: 旅舍近附青
+  我没有任何借口。  -- 3 characters no HSK 1 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 1 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 1 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 4 characters no HSK 1 word uses: 地方无草
+  要是你有空的话，我们就去购物吧。  -- 4 characters no HSK 1 word uses: 就物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 1 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 1 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 4 characters no HSK 1 word uses: 串烤种肉
+  若有大地震，房屋会倒塌呀！  -- 7 characters no HSK 1 word uses: 倒呀地塌屋若震
+
+--- dropped at step 5 (971), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  你有多高？  -- level 2: 高 L2
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 跟 L2, 事件 L5, 关系 L3
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  有时我去，有时不去。  -- level 2: 有时 L2
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  有的人是好的，有的人是坏的。  -- level 2: 坏 L2
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list), 鸟 L2
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+
+--- dropped at step 5b (14), first 12 ---
+  阿什兰也有水。  -- harder grammar: 3-60 (HSK 3)
+  您有什么事想对我说吗？  -- harder grammar: 2-25 (HSK 2)
+  她一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  他一个朋友都没有。  -- harder grammar: 3-41 (HSK 3)
+  没有人会看到我们。  -- harder grammar: 3-46 (HSK 3)
+  有人给我打电话吗？  -- harder grammar: 2-26 (HSK 2)
+  对不起，我没有听到你说话。  -- harder grammar: 3-46 (HSK 3)
+  我们没有做好。  -- harder grammar: 2-49 (HSK 2)
+  还有谁知道它？  -- harder grammar: 2-06 (HSK 2)
+  还有什么想要的吗？  -- harder grammar: 3-81 (HSK 3), 4-73 (HSK 4)
+  这里一个人都没有。大家都去哪了?  -- harder grammar: 3-41 (HSK 3)
+
+--- dropped at step 6 (53) ---
+  桌子上有本书。  -- rule: no match: line matched
+  还有什么？  -- rule: no match: line matched
+  有什么喝的吗？  -- rule: no match: line matched
+  你们有什么菜？  -- rule: no match: line matched
+  知道了没有？  -- rule: no match: line matched
+  我有些东西要给你。  -- rule: no match: line matched
+  您没有看见那个人吗？  -- rule: no match: line matched
+  有什么问题吗？  -- rule: no match: line matched
+  昨天你没有去学校。  -- rule: no match: line matched
+  我什么事都没有做。  -- rule: no match: line matched
+  什么问题都没有！  -- rule: no match: line matched
+  一点问题都没有！  -- rule: no match: line matched
+  那有什么不好？  -- rule: no match: line matched
+  我没有休息的时间。  -- rule: no match: line matched
+  Tom和Mary有个女儿和儿子。  -- rule: no match: line matched
+  Tom有个十三岁的女儿。  -- rule: no match: line matched
+  我还有个姐姐。  -- rule: no match: line matched
+  他们的苹果没有我们的好吃。  -- rule: no match: line matched
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  有什么想吃的吗？  -- rule: no match: line matched
+  Tom有说什么吗？  -- rule: no match: line matched
+  他们的苹果没有我们的好。  -- rule: no match: line matched
+  我有个好东西给你。  -- rule: no match: line matched
+  我有些事。  -- rule: no match: line matched
+  我有些钱。  -- rule: no match: line matched
+  有你不能做的事吗？  -- rule: no match: line matched
+  我们没有太多时间。  -- rule: no match: line matched
+  你的电脑有什么问题？  -- rule: no match: line matched
+  你有多爱我？  -- rule: no match: line matched
+  你们有什么不吃的吗？  -- rule: no match: line matched
+  我没有不喜欢的。  -- rule: no match: line matched
+  我知道有些事不对。  -- rule: no match: line matched
+  我还有个问题。  -- rule: no match: line matched
+  你今天晚上有没有要上班?  -- rule: no match: line matched
+  有大的吗？  -- rule: no match: line matched
+  有小的吗？  -- rule: no match: line matched
+  有什么事我可以做吗？  -- rule: no match: line matched
+  有些人不知道那件事。  -- rule: no match: line matched
+  这还有什么能做的？  -- rule: no match: line matched
+  你还有什么想说的？  -- rule: no match: line matched
+  桌子上有什么？  -- rule: no match: line matched
+  我还有点事。  -- rule: unless 有点儿
+  你觉得明天会有个好天气吗？  -- rule: no match: line matched
+  我没有吃饭的时间。  -- rule: no match: line matched
+  没有，我不喜欢猫。  -- rule: no match: line matched
+  没有人高兴。  -- rule: unless 有|没有|没 /PN|NN|NR /NN? /VA
+  他们有。  -- rule: no match: line matched
+  有！  -- rule: no match: line matched
+  现在有什么电影？  -- rule: no match: line matched
+  米莉没有吃苹果。  -- rule: no match: line matched
+  我有些东西给 Tom。  -- rule: no match: line matched
+  还有什么好说的？  -- rule: no match: line matched
+
+--- dropped at step 6b (5) ---
+  对了，我明天有事。  -- hidden word a learner can't work out: 对了 (Correct!; Oh, that's right, ... (when one suddenly remembers sth one wanted to mention); Oh, by the way, ...)
+  有这回事吗？  -- hidden word a learner can't work out: 回事 ((old) to report to one's master)
+  我们有很多事要做。  -- hidden word a learner can't work out: 多事 (meddlesome; eventful)
+  我有很多日本朋友。  -- hidden word a learner can't work out: 日本 (Japan)
+  有一个人想见你。  -- hidden word a learner can't work out: 想见 (to infer; to gather)
+
+--- dropped at step 7 (3) ---
+  有问题？  -- no accurate English among: Problem?
+  我有时间。  -- check said no (1/2): 有时间 is not grammar point 1-37 usage
+  有人来了。  -- check said no (2/2): Taiwanese 有 + verb construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-37_level1_20261114_163005.csv

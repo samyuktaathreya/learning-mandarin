@@ -219,6 +219,7 @@ export default function PinyinPractice() {
             placeholder="e.g. lv3xing2"
             disabled={!!result}
             autoComplete="off"
+            autoCorrect="off"
             autoCapitalize="off"
             spellCheck={false}
             style={{

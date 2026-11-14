@@ -1,0 +1,51 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 14735 characters -->
+## 1-21
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
+**Point:** Aspect particle 了 marking completion of an action (dynamic aspect)
+**Covers:** Verb + 了 + Obj, including objects with a degree word, a number and measure word, or a duration. Also covers sentence-final 了 after an object with a 的-modifier, short completed clauses (我买了, 他们到了, 我找到了), past-time or 去/来 + place + verb clauses ending in 了, and 了吗 questions about a completed action.
+**Does not cover:** Change of state (adjective + 了), expressing "now" (知道了), expressing "not anymore" (不/没 + Verb + 了), potential complements (得了/不了), "about to" (快…了), imperatives (别…了), and other uses of 了 that do not mark completion.
+
+```rule
+match: /VV /AS /NN
+match: /VV /AS /NR
+match: /VV /AS /PN
+match: /VV /AS /CD /M|NN|NT
+match: /VV /AS /AD ... /NN
+match: /VV /AS /DT ... /NN
+match: /VV /AS /NT ... /NN
+match: 光|完|掉|够/NR 了/AS /NN
+match: /VV ... /DEC /JJ? /NN 了/SP $
+match: /VV /JJ? /NN|NR? 了/AS|SP 吗/SP
+match: /VV 好/VA 了/AS 吗/SP
+match: /PN 买|去|到|吃/VV 了/AS|SP $
+match: 都|也|全/AD 买|去|到|吃/VV 了/AS|SP $
+match: 找/VV 到/VV 了/AS|SP
+match: 去|来/VV /NR|NN|PN /NN? /VV /NN? 了/SP $
+match: 昨天|前天|昨晚|去年|刚才|上午/NT ... /VV /NR|NN? 了/SP $
+match: 上/DT /M ... /VV /NR|NN? 了/SP $
+unless: 得了|不了
+unless: /VA /AS $
+unless: /VA _ /AS $
+unless: /VA /VV /AS $
+unless: 不 /VV /AS
+unless: 没 /VV /AS
+unless: /VV 得/VV /AS
+unless: /VV 不/AD /AS
+unless: 快 /VV /AS
+unless: 别 /VV /AS $
+unless: 想|要|想要|会|能|可以|应该|必须|快要|就要|不|别|快|该|得 ... 了/AS|SP $
+unless: 想|要|想要|会|能|可以|应该|必须|快要|就要|不|别|快|该|得 ... 了/AS|SP 吗/SP $
+unless: 知道|懂|明白|觉得|喜欢|爱|怕|像|希望|需要 ... 了/AS|SP $
+unless: 知道|懂|明白|觉得|喜欢|爱|怕|像|希望|需要 ... 了/AS|SP 吗/SP $
+unless: 除了 ...
+```
+
+**Notes:** Fixes from the labeled examples:
+- **Dropped the 为了 exclusion.** It wrongly blocked 他女朋友为了他辞了工作. Purpose 为了 sentences never match the 了-after-verb patterns anyway.
+- **Narrowed the modal exclusion.** It now only fires when 了 closes the clause, so a modal in a different clause (你要检查吗) no longer cancels a match.
+- **Added short completed clauses.** These need a pronoun subject (or 都/也/全) plus a plain action verb (买/去/到/吃), or 找到了. This keeps 知道了, 懂了, 快到了 and similar change-of-state phrases out.
+- **Added sentence-final 了 patterns.** 去/来 + place + verb + 了 is covered, as is a past-time word followed by a verb, an optional noun and 了.
+- **Widened 了吗 questions.** They now accept 了 tagged either AS or SP, an optional modifier and object, and a bare verb. Verbs of knowing, understanding and liking are excluded.
+- **Widened the 的-modifier pattern.** An optional adjective may sit before the noun, and the final particle must be 了.
+- **Added a tagging workaround.** The mis-tagged 花光了钱 gets its own pattern.
+- **Blocked the false match.** 得了 is excluded, so 帮得了我 no longer matches.

@@ -236,3 +236,1680 @@ Harder grammar points made only of HSK 1-2 words (the review is warned about the
   你觉得这个怎么样？  -- difficulty review: (1/2); 觉得 is not in the HSK 2 word list and introduces meaning beyond this level
 
 Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-76_level2_20261109_221252.csv
+
+########## guard check  2026-11-10 21:31 ##########
+  Checking 13 sentence(s) for 2-76 (1 call(s))...
+Flags examples of 1-04, 1-17, 1-19, x-erhua that don't contain 2-76: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+########## tatoeba  2026-11-10 21:38 ##########
+Filling 2-76 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-76 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-76 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      477  2. contain the point's word(s)
+      477  3. new (not in DB, not a duplicate)
+      351  4. at most 2 characters outside HSK 2 words
+      103  5. really HSK 2
+       98  5b. no harder grammar point (of the 34 with a rule)
+       14  6. the rule finds 2-76
+       12  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-76, English chosen
+        7  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  学校怎么样？  (How's school?)  [tatoeba 5096478]
+  工作怎么样？  (How's work?)  [tatoeba 5100103]
+  这个苹果怎么样？  (How's the apple?)  [tatoeba 6092463]  hidden: 这个
+  那里的天气怎么样？  (How is the weather there?)  [tatoeba 8292595]
+  明天晚上九点怎么样？  (How about tomorrow night at nine?)  [tatoeba 8865168]
+  北京昨天天气怎么样？  (How was the weather yesterday in Beijing?)  [tatoeba 10961069]
+  上个星期天天气怎么样？  (What was the weather like last Sunday?)  [tatoeba 6056645]  hidden: 上个星期
+
+--- dropped at step 4 (126), first 12 ---
+  汤姆不知道怎样玩得开心。  -- 3 characters no HSK 2 word uses: 姆心汤
+  为什么你假装无辜！  -- 4 characters no HSK 2 word uses: 假无装辜
+  如果你太直接问她有没有朋友，她会怀疑且反问：“你为什么要这样问？”  -- 7 characters no HSK 2 word uses: 且反如怀接疑直
+  你最后一次关掉引擎是什么时候？  -- 3 characters no HSK 2 word uses: 引掉擎
+  别人怎样看自己不重要,重要的是要保证自己得到自己的认同。  -- 3 characters no HSK 2 word uses: 保证重
+  那么，你觉得怎样的生活才是幸福的？  -- 4 characters no HSK 2 word uses: 幸才活福
+  你为什么要和经理争论？  -- 3 characters no HSK 2 word uses: 争理论
+  为什么随机句子中的人总是叫汤姆？  -- 5 characters no HSK 2 word uses: 句姆总汤随
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  你知道怎样使用这些命令行工具吗？  -- 6 characters no HSK 2 word uses: 令使具命用行
+  为什么中国没有乔布斯这样的人？  -- 3 characters no HSK 2 word uses: 乔布斯
+  没有人猜得出为什么那种事会发生在他身上。  -- 3 characters no HSK 2 word uses: 发猜种
+
+--- dropped at step 5 (248), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  告诉我她为什么哭。  -- level 3: 哭 L3
+  生活怎么样？  -- level 3: 生活 L3
+  生意怎么样？  -- level 4: 生意 L4
+  这事是什么时候发生的？  -- level 3: 发生 L3
+  我的房间里为什么有蟋蟀？  -- level 10: 蟋蟀 (not in list)
+  他为什么看上去很黑？  -- level 5: 黑 L5
+  你什么时候学会游泳的？  -- level 6: 学会 L6
+  女人为什么想被男人抱着睡觉？  -- level 4: 女人 L3, 被 L3, 男人 L3, 抱 L4
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  请告诉我什么时候该走。  -- level 3: 该 L3
+  它是什么什么时候盖的？  -- level 5: 盖 L5
+
+--- dropped at step 5b (5) ---
+  我得知道我们要什么时候到。  -- harder grammar: 4-01 (HSK 4)
+  第一天怎么样？  -- harder grammar: 3-01 (HSK 3)
+  再来一杯咖啡怎么样？  -- harder grammar: 3-16 (HSK 3)
+  我为什么找不到你？  -- harder grammar: 3-46 (HSK 3)
+  “你为什么跑这么快？”—“我得上火车。”  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (84) ---
+  你的眼睛为什么那么大？  -- rule: no match: line matched
+  你为什么那么高兴？  -- rule: no match: line matched
+  我知道你为什么高兴。  -- rule: unless 知道
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: unless 知道
+  为什么你不休息一下?  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  你为什么不和我们一起来？  -- rule: no match: line matched
+  你什么时候开始工作?  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  你是什么时候来的？  -- rule: no match: line matched
+  你什么时候去上课？  -- rule: no match: line matched
+  你什么时候能来我家？  -- rule: no match: line matched
+  电影什么时候开始？  -- rule: no match: line matched
+  你为什么这么说？  -- rule: no match: line matched
+  你什么时候读书？  -- rule: no match: line matched
+  没人知道为什么。  -- rule: unless 知道
+  你为什么在这？  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  你什么时候认识我的？  -- rule: no match: line matched
+  你为什么学英文？  -- rule: no match: line matched
+  为什么您一个人？  -- rule: no match: line matched
+  那是新学校什么时候开学？  -- rule: no match: line matched
+  你想知道为什么我对Tom说话吗？  -- rule: unless 知道
+  你为什么会知道？  -- rule: unless 知道
+  为什么我还在这里？  -- rule: no match: line matched
+  为什么?  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 知道
+  现在的天气怎么样了？  -- rule: no match: line matched
+  为什么你不等等我就开始了？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  什么时候想来就过来吧。  -- rule: no match: line matched
+  你为什么问我？  -- rule: no match: line matched
+  你为什么不做？  -- rule: no match: line matched
+  你为什么让我看这个？  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  你什么时候给我做事？  -- rule: no match: line matched
+  你什么时候睡觉？  -- rule: no match: line matched
+  你想什么时候见他们？  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  为什么没人喜欢她？  -- rule: no match: line matched
+  它什么时候到？  -- rule: no match: line matched
+  我们知道你为什么来这儿。  -- rule: unless 知道
+  你什么时候上班？  -- rule: no match: line matched
+  你为什么在画花？  -- rule: no match: line matched
+  她什么时候去？  -- rule: no match: line matched
+  你为什么没做？  -- rule: no match: line matched
+  你是什么时候买的？  -- rule: no match: line matched
+  我们为什么不帮他们？  -- rule: no match: line matched
+  他什么时候不再书店工作？  -- rule: no match: line matched
+  你什么时候走？  -- rule: no match: line matched
+  这什么时候能准备好？  -- rule: no match: line matched
+  你为什么一个人？  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  她什么时候到家？  -- rule: no match: line matched
+  她没说她为什么那么做。  -- rule: no match: line matched
+  你为什么工作？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: unless 知道
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  你为什么喜欢我？  -- rule: no match: line matched
+  你为什么还在学校？  -- rule: no match: line matched
+  你为什么给我这些钱？  -- rule: no match: line matched
+  你为什么卖了它？  -- rule: no match: line matched
+  你什么时候做完工作？  -- rule: no match: line matched
+  我在等你们。你们什么时候准备好？  -- rule: no match: line matched
+  为什么电视开着？  -- rule: no match: line matched
+  您为什么想买这本书？  -- rule: no match: line matched
+  您知道为什么吗？  -- rule: unless 知道
+  为什么？  -- rule: no match: line matched
+  什么时候？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  这件事什么时候开始的？  -- rule: no match: line matched
+  你想什么时候开始？  -- rule: no match: line matched
+  你在家什么时候吃饭？  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: unless 知道
+  花店什么时候开？  -- rule: no match: line matched
+  你什么时候认识他们的？  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  为什么不去波士顿？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  你为什么站着？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  在德国过得怎么样？  -- hidden word a learner can't work out: 德国 (Germany), 过得 (How are you getting by?)
+  你觉得周五怎么样？  -- hidden word a learner can't work out: 周五 (Friday)
+
+--- dropped at step 7 (4) ---
+  今天天气怎么样？  -- check said no (1/2): 怎么样 but asking about weather state, not opinion
+  明天天气怎么样？  -- check said no (1/2): 怎么样 here, but not asking for opinion/evaluation
+  今天晚上怎么样？  -- check said no (1/2): 怎么样 asking how event went, not opinion
+  我们这里的天气怎么样？  -- no accurate English among: What is our weather?
+
+--- dropped at step 8 (1) ---
+  你觉得这个怎么样？  -- difficulty review: (1/2); 觉得 is not in the HSK 2 word list and introduces meaning beyond this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-76_level2_20261110_213826.csv
+
+########## guard check  2026-11-11 14:23 ##########
+
+########## tatoeba  2026-11-11 14:29 ##########
+Filling 2-76 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-76 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-76 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      477  2. contain the point's word(s)
+      477  3. new (not in DB, not a duplicate)
+      351  4. at most 2 characters outside HSK 2 words
+      103  5. really HSK 2
+       97  5b. no harder grammar point (of the 39 with a rule)
+       14  6. the rule finds 2-76
+       12  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-76, English chosen
+        7  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  学校怎么样？  (How's school?)  [tatoeba 5096478]
+  工作怎么样？  (How's work?)  [tatoeba 5100103]
+  这个苹果怎么样？  (How's the apple?)  [tatoeba 6092463]  hidden: 这个
+  那里的天气怎么样？  (How is the weather there?)  [tatoeba 8292595]
+  明天晚上九点怎么样？  (How about tomorrow night at nine?)  [tatoeba 8865168]
+  北京昨天天气怎么样？  (How was the weather yesterday in Beijing?)  [tatoeba 10961069]
+  上个星期天天气怎么样？  (What was the weather like last Sunday?)  [tatoeba 6056645]  hidden: 上个星期
+
+--- dropped at step 4 (126), first 12 ---
+  汤姆不知道怎样玩得开心。  -- 3 characters no HSK 2 word uses: 姆心汤
+  为什么你假装无辜！  -- 4 characters no HSK 2 word uses: 假无装辜
+  如果你太直接问她有没有朋友，她会怀疑且反问：“你为什么要这样问？”  -- 7 characters no HSK 2 word uses: 且反如怀接疑直
+  你最后一次关掉引擎是什么时候？  -- 3 characters no HSK 2 word uses: 引掉擎
+  别人怎样看自己不重要,重要的是要保证自己得到自己的认同。  -- 3 characters no HSK 2 word uses: 保证重
+  那么，你觉得怎样的生活才是幸福的？  -- 4 characters no HSK 2 word uses: 幸才活福
+  你为什么要和经理争论？  -- 3 characters no HSK 2 word uses: 争理论
+  为什么随机句子中的人总是叫汤姆？  -- 5 characters no HSK 2 word uses: 句姆总汤随
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  你知道怎样使用这些命令行工具吗？  -- 6 characters no HSK 2 word uses: 令使具命用行
+  为什么中国没有乔布斯这样的人？  -- 3 characters no HSK 2 word uses: 乔布斯
+  没有人猜得出为什么那种事会发生在他身上。  -- 3 characters no HSK 2 word uses: 发猜种
+
+--- dropped at step 5 (248), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  告诉我她为什么哭。  -- level 3: 哭 L3
+  生活怎么样？  -- level 3: 生活 L3
+  生意怎么样？  -- level 4: 生意 L4
+  这事是什么时候发生的？  -- level 3: 发生 L3
+  我的房间里为什么有蟋蟀？  -- level 10: 蟋蟀 (not in list)
+  他为什么看上去很黑？  -- level 5: 黑 L5
+  你什么时候学会游泳的？  -- level 6: 学会 L6
+  女人为什么想被男人抱着睡觉？  -- level 4: 女人 L3, 被 L3, 男人 L3, 抱 L4
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  请告诉我什么时候该走。  -- level 3: 该 L3
+  它是什么什么时候盖的？  -- level 5: 盖 L5
+
+--- dropped at step 5b (6) ---
+  为什么你不等等我就开始了？  -- harder grammar: 2-35 (HSK 3)
+  我得知道我们要什么时候到。  -- harder grammar: 4-01 (HSK 4)
+  第一天怎么样？  -- harder grammar: 3-01 (HSK 3)
+  再来一杯咖啡怎么样？  -- harder grammar: 3-16 (HSK 3)
+  我为什么找不到你？  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  “你为什么跑这么快？”—“我得上火车。”  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (83) ---
+  你的眼睛为什么那么大？  -- rule: no match: line matched
+  你为什么那么高兴？  -- rule: no match: line matched
+  我知道你为什么高兴。  -- rule: unless 知道
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: unless 知道
+  为什么你不休息一下?  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  你为什么不和我们一起来？  -- rule: no match: line matched
+  你什么时候开始工作?  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  你是什么时候来的？  -- rule: no match: line matched
+  你什么时候去上课？  -- rule: no match: line matched
+  你什么时候能来我家？  -- rule: no match: line matched
+  电影什么时候开始？  -- rule: no match: line matched
+  你为什么这么说？  -- rule: no match: line matched
+  你什么时候读书？  -- rule: no match: line matched
+  没人知道为什么。  -- rule: unless 知道
+  你为什么在这？  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  你什么时候认识我的？  -- rule: no match: line matched
+  你为什么学英文？  -- rule: no match: line matched
+  为什么您一个人？  -- rule: no match: line matched
+  那是新学校什么时候开学？  -- rule: no match: line matched
+  你想知道为什么我对Tom说话吗？  -- rule: unless 知道
+  你为什么会知道？  -- rule: unless 知道
+  为什么我还在这里？  -- rule: no match: line matched
+  为什么?  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 知道
+  现在的天气怎么样了？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  什么时候想来就过来吧。  -- rule: no match: line matched
+  你为什么问我？  -- rule: no match: line matched
+  你为什么不做？  -- rule: no match: line matched
+  你为什么让我看这个？  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  你什么时候给我做事？  -- rule: no match: line matched
+  你什么时候睡觉？  -- rule: no match: line matched
+  你想什么时候见他们？  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  为什么没人喜欢她？  -- rule: no match: line matched
+  它什么时候到？  -- rule: no match: line matched
+  我们知道你为什么来这儿。  -- rule: unless 知道
+  你什么时候上班？  -- rule: no match: line matched
+  你为什么在画花？  -- rule: no match: line matched
+  她什么时候去？  -- rule: no match: line matched
+  你为什么没做？  -- rule: no match: line matched
+  你是什么时候买的？  -- rule: no match: line matched
+  我们为什么不帮他们？  -- rule: no match: line matched
+  他什么时候不再书店工作？  -- rule: no match: line matched
+  你什么时候走？  -- rule: no match: line matched
+  这什么时候能准备好？  -- rule: no match: line matched
+  你为什么一个人？  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  她什么时候到家？  -- rule: no match: line matched
+  她没说她为什么那么做。  -- rule: no match: line matched
+  你为什么工作？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: unless 知道
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  你为什么喜欢我？  -- rule: no match: line matched
+  你为什么还在学校？  -- rule: no match: line matched
+  你为什么给我这些钱？  -- rule: no match: line matched
+  你为什么卖了它？  -- rule: no match: line matched
+  你什么时候做完工作？  -- rule: no match: line matched
+  我在等你们。你们什么时候准备好？  -- rule: no match: line matched
+  为什么电视开着？  -- rule: no match: line matched
+  您为什么想买这本书？  -- rule: no match: line matched
+  您知道为什么吗？  -- rule: unless 知道
+  为什么？  -- rule: no match: line matched
+  什么时候？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  这件事什么时候开始的？  -- rule: no match: line matched
+  你想什么时候开始？  -- rule: no match: line matched
+  你在家什么时候吃饭？  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: unless 知道
+  花店什么时候开？  -- rule: no match: line matched
+  你什么时候认识他们的？  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  为什么不去波士顿？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  你为什么站着？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  在德国过得怎么样？  -- hidden word a learner can't work out: 德国 (Germany), 过得 (How are you getting by?)
+  你觉得周五怎么样？  -- hidden word a learner can't work out: 周五 (Friday)
+
+--- dropped at step 7 (4) ---
+  今天天气怎么样？  -- check said no (1/2): 怎么样 but asking about weather state, not opinion
+  明天天气怎么样？  -- check said no (1/2): 怎么样 here, but not asking for opinion/evaluation
+  今天晚上怎么样？  -- check said no (1/2): 怎么样 asking how event went, not opinion
+  我们这里的天气怎么样？  -- no accurate English among: What is our weather?
+
+--- dropped at step 8 (1) ---
+  你觉得这个怎么样？  -- difficulty review: (1/2); 觉得 is not in the HSK 2 word list and introduces meaning beyond this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-76_level2_20261111_142935.csv
+
+########## rules  2026-11-12 17:32 ##########
+
+=== A. 2-76: rule on labeled examples (no AI) ===
+  examples of 2-76 matched:    11/12
+  counter-examples wrongly matched: 0/0   <- should be 0
+
+--- examples of 2-76 the rule misses (1) ---
+  你们什么时候见面？  -- HSK list example
+  easy examples (words all HSK 2 or below) matched: 6/6   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:41 ##########
+Filling 2-76 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-76 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-76 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      477  2. contain the point's word(s)
+      477  3. new (not in DB, not a duplicate)
+      351  4. at most 2 characters outside HSK 2 words
+      104  5. really HSK 2
+       98  5b. no harder grammar point (of the 40 with a rule)
+       14  6. the rule finds 2-76
+       12  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-76, English chosen
+        7  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  学校怎么样？  (How's school?)  [tatoeba 5096478]
+  工作怎么样？  (How's work?)  [tatoeba 5100103]
+  这个苹果怎么样？  (How's the apple?)  [tatoeba 6092463]  hidden: 这个
+  那里的天气怎么样？  (How is the weather there?)  [tatoeba 8292595]
+  明天晚上九点怎么样？  (How about tomorrow night at nine?)  [tatoeba 8865168]
+  北京昨天天气怎么样？  (How was the weather yesterday in Beijing?)  [tatoeba 10961069]
+  上个星期天天气怎么样？  (What was the weather like last Sunday?)  [tatoeba 6056645]  hidden: 上个星期
+
+--- dropped at step 4 (126), first 12 ---
+  汤姆不知道怎样玩得开心。  -- 3 characters no HSK 2 word uses: 姆心汤
+  为什么你假装无辜！  -- 4 characters no HSK 2 word uses: 假无装辜
+  如果你太直接问她有没有朋友，她会怀疑且反问：“你为什么要这样问？”  -- 7 characters no HSK 2 word uses: 且反如怀接疑直
+  你最后一次关掉引擎是什么时候？  -- 3 characters no HSK 2 word uses: 引掉擎
+  别人怎样看自己不重要,重要的是要保证自己得到自己的认同。  -- 3 characters no HSK 2 word uses: 保证重
+  那么，你觉得怎样的生活才是幸福的？  -- 4 characters no HSK 2 word uses: 幸才活福
+  你为什么要和经理争论？  -- 3 characters no HSK 2 word uses: 争理论
+  为什么随机句子中的人总是叫汤姆？  -- 5 characters no HSK 2 word uses: 句姆总汤随
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  你知道怎样使用这些命令行工具吗？  -- 6 characters no HSK 2 word uses: 令使具命用行
+  为什么中国没有乔布斯这样的人？  -- 3 characters no HSK 2 word uses: 乔布斯
+  没有人猜得出为什么那种事会发生在他身上。  -- 3 characters no HSK 2 word uses: 发猜种
+
+--- dropped at step 5 (247), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  告诉我她为什么哭。  -- level 3: 哭 L3
+  生活怎么样？  -- level 3: 生活 L3
+  生意怎么样？  -- level 4: 生意 L4
+  这事是什么时候发生的？  -- level 3: 发生 L3
+  我的房间里为什么有蟋蟀？  -- level 10: 蟋蟀 (not in list)
+  他为什么看上去很黑？  -- level 5: 黑 L5
+  你什么时候学会游泳的？  -- level 6: 学会 L6
+  女人为什么想被男人抱着睡觉？  -- level 4: 女人 L3, 被 L3, 男人 L3, 抱 L4
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  请告诉我什么时候该走。  -- level 3: 该 L3
+  它是什么什么时候盖的？  -- level 5: 盖 L5
+
+--- dropped at step 5b (6) ---
+  为什么你不等等我就开始了？  -- harder grammar: 2-35 (HSK 3)
+  我得知道我们要什么时候到。  -- harder grammar: 4-01 (HSK 4)
+  第一天怎么样？  -- harder grammar: 3-01 (HSK 3)
+  再来一杯咖啡怎么样？  -- harder grammar: 3-16 (HSK 3)
+  我为什么找不到你？  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  “你为什么跑这么快？”—“我得上火车。”  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (84) ---
+  你的眼睛为什么那么大？  -- rule: no match: line matched
+  你为什么那么高兴？  -- rule: no match: line matched
+  我知道你为什么高兴。  -- rule: unless 知道
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: unless 知道
+  为什么你不休息一下?  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  你为什么不和我们一起来？  -- rule: no match: line matched
+  你什么时候开始工作?  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  你是什么时候来的？  -- rule: no match: line matched
+  你什么时候去上课？  -- rule: no match: line matched
+  你什么时候能来我家？  -- rule: no match: line matched
+  电影什么时候开始？  -- rule: no match: line matched
+  你为什么这么说？  -- rule: no match: line matched
+  你什么时候读书？  -- rule: no match: line matched
+  没人知道为什么。  -- rule: unless 知道
+  你为什么在这？  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  你什么时候认识我的？  -- rule: no match: line matched
+  你为什么学英文？  -- rule: no match: line matched
+  为什么您一个人？  -- rule: no match: line matched
+  那是新学校什么时候开学？  -- rule: no match: line matched
+  你想知道为什么我对Tom说话吗？  -- rule: unless 知道
+  你为什么会知道？  -- rule: unless 知道
+  为什么我还在这里？  -- rule: no match: line matched
+  为什么?  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 知道
+  现在的天气怎么样了？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  什么时候想来就过来吧。  -- rule: no match: line matched
+  你为什么问我？  -- rule: no match: line matched
+  你为什么不做？  -- rule: no match: line matched
+  你为什么让我看这个？  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  你什么时候给我做事？  -- rule: no match: line matched
+  你什么时候睡觉？  -- rule: no match: line matched
+  你想什么时候见他们？  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  为什么没人喜欢她？  -- rule: no match: line matched
+  它什么时候到？  -- rule: no match: line matched
+  我们知道你为什么来这儿。  -- rule: unless 知道
+  你什么时候上班？  -- rule: no match: line matched
+  你为什么在画花？  -- rule: no match: line matched
+  她什么时候去？  -- rule: no match: line matched
+  你为什么没做？  -- rule: no match: line matched
+  你是什么时候买的？  -- rule: no match: line matched
+  我们为什么不帮他们？  -- rule: no match: line matched
+  他什么时候不再书店工作？  -- rule: no match: line matched
+  你什么时候走？  -- rule: no match: line matched
+  这什么时候能准备好？  -- rule: no match: line matched
+  你为什么一个人？  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  她什么时候到家？  -- rule: no match: line matched
+  她没说她为什么那么做。  -- rule: no match: line matched
+  不知道为什么今天有点累。  -- rule: unless 知道
+  你为什么工作？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: unless 知道
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  你为什么喜欢我？  -- rule: no match: line matched
+  你为什么还在学校？  -- rule: no match: line matched
+  你为什么给我这些钱？  -- rule: no match: line matched
+  你为什么卖了它？  -- rule: no match: line matched
+  你什么时候做完工作？  -- rule: no match: line matched
+  我在等你们。你们什么时候准备好？  -- rule: no match: line matched
+  为什么电视开着？  -- rule: no match: line matched
+  您为什么想买这本书？  -- rule: no match: line matched
+  您知道为什么吗？  -- rule: unless 知道
+  为什么？  -- rule: no match: line matched
+  什么时候？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  这件事什么时候开始的？  -- rule: no match: line matched
+  你想什么时候开始？  -- rule: no match: line matched
+  你在家什么时候吃饭？  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: unless 知道
+  花店什么时候开？  -- rule: no match: line matched
+  你什么时候认识他们的？  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  为什么不去波士顿？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  你为什么站着？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  在德国过得怎么样？  -- hidden word a learner can't work out: 德国 (Germany), 过得 (How are you getting by?)
+  你觉得周五怎么样？  -- hidden word a learner can't work out: 周五 (Friday)
+
+--- dropped at step 7 (4) ---
+  今天天气怎么样？  -- check said no (1/2): 怎么样 but asking about weather state, not opinion
+  明天天气怎么样？  -- check said no (1/2): 怎么样 here, but not asking for opinion/evaluation
+  今天晚上怎么样？  -- check said no (1/2): 怎么样 asking how event went, not opinion
+  我们这里的天气怎么样？  -- no accurate English among: What is our weather?
+
+--- dropped at step 8 (1) ---
+  你觉得这个怎么样？  -- difficulty review: (1/2); 觉得 is not in the HSK 2 word list and introduces meaning beyond this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-76_level2_20261112_174140.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-76 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-76 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-76 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      477  2. contain the point's word(s)
+      477  3. new (not in DB, not a duplicate)
+      351  4. at most 2 characters outside HSK 2 words
+      104  5. really HSK 2
+       98  5b. no harder grammar point (of the 40 with a rule)
+       14  6. the rule finds 2-76
+       12  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-76, English chosen
+        7  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  学校怎么样？  (How's school?)  [tatoeba 5096478]
+  工作怎么样？  (How's work?)  [tatoeba 5100103]
+  这个苹果怎么样？  (How's the apple?)  [tatoeba 6092463]  hidden: 这个
+  那里的天气怎么样？  (How is the weather there?)  [tatoeba 8292595]
+  明天晚上九点怎么样？  (How about tomorrow night at nine?)  [tatoeba 8865168]
+  北京昨天天气怎么样？  (How was the weather yesterday in Beijing?)  [tatoeba 10961069]
+  上个星期天天气怎么样？  (What was the weather like last Sunday?)  [tatoeba 6056645]  hidden: 上个星期
+
+--- dropped at step 4 (126), first 12 ---
+  汤姆不知道怎样玩得开心。  -- 3 characters no HSK 2 word uses: 姆心汤
+  为什么你假装无辜！  -- 4 characters no HSK 2 word uses: 假无装辜
+  如果你太直接问她有没有朋友，她会怀疑且反问：“你为什么要这样问？”  -- 7 characters no HSK 2 word uses: 且反如怀接疑直
+  你最后一次关掉引擎是什么时候？  -- 3 characters no HSK 2 word uses: 引掉擎
+  别人怎样看自己不重要,重要的是要保证自己得到自己的认同。  -- 3 characters no HSK 2 word uses: 保证重
+  那么，你觉得怎样的生活才是幸福的？  -- 4 characters no HSK 2 word uses: 幸才活福
+  你为什么要和经理争论？  -- 3 characters no HSK 2 word uses: 争理论
+  为什么随机句子中的人总是叫汤姆？  -- 5 characters no HSK 2 word uses: 句姆总汤随
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  你知道怎样使用这些命令行工具吗？  -- 6 characters no HSK 2 word uses: 令使具命用行
+  为什么中国没有乔布斯这样的人？  -- 3 characters no HSK 2 word uses: 乔布斯
+  没有人猜得出为什么那种事会发生在他身上。  -- 3 characters no HSK 2 word uses: 发猜种
+
+--- dropped at step 5 (247), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  告诉我她为什么哭。  -- level 3: 哭 L3
+  生活怎么样？  -- level 3: 生活 L3
+  生意怎么样？  -- level 4: 生意 L4
+  这事是什么时候发生的？  -- level 3: 发生 L3
+  我的房间里为什么有蟋蟀？  -- level 10: 蟋蟀 (not in list)
+  他为什么看上去很黑？  -- level 5: 黑 L5
+  你什么时候学会游泳的？  -- level 6: 学会 L6
+  女人为什么想被男人抱着睡觉？  -- level 4: 女人 L3, 被 L3, 男人 L3, 抱 L4
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  请告诉我什么时候该走。  -- level 3: 该 L3
+  它是什么什么时候盖的？  -- level 5: 盖 L5
+
+--- dropped at step 5b (6) ---
+  为什么你不等等我就开始了？  -- harder grammar: 2-35 (HSK 3)
+  我得知道我们要什么时候到。  -- harder grammar: 4-01 (HSK 4)
+  第一天怎么样？  -- harder grammar: 3-01 (HSK 3)
+  再来一杯咖啡怎么样？  -- harder grammar: 3-16 (HSK 3)
+  我为什么找不到你？  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  “你为什么跑这么快？”—“我得上火车。”  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (84) ---
+  你的眼睛为什么那么大？  -- rule: no match: line matched
+  你为什么那么高兴？  -- rule: no match: line matched
+  我知道你为什么高兴。  -- rule: unless 知道
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: unless 知道
+  为什么你不休息一下?  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  你为什么不和我们一起来？  -- rule: no match: line matched
+  你什么时候开始工作?  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  你是什么时候来的？  -- rule: no match: line matched
+  你什么时候去上课？  -- rule: no match: line matched
+  你什么时候能来我家？  -- rule: no match: line matched
+  电影什么时候开始？  -- rule: no match: line matched
+  你为什么这么说？  -- rule: no match: line matched
+  你什么时候读书？  -- rule: no match: line matched
+  没人知道为什么。  -- rule: unless 知道
+  你为什么在这？  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  你什么时候认识我的？  -- rule: no match: line matched
+  你为什么学英文？  -- rule: no match: line matched
+  为什么您一个人？  -- rule: no match: line matched
+  那是新学校什么时候开学？  -- rule: no match: line matched
+  你想知道为什么我对Tom说话吗？  -- rule: unless 知道
+  你为什么会知道？  -- rule: unless 知道
+  为什么我还在这里？  -- rule: no match: line matched
+  为什么?  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 知道
+  现在的天气怎么样了？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  什么时候想来就过来吧。  -- rule: no match: line matched
+  你为什么问我？  -- rule: no match: line matched
+  你为什么不做？  -- rule: no match: line matched
+  你为什么让我看这个？  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  你什么时候给我做事？  -- rule: no match: line matched
+  你什么时候睡觉？  -- rule: no match: line matched
+  你想什么时候见他们？  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  为什么没人喜欢她？  -- rule: no match: line matched
+  它什么时候到？  -- rule: no match: line matched
+  我们知道你为什么来这儿。  -- rule: unless 知道
+  你什么时候上班？  -- rule: no match: line matched
+  你为什么在画花？  -- rule: no match: line matched
+  她什么时候去？  -- rule: no match: line matched
+  你为什么没做？  -- rule: no match: line matched
+  你是什么时候买的？  -- rule: no match: line matched
+  我们为什么不帮他们？  -- rule: no match: line matched
+  他什么时候不再书店工作？  -- rule: no match: line matched
+  你什么时候走？  -- rule: no match: line matched
+  这什么时候能准备好？  -- rule: no match: line matched
+  你为什么一个人？  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  她什么时候到家？  -- rule: no match: line matched
+  她没说她为什么那么做。  -- rule: no match: line matched
+  不知道为什么今天有点累。  -- rule: unless 知道
+  你为什么工作？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: unless 知道
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  你为什么喜欢我？  -- rule: no match: line matched
+  你为什么还在学校？  -- rule: no match: line matched
+  你为什么给我这些钱？  -- rule: no match: line matched
+  你为什么卖了它？  -- rule: no match: line matched
+  你什么时候做完工作？  -- rule: no match: line matched
+  我在等你们。你们什么时候准备好？  -- rule: no match: line matched
+  为什么电视开着？  -- rule: no match: line matched
+  您为什么想买这本书？  -- rule: no match: line matched
+  您知道为什么吗？  -- rule: unless 知道
+  为什么？  -- rule: no match: line matched
+  什么时候？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  这件事什么时候开始的？  -- rule: no match: line matched
+  你想什么时候开始？  -- rule: no match: line matched
+  你在家什么时候吃饭？  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: unless 知道
+  花店什么时候开？  -- rule: no match: line matched
+  你什么时候认识他们的？  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  为什么不去波士顿？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  你为什么站着？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  在德国过得怎么样？  -- hidden word a learner can't work out: 德国 (Germany), 过得 (How are you getting by?)
+  你觉得周五怎么样？  -- hidden word a learner can't work out: 周五 (Friday)
+
+--- dropped at step 7 (4) ---
+  今天天气怎么样？  -- check said no (1/2): 怎么样 but asking about weather state, not opinion
+  明天天气怎么样？  -- check said no (1/2): 怎么样 here, but not asking for opinion/evaluation
+  今天晚上怎么样？  -- check said no (1/2): 怎么样 asking how event went, not opinion
+  我们这里的天气怎么样？  -- no accurate English among: What is our weather?
+
+--- dropped at step 8 (1) ---
+  你觉得这个怎么样？  -- difficulty review: (1/2); 觉得 is not in the HSK 2 word list and introduces meaning beyond this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-76_level2_20261112_211546.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:55 ##########
+Filling 2-76 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-76 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-76 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      477  2. contain the point's word(s)
+      477  3. new (not in DB, not a duplicate)
+      351  4. at most 2 characters outside HSK 2 words
+      104  5. really HSK 2
+       96  5b. no harder grammar point (of the 44 with a rule)
+       14  6. the rule finds 2-76
+       12  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-76, English chosen
+        7  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  学校怎么样？  (How's school?)  [tatoeba 5096478]
+  工作怎么样？  (How's work?)  [tatoeba 5100103]
+  这个苹果怎么样？  (How's the apple?)  [tatoeba 6092463]  hidden: 这个
+  那里的天气怎么样？  (How is the weather there?)  [tatoeba 8292595]
+  明天晚上九点怎么样？  (How about tomorrow night at nine?)  [tatoeba 8865168]
+  北京昨天天气怎么样？  (How was the weather yesterday in Beijing?)  [tatoeba 10961069]
+  上个星期天天气怎么样？  (What was the weather like last Sunday?)  [tatoeba 6056645]  hidden: 上个星期
+
+--- dropped at step 4 (126), first 12 ---
+  汤姆不知道怎样玩得开心。  -- 3 characters no HSK 2 word uses: 姆心汤
+  为什么你假装无辜！  -- 4 characters no HSK 2 word uses: 假无装辜
+  如果你太直接问她有没有朋友，她会怀疑且反问：“你为什么要这样问？”  -- 7 characters no HSK 2 word uses: 且反如怀接疑直
+  你最后一次关掉引擎是什么时候？  -- 3 characters no HSK 2 word uses: 引掉擎
+  别人怎样看自己不重要,重要的是要保证自己得到自己的认同。  -- 3 characters no HSK 2 word uses: 保证重
+  那么，你觉得怎样的生活才是幸福的？  -- 4 characters no HSK 2 word uses: 幸才活福
+  你为什么要和经理争论？  -- 3 characters no HSK 2 word uses: 争理论
+  为什么随机句子中的人总是叫汤姆？  -- 5 characters no HSK 2 word uses: 句姆总汤随
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  你知道怎样使用这些命令行工具吗？  -- 6 characters no HSK 2 word uses: 令使具命用行
+  为什么中国没有乔布斯这样的人？  -- 3 characters no HSK 2 word uses: 乔布斯
+  没有人猜得出为什么那种事会发生在他身上。  -- 3 characters no HSK 2 word uses: 发猜种
+
+--- dropped at step 5 (247), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  告诉我她为什么哭。  -- level 3: 哭 L3
+  生活怎么样？  -- level 3: 生活 L3
+  生意怎么样？  -- level 4: 生意 L4
+  这事是什么时候发生的？  -- level 3: 发生 L3
+  我的房间里为什么有蟋蟀？  -- level 10: 蟋蟀 (not in list)
+  他为什么看上去很黑？  -- level 5: 黑 L5
+  你什么时候学会游泳的？  -- level 6: 学会 L6
+  女人为什么想被男人抱着睡觉？  -- level 4: 女人 L3, 被 L3, 男人 L3, 抱 L4
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  请告诉我什么时候该走。  -- level 3: 该 L3
+  它是什么什么时候盖的？  -- level 5: 盖 L5
+
+--- dropped at step 5b (8) ---
+  为什么你不等等我就开始了？  -- harder grammar: 2-35 (HSK 3)
+  它什么时候到？  -- harder grammar: 2-06 (HSK 3)
+  我得知道我们要什么时候到。  -- harder grammar: 4-01 (HSK 4)
+  第一天怎么样？  -- harder grammar: 3-01 (HSK 3)
+  再来一杯咖啡怎么样？  -- harder grammar: 3-16 (HSK 3)
+  你为什么卖了它？  -- harder grammar: 2-06 (HSK 3)
+  我为什么找不到你？  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  “你为什么跑这么快？”—“我得上火车。”  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (82) ---
+  你的眼睛为什么那么大？  -- rule: no match: line matched
+  你为什么那么高兴？  -- rule: no match: line matched
+  我知道你为什么高兴。  -- rule: unless 知道
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: unless 知道
+  为什么你不休息一下?  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  你为什么不和我们一起来？  -- rule: no match: line matched
+  你什么时候开始工作?  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  你是什么时候来的？  -- rule: no match: line matched
+  你什么时候去上课？  -- rule: no match: line matched
+  你什么时候能来我家？  -- rule: no match: line matched
+  电影什么时候开始？  -- rule: no match: line matched
+  你为什么这么说？  -- rule: no match: line matched
+  你什么时候读书？  -- rule: no match: line matched
+  没人知道为什么。  -- rule: unless 知道
+  你为什么在这？  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  你什么时候认识我的？  -- rule: no match: line matched
+  你为什么学英文？  -- rule: no match: line matched
+  为什么您一个人？  -- rule: no match: line matched
+  那是新学校什么时候开学？  -- rule: no match: line matched
+  你想知道为什么我对Tom说话吗？  -- rule: unless 知道
+  你为什么会知道？  -- rule: unless 知道
+  为什么我还在这里？  -- rule: no match: line matched
+  为什么?  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 知道
+  现在的天气怎么样了？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  什么时候想来就过来吧。  -- rule: no match: line matched
+  你为什么问我？  -- rule: no match: line matched
+  你为什么不做？  -- rule: no match: line matched
+  你为什么让我看这个？  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  你什么时候给我做事？  -- rule: no match: line matched
+  你什么时候睡觉？  -- rule: no match: line matched
+  你想什么时候见他们？  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  为什么没人喜欢她？  -- rule: no match: line matched
+  我们知道你为什么来这儿。  -- rule: unless 知道
+  你什么时候上班？  -- rule: no match: line matched
+  你为什么在画花？  -- rule: no match: line matched
+  她什么时候去？  -- rule: no match: line matched
+  你为什么没做？  -- rule: no match: line matched
+  你是什么时候买的？  -- rule: no match: line matched
+  我们为什么不帮他们？  -- rule: no match: line matched
+  他什么时候不再书店工作？  -- rule: no match: line matched
+  你什么时候走？  -- rule: no match: line matched
+  这什么时候能准备好？  -- rule: no match: line matched
+  你为什么一个人？  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  她什么时候到家？  -- rule: no match: line matched
+  她没说她为什么那么做。  -- rule: no match: line matched
+  不知道为什么今天有点累。  -- rule: unless 知道
+  你为什么工作？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: unless 知道
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  你为什么喜欢我？  -- rule: no match: line matched
+  你为什么还在学校？  -- rule: no match: line matched
+  你为什么给我这些钱？  -- rule: no match: line matched
+  你什么时候做完工作？  -- rule: no match: line matched
+  我在等你们。你们什么时候准备好？  -- rule: no match: line matched
+  为什么电视开着？  -- rule: no match: line matched
+  您为什么想买这本书？  -- rule: no match: line matched
+  您知道为什么吗？  -- rule: unless 知道
+  为什么？  -- rule: no match: line matched
+  什么时候？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  这件事什么时候开始的？  -- rule: no match: line matched
+  你想什么时候开始？  -- rule: no match: line matched
+  你在家什么时候吃饭？  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: unless 知道
+  花店什么时候开？  -- rule: no match: line matched
+  你什么时候认识他们的？  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  为什么不去波士顿？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  你为什么站着？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  在德国过得怎么样？  -- hidden word a learner can't work out: 德国 (Germany), 过得 (How are you getting by?)
+  你觉得周五怎么样？  -- hidden word a learner can't work out: 周五 (Friday)
+
+--- dropped at step 7 (4) ---
+  今天天气怎么样？  -- check said no (1/2): 怎么样 but asking about weather state, not opinion
+  明天天气怎么样？  -- check said no (1/2): 怎么样 here, but not asking for opinion/evaluation
+  今天晚上怎么样？  -- check said no (1/2): 怎么样 asking how event went, not opinion
+  我们这里的天气怎么样？  -- no accurate English among: What is our weather?
+
+--- dropped at step 8 (1) ---
+  你觉得这个怎么样？  -- difficulty review: (1/2); 觉得 is not in the HSK 2 word list and introduces meaning beyond this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-76_level2_20261113_135525.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:46 ##########
+Filling 2-76 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-76 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 4 check and 1 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 2-76 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      477  2. contain the point's word(s)
+      477  3. new (not in DB, not a duplicate)
+      351  4. at most 2 characters outside HSK 2 words
+      104  5. really HSK 2
+       98  5b. no harder grammar point (of the 43 with a rule)
+       14  6. the rule finds 2-76
+       12  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-76, English chosen
+        3  7b. second opinion: it is the point (check)
+        7  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (11) ===
+  学校怎么样？  (How's school?)  [tatoeba 5096478]
+  工作怎么样？  (How's work?)  [tatoeba 5100103]
+  这个苹果怎么样？  (How's the apple?)  [tatoeba 6092463]  hidden: 这个
+  那里的天气怎么样？  (How is the weather there?)  [tatoeba 8292595]
+  明天晚上九点怎么样？  (How about tomorrow night at nine?)  [tatoeba 8865168]
+  北京昨天天气怎么样？  (How was the weather yesterday in Beijing?)  [tatoeba 10961069]
+  上个星期天天气怎么样？  (What was the weather like last Sunday?)  [tatoeba 6056645]  hidden: 上个星期
+  今天天气怎么样？  (How's the weather today?)  [tatoeba 6092459]
+  明天天气怎么样？  (How will the weather be tomorrow?)  [tatoeba 6092461]
+  今天晚上怎么样？  (How did tonight go?)  [tatoeba 13109165]
+  你觉得这个怎么样？  (What are your thoughts on this?)  [tatoeba 8631087]  hidden: 这个
+
+--- dropped at step 4 (126), first 12 ---
+  汤姆不知道怎样玩得开心。  -- 3 characters no HSK 2 word uses: 姆心汤
+  为什么你假装无辜！  -- 4 characters no HSK 2 word uses: 假无装辜
+  如果你太直接问她有没有朋友，她会怀疑且反问：“你为什么要这样问？”  -- 7 characters no HSK 2 word uses: 且反如怀接疑直
+  你最后一次关掉引擎是什么时候？  -- 3 characters no HSK 2 word uses: 引掉擎
+  别人怎样看自己不重要,重要的是要保证自己得到自己的认同。  -- 3 characters no HSK 2 word uses: 保证重
+  那么，你觉得怎样的生活才是幸福的？  -- 4 characters no HSK 2 word uses: 幸才活福
+  你为什么要和经理争论？  -- 3 characters no HSK 2 word uses: 争理论
+  为什么随机句子中的人总是叫汤姆？  -- 5 characters no HSK 2 word uses: 句姆总汤随
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  你知道怎样使用这些命令行工具吗？  -- 6 characters no HSK 2 word uses: 令使具命用行
+  为什么中国没有乔布斯这样的人？  -- 3 characters no HSK 2 word uses: 乔布斯
+  没有人猜得出为什么那种事会发生在他身上。  -- 3 characters no HSK 2 word uses: 发猜种
+
+--- dropped at step 5 (247), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  告诉我她为什么哭。  -- level 3: 哭 L3
+  生活怎么样？  -- level 3: 生活 L3
+  生意怎么样？  -- level 4: 生意 L4
+  这事是什么时候发生的？  -- level 3: 发生 L3
+  我的房间里为什么有蟋蟀？  -- level 10: 蟋蟀 (not in list)
+  他为什么看上去很黑？  -- level 5: 黑 L5
+  你什么时候学会游泳的？  -- level 6: 学会 L6
+  女人为什么想被男人抱着睡觉？  -- level 4: 女人 L3, 被 L3, 男人 L3, 抱 L4
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  请告诉我什么时候该走。  -- level 3: 该 L3
+  它是什么什么时候盖的？  -- level 5: 盖 L5
+
+--- dropped at step 5b (6) ---
+  为什么你不等等我就开始了？  -- harder grammar: 2-35 (HSK 3)
+  我得知道我们要什么时候到。  -- harder grammar: 4-01 (HSK 4)
+  第一天怎么样？  -- harder grammar: 3-01 (HSK 3)
+  再来一杯咖啡怎么样？  -- harder grammar: 3-16 (HSK 3)
+  我为什么找不到你？  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  “你为什么跑这么快？”—“我得上火车。”  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (84) ---
+  你的眼睛为什么那么大？  -- rule: no match: line matched
+  你为什么那么高兴？  -- rule: no match: line matched
+  我知道你为什么高兴。  -- rule: unless 知道
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: unless 知道
+  为什么你不休息一下?  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  你为什么不和我们一起来？  -- rule: no match: line matched
+  你什么时候开始工作?  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  你是什么时候来的？  -- rule: no match: line matched
+  你什么时候去上课？  -- rule: no match: line matched
+  你什么时候能来我家？  -- rule: no match: line matched
+  电影什么时候开始？  -- rule: no match: line matched
+  你为什么这么说？  -- rule: no match: line matched
+  你什么时候读书？  -- rule: no match: line matched
+  没人知道为什么。  -- rule: unless 知道
+  你为什么在这？  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  你什么时候认识我的？  -- rule: no match: line matched
+  你为什么学英文？  -- rule: no match: line matched
+  为什么您一个人？  -- rule: no match: line matched
+  那是新学校什么时候开学？  -- rule: no match: line matched
+  你想知道为什么我对Tom说话吗？  -- rule: unless 知道
+  你为什么会知道？  -- rule: unless 知道
+  为什么我还在这里？  -- rule: no match: line matched
+  为什么?  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 知道
+  现在的天气怎么样了？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  什么时候想来就过来吧。  -- rule: no match: line matched
+  你为什么问我？  -- rule: no match: line matched
+  你为什么不做？  -- rule: no match: line matched
+  你为什么让我看这个？  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  你什么时候给我做事？  -- rule: no match: line matched
+  你什么时候睡觉？  -- rule: no match: line matched
+  你想什么时候见他们？  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  为什么没人喜欢她？  -- rule: no match: line matched
+  它什么时候到？  -- rule: no match: line matched
+  我们知道你为什么来这儿。  -- rule: unless 知道
+  你什么时候上班？  -- rule: no match: line matched
+  你为什么在画花？  -- rule: no match: line matched
+  她什么时候去？  -- rule: no match: line matched
+  你为什么没做？  -- rule: no match: line matched
+  你是什么时候买的？  -- rule: no match: line matched
+  我们为什么不帮他们？  -- rule: no match: line matched
+  他什么时候不再书店工作？  -- rule: no match: line matched
+  你什么时候走？  -- rule: no match: line matched
+  这什么时候能准备好？  -- rule: no match: line matched
+  你为什么一个人？  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  她什么时候到家？  -- rule: no match: line matched
+  她没说她为什么那么做。  -- rule: no match: line matched
+  不知道为什么今天有点累。  -- rule: unless 知道
+  你为什么工作？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: unless 知道
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  你为什么喜欢我？  -- rule: no match: line matched
+  你为什么还在学校？  -- rule: no match: line matched
+  你为什么给我这些钱？  -- rule: no match: line matched
+  你为什么卖了它？  -- rule: no match: line matched
+  你什么时候做完工作？  -- rule: no match: line matched
+  我在等你们。你们什么时候准备好？  -- rule: no match: line matched
+  为什么电视开着？  -- rule: no match: line matched
+  您为什么想买这本书？  -- rule: no match: line matched
+  您知道为什么吗？  -- rule: unless 知道
+  为什么？  -- rule: no match: line matched
+  什么时候？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  这件事什么时候开始的？  -- rule: no match: line matched
+  你想什么时候开始？  -- rule: no match: line matched
+  你在家什么时候吃饭？  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: unless 知道
+  花店什么时候开？  -- rule: no match: line matched
+  你什么时候认识他们的？  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  为什么不去波士顿？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  你为什么站着？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  在德国过得怎么样？  -- hidden word a learner can't work out: 德国 (Germany), 过得 (How are you getting by?; How's life?; contraction of 過得去|过得去, can get by; tolerably well)
+  你觉得周五怎么样？  -- hidden word a learner can't work out: 周五 (Friday)
+
+--- dropped at step 7 (1) ---
+  我们这里的天气怎么样？  -- no accurate English among: What is our weather?
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-76_level2_20261113_144647.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## ai  2026-11-14 14:46 ##########
+
+----- AI-written sentences for 2-76, round 1: 0 to check, 9 needed -----
+  Asking claude-sonnet-5-5 to write 23 sentence(s)...
+
+----- AI-written sentences for 2-76, round 2: 23 to check, 9 needed -----
+Filling 2-76 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 23
+
+Tagging 23 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_144622.txt
+
+Course sentences at HSK 2 the rule already finds 2-76 in: 0  -> Tatoeba needs to add 9 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-76 at HSK 2: funnel ===
+       23  AI-written sentences
+       23  1. have an English translation
+       23  2. contain the point's word(s)
+       23  3. new (not in DB, not a duplicate)
+       23  4. at most 0 characters outside HSK 2 words
+       14  5. really HSK 2
+       14  5b. no harder grammar point (of the 43 with a rule)
+       14  6. the rule finds 2-76
+       14  6b. no hidden word a learner can't work out
+       14  7. both checks say 2-76, English chosen
+       14  8. both difficulty reviews pass it
+
+=== Survivors (14) ===
+  那家书店怎么样？  (How is that bookstore?)  [tatoeba ai-6aaddf0db2]
+  你妈妈身体怎么样？  (How is your mom's health?)  [tatoeba ai-706ef595af]
+  你的新同学怎么样？  (How are your new classmates?)  [tatoeba ai-650dcd76fc]
+  你的新房间怎么样？  (How is your new room?)  [tatoeba ai-23e43abe6a]
+  昨天的考试怎么样？  (How was yesterday's exam?)  [tatoeba ai-b2ad999b01]
+  这个饭店的菜怎么样？  (How is the food at this restaurant?)  [tatoeba ai-e6edb9e90c]  hidden: 这个
+  你觉得学汉语怎么样？  (What do you think of learning Chinese?)  [tatoeba ai-fbb4128c5e]
+  你爸爸的新车怎么样？  (How is your dad's new car?)  [tatoeba ai-0b8ec57049]
+  你们的英语课怎么样？  (How is your English class?)  [tatoeba ai-d6b244c4dd]
+  你的朋友们都怎么样？  (How are all your friends doing?)  [tatoeba ai-385b1b90d2]
+  你觉得这件衣服怎么样？  (What do you think of this piece of clothing?)  [tatoeba ai-9c833cb9af]
+  你们学校的老师怎么样？  (How are the teachers at your school?)  [tatoeba ai-e8de36d0c4]
+  你觉得这家商店怎么样？  (What do you think of this store?)  [tatoeba ai-21f9d0cfff]
+  他的新工作怎么样，忙不忙？  (How is his new job? Is it busy?)  [tatoeba ai-a7ebb372c0]  hidden: 不忙
+
+--- dropped at step 5 (9) ---
+  你喜欢什么样的电影？  -- level 6: 样 L6
+  你想找什么样的工作？  -- level 6: 样 L6
+  你们老师是什么样的人？  -- level 6: 样 L6
+  你想买什么样的手机？  -- level 6: 样 L6
+  你女朋友喜欢什么样的歌？  -- level 6: 样 L6
+  你想住什么样的房间？  -- level 6: 样 L6
+  你想要什么样的杯子？  -- level 6: 样 L6
+  你喜欢什么样的天气？  -- level 6: 样 L6
+  你觉得他怎样？  -- level 3: 怎样 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-76_level2_20261114_144631.csv
+
+########## ai  2026-11-14 15:02 ##########
+
+----- AI-written sentences for 2-76, round 1: 23 to check, 9 needed -----
+Filling 2-76 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 23
+
+
+Course sentences at HSK 2 the rule already finds 2-76 in: 0  -> Tatoeba needs to add 9 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-76 at HSK 2: funnel ===
+       23  AI-written sentences
+       23  1. have an English translation
+       23  2. contain the point's word(s)
+       23  3. new (not in DB, not a duplicate)
+       23  4. at most 0 characters outside HSK 2 words
+       14  5. really HSK 2
+       14  5b. no harder grammar point (of the 43 with a rule)
+       14  6. the rule finds 2-76
+       14  6b. no hidden word a learner can't work out
+       14  7. both checks say 2-76, English chosen
+       14  8. both difficulty reviews pass it
+
+=== Survivors (14) ===
+  那家书店怎么样？  (How is that bookstore?)  [tatoeba ai-6aaddf0db2]
+  你妈妈身体怎么样？  (How is your mom's health?)  [tatoeba ai-706ef595af]
+  你的新同学怎么样？  (How are your new classmates?)  [tatoeba ai-650dcd76fc]
+  你的新房间怎么样？  (How is your new room?)  [tatoeba ai-23e43abe6a]
+  昨天的考试怎么样？  (How was yesterday's exam?)  [tatoeba ai-b2ad999b01]
+  这个饭店的菜怎么样？  (How is the food at this restaurant?)  [tatoeba ai-e6edb9e90c]  hidden: 这个
+  你觉得学汉语怎么样？  (What do you think of learning Chinese?)  [tatoeba ai-fbb4128c5e]
+  你爸爸的新车怎么样？  (How is your dad's new car?)  [tatoeba ai-0b8ec57049]
+  你们的英语课怎么样？  (How is your English class?)  [tatoeba ai-d6b244c4dd]
+  你的朋友们都怎么样？  (How are all your friends doing?)  [tatoeba ai-385b1b90d2]
+  你觉得这件衣服怎么样？  (What do you think of this piece of clothing?)  [tatoeba ai-9c833cb9af]
+  你们学校的老师怎么样？  (How are the teachers at your school?)  [tatoeba ai-e8de36d0c4]
+  你觉得这家商店怎么样？  (What do you think of this store?)  [tatoeba ai-21f9d0cfff]
+  他的新工作怎么样，忙不忙？  (How is his new job? Is it busy?)  [tatoeba ai-a7ebb372c0]  hidden: 不忙
+
+--- dropped at step 5 (9) ---
+  你喜欢什么样的电影？  -- level 6: 样 L6
+  你想找什么样的工作？  -- level 6: 样 L6
+  你们老师是什么样的人？  -- level 6: 样 L6
+  你想买什么样的手机？  -- level 6: 样 L6
+  你女朋友喜欢什么样的歌？  -- level 6: 样 L6
+  你想住什么样的房间？  -- level 6: 样 L6
+  你想要什么样的杯子？  -- level 6: 样 L6
+  你喜欢什么样的天气？  -- level 6: 样 L6
+  你觉得他怎样？  -- level 3: 怎样 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-76_level2_20261114_150244.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:11 ##########
+Filling 2-76 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-76 in: 29  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-76 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      477  2. contain the point's word(s)
+      448  3. new (not in DB, not a duplicate)
+      322  4. at most 2 characters outside HSK 2 words
+       75  5. really HSK 2
+       71  5b. no harder grammar point (of the 43 with a rule)
+        3  6. the rule finds 2-76
+        1  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (1 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (29), first 12 ---
+  你的眼睛为什么那么大？  -- already in the database
+  你为什么那么高兴？  -- already in the database
+  为什么你不休息一下?  -- already in the database
+  你为什么这么说？  -- already in the database
+  你为什么在这？  -- already in the database
+  学校怎么样？  -- already in the database
+  工作怎么样？  -- already in the database
+  你为什么问我？  -- already in the database
+  你为什么不做？  -- already in the database
+  它什么时候到？  -- already in the database
+  你为什么在画花？  -- already in the database
+  上个星期天天气怎么样？  -- already in the database
+
+--- dropped at step 4 (126), first 12 ---
+  汤姆不知道怎样玩得开心。  -- 3 characters no HSK 2 word uses: 姆心汤
+  为什么你假装无辜！  -- 4 characters no HSK 2 word uses: 假无装辜
+  如果你太直接问她有没有朋友，她会怀疑且反问：“你为什么要这样问？”  -- 7 characters no HSK 2 word uses: 且反如怀接疑直
+  你最后一次关掉引擎是什么时候？  -- 3 characters no HSK 2 word uses: 引掉擎
+  别人怎样看自己不重要,重要的是要保证自己得到自己的认同。  -- 3 characters no HSK 2 word uses: 保证重
+  那么，你觉得怎样的生活才是幸福的？  -- 4 characters no HSK 2 word uses: 幸才活福
+  你为什么要和经理争论？  -- 3 characters no HSK 2 word uses: 争理论
+  为什么随机句子中的人总是叫汤姆？  -- 5 characters no HSK 2 word uses: 句姆总汤随
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  你知道怎样使用这些命令行工具吗？  -- 6 characters no HSK 2 word uses: 令使具命用行
+  为什么中国没有乔布斯这样的人？  -- 3 characters no HSK 2 word uses: 乔布斯
+  没有人猜得出为什么那种事会发生在他身上。  -- 3 characters no HSK 2 word uses: 发猜种
+
+--- dropped at step 5 (247), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  告诉我她为什么哭。  -- level 3: 哭 L3
+  生活怎么样？  -- level 3: 生活 L3
+  生意怎么样？  -- level 4: 生意 L4
+  这事是什么时候发生的？  -- level 3: 发生 L3
+  我的房间里为什么有蟋蟀？  -- level 10: 蟋蟀 (not in list)
+  他为什么看上去很黑？  -- level 5: 黑 L5
+  你什么时候学会游泳的？  -- level 6: 学会 L6
+  女人为什么想被男人抱着睡觉？  -- level 4: 女人 L3, 被 L3, 男人 L3, 抱 L4
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  请告诉我什么时候该走。  -- level 3: 该 L3
+  它是什么什么时候盖的？  -- level 5: 盖 L5
+
+--- dropped at step 5b (4) ---
+  我得知道我们要什么时候到。  -- harder grammar: 4-01 (HSK 4)
+  再来一杯咖啡怎么样？  -- harder grammar: 3-16 (HSK 3)
+  我为什么找不到你？  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  “你为什么跑这么快？”—“我得上火车。”  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (68) ---
+  我知道你为什么高兴。  -- rule: unless 知道
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: unless 知道
+  你什么时候回国？  -- rule: no match: line matched
+  你为什么不和我们一起来？  -- rule: no match: line matched
+  你什么时候开始工作?  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  你是什么时候来的？  -- rule: no match: line matched
+  你什么时候去上课？  -- rule: no match: line matched
+  你什么时候能来我家？  -- rule: no match: line matched
+  电影什么时候开始？  -- rule: no match: line matched
+  你什么时候读书？  -- rule: no match: line matched
+  没人知道为什么。  -- rule: unless 知道
+  你为什么长不大呢？  -- rule: no match: line matched
+  你什么时候认识我的？  -- rule: no match: line matched
+  你为什么学英文？  -- rule: no match: line matched
+  为什么您一个人？  -- rule: no match: line matched
+  那是新学校什么时候开学？  -- rule: no match: line matched
+  你想知道为什么我对Tom说话吗？  -- rule: unless 知道
+  你为什么会知道？  -- rule: unless 知道
+  为什么我还在这里？  -- rule: no match: line matched
+  为什么?  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 知道
+  现在的天气怎么样了？  -- rule: no match: line matched
+  为什么你不等等我就开始了？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  什么时候想来就过来吧。  -- rule: no match: line matched
+  你为什么让我看这个？  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  你什么时候给我做事？  -- rule: no match: line matched
+  你什么时候睡觉？  -- rule: no match: line matched
+  你想什么时候见他们？  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  为什么没人喜欢她？  -- rule: no match: line matched
+  我们知道你为什么来这儿。  -- rule: unless 知道
+  你什么时候上班？  -- rule: no match: line matched
+  她什么时候去？  -- rule: no match: line matched
+  你为什么没做？  -- rule: no match: line matched
+  你是什么时候买的？  -- rule: no match: line matched
+  我们为什么不帮他们？  -- rule: no match: line matched
+  他什么时候不再书店工作？  -- rule: no match: line matched
+  你什么时候走？  -- rule: no match: line matched
+  这什么时候能准备好？  -- rule: no match: line matched
+  你为什么一个人？  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  她什么时候到家？  -- rule: no match: line matched
+  她没说她为什么那么做。  -- rule: no match: line matched
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  你为什么喜欢我？  -- rule: no match: line matched
+  你为什么还在学校？  -- rule: no match: line matched
+  你为什么给我这些钱？  -- rule: no match: line matched
+  我在等你们。你们什么时候准备好？  -- rule: no match: line matched
+  您为什么想买这本书？  -- rule: no match: line matched
+  您知道为什么吗？  -- rule: unless 知道
+  为什么？  -- rule: no match: line matched
+  什么时候？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  这件事什么时候开始的？  -- rule: no match: line matched
+  你想什么时候开始？  -- rule: no match: line matched
+  你在家什么时候吃饭？  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: unless 知道
+  花店什么时候开？  -- rule: no match: line matched
+  你什么时候认识他们的？  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  为什么不去波士顿？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  在德国过得怎么样？  -- hidden word a learner can't work out: 德国 (Germany), 过得 (How are you getting by?; How's life?; contraction of 過得去|过得去, can get by; tolerably well)
+  你觉得周五怎么样？  -- hidden word a learner can't work out: 周五 (Friday)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-76_level2_20261114_161143.csv
+
+########## ai  2026-11-14 16:15 ##########
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:32 ##########
+Filling 2-76 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-76 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 4 check and 1 review rejection(s)...
+
+=== 2-76 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      477  2. contain the point's word(s)
+      477  3. new (not in DB, not a duplicate)
+      351  4. at most 2 characters outside HSK 2 words
+      104  5. really HSK 2
+       99  5b. no harder grammar point (of the 43 with a rule)
+       14  6. the rule finds 2-76
+       12  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-76, English chosen
+        3  7b. second opinion: it is the point (check)
+        7  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (11) ===
+  学校怎么样？  (How's school?)  [tatoeba 5096478]
+  工作怎么样？  (How's work?)  [tatoeba 5100103]
+  这个苹果怎么样？  (How's the apple?)  [tatoeba 6092463]  hidden: 这个
+  那里的天气怎么样？  (How is the weather there?)  [tatoeba 8292595]
+  明天晚上九点怎么样？  (How about tomorrow night at nine?)  [tatoeba 8865168]
+  北京昨天天气怎么样？  (How was the weather yesterday in Beijing?)  [tatoeba 10961069]
+  上个星期天天气怎么样？  (What was the weather like last Sunday?)  [tatoeba 6056645]  hidden: 上个星期
+  今天天气怎么样？  (How's the weather today?)  [tatoeba 6092459]
+  明天天气怎么样？  (How will the weather be tomorrow?)  [tatoeba 6092461]
+  今天晚上怎么样？  (How did tonight go?)  [tatoeba 13109165]
+  你觉得这个怎么样？  (What are your thoughts on this?)  [tatoeba 8631087]  hidden: 这个
+
+--- dropped at step 4 (126), first 12 ---
+  汤姆不知道怎样玩得开心。  -- 3 characters no HSK 2 word uses: 姆心汤
+  为什么你假装无辜！  -- 4 characters no HSK 2 word uses: 假无装辜
+  如果你太直接问她有没有朋友，她会怀疑且反问：“你为什么要这样问？”  -- 7 characters no HSK 2 word uses: 且反如怀接疑直
+  你最后一次关掉引擎是什么时候？  -- 3 characters no HSK 2 word uses: 引掉擎
+  别人怎样看自己不重要,重要的是要保证自己得到自己的认同。  -- 3 characters no HSK 2 word uses: 保证重
+  那么，你觉得怎样的生活才是幸福的？  -- 4 characters no HSK 2 word uses: 幸才活福
+  你为什么要和经理争论？  -- 3 characters no HSK 2 word uses: 争理论
+  为什么随机句子中的人总是叫汤姆？  -- 5 characters no HSK 2 word uses: 句姆总汤随
+  为什么你要烧这些图片呢？  -- 3 characters no HSK 2 word uses: 图烧片
+  你知道怎样使用这些命令行工具吗？  -- 6 characters no HSK 2 word uses: 令使具命用行
+  为什么中国没有乔布斯这样的人？  -- 3 characters no HSK 2 word uses: 乔布斯
+  没有人猜得出为什么那种事会发生在他身上。  -- 3 characters no HSK 2 word uses: 发猜种
+
+--- dropped at step 5 (247), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  告诉我她为什么哭。  -- level 3: 哭 L3
+  生活怎么样？  -- level 3: 生活 L3
+  生意怎么样？  -- level 4: 生意 L4
+  这事是什么时候发生的？  -- level 3: 发生 L3
+  我的房间里为什么有蟋蟀？  -- level 10: 蟋蟀 (not in list)
+  他为什么看上去很黑？  -- level 5: 黑 L5
+  你什么时候学会游泳的？  -- level 6: 学会 L6
+  女人为什么想被男人抱着睡觉？  -- level 4: 女人 L3, 被 L3, 男人 L3, 抱 L4
+  您怎样看日本的经济呢？  -- level 4: 怎样 L3, 经济 L4
+  请告诉我什么时候该走。  -- level 3: 该 L3
+  它是什么什么时候盖的？  -- level 5: 盖 L5
+
+--- dropped at step 5b (5) ---
+  我得知道我们要什么时候到。  -- harder grammar: 4-01 (HSK 4)
+  第一天怎么样？  -- harder grammar: 3-01 (HSK 3)
+  再来一杯咖啡怎么样？  -- harder grammar: 3-16 (HSK 3)
+  我为什么找不到你？  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  “你为什么跑这么快？”—“我得上火车。”  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (85) ---
+  你的眼睛为什么那么大？  -- rule: no match: line matched
+  你为什么那么高兴？  -- rule: no match: line matched
+  我知道你为什么高兴。  -- rule: unless 知道
+  你为什么不回家呢？  -- rule: no match: line matched
+  为什么他会做这样的事呢？  -- rule: no match: line matched
+  我不知道她什么时候会回来。  -- rule: unless 知道
+  为什么你不休息一下?  -- rule: no match: line matched
+  你什么时候回国？  -- rule: no match: line matched
+  你为什么不和我们一起来？  -- rule: no match: line matched
+  你什么时候开始工作?  -- rule: no match: line matched
+  为什么你每天都学习呢？  -- rule: no match: line matched
+  你是什么时候来的？  -- rule: no match: line matched
+  你什么时候去上课？  -- rule: no match: line matched
+  你什么时候能来我家？  -- rule: no match: line matched
+  电影什么时候开始？  -- rule: no match: line matched
+  你为什么这么说？  -- rule: no match: line matched
+  你什么时候读书？  -- rule: no match: line matched
+  没人知道为什么。  -- rule: unless 知道
+  你为什么在这？  -- rule: no match: line matched
+  你为什么长不大呢？  -- rule: no match: line matched
+  你什么时候认识我的？  -- rule: no match: line matched
+  你为什么学英文？  -- rule: no match: line matched
+  为什么您一个人？  -- rule: no match: line matched
+  那是新学校什么时候开学？  -- rule: no match: line matched
+  你想知道为什么我对Tom说话吗？  -- rule: unless 知道
+  你为什么会知道？  -- rule: unless 知道
+  为什么我还在这里？  -- rule: no match: line matched
+  为什么?  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 知道
+  现在的天气怎么样了？  -- rule: no match: line matched
+  为什么你不等等我就开始了？  -- rule: no match: line matched
+  从什么时候开始您就这里工作着的呢？  -- rule: no match: line matched
+  什么时候想来就过来吧。  -- rule: no match: line matched
+  你为什么问我？  -- rule: no match: line matched
+  你为什么不做？  -- rule: no match: line matched
+  你为什么让我看这个？  -- rule: no match: line matched
+  我为什么要给他钱？  -- rule: no match: line matched
+  你什么时候给我做事？  -- rule: no match: line matched
+  你什么时候睡觉？  -- rule: no match: line matched
+  你想什么时候见他们？  -- rule: no match: line matched
+  你为什么那么对她？  -- rule: no match: line matched
+  为什么没人喜欢她？  -- rule: no match: line matched
+  它什么时候到？  -- rule: no match: line matched
+  我们知道你为什么来这儿。  -- rule: unless 知道
+  你什么时候上班？  -- rule: no match: line matched
+  你为什么在画花？  -- rule: no match: line matched
+  她什么时候去？  -- rule: no match: line matched
+  你为什么没做？  -- rule: no match: line matched
+  你是什么时候买的？  -- rule: no match: line matched
+  我们为什么不帮他们？  -- rule: no match: line matched
+  他什么时候不再书店工作？  -- rule: no match: line matched
+  你什么时候走？  -- rule: no match: line matched
+  这什么时候能准备好？  -- rule: no match: line matched
+  你为什么一个人？  -- rule: no match: line matched
+  为什么你要读这样一本书？  -- rule: no match: line matched
+  她什么时候到家？  -- rule: no match: line matched
+  她没说她为什么那么做。  -- rule: no match: line matched
+  不知道为什么今天有点累。  -- rule: unless 知道
+  你为什么工作？  -- rule: no match: line matched
+  不知道明天天气会怎么样呢？  -- rule: unless 知道
+  为什么雪是白色的呢？  -- rule: no match: line matched
+  你为什么喜欢我？  -- rule: no match: line matched
+  你为什么还在学校？  -- rule: no match: line matched
+  你为什么给我这些钱？  -- rule: no match: line matched
+  你为什么卖了它？  -- rule: no match: line matched
+  你什么时候做完工作？  -- rule: no match: line matched
+  我在等你们。你们什么时候准备好？  -- rule: no match: line matched
+  为什么电视开着？  -- rule: no match: line matched
+  您为什么想买这本书？  -- rule: no match: line matched
+  您知道为什么吗？  -- rule: unless 知道
+  为什么？  -- rule: no match: line matched
+  什么时候？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  这件事什么时候开始的？  -- rule: no match: line matched
+  你想什么时候开始？  -- rule: no match: line matched
+  你在家什么时候吃饭？  -- rule: no match: line matched
+  汤姆想知道你什么时候完事。  -- rule: unless 知道
+  花店什么时候开？  -- rule: no match: line matched
+  你什么时候认识他们的？  -- rule: no match: line matched
+  什么时候开始下雪的？  -- rule: no match: line matched
+  她什么时候回家？  -- rule: no match: line matched
+  你为什么要和他说话？  -- rule: no match: line matched
+  为什么不去波士顿？  -- rule: no match: line matched
+  我为什么要那样做？  -- rule: no match: line matched
+  你为什么站着？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  在德国过得怎么样？  -- hidden word a learner can't work out: 德国 (Germany), 过得 (How are you getting by?; How's life?; contraction of 過得去|过得去, can get by; tolerably well)
+  你觉得周五怎么样？  -- hidden word a learner can't work out: 周五 (Friday)
+
+--- dropped at step 7 (1) ---
+  我们这里的天气怎么样？  -- no accurate English among: What is our weather?
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-76_level2_20261114_163253.csv
+
+########## ai  2026-11-14 16:36 ##########
+
+----- AI-written sentences for 2-76, round 1: 23 to check, 9 needed -----
+Filling 2-76 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 23
+
+
+Course sentences at HSK 2 the rule already finds 2-76 in: 0  -> Tatoeba needs to add 9 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-76 at HSK 2: funnel ===
+       23  AI-written sentences
+       23  1. have an English translation
+       23  2. contain the point's word(s)
+       23  3. new (not in DB, not a duplicate)
+       23  4. at most 0 characters outside HSK 2 words
+       14  5. really HSK 2
+       14  5b. no harder grammar point (of the 43 with a rule)
+       14  6. the rule finds 2-76
+       14  6b. no hidden word a learner can't work out
+       14  7. both checks say 2-76, English chosen
+       14  8. both difficulty reviews pass it
+
+=== Survivors (14) ===
+  那家书店怎么样？  (How is that bookstore?)  [tatoeba ai-6aaddf0db2]
+  你妈妈身体怎么样？  (How is your mom's health?)  [tatoeba ai-706ef595af]
+  你的新同学怎么样？  (How are your new classmates?)  [tatoeba ai-650dcd76fc]
+  你的新房间怎么样？  (How is your new room?)  [tatoeba ai-23e43abe6a]
+  昨天的考试怎么样？  (How was yesterday's exam?)  [tatoeba ai-b2ad999b01]
+  这个饭店的菜怎么样？  (How is the food at this restaurant?)  [tatoeba ai-e6edb9e90c]  hidden: 这个
+  你觉得学汉语怎么样？  (What do you think of learning Chinese?)  [tatoeba ai-fbb4128c5e]
+  你爸爸的新车怎么样？  (How is your dad's new car?)  [tatoeba ai-0b8ec57049]
+  你们的英语课怎么样？  (How is your English class?)  [tatoeba ai-d6b244c4dd]
+  你的朋友们都怎么样？  (How are all your friends doing?)  [tatoeba ai-385b1b90d2]
+  你觉得这件衣服怎么样？  (What do you think of this piece of clothing?)  [tatoeba ai-9c833cb9af]
+  你们学校的老师怎么样？  (How are the teachers at your school?)  [tatoeba ai-e8de36d0c4]
+  你觉得这家商店怎么样？  (What do you think of this store?)  [tatoeba ai-21f9d0cfff]
+  他的新工作怎么样，忙不忙？  (How is his new job? Is it busy?)  [tatoeba ai-a7ebb372c0]  hidden: 不忙
+
+--- dropped at step 5 (9) ---
+  你喜欢什么样的电影？  -- level 6: 样 L6
+  你想找什么样的工作？  -- level 6: 样 L6
+  你们老师是什么样的人？  -- level 6: 样 L6
+  你想买什么样的手机？  -- level 6: 样 L6
+  你女朋友喜欢什么样的歌？  -- level 6: 样 L6
+  你想住什么样的房间？  -- level 6: 样 L6
+  你想要什么样的杯子？  -- level 6: 样 L6
+  你喜欢什么样的天气？  -- level 6: 样 L6
+  你觉得他怎样？  -- level 3: 怎样 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-76_level2_20261114_163633.csv

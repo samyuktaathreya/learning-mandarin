@@ -39,6 +39,7 @@ from .models import (
     Base, Unit, Vocab, VocabSense, Sentence, SentenceVocab, WordType,
     VocabOrigin, SentenceSource, OUT_OF_LIST_LEVEL,
     GrammarTip, SentenceGrammar, Question, QuestionGrammar, FitbQuestion, SenseCache, PinyinWord,
+    GrammarExplanation,
 )
 from app.core.config.data import TEXTBOOK_DB
 from app.core.logger import logger
@@ -71,7 +72,9 @@ def init_db():
 # create_all() makes missing TABLES but never adds a column to an existing
 # one, so columns added to a model after the DB was created go here.
 _ADDED_COLUMNS = [("vocab", "radical", "TEXT"), ("vocab", "pattern", "TEXT"), ("sentences", "review", "TEXT"),
-                  ("units", "kind", "TEXT NOT NULL DEFAULT 'vocab'")]
+                  ("units", "kind", "TEXT NOT NULL DEFAULT 'vocab'"),
+                  ("sentences", "generated_by", "TEXT"), ("sentences", "source_author", "TEXT"),
+                  ("sentences", "source_url", "TEXT"), ("sentences", "word_split", "TEXT")]
 
 
 def delete_questions(db: Session, query) -> int:
@@ -110,7 +113,7 @@ def reset_textbook_data(db: Session) -> dict:
     {table: rows deleted}."""
     counts = {}
     for model in (QuestionGrammar, Question, FitbQuestion, SentenceGrammar, SentenceVocab, SenseCache,
-                  PinyinWord, VocabSense, Sentence, Vocab, GrammarTip, Unit):
+                  PinyinWord, VocabSense, Sentence, Vocab, GrammarExplanation, GrammarTip, Unit):
         counts[model.__tablename__] = db.query(model).delete(synchronize_session=False)
     db.flush()
     db.expire_all()

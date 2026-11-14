@@ -1,0 +1,28 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 7012 characters -->
+## 3-39
+<!-- written by claude-sonnet-5-5 on 2026-11-11; edit freely -->
+**Point:** 从⋯⋯起 / 从⋯⋯开始 / 从⋯⋯以后: "starting from [time/event]", plus related 离 patterns for time distance
+
+**Covers:** 从 + time/event + 起 / 开始 / 以后, 从今以后, 离 + time/event + 还有 / 还远, and 离 + 今天/现在 + 快 + duration
+
+**Does not cover:** plain 从 + place/person as a spatial or source preposition (从我包里拿, 从他身上学到), which belongs to the easier 从 points; 从 as an adverb (从不, 从小, 从事, 从来); 起来 as direction complement or aspect marker; 看起来 appearance; 一起 meaning "together"; 比起 comparisons
+
+```rule
+match: 从/P _ ... 起/LC
+match: 从/P _ ... 以后/LC
+match: 从/P ... 开始/VV
+match: 从今以后/NT
+match: 离/P _ ... 还/AD 有/VE
+match: 离/P _ ... 还/AD 远/VA
+match: 离/P 今天|现在/NT 快/AD
+unless: 看/VV 起来/VV
+unless: _ 起来/VV
+unless: 一起/AD
+unless: 比/VV 起/VV
+unless: 从不/AD
+unless: 从小/AD
+unless: 从事/VV
+unless: 从来/AD
+```
+
+**Notes:** The rule covers only the time-starting-point uses of 从 (起, 开始, 以后, 从今以后) and the 离 time-distance patterns (还有, 还远, 快). The spatial/source patterns (从…里, 从…身上, 从…看出) are removed, because they are ordinary 从 uses from easier grammar points, such as 你是不是从我包里拿了一百块钱, and would cause wrong matches. The unless clauses exclude confusable patterns: 看起来, other 起来 uses, 一起, 比起, and adverbial 从 (从不, 从小, 从事, 从来).

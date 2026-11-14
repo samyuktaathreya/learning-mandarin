@@ -1,0 +1,87 @@
+2026-11-10 21:35:56,195  INFO     === tag_sentences.py run started ===
+2026-11-10 21:35:56,604  INFO     OK        hanlp-valid   '你完全没错。' -> [('你', 'PN'), ('完全', 'AD'), ('没错', 'VA')]
+2026-11-10 21:35:56,610  INFO     TAGGED    '你完全没错。' (level 4, 4 tags)
+2026-11-10 21:35:56,618  INFO     OK        hanlp-valid   '你要做的只是照顾好你自己。' -> [('你', 'PN'), ('要', 'VV'), ('做', 'VV'), ('的', 'DEC'), ('只是', 'AD'), ('照顾', 'VV'), ('好', 'VA'), ('你', 'PN'), ('自己', 'PN')]
+2026-11-10 21:35:56,621  INFO     TAGGED    '你要做的只是照顾好你自己。' (level 3, 9 tags)
+2026-11-10 21:35:56,631  INFO     OK        hanlp-valid   '这人讲的我完全听不懂。' -> [('这', 'DT'), ('人', 'NN'), ('讲', 'VV'), ('的', 'DEC'), ('我', 'PN'), ('完全', 'AD'), ('听', 'VV'), ('不', 'AD'), ('懂', 'VV')]
+2026-11-10 21:35:56,633  INFO     TAGGED    '这人讲的我完全听不懂。' (level 4, 9 tags)
+2026-11-10 21:35:56,642  INFO     FALLBACK  '我完全不懂德语。' -- out-of-list word(s): ['德语']
+2026-11-10 21:35:56,642  WARNING    HAIKU resegment call for '我完全不懂德语。' (cache miss on [('德语', 'NN')])
+2026-11-10 21:35:56,653  INFO       NON-LIST 德语 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-10 21:35:56,654  INFO     TAGGED    '我完全不懂德语。' (level 10, 5 tags)
+2026-11-10 21:35:56,663  INFO     FALLBACK  '汤姆跟我不是朋友，我们只是同事。' -- out-of-list word(s): ['汤姆', '不是']
+2026-11-10 21:35:56,663  WARNING    HAIKU resegment call for '汤姆跟我不是朋友，我们只是同事。' (cache miss on [('不是', 'AD')])
+2026-11-10 21:35:56,676  INFO       NON-LIST 汤姆 (NR) -> '(name) tang1mu3' [proper_noun]
+2026-11-10 21:35:56,687  INFO     TAGGED    '汤姆跟我不是朋友，我们只是同事。' (level 3, 9 tags)
+2026-11-10 21:35:56,697  INFO     OK        hanlp-valid   '我完全赞同。' -> [('我', 'PN'), ('完全', 'AD'), ('赞同', 'VV')]
+2026-11-10 21:35:56,699  INFO     TAGGED    '我完全赞同。' (level 6, 3 tags)
+2026-11-10 21:35:56,707  INFO     OK        hanlp-valid   'Tom只喝咖啡。' -> [('Tom', 'NR'), ('只', 'AD'), ('喝', 'VV'), ('咖啡', 'NN')]
+2026-11-10 21:35:56,709  INFO     TAGGED    'Tom只喝咖啡。' (level 2, 3 tags)
+2026-11-10 21:35:56,717  INFO     OK        hanlp-valid   '全告诉他。' -> [('全', 'AD'), ('告诉', 'VV'), ('他', 'PN')]
+2026-11-10 21:35:56,719  INFO     TAGGED    '全告诉他。' (level 4, 3 tags)
+2026-11-10 21:35:57,140  INFO     OK        hanlp-valid   '我全靠自己。' -> [('我', 'PN'), ('全', 'AD'), ('靠', 'VV'), ('自己', 'PN')]
+2026-11-10 21:35:57,142  INFO     TAGGED    '我全靠自己。' (level 5, 4 tags)
+2026-11-10 21:35:57,151  INFO     FALLBACK  '我只想跟汤姆说话。' -- out-of-list word(s): ['汤姆']
+2026-11-10 21:35:57,151  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('只', 'AD'), ('想', 'VV'), ('跟', 'P'), ('汤姆', 'NN'), ('说话', 'VV')]
+2026-11-10 21:35:57,153  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-10 21:35:57,154  INFO     TAGGED    '我只想跟汤姆说话。' (level 10, 6 tags)
+2026-11-10 21:35:57,163  INFO     OK        hanlp-valid   '他们说情况只是暂时的。' -> [('他们', 'PN'), ('说', 'VV'), ('情况', 'NN'), ('只是', 'AD'), ('暂时', 'VA'), ('的', 'SP')]
+2026-11-10 21:35:57,165  INFO     TAGGED    '他们说情况只是暂时的。' (level 4, 6 tags)
+2026-11-10 21:35:57,174  INFO     FALLBACK  '这个景点只能网上购票。' -- out-of-list word(s): ['这个', '购票']
+2026-11-10 21:35:57,174  WARNING    HAIKU resegment call for '这个景点只能网上购票。' (cache miss on [('购票', 'VV')])
+2026-11-10 21:35:57,192  INFO       NON-LIST 购 (VV) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-10 21:35:57,193  INFO     TAGGED    '这个景点只能网上购票。' (level 10, 7 tags)
+2026-11-10 21:35:57,203  INFO     FALLBACK  '我只做别人付钱让我做的事。' -- out-of-list word(s): ['付钱']
+2026-11-10 21:35:57,203  WARNING    HAIKU resegment call for '我只做别人付钱让我做的事。' (cache miss on [('付钱', 'VV')])
+2026-11-10 21:35:57,217  INFO     TAGGED    '我只做别人付钱让我做的事。' (level 4, 11 tags)
+2026-11-10 21:35:57,226  INFO     FALLBACK  '汤姆只吃鱼不吃肉。' -- out-of-list word(s): ['汤姆']
+2026-11-10 21:35:57,226  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('只', 'AD'), ('吃', 'VV'), ('鱼', 'NN'), ('不', 'AD'), ('吃', 'VV'), ('肉', 'NN')]
+2026-11-10 21:35:57,228  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-10 21:35:57,230  INFO     TAGGED    '汤姆只吃鱼不吃肉。' (level 10, 7 tags)
+2026-11-10 21:35:57,239  INFO     OK        hanlp-valid   '商人们只看中利益。' -> [('商人', 'NN'), ('们', 'NN'), ('只', 'AD'), ('看中', 'VV'), ('利益', 'NN')]
+2026-11-10 21:35:57,241  INFO     TAGGED    '商人们只看中利益。' (level 6, 5 tags)
+2026-11-10 21:35:57,249  INFO     FALLBACK  '我完全不是学者。' -- out-of-list word(s): ['不是']
+2026-11-10 21:35:57,249  WARNING    HAIKU resegment call for '我完全不是学者。' (cache miss on [('不是', 'AD')])
+2026-11-10 21:35:57,262  INFO     TAGGED    '我完全不是学者。' (level 5, 5 tags)
+2026-11-10 21:35:57,271  INFO     FALLBACK  '我完全不是科学家。' -- out-of-list word(s): ['不是']
+2026-11-10 21:35:57,271  WARNING    HAIKU resegment call for '我完全不是科学家。' (cache miss on [('不是', 'AD')])
+2026-11-10 21:35:57,304  INFO     TAGGED    '我完全不是科学家。' (level 4, 6 tags)
+2026-11-10 21:35:57,316  INFO     OK        hanlp-valid   '这只是幻想而已。' -> [('这', 'PN'), ('只是', 'AD'), ('幻想', 'NN'), ('而已', 'SP')]
+2026-11-10 21:35:57,318  INFO     TAGGED    '这只是幻想而已。' (level 7, 4 tags)
+2026-11-10 21:35:57,327  INFO     FALLBACK  '他并不完全是错的。' -- out-of-list word(s): ['并不']
+2026-11-10 21:35:57,327  WARNING    HAIKU resegment call for '他并不完全是错的。' (cache miss on [('并不', 'AD')])
+2026-11-10 21:35:57,340  INFO     TAGGED    '他并不完全是错的。' (level 4, 7 tags)
+2026-11-10 21:35:57,350  INFO     OK        hanlp-valid   '这完全是我自己做的。' -> [('这', 'PN'), ('完全', 'AD'), ('是', 'VC'), ('我', 'PN'), ('自己', 'PN'), ('做', 'VV'), ('的', 'DEC')]
+2026-11-10 21:35:57,352  INFO     TAGGED    '这完全是我自己做的。' (level 4, 7 tags)
+2026-11-10 21:35:57,361  INFO     OK        hanlp-valid   '我只想向自己证明我可以做到。' -> [('我', 'PN'), ('只', 'AD'), ('想', 'VV'), ('向', 'P'), ('自己', 'PN'), ('证明', 'VV'), ('我', 'PN'), ('可以', 'VV'), ('做到', 'VV')]
+2026-11-10 21:35:57,367  INFO     TAGGED    '我只想向自己证明我可以做到。' (level 4, 10 tags)
+2026-11-10 21:35:57,376  INFO     OK        hanlp-valid   '她全身都疼。' -> [('她', 'PN'), ('全身', 'AD'), ('都', 'AD'), ('疼', 'VV')]
+2026-11-10 21:35:57,378  INFO     TAGGED    '她全身都疼。' (level 4, 4 tags)
+2026-11-10 21:35:57,801  INFO     OK        hanlp-valid   '完全按您想的来。' -> [('完全', 'AD'), ('按', 'P'), ('您', 'PN'), ('想', 'VV'), ('的', 'DEC'), ('来', 'VV')]
+2026-11-10 21:35:57,804  INFO     TAGGED    '完全按您想的来。' (level 4, 6 tags)
+2026-11-10 21:35:57,813  INFO     OK        hanlp-valid   '你是告诉我这里很安全的人。' -> [('你', 'PN'), ('是', 'VC'), ('告诉', 'VV'), ('我', 'PN'), ('这里', 'PN'), ('很', 'AD'), ('安全', 'VA'), ('的', 'DEC'), ('人', 'NN')]
+2026-11-10 21:35:57,816  INFO     TAGGED    '你是告诉我这里很安全的人。' (level 3, 9 tags)
+2026-11-10 21:35:57,826  INFO     FALLBACK  '你爱我只是因为我是个黑人吗？' -- out-of-list word(s): ['黑人']
+2026-11-10 21:35:57,826  WARNING    HAIKU resegment call for '你爱我只是因为我是个黑人吗？' (cache miss on [('黑人', 'NN')])
+2026-11-10 21:35:57,841  INFO     TAGGED    '你爱我只是因为我是个黑人吗？' (level 5, 11 tags)
+2026-11-10 21:35:57,851  INFO     FALLBACK  '那只黑鸟不是乌鸫。' -- out-of-list word(s): ['不是', '乌鸫']
+2026-11-10 21:35:57,851  WARNING    HAIKU resegment call for '那只黑鸟不是乌鸫。' (cache miss on [('不是', 'AD'), ('乌鸫', 'NN')])
+2026-11-10 21:35:57,865  INFO       NON-LIST 乌鸫 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-10 21:35:57,866  INFO     TAGGED    '那只黑鸟不是乌鸫。' (level 10, 7 tags)
+2026-11-10 21:35:57,876  INFO     OK        hanlp-valid   '我全身疼痛。' -> [('我', 'PN'), ('全身', 'AD'), ('疼痛', 'VV')]
+2026-11-10 21:35:57,877  INFO     TAGGED    '我全身疼痛。' (level 5, 3 tags)
+2026-11-10 21:35:57,886  INFO     FALLBACK  '那只蜘蛛是黑色的。' -- out-of-list word(s): ['蜘蛛']
+2026-11-10 21:35:57,886  WARNING    HAIKU resegment call for '那只蜘蛛是黑色的。' (cache miss on [('蜘蛛', 'NN')])
+2026-11-10 21:35:57,896  INFO       NON-LIST 蜘蛛 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-10 21:35:57,897  INFO     TAGGED    '那只蜘蛛是黑色的。' (level 10, 6 tags)
+2026-11-10 21:35:57,907  INFO     FALLBACK  '当然，这只是个玩笑。' -- out-of-list word(s): ['玩笑']
+2026-11-10 21:35:57,907  WARNING    HAIKU resegment call for '当然，这只是个玩笑。' (cache miss on [('玩笑', 'NN')])
+2026-11-10 21:35:57,919  INFO     TAGGED    '当然，这只是个玩笑。' (level 3, 6 tags)
+2026-11-10 21:35:57,930  INFO     OK        hanlp-valid   '全押。' -> [('全', 'AD'), ('押', 'VV')]
+2026-11-10 21:35:57,931  INFO     TAGGED    '全押。' (level 7, 2 tags)
+2026-11-10 21:35:57,939  INFO     OK        hanlp-valid   '我完全赞同！' -> [('我', 'PN'), ('完全', 'AD'), ('赞同', 'VV')]
+2026-11-10 21:35:57,941  INFO     TAGGED    '我完全赞同！' (level 6, 3 tags)
+2026-11-10 21:35:57,949  INFO     FALLBACK  '汤姆只是非常累。' -- out-of-list word(s): ['汤姆']
+2026-11-10 21:35:57,949  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('只是', 'AD'), ('非常', 'AD'), ('累', 'VA')]
+2026-11-10 21:35:57,951  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-10 21:35:57,952  INFO     TAGGED    '汤姆只是非常累。' (level 10, 4 tags)

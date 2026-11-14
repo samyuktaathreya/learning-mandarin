@@ -1,0 +1,18 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 4567 characters -->
+## 2-05
+**Point:** Using question words (怎么样/怎样, 多久, 为什么) to form interrogative sentences
+
+**Covers:** Direct questions using 怎么样/怎样 to ask "how is...?", using 多久 to ask "how long?", and using 为什么 to ask "why?"
+
+**Does not cover:** 怎么样/怎样 used as a predicate adjective in statements (e.g., "这个电影不怎么样" = "This movie is not so good"); other HSK grammar points that use these words in different structures
+
+```rule
+match: 怎么样|怎样/VV|VA ... \?|SP$
+match: 多/AD 久/VA ... \?|SP$
+match: 为什么/AD ... \?|SP$
+
+unless: 不/AD ... 怎么样|怎样/VA
+unless: ^.* ... 不/AD 怎么样|怎样/VA
+```
+
+**Notes:** The rule captures the three core question forms: (1) 怎么样/怎样 as a question particle asking "how is...", (2) 多久 asking "how long", and (3) 为什么 asking "why". All must end with a question marker (? or 吗/呢/吧). The unless clauses exclude negated statements like "不怎么样" where the phrase functions as a predicate adjective rather than a question word, matching HSK 6-30. The tags VV|VA for 怎么样/怎样 capture both possible taggings in the examples. Sentences may have multiple clauses; the question form only needs to appear in one.

@@ -236,3 +236,1190 @@ Harder grammar points made only of HSK 1-2 words (the review is warned about the
   让我们开始吧。  -- difficulty review: (1/2); 让 used as causative/permissive construction is HSK 3+ grammar, beyond this level
 
 Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-34_level2_20261109_221040.csv
+
+########## guard check  2026-11-10 21:31 ##########
+  Checking 5 sentence(s) for 2-34 (1 call(s))...
+
+########## tatoeba  2026-11-10 21:37 ##########
+Filling 2-34 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-34 in: 7  -> Tatoeba needs to add 13 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-34 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      413  2. contain the point's word(s)
+      411  3. new (not in DB, not a duplicate)
+      312  4. at most 2 characters outside HSK 2 words
+       83  5. really HSK 2
+       72  5b. no harder grammar point (of the 34 with a rule)
+       66  6. the rule finds 2-34
+       57  6b. no hidden word a learner can't work out
+       28  7. both checks say 2-34, English chosen
+       25  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (17 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (25) ===
+  拿走吧。  (Take it.)  [tatoeba 5092645]  hidden: 拿走
+  去洗洗吧。  (Go wash up.)  [tatoeba 8696177]
+  我们走走吧。  (Let's walk.)  [tatoeba 5897892]
+  我们开始吧。  (Let's start.)  [tatoeba 7767999]
+  跟他们走吧。  (Let's go with them.)  [tatoeba 13519354]
+  一起学习吧！  (Let's study together!)  [tatoeba 13519581]
+  我们打车去吧！  (Let's catch a taxi!)  [tatoeba 4900904]
+  一起吃晚饭吧。  (Let's have dinner together.)  [tatoeba 5574501]
+  来跟我喝茶吧。  (Come and have tea with me.)  [tatoeba 6089788]  hidden: 喝茶
+  现在出去玩吧。  (Go outside and play now.)  [tatoeba 6119480]
+  就让汤姆说吧。  (Just let Tom speak.)  [tatoeba 6635875]
+  给我看下它吧。  (Show it to me.)  [tatoeba 7771674]
+  我们一起玩吧！  (Let's play together!)  [tatoeba 8135253]
+  你喜欢雨对吧？  (You like rain, don't you?)  [tatoeba 8688060]
+  那不对，对吧？  (That isn't true, is it?)  [tatoeba 9961570]  hidden: 不对
+  让我们开始吧！  (Let's start!)  [tatoeba 13252525]
+  你喜欢苹果吧？  (You like apples, don't you?)  [tatoeba 13539437]
+  她会帮我们吧？  (She'll help us, won't she?)  [tatoeba 13785689]
+  她不在那里吧？  (She wasn't there, was she?)  [tatoeba 13826828]  hidden: 不在
+  我们去踢足球吧！  (Let's play soccer.)  [tatoeba 11231395]
+  明天是星期一吧？  (Tomorrow is Monday, isn't it?)  [tatoeba 12422346]  hidden: 星期一
+  他是你的朋友吧？  (He's your friend, isn't he?)  [tatoeba 13753046]
+  她不是非常高吧？  (She isn't very tall, is she?)  [tatoeba 13958052]  hidden: 不是
+  “喂，哪一位啊？”  (Hello, who am I speaking to?)  [tatoeba 409196]
+  忘了今天的事儿吧。  (Let's forget about what happened today.)  [tatoeba 4906084]  hidden: 事儿
+
+--- dropped at step 3 (2) ---
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  我们开始吧。  -- same text as tatoeba 7767999 (translations pooled)
+
+--- dropped at step 4 (99), first 12 ---
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  你如果能利用重力，那就这么做吧。  -- 5 characters no HSK 2 word uses: 利力如用重
+  胡萝卜我来切吧。  -- 4 characters no HSK 2 word uses: 切卜胡萝
+  可能是发生交通事故了吧。  -- 3 characters no HSK 2 word uses: 发故通
+  这里人太多了。咱们换个地方吧。  -- 3 characters no HSK 2 word uses: 咱换方
+  来玩捉迷藏吧！  -- 3 characters no HSK 2 word uses: 捉藏迷
+  摄氏零度时水会结冰，对吧？  -- 5 characters no HSK 2 word uses: 冰度摄氏结
+  「我已经找到令他嫉妒的方法了。」「喔，说吧！」  -- 6 characters no HSK 2 word uses: 令喔妒嫉方法
+  你如果通过考试，我们一起去酒吧喝啤酒，好不好？  -- 3 characters no HSK 2 word uses: 啤如通
+  不管你有没有通过中文考试，我们一起去酒吧喝啤酒。  -- 3 characters no HSK 2 word uses: 啤管通
+  有必要的话，你就留着这本字典吧。  -- 3 characters no HSK 2 word uses: 典必留
+  考虑一下那些困难吧。  -- 3 characters no HSK 2 word uses: 困虑难
+
+--- dropped at step 5 (229), first 12 ---
+  雨，雨，快点消失吧。  -- level 5: 消失 L5
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list)
+  你自己应该知道吧。  -- level 3: 应该 L3
+  你还是留在这儿吧。  -- level 4: 留 L4
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  您也来参加吧！  -- level 3: 参加 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  那条黄瓜多长啊！  -- level 5: 黄瓜 L5
+  那个茶壶很脏啊！  -- level 6: 壶 L6, 脏 L3
+  也许下一次吧。  -- level 4: 也许 L4
+  啊，真棒！  -- level 4: 棒 L4
+
+--- dropped at step 5b (11) ---
+  我看不见啊！  -- harder grammar: 4-22 (HSK 4)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3)
+  啊，我病了。  -- harder grammar: 4-22 (HSK 4)
+  啊？  -- harder grammar: 4-22 (HSK 4)
+  时间过得真快啊！  -- harder grammar: 4-22 (HSK 4)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  我好累啊。  -- harder grammar: 4-22 (HSK 4)
+  这个好大啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (6) ---
+  你还是去看病吧。  -- rule: unless 还是 ... 吧/SP
+  我们还是在这里坐下吧。  -- rule: unless 还是 ... 吧/SP
+  什么时候想来就过来吧。  -- rule: unless /VV 就 /VV 吧/SP
+  这是谁啊？  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  天啊！  -- rule: no match: line matched
+
+--- dropped at step 6b (9) ---
+  我休息一会没问题吧？  -- hidden word a learner can't work out: 一会 (a moment)
+  让我去商店吧。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+  你不忙，对吧？  -- hidden word a learner can't work out: 不忙 ((polite formula) there's no hurry; take your time)
+  那是什么啊？  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+  来吧。我想让你看点东西。  -- hidden word a learner can't work out: 看点 (highlight (of an event, movie etc))
+  快点去吧！  -- hidden word a learner can't work out: 快点 (to do sth more quickly)
+  快来吧，我真的很想见你。  -- hidden word a learner can't work out: 想见 (to infer)
+  快来吧，我真的很想见你们。  -- hidden word a learner can't work out: 想见 (to infer)
+  休息一下吧。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+
+--- dropped at step 7 (12) ---
+  说啊！  -- check said no (1/2): 啊 adds urgency/order, not softening
+  出来吧！  -- no accurate English among: Arise!
+  很贵吧？  -- check said no (2/2): 吧 used to form question, not this point
+  那人谁啊？  -- check said no (1/2): 啊 used in question for urgency, not core point
+  你没事吧？  -- check said no (2/2): 吧 used to form question, not this point
+  别跟着来啊。  -- check said no (1/2): 啊 adds urgency/order, not softening or listing
+  帮帮我们吧！  -- no accurate English among: Help us.
+  可能明天吧。  -- check said no (1/2): 吧 for uncertainty, not standard point use
+  过来和我跳舞啊!  -- check said no (1/2): 啊 used as exclamation, not grammar point 2-34 usage
+  你懂吗？可能吧。  -- no accurate English among: Do you understand? Probably.
+  大家在说什么啊？  -- check said no (1/2): 啊 used as sentence-final interjection, not listed item marker
+  你喜欢什么就拿吧。  -- check said no (2/2): This is HSK 2-45 (还是...吧), not basic 吧
+
+--- dropped at step 8 (3) ---
+  让我们开始吧。  -- difficulty review: (1/2); 让 used as causative/permissive construction is HSK 3+ grammar, beyond this level
+  走吧，没在下雨了。  -- difficulty review: (2/2); 没在 is not a known HSK 2 construction; learners would not recognize this negation pattern with 在
+  让我送你到车站吧。  -- difficulty review: (1/2); Uses 让 + object + verb construction (2-75 level grammar), which is above HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-34_level2_20261110_213732.csv
+
+########## guard check  2026-11-11 14:23 ##########
+
+########## tatoeba  2026-11-11 14:29 ##########
+Filling 2-34 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-34 in: 7  -> Tatoeba needs to add 13 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-34 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      413  2. contain the point's word(s)
+      411  3. new (not in DB, not a duplicate)
+      312  4. at most 2 characters outside HSK 2 words
+       83  5. really HSK 2
+       72  5b. no harder grammar point (of the 39 with a rule)
+       66  6. the rule finds 2-34
+       57  6b. no hidden word a learner can't work out
+       28  7. both checks say 2-34, English chosen
+       25  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (17 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (25) ===
+  拿走吧。  (Take it.)  [tatoeba 5092645]  hidden: 拿走
+  去洗洗吧。  (Go wash up.)  [tatoeba 8696177]
+  我们走走吧。  (Let's walk.)  [tatoeba 5897892]
+  我们开始吧。  (Let's start.)  [tatoeba 7767999]
+  跟他们走吧。  (Let's go with them.)  [tatoeba 13519354]
+  一起学习吧！  (Let's study together!)  [tatoeba 13519581]
+  我们打车去吧！  (Let's catch a taxi!)  [tatoeba 4900904]
+  一起吃晚饭吧。  (Let's have dinner together.)  [tatoeba 5574501]
+  来跟我喝茶吧。  (Come and have tea with me.)  [tatoeba 6089788]  hidden: 喝茶
+  现在出去玩吧。  (Go outside and play now.)  [tatoeba 6119480]
+  就让汤姆说吧。  (Just let Tom speak.)  [tatoeba 6635875]
+  给我看下它吧。  (Show it to me.)  [tatoeba 7771674]
+  我们一起玩吧！  (Let's play together!)  [tatoeba 8135253]
+  你喜欢雨对吧？  (You like rain, don't you?)  [tatoeba 8688060]
+  那不对，对吧？  (That isn't true, is it?)  [tatoeba 9961570]  hidden: 不对
+  让我们开始吧！  (Let's start!)  [tatoeba 13252525]
+  你喜欢苹果吧？  (You like apples, don't you?)  [tatoeba 13539437]
+  她会帮我们吧？  (She'll help us, won't she?)  [tatoeba 13785689]
+  她不在那里吧？  (She wasn't there, was she?)  [tatoeba 13826828]  hidden: 不在
+  我们去踢足球吧！  (Let's play soccer.)  [tatoeba 11231395]
+  明天是星期一吧？  (Tomorrow is Monday, isn't it?)  [tatoeba 12422346]  hidden: 星期一
+  他是你的朋友吧？  (He's your friend, isn't he?)  [tatoeba 13753046]
+  她不是非常高吧？  (She isn't very tall, is she?)  [tatoeba 13958052]  hidden: 不是
+  “喂，哪一位啊？”  (Hello, who am I speaking to?)  [tatoeba 409196]
+  忘了今天的事儿吧。  (Let's forget about what happened today.)  [tatoeba 4906084]  hidden: 事儿
+
+--- dropped at step 3 (2) ---
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  我们开始吧。  -- same text as tatoeba 7767999 (translations pooled)
+
+--- dropped at step 4 (99), first 12 ---
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  你如果能利用重力，那就这么做吧。  -- 5 characters no HSK 2 word uses: 利力如用重
+  胡萝卜我来切吧。  -- 4 characters no HSK 2 word uses: 切卜胡萝
+  可能是发生交通事故了吧。  -- 3 characters no HSK 2 word uses: 发故通
+  这里人太多了。咱们换个地方吧。  -- 3 characters no HSK 2 word uses: 咱换方
+  来玩捉迷藏吧！  -- 3 characters no HSK 2 word uses: 捉藏迷
+  摄氏零度时水会结冰，对吧？  -- 5 characters no HSK 2 word uses: 冰度摄氏结
+  「我已经找到令他嫉妒的方法了。」「喔，说吧！」  -- 6 characters no HSK 2 word uses: 令喔妒嫉方法
+  你如果通过考试，我们一起去酒吧喝啤酒，好不好？  -- 3 characters no HSK 2 word uses: 啤如通
+  不管你有没有通过中文考试，我们一起去酒吧喝啤酒。  -- 3 characters no HSK 2 word uses: 啤管通
+  有必要的话，你就留着这本字典吧。  -- 3 characters no HSK 2 word uses: 典必留
+  考虑一下那些困难吧。  -- 3 characters no HSK 2 word uses: 困虑难
+
+--- dropped at step 5 (229), first 12 ---
+  雨，雨，快点消失吧。  -- level 5: 消失 L5
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list)
+  你自己应该知道吧。  -- level 3: 应该 L3
+  你还是留在这儿吧。  -- level 4: 留 L4
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  您也来参加吧！  -- level 3: 参加 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  那条黄瓜多长啊！  -- level 5: 黄瓜 L5
+  那个茶壶很脏啊！  -- level 6: 壶 L6, 脏 L3
+  也许下一次吧。  -- level 4: 也许 L4
+  啊，真棒！  -- level 4: 棒 L4
+
+--- dropped at step 5b (11) ---
+  我看不见啊！  -- harder grammar: 3-48 (HSK 3), 4-22 (HSK 4)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  啊，我病了。  -- harder grammar: 4-22 (HSK 4)
+  啊？  -- harder grammar: 4-22 (HSK 4)
+  时间过得真快啊！  -- harder grammar: 4-22 (HSK 4)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  我好累啊。  -- harder grammar: 4-22 (HSK 4)
+  这个好大啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (6) ---
+  你还是去看病吧。  -- rule: unless 还是 ... 吧/SP
+  我们还是在这里坐下吧。  -- rule: unless 还是 ... 吧/SP
+  什么时候想来就过来吧。  -- rule: unless /VV 就 /VV 吧/SP
+  这是谁啊？  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  天啊！  -- rule: no match: line matched
+
+--- dropped at step 6b (9) ---
+  我休息一会没问题吧？  -- hidden word a learner can't work out: 一会 (a moment)
+  让我去商店吧。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+  你不忙，对吧？  -- hidden word a learner can't work out: 不忙 ((polite formula) there's no hurry; take your time)
+  那是什么啊？  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+  来吧。我想让你看点东西。  -- hidden word a learner can't work out: 看点 (highlight (of an event, movie etc))
+  快点去吧！  -- hidden word a learner can't work out: 快点 (to do sth more quickly)
+  快来吧，我真的很想见你。  -- hidden word a learner can't work out: 想见 (to infer)
+  快来吧，我真的很想见你们。  -- hidden word a learner can't work out: 想见 (to infer)
+  休息一下吧。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+
+--- dropped at step 7 (12) ---
+  说啊！  -- check said no (1/2): 啊 adds urgency/order, not softening
+  出来吧！  -- no accurate English among: Arise!
+  很贵吧？  -- check said no (2/2): 吧 used to form question, not this point
+  那人谁啊？  -- check said no (1/2): 啊 used in question for urgency, not core point
+  你没事吧？  -- check said no (2/2): 吧 used to form question, not this point
+  别跟着来啊。  -- check said no (1/2): 啊 adds urgency/order, not softening or listing
+  帮帮我们吧！  -- no accurate English among: Help us.
+  可能明天吧。  -- check said no (1/2): 吧 for uncertainty, not standard point use
+  过来和我跳舞啊!  -- check said no (1/2): 啊 used as exclamation, not grammar point 2-34 usage
+  你懂吗？可能吧。  -- no accurate English among: Do you understand? Probably.
+  大家在说什么啊？  -- check said no (1/2): 啊 used as sentence-final interjection, not listed item marker
+  你喜欢什么就拿吧。  -- check said no (2/2): This is HSK 2-45 (还是...吧), not basic 吧
+
+--- dropped at step 8 (3) ---
+  让我们开始吧。  -- difficulty review: (1/2); 让 used as causative/permissive construction is HSK 3+ grammar, beyond this level
+  走吧，没在下雨了。  -- difficulty review: (2/2); 没在 is not a known HSK 2 construction; learners would not recognize this negation pattern with 在
+  让我送你到车站吧。  -- difficulty review: (1/2); Uses 让 + object + verb construction (2-75 level grammar), which is above HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-34_level2_20261111_142918.csv
+
+########## rules  2026-11-12 17:25 ##########
+Tagging 2 labeled example(s) (cached after this run)...
+
+=== A. 2-34: rule on labeled examples (no AI) ===
+  examples of 2-34 matched:    55/55
+  counter-examples wrongly matched: 0/9   <- should be 0
+  easy examples (words all HSK 2 or below) matched: 25/25   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:40 ##########
+Filling 2-34 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 1 Tatoeba candidate(s) (cached after this run)...
+  ...100/312
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_174021.txt
+  ...200/312
+  ...300/312
+
+Course sentences at HSK 2 the rule already finds 2-34 in: 7  -> Tatoeba needs to add 13 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-34 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      413  2. contain the point's word(s)
+      411  3. new (not in DB, not a duplicate)
+      312  4. at most 2 characters outside HSK 2 words
+       83  5. really HSK 2
+       72  5b. no harder grammar point (of the 40 with a rule)
+       66  6. the rule finds 2-34
+       58  6b. no hidden word a learner can't work out
+       28  7. both checks say 2-34, English chosen
+       25  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (18 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (25) ===
+  拿走吧。  (Take it.)  [tatoeba 5092645]  hidden: 拿走
+  去洗洗吧。  (Go wash up.)  [tatoeba 8696177]
+  我们走走吧。  (Let's walk.)  [tatoeba 5897892]
+  我们开始吧。  (Let's start.)  [tatoeba 7767999]
+  跟他们走吧。  (Let's go with them.)  [tatoeba 13519354]
+  一起学习吧！  (Let's study together!)  [tatoeba 13519581]
+  我们打车去吧！  (Let's catch a taxi!)  [tatoeba 4900904]
+  一起吃晚饭吧。  (Let's have dinner together.)  [tatoeba 5574501]
+  来跟我喝茶吧。  (Come and have tea with me.)  [tatoeba 6089788]  hidden: 喝茶
+  现在出去玩吧。  (Go outside and play now.)  [tatoeba 6119480]
+  就让汤姆说吧。  (Just let Tom speak.)  [tatoeba 6635875]
+  给我看下它吧。  (Show it to me.)  [tatoeba 7771674]
+  我们一起玩吧！  (Let's play together!)  [tatoeba 8135253]
+  你喜欢雨对吧？  (You like rain, don't you?)  [tatoeba 8688060]
+  那不对，对吧？  (That isn't true, is it?)  [tatoeba 9961570]  hidden: 不对
+  让我们开始吧！  (Let's start!)  [tatoeba 13252525]
+  你喜欢苹果吧？  (You like apples, don't you?)  [tatoeba 13539437]
+  她会帮我们吧？  (She'll help us, won't she?)  [tatoeba 13785689]
+  她不在那里吧？  (She wasn't there, was she?)  [tatoeba 13826828]  hidden: 不在
+  我们去踢足球吧！  (Let's play soccer.)  [tatoeba 11231395]
+  明天是星期一吧？  (Tomorrow is Monday, isn't it?)  [tatoeba 12422346]  hidden: 星期一
+  他是你的朋友吧？  (He's your friend, isn't he?)  [tatoeba 13753046]
+  她不是非常高吧？  (She isn't very tall, is she?)  [tatoeba 13958052]  hidden: 不是
+  “喂，哪一位啊？”  (Hello, who am I speaking to?)  [tatoeba 409196]
+  忘了今天的事儿吧。  (Let's forget about what happened today.)  [tatoeba 4906084]  hidden: 事儿
+
+--- dropped at step 3 (2) ---
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  我们开始吧。  -- same text as tatoeba 7767999 (translations pooled)
+
+--- dropped at step 4 (99), first 12 ---
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  你如果能利用重力，那就这么做吧。  -- 5 characters no HSK 2 word uses: 利力如用重
+  胡萝卜我来切吧。  -- 4 characters no HSK 2 word uses: 切卜胡萝
+  可能是发生交通事故了吧。  -- 3 characters no HSK 2 word uses: 发故通
+  这里人太多了。咱们换个地方吧。  -- 3 characters no HSK 2 word uses: 咱换方
+  来玩捉迷藏吧！  -- 3 characters no HSK 2 word uses: 捉藏迷
+  摄氏零度时水会结冰，对吧？  -- 5 characters no HSK 2 word uses: 冰度摄氏结
+  「我已经找到令他嫉妒的方法了。」「喔，说吧！」  -- 6 characters no HSK 2 word uses: 令喔妒嫉方法
+  你如果通过考试，我们一起去酒吧喝啤酒，好不好？  -- 3 characters no HSK 2 word uses: 啤如通
+  不管你有没有通过中文考试，我们一起去酒吧喝啤酒。  -- 3 characters no HSK 2 word uses: 啤管通
+  有必要的话，你就留着这本字典吧。  -- 3 characters no HSK 2 word uses: 典必留
+  考虑一下那些困难吧。  -- 3 characters no HSK 2 word uses: 困虑难
+
+--- dropped at step 5 (229), first 12 ---
+  雨，雨，快点消失吧。  -- level 5: 消失 L5
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list)
+  你自己应该知道吧。  -- level 3: 应该 L3
+  你还是留在这儿吧。  -- level 4: 留 L4
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  您也来参加吧！  -- level 3: 参加 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  那条黄瓜多长啊！  -- level 5: 黄瓜 L5
+  那个茶壶很脏啊！  -- level 6: 壶 L6, 脏 L3
+  也许下一次吧。  -- level 4: 也许 L4
+  啊，真棒！  -- level 4: 棒 L4
+
+--- dropped at step 5b (11) ---
+  我看不见啊！  -- harder grammar: 3-48 (HSK 3), 4-22 (HSK 4)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  啊，我病了。  -- harder grammar: 4-22 (HSK 4)
+  啊？  -- harder grammar: 4-22 (HSK 4)
+  时间过得真快啊！  -- harder grammar: 4-22 (HSK 4)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  我好累啊。  -- harder grammar: 4-22 (HSK 4)
+  这个好大啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (6) ---
+  你还是去看病吧。  -- rule: unless 还是 ... 吧/SP
+  我们还是在这里坐下吧。  -- rule: unless 还是 ... 吧/SP
+  什么时候想来就过来吧。  -- rule: unless /VV 就 /VV 吧/SP
+  这是谁啊？  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  天啊！  -- rule: no match: line matched
+
+--- dropped at step 6b (8) ---
+  让我去商店吧。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+  你不忙，对吧？  -- hidden word a learner can't work out: 不忙 ((polite formula) there's no hurry; take your time)
+  那是什么啊？  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+  来吧。我想让你看点东西。  -- hidden word a learner can't work out: 看点 (highlight (of an event, movie etc))
+  快点去吧！  -- hidden word a learner can't work out: 快点 (to do sth more quickly)
+  快来吧，我真的很想见你。  -- hidden word a learner can't work out: 想见 (to infer)
+  快来吧，我真的很想见你们。  -- hidden word a learner can't work out: 想见 (to infer)
+  休息一下吧。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+
+--- dropped at step 7 (12) ---
+  说啊！  -- check said no (1/2): 啊 adds urgency/order, not softening
+  出来吧！  -- no accurate English among: Arise!
+  很贵吧？  -- check said no (2/2): 吧 used to form question, not this point
+  那人谁啊？  -- check said no (1/2): 啊 used in question for urgency, not core point
+  你没事吧？  -- check said no (2/2): 吧 used to form question, not this point
+  别跟着来啊。  -- check said no (1/2): 啊 adds urgency/order, not softening or listing
+  帮帮我们吧！  -- no accurate English among: Help us.
+  可能明天吧。  -- check said no (1/2): 吧 for uncertainty, not standard point use
+  过来和我跳舞啊!  -- check said no (1/2): 啊 used as exclamation, not grammar point 2-34 usage
+  你懂吗？可能吧。  -- no accurate English among: Do you understand? Probably.
+  大家在说什么啊？  -- check said no (1/2): 啊 used as sentence-final interjection, not listed item marker
+  你喜欢什么就拿吧。  -- check said no (2/2): This is HSK 2-45 (还是...吧), not basic 吧
+
+--- dropped at step 8 (3) ---
+  让我们开始吧。  -- difficulty review: (1/2); 让 used as causative/permissive construction is HSK 3+ grammar, beyond this level
+  走吧，没在下雨了。  -- difficulty review: (2/2); 没在 is not a known HSK 2 construction; learners would not recognize this negation pattern with 在
+  让我送你到车站吧。  -- difficulty review: (1/2); Uses 让 + object + verb construction (2-75 level grammar), which is above HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-34_level2_20261112_174022.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-34 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-34 in: 7  -> Tatoeba needs to add 13 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-34 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      413  2. contain the point's word(s)
+      411  3. new (not in DB, not a duplicate)
+      312  4. at most 2 characters outside HSK 2 words
+       83  5. really HSK 2
+       72  5b. no harder grammar point (of the 40 with a rule)
+       66  6. the rule finds 2-34
+       58  6b. no hidden word a learner can't work out
+       28  7. both checks say 2-34, English chosen
+       25  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (18 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (25) ===
+  拿走吧。  (Take it.)  [tatoeba 5092645]  hidden: 拿走
+  去洗洗吧。  (Go wash up.)  [tatoeba 8696177]
+  我们走走吧。  (Let's walk.)  [tatoeba 5897892]
+  我们开始吧。  (Let's start.)  [tatoeba 7767999]
+  跟他们走吧。  (Let's go with them.)  [tatoeba 13519354]
+  一起学习吧！  (Let's study together!)  [tatoeba 13519581]
+  我们打车去吧！  (Let's catch a taxi!)  [tatoeba 4900904]
+  一起吃晚饭吧。  (Let's have dinner together.)  [tatoeba 5574501]
+  来跟我喝茶吧。  (Come and have tea with me.)  [tatoeba 6089788]  hidden: 喝茶
+  现在出去玩吧。  (Go outside and play now.)  [tatoeba 6119480]
+  就让汤姆说吧。  (Just let Tom speak.)  [tatoeba 6635875]
+  给我看下它吧。  (Show it to me.)  [tatoeba 7771674]
+  我们一起玩吧！  (Let's play together!)  [tatoeba 8135253]
+  你喜欢雨对吧？  (You like rain, don't you?)  [tatoeba 8688060]
+  那不对，对吧？  (That isn't true, is it?)  [tatoeba 9961570]  hidden: 不对
+  让我们开始吧！  (Let's start!)  [tatoeba 13252525]
+  你喜欢苹果吧？  (You like apples, don't you?)  [tatoeba 13539437]
+  她会帮我们吧？  (She'll help us, won't she?)  [tatoeba 13785689]
+  她不在那里吧？  (She wasn't there, was she?)  [tatoeba 13826828]  hidden: 不在
+  我们去踢足球吧！  (Let's play soccer.)  [tatoeba 11231395]
+  明天是星期一吧？  (Tomorrow is Monday, isn't it?)  [tatoeba 12422346]  hidden: 星期一
+  他是你的朋友吧？  (He's your friend, isn't he?)  [tatoeba 13753046]
+  她不是非常高吧？  (She isn't very tall, is she?)  [tatoeba 13958052]  hidden: 不是
+  “喂，哪一位啊？”  (Hello, who am I speaking to?)  [tatoeba 409196]
+  忘了今天的事儿吧。  (Let's forget about what happened today.)  [tatoeba 4906084]  hidden: 事儿
+
+--- dropped at step 3 (2) ---
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  我们开始吧。  -- same text as tatoeba 7767999 (translations pooled)
+
+--- dropped at step 4 (99), first 12 ---
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  你如果能利用重力，那就这么做吧。  -- 5 characters no HSK 2 word uses: 利力如用重
+  胡萝卜我来切吧。  -- 4 characters no HSK 2 word uses: 切卜胡萝
+  可能是发生交通事故了吧。  -- 3 characters no HSK 2 word uses: 发故通
+  这里人太多了。咱们换个地方吧。  -- 3 characters no HSK 2 word uses: 咱换方
+  来玩捉迷藏吧！  -- 3 characters no HSK 2 word uses: 捉藏迷
+  摄氏零度时水会结冰，对吧？  -- 5 characters no HSK 2 word uses: 冰度摄氏结
+  「我已经找到令他嫉妒的方法了。」「喔，说吧！」  -- 6 characters no HSK 2 word uses: 令喔妒嫉方法
+  你如果通过考试，我们一起去酒吧喝啤酒，好不好？  -- 3 characters no HSK 2 word uses: 啤如通
+  不管你有没有通过中文考试，我们一起去酒吧喝啤酒。  -- 3 characters no HSK 2 word uses: 啤管通
+  有必要的话，你就留着这本字典吧。  -- 3 characters no HSK 2 word uses: 典必留
+  考虑一下那些困难吧。  -- 3 characters no HSK 2 word uses: 困虑难
+
+--- dropped at step 5 (229), first 12 ---
+  雨，雨，快点消失吧。  -- level 5: 消失 L5
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list)
+  你自己应该知道吧。  -- level 3: 应该 L3
+  你还是留在这儿吧。  -- level 4: 留 L4
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  您也来参加吧！  -- level 3: 参加 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  那条黄瓜多长啊！  -- level 5: 黄瓜 L5
+  那个茶壶很脏啊！  -- level 6: 壶 L6, 脏 L3
+  也许下一次吧。  -- level 4: 也许 L4
+  啊，真棒！  -- level 4: 棒 L4
+
+--- dropped at step 5b (11) ---
+  我看不见啊！  -- harder grammar: 3-48 (HSK 3), 4-22 (HSK 4)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  啊，我病了。  -- harder grammar: 4-22 (HSK 4)
+  啊？  -- harder grammar: 4-22 (HSK 4)
+  时间过得真快啊！  -- harder grammar: 4-22 (HSK 4)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  我好累啊。  -- harder grammar: 4-22 (HSK 4)
+  这个好大啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (6) ---
+  你还是去看病吧。  -- rule: unless 还是 ... 吧/SP
+  我们还是在这里坐下吧。  -- rule: unless 还是 ... 吧/SP
+  什么时候想来就过来吧。  -- rule: unless /VV 就 /VV 吧/SP
+  这是谁啊？  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  天啊！  -- rule: no match: line matched
+
+--- dropped at step 6b (8) ---
+  让我去商店吧。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+  你不忙，对吧？  -- hidden word a learner can't work out: 不忙 ((polite formula) there's no hurry; take your time)
+  那是什么啊？  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+  来吧。我想让你看点东西。  -- hidden word a learner can't work out: 看点 (highlight (of an event, movie etc))
+  快点去吧！  -- hidden word a learner can't work out: 快点 (to do sth more quickly)
+  快来吧，我真的很想见你。  -- hidden word a learner can't work out: 想见 (to infer)
+  快来吧，我真的很想见你们。  -- hidden word a learner can't work out: 想见 (to infer)
+  休息一下吧。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+
+--- dropped at step 7 (12) ---
+  说啊！  -- check said no (1/2): 啊 adds urgency/order, not softening
+  出来吧！  -- no accurate English among: Arise!
+  很贵吧？  -- check said no (2/2): 吧 used to form question, not this point
+  那人谁啊？  -- check said no (1/2): 啊 used in question for urgency, not core point
+  你没事吧？  -- check said no (2/2): 吧 used to form question, not this point
+  别跟着来啊。  -- check said no (1/2): 啊 adds urgency/order, not softening or listing
+  帮帮我们吧！  -- no accurate English among: Help us.
+  可能明天吧。  -- check said no (1/2): 吧 for uncertainty, not standard point use
+  过来和我跳舞啊!  -- check said no (1/2): 啊 used as exclamation, not grammar point 2-34 usage
+  你懂吗？可能吧。  -- no accurate English among: Do you understand? Probably.
+  大家在说什么啊？  -- check said no (1/2): 啊 used as sentence-final interjection, not listed item marker
+  你喜欢什么就拿吧。  -- check said no (2/2): This is HSK 2-45 (还是...吧), not basic 吧
+
+--- dropped at step 8 (3) ---
+  让我们开始吧。  -- difficulty review: (1/2); 让 used as causative/permissive construction is HSK 3+ grammar, beyond this level
+  走吧，没在下雨了。  -- difficulty review: (2/2); 没在 is not a known HSK 2 construction; learners would not recognize this negation pattern with 在
+  让我送你到车站吧。  -- difficulty review: (1/2); Uses 让 + object + verb construction (2-75 level grammar), which is above HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-34_level2_20261112_211513.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 2-34 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-34 in: 7  -> Tatoeba needs to add 13 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-34 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      413  2. contain the point's word(s)
+      411  3. new (not in DB, not a duplicate)
+      312  4. at most 2 characters outside HSK 2 words
+       83  5. really HSK 2
+       70  5b. no harder grammar point (of the 44 with a rule)
+       64  6. the rule finds 2-34
+       56  6b. no hidden word a learner can't work out
+       28  7. both checks say 2-34, English chosen
+       25  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (16 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (25) ===
+  拿走吧。  (Take it.)  [tatoeba 5092645]  hidden: 拿走
+  去洗洗吧。  (Go wash up.)  [tatoeba 8696177]
+  我们走走吧。  (Let's walk.)  [tatoeba 5897892]
+  我们开始吧。  (Let's start.)  [tatoeba 7767999]
+  跟他们走吧。  (Let's go with them.)  [tatoeba 13519354]
+  一起学习吧！  (Let's study together!)  [tatoeba 13519581]
+  我们打车去吧！  (Let's catch a taxi!)  [tatoeba 4900904]
+  一起吃晚饭吧。  (Let's have dinner together.)  [tatoeba 5574501]
+  来跟我喝茶吧。  (Come and have tea with me.)  [tatoeba 6089788]  hidden: 喝茶
+  现在出去玩吧。  (Go outside and play now.)  [tatoeba 6119480]
+  就让汤姆说吧。  (Just let Tom speak.)  [tatoeba 6635875]
+  我们一起玩吧！  (Let's play together!)  [tatoeba 8135253]
+  你喜欢雨对吧？  (You like rain, don't you?)  [tatoeba 8688060]
+  那不对，对吧？  (That isn't true, is it?)  [tatoeba 9961570]  hidden: 不对
+  让我们开始吧！  (Let's start!)  [tatoeba 13252525]
+  你喜欢苹果吧？  (You like apples, don't you?)  [tatoeba 13539437]
+  她会帮我们吧？  (She'll help us, won't she?)  [tatoeba 13785689]
+  她不在那里吧？  (She wasn't there, was she?)  [tatoeba 13826828]  hidden: 不在
+  我们去踢足球吧！  (Let's play soccer.)  [tatoeba 11231395]
+  明天是星期一吧？  (Tomorrow is Monday, isn't it?)  [tatoeba 12422346]  hidden: 星期一
+  他是你的朋友吧？  (He's your friend, isn't he?)  [tatoeba 13753046]
+  她不是非常高吧？  (She isn't very tall, is she?)  [tatoeba 13958052]  hidden: 不是
+  “喂，哪一位啊？”  (Hello, who am I speaking to?)  [tatoeba 409196]
+  忘了今天的事儿吧。  (Let's forget about what happened today.)  [tatoeba 4906084]  hidden: 事儿
+  我说了没问题了啊！  (I've already told you it's fine!)  [tatoeba 12278146]  hidden: 没问题
+
+--- dropped at step 3 (2) ---
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  我们开始吧。  -- same text as tatoeba 7767999 (translations pooled)
+
+--- dropped at step 4 (99), first 12 ---
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  你如果能利用重力，那就这么做吧。  -- 5 characters no HSK 2 word uses: 利力如用重
+  胡萝卜我来切吧。  -- 4 characters no HSK 2 word uses: 切卜胡萝
+  可能是发生交通事故了吧。  -- 3 characters no HSK 2 word uses: 发故通
+  这里人太多了。咱们换个地方吧。  -- 3 characters no HSK 2 word uses: 咱换方
+  来玩捉迷藏吧！  -- 3 characters no HSK 2 word uses: 捉藏迷
+  摄氏零度时水会结冰，对吧？  -- 5 characters no HSK 2 word uses: 冰度摄氏结
+  「我已经找到令他嫉妒的方法了。」「喔，说吧！」  -- 6 characters no HSK 2 word uses: 令喔妒嫉方法
+  你如果通过考试，我们一起去酒吧喝啤酒，好不好？  -- 3 characters no HSK 2 word uses: 啤如通
+  不管你有没有通过中文考试，我们一起去酒吧喝啤酒。  -- 3 characters no HSK 2 word uses: 啤管通
+  有必要的话，你就留着这本字典吧。  -- 3 characters no HSK 2 word uses: 典必留
+  考虑一下那些困难吧。  -- 3 characters no HSK 2 word uses: 困虑难
+
+--- dropped at step 5 (229), first 12 ---
+  雨，雨，快点消失吧。  -- level 5: 消失 L5
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list)
+  你自己应该知道吧。  -- level 3: 应该 L3
+  你还是留在这儿吧。  -- level 4: 留 L4
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  您也来参加吧！  -- level 3: 参加 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  那条黄瓜多长啊！  -- level 5: 黄瓜 L5
+  那个茶壶很脏啊！  -- level 6: 壶 L6, 脏 L3
+  也许下一次吧。  -- level 4: 也许 L4
+  啊，真棒！  -- level 4: 棒 L4
+
+--- dropped at step 5b (13), first 12 ---
+  我看不见啊！  -- harder grammar: 3-48 (HSK 3), 4-22 (HSK 4)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  让我们现在忘了它吧。  -- harder grammar: 2-06 (HSK 3)
+  给我看下它吧。  -- harder grammar: 2-06 (HSK 3)
+  啊，我病了。  -- harder grammar: 4-22 (HSK 4)
+  啊？  -- harder grammar: 4-22 (HSK 4)
+  时间过得真快啊！  -- harder grammar: 4-22 (HSK 4)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  我好累啊。  -- harder grammar: 4-22 (HSK 4)
+  这个好大啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+
+--- dropped at step 6 (6) ---
+  你还是去看病吧。  -- rule: unless 还是 ... 吧/SP
+  我们还是在这里坐下吧。  -- rule: unless 还是 ... 吧/SP
+  什么时候想来就过来吧。  -- rule: unless /VV 就 /VV 吧/SP
+  这是谁啊？  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  天啊！  -- rule: no match: line matched
+
+--- dropped at step 6b (8) ---
+  让我去商店吧。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+  你不忙，对吧？  -- hidden word a learner can't work out: 不忙 ((polite formula) there's no hurry; take your time)
+  那是什么啊？  -- hidden word a learner can't work out: 那是 ((coll.) of course)
+  来吧。我想让你看点东西。  -- hidden word a learner can't work out: 看点 (highlight (of an event, movie etc))
+  快点去吧！  -- hidden word a learner can't work out: 快点 (to do sth more quickly)
+  快来吧，我真的很想见你。  -- hidden word a learner can't work out: 想见 (to infer)
+  快来吧，我真的很想见你们。  -- hidden word a learner can't work out: 想见 (to infer)
+  休息一下吧。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+
+--- dropped at step 7 (12) ---
+  说啊！  -- check said no (1/2): 啊 adds urgency/order, not softening
+  出来吧！  -- no accurate English among: Arise!
+  很贵吧？  -- check said no (2/2): 吧 used to form question, not this point
+  那人谁啊？  -- check said no (1/2): 啊 used in question for urgency, not core point
+  你没事吧？  -- check said no (2/2): 吧 used to form question, not this point
+  别跟着来啊。  -- check said no (1/2): 啊 adds urgency/order, not softening or listing
+  帮帮我们吧！  -- no accurate English among: Help us.
+  可能明天吧。  -- check said no (1/2): 吧 for uncertainty, not standard point use
+  过来和我跳舞啊!  -- check said no (1/2): 啊 used as exclamation, not grammar point 2-34 usage
+  你懂吗？可能吧。  -- no accurate English among: Do you understand? Probably.
+  大家在说什么啊？  -- check said no (1/2): 啊 used as sentence-final interjection, not listed item marker
+  你喜欢什么就拿吧。  -- check said no (2/2): This is HSK 2-45 (还是...吧), not basic 吧
+
+--- dropped at step 8 (3) ---
+  让我们开始吧。  -- difficulty review: (1/2); 让 used as causative/permissive construction is HSK 3+ grammar, beyond this level
+  走吧，没在下雨了。  -- difficulty review: (2/2); 没在 is not a known HSK 2 construction; learners would not recognize this negation pattern with 在
+  让我送你到车站吧。  -- difficulty review: (1/2); Uses 让 + object + verb construction (2-75 level grammar), which is above HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-34_level2_20261113_135455.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:45 ##########
+Filling 2-34 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  不忙 = 不 + 忙  ((polite formula) there's no hurry; take )
+    hidden  看点 = 看 + 点  (highlight (of an event, movie etc))
+
+Course sentences at HSK 2 the rule already finds 2-34 in: 7  -> Tatoeba needs to add 13 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-34 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      413  2. contain the point's word(s)
+      411  3. new (not in DB, not a duplicate)
+      312  4. at most 2 characters outside HSK 2 words
+       83  5. really HSK 2
+       72  5b. no harder grammar point (of the 43 with a rule)
+       66  6. the rule finds 2-34
+       59  6b. no hidden word a learner can't work out
+       27  7. both checks say 2-34, English chosen
+       25  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (19 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (25) ===
+  拿走吧。  (Take it.)  [tatoeba 5092645]  hidden: 拿走
+  去洗洗吧。  (Go wash up.)  [tatoeba 8696177]
+  我们走走吧。  (Let's walk.)  [tatoeba 5897892]
+  我们开始吧。  (Let's start.)  [tatoeba 7767999]
+  跟他们走吧。  (Let's go with them.)  [tatoeba 13519354]
+  一起学习吧！  (Let's study together!)  [tatoeba 13519581]
+  我们打车去吧！  (Let's catch a taxi!)  [tatoeba 4900904]
+  一起吃晚饭吧。  (Let's have dinner together.)  [tatoeba 5574501]
+  来跟我喝茶吧。  (Come and have tea with me.)  [tatoeba 6089788]  hidden: 喝茶
+  现在出去玩吧。  (Go outside and play now.)  [tatoeba 6119480]
+  就让汤姆说吧。  (Just let Tom speak.)  [tatoeba 6635875]
+  给我看下它吧。  (Show it to me.)  [tatoeba 7771674]
+  我们一起玩吧！  (Let's play together!)  [tatoeba 8135253]
+  你喜欢雨对吧？  (You like rain, don't you?)  [tatoeba 8688060]
+  那不对，对吧？  (That isn't true, is it?)  [tatoeba 9961570]  hidden: 不对
+  让我们开始吧！  (Let's start!)  [tatoeba 13252525]
+  你喜欢苹果吧？  (You like apples, don't you?)  [tatoeba 13539437]
+  她会帮我们吧？  (She'll help us, won't she?)  [tatoeba 13785689]
+  她不在那里吧？  (She wasn't there, was she?)  [tatoeba 13826828]  hidden: 不在
+  我们去踢足球吧！  (Let's play soccer.)  [tatoeba 11231395]
+  明天是星期一吧？  (Tomorrow is Monday, isn't it?)  [tatoeba 12422346]  hidden: 星期一
+  他是你的朋友吧？  (He's your friend, isn't he?)  [tatoeba 13753046]
+  她不是非常高吧？  (She isn't very tall, is she?)  [tatoeba 13958052]  hidden: 不是
+  “喂，哪一位啊？”  (Hello, who am I speaking to?)  [tatoeba 409196]
+  忘了今天的事儿吧。  (Let's forget about what happened today.)  [tatoeba 4906084]  hidden: 事儿
+
+--- dropped at step 3 (2) ---
+  你到底怎么回事啊？  -- same text as tatoeba 3897850 (translations pooled)
+  我们开始吧。  -- same text as tatoeba 7767999 (translations pooled)
+
+--- dropped at step 4 (99), first 12 ---
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  你如果能利用重力，那就这么做吧。  -- 5 characters no HSK 2 word uses: 利力如用重
+  胡萝卜我来切吧。  -- 4 characters no HSK 2 word uses: 切卜胡萝
+  可能是发生交通事故了吧。  -- 3 characters no HSK 2 word uses: 发故通
+  这里人太多了。咱们换个地方吧。  -- 3 characters no HSK 2 word uses: 咱换方
+  来玩捉迷藏吧！  -- 3 characters no HSK 2 word uses: 捉藏迷
+  摄氏零度时水会结冰，对吧？  -- 5 characters no HSK 2 word uses: 冰度摄氏结
+  「我已经找到令他嫉妒的方法了。」「喔，说吧！」  -- 6 characters no HSK 2 word uses: 令喔妒嫉方法
+  你如果通过考试，我们一起去酒吧喝啤酒，好不好？  -- 3 characters no HSK 2 word uses: 啤如通
+  不管你有没有通过中文考试，我们一起去酒吧喝啤酒。  -- 3 characters no HSK 2 word uses: 啤管通
+  有必要的话，你就留着这本字典吧。  -- 3 characters no HSK 2 word uses: 典必留
+  考虑一下那些困难吧。  -- 3 characters no HSK 2 word uses: 困虑难
+
+--- dropped at step 5 (229), first 12 ---
+  雨，雨，快点消失吧。  -- level 5: 消失 L5
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list)
+  你自己应该知道吧。  -- level 3: 应该 L3
+  你还是留在这儿吧。  -- level 4: 留 L4
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  您也来参加吧！  -- level 3: 参加 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  那条黄瓜多长啊！  -- level 5: 黄瓜 L5
+  那个茶壶很脏啊！  -- level 6: 壶 L6, 脏 L3
+  也许下一次吧。  -- level 4: 也许 L4
+  啊，真棒！  -- level 4: 棒 L4
+
+--- dropped at step 5b (11) ---
+  我看不见啊！  -- harder grammar: 3-48 (HSK 3), 4-22 (HSK 4)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  啊，我病了。  -- harder grammar: 4-22 (HSK 4)
+  啊？  -- harder grammar: 4-22 (HSK 4)
+  时间过得真快啊！  -- harder grammar: 4-22 (HSK 4)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  我好累啊。  -- harder grammar: 4-22 (HSK 4)
+  这个好大啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (6) ---
+  你还是去看病吧。  -- rule: unless 还是 ... 吧/SP
+  我们还是在这里坐下吧。  -- rule: unless 还是 ... 吧/SP
+  什么时候想来就过来吧。  -- rule: unless /VV 就 /VV 吧/SP
+  这是谁啊？  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  天啊！  -- rule: no match: line matched
+
+--- dropped at step 6b (7) ---
+  让我去商店吧。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+  那是什么啊？  -- hidden word a learner can't work out: 那是 ((coll.) of course; naturally; indeed)
+  来吧。我想让你看点东西。  -- hidden word a learner can't work out: 看点 (highlight (of an event, movie etc))
+  快点去吧！  -- hidden word a learner can't work out: 快点 (to do sth more quickly; Hurry up!; Get a move on!)
+  快来吧，我真的很想见你。  -- hidden word a learner can't work out: 想见 (to infer; to gather)
+  快来吧，我真的很想见你们。  -- hidden word a learner can't work out: 想见 (to infer; to gather)
+  休息一下吧。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, or softening the tone, or suggesting giving sth a try); all at once; suddenly)
+
+--- dropped at step 7 (13) ---
+  说啊！  -- check said no (1/2): 啊 adds urgency/order, not softening
+  出来吧！  -- no accurate English among: Arise!
+  很贵吧？  -- check said no (2/2): 吧 used to form question, not this point
+  那人谁啊？  -- check said no (1/2): 啊 used in question for urgency, not core point
+  你没事吧？  -- check said no (2/2): 吧 used to form question, not this point
+  别跟着来啊。  -- check said no (1/2): 啊 adds urgency/order, not softening or listing
+  帮帮我们吧！  -- no accurate English among: Help us.
+  可能明天吧。  -- check said no (1/2): 吧 for uncertainty, not standard point use
+  你不忙，对吧？  -- check said no (2/2): This is HSK 2-79: using 吧 to form questions
+  过来和我跳舞啊!  -- check said no (1/2): 啊 used as exclamation, not grammar point 2-34 usage
+  你懂吗？可能吧。  -- no accurate English among: Do you understand? Probably.
+  大家在说什么啊？  -- check said no (1/2): 啊 used as sentence-final interjection, not listed item marker
+  你喜欢什么就拿吧。  -- check said no (2/2): This is HSK 2-45 (还是...吧), not basic 吧
+
+--- dropped at step 8 (2) ---
+  让我们开始吧。  -- difficulty review: (1/2); 让 used as causative/permissive construction is HSK 3+ grammar, beyond this level
+  走吧，没在下雨了。  -- difficulty review: (2/2); 没在 is not a known HSK 2 construction; learners would not recognize this negation pattern with 在
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-34_level2_20261113_144514.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:10 ##########
+Filling 2-34 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 1 Tatoeba candidate(s) (cached after this run)...
+  ...100/284
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161053.txt
+  ...200/284
+
+Course sentences at HSK 2 the rule already finds 2-34 in: 42  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-34 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      413  2. contain the point's word(s)
+      383  3. new (not in DB, not a duplicate)
+      284  4. at most 2 characters outside HSK 2 words
+       55  5. really HSK 2
+       44  5b. no harder grammar point (of the 43 with a rule)
+       40  6. the rule finds 2-34
+       34  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (34 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (30), first 12 ---
+  你还是去看病吧。  -- already in the database
+  “喂，哪一位啊？”  -- already in the database
+  我们还是在这里坐下吧。  -- already in the database
+  你到底怎么回事啊？  -- same text as 3897850 (translations pooled)
+  我们打车去吧！  -- already in the database
+  忘了今天的事儿吧。  -- already in the database
+  拿走吧。  -- already in the database
+  一起吃晚饭吧。  -- already in the database
+  我们走走吧。  -- already in the database
+  来跟我喝茶吧。  -- already in the database
+  现在出去玩吧。  -- already in the database
+  就让汤姆说吧。  -- already in the database
+
+--- dropped at step 4 (99), first 12 ---
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  你如果能利用重力，那就这么做吧。  -- 5 characters no HSK 2 word uses: 利力如用重
+  胡萝卜我来切吧。  -- 4 characters no HSK 2 word uses: 切卜胡萝
+  可能是发生交通事故了吧。  -- 3 characters no HSK 2 word uses: 发故通
+  这里人太多了。咱们换个地方吧。  -- 3 characters no HSK 2 word uses: 咱换方
+  来玩捉迷藏吧！  -- 3 characters no HSK 2 word uses: 捉藏迷
+  摄氏零度时水会结冰，对吧？  -- 5 characters no HSK 2 word uses: 冰度摄氏结
+  「我已经找到令他嫉妒的方法了。」「喔，说吧！」  -- 6 characters no HSK 2 word uses: 令喔妒嫉方法
+  你如果通过考试，我们一起去酒吧喝啤酒，好不好？  -- 3 characters no HSK 2 word uses: 啤如通
+  不管你有没有通过中文考试，我们一起去酒吧喝啤酒。  -- 3 characters no HSK 2 word uses: 啤管通
+  有必要的话，你就留着这本字典吧。  -- 3 characters no HSK 2 word uses: 典必留
+  考虑一下那些困难吧。  -- 3 characters no HSK 2 word uses: 困虑难
+
+--- dropped at step 5 (229), first 12 ---
+  雨，雨，快点消失吧。  -- level 5: 消失 L5
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list)
+  你自己应该知道吧。  -- level 3: 应该 L3
+  你还是留在这儿吧。  -- level 4: 留 L4
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  您也来参加吧！  -- level 3: 参加 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  那条黄瓜多长啊！  -- level 5: 黄瓜 L5
+  那个茶壶很脏啊！  -- level 6: 壶 L6, 脏 L3
+  也许下一次吧。  -- level 4: 也许 L4
+  啊，真棒！  -- level 4: 棒 L4
+
+--- dropped at step 5b (11) ---
+  我看不见啊！  -- harder grammar: 3-48 (HSK 3), 4-22 (HSK 4)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-48 (HSK 3)
+  啊，我病了。  -- harder grammar: 4-22 (HSK 4)
+  啊？  -- harder grammar: 4-22 (HSK 4)
+  时间过得真快啊！  -- harder grammar: 4-22 (HSK 4)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  我好累啊。  -- harder grammar: 4-22 (HSK 4)
+  这个好大啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (4) ---
+  什么时候想来就过来吧。  -- rule: unless /VV 就 /VV 吧/SP
+  这是谁啊？  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  天啊！  -- rule: no match: line matched
+
+--- dropped at step 6b (6) ---
+  让我去商店吧。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+  那是什么啊？  -- hidden word a learner can't work out: 那是 ((coll.) of course; naturally; indeed)
+  来吧。我想让你看点东西。  -- hidden word a learner can't work out: 看点 (highlight (of an event, movie etc))
+  快点去吧！  -- hidden word a learner can't work out: 快点 (to do sth more quickly; Hurry up!; Get a move on!)
+  快来吧，我真的很想见你。  -- hidden word a learner can't work out: 想见 (to infer; to gather)
+  快来吧，我真的很想见你们。  -- hidden word a learner can't work out: 想见 (to infer; to gather)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-34_level2_20261114_161054.csv
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:31 ##########
+Filling 2-34 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-34 in: 6  -> Tatoeba needs to add 14 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-34 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      413  2. contain the point's word(s)
+      411  3. new (not in DB, not a duplicate)
+      312  4. at most 2 characters outside HSK 2 words
+       83  5. really HSK 2
+       72  5b. no harder grammar point (of the 43 with a rule)
+       66  6. the rule finds 2-34
+       59  6b. no hidden word a learner can't work out
+       27  7. both checks say 2-34, English chosen
+       25  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (19 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (25) ===
+  拿走吧。  (Take it.)  [tatoeba 5092645]  hidden: 拿走
+  去洗洗吧。  (Go wash up.)  [tatoeba 8696177]
+  我们走走吧。  (Let's walk.)  [tatoeba 5897892]
+  我们开始吧。  (Let's start.)  [tatoeba 7767999]
+  跟他们走吧。  (Let's go with them.)  [tatoeba 13519354]
+  一起学习吧！  (Let's study together!)  [tatoeba 13519581]
+  我们打车去吧！  (Let's catch a taxi!)  [tatoeba 4900904]
+  一起吃晚饭吧。  (Let's have dinner together.)  [tatoeba 5574501]
+  来跟我喝茶吧。  (Come and have tea with me.)  [tatoeba 6089788]  hidden: 喝茶
+  现在出去玩吧。  (Go outside and play now.)  [tatoeba 6119480]
+  就让汤姆说吧。  (Just let Tom speak.)  [tatoeba 6635875]
+  给我看下它吧。  (Show it to me.)  [tatoeba 7771674]
+  我们一起玩吧！  (Let's play together!)  [tatoeba 8135253]
+  你喜欢雨对吧？  (You like rain, don't you?)  [tatoeba 8688060]
+  那不对，对吧？  (That isn't true, is it?)  [tatoeba 9961570]  hidden: 不对
+  让我们开始吧！  (Let's start!)  [tatoeba 13252525]
+  你喜欢苹果吧？  (You like apples, don't you?)  [tatoeba 13539437]
+  她会帮我们吧？  (She'll help us, won't she?)  [tatoeba 13785689]
+  她不在那里吧？  (She wasn't there, was she?)  [tatoeba 13826828]  hidden: 不在
+  我们去踢足球吧！  (Let's play soccer.)  [tatoeba 11231395]
+  明天是星期一吧？  (Tomorrow is Monday, isn't it?)  [tatoeba 12422346]  hidden: 星期一
+  他是你的朋友吧？  (He's your friend, isn't he?)  [tatoeba 13753046]
+  她不是非常高吧？  (She isn't very tall, is she?)  [tatoeba 13958052]  hidden: 不是
+  “喂，哪一位啊？”  (Hello, who am I speaking to?)  [tatoeba 409196]
+  忘了今天的事儿吧。  (Let's forget about what happened today.)  [tatoeba 4906084]  hidden: 事儿
+
+--- dropped at step 3 (2) ---
+  你到底怎么回事啊？  -- same text as 3897850 (translations pooled)
+  我们开始吧。  -- same text as 7767999 (translations pooled)
+
+--- dropped at step 4 (99), first 12 ---
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  你如果能利用重力，那就这么做吧。  -- 5 characters no HSK 2 word uses: 利力如用重
+  胡萝卜我来切吧。  -- 4 characters no HSK 2 word uses: 切卜胡萝
+  可能是发生交通事故了吧。  -- 3 characters no HSK 2 word uses: 发故通
+  这里人太多了。咱们换个地方吧。  -- 3 characters no HSK 2 word uses: 咱换方
+  来玩捉迷藏吧！  -- 3 characters no HSK 2 word uses: 捉藏迷
+  摄氏零度时水会结冰，对吧？  -- 5 characters no HSK 2 word uses: 冰度摄氏结
+  「我已经找到令他嫉妒的方法了。」「喔，说吧！」  -- 6 characters no HSK 2 word uses: 令喔妒嫉方法
+  你如果通过考试，我们一起去酒吧喝啤酒，好不好？  -- 3 characters no HSK 2 word uses: 啤如通
+  不管你有没有通过中文考试，我们一起去酒吧喝啤酒。  -- 3 characters no HSK 2 word uses: 啤管通
+  有必要的话，你就留着这本字典吧。  -- 3 characters no HSK 2 word uses: 典必留
+  考虑一下那些困难吧。  -- 3 characters no HSK 2 word uses: 困虑难
+
+--- dropped at step 5 (229), first 12 ---
+  雨，雨，快点消失吧。  -- level 5: 消失 L5
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list)
+  你自己应该知道吧。  -- level 3: 应该 L3
+  你还是留在这儿吧。  -- level 4: 留 L4
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  您也来参加吧！  -- level 3: 参加 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  那条黄瓜多长啊！  -- level 5: 黄瓜 L5
+  那个茶壶很脏啊！  -- level 6: 壶 L6, 脏 L3
+  也许下一次吧。  -- level 4: 也许 L4
+  啊，真棒！  -- level 4: 棒 L4
+
+--- dropped at step 5b (11) ---
+  我看不见啊！  -- harder grammar: 3-48 (HSK 3), 4-22 (HSK 4)
+  今天好热啊！  -- harder grammar: 4-22 (HSK 4)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-48 (HSK 3)
+  啊，我病了。  -- harder grammar: 4-22 (HSK 4)
+  啊？  -- harder grammar: 4-22 (HSK 4)
+  时间过得真快啊！  -- harder grammar: 4-22 (HSK 4)
+  人真多啊。  -- harder grammar: 4-22 (HSK 4)
+  我好累啊。  -- harder grammar: 4-22 (HSK 4)
+  这个好大啊。  -- harder grammar: 4-22 (HSK 4)
+  “都几点了？早点睡吧。”“你不也没睡？”  -- harder grammar: 3-79 (HSK 3)
+  啊，对！  -- harder grammar: 4-22 (HSK 4)
+
+--- dropped at step 6 (6) ---
+  你还是去看病吧。  -- rule: unless 还是 ... 吧/SP
+  我们还是在这里坐下吧。  -- rule: unless 还是 ... 吧/SP
+  什么时候想来就过来吧。  -- rule: unless /VV 就 /VV 吧/SP
+  这是谁啊？  -- rule: no match: line matched
+  你好啊！早上好！  -- rule: no match: line matched
+  天啊！  -- rule: no match: line matched
+
+--- dropped at step 6b (7) ---
+  让我去商店吧。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+  那是什么啊？  -- hidden word a learner can't work out: 那是 ((coll.) of course; naturally; indeed)
+  来吧。我想让你看点东西。  -- hidden word a learner can't work out: 看点 (highlight (of an event, movie etc))
+  快点去吧！  -- hidden word a learner can't work out: 快点 (to do sth more quickly; Hurry up!; Get a move on!)
+  快来吧，我真的很想见你。  -- hidden word a learner can't work out: 想见 (to infer; to gather)
+  快来吧，我真的很想见你们。  -- hidden word a learner can't work out: 想见 (to infer; to gather)
+  休息一下吧。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, or softening the tone, or suggesting giving sth a try); all at once; suddenly)
+
+--- dropped at step 7 (13) ---
+  说啊！  -- check said no (1/2): 啊 adds urgency/order, not softening
+  出来吧！  -- no accurate English among: Arise!
+  很贵吧？  -- check said no (2/2): 吧 used to form question, not this point
+  那人谁啊？  -- check said no (1/2): 啊 used in question for urgency, not core point
+  你没事吧？  -- check said no (2/2): 吧 used to form question, not this point
+  别跟着来啊。  -- check said no (1/2): 啊 adds urgency/order, not softening or listing
+  帮帮我们吧！  -- no accurate English among: Help us.
+  可能明天吧。  -- check said no (1/2): 吧 for uncertainty, not standard point use
+  你不忙，对吧？  -- check said no (2/2): This is HSK 2-79: using 吧 to form questions
+  过来和我跳舞啊!  -- check said no (1/2): 啊 used as exclamation, not grammar point 2-34 usage
+  你懂吗？可能吧。  -- no accurate English among: Do you understand? Probably.
+  大家在说什么啊？  -- check said no (1/2): 啊 used as sentence-final interjection, not listed item marker
+  你喜欢什么就拿吧。  -- check said no (2/2): This is HSK 2-45 (还是...吧), not basic 吧
+
+--- dropped at step 8 (2) ---
+  让我们开始吧。  -- difficulty review: (1/2); 让 used as causative/permissive construction is HSK 3+ grammar, beyond this level
+  走吧，没在下雨了。  -- difficulty review: (2/2); 没在 is not a known HSK 2 construction; learners would not recognize this negation pattern with 在
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-34_level2_20261114_163145.csv

@@ -1,0 +1,44 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 5495 characters -->
+## 4-22
+
+**Point:** Sentence-final interjection 啊 (a) that adds a tone of urgency, exclamation, excitement, certainty, or concern. This also covers 啊 as a standalone interjection opening a sentence ("啊，我明白了。").
+
+**Covers:**
+- 啊 tagged IJ at the start of a clause, as in "啊，你怎么在这里？".
+- Exclamatory 啊/SP closing a clause after a degree adverb plus adjective ("这里好漂亮啊！", "你家真大啊！", "学中文真难啊！", "好香啊！").
+- 啊/SP closing a short reply or exclamation such as 对啊, 是啊, 行啊, 可以啊, or a one-word urging such as 小心啊 or 吃啊.
+- 啊/SP closing an A-not-A question showing impatience or concern ("你走不走啊？", "你吃不吃啊？").
+- 啊/SP after a sentence-final 的 ("谁说的啊？").
+- 你 + adjective + 啊 ("你傻啊？").
+- 没 + verb + 过 ... 啊 ("没见过漂亮姑娘啊？").
+
+**Does not cover:**
+- 啊 in enumeration/listing patterns (A啊，B啊，C啊), where 啊 follows a noun, name or verb phrase.
+- 啊 in "X什么啊" patterns. The clause "看什么啊" is not matched by itself.
+- 啊 in the middle of a clause.
+
+```rule
+match: ^ 啊/IJ
+match: 真|太|好|多|这么|那么/AD /VA 啊/SP $
+match: ^ 对|行|好|不错/VA 啊/SP $
+match: ^ 是/VC 啊/SP $
+match: ^ 可以/VV 啊/SP $
+match: ^ 行|小心|吃/VV 啊/SP $
+match: /VV 不/AD /VV 啊/SP $
+match: /VA 不/AD /VA 啊/SP $
+match: 的/SP 啊/SP $
+match: ^ 你/PN /VA 啊/SP $
+match: ^ 没/AD /VV 过/AS ... 啊/SP $
+```
+
+**Notes:**
+- Rules match within a single clause, so nothing can look at neighbouring clauses. Precision therefore comes from requiring a specific context before 啊, not from checking for a list.
+- The new patterns are limited to cases that listing 啊 does not produce:
+  - A-not-A questions, which are never list items.
+  - 的 + 啊.
+  - 你 + adjective + 啊.
+  - 没 + verb + 过 ... 啊.
+  - A short closed set of verbs (行, 小心, 吃) as a whole clause.
+- A bare "verb + 啊" or "noun + 啊" is deliberately not matched, because it is how list items look (花生啊，瓜子啊).
+- "看什么啊" is left unmatched because it is the 3-81 "X什么（啊）" pattern. The sentence "看什么啊？没见过漂亮姑娘啊？" is still caught through its second clause.
+- Some real sentence-final 啊 will still be missed. That is accepted in favour of precision.

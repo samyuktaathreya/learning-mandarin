@@ -17,3 +17,65 @@ unrelated:
 [warning] no page teaches this point: the rule would only have the list's own examples to go on.
 
 Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 4-13
+
+########## rules  2026-11-10 21:29 ##########
+
+########## rules  2026-11-11 14:20 ##########
+
+########## rules  2026-11-12 17:33 ##########
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_173309.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 4-13, rule line 1: '(自从|从|自)/P' looks like a regular expression -- this is not regex syntax: use ... for 'any words' and _ for 'one word' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_4-13_20261112_173316.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 4-13, rule line 1: '(自从|从|自)/P' looks like a regular expression -- this is not regex syntax: use ... for 'any words' and _ for 'one word' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_4-13_20261112_173321.txt)
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 4-13
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** 自 / 自从 (and 从 … 以来) mark the starting point of an action or state, in time ("ever since") or, for 自, in place ("from").
+
+**Covers:** 
+- 自从 + event or time, with or without a closing 以来 or 后: 自从来到湖南，我越来越能吃辣了。
+- 自 + time/event + 以来: 自1978年以来，…
+- 自 + place as a preposition: 自北京出发。
+- 从 + time/event + 以来: 从毕业以来，她一直在教汉语。
+
+**Does not cover:**
+- 来自 ("come from"), which is a different point. It is one token, so it never matches.
+- 自己 and compounds such as 自学, 自动, 自愿, 自豪, 自来水 and 自言自语. These are whole words, not 自 as a preposition.
+- 从 + time + 后 / 以后 without 以来, and plain 从 meaning "from" a place. These are too ambiguous, so they are left out.
+
+```rule
+match: 自从
+match: 自/P
+match: 从/P ... 以来/LC
+```
+
+**Notes:** 
+- Matching is on whole tokens, so 自己, 各自 and 来自 can never trigger the rule.
+- 自/P is restricted to the P tag so that stray 自 tagged as another part of speech is ignored.
+- No unless: lines are needed on the given data. If 自/P ever shows up inside an unwanted fixed phrase, add an unless: for it.
+- The 从 line requires 以来 in the same clause, so ordinary 从 + place uses do not match.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 4-13
+Tagging 2 labeled example(s) (cached after this run)...
+
+=== A. 4-13: rule on labeled examples (no AI) ===
+  examples of 4-13 matched:    11/11
+  counter-examples wrongly matched: 0/10   <- should be 0
+  easy examples (words all HSK 4 or below) matched: 1/1   (too few to test)
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## guard check  2026-11-12 21:14 ##########
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## guard check  2026-11-14 16:29 ##########

@@ -1,0 +1,12 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 8887 characters -->
+## 2-56
+**Point:** Existential sentences with 着 or 是 expressing location + existence
+**Covers:** Sentences with structure [Location] + Verb + 着 + [Object] or [Location] + 是 + [Object], describing things existing/positioned in a place
+**Does not cover:** Verbs with 着 as action-in-progress, complement 着, continuous aspect, or verbs where 着 is attached to the object/modifying manner of action
+
+```rule
+match: /LC /AS $ | /LC VC
+unless: _ /AS _ /AS | /SP $ | /VV /DER 着 | 正 /AD /VV 着 | /AD /VV 着 /SP
+```
+
+**Notes:** The rule matches two patterns: (1) Location + Verb + 着 (AS) at clause end, and (2) Location + 是 (VC) anywhere. The unless clauses exclude: repeated 着着 constructions (verbing-away), aspect particle 了 after 着, complement 着 after 不/得, continuous aspect with 正, and 着 + object + 呢 patterns. The tagger sometimes marks 着 as VV instead of AS in complement structures, which helps exclude those cases naturally.

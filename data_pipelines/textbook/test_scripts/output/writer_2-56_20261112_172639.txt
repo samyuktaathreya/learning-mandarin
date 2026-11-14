@@ -1,0 +1,32 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 8750 characters -->
+## 2-56
+**Point:** Existential sentences that say what is located at a place. The two forms are Place + Verb + 着 + NP (桌子上放着一本词典) and Place + 是 + NP (盒子里是你的礼物).
+
+**Covers:**
+- A clause that starts with a place phrase (noun + 里/上, or a noun + noun with a 前边-type localizer), followed directly by a verb + 着 (AS) and the thing that exists there. Examples: 墙壁上挂着一幅漫画, 教室前边站着一位老师, 地里种着瓜.
+- A clause that starts with a place phrase (noun + localizer), then 是, with an optional 都 before it. Examples: 袋子里是我的午饭, 墙上都是他家人的照片.
+
+**Does not cover:**
+- 着 as a resultative complement (睡着, 找着, 买不着).
+- A着A着 patterns.
+- Progressive 正…着…呢.
+- Ordinary 着 after a person subject (他穿着拖鞋, 狗摇着尾巴), because the clause must begin with a noun place phrase.
+- Sentences that begin with 在 or a pronoun subject. These are skipped to stay precise.
+
+```rule
+match: ^ /NN|NR /LC /VV 着/AS
+match: ^ /NN|NR /NN|NR /LC /VV 着/AS
+match: ^ /NN /NN /NN /VV 着/AS /CD|DT
+match: ^ /NN|NR /LC /AD? 是/VC
+match: ^ /NN|NR /NN|NR /LC /AD? 是/VC
+unless: 着/AS /VV 着/AS
+unless: 着/AS 呢/SP
+unless: 正|在/AD
+unless: 着/AS 了/SP
+```
+
+**Notes:**
+- The 是 patterns require the clause to start with NN/NR + LC. Sentences such as 这里是… and 他的桌子上是… are therefore missed on purpose.
+- The 前边 pattern (three consecutive nouns before 着) requires a following CD or DT, to avoid matching ordinary subject + noun sequences.
+- Loosen the following-element requirement only if more recall is needed. Loosening it risks matching sentences with an ordinary subject, such as 孩子手里拿着…, in which the 着 verb describes a person rather than existence at a place.
+- The A着A着 `unless:` line, the 呢 `unless:` line and the 在/正 `unless:` line are safeguards against the other 着 points.

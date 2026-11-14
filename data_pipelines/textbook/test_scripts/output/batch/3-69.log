@@ -87,3 +87,59 @@ Tagging 2 labeled example(s) (cached after this run)...
 --- examples of 3-69 the rule misses (2) ---
   你要再说，我真生气了。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
   他要不听，我也没办法。  -- ASGN4S8O Expressing "if… then…" with "yaoshi"
+
+########## rules  2026-11-11 14:19 ##########
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 3-69, rule line 1: '(要是|要不是|要)/CS' looks like a regular expression -- this is not regex syntax: use ... for 'any words' and _ for 'one word' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_3-69_20261111_141950.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-69
+<!-- written by claude-haiku-4-5 on 2026-11-11; edit freely -->
+**Point:** Expressing "if… then…" with 要是/要不是/要
+**Covers:** Conditional sentences with 要是, 要不是, or 要 (in specific patterns) followed by a consequence clause, often marked by 就
+**Does not cover:** Other uses of 就 (emphasis, sequence, temporal, "then" without conditional); 就是 constructions (even if, emphasis, identity); other conditional structures like 如果, 只要, 假如, 万一, 一旦
+
+```rule
+match: 要是/CS ... 就/AD
+match: 要不是/AD ... 就/AD
+match: 要不是/CS ... 就/AD
+match: 要/CS ... 就/AD
+match: _ 要是/CS ... 就/AD
+match: _ 要不/AD ... 就/AD
+match: 要不是/AD ... $
+unless: 就/AD 是/VC
+unless: 就是/AD
+unless: 就/AD 要/VV
+```
+
+**Notes:** The rule prioritizes precision by requiring both a conditional marker (要是, 要不是, or 要) and typically a 就 in the consequence clause. The first four patterns handle the standard structure. Patterns 5–6 capture subject-before-marker word order. Pattern 7 (要不是 without 就) covers "if it weren't for" constructions which end the sentence. The unless clauses exclude 就是 emphasis/identity constructions and 就要 temporal constructions. The tagger sometimes tags 要不是 as AD instead of CS; both are included since they appear in labeled examples.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-69
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-69: rule on labeled examples (no AI) ===
+  examples of 3-69 matched:    17/17
+  counter-examples wrongly matched: 0/34   <- should be 0
+
+########## guard check  2026-11-11 14:25 ##########
+
+########## rules  2026-11-12 17:32 ##########
+
+=== A. 3-69: rule on labeled examples (no AI) ===
+  examples of 3-69 matched:    17/17
+  counter-examples wrongly matched: 0/34   <- should be 0
+  easy examples (words all HSK 3 or below) matched: 4/4   <- needs 80%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## guard check  2026-11-12 21:14 ##########
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## guard check  2026-11-14 16:29 ##########

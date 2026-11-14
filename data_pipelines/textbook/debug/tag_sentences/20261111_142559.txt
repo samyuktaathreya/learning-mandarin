@@ -1,0 +1,24 @@
+2026-11-11 14:25:59,387  INFO     === tag_sentences.py run started ===
+2026-11-11 14:26:05,867  INFO     FALLBACK  '汤姆想说话。' -- out-of-list word(s): ['汤姆']
+2026-11-11 14:26:05,867  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('想', 'VV'), ('说话', 'VV')]
+2026-11-11 14:26:05,872  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-11 14:26:05,876  INFO     TAGGED    '汤姆想说话。' (level 10, 3 tags)
+2026-11-11 14:26:05,890  INFO     FALLBACK  '汤姆不想来。' -- out-of-list word(s): ['汤姆', '不想']
+2026-11-11 14:26:05,890  WARNING    HAIKU resegment call for '汤姆不想来。' (cache miss on [('不想', 'AD')])
+2026-11-11 14:26:05,905  INFO       NON-LIST 汤姆 (NR) -> '(name) tang1mu3' [proper_noun]
+2026-11-11 14:26:05,907  INFO     TAGGED    '汤姆不想来。' (level 1, 4 tags)
+2026-11-11 14:26:06,508  INFO     FALLBACK  'Tom 不想让Mary走' -- out-of-list word(s): ['不想']
+2026-11-11 14:26:06,508  WARNING    HAIKU resegment call for 'Tom 不想让Mary走' (cache miss on [('不想', 'VV')])
+2026-11-11 14:26:06,522  INFO     TAGGED    'Tom 不想让Mary走' (level 2, 4 tags)
+2026-11-11 14:26:07,121  INFO     OK        hanlp-valid   '别去想它。' -> [('别', 'AD'), ('去', 'VV'), ('想', 'VV'), ('它', 'PN')]
+2026-11-11 14:26:07,123  INFO     TAGGED    '别去想它。' (level 2, 4 tags)
+2026-11-11 14:26:09,314  INFO     OK        hanlp-valid   '小猫想进来。' -> [('小', 'JJ'), ('猫', 'NN'), ('想', 'VV'), ('进来', 'VV')]
+2026-11-11 14:26:09,325  INFO     TAGGED    '小猫想进来。' (level 2, 4 tags)
+2026-11-11 14:26:09,927  INFO     OK        hanlp-valid   '快想！' -> [('快', 'AD'), ('想', 'VV')]
+2026-11-11 14:26:09,928  INFO     TAGGED    '快想！' (level 2, 2 tags)
+2026-11-11 14:26:10,523  INFO     OK        hanlp-valid   '想知道？' -> [('想', 'VV'), ('知道', 'VV')]
+2026-11-11 14:26:10,525  INFO     TAGGED    '想知道？' (level 1, 2 tags)
+2026-11-11 14:26:10,536  INFO     FALLBACK  '汤姆想知道。' -- out-of-list word(s): ['汤姆']
+2026-11-11 14:26:10,536  INFO       CACHE-ONLY resegmentation -> [('汤姆', 'NN'), ('想', 'VV'), ('知道', 'VV')]
+2026-11-11 14:26:10,538  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-11 14:26:10,539  INFO     TAGGED    '汤姆想知道。' (level 10, 3 tags)

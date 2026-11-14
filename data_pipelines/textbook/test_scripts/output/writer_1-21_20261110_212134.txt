@@ -1,0 +1,32 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 17489 characters -->
+## 1-21
+**Point:** Expressing completion of an action with the aspect particle 了 (le)
+**Covers:** Sentences where 了 appears after a verb (immediately or with object/duration between) to indicate that an action has been completed. This includes: (1) Verb + 了 + Object; (2) Verb + 了 + Duration + Object; (3) Verb + 了 + [Number + Measure Word] + Object; (4) Verb + Object + 了; (5) Yes/no questions with Verb + 了 + 吗.
+**Does not cover:** Change of state (adjective + 了), expressing "now" (知道了), expressing "not anymore" (不/没 + verb + 了), potential complements (得了/不了), or other uses of 了 with different meanings.
+
+```rule
+match: _ /VV /AS _ 
+match: _ /VV /AS /CD|/DT|/JJ|/NT|/AD _
+match: _ /VV /VV? /AS _
+match: _ /VV _ /AS /SP
+match: _ /VV /AS /CD|/DT|/JJ|/NT|/AD /M|/CD _ /DEG?
+unless: ^ /VA /AS $
+unless: ^ /VA /AD /AS $
+unless: ^ /VA /VV /AS $
+unless: ^ /AD /VV /AS $
+unless: ^ /VV /AS $ 
+unless: /AS /SP .{0,3} /CS|/CC
+unless: /P _ /AS $
+unless: 不/AD /VV /AS
+unless: 没/AD /VV /AS
+unless: 得/VV /AS /VV
+unless: 得/VV /AS $
+unless: 快/AD /VV /AS
+unless: 快要/VV /AS
+unless: 太/AD _ /AS
+unless: 极/AD /AS
+unless: 死/VV /AS
+unless: 坏/VA /AS
+```
+
+**Notes:** The core pattern requires a verb followed by the aspect particle 了 (tagged AS), with optional elements like objects, durations, measures, or complements between them. The rule excludes: (1) predicative adjectives showing state change (tagged VA before 了), (2) "potential complement" constructions (得了/得不了), (3) negated actions (不/没 + verb + 了), (4) imminent actions (快/快要 + verb + 了), (5) degree complements (极了, 死了, 坏了), and (6) excessives (太 + adj + 了). The unless conditions are conservative to avoid false positives with other grammar points. Bare verb + 了 at end of sentence is excluded because it often represents state change or other uses rather than completion with an object.

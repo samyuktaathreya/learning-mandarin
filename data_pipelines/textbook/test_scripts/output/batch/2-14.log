@@ -79,3 +79,1309 @@ Tagging 54 labeled example(s) (cached after this run)...
   我只想跟你在一起。  -- ASGN8C8R Expressing "only" with "zhi"
   同学们全来了。  -- HSK list example
   我们班一共有二十人。  -- HSK list example
+
+########## rules  2026-11-10 21:24 ##########
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-14, rule line 4: unknown tag(s) 能/VV in '会/VV|能/VV' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-14_20261110_212453.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-14, rule line 3: '(都/AD)' looks like a regular expression -- this is not regex syntax: use ... for 'any words' and _ for 'one word' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-14_20261110_212459.txt)
+  Asking claude-sonnet-5-5 to write the rule (usually under a minute)...
+
+## 2-14
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
+**Point:** Scope adverbs 全 ("all, whole"), 一共 ("altogether") and 只 ("only"), placed before the predicate.
+**Covers:** 
+- 全都 or 全 as an adverb before the verb or adjective (大家全都到了, 同学们全来了, 全都不怕, 没全都来).
+- 全 as a determiner on a noun, followed by 都 in the same clause (全家都, 全公司的人都不…, 这个地方全年都很热).
+- 全身 followed by 都.
+- 一共 + number or verb.
+- 只 or 只能 before a verb (我只想…, 他们只会说英文).
+- 只有 meaning "only have" (我们只有十块钱), 只要 meaning "only want" (你们只要咖啡吗).
+
+**Does not cover:**
+- 只好 (no other choice), 只要…就 (as long as), 只有…才 (only if) and 不只/不但 (not only). These are separate points.
+- 只 as a measure word (一只虫子).
+- 只是, 只不过 and 只见.
+- 全 inside other words (全部的, 全力, 完全, 齐全, 全国纪录 with no 都).
+
+```rule
+match: 全都|全|一共/AD
+match: 全身/AD 都/AD
+match: 全/DT ... 都/AD
+match: 只|只能/AD /VV|VE
+match: _ 只有/AD
+match: _ 只要/AD|VV
+unless: 才/AD
+unless: 就/AD
+unless: 不/AD 只|只有/AD|VV
+unless: 只/AD 见
+unless: 只/AD 不过
+```
+
+**Notes:** 
+- The tagger gives 只有 and 只要 the tag AD or CS/VV inconsistently. So the 只有 and 只要 patterns require a word before them in the clause, which rules out the clause-initial conditional use. The global `unless` lines on 才 and 就 catch the "only if" and "as long as" sentences whose 才 or 就 is in a later clause.
+- Those two `unless` lines also drop some genuine sentences that happen to contain 就 or 才. That is intentional (precision first).
+- 全/DT … 都 can occasionally match a clause where 全 is unrelated to 都. This is rare.
+- 只好 is a separate word and is never matched, because no pattern lists it.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-14
+
+=== A. 2-14: rule on labeled examples (no AI) ===
+  examples of 2-14 matched:    31/32
+  counter-examples wrongly matched: 0/37   <- should be 0
+
+--- examples of 2-14 the rule misses (1) ---
+  全校都放假了。  -- ASGCPDSR Indicating the whole with "quan"
+
+########## guard check  2026-11-10 21:30 ##########
+  Checking 3 sentence(s) for 2-14 (1 call(s))...
+Flags examples of 1-04 that don't contain 2-14: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+########## tatoeba  2026-11-10 21:35 ##########
+Filling 2-14 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 32 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261110_213556.txt
+  ...100/285
+  ...200/285
+  Deciding 5 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  茶水 = 茶 + 水  (tea prepared in large quantity using ine)
+    hidden  一口 = 一 + 口  (readily)
+     clear  想睡 = 想 + 睡  (drowsy)
+     clear  好事 = 好 + 事  (good action, deed, thing or work (also s)
+    hidden  国字 = 国 + 字  (Chinese character (Hanzi))
+
+Course sentences at HSK 2 the rule already finds 2-14 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-14 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      686  2. contain the point's word(s)
+      685  3. new (not in DB, not a duplicate)
+      285  4. at most 2 characters outside HSK 2 words
+       26  5. really HSK 2
+       25  5b. no harder grammar point (of the 34 with a rule)
+       15  6. the rule finds 2-14
+       11  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-14, English chosen
+        7  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  我只想睡觉。  (I just want to sleep.)  [tatoeba 8777516]
+  我们只有茶水。  (We only have tea.)  [tatoeba 419713]  hidden: 茶水
+  我家只有三口人。  (There are only three people in my family.)  [tatoeba 2455776]
+  Tom只喝咖啡。  (Tom only drinks coffee.)  [tatoeba 5363952]
+  我只睡了两小时。  (I slept only two hours.)  [tatoeba 6047457]
+  我现在只想睡点觉。  (All I want now is a little sleep.)  [tatoeba 5942079]  hidden: 想睡
+  我只希望不会太晚。  (I only hope it's not too late.)  [tatoeba 12148610]  hidden: 不会
+
+--- dropped at step 3 (1) ---
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+
+--- dropped at step 4 (400), first 12 ---
+  这只是枝叶而已。  -- 3 characters no HSK 2 word uses: 叶枝而
+  我们只做维族式的饭菜。  -- 3 characters no HSK 2 word uses: 式族维
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 2 word uses: 差臭踩鼬
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  放轻松，这只是个稻草人而已。  -- 6 characters no HSK 2 word uses: 放松稻而草轻
+  这只不过全是个大误会而已。  -- 3 characters no HSK 2 word uses: 全而误
+  在瑞士只有８０个维族人。  -- 3 characters no HSK 2 word uses: 族瑞维
+  她担心你的安全。  -- 4 characters no HSK 2 word uses: 全安心担
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 8 characters no HSK 2 word uses: 全化变应效温用谈
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  住在海边的人可能失去他们的家，并且城市可能会被完全淹没。  -- 8 characters no HSK 2 word uses: 且全城失并海淹被
+
+--- dropped at step 5 (259), first 12 ---
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+  学中文的学生只有他们几个。  -- level 3: 只有 L3
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  你完全是对的！  -- level 4: 完全 L4
+  只是一场梦而已。  -- level 7: 只是 L3, 场 L4, 梦 L4, 而已 L7
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  只有你回答了这个问题。  -- level 3: 只有 L3, 回答 L3
+  他爱他的狗，那只小狗真的很可爱。  -- level 3: 可爱 L3
+  你完全是对的。  -- level 4: 完全 L4
+  再说，只能提前一周买火车票 。  -- level 4: 再说 L4, 只能 L3, 提前 L4
+
+--- dropped at step 5b (1) ---
+  这是只给你的。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (10) ---
+  这只狗是白色的。  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  那只鸟是什么？  -- rule: no match: line matched
+  玛丽和我只是朋友。  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: no match: line matched
+  我只是不想让你进来。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  我只吃了一口面包。  -- hidden word a learner can't work out: 一口 (readily)
+  我只想休息一下  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+  汤姆只会在这里一下下。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+  我只认识一百来个国字。  -- hidden word a learner can't work out: 国字 (Chinese character (Hanzi))
+
+--- dropped at step 7 (3) ---
+  我只想高兴。  -- no accurate English among: I just want to be happy.
+  我只想做好事。  -- no accurate English among: I only wanted to do some good.
+  我只想要一件东西。  -- no accurate English among: I only want one.
+
+--- dropped at step 8 (1) ---
+  我只知道我什么都不知道。  -- difficulty review: (2/2); Uses 知道 twice in a way that creates a paradoxical/philosophical meaning beyond beginner level; this is an idiom-like construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-14_level2_20261110_213610.csv
+
+########## guard check  2026-11-11 14:22 ##########
+
+########## tatoeba  2026-11-11 14:28 ##########
+Filling 2-14 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-14 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-14 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      686  2. contain the point's word(s)
+      685  3. new (not in DB, not a duplicate)
+      285  4. at most 2 characters outside HSK 2 words
+       26  5. really HSK 2
+       24  5b. no harder grammar point (of the 39 with a rule)
+       14  6. the rule finds 2-14
+       10  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-14, English chosen
+        6  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  我只想睡觉。  (I just want to sleep.)  [tatoeba 8777516]
+  我们只有茶水。  (We only have tea.)  [tatoeba 419713]  hidden: 茶水
+  我家只有三口人。  (There are only three people in my family.)  [tatoeba 2455776]
+  Tom只喝咖啡。  (Tom only drinks coffee.)  [tatoeba 5363952]
+  我只睡了两小时。  (I slept only two hours.)  [tatoeba 6047457]
+  我现在只想睡点觉。  (All I want now is a little sleep.)  [tatoeba 5942079]  hidden: 想睡
+
+--- dropped at step 3 (1) ---
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+
+--- dropped at step 4 (400), first 12 ---
+  这只是枝叶而已。  -- 3 characters no HSK 2 word uses: 叶枝而
+  我们只做维族式的饭菜。  -- 3 characters no HSK 2 word uses: 式族维
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 2 word uses: 差臭踩鼬
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  放轻松，这只是个稻草人而已。  -- 6 characters no HSK 2 word uses: 放松稻而草轻
+  这只不过全是个大误会而已。  -- 3 characters no HSK 2 word uses: 全而误
+  在瑞士只有８０个维族人。  -- 3 characters no HSK 2 word uses: 族瑞维
+  她担心你的安全。  -- 4 characters no HSK 2 word uses: 全安心担
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 8 characters no HSK 2 word uses: 全化变应效温用谈
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  住在海边的人可能失去他们的家，并且城市可能会被完全淹没。  -- 8 characters no HSK 2 word uses: 且全城失并海淹被
+
+--- dropped at step 5 (259), first 12 ---
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+  学中文的学生只有他们几个。  -- level 3: 只有 L3
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  你完全是对的！  -- level 4: 完全 L4
+  只是一场梦而已。  -- level 7: 只是 L3, 场 L4, 梦 L4, 而已 L7
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  只有你回答了这个问题。  -- level 3: 只有 L3, 回答 L3
+  他爱他的狗，那只小狗真的很可爱。  -- level 3: 可爱 L3
+  你完全是对的。  -- level 4: 完全 L4
+  再说，只能提前一周买火车票 。  -- level 4: 再说 L4, 只能 L3, 提前 L4
+
+--- dropped at step 5b (2) ---
+  这是只给你的。  -- harder grammar: 2-28 (HSK 3)
+  我只希望不会太晚。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (10) ---
+  这只狗是白色的。  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  那只鸟是什么？  -- rule: no match: line matched
+  玛丽和我只是朋友。  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: no match: line matched
+  我只是不想让你进来。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  我只吃了一口面包。  -- hidden word a learner can't work out: 一口 (readily)
+  我只想休息一下  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+  汤姆只会在这里一下下。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+  我只认识一百来个国字。  -- hidden word a learner can't work out: 国字 (Chinese character (Hanzi))
+
+--- dropped at step 7 (3) ---
+  我只想高兴。  -- no accurate English among: I just want to be happy.
+  我只想做好事。  -- no accurate English among: I only wanted to do some good.
+  我只想要一件东西。  -- no accurate English among: I only want one.
+
+--- dropped at step 8 (1) ---
+  我只知道我什么都不知道。  -- difficulty review: (2/2); Uses 知道 twice in a way that creates a paradoxical/philosophical meaning beyond beginner level; this is an idiom-like construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-14_level2_20261111_142855.csv
+
+########## rules  2026-11-12 17:23 ##########
+Tagging 1 labeled example(s) (cached after this run)...
+
+=== A. 2-14: rule on labeled examples (no AI) ===
+  examples of 2-14 matched:    31/32
+  counter-examples wrongly matched: 0/37   <- should be 0
+
+--- examples of 2-14 the rule misses (1) ---
+  全校都放假了。  -- ASGCPDSR Indicating the whole with "quan"
+  easy examples (words all HSK 2 or below) matched: 3/3   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:39 ##########
+Filling 2-14 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-14 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-14 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      686  2. contain the point's word(s)
+      685  3. new (not in DB, not a duplicate)
+      285  4. at most 2 characters outside HSK 2 words
+       26  5. really HSK 2
+       24  5b. no harder grammar point (of the 40 with a rule)
+       14  6. the rule finds 2-14
+       10  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-14, English chosen
+        6  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  我只想睡觉。  (I just want to sleep.)  [tatoeba 8777516]
+  我们只有茶水。  (We only have tea.)  [tatoeba 419713]  hidden: 茶水
+  我家只有三口人。  (There are only three people in my family.)  [tatoeba 2455776]
+  Tom只喝咖啡。  (Tom only drinks coffee.)  [tatoeba 5363952]
+  我只睡了两小时。  (I slept only two hours.)  [tatoeba 6047457]
+  我现在只想睡点觉。  (All I want now is a little sleep.)  [tatoeba 5942079]  hidden: 想睡
+
+--- dropped at step 3 (1) ---
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+
+--- dropped at step 4 (400), first 12 ---
+  这只是枝叶而已。  -- 3 characters no HSK 2 word uses: 叶枝而
+  我们只做维族式的饭菜。  -- 3 characters no HSK 2 word uses: 式族维
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 2 word uses: 差臭踩鼬
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  放轻松，这只是个稻草人而已。  -- 6 characters no HSK 2 word uses: 放松稻而草轻
+  这只不过全是个大误会而已。  -- 3 characters no HSK 2 word uses: 全而误
+  在瑞士只有８０个维族人。  -- 3 characters no HSK 2 word uses: 族瑞维
+  她担心你的安全。  -- 4 characters no HSK 2 word uses: 全安心担
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 8 characters no HSK 2 word uses: 全化变应效温用谈
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  住在海边的人可能失去他们的家，并且城市可能会被完全淹没。  -- 8 characters no HSK 2 word uses: 且全城失并海淹被
+
+--- dropped at step 5 (259), first 12 ---
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+  学中文的学生只有他们几个。  -- level 3: 只有 L3
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  你完全是对的！  -- level 4: 完全 L4
+  只是一场梦而已。  -- level 7: 只是 L3, 场 L4, 梦 L4, 而已 L7
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  只有你回答了这个问题。  -- level 3: 只有 L3, 回答 L3
+  他爱他的狗，那只小狗真的很可爱。  -- level 3: 可爱 L3
+  你完全是对的。  -- level 4: 完全 L4
+  再说，只能提前一周买火车票 。  -- level 4: 再说 L4, 只能 L3, 提前 L4
+
+--- dropped at step 5b (2) ---
+  这是只给你的。  -- harder grammar: 2-28 (HSK 3)
+  我只希望不会太晚。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (10) ---
+  这只狗是白色的。  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  那只鸟是什么？  -- rule: no match: line matched
+  玛丽和我只是朋友。  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: no match: line matched
+  我只是不想让你进来。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  我只吃了一口面包。  -- hidden word a learner can't work out: 一口 (readily)
+  我只想休息一下  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+  汤姆只会在这里一下下。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+  我只认识一百来个国字。  -- hidden word a learner can't work out: 国字 (Chinese character (Hanzi))
+
+--- dropped at step 7 (3) ---
+  我只想高兴。  -- no accurate English among: I just want to be happy.
+  我只想做好事。  -- no accurate English among: I only wanted to do some good.
+  我只想要一件东西。  -- no accurate English among: I only want one.
+
+--- dropped at step 8 (1) ---
+  我只知道我什么都不知道。  -- difficulty review: (2/2); Uses 知道 twice in a way that creates a paradoxical/philosophical meaning beyond beginner level; this is an idiom-like construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-14_level2_20261112_174000.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:14 ##########
+Filling 2-14 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-14 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-14 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      686  2. contain the point's word(s)
+      685  3. new (not in DB, not a duplicate)
+      285  4. at most 2 characters outside HSK 2 words
+       26  5. really HSK 2
+       24  5b. no harder grammar point (of the 40 with a rule)
+       14  6. the rule finds 2-14
+       10  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-14, English chosen
+        6  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  我只想睡觉。  (I just want to sleep.)  [tatoeba 8777516]
+  我们只有茶水。  (We only have tea.)  [tatoeba 419713]  hidden: 茶水
+  我家只有三口人。  (There are only three people in my family.)  [tatoeba 2455776]
+  Tom只喝咖啡。  (Tom only drinks coffee.)  [tatoeba 5363952]
+  我只睡了两小时。  (I slept only two hours.)  [tatoeba 6047457]
+  我现在只想睡点觉。  (All I want now is a little sleep.)  [tatoeba 5942079]  hidden: 想睡
+
+--- dropped at step 3 (1) ---
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+
+--- dropped at step 4 (400), first 12 ---
+  这只是枝叶而已。  -- 3 characters no HSK 2 word uses: 叶枝而
+  我们只做维族式的饭菜。  -- 3 characters no HSK 2 word uses: 式族维
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 2 word uses: 差臭踩鼬
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  放轻松，这只是个稻草人而已。  -- 6 characters no HSK 2 word uses: 放松稻而草轻
+  这只不过全是个大误会而已。  -- 3 characters no HSK 2 word uses: 全而误
+  在瑞士只有８０个维族人。  -- 3 characters no HSK 2 word uses: 族瑞维
+  她担心你的安全。  -- 4 characters no HSK 2 word uses: 全安心担
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 8 characters no HSK 2 word uses: 全化变应效温用谈
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  住在海边的人可能失去他们的家，并且城市可能会被完全淹没。  -- 8 characters no HSK 2 word uses: 且全城失并海淹被
+
+--- dropped at step 5 (259), first 12 ---
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+  学中文的学生只有他们几个。  -- level 3: 只有 L3
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  你完全是对的！  -- level 4: 完全 L4
+  只是一场梦而已。  -- level 7: 只是 L3, 场 L4, 梦 L4, 而已 L7
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  只有你回答了这个问题。  -- level 3: 只有 L3, 回答 L3
+  他爱他的狗，那只小狗真的很可爱。  -- level 3: 可爱 L3
+  你完全是对的。  -- level 4: 完全 L4
+  再说，只能提前一周买火车票 。  -- level 4: 再说 L4, 只能 L3, 提前 L4
+
+--- dropped at step 5b (2) ---
+  这是只给你的。  -- harder grammar: 2-28 (HSK 3)
+  我只希望不会太晚。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (10) ---
+  这只狗是白色的。  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  那只鸟是什么？  -- rule: no match: line matched
+  玛丽和我只是朋友。  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: no match: line matched
+  我只是不想让你进来。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  我只吃了一口面包。  -- hidden word a learner can't work out: 一口 (readily)
+  我只想休息一下  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+  汤姆只会在这里一下下。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+  我只认识一百来个国字。  -- hidden word a learner can't work out: 国字 (Chinese character (Hanzi))
+
+--- dropped at step 7 (3) ---
+  我只想高兴。  -- no accurate English among: I just want to be happy.
+  我只想做好事。  -- no accurate English among: I only wanted to do some good.
+  我只想要一件东西。  -- no accurate English among: I only want one.
+
+--- dropped at step 8 (1) ---
+  我只知道我什么都不知道。  -- difficulty review: (2/2); Uses 知道 twice in a way that creates a paradoxical/philosophical meaning beyond beginner level; this is an idiom-like construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-14_level2_20261112_211458.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 2-14 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-14 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-14 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      686  2. contain the point's word(s)
+      685  3. new (not in DB, not a duplicate)
+      285  4. at most 2 characters outside HSK 2 words
+       26  5. really HSK 2
+       24  5b. no harder grammar point (of the 44 with a rule)
+       14  6. the rule finds 2-14
+       10  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-14, English chosen
+        6  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  我只想睡觉。  (I just want to sleep.)  [tatoeba 8777516]
+  我们只有茶水。  (We only have tea.)  [tatoeba 419713]  hidden: 茶水
+  我家只有三口人。  (There are only three people in my family.)  [tatoeba 2455776]
+  Tom只喝咖啡。  (Tom only drinks coffee.)  [tatoeba 5363952]
+  我只睡了两小时。  (I slept only two hours.)  [tatoeba 6047457]
+  我现在只想睡点觉。  (All I want now is a little sleep.)  [tatoeba 5942079]  hidden: 想睡
+
+--- dropped at step 3 (1) ---
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+
+--- dropped at step 4 (400), first 12 ---
+  这只是枝叶而已。  -- 3 characters no HSK 2 word uses: 叶枝而
+  我们只做维族式的饭菜。  -- 3 characters no HSK 2 word uses: 式族维
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 2 word uses: 差臭踩鼬
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  放轻松，这只是个稻草人而已。  -- 6 characters no HSK 2 word uses: 放松稻而草轻
+  这只不过全是个大误会而已。  -- 3 characters no HSK 2 word uses: 全而误
+  在瑞士只有８０个维族人。  -- 3 characters no HSK 2 word uses: 族瑞维
+  她担心你的安全。  -- 4 characters no HSK 2 word uses: 全安心担
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 8 characters no HSK 2 word uses: 全化变应效温用谈
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  住在海边的人可能失去他们的家，并且城市可能会被完全淹没。  -- 8 characters no HSK 2 word uses: 且全城失并海淹被
+
+--- dropped at step 5 (259), first 12 ---
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+  学中文的学生只有他们几个。  -- level 3: 只有 L3
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  你完全是对的！  -- level 4: 完全 L4
+  只是一场梦而已。  -- level 7: 只是 L3, 场 L4, 梦 L4, 而已 L7
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  只有你回答了这个问题。  -- level 3: 只有 L3, 回答 L3
+  他爱他的狗，那只小狗真的很可爱。  -- level 3: 可爱 L3
+  你完全是对的。  -- level 4: 完全 L4
+  再说，只能提前一周买火车票 。  -- level 4: 再说 L4, 只能 L3, 提前 L4
+
+--- dropped at step 5b (2) ---
+  这是只给你的。  -- harder grammar: 2-28 (HSK 3)
+  我只希望不会太晚。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (10) ---
+  这只狗是白色的。  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  那只鸟是什么？  -- rule: no match: line matched
+  玛丽和我只是朋友。  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: no match: line matched
+  我只是不想让你进来。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  我只吃了一口面包。  -- hidden word a learner can't work out: 一口 (readily)
+  我只想休息一下  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+  汤姆只会在这里一下下。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, o)
+  我只认识一百来个国字。  -- hidden word a learner can't work out: 国字 (Chinese character (Hanzi))
+
+--- dropped at step 7 (3) ---
+  我只想高兴。  -- no accurate English among: I just want to be happy.
+  我只想做好事。  -- no accurate English among: I only wanted to do some good.
+  我只想要一件东西。  -- no accurate English among: I only want one.
+
+--- dropped at step 8 (1) ---
+  我只知道我什么都不知道。  -- difficulty review: (2/2); Uses 知道 twice in a way that creates a paradoxical/philosophical meaning beyond beginner level; this is an idiom-like construction
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-14_level2_20261113_135430.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:43 ##########
+Filling 2-14 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  一口 = 一 + 口  (readily; flatly (deny, admit and so on);)
+    hidden  国字 = 国 + 字  (Chinese character (Hanzi); the native sc)
+
+Course sentences at HSK 2 the rule already finds 2-14 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 3 check and 1 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 2-14 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      686  2. contain the point's word(s)
+      685  3. new (not in DB, not a duplicate)
+      285  4. at most 2 characters outside HSK 2 words
+       26  5. really HSK 2
+       24  5b. no harder grammar point (of the 43 with a rule)
+       14  6. the rule finds 2-14
+       11  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-14, English chosen
+        2  7b. second opinion: it is the point (check)
+        7  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (10) ===
+  我只想睡觉。  (I just want to sleep.)  [tatoeba 8777516]
+  我们只有茶水。  (We only have tea.)  [tatoeba 419713]  hidden: 茶水
+  我家只有三口人。  (There are only three people in my family.)  [tatoeba 2455776]
+  Tom只喝咖啡。  (Tom only drinks coffee.)  [tatoeba 5363952]
+  我只睡了两小时。  (I slept only two hours.)  [tatoeba 6047457]
+  我只吃了一口面包。  (I only ate a bite of bread.)  [tatoeba 5613630]  hidden: 一口
+  我现在只想睡点觉。  (All I want now is a little sleep.)  [tatoeba 5942079]  hidden: 想睡
+  我只想高兴。  (I just want to be happy.)  [tatoeba 6628356]
+  我只想做好事。  (I only wanted to do some good.)  [tatoeba 6560612]  hidden: 好事
+  我只知道我什么都不知道。  (All I know is that I know nothing.)  [tatoeba 4267302]
+
+--- dropped at step 3 (1) ---
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+
+--- dropped at step 4 (400), first 12 ---
+  这只是枝叶而已。  -- 3 characters no HSK 2 word uses: 叶枝而
+  我们只做维族式的饭菜。  -- 3 characters no HSK 2 word uses: 式族维
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 2 word uses: 差臭踩鼬
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  放轻松，这只是个稻草人而已。  -- 6 characters no HSK 2 word uses: 放松稻而草轻
+  这只不过全是个大误会而已。  -- 3 characters no HSK 2 word uses: 全而误
+  在瑞士只有８０个维族人。  -- 3 characters no HSK 2 word uses: 族瑞维
+  她担心你的安全。  -- 4 characters no HSK 2 word uses: 全安心担
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 8 characters no HSK 2 word uses: 全化变应效温用谈
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  住在海边的人可能失去他们的家，并且城市可能会被完全淹没。  -- 8 characters no HSK 2 word uses: 且全城失并海淹被
+
+--- dropped at step 5 (259), first 12 ---
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+  学中文的学生只有他们几个。  -- level 3: 只有 L3
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  你完全是对的！  -- level 4: 完全 L4
+  只是一场梦而已。  -- level 7: 只是 L3, 场 L4, 梦 L4, 而已 L7
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  只有你回答了这个问题。  -- level 3: 只有 L3, 回答 L3
+  他爱他的狗，那只小狗真的很可爱。  -- level 3: 可爱 L3
+  你完全是对的。  -- level 4: 完全 L4
+  再说，只能提前一周买火车票 。  -- level 4: 再说 L4, 只能 L3, 提前 L4
+
+--- dropped at step 5b (2) ---
+  这是只给你的。  -- harder grammar: 2-28 (HSK 3)
+  我只希望不会太晚。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (10) ---
+  这只狗是白色的。  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  那只鸟是什么？  -- rule: no match: line matched
+  玛丽和我只是朋友。  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: no match: line matched
+  我只是不想让你进来。  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  我只想休息一下  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, or softening the tone, or suggesting giving sth a try); all at once; suddenly)
+  汤姆只会在这里一下下。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, or softening the tone, or suggesting giving sth a try); all at once; suddenly)
+  我只认识一百来个国字。  -- hidden word a learner can't work out: 国字 (Chinese character (Hanzi); the native script used to write a nation's language)
+
+--- dropped at step 7 (1) ---
+  我只想要一件东西。  -- no accurate English among: I only want one.
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-14_level2_20261113_144325.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## ai  2026-11-14 14:32 ##########
+
+----- AI-written sentences for 2-14, round 1: 0 to check, 8 needed -----
+  Asking claude-sonnet-5-5 to write 20 sentence(s)...
+
+----- AI-written sentences for 2-14, round 2: 20 to check, 8 needed -----
+Filling 2-14 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 20
+
+Tagging 7 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_143215.txt
+
+Course sentences at HSK 2 the rule already finds 2-14 in: 2  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-14 at HSK 2: funnel ===
+       20  AI-written sentences
+       20  1. have an English translation
+       20  2. contain the point's word(s)
+       20  3. new (not in DB, not a duplicate)
+        7  4. at most 0 characters outside HSK 2 words
+        5  5. really HSK 2
+        5  5b. no harder grammar point (of the 43 with a rule)
+        5  6. the rule finds 2-14
+        5  6b. no hidden word a learner can't work out
+        5  7. both checks say 2-14, English chosen
+        5  8. both difficulty reviews pass it
+
+=== Survivors (5) ===
+  你只喝水吗？  (Do you only drink water?)  [tatoeba ai-1b061b25f3]
+  他只会说汉语。  (He can only speak Chinese.)  [tatoeba ai-5720c5f272]
+  他只说了一个字。  (He said only one word.)  [tatoeba ai-a7ae93fd4c]  hidden: 一个
+  我只买了一件衣服。  (I only bought one piece of clothing.)  [tatoeba ai-66562ef7fa]
+  这家店只卖牛奶和面包。  (This shop only sells milk and bread.)  [tatoeba ai-cee46e51a8]
+
+--- dropped at step 4 (13), first 12 ---
+  这些苹果一共多少钱？  -- 1 characters no HSK 2 word uses: 共
+  我们学校一共有三千个学生。  -- 1 characters no HSK 2 word uses: 共
+  一共五块六，谢谢。  -- 1 characters no HSK 2 word uses: 共
+  我今天一共喝了三杯茶。  -- 1 characters no HSK 2 word uses: 共
+  他们一共来了八个人。  -- 1 characters no HSK 2 word uses: 共
+  我们一共学了一百个汉字。  -- 1 characters no HSK 2 word uses: 共
+  全家人都在家里吃晚饭。  -- 1 characters no HSK 2 word uses: 全
+  全班同学都喜欢这个老师。  -- 1 characters no HSK 2 word uses: 全
+  我的书包里全是书。  -- 1 characters no HSK 2 word uses: 全
+  桌子上全是水果。  -- 1 characters no HSK 2 word uses: 全
+  这些饺子他全吃了。  -- 1 characters no HSK 2 word uses: 全
+  全国的人都知道这个歌。  -- 1 characters no HSK 2 word uses: 全
+
+--- dropped at step 5 (2) ---
+  我今天只上了半天班。  -- level 3: 半天 L3
+  我们只能坐火车去。  -- level 3: 只能 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-14_level2_20261114_143221.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+
+----- AI-written sentences for 2-14, round 3: 30 to check, 8 needed -----
+Filling 2-14 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 30
+
+Tagging 3 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_143232.txt
+
+Course sentences at HSK 2 the rule already finds 2-14 in: 2  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-14 at HSK 2: funnel ===
+       30  AI-written sentences
+       30  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       10  4. at most 0 characters outside HSK 2 words
+        7  5. really HSK 2
+        7  5b. no harder grammar point (of the 43 with a rule)
+        7  6. the rule finds 2-14
+        7  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-14, English chosen
+        7  8. both difficulty reviews pass it
+
+=== Survivors (7) ===
+  你只喝水吗？  (Do you only drink water?)  [tatoeba ai-1b061b25f3]
+  他只会说汉语。  (He can only speak Chinese.)  [tatoeba ai-5720c5f272]
+  我的狗只吃肉。  (My dog only eats meat.)  [tatoeba ai-9e1766adf3]
+  他只说了一个字。  (He said only one word.)  [tatoeba ai-a7ae93fd4c]  hidden: 一个
+  我只买了一件衣服。  (I only bought one piece of clothing.)  [tatoeba ai-66562ef7fa]
+  弟弟只喜欢玩电脑。  (My younger brother only likes playing on the computer.)  [tatoeba ai-8619407344]
+  这家店只卖牛奶和面包。  (This shop only sells milk and bread.)  [tatoeba ai-cee46e51a8]
+
+--- dropped at step 4 (20), first 12 ---
+  这些苹果一共多少钱？  -- 1 characters no HSK 2 word uses: 共
+  我们学校一共有三千个学生。  -- 1 characters no HSK 2 word uses: 共
+  一共五块六，谢谢。  -- 1 characters no HSK 2 word uses: 共
+  我今天一共喝了三杯茶。  -- 1 characters no HSK 2 word uses: 共
+  他们一共来了八个人。  -- 1 characters no HSK 2 word uses: 共
+  我们一共学了一百个汉字。  -- 1 characters no HSK 2 word uses: 共
+  全家人都在家里吃晚饭。  -- 1 characters no HSK 2 word uses: 全
+  全班同学都喜欢这个老师。  -- 1 characters no HSK 2 word uses: 全
+  我的书包里全是书。  -- 1 characters no HSK 2 word uses: 全
+  桌子上全是水果。  -- 1 characters no HSK 2 word uses: 全
+  这些饺子他全吃了。  -- 1 characters no HSK 2 word uses: 全
+  全国的人都知道这个歌。  -- 1 characters no HSK 2 word uses: 全
+
+--- dropped at step 5 (3) ---
+  我今天只上了半天班。  -- level 3: 半天 L3
+  我们只能坐火车去。  -- level 3: 只能 L3
+  她只有一个女儿。  -- level 3: 只有 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-14_level2_20261114_143235.csv
+
+########## ai  2026-11-14 14:59 ##########
+
+----- AI-written sentences for 2-14, round 1: 30 to check, 8 needed -----
+Filling 2-14 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 30
+
+
+Course sentences at HSK 2 the rule already finds 2-14 in: 2  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-14 at HSK 2: funnel ===
+       30  AI-written sentences
+       30  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       10  4. at most 0 characters outside HSK 2 words
+        7  5. really HSK 2
+        7  5b. no harder grammar point (of the 43 with a rule)
+        7  6. the rule finds 2-14
+        7  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-14, English chosen
+        7  8. both difficulty reviews pass it
+
+=== Survivors (7) ===
+  你只喝水吗？  (Do you only drink water?)  [tatoeba ai-1b061b25f3]
+  他只会说汉语。  (He can only speak Chinese.)  [tatoeba ai-5720c5f272]
+  我的狗只吃肉。  (My dog only eats meat.)  [tatoeba ai-9e1766adf3]
+  他只说了一个字。  (He said only one word.)  [tatoeba ai-a7ae93fd4c]  hidden: 一个
+  我只买了一件衣服。  (I only bought one piece of clothing.)  [tatoeba ai-66562ef7fa]
+  弟弟只喜欢玩电脑。  (My younger brother only likes playing on the computer.)  [tatoeba ai-8619407344]
+  这家店只卖牛奶和面包。  (This shop only sells milk and bread.)  [tatoeba ai-cee46e51a8]
+
+--- dropped at step 4 (20), first 12 ---
+  这些苹果一共多少钱？  -- 1 characters no HSK 2 word uses: 共
+  我们学校一共有三千个学生。  -- 1 characters no HSK 2 word uses: 共
+  一共五块六，谢谢。  -- 1 characters no HSK 2 word uses: 共
+  我今天一共喝了三杯茶。  -- 1 characters no HSK 2 word uses: 共
+  他们一共来了八个人。  -- 1 characters no HSK 2 word uses: 共
+  我们一共学了一百个汉字。  -- 1 characters no HSK 2 word uses: 共
+  全家人都在家里吃晚饭。  -- 1 characters no HSK 2 word uses: 全
+  全班同学都喜欢这个老师。  -- 1 characters no HSK 2 word uses: 全
+  我的书包里全是书。  -- 1 characters no HSK 2 word uses: 全
+  桌子上全是水果。  -- 1 characters no HSK 2 word uses: 全
+  这些饺子他全吃了。  -- 1 characters no HSK 2 word uses: 全
+  全国的人都知道这个歌。  -- 1 characters no HSK 2 word uses: 全
+
+--- dropped at step 5 (3) ---
+  我今天只上了半天班。  -- level 3: 半天 L3
+  我们只能坐火车去。  -- level 3: 只能 L3
+  她只有一个女儿。  -- level 3: 只有 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-14_level2_20261114_145924.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+
+----- AI-written sentences for 2-14, round 2: 40 to check, 8 needed -----
+Filling 2-14 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 40
+
+Tagging 3 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_145934.txt
+
+Course sentences at HSK 2 the rule already finds 2-14 in: 2  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-14 at HSK 2: funnel ===
+       40  AI-written sentences
+       40  1. have an English translation
+       40  2. contain the point's word(s)
+       40  3. new (not in DB, not a duplicate)
+       13  4. at most 0 characters outside HSK 2 words
+        9  5. really HSK 2
+        9  5b. no harder grammar point (of the 43 with a rule)
+        9  6. the rule finds 2-14
+        9  6b. no hidden word a learner can't work out
+        9  7. both checks say 2-14, English chosen
+        9  8. both difficulty reviews pass it
+
+=== Survivors (9) ===
+  你只喝水吗？  (Do you only drink water?)  [tatoeba ai-1b061b25f3]
+  他只会说汉语。  (He can only speak Chinese.)  [tatoeba ai-5720c5f272]
+  我的狗只吃肉。  (My dog only eats meat.)  [tatoeba ai-9e1766adf3]
+  他只说了一个字。  (He said only one word.)  [tatoeba ai-a7ae93fd4c]  hidden: 一个
+  我只买了一件衣服。  (I only bought one piece of clothing.)  [tatoeba ai-66562ef7fa]
+  弟弟只喜欢玩电脑。  (My younger brother only likes playing on the computer.)  [tatoeba ai-8619407344]
+  妈妈只会做面条儿。  (Mom can only make noodles.)  [tatoeba ai-aa7b5af824]
+  他只想在家看电视。  (He only wants to stay home and watch TV.)  [tatoeba ai-f9e908cb07]  hidden: 在家
+  这家店只卖牛奶和面包。  (This shop only sells milk and bread.)  [tatoeba ai-cee46e51a8]
+
+--- dropped at step 4 (27), first 12 ---
+  这些苹果一共多少钱？  -- 1 characters no HSK 2 word uses: 共
+  我们学校一共有三千个学生。  -- 1 characters no HSK 2 word uses: 共
+  一共五块六，谢谢。  -- 1 characters no HSK 2 word uses: 共
+  我今天一共喝了三杯茶。  -- 1 characters no HSK 2 word uses: 共
+  他们一共来了八个人。  -- 1 characters no HSK 2 word uses: 共
+  我们一共学了一百个汉字。  -- 1 characters no HSK 2 word uses: 共
+  全家人都在家里吃晚饭。  -- 1 characters no HSK 2 word uses: 全
+  全班同学都喜欢这个老师。  -- 1 characters no HSK 2 word uses: 全
+  我的书包里全是书。  -- 1 characters no HSK 2 word uses: 全
+  桌子上全是水果。  -- 1 characters no HSK 2 word uses: 全
+  这些饺子他全吃了。  -- 1 characters no HSK 2 word uses: 全
+  全国的人都知道这个歌。  -- 1 characters no HSK 2 word uses: 全
+
+--- dropped at step 5 (4) ---
+  我今天只上了半天班。  -- level 3: 半天 L3
+  我们只能坐火车去。  -- level 3: 只能 L3
+  她只有一个女儿。  -- level 3: 只有 L3
+  我只有一个手机。  -- level 3: 只有 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-14_level2_20261114_145938.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:10 ##########
+Filling 2-14 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-14 in: 21  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-14 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      686  2. contain the point's word(s)
+      672  3. new (not in DB, not a duplicate)
+      272  4. at most 2 characters outside HSK 2 words
+       14  5. really HSK 2
+       13  5b. no harder grammar point (of the 43 with a rule)
+        3  6. the rule finds 2-14
+        1  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (1 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (14), first 12 ---
+  我们只有茶水。  -- already in the database
+  我家只有三口人。  -- already in the database
+  您有几只猫？  -- already in the database
+  我只知道我什么都不知道。  -- already in the database
+  Tom只喝咖啡。  -- already in the database
+  我只吃了一口面包。  -- already in the database
+  我现在只想睡点觉。  -- already in the database
+  我只想休息一下  -- already in the database
+  我只睡了两小时。  -- already in the database
+  我只想做好事。  -- already in the database
+  我只想高兴。  -- already in the database
+  我只睡了两小时。  -- already in the database
+
+--- dropped at step 4 (400), first 12 ---
+  这只是枝叶而已。  -- 3 characters no HSK 2 word uses: 叶枝而
+  我们只做维族式的饭菜。  -- 3 characters no HSK 2 word uses: 式族维
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 2 word uses: 差臭踩鼬
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  放轻松，这只是个稻草人而已。  -- 6 characters no HSK 2 word uses: 放松稻而草轻
+  这只不过全是个大误会而已。  -- 3 characters no HSK 2 word uses: 全而误
+  在瑞士只有８０个维族人。  -- 3 characters no HSK 2 word uses: 族瑞维
+  她担心你的安全。  -- 4 characters no HSK 2 word uses: 全安心担
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 8 characters no HSK 2 word uses: 全化变应效温用谈
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  住在海边的人可能失去他们的家，并且城市可能会被完全淹没。  -- 8 characters no HSK 2 word uses: 且全城失并海淹被
+
+--- dropped at step 5 (258), first 12 ---
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+  学中文的学生只有他们几个。  -- level 3: 只有 L3
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  你完全是对的！  -- level 4: 完全 L4
+  只是一场梦而已。  -- level 7: 只是 L3, 场 L4, 梦 L4, 而已 L7
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  只有你回答了这个问题。  -- level 3: 只有 L3, 回答 L3
+  他爱他的狗，那只小狗真的很可爱。  -- level 3: 可爱 L3
+  你完全是对的。  -- level 4: 完全 L4
+  再说，只能提前一周买火车票 。  -- level 4: 再说 L4, 只能 L3, 提前 L4
+
+--- dropped at step 5b (1) ---
+  我只希望不会太晚。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (10) ---
+  这只狗是白色的。  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  这是只给你的。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  那只鸟是什么？  -- rule: no match: line matched
+  玛丽和我只是朋友。  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: no match: line matched
+  我只是不想让你进来。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  汤姆只会在这里一下下。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, or softening the tone, or suggesting giving sth a try); all at once; suddenly)
+  我只认识一百来个国字。  -- hidden word a learner can't work out: 国字 (Chinese character (Hanzi); the native script used to write a nation's language)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-14_level2_20261114_161025.csv
+
+########## ai  2026-11-14 16:13 ##########
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:30 ##########
+Filling 2-14 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-14 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 3 check and 1 review rejection(s)...
+
+=== 2-14 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      686  2. contain the point's word(s)
+      685  3. new (not in DB, not a duplicate)
+      285  4. at most 2 characters outside HSK 2 words
+       26  5. really HSK 2
+       25  5b. no harder grammar point (of the 43 with a rule)
+       14  6. the rule finds 2-14
+       11  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-14, English chosen
+        2  7b. second opinion: it is the point (check)
+        7  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (10) ===
+  我只想睡觉。  (I just want to sleep.)  [tatoeba 8777516]
+  我们只有茶水。  (We only have tea.)  [tatoeba 419713]  hidden: 茶水
+  我家只有三口人。  (There are only three people in my family.)  [tatoeba 2455776]
+  Tom只喝咖啡。  (Tom only drinks coffee.)  [tatoeba 5363952]
+  我只睡了两小时。  (I slept only two hours.)  [tatoeba 6047457]
+  我只吃了一口面包。  (I only ate a bite of bread.)  [tatoeba 5613630]  hidden: 一口
+  我现在只想睡点觉。  (All I want now is a little sleep.)  [tatoeba 5942079]  hidden: 想睡
+  我只想高兴。  (I just want to be happy.)  [tatoeba 6628356]
+  我只想做好事。  (I only wanted to do some good.)  [tatoeba 6560612]  hidden: 好事
+  我只知道我什么都不知道。  (All I know is that I know nothing.)  [tatoeba 4267302]
+
+--- dropped at step 3 (1) ---
+  我只睡了两小时。  -- same text as 6047457 (translations pooled)
+
+--- dropped at step 4 (400), first 12 ---
+  这只是枝叶而已。  -- 3 characters no HSK 2 word uses: 叶枝而
+  我们只做维族式的饭菜。  -- 3 characters no HSK 2 word uses: 式族维
+  我昨晚差点踩到一只臭鼬。  -- 4 characters no HSK 2 word uses: 差臭踩鼬
+  这次交通事故中只有一个小男孩幸存了下来。  -- 4 characters no HSK 2 word uses: 存幸故通
+  放轻松，这只是个稻草人而已。  -- 6 characters no HSK 2 word uses: 放松稻而草轻
+  这只不过全是个大误会而已。  -- 3 characters no HSK 2 word uses: 全而误
+  在瑞士只有８０个维族人。  -- 3 characters no HSK 2 word uses: 族瑞维
+  她担心你的安全。  -- 4 characters no HSK 2 word uses: 全安心担
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  人们谈到全球气候变化的时候，常常用到“温室效应”这个词。  -- 8 characters no HSK 2 word uses: 全化变应效温用谈
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  住在海边的人可能失去他们的家，并且城市可能会被完全淹没。  -- 8 characters no HSK 2 word uses: 且全城失并海淹被
+
+--- dropped at step 5 (259), first 12 ---
+  只要你微笑，我就会快乐。  -- level 5: 只要 L3, 微笑 L5
+  只有我一个不会维语。  -- level 10: 只有 L3, 维语 (not in list)
+  学中文的学生只有他们几个。  -- level 3: 只有 L3
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  你完全是对的！  -- level 4: 完全 L4
+  只是一场梦而已。  -- level 7: 只是 L3, 场 L4, 梦 L4, 而已 L7
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  我只有5000日元。  -- level 10: 5000 (not in list)
+  只有你回答了这个问题。  -- level 3: 只有 L3, 回答 L3
+  他爱他的狗，那只小狗真的很可爱。  -- level 3: 可爱 L3
+  你完全是对的。  -- level 4: 完全 L4
+  再说，只能提前一周买火车票 。  -- level 4: 再说 L4, 只能 L3, 提前 L4
+
+--- dropped at step 5b (1) ---
+  我只希望不会太晚。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (11) ---
+  这只狗是白色的。  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  这是只给你的。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  这只狗跟着我到了我家。  -- rule: no match: line matched
+  那只鸟是什么？  -- rule: no match: line matched
+  玛丽和我只是朋友。  -- rule: no match: line matched
+  我买了一只手表。  -- rule: no match: line matched
+  这只鸟会飞吗？  -- rule: no match: line matched
+  我只是不想让你进来。  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  我只想休息一下  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, or softening the tone, or suggesting giving sth a try); all at once; suddenly)
+  汤姆只会在这里一下下。  -- hidden word a learner can't work out: 一下 ((after a verb) a bit; a little (indicating brief duration, or softening the tone, or suggesting giving sth a try); all at once; suddenly)
+  我只认识一百来个国字。  -- hidden word a learner can't work out: 国字 (Chinese character (Hanzi); the native script used to write a nation's language)
+
+--- dropped at step 7 (1) ---
+  我只想要一件东西。  -- no accurate English among: I only want one.
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-14_level2_20261114_163051.csv
+
+########## ai  2026-11-14 16:34 ##########
+
+----- AI-written sentences for 2-14, round 1: 40 to check, 8 needed -----
+Filling 2-14 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 40
+
+
+Course sentences at HSK 2 the rule already finds 2-14 in: 2  -> Tatoeba needs to add 8 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-14 at HSK 2: funnel ===
+       40  AI-written sentences
+       40  1. have an English translation
+       40  2. contain the point's word(s)
+       40  3. new (not in DB, not a duplicate)
+       13  4. at most 0 characters outside HSK 2 words
+        9  5. really HSK 2
+        9  5b. no harder grammar point (of the 43 with a rule)
+        9  6. the rule finds 2-14
+        9  6b. no hidden word a learner can't work out
+        9  7. both checks say 2-14, English chosen
+        9  8. both difficulty reviews pass it
+
+=== Survivors (9) ===
+  你只喝水吗？  (Do you only drink water?)  [tatoeba ai-1b061b25f3]
+  他只会说汉语。  (He can only speak Chinese.)  [tatoeba ai-5720c5f272]
+  我的狗只吃肉。  (My dog only eats meat.)  [tatoeba ai-9e1766adf3]
+  他只说了一个字。  (He said only one word.)  [tatoeba ai-a7ae93fd4c]  hidden: 一个
+  我只买了一件衣服。  (I only bought one piece of clothing.)  [tatoeba ai-66562ef7fa]
+  弟弟只喜欢玩电脑。  (My younger brother only likes playing on the computer.)  [tatoeba ai-8619407344]
+  妈妈只会做面条儿。  (Mom can only make noodles.)  [tatoeba ai-aa7b5af824]
+  他只想在家看电视。  (He only wants to stay home and watch TV.)  [tatoeba ai-f9e908cb07]  hidden: 在家
+  这家店只卖牛奶和面包。  (This shop only sells milk and bread.)  [tatoeba ai-cee46e51a8]
+
+--- dropped at step 4 (27), first 12 ---
+  这些苹果一共多少钱？  -- 1 characters no HSK 2 word uses: 共
+  我们学校一共有三千个学生。  -- 1 characters no HSK 2 word uses: 共
+  一共五块六，谢谢。  -- 1 characters no HSK 2 word uses: 共
+  我今天一共喝了三杯茶。  -- 1 characters no HSK 2 word uses: 共
+  他们一共来了八个人。  -- 1 characters no HSK 2 word uses: 共
+  我们一共学了一百个汉字。  -- 1 characters no HSK 2 word uses: 共
+  全家人都在家里吃晚饭。  -- 1 characters no HSK 2 word uses: 全
+  全班同学都喜欢这个老师。  -- 1 characters no HSK 2 word uses: 全
+  我的书包里全是书。  -- 1 characters no HSK 2 word uses: 全
+  桌子上全是水果。  -- 1 characters no HSK 2 word uses: 全
+  这些饺子他全吃了。  -- 1 characters no HSK 2 word uses: 全
+  全国的人都知道这个歌。  -- 1 characters no HSK 2 word uses: 全
+
+--- dropped at step 5 (4) ---
+  我今天只上了半天班。  -- level 3: 半天 L3
+  我们只能坐火车去。  -- level 3: 只能 L3
+  她只有一个女儿。  -- level 3: 只有 L3
+  我只有一个手机。  -- level 3: 只有 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-14_level2_20261114_163412.csv

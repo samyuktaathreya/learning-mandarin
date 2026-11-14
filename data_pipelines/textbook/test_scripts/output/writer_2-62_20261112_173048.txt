@@ -1,0 +1,26 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 10747 characters -->
+## 2-62
+<!-- written by claude-haiku-4-5 on 2026-11-12; edit freely -->
+**Point:** Sequencing consecutive events or actions (承接复句)
+
+**Covers:** Sentences that sequence two or more events or actions. This includes 先…再… (also 先…再说), 然后, 接着, and 以后 after an event. It also covers a clause-initial "verb + 了 + object" followed by the next action, and "先 + verb" after a modal such as 要/想/喜欢, where 再 begins the next clause.
+
+**Does not cover:** Single actions with 再 meaning "again" or "once more"; 再说 meaning "in addition"; 一再/再三 meaning "repeatedly"; 再也不/没 meaning "never again"; 再不…就/也 as a conditional threat; 首先…然后 (a separate point); other uses of 再 as a future-tense marker.
+
+```rule
+match: 先/AD ... 再/AD
+match: 先/AD ... 再说/VV
+match: 然后/AD
+match: 接着/AD
+match: 以后
+match: 要|想|喜欢|得|需要|应该/VV 先/AD /VV /NN? $
+match: ^ /VV 了/AS /NN $
+match: ^ /PN /VV /NN /VV 了/AS /NN? $
+unless: 首先
+unless: 再/AD 也/AD
+unless: 再/AD 不/AD
+unless: 一再/AD
+unless: 再三/AD
+```
+
+**Notes:** The old loose patterns are removed: a bare "再 + verb" (which also matched 你应该再复习一遍), "verb 了 … verb", and the long list of 再 + verb exclusions. That list was also blocking true 先…再 sentences such as 先洗手再吃. Matching now needs an explicit sequencing word (先…再, 先…再说, 然后, 接着, 以后). Two clause-limited fallbacks cover the juxtaposed cases: a clause-initial "verb + 了 + object", and "subject + verb + noun + verb + 了 + object". The rule also matches "modal + 先 + verb" at the end of a clause, because the 再 then starts the next clause and cannot be seen. Each pattern only looks inside one clause. A bare 再 is never matched on its own, to protect the "again" and other 再 points.

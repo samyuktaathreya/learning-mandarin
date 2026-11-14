@@ -1,241 +1,18 @@
 """
 data_pipelines/textbook/test_scripts/grammar_rules.py
 
-TRIAL (used by try_grammar_rule.py): grammar detection rules written by AI,
-kept in a Markdown file you can read and edit (test_scripts/grammar_rules.md),
-and applied by code.
-
-THE RULES FILE
-  One section per grammar point:
-
-      ## 1-10
-      **Point:** ... (what the AI understood the point to be)
-      **Covers:** ...
-      **Does not cover:** ...
-
-      ```rule
-      match: 都/AD
-      match: 一起|一块儿/AD
-      unless: 什么|谁|哪儿|哪里 ... 都
-      ```
-
-      **Notes:** ...
-
-  Only the ```rule block is read by the code; the rest is for people. A
-  sentence HAS the point when at least one `match:` line matches it and NO
-  `unless:` line does. Leaving good sentences out is fine; letting a wrong
-  one in is not, so `unless:` lines are applied to the whole sentence.
-
-PATTERN SYNTAX (one pattern per line, items separated by spaces)
-  都          the word 都 (a whole word as tagging split it, not a character)
-  都/AD       the word 都 tagged AD
-  /AD         any word tagged AD
-  都|全/AD    either word, tagged AD;  /AD|VV  any word tagged AD or VV
-  _           any one word
-  ...         any number of words, including none
-  ^  $        start / end of a clause
-  item?       optional item (都/AD? -- 都 or nothing)
-  A pattern never crosses punctuation: it must match inside one clause.
+TRIAL (used by try_grammar_rule.py and run_all_grammar.py): the AI prompts
+for writing and checking grammar rules. The rule language itself (parsing,
+matching, the rules file) lives in scripts/grammar_dsl.py, shared with the
+pipeline, and is re-exported here so `gr.load_rules`, `gr.render` etc. work
+as before.
 """
 import json
 import re
-from dataclasses import dataclass, field
 from pathlib import Path
 
-CTB_TAGS = {
-    "AD", "AS", "BA", "CC", "CD", "CS", "DEC", "DEG", "DER", "DEV", "DT", "ETC", "FW", "IJ", "JJ",
-    "LB", "LC", "M", "MSP", "NN", "NOI", "NR", "NT", "OD", "ON", "P", "PN", "PU", "SB", "SP", "VA",
-    "VC", "VE", "VV", "URL", "EM", "IC",
-}
-TAG_LEGEND = (
-    "AD adverb, AS aspect particle (了 过 着), BA 把, CC coordinating conjunction (和 跟 还是), "
-    "CD number, CS subordinating conjunction (如果 虽然), DEC/DEG 的, DER 得, DEV 地, DT determiner "
-    "(这 那 每 各), IJ interjection, JJ noun modifier, LB/SB 被, LC localizer (上 里 前), "
-    "M measure word, NN noun, NR proper noun, NT time noun, OD ordinal, P preposition, PN pronoun, "
-    "SP sentence-final particle (吗 呢 吧 了), VA adjective as predicate, VC 是, VE 有, VV other verb"
-)
-CLAUSE_SEP = " ‖ "
-
-
-class RuleError(ValueError):
-    pass
-
-
-@dataclass
-class Item:
-    kind: str                       # word | any | gap | start | end
-    words: frozenset | None = None
-    tags: frozenset | None = None
-    optional: bool = False
-
-    def accepts(self, tok: tuple[str, str]) -> bool:
-        w, t = tok
-        if self.kind == "any":
-            return True
-        return (self.words is None or w in self.words) and (self.tags is None or (t or "") in self.tags)
-
-
-def parse_item(tok: str) -> Item:
-    if tok == "...":
-        return Item("gap")
-    if tok in ("^", "$"):
-        return Item("start" if tok == "^" else "end")
-    optional = tok.endswith("?") and len(tok) > 1
-    if optional:
-        tok = tok[:-1]
-    if tok == "_":
-        return Item("any", optional=optional)
-    word_part, slash, tag_part = tok.partition("/")
-    if re.search(r"[.*+\\()\[\]{}]", word_part):
-        raise RuleError(f"{tok!r} looks like a regular expression -- this is not regex syntax: use ... for "
-                        "'any words' and _ for 'one word'")
-    if word_part and re.fullmatch(r"[A-Za-z|]+", word_part):
-        raise RuleError(f"{tok!r}: words must be Chinese -- for a tag, write /{word_part.upper()}")
-    words = frozenset(w for w in word_part.split("|") if w) if word_part else None
-    tags = frozenset(t.upper() for t in tag_part.split("|") if t) if slash else None
-    if not words and not tags:
-        raise RuleError(f"empty item {tok!r}")
-    if tags:
-        unknown = tags - CTB_TAGS
-        if unknown:
-            raise RuleError(f"unknown tag(s) {', '.join(sorted(unknown))} in {tok!r}")
-    return Item("word", words, tags, optional)
-
-
-def parse_pattern(text: str) -> list[Item]:
-    items = [parse_item(t) for t in text.split()]
-    if not items:
-        raise RuleError("empty pattern")
-    return items
-
-
-def _match_at(items, toks, i, j) -> bool:
-    if i == len(items):
-        return True
-    it = items[i]
-    if it.kind == "start":
-        return j == 0 and _match_at(items, toks, i + 1, j)
-    if it.kind == "end":
-        return j == len(toks) and _match_at(items, toks, i + 1, j)
-    if it.kind == "gap":
-        return any(_match_at(items, toks, i + 1, k) for k in range(j, len(toks) + 1))
-    if it.optional and _match_at(items, toks, i + 1, j):
-        return True
-    return j < len(toks) and it.accepts(toks[j]) and _match_at(items, toks, i + 1, j + 1)
-
-
-def pattern_matches(items: list[Item], clauses: list[list[tuple[str, str]]]) -> bool:
-    return any(_match_at(items, toks, 0, start)
-               for toks in clauses for start in range(len(toks) + 1))
-
-
-@dataclass
-class Rule:
-    code: str
-    match: list = field(default_factory=list)     # [(line text, items)]
-    unless: list = field(default_factory=list)
-
-    def explain(self, clauses) -> tuple[bool, list[str], list[str]]:
-        """(found, match lines that fired, unless lines that fired)"""
-        m = [t for t, items in self.match if pattern_matches(items, clauses)]
-        u = [t for t, items in self.unless if pattern_matches(items, clauses)]
-        return bool(m) and not u, m, u
-
-    def found(self, clauses) -> bool:
-        return self.explain(clauses)[0]
-
-
-_SECTION_RE = re.compile(r"^## +(\S+)", re.M)
-_BLOCK_RE = re.compile(r"```rule\s*\n(.*?)```", re.S)
-
-
-def parse_rule_block(code: str, section: str) -> Rule:
-    blocks = _BLOCK_RE.findall(section)
-    if len(blocks) > 1:
-        raise RuleError(f"{code}: expected one ```rule block, found {len(blocks)}")
-    # no fence: take the match:/unless: lines wherever they are
-    body = blocks[0] if blocks else "\n".join(
-        l for l in section.splitlines() if re.match(r"\s*(match|unless)\s*:", l, re.I))
-    rule = Rule(code)
-    for n, line in enumerate(body.splitlines(), 1):
-        line = line.split("#", 1)[0].strip()
-        if not line:
-            continue
-        kind, colon, pattern = line.partition(":")
-        kind = kind.strip().lower()
-        if not colon or kind not in ("match", "unless"):
-            raise RuleError(f"{code}, rule line {n}: must start with 'match:' or 'unless:' -- {line!r}")
-        try:
-            items = parse_pattern(pattern)
-        except RuleError as e:
-            raise RuleError(f"{code}, rule line {n}: {e}")
-        getattr(rule, kind).append((pattern.strip(), items))
-    if not rule.match:
-        raise RuleError(f"{code}: no 'match:' line")
-    return rule
-
-
-def normalize_section(section: str) -> str:
-    """Puts loose match:/unless: lines (no ```rule fence) into one fence,
-    where the first of them was."""
-    if _BLOCK_RE.search(section):
-        return section
-    lines = section.splitlines()
-    idx = [k for k, l in enumerate(lines) if re.match(r"\s*(match|unless)\s*:", l, re.I)]
-    if not idx:
-        return section
-    rule = ["```rule"] + [lines[k].strip() for k in idx] + ["```"]
-    keep = [l for k, l in enumerate(lines) if k not in set(idx)]
-    keep[idx[0]:idx[0]] = rule
-    return "\n".join(keep) + "\n"
-
-
-def split_sections(text: str) -> tuple[str, dict]:
-    """(text before the first section, {code: section text incl. its ## line})"""
-    starts = [(m.start(), m.group(1)) for m in _SECTION_RE.finditer(text)]
-    head = text[:starts[0][0]] if starts else text
-    out = {}
-    for k, (pos, code) in enumerate(starts):
-        end = starts[k + 1][0] if k + 1 < len(starts) else len(text)
-        out[code] = text[pos:end].rstrip() + "\n"
-    return head, out
-
-
-FILE_HEAD = (
-    "# Grammar detection rules (trial)\n\n"
-    "Written by AI (try_grammar_rule.py write), checked against the pipeline's sentences "
-    "(try_grammar_rule.py validate), and safe to edit by hand. Only the ```rule block of each "
-    "section is read by the code. Syntax: see test_scripts/grammar_rules.py.\n\n"
-)
-
-
-def load_rules(path: Path) -> tuple[dict, dict, dict]:
-    """({code: Rule}, {code: section text}, {code: error})"""
-    if not path.exists():
-        return {}, {}, {}
-    _, sections = split_sections(path.read_text(encoding="utf-8"))
-    rules, errors = {}, {}
-    for code, sec in sections.items():
-        try:
-            rules[code] = parse_rule_block(code, sec)
-        except RuleError as e:
-            errors[code] = str(e)
-    return rules, sections, errors
-
-
-def save_section(path: Path, code: str, section: str):
-    """Writes/replaces one section, keeping every other one as it is."""
-    head, sections = split_sections(path.read_text(encoding="utf-8")) if path.exists() else (FILE_HEAD, {})
-    sections[code] = section.rstrip() + "\n"
-    path.write_text(head.rstrip() + "\n\n" + "\n".join(sections[c] for c in sections), encoding="utf-8")
-
-
-def render(clauses) -> str:
-    """我们/PN 都/AD 是/VC 学生/NN ‖ ..."""
-    return CLAUSE_SEP.join(" ".join(f"{w}/{t or '?'}" for w, t in toks) for toks in clauses)
-
-
-# --------------------------------- PROMPTS ---------------------------------
+from data_pipelines.textbook.scripts.grammar_dsl import *  # noqa: F401,F403
+from data_pipelines.textbook.scripts.grammar_dsl import TAG_LEGEND, _BLOCK_RE, _SECTION_RE  # noqa: F401
 
 SYNTAX_HELP = """RULE SYNTAX. A ```rule block holds lines `match: <pattern>` and `unless: <pattern>`.
 A sentence has the point when at least one match: line matches and NO unless: line matches
@@ -248,7 +25,13 @@ A sentence has the point when at least one match: line matches and NO unless: li
   ...         any number of words, including none
   ^  $        start / end of a clause
   item?       optional item
-A pattern only matches inside ONE clause (between punctuation; shown as ‖ below).
+  ‖           a clause break (punctuation, shown as ‖ in the tagged sentences below)
+Without ‖ a pattern matches inside ONE clause; `...` and `_` never cross a break. Use ‖ to link two
+NEIGHBOURING clauses, e.g. a condition clause and a result clause:
+  match: /VV|VA ... ‖ /PN? 就/AD /VV      (a clause with a verb, then "(pronoun) 就 + verb")
+WRITE GENERAL PATTERNS that describe the grammar, not patterns that fit one example sentence
+(e.g. not `^ 喜欢 就 ... 吧 $`). The rule is used on thousands of new sentences, so a pattern that
+only reproduces one example is useless there.
 Use only these tags: """ + TAG_LEGEND
 
 
@@ -426,6 +209,11 @@ whole word in a sentence without being taught it:
               看到 = 看 "look" + 到 "arrive" -> "see"; 这个 = 这 "this" + 个 (measure word))
   "hidden" -- it does not (从没 = 从 "from" + 没 "not" -> "never"; 好几 = 好 "good" + 几 "how many"
               -> "several")
+The dictionary text lists ALL the word's meanings. Answer "clear" when the meaning built from the
+parts is a normal, common reading of the word, even if the word has other meanings too:
+  不想 = 不 "not" + 想 "want" -> "don't want" is how 不想 is normally read (its other meaning,
+  "unexpectedly", is rare) -> "clear";  下雪 = 下 "fall" + 雪 "snow" -> "it snows" -> "clear".
+Answer "hidden" only when the word is normally read with a meaning the parts don't give.
 When unsure, answer "hidden".
 
 WORDS:
@@ -434,7 +222,7 @@ WORDS:
 Respond with ONLY a JSON object mapping each word to "clear" or "hidden"."""
 
 
-CONTAINS_VERSION = 1
+CONTAINS_VERSION = 2
 
 
 def contains_prompt(code: str, context: str, items: list[dict]) -> str:
@@ -452,12 +240,37 @@ SENTENCES:
 For EACH sentence: does it contain grammar point {code} anywhere in it -- the word used the way
 this point uses it -- EVEN IF the sentence also uses another, harder construction? (For a point
 about negation with 不, 我一点也不累 DOES contain it: 不 negates 累, even though 一点也不 is a
-harder pattern. 不管你去不去 does NOT: there 不 is part of 不管 "no matter".) Answer false if the
-word only appears as part of another word or pattern with a different meaning, or if you are not
-sure.
+harder pattern. 不管你去不去 does NOT: there 不 is part of 不管 "no matter".) A sentence can use
+the word more than once: if ANY one of its uses is this point, answer true (这家超市不仅种类多，
+价格也不贵 contains it -- 不贵 -- even though 不仅 doesn't). Answer false if every use of the word is
+part of another word or pattern with a different meaning, or if you are not sure.
 
 Respond with ONLY a JSON array, one object per sentence:
 [{{"n": <sentence number>, "contains": true or false}}, ...]"""
+
+
+def beyond_prompt(lower_def: str, higher_def: str, items: list[dict]) -> str:
+    listing = "\n".join(f"[{it['n']}] {it['hanzi']}\n    words: {it['tagged']}" for it in items)
+    return f"""Two grammar points from a Mandarin course, an easier one and a harder one:
+
+EASIER POINT (taught first):
+{lower_def}
+
+HARDER POINT (taught later):
+{higher_def}
+
+The course's lists overlap: the harder point's description can also cover a use the easier point
+already teaches (both may list the same word). Each sentence below is an example of the EASIER point.
+
+For EACH sentence: does it ALSO use the HARDER point in a way the easier point does NOT already
+cover -- something a learner who only knows the easier point hasn't learned? Answer false if the
+harder point's word is only used the way the easier point uses it. If you are unsure, answer true.
+
+SENTENCES:
+{listing}
+
+Respond with ONLY a JSON array, one object per sentence:
+[{{"n": <sentence number>, "beyond": true or false}}, ...]"""
 
 
 def extract_json(text: str) -> dict:
@@ -478,3 +291,37 @@ def extract_section(code: str, text: str) -> str:
     if len(fences) % 2 == 1:                   # the whole answer was fenced: drop its closing fence
         del lines[fences[-1]]
     return "\n".join(lines).strip() + "\n"
+
+
+def generate_prompt(code: str, level: int, context: str, rule_section: str, words: list[str], markers: list[str],
+                    avoid_points: list[str], have: list[str], tried: list[str], n: int) -> str:
+    """For points Tatoeba can't fill: asks for NEW example sentences. Every
+    one is then checked by code and by AI exactly like a Tatoeba sentence,
+    and is labelled ai_generated wherever it goes."""
+    definition = "\n".join(l for l in rule_section.splitlines()
+                           if l.startswith(("**Point:**", "**Covers:**", "**Does not cover:**")))
+    known = "HSK 1" if level == 1 else f"HSK 1-{level}"
+    return f"""You are writing example sentences for a Mandarin course for beginners at HSK {level}.
+
+{context}
+
+THE COURSE'S DEFINITION OF THIS POINT:
+{definition}
+
+Write {n} NEW sentences that each clearly demonstrate grammar point {code} the way it is taught at
+HSK {level}, using its word(s) {'、'.join(markers)}.
+
+STRICT RULES -- a sentence that breaks one is thrown away:
+1. Use ONLY words from this list of the {known} words learners know (plus the point's own words).
+   No other words, no names of people or places:
+   {'、'.join(words)}
+2. Do not use any of these harder grammar points, even though their words are easy:
+{chr(10).join('   ' + a for a in avoid_points) or '   (none)'}
+3. Natural, everyday Mandarin that a native speaker would really say -- not textbook-stiff.
+   Short: about 5-14 characters, one or two clauses.
+4. Vary them: different subjects, verbs and situations. Do not copy or lightly change the
+   examples above or these sentences the course already has:
+{chr(10).join('   ' + h for h in (have + tried)[:80]) or '   (none)'}
+5. Give an accurate, natural English translation for each.
+
+Respond with ONLY a JSON array: [{{"zh": "<sentence>", "en": "<translation>"}}, ...]"""

@@ -12,6 +12,17 @@ DATA SOURCES (see ATTRIBUTION.md):
   standard, so many of its sentences use words outside the 2025 list and
   fall out of every level. A list word no remaining sentence covers gets
   one from the fill-in sentence CSVs (fill_gaps.py, source = external).
+- More sentences for grammar points the dataset covers thinly
+  (import_extra_sentences.py, from data_pipelines/textbook/data/grammar/
+  selected_sentences.csv, chosen by the grammar trial in test_scripts/):
+  Tatoeba sentences (CC BY 2.0 FR; source = tatoeba, with source_author and
+  source_url for the credit line) and, where Tatoeba had too few, sentences
+  written by AI (source = ai_generated, generated_by = model + date). Both
+  passed the same vocabulary, grammar-level and AI checks.
+- Grammar explanations (GrammarExplanation) come from the official HSK
+  grammar list and the AllSet Learning Chinese Grammar Wiki (CC BY-NC-SA
+  3.0: credit + link on every row, non-commercial use only). None of their
+  text is written by AI.
 
 SENTENCE LEVELS: the highest level among the sentence's list words. Names
 don't count. A word in NO list level (word_type auto) puts the sentence at
@@ -85,6 +96,11 @@ class VocabOrigin(str, enum.Enum):
 class SentenceSource(str, enum.Enum):
     hsa = "hsa"                  # hsk-sentences-audio
     external = "external"        # extracted-500-sentences-mandarin.csv, added by fill_gaps.py
+    tatoeba = "tatoeba"          # Tatoeba (CC BY 2.0 FR), added by import_extra_sentences.py;
+                                 # credit: source_author + source_url
+    ai_generated = "ai_generated"    # WRITTEN BY AI for grammar points real sources cover too thinly,
+                                     # added by import_extra_sentences.py; generated_by says which
+                                     # model and when. Learners should be told.
     # LEGACY: from the textbook pipeline; delete once nothing references them.
     textbook = "textbook"
     workbook = "workbook"
@@ -249,7 +265,14 @@ class Sentence(Base):
     pinyin: whole-sentence tone-sandhi pinyin, written by the finalize stage.
     review: review_sentences.py's AI verdict for each level the sentence was
     checked at. A sentence judged too hard for its level is moved up one
-    level; verdicts are kept so a re-run doesn't ask again."""
+    level; verdicts are kept so a re-run doesn't ask again.
+    generated_by: for source = ai_generated only -- the model and date that
+    wrote it ("claude-sonnet-5-5 2026-11-14"). NULL for every real sentence.
+    source_author / source_url: who wrote a Tatoeba sentence and its page,
+    for the CC BY credit line. NULL for other sources.
+    word_split: for imported sentences, the word split the grammar trial
+    checked them with (JSON [[surface, list word or null], ...]); tagging
+    uses it so the pipeline sees the sentence exactly as it was checked."""
     __tablename__ = "sentences"
 
     id = Column(Integer, primary_key=True)
@@ -266,6 +289,10 @@ class Sentence(Base):
     audio_slow = Column(Text, nullable=True)
     review = Column(Text, nullable=True)                  # AI difficulty verdicts by level, JSON:
                                                           # {"1": {"ok": false, "problems": [...]}, "2": {"ok": true}}
+    generated_by = Column(Text, nullable=True)            # ai_generated only: "claude-sonnet-5-5 2026-11-14"
+    source_author = Column(Text, nullable=True)           # tatoeba: the sentence's author (CC BY credit)
+    source_url = Column(Text, nullable=True)              # tatoeba: https://tatoeba.org/en/sentences/show/<id>
+    word_split = Column(Text, nullable=True)              # imported: JSON [[surface, list word or null], ...]
 
     unit = relationship("Unit", back_populates="sentences")
     vocab_links = relationship("SentenceVocab", back_populates="sentence",
@@ -349,6 +376,61 @@ class GrammarTip(Base):
 
     unit = relationship("Unit", back_populates="grammar_tips")
     sentence_links = relationship("SentenceGrammar", back_populates="grammar_tip", cascade="all, delete-orphan")
+    explanations = relationship("GrammarExplanation", back_populates="grammar_tip",
+                                cascade="all, delete-orphan", order_by="GrammarExplanation.position")
+
+
+class GrammarExplanation(Base):
+    """What a grammar point IS, for a learner meeting it for the first time.
+    Several rows per point, shown in `position` order. Written by
+    load_hsk_lists.py from data/grammar/grammar_explanations.json (exported
+    by the grammar trial). NOTHING here is written by AI: every text is
+    copied from its source. (Which wiki pages belong to which point was
+    sorted by AI and checked by hand; their text is untouched.)
+
+    source:
+      "hsk_list"         the official HSK grammar list: title = its Chinese
+                         label (关联副词：就), examples = its example
+                         sentences (Chinese only, english empty). Always
+                         position 0. The only row for points no wiki page
+                         teaches.
+      "allset_learning"  one AllSet Learning Chinese Grammar Wiki page that
+                         teaches the point (source_ref = page id, e.g.
+                         "ASGEB54D"): English title, structure, explanation
+                         and examples with pinyin + English. License CC BY-NC-SA
+                         3.0: show `attribution` with a link to `url`, and
+                         non-commercial use only.
+    structure: the page's pattern lines, one per line
+               ("Condition ，就 + Result"). NULL for hsk_list rows.
+    explanation: the page's explanation text (markup removed; "## " lines
+                 are its section headings). NULL for hsk_list rows.
+    examples: JSON [{"hanzi", "pinyin", "english", "marked": [words of the
+              point in it], "readable": bool}]. readable = every word is at
+              or below the point's level, so a learner who just met the point
+              can read it (decided by the tagger, no AI).
+    level_hint: the HSK level the wiki tags the page with (2021 standard),
+                NULL if none. Pages at or below the point's level come first."""
+    __tablename__ = "grammar_explanations"
+
+    id = Column(Integer, primary_key=True)
+    grammar_tip_id = Column(Integer, ForeignKey("grammar_tips.id"), nullable=False, index=True)
+    position = Column(Integer, nullable=False, default=0)
+    source = Column(Text, nullable=False)                 # "hsk_list" | "allset_learning"
+    source_ref = Column(Text, nullable=True)              # wiki page id, e.g. "ASGEB54D"
+    title = Column(Text, nullable=False, default="")
+    structure = Column(Text, nullable=True)
+    explanation = Column(Text, nullable=True)
+    examples = Column(Text, nullable=False, default="[]")
+    level_hint = Column(Integer, nullable=True)
+    url = Column(Text, nullable=True)
+    attribution = Column(Text, nullable=True)
+    license = Column(Text, nullable=True)
+
+    grammar_tip = relationship("GrammarTip", back_populates="explanations")
+
+    __table_args__ = (
+        UniqueConstraint("grammar_tip_id", "position", name="_grammar_explanation_position_uc"),
+    )
 
 
 class SentenceGrammar(Base):

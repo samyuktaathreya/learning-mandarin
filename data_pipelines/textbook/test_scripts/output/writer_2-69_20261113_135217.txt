@@ -1,0 +1,25 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 11837 characters -->
+## 2-69
+<!-- written by claude-haiku-4-5 on 2026-11-13; edit freely -->
+**Point:** Events in quick succession with "yi... jiu..." (一⋯⋯就⋯⋯)
+**Covers:** Sentences where 一 marks the onset of the first event and 就 marks the immediate consequence, showing that as soon as Event 1 happens, Event 2 follows in quick succession. The two events can share one subject or have different subjects (老师一来大家就不说话了). The two parts can sit in a single clause or in two neighbouring clauses (我一进门，小狗就跑了过来).
+**Does not cover:** Other uses of 一 and 就 including: quantification (一些, 一点), adverbial uses of 一 (一直, 一向, 一时, 一再), measure words (一个, 一张), emphasis with 就, conditional structures with different markers (一旦, 要是), concurrent actions (一边⋯⋯一边), or repetition patterns (一次⋯⋯一次).
+
+```rule
+match: 一/AD /VV ... 就/AD
+match: 一/AD /VV ... ‖ ... 就/AD
+unless: 一再/AD
+unless: 一直/AD
+unless: 一时/AD
+unless: 一向/AD
+unless: 一点儿/AD
+unless: /CD 点/M 一点儿/AD
+unless: 一旦/CS
+unless: 一起/AD
+unless: 一些/CD
+unless: 一/CD /M
+unless: 一方面/NN
+unless: 进一步/AD
+```
+
+**Notes:** The core pattern is 一 (tagged AD, not CD) directly followed by a verb, then 就 (tagged AD) later in the same clause or in the next clause. The old rule required a verb right after 就, so it missed sentences like 她一生气就脸红 (a noun follows 就), 大家就不说话 (a negation follows 就) and 小狗就跑 (a two-word subject sits between the clauses). The new rule only requires 就/AD after the 一+verb part. It stays within one clause or crosses a single ‖ to the neighbouring clause. The unless lines still exclude 一再, 一直, 一向, 一时, 一旦, 一起, 一些, measure-word uses of 一 and the other look-alike forms.

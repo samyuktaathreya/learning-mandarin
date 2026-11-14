@@ -1,0 +1,27 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 8750 characters -->
+## 2-56
+**Point:** Existential sentences expressing what exists in a location using 着 (zhe) or 是 (shi)
+**Covers:** Sentences with structure [Location] + Verb + 着 + [Noun Phrase] or [Location] + 是 + [Noun Phrase], where the verb is stative (standing, lying, sitting, hanging, etc.) and describes something existing in a place
+**Does not cover:** Progressive actions (Verb + 着 + Verb + 着), complement 着 (睡着, 找着), 着 in serial verb constructions (吸着喝), 着 as object marker (爱着), directional/manner uses of 着 (沿着, 顺着), or sentences with subject performing the action
+
+```rule
+match: /NN|NR/ /LC/ /VV/ /AS/ /CD|DT/ _ /NN/
+match: /NN|NR/ /LC/ /VC/
+unless: _ /VV/ /AS/ _ /AS/
+unless: _ /AD/ /VV/ /AS/
+unless: /PN/ /VV/ /AS/ _ /PN/
+unless: /PN/ /P/ /VV/ /AS/
+unless: /VV/ /AS/ /VV/ /AS/
+```
+
+**Notes:** 
+- The first match pattern captures existential 着 sentences: location + verb + 着 + determiner/number + (modifiers) + noun
+- The second match pattern captures existential 是 sentences: location + 是 + (rest of NP)
+- The unless clauses exclude:
+  1. Repeated verbs (verb着verb着): 听着听着
+  2. Non-stative or subject-oriented actions: 他爱着家乡 (object-oriented), 正吃着饭 (progressive)
+  3. Subject performing action: 他穿着衣服, 他用手抱着孩子
+  4. Subject moving through space: 他沿着大道走
+  5. Double zhe structures: 吸着喝
+- Stative verbs typically include: 放, 站, 坐, 堆, 停, 种, 挂, 躺, 穿着, etc. (these should naturally fail many unless patterns)
+- The localizer /LC/ (上, 里, 前, 等) is crucial to distinguish existential from other uses

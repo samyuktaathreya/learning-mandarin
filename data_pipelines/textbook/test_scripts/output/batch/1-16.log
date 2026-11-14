@@ -92,3 +92,2414 @@ Tagging 2 labeled example(s) (cached after this run)...
   在派对上  -- ASGFBWZL Expressing location with "zai... shang / xia / li"
   你一直在这家公司工作吗？  -- ASGX0Z0N Indicating location with "zai" before verbs
   现在我们在KTV唱歌。  -- ASGX0Z0N Indicating location with "zai" before verbs
+
+########## rules  2026-11-10 21:21 ##########
+  Checking 1 sentence(s) for 1-16 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-16: rule on labeled examples (no AI) ===
+  examples of 1-16 matched:    46/47
+  counter-examples wrongly matched: 0/60   <- should be 0
+
+--- examples of 1-16 the rule misses (1) ---
+  现在我们在KTV唱歌。  -- ASGX0Z0N Indicating location with "zai" before verbs
+
+########## tatoeba  2026-11-10 21:33 ##########
+Filling 1-16 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-55, 2-58, 2-59, 2-67, 2-69, 2-74, 2-75, 2-76, 2-77, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 5 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  上边 = 上 + 边  (the top; above)
+    hidden  不住 = 不 + 住  ((verb complement) unable to firmly or se)
+     clear  那天 = 那 + 天  (that day)
+    hidden  上个月 = 上 + 个 + 月  (last month)
+     clear  那时候 = 那 + 时候  (at that time)
+
+Course sentences at HSK 1 the rule already finds 1-16 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-16 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3592  2. contain the point's word(s)
+     3584  3. new (not in DB, not a duplicate)
+     1373  4. at most 2 characters outside HSK 1 words
+      340  5. really HSK 1
+      197  5b. no harder grammar point (of the 70 with a rule)
+      101  6. the rule finds 1-16
+       97  6b. no hidden word a learner can't work out
+       20  7. both checks say 1-16, English chosen
+       19  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (77 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (19) ===
+  我住在这。  (I live here.)  [tatoeba 1488531]
+  没人在家？  (Nobody home?)  [tatoeba 13138839]
+  我在中国。  (I'm in China.)  [tatoeba 13575551]
+  您住在哪里？  (Where do you live?)  [tatoeba 393584]
+  你在家里吗？  (Are you at home?)  [tatoeba 406192]  hidden: 家里
+  你在哪读书？  (Where do you study?)  [tatoeba 3713557]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  我住在智利。  (I live in Chile.)  [tatoeba 5414478]
+  苹果在书上。  (The apple is on top of the book.)  [tatoeba 6056480]
+  他今天在家。  (He is at home today.)  [tatoeba 6169154]
+  他住在哪里？  (Where does he live?)  [tatoeba 7768199]
+  我住在大阪。  (I live in Osaka.)  [tatoeba 8701028]
+  你们在医院。  (You are in the hospital.)  [tatoeba 10966835]
+  我住在这里。  (I live here.)  [tatoeba 11264800]
+  谁住在这儿？  (Who lives here?)  [tatoeba 12422342]
+  巴黎在哪里？  (Where is Paris?)  [tatoeba 12615461]
+  浙江在哪里？  (Where is Zhejiang?)  [tatoeba 13953750]
+  约翰住在哪里？  (Where does John live?)  [tatoeba 399233]
+  我现在在北京。  (I am in Beijing right now.)  [tatoeba 1766267]
+
+--- dropped at step 3 (8) ---
+  洗手间在哪里？  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  我们在吃苹果。  -- same text as tatoeba 7779224 (translations pooled)
+  今天上午你们不在医院。  -- same text as tatoeba 6471004 (translations pooled)
+  明天中午他们不在学校。  -- same text as tatoeba 6471013 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  我在读书。  -- same text as tatoeba 5640765 (translations pooled)
+
+--- dropped at step 4 (2211), first 12 ---
+  客观的历史存在吗？  -- 4 characters no HSK 1 word uses: 历史存观
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  就在沙发上。  -- 3 characters no HSK 1 word uses: 发就沙
+  社会保障吗？他们在说什么笑话？  -- 4 characters no HSK 1 word uses: 保社笑障
+  在你的词典查一查这个词。  -- 3 characters no HSK 1 word uses: 典查词
+  我能在哪里乘上机场巴士？  -- 3 characters no HSK 1 word uses: 乘场巴
+  咱们现在走吧。要不咱们要迟到了。  -- 3 characters no HSK 1 word uses: 咱走迟
+  木头能浮在水面上。  -- 3 characters no HSK 1 word uses: 头木浮
+  我虽然在虎口里，却是安如泰山。  -- 8 characters no HSK 1 word uses: 却如安山泰然虎虽
+  我们的饭店在汽车南站的附近。  -- 5 characters no HSK 1 word uses: 南汽站近附
+  我正在在波士顿读博士。  -- 3 characters no HSK 1 word uses: 博波顿
+  把胡萝卜放在锅里。  -- 6 characters no HSK 1 word uses: 卜把放胡萝锅
+
+--- dropped at step 5 (1033), first 12 ---
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list), 外面 L2
+  我正在去第四医院的路上。  -- level 2: 路上 L2
+  我在伦敦。  -- level 10: 伦敦 (not in list)
+  我给她打电话的时候她不在。  -- level 2: 打 L2
+  她在数学上不如他。  -- level 4: 数学 L3, 不如 L4
+  你还是留在这儿吧。  -- level 4: 还是 L2, 留 L4
+  我在翻译。  -- level 4: 翻译 L4
+  我在东京出生长大。  -- level 10: 东京 (not in list), 出生 L3, 长 L2
+  你在日本住多久了？  -- level 3: 久 L3
+  谁也不工作。大家在看世界杯。  -- level 3: 世界 L3
+  他们俩都在房间里。  -- level 4: 俩 L4
+  这件事我实在不懂。  -- level 4: 实在 L4, 懂 L2
+
+--- dropped at step 5b (143), first 12 ---
+  现在呢？  -- harder grammar: 2-77 (HSK 2)
+  在下雨。  -- harder grammar: 1-11 (HSK 2)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  你们在听吗？  -- harder grammar: 1-11 (HSK 2)
+  这个女孩子在喝茶。  -- harder grammar: 1-11 (HSK 2)
+  他有一个鸡蛋，他在吃鸡蛋。  -- harder grammar: 1-11 (HSK 2), 2-09 (HSK 2)
+  这个男孩子在吃面包。  -- harder grammar: 1-11 (HSK 2)
+  这只猫在吃东西。  -- harder grammar: 1-11 (HSK 2)
+  有人在吃东西。  -- harder grammar: 1-11 (HSK 2)
+  你在做你觉得对的事吗?  -- harder grammar: 1-11 (HSK 2)
+  今天早上你在做什么？  -- harder grammar: 1-11 (HSK 2)
+  是谁在读？  -- harder grammar: 1-11 (HSK 2)
+
+--- dropped at step 6 (96) ---
+  我不在的时候有没有人来？  -- rule: no match: line matched
+  他们现在要去哪里？  -- rule: no match: line matched
+  你在吗？  -- rule: no match: line matched
+  我知道她在哪里。  -- rule: no match: line matched
+  我家在这里。  -- rule: no match: line matched
+  不在下雨。  -- rule: no match: line matched
+  我明天不在这儿。  -- rule: no match: line matched
+  你家在哪里？  -- rule: no match: line matched
+  您的家在哪？  -- rule: no match: line matched
+  你们家在哪？  -- rule: no match: line matched
+  你现在在哪里呢？  -- rule: no match: line matched
+  现在你忙吗？  -- rule: no match: line matched
+  现在你们忙吗？  -- rule: no match: line matched
+  现在您忙吗？  -- rule: no match: line matched
+  你们的东西在哪里？  -- rule: no match: line matched
+  您的东西在哪里？  -- rule: no match: line matched
+  你的东西在哪里？  -- rule: no match: line matched
+  我的书在哪？  -- rule: no match: line matched
+  她家在哪儿？  -- rule: no match: line matched
+  现在还不是晚饭时间。  -- rule: no match: line matched
+  你知道问题在哪里。  -- rule: no match: line matched
+  那本书在哪儿？  -- rule: no match: line matched
+  那本书在这里。  -- rule: no match: line matched
+  他们在这里。  -- rule: no match: line matched
+  现在太晚了。  -- rule: no match: line matched
+  你的狗在这。  -- rule: no match: line matched
+  没有人知道她在哪儿。  -- rule: no match: line matched
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  现在我要听些什么？  -- rule: no match: line matched
+  Tom在医院。  -- rule: no match: line matched
+  他不在这里。  -- rule: no match: line matched
+  他在星期六下午做什么？  -- rule: no match: line matched
+  请在下个星期日休息。  -- rule: no match: line matched
+  他在这里。  -- rule: no match: line matched
+  谁还在这里？  -- rule: no match: line matched
+  你会在哪里？  -- rule: no match: line matched
+  在那里。  -- rule: no match: line matched
+  我现在不知道。  -- rule: no match: line matched
+  有人在那里。  -- rule: no match: line matched
+  现在读这个。  -- rule: no match: line matched
+  你明天在这里吗？  -- rule: no match: line matched
+  你现在高兴吗？  -- rule: no match: line matched
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  这本书昨天在他车上。  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  他们还在波士顿。  -- rule: no match: line matched
+  你现在可以住口了。  -- rule: no match: line matched
+  我在晚上看电视。  -- rule: no match: line matched
+  你现在想看什么？  -- rule: no match: line matched
+  在这时候，他到了。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  这本书昨天在他的车上。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  你现在在哪里？  -- rule: no match: line matched
+  星期三下午我在。  -- rule: no match: line matched
+  星期三在吗？  -- rule: no match: line matched
+  你会在那里吗？  -- rule: no match: line matched
+  你在这里。  -- rule: no match: line matched
+  现在你能做这件事吗？  -- rule: no match: line matched
+  您在忙吗？  -- rule: unless 在/AD
+  他们现在去哪？  -- rule: no match: line matched
+  我知道他们在哪里。  -- rule: no match: line matched
+  我不知道他在哪。  -- rule: no match: line matched
+  我不知道你的书在哪里。  -- rule: no match: line matched
+  我很高兴你们都在。  -- rule: no match: line matched
+  我现在没有钱。  -- rule: no match: line matched
+  你的哥哥在哪里?  -- rule: no match: line matched
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  我想知道他们在哪里。  -- rule: no match: line matched
+  我不知道什么时候要在那里。  -- rule: no match: line matched
+  我想知道他们在哪。  -- rule: no match: line matched
+  我知道我想要的都在这里。  -- rule: no match: line matched
+  我在打电话。  -- rule: unless 在/AD
+  你家人还在那里吗？  -- rule: no match: line matched
+  爸爸，我的杯子在哪里？  -- rule: no match: line matched
+  爸爸和妈妈都在家。  -- rule: no match: line matched
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  妈妈在这里吗？  -- rule: no match: line matched
+  现在，他们知道我们在这里。  -- rule: no match: line matched
+  爸爸在哪？  -- rule: no match: line matched
+  你妈妈在哪？  -- rule: no match: line matched
+  苹果现在很便宜。  -- rule: no match: line matched
+  你爸爸在哪？  -- rule: no match: line matched
+  现在去！  -- rule: no match: line matched
+  现在睡。  -- rule: no match: line matched
+  我的朋友在哪里？  -- rule: no match: line matched
+  现在有什么电影？  -- rule: no match: line matched
+  我的电脑在哪里？  -- rule: no match: line matched
+  我的茶在哪里？  -- rule: no match: line matched
+  我女儿正在商店买牛奶。  -- rule: unless 正在/AD
+  很高兴你您在这里。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  我是在日本上的中学。  -- hidden word a learner can't work out: 日本 (Japan)
+  我们不住在波士顿。  -- hidden word a learner can't work out: 不住 ((verb complement) unable to firmly or securely (grasp, recal)
+  你家的电脑在桌子上吗？  -- hidden word a learner can't work out: 家的 ((old) wife)
+  我上个月在波士顿。  -- hidden word a learner can't work out: 上个月 (last month)
+
+--- dropped at step 8 (1) ---
+  在那里见我。  -- difficulty review: (1/2); 在那里见我 uses imperative without clear context; structure is awkward for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-16_level1_20261110_213413.csv
+
+########## tatoeba  2026-11-11 14:27 ##########
+Filling 1-16 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-55, 2-58, 2-59, 2-67, 2-69, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-16 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-16 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3592  2. contain the point's word(s)
+     3584  3. new (not in DB, not a duplicate)
+     1373  4. at most 2 characters outside HSK 1 words
+      340  5. really HSK 1
+      287  5b. no harder grammar point (of the 78 with a rule)
+      101  6. the rule finds 1-16
+       97  6b. no hidden word a learner can't work out
+       20  7. both checks say 1-16, English chosen
+       19  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (77 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (19) ===
+  我住在这。  (I live here.)  [tatoeba 1488531]
+  没人在家？  (Nobody home?)  [tatoeba 13138839]
+  我在中国。  (I'm in China.)  [tatoeba 13575551]
+  您住在哪里？  (Where do you live?)  [tatoeba 393584]
+  你在家里吗？  (Are you at home?)  [tatoeba 406192]  hidden: 家里
+  你在哪读书？  (Where do you study?)  [tatoeba 3713557]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  我住在智利。  (I live in Chile.)  [tatoeba 5414478]
+  苹果在书上。  (The apple is on top of the book.)  [tatoeba 6056480]
+  他今天在家。  (He is at home today.)  [tatoeba 6169154]
+  他住在哪里？  (Where does he live?)  [tatoeba 7768199]
+  我住在大阪。  (I live in Osaka.)  [tatoeba 8701028]
+  你们在医院。  (You are in the hospital.)  [tatoeba 10966835]
+  我住在这里。  (I live here.)  [tatoeba 11264800]
+  谁住在这儿？  (Who lives here?)  [tatoeba 12422342]
+  巴黎在哪里？  (Where is Paris?)  [tatoeba 12615461]
+  浙江在哪里？  (Where is Zhejiang?)  [tatoeba 13953750]
+  约翰住在哪里？  (Where does John live?)  [tatoeba 399233]
+  我现在在北京。  (I am in Beijing right now.)  [tatoeba 1766267]
+
+--- dropped at step 3 (8) ---
+  洗手间在哪里？  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  我们在吃苹果。  -- same text as tatoeba 7779224 (translations pooled)
+  今天上午你们不在医院。  -- same text as tatoeba 6471004 (translations pooled)
+  明天中午他们不在学校。  -- same text as tatoeba 6471013 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  我在读书。  -- same text as tatoeba 5640765 (translations pooled)
+
+--- dropped at step 4 (2211), first 12 ---
+  客观的历史存在吗？  -- 4 characters no HSK 1 word uses: 历史存观
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  就在沙发上。  -- 3 characters no HSK 1 word uses: 发就沙
+  社会保障吗？他们在说什么笑话？  -- 4 characters no HSK 1 word uses: 保社笑障
+  在你的词典查一查这个词。  -- 3 characters no HSK 1 word uses: 典查词
+  我能在哪里乘上机场巴士？  -- 3 characters no HSK 1 word uses: 乘场巴
+  咱们现在走吧。要不咱们要迟到了。  -- 3 characters no HSK 1 word uses: 咱走迟
+  木头能浮在水面上。  -- 3 characters no HSK 1 word uses: 头木浮
+  我虽然在虎口里，却是安如泰山。  -- 8 characters no HSK 1 word uses: 却如安山泰然虎虽
+  我们的饭店在汽车南站的附近。  -- 5 characters no HSK 1 word uses: 南汽站近附
+  我正在在波士顿读博士。  -- 3 characters no HSK 1 word uses: 博波顿
+  把胡萝卜放在锅里。  -- 6 characters no HSK 1 word uses: 卜把放胡萝锅
+
+--- dropped at step 5 (1033), first 12 ---
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list), 外面 L2
+  我正在去第四医院的路上。  -- level 2: 路上 L2
+  我在伦敦。  -- level 10: 伦敦 (not in list)
+  我给她打电话的时候她不在。  -- level 2: 打 L2
+  她在数学上不如他。  -- level 4: 数学 L3, 不如 L4
+  你还是留在这儿吧。  -- level 4: 还是 L2, 留 L4
+  我在翻译。  -- level 4: 翻译 L4
+  我在东京出生长大。  -- level 10: 东京 (not in list), 出生 L3, 长 L2
+  你在日本住多久了？  -- level 3: 久 L3
+  谁也不工作。大家在看世界杯。  -- level 3: 世界 L3
+  他们俩都在房间里。  -- level 4: 俩 L4
+  这件事我实在不懂。  -- level 4: 实在 L4, 懂 L2
+
+--- dropped at step 5b (53), first 12 ---
+  现在呢？  -- harder grammar: 2-77 (HSK 2)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  他有一个鸡蛋，他在吃鸡蛋。  -- harder grammar: 2-09 (HSK 2)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  你是在对我说吗？  -- harder grammar: 2-25 (HSK 2)
+  你还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  你们还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  现在几点了？  -- harder grammar: 2-09 (HSK 2)
+  我也在这里。  -- harder grammar: 3-60 (HSK 3)
+  他想在中国工作两年。  -- harder grammar: 2-09 (HSK 2)
+  他在家休息一个小时。  -- harder grammar: 2-09 (HSK 2)
+  他也在这里。  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 6 (186) ---
+  我不在的时候有没有人来？  -- rule: no match: line matched
+  他们现在要去哪里？  -- rule: no match: line matched
+  在下雨。  -- rule: unless 在/AD
+  你在吗？  -- rule: no match: line matched
+  我知道她在哪里。  -- rule: no match: line matched
+  你们在听吗？  -- rule: unless 在/AD
+  这个女孩子在喝茶。  -- rule: unless 在/AD
+  这个男孩子在吃面包。  -- rule: unless 在/AD
+  这只猫在吃东西。  -- rule: unless 在/AD
+  有人在吃东西。  -- rule: unless 在/AD
+  你在做你觉得对的事吗?  -- rule: unless 在/AD
+  我家在这里。  -- rule: no match: line matched
+  不在下雨。  -- rule: no match: line matched
+  我明天不在这儿。  -- rule: no match: line matched
+  你家在哪里？  -- rule: no match: line matched
+  您的家在哪？  -- rule: no match: line matched
+  你们家在哪？  -- rule: no match: line matched
+  你现在在哪里呢？  -- rule: no match: line matched
+  现在你忙吗？  -- rule: no match: line matched
+  现在你们忙吗？  -- rule: no match: line matched
+  现在您忙吗？  -- rule: no match: line matched
+  你们的东西在哪里？  -- rule: no match: line matched
+  您的东西在哪里？  -- rule: no match: line matched
+  你的东西在哪里？  -- rule: no match: line matched
+  我的书在哪？  -- rule: no match: line matched
+  今天早上你在做什么？  -- rule: unless 在/AD
+  她家在哪儿？  -- rule: no match: line matched
+  是谁在读？  -- rule: unless 在/AD
+  Crouch 先生，你在做什么？  -- rule: unless 在/AD
+  现在还不是晚饭时间。  -- rule: no match: line matched
+  我正在读汉字。  -- rule: unless 正在/AD
+  你知道问题在哪里。  -- rule: no match: line matched
+  他们正在读她的书。  -- rule: unless 正在/AD
+  那本书在哪儿？  -- rule: no match: line matched
+  我正在吃东西。  -- rule: unless 正在/AD
+  他们在吃午饭。  -- rule: unless 在/AD
+  她现在正在工作。  -- rule: unless 正在/AD
+  那本书在这里。  -- rule: no match: line matched
+  狗在叫。  -- rule: unless 在/AD
+  我现在正在吃米饭。  -- rule: unless 正在/AD
+  我在吃什么？  -- rule: unless 在/AD
+  我在喝牛奶。  -- rule: unless 在/AD
+  请问，你在做什么？  -- rule: unless 在/AD
+  你在回家吗？  -- rule: unless 在/AD
+  你正在回家。  -- rule: unless 正在/AD
+  你正在去我家。  -- rule: unless 正在/AD
+  他们在这里。  -- rule: no match: line matched
+  我们在学习中文。  -- rule: unless 在/AD
+  现在太晚了。  -- rule: no match: line matched
+  她还在睡吗？  -- rule: unless 在/AD
+  还在下雨。  -- rule: unless 在/AD
+  他在读书。  -- rule: unless 在/AD
+  你的狗在这。  -- rule: no match: line matched
+  Tom正在找工作。  -- rule: unless 正在/AD
+  我还在读书。  -- rule: unless 在/AD
+  你在读哪本书？  -- rule: unless 在/AD
+  你们在写什么？  -- rule: unless 在/AD
+  同学们都在学英文。  -- rule: unless 在/AD
+  没有人知道她在哪儿。  -- rule: no match: line matched
+  在吃什么呢？  -- rule: unless 在/AD
+  你在找什么吗？  -- rule: unless 在/AD
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  我在找你。  -- rule: unless 在/AD
+  现在我要听些什么？  -- rule: no match: line matched
+  你在写什么？  -- rule: unless 在/AD
+  您在找什么吗？  -- rule: unless 在/AD
+  Tom在医院。  -- rule: no match: line matched
+  我们知道我们在做什么。  -- rule: unless 在/AD
+  我问你你在想什么。  -- rule: unless 在/AD
+  他不在这里。  -- rule: no match: line matched
+  我不是在说他。  -- rule: unless 在/AD
+  他在星期六下午做什么？  -- rule: no match: line matched
+  请在下个星期日休息。  -- rule: no match: line matched
+  他在这里。  -- rule: no match: line matched
+  谁还在这里？  -- rule: no match: line matched
+  我在读书。  -- rule: unless 在/AD
+  他在看我们。  -- rule: unless 在/AD
+  猫在喝你的牛奶。  -- rule: unless 在/AD
+  我知道你在做什么。  -- rule: unless 在/AD
+  你会在哪里？  -- rule: no match: line matched
+  你知道我在做什么吗？  -- rule: unless 在/AD
+  在那里。  -- rule: no match: line matched
+  你在看谁？  -- rule: unless 在/AD
+  我现在不知道。  -- rule: no match: line matched
+  有人在那里。  -- rule: no match: line matched
+  现在读这个。  -- rule: no match: line matched
+  你明天在这里吗？  -- rule: no match: line matched
+  你现在高兴吗？  -- rule: no match: line matched
+  你在吃东西吗？  -- rule: unless 在/AD
+  你在上班吗？  -- rule: unless 在/AD
+  你还在吃。  -- rule: unless 在/AD
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  这本书昨天在他车上。  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  他的儿子在学开车。  -- rule: unless 在/AD
+  你在说汉语。  -- rule: unless 在/AD
+  他们在说话。  -- rule: unless 在/AD
+  你们在听他说话。  -- rule: unless 在/AD
+  你在做什么？  -- rule: unless 在/AD
+  我在听他们说话。  -- rule: unless 在/AD
+  他们在说什么？  -- rule: unless 在/AD
+  他们还在波士顿。  -- rule: no match: line matched
+  你现在可以住口了。  -- rule: no match: line matched
+  谁在玩？  -- rule: unless 在/AD
+  我在晚上看电视。  -- rule: no match: line matched
+  那个孩子在吃面包。  -- rule: unless 在/AD
+  我在学习。  -- rule: unless 在/AD
+  他们在吃苹果。  -- rule: unless 在/AD
+  明年这个时候我在做什么？  -- rule: unless 在/AD
+  你现在想看什么？  -- rule: no match: line matched
+  他在学习英语。  -- rule: unless 在/AD
+  在这时候，他到了。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  这本书昨天在他的车上。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  没，我什么都没在吃。  -- rule: unless 在/AD
+  你现在在哪里？  -- rule: no match: line matched
+  星期三下午我在。  -- rule: no match: line matched
+  星期三在吗？  -- rule: no match: line matched
+  昨天这个时候你在做什么？  -- rule: unless 在/AD
+  谁也没在看她。  -- rule: unless 在/AD
+  你会在那里吗？  -- rule: no match: line matched
+  你在这里。  -- rule: no match: line matched
+  我没在忙。  -- rule: unless 在/AD
+  你在看什么？  -- rule: unless 在/AD
+  现在你能做这件事吗？  -- rule: no match: line matched
+  您在忙吗？  -- rule: unless 在/AD
+  我知道我在做什么。  -- rule: unless 在/AD
+  他们现在去哪？  -- rule: no match: line matched
+  我们在找他。  -- rule: unless 在/AD
+  我们在吃苹果。  -- rule: unless 在/AD
+  你在说什么呢？  -- rule: unless 在/AD
+  我知道他们在哪里。  -- rule: no match: line matched
+  我不知道他在哪。  -- rule: no match: line matched
+  我不知道你的书在哪里。  -- rule: no match: line matched
+  我很高兴你们都在。  -- rule: no match: line matched
+  我现在没有钱。  -- rule: no match: line matched
+  你还在上学吗？  -- rule: unless 在/AD
+  我不知道你在看东西。  -- rule: unless 在/AD
+  我们在吃面包。  -- rule: unless 在/AD
+  你的哥哥在哪里?  -- rule: no match: line matched
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  他在看奥运会。  -- rule: unless 在/AD
+  她在看奥运会。  -- rule: unless 在/AD
+  我想知道他们在哪里。  -- rule: no match: line matched
+  我不知道什么时候要在那里。  -- rule: no match: line matched
+  你还在找工作吗？  -- rule: unless 在/AD
+  我在看这本书。  -- rule: unless 在/AD
+  你在说他吗？  -- rule: unless 在/AD
+  我们现在在做饭。  -- rule: unless 在/AD
+  我想知道他们在哪。  -- rule: no match: line matched
+  你在学什么？  -- rule: unless 在/AD
+  我知道我想要的都在这里。  -- rule: no match: line matched
+  你在看他吗?  -- rule: unless 在/AD
+  我在打电话。  -- rule: unless 在/AD
+  我在看电视。  -- rule: unless 在/AD
+  你这些年在做什么？  -- rule: unless 在/AD
+  你家人还在那里吗？  -- rule: no match: line matched
+  爸爸，我的杯子在哪里？  -- rule: no match: line matched
+  爸爸和妈妈都在家。  -- rule: no match: line matched
+  爸爸妈妈在叫我们。  -- rule: unless 在/AD
+  妈妈，你在想什么？  -- rule: unless 在/AD
+  妈妈，你在想什么呢？  -- rule: unless 在/AD
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  妈妈在这里吗？  -- rule: no match: line matched
+  现在，他们知道我们在这里。  -- rule: no match: line matched
+  爸爸在哪？  -- rule: no match: line matched
+  你妈妈在哪？  -- rule: no match: line matched
+  苹果现在很便宜。  -- rule: no match: line matched
+  你爸爸在哪？  -- rule: no match: line matched
+  现在去！  -- rule: no match: line matched
+  现在睡。  -- rule: no match: line matched
+  我的朋友在哪里？  -- rule: no match: line matched
+  在学中文。  -- rule: unless 在/AD
+  现在有什么电影？  -- rule: no match: line matched
+  我的电脑在哪里？  -- rule: no match: line matched
+  我的茶在哪里？  -- rule: no match: line matched
+  我女儿正在商店买牛奶。  -- rule: unless 正在/AD
+  这些天你都在读些什么？  -- rule: unless 在/AD
+  谁在叫你的名字？  -- rule: unless 在/AD
+  很高兴你您在这里。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  我是在日本上的中学。  -- hidden word a learner can't work out: 日本 (Japan)
+  我们不住在波士顿。  -- hidden word a learner can't work out: 不住 ((verb complement) unable to firmly or securely (grasp, recal)
+  你家的电脑在桌子上吗？  -- hidden word a learner can't work out: 家的 ((old) wife)
+  我上个月在波士顿。  -- hidden word a learner can't work out: 上个月 (last month)
+
+--- dropped at step 8 (1) ---
+  在那里见我。  -- difficulty review: (1/2); 在那里见我 uses imperative without clear context; structure is awkward for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-16_level1_20261111_142755.csv
+
+########## rules  2026-11-12 17:20 ##########
+Tagging 1 labeled example(s) (cached after this run)...
+  ...100/107
+
+=== A. 1-16: rule on labeled examples (no AI) ===
+  examples of 1-16 matched:    46/47
+  counter-examples wrongly matched: 0/60   <- should be 0
+
+--- examples of 1-16 the rule misses (1) ---
+  现在我们在KTV唱歌。  -- ASGX0Z0N Indicating location with "zai" before verbs
+  easy examples (words all HSK 1 or below) matched: 10/11   <- needs 60%
+
+########## tatoeba  2026-11-12 17:37 ##########
+Filling 1-16 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-14, 2-15, 2-16, 2-19, 2-21, 2-22, 2-23, 2-24, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 3 Tatoeba candidate(s) (cached after this run)...
+  ...100/1373
+  ...200/1373
+  ...300/1373
+  ...400/1373
+  ...500/1373
+  ...600/1373
+  ...700/1373
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_173754.txt
+  ...800/1373
+  ...900/1373
+  ...1000/1373
+  ...1100/1373
+  ...1200/1373
+  ...1300/1373
+
+Course sentences at HSK 1 the rule already finds 1-16 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-16 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3592  2. contain the point's word(s)
+     3584  3. new (not in DB, not a duplicate)
+     1373  4. at most 2 characters outside HSK 1 words
+      340  5. really HSK 1
+      287  5b. no harder grammar point (of the 82 with a rule)
+      100  6. the rule finds 1-16
+       96  6b. no hidden word a learner can't work out
+       20  7. both checks say 1-16, English chosen
+       19  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (76 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (19) ===
+  我住在这。  (I live here.)  [tatoeba 1488531]
+  没人在家？  (Nobody home?)  [tatoeba 13138839]
+  我在中国。  (I'm in China.)  [tatoeba 13575551]
+  您住在哪里？  (Where do you live?)  [tatoeba 393584]
+  你在家里吗？  (Are you at home?)  [tatoeba 406192]  hidden: 家里
+  你在哪读书？  (Where do you study?)  [tatoeba 3713557]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  我住在智利。  (I live in Chile.)  [tatoeba 5414478]
+  苹果在书上。  (The apple is on top of the book.)  [tatoeba 6056480]
+  他今天在家。  (He is at home today.)  [tatoeba 6169154]
+  他住在哪里？  (Where does he live?)  [tatoeba 7768199]
+  我住在大阪。  (I live in Osaka.)  [tatoeba 8701028]
+  你们在医院。  (You are in the hospital.)  [tatoeba 10966835]
+  我住在这里。  (I live here.)  [tatoeba 11264800]
+  谁住在这儿？  (Who lives here?)  [tatoeba 12422342]
+  巴黎在哪里？  (Where is Paris?)  [tatoeba 12615461]
+  浙江在哪里？  (Where is Zhejiang?)  [tatoeba 13953750]
+  约翰住在哪里？  (Where does John live?)  [tatoeba 399233]
+  我现在在北京。  (I am in Beijing right now.)  [tatoeba 1766267]
+
+--- dropped at step 3 (8) ---
+  洗手间在哪里？  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  我们在吃苹果。  -- same text as tatoeba 7779224 (translations pooled)
+  今天上午你们不在医院。  -- same text as tatoeba 6471004 (translations pooled)
+  明天中午他们不在学校。  -- same text as tatoeba 6471013 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  我在读书。  -- same text as tatoeba 5640765 (translations pooled)
+
+--- dropped at step 4 (2211), first 12 ---
+  客观的历史存在吗？  -- 4 characters no HSK 1 word uses: 历史存观
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  就在沙发上。  -- 3 characters no HSK 1 word uses: 发就沙
+  社会保障吗？他们在说什么笑话？  -- 4 characters no HSK 1 word uses: 保社笑障
+  在你的词典查一查这个词。  -- 3 characters no HSK 1 word uses: 典查词
+  我能在哪里乘上机场巴士？  -- 3 characters no HSK 1 word uses: 乘场巴
+  咱们现在走吧。要不咱们要迟到了。  -- 3 characters no HSK 1 word uses: 咱走迟
+  木头能浮在水面上。  -- 3 characters no HSK 1 word uses: 头木浮
+  我虽然在虎口里，却是安如泰山。  -- 8 characters no HSK 1 word uses: 却如安山泰然虎虽
+  我们的饭店在汽车南站的附近。  -- 5 characters no HSK 1 word uses: 南汽站近附
+  我正在在波士顿读博士。  -- 3 characters no HSK 1 word uses: 博波顿
+  把胡萝卜放在锅里。  -- 6 characters no HSK 1 word uses: 卜把放胡萝锅
+
+--- dropped at step 5 (1033), first 12 ---
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list), 外面 L2
+  我正在去第四医院的路上。  -- level 2: 路上 L2
+  我在伦敦。  -- level 10: 伦敦 (not in list)
+  我给她打电话的时候她不在。  -- level 2: 打 L2
+  她在数学上不如他。  -- level 4: 数学 L3, 不如 L4
+  你还是留在这儿吧。  -- level 4: 还是 L2, 留 L4
+  我在翻译。  -- level 4: 翻译 L4
+  我在东京出生长大。  -- level 10: 东京 (not in list), 出生 L3, 长 L2
+  你在日本住多久了？  -- level 3: 久 L3
+  谁也不工作。大家在看世界杯。  -- level 3: 世界 L3
+  他们俩都在房间里。  -- level 4: 俩 L4
+  这件事我实在不懂。  -- level 4: 实在 L4, 懂 L2
+
+--- dropped at step 5b (53), first 12 ---
+  现在呢？  -- harder grammar: 2-77 (HSK 2)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  他有一个鸡蛋，他在吃鸡蛋。  -- harder grammar: 2-09 (HSK 2)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  你还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  你们还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  现在几点了？  -- harder grammar: 2-09 (HSK 2)
+  我也在这里。  -- harder grammar: 3-60 (HSK 3)
+  他想在中国工作两年。  -- harder grammar: 2-09 (HSK 2)
+  他在家休息一个小时。  -- harder grammar: 2-09 (HSK 2)
+  他也在这里。  -- harder grammar: 3-60 (HSK 3)
+  “你在哪里？” “我在一个朋友家。”  -- harder grammar: 2-09 (HSK 2)
+
+--- dropped at step 6 (187) ---
+  我不在的时候有没有人来？  -- rule: no match: line matched
+  他们现在要去哪里？  -- rule: no match: line matched
+  在下雨。  -- rule: unless 在/AD
+  你在吗？  -- rule: no match: line matched
+  我知道她在哪里。  -- rule: no match: line matched
+  你们在听吗？  -- rule: unless 在/AD
+  这个女孩子在喝茶。  -- rule: unless 在/AD
+  这个男孩子在吃面包。  -- rule: unless 在/AD
+  这只猫在吃东西。  -- rule: unless 在/AD
+  有人在吃东西。  -- rule: unless 在/AD
+  你在做你觉得对的事吗?  -- rule: unless 在/AD
+  我家在这里。  -- rule: no match: line matched
+  不在下雨。  -- rule: no match: line matched
+  我明天不在这儿。  -- rule: no match: line matched
+  你家在哪里？  -- rule: no match: line matched
+  您的家在哪？  -- rule: no match: line matched
+  你们家在哪？  -- rule: no match: line matched
+  你现在在哪里呢？  -- rule: no match: line matched
+  现在你忙吗？  -- rule: no match: line matched
+  现在你们忙吗？  -- rule: no match: line matched
+  现在您忙吗？  -- rule: no match: line matched
+  你们的东西在哪里？  -- rule: no match: line matched
+  您的东西在哪里？  -- rule: no match: line matched
+  你的东西在哪里？  -- rule: no match: line matched
+  我的书在哪？  -- rule: no match: line matched
+  今天早上你在做什么？  -- rule: unless 在/AD
+  她家在哪儿？  -- rule: no match: line matched
+  是谁在读？  -- rule: unless 在/AD
+  Crouch 先生，你在做什么？  -- rule: unless 在/AD
+  现在还不是晚饭时间。  -- rule: no match: line matched
+  我正在读汉字。  -- rule: unless 正在/AD
+  你知道问题在哪里。  -- rule: no match: line matched
+  他们正在读她的书。  -- rule: unless 正在/AD
+  那本书在哪儿？  -- rule: no match: line matched
+  我正在吃东西。  -- rule: unless 正在/AD
+  你是在对我说吗？  -- rule: unless 在/AD
+  他们在吃午饭。  -- rule: unless 在/AD
+  她现在正在工作。  -- rule: unless 正在/AD
+  那本书在这里。  -- rule: no match: line matched
+  狗在叫。  -- rule: unless 在/AD
+  我现在正在吃米饭。  -- rule: unless 正在/AD
+  我在吃什么？  -- rule: unless 在/AD
+  我在喝牛奶。  -- rule: unless 在/AD
+  请问，你在做什么？  -- rule: unless 在/AD
+  你在回家吗？  -- rule: unless 在/AD
+  你正在回家。  -- rule: unless 正在/AD
+  你正在去我家。  -- rule: unless 正在/AD
+  他们在这里。  -- rule: no match: line matched
+  我们在学习中文。  -- rule: unless 在/AD
+  现在太晚了。  -- rule: no match: line matched
+  她还在睡吗？  -- rule: unless 在/AD
+  还在下雨。  -- rule: unless 在/AD
+  他在读书。  -- rule: unless 在/AD
+  你的狗在这。  -- rule: no match: line matched
+  Tom正在找工作。  -- rule: unless 正在/AD
+  我还在读书。  -- rule: unless 在/AD
+  你在读哪本书？  -- rule: unless 在/AD
+  你们在写什么？  -- rule: unless 在/AD
+  同学们都在学英文。  -- rule: unless 在/AD
+  没有人知道她在哪儿。  -- rule: no match: line matched
+  在吃什么呢？  -- rule: unless 在/AD
+  你在找什么吗？  -- rule: unless 在/AD
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  我在找你。  -- rule: unless 在/AD
+  现在我要听些什么？  -- rule: no match: line matched
+  你在写什么？  -- rule: unless 在/AD
+  您在找什么吗？  -- rule: unless 在/AD
+  Tom在医院。  -- rule: no match: line matched
+  我们知道我们在做什么。  -- rule: unless 在/AD
+  我问你你在想什么。  -- rule: unless 在/AD
+  他不在这里。  -- rule: no match: line matched
+  我不是在说他。  -- rule: unless 在/AD
+  他在星期六下午做什么？  -- rule: no match: line matched
+  请在下个星期日休息。  -- rule: no match: line matched
+  他在这里。  -- rule: no match: line matched
+  谁还在这里？  -- rule: no match: line matched
+  我在读书。  -- rule: unless 在/AD
+  他在看我们。  -- rule: unless 在/AD
+  猫在喝你的牛奶。  -- rule: unless 在/AD
+  我知道你在做什么。  -- rule: unless 在/AD
+  你会在哪里？  -- rule: no match: line matched
+  你知道我在做什么吗？  -- rule: unless 在/AD
+  在那里。  -- rule: no match: line matched
+  你在看谁？  -- rule: unless 在/AD
+  我现在不知道。  -- rule: no match: line matched
+  有人在那里。  -- rule: no match: line matched
+  现在读这个。  -- rule: no match: line matched
+  你明天在这里吗？  -- rule: no match: line matched
+  你现在高兴吗？  -- rule: no match: line matched
+  你在吃东西吗？  -- rule: unless 在/AD
+  你在上班吗？  -- rule: unless 在/AD
+  你还在吃。  -- rule: unless 在/AD
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  这本书昨天在他车上。  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  他的儿子在学开车。  -- rule: unless 在/AD
+  你在说汉语。  -- rule: unless 在/AD
+  他们在说话。  -- rule: unless 在/AD
+  你们在听他说话。  -- rule: unless 在/AD
+  你在做什么？  -- rule: unless 在/AD
+  我在听他们说话。  -- rule: unless 在/AD
+  他们在说什么？  -- rule: unless 在/AD
+  他们还在波士顿。  -- rule: no match: line matched
+  你现在可以住口了。  -- rule: no match: line matched
+  谁在玩？  -- rule: unless 在/AD
+  我在晚上看电视。  -- rule: no match: line matched
+  那个孩子在吃面包。  -- rule: unless 在/AD
+  我在学习。  -- rule: unless 在/AD
+  他们在吃苹果。  -- rule: unless 在/AD
+  明年这个时候我在做什么？  -- rule: unless 在/AD
+  你现在想看什么？  -- rule: no match: line matched
+  他在学习英语。  -- rule: unless 在/AD
+  在这时候，他到了。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  这本书昨天在他的车上。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  没，我什么都没在吃。  -- rule: unless 在/AD
+  你现在在哪里？  -- rule: no match: line matched
+  星期三下午我在。  -- rule: no match: line matched
+  星期三在吗？  -- rule: no match: line matched
+  昨天这个时候你在做什么？  -- rule: unless 在/AD
+  谁也没在看她。  -- rule: unless 在/AD
+  你会在那里吗？  -- rule: no match: line matched
+  你在这里。  -- rule: no match: line matched
+  我没在忙。  -- rule: unless 在/AD
+  你在看什么？  -- rule: unless 在/AD
+  现在你能做这件事吗？  -- rule: no match: line matched
+  您在忙吗？  -- rule: unless 在/AD
+  我知道我在做什么。  -- rule: unless 在/AD
+  他们现在去哪？  -- rule: no match: line matched
+  我们在找他。  -- rule: unless 在/AD
+  我们在吃苹果。  -- rule: unless 在/AD
+  你在说什么呢？  -- rule: unless 在/AD
+  我知道他们在哪里。  -- rule: no match: line matched
+  我不知道他在哪。  -- rule: no match: line matched
+  我不知道你的书在哪里。  -- rule: no match: line matched
+  我很高兴你们都在。  -- rule: no match: line matched
+  我现在没有钱。  -- rule: no match: line matched
+  你还在上学吗？  -- rule: unless 在/AD
+  我不知道你在看东西。  -- rule: unless 在/AD
+  我们在吃面包。  -- rule: unless 在/AD
+  你的哥哥在哪里?  -- rule: no match: line matched
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  他在看奥运会。  -- rule: unless 在/AD
+  她在看奥运会。  -- rule: unless 在/AD
+  我想知道他们在哪里。  -- rule: no match: line matched
+  我不知道什么时候要在那里。  -- rule: no match: line matched
+  你还在找工作吗？  -- rule: unless 在/AD
+  我在看这本书。  -- rule: unless 在/AD
+  你在说他吗？  -- rule: unless 在/AD
+  我们现在在做饭。  -- rule: unless 在/AD
+  我想知道他们在哪。  -- rule: no match: line matched
+  你在学什么？  -- rule: unless 在/AD
+  我知道我想要的都在这里。  -- rule: no match: line matched
+  你在看他吗?  -- rule: unless 在/AD
+  我在打电话。  -- rule: unless 在/AD
+  我在看电视。  -- rule: unless 在/AD
+  你这些年在做什么？  -- rule: unless 在/AD
+  你家人还在那里吗？  -- rule: no match: line matched
+  爸爸，我的杯子在哪里？  -- rule: no match: line matched
+  爸爸和妈妈都在家。  -- rule: no match: line matched
+  爸爸妈妈在叫我们。  -- rule: unless 在/AD
+  妈妈，你在想什么？  -- rule: unless 在/AD
+  妈妈，你在想什么呢？  -- rule: unless 在/AD
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  妈妈在这里吗？  -- rule: no match: line matched
+  现在，他们知道我们在这里。  -- rule: no match: line matched
+  爸爸在哪？  -- rule: no match: line matched
+  你妈妈在哪？  -- rule: no match: line matched
+  苹果现在很便宜。  -- rule: no match: line matched
+  你爸爸在哪？  -- rule: no match: line matched
+  现在去！  -- rule: no match: line matched
+  现在睡。  -- rule: no match: line matched
+  我的朋友在哪里？  -- rule: no match: line matched
+  在学中文。  -- rule: unless 在/AD
+  现在有什么电影？  -- rule: no match: line matched
+  我的电脑在哪里？  -- rule: no match: line matched
+  我的茶在哪里？  -- rule: no match: line matched
+  我女儿正在商店买牛奶。  -- rule: unless 正在/AD
+  这些天你都在读些什么？  -- rule: unless 在/AD
+  谁在叫你的名字？  -- rule: unless 在/AD
+  很高兴你您在这里。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  我是在日本上的中学。  -- hidden word a learner can't work out: 日本 (Japan)
+  我们不住在波士顿。  -- hidden word a learner can't work out: 不住 ((verb complement) unable to firmly or securely (grasp, recal)
+  你家的电脑在桌子上吗？  -- hidden word a learner can't work out: 家的 ((old) wife)
+  我上个月在波士顿。  -- hidden word a learner can't work out: 上个月 (last month)
+
+--- dropped at step 8 (1) ---
+  在那里见我。  -- difficulty review: (1/2); 在那里见我 uses imperative without clear context; structure is awkward for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-16_level1_20261112_173758.csv
+
+########## tatoeba  2026-11-12 21:14 ##########
+Filling 1-16 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-16 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-16 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3592  2. contain the point's word(s)
+     3584  3. new (not in DB, not a duplicate)
+     1373  4. at most 2 characters outside HSK 1 words
+      340  5. really HSK 1
+      286  5b. no harder grammar point (of the 86 with a rule)
+      100  6. the rule finds 1-16
+       96  6b. no hidden word a learner can't work out
+       20  7. both checks say 1-16, English chosen
+       19  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (76 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (19) ===
+  我住在这。  (I live here.)  [tatoeba 1488531]
+  没人在家？  (Nobody home?)  [tatoeba 13138839]
+  我在中国。  (I'm in China.)  [tatoeba 13575551]
+  您住在哪里？  (Where do you live?)  [tatoeba 393584]
+  你在家里吗？  (Are you at home?)  [tatoeba 406192]  hidden: 家里
+  你在哪读书？  (Where do you study?)  [tatoeba 3713557]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  我住在智利。  (I live in Chile.)  [tatoeba 5414478]
+  苹果在书上。  (The apple is on top of the book.)  [tatoeba 6056480]
+  他今天在家。  (He is at home today.)  [tatoeba 6169154]
+  他住在哪里？  (Where does he live?)  [tatoeba 7768199]
+  我住在大阪。  (I live in Osaka.)  [tatoeba 8701028]
+  你们在医院。  (You are in the hospital.)  [tatoeba 10966835]
+  我住在这里。  (I live here.)  [tatoeba 11264800]
+  谁住在这儿？  (Who lives here?)  [tatoeba 12422342]
+  巴黎在哪里？  (Where is Paris?)  [tatoeba 12615461]
+  浙江在哪里？  (Where is Zhejiang?)  [tatoeba 13953750]
+  约翰住在哪里？  (Where does John live?)  [tatoeba 399233]
+  我现在在北京。  (I am in Beijing right now.)  [tatoeba 1766267]
+
+--- dropped at step 3 (8) ---
+  洗手间在哪里？  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  我们在吃苹果。  -- same text as tatoeba 7779224 (translations pooled)
+  今天上午你们不在医院。  -- same text as tatoeba 6471004 (translations pooled)
+  明天中午他们不在学校。  -- same text as tatoeba 6471013 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  我在读书。  -- same text as tatoeba 5640765 (translations pooled)
+
+--- dropped at step 4 (2211), first 12 ---
+  客观的历史存在吗？  -- 4 characters no HSK 1 word uses: 历史存观
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  就在沙发上。  -- 3 characters no HSK 1 word uses: 发就沙
+  社会保障吗？他们在说什么笑话？  -- 4 characters no HSK 1 word uses: 保社笑障
+  在你的词典查一查这个词。  -- 3 characters no HSK 1 word uses: 典查词
+  我能在哪里乘上机场巴士？  -- 3 characters no HSK 1 word uses: 乘场巴
+  咱们现在走吧。要不咱们要迟到了。  -- 3 characters no HSK 1 word uses: 咱走迟
+  木头能浮在水面上。  -- 3 characters no HSK 1 word uses: 头木浮
+  我虽然在虎口里，却是安如泰山。  -- 8 characters no HSK 1 word uses: 却如安山泰然虎虽
+  我们的饭店在汽车南站的附近。  -- 5 characters no HSK 1 word uses: 南汽站近附
+  我正在在波士顿读博士。  -- 3 characters no HSK 1 word uses: 博波顿
+  把胡萝卜放在锅里。  -- 6 characters no HSK 1 word uses: 卜把放胡萝锅
+
+--- dropped at step 5 (1033), first 12 ---
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list), 外面 L2
+  我正在去第四医院的路上。  -- level 2: 路上 L2
+  我在伦敦。  -- level 10: 伦敦 (not in list)
+  我给她打电话的时候她不在。  -- level 2: 打 L2
+  她在数学上不如他。  -- level 4: 数学 L3, 不如 L4
+  你还是留在这儿吧。  -- level 4: 还是 L2, 留 L4
+  我在翻译。  -- level 4: 翻译 L4
+  我在东京出生长大。  -- level 10: 东京 (not in list), 出生 L3, 长 L2
+  你在日本住多久了？  -- level 3: 久 L3
+  谁也不工作。大家在看世界杯。  -- level 3: 世界 L3
+  他们俩都在房间里。  -- level 4: 俩 L4
+  这件事我实在不懂。  -- level 4: 实在 L4, 懂 L2
+
+--- dropped at step 5b (54), first 12 ---
+  现在呢？  -- harder grammar: 2-77 (HSK 2)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  他有一个鸡蛋，他在吃鸡蛋。  -- harder grammar: 2-09 (HSK 2)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  你是在对我说吗？  -- harder grammar: 2-25 (HSK 2)
+  你还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  你们还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  现在几点了？  -- harder grammar: 2-09 (HSK 2)
+  我也在这里。  -- harder grammar: 3-60 (HSK 3)
+  他想在中国工作两年。  -- harder grammar: 2-09 (HSK 2)
+  他在家休息一个小时。  -- harder grammar: 2-09 (HSK 2)
+  他也在这里。  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 6 (186) ---
+  我不在的时候有没有人来？  -- rule: no match: line matched
+  他们现在要去哪里？  -- rule: no match: line matched
+  在下雨。  -- rule: unless 在/AD
+  你在吗？  -- rule: no match: line matched
+  我知道她在哪里。  -- rule: no match: line matched
+  你们在听吗？  -- rule: unless 在/AD
+  这个女孩子在喝茶。  -- rule: unless 在/AD
+  这个男孩子在吃面包。  -- rule: unless 在/AD
+  这只猫在吃东西。  -- rule: unless 在/AD
+  有人在吃东西。  -- rule: unless 在/AD
+  你在做你觉得对的事吗?  -- rule: unless 在/AD
+  我家在这里。  -- rule: no match: line matched
+  不在下雨。  -- rule: no match: line matched
+  我明天不在这儿。  -- rule: no match: line matched
+  你家在哪里？  -- rule: no match: line matched
+  您的家在哪？  -- rule: no match: line matched
+  你们家在哪？  -- rule: no match: line matched
+  你现在在哪里呢？  -- rule: no match: line matched
+  现在你忙吗？  -- rule: no match: line matched
+  现在你们忙吗？  -- rule: no match: line matched
+  现在您忙吗？  -- rule: no match: line matched
+  你们的东西在哪里？  -- rule: no match: line matched
+  您的东西在哪里？  -- rule: no match: line matched
+  你的东西在哪里？  -- rule: no match: line matched
+  我的书在哪？  -- rule: no match: line matched
+  今天早上你在做什么？  -- rule: unless 在/AD
+  她家在哪儿？  -- rule: no match: line matched
+  是谁在读？  -- rule: unless 在/AD
+  Crouch 先生，你在做什么？  -- rule: unless 在/AD
+  现在还不是晚饭时间。  -- rule: no match: line matched
+  我正在读汉字。  -- rule: unless 正在/AD
+  你知道问题在哪里。  -- rule: no match: line matched
+  他们正在读她的书。  -- rule: unless 正在/AD
+  那本书在哪儿？  -- rule: no match: line matched
+  我正在吃东西。  -- rule: unless 正在/AD
+  他们在吃午饭。  -- rule: unless 在/AD
+  她现在正在工作。  -- rule: unless 正在/AD
+  那本书在这里。  -- rule: no match: line matched
+  狗在叫。  -- rule: unless 在/AD
+  我现在正在吃米饭。  -- rule: unless 正在/AD
+  我在吃什么？  -- rule: unless 在/AD
+  我在喝牛奶。  -- rule: unless 在/AD
+  请问，你在做什么？  -- rule: unless 在/AD
+  你在回家吗？  -- rule: unless 在/AD
+  你正在回家。  -- rule: unless 正在/AD
+  你正在去我家。  -- rule: unless 正在/AD
+  他们在这里。  -- rule: no match: line matched
+  我们在学习中文。  -- rule: unless 在/AD
+  现在太晚了。  -- rule: no match: line matched
+  她还在睡吗？  -- rule: unless 在/AD
+  还在下雨。  -- rule: unless 在/AD
+  他在读书。  -- rule: unless 在/AD
+  你的狗在这。  -- rule: no match: line matched
+  Tom正在找工作。  -- rule: unless 正在/AD
+  我还在读书。  -- rule: unless 在/AD
+  你在读哪本书？  -- rule: unless 在/AD
+  你们在写什么？  -- rule: unless 在/AD
+  同学们都在学英文。  -- rule: unless 在/AD
+  没有人知道她在哪儿。  -- rule: no match: line matched
+  在吃什么呢？  -- rule: unless 在/AD
+  你在找什么吗？  -- rule: unless 在/AD
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  我在找你。  -- rule: unless 在/AD
+  现在我要听些什么？  -- rule: no match: line matched
+  你在写什么？  -- rule: unless 在/AD
+  您在找什么吗？  -- rule: unless 在/AD
+  Tom在医院。  -- rule: no match: line matched
+  我们知道我们在做什么。  -- rule: unless 在/AD
+  我问你你在想什么。  -- rule: unless 在/AD
+  他不在这里。  -- rule: no match: line matched
+  我不是在说他。  -- rule: unless 在/AD
+  他在星期六下午做什么？  -- rule: no match: line matched
+  请在下个星期日休息。  -- rule: no match: line matched
+  他在这里。  -- rule: no match: line matched
+  谁还在这里？  -- rule: no match: line matched
+  我在读书。  -- rule: unless 在/AD
+  他在看我们。  -- rule: unless 在/AD
+  猫在喝你的牛奶。  -- rule: unless 在/AD
+  我知道你在做什么。  -- rule: unless 在/AD
+  你会在哪里？  -- rule: no match: line matched
+  你知道我在做什么吗？  -- rule: unless 在/AD
+  在那里。  -- rule: no match: line matched
+  你在看谁？  -- rule: unless 在/AD
+  我现在不知道。  -- rule: no match: line matched
+  有人在那里。  -- rule: no match: line matched
+  现在读这个。  -- rule: no match: line matched
+  你明天在这里吗？  -- rule: no match: line matched
+  你现在高兴吗？  -- rule: no match: line matched
+  你在吃东西吗？  -- rule: unless 在/AD
+  你在上班吗？  -- rule: unless 在/AD
+  你还在吃。  -- rule: unless 在/AD
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  这本书昨天在他车上。  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  他的儿子在学开车。  -- rule: unless 在/AD
+  你在说汉语。  -- rule: unless 在/AD
+  他们在说话。  -- rule: unless 在/AD
+  你们在听他说话。  -- rule: unless 在/AD
+  你在做什么？  -- rule: unless 在/AD
+  我在听他们说话。  -- rule: unless 在/AD
+  他们在说什么？  -- rule: unless 在/AD
+  他们还在波士顿。  -- rule: no match: line matched
+  你现在可以住口了。  -- rule: no match: line matched
+  谁在玩？  -- rule: unless 在/AD
+  我在晚上看电视。  -- rule: no match: line matched
+  那个孩子在吃面包。  -- rule: unless 在/AD
+  我在学习。  -- rule: unless 在/AD
+  他们在吃苹果。  -- rule: unless 在/AD
+  明年这个时候我在做什么？  -- rule: unless 在/AD
+  你现在想看什么？  -- rule: no match: line matched
+  他在学习英语。  -- rule: unless 在/AD
+  在这时候，他到了。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  这本书昨天在他的车上。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  没，我什么都没在吃。  -- rule: unless 在/AD
+  你现在在哪里？  -- rule: no match: line matched
+  星期三下午我在。  -- rule: no match: line matched
+  星期三在吗？  -- rule: no match: line matched
+  昨天这个时候你在做什么？  -- rule: unless 在/AD
+  谁也没在看她。  -- rule: unless 在/AD
+  你会在那里吗？  -- rule: no match: line matched
+  你在这里。  -- rule: no match: line matched
+  我没在忙。  -- rule: unless 在/AD
+  你在看什么？  -- rule: unless 在/AD
+  现在你能做这件事吗？  -- rule: no match: line matched
+  您在忙吗？  -- rule: unless 在/AD
+  我知道我在做什么。  -- rule: unless 在/AD
+  他们现在去哪？  -- rule: no match: line matched
+  我们在找他。  -- rule: unless 在/AD
+  我们在吃苹果。  -- rule: unless 在/AD
+  你在说什么呢？  -- rule: unless 在/AD
+  我知道他们在哪里。  -- rule: no match: line matched
+  我不知道他在哪。  -- rule: no match: line matched
+  我不知道你的书在哪里。  -- rule: no match: line matched
+  我很高兴你们都在。  -- rule: no match: line matched
+  我现在没有钱。  -- rule: no match: line matched
+  你还在上学吗？  -- rule: unless 在/AD
+  我不知道你在看东西。  -- rule: unless 在/AD
+  我们在吃面包。  -- rule: unless 在/AD
+  你的哥哥在哪里?  -- rule: no match: line matched
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  他在看奥运会。  -- rule: unless 在/AD
+  她在看奥运会。  -- rule: unless 在/AD
+  我想知道他们在哪里。  -- rule: no match: line matched
+  我不知道什么时候要在那里。  -- rule: no match: line matched
+  你还在找工作吗？  -- rule: unless 在/AD
+  我在看这本书。  -- rule: unless 在/AD
+  你在说他吗？  -- rule: unless 在/AD
+  我们现在在做饭。  -- rule: unless 在/AD
+  我想知道他们在哪。  -- rule: no match: line matched
+  你在学什么？  -- rule: unless 在/AD
+  我知道我想要的都在这里。  -- rule: no match: line matched
+  你在看他吗?  -- rule: unless 在/AD
+  我在打电话。  -- rule: unless 在/AD
+  我在看电视。  -- rule: unless 在/AD
+  你这些年在做什么？  -- rule: unless 在/AD
+  你家人还在那里吗？  -- rule: no match: line matched
+  爸爸，我的杯子在哪里？  -- rule: no match: line matched
+  爸爸和妈妈都在家。  -- rule: no match: line matched
+  爸爸妈妈在叫我们。  -- rule: unless 在/AD
+  妈妈，你在想什么？  -- rule: unless 在/AD
+  妈妈，你在想什么呢？  -- rule: unless 在/AD
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  妈妈在这里吗？  -- rule: no match: line matched
+  现在，他们知道我们在这里。  -- rule: no match: line matched
+  爸爸在哪？  -- rule: no match: line matched
+  你妈妈在哪？  -- rule: no match: line matched
+  苹果现在很便宜。  -- rule: no match: line matched
+  你爸爸在哪？  -- rule: no match: line matched
+  现在去！  -- rule: no match: line matched
+  现在睡。  -- rule: no match: line matched
+  我的朋友在哪里？  -- rule: no match: line matched
+  在学中文。  -- rule: unless 在/AD
+  现在有什么电影？  -- rule: no match: line matched
+  我的电脑在哪里？  -- rule: no match: line matched
+  我的茶在哪里？  -- rule: no match: line matched
+  我女儿正在商店买牛奶。  -- rule: unless 正在/AD
+  这些天你都在读些什么？  -- rule: unless 在/AD
+  谁在叫你的名字？  -- rule: unless 在/AD
+  很高兴你您在这里。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  我是在日本上的中学。  -- hidden word a learner can't work out: 日本 (Japan)
+  我们不住在波士顿。  -- hidden word a learner can't work out: 不住 ((verb complement) unable to firmly or securely (grasp, recal)
+  你家的电脑在桌子上吗？  -- hidden word a learner can't work out: 家的 ((old) wife)
+  我上个月在波士顿。  -- hidden word a learner can't work out: 上个月 (last month)
+
+--- dropped at step 8 (1) ---
+  在那里见我。  -- difficulty review: (1/2); 在那里见我 uses imperative without clear context; structure is awkward for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-16_level1_20261112_211424.csv
+
+########## tatoeba  2026-11-13 13:53 ##########
+Filling 1-16 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-16 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-16 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3592  2. contain the point's word(s)
+     3584  3. new (not in DB, not a duplicate)
+     1373  4. at most 2 characters outside HSK 1 words
+      340  5. really HSK 1
+      286  5b. no harder grammar point (of the 86 with a rule)
+      100  6. the rule finds 1-16
+       96  6b. no hidden word a learner can't work out
+       20  7. both checks say 1-16, English chosen
+       19  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (76 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (19) ===
+  我住在这。  (I live here.)  [tatoeba 1488531]
+  没人在家？  (Nobody home?)  [tatoeba 13138839]
+  我在中国。  (I'm in China.)  [tatoeba 13575551]
+  您住在哪里？  (Where do you live?)  [tatoeba 393584]
+  你在家里吗？  (Are you at home?)  [tatoeba 406192]  hidden: 家里
+  你在哪读书？  (Where do you study?)  [tatoeba 3713557]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  我住在智利。  (I live in Chile.)  [tatoeba 5414478]
+  苹果在书上。  (The apple is on top of the book.)  [tatoeba 6056480]
+  他今天在家。  (He is at home today.)  [tatoeba 6169154]
+  他住在哪里？  (Where does he live?)  [tatoeba 7768199]
+  我住在大阪。  (I live in Osaka.)  [tatoeba 8701028]
+  你们在医院。  (You are in the hospital.)  [tatoeba 10966835]
+  我住在这里。  (I live here.)  [tatoeba 11264800]
+  谁住在这儿？  (Who lives here?)  [tatoeba 12422342]
+  巴黎在哪里？  (Where is Paris?)  [tatoeba 12615461]
+  浙江在哪里？  (Where is Zhejiang?)  [tatoeba 13953750]
+  约翰住在哪里？  (Where does John live?)  [tatoeba 399233]
+  我现在在北京。  (I am in Beijing right now.)  [tatoeba 1766267]
+
+--- dropped at step 3 (8) ---
+  洗手间在哪里？  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  我们在吃苹果。  -- same text as tatoeba 7779224 (translations pooled)
+  今天上午你们不在医院。  -- same text as tatoeba 6471004 (translations pooled)
+  明天中午他们不在学校。  -- same text as tatoeba 6471013 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  我在读书。  -- same text as tatoeba 5640765 (translations pooled)
+
+--- dropped at step 4 (2211), first 12 ---
+  客观的历史存在吗？  -- 4 characters no HSK 1 word uses: 历史存观
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  就在沙发上。  -- 3 characters no HSK 1 word uses: 发就沙
+  社会保障吗？他们在说什么笑话？  -- 4 characters no HSK 1 word uses: 保社笑障
+  在你的词典查一查这个词。  -- 3 characters no HSK 1 word uses: 典查词
+  我能在哪里乘上机场巴士？  -- 3 characters no HSK 1 word uses: 乘场巴
+  咱们现在走吧。要不咱们要迟到了。  -- 3 characters no HSK 1 word uses: 咱走迟
+  木头能浮在水面上。  -- 3 characters no HSK 1 word uses: 头木浮
+  我虽然在虎口里，却是安如泰山。  -- 8 characters no HSK 1 word uses: 却如安山泰然虎虽
+  我们的饭店在汽车南站的附近。  -- 5 characters no HSK 1 word uses: 南汽站近附
+  我正在在波士顿读博士。  -- 3 characters no HSK 1 word uses: 博波顿
+  把胡萝卜放在锅里。  -- 6 characters no HSK 1 word uses: 卜把放胡萝锅
+
+--- dropped at step 5 (1033), first 12 ---
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list), 外面 L2
+  我正在去第四医院的路上。  -- level 2: 路上 L2
+  我在伦敦。  -- level 10: 伦敦 (not in list)
+  我给她打电话的时候她不在。  -- level 2: 打 L2
+  她在数学上不如他。  -- level 4: 数学 L3, 不如 L4
+  你还是留在这儿吧。  -- level 4: 还是 L2, 留 L4
+  我在翻译。  -- level 4: 翻译 L4
+  我在东京出生长大。  -- level 10: 东京 (not in list), 出生 L3, 长 L2
+  你在日本住多久了？  -- level 3: 久 L3
+  谁也不工作。大家在看世界杯。  -- level 3: 世界 L3
+  他们俩都在房间里。  -- level 4: 俩 L4
+  这件事我实在不懂。  -- level 4: 实在 L4, 懂 L2
+
+--- dropped at step 5b (54), first 12 ---
+  现在呢？  -- harder grammar: 2-77 (HSK 2)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  他有一个鸡蛋，他在吃鸡蛋。  -- harder grammar: 2-09 (HSK 2)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  你是在对我说吗？  -- harder grammar: 2-25 (HSK 2)
+  你还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  你们还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  现在几点了？  -- harder grammar: 2-09 (HSK 2)
+  我也在这里。  -- harder grammar: 3-60 (HSK 3)
+  他想在中国工作两年。  -- harder grammar: 2-09 (HSK 2)
+  他在家休息一个小时。  -- harder grammar: 2-09 (HSK 2)
+  他也在这里。  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 6 (186) ---
+  我不在的时候有没有人来？  -- rule: no match: line matched
+  他们现在要去哪里？  -- rule: no match: line matched
+  在下雨。  -- rule: unless 在/AD
+  你在吗？  -- rule: no match: line matched
+  我知道她在哪里。  -- rule: no match: line matched
+  你们在听吗？  -- rule: unless 在/AD
+  这个女孩子在喝茶。  -- rule: unless 在/AD
+  这个男孩子在吃面包。  -- rule: unless 在/AD
+  这只猫在吃东西。  -- rule: unless 在/AD
+  有人在吃东西。  -- rule: unless 在/AD
+  你在做你觉得对的事吗?  -- rule: unless 在/AD
+  我家在这里。  -- rule: no match: line matched
+  不在下雨。  -- rule: no match: line matched
+  我明天不在这儿。  -- rule: no match: line matched
+  你家在哪里？  -- rule: no match: line matched
+  您的家在哪？  -- rule: no match: line matched
+  你们家在哪？  -- rule: no match: line matched
+  你现在在哪里呢？  -- rule: no match: line matched
+  现在你忙吗？  -- rule: no match: line matched
+  现在你们忙吗？  -- rule: no match: line matched
+  现在您忙吗？  -- rule: no match: line matched
+  你们的东西在哪里？  -- rule: no match: line matched
+  您的东西在哪里？  -- rule: no match: line matched
+  你的东西在哪里？  -- rule: no match: line matched
+  我的书在哪？  -- rule: no match: line matched
+  今天早上你在做什么？  -- rule: unless 在/AD
+  她家在哪儿？  -- rule: no match: line matched
+  是谁在读？  -- rule: unless 在/AD
+  Crouch 先生，你在做什么？  -- rule: unless 在/AD
+  现在还不是晚饭时间。  -- rule: no match: line matched
+  我正在读汉字。  -- rule: unless 正在/AD
+  你知道问题在哪里。  -- rule: no match: line matched
+  他们正在读她的书。  -- rule: unless 正在/AD
+  那本书在哪儿？  -- rule: no match: line matched
+  我正在吃东西。  -- rule: unless 正在/AD
+  他们在吃午饭。  -- rule: unless 在/AD
+  她现在正在工作。  -- rule: unless 正在/AD
+  那本书在这里。  -- rule: no match: line matched
+  狗在叫。  -- rule: unless 在/AD
+  我现在正在吃米饭。  -- rule: unless 正在/AD
+  我在吃什么？  -- rule: unless 在/AD
+  我在喝牛奶。  -- rule: unless 在/AD
+  请问，你在做什么？  -- rule: unless 在/AD
+  你在回家吗？  -- rule: unless 在/AD
+  你正在回家。  -- rule: unless 正在/AD
+  你正在去我家。  -- rule: unless 正在/AD
+  他们在这里。  -- rule: no match: line matched
+  我们在学习中文。  -- rule: unless 在/AD
+  现在太晚了。  -- rule: no match: line matched
+  她还在睡吗？  -- rule: unless 在/AD
+  还在下雨。  -- rule: unless 在/AD
+  他在读书。  -- rule: unless 在/AD
+  你的狗在这。  -- rule: no match: line matched
+  Tom正在找工作。  -- rule: unless 正在/AD
+  我还在读书。  -- rule: unless 在/AD
+  你在读哪本书？  -- rule: unless 在/AD
+  你们在写什么？  -- rule: unless 在/AD
+  同学们都在学英文。  -- rule: unless 在/AD
+  没有人知道她在哪儿。  -- rule: no match: line matched
+  在吃什么呢？  -- rule: unless 在/AD
+  你在找什么吗？  -- rule: unless 在/AD
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  我在找你。  -- rule: unless 在/AD
+  现在我要听些什么？  -- rule: no match: line matched
+  你在写什么？  -- rule: unless 在/AD
+  您在找什么吗？  -- rule: unless 在/AD
+  Tom在医院。  -- rule: no match: line matched
+  我们知道我们在做什么。  -- rule: unless 在/AD
+  我问你你在想什么。  -- rule: unless 在/AD
+  他不在这里。  -- rule: no match: line matched
+  我不是在说他。  -- rule: unless 在/AD
+  他在星期六下午做什么？  -- rule: no match: line matched
+  请在下个星期日休息。  -- rule: no match: line matched
+  他在这里。  -- rule: no match: line matched
+  谁还在这里？  -- rule: no match: line matched
+  我在读书。  -- rule: unless 在/AD
+  他在看我们。  -- rule: unless 在/AD
+  猫在喝你的牛奶。  -- rule: unless 在/AD
+  我知道你在做什么。  -- rule: unless 在/AD
+  你会在哪里？  -- rule: no match: line matched
+  你知道我在做什么吗？  -- rule: unless 在/AD
+  在那里。  -- rule: no match: line matched
+  你在看谁？  -- rule: unless 在/AD
+  我现在不知道。  -- rule: no match: line matched
+  有人在那里。  -- rule: no match: line matched
+  现在读这个。  -- rule: no match: line matched
+  你明天在这里吗？  -- rule: no match: line matched
+  你现在高兴吗？  -- rule: no match: line matched
+  你在吃东西吗？  -- rule: unless 在/AD
+  你在上班吗？  -- rule: unless 在/AD
+  你还在吃。  -- rule: unless 在/AD
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  这本书昨天在他车上。  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  他的儿子在学开车。  -- rule: unless 在/AD
+  你在说汉语。  -- rule: unless 在/AD
+  他们在说话。  -- rule: unless 在/AD
+  你们在听他说话。  -- rule: unless 在/AD
+  你在做什么？  -- rule: unless 在/AD
+  我在听他们说话。  -- rule: unless 在/AD
+  他们在说什么？  -- rule: unless 在/AD
+  他们还在波士顿。  -- rule: no match: line matched
+  你现在可以住口了。  -- rule: no match: line matched
+  谁在玩？  -- rule: unless 在/AD
+  我在晚上看电视。  -- rule: no match: line matched
+  那个孩子在吃面包。  -- rule: unless 在/AD
+  我在学习。  -- rule: unless 在/AD
+  他们在吃苹果。  -- rule: unless 在/AD
+  明年这个时候我在做什么？  -- rule: unless 在/AD
+  你现在想看什么？  -- rule: no match: line matched
+  他在学习英语。  -- rule: unless 在/AD
+  在这时候，他到了。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  这本书昨天在他的车上。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  没，我什么都没在吃。  -- rule: unless 在/AD
+  你现在在哪里？  -- rule: no match: line matched
+  星期三下午我在。  -- rule: no match: line matched
+  星期三在吗？  -- rule: no match: line matched
+  昨天这个时候你在做什么？  -- rule: unless 在/AD
+  谁也没在看她。  -- rule: unless 在/AD
+  你会在那里吗？  -- rule: no match: line matched
+  你在这里。  -- rule: no match: line matched
+  我没在忙。  -- rule: unless 在/AD
+  你在看什么？  -- rule: unless 在/AD
+  现在你能做这件事吗？  -- rule: no match: line matched
+  您在忙吗？  -- rule: unless 在/AD
+  我知道我在做什么。  -- rule: unless 在/AD
+  他们现在去哪？  -- rule: no match: line matched
+  我们在找他。  -- rule: unless 在/AD
+  我们在吃苹果。  -- rule: unless 在/AD
+  你在说什么呢？  -- rule: unless 在/AD
+  我知道他们在哪里。  -- rule: no match: line matched
+  我不知道他在哪。  -- rule: no match: line matched
+  我不知道你的书在哪里。  -- rule: no match: line matched
+  我很高兴你们都在。  -- rule: no match: line matched
+  我现在没有钱。  -- rule: no match: line matched
+  你还在上学吗？  -- rule: unless 在/AD
+  我不知道你在看东西。  -- rule: unless 在/AD
+  我们在吃面包。  -- rule: unless 在/AD
+  你的哥哥在哪里?  -- rule: no match: line matched
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  他在看奥运会。  -- rule: unless 在/AD
+  她在看奥运会。  -- rule: unless 在/AD
+  我想知道他们在哪里。  -- rule: no match: line matched
+  我不知道什么时候要在那里。  -- rule: no match: line matched
+  你还在找工作吗？  -- rule: unless 在/AD
+  我在看这本书。  -- rule: unless 在/AD
+  你在说他吗？  -- rule: unless 在/AD
+  我们现在在做饭。  -- rule: unless 在/AD
+  我想知道他们在哪。  -- rule: no match: line matched
+  你在学什么？  -- rule: unless 在/AD
+  我知道我想要的都在这里。  -- rule: no match: line matched
+  你在看他吗?  -- rule: unless 在/AD
+  我在打电话。  -- rule: unless 在/AD
+  我在看电视。  -- rule: unless 在/AD
+  你这些年在做什么？  -- rule: unless 在/AD
+  你家人还在那里吗？  -- rule: no match: line matched
+  爸爸，我的杯子在哪里？  -- rule: no match: line matched
+  爸爸和妈妈都在家。  -- rule: no match: line matched
+  爸爸妈妈在叫我们。  -- rule: unless 在/AD
+  妈妈，你在想什么？  -- rule: unless 在/AD
+  妈妈，你在想什么呢？  -- rule: unless 在/AD
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  妈妈在这里吗？  -- rule: no match: line matched
+  现在，他们知道我们在这里。  -- rule: no match: line matched
+  爸爸在哪？  -- rule: no match: line matched
+  你妈妈在哪？  -- rule: no match: line matched
+  苹果现在很便宜。  -- rule: no match: line matched
+  你爸爸在哪？  -- rule: no match: line matched
+  现在去！  -- rule: no match: line matched
+  现在睡。  -- rule: no match: line matched
+  我的朋友在哪里？  -- rule: no match: line matched
+  在学中文。  -- rule: unless 在/AD
+  现在有什么电影？  -- rule: no match: line matched
+  我的电脑在哪里？  -- rule: no match: line matched
+  我的茶在哪里？  -- rule: no match: line matched
+  我女儿正在商店买牛奶。  -- rule: unless 正在/AD
+  这些天你都在读些什么？  -- rule: unless 在/AD
+  谁在叫你的名字？  -- rule: unless 在/AD
+  很高兴你您在这里。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  我是在日本上的中学。  -- hidden word a learner can't work out: 日本 (Japan)
+  我们不住在波士顿。  -- hidden word a learner can't work out: 不住 ((verb complement) unable to firmly or securely (grasp, recal)
+  你家的电脑在桌子上吗？  -- hidden word a learner can't work out: 家的 ((old) wife)
+  我上个月在波士顿。  -- hidden word a learner can't work out: 上个月 (last month)
+
+--- dropped at step 8 (1) ---
+  在那里见我。  -- difficulty review: (1/2); 在那里见我 uses imperative without clear context; structure is awkward for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-16_level1_20261113_135355.csv
+
+########## tatoeba  2026-11-13 14:41 ##########
+Filling 1-16 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  不住 = 不 + 住  ((verb complement) unable to firmly or se)
+     clear  上个月 = 上 + 个 + 月  (last month)
+
+Course sentences at HSK 1 the rule already finds 1-16 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-16 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3592  2. contain the point's word(s)
+     3584  3. new (not in DB, not a duplicate)
+     1373  4. at most 2 characters outside HSK 1 words
+      340  5. really HSK 1
+      286  5b. no harder grammar point (of the 86 with a rule)
+      100  6. the rule finds 1-16
+       97  6b. no hidden word a learner can't work out
+       20  7. both checks say 1-16, English chosen
+       19  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (77 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (19) ===
+  我住在这。  (I live here.)  [tatoeba 1488531]
+  没人在家？  (Nobody home?)  [tatoeba 13138839]
+  我在中国。  (I'm in China.)  [tatoeba 13575551]
+  您住在哪里？  (Where do you live?)  [tatoeba 393584]
+  你在家里吗？  (Are you at home?)  [tatoeba 406192]  hidden: 家里
+  你在哪读书？  (Where do you study?)  [tatoeba 3713557]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  我住在智利。  (I live in Chile.)  [tatoeba 5414478]
+  苹果在书上。  (The apple is on top of the book.)  [tatoeba 6056480]
+  他今天在家。  (He is at home today.)  [tatoeba 6169154]
+  他住在哪里？  (Where does he live?)  [tatoeba 7768199]
+  我住在大阪。  (I live in Osaka.)  [tatoeba 8701028]
+  你们在医院。  (You are in the hospital.)  [tatoeba 10966835]
+  我住在这里。  (I live here.)  [tatoeba 11264800]
+  谁住在这儿？  (Who lives here?)  [tatoeba 12422342]
+  巴黎在哪里？  (Where is Paris?)  [tatoeba 12615461]
+  浙江在哪里？  (Where is Zhejiang?)  [tatoeba 13953750]
+  约翰住在哪里？  (Where does John live?)  [tatoeba 399233]
+  我现在在北京。  (I am in Beijing right now.)  [tatoeba 1766267]
+
+--- dropped at step 3 (8) ---
+  洗手间在哪里？  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  我们在吃苹果。  -- same text as tatoeba 7779224 (translations pooled)
+  今天上午你们不在医院。  -- same text as tatoeba 6471004 (translations pooled)
+  明天中午他们不在学校。  -- same text as tatoeba 6471013 (translations pooled)
+  你明天下午在哪里？  -- same text as tatoeba 6056532 (translations pooled)
+  我在读书。  -- same text as tatoeba 5640765 (translations pooled)
+
+--- dropped at step 4 (2211), first 12 ---
+  客观的历史存在吗？  -- 4 characters no HSK 1 word uses: 历史存观
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  就在沙发上。  -- 3 characters no HSK 1 word uses: 发就沙
+  社会保障吗？他们在说什么笑话？  -- 4 characters no HSK 1 word uses: 保社笑障
+  在你的词典查一查这个词。  -- 3 characters no HSK 1 word uses: 典查词
+  我能在哪里乘上机场巴士？  -- 3 characters no HSK 1 word uses: 乘场巴
+  咱们现在走吧。要不咱们要迟到了。  -- 3 characters no HSK 1 word uses: 咱走迟
+  木头能浮在水面上。  -- 3 characters no HSK 1 word uses: 头木浮
+  我虽然在虎口里，却是安如泰山。  -- 8 characters no HSK 1 word uses: 却如安山泰然虎虽
+  我们的饭店在汽车南站的附近。  -- 5 characters no HSK 1 word uses: 南汽站近附
+  我正在在波士顿读博士。  -- 3 characters no HSK 1 word uses: 博波顿
+  把胡萝卜放在锅里。  -- 6 characters no HSK 1 word uses: 卜把放胡萝锅
+
+--- dropped at step 5 (1033), first 12 ---
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list), 外面 L2
+  我正在去第四医院的路上。  -- level 2: 路上 L2
+  我在伦敦。  -- level 10: 伦敦 (not in list)
+  我给她打电话的时候她不在。  -- level 2: 打 L2
+  她在数学上不如他。  -- level 4: 数学 L3, 不如 L4
+  你还是留在这儿吧。  -- level 4: 还是 L2, 留 L4
+  我在翻译。  -- level 4: 翻译 L4
+  我在东京出生长大。  -- level 10: 东京 (not in list), 出生 L3, 长 L2
+  你在日本住多久了？  -- level 3: 久 L3
+  谁也不工作。大家在看世界杯。  -- level 3: 世界 L3
+  他们俩都在房间里。  -- level 4: 俩 L4
+  这件事我实在不懂。  -- level 4: 实在 L4, 懂 L2
+
+--- dropped at step 5b (54), first 12 ---
+  现在呢？  -- harder grammar: 2-77 (HSK 2)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  他有一个鸡蛋，他在吃鸡蛋。  -- harder grammar: 2-09 (HSK 2)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  你是在对我说吗？  -- harder grammar: 2-25 (HSK 2)
+  你还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  你们还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  现在几点了？  -- harder grammar: 2-09 (HSK 2)
+  我也在这里。  -- harder grammar: 3-60 (HSK 3)
+  他想在中国工作两年。  -- harder grammar: 2-09 (HSK 2)
+  他在家休息一个小时。  -- harder grammar: 2-09 (HSK 2)
+  他也在这里。  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 6 (186) ---
+  我不在的时候有没有人来？  -- rule: no match: line matched
+  他们现在要去哪里？  -- rule: no match: line matched
+  在下雨。  -- rule: unless 在/AD
+  你在吗？  -- rule: no match: line matched
+  我知道她在哪里。  -- rule: no match: line matched
+  你们在听吗？  -- rule: unless 在/AD
+  这个女孩子在喝茶。  -- rule: unless 在/AD
+  这个男孩子在吃面包。  -- rule: unless 在/AD
+  这只猫在吃东西。  -- rule: unless 在/AD
+  有人在吃东西。  -- rule: unless 在/AD
+  你在做你觉得对的事吗?  -- rule: unless 在/AD
+  我家在这里。  -- rule: no match: line matched
+  不在下雨。  -- rule: no match: line matched
+  我明天不在这儿。  -- rule: no match: line matched
+  你家在哪里？  -- rule: no match: line matched
+  您的家在哪？  -- rule: no match: line matched
+  你们家在哪？  -- rule: no match: line matched
+  你现在在哪里呢？  -- rule: no match: line matched
+  现在你忙吗？  -- rule: no match: line matched
+  现在你们忙吗？  -- rule: no match: line matched
+  现在您忙吗？  -- rule: no match: line matched
+  你们的东西在哪里？  -- rule: no match: line matched
+  您的东西在哪里？  -- rule: no match: line matched
+  你的东西在哪里？  -- rule: no match: line matched
+  我的书在哪？  -- rule: no match: line matched
+  今天早上你在做什么？  -- rule: unless 在/AD
+  她家在哪儿？  -- rule: no match: line matched
+  是谁在读？  -- rule: unless 在/AD
+  Crouch 先生，你在做什么？  -- rule: unless 在/AD
+  现在还不是晚饭时间。  -- rule: no match: line matched
+  我正在读汉字。  -- rule: unless 正在/AD
+  你知道问题在哪里。  -- rule: no match: line matched
+  他们正在读她的书。  -- rule: unless 正在/AD
+  那本书在哪儿？  -- rule: no match: line matched
+  我正在吃东西。  -- rule: unless 正在/AD
+  他们在吃午饭。  -- rule: unless 在/AD
+  她现在正在工作。  -- rule: unless 正在/AD
+  那本书在这里。  -- rule: no match: line matched
+  狗在叫。  -- rule: unless 在/AD
+  我现在正在吃米饭。  -- rule: unless 正在/AD
+  我在吃什么？  -- rule: unless 在/AD
+  我在喝牛奶。  -- rule: unless 在/AD
+  请问，你在做什么？  -- rule: unless 在/AD
+  你在回家吗？  -- rule: unless 在/AD
+  你正在回家。  -- rule: unless 正在/AD
+  你正在去我家。  -- rule: unless 正在/AD
+  他们在这里。  -- rule: no match: line matched
+  我们在学习中文。  -- rule: unless 在/AD
+  现在太晚了。  -- rule: no match: line matched
+  她还在睡吗？  -- rule: unless 在/AD
+  还在下雨。  -- rule: unless 在/AD
+  他在读书。  -- rule: unless 在/AD
+  你的狗在这。  -- rule: no match: line matched
+  Tom正在找工作。  -- rule: unless 正在/AD
+  我还在读书。  -- rule: unless 在/AD
+  你在读哪本书？  -- rule: unless 在/AD
+  你们在写什么？  -- rule: unless 在/AD
+  同学们都在学英文。  -- rule: unless 在/AD
+  没有人知道她在哪儿。  -- rule: no match: line matched
+  在吃什么呢？  -- rule: unless 在/AD
+  你在找什么吗？  -- rule: unless 在/AD
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  我在找你。  -- rule: unless 在/AD
+  现在我要听些什么？  -- rule: no match: line matched
+  你在写什么？  -- rule: unless 在/AD
+  您在找什么吗？  -- rule: unless 在/AD
+  Tom在医院。  -- rule: no match: line matched
+  我们知道我们在做什么。  -- rule: unless 在/AD
+  我问你你在想什么。  -- rule: unless 在/AD
+  他不在这里。  -- rule: no match: line matched
+  我不是在说他。  -- rule: unless 在/AD
+  他在星期六下午做什么？  -- rule: no match: line matched
+  请在下个星期日休息。  -- rule: no match: line matched
+  他在这里。  -- rule: no match: line matched
+  谁还在这里？  -- rule: no match: line matched
+  我在读书。  -- rule: unless 在/AD
+  他在看我们。  -- rule: unless 在/AD
+  猫在喝你的牛奶。  -- rule: unless 在/AD
+  我知道你在做什么。  -- rule: unless 在/AD
+  你会在哪里？  -- rule: no match: line matched
+  你知道我在做什么吗？  -- rule: unless 在/AD
+  在那里。  -- rule: no match: line matched
+  你在看谁？  -- rule: unless 在/AD
+  我现在不知道。  -- rule: no match: line matched
+  有人在那里。  -- rule: no match: line matched
+  现在读这个。  -- rule: no match: line matched
+  你明天在这里吗？  -- rule: no match: line matched
+  你现在高兴吗？  -- rule: no match: line matched
+  你在吃东西吗？  -- rule: unless 在/AD
+  你在上班吗？  -- rule: unless 在/AD
+  你还在吃。  -- rule: unless 在/AD
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  这本书昨天在他车上。  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  他的儿子在学开车。  -- rule: unless 在/AD
+  你在说汉语。  -- rule: unless 在/AD
+  他们在说话。  -- rule: unless 在/AD
+  你们在听他说话。  -- rule: unless 在/AD
+  你在做什么？  -- rule: unless 在/AD
+  我在听他们说话。  -- rule: unless 在/AD
+  他们在说什么？  -- rule: unless 在/AD
+  他们还在波士顿。  -- rule: no match: line matched
+  你现在可以住口了。  -- rule: no match: line matched
+  谁在玩？  -- rule: unless 在/AD
+  我在晚上看电视。  -- rule: no match: line matched
+  那个孩子在吃面包。  -- rule: unless 在/AD
+  我在学习。  -- rule: unless 在/AD
+  他们在吃苹果。  -- rule: unless 在/AD
+  明年这个时候我在做什么？  -- rule: unless 在/AD
+  你现在想看什么？  -- rule: no match: line matched
+  他在学习英语。  -- rule: unless 在/AD
+  在这时候，他到了。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  这本书昨天在他的车上。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  没，我什么都没在吃。  -- rule: unless 在/AD
+  你现在在哪里？  -- rule: no match: line matched
+  星期三下午我在。  -- rule: no match: line matched
+  星期三在吗？  -- rule: no match: line matched
+  昨天这个时候你在做什么？  -- rule: unless 在/AD
+  谁也没在看她。  -- rule: unless 在/AD
+  你会在那里吗？  -- rule: no match: line matched
+  你在这里。  -- rule: no match: line matched
+  我没在忙。  -- rule: unless 在/AD
+  你在看什么？  -- rule: unless 在/AD
+  现在你能做这件事吗？  -- rule: no match: line matched
+  您在忙吗？  -- rule: unless 在/AD
+  我知道我在做什么。  -- rule: unless 在/AD
+  他们现在去哪？  -- rule: no match: line matched
+  我们在找他。  -- rule: unless 在/AD
+  我们在吃苹果。  -- rule: unless 在/AD
+  你在说什么呢？  -- rule: unless 在/AD
+  我知道他们在哪里。  -- rule: no match: line matched
+  我不知道他在哪。  -- rule: no match: line matched
+  我不知道你的书在哪里。  -- rule: no match: line matched
+  我很高兴你们都在。  -- rule: no match: line matched
+  我现在没有钱。  -- rule: no match: line matched
+  你还在上学吗？  -- rule: unless 在/AD
+  我不知道你在看东西。  -- rule: unless 在/AD
+  我们在吃面包。  -- rule: unless 在/AD
+  你的哥哥在哪里?  -- rule: no match: line matched
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  他在看奥运会。  -- rule: unless 在/AD
+  她在看奥运会。  -- rule: unless 在/AD
+  我想知道他们在哪里。  -- rule: no match: line matched
+  我不知道什么时候要在那里。  -- rule: no match: line matched
+  你还在找工作吗？  -- rule: unless 在/AD
+  我在看这本书。  -- rule: unless 在/AD
+  你在说他吗？  -- rule: unless 在/AD
+  我们现在在做饭。  -- rule: unless 在/AD
+  我想知道他们在哪。  -- rule: no match: line matched
+  你在学什么？  -- rule: unless 在/AD
+  我知道我想要的都在这里。  -- rule: no match: line matched
+  你在看他吗?  -- rule: unless 在/AD
+  我在打电话。  -- rule: unless 在/AD
+  我在看电视。  -- rule: unless 在/AD
+  你这些年在做什么？  -- rule: unless 在/AD
+  你家人还在那里吗？  -- rule: no match: line matched
+  爸爸，我的杯子在哪里？  -- rule: no match: line matched
+  爸爸和妈妈都在家。  -- rule: no match: line matched
+  爸爸妈妈在叫我们。  -- rule: unless 在/AD
+  妈妈，你在想什么？  -- rule: unless 在/AD
+  妈妈，你在想什么呢？  -- rule: unless 在/AD
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  妈妈在这里吗？  -- rule: no match: line matched
+  现在，他们知道我们在这里。  -- rule: no match: line matched
+  爸爸在哪？  -- rule: no match: line matched
+  你妈妈在哪？  -- rule: no match: line matched
+  苹果现在很便宜。  -- rule: no match: line matched
+  你爸爸在哪？  -- rule: no match: line matched
+  现在去！  -- rule: no match: line matched
+  现在睡。  -- rule: no match: line matched
+  我的朋友在哪里？  -- rule: no match: line matched
+  在学中文。  -- rule: unless 在/AD
+  现在有什么电影？  -- rule: no match: line matched
+  我的电脑在哪里？  -- rule: no match: line matched
+  我的茶在哪里？  -- rule: no match: line matched
+  我女儿正在商店买牛奶。  -- rule: unless 正在/AD
+  这些天你都在读些什么？  -- rule: unless 在/AD
+  谁在叫你的名字？  -- rule: unless 在/AD
+  很高兴你您在这里。  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  我是在日本上的中学。  -- hidden word a learner can't work out: 日本 (Japan)
+  我们不住在波士顿。  -- hidden word a learner can't work out: 不住 ((verb complement) unable to firmly or securely (grasp, recall etc); repeatedly; continuously; constantly)
+  你家的电脑在桌子上吗？  -- hidden word a learner can't work out: 家的 ((old) wife)
+
+--- dropped at step 8 (1) ---
+  在那里见我。  -- difficulty review: (1/2); 在那里见我 uses imperative without clear context; structure is awkward for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-16_level1_20261113_144126.csv
+
+########## tatoeba  2026-11-14 16:08 ##########
+Filling 1-16 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 3 Tatoeba candidate(s) (cached after this run)...
+  ...100/1267
+  ...200/1267
+  ...300/1267
+  ...400/1267
+  ...500/1267
+  ...600/1267
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_160833.txt
+  ...700/1267
+  ...800/1267
+  ...900/1267
+  ...1000/1267
+  ...1100/1267
+  ...1200/1267
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  几年 = 几 + 年  (a few years; several years; how many yea)
+    hidden  点见 = 点 + 见  (to check an amount)
+
+Course sentences at HSK 1 the rule already finds 1-16 in: 55  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-16 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3592  2. contain the point's word(s)
+     3473  3. new (not in DB, not a duplicate)
+     1267  4. at most 2 characters outside HSK 1 words
+      262  5. really HSK 1
+      234  5b. no harder grammar point (of the 87 with a rule)
+       77  6. the rule finds 1-16
+       73  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (73 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (119), first 12 ---
+  您住在哪里？  -- already in the database
+  我给她打电话的时候她不在。  -- already in the database
+  约翰住在哪里？  -- already in the database
+  你在家里吗？  -- already in the database
+  我妻子正在做饭。  -- already in the database
+  在下雨。  -- already in the database
+  人们怎么能在飞机上睡觉？  -- already in the database
+  我们还是在这里坐下吧。  -- already in the database
+  你在吗？  -- already in the database
+  你不能再住在这边了。  -- already in the database
+  你们在听吗？  -- already in the database
+  有人在吃东西。  -- already in the database
+
+--- dropped at step 4 (2206), first 12 ---
+  客观的历史存在吗？  -- 4 characters no HSK 1 word uses: 历史存观
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  就在沙发上。  -- 3 characters no HSK 1 word uses: 发就沙
+  社会保障吗？他们在说什么笑话？  -- 4 characters no HSK 1 word uses: 保社笑障
+  在你的词典查一查这个词。  -- 3 characters no HSK 1 word uses: 典查词
+  我能在哪里乘上机场巴士？  -- 3 characters no HSK 1 word uses: 乘场巴
+  咱们现在走吧。要不咱们要迟到了。  -- 3 characters no HSK 1 word uses: 咱走迟
+  木头能浮在水面上。  -- 3 characters no HSK 1 word uses: 头木浮
+  我虽然在虎口里，却是安如泰山。  -- 8 characters no HSK 1 word uses: 却如安山泰然虎虽
+  我们的饭店在汽车南站的附近。  -- 5 characters no HSK 1 word uses: 南汽站近附
+  我正在在波士顿读博士。  -- 3 characters no HSK 1 word uses: 博波顿
+  把胡萝卜放在锅里。  -- 6 characters no HSK 1 word uses: 卜把放胡萝锅
+
+--- dropped at step 5 (1005), first 12 ---
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list), 外面 L2
+  我正在去第四医院的路上。  -- level 2: 路上 L2
+  我在伦敦。  -- level 10: 伦敦 (not in list)
+  她在数学上不如他。  -- level 4: 数学 L3, 不如 L4
+  你还是留在这儿吧。  -- level 4: 还是 L2, 留 L4
+  我在翻译。  -- level 4: 翻译 L4
+  我在东京出生长大。  -- level 10: 东京 (not in list), 出生 L3, 长 L2
+  你在日本住多久了？  -- level 3: 久 L3
+  谁也不工作。大家在看世界杯。  -- level 3: 世界 L3
+  他们俩都在房间里。  -- level 4: 俩 L4
+  这件事我实在不懂。  -- level 4: 实在 L4, 懂 L2
+  我的眼镜在哪里？  -- level 4: 眼镜 L4
+
+--- dropped at step 5b (28), first 12 ---
+  现在呢？  -- harder grammar: 2-77 (HSK 2)
+  Crouch 先生，你在做什么？  -- harder grammar: 1-11 (HSK 2)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  我正在读汉字。  -- harder grammar: 1-11 (HSK 2)
+  他们正在读她的书。  -- harder grammar: 1-11 (HSK 2)
+  你是在对我说吗？  -- harder grammar: 2-25 (HSK 2)
+  她现在正在工作。  -- harder grammar: 1-11 (HSK 2)
+  你还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  你们还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  我现在正在吃米饭。  -- harder grammar: 1-11 (HSK 2)
+  你正在回家。  -- harder grammar: 1-11 (HSK 2)
+  你正在去我家。  -- harder grammar: 1-11 (HSK 2)
+
+--- dropped at step 6 (157) ---
+  我不在的时候有没有人来？  -- rule: no match: line matched
+  他们现在要去哪里？  -- rule: no match: line matched
+  我知道她在哪里。  -- rule: no match: line matched
+  这个女孩子在喝茶。  -- rule: unless 在/AD
+  他有一个鸡蛋，他在吃鸡蛋。  -- rule: unless 在/AD
+  这个男孩子在吃面包。  -- rule: unless 在/AD
+  这只猫在吃东西。  -- rule: unless 在/AD
+  你在做你觉得对的事吗?  -- rule: unless 在/AD
+  不在下雨。  -- rule: no match: line matched
+  我明天不在这儿。  -- rule: no match: line matched
+  你现在在哪里呢？  -- rule: no match: line matched
+  现在你忙吗？  -- rule: no match: line matched
+  现在你们忙吗？  -- rule: no match: line matched
+  现在您忙吗？  -- rule: no match: line matched
+  你们的东西在哪里？  -- rule: no match: line matched
+  您的东西在哪里？  -- rule: no match: line matched
+  你的东西在哪里？  -- rule: no match: line matched
+  今天早上你在做什么？  -- rule: unless 在/AD
+  现在还不是晚饭时间。  -- rule: no match: line matched
+  你知道问题在哪里。  -- rule: no match: line matched
+  那本书在这里。  -- rule: no match: line matched
+  我在吃什么？  -- rule: unless 在/AD
+  请问，你在做什么？  -- rule: unless 在/AD
+  你在回家吗？  -- rule: unless 在/AD
+  他们在这里。  -- rule: no match: line matched
+  我们在学习中文。  -- rule: unless 在/AD
+  现在太晚了。  -- rule: no match: line matched
+  “你在哪里？” “我在一个朋友家。”  -- rule: no match: line matched
+  现在是两点四十五分。  -- rule: no match: line matched
+  你在读哪本书？  -- rule: unless 在/AD
+  你们在写什么？  -- rule: unless 在/AD
+  同学们都在学英文。  -- rule: unless 在/AD
+  你在找什么吗？  -- rule: unless 在/AD
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  现在我要听些什么？  -- rule: no match: line matched
+  你在写什么？  -- rule: unless 在/AD
+  您在找什么吗？  -- rule: unless 在/AD
+  Mary现在有三个孩子。  -- rule: no match: line matched
+  明天我在一家书店买书。  -- rule: no match: line matched
+  你在Facebook上有多少朋友？  -- rule: no match: line matched
+  Tom在医院。  -- rule: no match: line matched
+  我们知道我们在做什么。  -- rule: unless 在/AD
+  我问你你在想什么。  -- rule: unless 在/AD
+  他不在这里。  -- rule: no match: line matched
+  我不是在说他。  -- rule: unless 在/AD
+  他在星期六下午做什么？  -- rule: no match: line matched
+  请在下个星期日休息。  -- rule: no match: line matched
+  他在这里。  -- rule: no match: line matched
+  谁还在这里？  -- rule: no match: line matched
+  猫在喝你的牛奶。  -- rule: unless 在/AD
+  我知道你在做什么。  -- rule: unless 在/AD
+  你知道我在做什么吗？  -- rule: unless 在/AD
+  在那里。  -- rule: no match: line matched
+  我现在不知道。  -- rule: no match: line matched
+  有人在那里。  -- rule: no match: line matched
+  现在读这个。  -- rule: no match: line matched
+  你的一个朋友在我们这里。  -- rule: no match: line matched
+  你明天在这里吗？  -- rule: no match: line matched
+  你现在高兴吗？  -- rule: no match: line matched
+  你在吃东西吗？  -- rule: unless 在/AD
+  你在上班吗？  -- rule: unless 在/AD
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  他昨天下午六点在工作。  -- rule: no match: line matched
+  你星期一下午五点在做什么？  -- rule: unless 在/AD
+  他的儿子在学开车。  -- rule: unless 在/AD
+  你们在听他说话。  -- rule: unless 在/AD
+  你在做什么？  -- rule: unless 在/AD
+  我在听他们说话。  -- rule: unless 在/AD
+  他们在说什么？  -- rule: unless 在/AD
+  她现在会写多少汉字？  -- rule: no match: line matched
+  他们还在波士顿。  -- rule: no match: line matched
+  你现在可以住口了。  -- rule: no match: line matched
+  谁在玩？  -- rule: unless 在/AD
+  我在晚上看电视。  -- rule: no match: line matched
+  那个孩子在吃面包。  -- rule: unless 在/AD
+  我在学习。  -- rule: unless 在/AD
+  他们在吃苹果。  -- rule: unless 在/AD
+  明年这个时候我在做什么？  -- rule: unless 在/AD
+  我在七点吃早饭。  -- rule: no match: line matched
+  你现在想看什么？  -- rule: no match: line matched
+  他在学习英语。  -- rule: unless 在/AD
+  我看见他在读一本书。  -- rule: unless 在/AD
+  在这时候，他到了。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  没，我什么都没在吃。  -- rule: unless 在/AD
+  你现在在哪里？  -- rule: no match: line matched
+  星期三下午我在。  -- rule: no match: line matched
+  星期三在吗？  -- rule: no match: line matched
+  昨天这个时候你在做什么？  -- rule: unless 在/AD
+  四点前我都在忙。  -- rule: unless 在/AD
+  谁也没在看她。  -- rule: unless 在/AD
+  你会在那里吗？  -- rule: no match: line matched
+  你在这里。  -- rule: no match: line matched
+  我没在忙。  -- rule: unless 在/AD
+  你在看什么？  -- rule: unless 在/AD
+  现在你能做这件事吗？  -- rule: no match: line matched
+  您在忙吗？  -- rule: unless 在/AD
+  我知道我在做什么。  -- rule: unless 在/AD
+  他们现在去哪？  -- rule: no match: line matched
+  我们在吃苹果。  -- rule: unless 在/AD
+  现在他们有三个孩子。  -- rule: no match: line matched
+  你在说什么呢？  -- rule: unless 在/AD
+  我知道他们在哪里。  -- rule: no match: line matched
+  我不知道他在哪。  -- rule: no match: line matched
+  我不知道你的书在哪里。  -- rule: no match: line matched
+  我看见你在看她。  -- rule: unless 在/AD
+  我现在没有钱。  -- rule: no match: line matched
+  你还在上学吗？  -- rule: unless 在/AD
+  我不知道你在看东西。  -- rule: unless 在/AD
+  我们在吃面包。  -- rule: unless 在/AD
+  我会在七八点回家。  -- rule: no match: line matched
+  波士顿现在几点？  -- rule: no match: line matched
+  你的哥哥在哪里?  -- rule: no match: line matched
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  他在看奥运会。  -- rule: unless 在/AD
+  她在看奥运会。  -- rule: unless 在/AD
+  我想知道他们在哪里。  -- rule: no match: line matched
+  我不知道什么时候要在那里。  -- rule: no match: line matched
+  你还在找工作吗？  -- rule: unless 在/AD
+  我在看这本书。  -- rule: unless 在/AD
+  你在说他吗？  -- rule: unless 在/AD
+  我们现在在做饭。  -- rule: unless 在/AD
+  我想知道他们在哪。  -- rule: no match: line matched
+  你在学什么？  -- rule: unless 在/AD
+  我知道我想要的都在这里。  -- rule: no match: line matched
+  你在看他吗?  -- rule: unless 在/AD
+  我在打电话。  -- rule: unless 在/AD
+  你这些年在做什么？  -- rule: unless 在/AD
+  你家人还在那里吗？  -- rule: no match: line matched
+  爸爸，我的杯子在哪里？  -- rule: no match: line matched
+  爸爸妈妈在叫我们。  -- rule: unless 在/AD
+  妈妈，你在想什么？  -- rule: unless 在/AD
+  妈妈，你在想什么呢？  -- rule: unless 在/AD
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  妈妈在这里吗？  -- rule: no match: line matched
+  现在，他们知道我们在这里。  -- rule: no match: line matched
+  爸爸在哪？  -- rule: no match: line matched
+  苹果现在很便宜。  -- rule: no match: line matched
+  现在去！  -- rule: no match: line matched
+  现在睡。  -- rule: no match: line matched
+  我的朋友在哪里？  -- rule: no match: line matched
+  在学中文。  -- rule: unless 在/AD
+  现在有什么电影？  -- rule: no match: line matched
+  我的电脑在哪里？  -- rule: no match: line matched
+  我的茶在哪里？  -- rule: no match: line matched
+  我女儿正在商店买牛奶。  -- rule: unless 正在/AD
+  这些天你都在读些什么？  -- rule: unless 在/AD
+  谁在叫你的名字？  -- rule: unless 在/AD
+  现在是一点五十分。  -- rule: no match: line matched
+  很高兴你您在这里。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  我是在日本上的中学。  -- hidden word a learner can't work out: 日本 (Japan)
+  我们不住在波士顿。  -- hidden word a learner can't work out: 不住 ((verb complement) unable to firmly or securely (grasp, recall etc); repeatedly; continuously; constantly)
+  你家的电脑在桌子上吗？  -- hidden word a learner can't work out: 家的 ((old) wife)
+  在明天早上九点见可以吗？  -- hidden word a learner can't work out: 点见 (to check an amount)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-16_level1_20261114_160840.csv
+
+########## tatoeba  2026-11-14 16:29 ##########
+Filling 1-16 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-16 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-16 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     3592  2. contain the point's word(s)
+     3584  3. new (not in DB, not a duplicate)
+     1373  4. at most 2 characters outside HSK 1 words
+      340  5. really HSK 1
+      308  5b. no harder grammar point (of the 87 with a rule)
+      109  6. the rule finds 1-16
+      105  6b. no hidden word a learner can't work out
+       20  7. both checks say 1-16, English chosen
+       19  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+  (85 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (19) ===
+  我住在这。  (I live here.)  [tatoeba 1488531]
+  没人在家？  (Nobody home?)  [tatoeba 13138839]
+  我在中国。  (I'm in China.)  [tatoeba 13575551]
+  您住在哪里？  (Where do you live?)  [tatoeba 393584]
+  你在家里吗？  (Are you at home?)  [tatoeba 406192]  hidden: 家里
+  你在哪读书？  (Where do you study?)  [tatoeba 3713557]
+  你在哪儿写？  (Where do you write?)  [tatoeba 5112389]
+  我住在智利。  (I live in Chile.)  [tatoeba 5414478]
+  苹果在书上。  (The apple is on top of the book.)  [tatoeba 6056480]
+  他今天在家。  (He is at home today.)  [tatoeba 6169154]
+  他住在哪里？  (Where does he live?)  [tatoeba 7768199]
+  我住在大阪。  (I live in Osaka.)  [tatoeba 8701028]
+  你们在医院。  (You are in the hospital.)  [tatoeba 10966835]
+  我住在这里。  (I live here.)  [tatoeba 11264800]
+  谁住在这儿？  (Who lives here?)  [tatoeba 12422342]
+  巴黎在哪里？  (Where is Paris?)  [tatoeba 12615461]
+  浙江在哪里？  (Where is Zhejiang?)  [tatoeba 13953750]
+  约翰住在哪里？  (Where does John live?)  [tatoeba 399233]
+  我现在在北京。  (I am in Beijing right now.)  [tatoeba 1766267]
+
+--- dropped at step 3 (8) ---
+  洗手间在哪里？  -- already in the database
+  现在几点？  -- already in the database
+  现在几点？  -- already in the database
+  我们在吃苹果。  -- same text as 7779224 (translations pooled)
+  今天上午你们不在医院。  -- same text as 6471004 (translations pooled)
+  明天中午他们不在学校。  -- same text as 6471013 (translations pooled)
+  你明天下午在哪里？  -- same text as 6056532 (translations pooled)
+  我在读书。  -- same text as 5640765 (translations pooled)
+
+--- dropped at step 4 (2211), first 12 ---
+  客观的历史存在吗？  -- 4 characters no HSK 1 word uses: 历史存观
+  失物招领处在哪儿？  -- 5 characters no HSK 1 word uses: 处失招物领
+  就在沙发上。  -- 3 characters no HSK 1 word uses: 发就沙
+  社会保障吗？他们在说什么笑话？  -- 4 characters no HSK 1 word uses: 保社笑障
+  在你的词典查一查这个词。  -- 3 characters no HSK 1 word uses: 典查词
+  我能在哪里乘上机场巴士？  -- 3 characters no HSK 1 word uses: 乘场巴
+  咱们现在走吧。要不咱们要迟到了。  -- 3 characters no HSK 1 word uses: 咱走迟
+  木头能浮在水面上。  -- 3 characters no HSK 1 word uses: 头木浮
+  我虽然在虎口里，却是安如泰山。  -- 8 characters no HSK 1 word uses: 却如安山泰然虎虽
+  我们的饭店在汽车南站的附近。  -- 5 characters no HSK 1 word uses: 南汽站近附
+  我正在在波士顿读博士。  -- 3 characters no HSK 1 word uses: 博波顿
+  把胡萝卜放在锅里。  -- 6 characters no HSK 1 word uses: 卜把放胡萝锅
+
+--- dropped at step 5 (1033), first 12 ---
+  我们今晚在外面吃饭吧。  -- level 10: 今晚 (not in list), 外面 L2
+  我正在去第四医院的路上。  -- level 2: 路上 L2
+  我在伦敦。  -- level 10: 伦敦 (not in list)
+  我给她打电话的时候她不在。  -- level 2: 打 L2
+  她在数学上不如他。  -- level 4: 数学 L3, 不如 L4
+  你还是留在这儿吧。  -- level 4: 还是 L2, 留 L4
+  我在翻译。  -- level 4: 翻译 L4
+  我在东京出生长大。  -- level 10: 东京 (not in list), 出生 L3, 长 L2
+  你在日本住多久了？  -- level 3: 久 L3
+  谁也不工作。大家在看世界杯。  -- level 3: 世界 L3
+  他们俩都在房间里。  -- level 4: 俩 L4
+  这件事我实在不懂。  -- level 4: 实在 L4, 懂 L2
+
+--- dropped at step 5b (32), first 12 ---
+  现在呢？  -- harder grammar: 2-77 (HSK 2)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  Crouch 先生，你在做什么？  -- harder grammar: 1-11 (HSK 2)
+  有时候，他也在这里吃午饭。  -- harder grammar: 3-60 (HSK 3)
+  我正在读汉字。  -- harder grammar: 1-11 (HSK 2)
+  他们正在读她的书。  -- harder grammar: 1-11 (HSK 2)
+  我正在吃东西。  -- harder grammar: 1-11 (HSK 2)
+  你是在对我说吗？  -- harder grammar: 2-25 (HSK 2)
+  她现在正在工作。  -- harder grammar: 1-11 (HSK 2)
+  你还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  你们还在家里吗？  -- harder grammar: 4-73 (HSK 4)
+  我现在正在吃米饭。  -- harder grammar: 1-11 (HSK 2)
+
+--- dropped at step 6 (199) ---
+  我不在的时候有没有人来？  -- rule: no match: line matched
+  他们现在要去哪里？  -- rule: no match: line matched
+  在下雨。  -- rule: unless 在/AD
+  你在吗？  -- rule: no match: line matched
+  我知道她在哪里。  -- rule: no match: line matched
+  你们在听吗？  -- rule: unless 在/AD
+  这个女孩子在喝茶。  -- rule: unless 在/AD
+  他有一个鸡蛋，他在吃鸡蛋。  -- rule: unless 在/AD
+  这个男孩子在吃面包。  -- rule: unless 在/AD
+  这只猫在吃东西。  -- rule: unless 在/AD
+  有人在吃东西。  -- rule: unless 在/AD
+  你在做你觉得对的事吗?  -- rule: unless 在/AD
+  我家在这里。  -- rule: no match: line matched
+  不在下雨。  -- rule: no match: line matched
+  我明天不在这儿。  -- rule: no match: line matched
+  你家在哪里？  -- rule: no match: line matched
+  您的家在哪？  -- rule: no match: line matched
+  你们家在哪？  -- rule: no match: line matched
+  你现在在哪里呢？  -- rule: no match: line matched
+  现在你忙吗？  -- rule: no match: line matched
+  现在你们忙吗？  -- rule: no match: line matched
+  现在您忙吗？  -- rule: no match: line matched
+  你们的东西在哪里？  -- rule: no match: line matched
+  您的东西在哪里？  -- rule: no match: line matched
+  你的东西在哪里？  -- rule: no match: line matched
+  我的书在哪？  -- rule: no match: line matched
+  今天早上你在做什么？  -- rule: unless 在/AD
+  她家在哪儿？  -- rule: no match: line matched
+  是谁在读？  -- rule: unless 在/AD
+  现在还不是晚饭时间。  -- rule: no match: line matched
+  你知道问题在哪里。  -- rule: no match: line matched
+  那本书在哪儿？  -- rule: no match: line matched
+  他们在吃午饭。  -- rule: unless 在/AD
+  那本书在这里。  -- rule: no match: line matched
+  狗在叫。  -- rule: unless 在/AD
+  我在吃什么？  -- rule: unless 在/AD
+  我在喝牛奶。  -- rule: unless 在/AD
+  现在几点了？  -- rule: no match: line matched
+  请问，你在做什么？  -- rule: unless 在/AD
+  你在回家吗？  -- rule: unless 在/AD
+  他们在这里。  -- rule: no match: line matched
+  我们在学习中文。  -- rule: unless 在/AD
+  现在太晚了。  -- rule: no match: line matched
+  她还在睡吗？  -- rule: unless 在/AD
+  还在下雨。  -- rule: unless 在/AD
+  他在读书。  -- rule: unless 在/AD
+  你的狗在这。  -- rule: no match: line matched
+  “你在哪里？” “我在一个朋友家。”  -- rule: no match: line matched
+  现在是两点四十五分。  -- rule: no match: line matched
+  我还在读书。  -- rule: unless 在/AD
+  你在读哪本书？  -- rule: unless 在/AD
+  你们在写什么？  -- rule: unless 在/AD
+  同学们都在学英文。  -- rule: unless 在/AD
+  没有人知道她在哪儿。  -- rule: no match: line matched
+  在吃什么呢？  -- rule: unless 在/AD
+  你在找什么吗？  -- rule: unless 在/AD
+  你现在有喜欢的人吗？  -- rule: no match: line matched
+  你现在有喜欢的人吗?  -- rule: no match: line matched
+  我在找你。  -- rule: unless 在/AD
+  现在我要听些什么？  -- rule: no match: line matched
+  你在写什么？  -- rule: unless 在/AD
+  您在找什么吗？  -- rule: unless 在/AD
+  Mary现在有三个孩子。  -- rule: no match: line matched
+  明天我在一家书店买书。  -- rule: no match: line matched
+  我五点在家。  -- rule: no match: line matched
+  你在Facebook上有多少朋友？  -- rule: no match: line matched
+  Tom在医院。  -- rule: no match: line matched
+  我们知道我们在做什么。  -- rule: unless 在/AD
+  我问你你在想什么。  -- rule: unless 在/AD
+  他不在这里。  -- rule: no match: line matched
+  我不是在说他。  -- rule: unless 在/AD
+  他在星期六下午做什么？  -- rule: no match: line matched
+  请在下个星期日休息。  -- rule: no match: line matched
+  他在这里。  -- rule: no match: line matched
+  谁还在这里？  -- rule: no match: line matched
+  我在读书。  -- rule: unless 在/AD
+  他在看我们。  -- rule: unless 在/AD
+  猫在喝你的牛奶。  -- rule: unless 在/AD
+  我知道你在做什么。  -- rule: unless 在/AD
+  你会在哪里？  -- rule: no match: line matched
+  你知道我在做什么吗？  -- rule: unless 在/AD
+  在那里。  -- rule: no match: line matched
+  你在看谁？  -- rule: unless 在/AD
+  我现在不知道。  -- rule: no match: line matched
+  有人在那里。  -- rule: no match: line matched
+  现在读这个。  -- rule: no match: line matched
+  你的一个朋友在我们这里。  -- rule: no match: line matched
+  你明天在这里吗？  -- rule: no match: line matched
+  你现在高兴吗？  -- rule: no match: line matched
+  你在吃东西吗？  -- rule: unless 在/AD
+  你在上班吗？  -- rule: unless 在/AD
+  你还在吃。  -- rule: unless 在/AD
+  昨天晚上你在哪里？  -- rule: no match: line matched
+  这本书昨天在他车上。  -- rule: no match: line matched
+  明天下午我在我妈妈的衣服店里。  -- rule: no match: line matched
+  你明天下午在哪里？  -- rule: no match: line matched
+  他昨天下午六点在工作。  -- rule: no match: line matched
+  你星期一下午五点在做什么？  -- rule: unless 在/AD
+  他的儿子在学开车。  -- rule: unless 在/AD
+  你在说汉语。  -- rule: unless 在/AD
+  他们在说话。  -- rule: unless 在/AD
+  你们在听他说话。  -- rule: unless 在/AD
+  你在做什么？  -- rule: unless 在/AD
+  我在听他们说话。  -- rule: unless 在/AD
+  他们在说什么？  -- rule: unless 在/AD
+  她现在会写多少汉字？  -- rule: no match: line matched
+  他们还在波士顿。  -- rule: no match: line matched
+  你现在可以住口了。  -- rule: no match: line matched
+  谁在玩？  -- rule: unless 在/AD
+  我在晚上看电视。  -- rule: no match: line matched
+  那个孩子在吃面包。  -- rule: unless 在/AD
+  我在学习。  -- rule: unless 在/AD
+  他们在吃苹果。  -- rule: unless 在/AD
+  明年这个时候我在做什么？  -- rule: unless 在/AD
+  我在七点吃早饭。  -- rule: no match: line matched
+  你现在想看什么？  -- rule: no match: line matched
+  他在学习英语。  -- rule: unless 在/AD
+  我看见他在读一本书。  -- rule: unless 在/AD
+  在这时候，他到了。  -- rule: no match: line matched
+  你明天下午在哪里?  -- rule: no match: line matched
+  你昨天上午在哪里?  -- rule: no match: line matched
+  你昨天下午在哪里?  -- rule: no match: line matched
+  这本书昨天在他的车上。  -- rule: no match: line matched
+  昨天晚上你在哪里?  -- rule: no match: line matched
+  没，我什么都没在吃。  -- rule: unless 在/AD
+  你现在在哪里？  -- rule: no match: line matched
+  现在三点。  -- rule: no match: line matched
+  星期三下午我在。  -- rule: no match: line matched
+  星期三在吗？  -- rule: no match: line matched
+  昨天这个时候你在做什么？  -- rule: unless 在/AD
+  四点前我都在忙。  -- rule: unless 在/AD
+  谁也没在看她。  -- rule: unless 在/AD
+  你会在那里吗？  -- rule: no match: line matched
+  你在这里。  -- rule: no match: line matched
+  我没在忙。  -- rule: unless 在/AD
+  你在看什么？  -- rule: unless 在/AD
+  现在你能做这件事吗？  -- rule: no match: line matched
+  您在忙吗？  -- rule: unless 在/AD
+  我知道我在做什么。  -- rule: unless 在/AD
+  他们现在去哪？  -- rule: no match: line matched
+  我们在找他。  -- rule: unless 在/AD
+  我们在吃苹果。  -- rule: unless 在/AD
+  现在他们有三个孩子。  -- rule: no match: line matched
+  你在说什么呢？  -- rule: unless 在/AD
+  我知道他们在哪里。  -- rule: no match: line matched
+  我不知道他在哪。  -- rule: no match: line matched
+  我不知道你的书在哪里。  -- rule: no match: line matched
+  我很高兴你们都在。  -- rule: no match: line matched
+  我看见你在看她。  -- rule: unless 在/AD
+  我现在没有钱。  -- rule: no match: line matched
+  你还在上学吗？  -- rule: unless 在/AD
+  我不知道你在看东西。  -- rule: unless 在/AD
+  我们在吃面包。  -- rule: unless 在/AD
+  我会在七八点回家。  -- rule: no match: line matched
+  波士顿现在几点？  -- rule: no match: line matched
+  你的哥哥在哪里?  -- rule: no match: line matched
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  他在看奥运会。  -- rule: unless 在/AD
+  她在看奥运会。  -- rule: unless 在/AD
+  我想知道他们在哪里。  -- rule: no match: line matched
+  我不知道什么时候要在那里。  -- rule: no match: line matched
+  你还在找工作吗？  -- rule: unless 在/AD
+  我在看这本书。  -- rule: unless 在/AD
+  你在说他吗？  -- rule: unless 在/AD
+  我们现在在做饭。  -- rule: unless 在/AD
+  我想知道他们在哪。  -- rule: no match: line matched
+  你在学什么？  -- rule: unless 在/AD
+  我知道我想要的都在这里。  -- rule: no match: line matched
+  你在看他吗?  -- rule: unless 在/AD
+  我在打电话。  -- rule: unless 在/AD
+  我在看电视。  -- rule: unless 在/AD
+  你这些年在做什么？  -- rule: unless 在/AD
+  你家人还在那里吗？  -- rule: no match: line matched
+  爸爸，我的杯子在哪里？  -- rule: no match: line matched
+  爸爸和妈妈都在家。  -- rule: no match: line matched
+  爸爸妈妈在叫我们。  -- rule: unless 在/AD
+  妈妈，你在想什么？  -- rule: unless 在/AD
+  妈妈，你在想什么呢？  -- rule: unless 在/AD
+  明天下午，我爸爸妈妈都在家。  -- rule: no match: line matched
+  明天下午我在我爸爸的书店。  -- rule: no match: line matched
+  妈妈在这里吗？  -- rule: no match: line matched
+  现在，他们知道我们在这里。  -- rule: no match: line matched
+  爸爸在哪？  -- rule: no match: line matched
+  你妈妈在哪？  -- rule: no match: line matched
+  苹果现在很便宜。  -- rule: no match: line matched
+  你爸爸在哪？  -- rule: no match: line matched
+  现在去！  -- rule: no match: line matched
+  现在睡。  -- rule: no match: line matched
+  我的朋友在哪里？  -- rule: no match: line matched
+  现在十点半。  -- rule: no match: line matched
+  在学中文。  -- rule: unless 在/AD
+  现在有什么电影？  -- rule: no match: line matched
+  我的电脑在哪里？  -- rule: no match: line matched
+  我的茶在哪里？  -- rule: no match: line matched
+  我女儿正在商店买牛奶。  -- rule: unless 正在/AD
+  这些天你都在读些什么？  -- rule: unless 在/AD
+  谁在叫你的名字？  -- rule: unless 在/AD
+  现在是一点五十分。  -- rule: no match: line matched
+  很高兴你您在这里。  -- rule: no match: line matched
+
+--- dropped at step 6b (4) ---
+  我是在日本上的中学。  -- hidden word a learner can't work out: 日本 (Japan)
+  我们不住在波士顿。  -- hidden word a learner can't work out: 不住 ((verb complement) unable to firmly or securely (grasp, recall etc); repeatedly; continuously; constantly)
+  你家的电脑在桌子上吗？  -- hidden word a learner can't work out: 家的 ((old) wife)
+  在明天早上九点见可以吗？  -- hidden word a learner can't work out: 点见 (to check an amount)
+
+--- dropped at step 8 (1) ---
+  在那里见我。  -- difficulty review: (1/2); 在那里见我 uses imperative without clear context; structure is awkward for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-16_level1_20261114_162953.csv

@@ -52,9 +52,12 @@ USAGE (from the repo root)
 import argparse
 import contextlib
 import csv
+import io
+import json
 import sys
 import time
 import traceback
+from collections import Counter
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -69,6 +72,12 @@ STATE_PATH = tg.BATCH_STATE_PATH
 MIN_RECALL = {"teach": 0.6, "guard": 0.8}   # a guard that misses harder sentences lets them leak down
 FIRST_WRITER = "claude-haiku-4-5"   # writes every rule first; a rule that fails its test is revised by Sonnet
 MIN_EXAMPLES = 3
+# 2: a rule must also catch the EASY examples -- the ones whose words are all at or below the
+# point's level, i.e. what a learner there will actually see (2-17 caught 如果/只要...就, all HSK 3-4,
+# and none of the plain "clause, 就 + result" sentences an HSK 2 learner can read)
+TEST_VERSION = 2
+# a point is moved up by its examples only if at least this many of them use its words
+MOVE_MIN_EXAMPLES = 6
 
 
 def trial_args(**kw):
@@ -131,6 +140,59 @@ def plan(db, levels, max_guard_level):
     return teach, guard, skipped
 
 
+# --------------------------------- LEVELS FROM EXAMPLES ---------------------------------
+
+def levels_from_examples(db, codes, tagger) -> dict:
+    """A point belongs at the level where its OWN words can be read. For each
+    wiki example, the hardest of the point's words it uses (by the 2025 vocab
+    list); the point's level is the lowest level that at least MIN_EXAMPLES
+    examples reach. 2-47 is listed at HSK 2, but 以前 / 以后 are HSK 3 words,
+    so no HSK 2 learner can read its examples: it moves to HSK 3. Words
+    outside the point (an HSK 5 noun in an example) don't count -- 2-09's
+    examples are hard, but 千 / 万 aren't. Only moves points UP.
+    Returns {code: {"level", "from", "why"}}; also sets the scratch DB."""
+    from collections import Counter
+    from app.textbook.models import GrammarTip
+    saved = {c: v for c, v in tg.load_json(tg.EXAMPLE_LEVELS_PATH, {}).items()
+             if not c.startswith("_") and isinstance(v, dict)}
+    out = {}
+    for c in dict.fromkeys(list(codes) + list(saved)):
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                p = tg.Point(db, c, None)
+                pos, _ = tg.labeled(p, tagger)
+        except (SystemExit, Exception):
+            if c in saved:
+                out[c] = saved[c]                  # can't recompute now: keep the old answer
+            continue
+        base = saved.get(c, {}).get("from", p.level)
+        per = []
+        for r in pos.values():
+            own = [(w, lv) for w, lv, _ in r.get("vocab", []) if w in p.markers and lv is not None]
+            if own:
+                per.append((max(lv for _, lv in own), own))
+        if len(per) < MOVE_MIN_EXAMPLES:          # too little evidence to move a point (2-06 had 3)
+            continue
+        per.sort(key=lambda x: x[0])
+        need = per[MIN_EXAMPLES - 1][0]
+        if need > base:
+            hard = Counter(f"{w} L{lv}" for _, own in per for w, lv in own if lv > base)
+            readable = sum(1 for lv, _ in per if lv <= base)
+            out[c] = {"level": need, "from": base,
+                      "why": f"{readable} of {len(per)} examples use only HSK {base} words of the point; "
+                             f"the rest need {', '.join(w for w, _ in hard.most_common(4))}"}
+    for tip in db.query(GrammarTip).filter(GrammarTip.grammar_code.in_(list(set(out) | set(saved)))).all():
+        c = tip.grammar_code
+        tip.hsk_level = out[c]["level"] if c in out else saved[c]["from"]    # moved, or moved back
+    db.commit()
+    tg.EXAMPLE_LEVELS_PATH.write_text(json.dumps(
+        {"_readme": "Grammar points moved UP because their own words (2025 vocab list) are above their "
+                    "listed level in most of their wiki examples. Written by run_all_grammar.py each run; "
+                    "applied to the scratch DB only. Delete an entry to see it recomputed.",
+         **dict(sorted(out.items()))}, ensure_ascii=False, indent=1), encoding="utf-8")
+    return out
+
+
 # --------------------------------- PHASE 1: RULES ---------------------------------
 
 def rule_for(db, code, st, tagger, client, first_writer):
@@ -170,22 +232,45 @@ def rule_for(db, code, st, tagger, client, first_writer):
                 neg.pop(h, None)
             wrong = [w for w in wrong if not has.get(w[0])]
         matched = len(pos) - len(missed)
-        good = not wrong and len(pos) >= MIN_EXAMPLES and matched >= min_recall * len(pos)
+        easy_missed = [m for m in missed if m[0] in easy]
+        easy_ok = len(easy) < MIN_EXAMPLES or len(easy) - len(easy_missed) >= min_recall * len(easy)
+        good = not wrong and len(pos) >= MIN_EXAMPLES and matched >= min_recall * len(pos) and easy_ok
         return good, missed, wrong, matched
+
+    # examples a learner at the point's level can read (the guard check uses the same ones)
+    easy = {h for h, r in pos.items() if r.get("level") is not None and r["level"] <= point.first_level}
 
     rule = gr.parse_rule_block(code, sections[code])
     good, missed, wrong, matched = score(rule)
     if not good and not st.get("revised") and len(pos) >= MIN_EXAMPLES:
-        prompt = gr.revise_prompt(code, point.context(), sections[code], missed[:40],
+        missed_easy_first = sorted(missed, key=lambda m: m[0] not in easy)
+        prompt = gr.revise_prompt(code, point.context(), sections[code], missed_easy_first[:40],
                                   [(h, t) for h, t, _ in wrong][:40], [], [])
-        small = gr.revise_prompt(code, point.context(full=False), sections[code], missed[:12],
+        small = gr.revise_prompt(code, point.context(full=False), sections[code], missed_easy_first[:12],
                                  [(h, t) for h, t, _ in wrong][:12], [], [])
-        new = tg.ask_writer(client, point, prompt, trial_args(), "revise", small_prompt=small)
+        easy_missed = [h for h, _ in missed if h in easy]
+        if len(easy) >= MIN_EXAMPLES and easy_missed:
+            note = (f"\n\nMOST IMPORTANT: this point is taught at HSK {point.first_level}. These missed examples "
+                    f"use only words a learner at that level knows, so they are the kind of sentence the rule "
+                    f"will actually be used on. Catching them matters more than the examples with harder "
+                    f"words (如果/只要-style openers etc.). Missed easy examples:\n"
+                    + "\n".join(f"  {h}" for h in easy_missed[:25]))
+            prompt, small = prompt + note, small + note
+        try:
+            new = tg.ask_writer(client, point, prompt, trial_args(), "revise", small_prompt=small)
+        except SystemExit as e:
+            if "empty" not in str(e):
+                raise
+            new = tg.ask_writer(client, point, small, trial_args(writer_model=first_writer), "revise")
         gr.save_section(tg.RULES_PATH, code, new)
         st["revised"] = True
         good, missed, wrong, matched = score(gr.parse_rule_block(code, new))
     tg.print_labeled(point, pos, neg, missed, wrong)
+    easy_matched = len(easy) - sum(1 for h, _ in missed if h in easy)
+    print(f"  easy examples (words all HSK {point.first_level} or below) matched: {easy_matched}/{len(easy)}"
+          + ("   (too few to test)" if len(easy) < MIN_EXAMPLES else f"   <- needs {min_recall:.0%}"))
     st.update(examples=len(pos), counter_examples=len(neg), matched=matched, wrongly_matched=len(wrong),
+              easy_examples=len(easy), easy_matched=easy_matched, test_version=TEST_VERSION,
               first_level=point.first_level, words=" ".join(point.markers))
     if good:
         st.update(rule="ok", note="")
@@ -193,7 +278,8 @@ def rule_for(db, code, st, tagger, client, first_writer):
         st.update(rule="failed", note=f"only {len(pos)} labeled example(s): can't test the rule")
     else:
         st.update(rule="failed", note=f"{len(wrong)} counter-example(s) wrongly matched, "
-                                      f"{matched}/{len(pos)} examples caught (needs {min_recall:.0%})")
+                                      f"{matched}/{len(pos)} examples caught, {easy_matched}/{len(easy)} easy "
+                                      f"ones (each needs {min_recall:.0%})")
 
 
 # --------------------------------- PHASE 1b: GUARD CHECK ---------------------------------
@@ -201,19 +287,25 @@ def rule_for(db, code, st, tagger, client, first_writer):
 def guard_check(db, state, teach, tagger, client):
     """Every OK rule acts as a guard when a LOWER point is filled (an HSK 2
     rule for an HSK 1 fill, an HSK 3 rule for HSK 1-2 fills...). Here each one
-    is run on the labeled examples of every lower teach point. A flagged
-    example is checked: if it really contains the guard's point, fine;
-    otherwise the guard is wrong there. A wrong guard is revised once
+    is run on the labeled examples of every lower teach point -- only the ones
+    whose words are at that point's level. Each flagged example is checked by
+    AI as a pair: does it use the guard's point BEYOND what the lower point
+    already teaches? If yes, fine; if no, the guard is wrong there. A wrong guard is revised once
     (Sonnet), told these sentences are the lower point, not its own; if it
     still flags them, it is not used for those points (state "not_for")."""
     from app.textbook.models import GrammarTip
     level_of = dict(db.query(GrammarTip.grammar_code, GrammarTip.hsk_level).all())
     cache = tg.load_json(tg.CACHE_PATH, {})
-    lower = {}
+    lower, points = {}, {}
     for c in teach:
         if state.get(c, {}).get("rule") == "ok":
             p = tg.Point(db, c, None)
-            lower[c] = (p.first_level, tg.labeled(p, tagger)[0])
+            points[c] = p
+            # only examples that are themselves at the point's level by their words (and the
+            # HSK 1 grammar restriction): one with harder words says nothing about a guard
+            pos = {h: r for h, r in tg.labeled(p, tagger)[0].items()
+                   if r.get("level") is not None and r["level"] <= p.first_level}
+            lower[c] = (p.first_level, pos)
     guards = [c for c, st in state.items() if isinstance(st, dict) and st.get("rule") == "ok"]
     changed = False
     for i, g in enumerate(guards, 1):
@@ -226,17 +318,25 @@ def guard_check(db, state, teach, tagger, client):
             continue
 
         def wrong_flags(rule):
+            g_words = (st.get("words") or "").split()      # as in the fills: only with the point's words
             flagged = {(c, h): r for c, pos in targets.items() for h, r in pos.items()
-                       if rule.found(tg.as_clauses(r))}
+                       if (not g_words or any(w in h for w in g_words)) and rule.found(tg.as_clauses(r))}
             if not flagged:
                 return {}
-            gp = tg.Point(db, g, None)
-            has = tg.contains_point(client, gp, [(h, gr.render(tg.as_clauses(r))) for (_, h), r in flagged.items()],
-                                    cache)
-            bad = {}
+            per_point = {}
             for (c, h), r in flagged.items():
-                if not has.get(h):
-                    bad.setdefault(c, []).append((h, gr.render(tg.as_clauses(r))))
+                per_point.setdefault(c, []).append((h, gr.render(tg.as_clauses(r))))
+            # Each flagged example is checked as a PAIR: does it use the guard's point beyond
+            # what the lower point already teaches? The lists overlap (1-11 lists 在 too, but
+            # 他在看书 is just 1-42), so "it contains the guard's point" isn't enough. A "no"
+            # means the guard is wrong there; unsure counts as "yes" (the guard stays).
+            gp = tg.Point(db, g, None)
+            bad = {}
+            for c, items in per_point.items():
+                beyond = tg.uses_beyond(client, points[c], gp, items, cache)
+                wrong = [x for x in items if not beyond.get(x[0], True)]
+                if wrong:
+                    bad[c] = wrong
             return bad
 
         with open(BATCH_DIR / f"{g}.log", "a", encoding="utf-8") as log, contextlib.redirect_stdout(log):
@@ -245,14 +345,14 @@ def guard_check(db, state, teach, tagger, client):
             try:
                 bad = wrong_flags(rules[g])
                 new_rule = None
-                if bad and not st.get("guard_revised"):
+                if bad and not st.get("guard_revised3"):
                     gp = tg.Point(db, g, None)
                     examples = [x for c in sorted(bad) for x in bad[c]][:40]
                     print(f"Flags examples of {', '.join(sorted(bad))} that don't contain {g}: revising.")
                     prompt = gr.revise_prompt(g, gp.context(), sections[g], [], examples, [], [])
                     prompt += (f"\n\nThe counter-examples above are example sentences of EASIER grammar points "
                                f"({', '.join(sorted(bad))}), not of {g}. Your rule must not match them.")
-                    st["guard_revised"] = True
+                    st["guard_revised3"] = True
                     try:
                         new = tg.ask_writer(client, gp, prompt, trial_args(), "revise")
                         new_rule = gr.parse_rule_block(g, new)
@@ -287,7 +387,7 @@ def guard_check(db, state, teach, tagger, client):
         save_state(state)
         print(f"[guard check {i}/{len(guards)}] {g}: "
               + (f"not used for {', '.join(not_for)}" if not_for else "ok")
-              + (" (revised)" if st.get("guard_revised") else ""), flush=True)
+              + (" (revised)" if any(st.get(k) for k in ("guard_revised", "guard_revised2", "guard_revised3")) else ""), flush=True)
     return changed
 
 
@@ -297,6 +397,7 @@ def guard_version(state) -> str:
     import hashlib
     rules_text = tg.RULES_PATH.read_text(encoding="utf-8") if tg.RULES_PATH.exists() else ""
     rules_text += tg.LEVELS_PATH.read_text(encoding="utf-8") if tg.LEVELS_PATH.exists() else ""
+    rules_text += tg.EXAMPLE_LEVELS_PATH.read_text(encoding="utf-8") if tg.EXAMPLE_LEVELS_PATH.exists() else ""
     used = sorted((c, st.get("rule"), tuple(st.get("not_for") or ())) for c, st in state.items() if isinstance(st, dict))
     return hashlib.md5((rules_text + repr(used)).encode()).hexdigest()[:12]
 
@@ -352,46 +453,293 @@ def tatoeba_for(db, code, st, levels, target):
               candidates_after_rule=res["candidates_after_rule"], survivors=res["survivors"], note="")
 
 
+# --------------------------------- PHASE 3: AI-WRITTEN SENTENCES ---------------------------------
+
+AI_GEN_PATH = tg.TEST_DIR / "ai_generated.json"      # every AI-written sentence, kept or not
+AI_SOURCE = "ai_generated"
+MAX_AI_ROUNDS = 2                                     # writing calls per point per run
+
+
+def ai_fill_for(db, code, st, target, client, write=True):
+    """Points Tatoeba left short: Sonnet writes new sentences (saved in
+    ai_generated.json, so they are written once), and they go through the
+    same steps as Tatoeba's -- stricter on vocabulary, no second opinion.
+    Kept ones are labelled ai_generated everywhere."""
+    import hashlib
+    import math
+    point = tg.Point(db, code, None)
+    level = st["level"]
+    short = target - st["course_sentences"] - st["added"]
+    if short <= 0:
+        st.update(ai="not needed", ai_added=0, ai_survivors=[])
+        return
+    from app.textbook.models import Vocab
+    words = [h for (h,) in db.query(Vocab.hanzi).filter(Vocab.hsk_level.isnot(None), Vocab.hsk_level <= level)
+             .order_by(Vocab.hsk_level, Vocab.id).all()]
+    _, sections, _ = gr.load_rules(tg.RULES_PATH)
+    avoid = [f"{c} (HSK {lv}) {lab}" for c, lv, lab in tg.harder_points_with_easy_words(db, level)]
+    have = ([s.hanzi for s in tg.pipeline_sentences(db, point) if s.hsk_level == level]
+            + [x["hanzi"] for x in st.get("survivors", [])])
+    store = tg.load_json(AI_GEN_PATH, {})
+    mine = store.setdefault(code, [])
+    tid_of = lambda zh: "ai-" + hashlib.md5(zh.encode()).hexdigest()[:10]
+    res, written = None, 0
+    for rnd in range(MAX_AI_ROUNDS + 1):
+        pairs = {tid_of(x["zh"]): {"hanzi": x["zh"], "original": x["zh"], "english": [x["en"]]} for x in mine}
+        print(f"\n----- AI-written sentences for {code}, round {rnd + 1}: {len(pairs)} to check, "
+              f"{short} needed -----")
+        res = (tg.cmd_tatoeba(db, point, trial_args(code=code, target=target, level=level, ai_pairs=pairs,
+                                                    need=short, exclude=have))
+               if pairs else {"added": 0, "survivors": [], "outcome": {}})
+        if res["added"] >= short or rnd == MAX_AI_ROUNDS or not write:
+            break
+        n = max(10, math.ceil(2.5 * (short - res["added"])))
+        print(f"  Asking {tg.WRITER_MODEL} to write {n} sentence(s)...", flush=True)
+        prompt = gr.generate_prompt(code, level, point.context(full=False), sections.get(code, ""), words,
+                                    point.markers, avoid, have, [x["zh"] for x in mine], n)
+        try:
+            items = gr.extract_json_array(tg.call(client, tg.WRITER_MODEL, prompt, 300 + 120 * n))
+        except (ValueError, json.JSONDecodeError) as e:
+            print(f"  The answer couldn't be read ({e}); trying once more next round.")
+            continue
+        seen = {x["zh"] for x in mine}
+        for it in items:
+            zh, en = str(it.get("zh", "")).strip(), str(it.get("en", "")).strip()
+            if zh and en and zh not in seen:
+                mine.append({"zh": zh, "en": en, "by": tg.WRITER_MODEL, "date": time.strftime("%Y-%m-%d")})
+                seen.add(zh)
+                written += 1
+        tg.save_json(AI_GEN_PATH, store)
+    by = {x["zh"]: x for x in mine}
+    # checks run in batches, so more can pass than were needed: keep only what the point needs
+    # (shortest first) -- AI sentences are a last resort, never extras
+    keep, spare = res["survivors"][:short], res["survivors"][short:]
+    for x in spare:
+        res["outcome"][x["tatoeba_id"]] = ["-", "passed every step, but not needed (target reached)"]
+    st.update(ai="done", ai_added=len(keep), ai_written=len(mine),
+              ai_survivors=[dict(x, generated_by=f"{by[x['hanzi']]['by']} {by[x['hanzi']]['date']}")
+                            for x in keep],
+              ai_log=[{"hanzi": x["zh"], "english": x["en"], "generated_by": f"{x['by']} {x['date']}",
+                       "result": " ".join(res["outcome"].get(tid_of(x["zh"]), ["-", "not checked"]))}
+                      for x in mine])
+
+
+# --------------------------------- EXPORT FOR THE PIPELINE ---------------------------------
+
+def surface_split(hanzi: str, clauses) -> list | None:
+    """The trial's word split as [[surface, list word or None], ...] covering
+    every Chinese character of the sentence, for the pipeline to tag with
+    (Sentence.word_split). The list word differs only where the text writes
+    it without 儿 (有点 for 有点儿). None if the words don't line up."""
+    text = "".join(tg._CJK_RE.findall(hanzi))
+    out, pos = [], 0
+    for clause in clauses:
+        for w, _ in clause:
+            w = "".join(tg._CJK_RE.findall(w))
+            if not w:
+                continue
+            if text.startswith(w, pos):
+                out.append([w, None])
+                pos += len(w)
+            elif w.endswith("儿") and len(w) > 1 and text.startswith(w[:-1], pos):
+                out.append([w[:-1], w])
+                pos += len(w) - 1
+            else:
+                return None
+    return out if pos == len(text) else None
+
+
+ASG_URL = "https://resources.allsetlearning.com/chinese/grammar/{}"
+ASG_LICENSE = "CC BY-NC-SA 3.0"
+HSK_LIST_ATTRIBUTION = ("Official HSK grammar list (Chinese Proficiency Grading Standards for International "
+                        "Chinese Language Education)")
+
+
+def build_explanations(db, tagger) -> dict:
+    """{code: [rows]} for EVERY grammar point: the official list's row
+    (Chinese label + its examples), then the AllSet Learning pages that teach
+    it. All text copied from the source files -- nothing written by AI.
+    `readable`: every word of the example is at or below the point's level
+    (tagger, no AI)."""
+    from app.textbook.models import GrammarTip
+    asg = {p["id"]: p for p in tg.load_json(tg.ASG_PATH, {}).get("points", [])}
+    sources = tg.load_json(tg.SOURCES_PATH, {})
+    manual = tg.load_json(tg.MANUAL_PATH, {})
+    tips = db.query(GrammarTip).order_by(GrammarTip.id).all()
+    texts = set()
+    plan_ = {}
+    for tip in tips:
+        c = tip.grammar_code
+        content = tg.load_json_str(tip.content_json)
+        official = list(dict.fromkeys(s for k, v in content.items() if "example" in k.lower()
+                                      for s in tg._cjk_strings(v)))
+        m = manual.get(c, {}) if isinstance(manual.get(c), dict) else {}
+        ids = list(dict.fromkeys(list((sources.get(c) or {}).get("is", {})) + list(m.get("is", {}))))
+        pages = [asg[i] for i in ids if i in asg and i not in m.get("not", {})]
+        plan_[c] = (tip, official, pages)
+        texts.update(official)
+        texts.update(e["hanzi"] for p in pages for e in p["examples"])
+    tags = tagger.tag_all(sorted(texts), "explanation example(s)")
+
+    def readable(h, level):
+        r = tags.get(h) or {}
+        return r.get("level") is not None and r["level"] <= level
+
+    out = {"_readme": "Grammar explanations for the pipeline (load_hsk_lists.py -> grammar_explanations). "
+                      "Copied from the official HSK grammar list and the AllSet Learning Chinese Grammar Wiki "
+                      f"({ASG_LICENSE}: credit + link, non-commercial only). No AI-written text. "
+                      "Written by run_all_grammar.py --export."}
+    for c, (tip, official, pages) in plan_.items():
+        rows = [{"source": "hsk_list", "source_ref": c, "title": tip.raw_text, "structure": None,
+                 "explanation": None, "level_hint": tip.hsk_level, "url": None,
+                 "attribution": HSK_LIST_ATTRIBUTION, "license": None,
+                 "examples": [{"hanzi": h, "pinyin": "", "english": "", "marked": [],
+                               "readable": readable(h, tip.hsk_level)} for h in official]}]
+        wiki = []
+        for p in pages:
+            ex = [{"hanzi": e["hanzi"], "pinyin": e.get("pinyin") or "", "english": e.get("english") or "",
+                   "marked": [mk["text"] for mk in e.get("marked", []) if mk.get("text")],
+                   "readable": readable(e["hanzi"], tip.hsk_level)} for e in p["examples"]]
+            hint = min(p["hsk_2021"]) if p.get("hsk_2021") else None
+            wiki.append({"source": "allset_learning", "source_ref": p["id"], "title": p["title"],
+                         "structure": "\n".join(dict.fromkeys(p.get("structures") or [])) or None,
+                         "explanation": p.get("text") or None, "level_hint": hint,
+                         "url": ASG_URL.format(p["id"]),
+                         "attribution": f'"{p["title"]}", AllSet Learning Chinese Grammar Wiki',
+                         "license": ASG_LICENSE, "examples": ex})
+        # pages at or below the point's level first, then the ones with the most readable examples
+        wiki.sort(key=lambda r: (r["level_hint"] is None or r["level_hint"] > tip.hsk_level,
+                                 -sum(e["readable"] for e in r["examples"])))
+        out[c] = rows + wiki
+    return out
+
+
+def export_for_pipeline(db, state, teach, tagger) -> Path:
+    """Everything the pipeline reads, into data_pipelines/textbook/data/grammar/."""
+    import shutil
+    from data_pipelines.textbook.scripts import grammar_dsl
+    out_dir = grammar_dsl.GRAMMAR_DATA_DIR
+    out_dir.mkdir(parents=True, exist_ok=True)
+    # rules + which passed, levels
+    shutil.copyfile(tg.RULES_PATH, grammar_dsl.RULES_FILE)
+    status = {c: {"rule": st.get("rule"), "kind": st.get("kind"), "not_for": st.get("not_for") or [],
+                  "words": (st.get("words") or "").split(),
+                  "examples_caught": f"{st.get('matched')}/{st.get('examples')}" if "examples" in st else None}
+              for c, st in sorted(state.items()) if isinstance(st, dict) and st.get("rule")}
+    grammar_dsl.RULE_STATUS_FILE.write_text(json.dumps(
+        {"_readme": "Which rules in grammar_rules.md passed their test (rule: ok) and may be used, and the "
+                    "easier points each must not be used against (not_for). From run_all_grammar.py --export.",
+         **status}, ensure_ascii=False, indent=1), encoding="utf-8")
+    for src, dst in ((tg.LEVELS_PATH, grammar_dsl.LEVELS_2025_FILE),
+                     (tg.EXAMPLE_LEVELS_PATH, grammar_dsl.LEVELS_EXAMPLES_FILE)):
+        if src.exists():
+            shutil.copyfile(src, dst)
+    # sentences, with the word split they were checked with and their credit
+    owner = {}
+    with open(tg.DEFAULT_TSV, encoding="utf-8", newline="") as f:
+        for row in csv.DictReader(f, delimiter="\t", quoting=csv.QUOTE_NONE):
+            owner.setdefault((row.get("id") or "").strip(), (row.get("owner") or "").strip())
+    rows, no_split = [], []
+    for c in teach:
+        st = state.get(c, {})
+        if st.get("tatoeba") != "done":
+            continue
+        items = [("tatoeba", s, f"tatoeba-{s['tatoeba_id']}") for s in st.get("survivors", [])]
+        if st.get("ai") == "done":
+            items += [(AI_SOURCE, s, s["tatoeba_id"]) for s in st.get("ai_survivors", [])]
+        for src, s, ext in items:
+            res = tagger.tag(s["hanzi"])
+            split = surface_split(s["hanzi"], res.get("clauses") or []) if "error" not in res else None
+            if split is None:
+                no_split.append(s["hanzi"])
+            tid = s["tatoeba_id"] if src == "tatoeba" else ""
+            rows.append({"grammar_code": c, "hsk_level": st.get("level", ""), "source": src, "external_id": ext,
+                         "hanzi": s["hanzi"], "english": s["english"],
+                         "generated_by": s.get("generated_by", "") if src == AI_SOURCE else "",
+                         "source_author": owner.get(tid, "") if tid else "",
+                         "source_url": f"https://tatoeba.org/en/sentences/show/{tid}" if tid else "",
+                         "word_split": json.dumps(split, ensure_ascii=False) if split else ""})
+    tagger.save()
+    with open(grammar_dsl.SENTENCES_FILE, "w", newline="", encoding="utf-8-sig") as f:
+        w = csv.DictWriter(f, fieldnames=["grammar_code", "hsk_level", "source", "external_id", "hanzi", "english",
+                                          "generated_by", "source_author", "source_url", "word_split"])
+        w.writeheader()
+        w.writerows(rows)
+    expl = build_explanations(db, tagger)
+    tagger.save()
+    grammar_dsl.EXPLANATIONS_FILE.write_text(json.dumps(expl, ensure_ascii=False, indent=1), encoding="utf-8")
+    n_src = Counter(r["source"] for r in rows)
+    print(f"\nExported to {out_dir}:")
+    print(f"  grammar_rules.md + rule_status.json: {sum(1 for v in status.values() if v['rule'] == 'ok')} "
+          f"usable rule(s) of {len(status)}")
+    print(f"  selected_sentences.csv: {len(rows)} row(s) -- " + ", ".join(f"{k}: {v}" for k, v in n_src.items())
+          + f"; {len({r['hanzi'] for r in rows})} distinct sentence(s)")
+    if no_split:
+        print(f"  [note] {len(no_split)} sentence(s) have no word split (tagging falls back to HanLP), "
+              f"e.g. {no_split[:3]}")
+    with_wiki = sum(1 for c, v in expl.items() if not c.startswith("_") and len(v) > 1)
+    print(f"  grammar_explanations.json: {len(expl) - 1} point(s), {with_wiki} with an AllSet Learning page")
+    print(f"  grammar levels: {grammar_dsl.LEVELS_2025_FILE.name}, {grammar_dsl.LEVELS_EXAMPLES_FILE.name}")
+    return out_dir
+
+
 # --------------------------------- REPORT ---------------------------------
 
 def write_reports(state, teach, guard, skipped):
     BATCH_DIR.mkdir(parents=True, exist_ok=True)
     with open(BATCH_DIR / "summary.csv", "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
-        w.writerow(["code", "kind", "rule", "examples_caught", "counter_examples_wrongly_matched", "revised",
-                    "tatoeba", "level", "course_sentences", "added", "total", "note", "words"])
+        w.writerow(["code", "kind", "rule", "examples_caught", "easy_examples_caught",
+                    "counter_examples_wrongly_matched", "revised",
+                    "tatoeba", "level", "course_sentences", "added", "ai_added", "total", "note", "words"])
         for kind, codes in (("teach", teach), ("guard", guard)):
             for c in codes:
                 st = state.get(c, {})
                 caught = f"{st['matched']}/{st['examples']}" if "examples" in st else ""
                 wrong = f"{st['wrongly_matched']}/{st['counter_examples']}" if "examples" in st else ""
-                total = (st.get("course_sentences", 0) + st.get("added", 0)) if st.get("tatoeba") == "done" else ""
-                w.writerow([c, kind, st.get("rule", "not run"), caught, wrong, "yes" if st.get("revised") else "",
+                ai_n = st.get("ai_added", 0) if st.get("ai") == "done" else 0
+                total = (st.get("course_sentences", 0) + st.get("added", 0) + ai_n) if st.get("tatoeba") == "done" else ""
+                easy = f"{st['easy_matched']}/{st['easy_examples']}" if "easy_examples" in st else ""
+                w.writerow([c, kind, st.get("rule", "not run"), caught, easy, wrong,
+                            "yes" if st.get("revised") else "",
                             st.get("tatoeba", "" if kind == "guard" else "not run"), st.get("level", ""),
-                            st.get("course_sentences", ""), st.get("added", ""), total, st.get("note", ""),
+                            st.get("course_sentences", ""), st.get("added", ""), ai_n or "", total, st.get("note", ""),
                             st.get("words", "")])
         for c, label, why in skipped:
-            w.writerow([c, "skipped", "", "", "", "", "", "", "", "", "", why, label])
+            w.writerow([c, "skipped", "", "", "", "", "", "", "", "", "", "", "", why, label])
     with open(BATCH_DIR / "selected_sentences.csv", "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
-        w.writerow(["grammar_code", "hsk_level", "tatoeba_id", "hanzi", "english"])
+        w.writerow(["grammar_code", "hsk_level", "source", "tatoeba_id", "hanzi", "english", "generated_by"])
         for c in teach:
             st = state.get(c, {})
             for s in st.get("survivors", []):
-                w.writerow([c, st.get("level", ""), s["tatoeba_id"], s["hanzi"], s["english"]])
+                w.writerow([c, st.get("level", ""), "tatoeba", s["tatoeba_id"], s["hanzi"], s["english"], ""])
+            for s in st.get("ai_survivors", []) if st.get("ai") == "done" else []:
+                w.writerow([c, st.get("level", ""), AI_SOURCE, "", s["hanzi"], s["english"], s["generated_by"]])
+    if any(state.get(c, {}).get("ai_log") for c in teach):
+        with open(BATCH_DIR / "ai_sentences.csv", "w", newline="", encoding="utf-8-sig") as f:
+            w = csv.writer(f)
+            w.writerow(["grammar_code", "hsk_level", "source", "hanzi", "english", "generated_by", "result"])
+            for c in teach:
+                st = state.get(c, {})
+                for x in st.get("ai_log", []):
+                    w.writerow([c, st.get("level", ""), AI_SOURCE, x["hanzi"], x["english"], x["generated_by"],
+                                x["result"]])
 
 
 def print_summary(state, teach, guard, skipped, levels, target):
     rules_ok = [c for c in teach + guard if state.get(c, {}).get("rule") == "ok"]
     failed = [c for c in teach + guard if state.get(c, {}).get("rule") in ("failed", "error")]
     done = [c for c in teach if state.get(c, {}).get("tatoeba") == "done"]
-    short = [c for c in done if state[c]["course_sentences"] + state[c]["added"] < target]
+    ai_of = lambda c: state[c].get("ai_added", 0) if state[c].get("ai") == "done" else 0
+    short = [c for c in done if state[c]["course_sentences"] + state[c]["added"] + ai_of(c) < target]
     print(f"\n=== Summary: HSK {' '.join(map(str, levels))} ===")
     print(f"  points with a rule to teach: {len(teach)}   guard points (harder, easy words): {len(guard)}   "
           f"skipped: {len(skipped)}")
     print(f"  rules OK: {len(rules_ok)}   rules failed/error: {len(failed)}")
     print(f"  filled from Tatoeba: {len(done)}   sentences added: "
-          f"{sum(state[c]['added'] for c in done)}")
+          f"{sum(state[c]['added'] for c in done)}   AI-written sentences kept (labelled {AI_SOURCE}): "
+          f"{sum(ai_of(c) for c in done)}")
     print(f"  points still under the target of {target} sentences: {len(short)}")
     if failed:
         print("\n--- rules that failed (not used; worth a look) ---")
@@ -401,7 +749,8 @@ def print_summary(state, teach, guard, skipped, levels, target):
         print(f"\n--- under {target} sentences (Tatoeba had too few good ones) ---")
         for c in short:
             st = state[c]
-            print(f"  {c} HSK {st['level']}: {st['course_sentences']} in the course + {st['added']} added")
+            print(f"  {c} HSK {st['level']}: {st['course_sentences']} in the course + {st['added']} from Tatoeba"
+                  + (f" + {ai_of(c)} AI-written" if ai_of(c) else ""))
     print(f"\nFull table: {BATCH_DIR / 'summary.csv'}")
     print(f"Chosen sentences: {BATCH_DIR / 'selected_sentences.csv'}")
 
@@ -411,7 +760,10 @@ def print_summary(state, teach, guard, skipped, levels, target):
 def main():
     parser = argparse.ArgumentParser(description="Run the grammar trial over every grammar point.")
     parser.add_argument("--levels", nargs="+", type=int, default=[1, 2])
-    parser.add_argument("--phase", choices=["all", "rules", "guards", "tatoeba"], default="all")
+    parser.add_argument("--phase", choices=["all", "rules", "guards", "tatoeba", "ai"], default="all")
+    parser.add_argument("--ai", action="store_true",
+                        help=f"After Tatoeba, fill points still under the target with AI-written sentences "
+                             f"(checked the same way, labelled {AI_SOURCE}). Also: --phase ai.")
     parser.add_argument("--show-unmatched", action="store_true",
                         help="List the points that need words/pages matched by hand; spend nothing.")
     parser.add_argument("--only", nargs="+", default=None, help="Only these codes.")
@@ -420,6 +772,12 @@ def main():
     parser.add_argument("--redo-tatoeba", action="store_true", help="Run the Tatoeba step again for done points.")
     parser.add_argument("--retry-failed", action="store_true", help="Try failed/error rules again (one more revise).")
     parser.add_argument("--dry-run", action="store_true", help="List the points and the work left; spend nothing.")
+    parser.add_argument("--export", action="store_true",
+                        help="Write what the pipeline reads (rules, levels, chosen sentences with their word split "
+                             "and credit, grammar explanations) to data_pipelines/textbook/data/grammar/. No AI.")
+    parser.add_argument("--rewrite", nargs="+", default=[], metavar="CODE",
+                        help="Throw away these points' rules and write them again from scratch (e.g. rules "
+                             "written before patterns could link two clauses with ‖).")
     parser.add_argument("--max-guard-level", type=int, default=4,
                         help="Guard points up to this HSK level (default 4; 5-6 constructions are rare in "
                              "simple sentences, and the difficulty review is warned about them anyway).")
@@ -438,6 +796,20 @@ def main():
     state = tg.load_json(STATE_PATH, {})
     with get_session() as db:
         teach, guard, skipped = plan(db, args.levels, args.max_guard_level)
+        # levels from the points' own examples change the DB levels; planning again afterwards puts
+        # a point moved back down (2-06) into the teach list and takes a point moved up out of it
+        moved = levels_from_examples(db, teach, tg.Tagger(db))
+        if moved:
+            print("Levels from the points' own examples (their words are harder than their listed level):")
+            for c, v in moved.items():
+                print(f"  {c}: HSK {v['from']} -> {v['level']}  ({v['why']})")
+        teach, guard, skipped = plan(db, args.levels, args.max_guard_level)
+        for c, v in moved.items():
+            if v["level"] > max(args.levels) and v["from"] in args.levels:
+                teach = [x for x in teach if x != c]
+                guard = [x for x in guard if x != c]
+                skipped.append((c, (state.get(c) or {}).get("words", ""),
+                                f"moved to HSK {v['level']}, above the levels built: {v['why']}"))
         if args.only:
             teach, guard = [c for c in teach if c in args.only], [c for c in guard if c in args.only]
         if args.limit:
@@ -455,12 +827,28 @@ def main():
             print("Note: with --limit, guard rules come after the teach points, so these points' Tatoeba fills run "
                   "with few guards; the full run fills them again once the guard rules exist.")
         print(f"Working on a copy of {real}")
+        if not tg.MANUAL_PATH.exists():
+            print(f"Hand-matched points: none ({tg.MANUAL_PATH} not found)")
+        else:
+            try:
+                manual = json.loads(tg.MANUAL_PATH.read_text(encoding="utf-8"))
+            except json.JSONDecodeError as e:
+                sys.exit(f"{tg.MANUAL_PATH.name} isn't valid JSON ({e}). Fix it or send it to Claude.")
+            n_skip = sum(1 for k, v in manual.items() if not k.startswith("_") and v.get("skip"))
+            print(f"Hand-matched points ({tg.MANUAL_PATH.name}): {len(manual) - 1 - n_skip} matched, "
+                  f"{n_skip} skipped")
         print(f"Points: {len(teach)} to teach, {len(guard)} guard (harder points made of easy words), "
               f"{len(skipped)} skipped")
         print(f"Work left: {len(need_sources)} sources call(s), {len(need_rule)} rule(s) to write "
               f"(+ up to one revise each), {len(need_tatoeba)} Tatoeba fill(s)")
+        retest = [c for c in teach + guard if state[c].get("rule") == "ok"
+                  and state[c].get("test_version") != TEST_VERSION]
+        if retest:
+            print(f"  + {len(retest)} passing rule(s) tested again against their easy examples (free; "
+                  "one Sonnet revise each for any that fail)")
         low = len(need_sources) * 0.02 + len(need_rule) * 0.03 + len(need_tatoeba) * 0.03
-        high = len(need_sources) * 0.04 + len(need_rule) * 0.08 + len(need_tatoeba) * 0.10
+        high = (len(need_sources) * 0.04 + len(need_rule) * 0.08 + len(need_tatoeba) * 0.10
+                + len(retest) * 0.02)
         print(f"Rough cost: ${low:.0f}-${high:.0f} (a guess). If the account runs out of credit, the run stops "
               "cleanly and continues where it stopped once you add credit.")
         if args.show_unmatched:
@@ -474,12 +862,33 @@ def main():
                 print(f"  {c} {label}  -- {why}")
             return
 
+        if args.export:
+            export_for_pipeline(db, state, teach, tg.Tagger(db))
+            db.rollback()
+            print("Next, in the real pipeline: python main.py --levels 1 2   (migrates the DB, loads all of it)")
+            return
         tagger, client = tg.Tagger(db), tg.get_client()
         try:
             if args.phase in ("all", "rules"):
+                for c in args.rewrite:                    # written again from scratch
+                    if c in state:
+                        gr.remove_section(tg.RULES_PATH, c)
+                        for k in ("rule", "revised", "test_version", "retest", "guard_revised3", "not_for"):
+                            state[c].pop(k, None)
+                        print(f"{c}: old rule removed, writing it again")
+                _, _, unreadable = gr.load_rules(tg.RULES_PATH)
+                for c in unreadable:                      # passed before, but can't be read now:
+                    if c in state and state[c].get("rule") == "ok":   # write it again
+                        state[c].update(rule="failed", note="rule can't be read any more")
+                        state[c].pop("revised", None)
+                for c in teach + guard:                   # passed an older test: tested again
+                    if state[c].get("rule") == "ok" and state[c].get("test_version") != TEST_VERSION:
+                        state[c]["retest"] = True
+                        state[c].pop("revised", None)       # gets one revise if it fails the new test
                 todo = [c for c in teach + guard
-                        if not (state[c].get("rule") == "ok"
-                                or (state[c].get("rule") in ("failed", "error") and not args.retry_failed))]
+                        if not ((state[c].get("rule") == "ok" and not state[c].get("retest"))
+                                or (state[c].get("rule") in ("failed", "error") and not args.retry_failed
+                                    and c not in unreadable))]
                 clock = [time.time()]
                 for i, c in enumerate(todo, 1):
                     st = state[c]
@@ -488,6 +897,7 @@ def main():
                     with open(BATCH_DIR / f"{c}.log", "a", encoding="utf-8") as log, contextlib.redirect_stdout(log):
                         print(f"\n########## rules  {time.strftime('%Y-%m-%d %H:%M')} ##########")
                         try:
+                            st.pop("retest", None)
                             rule_for(db, c, st, tagger, client, args.first_writer)
                         except (SystemExit, Exception) as e:
                             st.update(rule="error", note=(str(e) or repr(e)).splitlines()[0][:200])
@@ -513,6 +923,8 @@ def main():
                 for i, c in enumerate(todo, 1):
                     st = state[c]
                     st["tatoeba"] = "in progress"       # an interrupted fill is redone next run
+                    if st.get("ai") == "done":
+                        st["ai"] = "stale"               # its AI sentences are checked again below
                     with open(BATCH_DIR / f"{c}.log", "a", encoding="utf-8") as log, contextlib.redirect_stdout(log):
                         print(f"\n########## tatoeba  {time.strftime('%Y-%m-%d %H:%M')} ##########")
                         try:
@@ -530,6 +942,31 @@ def main():
                     else:
                         print(f"[tatoeba {i}/{len(todo)}] {c}: {st.get('tatoeba')} -- {st.get('note', '')}"
                               f"{pace(clock, i, len(todo))}", flush=True)
+            ai_on = args.phase == "ai" or (args.ai and args.phase == "all")
+            # with --ai: every point still short (Sonnet writes more if needed). Without it: only points
+            # refilled from Tatoeba this run whose AI sentences must be checked again (nothing is written).
+            todo = [c for c in teach if state[c].get("tatoeba") == "done"
+                    and ((ai_on and state[c]["course_sentences"] + state[c]["added"] < args.target)
+                         or state[c].get("ai") == "stale")]
+            if todo:
+                print(f"\nAI-written sentences for {len(todo)} point(s) still under {args.target}...", flush=True)
+                clock = [time.time()]
+                for i, c in enumerate(todo, 1):
+                    st = state[c]
+                    with open(BATCH_DIR / f"{c}.log", "a", encoding="utf-8") as log, contextlib.redirect_stdout(log):
+                        print(f"\n########## ai  {time.strftime('%Y-%m-%d %H:%M')} ##########")
+                        try:
+                            ai_fill_for(db, c, st, args.target, client, write=ai_on)
+                        except (SystemExit, Exception) as e:
+                            st.update(ai="error", ai_note=(str(e) or repr(e)).splitlines()[0][:200])
+                            traceback.print_exc(file=log)
+                        db.rollback()
+                    save_state(state)
+                    total = st["course_sentences"] + st["added"] + (st.get("ai_added", 0) if st.get("ai") == "done" else 0)
+                    print(f"[ai {i}/{len(todo)}] {c} HSK {st['level']}: {st.get('ai_added', 0)} AI-written kept "
+                          f"(of {st.get('ai_written', 0)} written) -> {total} in all"
+                          + (f" -- {st.get('ai_note')}" if st.get("ai") == "error" else "")
+                          + pace(clock, i, len(todo)), flush=True)
         except KeyboardInterrupt:
             print("\nStopped. Progress is saved: run the same command again to continue.")
         except tg.OutOfCredits as e:

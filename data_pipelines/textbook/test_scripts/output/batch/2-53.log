@@ -8,3 +8,1145 @@ Traceback (most recent call last):
   File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 672, in cmd_sources
     raise SystemExit(f"No AllSet Learning page uses {' '.join(point.markers)}.")
 SystemExit: No AllSet Learning page uses 数量.
+
+########## rules  2026-11-10 21:26 ##########
+Traceback (most recent call last):
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 491, in main
+    rule_for(db, c, st, tagger, client, args.first_writer)
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 143, in rule_for
+    tg.cmd_sources(db, point, trial_args(code=code, redo=True))
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 698, in cmd_sources
+    raise SystemExit(f"No AllSet Learning page uses {' '.join(point.markers)}.")
+SystemExit: No AllSet Learning page uses 数量.
+
+########## rules  2026-11-11 14:18 ##########
+Traceback (most recent call last):
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 515, in main
+    rule_for(db, c, st, tagger, client, args.first_writer)
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 143, in rule_for
+    tg.cmd_sources(db, point, trial_args(code=code, redo=True))
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 722, in cmd_sources
+    raise SystemExit(f"No AllSet Learning page uses {' '.join(point.markers)}.")
+SystemExit: No AllSet Learning page uses 数量.
+
+########## rules  2026-11-12 17:25 ##########
+8 page(s) use the word(s); asking about 8.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGE8810  Expressing "age difference" with "da and xiao"
+  ASG6KUS5  Expressing "much more" in comparisons
+
+not:
+  ASGRURCZ  Expressing "not at all" with "yidianr ye bu"
+  ASGWVZ0T  Expressing "some" with "yixie"
+  ASGPM3MY  Expressing "a little too" with "you dian"
+
+unsure:
+  ASGEHTV5  Expressing "a bit too"
+  ASGV55Y4  Comparing "youdian" and "yidian"
+
+unrelated:
+  ASGQUKJF  Age with "sui"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-53
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_172536.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-53, rule line 1: '(CD|/M)+' looks like a regular expression -- this is not regex syntax: use ... for 'any words' and _ for 'one word' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-53_20261112_172546.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-53
+<!-- written by claude-haiku-4-5 on 2026-11-12; edit freely -->
+**Point:** Adjective + quantifier/degree complement to express comparison or change
+**Covers:** Comparisons using 比/和/跟 with adjective + 多了/得多/很多, age expressions with 大/小 + number + 岁, and adjective + 多了/一点儿 to express change or degree
+**Does not cover:** 一点儿/一些 meaning "some" or "a little bit" (not as a complement); 一点儿 with negation (一点也/都不); adjective + 了 meaning "too" without a quantifier complement
+
+```rule
+match: /VA ... /CD /M $
+match: /VA ... /CD 岁
+match: /VA 多/AD 了/SP $
+match: /VA 得/DER 多/VA
+match: /VA 很/AD 多
+match: /VA 一点儿/AD $
+match: 差不多/AD /VA $
+match: 一样/AD /VA $
+
+unless: 一点/NN 也/AD
+unless: 一点/NN 都/AD
+unless: 一些/CD
+unless: 有/VE 一点儿
+unless: 有/VE 一点
+```
+
+**Notes:** The rule targets adjectives followed by quantifier complements (numbers + 岁, 多了, 得多, 很多, 一点儿) or special comparative forms (差不多大, 一样大). It excludes negation patterns (一点也/都不), the "some/a bit" uses of 一些 and 有一点儿, and distinguishes from HSK 2-13 (degree adverbs like 多 alone). Age expressions with 大/小 + CD + 岁 are included. The "多了" pattern requires end-of-clause to avoid false matches with verbs like 喝多了 (drank too much).
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-53
+Tagging 2 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-53: rule on labeled examples (no AI) ===
+  examples of 2-53 matched:    24/25
+  counter-examples wrongly matched: 0/26   <- should be 0
+
+--- examples of 2-53 the rule misses (1) ---
+  我是90的，你是哪年的？  -- ASGE8810 Expressing "age difference" with "da and xiao"
+  easy examples (words all HSK 2 or below) matched: 7/7   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:40 ##########
+Filling 2-53 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 4 Tatoeba candidate(s) (cached after this run)...
+  ...100/254
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_174045.txt
+  ...200/254
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  下一次 = 下 + 一 + 次  (next)
+
+Course sentences at HSK 2 the rule already finds 2-53 in: 3  -> Tatoeba needs to add 17 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-53 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      441  2. contain the point's word(s)
+      441  3. new (not in DB, not a duplicate)
+      254  4. at most 2 characters outside HSK 2 words
+       52  5. really HSK 2
+       46  5b. no harder grammar point (of the 40 with a rule)
+       18  6. the rule finds 2-53
+       16  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-53, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  我比你高一点。  (I'm a little taller than you.)  [tatoeba 431826]
+  他比我大两岁。  (He's two years older than me.)  [tatoeba 713216]
+  Ken的书比你多多了。  (Ken has a lot more books than you.)  [tatoeba 2661322]  hidden: 多多
+
+--- dropped at step 4 (187), first 12 ---
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  天气预报一点也不可靠。  -- 3 characters no HSK 2 word uses: 报靠预
+  想吃一点巧克力奶酪吗？  -- 4 characters no HSK 2 word uses: 克力巧酪
+  我们给他看了一些伦敦的照片。  -- 4 characters no HSK 2 word uses: 伦敦照片
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  大熊猫被认为是中国的国宝，但在一些保护区，它仍被偷猎。  -- 9 characters no HSK 2 word uses: 仍保偷区宝护熊猎被
+  一些大学生在假期去非洲做志愿者 ，帮助当地完善野生生物管理。  -- 12 characters no HSK 2 word uses: 假助善当志愿洲物理管者野
+  由于一些工厂使用矿物燃料，化学品的排放已经产生严重的环境问题。  -- 18 characters no HSK 2 word uses: 严于产使化厂品境排放料燃物环用由矿重
+  一些人只买有机的食物，他们认为这样可以使他们的健康不受污染的损害。  -- 10 characters no HSK 2 word uses: 使健受害康损染污物食
+  虽然我们大多数人比我们的父母、祖父母还要富裕得多，但是与之相应的快乐程度却没有多大的改变。  -- 15 characters no HSK 2 word uses: 与之却变富应度改数母父相祖程裕
+  他们的四合院要小得多，设计和装饰也比较简单，胡同也比较窄。  -- 10 characters no HSK 2 word uses: 单合窄简胡装计设较饰
+
+--- dropped at step 5 (202), first 12 ---
+  我一点都不怕你。  -- level 3: 怕 L3
+  钱太多了吗？  -- level 1: no list words
+  他岁数和你差不多。  -- level 6: 岁数 L6, 差不多 L3
+  我们时间不多了。  -- level 1: no list words
+  他八岁时离开了他的父母。  -- level 4: 离开 L3, 父母 L4
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+  我的工资比他少多了。  -- level 4: 工资 L4
+  你十岁了吗？  -- level 1: no list words
+  我父亲五十岁了。  -- level 4: 父亲 L4
+  他们差六岁。  -- level 3: 差 L3
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  这方便得多了。  -- level 3: 方便 L3
+
+--- dropped at step 5b (6) ---
+  这是第一点。  -- harder grammar: 3-01 (HSK 3)
+  请再给我一点咖啡。  -- harder grammar: 3-16 (HSK 3)
+  我晚一点再打。  -- harder grammar: 3-16 (HSK 3)
+  能再告诉我一点吗？  -- harder grammar: 3-16 (HSK 3)
+  请再给我一些水。  -- harder grammar: 3-16 (HSK 3)
+  你能再给我一点咖啡吗？  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (28) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  「你几岁？」「我十六岁。」  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  我一点英语也不懂。  -- rule: no match: line matched
+  星期一是Tom的三十岁生日。  -- rule: no match: line matched
+  告诉我们多一点。  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  可以给我一些茶水吗？  -- rule: no match: line matched
+  我能问你们一些问题吗？  -- rule: unless 一些/CD
+  我十一点上床。  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: no match: line matched
+  明天是她五岁生日。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: no match: line matched
+  您十一点时来看我吧。  -- rule: no match: line matched
+  汤姆三岁的时候就能写自己的名字了。  -- rule: no match: line matched
+  你能帮我一点忙吗？  -- rule: no match: line matched
+  我一点咖啡也不喝。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: unless 一些/CD
+  我要去拿一些牛奶。  -- rule: unless 一些/CD
+  「你们两个几岁？」「我二十七，他三十。」  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  他比她大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+  她比他大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+
+--- dropped at step 7 (13) ---
+  快一点！  -- check said no (2/2): 快一点 is imperative, not quantity comparison
+  慢一点。  -- check said no (2/2): 慢一点 is imperative, not quantity comparison
+  对他好一点。  -- check said no (2/2): 好一点 means 'a bit better', not quantity comparison
+  这样好多了。  -- check said no (1/2): 多了 expresses 'much more', different structure
+  我们做多一点。  -- check said no (2/2): 多一点 means 'a bit more', not formal quantity complement
+  我会晚一点回来。  -- check said no (2/2): 晚一点 is time modifier, not quantity comparison
+  Tom，快一点。  -- check said no (2/2): 快一点 is imperative, not quantity comparison
+  下次请晚一点到。  -- check said no (2/2): 晚一点 means 'a bit later', not quantity comparison
+  可以便宜一点吗？  -- check said no (2/2): 便宜一点 means 'a bit cheaper', not quantity comparison
+  我要你离我远一点  -- check said no (2/2): 远一点 means 'further away', not quantity comparison
+  下一次我会早一点到。  -- check said no (2/2): 早一点 means 'a bit earlier', not quantity comparison
+  Tom要我离他远一点。  -- check said no (2/2): 远一点 means 'further away', not quantity comparison
+  我说过让你离我的电脑远一点的。  -- check said no (2/2): 远一点 means 'further away', not quantity comparison
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-53_level2_20261112_174100.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-53 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-53 in: 3  -> Tatoeba needs to add 17 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-53 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      441  2. contain the point's word(s)
+      441  3. new (not in DB, not a duplicate)
+      254  4. at most 2 characters outside HSK 2 words
+       52  5. really HSK 2
+       46  5b. no harder grammar point (of the 40 with a rule)
+       18  6. the rule finds 2-53
+       16  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-53, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  我比你高一点。  (I'm a little taller than you.)  [tatoeba 431826]
+  他比我大两岁。  (He's two years older than me.)  [tatoeba 713216]
+  Ken的书比你多多了。  (Ken has a lot more books than you.)  [tatoeba 2661322]  hidden: 多多
+
+--- dropped at step 4 (187), first 12 ---
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  天气预报一点也不可靠。  -- 3 characters no HSK 2 word uses: 报靠预
+  想吃一点巧克力奶酪吗？  -- 4 characters no HSK 2 word uses: 克力巧酪
+  我们给他看了一些伦敦的照片。  -- 4 characters no HSK 2 word uses: 伦敦照片
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  大熊猫被认为是中国的国宝，但在一些保护区，它仍被偷猎。  -- 9 characters no HSK 2 word uses: 仍保偷区宝护熊猎被
+  一些大学生在假期去非洲做志愿者 ，帮助当地完善野生生物管理。  -- 12 characters no HSK 2 word uses: 假助善当志愿洲物理管者野
+  由于一些工厂使用矿物燃料，化学品的排放已经产生严重的环境问题。  -- 18 characters no HSK 2 word uses: 严于产使化厂品境排放料燃物环用由矿重
+  一些人只买有机的食物，他们认为这样可以使他们的健康不受污染的损害。  -- 10 characters no HSK 2 word uses: 使健受害康损染污物食
+  虽然我们大多数人比我们的父母、祖父母还要富裕得多，但是与之相应的快乐程度却没有多大的改变。  -- 15 characters no HSK 2 word uses: 与之却变富应度改数母父相祖程裕
+  他们的四合院要小得多，设计和装饰也比较简单，胡同也比较窄。  -- 10 characters no HSK 2 word uses: 单合窄简胡装计设较饰
+
+--- dropped at step 5 (202), first 12 ---
+  我一点都不怕你。  -- level 3: 怕 L3
+  钱太多了吗？  -- level 1: no list words
+  他岁数和你差不多。  -- level 6: 岁数 L6, 差不多 L3
+  我们时间不多了。  -- level 1: no list words
+  他八岁时离开了他的父母。  -- level 4: 离开 L3, 父母 L4
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+  我的工资比他少多了。  -- level 4: 工资 L4
+  你十岁了吗？  -- level 1: no list words
+  我父亲五十岁了。  -- level 4: 父亲 L4
+  他们差六岁。  -- level 3: 差 L3
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  这方便得多了。  -- level 3: 方便 L3
+
+--- dropped at step 5b (6) ---
+  这是第一点。  -- harder grammar: 3-01 (HSK 3)
+  请再给我一点咖啡。  -- harder grammar: 3-16 (HSK 3)
+  我晚一点再打。  -- harder grammar: 3-16 (HSK 3)
+  能再告诉我一点吗？  -- harder grammar: 3-16 (HSK 3)
+  请再给我一些水。  -- harder grammar: 3-16 (HSK 3)
+  你能再给我一点咖啡吗？  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (28) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  「你几岁？」「我十六岁。」  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  我一点英语也不懂。  -- rule: no match: line matched
+  星期一是Tom的三十岁生日。  -- rule: no match: line matched
+  告诉我们多一点。  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  可以给我一些茶水吗？  -- rule: no match: line matched
+  我能问你们一些问题吗？  -- rule: unless 一些/CD
+  我十一点上床。  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: no match: line matched
+  明天是她五岁生日。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: no match: line matched
+  您十一点时来看我吧。  -- rule: no match: line matched
+  汤姆三岁的时候就能写自己的名字了。  -- rule: no match: line matched
+  你能帮我一点忙吗？  -- rule: no match: line matched
+  我一点咖啡也不喝。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: unless 一些/CD
+  我要去拿一些牛奶。  -- rule: unless 一些/CD
+  「你们两个几岁？」「我二十七，他三十。」  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  他比她大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+  她比他大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+
+--- dropped at step 7 (13) ---
+  快一点！  -- check said no (2/2): 快一点 is imperative, not quantity comparison
+  慢一点。  -- check said no (2/2): 慢一点 is imperative, not quantity comparison
+  对他好一点。  -- check said no (2/2): 好一点 means 'a bit better', not quantity comparison
+  这样好多了。  -- check said no (1/2): 多了 expresses 'much more', different structure
+  我们做多一点。  -- check said no (2/2): 多一点 means 'a bit more', not formal quantity complement
+  我会晚一点回来。  -- check said no (2/2): 晚一点 is time modifier, not quantity comparison
+  Tom，快一点。  -- check said no (2/2): 快一点 is imperative, not quantity comparison
+  下次请晚一点到。  -- check said no (2/2): 晚一点 means 'a bit later', not quantity comparison
+  可以便宜一点吗？  -- check said no (2/2): 便宜一点 means 'a bit cheaper', not quantity comparison
+  我要你离我远一点  -- check said no (2/2): 远一点 means 'further away', not quantity comparison
+  下一次我会早一点到。  -- check said no (2/2): 早一点 means 'a bit earlier', not quantity comparison
+  Tom要我离他远一点。  -- check said no (2/2): 远一点 means 'further away', not quantity comparison
+  我说过让你离我的电脑远一点的。  -- check said no (2/2): 远一点 means 'further away', not quantity comparison
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-53_level2_20261112_211519.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:55 ##########
+Filling 2-53 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-53 in: 3  -> Tatoeba needs to add 17 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-53 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      441  2. contain the point's word(s)
+      441  3. new (not in DB, not a duplicate)
+      254  4. at most 2 characters outside HSK 2 words
+       52  5. really HSK 2
+       45  5b. no harder grammar point (of the 44 with a rule)
+       18  6. the rule finds 2-53
+       16  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-53, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  我比你高一点。  (I'm a little taller than you.)  [tatoeba 431826]
+  他比我大两岁。  (He's two years older than me.)  [tatoeba 713216]
+  Ken的书比你多多了。  (Ken has a lot more books than you.)  [tatoeba 2661322]  hidden: 多多
+
+--- dropped at step 4 (187), first 12 ---
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  天气预报一点也不可靠。  -- 3 characters no HSK 2 word uses: 报靠预
+  想吃一点巧克力奶酪吗？  -- 4 characters no HSK 2 word uses: 克力巧酪
+  我们给他看了一些伦敦的照片。  -- 4 characters no HSK 2 word uses: 伦敦照片
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  大熊猫被认为是中国的国宝，但在一些保护区，它仍被偷猎。  -- 9 characters no HSK 2 word uses: 仍保偷区宝护熊猎被
+  一些大学生在假期去非洲做志愿者 ，帮助当地完善野生生物管理。  -- 12 characters no HSK 2 word uses: 假助善当志愿洲物理管者野
+  由于一些工厂使用矿物燃料，化学品的排放已经产生严重的环境问题。  -- 18 characters no HSK 2 word uses: 严于产使化厂品境排放料燃物环用由矿重
+  一些人只买有机的食物，他们认为这样可以使他们的健康不受污染的损害。  -- 10 characters no HSK 2 word uses: 使健受害康损染污物食
+  虽然我们大多数人比我们的父母、祖父母还要富裕得多，但是与之相应的快乐程度却没有多大的改变。  -- 15 characters no HSK 2 word uses: 与之却变富应度改数母父相祖程裕
+  他们的四合院要小得多，设计和装饰也比较简单，胡同也比较窄。  -- 10 characters no HSK 2 word uses: 单合窄简胡装计设较饰
+
+--- dropped at step 5 (202), first 12 ---
+  我一点都不怕你。  -- level 3: 怕 L3
+  钱太多了吗？  -- level 1: no list words
+  他岁数和你差不多。  -- level 6: 岁数 L6, 差不多 L3
+  我们时间不多了。  -- level 1: no list words
+  他八岁时离开了他的父母。  -- level 4: 离开 L3, 父母 L4
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+  我的工资比他少多了。  -- level 4: 工资 L4
+  你十岁了吗？  -- level 1: no list words
+  我父亲五十岁了。  -- level 4: 父亲 L4
+  他们差六岁。  -- level 3: 差 L3
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  这方便得多了。  -- level 3: 方便 L3
+
+--- dropped at step 5b (7) ---
+  这是第一点。  -- harder grammar: 3-01 (HSK 3)
+  请再给我一点咖啡。  -- harder grammar: 3-16 (HSK 3)
+  我晚一点再打。  -- harder grammar: 3-16 (HSK 3)
+  能再告诉我一点吗？  -- harder grammar: 3-16 (HSK 3)
+  汤姆三岁的时候就能写自己的名字了。  -- harder grammar: 2-06 (HSK 3)
+  请再给我一些水。  -- harder grammar: 3-16 (HSK 3)
+  你能再给我一点咖啡吗？  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (27) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  「你几岁？」「我十六岁。」  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  我一点英语也不懂。  -- rule: no match: line matched
+  星期一是Tom的三十岁生日。  -- rule: no match: line matched
+  告诉我们多一点。  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  可以给我一些茶水吗？  -- rule: no match: line matched
+  我能问你们一些问题吗？  -- rule: unless 一些/CD
+  我十一点上床。  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: no match: line matched
+  明天是她五岁生日。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: no match: line matched
+  您十一点时来看我吧。  -- rule: no match: line matched
+  你能帮我一点忙吗？  -- rule: no match: line matched
+  我一点咖啡也不喝。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: unless 一些/CD
+  我要去拿一些牛奶。  -- rule: unless 一些/CD
+  「你们两个几岁？」「我二十七，他三十。」  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  他比她大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+  她比他大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+
+--- dropped at step 7 (13) ---
+  快一点！  -- check said no (2/2): 快一点 is imperative, not quantity comparison
+  慢一点。  -- check said no (2/2): 慢一点 is imperative, not quantity comparison
+  对他好一点。  -- check said no (2/2): 好一点 means 'a bit better', not quantity comparison
+  这样好多了。  -- check said no (1/2): 多了 expresses 'much more', different structure
+  我们做多一点。  -- check said no (2/2): 多一点 means 'a bit more', not formal quantity complement
+  我会晚一点回来。  -- check said no (2/2): 晚一点 is time modifier, not quantity comparison
+  Tom，快一点。  -- check said no (2/2): 快一点 is imperative, not quantity comparison
+  下次请晚一点到。  -- check said no (2/2): 晚一点 means 'a bit later', not quantity comparison
+  可以便宜一点吗？  -- check said no (2/2): 便宜一点 means 'a bit cheaper', not quantity comparison
+  我要你离我远一点  -- check said no (2/2): 远一点 means 'further away', not quantity comparison
+  下一次我会早一点到。  -- check said no (2/2): 早一点 means 'a bit earlier', not quantity comparison
+  Tom要我离他远一点。  -- check said no (2/2): 远一点 means 'further away', not quantity comparison
+  我说过让你离我的电脑远一点的。  -- check said no (2/2): 远一点 means 'further away', not quantity comparison
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-53_level2_20261113_135502.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:45 ##########
+Filling 2-53 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-53 in: 3  -> Tatoeba needs to add 17 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 13 check and 0 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 2-53 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      441  2. contain the point's word(s)
+      441  3. new (not in DB, not a duplicate)
+      254  4. at most 2 characters outside HSK 2 words
+       52  5. really HSK 2
+       46  5b. no harder grammar point (of the 43 with a rule)
+       18  6. the rule finds 2-53
+       16  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-53, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  我比你高一点。  (I'm a little taller than you.)  [tatoeba 431826]
+  他比我大两岁。  (He's two years older than me.)  [tatoeba 713216]
+  Ken的书比你多多了。  (Ken has a lot more books than you.)  [tatoeba 2661322]  hidden: 多多
+
+--- dropped at step 4 (187), first 12 ---
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  天气预报一点也不可靠。  -- 3 characters no HSK 2 word uses: 报靠预
+  想吃一点巧克力奶酪吗？  -- 4 characters no HSK 2 word uses: 克力巧酪
+  我们给他看了一些伦敦的照片。  -- 4 characters no HSK 2 word uses: 伦敦照片
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  大熊猫被认为是中国的国宝，但在一些保护区，它仍被偷猎。  -- 9 characters no HSK 2 word uses: 仍保偷区宝护熊猎被
+  一些大学生在假期去非洲做志愿者 ，帮助当地完善野生生物管理。  -- 12 characters no HSK 2 word uses: 假助善当志愿洲物理管者野
+  由于一些工厂使用矿物燃料，化学品的排放已经产生严重的环境问题。  -- 18 characters no HSK 2 word uses: 严于产使化厂品境排放料燃物环用由矿重
+  一些人只买有机的食物，他们认为这样可以使他们的健康不受污染的损害。  -- 10 characters no HSK 2 word uses: 使健受害康损染污物食
+  虽然我们大多数人比我们的父母、祖父母还要富裕得多，但是与之相应的快乐程度却没有多大的改变。  -- 15 characters no HSK 2 word uses: 与之却变富应度改数母父相祖程裕
+  他们的四合院要小得多，设计和装饰也比较简单，胡同也比较窄。  -- 10 characters no HSK 2 word uses: 单合窄简胡装计设较饰
+
+--- dropped at step 5 (202), first 12 ---
+  我一点都不怕你。  -- level 3: 怕 L3
+  钱太多了吗？  -- level 1: no list words
+  他岁数和你差不多。  -- level 6: 岁数 L6, 差不多 L3
+  我们时间不多了。  -- level 1: no list words
+  他八岁时离开了他的父母。  -- level 4: 离开 L3, 父母 L4
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+  我的工资比他少多了。  -- level 4: 工资 L4
+  你十岁了吗？  -- level 1: no list words
+  我父亲五十岁了。  -- level 4: 父亲 L4
+  他们差六岁。  -- level 3: 差 L3
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  这方便得多了。  -- level 3: 方便 L3
+
+--- dropped at step 5b (6) ---
+  这是第一点。  -- harder grammar: 3-01 (HSK 3)
+  请再给我一点咖啡。  -- harder grammar: 3-16 (HSK 3)
+  我晚一点再打。  -- harder grammar: 3-16 (HSK 3)
+  能再告诉我一点吗？  -- harder grammar: 3-16 (HSK 3)
+  请再给我一些水。  -- harder grammar: 3-16 (HSK 3)
+  你能再给我一点咖啡吗？  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (28) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  「你几岁？」「我十六岁。」  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  我一点英语也不懂。  -- rule: no match: line matched
+  星期一是Tom的三十岁生日。  -- rule: no match: line matched
+  告诉我们多一点。  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  可以给我一些茶水吗？  -- rule: no match: line matched
+  我能问你们一些问题吗？  -- rule: unless 一些/CD
+  我十一点上床。  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: no match: line matched
+  明天是她五岁生日。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: no match: line matched
+  您十一点时来看我吧。  -- rule: no match: line matched
+  汤姆三岁的时候就能写自己的名字了。  -- rule: no match: line matched
+  你能帮我一点忙吗？  -- rule: no match: line matched
+  我一点咖啡也不喝。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: unless 一些/CD
+  我要去拿一些牛奶。  -- rule: unless 一些/CD
+  「你们两个几岁？」「我二十七，他三十。」  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  他比她大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+  她比他大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+
+--- dropped at step 7 (13) ---
+  快一点！  -- check said no (2/2): 快一点 is imperative, not quantity comparison
+  慢一点。  -- check said no (2/2): 慢一点 is imperative, not quantity comparison
+  对他好一点。  -- check said no (2/2): 好一点 means 'a bit better', not quantity comparison
+  这样好多了。  -- check said no (1/2): 多了 expresses 'much more', different structure
+  我们做多一点。  -- check said no (2/2): 多一点 means 'a bit more', not formal quantity complement
+  我会晚一点回来。  -- check said no (2/2): 晚一点 is time modifier, not quantity comparison
+  Tom，快一点。  -- check said no (2/2): 快一点 is imperative, not quantity comparison
+  下次请晚一点到。  -- check said no (2/2): 晚一点 means 'a bit later', not quantity comparison
+  可以便宜一点吗？  -- check said no (2/2): 便宜一点 means 'a bit cheaper', not quantity comparison
+  我要你离我远一点  -- check said no (2/2): 远一点 means 'further away', not quantity comparison
+  下一次我会早一点到。  -- check said no (2/2): 早一点 means 'a bit earlier', not quantity comparison
+  Tom要我离他远一点。  -- check said no (2/2): 远一点 means 'further away', not quantity comparison
+  我说过让你离我的电脑远一点的。  -- check said no (2/2): 远一点 means 'further away', not quantity comparison
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-53_level2_20261113_144536.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## ai  2026-11-14 14:39 ##########
+
+----- AI-written sentences for 2-53, round 1: 0 to check, 14 needed -----
+  Asking claude-sonnet-5-5 to write 35 sentence(s)...
+
+----- AI-written sentences for 2-53, round 2: 35 to check, 14 needed -----
+Filling 2-53 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 35
+
+Tagging 33 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_143938.txt
+
+Course sentences at HSK 2 the rule already finds 2-53 in: 3  -> Tatoeba needs to add 14 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-53 at HSK 2: funnel ===
+       35  AI-written sentences
+       35  1. have an English translation
+       33  2. contain the point's word(s)
+       33  3. new (not in DB, not a duplicate)
+       33  4. at most 0 characters outside HSK 2 words
+       30  5. really HSK 2
+       29  5b. no harder grammar point (of the 43 with a rule)
+       24  6. the rule finds 2-53
+       23  6b. no hidden word a learner can't work out
+       15  7. both checks say 2-53, English chosen
+       14  8. both difficulty reviews pass it
+  (3 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (14) ===
+  他比我高得多。  (He is much taller than me.)  [tatoeba ai-a8e924e8be]
+  你比我忙多了。  (You are much busier than me.)  [tatoeba ai-21316cad98]
+  她只比我小一岁。  (She is only one year younger than me.)  [tatoeba ai-495e1b7abe]
+  今天比昨天冷多了。  (Today is much colder than yesterday.)  [tatoeba ai-d052487b86]
+  我哥哥比我大五岁。  (My older brother is five years older than me.)  [tatoeba ai-56b8641809]
+  我弟弟比我小四岁。  (My younger brother is four years younger than me.)  [tatoeba ai-72cde8f260]
+  坐地铁比开车快得多。  (Taking the subway is much faster than driving.)  [tatoeba ai-c4efb9586a]
+  他的汉语比我好得多。  (His Chinese is much better than mine.)  [tatoeba ai-5eb5d87ccb]
+  我女朋友比我小一岁。  (My girlfriend is one year younger than me.)  [tatoeba ai-48959e0c4b]
+  我妈妈比我爸爸小两岁。  (My mom is two years younger than my dad.)  [tatoeba ai-ffaa50957f]
+  这件衣服比那件贵多了。  (This piece of clothing is much more expensive than that one.)  [tatoeba ai-9667e83aa4]
+  这个房间比那个大多了。  (This room is much bigger than that one.)  [tatoeba ai-4a8ce6cc80]  hidden: 这个, 那个
+  坐飞机比坐火车贵得多。  (Flying is much more expensive than taking the train.)  [tatoeba ai-ea5bbb1809]
+  我女儿比她同学小一岁。  (My daughter is one year younger than her classmate.)  [tatoeba ai-8e9a26c1bf]
+
+--- dropped at step 5 (3) ---
+  你家孩子几岁了？  -- level 1: no list words
+  你今年几岁？  -- level 1: no list words
+  今天我起得早一点儿。  -- level 3: 起 L3
+
+--- dropped at step 5b (1) ---
+  吃了药，我舒服多了。  -- harder grammar: 2-62 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  手机比电脑小一些。  -- rule: no match: line matched
+  晚上比白天冷一些。  -- rule: no match: line matched
+  我想买大一点儿的杯子。  -- rule: no match: line matched
+  这条路比那条路远一些。  -- rule: no match: line matched
+  他比我晚到一点儿。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我家的狗比你家的猫大得多。  -- hidden word a learner can't work out: 家的 ((old) wife)
+
+--- dropped at step 7 (5) ---
+  请你说慢一点儿。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+  今天比昨天热一点儿。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+  这本书比那本书贵一点儿。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+  今天的雨比昨天小一点儿。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+  走快一点儿，我们快要晚了。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+
+--- dropped at step 8 (1) ---
+  那个小孩儿比我儿子大两岁。  -- difficulty review: (1/2); 儿化 (erhua) is marked as x-erhua, not explicitly taught at HSK 2; '小孩儿' uses 儿 suffix which is HSK 3+ morphology
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-53_level2_20261114_143951.csv
+
+########## ai  2026-11-14 15:00 ##########
+
+----- AI-written sentences for 2-53, round 1: 35 to check, 14 needed -----
+Filling 2-53 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 35
+
+
+Course sentences at HSK 2 the rule already finds 2-53 in: 3  -> Tatoeba needs to add 14 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-53 at HSK 2: funnel ===
+       35  AI-written sentences
+       35  1. have an English translation
+       33  2. contain the point's word(s)
+       33  3. new (not in DB, not a duplicate)
+       33  4. at most 0 characters outside HSK 2 words
+       30  5. really HSK 2
+       29  5b. no harder grammar point (of the 43 with a rule)
+       24  6. the rule finds 2-53
+       23  6b. no hidden word a learner can't work out
+       15  7. both checks say 2-53, English chosen
+       14  8. both difficulty reviews pass it
+  (3 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (14) ===
+  他比我高得多。  (He is much taller than me.)  [tatoeba ai-a8e924e8be]
+  你比我忙多了。  (You are much busier than me.)  [tatoeba ai-21316cad98]
+  她只比我小一岁。  (She is only one year younger than me.)  [tatoeba ai-495e1b7abe]
+  今天比昨天冷多了。  (Today is much colder than yesterday.)  [tatoeba ai-d052487b86]
+  我哥哥比我大五岁。  (My older brother is five years older than me.)  [tatoeba ai-56b8641809]
+  我弟弟比我小四岁。  (My younger brother is four years younger than me.)  [tatoeba ai-72cde8f260]
+  坐地铁比开车快得多。  (Taking the subway is much faster than driving.)  [tatoeba ai-c4efb9586a]
+  他的汉语比我好得多。  (His Chinese is much better than mine.)  [tatoeba ai-5eb5d87ccb]
+  我女朋友比我小一岁。  (My girlfriend is one year younger than me.)  [tatoeba ai-48959e0c4b]
+  我妈妈比我爸爸小两岁。  (My mom is two years younger than my dad.)  [tatoeba ai-ffaa50957f]
+  这件衣服比那件贵多了。  (This piece of clothing is much more expensive than that one.)  [tatoeba ai-9667e83aa4]
+  这个房间比那个大多了。  (This room is much bigger than that one.)  [tatoeba ai-4a8ce6cc80]  hidden: 这个, 那个
+  坐飞机比坐火车贵得多。  (Flying is much more expensive than taking the train.)  [tatoeba ai-ea5bbb1809]
+  我女儿比她同学小一岁。  (My daughter is one year younger than her classmate.)  [tatoeba ai-8e9a26c1bf]
+
+--- dropped at step 5 (3) ---
+  你家孩子几岁了？  -- level 1: no list words
+  你今年几岁？  -- level 1: no list words
+  今天我起得早一点儿。  -- level 3: 起 L3
+
+--- dropped at step 5b (1) ---
+  吃了药，我舒服多了。  -- harder grammar: 2-62 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  手机比电脑小一些。  -- rule: no match: line matched
+  晚上比白天冷一些。  -- rule: no match: line matched
+  我想买大一点儿的杯子。  -- rule: no match: line matched
+  这条路比那条路远一些。  -- rule: no match: line matched
+  他比我晚到一点儿。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我家的狗比你家的猫大得多。  -- hidden word a learner can't work out: 家的 ((old) wife)
+
+--- dropped at step 7 (5) ---
+  请你说慢一点儿。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+  今天比昨天热一点儿。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+  这本书比那本书贵一点儿。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+  今天的雨比昨天小一点儿。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+  走快一点儿，我们快要晚了。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+
+--- dropped at step 8 (1) ---
+  那个小孩儿比我儿子大两岁。  -- difficulty review: (1/2); 儿化 (erhua) is marked as x-erhua, not explicitly taught at HSK 2; '小孩儿' uses 儿 suffix which is HSK 3+ morphology
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-53_level2_20261114_150055.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:11 ##########
+Filling 2-53 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-53 in: 20  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-53 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      441  2. contain the point's word(s)
+      429  3. new (not in DB, not a duplicate)
+      242  4. at most 2 characters outside HSK 2 words
+       49  5. really HSK 2
+       44  5b. no harder grammar point (of the 43 with a rule)
+       15  6. the rule finds 2-53
+       13  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (13 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (12) ---
+  我们时间不多了。  -- already in the database
+  我比你高一点。  -- already in the database
+  他比我大两岁。  -- already in the database
+  我想我喝得太多了。  -- already in the database
+  我工作得太多了。  -- already in the database
+  我有一些钱。  -- already in the database
+  这是第一点。  -- already in the database
+  Ken的书比你多多了。  -- already in the database
+  对他好一点。  -- already in the database
+  你知道得太多了。  -- already in the database
+  汤姆三岁的时候就能写自己的名字了。  -- already in the database
+  我已经三十多了。  -- already in the database
+
+--- dropped at step 4 (187), first 12 ---
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  天气预报一点也不可靠。  -- 3 characters no HSK 2 word uses: 报靠预
+  想吃一点巧克力奶酪吗？  -- 4 characters no HSK 2 word uses: 克力巧酪
+  我们给他看了一些伦敦的照片。  -- 4 characters no HSK 2 word uses: 伦敦照片
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  大熊猫被认为是中国的国宝，但在一些保护区，它仍被偷猎。  -- 9 characters no HSK 2 word uses: 仍保偷区宝护熊猎被
+  一些大学生在假期去非洲做志愿者 ，帮助当地完善野生生物管理。  -- 12 characters no HSK 2 word uses: 假助善当志愿洲物理管者野
+  由于一些工厂使用矿物燃料，化学品的排放已经产生严重的环境问题。  -- 18 characters no HSK 2 word uses: 严于产使化厂品境排放料燃物环用由矿重
+  一些人只买有机的食物，他们认为这样可以使他们的健康不受污染的损害。  -- 10 characters no HSK 2 word uses: 使健受害康损染污物食
+  虽然我们大多数人比我们的父母、祖父母还要富裕得多，但是与之相应的快乐程度却没有多大的改变。  -- 15 characters no HSK 2 word uses: 与之却变富应度改数母父相祖程裕
+  他们的四合院要小得多，设计和装饰也比较简单，胡同也比较窄。  -- 10 characters no HSK 2 word uses: 单合窄简胡装计设较饰
+
+--- dropped at step 5 (193), first 12 ---
+  我一点都不怕你。  -- level 3: 怕 L3
+  钱太多了吗？  -- level 1: no list words
+  他岁数和你差不多。  -- level 6: 岁数 L6, 差不多 L3
+  他八岁时离开了他的父母。  -- level 4: 离开 L3, 父母 L4
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+  我的工资比他少多了。  -- level 4: 工资 L4
+  你十岁了吗？  -- level 1: no list words
+  我父亲五十岁了。  -- level 4: 父亲 L4
+  他们差六岁。  -- level 3: 差 L3
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  这方便得多了。  -- level 3: 方便 L3
+  那孩子要六岁了。  -- level 1: no list words
+
+--- dropped at step 5b (5) ---
+  请再给我一点咖啡。  -- harder grammar: 3-16 (HSK 3)
+  我晚一点再打。  -- harder grammar: 3-16 (HSK 3)
+  能再告诉我一点吗？  -- harder grammar: 3-16 (HSK 3)
+  请再给我一些水。  -- harder grammar: 3-16 (HSK 3)
+  你能再给我一点咖啡吗？  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (29) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  「你几岁？」「我十六岁。」  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  我一点英语也不懂。  -- rule: no match: line matched
+  星期一是Tom的三十岁生日。  -- rule: no match: line matched
+  告诉我们多一点。  -- rule: no match: line matched
+  给我多一点牛奶！  -- rule: no match: line matched
+  我们喝了一点水。  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  可以给我一些茶水吗？  -- rule: no match: line matched
+  我能问你们一些问题吗？  -- rule: unless 一些/CD
+  我十一点上床。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: no match: line matched
+  明天是她五岁生日。  -- rule: no match: line matched
+  飞机上吃了一点，不多。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我们十一点睡觉。  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: unless 有/VE 一点儿
+  我们能比他们做得多。  -- rule: no match: line matched
+  您十一点时来看我吧。  -- rule: no match: line matched
+  你能帮我一点忙吗？  -- rule: no match: line matched
+  我一点咖啡也不喝。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: unless 一些/CD
+  我要去拿一些牛奶。  -- rule: unless 一些/CD
+  「你们两个几岁？」「我二十七，他三十。」  -- rule: no match: line matched
+  给汤姆一点时间。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  他比她大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+  她比他大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-53_level2_20261114_161114.csv
+
+########## ai  2026-11-14 16:13 ##########
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:31 ##########
+Filling 2-53 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-53 in: 3  -> Tatoeba needs to add 17 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 14 check and 0 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 2-53 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      441  2. contain the point's word(s)
+      441  3. new (not in DB, not a duplicate)
+      254  4. at most 2 characters outside HSK 2 words
+       59  5. really HSK 2
+       53  5b. no harder grammar point (of the 43 with a rule)
+       19  6. the rule finds 2-53
+       17  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-53, English chosen
+       11  7b. second opinion: it is the point (check)
+        3  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (14) ===
+  我比你高一点。  (I'm a little taller than you.)  [tatoeba 431826]
+  他比我大两岁。  (He's two years older than me.)  [tatoeba 713216]
+  Ken的书比你多多了。  (Ken has a lot more books than you.)  [tatoeba 2661322]  hidden: 多多
+  快一点！  (Hurry up!)  [tatoeba 4754629]
+  慢一点。  (Slow down.)  [tatoeba 4754645]
+  这样好多了。  (This is much better.)  [tatoeba 9961449]
+  我们做多一点。  (Let's make some more.)  [tatoeba 4754638]
+  Tom，快一点。  (Faster, Tom.)  [tatoeba 5363950]
+  下次请晚一点到。  (Please arrive a bit later next time.)  [tatoeba 5410863]  hidden: 下次
+  可以便宜一点吗？  (Can you make it a bit cheaper?)  [tatoeba 6158455]
+  下一次我会早一点到。  (Next time I'll come earlier.)  [tatoeba 5542977]  hidden: 下一次
+  我比汤姆来的早一点。  (I got here a little earlier than Tom.)  [tatoeba 10871947]
+  Tom要我离他远一点。  (Tom wants me to stay away from him.)  [tatoeba 3748345]
+  我说过让你离我的电脑远一点的。  (I thought I told you to stay away from my computer.)  [tatoeba 8929171]
+
+--- dropped at step 4 (187), first 12 ---
+  瑞士的苹果必须好一点才行。  -- 5 characters no HSK 2 word uses: 必才瑞行须
+  天气预报一点也不可靠。  -- 3 characters no HSK 2 word uses: 报靠预
+  想吃一点巧克力奶酪吗？  -- 4 characters no HSK 2 word uses: 克力巧酪
+  我们给他看了一些伦敦的照片。  -- 4 characters no HSK 2 word uses: 伦敦照片
+  这次跑步比赛，三十五岁以下（包括三十五岁）的人参加青年组；三十六岁到五十岁的人参加中年组；五十一岁以上的人参加老年组。  -- 6 characters no HSK 2 word uses: 加参括组赛青
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  大熊猫被认为是中国的国宝，但在一些保护区，它仍被偷猎。  -- 9 characters no HSK 2 word uses: 仍保偷区宝护熊猎被
+  一些大学生在假期去非洲做志愿者 ，帮助当地完善野生生物管理。  -- 12 characters no HSK 2 word uses: 假助善当志愿洲物理管者野
+  由于一些工厂使用矿物燃料，化学品的排放已经产生严重的环境问题。  -- 18 characters no HSK 2 word uses: 严于产使化厂品境排放料燃物环用由矿重
+  一些人只买有机的食物，他们认为这样可以使他们的健康不受污染的损害。  -- 10 characters no HSK 2 word uses: 使健受害康损染污物食
+  虽然我们大多数人比我们的父母、祖父母还要富裕得多，但是与之相应的快乐程度却没有多大的改变。  -- 15 characters no HSK 2 word uses: 与之却变富应度改数母父相祖程裕
+  他们的四合院要小得多，设计和装饰也比较简单，胡同也比较窄。  -- 10 characters no HSK 2 word uses: 单合窄简胡装计设较饰
+
+--- dropped at step 5 (195), first 12 ---
+  我一点都不怕你。  -- level 3: 怕 L3
+  钱太多了吗？  -- level 1: no list words
+  他岁数和你差不多。  -- level 6: 岁数 L6, 差不多 L3
+  我们时间不多了。  -- level 1: no list words
+  他八岁时离开了他的父母。  -- level 4: 离开 L3, 父母 L4
+  18岁以下不可以结婚。  -- level 10: 18 (not in list), 以下 L3, 结婚 L3
+  我的工资比他少多了。  -- level 4: 工资 L4
+  你十岁了吗？  -- level 1: no list words
+  我父亲五十岁了。  -- level 4: 父亲 L4
+  他们差六岁。  -- level 3: 差 L3
+  我爸爸只有十五岁。  -- level 3: 只有 L3
+  这方便得多了。  -- level 3: 方便 L3
+
+--- dropped at step 5b (6) ---
+  这是第一点。  -- harder grammar: 3-01 (HSK 3)
+  请再给我一点咖啡。  -- harder grammar: 3-16 (HSK 3)
+  我晚一点再打。  -- harder grammar: 3-16 (HSK 3)
+  能再告诉我一点吗？  -- harder grammar: 3-16 (HSK 3)
+  请再给我一些水。  -- harder grammar: 3-16 (HSK 3)
+  你能再给我一点咖啡吗？  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (34) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  「你几岁？」「我十六岁。」  -- rule: no match: line matched
+  我想我喝得太多了。  -- rule: no match: line matched
+  我工作得太多了。  -- rule: no match: line matched
+  这些天你工作太多了。你不累吗？  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  我一点英语也不懂。  -- rule: no match: line matched
+  星期一是Tom的三十岁生日。  -- rule: no match: line matched
+  告诉我们多一点。  -- rule: no match: line matched
+  给我多一点牛奶！  -- rule: no match: line matched
+  我们喝了一点水。  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: no match: line matched
+  她十三岁的时候离家出走了。  -- rule: no match: line matched
+  可以给我一些茶水吗？  -- rule: no match: line matched
+  我能问你们一些问题吗？  -- rule: unless 一些/CD
+  我十一点上床。  -- rule: no match: line matched
+  你知道得太多了。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: no match: line matched
+  明天是她五岁生日。  -- rule: no match: line matched
+  飞机上吃了一点，不多。  -- rule: no match: line matched
+  他在医院里过了六十岁生日。  -- rule: no match: line matched
+  我们十一点睡觉。  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: unless 有/VE 一点儿
+  我们能比他们做得多。  -- rule: no match: line matched
+  您十一点时来看我吧。  -- rule: no match: line matched
+  汤姆三岁的时候就能写自己的名字了。  -- rule: no match: line matched
+  你能帮我一点忙吗？  -- rule: no match: line matched
+  我一点咖啡也不喝。  -- rule: no match: line matched
+  我已经三十多了。  -- rule: no match: line matched
+  到了明年，我就十六岁了。  -- rule: no match: line matched
+  不好意思，我要问一些事情。  -- rule: unless 一些/CD
+  我要去拿一些牛奶。  -- rule: unless 一些/CD
+  「你们两个几岁？」「我二十七，他三十。」  -- rule: no match: line matched
+  给汤姆一点时间。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  他比她大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+  她比他大三岁。  -- hidden word a learner can't work out: 大三 (third-year university student)
+
+--- dropped at step 7 (3) ---
+  对他好一点。  -- check said no (2/2): 好一点 means 'a bit better', not quantity comparison
+  我会晚一点回来。  -- check said no (2/2): 晚一点 is time modifier, not quantity comparison
+  我要你离我远一点  -- check said no (2/2): 远一点 means 'further away', not quantity comparison
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-53_level2_20261114_163209.csv
+
+########## ai  2026-11-14 16:35 ##########
+
+----- AI-written sentences for 2-53, round 1: 35 to check, 3 needed -----
+Filling 2-53 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 35
+
+Tagging 10 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_163510.txt
+
+Course sentences at HSK 2 the rule already finds 2-53 in: 3  -> Tatoeba needs to add 3 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-53 at HSK 2: funnel ===
+       35  AI-written sentences
+       35  1. have an English translation
+       33  2. contain the point's word(s)
+       33  3. new (not in DB, not a duplicate)
+       33  4. at most 0 characters outside HSK 2 words
+       29  5. really HSK 2
+       29  5b. no harder grammar point (of the 43 with a rule)
+       25  6. the rule finds 2-53
+       24  6b. no hidden word a learner can't work out
+       15  7. both checks say 2-53, English chosen
+       15  8. both difficulty reviews pass it
+  (4 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (15) ===
+  他比我高得多。  (He is much taller than me.)  [tatoeba ai-a8e924e8be]
+  你比我忙多了。  (You are much busier than me.)  [tatoeba ai-21316cad98]
+  她只比我小一岁。  (She is only one year younger than me.)  [tatoeba ai-495e1b7abe]
+  今天比昨天冷多了。  (Today is much colder than yesterday.)  [tatoeba ai-d052487b86]
+  我哥哥比我大五岁。  (My older brother is five years older than me.)  [tatoeba ai-56b8641809]
+  我弟弟比我小四岁。  (My younger brother is four years younger than me.)  [tatoeba ai-72cde8f260]
+  坐地铁比开车快得多。  (Taking the subway is much faster than driving.)  [tatoeba ai-c4efb9586a]
+  他的汉语比我好得多。  (His Chinese is much better than mine.)  [tatoeba ai-5eb5d87ccb]
+  吃了药，我舒服多了。  (After taking the medicine, I feel much better.)  [tatoeba ai-940434088f]
+  我女朋友比我小一岁。  (My girlfriend is one year younger than me.)  [tatoeba ai-48959e0c4b]
+  我妈妈比我爸爸小两岁。  (My mom is two years younger than my dad.)  [tatoeba ai-ffaa50957f]
+  这件衣服比那件贵多了。  (This piece of clothing is much more expensive than that one.)  [tatoeba ai-9667e83aa4]
+  这个房间比那个大多了。  (This room is much bigger than that one.)  [tatoeba ai-4a8ce6cc80]  hidden: 这个, 那个
+  坐飞机比坐火车贵得多。  (Flying is much more expensive than taking the train.)  [tatoeba ai-ea5bbb1809]
+  我女儿比她同学小一岁。  (My daughter is one year younger than her classmate.)  [tatoeba ai-8e9a26c1bf]
+
+--- dropped at step 5 (4) ---
+  你家孩子几岁了？  -- level 1: no list words
+  你今年几岁？  -- level 1: no list words
+  今天我起得早一点儿。  -- level 3: 起 L3
+  我想买大一点儿的杯子。  -- level 1: no list words
+
+--- dropped at step 6 (4) ---
+  手机比电脑小一些。  -- rule: no match: line matched
+  晚上比白天冷一些。  -- rule: no match: line matched
+  这条路比那条路远一些。  -- rule: no match: line matched
+  他比我晚到一点儿。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我家的狗比你家的猫大得多。  -- hidden word a learner can't work out: 家的 ((old) wife)
+
+--- dropped at step 7 (5) ---
+  请你说慢一点儿。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+  今天比昨天热一点儿。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+  这本书比那本书贵一点儿。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+  今天的雨比昨天小一点儿。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+  走快一点儿，我们快要晚了。  -- check said no (2/2): 一点儿 means 'a bit', not quantity complement
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-53_level2_20261114_163514.csv

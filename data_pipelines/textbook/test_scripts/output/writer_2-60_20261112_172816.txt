@@ -1,0 +1,37 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 17429 characters -->
+## 2-60
+<!-- written by claude-haiku-4-5 on 2026-11-12; edit freely -->
+**Point:** The classic 是⋯⋯的 construction, which emphasizes the time, place, manner or agent of an action, usually one that has already happened.
+
+**Covers:**
+- 是 + a time word or preposition phrase (在/从/跟/用…) + verb + 的, e.g. 我是昨天到北京的, 他是在网上买的手机.
+- Questions without 是 that ask for these details: 怎么/什么时候/哪儿/几点/多少钱 + verb + 的, and preposition phrase + verb + 的吗, e.g. 这个东西多少钱买的, 她用邮件回复的吗.
+
+**Does not cover:**
+- 是…的 for purpose (是来/去/用来/给…的).
+- 是 + adjective or distinguishing word + 的.
+- Modal 的 (会…的, 能…的).
+- Possessive 的 and 的 modifying adjectives.
+- 有的是, 不是…就是…, 的话, 岂不是, 要不是, 就是, 不愧是 and reduplication.
+- Simple equative 是 sentences.
+
+```rule
+match: /VC /NT|P ... /VV 的/SP|AS|DEC
+match: 怎么|什么时候|哪儿|哪里|几点|多少 ... /VV 的/SP $
+match: /P ... /VV _? 的/SP 吗/SP
+unless: 是/VC 给|为|替|对/P|VV
+unless: 是/VC 来|去|用来/VV
+unless: 会|能|可以|应该|要|想|得/VV
+unless: ^ /VC /AD /VC
+unless: 有的/PN /VC
+unless: 不/AD /VC ... 就是/AD
+unless: 就/AD 是/VC
+unless: 岂不/AD /VC
+unless: 不愧/AD /VC
+unless: 要不是/AD
+unless: 的话/SP
+unless: 的/DEC /NN|DT|M|CD
+unless: ... /VA /VA ... /VC /VA
+```
+
+**Notes:** The first line needs 是 followed directly by a time word or preposition. This is the "emphasized information" slot, and it rules out 是+adjective+的, 是+来/去+verb+的 (purpose) and 不愧是/就是/要不是. The second and third lines catch 是-less questions about details of a past action, but only with a question word or preposition phrase before the verb and 的 at the end. The unless lines drop purpose uses (给/为/来/去/用来), modal verbs (会/能/可以/要), and 的 followed by a noun when it is a relative-clause marker. They also drop the competing patterns (有的是, 不是…就是, 就是, 岂不是, 要不是, 的话). Sentences like 这个苹果是坏的 and 我会去的 are deliberately left unmatched: they are adjective/modal uses of 的 and cannot be separated safely from other points.

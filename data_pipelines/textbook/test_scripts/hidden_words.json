@@ -1,10 +1,11 @@
 {
- "_readme": "Dictionary words the course splits into listed parts (从没 = 从 + 没), and whether a learner who knows the parts understands the word untaught. hidden = no: a sentence with the word is dropped. clear = fine. Written by try_grammar_rule.py; edit freely (change hidden <-> clear).",
+ "_readme": "Dictionary words the course splits into listed parts (从没 = 从 + 没), and whether a learner who knows the parts understands the word untaught. hidden = no: a sentence with the word is dropped. clear = fine. Written by try_grammar_rule.py; edit freely (change hidden <-> clear, and set \"by\": \"hand\" so a later version never asks the AI again).",
  "一下": {
   "verdict": "hidden",
   "parts": "一 + 下",
-  "gloss": "(after a verb) a bit; a little (indicating brief duration, o",
-  "by": "claude-sonnet-5-5"
+  "gloss": "(after a verb) a bit; a little (indicating brief duration, or softening the tone, or suggesting giving sth a try); all at once; suddenly",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "一个": {
   "verdict": "clear",
@@ -24,11 +25,25 @@
   "gloss": "a moment",
   "by": "claude-sonnet-5-5"
  },
- "一家": {
-  "verdict": "hidden",
-  "parts": "一 + 家",
-  "gloss": "the whole family",
+ "一口": {
+  "verdict": "clear",
+  "parts": "一 + 口",
+  "gloss": "readily; flatly (deny, admit and so on); a mouthful; a bite",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "一周": {
+  "verdict": "clear",
+  "parts": "一 + 周",
+  "gloss": "one week",
   "by": "claude-sonnet-5-5"
+ },
+ "一家": {
+  "verdict": "clear",
+  "parts": "一 + 家",
+  "gloss": "the whole family; the same family; the family ... (when preceded by a family name); group",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "一次": {
   "verdict": "clear",
@@ -42,11 +57,24 @@
   "gloss": "a bit; a little bit",
   "by": "claude-sonnet-5-5"
  },
+ "一点不": {
+  "verdict": "hidden",
+  "parts": "一 + 点 + 不",
+  "gloss": "not at all",
+  "by": "claude-sonnet-5-5"
+ },
  "上个星期": {
   "verdict": "clear",
   "parts": "上 + 个 + 星期",
   "gloss": "last week",
   "by": "claude-sonnet-5-5"
+ },
+ "上个月": {
+  "verdict": "clear",
+  "parts": "上 + 个 + 月",
+  "gloss": "last month",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "上周": {
   "verdict": "hidden",
@@ -54,10 +82,30 @@
   "gloss": "last week",
   "by": "claude-sonnet-5-5"
  },
+ "上床": {
+  "verdict": "clear",
+  "parts": "上 + 床",
+  "gloss": "to go to bed; (coll.) to have sex",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
  "上星期": {
   "verdict": "clear",
   "parts": "上 + 星期",
   "gloss": "last week",
+  "by": "claude-sonnet-5-5"
+ },
+ "上车": {
+  "verdict": "clear",
+  "parts": "上 + 车",
+  "gloss": "to get on or into (a bus, train, car etc)",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "上边": {
+  "verdict": "clear",
+  "parts": "上 + 边",
+  "gloss": "the top; above",
   "by": "claude-sonnet-5-5"
  },
  "下一个": {
@@ -65,6 +113,19 @@
   "parts": "下 + 一 + 个",
   "gloss": "the next one",
   "by": "claude-sonnet-5-5"
+ },
+ "下一次": {
+  "verdict": "clear",
+  "parts": "下 + 一 + 次",
+  "gloss": "next",
+  "by": "claude-sonnet-5-5"
+ },
+ "下个": {
+  "verdict": "clear",
+  "parts": "下 + 个",
+  "gloss": "second (of two parts); next (week etc); subsequent; the following",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "下个月": {
   "verdict": "clear",
@@ -79,16 +140,18 @@
   "by": "claude-sonnet-5-5"
  },
  "下雪": {
-  "verdict": "hidden",
+  "verdict": "clear",
   "parts": "下 + 雪",
   "gloss": "to snow",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "不下": {
   "verdict": "hidden",
   "parts": "不 + 下",
   "gloss": "to be not less than (a certain quantity, amount etc)",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "不了": {
   "verdict": "hidden",
@@ -101,6 +164,13 @@
   "parts": "不 + 会",
   "gloss": "improbable",
   "by": "claude-sonnet-5-5"
+ },
+ "不住": {
+  "verdict": "hidden",
+  "parts": "不 + 住",
+  "gloss": "(verb complement) unable to firmly or securely (grasp, recall etc); repeatedly; continuously; constantly",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "不再": {
   "verdict": "clear",
@@ -129,8 +199,9 @@
  "不和": {
   "verdict": "hidden",
   "parts": "不 + 和",
-  "gloss": "not to get along well",
-  "by": "claude-sonnet-5-5"
+  "gloss": "not to get along well; to be on bad terms; to be at odds; discord",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "不在": {
   "verdict": "clear",
@@ -139,9 +210,16 @@
   "by": "claude-sonnet-5-5"
  },
  "不大": {
-  "verdict": "hidden",
+  "verdict": "clear",
   "parts": "不 + 大",
   "gloss": "not very; not too",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "不太": {
+  "verdict": "clear",
+  "parts": "不 + 太",
+  "gloss": "Not too",
   "by": "claude-sonnet-5-5"
  },
  "不好": {
@@ -157,16 +235,18 @@
   "by": "claude-sonnet-5-5"
  },
  "不忙": {
-  "verdict": "hidden",
+  "verdict": "clear",
   "parts": "不 + 忙",
   "gloss": "(polite formula) there's no hurry; take your time",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "不想": {
-  "verdict": "hidden",
+  "verdict": "clear",
   "parts": "不 + 想",
   "gloss": "unexpectedly; to one's surprise",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "不是": {
   "verdict": "clear",
@@ -183,8 +263,9 @@
  "不等": {
   "verdict": "hidden",
   "parts": "不 + 等",
-  "gloss": "unequal",
-  "by": "claude-sonnet-5-5"
+  "gloss": "unequal; varied",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "不能": {
   "verdict": "clear",
@@ -209,6 +290,13 @@
   "parts": "中国 + 人",
   "gloss": "Chinese person",
   "by": "claude-sonnet-5-5"
+ },
+ "中国菜": {
+  "verdict": "clear",
+  "parts": "中国 + 菜",
+  "gloss": "Chinese cuisine",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "买东西": {
   "verdict": "clear",
@@ -244,7 +332,8 @@
   "verdict": "hidden",
   "parts": "什么 + 好 + 说",
   "gloss": "sth pertinent to say",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "什么时候": {
   "verdict": "clear",
@@ -256,7 +345,8 @@
   "verdict": "hidden",
   "parts": "从 + 没",
   "gloss": "never (in the past); never did",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "你好": {
   "verdict": "clear",
@@ -269,6 +359,13 @@
   "parts": "你 + 我",
   "gloss": "you and I",
   "by": "claude-sonnet-5-5"
+ },
+ "你等": {
+  "verdict": "clear",
+  "parts": "你 + 等",
+  "gloss": "(archaic) you all",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "做事": {
   "verdict": "clear",
@@ -294,11 +391,18 @@
   "gloss": "to cook",
   "by": "claude-sonnet-5-5"
  },
+ "六月": {
+  "verdict": "clear",
+  "parts": "六 + 月",
+  "gloss": "June",
+  "by": "claude-sonnet-5-5"
+ },
  "再也": {
   "verdict": "hidden",
   "parts": "再 + 也",
   "gloss": "(not) any more",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "写下": {
   "verdict": "clear",
@@ -312,10 +416,22 @@
   "gloss": "to write (by hand)",
   "by": "claude-sonnet-5-5"
  },
+ "准备好了": {
+  "verdict": "clear",
+  "parts": "准备 + 好 + 了",
+  "gloss": "to be ready",
+  "by": "claude-sonnet-5-5"
+ },
  "几个": {
   "verdict": "clear",
   "parts": "几 + 个",
   "gloss": "a few",
+  "by": "claude-sonnet-5-5"
+ },
+ "几号": {
+  "verdict": "clear",
+  "parts": "几 + 号",
+  "gloss": "(slang) heroin",
   "by": "claude-sonnet-5-5"
  },
  "几天": {
@@ -323,6 +439,13 @@
   "parts": "几 + 天",
   "gloss": "several days",
   "by": "claude-sonnet-5-5"
+ },
+ "几年": {
+  "verdict": "clear",
+  "parts": "几 + 年",
+  "gloss": "a few years; several years; how many years?",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "几次": {
   "verdict": "clear",
@@ -343,15 +466,22 @@
   "by": "claude-sonnet-5-5"
  },
  "到家": {
-  "verdict": "hidden",
+  "verdict": "clear",
   "parts": "到 + 家",
-  "gloss": "perfect",
-  "by": "claude-sonnet-5-5"
+  "gloss": "perfect; excellent; brought to the utmost degree",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "北京大学": {
   "verdict": "clear",
   "parts": "北京 + 大学",
   "gloss": "Peking University",
+  "by": "claude-sonnet-5-5"
+ },
+ "十一": {
+  "verdict": "hidden",
+  "parts": "十 + 一",
+  "gloss": "PRC National Day (October 1st)",
   "by": "claude-sonnet-5-5"
  },
  "十三": {
@@ -378,6 +508,13 @@
   "gloss": "to be called; to be known as",
   "by": "claude-sonnet-5-5"
  },
+ "吃人": {
+  "verdict": "hidden",
+  "parts": "吃 + 人",
+  "gloss": "exploitative; oppressive",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
  "吃完": {
   "verdict": "clear",
   "parts": "吃 + 完",
@@ -389,6 +526,13 @@
   "parts": "吃 + 的",
   "gloss": "(coll.) food",
   "by": "claude-sonnet-5-5"
+ },
+ "吃药": {
+  "verdict": "clear",
+  "parts": "吃 + 药",
+  "gloss": "to take medicine",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "吃饭": {
   "verdict": "clear",
@@ -412,13 +556,15 @@
   "verdict": "hidden",
   "parts": "周 + 一",
   "gloss": "Monday",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "周五": {
   "verdict": "hidden",
   "parts": "周 + 五",
   "gloss": "Friday",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "哪个": {
   "verdict": "clear",
@@ -448,7 +594,8 @@
   "verdict": "hidden",
   "parts": "回 + 事",
   "gloss": "(old) to report to one's master",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "回到": {
   "verdict": "clear",
@@ -474,11 +621,25 @@
   "gloss": "abroad; external (affairs)",
   "by": "claude-sonnet-5-5"
  },
+ "国字": {
+  "verdict": "hidden",
+  "parts": "国 + 字",
+  "gloss": "Chinese character (Hanzi); the native script used to write a nation's language",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
  "在一起": {
   "verdict": "hidden",
   "parts": "在 + 一起",
   "gloss": "together",
   "by": "claude-sonnet-5-5"
+ },
+ "在下": {
+  "verdict": "hidden",
+  "parts": "在 + 下",
+  "gloss": "under; myself (humble)",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "在家": {
   "verdict": "clear",
@@ -493,16 +654,38 @@
   "by": "claude-sonnet-5-5"
  },
  "坐下": {
-  "verdict": "hidden",
+  "verdict": "clear",
   "parts": "坐 + 下",
   "gloss": "to sit down",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "坐好": {
+  "verdict": "hidden",
+  "parts": "坐 + 好",
+  "gloss": "to sit properly; to sit up straight",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "坐车": {
   "verdict": "clear",
   "parts": "坐 + 车",
   "gloss": "to take the car, bus, train etc",
   "by": "claude-sonnet-5-5"
+ },
+ "外国人": {
+  "verdict": "clear",
+  "parts": "外国 + 人",
+  "gloss": "foreigner",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "多事": {
+  "verdict": "hidden",
+  "parts": "多 + 事",
+  "gloss": "meddlesome; eventful",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "多多": {
   "verdict": "clear",
@@ -520,6 +703,20 @@
   "verdict": "hidden",
   "parts": "大 + 三",
   "gloss": "third-year university student",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "大写": {
+  "verdict": "hidden",
+  "parts": "大 + 写",
+  "gloss": "capital letters; uppercase letters; block letters; banker's anti-fraud numerals",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "大雨": {
+  "verdict": "clear",
+  "parts": "大 + 雨",
+  "gloss": "heavy rain",
   "by": "claude-sonnet-5-5"
  },
  "天冷": {
@@ -528,10 +725,22 @@
   "gloss": "it's cold (weather)",
   "by": "claude-sonnet-5-5"
  },
+ "头疼": {
+  "verdict": "clear",
+  "parts": "头 + 疼",
+  "gloss": "headache",
+  "by": "claude-sonnet-5-5"
+ },
  "女孩子": {
   "verdict": "clear",
   "parts": "女 + 孩子",
   "gloss": "girl",
+  "by": "claude-sonnet-5-5"
+ },
+ "好事": {
+  "verdict": "clear",
+  "parts": "好 + 事",
+  "gloss": "good action, deed, thing or work (also sarcastic, \"a fine th",
   "by": "claude-sonnet-5-5"
  },
  "好人": {
@@ -543,14 +752,16 @@
  "好几": {
   "verdict": "hidden",
   "parts": "好 + 几",
-  "gloss": "several",
-  "by": "claude-sonnet-5-5"
+  "gloss": "several; quite a few",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "好喝": {
-  "verdict": "hidden",
+  "verdict": "clear",
   "parts": "好 + 喝",
   "gloss": "tasty (drinks)",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "好意思": {
   "verdict": "hidden",
@@ -564,17 +775,38 @@
   "gloss": "amusing",
   "by": "claude-sonnet-5-5"
  },
+ "字画": {
+  "verdict": "hidden",
+  "parts": "字 + 画",
+  "gloss": "the strokes of a character; calligraphy and painting",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
  "学到": {
   "verdict": "clear",
   "parts": "学 + 到",
   "gloss": "to learn (sth); to learn about",
   "by": "claude-sonnet-5-5"
  },
+ "孩子们": {
+  "verdict": "clear",
+  "parts": "孩子 + 们",
+  "gloss": "children",
+  "by": "claude-sonnet-5-5"
+ },
+ "完了": {
+  "verdict": "clear",
+  "parts": "完 + 了",
+  "gloss": "to be finished; to be done for",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
  "家的": {
   "verdict": "hidden",
   "parts": "家 + 的",
   "gloss": "(old) wife",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "家里": {
   "verdict": "clear",
@@ -585,8 +817,16 @@
  "对了": {
   "verdict": "hidden",
   "parts": "对 + 了",
-  "gloss": "Correct!",
-  "by": "claude-sonnet-5-5"
+  "gloss": "Correct!; Oh, that's right, ... (when one suddenly remembers sth one wanted to mention); Oh, by the way, ...",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "小孩子": {
+  "verdict": "clear",
+  "parts": "小 + 孩子",
+  "gloss": "child",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "小狗": {
   "verdict": "clear",
@@ -603,8 +843,9 @@
  "小的": {
   "verdict": "hidden",
   "parts": "小 + 的",
-  "gloss": "(coll.) young child; the little one(s) of the family",
-  "by": "claude-sonnet-5-5"
+  "gloss": "(coll.) young child; the little one(s) of the family; (old) (humble) I; me; my (used by a commoner when speaking to an official)",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "小雨": {
   "verdict": "clear",
@@ -612,29 +853,82 @@
   "gloss": "light rain",
   "by": "claude-sonnet-5-5"
  },
+ "小鸟": {
+  "verdict": "clear",
+  "parts": "小 + 鸟",
+  "gloss": "small bird; young bird (hatchling, nestling, fledgling, chick); (fig.) penis (kiddie term); (golf) birdie",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
  "就着": {
   "verdict": "hidden",
   "parts": "就 + 着",
-  "gloss": "(eat sth) with (sth else)",
-  "by": "claude-sonnet-5-5"
+  "gloss": "(eat sth) with (sth else); taking advantage of; using",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "就要": {
   "verdict": "hidden",
   "parts": "就 + 要",
   "gloss": "will; shall",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "年前": {
+  "verdict": "hidden",
+  "parts": "年 + 前",
+  "gloss": "by the end of the year; at the end of the year; shortly before New Year",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "开口": {
+  "verdict": "hidden",
+  "parts": "开 + 口",
+  "gloss": "to open one's mouth; to start to talk",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "开门": {
+  "verdict": "hidden",
+  "parts": "开 + 门",
+  "gloss": "to open a door (lit. and fig.); to open for business",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "得很": {
+  "verdict": "hidden",
+  "parts": "得 + 很",
+  "gloss": "(after an adjective) very",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "德国": {
   "verdict": "hidden",
   "parts": "德 + 国",
   "gloss": "Germany",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "快点": {
   "verdict": "hidden",
   "parts": "快 + 点",
-  "gloss": "to do sth more quickly",
-  "by": "claude-sonnet-5-5"
+  "gloss": "to do sth more quickly; Hurry up!; Get a move on!",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "快点儿": {
+  "verdict": "hidden",
+  "parts": "快 + 点 + 儿",
+  "gloss": "erhua variant of 快点; to do smh more quickly",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "快进": {
+  "verdict": "clear",
+  "parts": "快 + 进",
+  "gloss": "fast-forward (media player)",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "怎么了": {
   "verdict": "clear",
@@ -645,19 +939,42 @@
  "怎么回事": {
   "verdict": "hidden",
   "parts": "怎么 + 回 + 事",
-  "gloss": "what's the matter?",
-  "by": "claude-sonnet-5-5"
+  "gloss": "what's the matter?; what's going on?; how could that be?; how did that come about?",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "怎么说呢": {
+  "verdict": "clear",
+  "parts": "怎么 + 说 + 呢",
+  "gloss": "Why is that?; How come?",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "想到": {
+  "verdict": "hidden",
+  "parts": "想 + 到",
+  "gloss": "to think of; to call to mind",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "想家": {
   "verdict": "hidden",
   "parts": "想 + 家",
   "gloss": "homesick",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "想来": {
   "verdict": "hidden",
   "parts": "想 + 来",
   "gloss": "it may be assumed that",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "想睡": {
+  "verdict": "clear",
+  "parts": "想 + 睡",
+  "gloss": "drowsy",
   "by": "claude-sonnet-5-5"
  },
  "想要": {
@@ -669,8 +986,9 @@
  "想见": {
   "verdict": "hidden",
   "parts": "想 + 见",
-  "gloss": "to infer",
-  "by": "claude-sonnet-5-5"
+  "gloss": "to infer; to gather",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "意大利人": {
   "verdict": "clear",
@@ -679,34 +997,59 @@
   "by": "claude-sonnet-5-5"
  },
  "慢慢": {
-  "verdict": "hidden",
+  "verdict": "clear",
   "parts": "慢 + 慢",
   "gloss": "slowly",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "慢说": {
+  "verdict": "hidden",
+  "parts": "慢 + 说",
+  "gloss": "not to mention ... (i.e. in addition to sth)",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "慢走": {
   "verdict": "hidden",
   "parts": "慢 + 走",
-  "gloss": "Stay a bit!",
-  "by": "claude-sonnet-5-5"
+  "gloss": "Stay a bit!; Wait a minute!; (to a departing guest) Take care!",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "我去": {
   "verdict": "hidden",
   "parts": "我 + 去",
   "gloss": "(slang) what the ...!; oh my god!; that's insane!",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "我等": {
   "verdict": "hidden",
   "parts": "我 + 等",
-  "gloss": "we",
-  "by": "claude-sonnet-5-5"
+  "gloss": "we; us (archaic)",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "手里": {
   "verdict": "clear",
   "parts": "手 + 里",
   "gloss": "in hand; (a situation is) in sb's hands",
   "by": "claude-sonnet-5-5"
+ },
+ "打的": {
+  "verdict": "hidden",
+  "parts": "打 + 的",
+  "gloss": "(coll.) to take a taxi; to go by taxi",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "打篮球": {
+  "verdict": "clear",
+  "parts": "打 + 篮球",
+  "gloss": "to play basketball",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "找不到": {
   "verdict": "clear",
@@ -736,19 +1079,29 @@
   "verdict": "hidden",
   "parts": "日 + 本",
   "gloss": "Japan",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "日本人": {
   "verdict": "hidden",
   "parts": "日 + 本 + 人",
   "gloss": "Japanese person or people",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "早点": {
   "verdict": "hidden",
   "parts": "早 + 点",
   "gloss": "breakfast",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "早点儿": {
+  "verdict": "hidden",
+  "parts": "早 + 点 + 儿",
+  "gloss": "a bit earlier",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "星期一": {
   "verdict": "clear",
@@ -795,26 +1148,37 @@
  "是日": {
   "verdict": "hidden",
   "parts": "是 + 日",
-  "gloss": "(formal) this day",
-  "by": "claude-sonnet-5-5"
+  "gloss": "(formal) this day; that day",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "是次": {
+  "verdict": "hidden",
+  "parts": "是 + 次",
+  "gloss": "(formal) this time",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "是的": {
   "verdict": "hidden",
   "parts": "是 + 的",
-  "gloss": "yes, that's right",
-  "by": "claude-sonnet-5-5"
+  "gloss": "yes, that's right; variant of 似的[shi4 de5]",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "有一些": {
-  "verdict": "hidden",
+  "verdict": "clear",
   "parts": "有 + 一些",
   "gloss": "somewhat; rather",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "有事": {
-  "verdict": "hidden",
+  "verdict": "clear",
   "parts": "有 + 事",
   "gloss": "to be occupied with sth; to have sth on one's mind",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "有些人": {
   "verdict": "clear",
@@ -829,15 +1193,22 @@
   "by": "claude-sonnet-5-5"
  },
  "有时候": {
-  "verdict": "hidden",
+  "verdict": "clear",
   "parts": "有 + 时候",
   "gloss": "sometimes",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "有水": {
   "verdict": "clear",
   "parts": "有 + 水",
   "gloss": "supplied with water (of a house)",
+  "by": "claude-sonnet-5-5"
+ },
+ "有没有": {
+  "verdict": "clear",
+  "parts": "有 + 没 + 有",
+  "gloss": "(before a noun) Do (you, they etc) have ...?; Is there a ...",
   "by": "claude-sonnet-5-5"
  },
  "有点": {
@@ -846,11 +1217,31 @@
   "gloss": "a little",
   "by": "claude-sonnet-5-5"
  },
+ "有钱": {
+  "verdict": "clear",
+  "parts": "有 + 钱",
+  "gloss": "well-off",
+  "by": "claude-sonnet-5-5"
+ },
+ "有钱人": {
+  "verdict": "clear",
+  "parts": "有 + 钱 + 人",
+  "gloss": "rich person",
+  "by": "claude-sonnet-5-5"
+ },
+ "楼上": {
+  "verdict": "clear",
+  "parts": "楼 + 上",
+  "gloss": "upstairs; (Internet slang) previous poster in a forum thread",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
  "正要": {
   "verdict": "hidden",
   "parts": "正 + 要",
-  "gloss": "to be just about to",
-  "by": "claude-sonnet-5-5"
+  "gloss": "to be just about to; to be on the point of",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "每个": {
   "verdict": "clear",
@@ -864,6 +1255,13 @@
   "gloss": "every day",
   "by": "claude-sonnet-5-5"
  },
+ "没了": {
+  "verdict": "clear",
+  "parts": "没 + 了",
+  "gloss": "to be dead; not to be, or cease to exist",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
  "没事": {
   "verdict": "clear",
   "parts": "没 + 事",
@@ -874,7 +1272,8 @@
   "verdict": "hidden",
   "parts": "没 + 想 + 到",
   "gloss": "didn't expect",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "没问题": {
   "verdict": "clear",
@@ -882,11 +1281,53 @@
   "gloss": "no problem",
   "by": "claude-sonnet-5-5"
  },
+ "洗手": {
+  "verdict": "clear",
+  "parts": "洗 + 手",
+  "gloss": "to wash one's hands; to go to the toilet",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "火车票": {
+  "verdict": "clear",
+  "parts": "火车 + 票",
+  "gloss": "train ticket",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "点水": {
+  "verdict": "hidden",
+  "parts": "点 + 水",
+  "gloss": "to skim",
+  "by": "claude-sonnet-5-5"
+ },
+ "点见": {
+  "verdict": "hidden",
+  "parts": "点 + 见",
+  "gloss": "to check an amount",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
  "爱上": {
   "verdict": "hidden",
   "parts": "爱 + 上",
-  "gloss": "to fall in love with",
-  "by": "claude-sonnet-5-5"
+  "gloss": "to fall in love with; to be in love with",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "玩儿": {
+  "verdict": "clear",
+  "parts": "玩 + 儿",
+  "gloss": "to play; to have fun",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "电影票": {
+  "verdict": "clear",
+  "parts": "电影 + 票",
+  "gloss": "cinema ticket",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "男孩子": {
   "verdict": "clear",
@@ -906,6 +1347,12 @@
   "gloss": "cannot see",
   "by": "claude-sonnet-5-5"
  },
+ "看书": {
+  "verdict": "clear",
+  "parts": "看 + 书",
+  "gloss": "to read",
+  "by": "claude-sonnet-5-5"
+ },
  "看到": {
   "verdict": "clear",
   "parts": "看 + 到",
@@ -922,7 +1369,15 @@
   "verdict": "hidden",
   "parts": "看 + 点",
   "gloss": "highlight (of an event, movie etc)",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "看球": {
+  "verdict": "clear",
+  "parts": "看 + 球",
+  "gloss": "to watch a football game (or other ball game); Fore! (golf); Watch out for the ball!",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "看看": {
   "verdict": "clear",
@@ -937,10 +1392,11 @@
   "by": "claude-sonnet-5-5"
  },
  "真是": {
-  "verdict": "hidden",
+  "verdict": "clear",
   "parts": "真 + 是",
-  "gloss": "indeed; truly",
-  "by": "claude-sonnet-5-5"
+  "gloss": "indeed; truly; (coll.) (used to express disapproval, annoyance etc)",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "真爱": {
   "verdict": "clear",
@@ -960,11 +1416,19 @@
   "gloss": "OK!",
   "by": "claude-sonnet-5-5"
  },
+ "等一会儿": {
+  "verdict": "clear",
+  "parts": "等 + 一会儿",
+  "gloss": "erhua variant of 等一會|等一会[deng3 yi1 hui4]",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
  "等等": {
   "verdict": "hidden",
   "parts": "等 + 等",
-  "gloss": "et cetera",
-  "by": "claude-sonnet-5-5"
+  "gloss": "et cetera; and so on ...; wait a minute!; hold on!",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "能不能": {
   "verdict": "clear",
@@ -984,17 +1448,32 @@
   "gloss": "to take up time",
   "by": "claude-sonnet-5-5"
  },
+ "茶水": {
+  "verdict": "clear",
+  "parts": "茶 + 水",
+  "gloss": "tea prepared in large quantity using inexpensive tea leaves",
+  "by": "claude-sonnet-5-5"
+ },
+ "药水": {
+  "verdict": "clear",
+  "parts": "药 + 水",
+  "gloss": "medicine in liquid form; bottled medicine",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
  "要看": {
   "verdict": "hidden",
   "parts": "要 + 看",
   "gloss": "(it) depends on ...",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "要说": {
   "verdict": "hidden",
   "parts": "要 + 说",
-  "gloss": "as for",
-  "by": "claude-sonnet-5-5"
+  "gloss": "as for; when it comes to",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "见到": {
   "verdict": "clear",
@@ -1008,11 +1487,19 @@
   "gloss": "seen",
   "by": "claude-sonnet-5-5"
  },
- "请坐": {
+ "说好": {
   "verdict": "hidden",
+  "parts": "说 + 好",
+  "gloss": "to come to an agreement; to complete negotiations",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "请坐": {
+  "verdict": "clear",
   "parts": "请 + 坐",
   "gloss": "please, have a seat",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "请看": {
   "verdict": "clear",
@@ -1026,10 +1513,23 @@
   "gloss": "God knows...; Who would have imagined...?",
   "by": "claude-sonnet-5-5"
  },
+ "走去": {
+  "verdict": "clear",
+  "parts": "走 + 去",
+  "gloss": "to walk over (to)",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
  "跑走": {
   "verdict": "clear",
   "parts": "跑 + 走",
   "gloss": "to escape; to flee; to run away",
+  "by": "claude-sonnet-5-5"
+ },
+ "跟不上": {
+  "verdict": "hidden",
+  "parts": "跟 + 不 + 上",
+  "gloss": "not able to keep up with",
   "by": "claude-sonnet-5-5"
  },
  "跟着": {
@@ -1047,32 +1547,55 @@
  "过得": {
   "verdict": "hidden",
   "parts": "过 + 得",
-  "gloss": "How are you getting by?",
-  "by": "claude-sonnet-5-5"
+  "gloss": "How are you getting by?; How's life?; contraction of 過得去|过得去, can get by; tolerably well",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "还好": {
   "verdict": "hidden",
   "parts": "还 + 好",
-  "gloss": "not bad; pretty good",
-  "by": "claude-sonnet-5-5"
+  "gloss": "not bad; pretty good; fortunately; luckily",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "还有": {
-  "verdict": "hidden",
+  "verdict": "clear",
   "parts": "还 + 有",
   "gloss": "furthermore; in addition",
-  "by": "claude-sonnet-5-5"
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "这不": {
   "verdict": "hidden",
   "parts": "这 + 不",
-  "gloss": "(coll.) As a matter of fact, ... (used to introduce evidence",
-  "by": "claude-sonnet-5-5"
+  "gloss": "(coll.) As a matter of fact, ... (used to introduce evidence for what one has just asserted)",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "这个": {
   "verdict": "clear",
   "parts": "这 + 个",
   "gloss": "(pronoun) this",
   "by": "claude-sonnet-5-5"
+ },
+ "这天": {
+  "verdict": "clear",
+  "parts": "这 + 天",
+  "gloss": "this day",
+  "by": "claude-sonnet-5-5"
+ },
+ "这时候": {
+  "verdict": "clear",
+  "parts": "这 + 时候",
+  "gloss": "At this moment",
+  "by": "claude-sonnet-5-5"
+ },
+ "送给": {
+  "verdict": "clear",
+  "parts": "送 + 给",
+  "gloss": "to send; to give as a present",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "那个": {
   "verdict": "clear",
@@ -1086,17 +1609,31 @@
   "gloss": "lit. that person",
   "by": "claude-sonnet-5-5"
  },
+ "那天": {
+  "verdict": "clear",
+  "parts": "那 + 天",
+  "gloss": "that day",
+  "by": "claude-sonnet-5-5"
+ },
+ "那时候": {
+  "verdict": "clear",
+  "parts": "那 + 时候",
+  "gloss": "at that time",
+  "by": "claude-sonnet-5-5"
+ },
  "那是": {
   "verdict": "hidden",
   "parts": "那 + 是",
-  "gloss": "(coll.) of course",
-  "by": "claude-sonnet-5-5"
+  "gloss": "(coll.) of course; naturally; indeed",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "里人": {
   "verdict": "hidden",
   "parts": "里 + 人",
-  "gloss": "person from the same village, town or province",
-  "by": "claude-sonnet-5-5"
+  "gloss": "person from the same village, town or province; peasant (derog.); (of a school of thought etc) follower",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "长大": {
   "verdict": "hidden",
@@ -1104,11 +1641,43 @@
   "gloss": "to grow up",
   "by": "claude-sonnet-5-5"
  },
+ "门外": {
+  "verdict": "clear",
+  "parts": "门 + 外",
+  "gloss": "outside the door",
+  "by": "claude-sonnet-5-5",
+  "v": 2
+ },
+ "面包店": {
+  "verdict": "clear",
+  "parts": "面包 + 店",
+  "gloss": "bakery",
+  "by": "claude-sonnet-5-5"
+ },
  "面条": {
   "verdict": "clear",
   "parts": "面 + 条",
   "gloss": "noodles",
   "by": "claude-sonnet-5-5"
+ },
+ "韩国人": {
+  "verdict": "clear",
+  "parts": "韩国 + 人",
+  "gloss": "Korean (person)",
+  "by": "claude-sonnet-5-5"
+ },
+ "飞快": {
+  "verdict": "clear",
+  "parts": "飞 + 快",
+  "gloss": "very fast",
+  "by": "claude-sonnet-5-5"
+ },
+ "飞机票": {
+  "verdict": "clear",
+  "parts": "飞 + 机票",
+  "gloss": "air ticket; CL:張|张[zhang1]",
+  "by": "claude-sonnet-5-5",
+  "v": 2
  },
  "饭菜": {
   "verdict": "clear",

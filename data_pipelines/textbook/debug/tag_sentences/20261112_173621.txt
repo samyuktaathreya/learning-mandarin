@@ -1,0 +1,20 @@
+2026-11-12 17:36:21,195  INFO     === tag_sentences.py run started ===
+2026-11-12 17:36:21,215  INFO     FALLBACK  '这个男孩是谁？' -- out-of-list word(s): ['这个']
+2026-11-12 17:36:21,215  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('男孩儿', 'NN'), ('是', 'VC'), ('谁', 'PN')]
+2026-11-12 17:36:21,217  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-12 17:36:21,218  INFO     TAGGED    '这个男孩是谁？' (level 2, 5 tags)
+2026-11-12 17:36:24,117  INFO     OK        hanlp-valid   '穿黄色雨衣的女孩是谁？' -> [('穿', 'VV'), ('黄色', 'JJ'), ('雨衣', 'NN'), ('的', 'DEC'), ('女孩儿', 'NN'), ('是', 'VC'), ('谁', 'PN')]
+2026-11-12 17:36:24,119  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-12 17:36:24,120  INFO     TAGGED    '穿黄色雨衣的女孩是谁？' (level 3, 7 tags)
+2026-11-12 17:36:24,545  INFO     OK        hanlp-valid   '不知道为什么今天有点累。' -> [('不', 'AD'), ('知道', 'VV'), ('为什么', 'AD'), ('今天', 'NT'), ('有点儿', 'AD'), ('累', 'VA')]
+2026-11-12 17:36:24,547  INFO     TAGGED    '不知道为什么今天有点累。' (level 2, 6 tags)
+2026-11-12 17:36:24,961  INFO     FALLBACK  '我一点也不明白汤姆说了什么。' -- out-of-list word(s): ['汤姆']
+2026-11-12 17:36:24,961  INFO       CACHE-ONLY resegmentation -> [('我', 'PN'), ('一点儿', 'AD'), ('也', 'AD'), ('不', 'AD'), ('明白', 'VV'), ('汤姆', 'NN'), ('说', 'VV'), ('了', 'AS'), ('什么', 'PN')]
+2026-11-12 17:36:24,964  INFO       NON-LIST 汤姆 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-12 17:36:24,966  INFO     TAGGED    '我一点也不明白汤姆说了什么。' (level 10, 9 tags)
+2026-11-12 17:36:24,975  INFO     FALLBACK  '有几个小孩受伤了？' -- out-of-list word(s): ['几个']
+2026-11-12 17:36:24,975  WARNING    HAIKU resegment call for '有几个小孩受伤了？' (cache miss on [('几个', 'CD')])
+2026-11-12 17:36:24,989  INFO     TAGGED    '有几个小孩受伤了？' (level 4, 6 tags)
+2026-11-12 17:36:26,669  INFO     FALLBACK  '「你感觉怎么样？」「一点也不好！」' -- out-of-list word(s): ['不好']
+2026-11-12 17:36:26,669  WARNING    HAIKU resegment call for '「你感觉怎么样？」「一点也不好！」' (cache miss on [('不好', 'VA')])
+2026-11-12 17:36:26,691  INFO     TAGGED    '「你感觉怎么样？」「一点也不好！」' (level 4, 7 tags)

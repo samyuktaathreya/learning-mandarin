@@ -1,0 +1,21 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 5963 characters -->
+## 2-72
+**Point:** Ordinal numbers formed with 第 (dì) prefix + number, optionally followed by measure word and noun
+
+**Covers:** Sentences using 第 + number (tagged as CD or OD) to express ordinal position, with or without a following measure word and noun. Includes cases where 第 and number are tagged separately (第/OD 一/CD or 第/OD 一/OD) or together (第一/CD).
+
+**Does not cover:** Uses of 第 that are not ordinal expressions (e.g., as a particle in other contexts); ordinal nouns that form ordinals without 第 (like 七楼 "seventh floor"); HSK 3-01 usage of 第-, 老-, or 小- as prefixes modifying proper nouns.
+
+```rule
+match: 第 _ /CD|OD
+match: 第/CD _ /CD|OD
+match: 第/OD _ /CD|OD
+match: 第 _ /M
+match: 第/CD _ /M
+match: 第/OD _ /M
+unless: 第 _? /CD|OD /NR
+unless: 第/CD _? /CD|OD /NR
+unless: 第/OD _? /CD|OD /NR
+```
+
+**Notes:** The rule matches 第 followed by a number token (CD or OD tag), with optional intervening word. This covers both tagged-together (第一/CD) and tagged-separately (第/OD 一/OD) tokenizations seen in the data. The unless clauses prevent false matches when a proper noun immediately follows, which would indicate non-ordinal usage. The rule is intentionally broad to capture the full range of ordinal constructions (with and without measure words/nouns following), since the grammar point is about the ordinal formation itself, not the specific presence of modifying nouns.

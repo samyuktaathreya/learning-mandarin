@@ -121,3 +121,883 @@ Harder grammar points made only of HSK 1-2 words (the review is warned about the
   往前开。  -- check said no (1/2): 往 used as main verb, not preposition
 
 Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-22_level2_20261109_220858.csv
+
+########## guard check  2026-11-10 21:30 ##########
+
+########## tatoeba  2026-11-10 21:36 ##########
+Filling 2-22 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-22 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-22 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       92  2. contain the point's word(s)
+       92  3. new (not in DB, not a duplicate)
+       28  4. at most 2 characters outside HSK 2 words
+        4  5. really HSK 2
+        4  5b. no harder grammar point (of the 33 with a rule)
+        4  6. the rule finds 2-22
+        4  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-22, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  车往前走。  (The car was going forward.)  [tatoeba 3780485]
+  我往里面看。  (I looked inside.)  [tatoeba 13994926]
+  大家在往哪跑？  (Where's everyone running to?)  [tatoeba 13869024]
+
+--- dropped at step 4 (64), first 12 ---
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 8 characters no HSK 2 word uses: 像容异形性捡海石
+  跟异性交往最重要的不是他有多好,而是他对你有多好。  -- 4 characters no HSK 2 word uses: 异性而重
+  随著东西方之间的贸易及文化往来日渐发展，越来越多的阿拉伯和波斯商人开始沿著丝路拜访中国。  -- 21 characters no HSK 2 word uses: 丝之伯化及发展拉拜斯方易沿波渐著访贸越阿随
+  在冬天，太阳下山比往常更早。  -- 4 characters no HSK 2 word uses: 冬山更阳
+  这趟火车开往伦敦。  -- 3 characters no HSK 2 word uses: 伦敦趟
+  你怎么什么责任都往别人身上推？  -- 3 characters no HSK 2 word uses: 任推责
+  富人往往瞧不起穷人。  -- 3 characters no HSK 2 word uses: 富瞧穷
+  翻译其实是一件吃力不讨好的事，因为一种语言在另一种语言中的对应物藏在往往隐藏在深不可测之处，翻译者需要百般寻觅，而且，挑剔的读者很难糊弄。  -- 29 characters no HSK 2 word uses: 且之其剔力另处实寻应弄挑测深物种糊翻者而般藏觅言讨译隐难需
+  通往地狱的路，都是由善意铺成的。  -- 6 characters no HSK 2 word uses: 善成狱由通铺
+  在人际交往中，第一印象决定着将要发生的事情内容的百分之五十以上。  -- 10 characters no HSK 2 word uses: 之内决印发定容将象际
+  我们往下看，是一片水泥丛林。  -- 4 characters no HSK 2 word uses: 丛林泥片
+  你需要往花瓶里加更多的水。  -- 4 characters no HSK 2 word uses: 加更瓶需
+
+--- dropped at step 5 (24), first 12 ---
+  我往右拐了。  -- level 6: 拐 L6
+  我不想独自前往。  -- level 5: 独自 L5, 前往 L5
+  为了握住他的手，她往前跨了一步。  -- level 7: 为了 L3, 握 L5, 跨 L7, 步 L4
+  我和她交往几个月了。  -- level 5: 交往 L5
+  谁告诉你我和汤姆在交往的？  -- level 10: 汤姆 (not in list), 交往 L5
+  汤姆今天来得比往常要早一些。  -- level 7: 往常 L7
+  跟往常一样，他来迟了。  -- level 7: 往常 L7, 一样 L3, 迟 L4
+  他在一周前离开去往欧洲，就是说，是在五月十号。  -- level 5: 离开 L3, 欧洲 L5, 就是 L4
+  往后站！  -- level 6: 往后 L6
+  今年将会不同以往吗？  -- level 5: 将 L4, 同 L5, 以 L5
+  往后退点。  -- level 6: 往后 L6, 退 L5
+  我在前往会议的路上。  -- level 5: 前往 L5, 会议 L3
+
+--- dropped at step 7 (1) ---
+  往前开。  -- check said no (1/2): 往 used as main verb, not preposition
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-22_level2_20261110_213614.csv
+
+########## guard check  2026-11-11 14:22 ##########
+
+########## tatoeba  2026-11-11 14:28 ##########
+Filling 2-22 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-22 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-22 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       92  2. contain the point's word(s)
+       92  3. new (not in DB, not a duplicate)
+       28  4. at most 2 characters outside HSK 2 words
+        4  5. really HSK 2
+        4  5b. no harder grammar point (of the 39 with a rule)
+        4  6. the rule finds 2-22
+        4  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-22, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  车往前走。  (The car was going forward.)  [tatoeba 3780485]
+  我往里面看。  (I looked inside.)  [tatoeba 13994926]
+  大家在往哪跑？  (Where's everyone running to?)  [tatoeba 13869024]
+
+--- dropped at step 4 (64), first 12 ---
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 8 characters no HSK 2 word uses: 像容异形性捡海石
+  跟异性交往最重要的不是他有多好,而是他对你有多好。  -- 4 characters no HSK 2 word uses: 异性而重
+  随著东西方之间的贸易及文化往来日渐发展，越来越多的阿拉伯和波斯商人开始沿著丝路拜访中国。  -- 21 characters no HSK 2 word uses: 丝之伯化及发展拉拜斯方易沿波渐著访贸越阿随
+  在冬天，太阳下山比往常更早。  -- 4 characters no HSK 2 word uses: 冬山更阳
+  这趟火车开往伦敦。  -- 3 characters no HSK 2 word uses: 伦敦趟
+  你怎么什么责任都往别人身上推？  -- 3 characters no HSK 2 word uses: 任推责
+  富人往往瞧不起穷人。  -- 3 characters no HSK 2 word uses: 富瞧穷
+  翻译其实是一件吃力不讨好的事，因为一种语言在另一种语言中的对应物藏在往往隐藏在深不可测之处，翻译者需要百般寻觅，而且，挑剔的读者很难糊弄。  -- 29 characters no HSK 2 word uses: 且之其剔力另处实寻应弄挑测深物种糊翻者而般藏觅言讨译隐难需
+  通往地狱的路，都是由善意铺成的。  -- 6 characters no HSK 2 word uses: 善成狱由通铺
+  在人际交往中，第一印象决定着将要发生的事情内容的百分之五十以上。  -- 10 characters no HSK 2 word uses: 之内决印发定容将象际
+  我们往下看，是一片水泥丛林。  -- 4 characters no HSK 2 word uses: 丛林泥片
+  你需要往花瓶里加更多的水。  -- 4 characters no HSK 2 word uses: 加更瓶需
+
+--- dropped at step 5 (24), first 12 ---
+  我往右拐了。  -- level 6: 拐 L6
+  我不想独自前往。  -- level 5: 独自 L5, 前往 L5
+  为了握住他的手，她往前跨了一步。  -- level 7: 为了 L3, 握 L5, 跨 L7, 步 L4
+  我和她交往几个月了。  -- level 5: 交往 L5
+  谁告诉你我和汤姆在交往的？  -- level 10: 汤姆 (not in list), 交往 L5
+  汤姆今天来得比往常要早一些。  -- level 7: 往常 L7
+  跟往常一样，他来迟了。  -- level 7: 往常 L7, 一样 L3, 迟 L4
+  他在一周前离开去往欧洲，就是说，是在五月十号。  -- level 5: 离开 L3, 欧洲 L5, 就是 L4
+  往后站！  -- level 6: 往后 L6
+  今年将会不同以往吗？  -- level 5: 将 L4, 同 L5, 以 L5
+  往后退点。  -- level 6: 往后 L6, 退 L5
+  我在前往会议的路上。  -- level 5: 前往 L5, 会议 L3
+
+--- dropped at step 7 (1) ---
+  往前开。  -- check said no (1/2): 往 used as main verb, not preposition
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-22_level2_20261111_142900.csv
+
+########## rules  2026-11-12 17:25 ##########
+Tagging 2 labeled example(s) (cached after this run)...
+
+=== A. 2-22: rule on labeled examples (no AI) ===
+  examples of 2-22 matched:    13/14
+  counter-examples wrongly matched: 0/7   <- should be 0
+
+--- examples of 2-22 the rule misses (1) ---
+  不要往小孩嘴巴里塞东西了！  -- ASGAD070 Expressing "toward" with "wang"
+  easy examples (words all HSK 2 or below) matched: 6/6   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:40 ##########
+Filling 2-22 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-22 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-22 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       92  2. contain the point's word(s)
+       92  3. new (not in DB, not a duplicate)
+       28  4. at most 2 characters outside HSK 2 words
+        4  5. really HSK 2
+        4  5b. no harder grammar point (of the 40 with a rule)
+        4  6. the rule finds 2-22
+        4  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-22, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  车往前走。  (The car was going forward.)  [tatoeba 3780485]
+  我往里面看。  (I looked inside.)  [tatoeba 13994926]
+  大家在往哪跑？  (Where's everyone running to?)  [tatoeba 13869024]
+
+--- dropped at step 4 (64), first 12 ---
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 8 characters no HSK 2 word uses: 像容异形性捡海石
+  跟异性交往最重要的不是他有多好,而是他对你有多好。  -- 4 characters no HSK 2 word uses: 异性而重
+  随著东西方之间的贸易及文化往来日渐发展，越来越多的阿拉伯和波斯商人开始沿著丝路拜访中国。  -- 21 characters no HSK 2 word uses: 丝之伯化及发展拉拜斯方易沿波渐著访贸越阿随
+  在冬天，太阳下山比往常更早。  -- 4 characters no HSK 2 word uses: 冬山更阳
+  这趟火车开往伦敦。  -- 3 characters no HSK 2 word uses: 伦敦趟
+  你怎么什么责任都往别人身上推？  -- 3 characters no HSK 2 word uses: 任推责
+  富人往往瞧不起穷人。  -- 3 characters no HSK 2 word uses: 富瞧穷
+  翻译其实是一件吃力不讨好的事，因为一种语言在另一种语言中的对应物藏在往往隐藏在深不可测之处，翻译者需要百般寻觅，而且，挑剔的读者很难糊弄。  -- 29 characters no HSK 2 word uses: 且之其剔力另处实寻应弄挑测深物种糊翻者而般藏觅言讨译隐难需
+  通往地狱的路，都是由善意铺成的。  -- 6 characters no HSK 2 word uses: 善成狱由通铺
+  在人际交往中，第一印象决定着将要发生的事情内容的百分之五十以上。  -- 10 characters no HSK 2 word uses: 之内决印发定容将象际
+  我们往下看，是一片水泥丛林。  -- 4 characters no HSK 2 word uses: 丛林泥片
+  你需要往花瓶里加更多的水。  -- 4 characters no HSK 2 word uses: 加更瓶需
+
+--- dropped at step 5 (24), first 12 ---
+  我往右拐了。  -- level 6: 拐 L6
+  我不想独自前往。  -- level 5: 独自 L5, 前往 L5
+  为了握住他的手，她往前跨了一步。  -- level 7: 为了 L3, 握 L5, 跨 L7, 步 L4
+  我和她交往几个月了。  -- level 5: 交往 L5
+  谁告诉你我和汤姆在交往的？  -- level 10: 汤姆 (not in list), 交往 L5
+  汤姆今天来得比往常要早一些。  -- level 7: 往常 L7
+  跟往常一样，他来迟了。  -- level 7: 往常 L7, 一样 L3, 迟 L4
+  他在一周前离开去往欧洲，就是说，是在五月十号。  -- level 5: 离开 L3, 欧洲 L5, 就是 L4
+  往后站！  -- level 6: 往后 L6
+  今年将会不同以往吗？  -- level 5: 将 L4, 同 L5, 以 L5
+  往后退点。  -- level 6: 往后 L6, 退 L5
+  我在前往会议的路上。  -- level 5: 前往 L5, 会议 L3
+
+--- dropped at step 7 (1) ---
+  往前开。  -- check said no (1/2): 往 used as main verb, not preposition
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-22_level2_20261112_174003.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-22 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-22 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-22 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       92  2. contain the point's word(s)
+       92  3. new (not in DB, not a duplicate)
+       28  4. at most 2 characters outside HSK 2 words
+        4  5. really HSK 2
+        4  5b. no harder grammar point (of the 40 with a rule)
+        4  6. the rule finds 2-22
+        4  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-22, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  车往前走。  (The car was going forward.)  [tatoeba 3780485]
+  我往里面看。  (I looked inside.)  [tatoeba 13994926]
+  大家在往哪跑？  (Where's everyone running to?)  [tatoeba 13869024]
+
+--- dropped at step 4 (64), first 12 ---
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 8 characters no HSK 2 word uses: 像容异形性捡海石
+  跟异性交往最重要的不是他有多好,而是他对你有多好。  -- 4 characters no HSK 2 word uses: 异性而重
+  随著东西方之间的贸易及文化往来日渐发展，越来越多的阿拉伯和波斯商人开始沿著丝路拜访中国。  -- 21 characters no HSK 2 word uses: 丝之伯化及发展拉拜斯方易沿波渐著访贸越阿随
+  在冬天，太阳下山比往常更早。  -- 4 characters no HSK 2 word uses: 冬山更阳
+  这趟火车开往伦敦。  -- 3 characters no HSK 2 word uses: 伦敦趟
+  你怎么什么责任都往别人身上推？  -- 3 characters no HSK 2 word uses: 任推责
+  富人往往瞧不起穷人。  -- 3 characters no HSK 2 word uses: 富瞧穷
+  翻译其实是一件吃力不讨好的事，因为一种语言在另一种语言中的对应物藏在往往隐藏在深不可测之处，翻译者需要百般寻觅，而且，挑剔的读者很难糊弄。  -- 29 characters no HSK 2 word uses: 且之其剔力另处实寻应弄挑测深物种糊翻者而般藏觅言讨译隐难需
+  通往地狱的路，都是由善意铺成的。  -- 6 characters no HSK 2 word uses: 善成狱由通铺
+  在人际交往中，第一印象决定着将要发生的事情内容的百分之五十以上。  -- 10 characters no HSK 2 word uses: 之内决印发定容将象际
+  我们往下看，是一片水泥丛林。  -- 4 characters no HSK 2 word uses: 丛林泥片
+  你需要往花瓶里加更多的水。  -- 4 characters no HSK 2 word uses: 加更瓶需
+
+--- dropped at step 5 (24), first 12 ---
+  我往右拐了。  -- level 6: 拐 L6
+  我不想独自前往。  -- level 5: 独自 L5, 前往 L5
+  为了握住他的手，她往前跨了一步。  -- level 7: 为了 L3, 握 L5, 跨 L7, 步 L4
+  我和她交往几个月了。  -- level 5: 交往 L5
+  谁告诉你我和汤姆在交往的？  -- level 10: 汤姆 (not in list), 交往 L5
+  汤姆今天来得比往常要早一些。  -- level 7: 往常 L7
+  跟往常一样，他来迟了。  -- level 7: 往常 L7, 一样 L3, 迟 L4
+  他在一周前离开去往欧洲，就是说，是在五月十号。  -- level 5: 离开 L3, 欧洲 L5, 就是 L4
+  往后站！  -- level 6: 往后 L6
+  今年将会不同以往吗？  -- level 5: 将 L4, 同 L5, 以 L5
+  往后退点。  -- level 6: 往后 L6, 退 L5
+  我在前往会议的路上。  -- level 5: 前往 L5, 会议 L3
+
+--- dropped at step 7 (1) ---
+  往前开。  -- check said no (1/2): 往 used as main verb, not preposition
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-22_level2_20261112_211505.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 2-22 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-22 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-22 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       92  2. contain the point's word(s)
+       92  3. new (not in DB, not a duplicate)
+       28  4. at most 2 characters outside HSK 2 words
+        4  5. really HSK 2
+        4  5b. no harder grammar point (of the 44 with a rule)
+        4  6. the rule finds 2-22
+        4  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-22, English chosen
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (3) ===
+  车往前走。  (The car was going forward.)  [tatoeba 3780485]
+  我往里面看。  (I looked inside.)  [tatoeba 13994926]
+  大家在往哪跑？  (Where's everyone running to?)  [tatoeba 13869024]
+
+--- dropped at step 4 (64), first 12 ---
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 8 characters no HSK 2 word uses: 像容异形性捡海石
+  跟异性交往最重要的不是他有多好,而是他对你有多好。  -- 4 characters no HSK 2 word uses: 异性而重
+  随著东西方之间的贸易及文化往来日渐发展，越来越多的阿拉伯和波斯商人开始沿著丝路拜访中国。  -- 21 characters no HSK 2 word uses: 丝之伯化及发展拉拜斯方易沿波渐著访贸越阿随
+  在冬天，太阳下山比往常更早。  -- 4 characters no HSK 2 word uses: 冬山更阳
+  这趟火车开往伦敦。  -- 3 characters no HSK 2 word uses: 伦敦趟
+  你怎么什么责任都往别人身上推？  -- 3 characters no HSK 2 word uses: 任推责
+  富人往往瞧不起穷人。  -- 3 characters no HSK 2 word uses: 富瞧穷
+  翻译其实是一件吃力不讨好的事，因为一种语言在另一种语言中的对应物藏在往往隐藏在深不可测之处，翻译者需要百般寻觅，而且，挑剔的读者很难糊弄。  -- 29 characters no HSK 2 word uses: 且之其剔力另处实寻应弄挑测深物种糊翻者而般藏觅言讨译隐难需
+  通往地狱的路，都是由善意铺成的。  -- 6 characters no HSK 2 word uses: 善成狱由通铺
+  在人际交往中，第一印象决定着将要发生的事情内容的百分之五十以上。  -- 10 characters no HSK 2 word uses: 之内决印发定容将象际
+  我们往下看，是一片水泥丛林。  -- 4 characters no HSK 2 word uses: 丛林泥片
+  你需要往花瓶里加更多的水。  -- 4 characters no HSK 2 word uses: 加更瓶需
+
+--- dropped at step 5 (24), first 12 ---
+  我往右拐了。  -- level 6: 拐 L6
+  我不想独自前往。  -- level 5: 独自 L5, 前往 L5
+  为了握住他的手，她往前跨了一步。  -- level 7: 为了 L3, 握 L5, 跨 L7, 步 L4
+  我和她交往几个月了。  -- level 5: 交往 L5
+  谁告诉你我和汤姆在交往的？  -- level 10: 汤姆 (not in list), 交往 L5
+  汤姆今天来得比往常要早一些。  -- level 7: 往常 L7
+  跟往常一样，他来迟了。  -- level 7: 往常 L7, 一样 L3, 迟 L4
+  他在一周前离开去往欧洲，就是说，是在五月十号。  -- level 5: 离开 L3, 欧洲 L5, 就是 L4
+  往后站！  -- level 6: 往后 L6
+  今年将会不同以往吗？  -- level 5: 将 L4, 同 L5, 以 L5
+  往后退点。  -- level 6: 往后 L6, 退 L5
+  我在前往会议的路上。  -- level 5: 前往 L5, 会议 L3
+
+--- dropped at step 7 (1) ---
+  往前开。  -- check said no (1/2): 往 used as main verb, not preposition
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-22_level2_20261113_135441.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:43 ##########
+Filling 2-22 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-22 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 1 check and 0 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 2-22 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       92  2. contain the point's word(s)
+       92  3. new (not in DB, not a duplicate)
+       28  4. at most 2 characters outside HSK 2 words
+        4  5. really HSK 2
+        4  5b. no harder grammar point (of the 43 with a rule)
+        4  6. the rule finds 2-22
+        4  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-22, English chosen
+        1  7b. second opinion: it is the point (check)
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  车往前走。  (The car was going forward.)  [tatoeba 3780485]
+  我往里面看。  (I looked inside.)  [tatoeba 13994926]
+  大家在往哪跑？  (Where's everyone running to?)  [tatoeba 13869024]
+  往前开。  (Drive on.)  [tatoeba 5102335]
+
+--- dropped at step 4 (64), first 12 ---
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 8 characters no HSK 2 word uses: 像容异形性捡海石
+  跟异性交往最重要的不是他有多好,而是他对你有多好。  -- 4 characters no HSK 2 word uses: 异性而重
+  随著东西方之间的贸易及文化往来日渐发展，越来越多的阿拉伯和波斯商人开始沿著丝路拜访中国。  -- 21 characters no HSK 2 word uses: 丝之伯化及发展拉拜斯方易沿波渐著访贸越阿随
+  在冬天，太阳下山比往常更早。  -- 4 characters no HSK 2 word uses: 冬山更阳
+  这趟火车开往伦敦。  -- 3 characters no HSK 2 word uses: 伦敦趟
+  你怎么什么责任都往别人身上推？  -- 3 characters no HSK 2 word uses: 任推责
+  富人往往瞧不起穷人。  -- 3 characters no HSK 2 word uses: 富瞧穷
+  翻译其实是一件吃力不讨好的事，因为一种语言在另一种语言中的对应物藏在往往隐藏在深不可测之处，翻译者需要百般寻觅，而且，挑剔的读者很难糊弄。  -- 29 characters no HSK 2 word uses: 且之其剔力另处实寻应弄挑测深物种糊翻者而般藏觅言讨译隐难需
+  通往地狱的路，都是由善意铺成的。  -- 6 characters no HSK 2 word uses: 善成狱由通铺
+  在人际交往中，第一印象决定着将要发生的事情内容的百分之五十以上。  -- 10 characters no HSK 2 word uses: 之内决印发定容将象际
+  我们往下看，是一片水泥丛林。  -- 4 characters no HSK 2 word uses: 丛林泥片
+  你需要往花瓶里加更多的水。  -- 4 characters no HSK 2 word uses: 加更瓶需
+
+--- dropped at step 5 (24), first 12 ---
+  我往右拐了。  -- level 6: 拐 L6
+  我不想独自前往。  -- level 5: 独自 L5, 前往 L5
+  为了握住他的手，她往前跨了一步。  -- level 7: 为了 L3, 握 L5, 跨 L7, 步 L4
+  我和她交往几个月了。  -- level 5: 交往 L5
+  谁告诉你我和汤姆在交往的？  -- level 10: 汤姆 (not in list), 交往 L5
+  汤姆今天来得比往常要早一些。  -- level 7: 往常 L7
+  跟往常一样，他来迟了。  -- level 7: 往常 L7, 一样 L3, 迟 L4
+  他在一周前离开去往欧洲，就是说，是在五月十号。  -- level 5: 离开 L3, 欧洲 L5, 就是 L4
+  往后站！  -- level 6: 往后 L6
+  今年将会不同以往吗？  -- level 5: 将 L4, 同 L5, 以 L5
+  往后退点。  -- level 6: 往后 L6, 退 L5
+  我在前往会议的路上。  -- level 5: 前往 L5, 会议 L3
+
+--- dropped at step 7 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-22_level2_20261113_144353.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## ai  2026-11-14 14:34 ##########
+
+----- AI-written sentences for 2-22, round 1: 0 to check, 15 needed -----
+  Asking claude-sonnet-5-5 to write 38 sentence(s)...
+
+----- AI-written sentences for 2-22, round 2: 39 to check, 15 needed -----
+Filling 2-22 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 39
+
+Tagging 39 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_143427.txt
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  走去 = 走 + 去  (to walk over (to))
+
+Course sentences at HSK 2 the rule already finds 2-22 in: 1  -> Tatoeba needs to add 15 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-22 at HSK 2: funnel ===
+       39  AI-written sentences
+       39  1. have an English translation
+       39  2. contain the point's word(s)
+       39  3. new (not in DB, not a duplicate)
+       39  4. at most 0 characters outside HSK 2 words
+       36  5. really HSK 2
+       34  5b. no harder grammar point (of the 43 with a rule)
+       29  6. the rule finds 2-22
+       28  6b. no hidden word a learner can't work out
+       20  7. both checks say 2-22, English chosen
+       16  8. both difficulty reviews pass it
+  (8 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (16) ===
+  别往下看。  (Don't look down.)  [tatoeba ai-13435b6912]
+  请往里面坐。  (Please sit further inside.)  [tatoeba ai-7ef08616fc]
+  你往哪儿走？  (Which way are you going?)  [tatoeba ai-c88e44a802]
+  我想往前坐。  (I want to sit further forward.)  [tatoeba ai-e3861b3f7f]
+  请往后面坐。  (Please sit toward the back.)  [tatoeba ai-d72d99d783]
+  他往医院去了。  (He went toward the hospital.)  [tatoeba ai-acc2c716c3]
+  他往门口走去。  (He walked toward the door.)  [tatoeba ai-97dd8e0f0f]  hidden: 走去
+  他往学校跑去了。  (He ran off toward the school.)  [tatoeba ai-505c11c0d5]
+  孩子往外面跑了。  (The child ran outside.)  [tatoeba ai-52b807d370]
+  往上看，有一只鸟。  (Look up. There's a bird.)  [tatoeba ai-1f7e8be29e]
+  孩子们往教室里跑。  (The children are running into the classroom.)  [tatoeba ai-13a130a580]  hidden: 孩子们
+  往左走，就是车站。  (Go left and you'll reach the station.)  [tatoeba ai-f6164d9242]
+  那个人往车站跑了。  (That person ran toward the station.)  [tatoeba ai-3acf3ff04a]  hidden: 那个人
+  往下走，就是教室。  (Go downstairs and you'll find the classroom.)  [tatoeba ai-554c7a9fdd]
+  往右走，就是洗手间。  (Go right and you'll find the restroom.)  [tatoeba ai-08cba01256]
+  往前走五分钟就到了。  (Walk forward for five minutes and you'll be there.)  [tatoeba ai-f48d8687f0]  hidden: 到了
+
+--- dropped at step 5 (3) ---
+  往后看，谁在那儿？  -- level 6: 往后 L6
+  车往后开了一点儿。  -- level 6: 往后 L6
+  你往后坐吧，前面太热。  -- level 6: 往后 L6
+
+--- dropped at step 5b (2) ---
+  往前走，就能看见书店。  -- harder grammar: 3-46 (HSK 3)
+  往右看，你能看见那家店。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  他往我这边走来了。  -- rule: no match: line matched
+  请往这边来。  -- rule: no match: line matched
+  他往我这儿看了看。  -- rule: no match: line matched
+  小狗往我这边跑过来了。  -- rule: no match: line matched
+  这个人在往我们这边看。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  你往左看，那是我家。  -- hidden word a learner can't work out: 那是 ((coll.) of course; naturally; indeed)
+
+--- dropped at step 8 (4) ---
+  请往下读。  -- difficulty review: (1/2); 往下读 uses 往 with an abstract continuation sense rather than physical direction
+  你往下说吧。  -- difficulty review: (1/2); 往下说 uses 往 in an abstract continuation sense rather than physical direction
+  我想往家里打电话。  -- difficulty review: (1/2); 往家里打电话 uses 往 in a specialized sense (direction of a phone call) rather than physical movement
+  这是开往机场的车吗？  -- difficulty review: (2/2); passive voice with 开往 requires understanding of 被-like construction that is beyond HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-22_level2_20261114_143443.csv
+
+########## ai  2026-11-14 15:00 ##########
+
+----- AI-written sentences for 2-22, round 1: 39 to check, 15 needed -----
+Filling 2-22 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 39
+
+
+Course sentences at HSK 2 the rule already finds 2-22 in: 1  -> Tatoeba needs to add 15 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-22 at HSK 2: funnel ===
+       39  AI-written sentences
+       39  1. have an English translation
+       39  2. contain the point's word(s)
+       39  3. new (not in DB, not a duplicate)
+       39  4. at most 0 characters outside HSK 2 words
+       36  5. really HSK 2
+       34  5b. no harder grammar point (of the 43 with a rule)
+       29  6. the rule finds 2-22
+       28  6b. no hidden word a learner can't work out
+       20  7. both checks say 2-22, English chosen
+       16  8. both difficulty reviews pass it
+  (8 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (16) ===
+  别往下看。  (Don't look down.)  [tatoeba ai-13435b6912]
+  请往里面坐。  (Please sit further inside.)  [tatoeba ai-7ef08616fc]
+  你往哪儿走？  (Which way are you going?)  [tatoeba ai-c88e44a802]
+  我想往前坐。  (I want to sit further forward.)  [tatoeba ai-e3861b3f7f]
+  请往后面坐。  (Please sit toward the back.)  [tatoeba ai-d72d99d783]
+  他往医院去了。  (He went toward the hospital.)  [tatoeba ai-acc2c716c3]
+  他往门口走去。  (He walked toward the door.)  [tatoeba ai-97dd8e0f0f]  hidden: 走去
+  他往学校跑去了。  (He ran off toward the school.)  [tatoeba ai-505c11c0d5]
+  孩子往外面跑了。  (The child ran outside.)  [tatoeba ai-52b807d370]
+  往上看，有一只鸟。  (Look up. There's a bird.)  [tatoeba ai-1f7e8be29e]
+  孩子们往教室里跑。  (The children are running into the classroom.)  [tatoeba ai-13a130a580]  hidden: 孩子们
+  往左走，就是车站。  (Go left and you'll reach the station.)  [tatoeba ai-f6164d9242]
+  那个人往车站跑了。  (That person ran toward the station.)  [tatoeba ai-3acf3ff04a]  hidden: 那个人
+  往下走，就是教室。  (Go downstairs and you'll find the classroom.)  [tatoeba ai-554c7a9fdd]
+  往右走，就是洗手间。  (Go right and you'll find the restroom.)  [tatoeba ai-08cba01256]
+  往前走五分钟就到了。  (Walk forward for five minutes and you'll be there.)  [tatoeba ai-f48d8687f0]  hidden: 到了
+
+--- dropped at step 5 (3) ---
+  往后看，谁在那儿？  -- level 6: 往后 L6
+  车往后开了一点儿。  -- level 6: 往后 L6
+  你往后坐吧，前面太热。  -- level 6: 往后 L6
+
+--- dropped at step 5b (2) ---
+  往前走，就能看见书店。  -- harder grammar: 3-46 (HSK 3)
+  往右看，你能看见那家店。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  他往我这边走来了。  -- rule: no match: line matched
+  请往这边来。  -- rule: no match: line matched
+  他往我这儿看了看。  -- rule: no match: line matched
+  小狗往我这边跑过来了。  -- rule: no match: line matched
+  这个人在往我们这边看。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  你往左看，那是我家。  -- hidden word a learner can't work out: 那是 ((coll.) of course; naturally; indeed)
+
+--- dropped at step 8 (4) ---
+  请往下读。  -- difficulty review: (1/2); 往下读 uses 往 with an abstract continuation sense rather than physical direction
+  你往下说吧。  -- difficulty review: (1/2); 往下说 uses 往 in an abstract continuation sense rather than physical direction
+  我想往家里打电话。  -- difficulty review: (1/2); 往家里打电话 uses 往 in a specialized sense (direction of a phone call) rather than physical movement
+  这是开往机场的车吗？  -- difficulty review: (2/2); passive voice with 开往 requires understanding of 被-like construction that is beyond HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-22_level2_20261114_150001.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:10 ##########
+Filling 2-22 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-22 in: 20  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-22 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       92  2. contain the point's word(s)
+       88  3. new (not in DB, not a duplicate)
+       24  4. at most 2 characters outside HSK 2 words
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (4) ---
+  车往前走。  -- already in the database
+  往前开。  -- already in the database
+  大家在往哪跑？  -- already in the database
+  我往里面看。  -- already in the database
+
+--- dropped at step 4 (64), first 12 ---
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 8 characters no HSK 2 word uses: 像容异形性捡海石
+  跟异性交往最重要的不是他有多好,而是他对你有多好。  -- 4 characters no HSK 2 word uses: 异性而重
+  随著东西方之间的贸易及文化往来日渐发展，越来越多的阿拉伯和波斯商人开始沿著丝路拜访中国。  -- 21 characters no HSK 2 word uses: 丝之伯化及发展拉拜斯方易沿波渐著访贸越阿随
+  在冬天，太阳下山比往常更早。  -- 4 characters no HSK 2 word uses: 冬山更阳
+  这趟火车开往伦敦。  -- 3 characters no HSK 2 word uses: 伦敦趟
+  你怎么什么责任都往别人身上推？  -- 3 characters no HSK 2 word uses: 任推责
+  富人往往瞧不起穷人。  -- 3 characters no HSK 2 word uses: 富瞧穷
+  翻译其实是一件吃力不讨好的事，因为一种语言在另一种语言中的对应物藏在往往隐藏在深不可测之处，翻译者需要百般寻觅，而且，挑剔的读者很难糊弄。  -- 29 characters no HSK 2 word uses: 且之其剔力另处实寻应弄挑测深物种糊翻者而般藏觅言讨译隐难需
+  通往地狱的路，都是由善意铺成的。  -- 6 characters no HSK 2 word uses: 善成狱由通铺
+  在人际交往中，第一印象决定着将要发生的事情内容的百分之五十以上。  -- 10 characters no HSK 2 word uses: 之内决印发定容将象际
+  我们往下看，是一片水泥丛林。  -- 4 characters no HSK 2 word uses: 丛林泥片
+  你需要往花瓶里加更多的水。  -- 4 characters no HSK 2 word uses: 加更瓶需
+
+--- dropped at step 5 (24), first 12 ---
+  我往右拐了。  -- level 6: 拐 L6
+  我不想独自前往。  -- level 5: 独自 L5, 前往 L5
+  为了握住他的手，她往前跨了一步。  -- level 7: 为了 L3, 握 L5, 跨 L7, 步 L4
+  我和她交往几个月了。  -- level 5: 交往 L5
+  谁告诉你我和汤姆在交往的？  -- level 10: 汤姆 (not in list), 交往 L5
+  汤姆今天来得比往常要早一些。  -- level 7: 往常 L7
+  跟往常一样，他来迟了。  -- level 7: 往常 L7, 一样 L3, 迟 L4
+  他在一周前离开去往欧洲，就是说，是在五月十号。  -- level 5: 离开 L3, 欧洲 L5, 就是 L4
+  往后站！  -- level 6: 往后 L6
+  今年将会不同以往吗？  -- level 5: 将 L4, 同 L5, 以 L5
+  往后退点。  -- level 6: 往后 L6, 退 L5
+  我在前往会议的路上。  -- level 5: 前往 L5, 会议 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-22_level2_20261114_161034.csv
+
+########## ai  2026-11-14 16:13 ##########
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:30 ##########
+Filling 2-22 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-22 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 1 check and 0 review rejection(s)...
+
+=== 2-22 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+       92  2. contain the point's word(s)
+       92  3. new (not in DB, not a duplicate)
+       28  4. at most 2 characters outside HSK 2 words
+        4  5. really HSK 2
+        4  5b. no harder grammar point (of the 43 with a rule)
+        4  6. the rule finds 2-22
+        4  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-22, English chosen
+        1  7b. second opinion: it is the point (check)
+        3  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (4) ===
+  车往前走。  (The car was going forward.)  [tatoeba 3780485]
+  我往里面看。  (I looked inside.)  [tatoeba 13994926]
+  大家在往哪跑？  (Where's everyone running to?)  [tatoeba 13869024]
+  往前开。  (Drive on.)  [tatoeba 5102335]
+
+--- dropped at step 4 (64), first 12 ---
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 8 characters no HSK 2 word uses: 像容异形性捡海石
+  跟异性交往最重要的不是他有多好,而是他对你有多好。  -- 4 characters no HSK 2 word uses: 异性而重
+  随著东西方之间的贸易及文化往来日渐发展，越来越多的阿拉伯和波斯商人开始沿著丝路拜访中国。  -- 21 characters no HSK 2 word uses: 丝之伯化及发展拉拜斯方易沿波渐著访贸越阿随
+  在冬天，太阳下山比往常更早。  -- 4 characters no HSK 2 word uses: 冬山更阳
+  这趟火车开往伦敦。  -- 3 characters no HSK 2 word uses: 伦敦趟
+  你怎么什么责任都往别人身上推？  -- 3 characters no HSK 2 word uses: 任推责
+  富人往往瞧不起穷人。  -- 3 characters no HSK 2 word uses: 富瞧穷
+  翻译其实是一件吃力不讨好的事，因为一种语言在另一种语言中的对应物藏在往往隐藏在深不可测之处，翻译者需要百般寻觅，而且，挑剔的读者很难糊弄。  -- 29 characters no HSK 2 word uses: 且之其剔力另处实寻应弄挑测深物种糊翻者而般藏觅言讨译隐难需
+  通往地狱的路，都是由善意铺成的。  -- 6 characters no HSK 2 word uses: 善成狱由通铺
+  在人际交往中，第一印象决定着将要发生的事情内容的百分之五十以上。  -- 10 characters no HSK 2 word uses: 之内决印发定容将象际
+  我们往下看，是一片水泥丛林。  -- 4 characters no HSK 2 word uses: 丛林泥片
+  你需要往花瓶里加更多的水。  -- 4 characters no HSK 2 word uses: 加更瓶需
+
+--- dropped at step 5 (24), first 12 ---
+  我往右拐了。  -- level 6: 拐 L6
+  我不想独自前往。  -- level 5: 独自 L5, 前往 L5
+  为了握住他的手，她往前跨了一步。  -- level 7: 为了 L3, 握 L5, 跨 L7, 步 L4
+  我和她交往几个月了。  -- level 5: 交往 L5
+  谁告诉你我和汤姆在交往的？  -- level 10: 汤姆 (not in list), 交往 L5
+  汤姆今天来得比往常要早一些。  -- level 7: 往常 L7
+  跟往常一样，他来迟了。  -- level 7: 往常 L7, 一样 L3, 迟 L4
+  他在一周前离开去往欧洲，就是说，是在五月十号。  -- level 5: 离开 L3, 欧洲 L5, 就是 L4
+  往后站！  -- level 6: 往后 L6
+  今年将会不同以往吗？  -- level 5: 将 L4, 同 L5, 以 L5
+  往后退点。  -- level 6: 往后 L6, 退 L5
+  我在前往会议的路上。  -- level 5: 前往 L5, 会议 L3
+
+--- dropped at step 7 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-22_level2_20261114_163059.csv
+
+########## ai  2026-11-14 16:34 ##########
+
+----- AI-written sentences for 2-22, round 1: 39 to check, 15 needed -----
+Filling 2-22 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 39
+
+Tagging 2 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_163425.txt
+
+Course sentences at HSK 2 the rule already finds 2-22 in: 1  -> Tatoeba needs to add 15 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-22 at HSK 2: funnel ===
+       39  AI-written sentences
+       39  1. have an English translation
+       39  2. contain the point's word(s)
+       39  3. new (not in DB, not a duplicate)
+       39  4. at most 0 characters outside HSK 2 words
+       36  5. really HSK 2
+       35  5b. no harder grammar point (of the 43 with a rule)
+       30  6. the rule finds 2-22
+       29  6b. no hidden word a learner can't work out
+       20  7. both checks say 2-22, English chosen
+       16  8. both difficulty reviews pass it
+  (9 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (16) ===
+  别往下看。  (Don't look down.)  [tatoeba ai-13435b6912]
+  请往里面坐。  (Please sit further inside.)  [tatoeba ai-7ef08616fc]
+  你往哪儿走？  (Which way are you going?)  [tatoeba ai-c88e44a802]
+  我想往前坐。  (I want to sit further forward.)  [tatoeba ai-e3861b3f7f]
+  请往后面坐。  (Please sit toward the back.)  [tatoeba ai-d72d99d783]
+  他往医院去了。  (He went toward the hospital.)  [tatoeba ai-acc2c716c3]
+  他往门口走去。  (He walked toward the door.)  [tatoeba ai-97dd8e0f0f]  hidden: 走去
+  他往学校跑去了。  (He ran off toward the school.)  [tatoeba ai-505c11c0d5]
+  孩子往外面跑了。  (The child ran outside.)  [tatoeba ai-52b807d370]
+  往上看，有一只鸟。  (Look up. There's a bird.)  [tatoeba ai-1f7e8be29e]
+  孩子们往教室里跑。  (The children are running into the classroom.)  [tatoeba ai-13a130a580]  hidden: 孩子们
+  往左走，就是车站。  (Go left and you'll reach the station.)  [tatoeba ai-f6164d9242]
+  那个人往车站跑了。  (That person ran toward the station.)  [tatoeba ai-3acf3ff04a]  hidden: 那个人
+  往下走，就是教室。  (Go downstairs and you'll find the classroom.)  [tatoeba ai-554c7a9fdd]
+  往右走，就是洗手间。  (Go right and you'll find the restroom.)  [tatoeba ai-08cba01256]
+  往前走五分钟就到了。  (Walk forward for five minutes and you'll be there.)  [tatoeba ai-f48d8687f0]  hidden: 到了
+
+--- dropped at step 5 (3) ---
+  往后看，谁在那儿？  -- level 6: 往后 L6
+  车往后开了一点儿。  -- level 6: 往后 L6
+  你往后坐吧，前面太热。  -- level 6: 往后 L6
+
+--- dropped at step 5b (1) ---
+  往前走，就能看见书店。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  他往我这边走来了。  -- rule: no match: line matched
+  请往这边来。  -- rule: no match: line matched
+  他往我这儿看了看。  -- rule: no match: line matched
+  小狗往我这边跑过来了。  -- rule: no match: line matched
+  这个人在往我们这边看。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  你往左看，那是我家。  -- hidden word a learner can't work out: 那是 ((coll.) of course; naturally; indeed)
+
+--- dropped at step 8 (4) ---
+  请往下读。  -- difficulty review: (1/2); 往下读 uses 往 with an abstract continuation sense rather than physical direction
+  你往下说吧。  -- difficulty review: (1/2); 往下说 uses 往 in an abstract continuation sense rather than physical direction
+  我想往家里打电话。  -- difficulty review: (1/2); 往家里打电话 uses 往 in a specialized sense (direction of a phone call) rather than physical movement
+  这是开往机场的车吗？  -- difficulty review: (2/2); passive voice with 开往 requires understanding of 被-like construction that is beyond HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-22_level2_20261114_163425.csv

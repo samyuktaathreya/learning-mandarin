@@ -1,0 +1,26 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 19504 characters -->
+## 2-17
+**Point:** Expressing "then" with the adverb 就 (jiù) in conditional and causal structures
+
+**Covers:** Sentences whose first clause sets up a condition or cause (如果, 要是, 要不是, 假如, 假使, 既然, 只要, 的话, or 要我说), and whose second clause gives the consequence, result or suggestion, usually led by 就. This includes "if...then", "since...then", "as long as...then", "if it weren't for...", and 的话...就 sentences.
+
+**Does not cover:** 就 for earliness or timing (他早就知道了), scope (就这个问题), small quantity (就他知道, 我就去过一次), near-future 就要...了, "even if" patterns (就算/就是...也), emphasis with 就是, "as you like" and verb-repetition patterns (想吃就吃, 要买就买), 不是...就是, 一...就, and verbs repeated with 着 (说着说着就...).
+
+```rule
+match: 如果|既然|只要|假如|假使|要是/CS
+match: ^ 要不是/AD|CS
+match: ^ 要/CS|VV 我 说 $
+match: 的话/SP 就/AD /VV|P|AD
+unless: 就是
+unless: 就算
+unless: 就/AD 算/VV
+unless: 就/AD 是/VC
+unless: 不是 ... 就是
+unless: 就/AD 要/VV ... 了/SP|AS $
+unless: 一/AD ... 就/AD
+unless: 着/AS 就/AD
+unless: 才/AD
+unless: 就/AD 在/VV
+```
+
+**Notes:** Patterns match within a single clause, so they cannot link a first clause to a second. The earlier lines that matched any "pronoun + 就 + verb" were removed. In isolation they also matched scope, quantity and emphasis uses (我就去过一次, 你就点了两个菜, 我就不告诉你), and a pattern cannot tell those apart from a result clause. The rule now keys on the clause that sets up the condition: a conditional or causal conjunction (如果, 既然, 只要, 假如, 假使, 要是), 要不是, the 要我说 opener, or 的话 followed directly by 就. A sentence with a conjunction but no 就 still matches, which is correct for the 只要, 既然 and 如果 examples that carry 就 in the other clause. The unless lines exclude the non-target uses of 就: 就是, 就算, 就要...了, 不是...就是, 一...就, 着 repetition, 才 contrasts and verbal 在.

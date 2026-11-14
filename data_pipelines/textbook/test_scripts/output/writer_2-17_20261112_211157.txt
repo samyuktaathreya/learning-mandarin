@@ -1,0 +1,41 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 18836 characters -->
+## 2-17
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** Expressing "then" with the adverb 就 (jiù) in conditional and causal structures
+
+**Covers:** Sentences whose first clause sets up a condition or cause (如果, 要是, 要不是, 要不, 假如, 假使, 既然, 只要, 的话, or 要我说), and whose second clause gives the consequence, result or suggestion, usually led by 就. This includes "if...then", "since...then", "as long as...then", "if it weren't for...", and 的话...就 sentences. It also covers the short, simple form where the setup is implied or sits in the previous clause: 就 opening a result or suggestion clause (就去看电影吧, 就在这家店吃饭吧, 就不要喝酒了), 我们就…吧/了, 他就哭了, 喜欢就拿走吧, and 有事/有空 + request.
+
+**Does not cover:** 就 for earliness or timing (他早就知道了, 还有十分钟我就下班了), scope (就这个问题), small quantity (就他知道, 我就去过一次), near-future 就要...了, "even if" patterns (就算/就是...也), emphasis with 就是, "as you like" and verb-repetition patterns (想吃就吃, 要买就买), 不是...就是, 一...就, and verbs repeated with 着 (说着说着就...).
+
+```rule
+match: 如果|既然|只要|假如|假使|要是/CS
+match: ^ 要不是/AD|CS
+match: ^ 要/CS|VV 我 说 $
+match: ^ /PN 要不/AD /VV $
+match: ^ /PN 要/VV 再说/VV $
+match: 的话/SP 就/AD /VV|P|AD
+match: ^ 就/AD /VV|P
+match: ^ 就/AD 不要|别|多|先/AD
+match: 我们|咱们 就/AD 不/AD? /VV ... 吧|了 $
+match: 我们|咱们 就/AD 不|一起/AD
+match: /PN 就/AD /VV 了/AS|SP $
+match: ^ 喜欢 就/AD /VV ... 吧/SP $
+match: ^ 有/VE 事|空|问题|困难/NN 给|来|找|问|打
+unless: ^ 就是
+unless: 就是 /NN|PN|DT|NR|CD|M
+unless: 就是 说
+unless: 就是/VC
+unless: 就算
+unless: 就/AD 算/VV
+unless: 就/AD 是/VC
+unless: 不是 ... 就是
+unless: 就/AD 要/VV ... 了/SP|AS $
+unless: 一/AD ... 就/AD
+unless: 着/AS 就/AD
+unless: 着/AS _ 着/AS
+unless: 还/AD 有/VE
+unless: /NT|M|CD 才/AD
+unless: 就/AD 在/VV
+```
+
+**Notes:** Patterns match within a single clause, so they cannot link a first clause to a second. The broad "pronoun + 就 + verb" lines stay removed, because they matched scope, quantity and emphasis uses (我就去过一次, 我就不告诉你). Instead, the short result or suggestion forms are matched narrowly. A clause that starts with 就 + verb or preposition (就去…, 就在…, 就给你…) matches, as does 就 + 不要/别/多/先. 我们/咱们 + 就 + verb must end in 吧 or 了, or be followed by 不 or 一起. Any pronoun + 就 + verb + 了 at clause end is also matched (他就哭了). 喜欢就…吧 and clause-initial 有事/有空 + request are matched as set phrases. Conditional 要 is matched narrowly: 要不是 at clause start, pronoun + 要不 + verb ending the clause (他要不听), and pronoun + 要 + 再说 ending the clause (你要再说). The 着 repetition is excluded as 着 _ 着, because the 就 sits in a later clause than the 着. 还有 + time + 就 is excluded as a near-future use. The 就是 exclusion is now limited to 就是 at clause start or before a noun, pronoun, determiner, number or measure word, or 就是说, so 要我说，他就是太懒 is no longer blocked. 才 now blocks a match only after a time word, number or measure word (等了两个小时才…), so 要不是…，我才不… is allowed.

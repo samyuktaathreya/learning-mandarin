@@ -1,0 +1,28 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 11329 characters -->
+## 2-13
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** Degree adverbs (多、多么、好、更、十分、特别、挺、有（一）点儿) to express intensity, comparison, or mild complaint
+
+**Covers:** 更 (and 比…还) before adjectives to mean "even more"; 挺 before adjectives or psych verbs to mean "quite"; 有点/有一点(儿) before adjectives to mean "a little too"; 多/多么 before adjectives in exclamations; 特别/十分 before adjectives; 一点/点 after an adjective at the end of a clause in comparisons or requests (慢一点, 快点, 便宜点吧); 一点也不/一点也没 meaning "not at all"
+
+**Does not cover:** the 更不用说 (let alone) pattern; the 不但...更 (not only...but also) pattern, including 更 before a verb there; 更 in 更新/更改 (verb meanings change/update); 一点 before nouns meaning a small quantity (有一点番茄酱); 有点 as "there is a little" of a noun (还有点饭); adjective + 点 directly before a verb (早点来, 早点睡觉), which is a different, easier pattern
+
+```rule
+match: 更|多么/AD /VA
+match: 特别|十分/AD /VA|VV
+match: 挺/AD /VA|VV
+match: 挺/AD 有/VE
+match: 比 ... 还/AD /VA
+match: 有点|有点儿/AD
+match: 多/AD /VA 啊|呀/SP
+match: /VA 一/CD 点/M $
+match: /VA 一/CD 点/M /SP
+match: /VA 点/AD $
+match: /VA 点/AD /SP
+match: ^ 一点/NN /VA
+match: ^ 一点/NN 也/AD 不|没/AD
+unless: 不但 ... 更
+unless: 更 不用说
+```
+
+**Notes:** The tokenizer splits 有一点儿 + adjective and 一点也不/没 across a clause break, with 一点 tagged NN at the start of the second clause. The rule therefore matches that clause-initial 一点/NN only when an adjective, or 也不/也没, follows. When a noun follows (番茄酱, 饭), it does not match. 更 is restricted to a following adjective, and an explicit unless line blocks 不但…更 sentences. Adjective + 点/一点 now only matches when it ends the clause or is followed by a sentence-final particle (快点, 便宜点吧). Before it also matched 早点来 / 早点睡觉, which belong to easier grammar points and are now excluded.

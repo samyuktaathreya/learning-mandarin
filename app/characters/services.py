@@ -41,103 +41,25 @@ unrestricted similar characters when there aren't enough.
 
 import random
 import re
-from datetime import datetime
 from itertools import product
 
 from pypinyin import pinyin as pypinyin_readings, Style
-from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.shared.crud import get_dictionary_entries
-from app.session.models import StrengthTable
 from app.characters.models import Character, RadicalMeta
 import characters.crud
 from app.textbook.services import get_pinyin, META_TAGS
+from app.characters.curriculum import (
+    REVIEW_STRENGTH_THRESHOLD,
+    compute_strength,
+    get_allowed_curriculum,
+    get_character_facet_rows as _get_character_facet_rows,
+)
+from app.characters.char_to_word import generate_character_to_word_questions
 
-REVIEW_STRENGTH_THRESHOLD = 0.80  # matches REVIEW_THRESHOLD in session.py
 NUM_OPTIONS = 4                   # multiple-choice option count for all quiz types
-
-
-# ---------------------------------------------------------------------------
-# Strength helpers (mirrors the formula used in session.py's facet_detail)
-# ---------------------------------------------------------------------------
-
-def compute_strength(row: StrengthTable) -> float:
-    if not row or not row.stability:
-        return 0.0
-    now = datetime.utcnow()
-    elapsed_days = (now - row.last_practice).total_seconds() / 86400
-    return 0.5 ** (elapsed_days / row.stability)
-
-
-def _get_character_facet_rows(db: Session, user_id: int) -> list[StrengthTable]:
-    return (
-        db.query(StrengthTable)
-        .filter(StrengthTable.user_id == user_id, StrengthTable.facet == "character")
-        .all()
-    )
-
-
-# ---------------------------------------------------------------------------
-# Curriculum gating (what has this user actually been taught?)
-# ---------------------------------------------------------------------------
-
-def _resolve_progress(
-    db: Session, user_id: int, unit_number: int | None, hsk_level: int
-) -> tuple[int | None, int]:
-    """Return (unit, hsk_level) to gate on. An explicit unit_number wins;
-    otherwise fall back to users.current_unit / users.hsk_level. Returns
-    (None, hsk_level) if progress can't be determined (-> no gating)."""
-    if unit_number is not None:
-        return unit_number, hsk_level
-    row = db.execute(
-        text("SELECT current_unit, hsk_level FROM users WHERE id = :uid"),
-        {"uid": user_id},
-    ).first()
-    if not row or row.current_unit is None:
-        return None, hsk_level
-    return row.current_unit, (row.hsk_level or hsk_level)
-
-
-_ALLOWED_VOCAB_SQL = text("""
-    SELECT v.hanzi
-    FROM vocab v
-    JOIN units u ON u.id = v.unit_id
-    WHERE u.hsk_level < :hsk OR (u.hsk_level = :hsk AND u.unit_number <= :unit)
-    UNION
-    SELECT v.hanzi
-    FROM vocab_senses s
-    JOIN vocab v ON v.id = s.vocab_id
-    JOIN units u ON u.id = s.unit_id
-    WHERE u.hsk_level < :hsk OR (u.hsk_level = :hsk AND u.unit_number <= :unit)
-""")
-
-
-def get_allowed_curriculum(
-    db: Session,
-    textbook_db: Session,
-    user_id: int,
-    unit_number: int | None,
-    hsk_level: int,
-) -> tuple[set[str] | None, set[str] | None]:
-    """
-    Returns (allowed_tags, allowed_chars), or (None, None) when progress is
-    unknown (callers treat None as "don't gate").
-
-      allowed_tags  -- vocab.hanzi taught up to the user's position. A word
-                       counts if either the word itself or any of its senses
-                       was introduced at or before that point.
-      allowed_chars -- every individual character appearing in those words;
-                       used for single-character targets and for distractors.
-    """
-    unit, hsk = _resolve_progress(db, user_id, unit_number, hsk_level)
-    if unit is None:
-        return None, None
-
-    rows = textbook_db.execute(_ALLOWED_VOCAB_SQL, {"hsk": hsk, "unit": unit}).all()
-    allowed_tags = {r[0] for r in rows if r[0]}
-    allowed_chars = {ch for tag in allowed_tags for ch in tag}
-    return allowed_tags, allowed_chars
+CHAR_TO_WORD_SHARE = 0.30         # share of non-radical questions that are character -> word
 
 
 # ---------------------------------------------------------------------------
@@ -509,7 +431,19 @@ def generate_character_questions(
             questions.append(q)
             used_tags.add(radical_tag)
 
-    # Step 2: fill the rest with character questions (lowest strength first)
+    # Step 2: character -> word ("which word is 介 from?"). Each remaining slot
+    # independently has a CHAR_TO_WORD_SHARE chance of being this type, so it
+    # still shows up when a session only has 1-2 slots left (a fixed
+    # round(remaining * share) would be 0 there).
+    remaining = num_questions - len(questions)
+    word_quota = sum(random.random() < CHAR_TO_WORD_SHARE for _ in range(remaining))
+    for q in generate_character_to_word_questions(
+        db, user_id, allowed_tags, word_quota, exclude_tags=used_tags
+    ):
+        questions.append(q)
+        used_tags.update(q["tags"])
+
+    # Step 3: fill the rest with character questions (lowest strength first)
     remaining = num_questions - len(questions)
     if remaining > 0:
         candidate_tags = get_lowest_strength_character_tags(

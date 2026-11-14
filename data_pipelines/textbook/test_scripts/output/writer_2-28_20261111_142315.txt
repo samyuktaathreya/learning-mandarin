@@ -1,0 +1,25 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 8130 characters -->
+## 2-28
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** The preposition 为 (wèi), "for", introduces the person or party an action is done for: 为 + party + Verb/Adj. This rule covers 为 only. The 给 + recipient + verb pattern belongs to other, easier points (2-26, 2-30).
+
+**Covers:** 为 tagged as a preposition before a person or thing and then a verb or adjective. Examples: 为你高兴, 为公司提供保障, 是为你准备的, 为美国政府工作, 为大家干杯.
+
+**Does not cover:**
+- 给 in any use. Sentences like 给我打电话, 给他道歉 and 给孩子们做饭 are examples of other points, so 给/P is not matched.
+- 为了 (purpose), which the tagger treats as a separate token.
+- 因为 (because), also a separate token.
+- 作为.
+- 以…为… ("take X as Y"), where 为 is tagged VV.
+- 成为, 分为, 称为, 以为, 为什么, 为何, 为此, 为期 and 为难, which are all single tokens or tagged differently.
+- 为 tagged VC or VV, as in 评选为模范.
+
+```rule
+match: 为/P
+unless: 以 ... 为/P
+```
+
+**Notes:**
+- I removed the `给/P` line. Labeled counter-examples show that 给 + recipient + verb sentences belong to easier points (2-26, 2-30), not 2-28, so that line caused false matches.
+- The rule relies on the tagger giving bare 为 the tag P only in the "for" sense. The labeled counter-examples show 以…为 getting VV, but the `unless` line guards against a mis-tag.
+- Bare 为 tagged VV or VC (e.g. 为荣, 评选为) is deliberately not matched.

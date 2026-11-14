@@ -1,0 +1,25 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 14477 characters -->
+## 2-69
+**Point:** Events in quick succession with "yi... jiu..." (一⋯⋯就⋯⋯)
+**Covers:** Sentences where 一 marks the onset of the first event and 就 marks the immediate consequence, showing that as soon as Event 1 happens, Event 2 follows in quick succession. The structure shows causation or temporal sequence between two events.
+**Does not cover:** Other uses of 一 and 就 including: quantification (一些, 一点), adverbial uses of 一 (一直, 一向, 一时, 一再), measure words (一个, 一张), emphasis with 就, conditional structures with different markers (一旦, 要是), concurrent actions (一边⋯⋯一边), or repetition patterns (一次⋯⋯一次).
+
+```rule
+match: 一/AD _ /VV ... ‖? _ 就/AD /VV
+match: 一/AD /VV ... ‖? _ 就/AD /VV
+match: 一/AD /VV ... 就/AD /VV
+unless: 一再/AD
+unless: 一直/AD
+unless: 一时/AD
+unless: 一向/AD
+unless: 一点儿/AD
+unless: /CD 点/M 一点儿/AD
+unless: 一旦/CS
+unless: 一起/AD
+unless: 一些/CD
+unless: 一/CD /M
+unless: 一方面/NN
+unless: 进一步/AD
+```
+
+**Notes:** The core pattern requires 一 (tagged AD, not CD) immediately before or within the first clause's verb phrase, followed by 就 (tagged AD) in a subsequent clause or later in the same clause. The 一 is an adverbial marker of "every time/as soon as," not a number (CD). The pattern must capture both clauses separated by ‖ (punctuation break) and cases within a single clause. Multiple unless clauses exclude similar-looking but different grammar points. The optional clause break (‖?) accommodates both linked and non-linked structures. The pattern `一/AD _ /VV` allows for intervening words like objects between 一 and the verb.

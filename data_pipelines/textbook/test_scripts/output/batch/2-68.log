@@ -8,3 +8,924 @@ Traceback (most recent call last):
   File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 672, in cmd_sources
     raise SystemExit(f"No AllSet Learning page uses {' '.join(point.markers)}.")
 SystemExit: No AllSet Learning page uses 因果.
+
+########## rules  2026-11-10 21:26 ##########
+Traceback (most recent call last):
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 491, in main
+    rule_for(db, c, st, tagger, client, args.first_writer)
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 143, in rule_for
+    tg.cmd_sources(db, point, trial_args(code=code, redo=True))
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 698, in cmd_sources
+    raise SystemExit(f"No AllSet Learning page uses {' '.join(point.markers)}.")
+SystemExit: No AllSet Learning page uses 因果.
+
+########## rules  2026-11-11 14:18 ##########
+Traceback (most recent call last):
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 515, in main
+    rule_for(db, c, st, tagger, client, args.first_writer)
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 143, in rule_for
+    tg.cmd_sources(db, point, trial_args(code=code, redo=True))
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 722, in cmd_sources
+    raise SystemExit(f"No AllSet Learning page uses {' '.join(point.markers)}.")
+SystemExit: No AllSet Learning page uses 因果.
+
+########## rules  2026-11-12 17:30 ##########
+5 page(s) use the word(s); asking about 5.
+  Asking claude-sonnet-5-5 to sort them...
+
+is:
+  ASGTDUJO  Cause and effect with "yinwei" and "suoyi"
+
+not:
+  ASGL1V0A  Using "because" with "er" to indicate effect
+
+unsure:
+  ASGTPGXK  Stating the effect before the cause
+
+unrelated:
+  ASGQGJXT  Expressing purpose with "weile"
+  ASG56QKW  Comparing "benlai" and "yuanlai"
+
+Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-68
+Tagging 7 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_173051.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-68, rule line 1: '(因为/P|所以/AD)' looks like a regular expression -- this is not regex syntax: use ... for 'any words' and _ for 'one word' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-68_20261112_173057.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-68
+<!-- written by claude-haiku-4-5 on 2026-11-12; edit freely -->
+**Point:** Cause and effect relationship expressed with 因为 (because) and/or 所以 (so/therefore) across clause boundaries
+
+**Covers:** 
+- Result clause followed by 因为 + reason clause
+- Cause clause followed by 所以 + result clause  
+- 因为 + cause clause followed by 所以 + result clause
+
+**Does not cover:**
+- Sentences using 因为...而... (because...as a result...) structure, which uses 而 to show effect within a single clause
+- Other causal connectors like 由于
+
+```rule
+match: ... 因为/P ... ‖ ...
+match: ... ‖ 所以/AD ...
+match: ^ 因为/P ... ‖ ... 所以/AD ...
+unless: 而/MSP
+```
+
+**Notes:** The three match lines capture the three structures: (1) result then reason, (2) reason then result, (3) full 因为...所以... pattern. The unless line excludes the 因为...而... structure used in counter-examples, which is a different grammar point. Sentences may have 因为 or 所以 alone (not both), which is acceptable per the official examples and grammar explanation.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-68
+Tagging 7 labeled example(s) (cached after this run)...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-68: rule on labeled examples (no AI) ===
+  examples of 2-68 matched:    15/17
+  counter-examples wrongly matched: 0/6   <- should be 0
+
+--- examples of 2-68 the rule misses (2) ---
+  我今天太忙了，午饭都没吃。  -- HSK list example
+  那个学生病了，没来上课。  -- HSK list example
+  easy examples (words all HSK 2 or below) matched: 10/12   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:41 ##########
+Filling 2-68 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 9 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_174115.txt
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  头疼 = 头 + 疼  (headache)
+    hidden  上床 = 上 + 床  (to go to bed)
+
+Course sentences at HSK 2 the rule already finds 2-68 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-68 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      215  2. contain the point's word(s)
+      215  3. new (not in DB, not a duplicate)
+       70  4. at most 2 characters outside HSK 2 words
+       18  5. really HSK 2
+       14  5b. no harder grammar point (of the 40 with a rule)
+       11  6. the rule finds 2-68
+       10  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-68, English chosen
+        2  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (2) ===
+  他不在这儿，因为他病了。  (He isn't here because he's ill.)  [tatoeba 1361995]  hidden: 不在
+  因为他有钱，所以能去那儿。  (Because he is wealthy, he can go there.)  [tatoeba 1691746]  hidden: 有钱
+
+--- dropped at step 4 (145), first 12 ---
+  因为保险公司的需要，我能够留下您的姓名，您的地址和您的电话号码么？  -- 7 characters no HSK 2 word uses: 保址够留码险需
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  因为有高而闭合的领子、紧身的剪裁和在直身裙两边的大开口，旗袍有着独一无二传达端庄和性感的能力。  -- 20 characters no HSK 2 word uses: 传剪力合庄性感旗无独直端紧而袍裁裙达闭领
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  否则，用左手传递食物会被认为是不礼貌的，因为左手是用来洗澡的。  -- 11 characters no HSK 2 word uses: 传则否澡物用礼被貌递食
+  二十世纪中以后，北京胡同的数量显著地下降，因为人们把它们拆毁以便给新的楼房和街路让路。  -- 14 characters no HSK 2 word uses: 世京北把拆数显毁纪胡著街量降
+  不过，有趣的是，有人因为玩电脑玩出毛病，但也有人因为玩电脑而治好疾病。  -- 5 characters no HSK 2 word uses: 毛治疾而趣
+  因为有些公司对待雇员和顾客的态度可以随时影响它们的股价，所以对公司的成功或失败不可避免地有巨大的影响。  -- 18 characters no HSK 2 word uses: 价免功员响失巨度待态成或股败避随雇顾
+  小李经常失眠，因为他的邻居老是大声地吵架。  -- 8 characters no HSK 2 word uses: 吵声失居李架眠邻
+  我们罢工是因为公司没有改善我们的工资。  -- 4 characters no HSK 2 word uses: 善改罢资
+  他因为发烧而满脸通红。  -- 6 characters no HSK 2 word uses: 发满烧而脸通
+
+--- dropped at step 5 (52), first 12 ---
+  我明天要死了，所以后天没空。  -- level 4: 死 L4, 后天 L3, 空 L4
+  因为他做了不少坏事，我们可以断定他不是个好人。  -- level 7: 断定 L7
+  他不是因为想家，而是因为没钱才回来的。  -- level 4: 而 L4, 才 L3
+  因为风暴，他们晚到了。  -- level 7: 风暴 L7
+  我们因为那件事嘲笑他。  -- level 6: 嘲笑 L6
+  王先生学德文，因为他想去德国。  -- level 7: 文 L7
+  王先生学德文，因为他想在德国工作。  -- level 7: 文 L7
+  可能是因为网速太慢。  -- level 10: 网速 (not in list)
+  因为他的话，她非常伤心。  -- level 10: 话 (not in list), 伤心 L4
+  因为没有公车，我只得走路。  -- level 6: 公 L6, 只得 L6
+  我想知道那家饭馆有没有抓饭，所以进去看看。  -- level 5: 抓 L5
+  如果您还没付钱是因为我们做了什么让您不高兴的事，可以请您告诉我们吗?  -- level 4: 如果 L3, 付 L4
+
+--- dropped at step 5b (4) ---
+  她不在是因为病了。  -- harder grammar: 3-26 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  所以我给你打了电话。  -- harder grammar: 2-28 (HSK 3)
+  您不喜欢她就是因为那件事吗？  -- harder grammar: 3-26 (HSK 3)
+
+--- dropped at step 6 (3) ---
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  我还不想睡觉，所以我还在看书。  -- rule: no match: line matched
+  昨天是星期五，所以他休息了一天。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  因为我有点头疼，所以我早早上床睡觉。  -- hidden word a learner can't work out: 上床 (to go to bed)
+
+--- dropped at step 7 (7) ---
+  所以？  -- check said no (2/2): 所以 used as discourse particle only
+  因为我会说中文。  -- check said no (2/2): Incomplete sentence; missing result clause
+  所以他没有去学校。  -- check said no (2/2): 所以 used alone without clear cause-effect pair
+  所以，哪里有问题？  -- check said no (2/2): 所以 used as discourse marker, not cause-effect
+  因为他们正在看电视。  -- check said no (2/2): Incomplete sentence; missing result clause
+  所以，一点儿也不热呢。  -- check said no (2/2): 所以 used alone without clear cause-effect pair
+  昨天星期五，所以他就休息了。  -- check said no (1/2): Missing cause clause before 所以
+
+--- dropped at step 8 (1) ---
+  我今天累，所以我睡得早。  -- difficulty review: (2/2); uses 睡得早 (result complement with 得), which is HSK 3 grammar (2-51)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-68_level2_20261112_174125.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-68 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-68 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-68 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      215  2. contain the point's word(s)
+      215  3. new (not in DB, not a duplicate)
+       70  4. at most 2 characters outside HSK 2 words
+       18  5. really HSK 2
+       14  5b. no harder grammar point (of the 40 with a rule)
+       11  6. the rule finds 2-68
+       10  6b. no hidden word a learner can't work out
+        3  7. both checks say 2-68, English chosen
+        2  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (2) ===
+  他不在这儿，因为他病了。  (He isn't here because he's ill.)  [tatoeba 1361995]  hidden: 不在
+  因为他有钱，所以能去那儿。  (Because he is wealthy, he can go there.)  [tatoeba 1691746]  hidden: 有钱
+
+--- dropped at step 4 (145), first 12 ---
+  因为保险公司的需要，我能够留下您的姓名，您的地址和您的电话号码么？  -- 7 characters no HSK 2 word uses: 保址够留码险需
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  因为有高而闭合的领子、紧身的剪裁和在直身裙两边的大开口，旗袍有着独一无二传达端庄和性感的能力。  -- 20 characters no HSK 2 word uses: 传剪力合庄性感旗无独直端紧而袍裁裙达闭领
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  否则，用左手传递食物会被认为是不礼貌的，因为左手是用来洗澡的。  -- 11 characters no HSK 2 word uses: 传则否澡物用礼被貌递食
+  二十世纪中以后，北京胡同的数量显著地下降，因为人们把它们拆毁以便给新的楼房和街路让路。  -- 14 characters no HSK 2 word uses: 世京北把拆数显毁纪胡著街量降
+  不过，有趣的是，有人因为玩电脑玩出毛病，但也有人因为玩电脑而治好疾病。  -- 5 characters no HSK 2 word uses: 毛治疾而趣
+  因为有些公司对待雇员和顾客的态度可以随时影响它们的股价，所以对公司的成功或失败不可避免地有巨大的影响。  -- 18 characters no HSK 2 word uses: 价免功员响失巨度待态成或股败避随雇顾
+  小李经常失眠，因为他的邻居老是大声地吵架。  -- 8 characters no HSK 2 word uses: 吵声失居李架眠邻
+  我们罢工是因为公司没有改善我们的工资。  -- 4 characters no HSK 2 word uses: 善改罢资
+  他因为发烧而满脸通红。  -- 6 characters no HSK 2 word uses: 发满烧而脸通
+
+--- dropped at step 5 (52), first 12 ---
+  我明天要死了，所以后天没空。  -- level 4: 死 L4, 后天 L3, 空 L4
+  因为他做了不少坏事，我们可以断定他不是个好人。  -- level 7: 断定 L7
+  他不是因为想家，而是因为没钱才回来的。  -- level 4: 而 L4, 才 L3
+  因为风暴，他们晚到了。  -- level 7: 风暴 L7
+  我们因为那件事嘲笑他。  -- level 6: 嘲笑 L6
+  王先生学德文，因为他想去德国。  -- level 7: 文 L7
+  王先生学德文，因为他想在德国工作。  -- level 7: 文 L7
+  可能是因为网速太慢。  -- level 10: 网速 (not in list)
+  因为他的话，她非常伤心。  -- level 10: 话 (not in list), 伤心 L4
+  因为没有公车，我只得走路。  -- level 6: 公 L6, 只得 L6
+  我想知道那家饭馆有没有抓饭，所以进去看看。  -- level 5: 抓 L5
+  如果您还没付钱是因为我们做了什么让您不高兴的事，可以请您告诉我们吗?  -- level 4: 如果 L3, 付 L4
+
+--- dropped at step 5b (4) ---
+  她不在是因为病了。  -- harder grammar: 3-26 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  所以我给你打了电话。  -- harder grammar: 2-28 (HSK 3)
+  您不喜欢她就是因为那件事吗？  -- harder grammar: 3-26 (HSK 3)
+
+--- dropped at step 6 (3) ---
+  今天下雨，所以他不能来了。  -- rule: no match: line matched
+  我还不想睡觉，所以我还在看书。  -- rule: no match: line matched
+  昨天是星期五，所以他休息了一天。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  因为我有点头疼，所以我早早上床睡觉。  -- hidden word a learner can't work out: 上床 (to go to bed)
+
+--- dropped at step 7 (7) ---
+  所以？  -- check said no (2/2): 所以 used as discourse particle only
+  因为我会说中文。  -- check said no (2/2): Incomplete sentence; missing result clause
+  所以他没有去学校。  -- check said no (2/2): 所以 used alone without clear cause-effect pair
+  所以，哪里有问题？  -- check said no (2/2): 所以 used as discourse marker, not cause-effect
+  因为他们正在看电视。  -- check said no (2/2): Incomplete sentence; missing result clause
+  所以，一点儿也不热呢。  -- check said no (2/2): 所以 used alone without clear cause-effect pair
+  昨天星期五，所以他就休息了。  -- check said no (1/2): Missing cause clause before 所以
+
+--- dropped at step 8 (1) ---
+  我今天累，所以我睡得早。  -- difficulty review: (2/2); uses 睡得早 (result complement with 得), which is HSK 3 grammar (2-51)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-68_level2_20261112_211525.csv
+
+########## rules  2026-11-13 13:51 ##########
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 2-68, rule line 3: '_*' looks like a regular expression -- this is not regex syntax: use ... for 'any words' and _ for 'one word' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_2-68_20261113_135150.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-68
+<!-- written by claude-haiku-4-5 on 2026-11-13; edit freely -->
+**Point:** Cause and effect compound sentences (因果复句) using 因为, 所以, or both
+**Covers:** Sentences with two clauses showing cause-effect relationship: (1) Result + 因为 + Reason; (2) Reason + 所以 + Result; (3) 因为 + Cause + 所以 + Effect. Also implicit cause-effect between two clauses without these conjunctions.
+**Does not cover:** Sentences using 因为...而... (because...and as a result...) which is HSK 3-25; sentences using 由于 or 因此 which are HSK 3-71.
+
+```rule
+match: ... ‖ 因为/P ...
+match: ... ‖ 所以/AD ...
+match: 因为/P ... ‖ 所以/AD ...
+match: ... /VV|VA ... ‖ ... /VV|VA ...
+unless: 而/MSP
+```
+
+**Notes:** The first three patterns explicitly match the conjunction-based cause-effect structures. The fourth pattern covers implicit cause-effect (two clauses with predicates, no explicit marker), as seen in "那个学生病了，没来上课" and "我今天太忙了，午饭都没吃". The `unless` line excludes the 因为...而... construction (HSK 3-25), which uses 而 to mark the result clause.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-68
+
+=== A. 2-68: rule on labeled examples (no AI) ===
+  examples of 2-68 matched:    17/17
+  counter-examples wrongly matched: 0/6   <- should be 0
+  easy examples (words all HSK 2 or below) matched: 12/12   <- needs 60%
+
+########## guard check  2026-11-13 13:53 ##########
+Flags examples of 1-03, 1-09, 1-13, 1-40, 1-42, 1-45 that don't contain 2-68: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+########## tatoeba  2026-11-13 13:55 ##########
+Filling 2-68 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-68 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-68 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      215  2. contain the point's word(s)
+      215  3. new (not in DB, not a duplicate)
+       70  4. at most 2 characters outside HSK 2 words
+       18  5. really HSK 2
+       14  5b. no harder grammar point (of the 44 with a rule)
+        8  6. the rule finds 2-68
+        6  6b. no hidden word a learner can't work out
+        4  7. both checks say 2-68, English chosen
+        2  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (2) ===
+  他不在这儿，因为他病了。  (He isn't here because he's ill.)  [tatoeba 1361995]  hidden: 不在
+  因为他有钱，所以能去那儿。  (Because he is wealthy, he can go there.)  [tatoeba 1691746]  hidden: 有钱
+
+--- dropped at step 4 (145), first 12 ---
+  因为保险公司的需要，我能够留下您的姓名，您的地址和您的电话号码么？  -- 7 characters no HSK 2 word uses: 保址够留码险需
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  因为有高而闭合的领子、紧身的剪裁和在直身裙两边的大开口，旗袍有着独一无二传达端庄和性感的能力。  -- 20 characters no HSK 2 word uses: 传剪力合庄性感旗无独直端紧而袍裁裙达闭领
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  否则，用左手传递食物会被认为是不礼貌的，因为左手是用来洗澡的。  -- 11 characters no HSK 2 word uses: 传则否澡物用礼被貌递食
+  二十世纪中以后，北京胡同的数量显著地下降，因为人们把它们拆毁以便给新的楼房和街路让路。  -- 14 characters no HSK 2 word uses: 世京北把拆数显毁纪胡著街量降
+  不过，有趣的是，有人因为玩电脑玩出毛病，但也有人因为玩电脑而治好疾病。  -- 5 characters no HSK 2 word uses: 毛治疾而趣
+  因为有些公司对待雇员和顾客的态度可以随时影响它们的股价，所以对公司的成功或失败不可避免地有巨大的影响。  -- 18 characters no HSK 2 word uses: 价免功员响失巨度待态成或股败避随雇顾
+  小李经常失眠，因为他的邻居老是大声地吵架。  -- 8 characters no HSK 2 word uses: 吵声失居李架眠邻
+  我们罢工是因为公司没有改善我们的工资。  -- 4 characters no HSK 2 word uses: 善改罢资
+  他因为发烧而满脸通红。  -- 6 characters no HSK 2 word uses: 发满烧而脸通
+
+--- dropped at step 5 (52), first 12 ---
+  我明天要死了，所以后天没空。  -- level 4: 死 L4, 后天 L3, 空 L4
+  因为他做了不少坏事，我们可以断定他不是个好人。  -- level 7: 断定 L7
+  他不是因为想家，而是因为没钱才回来的。  -- level 4: 而 L4, 才 L3
+  因为风暴，他们晚到了。  -- level 7: 风暴 L7
+  我们因为那件事嘲笑他。  -- level 6: 嘲笑 L6
+  王先生学德文，因为他想去德国。  -- level 7: 文 L7
+  王先生学德文，因为他想在德国工作。  -- level 7: 文 L7
+  可能是因为网速太慢。  -- level 10: 网速 (not in list)
+  因为他的话，她非常伤心。  -- level 10: 话 (not in list), 伤心 L4
+  因为没有公车，我只得走路。  -- level 6: 公 L6, 只得 L6
+  我想知道那家饭馆有没有抓饭，所以进去看看。  -- level 5: 抓 L5
+  如果您还没付钱是因为我们做了什么让您不高兴的事，可以请您告诉我们吗?  -- level 4: 如果 L3, 付 L4
+
+--- dropped at step 5b (4) ---
+  她不在是因为病了。  -- harder grammar: 3-26 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  所以我给你打了电话。  -- harder grammar: 2-28 (HSK 3)
+  您不喜欢她就是因为那件事吗？  -- harder grammar: 3-26 (HSK 3)
+
+--- dropped at step 6 (6) ---
+  因为我会说中文。  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  所以他没有去学校。  -- rule: no match: line matched
+  因为他们正在看电视。  -- rule: no match: line matched
+  所以，哪里有问题？  -- rule: no match: line matched
+  所以？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  因为我有点头疼，所以我早早上床睡觉。  -- hidden word a learner can't work out: 上床 (to go to bed)
+  我还不想睡觉，所以我还在看书。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+
+--- dropped at step 7 (2) ---
+  昨天星期五，所以他就休息了。  -- check said no (1/2): Missing cause clause before 所以
+  昨天是星期五，所以他休息了一天。  -- check said no (1/2): Reason comes before 所以, not after
+
+--- dropped at step 8 (2) ---
+  我今天累，所以我睡得早。  -- difficulty review: (2/2); uses 睡得早 (result complement with 得), which is HSK 3 grammar (2-51)
+  今天下雨，所以他不能来了。  -- difficulty review: (2/2); 所以 (therefore/so) is HSK 3+, not taught at HSK 2; This is a causal clause that should use the HSK 2 grammar point 2-68 因果复句 structure, but 所以 itself is beyond this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-68_level2_20261113_135512.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:45 ##########
+Filling 2-68 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-68 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 3 check and 3 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 2-68 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      215  2. contain the point's word(s)
+      215  3. new (not in DB, not a duplicate)
+       70  4. at most 2 characters outside HSK 2 words
+       18  5. really HSK 2
+       14  5b. no harder grammar point (of the 43 with a rule)
+        8  6. the rule finds 2-68
+        8  6b. no hidden word a learner can't work out
+        5  7. both checks say 2-68, English chosen
+        1  7b. second opinion: it is the point (check)
+        2  8. both difficulty reviews pass it
+        4  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  他不在这儿，因为他病了。  (He isn't here because he's ill.)  [tatoeba 1361995]  hidden: 不在
+  因为他有钱，所以能去那儿。  (Because he is wealthy, he can go there.)  [tatoeba 1691746]  hidden: 有钱
+  我今天累，所以我睡得早。  (I was tired today so I went to bed early.)  [tatoeba 5655339]
+  今天下雨，所以他不能来了。  (It rained today so he can't come anymore.)  [tatoeba 1764080]  hidden: 不能
+  昨天星期五，所以他就休息了。  (Yesterday was Friday, so he took a break.)  [tatoeba 10002030]  hidden: 星期五
+  因为我有点头疼，所以我早早上床睡觉。  (I had a slight headache, so I went to bed early.)  [tatoeba 1227107]  hidden: 头疼, 上床
+
+--- dropped at step 4 (145), first 12 ---
+  因为保险公司的需要，我能够留下您的姓名，您的地址和您的电话号码么？  -- 7 characters no HSK 2 word uses: 保址够留码险需
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  因为有高而闭合的领子、紧身的剪裁和在直身裙两边的大开口，旗袍有着独一无二传达端庄和性感的能力。  -- 20 characters no HSK 2 word uses: 传剪力合庄性感旗无独直端紧而袍裁裙达闭领
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  否则，用左手传递食物会被认为是不礼貌的，因为左手是用来洗澡的。  -- 11 characters no HSK 2 word uses: 传则否澡物用礼被貌递食
+  二十世纪中以后，北京胡同的数量显著地下降，因为人们把它们拆毁以便给新的楼房和街路让路。  -- 14 characters no HSK 2 word uses: 世京北把拆数显毁纪胡著街量降
+  不过，有趣的是，有人因为玩电脑玩出毛病，但也有人因为玩电脑而治好疾病。  -- 5 characters no HSK 2 word uses: 毛治疾而趣
+  因为有些公司对待雇员和顾客的态度可以随时影响它们的股价，所以对公司的成功或失败不可避免地有巨大的影响。  -- 18 characters no HSK 2 word uses: 价免功员响失巨度待态成或股败避随雇顾
+  小李经常失眠，因为他的邻居老是大声地吵架。  -- 8 characters no HSK 2 word uses: 吵声失居李架眠邻
+  我们罢工是因为公司没有改善我们的工资。  -- 4 characters no HSK 2 word uses: 善改罢资
+  他因为发烧而满脸通红。  -- 6 characters no HSK 2 word uses: 发满烧而脸通
+
+--- dropped at step 5 (52), first 12 ---
+  我明天要死了，所以后天没空。  -- level 4: 死 L4, 后天 L3, 空 L4
+  因为他做了不少坏事，我们可以断定他不是个好人。  -- level 7: 断定 L7
+  他不是因为想家，而是因为没钱才回来的。  -- level 4: 而 L4, 才 L3
+  因为风暴，他们晚到了。  -- level 7: 风暴 L7
+  我们因为那件事嘲笑他。  -- level 6: 嘲笑 L6
+  王先生学德文，因为他想去德国。  -- level 7: 文 L7
+  王先生学德文，因为他想在德国工作。  -- level 7: 文 L7
+  可能是因为网速太慢。  -- level 10: 网速 (not in list)
+  因为他的话，她非常伤心。  -- level 10: 话 (not in list), 伤心 L4
+  因为没有公车，我只得走路。  -- level 6: 公 L6, 只得 L6
+  我想知道那家饭馆有没有抓饭，所以进去看看。  -- level 5: 抓 L5
+  如果您还没付钱是因为我们做了什么让您不高兴的事，可以请您告诉我们吗?  -- level 4: 如果 L3, 付 L4
+
+--- dropped at step 5b (4) ---
+  她不在是因为病了。  -- harder grammar: 3-26 (HSK 3)
+  因为下雪了，我什么也没能看见。  -- harder grammar: 3-46 (HSK 3)
+  所以我给你打了电话。  -- harder grammar: 2-28 (HSK 3)
+  您不喜欢她就是因为那件事吗？  -- harder grammar: 3-26 (HSK 3)
+
+--- dropped at step 6 (6) ---
+  因为我会说中文。  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  所以他没有去学校。  -- rule: no match: line matched
+  因为他们正在看电视。  -- rule: no match: line matched
+  所以，哪里有问题？  -- rule: no match: line matched
+  所以？  -- rule: no match: line matched
+
+--- dropped at step 7 (2) ---
+  我还不想睡觉，所以我还在看书。  -- check said no (2/2): Only demonstrates 所以 result marker, no cause stated
+  昨天是星期五，所以他休息了一天。  -- check said no (1/2): Reason comes before 所以, not after
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-68_level2_20261113_144607.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## ai  2026-11-14 14:42 ##########
+
+----- AI-written sentences for 2-68, round 1: 0 to check, 13 needed -----
+  Asking claude-sonnet-5-5 to write 33 sentence(s)...
+
+----- AI-written sentences for 2-68, round 2: 33 to check, 13 needed -----
+Filling 2-68 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 33
+
+Tagging 33 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_144231.txt
+
+Course sentences at HSK 2 the rule already finds 2-68 in: 1  -> Tatoeba needs to add 13 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-68 at HSK 2: funnel ===
+       33  AI-written sentences
+       33  1. have an English translation
+       33  2. contain the point's word(s)
+       33  3. new (not in DB, not a duplicate)
+       33  4. at most 0 characters outside HSK 2 words
+       33  5. really HSK 2
+       31  5b. no harder grammar point (of the 43 with a rule)
+       31  6. the rule finds 2-68
+       28  6b. no hidden word a learner can't work out
+       20  7. both checks say 2-68, English chosen
+       20  8. both difficulty reviews pass it
+  (8 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (20) ===
+  我很累，所以想早睡。  (I'm very tired, so I want to go to bed early.)  [tatoeba ai-8e29cec58a]
+  我没去学校，因为我病了。  (I didn't go to school because I was sick.)  [tatoeba ai-ae07866b7a]
+  我不想去，因为我不舒服。  (I don't want to go because I don't feel well.)  [tatoeba ai-ea1ac9a067]  hidden: 不想, 不舒服
+  我不想喝茶，因为太热了。  (I don't want to drink tea because it's too hot.)  [tatoeba ai-3b954e7b6a]  hidden: 不想, 喝茶
+  他经常跑步，所以身体很好。  (He often goes running, so he's in good health.)  [tatoeba ai-b09bff2138]
+  这件衣服太贵，所以我不买。  (This piece of clothing is too expensive, so I won't buy it.)  [tatoeba ai-f3a05db5a8]
+  他生病了，所以今天没来上课。  (He's sick, so he didn't come to class today.)  [tatoeba ai-b88d5037ef]
+  今天太热了，所以我不想出门。  (It's too hot today, so I don't want to go out.)  [tatoeba ai-a431d04e66]  hidden: 不想
+  他很忙，所以没有时间吃午饭。  (He's very busy, so he has no time to eat lunch.)  [tatoeba ai-7e299c5472]
+  我们坐地铁去，因为地铁很快。  (We're going by subway because the subway is fast.)  [tatoeba ai-3f5d0e61c3]
+  妈妈不在家，所以我自己做饭。  (Mom isn't home, so I cook for myself.)  [tatoeba ai-cb88ff369f]  hidden: 不在, 在家
+  今天有雨，所以我在家看电视。  (It's raining today, so I'm watching TV at home.)  [tatoeba ai-4347338916]  hidden: 在家
+  我喜欢这家店，因为东西很便宜。  (I like this shop because the things are cheap.)  [tatoeba ai-6b4d6e01ad]
+  因为路上车很多，所以我来晚了。  (Because there was a lot of traffic on the road, I came late.)  [tatoeba ai-dfc1479c5f]
+  因为下雪了，所以路上的车很慢。  (Because it snowed, the cars on the road are slow.)  [tatoeba ai-f6c0441866]  hidden: 下雪
+  他想去中国工作，所以学习汉语。  (He wants to work in China, so he is studying Chinese.)  [tatoeba ai-9d3c8e00bb]
+  我今天很高兴，因为朋友来看我。  (I'm very happy today because my friend came to see me.)  [tatoeba ai-72efa2f0f8]
+  这本书很有意思，所以我看了两次。  (This book is very interesting, so I read it twice.)  [tatoeba ai-98b5ba6491]
+  因为我不懂这个字，所以问了老师。  (Because I didn't understand this character, I asked the teacher.)  [tatoeba ai-3ab8b1f8cd]  hidden: 这个
+  因为我没有钱，所以没买那件衣服。  (Because I had no money, I didn't buy that piece of clothing.)  [tatoeba ai-5a669c5303]
+
+--- dropped at step 5b (2) ---
+  因为她的手机坏了，所以她没有给我打电话。  -- harder grammar: 2-28 (HSK 3)
+  今天是我的生日，所以爸爸给我买了手表。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6b (3) ---
+  因为你说得很慢，所以我听懂了。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  他跑得很快，因为他每天跑步。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  我睡得很晚，所以今天起床晚了。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-68_level2_20261114_144244.csv
+
+########## ai  2026-11-14 15:01 ##########
+
+----- AI-written sentences for 2-68, round 1: 33 to check, 13 needed -----
+Filling 2-68 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 33
+
+
+Course sentences at HSK 2 the rule already finds 2-68 in: 1  -> Tatoeba needs to add 13 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-68 at HSK 2: funnel ===
+       33  AI-written sentences
+       33  1. have an English translation
+       33  2. contain the point's word(s)
+       33  3. new (not in DB, not a duplicate)
+       33  4. at most 0 characters outside HSK 2 words
+       33  5. really HSK 2
+       31  5b. no harder grammar point (of the 43 with a rule)
+       31  6. the rule finds 2-68
+       28  6b. no hidden word a learner can't work out
+       20  7. both checks say 2-68, English chosen
+       20  8. both difficulty reviews pass it
+  (8 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (20) ===
+  我很累，所以想早睡。  (I'm very tired, so I want to go to bed early.)  [tatoeba ai-8e29cec58a]
+  我没去学校，因为我病了。  (I didn't go to school because I was sick.)  [tatoeba ai-ae07866b7a]
+  我不想去，因为我不舒服。  (I don't want to go because I don't feel well.)  [tatoeba ai-ea1ac9a067]  hidden: 不想, 不舒服
+  我不想喝茶，因为太热了。  (I don't want to drink tea because it's too hot.)  [tatoeba ai-3b954e7b6a]  hidden: 不想, 喝茶
+  他经常跑步，所以身体很好。  (He often goes running, so he's in good health.)  [tatoeba ai-b09bff2138]
+  这件衣服太贵，所以我不买。  (This piece of clothing is too expensive, so I won't buy it.)  [tatoeba ai-f3a05db5a8]
+  他生病了，所以今天没来上课。  (He's sick, so he didn't come to class today.)  [tatoeba ai-b88d5037ef]
+  今天太热了，所以我不想出门。  (It's too hot today, so I don't want to go out.)  [tatoeba ai-a431d04e66]  hidden: 不想
+  他很忙，所以没有时间吃午饭。  (He's very busy, so he has no time to eat lunch.)  [tatoeba ai-7e299c5472]
+  我们坐地铁去，因为地铁很快。  (We're going by subway because the subway is fast.)  [tatoeba ai-3f5d0e61c3]
+  妈妈不在家，所以我自己做饭。  (Mom isn't home, so I cook for myself.)  [tatoeba ai-cb88ff369f]  hidden: 不在, 在家
+  今天有雨，所以我在家看电视。  (It's raining today, so I'm watching TV at home.)  [tatoeba ai-4347338916]  hidden: 在家
+  我喜欢这家店，因为东西很便宜。  (I like this shop because the things are cheap.)  [tatoeba ai-6b4d6e01ad]
+  因为路上车很多，所以我来晚了。  (Because there was a lot of traffic on the road, I came late.)  [tatoeba ai-dfc1479c5f]
+  因为下雪了，所以路上的车很慢。  (Because it snowed, the cars on the road are slow.)  [tatoeba ai-f6c0441866]  hidden: 下雪
+  他想去中国工作，所以学习汉语。  (He wants to work in China, so he is studying Chinese.)  [tatoeba ai-9d3c8e00bb]
+  我今天很高兴，因为朋友来看我。  (I'm very happy today because my friend came to see me.)  [tatoeba ai-72efa2f0f8]
+  这本书很有意思，所以我看了两次。  (This book is very interesting, so I read it twice.)  [tatoeba ai-98b5ba6491]
+  因为我不懂这个字，所以问了老师。  (Because I didn't understand this character, I asked the teacher.)  [tatoeba ai-3ab8b1f8cd]  hidden: 这个
+  因为我没有钱，所以没买那件衣服。  (Because I had no money, I didn't buy that piece of clothing.)  [tatoeba ai-5a669c5303]
+
+--- dropped at step 5b (2) ---
+  因为她的手机坏了，所以她没有给我打电话。  -- harder grammar: 2-28 (HSK 3)
+  今天是我的生日，所以爸爸给我买了手表。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6b (3) ---
+  因为你说得很慢，所以我听懂了。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  他跑得很快，因为他每天跑步。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  我睡得很晚，所以今天起床晚了。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-68_level2_20261114_150158.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:11 ##########
+Filling 2-68 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-68 in: 20  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-68 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      215  2. contain the point's word(s)
+      207  3. new (not in DB, not a duplicate)
+       62  4. at most 2 characters outside HSK 2 words
+       10  5. really HSK 2
+       10  5b. no harder grammar point (of the 43 with a rule)
+        2  6. the rule finds 2-68
+        2  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (2 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (8) ---
+  因为我有点头疼，所以我早早上床睡觉。  -- already in the database
+  他不在这儿，因为他病了。  -- already in the database
+  因为他有钱，所以能去那儿。  -- already in the database
+  今天下雨，所以他不能来了。  -- already in the database
+  因为他们正在看电视。  -- already in the database
+  我今天累，所以我睡得早。  -- already in the database
+  所以我给你打了电话。  -- already in the database
+  昨天星期五，所以他就休息了。  -- already in the database
+
+--- dropped at step 4 (145), first 12 ---
+  因为保险公司的需要，我能够留下您的姓名，您的地址和您的电话号码么？  -- 7 characters no HSK 2 word uses: 保址够留码险需
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  因为有高而闭合的领子、紧身的剪裁和在直身裙两边的大开口，旗袍有着独一无二传达端庄和性感的能力。  -- 20 characters no HSK 2 word uses: 传剪力合庄性感旗无独直端紧而袍裁裙达闭领
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  否则，用左手传递食物会被认为是不礼貌的，因为左手是用来洗澡的。  -- 11 characters no HSK 2 word uses: 传则否澡物用礼被貌递食
+  二十世纪中以后，北京胡同的数量显著地下降，因为人们把它们拆毁以便给新的楼房和街路让路。  -- 14 characters no HSK 2 word uses: 世京北把拆数显毁纪胡著街量降
+  不过，有趣的是，有人因为玩电脑玩出毛病，但也有人因为玩电脑而治好疾病。  -- 5 characters no HSK 2 word uses: 毛治疾而趣
+  因为有些公司对待雇员和顾客的态度可以随时影响它们的股价，所以对公司的成功或失败不可避免地有巨大的影响。  -- 18 characters no HSK 2 word uses: 价免功员响失巨度待态成或股败避随雇顾
+  小李经常失眠，因为他的邻居老是大声地吵架。  -- 8 characters no HSK 2 word uses: 吵声失居李架眠邻
+  我们罢工是因为公司没有改善我们的工资。  -- 4 characters no HSK 2 word uses: 善改罢资
+  他因为发烧而满脸通红。  -- 6 characters no HSK 2 word uses: 发满烧而脸通
+
+--- dropped at step 5 (52), first 12 ---
+  我明天要死了，所以后天没空。  -- level 4: 死 L4, 后天 L3, 空 L4
+  因为他做了不少坏事，我们可以断定他不是个好人。  -- level 7: 断定 L7
+  他不是因为想家，而是因为没钱才回来的。  -- level 4: 而 L4, 才 L3
+  因为风暴，他们晚到了。  -- level 7: 风暴 L7
+  我们因为那件事嘲笑他。  -- level 6: 嘲笑 L6
+  王先生学德文，因为他想去德国。  -- level 7: 文 L7
+  王先生学德文，因为他想在德国工作。  -- level 7: 文 L7
+  可能是因为网速太慢。  -- level 10: 网速 (not in list)
+  因为他的话，她非常伤心。  -- level 10: 话 (not in list), 伤心 L4
+  因为没有公车，我只得走路。  -- level 6: 公 L6, 只得 L6
+  我想知道那家饭馆有没有抓饭，所以进去看看。  -- level 5: 抓 L5
+  如果您还没付钱是因为我们做了什么让您不高兴的事，可以请您告诉我们吗?  -- level 4: 如果 L3, 付 L4
+
+--- dropped at step 6 (8) ---
+  因为我会说中文。  -- rule: no match: line matched
+  她不在是因为病了。  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  因为下雪了，我什么也没能看见。  -- rule: no match: line matched
+  所以他没有去学校。  -- rule: no match: line matched
+  您不喜欢她就是因为那件事吗？  -- rule: no match: line matched
+  所以，哪里有问题？  -- rule: no match: line matched
+  所以？  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-68_level2_20261114_161130.csv
+
+########## ai  2026-11-14 16:14 ##########
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:32 ##########
+Filling 2-68 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-68 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 3 check and 3 review rejection(s)...
+
+=== 2-68 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      215  2. contain the point's word(s)
+      215  3. new (not in DB, not a duplicate)
+       70  4. at most 2 characters outside HSK 2 words
+       18  5. really HSK 2
+       18  5b. no harder grammar point (of the 43 with a rule)
+        8  6. the rule finds 2-68
+        8  6b. no hidden word a learner can't work out
+        5  7. both checks say 2-68, English chosen
+        1  7b. second opinion: it is the point (check)
+        2  8. both difficulty reviews pass it
+        4  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (6) ===
+  他不在这儿，因为他病了。  (He isn't here because he's ill.)  [tatoeba 1361995]  hidden: 不在
+  因为他有钱，所以能去那儿。  (Because he is wealthy, he can go there.)  [tatoeba 1691746]  hidden: 有钱
+  我今天累，所以我睡得早。  (I was tired today so I went to bed early.)  [tatoeba 5655339]
+  今天下雨，所以他不能来了。  (It rained today so he can't come anymore.)  [tatoeba 1764080]  hidden: 不能
+  昨天星期五，所以他就休息了。  (Yesterday was Friday, so he took a break.)  [tatoeba 10002030]  hidden: 星期五
+  因为我有点头疼，所以我早早上床睡觉。  (I had a slight headache, so I went to bed early.)  [tatoeba 1227107]  hidden: 头疼, 上床
+
+--- dropped at step 4 (145), first 12 ---
+  因为保险公司的需要，我能够留下您的姓名，您的地址和您的电话号码么？  -- 7 characters no HSK 2 word uses: 保址够留码险需
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  因为有高而闭合的领子、紧身的剪裁和在直身裙两边的大开口，旗袍有着独一无二传达端庄和性感的能力。  -- 20 characters no HSK 2 word uses: 传剪力合庄性感旗无独直端紧而袍裁裙达闭领
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  否则，用左手传递食物会被认为是不礼貌的，因为左手是用来洗澡的。  -- 11 characters no HSK 2 word uses: 传则否澡物用礼被貌递食
+  二十世纪中以后，北京胡同的数量显著地下降，因为人们把它们拆毁以便给新的楼房和街路让路。  -- 14 characters no HSK 2 word uses: 世京北把拆数显毁纪胡著街量降
+  不过，有趣的是，有人因为玩电脑玩出毛病，但也有人因为玩电脑而治好疾病。  -- 5 characters no HSK 2 word uses: 毛治疾而趣
+  因为有些公司对待雇员和顾客的态度可以随时影响它们的股价，所以对公司的成功或失败不可避免地有巨大的影响。  -- 18 characters no HSK 2 word uses: 价免功员响失巨度待态成或股败避随雇顾
+  小李经常失眠，因为他的邻居老是大声地吵架。  -- 8 characters no HSK 2 word uses: 吵声失居李架眠邻
+  我们罢工是因为公司没有改善我们的工资。  -- 4 characters no HSK 2 word uses: 善改罢资
+  他因为发烧而满脸通红。  -- 6 characters no HSK 2 word uses: 发满烧而脸通
+
+--- dropped at step 5 (52), first 12 ---
+  我明天要死了，所以后天没空。  -- level 4: 死 L4, 后天 L3, 空 L4
+  因为他做了不少坏事，我们可以断定他不是个好人。  -- level 7: 断定 L7
+  他不是因为想家，而是因为没钱才回来的。  -- level 4: 而 L4, 才 L3
+  因为风暴，他们晚到了。  -- level 7: 风暴 L7
+  我们因为那件事嘲笑他。  -- level 6: 嘲笑 L6
+  王先生学德文，因为他想去德国。  -- level 7: 文 L7
+  王先生学德文，因为他想在德国工作。  -- level 7: 文 L7
+  可能是因为网速太慢。  -- level 10: 网速 (not in list)
+  因为他的话，她非常伤心。  -- level 10: 话 (not in list), 伤心 L4
+  因为没有公车，我只得走路。  -- level 6: 公 L6, 只得 L6
+  我想知道那家饭馆有没有抓饭，所以进去看看。  -- level 5: 抓 L5
+  如果您还没付钱是因为我们做了什么让您不高兴的事，可以请您告诉我们吗?  -- level 4: 如果 L3, 付 L4
+
+--- dropped at step 6 (10) ---
+  因为我会说中文。  -- rule: no match: line matched
+  她不在是因为病了。  -- rule: no match: line matched
+  所以，一点儿也不热呢。  -- rule: no match: line matched
+  因为下雪了，我什么也没能看见。  -- rule: no match: line matched
+  所以他没有去学校。  -- rule: no match: line matched
+  因为他们正在看电视。  -- rule: no match: line matched
+  所以我给你打了电话。  -- rule: no match: line matched
+  您不喜欢她就是因为那件事吗？  -- rule: no match: line matched
+  所以，哪里有问题？  -- rule: no match: line matched
+  所以？  -- rule: no match: line matched
+
+--- dropped at step 7 (2) ---
+  我还不想睡觉，所以我还在看书。  -- check said no (2/2): Only demonstrates 所以 result marker, no cause stated
+  昨天是星期五，所以他休息了一天。  -- check said no (1/2): Reason comes before 所以, not after
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-68_level2_20261114_163237.csv
+
+########## ai  2026-11-14 16:36 ##########
+
+----- AI-written sentences for 2-68, round 1: 33 to check, 13 needed -----
+Filling 2-68 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 33
+
+Tagging 1 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_163615.txt
+
+Course sentences at HSK 2 the rule already finds 2-68 in: 1  -> Tatoeba needs to add 13 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-68 at HSK 2: funnel ===
+       33  AI-written sentences
+       33  1. have an English translation
+       33  2. contain the point's word(s)
+       33  3. new (not in DB, not a duplicate)
+       33  4. at most 0 characters outside HSK 2 words
+       33  5. really HSK 2
+       32  5b. no harder grammar point (of the 43 with a rule)
+       32  6. the rule finds 2-68
+       29  6b. no hidden word a learner can't work out
+       20  7. both checks say 2-68, English chosen
+       20  8. both difficulty reviews pass it
+  (9 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (20) ===
+  我很累，所以想早睡。  (I'm very tired, so I want to go to bed early.)  [tatoeba ai-8e29cec58a]
+  我没去学校，因为我病了。  (I didn't go to school because I was sick.)  [tatoeba ai-ae07866b7a]
+  我不想去，因为我不舒服。  (I don't want to go because I don't feel well.)  [tatoeba ai-ea1ac9a067]  hidden: 不想, 不舒服
+  我不想喝茶，因为太热了。  (I don't want to drink tea because it's too hot.)  [tatoeba ai-3b954e7b6a]  hidden: 不想, 喝茶
+  他经常跑步，所以身体很好。  (He often goes running, so he's in good health.)  [tatoeba ai-b09bff2138]
+  这件衣服太贵，所以我不买。  (This piece of clothing is too expensive, so I won't buy it.)  [tatoeba ai-f3a05db5a8]
+  他生病了，所以今天没来上课。  (He's sick, so he didn't come to class today.)  [tatoeba ai-b88d5037ef]
+  今天太热了，所以我不想出门。  (It's too hot today, so I don't want to go out.)  [tatoeba ai-a431d04e66]  hidden: 不想
+  他很忙，所以没有时间吃午饭。  (He's very busy, so he has no time to eat lunch.)  [tatoeba ai-7e299c5472]
+  我们坐地铁去，因为地铁很快。  (We're going by subway because the subway is fast.)  [tatoeba ai-3f5d0e61c3]
+  妈妈不在家，所以我自己做饭。  (Mom isn't home, so I cook for myself.)  [tatoeba ai-cb88ff369f]  hidden: 不在, 在家
+  今天有雨，所以我在家看电视。  (It's raining today, so I'm watching TV at home.)  [tatoeba ai-4347338916]  hidden: 在家
+  我喜欢这家店，因为东西很便宜。  (I like this shop because the things are cheap.)  [tatoeba ai-6b4d6e01ad]
+  因为路上车很多，所以我来晚了。  (Because there was a lot of traffic on the road, I came late.)  [tatoeba ai-dfc1479c5f]
+  因为下雪了，所以路上的车很慢。  (Because it snowed, the cars on the road are slow.)  [tatoeba ai-f6c0441866]  hidden: 下雪
+  他想去中国工作，所以学习汉语。  (He wants to work in China, so he is studying Chinese.)  [tatoeba ai-9d3c8e00bb]
+  我今天很高兴，因为朋友来看我。  (I'm very happy today because my friend came to see me.)  [tatoeba ai-72efa2f0f8]
+  这本书很有意思，所以我看了两次。  (This book is very interesting, so I read it twice.)  [tatoeba ai-98b5ba6491]
+  因为我不懂这个字，所以问了老师。  (Because I didn't understand this character, I asked the teacher.)  [tatoeba ai-3ab8b1f8cd]  hidden: 这个
+  因为我没有钱，所以没买那件衣服。  (Because I had no money, I didn't buy that piece of clothing.)  [tatoeba ai-5a669c5303]
+
+--- dropped at step 5b (1) ---
+  因为她的手机坏了，所以她没有给我打电话。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6b (3) ---
+  因为你说得很慢，所以我听懂了。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  他跑得很快，因为他每天跑步。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  我睡得很晚，所以今天起床晚了。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-68_level2_20261114_163616.csv

@@ -1,0 +1,40 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 9823 characters -->
+## 4-73
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** 还 used for surprise, sarcasm or a rhetorical question: 还 + noun/verb phrase + 呢 ("What a ...!"), or a rhetorical 还 + verb + 吗.
+
+**Covers:**
+- Clause-initial 还 + phrase + 呢, which mocks a claim ("还留过学呢，英语这么差").
+- 还 + verb phrase + 呢 after a pronoun subject ("你还生气呢").
+- Rhetorical 还 + 在乎/相信 ... 吗 ("还在乎这点钱吗", "这种人你还相信吗").
+- 还真 + adjective ("这个小孩还真聪明").
+
+**Does not cover:**
+- 还好 (luckily), 还是 (or / had better / still), 还有 (also / there remain), and 还 meaning "also" or "still" (还在, 还没, 还不). None of these is the sarcastic or rhetorical use.
+- 还 ... 可以/不错, and comparisons with 比 ... 还.
+- Neutral "still / would you still" questions with a pronoun subject and 吗 ("你还想去吗？", "你还会记得我吗？"). These belong to easier points.
+- "你还好吗？", "时间还够吗？" and other neutral questions.
+
+```rule
+match: ^ 还/AD ... 呢/SP $
+match: ^ 还/AD 在乎|相信/VV ... 吗/SP
+match: /PN 还/AD 在乎|相信/VV ... 吗/SP
+match: /PN 还/AD ... 呢/SP
+match: 还/AD 真/AD
+unless: 还/AD 在/AD
+unless: 还/AD 没|不/AD
+unless: 还/AD 好/VA 吗/SP
+unless: 还/AD 可以|不错
+unless: 比/P
+unless: 不然
+unless: 还是
+unless: 还/AD 有/VE
+```
+
+**Notes:**
+- The pronoun + 还 + verb + 吗 pattern was removed. It matched neutral questions such as "你还想去吗" and "你还会记得我吗", which are not 4-73. The 吗 patterns are now limited to 在乎/相信, the verbs in the wiki's rhetorical examples.
+- The pattern is high-precision and low-recall. It misses rhetorical 吗 questions with other verbs, sentences with a noun subject and 呢, and 还 + adjective + 呢 after a noun subject.
+- "还 + 有/VE" is excluded outright to avoid 还有 (also / remaining). This also drops sarcastic cases like "还有钱呢".
+- "还 + 真" can occasionally appear in neutral statements; this is accepted.
+- Tagger quirks: 还 can be tagged CC, and 在 as AD or VV. The 在/AD exclusion relies on the tag. 还在乎 (在乎 tagged VV) is allowed through.
+- 呢 as a continuing-state particle ("他还没起来呢") is excluded by the 还 没|不 exclusion.

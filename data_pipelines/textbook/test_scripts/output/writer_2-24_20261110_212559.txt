@@ -1,0 +1,42 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 7713 characters -->
+## 2-24
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** Using 从 (cóng) and 离 (lí) as prepositions meaning "from" in spatial, temporal, or source contexts
+
+**Covers:** 
+- 从 + Place + verb (motion/action from a location)
+- 从 + Place + 到 + Place (from place to place)
+- 从 + Time + 到 + Time (from time to time)
+- 从 + Time/Event + 开始/起 (starting from)
+- 从 + 那/今 + 以后 (ever since then / from now on), including the single token 从今以后
+- 从 + Source (noun/person/abstract) + verb (taking/learning from, seeing from)
+- 离 + Time/Event + duration, 离 + Event + 还有 + duration (time distance)
+- 离 + Place + 远/近 (distance)
+
+**Does not cover:**
+- 从来 meaning "always" or "never" (time adverb)
+- 从而 meaning "thereby/thus" (conjunctive adverb)
+- 自从 (a separate HSK 3 grammar point)
+- 从 + Event + 以来 (the "ever since" pattern, which belongs with 自从)
+- 从...来看 (HSK 5-26)
+- Adverbial or fixed uses such as 从小, 从中, 从此, 从前, 从不, and the verb 从事, none of which are tagged as the preposition 从/P
+
+```rule
+match: 从/P
+match: 离/P
+match: 从今以后
+unless: 从来
+unless: 从而
+unless: 自从
+unless: 从事
+unless: 以来
+unless: 从/P ... 来看
+unless: 从/P ... 来 看
+```
+
+**Notes:** 
+- Matching on the preposition tag 从/P or 离/P is enough. The fixed adverbial forms are tokenized as separate words (从来, 从小 and so on) or tagged AD, so they never match.
+- 从今以后 is tokenized as a single word (tagged NT), so it gets its own match line.
+- 从 + Event + 以来 is the "ever since" pattern, which is a different point from 从 meaning "from". The `unless: 以来` line removes those sentences, for example 从毕业以来 and 从他爸爸去世以来.
+- 从那以后 and 从今以后 still match, because 以后 is not excluded.
+- The `unless` lines also remove sentences containing 从来, 从而, 自从, 从事 or 从...来看, so they cannot slip in on a stray 从/P.

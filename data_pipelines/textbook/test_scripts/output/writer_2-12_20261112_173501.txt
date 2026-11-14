@@ -1,0 +1,16 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 6135 characters -->
+## 2-12
+
+**Point:** Expressing the duration of a completed action with 了 and a time measure (verb + 了 + duration + optional 的 + object)
+
+**Covers:** Sentences with the pattern: Verb + 了 (aspect marker) + a number other than 一 (二, 两, 三, 八, 十, 几 and so on) + 年, 天, 周 or 分钟 + optional 的 + object, for example 他做了八年经理 and 我们学了三天汉语. It also covers 半个小时, as in 我刚才打了半个小时电话. A time word before the verb (昨天, 刚才) is allowed. The duration says how long the completed action lasted.
+
+**Does not cover:** Duration words with no 了 after the verb (e.g. 清洁工每天打扫). 一年一度 and similar 一度/一时 uses. Sentences with a sentence-final 了 (e.g. 我等了三天了), which are a different pattern for ongoing actions. Time words that give a point in time rather than a duration (今天, 明年). The simplest forms, with 一年, 一天, 一个晚上 or N个小时, such as 他学了一年中文 and 我们坐了十五个小时的飞机. Those are taught as an earlier point (1-21), so this rule deliberately does not match them.
+
+```rule
+match: /VV 了/AS 二|两|三|四|五|六|七|八|九|十|十二|十五|二十|三十|几 年|天|周|分钟
+match: /VV 了/AS 半 个 小时|钟头
+unless: /SP $
+```
+
+**Notes:** The earlier version matched the easier 1-21 sentences (一年, 一天, 一个晚上, 十五个小时), which are counter-examples. This version drops 一 and the 个+小时/晚上 forms, so those sentences no longer match. What remains is a narrow pattern: the number follows 了 directly, and the number is not 一. It also allows 半个小时/钟头. This favors precision and will miss some true 2-12 sentences, such as 一上午 and 一天的电视. The sentence-final 了 exclusion is kept.

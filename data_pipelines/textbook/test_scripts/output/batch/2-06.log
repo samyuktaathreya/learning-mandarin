@@ -15,3 +15,630 @@ unrelated:
 [warning] no page teaches this point: the rule would only have the list's own examples to go on.
 
 Saved to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_sources.json. No need to edit it unless validate shows a problem. Next: write --code 2-06
+
+########## rules  2026-11-10 21:24 ##########
+
+########## rules  2026-11-11 14:18 ##########
+
+########## rules  2026-11-12 17:23 ##########
+Tagging 2 labeled example(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_172305.txt
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 2-06
+<!-- written by claude-haiku-4-5 on 2026-11-12; edit freely -->
+**Point:** Third-person pronouns and collective pronouns referring to others or groups (别人、人家、大家、它、它们、咱、咱们、自己)
+**Covers:** Use of 别人, 人家, 大家, 它, 它们, 咱, 咱们, or 自己 as pronouns in sentences. Includes 人家 referring to "other people," "someone," or "households"; 别人 meaning "other people"; 大家 meaning "everyone"; and 自己 meaning "oneself."
+**Does not cover:** Sentences where these words are used but are not functioning as pronouns (e.g., 人家 as a noun meaning "household" when already clear from context); sentences that only use 自己 in a reflexive sense without showing the pronoun function; isolated uses that don't demonstrate the grammar point clearly.
+
+```rule
+match: 别人/PN
+match: 人家/PN
+match: 大家/PN
+match: 它/PN
+match: 它们/PN
+match: 咱/PN
+match: 咱们/PN
+match: 自己/PN
+match: 人家/NN
+```
+
+**Notes:** The rule includes both 人家/PN (when tagged as pronoun) and 人家/NN (when tagged as noun meaning "household"). The labeled example "村子里现在只剩十户人家了" shows 人家/NN referring to households, which is a valid HSK 2-06 use. All other pronouns are matched by their PN tag. The rule is deliberately inclusive to avoid false negatives, as the POS tagger may vary in how it tags these words.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 2-06
+Tagging 2 labeled example(s) (cached after this run)...
+
+=== A. 2-06: rule on labeled examples (no AI) ===
+  examples of 2-06 matched:    11/11
+  counter-examples wrongly matched: 0/0   <- should be 0
+  easy examples (words all HSK 2 or below) matched: 1/1   (too few to test)
+
+########## guard check  2026-11-12 17:34 ##########
+Flags examples of 1-03 that don't contain 2-06: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+########## tatoeba  2026-11-12 17:39 ##########
+Filling 2-06 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 45 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_173923.txt
+  ...100/341
+  ...200/341
+  ...300/341
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  看书 = 看 + 书  (to read)
+     clear  有钱 = 有 + 钱  (well-off)
+
+Course sentences at HSK 2 the rule already finds 2-06 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+  2 check call(s) (20 sentences each)...
+
+=== 2-06 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      772  2. contain the point's word(s)
+      772  3. new (not in DB, not a duplicate)
+      341  4. at most 2 characters outside HSK 2 words
+       44  5. really HSK 2
+       40  5b. no harder grammar point (of the 40 with a rule)
+       35  6. the rule finds 2-06
+       33  6b. no hidden word a learner can't work out
+       15  7. both checks say 2-06, English chosen
+       13  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (13) ===
+  我会自己走。  (I'll go by myself.)  [tatoeba 6105204]
+  认识你自己。  (Know yourself.)  [tatoeba 13252531]
+  请介绍自己。  (Please introduce yourselves.)  [tatoeba 13519468]
+  做自己就好。  (Just be yourself.)  [tatoeba 13949946]
+  我自己写了它。  (I wrote it myself.)  [tatoeba 5978325]
+  他有自己的房间。  (He has his own room.)  [tatoeba 4517811]
+  我不经常自己去做。  (I don't often do that by myself.)  [tatoeba 6585438]
+  你自己一个人能做吗？  (Can you do that by yourself?)  [tatoeba 6049582]  hidden: 一个人
+  Mary自己一个人来。  (Mary came on her own.)  [tatoeba 5344339]  hidden: 一个人
+  不要自己一个人走回家。  (Don't walk home alone.)  [tatoeba 8591244]  hidden: 一个人, 回家
+  他知道自己的车在哪里。  (He knew where his car was.)  [tatoeba 13738255]
+  爱丽丝正在自己的房间里睡觉。  (Alice is sleeping in her room.)  [tatoeba 8920787]
+  汤姆三岁的时候就能写自己的名字了。  (Tom could write his name when he was three years old.)  [tatoeba 7980256]
+
+--- dropped at step 4 (431), first 12 ---
+  你想不想知道我的秘密？它很简单……  -- 4 characters no HSK 2 word uses: 单密秘简
+  你们想不想知道我的秘密？它很简单……  -- 4 characters no HSK 2 word uses: 单密秘简
+  瑞典有自己的语言。  -- 3 characters no HSK 2 word uses: 典瑞言
+  我对自己的行为感到羞愧。  -- 4 characters no HSK 2 word uses: 感愧羞行
+  他的处女作受到了大家的极大欢迎。  -- 4 characters no HSK 2 word uses: 受处极迎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  大家推举他到大会发言。  -- 4 characters no HSK 2 word uses: 举发推言
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 8 characters no HSK 2 word uses: 像容异形性捡海石
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  感情最重要的是在于他对你的好，而不是他自己有多好。  -- 4 characters no HSK 2 word uses: 于感而重
+  其他人说它甚至可能是有益的。  -- 4 characters no HSK 2 word uses: 其甚益至
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+
+--- dropped at step 5 (297), first 12 ---
+  你自己应该知道吧。  -- level 3: 应该 L3
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  我亲眼见到了它。  -- level 7: 亲眼 L7
+  谁也不工作。大家在看世界杯。  -- level 3: 世界 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  大家都同意你。  -- level 3: 同意 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  大家好！  -- level 1: no list words
+  我明天把它带给你。  -- level 3: 把 L3, 带 L3
+  大家帮我这么大的忙，真心向大家道谢。  -- level 10: 真心 L7, 向 L3, 道谢 (not in list)
+
+--- dropped at step 5b (4) ---
+  我给我自己买了书，不是给我妻子。  -- harder grammar: 2-28 (HSK 3)
+  我不觉得他自己一个人会做到。  -- harder grammar: 3-46 (HSK 3)
+  你自己能做到吗？  -- harder grammar: 3-46 (HSK 3)
+  汤姆说不会自己一个人做那件事。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  大家都是这样想的。  -- rule: no match: line matched
+  吃完饭，大家都很累了。  -- rule: no match: line matched
+  大家在说什么啊？  -- rule: no match: line matched
+  大家都在跳舞。  -- rule: no match: line matched
+  大家在往哪跑？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我没想到它有那么大。  -- hidden word a learner can't work out: 没想到 (didn't expect)
+  我不想让汤姆自己做。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+
+--- dropped at step 7 (18) ---
+  它太长了。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  别去想它。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  我就喜欢它。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  它从哪里来？  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  它什么时候到？  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  它跟我没关系。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  它花了几个月。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  我经常想着它。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  它花了我三年。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  给我看下它吧。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  它没有教她说话。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  你为什么卖了它？  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  我从他那里买了它。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  我不知道它是好是坏。  -- check said no (1/2): 它 refers to thing, not a person pronoun use
+  我觉得它真的很不错。  -- check said no (1/2): 它 refers to thing, not a person pronoun use
+  等我有钱了，我就买它。  -- check said no (1/2): 它 refers to thing, not a person pronoun use
+  汤姆正在自己房间里看书。  -- no accurate English among: Tom is reading a book in his room.
+  我喜欢Bella这个名字，它的意思是“漂亮”，是吗？  -- check said no (1/2): 它 refers to thing, not a person pronoun use
+
+--- dropped at step 8 (2) ---
+  让我走自己的路。  -- difficulty review: (2/2); uses 让 + object + verb construction (2-38 type structure) which is above HSK 2
+  让我们现在忘了它吧。  -- difficulty review: (1/2); 使用'让'字句，这是HSK 2中没有明确教授的结构
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-06_level2_20261112_173949.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:14 ##########
+Filling 2-06 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-06 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-06 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      772  2. contain the point's word(s)
+      772  3. new (not in DB, not a duplicate)
+      341  4. at most 2 characters outside HSK 2 words
+       44  5. really HSK 2
+       40  5b. no harder grammar point (of the 40 with a rule)
+       35  6. the rule finds 2-06
+       33  6b. no hidden word a learner can't work out
+       15  7. both checks say 2-06, English chosen
+       13  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (13) ===
+  我会自己走。  (I'll go by myself.)  [tatoeba 6105204]
+  认识你自己。  (Know yourself.)  [tatoeba 13252531]
+  请介绍自己。  (Please introduce yourselves.)  [tatoeba 13519468]
+  做自己就好。  (Just be yourself.)  [tatoeba 13949946]
+  我自己写了它。  (I wrote it myself.)  [tatoeba 5978325]
+  他有自己的房间。  (He has his own room.)  [tatoeba 4517811]
+  我不经常自己去做。  (I don't often do that by myself.)  [tatoeba 6585438]
+  你自己一个人能做吗？  (Can you do that by yourself?)  [tatoeba 6049582]  hidden: 一个人
+  Mary自己一个人来。  (Mary came on her own.)  [tatoeba 5344339]  hidden: 一个人
+  不要自己一个人走回家。  (Don't walk home alone.)  [tatoeba 8591244]  hidden: 一个人, 回家
+  他知道自己的车在哪里。  (He knew where his car was.)  [tatoeba 13738255]
+  爱丽丝正在自己的房间里睡觉。  (Alice is sleeping in her room.)  [tatoeba 8920787]
+  汤姆三岁的时候就能写自己的名字了。  (Tom could write his name when he was three years old.)  [tatoeba 7980256]
+
+--- dropped at step 4 (431), first 12 ---
+  你想不想知道我的秘密？它很简单……  -- 4 characters no HSK 2 word uses: 单密秘简
+  你们想不想知道我的秘密？它很简单……  -- 4 characters no HSK 2 word uses: 单密秘简
+  瑞典有自己的语言。  -- 3 characters no HSK 2 word uses: 典瑞言
+  我对自己的行为感到羞愧。  -- 4 characters no HSK 2 word uses: 感愧羞行
+  他的处女作受到了大家的极大欢迎。  -- 4 characters no HSK 2 word uses: 受处极迎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  大家推举他到大会发言。  -- 4 characters no HSK 2 word uses: 举发推言
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 8 characters no HSK 2 word uses: 像容异形性捡海石
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  感情最重要的是在于他对你的好，而不是他自己有多好。  -- 4 characters no HSK 2 word uses: 于感而重
+  其他人说它甚至可能是有益的。  -- 4 characters no HSK 2 word uses: 其甚益至
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+
+--- dropped at step 5 (297), first 12 ---
+  你自己应该知道吧。  -- level 3: 应该 L3
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  我亲眼见到了它。  -- level 7: 亲眼 L7
+  谁也不工作。大家在看世界杯。  -- level 3: 世界 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  大家都同意你。  -- level 3: 同意 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  大家好！  -- level 1: no list words
+  我明天把它带给你。  -- level 3: 把 L3, 带 L3
+  大家帮我这么大的忙，真心向大家道谢。  -- level 10: 真心 L7, 向 L3, 道谢 (not in list)
+
+--- dropped at step 5b (4) ---
+  我给我自己买了书，不是给我妻子。  -- harder grammar: 2-28 (HSK 3)
+  我不觉得他自己一个人会做到。  -- harder grammar: 3-46 (HSK 3)
+  你自己能做到吗？  -- harder grammar: 3-46 (HSK 3)
+  汤姆说不会自己一个人做那件事。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  大家都是这样想的。  -- rule: no match: line matched
+  吃完饭，大家都很累了。  -- rule: no match: line matched
+  大家在说什么啊？  -- rule: no match: line matched
+  大家都在跳舞。  -- rule: no match: line matched
+  大家在往哪跑？  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我没想到它有那么大。  -- hidden word a learner can't work out: 没想到 (didn't expect)
+  我不想让汤姆自己做。  -- hidden word a learner can't work out: 不想 (unexpectedly; to one's surprise)
+
+--- dropped at step 7 (18) ---
+  它太长了。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  别去想它。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  我就喜欢它。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  它从哪里来？  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  它什么时候到？  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  它跟我没关系。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  它花了几个月。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  我经常想着它。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  它花了我三年。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  给我看下它吧。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  它没有教她说话。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  你为什么卖了它？  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  我从他那里买了它。  -- check said no (2/2): 它 refers to an object, not demonstrating HSK 2-06
+  我不知道它是好是坏。  -- check said no (1/2): 它 refers to thing, not a person pronoun use
+  我觉得它真的很不错。  -- check said no (1/2): 它 refers to thing, not a person pronoun use
+  等我有钱了，我就买它。  -- check said no (1/2): 它 refers to thing, not a person pronoun use
+  汤姆正在自己房间里看书。  -- no accurate English among: Tom is reading a book in his room.
+  我喜欢Bella这个名字，它的意思是“漂亮”，是吗？  -- check said no (1/2): 它 refers to thing, not a person pronoun use
+
+--- dropped at step 8 (2) ---
+  让我走自己的路。  -- difficulty review: (2/2); uses 让 + object + verb construction (2-38 type structure) which is above HSK 2
+  让我们现在忘了它吧。  -- difficulty review: (1/2); 使用'让'字句，这是HSK 2中没有明确教授的结构
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-06_level2_20261112_211442.csv
+
+########## guard check  2026-11-13 13:52 ##########
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## tatoeba  2026-11-14 14:14 ##########
+Filling 2-06 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-06 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 19 check and 2 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 2-06 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      772  2. contain the point's word(s)
+      772  3. new (not in DB, not a duplicate)
+      341  4. at most 2 characters outside HSK 2 words
+       44  5. really HSK 2
+       40  5b. no harder grammar point (of the 43 with a rule)
+       35  6. the rule finds 2-06
+       34  6b. no hidden word a learner can't work out
+       15  7. both checks say 2-06, English chosen
+       18  7b. second opinion: it is the point (check)
+       13  8. both difficulty reviews pass it
+        4  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (18) ===
+  我会自己走。  (I'll go by myself.)  [tatoeba 6105204]
+  认识你自己。  (Know yourself.)  [tatoeba 13252531]
+  请介绍自己。  (Please introduce yourselves.)  [tatoeba 13519468]
+  做自己就好。  (Just be yourself.)  [tatoeba 13949946]
+  我自己写了它。  (I wrote it myself.)  [tatoeba 5978325]
+  他有自己的房间。  (He has his own room.)  [tatoeba 4517811]
+  我不经常自己去做。  (I don't often do that by myself.)  [tatoeba 6585438]
+  你自己一个人能做吗？  (Can you do that by yourself?)  [tatoeba 6049582]  hidden: 一个人
+  Mary自己一个人来。  (Mary came on her own.)  [tatoeba 5344339]  hidden: 一个人
+  不要自己一个人走回家。  (Don't walk home alone.)  [tatoeba 8591244]  hidden: 一个人, 回家
+  他知道自己的车在哪里。  (He knew where his car was.)  [tatoeba 13738255]
+  爱丽丝正在自己的房间里睡觉。  (Alice is sleeping in her room.)  [tatoeba 8920787]
+  汤姆三岁的时候就能写自己的名字了。  (Tom could write his name when he was three years old.)  [tatoeba 7980256]
+  它太长了。  (It's too long.)  [tatoeba 6114449]
+  别去想它。  (Put it out of your mind.)  [tatoeba 6628668]
+  我就喜欢它。  (That's what I like.)  [tatoeba 5650426]
+  它从哪里来？  (Where did it come from?)  [tatoeba 5883313]
+  它什么时候到？  (When does it arrive?)  [tatoeba 5762988]  hidden: 什么时候
+
+--- dropped at step 4 (431), first 12 ---
+  你想不想知道我的秘密？它很简单……  -- 4 characters no HSK 2 word uses: 单密秘简
+  你们想不想知道我的秘密？它很简单……  -- 4 characters no HSK 2 word uses: 单密秘简
+  瑞典有自己的语言。  -- 3 characters no HSK 2 word uses: 典瑞言
+  我对自己的行为感到羞愧。  -- 4 characters no HSK 2 word uses: 感愧羞行
+  他的处女作受到了大家的极大欢迎。  -- 4 characters no HSK 2 word uses: 受处极迎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  大家推举他到大会发言。  -- 4 characters no HSK 2 word uses: 举发推言
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 8 characters no HSK 2 word uses: 像容异形性捡海石
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  感情最重要的是在于他对你的好，而不是他自己有多好。  -- 4 characters no HSK 2 word uses: 于感而重
+  其他人说它甚至可能是有益的。  -- 4 characters no HSK 2 word uses: 其甚益至
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+
+--- dropped at step 5 (297), first 12 ---
+  你自己应该知道吧。  -- level 3: 应该 L3
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  我亲眼见到了它。  -- level 7: 亲眼 L7
+  谁也不工作。大家在看世界杯。  -- level 3: 世界 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  大家都同意你。  -- level 3: 同意 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  大家好！  -- level 1: no list words
+  我明天把它带给你。  -- level 3: 把 L3, 带 L3
+  大家帮我这么大的忙，真心向大家道谢。  -- level 10: 真心 L7, 向 L3, 道谢 (not in list)
+
+--- dropped at step 5b (4) ---
+  我给我自己买了书，不是给我妻子。  -- harder grammar: 2-28 (HSK 3)
+  我不觉得他自己一个人会做到。  -- harder grammar: 3-46 (HSK 3)
+  你自己能做到吗？  -- harder grammar: 3-46 (HSK 3)
+  汤姆说不会自己一个人做那件事。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  大家都是这样想的。  -- rule: no match: line matched
+  吃完饭，大家都很累了。  -- rule: no match: line matched
+  大家在说什么啊？  -- rule: no match: line matched
+  大家都在跳舞。  -- rule: no match: line matched
+  大家在往哪跑？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我没想到它有那么大。  -- hidden word a learner can't work out: 没想到 (didn't expect)
+
+--- dropped at step 7 (1) ---
+  等我有钱了，我就买它。  -- check said no (1/2): 它 refers to thing, not a person pronoun use
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-06_level2_20261114_141435.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:10 ##########
+Filling 2-06 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 1 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161002.txt
+  ...100/315
+  ...200/315
+  ...300/315
+
+Course sentences at HSK 2 the rule already finds 2-06 in: 29  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-06 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      772  2. contain the point's word(s)
+      746  3. new (not in DB, not a duplicate)
+      315  4. at most 2 characters outside HSK 2 words
+       19  5. really HSK 2
+       16  5b. no harder grammar point (of the 43 with a rule)
+       13  6. the rule finds 2-06
+       12  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (12 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (26), first 12 ---
+  大家都认识我。  -- already in the database
+  他有自己的房间。  -- already in the database
+  Mary自己一个人来。  -- already in the database
+  等我有钱了，我就买它。  -- already in the database
+  我就喜欢它。  -- already in the database
+  我从他那里买了它。  -- already in the database
+  它什么时候到？  -- already in the database
+  吃完饭，大家都很累了。  -- already in the database
+  它从哪里来？  -- already in the database
+  我自己写了它。  -- already in the database
+  我经常想着它。  -- already in the database
+  你自己一个人能做吗？  -- already in the database
+
+--- dropped at step 4 (431), first 12 ---
+  你想不想知道我的秘密？它很简单……  -- 4 characters no HSK 2 word uses: 单密秘简
+  你们想不想知道我的秘密？它很简单……  -- 4 characters no HSK 2 word uses: 单密秘简
+  瑞典有自己的语言。  -- 3 characters no HSK 2 word uses: 典瑞言
+  我对自己的行为感到羞愧。  -- 4 characters no HSK 2 word uses: 感愧羞行
+  他的处女作受到了大家的极大欢迎。  -- 4 characters no HSK 2 word uses: 受处极迎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  大家推举他到大会发言。  -- 4 characters no HSK 2 word uses: 举发推言
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 8 characters no HSK 2 word uses: 像容异形性捡海石
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  感情最重要的是在于他对你的好，而不是他自己有多好。  -- 4 characters no HSK 2 word uses: 于感而重
+  其他人说它甚至可能是有益的。  -- 4 characters no HSK 2 word uses: 其甚益至
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+
+--- dropped at step 5 (296), first 12 ---
+  你自己应该知道吧。  -- level 3: 应该 L3
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  我亲眼见到了它。  -- level 7: 亲眼 L7
+  谁也不工作。大家在看世界杯。  -- level 3: 世界 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  大家都同意你。  -- level 3: 同意 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  大家好！  -- level 1: no list words
+  我明天把它带给你。  -- level 3: 把 L3, 带 L3
+  大家帮我这么大的忙，真心向大家道谢。  -- level 10: 真心 L7, 向 L3, 道谢 (not in list)
+
+--- dropped at step 5b (3) ---
+  我不觉得他自己一个人会做到。  -- harder grammar: 3-46 (HSK 3)
+  你自己能做到吗？  -- harder grammar: 3-46 (HSK 3)
+  汤姆说不会自己一个人做那件事。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (3) ---
+  大家都是这样想的。  -- rule: no match: line matched
+  大家在说什么啊？  -- rule: no match: line matched
+  大家都在跳舞。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我没想到它有那么大。  -- hidden word a learner can't work out: 没想到 (didn't expect)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-06_level2_20261114_161005.csv
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:30 ##########
+Filling 2-06 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-06 in: 3  -> Tatoeba needs to add 17 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 19 check and 2 review rejection(s)...
+
+=== 2-06 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      772  2. contain the point's word(s)
+      772  3. new (not in DB, not a duplicate)
+      341  4. at most 2 characters outside HSK 2 words
+       44  5. really HSK 2
+       41  5b. no harder grammar point (of the 43 with a rule)
+       36  6. the rule finds 2-06
+       35  6b. no hidden word a learner can't work out
+       16  7. both checks say 2-06, English chosen
+       18  7b. second opinion: it is the point (check)
+       14  8. both difficulty reviews pass it
+        4  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (17) ===
+  我会自己走。  (I'll go by myself.)  [tatoeba 6105204]
+  认识你自己。  (Know yourself.)  [tatoeba 13252531]
+  请介绍自己。  (Please introduce yourselves.)  [tatoeba 13519468]
+  做自己就好。  (Just be yourself.)  [tatoeba 13949946]
+  我自己写了它。  (I wrote it myself.)  [tatoeba 5978325]
+  他有自己的房间。  (He has his own room.)  [tatoeba 4517811]
+  我不经常自己去做。  (I don't often do that by myself.)  [tatoeba 6585438]
+  你自己一个人能做吗？  (Can you do that by yourself?)  [tatoeba 6049582]  hidden: 一个人
+  Mary自己一个人来。  (Mary came on her own.)  [tatoeba 5344339]  hidden: 一个人
+  不要自己一个人走回家。  (Don't walk home alone.)  [tatoeba 8591244]  hidden: 一个人, 回家
+  他知道自己的车在哪里。  (He knew where his car was.)  [tatoeba 13738255]
+  爱丽丝正在自己的房间里睡觉。  (Alice is sleeping in her room.)  [tatoeba 8920787]
+  我给我自己买了书，不是给我妻子。  (I bought the book for myself, not for my wife.)  [tatoeba 6105202]  hidden: 不是
+  汤姆三岁的时候就能写自己的名字了。  (Tom could write his name when he was three years old.)  [tatoeba 7980256]
+  它太长了。  (It's too long.)  [tatoeba 6114449]
+  别去想它。  (Put it out of your mind.)  [tatoeba 6628668]
+  我就喜欢它。  (That's what I like.)  [tatoeba 5650426]
+
+--- dropped at step 4 (431), first 12 ---
+  你想不想知道我的秘密？它很简单……  -- 4 characters no HSK 2 word uses: 单密秘简
+  你们想不想知道我的秘密？它很简单……  -- 4 characters no HSK 2 word uses: 单密秘简
+  瑞典有自己的语言。  -- 3 characters no HSK 2 word uses: 典瑞言
+  我对自己的行为感到羞愧。  -- 4 characters no HSK 2 word uses: 感愧羞行
+  他的处女作受到了大家的极大欢迎。  -- 4 characters no HSK 2 word uses: 受处极迎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  大家推举他到大会发言。  -- 4 characters no HSK 2 word uses: 举发推言
+  有人形容，跟异性交往就好像在海边捡石头，大家都能捡喜欢的那一个。  -- 8 characters no HSK 2 word uses: 像容异形性捡海石
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  感情最重要的是在于他对你的好，而不是他自己有多好。  -- 4 characters no HSK 2 word uses: 于感而重
+  其他人说它甚至可能是有益的。  -- 4 characters no HSK 2 word uses: 其甚益至
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+
+--- dropped at step 5 (297), first 12 ---
+  你自己应该知道吧。  -- level 3: 应该 L3
+  我经常忘记别人的名字。  -- level 3: 忘记 L3, 别人 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  那么，咱们走吧。  -- level 3: 咱们 L3
+  我亲眼见到了它。  -- level 7: 亲眼 L7
+  谁也不工作。大家在看世界杯。  -- level 3: 世界 L3
+  咱们现在走吧。要不咱们要迟到了。  -- level 5: 咱们 L3, 要不 L5, 迟到 L3
+  大家都同意你。  -- level 3: 同意 L3
+  咱们吃个西瓜吧！  -- level 3: 咱们 L3, 西瓜 L3
+  大家好！  -- level 1: no list words
+  我明天把它带给你。  -- level 3: 把 L3, 带 L3
+  大家帮我这么大的忙，真心向大家道谢。  -- level 10: 真心 L7, 向 L3, 道谢 (not in list)
+
+--- dropped at step 5b (3) ---
+  我不觉得他自己一个人会做到。  -- harder grammar: 3-46 (HSK 3)
+  你自己能做到吗？  -- harder grammar: 3-46 (HSK 3)
+  汤姆说不会自己一个人做那件事。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  大家都是这样想的。  -- rule: no match: line matched
+  吃完饭，大家都很累了。  -- rule: no match: line matched
+  大家在说什么啊？  -- rule: no match: line matched
+  大家都在跳舞。  -- rule: no match: line matched
+  大家在往哪跑？  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我没想到它有那么大。  -- hidden word a learner can't work out: 没想到 (didn't expect)
+
+--- dropped at step 7 (1) ---
+  等我有钱了，我就买它。  -- check said no (1/2): 它 refers to thing, not a person pronoun use
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-06_level2_20261114_163042.csv

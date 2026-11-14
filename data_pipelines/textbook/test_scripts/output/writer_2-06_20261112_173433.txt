@@ -1,0 +1,24 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 5158 characters -->
+## 2-06
+<!-- written by claude-haiku-4-5 on 2026-11-12; revised -->
+**Point:** Personal pronouns referring to others, groups, or things (别人、人家、大家、它、它们、咱、咱们、自己)
+
+**Covers:** Use of 别人, 人家, 它, 它们, 咱, 咱们, or 自己 as pronouns in a sentence. This includes 人家 meaning "other people," "he/she/they," or "I" (said in a coy way), and 人家 meaning "households" (as in 户人家). 大家 is covered only in the "大家 一起…" pattern, as in 大家一起唱歌吧.
+
+**Does not cover:** Plain 大家 used as an ordinary subject, as in 大家要不要米饭？. These sentences belong to easier points such as the V不V question. Also excluded are the "X是它，Y也是它" pattern (HSK 5-62) and sentences where the pronoun function is not shown.
+
+```rule
+match: 别人/PN
+match: 人家/PN
+match: 大家/PN 一起/AD
+match: 它/PN
+match: 它们/PN
+match: 咱/PN
+match: 咱们/PN
+match: 自己/PN
+match: 户/M 人家/NN
+unless: 也 是 它
+unless: 是 它 ... 也 是 它
+```
+
+**Notes:** The bare 大家/PN match was removed because it fired on sentences from easier grammar points, such as 大家要不要米饭？. 大家 now matches only when followed by 一起, which fits the official example. The 人家/NN match is narrowed to 户人家 ("households"), so a stray noun tag no longer causes a match. The unless lines exclude the 5-62 pattern "X是它，Y也是它".

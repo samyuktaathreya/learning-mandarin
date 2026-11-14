@@ -252,3 +252,2057 @@ Harder grammar points made only of HSK 1-2 words (the review is warned about the
   我觉得你正在做的是错的。  -- difficulty review: (2/2); uses 'A的是B' construction which is above HSK 2 level
 
 Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-11_level2_20261109_220402.csv
+
+########## guard check  2026-11-10 21:29 ##########
+  Checking 26 sentence(s) for 1-11 (2 call(s))...
+
+########## tatoeba  2026-11-10 21:33 ##########
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 1-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      545  2. contain the point's word(s)
+      545  3. new (not in DB, not a duplicate)
+      238  4. at most 2 characters outside HSK 2 words
+       19  5. really HSK 2
+       17  5b. no harder grammar point (of the 33 with a rule)
+        9  6. the rule finds 1-11
+        9  6b. no hidden word a learner can't work out
+        6  7. both checks say 1-11, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  我妻子正在做饭。  (My wife is cooking right now.)  [tatoeba 408275]
+  跟她说我正在开车。  (Tell her that I am driving.)  [tatoeba 5401613]
+  因为他们正在看电视。  (Because they're watching television.)  [tatoeba 4859594]
+  跟她说我正在吃东西。  (Tell her that I am eating.)  [tatoeba 5401610]
+  他们正在洗他们的苹果。  (They're washing their apples.)  [tatoeba 13167252]
+
+--- dropped at step 4 (307), first 12 ---
+  我正在在波士顿读博士。  -- 3 characters no HSK 2 word uses: 博波顿
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  有时候外婆比克格勃还危险。  -- 6 characters no HSK 2 word uses: 克勃危婆格险
+  公共汽车的停车站正好坐落在我的住所前面。  -- 4 characters no HSK 2 word uses: 停共汽落
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  现在中国公认的标准旗袍的现代版本是首先在上海发展起来的。  -- 9 characters no HSK 2 word uses: 代发展旗标海版袍首
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  她不是这间公司正式的职员。  -- 3 characters no HSK 2 word uses: 员式职
+  这意味着一种轻松有趣的工作氛围，团队成就受到高度重视，沟通很重要，传统的3小时会议已被排队喝咖啡的非正式聊天取代。  -- 24 characters no HSK 2 word uses: 代传取受味团围度式成排松氛沟种统聊被议趣轻通重队
+  先生，我们可以检查一下您的行李吗？  -- 4 characters no HSK 2 word uses: 李查检行
+
+--- dropped at step 5 (219), first 12 ---
+  我马上就到了。  -- level 3: 马上 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3
+  那是一个真正的人。  -- level 4: 真正 L4
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  先生，请别生我的气！我是新来的工人！  -- level 4: 生 L4, 气 L4, 工人 L4
+  她是一位真正的美人。  -- level 4: 真正 L4, 美 L4
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  我马上要上ＱＱ了。  -- level 3: 马上 L3
+  是的，我马上来。  -- level 3: 马上 L3
+  我现在正忙于写一本书。  -- level 6: 于 L6
+  你在说话前应该先思考。  -- level 5: 应该 L3, 先 L3, 思考 L5
+  电话正在响。  -- level 4: 响 L4
+
+--- dropped at step 5b (2) ---
+  我正在去第四医院的路上。  -- harder grammar: 3-01 (HSK 3)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (8) ---
+  有时我去，有时不去。  -- rule: no match: line matched
+  正是这个意思！  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  汤姆正在自己房间里看书。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  你认识高先生吗？  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+
+--- dropped at step 7 (3) ---
+  他们有时帮我们。  -- check said no (2/2): 有时 is temporal adverb for frequency, not action in progress
+  我正要给你打电话。  -- check said no (2/2): 正要 expresses imminent action, not action in progress
+  爱丽丝正在自己的房间里睡觉。  -- check said no (1/2): 正 and 在 separated; 在 used as postposition here
+
+--- dropped at step 8 (1) ---
+  我觉得你正在做的是错的。  -- difficulty review: (2/2); uses 'A的是B' construction which is above HSK 2 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-11_level2_20261110_213336.csv
+
+########## guard check  2026-11-11 14:20 ##########
+Flags examples of 1-16, 1-42 that don't contain 1-11: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+The revised rule fails 1-11's own test (0 wrong, 21 missed): keeping the old rule.
+Not used as a guard for 1-16: it still flags 1 of its examples, e.g. 现在我们在KTV唱歌。
+Not used as a guard for 1-42: it still flags 8 of its examples, e.g. 她在看书。
+
+########## tatoeba  2026-11-11 14:26 ##########
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 1-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      545  2. contain the point's word(s)
+      545  3. new (not in DB, not a duplicate)
+      238  4. at most 2 characters outside HSK 2 words
+       19  5. really HSK 2
+       16  5b. no harder grammar point (of the 39 with a rule)
+        8  6. the rule finds 1-11
+        8  6b. no hidden word a learner can't work out
+        6  7. both checks say 1-11, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  我妻子正在做饭。  (My wife is cooking right now.)  [tatoeba 408275]
+  跟她说我正在开车。  (Tell her that I am driving.)  [tatoeba 5401613]
+  因为他们正在看电视。  (Because they're watching television.)  [tatoeba 4859594]
+  跟她说我正在吃东西。  (Tell her that I am eating.)  [tatoeba 5401610]
+  他们正在洗他们的苹果。  (They're washing their apples.)  [tatoeba 13167252]
+
+--- dropped at step 4 (307), first 12 ---
+  我正在在波士顿读博士。  -- 3 characters no HSK 2 word uses: 博波顿
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  有时候外婆比克格勃还危险。  -- 6 characters no HSK 2 word uses: 克勃危婆格险
+  公共汽车的停车站正好坐落在我的住所前面。  -- 4 characters no HSK 2 word uses: 停共汽落
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  现在中国公认的标准旗袍的现代版本是首先在上海发展起来的。  -- 9 characters no HSK 2 word uses: 代发展旗标海版袍首
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  她不是这间公司正式的职员。  -- 3 characters no HSK 2 word uses: 员式职
+  这意味着一种轻松有趣的工作氛围，团队成就受到高度重视，沟通很重要，传统的3小时会议已被排队喝咖啡的非正式聊天取代。  -- 24 characters no HSK 2 word uses: 代传取受味团围度式成排松氛沟种统聊被议趣轻通重队
+  先生，我们可以检查一下您的行李吗？  -- 4 characters no HSK 2 word uses: 李查检行
+
+--- dropped at step 5 (219), first 12 ---
+  我马上就到了。  -- level 3: 马上 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3
+  那是一个真正的人。  -- level 4: 真正 L4
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  先生，请别生我的气！我是新来的工人！  -- level 4: 生 L4, 气 L4, 工人 L4
+  她是一位真正的美人。  -- level 4: 真正 L4, 美 L4
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  我马上要上ＱＱ了。  -- level 3: 马上 L3
+  是的，我马上来。  -- level 3: 马上 L3
+  我现在正忙于写一本书。  -- level 6: 于 L6
+  你在说话前应该先思考。  -- level 5: 应该 L3, 先 L3, 思考 L5
+  电话正在响。  -- level 4: 响 L4
+
+--- dropped at step 5b (3) ---
+  我正在去第四医院的路上。  -- harder grammar: 3-01 (HSK 3)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  我正要给你打电话。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (8) ---
+  有时我去，有时不去。  -- rule: no match: line matched
+  正是这个意思！  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  汤姆正在自己房间里看书。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  你认识高先生吗？  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+
+--- dropped at step 7 (2) ---
+  他们有时帮我们。  -- check said no (2/2): 有时 is temporal adverb for frequency, not action in progress
+  爱丽丝正在自己的房间里睡觉。  -- check said no (1/2): 正 and 在 separated; 在 used as postposition here
+
+--- dropped at step 8 (1) ---
+  我觉得你正在做的是错的。  -- difficulty review: (2/2); uses 'A的是B' construction which is above HSK 2 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-11_level2_20261111_142642.csv
+
+########## rules  2026-11-12 17:20 ##########
+Tagging 1 labeled example(s) (cached after this run)...
+
+=== A. 1-11: rule on labeled examples (no AI) ===
+  examples of 1-11 matched:    25/27
+  counter-examples wrongly matched: 0/10   <- should be 0
+
+--- examples of 1-11 the rule misses (2) ---
+  谁在里面洗澡？  -- ASG846EA Expressing actions in progress with "zai"
+  你给我打电话的时候，我正在跟朋友打游戏。  -- ASG846EA Expressing actions in progress with "zai"
+  easy examples (words all HSK 2 or below) matched: 11/11   <- needs 60%
+
+########## guard check  2026-11-12 17:34 ##########
+Not used as a guard for 1-16: it still flags 1 of its examples, e.g. 现在我们在KTV唱歌。
+Not used as a guard for 1-42: it still flags 8 of its examples, e.g. 她在看书。
+
+########## tatoeba  2026-11-12 17:37 ##########
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 2 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_173733.txt
+  ...100/238
+  ...200/238
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 1-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      545  2. contain the point's word(s)
+      545  3. new (not in DB, not a duplicate)
+      238  4. at most 2 characters outside HSK 2 words
+       19  5. really HSK 2
+       16  5b. no harder grammar point (of the 40 with a rule)
+        8  6. the rule finds 1-11
+        8  6b. no hidden word a learner can't work out
+        6  7. both checks say 1-11, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  我妻子正在做饭。  (My wife is cooking right now.)  [tatoeba 408275]
+  跟她说我正在开车。  (Tell her that I am driving.)  [tatoeba 5401613]
+  因为他们正在看电视。  (Because they're watching television.)  [tatoeba 4859594]
+  跟她说我正在吃东西。  (Tell her that I am eating.)  [tatoeba 5401610]
+  他们正在洗他们的苹果。  (They're washing their apples.)  [tatoeba 13167252]
+
+--- dropped at step 4 (307), first 12 ---
+  我正在在波士顿读博士。  -- 3 characters no HSK 2 word uses: 博波顿
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  有时候外婆比克格勃还危险。  -- 6 characters no HSK 2 word uses: 克勃危婆格险
+  公共汽车的停车站正好坐落在我的住所前面。  -- 4 characters no HSK 2 word uses: 停共汽落
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  现在中国公认的标准旗袍的现代版本是首先在上海发展起来的。  -- 9 characters no HSK 2 word uses: 代发展旗标海版袍首
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  她不是这间公司正式的职员。  -- 3 characters no HSK 2 word uses: 员式职
+  这意味着一种轻松有趣的工作氛围，团队成就受到高度重视，沟通很重要，传统的3小时会议已被排队喝咖啡的非正式聊天取代。  -- 24 characters no HSK 2 word uses: 代传取受味团围度式成排松氛沟种统聊被议趣轻通重队
+  先生，我们可以检查一下您的行李吗？  -- 4 characters no HSK 2 word uses: 李查检行
+
+--- dropped at step 5 (219), first 12 ---
+  我马上就到了。  -- level 3: 马上 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3
+  那是一个真正的人。  -- level 4: 真正 L4
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  先生，请别生我的气！我是新来的工人！  -- level 4: 生 L4, 气 L4, 工人 L4
+  她是一位真正的美人。  -- level 4: 真正 L4, 美 L4
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  我马上要上ＱＱ了。  -- level 3: 马上 L3
+  是的，我马上来。  -- level 3: 马上 L3
+  我现在正忙于写一本书。  -- level 6: 于 L6
+  你在说话前应该先思考。  -- level 5: 应该 L3, 先 L3, 思考 L5
+  电话正在响。  -- level 4: 响 L4
+
+--- dropped at step 5b (3) ---
+  我正在去第四医院的路上。  -- harder grammar: 3-01 (HSK 3)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  我正要给你打电话。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (8) ---
+  有时我去，有时不去。  -- rule: no match: line matched
+  正是这个意思！  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  汤姆正在自己房间里看书。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  你认识高先生吗？  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+
+--- dropped at step 7 (2) ---
+  他们有时帮我们。  -- check said no (2/2): 有时 is temporal adverb for frequency, not action in progress
+  爱丽丝正在自己的房间里睡觉。  -- check said no (1/2): 正 and 在 separated; 在 used as postposition here
+
+--- dropped at step 8 (1) ---
+  我觉得你正在做的是错的。  -- difficulty review: (2/2); uses 'A的是B' construction which is above HSK 2 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-11_level2_20261112_173735.csv
+
+########## guard check  2026-11-12 21:13 ##########
+Not used as a guard for 1-16: it still flags 1 of its examples, e.g. 现在我们在KTV唱歌。
+Not used as a guard for 1-42: it still flags 8 of its examples, e.g. 她在看书。
+
+########## tatoeba  2026-11-12 21:14 ##########
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 1-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      545  2. contain the point's word(s)
+      545  3. new (not in DB, not a duplicate)
+      238  4. at most 2 characters outside HSK 2 words
+       19  5. really HSK 2
+       16  5b. no harder grammar point (of the 40 with a rule)
+        8  6. the rule finds 1-11
+        8  6b. no hidden word a learner can't work out
+        6  7. both checks say 1-11, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  我妻子正在做饭。  (My wife is cooking right now.)  [tatoeba 408275]
+  跟她说我正在开车。  (Tell her that I am driving.)  [tatoeba 5401613]
+  因为他们正在看电视。  (Because they're watching television.)  [tatoeba 4859594]
+  跟她说我正在吃东西。  (Tell her that I am eating.)  [tatoeba 5401610]
+  他们正在洗他们的苹果。  (They're washing their apples.)  [tatoeba 13167252]
+
+--- dropped at step 4 (307), first 12 ---
+  我正在在波士顿读博士。  -- 3 characters no HSK 2 word uses: 博波顿
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  有时候外婆比克格勃还危险。  -- 6 characters no HSK 2 word uses: 克勃危婆格险
+  公共汽车的停车站正好坐落在我的住所前面。  -- 4 characters no HSK 2 word uses: 停共汽落
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  现在中国公认的标准旗袍的现代版本是首先在上海发展起来的。  -- 9 characters no HSK 2 word uses: 代发展旗标海版袍首
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  她不是这间公司正式的职员。  -- 3 characters no HSK 2 word uses: 员式职
+  这意味着一种轻松有趣的工作氛围，团队成就受到高度重视，沟通很重要，传统的3小时会议已被排队喝咖啡的非正式聊天取代。  -- 24 characters no HSK 2 word uses: 代传取受味团围度式成排松氛沟种统聊被议趣轻通重队
+  先生，我们可以检查一下您的行李吗？  -- 4 characters no HSK 2 word uses: 李查检行
+
+--- dropped at step 5 (219), first 12 ---
+  我马上就到了。  -- level 3: 马上 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3
+  那是一个真正的人。  -- level 4: 真正 L4
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  先生，请别生我的气！我是新来的工人！  -- level 4: 生 L4, 气 L4, 工人 L4
+  她是一位真正的美人。  -- level 4: 真正 L4, 美 L4
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  我马上要上ＱＱ了。  -- level 3: 马上 L3
+  是的，我马上来。  -- level 3: 马上 L3
+  我现在正忙于写一本书。  -- level 6: 于 L6
+  你在说话前应该先思考。  -- level 5: 应该 L3, 先 L3, 思考 L5
+  电话正在响。  -- level 4: 响 L4
+
+--- dropped at step 5b (3) ---
+  我正在去第四医院的路上。  -- harder grammar: 3-01 (HSK 3)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  我正要给你打电话。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (8) ---
+  有时我去，有时不去。  -- rule: no match: line matched
+  正是这个意思！  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  汤姆正在自己房间里看书。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  你认识高先生吗？  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+
+--- dropped at step 7 (2) ---
+  他们有时帮我们。  -- check said no (2/2): 有时 is temporal adverb for frequency, not action in progress
+  爱丽丝正在自己的房间里睡觉。  -- check said no (1/2): 正 and 在 separated; 在 used as postposition here
+
+--- dropped at step 8 (1) ---
+  我觉得你正在做的是错的。  -- difficulty review: (2/2); uses 'A的是B' construction which is above HSK 2 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-11_level2_20261112_211418.csv
+
+########## guard check  2026-11-13 13:52 ##########
+Not used as a guard for 1-16: it still flags 1 of its examples, e.g. 现在我们在KTV唱歌。
+Not used as a guard for 1-42: it still flags 8 of its examples, e.g. 她在看书。
+
+########## tatoeba  2026-11-13 13:53 ##########
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 1-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      545  2. contain the point's word(s)
+      545  3. new (not in DB, not a duplicate)
+      238  4. at most 2 characters outside HSK 2 words
+       19  5. really HSK 2
+       14  5b. no harder grammar point (of the 44 with a rule)
+        7  6. the rule finds 1-11
+        7  6b. no hidden word a learner can't work out
+        6  7. both checks say 1-11, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  我妻子正在做饭。  (My wife is cooking right now.)  [tatoeba 408275]
+  跟她说我正在开车。  (Tell her that I am driving.)  [tatoeba 5401613]
+  因为他们正在看电视。  (Because they're watching television.)  [tatoeba 4859594]
+  跟她说我正在吃东西。  (Tell her that I am eating.)  [tatoeba 5401610]
+  他们正在洗他们的苹果。  (They're washing their apples.)  [tatoeba 13167252]
+
+--- dropped at step 4 (307), first 12 ---
+  我正在在波士顿读博士。  -- 3 characters no HSK 2 word uses: 博波顿
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  有时候外婆比克格勃还危险。  -- 6 characters no HSK 2 word uses: 克勃危婆格险
+  公共汽车的停车站正好坐落在我的住所前面。  -- 4 characters no HSK 2 word uses: 停共汽落
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  现在中国公认的标准旗袍的现代版本是首先在上海发展起来的。  -- 9 characters no HSK 2 word uses: 代发展旗标海版袍首
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  她不是这间公司正式的职员。  -- 3 characters no HSK 2 word uses: 员式职
+  这意味着一种轻松有趣的工作氛围，团队成就受到高度重视，沟通很重要，传统的3小时会议已被排队喝咖啡的非正式聊天取代。  -- 24 characters no HSK 2 word uses: 代传取受味团围度式成排松氛沟种统聊被议趣轻通重队
+  先生，我们可以检查一下您的行李吗？  -- 4 characters no HSK 2 word uses: 李查检行
+
+--- dropped at step 5 (219), first 12 ---
+  我马上就到了。  -- level 3: 马上 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3
+  那是一个真正的人。  -- level 4: 真正 L4
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  先生，请别生我的气！我是新来的工人！  -- level 4: 生 L4, 气 L4, 工人 L4
+  她是一位真正的美人。  -- level 4: 真正 L4, 美 L4
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  我马上要上ＱＱ了。  -- level 3: 马上 L3
+  是的，我马上来。  -- level 3: 马上 L3
+  我现在正忙于写一本书。  -- level 6: 于 L6
+  你在说话前应该先思考。  -- level 5: 应该 L3, 先 L3, 思考 L5
+  电话正在响。  -- level 4: 响 L4
+
+--- dropped at step 5b (5) ---
+  我正在去第四医院的路上。  -- harder grammar: 3-01 (HSK 3)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  汤姆正在自己房间里看书。  -- harder grammar: 2-06 (HSK 3)
+  爱丽丝正在自己的房间里睡觉。  -- harder grammar: 2-06 (HSK 3)
+  我正要给你打电话。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (7) ---
+  有时我去，有时不去。  -- rule: no match: line matched
+  正是这个意思！  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  你认识高先生吗？  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  他们有时帮我们。  -- check said no (2/2): 有时 is temporal adverb for frequency, not action in progress
+
+--- dropped at step 8 (1) ---
+  我觉得你正在做的是错的。  -- difficulty review: (2/2); uses 'A的是B' construction which is above HSK 2 level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-11_level2_20261113_135346.csv
+
+########## guard check  2026-11-13 14:39 ##########
+Not used as a guard for 1-16: it still flags 1 of its examples, e.g. 现在我们在KTV唱歌。
+Not used as a guard for 1-42: it still flags 8 of its examples, e.g. 她在看书。
+
+########## tatoeba  2026-11-13 14:40 ##########
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 2 check and 1 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 1-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      545  2. contain the point's word(s)
+      545  3. new (not in DB, not a duplicate)
+      238  4. at most 2 characters outside HSK 2 words
+       19  5. really HSK 2
+       16  5b. no harder grammar point (of the 43 with a rule)
+        8  6. the rule finds 1-11
+        8  6b. no hidden word a learner can't work out
+        6  7. both checks say 1-11, English chosen
+        2  7b. second opinion: it is the point (check)
+        5  8. both difficulty reviews pass it
+        2  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (8) ===
+  我妻子正在做饭。  (My wife is cooking right now.)  [tatoeba 408275]
+  跟她说我正在开车。  (Tell her that I am driving.)  [tatoeba 5401613]
+  因为他们正在看电视。  (Because they're watching television.)  [tatoeba 4859594]
+  跟她说我正在吃东西。  (Tell her that I am eating.)  [tatoeba 5401610]
+  他们正在洗他们的苹果。  (They're washing their apples.)  [tatoeba 13167252]
+  他们有时帮我们。  (They sometimes help us.)  [tatoeba 6635888]
+  我觉得你正在做的是错的。  (I think what you're doing is wrong.)  [tatoeba 8795145]
+  爱丽丝正在自己的房间里睡觉。  (Alice is sleeping in her room.)  [tatoeba 8920787]
+
+--- dropped at step 4 (307), first 12 ---
+  我正在在波士顿读博士。  -- 3 characters no HSK 2 word uses: 博波顿
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  有时候外婆比克格勃还危险。  -- 6 characters no HSK 2 word uses: 克勃危婆格险
+  公共汽车的停车站正好坐落在我的住所前面。  -- 4 characters no HSK 2 word uses: 停共汽落
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  现在中国公认的标准旗袍的现代版本是首先在上海发展起来的。  -- 9 characters no HSK 2 word uses: 代发展旗标海版袍首
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  她不是这间公司正式的职员。  -- 3 characters no HSK 2 word uses: 员式职
+  这意味着一种轻松有趣的工作氛围，团队成就受到高度重视，沟通很重要，传统的3小时会议已被排队喝咖啡的非正式聊天取代。  -- 24 characters no HSK 2 word uses: 代传取受味团围度式成排松氛沟种统聊被议趣轻通重队
+  先生，我们可以检查一下您的行李吗？  -- 4 characters no HSK 2 word uses: 李查检行
+
+--- dropped at step 5 (219), first 12 ---
+  我马上就到了。  -- level 3: 马上 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3
+  那是一个真正的人。  -- level 4: 真正 L4
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  先生，请别生我的气！我是新来的工人！  -- level 4: 生 L4, 气 L4, 工人 L4
+  她是一位真正的美人。  -- level 4: 真正 L4, 美 L4
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  我马上要上ＱＱ了。  -- level 3: 马上 L3
+  是的，我马上来。  -- level 3: 马上 L3
+  我现在正忙于写一本书。  -- level 6: 于 L6
+  你在说话前应该先思考。  -- level 5: 应该 L3, 先 L3, 思考 L5
+  电话正在响。  -- level 4: 响 L4
+
+--- dropped at step 5b (3) ---
+  我正在去第四医院的路上。  -- harder grammar: 3-01 (HSK 3)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-46 (HSK 3), 3-48 (HSK 3)
+  我正要给你打电话。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (8) ---
+  有时我去，有时不去。  -- rule: no match: line matched
+  正是这个意思！  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  汤姆正在自己房间里看书。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  你认识高先生吗？  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+
+--- dropped at step 7 (0) ---
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-11_level2_20261113_144033.csv
+
+########## guard check  2026-11-14 14:14 ##########
+Not used as a guard for 1-16: it still flags 1 of its examples, e.g. 现在我们在KTV唱歌。
+Not used as a guard for 1-42: it still flags 8 of its examples, e.g. 她在看书。
+
+########## ai  2026-11-14 14:24 ##########
+
+----- AI-written sentences for 1-11, round 1: 0 to check, 11 needed -----
+  Asking claude-sonnet-5-5 to write 28 sentence(s)...
+
+----- AI-written sentences for 1-11, round 2: 28 to check, 11 needed -----
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 28
+
+Tagging 16 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_142448.txt
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  得很 = 得 + 很  ((after an adjective) very)
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 11 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-11 at HSK 2: funnel ===
+       28  AI-written sentences
+       28  1. have an English translation
+       23  2. contain the point's word(s)
+       23  3. new (not in DB, not a duplicate)
+       16  4. at most 0 characters outside HSK 2 words
+       10  5. really HSK 2
+        8  5b. no harder grammar point (of the 43 with a rule)
+        6  6. the rule finds 1-11
+        5  6b. no hidden word a learner can't work out
+        3  7. both checks say 1-11, English chosen
+        3  8. both difficulty reviews pass it
+
+=== Survivors (3) ===
+  外面正下着雨呢。  (It's raining outside right now.)  [tatoeba ai-2460aa32fd]
+  妹妹正唱着歌呢。  (My younger sister is singing right now.)  [tatoeba ai-18f9c00748]
+  他们正在上课,别进去。  (They're in class right now. Don't go in.)  [tatoeba ai-bc971a56ec]
+
+--- dropped at step 4 (7) ---
+  你先坐吧,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  老师马上到教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上回家。  -- 1 characters no HSK 2 word uses: 马
+  火车马上开了。  -- 1 characters no HSK 2 word uses: 马
+  你们先走,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上上课了,快进教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上给你打电话。  -- 1 characters no HSK 2 word uses: 马
+
+--- dropped at step 5 (6) ---
+  我们先吃饭吧。  -- level 3: 先 L3
+  他正在打电话,你先等等。  -- level 3: 先 L3
+  你先喝水,我去拿面包。  -- level 3: 先 L3
+  她正在学汉语。  -- level 1: no list words
+  我先去洗手间。  -- level 3: 先 L3
+  你先说,我听着呢。  -- level 3: 先 L3
+
+--- dropped at step 5b (2) ---
+  妈妈正在给奶奶打电话。  -- harder grammar: 2-28 (HSK 3)
+  老师有时给我们看电影。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (2) ---
+  哥哥正在家里上网。  -- rule: no match: line matched
+  他有时不吃早饭。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我有时睡得很晚。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+
+--- dropped at step 7 (2) ---
+  我有时坐地铁上班。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  爸爸有时做饭,有时妈妈做。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-11_level2_20261114_142457.csv
+  Asking claude-sonnet-5-5 to write 20 sentence(s)...
+
+----- AI-written sentences for 1-11, round 3: 48 to check, 11 needed -----
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 48
+
+Tagging 11 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_142510.txt
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 11 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-11 at HSK 2: funnel ===
+       48  AI-written sentences
+       48  1. have an English translation
+       40  2. contain the point's word(s)
+       40  3. new (not in DB, not a duplicate)
+       27  4. at most 0 characters outside HSK 2 words
+       17  5. really HSK 2
+       15  5b. no harder grammar point (of the 43 with a rule)
+        9  6. the rule finds 1-11
+        7  6b. no hidden word a learner can't work out
+        5  7. both checks say 1-11, English chosen
+        4  8. both difficulty reviews pass it
+
+=== Survivors (4) ===
+  爸爸正在洗车。  (Dad is washing the car right now.)  [tatoeba ai-c217201b16]
+  外面正下着雨呢。  (It's raining outside right now.)  [tatoeba ai-2460aa32fd]
+  妹妹正唱着歌呢。  (My younger sister is singing right now.)  [tatoeba ai-18f9c00748]
+  他们正在上课,别进去。  (They're in class right now. Don't go in.)  [tatoeba ai-bc971a56ec]
+
+--- dropped at step 4 (13), first 12 ---
+  你先坐吧,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  老师马上到教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上回家。  -- 1 characters no HSK 2 word uses: 马
+  火车马上开了。  -- 1 characters no HSK 2 word uses: 马
+  你们先走,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上上课了,快进教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上给你打电话。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,你再等一下。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,请你在门口等我。  -- 1 characters no HSK 2 word uses: 马
+  我先喝杯茶,马上做饭。  -- 1 characters no HSK 2 word uses: 马
+  你们先看书,老师马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上要下雨了,快回家。  -- 1 characters no HSK 2 word uses: 马
+
+--- dropped at step 5 (10) ---
+  我们先吃饭吧。  -- level 3: 先 L3
+  他正在打电话,你先等等。  -- level 3: 先 L3
+  你先喝水,我去拿面包。  -- level 3: 先 L3
+  她正在学汉语。  -- level 1: no list words
+  我先去洗手间。  -- level 3: 先 L3
+  你先说,我听着呢。  -- level 3: 先 L3
+  你先写名字吧。  -- level 3: 先 L3
+  天气很冷,我先穿件衣服。  -- level 3: 先 L3
+  妹妹正在喝牛奶。  -- level 1: no list words
+  请先给我一杯水。  -- level 3: 先 L3
+
+--- dropped at step 5b (2) ---
+  妈妈正在给奶奶打电话。  -- harder grammar: 2-28 (HSK 3)
+  老师有时给我们看电影。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (6) ---
+  哥哥正在家里上网。  -- rule: no match: line matched
+  他有时不吃早饭。  -- rule: no match: line matched
+  他中午有时在公司休息。  -- rule: no match: line matched
+  我们有时在学校吃午饭。  -- rule: no match: line matched
+  姐姐正在商场买衣服。  -- rule: no match: line matched
+  弟弟有时晚上不睡觉。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我有时睡得很晚。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  妈妈正做着饭呢,我去帮忙。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  我有时坐地铁上班。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  爸爸有时做饭,有时妈妈做。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+
+--- dropped at step 8 (1) ---
+  同学们正在考试,请别说话。  -- difficulty review: (1/2); 们 (plural suffix) is HSK 3+, not HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-11_level2_20261114_142514.csv
+
+########## ai  2026-11-14 14:56 ##########
+
+----- AI-written sentences for 1-11, round 1: 48 to check, 11 needed -----
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 48
+
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 11 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 1-11 at HSK 2: funnel ===
+       48  AI-written sentences
+       48  1. have an English translation
+       40  2. contain the point's word(s)
+       40  3. new (not in DB, not a duplicate)
+       27  4. at most 0 characters outside HSK 2 words
+       17  5. really HSK 2
+       15  5b. no harder grammar point (of the 43 with a rule)
+        9  6. the rule finds 1-11
+        7  6b. no hidden word a learner can't work out
+        5  7. both checks say 1-11, English chosen
+        4  8. both difficulty reviews pass it
+
+=== Survivors (4) ===
+  爸爸正在洗车。  (Dad is washing the car right now.)  [tatoeba ai-c217201b16]
+  外面正下着雨呢。  (It's raining outside right now.)  [tatoeba ai-2460aa32fd]
+  妹妹正唱着歌呢。  (My younger sister is singing right now.)  [tatoeba ai-18f9c00748]
+  他们正在上课,别进去。  (They're in class right now. Don't go in.)  [tatoeba ai-bc971a56ec]
+
+--- dropped at step 4 (13), first 12 ---
+  你先坐吧,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  老师马上到教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上回家。  -- 1 characters no HSK 2 word uses: 马
+  火车马上开了。  -- 1 characters no HSK 2 word uses: 马
+  你们先走,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上上课了,快进教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上给你打电话。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,你再等一下。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,请你在门口等我。  -- 1 characters no HSK 2 word uses: 马
+  我先喝杯茶,马上做饭。  -- 1 characters no HSK 2 word uses: 马
+  你们先看书,老师马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上要下雨了,快回家。  -- 1 characters no HSK 2 word uses: 马
+
+--- dropped at step 5 (10) ---
+  我们先吃饭吧。  -- level 3: 先 L3
+  他正在打电话,你先等等。  -- level 3: 先 L3
+  你先喝水,我去拿面包。  -- level 3: 先 L3
+  她正在学汉语。  -- level 1: no list words
+  我先去洗手间。  -- level 3: 先 L3
+  你先说,我听着呢。  -- level 3: 先 L3
+  你先写名字吧。  -- level 3: 先 L3
+  天气很冷,我先穿件衣服。  -- level 3: 先 L3
+  妹妹正在喝牛奶。  -- level 1: no list words
+  请先给我一杯水。  -- level 3: 先 L3
+
+--- dropped at step 5b (2) ---
+  妈妈正在给奶奶打电话。  -- harder grammar: 2-28 (HSK 3)
+  老师有时给我们看电影。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (6) ---
+  哥哥正在家里上网。  -- rule: no match: line matched
+  他有时不吃早饭。  -- rule: no match: line matched
+  他中午有时在公司休息。  -- rule: no match: line matched
+  我们有时在学校吃午饭。  -- rule: no match: line matched
+  姐姐正在商场买衣服。  -- rule: no match: line matched
+  弟弟有时晚上不睡觉。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我有时睡得很晚。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  妈妈正做着饭呢,我去帮忙。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (2) ---
+  我有时坐地铁上班。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  爸爸有时做饭,有时妈妈做。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+
+--- dropped at step 8 (1) ---
+  同学们正在考试,请别说话。  -- difficulty review: (1/2); 们 (plural suffix) is HSK 3+, not HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-11_level2_20261114_145603.csv
+  Asking claude-sonnet-5-5 to write 18 sentence(s)...
+
+----- AI-written sentences for 1-11, round 2: 66 to check, 11 needed -----
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 66
+
+Tagging 12 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_145614.txt
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 11 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-11 at HSK 2: funnel ===
+       66  AI-written sentences
+       66  1. have an English translation
+       56  2. contain the point's word(s)
+       56  3. new (not in DB, not a duplicate)
+       39  4. at most 0 characters outside HSK 2 words
+       26  5. really HSK 2
+       24  5b. no harder grammar point (of the 43 with a rule)
+       15  6. the rule finds 1-11
+       13  6b. no hidden word a learner can't work out
+        8  7. both checks say 1-11, English chosen
+        6  8. both difficulty reviews pass it
+
+=== Survivors (6) ===
+  爸爸正在洗车。  (Dad is washing the car right now.)  [tatoeba ai-c217201b16]
+  女儿正在画画。  (My daughter is drawing right now.)  [tatoeba ai-89b31d6617]  hidden: 画画
+  外面正下着雨呢。  (It's raining outside right now.)  [tatoeba ai-2460aa32fd]
+  妹妹正唱着歌呢。  (My younger sister is singing right now.)  [tatoeba ai-18f9c00748]
+  弟弟正在洗衣服。  (My younger brother is washing clothes right now.)  [tatoeba ai-06e12021fa]
+  他们正在上课,别进去。  (They're in class right now. Don't go in.)  [tatoeba ai-bc971a56ec]
+
+--- dropped at step 4 (17), first 12 ---
+  你先坐吧,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  老师马上到教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上回家。  -- 1 characters no HSK 2 word uses: 马
+  火车马上开了。  -- 1 characters no HSK 2 word uses: 马
+  你们先走,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上上课了,快进教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上给你打电话。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,你再等一下。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,请你在门口等我。  -- 1 characters no HSK 2 word uses: 马
+  我先喝杯茶,马上做饭。  -- 1 characters no HSK 2 word uses: 马
+  你们先看书,老师马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上要下雨了,快回家。  -- 1 characters no HSK 2 word uses: 马
+
+--- dropped at step 5 (13), first 12 ---
+  我们先吃饭吧。  -- level 3: 先 L3
+  他正在打电话,你先等等。  -- level 3: 先 L3
+  你先喝水,我去拿面包。  -- level 3: 先 L3
+  她正在学汉语。  -- level 1: no list words
+  我先去洗手间。  -- level 3: 先 L3
+  你先说,我听着呢。  -- level 3: 先 L3
+  你先写名字吧。  -- level 3: 先 L3
+  天气很冷,我先穿件衣服。  -- level 3: 先 L3
+  妹妹正在喝牛奶。  -- level 1: no list words
+  请先给我一杯水。  -- level 3: 先 L3
+  你先去,我正忙着呢。  -- level 3: 先 L3
+  你先看这本书吧。  -- level 3: 先 L3
+
+--- dropped at step 5b (2) ---
+  妈妈正在给奶奶打电话。  -- harder grammar: 2-28 (HSK 3)
+  老师有时给我们看电影。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (9) ---
+  哥哥正在家里上网。  -- rule: no match: line matched
+  他有时不吃早饭。  -- rule: no match: line matched
+  他中午有时在公司休息。  -- rule: no match: line matched
+  我们有时在学校吃午饭。  -- rule: no match: line matched
+  姐姐正在商场买衣服。  -- rule: no match: line matched
+  弟弟有时晚上不睡觉。  -- rule: no match: line matched
+  爸爸有时在公司吃午饭。  -- rule: no match: line matched
+  孩子们正在外面玩球。  -- rule: no match: line matched
+  她正在跟朋友说话。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我有时睡得很晚。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  妈妈正做着饭呢,我去帮忙。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (5) ---
+  我有时坐地铁上班。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  爷爷有时在家看书。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  同学有时问我汉语问题。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  爸爸有时做饭,有时妈妈做。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  妹妹有时喝茶,有时喝牛奶。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+
+--- dropped at step 8 (2) ---
+  他正看着电视呢。  -- difficulty review: (2/2); Uses 着 (dynamic particle for ongoing action) which is grammar point 2-33, taught at HSK 2 but combining 正 + 着 + 呢 together creates a construction beyond the basic 正在 pattern taught at this level
+  同学们正在考试,请别说话。  -- difficulty review: (1/2); 们 (plural suffix) is HSK 3+, not HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-11_level2_20261114_145621.csv
+  Asking claude-sonnet-5-5 to write 13 sentence(s)...
+
+----- AI-written sentences for 1-11, round 3: 79 to check, 11 needed -----
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 79
+
+Tagging 10 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_145632.txt
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 11 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-11 at HSK 2: funnel ===
+       79  AI-written sentences
+       79  1. have an English translation
+       68  2. contain the point's word(s)
+       68  3. new (not in DB, not a duplicate)
+       49  4. at most 0 characters outside HSK 2 words
+       31  5. really HSK 2
+       29  5b. no harder grammar point (of the 43 with a rule)
+       16  6. the rule finds 1-11
+       14  6b. no hidden word a learner can't work out
+        8  7. both checks say 1-11, English chosen
+        6  8. both difficulty reviews pass it
+
+=== Survivors (6) ===
+  爸爸正在洗车。  (Dad is washing the car right now.)  [tatoeba ai-c217201b16]
+  女儿正在画画。  (My daughter is drawing right now.)  [tatoeba ai-89b31d6617]  hidden: 画画
+  外面正下着雨呢。  (It's raining outside right now.)  [tatoeba ai-2460aa32fd]
+  妹妹正唱着歌呢。  (My younger sister is singing right now.)  [tatoeba ai-18f9c00748]
+  弟弟正在洗衣服。  (My younger brother is washing clothes right now.)  [tatoeba ai-06e12021fa]
+  他们正在上课,别进去。  (They're in class right now. Don't go in.)  [tatoeba ai-bc971a56ec]
+
+--- dropped at step 4 (19), first 12 ---
+  你先坐吧,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  老师马上到教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上回家。  -- 1 characters no HSK 2 word uses: 马
+  火车马上开了。  -- 1 characters no HSK 2 word uses: 马
+  你们先走,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上上课了,快进教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上给你打电话。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,你再等一下。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,请你在门口等我。  -- 1 characters no HSK 2 word uses: 马
+  我先喝杯茶,马上做饭。  -- 1 characters no HSK 2 word uses: 马
+  你们先看书,老师马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上要下雨了,快回家。  -- 1 characters no HSK 2 word uses: 马
+
+--- dropped at step 5 (18), first 12 ---
+  我们先吃饭吧。  -- level 3: 先 L3
+  他正在打电话,你先等等。  -- level 3: 先 L3
+  你先喝水,我去拿面包。  -- level 3: 先 L3
+  她正在学汉语。  -- level 1: no list words
+  我先去洗手间。  -- level 3: 先 L3
+  你先说,我听着呢。  -- level 3: 先 L3
+  你先写名字吧。  -- level 3: 先 L3
+  天气很冷,我先穿件衣服。  -- level 3: 先 L3
+  妹妹正在喝牛奶。  -- level 1: no list words
+  请先给我一杯水。  -- level 3: 先 L3
+  你先去,我正忙着呢。  -- level 3: 先 L3
+  你先看这本书吧。  -- level 3: 先 L3
+
+--- dropped at step 5b (2) ---
+  妈妈正在给奶奶打电话。  -- harder grammar: 2-28 (HSK 3)
+  老师有时给我们看电影。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (13) ---
+  哥哥正在家里上网。  -- rule: no match: line matched
+  他有时不吃早饭。  -- rule: no match: line matched
+  他中午有时在公司休息。  -- rule: no match: line matched
+  我们有时在学校吃午饭。  -- rule: no match: line matched
+  姐姐正在商场买衣服。  -- rule: no match: line matched
+  弟弟有时晚上不睡觉。  -- rule: no match: line matched
+  爸爸有时在公司吃午饭。  -- rule: no match: line matched
+  孩子们正在外面玩球。  -- rule: no match: line matched
+  她正在跟朋友说话。  -- rule: no match: line matched
+  他们正在外面跑步。  -- rule: no match: line matched
+  有时我和朋友去看电影。  -- rule: no match: line matched
+  姐姐正在跟男朋友打电话。  -- rule: no match: line matched
+  妈妈有时在网上买衣服。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我有时睡得很晚。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  妈妈正做着饭呢,我去帮忙。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (6) ---
+  我有时坐地铁上班。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  爷爷有时在家看书。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  哥哥有时开车去上班。  -- check said no (2/2): 有时 expresses frequency, not action in progress
+  同学有时问我汉语问题。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  爸爸有时做饭,有时妈妈做。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  妹妹有时喝茶,有时喝牛奶。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+
+--- dropped at step 8 (2) ---
+  他正看着电视呢。  -- difficulty review: (2/2); Uses 着 (dynamic particle for ongoing action) which is grammar point 2-33, taught at HSK 2 but combining 正 + 着 + 呢 together creates a construction beyond the basic 正在 pattern taught at this level
+  同学们正在考试,请别说话。  -- difficulty review: (1/2); 们 (plural suffix) is HSK 3+, not HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-11_level2_20261114_145634.csv
+
+########## guard check  2026-11-14 16:05 ##########
+Not used as a guard for 1-42: it still flags 3 of its examples, e.g. 你正在开车，不可以玩手机。
+
+########## tatoeba  2026-11-14 16:07 ##########
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 2 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_160753.txt
+  ...100/227
+  ...200/227
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 1 check and 0 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 1-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      545  2. contain the point's word(s)
+      534  3. new (not in DB, not a duplicate)
+      227  4. at most 2 characters outside HSK 2 words
+       10  5. really HSK 2
+        8  5b. no harder grammar point (of the 43 with a rule)
+        1  6. the rule finds 1-11
+        1  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (11) ---
+  我妻子正在做饭。  -- already in the database
+  我正在吃东西。  -- already in the database
+  我想和你一起去，但是我没有时间。  -- already in the database
+  因为他们正在看电视。  -- already in the database
+  跟她说我正在吃东西。  -- already in the database
+  跟她说我正在开车。  -- already in the database
+  你没有时间了。  -- already in the database
+  他们有时帮我们。  -- already in the database
+  我觉得你正在做的是错的。  -- already in the database
+  爱丽丝正在自己的房间里睡觉。  -- already in the database
+  他们正在洗他们的苹果。  -- already in the database
+
+--- dropped at step 4 (307), first 12 ---
+  我正在在波士顿读博士。  -- 3 characters no HSK 2 word uses: 博波顿
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  有时候外婆比克格勃还危险。  -- 6 characters no HSK 2 word uses: 克勃危婆格险
+  公共汽车的停车站正好坐落在我的住所前面。  -- 4 characters no HSK 2 word uses: 停共汽落
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  现在中国公认的标准旗袍的现代版本是首先在上海发展起来的。  -- 9 characters no HSK 2 word uses: 代发展旗标海版袍首
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  她不是这间公司正式的职员。  -- 3 characters no HSK 2 word uses: 员式职
+  这意味着一种轻松有趣的工作氛围，团队成就受到高度重视，沟通很重要，传统的3小时会议已被排队喝咖啡的非正式聊天取代。  -- 24 characters no HSK 2 word uses: 代传取受味团围度式成排松氛沟种统聊被议趣轻通重队
+  先生，我们可以检查一下您的行李吗？  -- 4 characters no HSK 2 word uses: 李查检行
+
+--- dropped at step 5 (217), first 12 ---
+  我马上就到了。  -- level 3: 马上 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3
+  那是一个真正的人。  -- level 4: 真正 L4
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  先生，请别生我的气！我是新来的工人！  -- level 4: 生 L4, 气 L4, 工人 L4
+  她是一位真正的美人。  -- level 4: 真正 L4, 美 L4
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  我马上要上ＱＱ了。  -- level 3: 马上 L3
+  是的，我马上来。  -- level 3: 马上 L3
+  我现在正忙于写一本书。  -- level 6: 于 L6
+  你在说话前应该先思考。  -- level 5: 应该 L3, 先 L3, 思考 L5
+  电话正在响。  -- level 4: 响 L4
+
+--- dropped at step 5b (2) ---
+  我正在去第四医院的路上。  -- harder grammar: 3-01 (HSK 3)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (7) ---
+  有时我去，有时不去。  -- rule: no match: line matched
+  正是这个意思！  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  汤姆正在自己房间里看书。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  你认识高先生吗？  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  我正要给你打电话。  -- check said no (2/2): 正要 expresses imminent action, not action in progress
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-11_level2_20261114_160758.csv
+
+########## ai  2026-11-14 16:11 ##########
+
+----- AI-written sentences for 1-11, round 1: 79 to check, 6 needed -----
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 79
+
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 1-11 at HSK 2: funnel ===
+       79  AI-written sentences
+       79  1. have an English translation
+       68  2. contain the point's word(s)
+       62  3. new (not in DB, not a duplicate)
+       43  4. at most 0 characters outside HSK 2 words
+       25  5. really HSK 2
+       25  5b. no harder grammar point (of the 43 with a rule)
+       10  6. the rule finds 1-11
+        8  6b. no hidden word a learner can't work out
+        2  7. both checks say 1-11, English chosen
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (6) ---
+  他们正在上课,别进去。  -- already in the course or chosen from Tatoeba
+  外面正下着雨呢。  -- already in the course or chosen from Tatoeba
+  妹妹正唱着歌呢。  -- already in the course or chosen from Tatoeba
+  爸爸正在洗车。  -- already in the course or chosen from Tatoeba
+  弟弟正在洗衣服。  -- already in the course or chosen from Tatoeba
+  女儿正在画画。  -- already in the course or chosen from Tatoeba
+
+--- dropped at step 4 (19), first 12 ---
+  你先坐吧,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  老师马上到教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上回家。  -- 1 characters no HSK 2 word uses: 马
+  火车马上开了。  -- 1 characters no HSK 2 word uses: 马
+  你们先走,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上上课了,快进教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上给你打电话。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,你再等一下。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,请你在门口等我。  -- 1 characters no HSK 2 word uses: 马
+  我先喝杯茶,马上做饭。  -- 1 characters no HSK 2 word uses: 马
+  你们先看书,老师马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上要下雨了,快回家。  -- 1 characters no HSK 2 word uses: 马
+
+--- dropped at step 5 (18), first 12 ---
+  我们先吃饭吧。  -- level 3: 先 L3
+  他正在打电话,你先等等。  -- level 3: 先 L3
+  你先喝水,我去拿面包。  -- level 3: 先 L3
+  她正在学汉语。  -- level 1: no list words
+  我先去洗手间。  -- level 3: 先 L3
+  你先说,我听着呢。  -- level 3: 先 L3
+  你先写名字吧。  -- level 3: 先 L3
+  天气很冷,我先穿件衣服。  -- level 3: 先 L3
+  妹妹正在喝牛奶。  -- level 1: no list words
+  请先给我一杯水。  -- level 3: 先 L3
+  你先去,我正忙着呢。  -- level 3: 先 L3
+  你先看这本书吧。  -- level 3: 先 L3
+
+--- dropped at step 6 (15) ---
+  妈妈正在给奶奶打电话。  -- rule: no match: line matched
+  老师有时给我们看电影。  -- rule: no match: line matched
+  哥哥正在家里上网。  -- rule: no match: line matched
+  他有时不吃早饭。  -- rule: no match: line matched
+  他中午有时在公司休息。  -- rule: no match: line matched
+  我们有时在学校吃午饭。  -- rule: no match: line matched
+  姐姐正在商场买衣服。  -- rule: no match: line matched
+  弟弟有时晚上不睡觉。  -- rule: no match: line matched
+  爸爸有时在公司吃午饭。  -- rule: no match: line matched
+  孩子们正在外面玩球。  -- rule: no match: line matched
+  她正在跟朋友说话。  -- rule: no match: line matched
+  他们正在外面跑步。  -- rule: no match: line matched
+  有时我和朋友去看电影。  -- rule: no match: line matched
+  姐姐正在跟男朋友打电话。  -- rule: no match: line matched
+  妈妈有时在网上买衣服。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我有时睡得很晚。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  妈妈正做着饭呢,我去帮忙。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (6) ---
+  我有时坐地铁上班。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  爷爷有时在家看书。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  哥哥有时开车去上班。  -- check said no (2/2): 有时 expresses frequency, not action in progress
+  同学有时问我汉语问题。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  爸爸有时做饭,有时妈妈做。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  妹妹有时喝茶,有时喝牛奶。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+
+--- dropped at step 8 (2) ---
+  他正看着电视呢。  -- difficulty review: (2/2); Uses 着 (dynamic particle for ongoing action) which is grammar point 2-33, taught at HSK 2 but combining 正 + 着 + 呢 together creates a construction beyond the basic 正在 pattern taught at this level
+  同学们正在考试,请别说话。  -- difficulty review: (1/2); 们 (plural suffix) is HSK 3+, not HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-11_level2_20261114_161152.csv
+  Asking claude-sonnet-5-5 to write 15 sentence(s)...
+
+----- AI-written sentences for 1-11, round 2: 94 to check, 6 needed -----
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 94
+
+Tagging 10 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161204.txt
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-11 at HSK 2: funnel ===
+       94  AI-written sentences
+       94  1. have an English translation
+       81  2. contain the point's word(s)
+       75  3. new (not in DB, not a duplicate)
+       53  4. at most 0 characters outside HSK 2 words
+       32  5. really HSK 2
+       32  5b. no harder grammar point (of the 43 with a rule)
+       13  6. the rule finds 1-11
+       11  6b. no hidden word a learner can't work out
+        4  7. both checks say 1-11, English chosen
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (6) ---
+  他们正在上课,别进去。  -- already in the course or chosen from Tatoeba
+  外面正下着雨呢。  -- already in the course or chosen from Tatoeba
+  妹妹正唱着歌呢。  -- already in the course or chosen from Tatoeba
+  爸爸正在洗车。  -- already in the course or chosen from Tatoeba
+  弟弟正在洗衣服。  -- already in the course or chosen from Tatoeba
+  女儿正在画画。  -- already in the course or chosen from Tatoeba
+
+--- dropped at step 4 (22), first 12 ---
+  你先坐吧,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  老师马上到教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上回家。  -- 1 characters no HSK 2 word uses: 马
+  火车马上开了。  -- 1 characters no HSK 2 word uses: 马
+  你们先走,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上上课了,快进教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上给你打电话。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,你再等一下。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,请你在门口等我。  -- 1 characters no HSK 2 word uses: 马
+  我先喝杯茶,马上做饭。  -- 1 characters no HSK 2 word uses: 马
+  你们先看书,老师马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上要下雨了,快回家。  -- 1 characters no HSK 2 word uses: 马
+
+--- dropped at step 5 (21), first 12 ---
+  我们先吃饭吧。  -- level 3: 先 L3
+  他正在打电话,你先等等。  -- level 3: 先 L3
+  你先喝水,我去拿面包。  -- level 3: 先 L3
+  她正在学汉语。  -- level 1: no list words
+  我先去洗手间。  -- level 3: 先 L3
+  你先说,我听着呢。  -- level 3: 先 L3
+  你先写名字吧。  -- level 3: 先 L3
+  天气很冷,我先穿件衣服。  -- level 3: 先 L3
+  妹妹正在喝牛奶。  -- level 1: no list words
+  请先给我一杯水。  -- level 3: 先 L3
+  你先去,我正忙着呢。  -- level 3: 先 L3
+  你先看这本书吧。  -- level 3: 先 L3
+
+--- dropped at step 6 (19) ---
+  妈妈正在给奶奶打电话。  -- rule: no match: line matched
+  老师有时给我们看电影。  -- rule: no match: line matched
+  哥哥正在家里上网。  -- rule: no match: line matched
+  他有时不吃早饭。  -- rule: no match: line matched
+  他中午有时在公司休息。  -- rule: no match: line matched
+  我们有时在学校吃午饭。  -- rule: no match: line matched
+  姐姐正在商场买衣服。  -- rule: no match: line matched
+  弟弟有时晚上不睡觉。  -- rule: no match: line matched
+  爸爸有时在公司吃午饭。  -- rule: no match: line matched
+  孩子们正在外面玩球。  -- rule: no match: line matched
+  她正在跟朋友说话。  -- rule: no match: line matched
+  他们正在外面跑步。  -- rule: no match: line matched
+  有时我和朋友去看电影。  -- rule: no match: line matched
+  姐姐正在跟男朋友打电话。  -- rule: no match: line matched
+  妈妈有时在网上买衣服。  -- rule: no match: line matched
+  我有时在路上买包子。  -- rule: no match: line matched
+  奶奶正在医院看病。  -- rule: no match: line matched
+  哥哥有时晚上打篮球。  -- rule: no match: line matched
+  弟弟有时跟朋友一起踢足球。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我有时睡得很晚。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  妈妈正做着饭呢,我去帮忙。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (7) ---
+  我有时坐地铁上班。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  爷爷有时在家看书。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  哥哥有时开车去上班。  -- check said no (2/2): 有时 expresses frequency, not action in progress
+  同学有时问我汉语问题。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  她有时喝茶,有时喝咖啡。  -- check said no (2/2): 有时 means 'sometimes'; not expressing actions in progress
+  爸爸有时做饭,有时妈妈做。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  妹妹有时喝茶,有时喝牛奶。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+
+--- dropped at step 8 (4) ---
+  他正看着电视呢。  -- difficulty review: (2/2); Uses 着 (dynamic particle for ongoing action) which is grammar point 2-33, taught at HSK 2 but combining 正 + 着 + 呢 together creates a construction beyond the basic 正在 pattern taught at this level
+  同学们正在考试,请别说话。  -- difficulty review: (1/2); 们 (plural suffix) is HSK 3+, not HSK 2
+  我正吃着饭呢,你等一会儿。  -- difficulty review: (1/2); no answer from the review
+  爸爸正开着车呢,别给他打电话。  -- difficulty review: (1/2); no answer from the review
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-11_level2_20261114_161212.csv
+  Asking claude-sonnet-5-5 to write 15 sentence(s)...
+
+----- AI-written sentences for 1-11, round 3: 108 to check, 6 needed -----
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 108
+
+Tagging 11 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161223.txt
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 14  -> Tatoeba needs to add 6 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-11 at HSK 2: funnel ===
+      108  AI-written sentences
+      108  1. have an English translation
+       95  2. contain the point's word(s)
+       89  3. new (not in DB, not a duplicate)
+       64  4. at most 0 characters outside HSK 2 words
+       39  5. really HSK 2
+       39  5b. no harder grammar point (of the 43 with a rule)
+       18  6. the rule finds 1-11
+       16  6b. no hidden word a learner can't work out
+        6  7. both checks say 1-11, English chosen
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (6) ---
+  他们正在上课,别进去。  -- already in the course or chosen from Tatoeba
+  外面正下着雨呢。  -- already in the course or chosen from Tatoeba
+  妹妹正唱着歌呢。  -- already in the course or chosen from Tatoeba
+  爸爸正在洗车。  -- already in the course or chosen from Tatoeba
+  弟弟正在洗衣服。  -- already in the course or chosen from Tatoeba
+  女儿正在画画。  -- already in the course or chosen from Tatoeba
+
+--- dropped at step 4 (25), first 12 ---
+  你先坐吧,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  老师马上到教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上回家。  -- 1 characters no HSK 2 word uses: 马
+  火车马上开了。  -- 1 characters no HSK 2 word uses: 马
+  你们先走,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上上课了,快进教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上给你打电话。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,你再等一下。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,请你在门口等我。  -- 1 characters no HSK 2 word uses: 马
+  我先喝杯茶,马上做饭。  -- 1 characters no HSK 2 word uses: 马
+  你们先看书,老师马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上要下雨了,快回家。  -- 1 characters no HSK 2 word uses: 马
+
+--- dropped at step 5 (25), first 12 ---
+  我们先吃饭吧。  -- level 3: 先 L3
+  他正在打电话,你先等等。  -- level 3: 先 L3
+  你先喝水,我去拿面包。  -- level 3: 先 L3
+  她正在学汉语。  -- level 1: no list words
+  我先去洗手间。  -- level 3: 先 L3
+  你先说,我听着呢。  -- level 3: 先 L3
+  你先写名字吧。  -- level 3: 先 L3
+  天气很冷,我先穿件衣服。  -- level 3: 先 L3
+  妹妹正在喝牛奶。  -- level 1: no list words
+  请先给我一杯水。  -- level 3: 先 L3
+  你先去,我正忙着呢。  -- level 3: 先 L3
+  你先看这本书吧。  -- level 3: 先 L3
+
+--- dropped at step 6 (21) ---
+  妈妈正在给奶奶打电话。  -- rule: no match: line matched
+  老师有时给我们看电影。  -- rule: no match: line matched
+  哥哥正在家里上网。  -- rule: no match: line matched
+  他有时不吃早饭。  -- rule: no match: line matched
+  他中午有时在公司休息。  -- rule: no match: line matched
+  我们有时在学校吃午饭。  -- rule: no match: line matched
+  姐姐正在商场买衣服。  -- rule: no match: line matched
+  弟弟有时晚上不睡觉。  -- rule: no match: line matched
+  爸爸有时在公司吃午饭。  -- rule: no match: line matched
+  孩子们正在外面玩球。  -- rule: no match: line matched
+  她正在跟朋友说话。  -- rule: no match: line matched
+  他们正在外面跑步。  -- rule: no match: line matched
+  有时我和朋友去看电影。  -- rule: no match: line matched
+  姐姐正在跟男朋友打电话。  -- rule: no match: line matched
+  妈妈有时在网上买衣服。  -- rule: no match: line matched
+  我有时在路上买包子。  -- rule: no match: line matched
+  奶奶正在医院看病。  -- rule: no match: line matched
+  哥哥有时晚上打篮球。  -- rule: no match: line matched
+  弟弟有时跟朋友一起踢足球。  -- rule: no match: line matched
+  孩子们正在外面玩儿呢。  -- rule: no match: line matched
+  我有时在网上买东西。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我有时睡得很晚。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  妈妈正做着饭呢,我去帮忙。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (10) ---
+  我有时坐地铁上班。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  爷爷有时在家看书。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  姐姐有时下班很晚。  -- check said no (2/2): 有时 means 'sometimes', not actions in progress
+  哥哥有时开车去上班。  -- check said no (2/2): 有时 expresses frequency, not action in progress
+  他有时去朋友家玩儿。  -- check said no (2/2): 有时 means 'sometimes', not actions in progress
+  同学有时问我汉语问题。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  她有时喝茶,有时喝咖啡。  -- check said no (2/2): 有时 means 'sometimes'; not expressing actions in progress
+  老师有时坐公交车来学校。  -- check said no (2/2): 有时 means 'sometimes', not actions in progress
+  爸爸有时做饭,有时妈妈做。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  妹妹有时喝茶,有时喝牛奶。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+
+--- dropped at step 8 (6) ---
+  他正看着电视呢。  -- difficulty review: (2/2); Uses 着 (dynamic particle for ongoing action) which is grammar point 2-33, taught at HSK 2 but combining 正 + 着 + 呢 together creates a construction beyond the basic 正在 pattern taught at this level
+  爸爸正喝着茶呢。  -- difficulty review: (1/2); Uses 正...着...呢 pattern (continuous action) which combines 1-11 (正) with 2-33 (着) and 2-34 (呢) - the 着...呢 combination for expressing ongoing action is HSK 3 level grammar
+  哥哥正看着书呢,别说话。  -- difficulty review: (2/2); uses 别 as an imperative negation; 别 is taught at HSK 3+, not HSK 2
+  同学们正在考试,请别说话。  -- difficulty review: (1/2); 们 (plural suffix) is HSK 3+, not HSK 2
+  我正吃着饭呢,你等一会儿。  -- difficulty review: (1/2); Uses 正...着...呢 pattern (continuous action) which combines 1-11 (正) with 2-33 (着) and 2-34 (呢) - the 着...呢 combination for expressing ongoing action is HSK 3 level grammar
+  爸爸正开着车呢,别给他打电话。  -- difficulty review: (1/2); Uses 正...着...呢 pattern (continuous action) which combines 1-11 (正) with 2-33 (着) and 2-34 (呢) - the 着...呢 combination for expressing ongoing action is HSK 3 level grammar
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-11_level2_20261114_161231.csv
+
+########## guard check  2026-11-14 16:29 ##########
+Not used as a guard for 1-42: it still flags 3 of its examples, e.g. 你正在开车，不可以玩手机。
+
+########## tatoeba  2026-11-14 16:29 ##########
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 3 check and 1 review rejection(s)...
+
+=== 1-11 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      545  2. contain the point's word(s)
+      545  3. new (not in DB, not a duplicate)
+      238  4. at most 2 characters outside HSK 2 words
+       19  5. really HSK 2
+       17  5b. no harder grammar point (of the 43 with a rule)
+        9  6. the rule finds 1-11
+        9  6b. no hidden word a learner can't work out
+        6  7. both checks say 1-11, English chosen
+        2  7b. second opinion: it is the point (check)
+        5  8. both difficulty reviews pass it
+        2  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (8) ===
+  我妻子正在做饭。  (My wife is cooking right now.)  [tatoeba 408275]
+  跟她说我正在开车。  (Tell her that I am driving.)  [tatoeba 5401613]
+  因为他们正在看电视。  (Because they're watching television.)  [tatoeba 4859594]
+  跟她说我正在吃东西。  (Tell her that I am eating.)  [tatoeba 5401610]
+  他们正在洗他们的苹果。  (They're washing their apples.)  [tatoeba 13167252]
+  他们有时帮我们。  (They sometimes help us.)  [tatoeba 6635888]
+  我觉得你正在做的是错的。  (I think what you're doing is wrong.)  [tatoeba 8795145]
+  爱丽丝正在自己的房间里睡觉。  (Alice is sleeping in her room.)  [tatoeba 8920787]
+
+--- dropped at step 4 (307), first 12 ---
+  我正在在波士顿读博士。  -- 3 characters no HSK 2 word uses: 博波顿
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  有时候外婆比克格勃还危险。  -- 6 characters no HSK 2 word uses: 克勃危婆格险
+  公共汽车的停车站正好坐落在我的住所前面。  -- 4 characters no HSK 2 word uses: 停共汽落
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  Scott先用一只手表换了一本书，再把书换成钱。  -- 4 characters no HSK 2 word uses: 成把换用
+  首先，因为海水变热时膨胀，海平面可能提高。  -- 7 characters no HSK 2 word uses: 变平提海胀膨首
+  现在中国公认的标准旗袍的现代版本是首先在上海发展起来的。  -- 9 characters no HSK 2 word uses: 代发展旗标海版袍首
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  她不是这间公司正式的职员。  -- 3 characters no HSK 2 word uses: 员式职
+  这意味着一种轻松有趣的工作氛围，团队成就受到高度重视，沟通很重要，传统的3小时会议已被排队喝咖啡的非正式聊天取代。  -- 24 characters no HSK 2 word uses: 代传取受味团围度式成排松氛沟种统聊被议趣轻通重队
+  先生，我们可以检查一下您的行李吗？  -- 4 characters no HSK 2 word uses: 李查检行
+
+--- dropped at step 5 (219), first 12 ---
+  我马上就到了。  -- level 3: 马上 L3
+  我们先吃饭，然后再走。  -- level 3: 先 L3, 然后 L3
+  那是一个真正的人。  -- level 4: 真正 L4
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  先生，请别生我的气！我是新来的工人！  -- level 4: 生 L4, 气 L4, 工人 L4
+  她是一位真正的美人。  -- level 4: 真正 L4, 美 L4
+  你说的完全正确！  -- level 4: 完全 L4, 正确 L4
+  我马上要上ＱＱ了。  -- level 3: 马上 L3
+  是的，我马上来。  -- level 3: 马上 L3
+  我现在正忙于写一本书。  -- level 6: 于 L6
+  你在说话前应该先思考。  -- level 5: 应该 L3, 先 L3, 思考 L5
+  电话正在响。  -- level 4: 响 L4
+
+--- dropped at step 5b (2) ---
+  我正在去第四医院的路上。  -- harder grammar: 3-01 (HSK 3)
+  这位贝先生什么事做不出来啊！  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (8) ---
+  有时我去，有时不去。  -- rule: no match: line matched
+  正是这个意思！  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: no match: line matched
+  让我们现在回到正题上好不好？  -- rule: no match: line matched
+  汤姆正在自己房间里看书。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  你认识高先生吗？  -- rule: no match: line matched
+  这正是我要说的。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  我正要给你打电话。  -- check said no (2/2): 正要 expresses imminent action, not action in progress
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-11_level2_20261114_162943.csv
+
+########## ai  2026-11-14 16:33 ##########
+
+----- AI-written sentences for 1-11, round 1: 108 to check, 11 needed -----
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 108
+
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 11 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 1-11 at HSK 2: funnel ===
+      108  AI-written sentences
+      108  1. have an English translation
+       95  2. contain the point's word(s)
+       95  3. new (not in DB, not a duplicate)
+       70  4. at most 0 characters outside HSK 2 words
+       45  5. really HSK 2
+       45  5b. no harder grammar point (of the 43 with a rule)
+       24  6. the rule finds 1-11
+       22  6b. no hidden word a learner can't work out
+       12  7. both checks say 1-11, English chosen
+        6  8. both difficulty reviews pass it
+
+=== Survivors (6) ===
+  爸爸正在洗车。  (Dad is washing the car right now.)  [tatoeba ai-c217201b16]
+  女儿正在画画。  (My daughter is drawing right now.)  [tatoeba ai-89b31d6617]  hidden: 画画
+  外面正下着雨呢。  (It's raining outside right now.)  [tatoeba ai-2460aa32fd]
+  妹妹正唱着歌呢。  (My younger sister is singing right now.)  [tatoeba ai-18f9c00748]
+  弟弟正在洗衣服。  (My younger brother is washing clothes right now.)  [tatoeba ai-06e12021fa]
+  他们正在上课,别进去。  (They're in class right now. Don't go in.)  [tatoeba ai-bc971a56ec]
+
+--- dropped at step 4 (25), first 12 ---
+  你先坐吧,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  老师马上到教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上回家。  -- 1 characters no HSK 2 word uses: 马
+  火车马上开了。  -- 1 characters no HSK 2 word uses: 马
+  你们先走,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上上课了,快进教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上给你打电话。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,你再等一下。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,请你在门口等我。  -- 1 characters no HSK 2 word uses: 马
+  我先喝杯茶,马上做饭。  -- 1 characters no HSK 2 word uses: 马
+  你们先看书,老师马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上要下雨了,快回家。  -- 1 characters no HSK 2 word uses: 马
+
+--- dropped at step 5 (25), first 12 ---
+  我们先吃饭吧。  -- level 3: 先 L3
+  他正在打电话,你先等等。  -- level 3: 先 L3
+  你先喝水,我去拿面包。  -- level 3: 先 L3
+  她正在学汉语。  -- level 1: no list words
+  我先去洗手间。  -- level 3: 先 L3
+  你先说,我听着呢。  -- level 3: 先 L3
+  你先写名字吧。  -- level 3: 先 L3
+  天气很冷,我先穿件衣服。  -- level 3: 先 L3
+  妹妹正在喝牛奶。  -- level 1: no list words
+  请先给我一杯水。  -- level 3: 先 L3
+  你先去,我正忙着呢。  -- level 3: 先 L3
+  你先看这本书吧。  -- level 3: 先 L3
+
+--- dropped at step 6 (21) ---
+  妈妈正在给奶奶打电话。  -- rule: no match: line matched
+  老师有时给我们看电影。  -- rule: no match: line matched
+  哥哥正在家里上网。  -- rule: no match: line matched
+  他有时不吃早饭。  -- rule: no match: line matched
+  他中午有时在公司休息。  -- rule: no match: line matched
+  我们有时在学校吃午饭。  -- rule: no match: line matched
+  姐姐正在商场买衣服。  -- rule: no match: line matched
+  弟弟有时晚上不睡觉。  -- rule: no match: line matched
+  爸爸有时在公司吃午饭。  -- rule: no match: line matched
+  孩子们正在外面玩球。  -- rule: no match: line matched
+  她正在跟朋友说话。  -- rule: no match: line matched
+  他们正在外面跑步。  -- rule: no match: line matched
+  有时我和朋友去看电影。  -- rule: no match: line matched
+  姐姐正在跟男朋友打电话。  -- rule: no match: line matched
+  妈妈有时在网上买衣服。  -- rule: no match: line matched
+  我有时在路上买包子。  -- rule: no match: line matched
+  奶奶正在医院看病。  -- rule: no match: line matched
+  哥哥有时晚上打篮球。  -- rule: no match: line matched
+  弟弟有时跟朋友一起踢足球。  -- rule: no match: line matched
+  孩子们正在外面玩儿呢。  -- rule: no match: line matched
+  我有时在网上买东西。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我有时睡得很晚。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  妈妈正做着饭呢,我去帮忙。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (10) ---
+  我有时坐地铁上班。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  爷爷有时在家看书。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  姐姐有时下班很晚。  -- check said no (2/2): 有时 means 'sometimes', not actions in progress
+  哥哥有时开车去上班。  -- check said no (2/2): 有时 expresses frequency, not action in progress
+  他有时去朋友家玩儿。  -- check said no (2/2): 有时 means 'sometimes', not actions in progress
+  同学有时问我汉语问题。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  她有时喝茶,有时喝咖啡。  -- check said no (2/2): 有时 means 'sometimes'; not expressing actions in progress
+  老师有时坐公交车来学校。  -- check said no (2/2): 有时 means 'sometimes', not actions in progress
+  爸爸有时做饭,有时妈妈做。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  妹妹有时喝茶,有时喝牛奶。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+
+--- dropped at step 8 (6) ---
+  他正看着电视呢。  -- difficulty review: (2/2); Uses 着 (dynamic particle for ongoing action) which is grammar point 2-33, taught at HSK 2 but combining 正 + 着 + 呢 together creates a construction beyond the basic 正在 pattern taught at this level
+  爸爸正喝着茶呢。  -- difficulty review: (1/2); Uses 正...着...呢 pattern (continuous action) which combines 1-11 (正) with 2-33 (着) and 2-34 (呢) - the 着...呢 combination for expressing ongoing action is HSK 3 level grammar
+  哥哥正看着书呢,别说话。  -- difficulty review: (2/2); uses 别 as an imperative negation; 别 is taught at HSK 3+, not HSK 2
+  同学们正在考试,请别说话。  -- difficulty review: (1/2); 们 (plural suffix) is HSK 3+, not HSK 2
+  我正吃着饭呢,你等一会儿。  -- difficulty review: (1/2); Uses 正...着...呢 pattern (continuous action) which combines 1-11 (正) with 2-33 (着) and 2-34 (呢) - the 着...呢 combination for expressing ongoing action is HSK 3 level grammar
+  爸爸正开着车呢,别给他打电话。  -- difficulty review: (1/2); Uses 正...着...呢 pattern (continuous action) which combines 1-11 (正) with 2-33 (着) and 2-34 (呢) - the 着...呢 combination for expressing ongoing action is HSK 3 level grammar
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-11_level2_20261114_163302.csv
+  Asking claude-sonnet-5-5 to write 13 sentence(s)...
+
+----- AI-written sentences for 1-11, round 2: 120 to check, 11 needed -----
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 120
+
+Tagging 7 AI-written sentence(s) (cached after this run)...
+  Written without 儿, counted as the list word: 一会=一会儿 一点=一点儿 个头=个头儿 人缘=人缘儿 冰棍=冰棍儿 大伙=大伙儿 女孩=女孩儿 好玩=好玩儿 小偷=小偷儿 小孩=小孩儿 差点=差点儿 干活=干活儿 心眼=心眼儿 打盹=打盹儿 有点=有点儿 模特=模特儿 没准=没准儿 没法=没法儿 玩意=玩意儿 男孩=男孩儿 离谱=离谱儿 纳闷=纳闷儿 老伴=老伴儿 聊天=聊天儿 面条=面条儿
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_163312.txt
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 11 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-11 at HSK 2: funnel ===
+      120  AI-written sentences
+      120  1. have an English translation
+      105  2. contain the point's word(s)
+      105  3. new (not in DB, not a duplicate)
+       77  4. at most 0 characters outside HSK 2 words
+       49  5. really HSK 2
+       49  5b. no harder grammar point (of the 43 with a rule)
+       27  6. the rule finds 1-11
+       25  6b. no hidden word a learner can't work out
+       14  7. both checks say 1-11, English chosen
+        7  8. both difficulty reviews pass it
+
+=== Survivors (7) ===
+  爸爸正在洗车。  (Dad is washing the car right now.)  [tatoeba ai-c217201b16]
+  女儿正在画画。  (My daughter is drawing right now.)  [tatoeba ai-89b31d6617]  hidden: 画画
+  外面正下着雨呢。  (It's raining outside right now.)  [tatoeba ai-2460aa32fd]
+  妹妹正唱着歌呢。  (My younger sister is singing right now.)  [tatoeba ai-18f9c00748]
+  弟弟正在洗衣服。  (My younger brother is washing clothes right now.)  [tatoeba ai-06e12021fa]
+  妹妹正写着字呢。  (My younger sister is writing characters right now.)  [tatoeba ai-3be49b7960]
+  他们正在上课,别进去。  (They're in class right now. Don't go in.)  [tatoeba ai-bc971a56ec]
+
+--- dropped at step 4 (28), first 12 ---
+  你先坐吧,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  老师马上到教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上回家。  -- 1 characters no HSK 2 word uses: 马
+  火车马上开了。  -- 1 characters no HSK 2 word uses: 马
+  你们先走,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上上课了,快进教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上给你打电话。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,你再等一下。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,请你在门口等我。  -- 1 characters no HSK 2 word uses: 马
+  我先喝杯茶,马上做饭。  -- 1 characters no HSK 2 word uses: 马
+  你们先看书,老师马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上要下雨了,快回家。  -- 1 characters no HSK 2 word uses: 马
+
+--- dropped at step 5 (28), first 12 ---
+  我们先吃饭吧。  -- level 3: 先 L3
+  他正在打电话,你先等等。  -- level 3: 先 L3
+  你先喝水,我去拿面包。  -- level 3: 先 L3
+  她正在学汉语。  -- level 1: no list words
+  我先去洗手间。  -- level 3: 先 L3
+  你先说,我听着呢。  -- level 3: 先 L3
+  你先写名字吧。  -- level 3: 先 L3
+  天气很冷,我先穿件衣服。  -- level 3: 先 L3
+  妹妹正在喝牛奶。  -- level 1: no list words
+  请先给我一杯水。  -- level 3: 先 L3
+  你先去,我正忙着呢。  -- level 3: 先 L3
+  你先看这本书吧。  -- level 3: 先 L3
+
+--- dropped at step 6 (22) ---
+  妈妈正在给奶奶打电话。  -- rule: no match: line matched
+  老师有时给我们看电影。  -- rule: no match: line matched
+  哥哥正在家里上网。  -- rule: no match: line matched
+  他有时不吃早饭。  -- rule: no match: line matched
+  他中午有时在公司休息。  -- rule: no match: line matched
+  我们有时在学校吃午饭。  -- rule: no match: line matched
+  姐姐正在商场买衣服。  -- rule: no match: line matched
+  弟弟有时晚上不睡觉。  -- rule: no match: line matched
+  爸爸有时在公司吃午饭。  -- rule: no match: line matched
+  孩子们正在外面玩球。  -- rule: no match: line matched
+  她正在跟朋友说话。  -- rule: no match: line matched
+  他们正在外面跑步。  -- rule: no match: line matched
+  有时我和朋友去看电影。  -- rule: no match: line matched
+  姐姐正在跟男朋友打电话。  -- rule: no match: line matched
+  妈妈有时在网上买衣服。  -- rule: no match: line matched
+  我有时在路上买包子。  -- rule: no match: line matched
+  奶奶正在医院看病。  -- rule: no match: line matched
+  哥哥有时晚上打篮球。  -- rule: no match: line matched
+  弟弟有时跟朋友一起踢足球。  -- rule: no match: line matched
+  孩子们正在外面玩儿呢。  -- rule: no match: line matched
+  我有时在网上买东西。  -- rule: no match: line matched
+  老师正在给我们上课。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我有时睡得很晚。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  妈妈正做着饭呢,我去帮忙。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (11) ---
+  我有时坐地铁上班。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  爷爷有时在家看书。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  姐姐有时下班很晚。  -- check said no (2/2): 有时 means 'sometimes', not actions in progress
+  哥哥有时开车去上班。  -- check said no (2/2): 有时 expresses frequency, not action in progress
+  他有时去朋友家玩儿。  -- check said no (2/2): 有时 means 'sometimes', not actions in progress
+  同学有时问我汉语问题。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  我有时坐公交车去学校。  -- check said no (2/2): 有时 (sometimes) is temporal adverb, not 在/正在/正 for ongoing action
+  她有时喝茶,有时喝咖啡。  -- check said no (2/2): 有时 means 'sometimes'; not expressing actions in progress
+  老师有时坐公交车来学校。  -- check said no (2/2): 有时 means 'sometimes', not actions in progress
+  爸爸有时做饭,有时妈妈做。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  妹妹有时喝茶,有时喝牛奶。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+
+--- dropped at step 8 (7) ---
+  他正看着电视呢。  -- difficulty review: (2/2); Uses 着 (dynamic particle for ongoing action) which is grammar point 2-33, taught at HSK 2 but combining 正 + 着 + 呢 together creates a construction beyond the basic 正在 pattern taught at this level
+  爸爸正喝着茶呢。  -- difficulty review: (1/2); Uses 正...着...呢 pattern (continuous action) which combines 1-11 (正) with 2-33 (着) and 2-34 (呢) - the 着...呢 combination for expressing ongoing action is HSK 3 level grammar
+  爸爸正喝着茶看电视呢。  -- difficulty review: (1/2); Uses 着 (2-33, continuous aspect marker) combined with 正 in a way that creates a complex progressive construction with two verbs that goes beyond HSK 2 level
+  哥哥正看着书呢,别说话。  -- difficulty review: (2/2); uses 别 as an imperative negation; 别 is taught at HSK 3+, not HSK 2
+  同学们正在考试,请别说话。  -- difficulty review: (1/2); 们 (plural suffix) is HSK 3+, not HSK 2
+  我正吃着饭呢,你等一会儿。  -- difficulty review: (1/2); Uses 正...着...呢 pattern (continuous action) which combines 1-11 (正) with 2-33 (着) and 2-34 (呢) - the 着...呢 combination for expressing ongoing action is HSK 3 level grammar
+  爸爸正开着车呢,别给他打电话。  -- difficulty review: (1/2); Uses 正...着...呢 pattern (continuous action) which combines 1-11 (正) with 2-33 (着) and 2-34 (呢) - the 着...呢 combination for expressing ongoing action is HSK 3 level grammar
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-11_level2_20261114_163325.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+
+----- AI-written sentences for 1-11, round 3: 128 to check, 11 needed -----
+Filling 1-11 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 128
+
+Tagging 6 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_163338.txt
+
+Course sentences at HSK 2 the rule already finds 1-11 in: 1  -> Tatoeba needs to add 11 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-11 at HSK 2: funnel ===
+      128  AI-written sentences
+      128  1. have an English translation
+      113  2. contain the point's word(s)
+      113  3. new (not in DB, not a duplicate)
+       83  4. at most 0 characters outside HSK 2 words
+       53  5. really HSK 2
+       53  5b. no harder grammar point (of the 43 with a rule)
+       29  6. the rule finds 1-11
+       27  6b. no hidden word a learner can't work out
+       15  7. both checks say 1-11, English chosen
+        7  8. both difficulty reviews pass it
+
+=== Survivors (7) ===
+  爸爸正在洗车。  (Dad is washing the car right now.)  [tatoeba ai-c217201b16]
+  女儿正在画画。  (My daughter is drawing right now.)  [tatoeba ai-89b31d6617]  hidden: 画画
+  外面正下着雨呢。  (It's raining outside right now.)  [tatoeba ai-2460aa32fd]
+  妹妹正唱着歌呢。  (My younger sister is singing right now.)  [tatoeba ai-18f9c00748]
+  弟弟正在洗衣服。  (My younger brother is washing clothes right now.)  [tatoeba ai-06e12021fa]
+  妹妹正写着字呢。  (My younger sister is writing characters right now.)  [tatoeba ai-3be49b7960]
+  他们正在上课,别进去。  (They're in class right now. Don't go in.)  [tatoeba ai-bc971a56ec]
+
+--- dropped at step 4 (30), first 12 ---
+  你先坐吧,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  老师马上到教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上回家。  -- 1 characters no HSK 2 word uses: 马
+  火车马上开了。  -- 1 characters no HSK 2 word uses: 马
+  你们先走,我马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上上课了,快进教室。  -- 1 characters no HSK 2 word uses: 马
+  我马上给你打电话。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,你再等一下。  -- 1 characters no HSK 2 word uses: 马
+  出租车马上到,请你在门口等我。  -- 1 characters no HSK 2 word uses: 马
+  我先喝杯茶,马上做饭。  -- 1 characters no HSK 2 word uses: 马
+  你们先看书,老师马上来。  -- 1 characters no HSK 2 word uses: 马
+  马上要下雨了,快回家。  -- 1 characters no HSK 2 word uses: 马
+
+--- dropped at step 5 (30), first 12 ---
+  我们先吃饭吧。  -- level 3: 先 L3
+  他正在打电话,你先等等。  -- level 3: 先 L3
+  你先喝水,我去拿面包。  -- level 3: 先 L3
+  她正在学汉语。  -- level 1: no list words
+  我先去洗手间。  -- level 3: 先 L3
+  你先说,我听着呢。  -- level 3: 先 L3
+  你先写名字吧。  -- level 3: 先 L3
+  天气很冷,我先穿件衣服。  -- level 3: 先 L3
+  妹妹正在喝牛奶。  -- level 1: no list words
+  请先给我一杯水。  -- level 3: 先 L3
+  你先去,我正忙着呢。  -- level 3: 先 L3
+  你先看这本书吧。  -- level 3: 先 L3
+
+--- dropped at step 6 (24) ---
+  妈妈正在给奶奶打电话。  -- rule: no match: line matched
+  老师有时给我们看电影。  -- rule: no match: line matched
+  哥哥正在家里上网。  -- rule: no match: line matched
+  他有时不吃早饭。  -- rule: no match: line matched
+  他中午有时在公司休息。  -- rule: no match: line matched
+  我们有时在学校吃午饭。  -- rule: no match: line matched
+  姐姐正在商场买衣服。  -- rule: no match: line matched
+  弟弟有时晚上不睡觉。  -- rule: no match: line matched
+  爸爸有时在公司吃午饭。  -- rule: no match: line matched
+  孩子们正在外面玩球。  -- rule: no match: line matched
+  她正在跟朋友说话。  -- rule: no match: line matched
+  他们正在外面跑步。  -- rule: no match: line matched
+  有时我和朋友去看电影。  -- rule: no match: line matched
+  姐姐正在跟男朋友打电话。  -- rule: no match: line matched
+  妈妈有时在网上买衣服。  -- rule: no match: line matched
+  我有时在路上买包子。  -- rule: no match: line matched
+  奶奶正在医院看病。  -- rule: no match: line matched
+  哥哥有时晚上打篮球。  -- rule: no match: line matched
+  弟弟有时跟朋友一起踢足球。  -- rule: no match: line matched
+  孩子们正在外面玩儿呢。  -- rule: no match: line matched
+  我有时在网上买东西。  -- rule: no match: line matched
+  老师正在给我们上课。  -- rule: no match: line matched
+  我的狗正在门口睡觉呢。  -- rule: no match: line matched
+  同学们正在教室里写汉字。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  我有时睡得很晚。  -- hidden word a learner can't work out: 得很 ((after an adjective) very)
+  妈妈正做着饭呢,我去帮忙。  -- hidden word a learner can't work out: 我去 ((slang) what the ...!; oh my god!; that's insane!)
+
+--- dropped at step 7 (12) ---
+  我有时坐地铁上班。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  爷爷有时在家看书。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  姐姐有时下班很晚。  -- check said no (2/2): 有时 means 'sometimes', not actions in progress
+  哥哥有时开车去上班。  -- check said no (2/2): 有时 expresses frequency, not action in progress
+  他有时去朋友家玩儿。  -- check said no (2/2): 有时 means 'sometimes', not actions in progress
+  哥哥有时开车去公司。  -- check said no (2/2): 有时 means 'sometimes', expressing frequency, not actions in progress
+  同学有时问我汉语问题。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+  我有时坐公交车去学校。  -- check said no (2/2): 有时 (sometimes) is temporal adverb, not 在/正在/正 for ongoing action
+  她有时喝茶,有时喝咖啡。  -- check said no (2/2): 有时 means 'sometimes'; not expressing actions in progress
+  老师有时坐公交车来学校。  -- check said no (2/2): 有时 means 'sometimes', not actions in progress
+  爸爸有时做饭,有时妈妈做。  -- check said no (2/2): 有时 means 'sometimes', not expressing ongoing action
+  妹妹有时喝茶,有时喝牛奶。  -- check said no (2/2): 有时 means 'sometimes', not action in progress
+
+--- dropped at step 8 (8) ---
+  他正看着电视呢。  -- difficulty review: (2/2); Uses 着 (dynamic particle for ongoing action) which is grammar point 2-33, taught at HSK 2 but combining 正 + 着 + 呢 together creates a construction beyond the basic 正在 pattern taught at this level
+  爸爸正喝着茶呢。  -- difficulty review: (1/2); Uses 正...着...呢 pattern (continuous action) which combines 1-11 (正) with 2-33 (着) and 2-34 (呢) - the 着...呢 combination for expressing ongoing action is HSK 3 level grammar
+  爸爸正喝着茶看电视呢。  -- difficulty review: (1/2); Uses 着 (2-33, continuous aspect marker) combined with 正 in a way that creates a complex progressive construction with two verbs that goes beyond HSK 2 level
+  哥哥正看着书呢,别说话。  -- difficulty review: (2/2); uses 别 as an imperative negation; 别 is taught at HSK 3+, not HSK 2
+  同学们正在考试,请别说话。  -- difficulty review: (1/2); 们 (plural suffix) is HSK 3+, not HSK 2
+  我正吃着饭呢,你等一会儿。  -- difficulty review: (1/2); Uses 正...着...呢 pattern (continuous action) which combines 1-11 (正) with 2-33 (着) and 2-34 (呢) - the 着...呢 combination for expressing ongoing action is HSK 3 level grammar
+  爸爸正开着车呢,别给他打电话。  -- difficulty review: (1/2); Uses 正...着...呢 pattern (continuous action) which combines 1-11 (正) with 2-33 (着) and 2-34 (呢) - the 着...呢 combination for expressing ongoing action is HSK 3 level grammar
+  我正吃着面条儿呢,一会儿给你打电话。  -- difficulty review: (2/2); 面条儿 uses -儿 diminutive suffix (3-02, HSK 3); 一会儿 as time expression meaning 'in a moment' relies on 一会儿⋯⋯一会儿 pattern (3-61, HSK 3)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-11_level2_20261114_163344.csv

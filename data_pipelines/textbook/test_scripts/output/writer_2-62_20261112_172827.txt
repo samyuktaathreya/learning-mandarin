@@ -1,0 +1,23 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 13388 characters -->
+## 2-62
+**Point:** 承接复句 (Sequential clauses): sequencing two or more consecutive events/actions using conjunctions like 先...再..., 然后, 接着, or simple clause sequencing.
+**Covers:** Patterns that show a clear sequence of events across multiple clauses: (1) 先...再... / 先...然后... patterns; (2) 然后/接着 connecting past events; (3) Simple sequential clauses separated by punctuation showing one action followed by another; (4) Patterns with 以后/以后 marking a time boundary between two sequential events.
+**Does not cover:** (1) Single-clause uses of 再 meaning "again" or "once more" in the future; (2) 再说 as a standalone conjunction meaning "besides/in addition"; (3) 一再/再三 meaning "repeatedly/over and over"; (4) 再也不/没 expressing "never again"; (5) 再不...就... conditional patterns; (6) 再 as a future-tense adverb without sequencing context; (7) Standalone 先 in non-sequencing contexts (e.g., 先生 "Mr.", 优先 "priority").
+
+```rule
+match: 先/AD ... (再|然后|接着|又|又/AD)/AD
+match: (然后|接着)/AD
+match: /VV /AS? ... , /VV
+match: (以后|以后)/LC _ /VV
+
+unless: 一再/AD
+unless: 再三/AD
+unless: 再/AD 也/AD (不|没)/AD
+unless: 再/AD 不/AD _ 就/AD
+unless: 再说/AD
+unless: 再说/VV
+unless: 再/AD /CD /M
+unless: 再/AD /VV /CD /M
+```
+
+**Notes:** The rule prioritizes precision: it matches only when there is clear evidence of sequential event ordering across clause boundaries or with explicit sequencing conjunctions. The first match pattern requires 先 paired with a following sequencing word (再/然后/接着/又) in the same clause. The third pattern captures simple two-clause sequences (Action 1 with aspect particle, followed by Action 2), which is the core 承接复句 structure from the official examples. The fourth pattern catches 以后/LC followed by a new subject and verb, showing temporal sequence. Unless patterns explicitly filter out all the excluded grammar points (一再, 再三, 再也不/没, 再不...就, standalone 再说, and simple future 再). Sentences with clause-internal sequencing should match only if verbs show clear completed actions followed by new actions in separate clauses.

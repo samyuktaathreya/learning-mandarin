@@ -117,3 +117,54 @@ Tagging 9 labeled example(s) (cached after this run)...
   包太小了，手机放不进去。  -- ASGCPJPQ Potential complement
   我怕我做不好这份工作。  -- ASGCPJPQ Potential complement
   这件衣服太脏了，洗不干净了。  -- HSK list example
+
+########## rules  2026-11-10 21:27 ##########
+  Checking 4 sentence(s) for 3-48 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-48: rule on labeled examples (no AI) ===
+  examples of 3-48 matched:    35/36
+  counter-examples wrongly matched: 2/99   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (2) ---
+  找不到孩子，妈妈急坏了。  -- ASG79STE Degree complement  [matched: /VV 不/AD 了|到|着|见|懂|完|下|起|动|上|来|去|出|进|过|开|住|通|会]
+  下午喝了两杯咖啡，害得我晚上睡不着。  -- ASGA0098 Indicating negative impact with "haide"  [matched: /VV 不/AD 了|到|着|见|懂|完|下|起|动|上|来|去|出|进|过|开|住|通|会]
+
+--- examples of 3-48 the rule misses (1) ---
+  他这么粗心，做得好吗？  -- ASGCPJPQ Potential complement
+
+########## rules  2026-11-11 14:19 ##########
+  Checking 4 sentence(s) for 3-48 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-48: rule on labeled examples (no AI) ===
+  examples of 3-48 matched:    36/36
+  counter-examples wrongly matched: 0/101   <- should be 0
+
+########## guard check  2026-11-11 14:24 ##########
+Flags examples of 2-55 that don't contain 3-48: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+########## rules  2026-11-12 17:32 ##########
+
+=== A. 3-48: rule on labeled examples (no AI) ===
+  examples of 3-48 matched:    35/36
+  counter-examples wrongly matched: 0/101   <- should be 0
+
+--- examples of 3-48 the rule misses (1) ---
+  他这么粗心，做得好吗？  -- ASGCPJPQ Potential complement
+  easy examples (words all HSK 3 or below) matched: 13/13   <- needs 80%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## guard check  2026-11-12 21:14 ##########
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## guard check  2026-11-14 16:29 ##########

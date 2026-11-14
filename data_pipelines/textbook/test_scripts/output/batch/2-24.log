@@ -80,3 +80,943 @@ Tagging 2 labeled example(s) (cached after this run)...
 
 --- examples of 2-24 the rule misses (1) ---
   从今以后，我不用再加班了。  -- ASG59C66 Comparing "li" and "cong"
+
+########## rules  2026-11-10 21:25 ##########
+  Checking 2 sentence(s) for 2-24 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-24: rule on labeled examples (no AI) ===
+  examples of 2-24 matched:    23/23
+  counter-examples wrongly matched: 0/31   <- should be 0
+
+########## guard check  2026-11-10 21:30 ##########
+  Checking 1 sentence(s) for 2-24 (1 call(s))...
+
+########## tatoeba  2026-11-10 21:36 ##########
+Filling 2-24 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-24 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+  2 check call(s) (20 sentences each)...
+
+=== 2-24 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      446  2. contain the point's word(s)
+      446  3. new (not in DB, not a duplicate)
+      214  4. at most 2 characters outside HSK 2 words
+       37  5. really HSK 2
+       36  5b. no harder grammar point (of the 33 with a rule)
+       30  6. the rule finds 2-24
+       27  6b. no hidden word a learner can't work out
+       23  7. both checks say 2-24, English chosen
+       17  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (17) ===
+  它从哪里来？  (Where did it come from?)  [tatoeba 5883313]
+  从那儿下来！  (Get down from there.)  [tatoeba 7779226]
+  你从哪里来？  (Where did you come from?)  [tatoeba 9209961]
+  从哪儿来的？  (Where did it come from?)  [tatoeba 13337178]
+  我是从中国来的。  (I come from China.)  [tatoeba 717391]
+  我是从京都来的。  (I'm from Kyoto.)  [tatoeba 2848940]
+  这从谁那儿拿的？  (Who did you get this from?)  [tatoeba 4885113]
+  那些人从哪来的？  (Where are those people from?)  [tatoeba 5094999]
+  我从中国回来了。  (I returned from China.)  [tatoeba 13863118]
+  他今天从悉尼回来。  (He got back from Sydney today.)  [tatoeba 5115076]
+  我从他那里买了它。  (I bought it from him.)  [tatoeba 5698039]
+  我从出租车上下来。  (I got out of the taxi.)  [tatoeba 9179884]
+  这些是你从哪里买的？  (Where did you buy all this?)  [tatoeba 11768312]
+  你知道他们从哪里来吗？  (Do you know where they come from?)  [tatoeba 5640721]
+  你怎么从你的房间里出来？  (How did you get out of your room?)  [tatoeba 5983592]
+  上星期，我的爸爸从大阪回来了。  (My father came back from Osaka last week.)  [tatoeba 1749211]  hidden: 上星期
+  Kate的爸爸从车站走路回家。  (Kate's dad walks home from the bus stop.)  [tatoeba 3742641]  hidden: 回家
+
+--- dropped at step 4 (232), first 12 ---
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  「一见钟情」以及「从一而终」的感情是不切实际的，我们需要的不是这种不切实际而虚幻的感情。  -- 11 characters no HSK 2 word uses: 切及实幻感种终而虚际需
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 10 characters no HSK 2 word uses: 且信合此永海相而适颗
+  从这来看，你能因此论定女权主义还是必要的。  -- 7 characters no HSK 2 word uses: 主义定必权此论
+  我从马来西亚来的妈妈觉得那三匹马马马虎虎。  -- 4 characters no HSK 2 word uses: 亚匹虎马
+  老虎从动物园中逃出来了。  -- 4 characters no HSK 2 word uses: 园物虎逃
+  我从车站搭了一班到旅馆的计程车。  -- 3 characters no HSK 2 word uses: 搭程计
+  你必须在六点钟时从家中出发。  -- 3 characters no HSK 2 word uses: 发必须
+  他从没放弃达成那个目标的希望。  -- 6 characters no HSK 2 word uses: 弃成放标目达
+  他们并不总是服从父母。  -- 4 characters no HSK 2 word uses: 并总母父
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  从前人们害怕未来。现在，是未来该害怕人们。  -- 4 characters no HSK 2 word uses: 害怕未该
+
+--- dropped at step 5 (177), first 12 ---
+  你从哪得到它的？  -- level 3: 得到 L3
+  我从来没去过美国。  -- level 4: 从来 L4, 美 L4
+  从她的年龄看来，我妈妈很年轻。  -- level 4: 年龄 L4, 看来 L3, 年轻 L3
+  您在英国从事中医行业多长时间了？  -- level 5: 从事 L5, 中医 L5, 行业 L5
+  她从来不穿绿色的衣服。  -- level 4: 从来 L4
+  他们从巴西远道而来。  -- level 4: 道 L4, 而 L4
+  这家店从星期一到星期六都营业。  -- level 5: 营业 L5
+  我从不喝啤酒。  -- level 5: 从不 L5, 啤酒 L3
+  我从前学习英文、法文和中文。  -- level 7: 从前 L5, 法 L4, 文 L7
+  从那以后，我再也没有他的音信了。  -- level 10: 以后 L3, 再也 (not in list), 音信 (not in list)
+  老师从来不拿学生们的错误来开玩笑。  -- level 4: 从来 L4, 错误 L4, 开玩笑 L4
+  我还从来都没有写过简历呢！  -- level 5: 从来 L4, 简历 L5
+
+--- dropped at step 5b (1) ---
+  你也是从波士顿来的吗？  -- harder grammar: 3-60 (HSK 3)
+
+--- dropped at step 6 (6) ---
+  我从没见她笑过。  -- rule: no match: line matched
+  我从没喝过奶茶。  -- rule: no match: line matched
+  我从没见过你这么高兴。  -- rule: no match: line matched
+  我从没这么高兴过。  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: no match: line matched
+  我从没看见过她笑。  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  我们两个人从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我们从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我周一到周五，从早到晚都在工作。  -- hidden word a learner can't work out: 周一 (Monday), 周五 (Friday)
+
+--- dropped at step 7 (4) ---
+  从这里开始。  -- check said no (1/2): 从...开始 (starting point), not core point
+  我从没看过那个人。  -- check said no (2/2): 从来 = 'never', fixed expression not in this point
+  你从昨天开始就忙吗？  -- check said no (1/2): 从...开始 (temporal starting point), not core point
+  从什么时候开始您就这里工作着的呢？  -- check said no (1/2): 从...开始 is HSK 3-39, not core HSK 2-24
+
+--- dropped at step 8 (6) ---
+  我从他那听到的。  -- difficulty review: (2/2); uses 听到 (hear + result complement) which is HSK 3 grammar (3-46)
+  从你来时的路回家。  -- difficulty review: (2/2); uses 来时的 (nominalized clause with 时的) which requires HSK 3 understanding of complex modification
+  你从汤姆那里学到了吗？  -- difficulty review: (2/2); uses 学到 (learn + result complement) which is HSK 3 grammar (3-46)
+  我从这里什么也看不见。  -- difficulty review: (1/2); uses 什么也...不 pattern (3-41: 一...也/都+不/没), which is HSK 3
+  我不太知道从哪里开始。  -- difficulty review: (1/2); Uses 从...开始 'from...start' which is a fixed structure (3-39 level) beyond HSK 2
+  他们从去年开始学英文。  -- difficulty review: (1/2); Uses 从...开始 'from...start' which is a fixed structure (3-39 level) beyond HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-24_level2_20261110_213636.csv
+
+########## guard check  2026-11-11 14:22 ##########
+
+########## tatoeba  2026-11-11 14:29 ##########
+Filling 2-24 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-24 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-24 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      446  2. contain the point's word(s)
+      446  3. new (not in DB, not a duplicate)
+      214  4. at most 2 characters outside HSK 2 words
+       37  5. really HSK 2
+       30  5b. no harder grammar point (of the 39 with a rule)
+       25  6. the rule finds 2-24
+       22  6b. no hidden word a learner can't work out
+       19  7. both checks say 2-24, English chosen
+       16  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (16) ===
+  它从哪里来？  (Where did it come from?)  [tatoeba 5883313]
+  从那儿下来！  (Get down from there.)  [tatoeba 7779226]
+  你从哪里来？  (Where did you come from?)  [tatoeba 9209961]
+  从哪儿来的？  (Where did it come from?)  [tatoeba 13337178]
+  我是从中国来的。  (I come from China.)  [tatoeba 717391]
+  我是从京都来的。  (I'm from Kyoto.)  [tatoeba 2848940]
+  这从谁那儿拿的？  (Who did you get this from?)  [tatoeba 4885113]
+  那些人从哪来的？  (Where are those people from?)  [tatoeba 5094999]
+  我从中国回来了。  (I returned from China.)  [tatoeba 13863118]
+  他今天从悉尼回来。  (He got back from Sydney today.)  [tatoeba 5115076]
+  我从他那里买了它。  (I bought it from him.)  [tatoeba 5698039]
+  我从出租车上下来。  (I got out of the taxi.)  [tatoeba 9179884]
+  这些是你从哪里买的？  (Where did you buy all this?)  [tatoeba 11768312]
+  你知道他们从哪里来吗？  (Do you know where they come from?)  [tatoeba 5640721]
+  上星期，我的爸爸从大阪回来了。  (My father came back from Osaka last week.)  [tatoeba 1749211]  hidden: 上星期
+  Kate的爸爸从车站走路回家。  (Kate's dad walks home from the bus stop.)  [tatoeba 3742641]  hidden: 回家
+
+--- dropped at step 4 (232), first 12 ---
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  「一见钟情」以及「从一而终」的感情是不切实际的，我们需要的不是这种不切实际而虚幻的感情。  -- 11 characters no HSK 2 word uses: 切及实幻感种终而虚际需
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 10 characters no HSK 2 word uses: 且信合此永海相而适颗
+  从这来看，你能因此论定女权主义还是必要的。  -- 7 characters no HSK 2 word uses: 主义定必权此论
+  我从马来西亚来的妈妈觉得那三匹马马马虎虎。  -- 4 characters no HSK 2 word uses: 亚匹虎马
+  老虎从动物园中逃出来了。  -- 4 characters no HSK 2 word uses: 园物虎逃
+  我从车站搭了一班到旅馆的计程车。  -- 3 characters no HSK 2 word uses: 搭程计
+  你必须在六点钟时从家中出发。  -- 3 characters no HSK 2 word uses: 发必须
+  他从没放弃达成那个目标的希望。  -- 6 characters no HSK 2 word uses: 弃成放标目达
+  他们并不总是服从父母。  -- 4 characters no HSK 2 word uses: 并总母父
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  从前人们害怕未来。现在，是未来该害怕人们。  -- 4 characters no HSK 2 word uses: 害怕未该
+
+--- dropped at step 5 (177), first 12 ---
+  你从哪得到它的？  -- level 3: 得到 L3
+  我从来没去过美国。  -- level 4: 从来 L4, 美 L4
+  从她的年龄看来，我妈妈很年轻。  -- level 4: 年龄 L4, 看来 L3, 年轻 L3
+  您在英国从事中医行业多长时间了？  -- level 5: 从事 L5, 中医 L5, 行业 L5
+  她从来不穿绿色的衣服。  -- level 4: 从来 L4
+  他们从巴西远道而来。  -- level 4: 道 L4, 而 L4
+  这家店从星期一到星期六都营业。  -- level 5: 营业 L5
+  我从不喝啤酒。  -- level 5: 从不 L5, 啤酒 L3
+  我从前学习英文、法文和中文。  -- level 7: 从前 L5, 法 L4, 文 L7
+  从那以后，我再也没有他的音信了。  -- level 10: 以后 L3, 再也 (not in list), 音信 (not in list)
+  老师从来不拿学生们的错误来开玩笑。  -- level 4: 从来 L4, 错误 L4, 开玩笑 L4
+  我还从来都没有写过简历呢！  -- level 5: 从来 L4, 简历 L5
+
+--- dropped at step 5b (7) ---
+  你怎么从你的房间里出来？  -- harder grammar: 3-39 (HSK 3)
+  你也是从波士顿来的吗？  -- harder grammar: 3-60 (HSK 3)
+  我从这里什么也看不见。  -- harder grammar: 3-48 (HSK 3)
+  从这里开始。  -- harder grammar: 3-39 (HSK 3)
+  我不太知道从哪里开始。  -- harder grammar: 3-39 (HSK 3)
+  他们从去年开始学英文。  -- harder grammar: 3-39 (HSK 3)
+  我从没看见过她笑。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  我从没见她笑过。  -- rule: no match: line matched
+  我从没喝过奶茶。  -- rule: no match: line matched
+  我从没见过你这么高兴。  -- rule: no match: line matched
+  我从没这么高兴过。  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  我们两个人从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我们从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我周一到周五，从早到晚都在工作。  -- hidden word a learner can't work out: 周一 (Monday), 周五 (Friday)
+
+--- dropped at step 7 (3) ---
+  我从没看过那个人。  -- check said no (2/2): 从来 = 'never', fixed expression not in this point
+  你从昨天开始就忙吗？  -- check said no (1/2): 从...开始 (temporal starting point), not core point
+  从什么时候开始您就这里工作着的呢？  -- check said no (1/2): 从...开始 is HSK 3-39, not core HSK 2-24
+
+--- dropped at step 8 (3) ---
+  我从他那听到的。  -- difficulty review: (2/2); uses 听到 (hear + result complement) which is HSK 3 grammar (3-46)
+  从你来时的路回家。  -- difficulty review: (2/2); uses 来时的 (nominalized clause with 时的) which requires HSK 3 understanding of complex modification
+  你从汤姆那里学到了吗？  -- difficulty review: (2/2); uses 学到 (learn + result complement) which is HSK 3 grammar (3-46)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-24_level2_20261111_142902.csv
+
+########## rules  2026-11-12 17:25 ##########
+
+=== A. 2-24: rule on labeled examples (no AI) ===
+  examples of 2-24 matched:    23/23
+  counter-examples wrongly matched: 0/31   <- should be 0
+  easy examples (words all HSK 2 or below) matched: 7/7   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:40 ##########
+Filling 2-24 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-24 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-24 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      446  2. contain the point's word(s)
+      446  3. new (not in DB, not a duplicate)
+      214  4. at most 2 characters outside HSK 2 words
+       37  5. really HSK 2
+       30  5b. no harder grammar point (of the 40 with a rule)
+       25  6. the rule finds 2-24
+       22  6b. no hidden word a learner can't work out
+       19  7. both checks say 2-24, English chosen
+       16  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (16) ===
+  它从哪里来？  (Where did it come from?)  [tatoeba 5883313]
+  从那儿下来！  (Get down from there.)  [tatoeba 7779226]
+  你从哪里来？  (Where did you come from?)  [tatoeba 9209961]
+  从哪儿来的？  (Where did it come from?)  [tatoeba 13337178]
+  我是从中国来的。  (I come from China.)  [tatoeba 717391]
+  我是从京都来的。  (I'm from Kyoto.)  [tatoeba 2848940]
+  这从谁那儿拿的？  (Who did you get this from?)  [tatoeba 4885113]
+  那些人从哪来的？  (Where are those people from?)  [tatoeba 5094999]
+  我从中国回来了。  (I returned from China.)  [tatoeba 13863118]
+  他今天从悉尼回来。  (He got back from Sydney today.)  [tatoeba 5115076]
+  我从他那里买了它。  (I bought it from him.)  [tatoeba 5698039]
+  我从出租车上下来。  (I got out of the taxi.)  [tatoeba 9179884]
+  这些是你从哪里买的？  (Where did you buy all this?)  [tatoeba 11768312]
+  你知道他们从哪里来吗？  (Do you know where they come from?)  [tatoeba 5640721]
+  上星期，我的爸爸从大阪回来了。  (My father came back from Osaka last week.)  [tatoeba 1749211]  hidden: 上星期
+  Kate的爸爸从车站走路回家。  (Kate's dad walks home from the bus stop.)  [tatoeba 3742641]  hidden: 回家
+
+--- dropped at step 4 (232), first 12 ---
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  「一见钟情」以及「从一而终」的感情是不切实际的，我们需要的不是这种不切实际而虚幻的感情。  -- 11 characters no HSK 2 word uses: 切及实幻感种终而虚际需
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 10 characters no HSK 2 word uses: 且信合此永海相而适颗
+  从这来看，你能因此论定女权主义还是必要的。  -- 7 characters no HSK 2 word uses: 主义定必权此论
+  我从马来西亚来的妈妈觉得那三匹马马马虎虎。  -- 4 characters no HSK 2 word uses: 亚匹虎马
+  老虎从动物园中逃出来了。  -- 4 characters no HSK 2 word uses: 园物虎逃
+  我从车站搭了一班到旅馆的计程车。  -- 3 characters no HSK 2 word uses: 搭程计
+  你必须在六点钟时从家中出发。  -- 3 characters no HSK 2 word uses: 发必须
+  他从没放弃达成那个目标的希望。  -- 6 characters no HSK 2 word uses: 弃成放标目达
+  他们并不总是服从父母。  -- 4 characters no HSK 2 word uses: 并总母父
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  从前人们害怕未来。现在，是未来该害怕人们。  -- 4 characters no HSK 2 word uses: 害怕未该
+
+--- dropped at step 5 (177), first 12 ---
+  你从哪得到它的？  -- level 3: 得到 L3
+  我从来没去过美国。  -- level 4: 从来 L4, 美 L4
+  从她的年龄看来，我妈妈很年轻。  -- level 4: 年龄 L4, 看来 L3, 年轻 L3
+  您在英国从事中医行业多长时间了？  -- level 5: 从事 L5, 中医 L5, 行业 L5
+  她从来不穿绿色的衣服。  -- level 4: 从来 L4
+  他们从巴西远道而来。  -- level 4: 道 L4, 而 L4
+  这家店从星期一到星期六都营业。  -- level 5: 营业 L5
+  我从不喝啤酒。  -- level 5: 从不 L5, 啤酒 L3
+  我从前学习英文、法文和中文。  -- level 7: 从前 L5, 法 L4, 文 L7
+  从那以后，我再也没有他的音信了。  -- level 10: 以后 L3, 再也 (not in list), 音信 (not in list)
+  老师从来不拿学生们的错误来开玩笑。  -- level 4: 从来 L4, 错误 L4, 开玩笑 L4
+  我还从来都没有写过简历呢！  -- level 5: 从来 L4, 简历 L5
+
+--- dropped at step 5b (7) ---
+  你怎么从你的房间里出来？  -- harder grammar: 3-39 (HSK 3)
+  你也是从波士顿来的吗？  -- harder grammar: 3-60 (HSK 3)
+  我从这里什么也看不见。  -- harder grammar: 3-48 (HSK 3)
+  从这里开始。  -- harder grammar: 3-39 (HSK 3)
+  我不太知道从哪里开始。  -- harder grammar: 3-39 (HSK 3)
+  他们从去年开始学英文。  -- harder grammar: 3-39 (HSK 3)
+  我从没看见过她笑。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  我从没见她笑过。  -- rule: no match: line matched
+  我从没喝过奶茶。  -- rule: no match: line matched
+  我从没见过你这么高兴。  -- rule: no match: line matched
+  我从没这么高兴过。  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  我们两个人从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我们从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我周一到周五，从早到晚都在工作。  -- hidden word a learner can't work out: 周一 (Monday), 周五 (Friday)
+
+--- dropped at step 7 (3) ---
+  我从没看过那个人。  -- check said no (2/2): 从来 = 'never', fixed expression not in this point
+  你从昨天开始就忙吗？  -- check said no (1/2): 从...开始 (temporal starting point), not core point
+  从什么时候开始您就这里工作着的呢？  -- check said no (1/2): 从...开始 is HSK 3-39, not core HSK 2-24
+
+--- dropped at step 8 (3) ---
+  我从他那听到的。  -- difficulty review: (2/2); uses 听到 (hear + result complement) which is HSK 3 grammar (3-46)
+  从你来时的路回家。  -- difficulty review: (2/2); uses 来时的 (nominalized clause with 时的) which requires HSK 3 understanding of complex modification
+  你从汤姆那里学到了吗？  -- difficulty review: (2/2); uses 学到 (learn + result complement) which is HSK 3 grammar (3-46)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-24_level2_20261112_174004.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-24 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-24 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-24 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      446  2. contain the point's word(s)
+      446  3. new (not in DB, not a duplicate)
+      214  4. at most 2 characters outside HSK 2 words
+       37  5. really HSK 2
+       34  5b. no harder grammar point (of the 39 with a rule)
+       29  6. the rule finds 2-24
+       26  6b. no hidden word a learner can't work out
+       22  7. both checks say 2-24, English chosen
+       17  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (17) ===
+  它从哪里来？  (Where did it come from?)  [tatoeba 5883313]
+  从那儿下来！  (Get down from there.)  [tatoeba 7779226]
+  你从哪里来？  (Where did you come from?)  [tatoeba 9209961]
+  从哪儿来的？  (Where did it come from?)  [tatoeba 13337178]
+  我是从中国来的。  (I come from China.)  [tatoeba 717391]
+  我是从京都来的。  (I'm from Kyoto.)  [tatoeba 2848940]
+  这从谁那儿拿的？  (Who did you get this from?)  [tatoeba 4885113]
+  那些人从哪来的？  (Where are those people from?)  [tatoeba 5094999]
+  我从中国回来了。  (I returned from China.)  [tatoeba 13863118]
+  他今天从悉尼回来。  (He got back from Sydney today.)  [tatoeba 5115076]
+  我从他那里买了它。  (I bought it from him.)  [tatoeba 5698039]
+  我从出租车上下来。  (I got out of the taxi.)  [tatoeba 9179884]
+  这些是你从哪里买的？  (Where did you buy all this?)  [tatoeba 11768312]
+  你知道他们从哪里来吗？  (Do you know where they come from?)  [tatoeba 5640721]
+  你怎么从你的房间里出来？  (How did you get out of your room?)  [tatoeba 5983592]
+  上星期，我的爸爸从大阪回来了。  (My father came back from Osaka last week.)  [tatoeba 1749211]  hidden: 上星期
+  Kate的爸爸从车站走路回家。  (Kate's dad walks home from the bus stop.)  [tatoeba 3742641]  hidden: 回家
+
+--- dropped at step 4 (232), first 12 ---
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  「一见钟情」以及「从一而终」的感情是不切实际的，我们需要的不是这种不切实际而虚幻的感情。  -- 11 characters no HSK 2 word uses: 切及实幻感种终而虚际需
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 10 characters no HSK 2 word uses: 且信合此永海相而适颗
+  从这来看，你能因此论定女权主义还是必要的。  -- 7 characters no HSK 2 word uses: 主义定必权此论
+  我从马来西亚来的妈妈觉得那三匹马马马虎虎。  -- 4 characters no HSK 2 word uses: 亚匹虎马
+  老虎从动物园中逃出来了。  -- 4 characters no HSK 2 word uses: 园物虎逃
+  我从车站搭了一班到旅馆的计程车。  -- 3 characters no HSK 2 word uses: 搭程计
+  你必须在六点钟时从家中出发。  -- 3 characters no HSK 2 word uses: 发必须
+  他从没放弃达成那个目标的希望。  -- 6 characters no HSK 2 word uses: 弃成放标目达
+  他们并不总是服从父母。  -- 4 characters no HSK 2 word uses: 并总母父
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  从前人们害怕未来。现在，是未来该害怕人们。  -- 4 characters no HSK 2 word uses: 害怕未该
+
+--- dropped at step 5 (177), first 12 ---
+  你从哪得到它的？  -- level 3: 得到 L3
+  我从来没去过美国。  -- level 4: 从来 L4, 美 L4
+  从她的年龄看来，我妈妈很年轻。  -- level 4: 年龄 L4, 看来 L3, 年轻 L3
+  您在英国从事中医行业多长时间了？  -- level 5: 从事 L5, 中医 L5, 行业 L5
+  她从来不穿绿色的衣服。  -- level 4: 从来 L4
+  他们从巴西远道而来。  -- level 4: 道 L4, 而 L4
+  这家店从星期一到星期六都营业。  -- level 5: 营业 L5
+  我从不喝啤酒。  -- level 5: 从不 L5, 啤酒 L3
+  我从前学习英文、法文和中文。  -- level 7: 从前 L5, 法 L4, 文 L7
+  从那以后，我再也没有他的音信了。  -- level 10: 以后 L3, 再也 (not in list), 音信 (not in list)
+  老师从来不拿学生们的错误来开玩笑。  -- level 4: 从来 L4, 错误 L4, 开玩笑 L4
+  我还从来都没有写过简历呢！  -- level 5: 从来 L4, 简历 L5
+
+--- dropped at step 5b (3) ---
+  你也是从波士顿来的吗？  -- harder grammar: 3-60 (HSK 3)
+  我从这里什么也看不见。  -- harder grammar: 3-48 (HSK 3)
+  我从没看见过她笑。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  我从没见她笑过。  -- rule: no match: line matched
+  我从没喝过奶茶。  -- rule: no match: line matched
+  我从没见过你这么高兴。  -- rule: no match: line matched
+  我从没这么高兴过。  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  我们两个人从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我们从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我周一到周五，从早到晚都在工作。  -- hidden word a learner can't work out: 周一 (Monday), 周五 (Friday)
+
+--- dropped at step 7 (4) ---
+  从这里开始。  -- check said no (1/2): 从...开始 (starting point), not core point
+  我从没看过那个人。  -- check said no (2/2): 从来 = 'never', fixed expression not in this point
+  你从昨天开始就忙吗？  -- check said no (1/2): 从...开始 (temporal starting point), not core point
+  从什么时候开始您就这里工作着的呢？  -- check said no (1/2): 从...开始 is HSK 3-39, not core HSK 2-24
+
+--- dropped at step 8 (5) ---
+  我从他那听到的。  -- difficulty review: (2/2); uses 听到 (hear + result complement) which is HSK 3 grammar (3-46)
+  从你来时的路回家。  -- difficulty review: (2/2); uses 来时的 (nominalized clause with 时的) which requires HSK 3 understanding of complex modification
+  你从汤姆那里学到了吗？  -- difficulty review: (2/2); uses 学到 (learn + result complement) which is HSK 3 grammar (3-46)
+  我不太知道从哪里开始。  -- difficulty review: (1/2); Uses 从...开始 'from...start' which is a fixed structure (3-39 level) beyond HSK 2
+  他们从去年开始学英文。  -- difficulty review: (1/2); Uses 从...开始 'from...start' which is a fixed structure (3-39 level) beyond HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-24_level2_20261112_211506.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 2-24 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-24 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-24 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      446  2. contain the point's word(s)
+      446  3. new (not in DB, not a duplicate)
+      214  4. at most 2 characters outside HSK 2 words
+       37  5. really HSK 2
+       32  5b. no harder grammar point (of the 43 with a rule)
+       27  6. the rule finds 2-24
+       24  6b. no hidden word a learner can't work out
+       20  7. both checks say 2-24, English chosen
+       15  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (15) ===
+  从那儿下来！  (Get down from there.)  [tatoeba 7779226]
+  你从哪里来？  (Where did you come from?)  [tatoeba 9209961]
+  从哪儿来的？  (Where did it come from?)  [tatoeba 13337178]
+  我是从中国来的。  (I come from China.)  [tatoeba 717391]
+  我是从京都来的。  (I'm from Kyoto.)  [tatoeba 2848940]
+  这从谁那儿拿的？  (Who did you get this from?)  [tatoeba 4885113]
+  那些人从哪来的？  (Where are those people from?)  [tatoeba 5094999]
+  我从中国回来了。  (I returned from China.)  [tatoeba 13863118]
+  他今天从悉尼回来。  (He got back from Sydney today.)  [tatoeba 5115076]
+  我从出租车上下来。  (I got out of the taxi.)  [tatoeba 9179884]
+  这些是你从哪里买的？  (Where did you buy all this?)  [tatoeba 11768312]
+  你知道他们从哪里来吗？  (Do you know where they come from?)  [tatoeba 5640721]
+  你怎么从你的房间里出来？  (How did you get out of your room?)  [tatoeba 5983592]
+  上星期，我的爸爸从大阪回来了。  (My father came back from Osaka last week.)  [tatoeba 1749211]  hidden: 上星期
+  Kate的爸爸从车站走路回家。  (Kate's dad walks home from the bus stop.)  [tatoeba 3742641]  hidden: 回家
+
+--- dropped at step 4 (232), first 12 ---
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  「一见钟情」以及「从一而终」的感情是不切实际的，我们需要的不是这种不切实际而虚幻的感情。  -- 11 characters no HSK 2 word uses: 切及实幻感种终而虚际需
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 10 characters no HSK 2 word uses: 且信合此永海相而适颗
+  从这来看，你能因此论定女权主义还是必要的。  -- 7 characters no HSK 2 word uses: 主义定必权此论
+  我从马来西亚来的妈妈觉得那三匹马马马虎虎。  -- 4 characters no HSK 2 word uses: 亚匹虎马
+  老虎从动物园中逃出来了。  -- 4 characters no HSK 2 word uses: 园物虎逃
+  我从车站搭了一班到旅馆的计程车。  -- 3 characters no HSK 2 word uses: 搭程计
+  你必须在六点钟时从家中出发。  -- 3 characters no HSK 2 word uses: 发必须
+  他从没放弃达成那个目标的希望。  -- 6 characters no HSK 2 word uses: 弃成放标目达
+  他们并不总是服从父母。  -- 4 characters no HSK 2 word uses: 并总母父
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  从前人们害怕未来。现在，是未来该害怕人们。  -- 4 characters no HSK 2 word uses: 害怕未该
+
+--- dropped at step 5 (177), first 12 ---
+  你从哪得到它的？  -- level 3: 得到 L3
+  我从来没去过美国。  -- level 4: 从来 L4, 美 L4
+  从她的年龄看来，我妈妈很年轻。  -- level 4: 年龄 L4, 看来 L3, 年轻 L3
+  您在英国从事中医行业多长时间了？  -- level 5: 从事 L5, 中医 L5, 行业 L5
+  她从来不穿绿色的衣服。  -- level 4: 从来 L4
+  他们从巴西远道而来。  -- level 4: 道 L4, 而 L4
+  这家店从星期一到星期六都营业。  -- level 5: 营业 L5
+  我从不喝啤酒。  -- level 5: 从不 L5, 啤酒 L3
+  我从前学习英文、法文和中文。  -- level 7: 从前 L5, 法 L4, 文 L7
+  从那以后，我再也没有他的音信了。  -- level 10: 以后 L3, 再也 (not in list), 音信 (not in list)
+  老师从来不拿学生们的错误来开玩笑。  -- level 4: 从来 L4, 错误 L4, 开玩笑 L4
+  我还从来都没有写过简历呢！  -- level 5: 从来 L4, 简历 L5
+
+--- dropped at step 5b (5) ---
+  我从他那里买了它。  -- harder grammar: 2-06 (HSK 3)
+  它从哪里来？  -- harder grammar: 2-06 (HSK 3)
+  你也是从波士顿来的吗？  -- harder grammar: 3-60 (HSK 3)
+  我从这里什么也看不见。  -- harder grammar: 3-48 (HSK 3)
+  我从没看见过她笑。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  我从没见她笑过。  -- rule: no match: line matched
+  我从没喝过奶茶。  -- rule: no match: line matched
+  我从没见过你这么高兴。  -- rule: no match: line matched
+  我从没这么高兴过。  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  我们两个人从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我们从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我周一到周五，从早到晚都在工作。  -- hidden word a learner can't work out: 周一 (Monday), 周五 (Friday)
+
+--- dropped at step 7 (4) ---
+  从这里开始。  -- check said no (1/2): 从...开始 (starting point), not core point
+  我从没看过那个人。  -- check said no (2/2): 从来 = 'never', fixed expression not in this point
+  你从昨天开始就忙吗？  -- check said no (1/2): 从...开始 (temporal starting point), not core point
+  从什么时候开始您就这里工作着的呢？  -- check said no (1/2): 从...开始 is HSK 3-39, not core HSK 2-24
+
+--- dropped at step 8 (5) ---
+  我从他那听到的。  -- difficulty review: (2/2); uses 听到 (hear + result complement) which is HSK 3 grammar (3-46)
+  从你来时的路回家。  -- difficulty review: (2/2); uses 来时的 (nominalized clause with 时的) which requires HSK 3 understanding of complex modification
+  你从汤姆那里学到了吗？  -- difficulty review: (2/2); uses 学到 (learn + result complement) which is HSK 3 grammar (3-46)
+  我不太知道从哪里开始。  -- difficulty review: (1/2); Uses 从...开始 'from...start' which is a fixed structure (3-39 level) beyond HSK 2
+  他们从去年开始学英文。  -- difficulty review: (1/2); Uses 从...开始 'from...start' which is a fixed structure (3-39 level) beyond HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-24_level2_20261113_135443.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:43 ##########
+Filling 2-24 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-24 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 4 check and 5 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 2-24 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      446  2. contain the point's word(s)
+      446  3. new (not in DB, not a duplicate)
+      214  4. at most 2 characters outside HSK 2 words
+       37  5. really HSK 2
+       34  5b. no harder grammar point (of the 42 with a rule)
+       29  6. the rule finds 2-24
+       26  6b. no hidden word a learner can't work out
+       22  7. both checks say 2-24, English chosen
+        2  7b. second opinion: it is the point (check)
+       17  8. both difficulty reviews pass it
+        4  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (19) ===
+  它从哪里来？  (Where did it come from?)  [tatoeba 5883313]
+  从那儿下来！  (Get down from there.)  [tatoeba 7779226]
+  你从哪里来？  (Where did you come from?)  [tatoeba 9209961]
+  从哪儿来的？  (Where did it come from?)  [tatoeba 13337178]
+  我是从中国来的。  (I come from China.)  [tatoeba 717391]
+  我是从京都来的。  (I'm from Kyoto.)  [tatoeba 2848940]
+  这从谁那儿拿的？  (Who did you get this from?)  [tatoeba 4885113]
+  那些人从哪来的？  (Where are those people from?)  [tatoeba 5094999]
+  我从中国回来了。  (I returned from China.)  [tatoeba 13863118]
+  他今天从悉尼回来。  (He got back from Sydney today.)  [tatoeba 5115076]
+  我从他那里买了它。  (I bought it from him.)  [tatoeba 5698039]
+  我从出租车上下来。  (I got out of the taxi.)  [tatoeba 9179884]
+  这些是你从哪里买的？  (Where did you buy all this?)  [tatoeba 11768312]
+  你知道他们从哪里来吗？  (Do you know where they come from?)  [tatoeba 5640721]
+  你怎么从你的房间里出来？  (How did you get out of your room?)  [tatoeba 5983592]
+  上星期，我的爸爸从大阪回来了。  (My father came back from Osaka last week.)  [tatoeba 1749211]  hidden: 上星期
+  Kate的爸爸从车站走路回家。  (Kate's dad walks home from the bus stop.)  [tatoeba 3742641]  hidden: 回家
+  从这里开始。  (Start here.)  [tatoeba 13531819]
+  从你来时的路回家。  (Take the same road home that you came on.)  [tatoeba 13109467]  hidden: 回家
+
+--- dropped at step 4 (232), first 12 ---
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  「一见钟情」以及「从一而终」的感情是不切实际的，我们需要的不是这种不切实际而虚幻的感情。  -- 11 characters no HSK 2 word uses: 切及实幻感种终而虚际需
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 10 characters no HSK 2 word uses: 且信合此永海相而适颗
+  从这来看，你能因此论定女权主义还是必要的。  -- 7 characters no HSK 2 word uses: 主义定必权此论
+  我从马来西亚来的妈妈觉得那三匹马马马虎虎。  -- 4 characters no HSK 2 word uses: 亚匹虎马
+  老虎从动物园中逃出来了。  -- 4 characters no HSK 2 word uses: 园物虎逃
+  我从车站搭了一班到旅馆的计程车。  -- 3 characters no HSK 2 word uses: 搭程计
+  你必须在六点钟时从家中出发。  -- 3 characters no HSK 2 word uses: 发必须
+  他从没放弃达成那个目标的希望。  -- 6 characters no HSK 2 word uses: 弃成放标目达
+  他们并不总是服从父母。  -- 4 characters no HSK 2 word uses: 并总母父
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  从前人们害怕未来。现在，是未来该害怕人们。  -- 4 characters no HSK 2 word uses: 害怕未该
+
+--- dropped at step 5 (177), first 12 ---
+  你从哪得到它的？  -- level 3: 得到 L3
+  我从来没去过美国。  -- level 4: 从来 L4, 美 L4
+  从她的年龄看来，我妈妈很年轻。  -- level 4: 年龄 L4, 看来 L3, 年轻 L3
+  您在英国从事中医行业多长时间了？  -- level 5: 从事 L5, 中医 L5, 行业 L5
+  她从来不穿绿色的衣服。  -- level 4: 从来 L4
+  他们从巴西远道而来。  -- level 4: 道 L4, 而 L4
+  这家店从星期一到星期六都营业。  -- level 5: 营业 L5
+  我从不喝啤酒。  -- level 5: 从不 L5, 啤酒 L3
+  我从前学习英文、法文和中文。  -- level 7: 从前 L5, 法 L4, 文 L7
+  从那以后，我再也没有他的音信了。  -- level 10: 以后 L3, 再也 (not in list), 音信 (not in list)
+  老师从来不拿学生们的错误来开玩笑。  -- level 4: 从来 L4, 错误 L4, 开玩笑 L4
+  我还从来都没有写过简历呢！  -- level 5: 从来 L4, 简历 L5
+
+--- dropped at step 5b (3) ---
+  你也是从波士顿来的吗？  -- harder grammar: 3-60 (HSK 3)
+  我从这里什么也看不见。  -- harder grammar: 3-48 (HSK 3)
+  我从没看见过她笑。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (5) ---
+  我从没见她笑过。  -- rule: no match: line matched
+  我从没喝过奶茶。  -- rule: no match: line matched
+  我从没见过你这么高兴。  -- rule: no match: line matched
+  我从没这么高兴过。  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  我们两个人从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我们从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我周一到周五，从早到晚都在工作。  -- hidden word a learner can't work out: 周一 (Monday), 周五 (Friday)
+
+--- dropped at step 7 (2) ---
+  我从没看过那个人。  -- check said no (2/2): 从来 = 'never', fixed expression not in this point
+  从什么时候开始您就这里工作着的呢？  -- check said no (1/2): 从...开始 is HSK 3-39, not core HSK 2-24
+
+--- dropped at step 8 (2) ---
+  我从他那听到的。  -- difficulty review: (2/2); uses 听到 (hear + result complement) which is HSK 3 grammar (3-46)  [second opinion agrees]
+  你从汤姆那里学到了吗？  -- difficulty review: (2/2); uses 学到 (learn + result complement) which is HSK 3 grammar (3-46)  [second opinion agrees]
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-24_level2_20261113_144403.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:10 ##########
+Filling 2-24 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-24 in: 21  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-24 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      446  2. contain the point's word(s)
+      426  3. new (not in DB, not a duplicate)
+      194  4. at most 2 characters outside HSK 2 words
+       17  5. really HSK 2
+       15  5b. no harder grammar point (of the 42 with a rule)
+        9  6. the rule finds 2-24
+        6  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (6 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (20), first 12 ---
+  我是从中国来的。  -- already in the database
+  上星期，我的爸爸从大阪回来了。  -- already in the database
+  我是从京都来的。  -- already in the database
+  Kate的爸爸从车站走路回家。  -- already in the database
+  这从谁那儿拿的？  -- already in the database
+  那些人从哪来的？  -- already in the database
+  他今天从悉尼回来。  -- already in the database
+  你知道他们从哪里来吗？  -- already in the database
+  我从他那里买了它。  -- already in the database
+  它从哪里来？  -- already in the database
+  你从昨天开始就忙吗？  -- already in the database
+  你怎么从你的房间里出来？  -- already in the database
+
+--- dropped at step 4 (232), first 12 ---
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  「一见钟情」以及「从一而终」的感情是不切实际的，我们需要的不是这种不切实际而虚幻的感情。  -- 11 characters no HSK 2 word uses: 切及实幻感种终而虚际需
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 10 characters no HSK 2 word uses: 且信合此永海相而适颗
+  从这来看，你能因此论定女权主义还是必要的。  -- 7 characters no HSK 2 word uses: 主义定必权此论
+  我从马来西亚来的妈妈觉得那三匹马马马虎虎。  -- 4 characters no HSK 2 word uses: 亚匹虎马
+  老虎从动物园中逃出来了。  -- 4 characters no HSK 2 word uses: 园物虎逃
+  我从车站搭了一班到旅馆的计程车。  -- 3 characters no HSK 2 word uses: 搭程计
+  你必须在六点钟时从家中出发。  -- 3 characters no HSK 2 word uses: 发必须
+  他从没放弃达成那个目标的希望。  -- 6 characters no HSK 2 word uses: 弃成放标目达
+  他们并不总是服从父母。  -- 4 characters no HSK 2 word uses: 并总母父
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  从前人们害怕未来。现在，是未来该害怕人们。  -- 4 characters no HSK 2 word uses: 害怕未该
+
+--- dropped at step 5 (177), first 12 ---
+  你从哪得到它的？  -- level 3: 得到 L3
+  我从来没去过美国。  -- level 4: 从来 L4, 美 L4
+  从她的年龄看来，我妈妈很年轻。  -- level 4: 年龄 L4, 看来 L3, 年轻 L3
+  您在英国从事中医行业多长时间了？  -- level 5: 从事 L5, 中医 L5, 行业 L5
+  她从来不穿绿色的衣服。  -- level 4: 从来 L4
+  他们从巴西远道而来。  -- level 4: 道 L4, 而 L4
+  这家店从星期一到星期六都营业。  -- level 5: 营业 L5
+  我从不喝啤酒。  -- level 5: 从不 L5, 啤酒 L3
+  我从前学习英文、法文和中文。  -- level 7: 从前 L5, 法 L4, 文 L7
+  从那以后，我再也没有他的音信了。  -- level 10: 以后 L3, 再也 (not in list), 音信 (not in list)
+  老师从来不拿学生们的错误来开玩笑。  -- level 4: 从来 L4, 错误 L4, 开玩笑 L4
+  我还从来都没有写过简历呢！  -- level 5: 从来 L4, 简历 L5
+
+--- dropped at step 5b (2) ---
+  你也是从波士顿来的吗？  -- harder grammar: 3-60 (HSK 3)
+  我从这里什么也看不见。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (6) ---
+  我从没见她笑过。  -- rule: no match: line matched
+  我从没喝过奶茶。  -- rule: no match: line matched
+  我从没见过你这么高兴。  -- rule: no match: line matched
+  我从没这么高兴过。  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: no match: line matched
+  我从没看见过她笑。  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  我们两个人从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我们从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我周一到周五，从早到晚都在工作。  -- hidden word a learner can't work out: 周一 (Monday), 周五 (Friday)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-24_level2_20261114_161036.csv
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:30 ##########
+Filling 2-24 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-24 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 4 check and 5 review rejection(s)...
+
+=== 2-24 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      446  2. contain the point's word(s)
+      446  3. new (not in DB, not a duplicate)
+      214  4. at most 2 characters outside HSK 2 words
+       37  5. really HSK 2
+       35  5b. no harder grammar point (of the 42 with a rule)
+       29  6. the rule finds 2-24
+       26  6b. no hidden word a learner can't work out
+       22  7. both checks say 2-24, English chosen
+        2  7b. second opinion: it is the point (check)
+       17  8. both difficulty reviews pass it
+        4  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (19) ===
+  它从哪里来？  (Where did it come from?)  [tatoeba 5883313]
+  从那儿下来！  (Get down from there.)  [tatoeba 7779226]
+  你从哪里来？  (Where did you come from?)  [tatoeba 9209961]
+  从哪儿来的？  (Where did it come from?)  [tatoeba 13337178]
+  我是从中国来的。  (I come from China.)  [tatoeba 717391]
+  我是从京都来的。  (I'm from Kyoto.)  [tatoeba 2848940]
+  这从谁那儿拿的？  (Who did you get this from?)  [tatoeba 4885113]
+  那些人从哪来的？  (Where are those people from?)  [tatoeba 5094999]
+  我从中国回来了。  (I returned from China.)  [tatoeba 13863118]
+  他今天从悉尼回来。  (He got back from Sydney today.)  [tatoeba 5115076]
+  我从他那里买了它。  (I bought it from him.)  [tatoeba 5698039]
+  我从出租车上下来。  (I got out of the taxi.)  [tatoeba 9179884]
+  这些是你从哪里买的？  (Where did you buy all this?)  [tatoeba 11768312]
+  你知道他们从哪里来吗？  (Do you know where they come from?)  [tatoeba 5640721]
+  你怎么从你的房间里出来？  (How did you get out of your room?)  [tatoeba 5983592]
+  上星期，我的爸爸从大阪回来了。  (My father came back from Osaka last week.)  [tatoeba 1749211]  hidden: 上星期
+  Kate的爸爸从车站走路回家。  (Kate's dad walks home from the bus stop.)  [tatoeba 3742641]  hidden: 回家
+  从这里开始。  (Start here.)  [tatoeba 13531819]
+  从你来时的路回家。  (Take the same road home that you came on.)  [tatoeba 13109467]  hidden: 回家
+
+--- dropped at step 4 (232), first 12 ---
+  从大学毕业到退休，老王一直担任教学工作。  -- 7 characters no HSK 2 word uses: 业任担毕王直退
+  「一见钟情」以及「从一而终」的感情是不切实际的，我们需要的不是这种不切实际而虚幻的感情。  -- 11 characters no HSK 2 word uses: 切及实幻感种终而虚际需
+  而且要记住，从此后不要再到海边去。（永远相信，我已经找到最大、最好、最适合我的那一颗。）  -- 10 characters no HSK 2 word uses: 且信合此永海相而适颗
+  从这来看，你能因此论定女权主义还是必要的。  -- 7 characters no HSK 2 word uses: 主义定必权此论
+  我从马来西亚来的妈妈觉得那三匹马马马虎虎。  -- 4 characters no HSK 2 word uses: 亚匹虎马
+  老虎从动物园中逃出来了。  -- 4 characters no HSK 2 word uses: 园物虎逃
+  我从车站搭了一班到旅馆的计程车。  -- 3 characters no HSK 2 word uses: 搭程计
+  你必须在六点钟时从家中出发。  -- 3 characters no HSK 2 word uses: 发必须
+  他从没放弃达成那个目标的希望。  -- 6 characters no HSK 2 word uses: 弃成放标目达
+  他们并不总是服从父母。  -- 4 characters no HSK 2 word uses: 并总母父
+  知情者说，“她从来不会评判自己的成就，但是她成功地做好了她第一年决心做的事。”  -- 7 characters no HSK 2 word uses: 决判功心成者评
+  从前人们害怕未来。现在，是未来该害怕人们。  -- 4 characters no HSK 2 word uses: 害怕未该
+
+--- dropped at step 5 (177), first 12 ---
+  你从哪得到它的？  -- level 3: 得到 L3
+  我从来没去过美国。  -- level 4: 从来 L4, 美 L4
+  从她的年龄看来，我妈妈很年轻。  -- level 4: 年龄 L4, 看来 L3, 年轻 L3
+  您在英国从事中医行业多长时间了？  -- level 5: 从事 L5, 中医 L5, 行业 L5
+  她从来不穿绿色的衣服。  -- level 4: 从来 L4
+  他们从巴西远道而来。  -- level 4: 道 L4, 而 L4
+  这家店从星期一到星期六都营业。  -- level 5: 营业 L5
+  我从不喝啤酒。  -- level 5: 从不 L5, 啤酒 L3
+  我从前学习英文、法文和中文。  -- level 7: 从前 L5, 法 L4, 文 L7
+  从那以后，我再也没有他的音信了。  -- level 10: 以后 L3, 再也 (not in list), 音信 (not in list)
+  老师从来不拿学生们的错误来开玩笑。  -- level 4: 从来 L4, 错误 L4, 开玩笑 L4
+  我还从来都没有写过简历呢！  -- level 5: 从来 L4, 简历 L5
+
+--- dropped at step 5b (2) ---
+  你也是从波士顿来的吗？  -- harder grammar: 3-60 (HSK 3)
+  我从这里什么也看不见。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (6) ---
+  我从没见她笑过。  -- rule: no match: line matched
+  我从没喝过奶茶。  -- rule: no match: line matched
+  我从没见过你这么高兴。  -- rule: no match: line matched
+  我从没这么高兴过。  -- rule: no match: line matched
+  你从没来过这儿，对吗？  -- rule: no match: line matched
+  我从没看见过她笑。  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  我们两个人从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我们从德国来。  -- hidden word a learner can't work out: 德国 (Germany)
+  我周一到周五，从早到晚都在工作。  -- hidden word a learner can't work out: 周一 (Monday), 周五 (Friday)
+
+--- dropped at step 7 (2) ---
+  我从没看过那个人。  -- check said no (2/2): 从来 = 'never', fixed expression not in this point
+  从什么时候开始您就这里工作着的呢？  -- check said no (1/2): 从...开始 is HSK 3-39, not core HSK 2-24
+
+--- dropped at step 8 (2) ---
+  我从他那听到的。  -- difficulty review: (2/2); uses 听到 (hear + result complement) which is HSK 3 grammar (3-46)  [second opinion agrees]
+  你从汤姆那里学到了吗？  -- difficulty review: (2/2); uses 学到 (learn + result complement) which is HSK 3 grammar (3-46)  [second opinion agrees]
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-24_level2_20261114_163100.csv

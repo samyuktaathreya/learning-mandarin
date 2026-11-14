@@ -296,3 +296,3352 @@ Harder grammar points made only of HSK 1-2 words (the review is warned about the
   这些里面有你喜欢的吗？  -- rule: no match: line matched
 
 Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-55_level2_20261109_221128.csv
+
+########## guard check  2026-11-10 21:31 ##########
+
+########## tatoeba  2026-11-10 21:38 ##########
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-55 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1515  4. at most 2 characters outside HSK 2 words
+      122  5. really HSK 2
+      118  5b. no harder grammar point (of the 34 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as tatoeba 6057701 (translations pooled)
+  你有学生证吗？  -- same text as tatoeba 6284495 (translations pooled)
+  你有朋友吗？  -- same text as tatoeba 9959099 (translations pooled)
+
+--- dropped at step 4 (1415), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  附近有没有青年旅舍？  -- 3 characters no HSK 2 word uses: 舍附青
+  我没有任何借口。  -- 3 characters no HSK 2 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 2 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 3 characters no HSK 2 word uses: 方无草
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 2 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 3 characters no HSK 2 word uses: 串烤种
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1393), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 事件 L5, 关系 L3
+  阿什兰也有水。  -- level 1: no list words
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list)
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  我不在的时候有没有人来？  -- level 1: no list words
+  桌子上有本书。  -- level 1: no list words
+  还有什么？  -- level 1: no list words
+
+--- dropped at step 5b (4) ---
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  我听到有人进来了。  -- harder grammar: 3-46 (HSK 3)
+  我不记得有打电话给你。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (118) ---
+  你有多高？  -- rule: no match: line matched
+  有时我去，有时不去。  -- rule: no match: line matched
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我们只有茶水。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  “没门儿！”　“有的，有门儿。”  -- rule: unless 有的/PN
+  楼下有人在等您。  -- rule: no match: line matched
+  因为我有点头疼，所以我早早上床睡觉。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  我现在还没有吃过午饭。  -- rule: no match: line matched
+  那样的事天天都有。  -- rule: no match: line matched
+  一天有二十四个小时。  -- rule: no match: line matched
+  他的书非常有意思。  -- rule: no match: line matched
+  我没有朋友一起玩。  -- rule: unless 没有/VE
+  因为他有钱，所以能去那儿。  -- rule: no match: line matched
+  她没有票。  -- rule: unless 没有/VE
+  有件事情我要对你说。  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: unless 没有/VE
+  她说她有点累了。  -- rule: no match: line matched
+  我家只有三口人。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  她有几百本书。  -- rule: no match: line matched
+  在日本，有站长是猫的车站。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  我们班有十多个学生。  -- rule: no match: line matched
+  它没有教她说话。  -- rule: no match: line matched
+  他有一千多本书。  -- rule: no match: line matched
+  我有点累。  -- rule: no match: line matched
+  有人在门口。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他有自己的房间。  -- rule: no match: line matched
+  没吃早饭，我有些不舒服。  -- rule: no match: line matched
+  你有去过巴黎吗？  -- rule: no match: line matched
+  有人跟我说这件事。  -- rule: no match: line matched
+  所以他没有去学校。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  你在班里有好朋友吗？  -- rule: no match: line matched
+  有人来过这里。  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 没有/VE
+  你有很多笔吗？  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  现在有票。  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  我现在有钱，能想买就买。  -- rule: no match: line matched
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  真高兴有人告诉我。  -- rule: no match: line matched
+  他们可能有点什么。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  还有什么事就告诉我。  -- rule: unless 还/AD 有/VE
+  有后门。  -- rule: no match: line matched
+  是有人花钱让你做这事吗？  -- rule: no match: line matched
+  我没想到它有那么大。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: no match: line matched
+  得有人做点事。  -- rule: no match: line matched
+  有人请我帮你。  -- rule: no match: line matched
+  你有可能不知道这事。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: no match: line matched
+  电话前面有四本中文书。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我没有真的准备好。  -- rule: no match: line matched
+  有你帮我真好。  -- rule: no match: line matched
+  有人告诉他吗？  -- rule: no match: line matched
+  你已经有孩子了吗？  -- rule: no match: line matched
+  我知道你比我有钱。  -- rule: no match: line matched
+  我知道有个人可能能帮忙。  -- rule: no match: line matched
+  我希望汤姆有一天会来这里。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  有学生票吗？  -- rule: no match: line matched
+  有今天有点头疼。  -- rule: no match: line matched
+  他们有时帮我们。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  她没有帮我。  -- rule: no match: line matched
+  但是您有孩子。  -- rule: no match: line matched
+  但是你有孩子。  -- rule: no match: line matched
+  我没有找Tom帮忙。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  我有东西想给你看看。  -- rule: no match: line matched
+  你有喜欢的颜色吗？  -- rule: no match: line matched
+  那个东西有多热？  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  他说他没有做过那件事。  -- rule: no match: line matched
+  所以，哪里有问题？  -- rule: no match: line matched
+  有什么你想让我买的吗？  -- rule: no match: line matched
+  告诉我你没有这么做。  -- rule: no match: line matched
+  我小时候的时候还没有电脑。  -- rule: unless 没有/VE
+  我看起来很有钱吗？  -- rule: no match: line matched
+  杯子里面有水。  -- rule: no match: line matched
+  她没有让我们帮忙。  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  没有人问过我。  -- rule: unless 没有/VE
+  有谁想一起去吃饭吗？  -- rule: no match: line matched
+  你没有希望。  -- rule: unless 没有/VE
+  有人会这样想。  -- rule: no match: line matched
+  我们有帮忙。  -- rule: no match: line matched
+  他有帮忙。  -- rule: no match: line matched
+  汤姆猫有帮忙。  -- rule: no match: line matched
+  我有帮忙。  -- rule: no match: line matched
+  汤姆做得有点过头了。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  什么事都有可能。  -- rule: no match: line matched
+  我的班上有三十名学生。  -- rule: no match: line matched
+  我们班有三十名学生。  -- rule: no match: line matched
+  我家九月有两人过生日。  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  有些人是这么想的。  -- rule: no match: line matched
+  我还是没有手机。  -- rule: unless 没有/VE
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  有些事情不能忘。  -- rule: no match: line matched
+  我们看看有没有人在家。  -- rule: no match: line matched
+  玛莉问我们有没有准备好。  -- rule: unless 没有/VE
+  这些里面有你喜欢的吗？  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-55_level2_20261110_213819.csv
+
+########## guard check  2026-11-11 14:23 ##########
+
+########## tatoeba  2026-11-11 14:29 ##########
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-55 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1515  4. at most 2 characters outside HSK 2 words
+      122  5. really HSK 2
+      118  5b. no harder grammar point (of the 39 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as tatoeba 6057701 (translations pooled)
+  你有学生证吗？  -- same text as tatoeba 6284495 (translations pooled)
+  你有朋友吗？  -- same text as tatoeba 9959099 (translations pooled)
+
+--- dropped at step 4 (1415), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  附近有没有青年旅舍？  -- 3 characters no HSK 2 word uses: 舍附青
+  我没有任何借口。  -- 3 characters no HSK 2 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 2 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 3 characters no HSK 2 word uses: 方无草
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 2 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 3 characters no HSK 2 word uses: 串烤种
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1393), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 事件 L5, 关系 L3
+  阿什兰也有水。  -- level 1: no list words
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list)
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  我不在的时候有没有人来？  -- level 1: no list words
+  桌子上有本书。  -- level 1: no list words
+  还有什么？  -- level 1: no list words
+
+--- dropped at step 5b (4) ---
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  我听到有人进来了。  -- harder grammar: 3-46 (HSK 3)
+  我不记得有打电话给你。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (118) ---
+  你有多高？  -- rule: no match: line matched
+  有时我去，有时不去。  -- rule: no match: line matched
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我们只有茶水。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  “没门儿！”　“有的，有门儿。”  -- rule: unless 有的/PN
+  楼下有人在等您。  -- rule: no match: line matched
+  因为我有点头疼，所以我早早上床睡觉。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  我现在还没有吃过午饭。  -- rule: no match: line matched
+  那样的事天天都有。  -- rule: no match: line matched
+  一天有二十四个小时。  -- rule: no match: line matched
+  他的书非常有意思。  -- rule: no match: line matched
+  我没有朋友一起玩。  -- rule: unless 没有/VE
+  因为他有钱，所以能去那儿。  -- rule: no match: line matched
+  她没有票。  -- rule: unless 没有/VE
+  有件事情我要对你说。  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: unless 没有/VE
+  她说她有点累了。  -- rule: no match: line matched
+  我家只有三口人。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  她有几百本书。  -- rule: no match: line matched
+  在日本，有站长是猫的车站。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  我们班有十多个学生。  -- rule: no match: line matched
+  它没有教她说话。  -- rule: no match: line matched
+  他有一千多本书。  -- rule: no match: line matched
+  我有点累。  -- rule: no match: line matched
+  有人在门口。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他有自己的房间。  -- rule: no match: line matched
+  没吃早饭，我有些不舒服。  -- rule: no match: line matched
+  你有去过巴黎吗？  -- rule: no match: line matched
+  有人跟我说这件事。  -- rule: no match: line matched
+  所以他没有去学校。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  你在班里有好朋友吗？  -- rule: no match: line matched
+  有人来过这里。  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 没有/VE
+  你有很多笔吗？  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  现在有票。  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  我现在有钱，能想买就买。  -- rule: no match: line matched
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  真高兴有人告诉我。  -- rule: no match: line matched
+  他们可能有点什么。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  还有什么事就告诉我。  -- rule: unless 还/AD 有/VE
+  有后门。  -- rule: no match: line matched
+  是有人花钱让你做这事吗？  -- rule: no match: line matched
+  我没想到它有那么大。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: no match: line matched
+  得有人做点事。  -- rule: no match: line matched
+  有人请我帮你。  -- rule: no match: line matched
+  你有可能不知道这事。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: no match: line matched
+  电话前面有四本中文书。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我没有真的准备好。  -- rule: no match: line matched
+  有你帮我真好。  -- rule: no match: line matched
+  有人告诉他吗？  -- rule: no match: line matched
+  你已经有孩子了吗？  -- rule: no match: line matched
+  我知道你比我有钱。  -- rule: no match: line matched
+  我知道有个人可能能帮忙。  -- rule: no match: line matched
+  我希望汤姆有一天会来这里。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  有学生票吗？  -- rule: no match: line matched
+  有今天有点头疼。  -- rule: no match: line matched
+  他们有时帮我们。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  她没有帮我。  -- rule: no match: line matched
+  但是您有孩子。  -- rule: no match: line matched
+  但是你有孩子。  -- rule: no match: line matched
+  我没有找Tom帮忙。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  我有东西想给你看看。  -- rule: no match: line matched
+  你有喜欢的颜色吗？  -- rule: no match: line matched
+  那个东西有多热？  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  他说他没有做过那件事。  -- rule: no match: line matched
+  所以，哪里有问题？  -- rule: no match: line matched
+  有什么你想让我买的吗？  -- rule: no match: line matched
+  告诉我你没有这么做。  -- rule: no match: line matched
+  我小时候的时候还没有电脑。  -- rule: unless 没有/VE
+  我看起来很有钱吗？  -- rule: no match: line matched
+  杯子里面有水。  -- rule: no match: line matched
+  她没有让我们帮忙。  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  没有人问过我。  -- rule: unless 没有/VE
+  有谁想一起去吃饭吗？  -- rule: no match: line matched
+  你没有希望。  -- rule: unless 没有/VE
+  有人会这样想。  -- rule: no match: line matched
+  我们有帮忙。  -- rule: no match: line matched
+  他有帮忙。  -- rule: no match: line matched
+  汤姆猫有帮忙。  -- rule: no match: line matched
+  我有帮忙。  -- rule: no match: line matched
+  汤姆做得有点过头了。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  什么事都有可能。  -- rule: no match: line matched
+  我的班上有三十名学生。  -- rule: no match: line matched
+  我们班有三十名学生。  -- rule: no match: line matched
+  我家九月有两人过生日。  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  有些人是这么想的。  -- rule: no match: line matched
+  我还是没有手机。  -- rule: unless 没有/VE
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  有些事情不能忘。  -- rule: no match: line matched
+  我们看看有没有人在家。  -- rule: no match: line matched
+  玛莉问我们有没有准备好。  -- rule: unless 没有/VE
+  这些里面有你喜欢的吗？  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-55_level2_20261111_142927.csv
+
+########## rules  2026-11-12 17:26 ##########
+
+=== A. 2-55: rule on labeled examples (no AI) ===
+  examples of 2-55 matched:    12/12
+  counter-examples wrongly matched: 0/130   <- should be 0
+  easy examples (words all HSK 2 or below) matched: 7/7   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:41 ##########
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 7 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_174101.txt
+  ...100/1515
+  ...200/1515
+  ...300/1515
+  ...400/1515
+  ...500/1515
+  ...600/1515
+  ...700/1515
+  ...800/1515
+  ...900/1515
+  ...1000/1515
+  ...1100/1515
+  ...1200/1515
+  ...1300/1515
+  ...1400/1515
+  ...1500/1515
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-55 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1515  4. at most 2 characters outside HSK 2 words
+      126  5. really HSK 2
+      122  5b. no harder grammar point (of the 40 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as tatoeba 6057701 (translations pooled)
+  你有学生证吗？  -- same text as tatoeba 6284495 (translations pooled)
+  你有朋友吗？  -- same text as tatoeba 9959099 (translations pooled)
+
+--- dropped at step 4 (1415), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  附近有没有青年旅舍？  -- 3 characters no HSK 2 word uses: 舍附青
+  我没有任何借口。  -- 3 characters no HSK 2 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 2 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 3 characters no HSK 2 word uses: 方无草
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 2 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 3 characters no HSK 2 word uses: 串烤种
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1389), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 事件 L5, 关系 L3
+  阿什兰也有水。  -- level 1: no list words
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list)
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  我不在的时候有没有人来？  -- level 1: no list words
+  桌子上有本书。  -- level 1: no list words
+  还有什么？  -- level 1: no list words
+
+--- dropped at step 5b (4) ---
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  我听到有人进来了。  -- harder grammar: 3-46 (HSK 3)
+  我不记得有打电话给你。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (122) ---
+  你有多高？  -- rule: no match: line matched
+  有时我去，有时不去。  -- rule: no match: line matched
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我们只有茶水。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  “没门儿！”　“有的，有门儿。”  -- rule: unless 有的/PN
+  楼下有人在等您。  -- rule: no match: line matched
+  因为我有点头疼，所以我早早上床睡觉。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  我现在还没有吃过午饭。  -- rule: no match: line matched
+  那样的事天天都有。  -- rule: no match: line matched
+  一天有二十四个小时。  -- rule: no match: line matched
+  他的书非常有意思。  -- rule: no match: line matched
+  我没有朋友一起玩。  -- rule: unless 没有/VE
+  因为他有钱，所以能去那儿。  -- rule: no match: line matched
+  她没有票。  -- rule: unless 没有/VE
+  有件事情我要对你说。  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: unless 没有/VE
+  她说她有点累了。  -- rule: no match: line matched
+  我家只有三口人。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  她有几百本书。  -- rule: no match: line matched
+  在日本，有站长是猫的车站。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  我们班有十多个学生。  -- rule: no match: line matched
+  它没有教她说话。  -- rule: no match: line matched
+  他有一千多本书。  -- rule: no match: line matched
+  我有点累。  -- rule: no match: line matched
+  有人在门口。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他有自己的房间。  -- rule: no match: line matched
+  没吃早饭，我有些不舒服。  -- rule: no match: line matched
+  你有去过巴黎吗？  -- rule: no match: line matched
+  有人跟我说这件事。  -- rule: no match: line matched
+  所以他没有去学校。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  你在班里有好朋友吗？  -- rule: no match: line matched
+  有人来过这里。  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 没有/VE
+  你有很多笔吗？  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  现在有票。  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  我现在有钱，能想买就买。  -- rule: no match: line matched
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  真高兴有人告诉我。  -- rule: no match: line matched
+  他们可能有点什么。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  还有什么事就告诉我。  -- rule: unless 还/AD 有/VE
+  有后门。  -- rule: no match: line matched
+  是有人花钱让你做这事吗？  -- rule: no match: line matched
+  我没想到它有那么大。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: unless 没有/VE
+  得有人做点事。  -- rule: no match: line matched
+  有人请我帮你。  -- rule: no match: line matched
+  你有可能不知道这事。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: no match: line matched
+  电话前面有四本中文书。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我没有真的准备好。  -- rule: no match: line matched
+  有你帮我真好。  -- rule: no match: line matched
+  有人告诉他吗？  -- rule: no match: line matched
+  你已经有孩子了吗？  -- rule: no match: line matched
+  我知道你比我有钱。  -- rule: no match: line matched
+  我知道有个人可能能帮忙。  -- rule: no match: line matched
+  我希望汤姆有一天会来这里。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  有点大。  -- rule: no match: line matched
+  有点小。  -- rule: no match: line matched
+  有学生票吗？  -- rule: no match: line matched
+  有今天有点头疼。  -- rule: no match: line matched
+  他们有时帮我们。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  不知道为什么今天有点累。  -- rule: no match: line matched
+  她没有帮我。  -- rule: no match: line matched
+  但是您有孩子。  -- rule: no match: line matched
+  但是你有孩子。  -- rule: no match: line matched
+  我没有找Tom帮忙。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  我有东西想给你看看。  -- rule: no match: line matched
+  你有喜欢的颜色吗？  -- rule: no match: line matched
+  那个东西有多热？  -- rule: no match: line matched
+  我有点喜欢他。  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  他说他没有做过那件事。  -- rule: no match: line matched
+  所以，哪里有问题？  -- rule: no match: line matched
+  有什么你想让我买的吗？  -- rule: no match: line matched
+  这里有点冷。  -- rule: no match: line matched
+  告诉我你没有这么做。  -- rule: no match: line matched
+  我小时候的时候还没有电脑。  -- rule: unless 没有/VE
+  我看起来很有钱吗？  -- rule: no match: line matched
+  杯子里面有水。  -- rule: no match: line matched
+  她没有让我们帮忙。  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  没有人问过我。  -- rule: unless 没有/VE
+  有谁想一起去吃饭吗？  -- rule: no match: line matched
+  你没有希望。  -- rule: unless 没有/VE
+  有人会这样想。  -- rule: no match: line matched
+  我们有帮忙。  -- rule: no match: line matched
+  他有帮忙。  -- rule: no match: line matched
+  汤姆猫有帮忙。  -- rule: no match: line matched
+  我有帮忙。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  什么事都有可能。  -- rule: no match: line matched
+  我的班上有三十名学生。  -- rule: no match: line matched
+  我们班有三十名学生。  -- rule: no match: line matched
+  我家九月有两人过生日。  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  有些人是这么想的。  -- rule: no match: line matched
+  我还是没有手机。  -- rule: unless 没有/VE
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  有些事情不能忘。  -- rule: no match: line matched
+  我们看看有没有人在家。  -- rule: no match: line matched
+  玛莉问我们有没有准备好。  -- rule: unless 没有/VE
+  这些里面有你喜欢的吗？  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-55_level2_20261112_174108.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-55 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1515  4. at most 2 characters outside HSK 2 words
+      126  5. really HSK 2
+      122  5b. no harder grammar point (of the 40 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as tatoeba 6057701 (translations pooled)
+  你有学生证吗？  -- same text as tatoeba 6284495 (translations pooled)
+  你有朋友吗？  -- same text as tatoeba 9959099 (translations pooled)
+
+--- dropped at step 4 (1415), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  附近有没有青年旅舍？  -- 3 characters no HSK 2 word uses: 舍附青
+  我没有任何借口。  -- 3 characters no HSK 2 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 2 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 3 characters no HSK 2 word uses: 方无草
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 2 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 3 characters no HSK 2 word uses: 串烤种
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1389), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 事件 L5, 关系 L3
+  阿什兰也有水。  -- level 1: no list words
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list)
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  我不在的时候有没有人来？  -- level 1: no list words
+  桌子上有本书。  -- level 1: no list words
+  还有什么？  -- level 1: no list words
+
+--- dropped at step 5b (4) ---
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  我听到有人进来了。  -- harder grammar: 3-46 (HSK 3)
+  我不记得有打电话给你。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (122) ---
+  你有多高？  -- rule: no match: line matched
+  有时我去，有时不去。  -- rule: no match: line matched
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我们只有茶水。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  “没门儿！”　“有的，有门儿。”  -- rule: unless 有的/PN
+  楼下有人在等您。  -- rule: no match: line matched
+  因为我有点头疼，所以我早早上床睡觉。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  我现在还没有吃过午饭。  -- rule: no match: line matched
+  那样的事天天都有。  -- rule: no match: line matched
+  一天有二十四个小时。  -- rule: no match: line matched
+  他的书非常有意思。  -- rule: no match: line matched
+  我没有朋友一起玩。  -- rule: unless 没有/VE
+  因为他有钱，所以能去那儿。  -- rule: no match: line matched
+  她没有票。  -- rule: unless 没有/VE
+  有件事情我要对你说。  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: unless 没有/VE
+  她说她有点累了。  -- rule: no match: line matched
+  我家只有三口人。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  她有几百本书。  -- rule: no match: line matched
+  在日本，有站长是猫的车站。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  我们班有十多个学生。  -- rule: no match: line matched
+  它没有教她说话。  -- rule: no match: line matched
+  他有一千多本书。  -- rule: no match: line matched
+  我有点累。  -- rule: no match: line matched
+  有人在门口。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他有自己的房间。  -- rule: no match: line matched
+  没吃早饭，我有些不舒服。  -- rule: no match: line matched
+  你有去过巴黎吗？  -- rule: no match: line matched
+  有人跟我说这件事。  -- rule: no match: line matched
+  所以他没有去学校。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  你在班里有好朋友吗？  -- rule: no match: line matched
+  有人来过这里。  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 没有/VE
+  你有很多笔吗？  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  现在有票。  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  我现在有钱，能想买就买。  -- rule: no match: line matched
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  真高兴有人告诉我。  -- rule: no match: line matched
+  他们可能有点什么。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  还有什么事就告诉我。  -- rule: unless 还/AD 有/VE
+  有后门。  -- rule: no match: line matched
+  是有人花钱让你做这事吗？  -- rule: no match: line matched
+  我没想到它有那么大。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: unless 没有/VE
+  得有人做点事。  -- rule: no match: line matched
+  有人请我帮你。  -- rule: no match: line matched
+  你有可能不知道这事。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: no match: line matched
+  电话前面有四本中文书。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我没有真的准备好。  -- rule: no match: line matched
+  有你帮我真好。  -- rule: no match: line matched
+  有人告诉他吗？  -- rule: no match: line matched
+  你已经有孩子了吗？  -- rule: no match: line matched
+  我知道你比我有钱。  -- rule: no match: line matched
+  我知道有个人可能能帮忙。  -- rule: no match: line matched
+  我希望汤姆有一天会来这里。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  有点大。  -- rule: no match: line matched
+  有点小。  -- rule: no match: line matched
+  有学生票吗？  -- rule: no match: line matched
+  有今天有点头疼。  -- rule: no match: line matched
+  他们有时帮我们。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  不知道为什么今天有点累。  -- rule: no match: line matched
+  她没有帮我。  -- rule: no match: line matched
+  但是您有孩子。  -- rule: no match: line matched
+  但是你有孩子。  -- rule: no match: line matched
+  我没有找Tom帮忙。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  我有东西想给你看看。  -- rule: no match: line matched
+  你有喜欢的颜色吗？  -- rule: no match: line matched
+  那个东西有多热？  -- rule: no match: line matched
+  我有点喜欢他。  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  他说他没有做过那件事。  -- rule: no match: line matched
+  所以，哪里有问题？  -- rule: no match: line matched
+  有什么你想让我买的吗？  -- rule: no match: line matched
+  这里有点冷。  -- rule: no match: line matched
+  告诉我你没有这么做。  -- rule: no match: line matched
+  我小时候的时候还没有电脑。  -- rule: unless 没有/VE
+  我看起来很有钱吗？  -- rule: no match: line matched
+  杯子里面有水。  -- rule: no match: line matched
+  她没有让我们帮忙。  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  没有人问过我。  -- rule: unless 没有/VE
+  有谁想一起去吃饭吗？  -- rule: no match: line matched
+  你没有希望。  -- rule: unless 没有/VE
+  有人会这样想。  -- rule: no match: line matched
+  我们有帮忙。  -- rule: no match: line matched
+  他有帮忙。  -- rule: no match: line matched
+  汤姆猫有帮忙。  -- rule: no match: line matched
+  我有帮忙。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  什么事都有可能。  -- rule: no match: line matched
+  我的班上有三十名学生。  -- rule: no match: line matched
+  我们班有三十名学生。  -- rule: no match: line matched
+  我家九月有两人过生日。  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  有些人是这么想的。  -- rule: no match: line matched
+  我还是没有手机。  -- rule: unless 没有/VE
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  有些事情不能忘。  -- rule: no match: line matched
+  我们看看有没有人在家。  -- rule: no match: line matched
+  玛莉问我们有没有准备好。  -- rule: unless 没有/VE
+  这些里面有你喜欢的吗？  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-55_level2_20261112_211520.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:55 ##########
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-55 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1515  4. at most 2 characters outside HSK 2 words
+      126  5. really HSK 2
+      118  5b. no harder grammar point (of the 44 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as tatoeba 6057701 (translations pooled)
+  你有学生证吗？  -- same text as tatoeba 6284495 (translations pooled)
+  你有朋友吗？  -- same text as tatoeba 9959099 (translations pooled)
+
+--- dropped at step 4 (1415), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  附近有没有青年旅舍？  -- 3 characters no HSK 2 word uses: 舍附青
+  我没有任何借口。  -- 3 characters no HSK 2 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 2 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 3 characters no HSK 2 word uses: 方无草
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 2 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 3 characters no HSK 2 word uses: 串烤种
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1389), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 事件 L5, 关系 L3
+  阿什兰也有水。  -- level 1: no list words
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list)
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  我不在的时候有没有人来？  -- level 1: no list words
+  桌子上有本书。  -- level 1: no list words
+  还有什么？  -- level 1: no list words
+
+--- dropped at step 5b (8) ---
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  它没有教她说话。  -- harder grammar: 2-06 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  他有自己的房间。  -- harder grammar: 2-06 (HSK 3)
+  等我有钱了，我就买它。  -- harder grammar: 2-06 (HSK 3)
+  我没想到它有那么大。  -- harder grammar: 2-06 (HSK 3)
+  我听到有人进来了。  -- harder grammar: 3-46 (HSK 3)
+  我不记得有打电话给你。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (118) ---
+  你有多高？  -- rule: no match: line matched
+  有时我去，有时不去。  -- rule: no match: line matched
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我们只有茶水。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  “没门儿！”　“有的，有门儿。”  -- rule: unless 有的/PN
+  楼下有人在等您。  -- rule: no match: line matched
+  因为我有点头疼，所以我早早上床睡觉。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  我现在还没有吃过午饭。  -- rule: no match: line matched
+  那样的事天天都有。  -- rule: no match: line matched
+  一天有二十四个小时。  -- rule: no match: line matched
+  他的书非常有意思。  -- rule: no match: line matched
+  我没有朋友一起玩。  -- rule: unless 没有/VE
+  因为他有钱，所以能去那儿。  -- rule: no match: line matched
+  她没有票。  -- rule: unless 没有/VE
+  有件事情我要对你说。  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: unless 没有/VE
+  她说她有点累了。  -- rule: no match: line matched
+  我家只有三口人。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  她有几百本书。  -- rule: no match: line matched
+  在日本，有站长是猫的车站。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  我们班有十多个学生。  -- rule: no match: line matched
+  他有一千多本书。  -- rule: no match: line matched
+  我有点累。  -- rule: no match: line matched
+  有人在门口。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  没吃早饭，我有些不舒服。  -- rule: no match: line matched
+  你有去过巴黎吗？  -- rule: no match: line matched
+  有人跟我说这件事。  -- rule: no match: line matched
+  所以他没有去学校。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  你在班里有好朋友吗？  -- rule: no match: line matched
+  有人来过这里。  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 没有/VE
+  你有很多笔吗？  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  现在有票。  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  我现在有钱，能想买就买。  -- rule: no match: line matched
+  真高兴有人告诉我。  -- rule: no match: line matched
+  他们可能有点什么。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  还有什么事就告诉我。  -- rule: unless 还/AD 有/VE
+  有后门。  -- rule: no match: line matched
+  是有人花钱让你做这事吗？  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: unless 没有/VE
+  得有人做点事。  -- rule: no match: line matched
+  有人请我帮你。  -- rule: no match: line matched
+  你有可能不知道这事。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: no match: line matched
+  电话前面有四本中文书。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我没有真的准备好。  -- rule: no match: line matched
+  有你帮我真好。  -- rule: no match: line matched
+  有人告诉他吗？  -- rule: no match: line matched
+  你已经有孩子了吗？  -- rule: no match: line matched
+  我知道你比我有钱。  -- rule: no match: line matched
+  我知道有个人可能能帮忙。  -- rule: no match: line matched
+  我希望汤姆有一天会来这里。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  有点大。  -- rule: no match: line matched
+  有点小。  -- rule: no match: line matched
+  有学生票吗？  -- rule: no match: line matched
+  有今天有点头疼。  -- rule: no match: line matched
+  他们有时帮我们。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  不知道为什么今天有点累。  -- rule: no match: line matched
+  她没有帮我。  -- rule: no match: line matched
+  但是您有孩子。  -- rule: no match: line matched
+  但是你有孩子。  -- rule: no match: line matched
+  我没有找Tom帮忙。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  我有东西想给你看看。  -- rule: no match: line matched
+  你有喜欢的颜色吗？  -- rule: no match: line matched
+  那个东西有多热？  -- rule: no match: line matched
+  我有点喜欢他。  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  他说他没有做过那件事。  -- rule: no match: line matched
+  所以，哪里有问题？  -- rule: no match: line matched
+  有什么你想让我买的吗？  -- rule: no match: line matched
+  这里有点冷。  -- rule: no match: line matched
+  告诉我你没有这么做。  -- rule: no match: line matched
+  我小时候的时候还没有电脑。  -- rule: unless 没有/VE
+  我看起来很有钱吗？  -- rule: no match: line matched
+  杯子里面有水。  -- rule: no match: line matched
+  她没有让我们帮忙。  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  没有人问过我。  -- rule: unless 没有/VE
+  有谁想一起去吃饭吗？  -- rule: no match: line matched
+  你没有希望。  -- rule: unless 没有/VE
+  有人会这样想。  -- rule: no match: line matched
+  我们有帮忙。  -- rule: no match: line matched
+  他有帮忙。  -- rule: no match: line matched
+  汤姆猫有帮忙。  -- rule: no match: line matched
+  我有帮忙。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  什么事都有可能。  -- rule: no match: line matched
+  我的班上有三十名学生。  -- rule: no match: line matched
+  我们班有三十名学生。  -- rule: no match: line matched
+  我家九月有两人过生日。  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  有些人是这么想的。  -- rule: no match: line matched
+  我还是没有手机。  -- rule: unless 没有/VE
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  有些事情不能忘。  -- rule: no match: line matched
+  我们看看有没有人在家。  -- rule: no match: line matched
+  玛莉问我们有没有准备好。  -- rule: unless 没有/VE
+  这些里面有你喜欢的吗？  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-55_level2_20261113_135504.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:45 ##########
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-55 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1515  4. at most 2 characters outside HSK 2 words
+      126  5. really HSK 2
+      122  5b. no harder grammar point (of the 43 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as tatoeba 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as tatoeba 6057701 (translations pooled)
+  你有学生证吗？  -- same text as tatoeba 6284495 (translations pooled)
+  你有朋友吗？  -- same text as tatoeba 9959099 (translations pooled)
+
+--- dropped at step 4 (1415), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  附近有没有青年旅舍？  -- 3 characters no HSK 2 word uses: 舍附青
+  我没有任何借口。  -- 3 characters no HSK 2 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 2 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 3 characters no HSK 2 word uses: 方无草
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 2 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 3 characters no HSK 2 word uses: 串烤种
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1389), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 事件 L5, 关系 L3
+  阿什兰也有水。  -- level 1: no list words
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list)
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  我不在的时候有没有人来？  -- level 1: no list words
+  桌子上有本书。  -- level 1: no list words
+  还有什么？  -- level 1: no list words
+
+--- dropped at step 5b (4) ---
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  我听到有人进来了。  -- harder grammar: 3-46 (HSK 3)
+  我不记得有打电话给你。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 6 (122) ---
+  你有多高？  -- rule: no match: line matched
+  有时我去，有时不去。  -- rule: no match: line matched
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我们只有茶水。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  “没门儿！”　“有的，有门儿。”  -- rule: unless 有的/PN
+  楼下有人在等您。  -- rule: no match: line matched
+  因为我有点头疼，所以我早早上床睡觉。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  我现在还没有吃过午饭。  -- rule: no match: line matched
+  那样的事天天都有。  -- rule: no match: line matched
+  一天有二十四个小时。  -- rule: no match: line matched
+  他的书非常有意思。  -- rule: no match: line matched
+  我没有朋友一起玩。  -- rule: unless 没有/VE
+  因为他有钱，所以能去那儿。  -- rule: no match: line matched
+  她没有票。  -- rule: unless 没有/VE
+  有件事情我要对你说。  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: unless 没有/VE
+  她说她有点累了。  -- rule: no match: line matched
+  我家只有三口人。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  她有几百本书。  -- rule: no match: line matched
+  在日本，有站长是猫的车站。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  我们班有十多个学生。  -- rule: no match: line matched
+  它没有教她说话。  -- rule: no match: line matched
+  他有一千多本书。  -- rule: no match: line matched
+  我有点累。  -- rule: no match: line matched
+  有人在门口。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他有自己的房间。  -- rule: no match: line matched
+  没吃早饭，我有些不舒服。  -- rule: no match: line matched
+  你有去过巴黎吗？  -- rule: no match: line matched
+  有人跟我说这件事。  -- rule: no match: line matched
+  所以他没有去学校。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  你在班里有好朋友吗？  -- rule: no match: line matched
+  有人来过这里。  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 没有/VE
+  你有很多笔吗？  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  现在有票。  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  我现在有钱，能想买就买。  -- rule: no match: line matched
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  真高兴有人告诉我。  -- rule: no match: line matched
+  他们可能有点什么。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  还有什么事就告诉我。  -- rule: unless 还/AD 有/VE
+  有后门。  -- rule: no match: line matched
+  是有人花钱让你做这事吗？  -- rule: no match: line matched
+  我没想到它有那么大。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: unless 没有/VE
+  得有人做点事。  -- rule: no match: line matched
+  有人请我帮你。  -- rule: no match: line matched
+  你有可能不知道这事。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: no match: line matched
+  电话前面有四本中文书。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我没有真的准备好。  -- rule: no match: line matched
+  有你帮我真好。  -- rule: no match: line matched
+  有人告诉他吗？  -- rule: no match: line matched
+  你已经有孩子了吗？  -- rule: no match: line matched
+  我知道你比我有钱。  -- rule: no match: line matched
+  我知道有个人可能能帮忙。  -- rule: no match: line matched
+  我希望汤姆有一天会来这里。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  有点大。  -- rule: no match: line matched
+  有点小。  -- rule: no match: line matched
+  有学生票吗？  -- rule: no match: line matched
+  有今天有点头疼。  -- rule: no match: line matched
+  他们有时帮我们。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  不知道为什么今天有点累。  -- rule: no match: line matched
+  她没有帮我。  -- rule: no match: line matched
+  但是您有孩子。  -- rule: no match: line matched
+  但是你有孩子。  -- rule: no match: line matched
+  我没有找Tom帮忙。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  我有东西想给你看看。  -- rule: no match: line matched
+  你有喜欢的颜色吗？  -- rule: no match: line matched
+  那个东西有多热？  -- rule: no match: line matched
+  我有点喜欢他。  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  他说他没有做过那件事。  -- rule: no match: line matched
+  所以，哪里有问题？  -- rule: no match: line matched
+  有什么你想让我买的吗？  -- rule: no match: line matched
+  这里有点冷。  -- rule: no match: line matched
+  告诉我你没有这么做。  -- rule: no match: line matched
+  我小时候的时候还没有电脑。  -- rule: unless 没有/VE
+  我看起来很有钱吗？  -- rule: no match: line matched
+  杯子里面有水。  -- rule: no match: line matched
+  她没有让我们帮忙。  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  没有人问过我。  -- rule: unless 没有/VE
+  有谁想一起去吃饭吗？  -- rule: no match: line matched
+  你没有希望。  -- rule: unless 没有/VE
+  有人会这样想。  -- rule: no match: line matched
+  我们有帮忙。  -- rule: no match: line matched
+  他有帮忙。  -- rule: no match: line matched
+  汤姆猫有帮忙。  -- rule: no match: line matched
+  我有帮忙。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  什么事都有可能。  -- rule: no match: line matched
+  我的班上有三十名学生。  -- rule: no match: line matched
+  我们班有三十名学生。  -- rule: no match: line matched
+  我家九月有两人过生日。  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  有些人是这么想的。  -- rule: no match: line matched
+  我还是没有手机。  -- rule: unless 没有/VE
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  有些事情不能忘。  -- rule: no match: line matched
+  我们看看有没有人在家。  -- rule: no match: line matched
+  玛莉问我们有没有准备好。  -- rule: unless 没有/VE
+  这些里面有你喜欢的吗？  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-55_level2_20261113_144538.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## ai  2026-11-14 14:39 ##########
+
+----- AI-written sentences for 2-55, round 1: 0 to check, 20 needed -----
+  Asking claude-sonnet-5-5 to write 50 sentence(s)...
+
+----- AI-written sentences for 2-55, round 2: 50 to check, 20 needed -----
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 50
+
+Tagging 49 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_144019.txt
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-55 at HSK 2: funnel ===
+       50  AI-written sentences
+       50  1. have an English translation
+       50  2. contain the point's word(s)
+       50  3. new (not in DB, not a duplicate)
+       49  4. at most 0 characters outside HSK 2 words
+       27  5. really HSK 2
+       27  5b. no harder grammar point (of the 43 with a rule)
+       14  6. the rule finds 2-55
+       14  6b. no hidden word a learner can't work out
+       11  7. both checks say 2-55, English chosen
+        6  8. both difficulty reviews pass it
+
+=== Survivors (6) ===
+  弟弟有我高吗？  (Is your younger brother as tall as me?)  [tatoeba ai-a46913fb6c]
+  你有你哥哥高吗？  (Are you as tall as your older brother?)  [tatoeba ai-94cf654fd6]
+  他有你那么忙吗？  (Is he as busy as you are?)  [tatoeba ai-33bcfa77a8]
+  他有你个子高吗？  (Is he as tall as you?)  [tatoeba ai-4c67c7e7bd]
+  地铁有公交车快吗？  (Is the subway as fast as the bus?)  [tatoeba ai-608922b54d]
+  你的朋友有我那么多吗？  (Do you have as many friends as I do?)  [tatoeba ai-52bb3b2e28]
+
+--- dropped at step 4 (1) ---
+  那儿的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+
+--- dropped at step 5 (22), first 12 ---
+  这家饭店有那家贵吗？  -- level 1: no list words
+  今天有昨天冷吗？  -- level 1: no list words
+  你妈妈做的菜有饭店的好吃吗？  -- level 1: no list words
+  她有你漂亮吗？  -- level 1: no list words
+  这个手机有那个新吗？  -- level 1: no list words
+  这本书有那本好看吗？  -- level 1: no list words
+  我们学校有你们学校大吗？  -- level 1: no list words
+  今天有昨天热吗？  -- level 1: no list words
+  这个孩子有两岁吗？  -- level 1: no list words
+  这件衣服有三百块吗？  -- level 1: no list words
+  你家的狗有我家的狗大吗？  -- level 1: no list words
+  这只猫有那只猫小吗？  -- level 1: no list words
+
+--- dropped at step 6 (13) ---
+  你做饭有妈妈做得好吗？  -- rule: no match: line matched
+  他说汉语有你说得好吗？  -- rule: no match: line matched
+  你的电脑有我的快吗？  -- rule: no match: line matched
+  你儿子有你高了吗？  -- rule: no match: line matched
+  你女儿有八岁了吗？  -- rule: no match: line matched
+  她有五十岁了吧？  -- rule: no match: line matched
+  从这儿走路到车站有二十分钟吗？  -- rule: no match: line matched
+  去机场有一个小时吗？  -- rule: no match: line matched
+  这个包子有你的手那么大！  -- rule: no match: line matched
+  今天有昨天这么冷吗？  -- rule: no match: line matched
+  坐火车有坐飞机快吗？  -- rule: no match: line matched
+  这家店有那家店这么便宜吗？  -- rule: no match: line matched
+  你的房间有我的那么好看吗？  -- rule: no match: line matched
+
+--- dropped at step 7 (3) ---
+  他有三十多岁吧？  -- check said no (2/2): Expressing age; not a comparison structure
+  外面有这么热吗？  -- check said no (1/2): Unnatural structure; subject lacks comparison basis
+  爷爷有八十多岁了。  -- check said no (2/2): Expressing age; not a comparison structure
+
+--- dropped at step 8 (5) ---
+  他有你跑得快吗？  -- difficulty review: (2/2); Uses 得 with complement (跑得快) in a comparison, too complex for this level
+  她有你写得好看吗？  -- difficulty review: (2/2); Uses 得 with complement (写得好看) in a comparison, too complex for this level
+  你哥哥有你睡得晚吗？  -- difficulty review: (2/2); Uses 得 with complement (睡得晚) in a comparison, too complex for this level
+  你弟弟有你吃得多吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with result complement (得多), which is 2-31 (taught at HSK 2), but the overall construction '有+comparison' with 得+complement is complex for beginners
+  你唱歌有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 with complement (唱得好听), creating a complex comparative structure beyond basic 'have' sentences
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-55_level2_20261114_144033.csv
+  Asking claude-sonnet-5-5 to write 35 sentence(s)...
+
+----- AI-written sentences for 2-55, round 3: 85 to check, 20 needed -----
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 85
+
+Tagging 35 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_144054.txt
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-55 at HSK 2: funnel ===
+       85  AI-written sentences
+       85  1. have an English translation
+       85  2. contain the point's word(s)
+       85  3. new (not in DB, not a duplicate)
+       84  4. at most 0 characters outside HSK 2 words
+       47  5. really HSK 2
+       47  5b. no harder grammar point (of the 43 with a rule)
+       21  6. the rule finds 2-55
+       21  6b. no hidden word a learner can't work out
+       17  7. both checks say 2-55, English chosen
+        8  8. both difficulty reviews pass it
+
+=== Survivors (8) ===
+  弟弟有我高吗？  (Is your younger brother as tall as me?)  [tatoeba ai-a46913fb6c]
+  你有你哥哥高吗？  (Are you as tall as your older brother?)  [tatoeba ai-94cf654fd6]
+  他有你那么忙吗？  (Is he as busy as you are?)  [tatoeba ai-33bcfa77a8]
+  他有你个子高吗？  (Is he as tall as you?)  [tatoeba ai-4c67c7e7bd]
+  你有我这么忙吗？  (Are you as busy as I am?)  [tatoeba ai-f159ebf70e]
+  他有你爸爸高吗？  (Is he as tall as your dad?)  [tatoeba ai-e9d8fcf1a5]
+  地铁有公交车快吗？  (Is the subway as fast as the bus?)  [tatoeba ai-608922b54d]
+  你的朋友有我那么多吗？  (Do you have as many friends as I do?)  [tatoeba ai-52bb3b2e28]
+
+--- dropped at step 4 (1) ---
+  那儿的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+
+--- dropped at step 5 (37), first 12 ---
+  这家饭店有那家贵吗？  -- level 1: no list words
+  今天有昨天冷吗？  -- level 1: no list words
+  你妈妈做的菜有饭店的好吃吗？  -- level 1: no list words
+  她有你漂亮吗？  -- level 1: no list words
+  这个手机有那个新吗？  -- level 1: no list words
+  这本书有那本好看吗？  -- level 1: no list words
+  我们学校有你们学校大吗？  -- level 1: no list words
+  今天有昨天热吗？  -- level 1: no list words
+  这个孩子有两岁吗？  -- level 1: no list words
+  这件衣服有三百块吗？  -- level 1: no list words
+  你家的狗有我家的狗大吗？  -- level 1: no list words
+  这只猫有那只猫小吗？  -- level 1: no list words
+
+--- dropped at step 6 (26) ---
+  你做饭有妈妈做得好吗？  -- rule: no match: line matched
+  他说汉语有你说得好吗？  -- rule: no match: line matched
+  你的电脑有我的快吗？  -- rule: no match: line matched
+  你儿子有你高了吗？  -- rule: no match: line matched
+  你女儿有八岁了吗？  -- rule: no match: line matched
+  她有五十岁了吧？  -- rule: no match: line matched
+  从这儿走路到车站有二十分钟吗？  -- rule: no match: line matched
+  去机场有一个小时吗？  -- rule: no match: line matched
+  这个包子有你的手那么大！  -- rule: no match: line matched
+  今天有昨天这么冷吗？  -- rule: no match: line matched
+  坐火车有坐飞机快吗？  -- rule: no match: line matched
+  这家店有那家店这么便宜吗？  -- rule: no match: line matched
+  你的房间有我的那么好看吗？  -- rule: no match: line matched
+  这条路有那条路远吗？  -- rule: no match: line matched
+  你儿子有十岁了吗？  -- rule: no match: line matched
+  从你家到学校有一个小时吗？  -- rule: no match: line matched
+  今天有昨天那么好玩儿吗？  -- rule: no match: line matched
+  他的汉语有你的这么好吗？  -- rule: no match: line matched
+  坐地铁有打车快吗？  -- rule: no match: line matched
+  走路有开车这么慢吗？  -- rule: no match: line matched
+  这家的咖啡有那家的好吗？  -- rule: no match: line matched
+  这个孩子有他哥哥那么高了吗？  -- rule: no match: line matched
+  奶奶有七十岁了吗？  -- rule: no match: line matched
+  这条裤子有那条长吗？  -- rule: no match: line matched
+  你的手表有我的新吗？  -- rule: no match: line matched
+  红色的有白色的好看吗？  -- rule: no match: line matched
+
+--- dropped at step 7 (4) ---
+  他有三十多岁吧？  -- check said no (2/2): Expressing age; not a comparison structure
+  外面有这么热吗？  -- check said no (1/2): Unnatural structure; subject lacks comparison basis
+  爷爷有八十多岁了。  -- check said no (2/2): Expressing age; not a comparison structure
+  你家离学校有那么近吗？  -- check said no (1/2): 有 used with 离 (distance), not pure comparison
+
+--- dropped at step 8 (9) ---
+  他有你跑得快吗？  -- difficulty review: (2/2); Uses 得 with complement (跑得快) in a comparison, too complex for this level
+  她有你写得好看吗？  -- difficulty review: (2/2); Uses 得 with complement (写得好看) in a comparison, too complex for this level
+  你哥哥有你睡得晚吗？  -- difficulty review: (2/2); Uses 得 with complement (睡得晚) in a comparison, too complex for this level
+  你弟弟有你吃得多吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with result complement (得多), which is 2-31 (taught at HSK 2), but the overall construction '有+comparison' with 得+complement is complex for beginners
+  他开车有你开得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a result/manner complement (开得快), which is grammar point 2-31, taught at HSK 2. However, the construction 'V有+person+V得+adj' for comparison is a specialized use of 有-comparison that goes beyond typical 2-55 examples and relies on understanding complement structures that may not be solidly established at this level.
+  她跑步有你跑得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (跑得快), requiring grammar point 2-31. The construction combining 有-comparison with verb complements exceeds standard HSK 2 examples.
+  你唱歌有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 with complement (唱得好听), creating a complex comparative structure beyond basic 'have' sentences
+  他打篮球有你打得好吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (打得好), requiring understanding of grammar point 2-31. The full construction with 有-comparison and verb complements is complex for HSK 2 level.
+  你写汉字有他写得好看吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is HSK 2, but the construction 'A有B写得...吗' combining comparison with result complement exceeds typical HSK 2 grammar complexity; The comparison structure 'V有...V得...' is not a standard HSK 2 pattern and would confuse beginners
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-55_level2_20261114_144106.csv
+
+########## ai  2026-11-14 15:00 ##########
+
+----- AI-written sentences for 2-55, round 1: 85 to check, 20 needed -----
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 85
+
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-55 at HSK 2: funnel ===
+       85  AI-written sentences
+       85  1. have an English translation
+       85  2. contain the point's word(s)
+       85  3. new (not in DB, not a duplicate)
+       84  4. at most 0 characters outside HSK 2 words
+       47  5. really HSK 2
+       47  5b. no harder grammar point (of the 43 with a rule)
+       21  6. the rule finds 2-55
+       21  6b. no hidden word a learner can't work out
+       17  7. both checks say 2-55, English chosen
+        8  8. both difficulty reviews pass it
+
+=== Survivors (8) ===
+  弟弟有我高吗？  (Is your younger brother as tall as me?)  [tatoeba ai-a46913fb6c]
+  你有你哥哥高吗？  (Are you as tall as your older brother?)  [tatoeba ai-94cf654fd6]
+  他有你那么忙吗？  (Is he as busy as you are?)  [tatoeba ai-33bcfa77a8]
+  他有你个子高吗？  (Is he as tall as you?)  [tatoeba ai-4c67c7e7bd]
+  你有我这么忙吗？  (Are you as busy as I am?)  [tatoeba ai-f159ebf70e]
+  他有你爸爸高吗？  (Is he as tall as your dad?)  [tatoeba ai-e9d8fcf1a5]
+  地铁有公交车快吗？  (Is the subway as fast as the bus?)  [tatoeba ai-608922b54d]
+  你的朋友有我那么多吗？  (Do you have as many friends as I do?)  [tatoeba ai-52bb3b2e28]
+
+--- dropped at step 4 (1) ---
+  那儿的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+
+--- dropped at step 5 (37), first 12 ---
+  这家饭店有那家贵吗？  -- level 1: no list words
+  今天有昨天冷吗？  -- level 1: no list words
+  你妈妈做的菜有饭店的好吃吗？  -- level 1: no list words
+  她有你漂亮吗？  -- level 1: no list words
+  这个手机有那个新吗？  -- level 1: no list words
+  这本书有那本好看吗？  -- level 1: no list words
+  我们学校有你们学校大吗？  -- level 1: no list words
+  今天有昨天热吗？  -- level 1: no list words
+  这个孩子有两岁吗？  -- level 1: no list words
+  这件衣服有三百块吗？  -- level 1: no list words
+  你家的狗有我家的狗大吗？  -- level 1: no list words
+  这只猫有那只猫小吗？  -- level 1: no list words
+
+--- dropped at step 6 (26) ---
+  你做饭有妈妈做得好吗？  -- rule: no match: line matched
+  他说汉语有你说得好吗？  -- rule: no match: line matched
+  你的电脑有我的快吗？  -- rule: no match: line matched
+  你儿子有你高了吗？  -- rule: no match: line matched
+  你女儿有八岁了吗？  -- rule: no match: line matched
+  她有五十岁了吧？  -- rule: no match: line matched
+  从这儿走路到车站有二十分钟吗？  -- rule: no match: line matched
+  去机场有一个小时吗？  -- rule: no match: line matched
+  这个包子有你的手那么大！  -- rule: no match: line matched
+  今天有昨天这么冷吗？  -- rule: no match: line matched
+  坐火车有坐飞机快吗？  -- rule: no match: line matched
+  这家店有那家店这么便宜吗？  -- rule: no match: line matched
+  你的房间有我的那么好看吗？  -- rule: no match: line matched
+  这条路有那条路远吗？  -- rule: no match: line matched
+  你儿子有十岁了吗？  -- rule: no match: line matched
+  从你家到学校有一个小时吗？  -- rule: no match: line matched
+  今天有昨天那么好玩儿吗？  -- rule: no match: line matched
+  他的汉语有你的这么好吗？  -- rule: no match: line matched
+  坐地铁有打车快吗？  -- rule: no match: line matched
+  走路有开车这么慢吗？  -- rule: no match: line matched
+  这家的咖啡有那家的好吗？  -- rule: no match: line matched
+  这个孩子有他哥哥那么高了吗？  -- rule: no match: line matched
+  奶奶有七十岁了吗？  -- rule: no match: line matched
+  这条裤子有那条长吗？  -- rule: no match: line matched
+  你的手表有我的新吗？  -- rule: no match: line matched
+  红色的有白色的好看吗？  -- rule: no match: line matched
+
+--- dropped at step 7 (4) ---
+  他有三十多岁吧？  -- check said no (2/2): Expressing age; not a comparison structure
+  外面有这么热吗？  -- check said no (1/2): Unnatural structure; subject lacks comparison basis
+  爷爷有八十多岁了。  -- check said no (2/2): Expressing age; not a comparison structure
+  你家离学校有那么近吗？  -- check said no (1/2): 有 used with 离 (distance), not pure comparison
+
+--- dropped at step 8 (9) ---
+  他有你跑得快吗？  -- difficulty review: (2/2); Uses 得 with complement (跑得快) in a comparison, too complex for this level
+  她有你写得好看吗？  -- difficulty review: (2/2); Uses 得 with complement (写得好看) in a comparison, too complex for this level
+  你哥哥有你睡得晚吗？  -- difficulty review: (2/2); Uses 得 with complement (睡得晚) in a comparison, too complex for this level
+  你弟弟有你吃得多吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with result complement (得多), which is 2-31 (taught at HSK 2), but the overall construction '有+comparison' with 得+complement is complex for beginners
+  他开车有你开得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a result/manner complement (开得快), which is grammar point 2-31, taught at HSK 2. However, the construction 'V有+person+V得+adj' for comparison is a specialized use of 有-comparison that goes beyond typical 2-55 examples and relies on understanding complement structures that may not be solidly established at this level.
+  她跑步有你跑得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (跑得快), requiring grammar point 2-31. The construction combining 有-comparison with verb complements exceeds standard HSK 2 examples.
+  你唱歌有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 with complement (唱得好听), creating a complex comparative structure beyond basic 'have' sentences
+  他打篮球有你打得好吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (打得好), requiring understanding of grammar point 2-31. The full construction with 有-comparison and verb complements is complex for HSK 2 level.
+  你写汉字有他写得好看吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is HSK 2, but the construction 'A有B写得...吗' combining comparison with result complement exceeds typical HSK 2 grammar complexity; The comparison structure 'V有...V得...' is not a standard HSK 2 pattern and would confuse beginners
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-55_level2_20261114_150057.csv
+  Asking claude-sonnet-5-5 to write 30 sentence(s)...
+
+----- AI-written sentences for 2-55, round 2: 113 to check, 20 needed -----
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 113
+
+Tagging 28 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_150115.txt
+  ...100/112
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-55 at HSK 2: funnel ===
+      113  AI-written sentences
+      113  1. have an English translation
+      113  2. contain the point's word(s)
+      113  3. new (not in DB, not a duplicate)
+      112  4. at most 0 characters outside HSK 2 words
+       67  5. really HSK 2
+       67  5b. no harder grammar point (of the 43 with a rule)
+       26  6. the rule finds 2-55
+       26  6b. no hidden word a learner can't work out
+       21  7. both checks say 2-55, English chosen
+        9  8. both difficulty reviews pass it
+
+=== Survivors (9) ===
+  弟弟有我高吗？  (Is your younger brother as tall as me?)  [tatoeba ai-a46913fb6c]
+  你有你哥哥高吗？  (Are you as tall as your older brother?)  [tatoeba ai-94cf654fd6]
+  他有你那么忙吗？  (Is he as busy as you are?)  [tatoeba ai-33bcfa77a8]
+  他有你个子高吗？  (Is he as tall as you?)  [tatoeba ai-4c67c7e7bd]
+  你有我这么忙吗？  (Are you as busy as I am?)  [tatoeba ai-f159ebf70e]
+  他有你爸爸高吗？  (Is he as tall as your dad?)  [tatoeba ai-e9d8fcf1a5]
+  你妹妹有你高吗？  (Is your younger sister as tall as you?)  [tatoeba ai-f390fb9db8]
+  地铁有公交车快吗？  (Is the subway as fast as the bus?)  [tatoeba ai-608922b54d]
+  你的朋友有我那么多吗？  (Do you have as many friends as I do?)  [tatoeba ai-52bb3b2e28]
+
+--- dropped at step 4 (1) ---
+  那儿的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+
+--- dropped at step 5 (45), first 12 ---
+  这家饭店有那家贵吗？  -- level 1: no list words
+  今天有昨天冷吗？  -- level 1: no list words
+  你妈妈做的菜有饭店的好吃吗？  -- level 1: no list words
+  她有你漂亮吗？  -- level 1: no list words
+  这个手机有那个新吗？  -- level 1: no list words
+  这本书有那本好看吗？  -- level 1: no list words
+  我们学校有你们学校大吗？  -- level 1: no list words
+  今天有昨天热吗？  -- level 1: no list words
+  这个孩子有两岁吗？  -- level 1: no list words
+  这件衣服有三百块吗？  -- level 1: no list words
+  你家的狗有我家的狗大吗？  -- level 1: no list words
+  这只猫有那只猫小吗？  -- level 1: no list words
+
+--- dropped at step 6 (41) ---
+  你做饭有妈妈做得好吗？  -- rule: no match: line matched
+  他说汉语有你说得好吗？  -- rule: no match: line matched
+  你的电脑有我的快吗？  -- rule: no match: line matched
+  你儿子有你高了吗？  -- rule: no match: line matched
+  你女儿有八岁了吗？  -- rule: no match: line matched
+  她有五十岁了吧？  -- rule: no match: line matched
+  从这儿走路到车站有二十分钟吗？  -- rule: no match: line matched
+  去机场有一个小时吗？  -- rule: no match: line matched
+  这个包子有你的手那么大！  -- rule: no match: line matched
+  今天有昨天这么冷吗？  -- rule: no match: line matched
+  坐火车有坐飞机快吗？  -- rule: no match: line matched
+  这家店有那家店这么便宜吗？  -- rule: no match: line matched
+  你的房间有我的那么好看吗？  -- rule: no match: line matched
+  这条路有那条路远吗？  -- rule: no match: line matched
+  你儿子有十岁了吗？  -- rule: no match: line matched
+  从你家到学校有一个小时吗？  -- rule: no match: line matched
+  今天有昨天那么好玩儿吗？  -- rule: no match: line matched
+  他的汉语有你的这么好吗？  -- rule: no match: line matched
+  坐地铁有打车快吗？  -- rule: no match: line matched
+  走路有开车这么慢吗？  -- rule: no match: line matched
+  这家的咖啡有那家的好吗？  -- rule: no match: line matched
+  这个孩子有他哥哥那么高了吗？  -- rule: no match: line matched
+  奶奶有七十岁了吗？  -- rule: no match: line matched
+  这条裤子有那条长吗？  -- rule: no match: line matched
+  你的手表有我的新吗？  -- rule: no match: line matched
+  红色的有白色的好看吗？  -- rule: no match: line matched
+  这个包有那个包大吗？  -- rule: no match: line matched
+  你的猫有我的猫那么大吗？  -- rule: no match: line matched
+  你奶奶有七十岁了吗？  -- rule: no match: line matched
+  这个手表有一千块吗？  -- rule: no match: line matched
+  他的孩子有五岁了吧？  -- rule: no match: line matched
+  你爸爸有五十岁了吗？  -- rule: no match: line matched
+  他有你那么喜欢看电影吗？  -- rule: no match: line matched
+  今天有昨天这么忙吗？  -- rule: no match: line matched
+  我写字有他写得快吗？  -- rule: no match: line matched
+  你说英语有他说得好吗？  -- rule: no match: line matched
+  咖啡有茶贵吗？  -- rule: no match: line matched
+  这只鸟有那只鸟漂亮吗？  -- rule: no match: line matched
+  他有你那么会做饭吗？  -- rule: no match: line matched
+  这家饭馆的菜有那家的好吃吗？  -- rule: no match: line matched
+  你的名字有他的长吗？  -- rule: no match: line matched
+
+--- dropped at step 7 (5) ---
+  他有三十多岁吧？  -- check said no (2/2): Expressing age; not a comparison structure
+  外面有这么热吗？  -- check said no (1/2): Unnatural structure; subject lacks comparison basis
+  爷爷有八十多岁了。  -- check said no (2/2): Expressing age; not a comparison structure
+  外面的雨有这么大吗？  -- check said no (1/2): Uses 这么 but not comparing to person/entity
+  你家离学校有那么近吗？  -- check said no (1/2): 有 used with 离 (distance), not pure comparison
+
+--- dropped at step 8 (12) ---
+  他有你跑得快吗？  -- difficulty review: (2/2); Uses 得 with complement (跑得快) in a comparison, too complex for this level
+  她有你写得好看吗？  -- difficulty review: (2/2); Uses 得 with complement (写得好看) in a comparison, too complex for this level
+  妹妹有我睡得早吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你哥哥有你睡得晚吗？  -- difficulty review: (2/2); Uses 得 with complement (睡得晚) in a comparison, too complex for this level
+  你弟弟有你吃得多吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with result complement (得多), which is 2-31 (taught at HSK 2), but the overall construction '有+comparison' with 得+complement is complex for beginners
+  他开车有你开得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a result/manner complement (开得快), which is grammar point 2-31, taught at HSK 2. However, the construction 'V有+person+V得+adj' for comparison is a specialized use of 有-comparison that goes beyond typical 2-55 examples and relies on understanding complement structures that may not be solidly established at this level.
+  她跑步有你跑得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (跑得快), requiring grammar point 2-31. The construction combining 有-comparison with verb complements exceeds standard HSK 2 examples.
+  他踢球有你踢得好吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你唱歌有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 with complement (唱得好听), creating a complex comparative structure beyond basic 'have' sentences
+  他打篮球有你打得好吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (打得好), requiring understanding of grammar point 2-31. The full construction with 有-comparison and verb complements is complex for HSK 2 level.
+  你写汉字有他写得好看吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is HSK 2, but the construction 'A有B写得...吗' combining comparison with result complement exceeds typical HSK 2 grammar complexity; The comparison structure 'V有...V得...' is not a standard HSK 2 pattern and would confuse beginners
+  你妹妹游泳有你游得快吗？  -- difficulty review: (2/2); Uses 有 in comparative structure (有...吗) which is 2-55 'HSK 2-55: "有"字句2', but here 有 functions as a comparison marker meaning 'as...as', not the standard possession/existence 有 taught in that grammar point. This comparison usage goes beyond the basic 有字句2 which shows possession.
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-55_level2_20261114_150125.csv
+  Asking claude-sonnet-5-5 to write 28 sentence(s)...
+
+----- AI-written sentences for 2-55, round 3: 136 to check, 20 needed -----
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 136
+
+Tagging 23 AI-written sentence(s) (cached after this run)...
+  ...100/135
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_150141.txt
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-55 at HSK 2: funnel ===
+      136  AI-written sentences
+      136  1. have an English translation
+      136  2. contain the point's word(s)
+      136  3. new (not in DB, not a duplicate)
+      135  4. at most 0 characters outside HSK 2 words
+       83  5. really HSK 2
+       83  5b. no harder grammar point (of the 43 with a rule)
+       32  6. the rule finds 2-55
+       32  6b. no hidden word a learner can't work out
+       26  7. both checks say 2-55, English chosen
+       10  8. both difficulty reviews pass it
+
+=== Survivors (10) ===
+  弟弟有我高吗？  (Is your younger brother as tall as me?)  [tatoeba ai-a46913fb6c]
+  你有你哥哥高吗？  (Are you as tall as your older brother?)  [tatoeba ai-94cf654fd6]
+  他有你那么忙吗？  (Is he as busy as you are?)  [tatoeba ai-33bcfa77a8]
+  他有你个子高吗？  (Is he as tall as you?)  [tatoeba ai-4c67c7e7bd]
+  你有我这么忙吗？  (Are you as busy as I am?)  [tatoeba ai-f159ebf70e]
+  他有你爸爸高吗？  (Is he as tall as your dad?)  [tatoeba ai-e9d8fcf1a5]
+  你妹妹有你高吗？  (Is your younger sister as tall as you?)  [tatoeba ai-f390fb9db8]
+  地铁有公交车快吗？  (Is the subway as fast as the bus?)  [tatoeba ai-608922b54d]
+  老师有你这么忙吗？  (Is the teacher as busy as you are?)  [tatoeba ai-9987bd0f03]
+  你的朋友有我那么多吗？  (Do you have as many friends as I do?)  [tatoeba ai-52bb3b2e28]
+
+--- dropped at step 4 (1) ---
+  那儿的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+
+--- dropped at step 5 (52), first 12 ---
+  这家饭店有那家贵吗？  -- level 1: no list words
+  今天有昨天冷吗？  -- level 1: no list words
+  你妈妈做的菜有饭店的好吃吗？  -- level 1: no list words
+  她有你漂亮吗？  -- level 1: no list words
+  这个手机有那个新吗？  -- level 1: no list words
+  这本书有那本好看吗？  -- level 1: no list words
+  我们学校有你们学校大吗？  -- level 1: no list words
+  今天有昨天热吗？  -- level 1: no list words
+  这个孩子有两岁吗？  -- level 1: no list words
+  这件衣服有三百块吗？  -- level 1: no list words
+  你家的狗有我家的狗大吗？  -- level 1: no list words
+  这只猫有那只猫小吗？  -- level 1: no list words
+
+--- dropped at step 6 (51) ---
+  你做饭有妈妈做得好吗？  -- rule: no match: line matched
+  他说汉语有你说得好吗？  -- rule: no match: line matched
+  你的电脑有我的快吗？  -- rule: no match: line matched
+  你儿子有你高了吗？  -- rule: no match: line matched
+  你女儿有八岁了吗？  -- rule: no match: line matched
+  她有五十岁了吧？  -- rule: no match: line matched
+  从这儿走路到车站有二十分钟吗？  -- rule: no match: line matched
+  去机场有一个小时吗？  -- rule: no match: line matched
+  这个包子有你的手那么大！  -- rule: no match: line matched
+  今天有昨天这么冷吗？  -- rule: no match: line matched
+  坐火车有坐飞机快吗？  -- rule: no match: line matched
+  这家店有那家店这么便宜吗？  -- rule: no match: line matched
+  你的房间有我的那么好看吗？  -- rule: no match: line matched
+  这条路有那条路远吗？  -- rule: no match: line matched
+  你儿子有十岁了吗？  -- rule: no match: line matched
+  从你家到学校有一个小时吗？  -- rule: no match: line matched
+  今天有昨天那么好玩儿吗？  -- rule: no match: line matched
+  他的汉语有你的这么好吗？  -- rule: no match: line matched
+  坐地铁有打车快吗？  -- rule: no match: line matched
+  走路有开车这么慢吗？  -- rule: no match: line matched
+  这家的咖啡有那家的好吗？  -- rule: no match: line matched
+  这个孩子有他哥哥那么高了吗？  -- rule: no match: line matched
+  奶奶有七十岁了吗？  -- rule: no match: line matched
+  这条裤子有那条长吗？  -- rule: no match: line matched
+  你的手表有我的新吗？  -- rule: no match: line matched
+  红色的有白色的好看吗？  -- rule: no match: line matched
+  这个包有那个包大吗？  -- rule: no match: line matched
+  你的猫有我的猫那么大吗？  -- rule: no match: line matched
+  你奶奶有七十岁了吗？  -- rule: no match: line matched
+  这个手表有一千块吗？  -- rule: no match: line matched
+  他的孩子有五岁了吧？  -- rule: no match: line matched
+  你爸爸有五十岁了吗？  -- rule: no match: line matched
+  他有你那么喜欢看电影吗？  -- rule: no match: line matched
+  今天有昨天这么忙吗？  -- rule: no match: line matched
+  我写字有他写得快吗？  -- rule: no match: line matched
+  你说英语有他说得好吗？  -- rule: no match: line matched
+  咖啡有茶贵吗？  -- rule: no match: line matched
+  这只鸟有那只鸟漂亮吗？  -- rule: no match: line matched
+  他有你那么会做饭吗？  -- rule: no match: line matched
+  这家饭馆的菜有那家的好吃吗？  -- rule: no match: line matched
+  你的名字有他的长吗？  -- rule: no match: line matched
+  我的包有你的大吗？  -- rule: no match: line matched
+  你奶奶有八十岁了吗？  -- rule: no match: line matched
+  这条裤子有三百块吗？  -- rule: no match: line matched
+  那个电影有这个有意思吗？  -- rule: no match: line matched
+  他的个子有他爸爸高吗？  -- rule: no match: line matched
+  你有他那么喜欢游泳吗？  -- rule: no match: line matched
+  你家离公司有离学校那么远吗？  -- rule: no match: line matched
+  你的猫有我的猫那么小吗？  -- rule: no match: line matched
+  红茶有绿茶贵吗？  -- rule: no match: line matched
+  坐公交车有走路慢吗？  -- rule: no match: line matched
+
+--- dropped at step 7 (6) ---
+  他有三十多岁吧？  -- check said no (2/2): Expressing age; not a comparison structure
+  外面有这么热吗？  -- check said no (1/2): Unnatural structure; subject lacks comparison basis
+  爷爷有八十多岁了。  -- check said no (2/2): Expressing age; not a comparison structure
+  外面的雨有这么大吗？  -- check said no (1/2): Uses 这么 but not comparing to person/entity
+  你的房间有这么大吗？  -- check said no (1/2): Uses 这么/那么 pattern but lacks comparison object B
+  你家离学校有那么近吗？  -- check said no (1/2): 有 used with 离 (distance), not pure comparison
+
+--- dropped at step 8 (16) ---
+  他有你跑得快吗？  -- difficulty review: (2/2); Uses 得 with complement (跑得快) in a comparison, too complex for this level
+  她有你写得好看吗？  -- difficulty review: (2/2); Uses 得 with complement (写得好看) in a comparison, too complex for this level
+  妹妹有我睡得早吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你有弟弟睡得早吗？  -- difficulty review: (2/2); uses 得 as a complement marker (2-51 state complement), which is taught at HSK 2, but the structure 'verb+得+adjective' in a comparison context with 有 is complex for this level
+  你哥哥有你睡得晚吗？  -- difficulty review: (2/2); Uses 得 with complement (睡得晚) in a comparison, too complex for this level
+  你弟弟有你吃得多吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with result complement (得多), which is 2-31 (taught at HSK 2), but the overall construction '有+comparison' with 得+complement is complex for beginners
+  他开车有你开得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a result/manner complement (开得快), which is grammar point 2-31, taught at HSK 2. However, the construction 'V有+person+V得+adj' for comparison is a specialized use of 有-comparison that goes beyond typical 2-55 examples and relies on understanding complement structures that may not be solidly established at this level.
+  她跑步有你跑得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (跑得快), requiring grammar point 2-31. The construction combining 有-comparison with verb complements exceeds standard HSK 2 examples.
+  他踢球有你踢得好吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你游泳有他游得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with complement (得快), which is grammar point 2-31, taught at HSK 2, but the pattern 'A有B动词得+complement吗' (comparison using 有) is the advanced form of 'A有B形容词吗' - this extends beyond the basic 有字句2 pattern shown at this level
+  你唱歌有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 with complement (唱得好听), creating a complex comparative structure beyond basic 'have' sentences
+  他打篮球有你打得好吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (打得好), requiring understanding of grammar point 2-31. The full construction with 有-comparison and verb complements is complex for HSK 2 level.
+  你写汉字有他写得好看吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is HSK 2, but the construction 'A有B写得...吗' combining comparison with result complement exceeds typical HSK 2 grammar complexity; The comparison structure 'V有...V得...' is not a standard HSK 2 pattern and would confuse beginners
+  你妹妹游泳有你游得快吗？  -- difficulty review: (2/2); Uses 有 in comparative structure (有...吗) which is 2-55 'HSK 2-55: "有"字句2', but here 有 functions as a comparison marker meaning 'as...as', not the standard possession/existence 有 taught in that grammar point. This comparison usage goes beyond the basic 有字句2 which shows possession.
+  你写字有老师写得好看吗？  -- difficulty review: (2/2); Same issue as [1] and [2]: the pattern of comparing degree complements with 有 is beyond the scope of basic 有字句2
+  妈妈说话有爸爸说得快吗？  -- difficulty review: (2/2); Same issue as [1]: uses 得 complement structure in a 有 comparison pattern that goes beyond basic 有字句2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-55_level2_20261114_150154.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:11 ##########
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 1 Tatoeba candidate(s) (cached after this run)...
+  ...100/1460
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161115.txt
+  ...200/1460
+  ...300/1460
+  ...400/1460
+  ...500/1460
+  ...600/1460
+  ...700/1460
+  ...800/1460
+  ...900/1460
+  ...1000/1460
+  ...1100/1460
+  ...1200/1460
+  ...1300/1460
+  ...1400/1460
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 10  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-55 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2875  3. new (not in DB, not a duplicate)
+     1460  4. at most 2 characters outside HSK 2 words
+       97  5. really HSK 2
+       94  5b. no harder grammar point (of the 43 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (62), first 12 ---
+  阿什兰也有水。  -- already in the database
+  我们只有茶水。  -- already in the database
+  他有很多钱。  -- already in the database
+  你有多少钱？  -- already in the database
+  有人在吃东西。  -- already in the database
+  因为我有点头疼，所以我早早上床睡觉。  -- already in the database
+  你有弟弟吗？  -- already in the database
+  没有水。  -- already in the database
+  因为他有钱，所以能去那儿。  -- already in the database
+  有件事情我要对你说。  -- already in the database
+  我有一个家。  -- already in the database
+  我想和你一起去，但是我没有时间。  -- already in the database
+
+--- dropped at step 4 (1415), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  附近有没有青年旅舍？  -- 3 characters no HSK 2 word uses: 舍附青
+  我没有任何借口。  -- 3 characters no HSK 2 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 2 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 3 characters no HSK 2 word uses: 方无草
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 2 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 3 characters no HSK 2 word uses: 串烤种
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1363), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 事件 L5, 关系 L3
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list)
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  我不在的时候有没有人来？  -- level 1: no list words
+  桌子上有本书。  -- level 1: no list words
+  还有什么？  -- level 1: no list words
+  我们有两个孩子。  -- level 1: no list words
+
+--- dropped at step 5b (3) ---
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  我听到有人进来了。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (94) ---
+  你有多高？  -- rule: no match: line matched
+  有时我去，有时不去。  -- rule: no match: line matched
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  “没门儿！”　“有的，有门儿。”  -- rule: unless 有的/PN
+  楼下有人在等您。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  我现在还没有吃过午饭。  -- rule: no match: line matched
+  那样的事天天都有。  -- rule: no match: line matched
+  一天有二十四个小时。  -- rule: no match: line matched
+  他的书非常有意思。  -- rule: no match: line matched
+  我没有朋友一起玩。  -- rule: unless 没有/VE
+  她没有票。  -- rule: unless 没有/VE
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  在日本，有站长是猫的车站。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  它没有教她说话。  -- rule: no match: line matched
+  有人在门口。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  没吃早饭，我有些不舒服。  -- rule: no match: line matched
+  有人跟我说这件事。  -- rule: no match: line matched
+  所以他没有去学校。  -- rule: no match: line matched
+  你在班里有好朋友吗？  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 没有/VE
+  你有很多笔吗？  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  现在有票。  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  我现在有钱，能想买就买。  -- rule: no match: line matched
+  真高兴有人告诉我。  -- rule: no match: line matched
+  他们可能有点什么。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  还有什么事就告诉我。  -- rule: unless 还/AD 有/VE
+  有后门。  -- rule: no match: line matched
+  是有人花钱让你做这事吗？  -- rule: no match: line matched
+  我没想到它有那么大。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: unless 没有/VE
+  得有人做点事。  -- rule: no match: line matched
+  有人请我帮你。  -- rule: no match: line matched
+  你有可能不知道这事。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: no match: line matched
+  电话前面有四本中文书。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我没有真的准备好。  -- rule: no match: line matched
+  有你帮我真好。  -- rule: no match: line matched
+  有人告诉他吗？  -- rule: no match: line matched
+  我知道你比我有钱。  -- rule: no match: line matched
+  我知道有个人可能能帮忙。  -- rule: no match: line matched
+  我希望汤姆有一天会来这里。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  有学生票吗？  -- rule: no match: line matched
+  有今天有点头疼。  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: unless 还/AD 有/VE
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  她没有帮我。  -- rule: no match: line matched
+  我没有找Tom帮忙。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  我有东西想给你看看。  -- rule: no match: line matched
+  你有喜欢的颜色吗？  -- rule: no match: line matched
+  那个东西有多热？  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  所以，哪里有问题？  -- rule: no match: line matched
+  有什么你想让我买的吗？  -- rule: no match: line matched
+  告诉我你没有这么做。  -- rule: no match: line matched
+  我小时候的时候还没有电脑。  -- rule: unless 没有/VE
+  我看起来很有钱吗？  -- rule: no match: line matched
+  杯子里面有水。  -- rule: no match: line matched
+  她没有让我们帮忙。  -- rule: no match: line matched
+  有谁想一起去吃饭吗？  -- rule: no match: line matched
+  你没有希望。  -- rule: unless 没有/VE
+  我们有帮忙。  -- rule: no match: line matched
+  他有帮忙。  -- rule: no match: line matched
+  汤姆猫有帮忙。  -- rule: no match: line matched
+  我有帮忙。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  什么事都有可能。  -- rule: no match: line matched
+  我的班上有三十名学生。  -- rule: no match: line matched
+  我们班有三十名学生。  -- rule: no match: line matched
+  我家九月有两人过生日。  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  有些人是这么想的。  -- rule: no match: line matched
+  我不记得有打电话给你。  -- rule: no match: line matched
+  我还是没有手机。  -- rule: unless 没有/VE
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  有些事情不能忘。  -- rule: no match: line matched
+  我们看看有没有人在家。  -- rule: no match: line matched
+  玛莉问我们有没有准备好。  -- rule: unless 没有/VE
+  这些里面有你喜欢的吗？  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-55_level2_20261114_161125.csv
+
+########## ai  2026-11-14 16:13 ##########
+
+----- AI-written sentences for 2-55, round 1: 136 to check, 10 needed -----
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 136
+
+Tagging 3 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161359.txt
+  ...100/125
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 10  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-55 at HSK 2: funnel ===
+      136  AI-written sentences
+      136  1. have an English translation
+      136  2. contain the point's word(s)
+      126  3. new (not in DB, not a duplicate)
+      125  4. at most 0 characters outside HSK 2 words
+       74  5. really HSK 2
+       74  5b. no harder grammar point (of the 43 with a rule)
+       23  6. the rule finds 2-55
+       23  6b. no hidden word a learner can't work out
+       17  7. both checks say 2-55, English chosen
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (10) ---
+  你有你哥哥高吗？  -- already in the course or chosen from Tatoeba
+  弟弟有我高吗？  -- already in the course or chosen from Tatoeba
+  他有你那么忙吗？  -- already in the course or chosen from Tatoeba
+  你的朋友有我那么多吗？  -- already in the course or chosen from Tatoeba
+  地铁有公交车快吗？  -- already in the course or chosen from Tatoeba
+  他有你个子高吗？  -- already in the course or chosen from Tatoeba
+  你有我这么忙吗？  -- already in the course or chosen from Tatoeba
+  他有你爸爸高吗？  -- already in the course or chosen from Tatoeba
+  你妹妹有你高吗？  -- already in the course or chosen from Tatoeba
+  老师有你这么忙吗？  -- already in the course or chosen from Tatoeba
+
+--- dropped at step 4 (1) ---
+  那儿的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+
+--- dropped at step 5 (51), first 12 ---
+  这家饭店有那家贵吗？  -- level 1: no list words
+  今天有昨天冷吗？  -- level 1: no list words
+  你妈妈做的菜有饭店的好吃吗？  -- level 1: no list words
+  她有你漂亮吗？  -- level 1: no list words
+  这个手机有那个新吗？  -- level 1: no list words
+  这本书有那本好看吗？  -- level 1: no list words
+  我们学校有你们学校大吗？  -- level 1: no list words
+  今天有昨天热吗？  -- level 1: no list words
+  这个孩子有两岁吗？  -- level 1: no list words
+  这件衣服有三百块吗？  -- level 1: no list words
+  你家的狗有我家的狗大吗？  -- level 1: no list words
+  这只猫有那只猫小吗？  -- level 1: no list words
+
+--- dropped at step 6 (51) ---
+  你做饭有妈妈做得好吗？  -- rule: no match: line matched
+  他说汉语有你说得好吗？  -- rule: no match: line matched
+  你的电脑有我的快吗？  -- rule: no match: line matched
+  你儿子有你高了吗？  -- rule: no match: line matched
+  你女儿有八岁了吗？  -- rule: no match: line matched
+  她有五十岁了吧？  -- rule: no match: line matched
+  从这儿走路到车站有二十分钟吗？  -- rule: no match: line matched
+  去机场有一个小时吗？  -- rule: no match: line matched
+  这个包子有你的手那么大！  -- rule: no match: line matched
+  今天有昨天这么冷吗？  -- rule: no match: line matched
+  坐火车有坐飞机快吗？  -- rule: no match: line matched
+  这家店有那家店这么便宜吗？  -- rule: no match: line matched
+  你的房间有我的那么好看吗？  -- rule: no match: line matched
+  这条路有那条路远吗？  -- rule: no match: line matched
+  你儿子有十岁了吗？  -- rule: no match: line matched
+  从你家到学校有一个小时吗？  -- rule: no match: line matched
+  今天有昨天那么好玩儿吗？  -- rule: no match: line matched
+  他的汉语有你的这么好吗？  -- rule: no match: line matched
+  坐地铁有打车快吗？  -- rule: no match: line matched
+  走路有开车这么慢吗？  -- rule: no match: line matched
+  这家的咖啡有那家的好吗？  -- rule: no match: line matched
+  这个孩子有他哥哥那么高了吗？  -- rule: no match: line matched
+  奶奶有七十岁了吗？  -- rule: no match: line matched
+  这条裤子有那条长吗？  -- rule: no match: line matched
+  你的手表有我的新吗？  -- rule: no match: line matched
+  红色的有白色的好看吗？  -- rule: no match: line matched
+  这个包有那个包大吗？  -- rule: no match: line matched
+  你的猫有我的猫那么大吗？  -- rule: no match: line matched
+  你奶奶有七十岁了吗？  -- rule: no match: line matched
+  这个手表有一千块吗？  -- rule: no match: line matched
+  他的孩子有五岁了吧？  -- rule: no match: line matched
+  你爸爸有五十岁了吗？  -- rule: no match: line matched
+  他有你那么喜欢看电影吗？  -- rule: no match: line matched
+  今天有昨天这么忙吗？  -- rule: no match: line matched
+  我写字有他写得快吗？  -- rule: no match: line matched
+  你说英语有他说得好吗？  -- rule: no match: line matched
+  咖啡有茶贵吗？  -- rule: no match: line matched
+  这只鸟有那只鸟漂亮吗？  -- rule: no match: line matched
+  他有你那么会做饭吗？  -- rule: no match: line matched
+  这家饭馆的菜有那家的好吃吗？  -- rule: no match: line matched
+  你的名字有他的长吗？  -- rule: no match: line matched
+  我的包有你的大吗？  -- rule: no match: line matched
+  你奶奶有八十岁了吗？  -- rule: no match: line matched
+  这条裤子有三百块吗？  -- rule: no match: line matched
+  那个电影有这个有意思吗？  -- rule: no match: line matched
+  他的个子有他爸爸高吗？  -- rule: no match: line matched
+  你有他那么喜欢游泳吗？  -- rule: no match: line matched
+  你家离公司有离学校那么远吗？  -- rule: no match: line matched
+  你的猫有我的猫那么小吗？  -- rule: no match: line matched
+  红茶有绿茶贵吗？  -- rule: no match: line matched
+  坐公交车有走路慢吗？  -- rule: no match: line matched
+
+--- dropped at step 7 (6) ---
+  他有三十多岁吧？  -- check said no (2/2): Expressing age; not a comparison structure
+  外面有这么热吗？  -- check said no (1/2): Unnatural structure; subject lacks comparison basis
+  爷爷有八十多岁了。  -- check said no (2/2): Expressing age; not a comparison structure
+  外面的雨有这么大吗？  -- check said no (1/2): Uses 这么 but not comparing to person/entity
+  你的房间有这么大吗？  -- check said no (1/2): Uses 这么/那么 pattern but lacks comparison object B
+  你家离学校有那么近吗？  -- check said no (1/2): 有 used with 离 (distance), not pure comparison
+
+--- dropped at step 8 (17) ---
+  他有你跑得快吗？  -- difficulty review: (2/2); Uses 得 with complement (跑得快) in a comparison, too complex for this level
+  她有你写得好看吗？  -- difficulty review: (2/2); Uses 得 with complement (写得好看) in a comparison, too complex for this level
+  妹妹有我睡得早吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你有弟弟睡得早吗？  -- difficulty review: (2/2); uses 得 as a complement marker (2-51 state complement), which is taught at HSK 2, but the structure 'verb+得+adjective' in a comparison context with 有 is complex for this level
+  你哥哥有你睡得晚吗？  -- difficulty review: (2/2); Uses 得 with complement (睡得晚) in a comparison, too complex for this level
+  你弟弟有你吃得多吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with result complement (得多), which is 2-31 (taught at HSK 2), but the overall construction '有+comparison' with 得+complement is complex for beginners
+  他开车有你开得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a result/manner complement (开得快), which is grammar point 2-31, taught at HSK 2. However, the construction 'V有+person+V得+adj' for comparison is a specialized use of 有-comparison that goes beyond typical 2-55 examples and relies on understanding complement structures that may not be solidly established at this level.
+  她跑步有你跑得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (跑得快), requiring grammar point 2-31. The construction combining 有-comparison with verb complements exceeds standard HSK 2 examples.
+  面条儿有米饭好吃吗？  -- difficulty review: (2/2); Uses 有 in a comparative construction (A有B好吃) which is comparison grammar (2-58 or similar), not the '有'字句2 pattern being taught; This compares two things using 有, but 2-55 teaches possession/existence with 有, not comparison
+  他踢球有你踢得好吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你游泳有他游得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with complement (得快), which is grammar point 2-31, taught at HSK 2, but the pattern 'A有B动词得+complement吗' (comparison using 有) is the advanced form of 'A有B形容词吗' - this extends beyond the basic 有字句2 pattern shown at this level
+  你唱歌有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 with complement (唱得好听), creating a complex comparative structure beyond basic 'have' sentences
+  他打篮球有你打得好吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (打得好), requiring understanding of grammar point 2-31. The full construction with 有-comparison and verb complements is complex for HSK 2 level.
+  你写汉字有他写得好看吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is HSK 2, but the construction 'A有B写得...吗' combining comparison with result complement exceeds typical HSK 2 grammar complexity; The comparison structure 'V有...V得...' is not a standard HSK 2 pattern and would confuse beginners
+  你妹妹游泳有你游得快吗？  -- difficulty review: (2/2); Uses 有 in comparative structure (有...吗) which is 2-55 'HSK 2-55: "有"字句2', but here 有 functions as a comparison marker meaning 'as...as', not the standard possession/existence 有 taught in that grammar point. This comparison usage goes beyond the basic 有字句2 which shows possession.
+  你写字有老师写得好看吗？  -- difficulty review: (2/2); Same issue as [1] and [2]: the pattern of comparing degree complements with 有 is beyond the scope of basic 有字句2
+  妈妈说话有爸爸说得快吗？  -- difficulty review: (2/2); Same issue as [1]: uses 得 complement structure in a 有 comparison pattern that goes beyond basic 有字句2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-55_level2_20261114_161405.csv
+  Asking claude-sonnet-5-5 to write 25 sentence(s)...
+
+----- AI-written sentences for 2-55, round 2: 158 to check, 10 needed -----
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 158
+
+Tagging 22 AI-written sentence(s) (cached after this run)...
+  ...100/147
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161424.txt
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 10  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-55 at HSK 2: funnel ===
+      158  AI-written sentences
+      158  1. have an English translation
+      158  2. contain the point's word(s)
+      148  3. new (not in DB, not a duplicate)
+      147  4. at most 0 characters outside HSK 2 words
+       88  5. really HSK 2
+       88  5b. no harder grammar point (of the 43 with a rule)
+       26  6. the rule finds 2-55
+       26  6b. no hidden word a learner can't work out
+       19  7. both checks say 2-55, English chosen
+        1  8. both difficulty reviews pass it
+
+=== Survivors (1) ===
+  你有你姐姐漂亮吗？  (Are you as pretty as your older sister?)  [tatoeba ai-6a17eb9689]
+
+--- dropped at step 3 (10) ---
+  你有你哥哥高吗？  -- already in the course or chosen from Tatoeba
+  弟弟有我高吗？  -- already in the course or chosen from Tatoeba
+  他有你那么忙吗？  -- already in the course or chosen from Tatoeba
+  你的朋友有我那么多吗？  -- already in the course or chosen from Tatoeba
+  地铁有公交车快吗？  -- already in the course or chosen from Tatoeba
+  他有你个子高吗？  -- already in the course or chosen from Tatoeba
+  你有我这么忙吗？  -- already in the course or chosen from Tatoeba
+  他有你爸爸高吗？  -- already in the course or chosen from Tatoeba
+  你妹妹有你高吗？  -- already in the course or chosen from Tatoeba
+  老师有你这么忙吗？  -- already in the course or chosen from Tatoeba
+
+--- dropped at step 4 (1) ---
+  那儿的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+
+--- dropped at step 5 (59), first 12 ---
+  这家饭店有那家贵吗？  -- level 1: no list words
+  今天有昨天冷吗？  -- level 1: no list words
+  你妈妈做的菜有饭店的好吃吗？  -- level 1: no list words
+  她有你漂亮吗？  -- level 1: no list words
+  这个手机有那个新吗？  -- level 1: no list words
+  这本书有那本好看吗？  -- level 1: no list words
+  我们学校有你们学校大吗？  -- level 1: no list words
+  今天有昨天热吗？  -- level 1: no list words
+  这个孩子有两岁吗？  -- level 1: no list words
+  这件衣服有三百块吗？  -- level 1: no list words
+  你家的狗有我家的狗大吗？  -- level 1: no list words
+  这只猫有那只猫小吗？  -- level 1: no list words
+
+--- dropped at step 6 (62) ---
+  你做饭有妈妈做得好吗？  -- rule: no match: line matched
+  他说汉语有你说得好吗？  -- rule: no match: line matched
+  你的电脑有我的快吗？  -- rule: no match: line matched
+  你儿子有你高了吗？  -- rule: no match: line matched
+  你女儿有八岁了吗？  -- rule: no match: line matched
+  她有五十岁了吧？  -- rule: no match: line matched
+  从这儿走路到车站有二十分钟吗？  -- rule: no match: line matched
+  去机场有一个小时吗？  -- rule: no match: line matched
+  这个包子有你的手那么大！  -- rule: no match: line matched
+  今天有昨天这么冷吗？  -- rule: no match: line matched
+  坐火车有坐飞机快吗？  -- rule: no match: line matched
+  这家店有那家店这么便宜吗？  -- rule: no match: line matched
+  你的房间有我的那么好看吗？  -- rule: no match: line matched
+  这条路有那条路远吗？  -- rule: no match: line matched
+  你儿子有十岁了吗？  -- rule: no match: line matched
+  从你家到学校有一个小时吗？  -- rule: no match: line matched
+  今天有昨天那么好玩儿吗？  -- rule: no match: line matched
+  他的汉语有你的这么好吗？  -- rule: no match: line matched
+  坐地铁有打车快吗？  -- rule: no match: line matched
+  走路有开车这么慢吗？  -- rule: no match: line matched
+  这家的咖啡有那家的好吗？  -- rule: no match: line matched
+  这个孩子有他哥哥那么高了吗？  -- rule: no match: line matched
+  奶奶有七十岁了吗？  -- rule: no match: line matched
+  这条裤子有那条长吗？  -- rule: no match: line matched
+  你的手表有我的新吗？  -- rule: no match: line matched
+  红色的有白色的好看吗？  -- rule: no match: line matched
+  这个包有那个包大吗？  -- rule: no match: line matched
+  你的猫有我的猫那么大吗？  -- rule: no match: line matched
+  你奶奶有七十岁了吗？  -- rule: no match: line matched
+  这个手表有一千块吗？  -- rule: no match: line matched
+  他的孩子有五岁了吧？  -- rule: no match: line matched
+  你爸爸有五十岁了吗？  -- rule: no match: line matched
+  他有你那么喜欢看电影吗？  -- rule: no match: line matched
+  今天有昨天这么忙吗？  -- rule: no match: line matched
+  我写字有他写得快吗？  -- rule: no match: line matched
+  你说英语有他说得好吗？  -- rule: no match: line matched
+  咖啡有茶贵吗？  -- rule: no match: line matched
+  这只鸟有那只鸟漂亮吗？  -- rule: no match: line matched
+  他有你那么会做饭吗？  -- rule: no match: line matched
+  这家饭馆的菜有那家的好吃吗？  -- rule: no match: line matched
+  你的名字有他的长吗？  -- rule: no match: line matched
+  我的包有你的大吗？  -- rule: no match: line matched
+  你奶奶有八十岁了吗？  -- rule: no match: line matched
+  这条裤子有三百块吗？  -- rule: no match: line matched
+  那个电影有这个有意思吗？  -- rule: no match: line matched
+  他的个子有他爸爸高吗？  -- rule: no match: line matched
+  你有他那么喜欢游泳吗？  -- rule: no match: line matched
+  你家离公司有离学校那么远吗？  -- rule: no match: line matched
+  你的猫有我的猫那么小吗？  -- rule: no match: line matched
+  红茶有绿茶贵吗？  -- rule: no match: line matched
+  坐公交车有走路慢吗？  -- rule: no match: line matched
+  明天有今天这么热吗？  -- rule: no match: line matched
+  你妈妈做的饭有饭馆的好吃吗？  -- rule: no match: line matched
+  你们学校有我们学校这么大吗？  -- rule: no match: line matched
+  他儿子有他高了吗？  -- rule: no match: line matched
+  你写字有你同学写得好看吗？  -- rule: no match: line matched
+  今年有去年这么冷吗？  -- rule: no match: line matched
+  我奶奶有八十岁了。  -- rule: no match: line matched
+  他看着有四十岁了。  -- rule: no match: line matched
+  我在这儿等了有一个小时了。  -- rule: no match: line matched
+  这个包有一百多块。  -- rule: no match: line matched
+  你的小狗有我的猫这么小吗？  -- rule: no match: line matched
+
+--- dropped at step 7 (7) ---
+  他有三十多岁吧？  -- check said no (2/2): Expressing age; not a comparison structure
+  外面有这么热吗？  -- check said no (1/2): Unnatural structure; subject lacks comparison basis
+  爷爷有八十多岁了。  -- check said no (2/2): Expressing age; not a comparison structure
+  他有三十多岁了吧？  -- check said no (2/2): Expressing age/measurement, not comparison structure
+  外面的雨有这么大吗？  -- check said no (1/2): Uses 这么 but not comparing to person/entity
+  你的房间有这么大吗？  -- check said no (1/2): Uses 这么/那么 pattern but lacks comparison object B
+  你家离学校有那么近吗？  -- check said no (1/2): 有 used with 离 (distance), not pure comparison
+
+--- dropped at step 8 (18) ---
+  他有你跑得快吗？  -- difficulty review: (2/2); Uses 得 with complement (跑得快) in a comparison, too complex for this level
+  她有你写得好看吗？  -- difficulty review: (2/2); Uses 得 with complement (写得好看) in a comparison, too complex for this level
+  妹妹有我睡得早吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你有弟弟睡得早吗？  -- difficulty review: (2/2); uses 得 as a complement marker (2-51 state complement), which is taught at HSK 2, but the structure 'verb+得+adjective' in a comparison context with 有 is complex for this level
+  你有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is taught at HSK 2, but the construction 'verb+得+adjective' (state complement, 2-51) requires understanding how 得 marks the result/state of an action. While 得 itself is in the HSK 2 list, this specific comparative construction with 得 is beyond typical HSK 2 mastery.
+  你哥哥有你睡得晚吗？  -- difficulty review: (2/2); Uses 得 with complement (睡得晚) in a comparison, too complex for this level
+  你弟弟有你吃得多吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with result complement (得多), which is 2-31 (taught at HSK 2), but the overall construction '有+comparison' with 得+complement is complex for beginners
+  他开车有你开得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a result/manner complement (开得快), which is grammar point 2-31, taught at HSK 2. However, the construction 'V有+person+V得+adj' for comparison is a specialized use of 有-comparison that goes beyond typical 2-55 examples and relies on understanding complement structures that may not be solidly established at this level.
+  她跑步有你跑得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (跑得快), requiring grammar point 2-31. The construction combining 有-comparison with verb complements exceeds standard HSK 2 examples.
+  面条儿有米饭好吃吗？  -- difficulty review: (2/2); Uses 有 in a comparative construction (A有B好吃) which is comparison grammar (2-58 or similar), not the '有'字句2 pattern being taught; This compares two things using 有, but 2-55 teaches possession/existence with 有, not comparison
+  他踢球有你踢得好吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你游泳有他游得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with complement (得快), which is grammar point 2-31, taught at HSK 2, but the pattern 'A有B动词得+complement吗' (comparison using 有) is the advanced form of 'A有B形容词吗' - this extends beyond the basic 有字句2 pattern shown at this level
+  你唱歌有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 with complement (唱得好听), creating a complex comparative structure beyond basic 'have' sentences
+  他打篮球有你打得好吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (打得好), requiring understanding of grammar point 2-31. The full construction with 有-comparison and verb complements is complex for HSK 2 level.
+  你写汉字有他写得好看吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is HSK 2, but the construction 'A有B写得...吗' combining comparison with result complement exceeds typical HSK 2 grammar complexity; The comparison structure 'V有...V得...' is not a standard HSK 2 pattern and would confuse beginners
+  你妹妹游泳有你游得快吗？  -- difficulty review: (2/2); Uses 有 in comparative structure (有...吗) which is 2-55 'HSK 2-55: "有"字句2', but here 有 functions as a comparison marker meaning 'as...as', not the standard possession/existence 有 taught in that grammar point. This comparison usage goes beyond the basic 有字句2 which shows possession.
+  你写字有老师写得好看吗？  -- difficulty review: (2/2); Same issue as [1] and [2]: the pattern of comparing degree complements with 有 is beyond the scope of basic 有字句2
+  妈妈说话有爸爸说得快吗？  -- difficulty review: (2/2); Same issue as [1]: uses 得 complement structure in a 有 comparison pattern that goes beyond basic 有字句2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-55_level2_20261114_161432.csv
+  Asking claude-sonnet-5-5 to write 23 sentence(s)...
+
+----- AI-written sentences for 2-55, round 3: 175 to check, 10 needed -----
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 175
+
+Tagging 15 AI-written sentence(s) (cached after this run)...
+  ...100/163
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161449.txt
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 10  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-55 at HSK 2: funnel ===
+      175  AI-written sentences
+      175  1. have an English translation
+      175  2. contain the point's word(s)
+      165  3. new (not in DB, not a duplicate)
+      163  4. at most 0 characters outside HSK 2 words
+      104  5. really HSK 2
+      104  5b. no harder grammar point (of the 43 with a rule)
+       30  6. the rule finds 2-55
+       30  6b. no hidden word a learner can't work out
+       22  7. both checks say 2-55, English chosen
+        1  8. both difficulty reviews pass it
+
+=== Survivors (1) ===
+  你有你姐姐漂亮吗？  (Are you as pretty as your older sister?)  [tatoeba ai-6a17eb9689]
+
+--- dropped at step 3 (10) ---
+  你有你哥哥高吗？  -- already in the course or chosen from Tatoeba
+  弟弟有我高吗？  -- already in the course or chosen from Tatoeba
+  他有你那么忙吗？  -- already in the course or chosen from Tatoeba
+  你的朋友有我那么多吗？  -- already in the course or chosen from Tatoeba
+  地铁有公交车快吗？  -- already in the course or chosen from Tatoeba
+  他有你个子高吗？  -- already in the course or chosen from Tatoeba
+  你有我这么忙吗？  -- already in the course or chosen from Tatoeba
+  他有你爸爸高吗？  -- already in the course or chosen from Tatoeba
+  你妹妹有你高吗？  -- already in the course or chosen from Tatoeba
+  老师有你这么忙吗？  -- already in the course or chosen from Tatoeba
+
+--- dropped at step 4 (2) ---
+  那儿的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+  中国的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+
+--- dropped at step 5 (59), first 12 ---
+  这家饭店有那家贵吗？  -- level 1: no list words
+  今天有昨天冷吗？  -- level 1: no list words
+  你妈妈做的菜有饭店的好吃吗？  -- level 1: no list words
+  她有你漂亮吗？  -- level 1: no list words
+  这个手机有那个新吗？  -- level 1: no list words
+  这本书有那本好看吗？  -- level 1: no list words
+  我们学校有你们学校大吗？  -- level 1: no list words
+  今天有昨天热吗？  -- level 1: no list words
+  这个孩子有两岁吗？  -- level 1: no list words
+  这件衣服有三百块吗？  -- level 1: no list words
+  你家的狗有我家的狗大吗？  -- level 1: no list words
+  这只猫有那只猫小吗？  -- level 1: no list words
+
+--- dropped at step 6 (74) ---
+  你做饭有妈妈做得好吗？  -- rule: no match: line matched
+  他说汉语有你说得好吗？  -- rule: no match: line matched
+  你的电脑有我的快吗？  -- rule: no match: line matched
+  你儿子有你高了吗？  -- rule: no match: line matched
+  你女儿有八岁了吗？  -- rule: no match: line matched
+  她有五十岁了吧？  -- rule: no match: line matched
+  从这儿走路到车站有二十分钟吗？  -- rule: no match: line matched
+  去机场有一个小时吗？  -- rule: no match: line matched
+  这个包子有你的手那么大！  -- rule: no match: line matched
+  今天有昨天这么冷吗？  -- rule: no match: line matched
+  坐火车有坐飞机快吗？  -- rule: no match: line matched
+  这家店有那家店这么便宜吗？  -- rule: no match: line matched
+  你的房间有我的那么好看吗？  -- rule: no match: line matched
+  这条路有那条路远吗？  -- rule: no match: line matched
+  你儿子有十岁了吗？  -- rule: no match: line matched
+  从你家到学校有一个小时吗？  -- rule: no match: line matched
+  今天有昨天那么好玩儿吗？  -- rule: no match: line matched
+  他的汉语有你的这么好吗？  -- rule: no match: line matched
+  坐地铁有打车快吗？  -- rule: no match: line matched
+  走路有开车这么慢吗？  -- rule: no match: line matched
+  这家的咖啡有那家的好吗？  -- rule: no match: line matched
+  这个孩子有他哥哥那么高了吗？  -- rule: no match: line matched
+  奶奶有七十岁了吗？  -- rule: no match: line matched
+  这条裤子有那条长吗？  -- rule: no match: line matched
+  你的手表有我的新吗？  -- rule: no match: line matched
+  红色的有白色的好看吗？  -- rule: no match: line matched
+  这个包有那个包大吗？  -- rule: no match: line matched
+  你的猫有我的猫那么大吗？  -- rule: no match: line matched
+  你奶奶有七十岁了吗？  -- rule: no match: line matched
+  这个手表有一千块吗？  -- rule: no match: line matched
+  他的孩子有五岁了吧？  -- rule: no match: line matched
+  你爸爸有五十岁了吗？  -- rule: no match: line matched
+  他有你那么喜欢看电影吗？  -- rule: no match: line matched
+  今天有昨天这么忙吗？  -- rule: no match: line matched
+  我写字有他写得快吗？  -- rule: no match: line matched
+  你说英语有他说得好吗？  -- rule: no match: line matched
+  咖啡有茶贵吗？  -- rule: no match: line matched
+  这只鸟有那只鸟漂亮吗？  -- rule: no match: line matched
+  他有你那么会做饭吗？  -- rule: no match: line matched
+  这家饭馆的菜有那家的好吃吗？  -- rule: no match: line matched
+  你的名字有他的长吗？  -- rule: no match: line matched
+  我的包有你的大吗？  -- rule: no match: line matched
+  你奶奶有八十岁了吗？  -- rule: no match: line matched
+  这条裤子有三百块吗？  -- rule: no match: line matched
+  那个电影有这个有意思吗？  -- rule: no match: line matched
+  他的个子有他爸爸高吗？  -- rule: no match: line matched
+  你有他那么喜欢游泳吗？  -- rule: no match: line matched
+  你家离公司有离学校那么远吗？  -- rule: no match: line matched
+  你的猫有我的猫那么小吗？  -- rule: no match: line matched
+  红茶有绿茶贵吗？  -- rule: no match: line matched
+  坐公交车有走路慢吗？  -- rule: no match: line matched
+  明天有今天这么热吗？  -- rule: no match: line matched
+  你妈妈做的饭有饭馆的好吃吗？  -- rule: no match: line matched
+  你们学校有我们学校这么大吗？  -- rule: no match: line matched
+  他儿子有他高了吗？  -- rule: no match: line matched
+  你写字有你同学写得好看吗？  -- rule: no match: line matched
+  今年有去年这么冷吗？  -- rule: no match: line matched
+  我奶奶有八十岁了。  -- rule: no match: line matched
+  他看着有四十岁了。  -- rule: no match: line matched
+  我在这儿等了有一个小时了。  -- rule: no match: line matched
+  这个包有一百多块。  -- rule: no match: line matched
+  你的小狗有我的猫这么小吗？  -- rule: no match: line matched
+  这家饭馆的菜有那家好吃吗？  -- rule: no match: line matched
+  坐地铁有开车快吗？  -- rule: no match: line matched
+  他写字有你写得好看吗？  -- rule: no match: line matched
+  你妹妹有你这么爱看书吗？  -- rule: no match: line matched
+  昨天有今天这么热吗？  -- rule: no match: line matched
+  这个电影有那个有意思吗？  -- rule: no match: line matched
+  他的女儿有六岁了吗？  -- rule: no match: line matched
+  这家店有一百多年了。  -- rule: no match: line matched
+  从家走到车站有二十分钟。  -- rule: no match: line matched
+  这个电影有两个多小时。  -- rule: no match: line matched
+  这个包子有你的手那么大。  -- rule: no match: line matched
+  你爷爷有七十岁了吧？  -- rule: no match: line matched
+
+--- dropped at step 7 (8) ---
+  他有三十多岁吧？  -- check said no (2/2): Expressing age; not a comparison structure
+  外面有这么热吗？  -- check said no (1/2): Unnatural structure; subject lacks comparison basis
+  爷爷有八十多岁了。  -- check said no (2/2): Expressing age; not a comparison structure
+  他有三十多岁了吧？  -- check said no (2/2): Expressing age/measurement, not comparison structure
+  外面的雨有这么大吗？  -- check said no (1/2): Uses 这么 but not comparing to person/entity
+  你的房间有这么大吗？  -- check said no (1/2): Uses 这么/那么 pattern but lacks comparison object B
+  学校有医院那么远吗？  -- check said no (1/2): Uses 这么/那么 pattern, not core A有B Adj. structure
+  你家离学校有那么近吗？  -- check said no (1/2): 有 used with 离 (distance), not pure comparison
+
+--- dropped at step 8 (21) ---
+  他有你跑得快吗？  -- difficulty review: (2/2); Uses 得 with complement (跑得快) in a comparison, too complex for this level
+  你有他跑得快吗？  -- difficulty review: (2/2); Uses 有 in a comparative construction (有...吗) that is beyond HSK 2 - this is not the '有'字句2 pattern being taught
+  她有你写得好看吗？  -- difficulty review: (2/2); Uses 得 with complement (写得好看) in a comparison, too complex for this level
+  妹妹有我睡得早吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你有弟弟睡得早吗？  -- difficulty review: (2/2); uses 得 as a complement marker (2-51 state complement), which is taught at HSK 2, but the structure 'verb+得+adjective' in a comparison context with 有 is complex for this level
+  你有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is taught at HSK 2, but the construction 'verb+得+adjective' (state complement, 2-51) requires understanding how 得 marks the result/state of an action. While 得 itself is in the HSK 2 list, this specific comparative construction with 得 is beyond typical HSK 2 mastery.
+  她有你那么漂亮吗？  -- difficulty review: (1/2); Uses 有 in a comparative construction (有...吗) that is beyond HSK 2 - this is not the '有'字句2 pattern being taught
+  你哥哥有你睡得晚吗？  -- difficulty review: (2/2); Uses 得 with complement (睡得晚) in a comparison, too complex for this level
+  你弟弟有你吃得多吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with result complement (得多), which is 2-31 (taught at HSK 2), but the overall construction '有+comparison' with 得+complement is complex for beginners
+  他开车有你开得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a result/manner complement (开得快), which is grammar point 2-31, taught at HSK 2. However, the construction 'V有+person+V得+adj' for comparison is a specialized use of 有-comparison that goes beyond typical 2-55 examples and relies on understanding complement structures that may not be solidly established at this level.
+  她跑步有你跑得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (跑得快), requiring grammar point 2-31. The construction combining 有-comparison with verb complements exceeds standard HSK 2 examples.
+  面条儿有米饭好吃吗？  -- difficulty review: (2/2); Uses 有 in a comparative construction (A有B好吃) which is comparison grammar (2-58 or similar), not the '有'字句2 pattern being taught; This compares two things using 有, but 2-55 teaches possession/existence with 有, not comparison
+  他踢球有你踢得好吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你游泳有他游得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with complement (得快), which is grammar point 2-31, taught at HSK 2, but the pattern 'A有B动词得+complement吗' (comparison using 有) is the advanced form of 'A有B形容词吗' - this extends beyond the basic 有字句2 pattern shown at this level
+  你唱歌有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 with complement (唱得好听), creating a complex comparative structure beyond basic 'have' sentences
+  他打篮球有你打得好吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (打得好), requiring understanding of grammar point 2-31. The full construction with 有-comparison and verb complements is complex for HSK 2 level.
+  你写汉字有他写得好看吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is HSK 2, but the construction 'A有B写得...吗' combining comparison with result complement exceeds typical HSK 2 grammar complexity; The comparison structure 'V有...V得...' is not a standard HSK 2 pattern and would confuse beginners
+  你妹妹游泳有你游得快吗？  -- difficulty review: (2/2); Uses 有 in comparative structure (有...吗) which is 2-55 'HSK 2-55: "有"字句2', but here 有 functions as a comparison marker meaning 'as...as', not the standard possession/existence 有 taught in that grammar point. This comparison usage goes beyond the basic 有字句2 which shows possession.
+  你写字有老师写得好看吗？  -- difficulty review: (2/2); Same issue as [1] and [2]: the pattern of comparing degree complements with 有 is beyond the scope of basic 有字句2
+  妈妈说话有爸爸说得快吗？  -- difficulty review: (2/2); Same issue as [1]: uses 得 complement structure in a 有 comparison pattern that goes beyond basic 有字句2
+  你们公司有我们公司忙吗？  -- difficulty review: (2/2); Uses comparative structure '有...吗' (是否as...as) which is a comparison construction beyond HSK 2. The pattern compares two entities with 有 in a way that requires understanding 有 as 'to have/possess' in a comparative sense, distinct from the '有'字句2 taught at this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-55_level2_20261114_161459.csv
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:32 ##########
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-55 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     2937  2. contain the point's word(s)
+     2930  3. new (not in DB, not a duplicate)
+     1515  4. at most 2 characters outside HSK 2 words
+      127  5. really HSK 2
+      124  5b. no harder grammar point (of the 43 with a rule)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (7) ---
+  英文有二十六个字母。  -- already in the database
+  一年有四季。  -- already in the database
+  我家后面有条胡同。  -- same text as 9176169 (translations pooled)
+  我身上没有钱。  -- already in the database
+  你们有什么不吃的吗？  -- same text as 6057701 (translations pooled)
+  你有学生证吗？  -- same text as 6284495 (translations pooled)
+  你有朋友吗？  -- same text as 9959099 (translations pooled)
+
+--- dropped at step 4 (1415), first 12 ---
+  没有你的话，我的生命就毁灭了。  -- 3 characters no HSK 2 word uses: 命毁灭
+  被闹钟唤醒没有被鸟唤醒的好。  -- 4 characters no HSK 2 word uses: 唤被醒闹
+  附近有没有青年旅舍？  -- 3 characters no HSK 2 word uses: 舍附青
+  我没有任何借口。  -- 3 characters no HSK 2 word uses: 任何借
+  我要一间有淋浴的单人间。  -- 3 characters no HSK 2 word uses: 单浴淋
+  盒子里有些空瓶。  -- 3 characters no HSK 2 word uses: 瓶盒空
+  有草的地方无水，有水的地方无草。  -- 3 characters no HSK 2 word uses: 方无草
+  要是你有空的话，我们就去购物吧。  -- 3 characters no HSK 2 word uses: 物空购
+  面汤里有个苍蝇。  -- 3 characters no HSK 2 word uses: 汤苍蝇
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  我们有五种烤肉串。  -- 3 characters no HSK 2 word uses: 串烤种
+  若有大地震，房屋会倒塌呀！  -- 6 characters no HSK 2 word uses: 倒呀塌屋若震
+
+--- dropped at step 5 (1388), first 12 ---
+  有借有还。  -- level 3: 借 L3
+  百货商店前有个书店。  -- level 6: 百货 L6
+  我跟那个事件没有什么关系。  -- level 5: 事件 L5, 关系 L3
+  阿什兰也有水。  -- level 1: no list words
+  我的叔叔有三个孩子。  -- level 3: 叔叔 L3
+  哪里有电话机？  -- level 10: 机 (not in list)
+  火星上也有猫。  -- level 10: 火星 (not in list)
+  林子大了什么鸟都有。  -- level 10: 林子 (not in list)
+  您今晚有空吗？  -- level 10: 今晚 (not in list), 空 L4
+  我不在的时候有没有人来？  -- level 1: no list words
+  桌子上有本书。  -- level 1: no list words
+  还有什么？  -- level 1: no list words
+
+--- dropped at step 5b (3) ---
+  我有告诉你我找到新工作了吗？  -- harder grammar: 3-46 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  我听到有人进来了。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (124) ---
+  你有多高？  -- rule: no match: line matched
+  有时我去，有时不去。  -- rule: no match: line matched
+  有的人是好的，有的人是坏的。  -- rule: no match: line matched
+  我们只有茶水。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  “没门儿！”　“有的，有门儿。”  -- rule: unless 有的/PN
+  楼下有人在等您。  -- rule: no match: line matched
+  因为我有点头疼，所以我早早上床睡觉。  -- rule: no match: line matched
+  很有可能还会下雨。  -- rule: no match: line matched
+  我现在还没有吃过午饭。  -- rule: no match: line matched
+  那样的事天天都有。  -- rule: no match: line matched
+  一天有二十四个小时。  -- rule: no match: line matched
+  他的书非常有意思。  -- rule: no match: line matched
+  我没有朋友一起玩。  -- rule: unless 没有/VE
+  因为他有钱，所以能去那儿。  -- rule: no match: line matched
+  她没有票。  -- rule: unless 没有/VE
+  有件事情我要对你说。  -- rule: no match: line matched
+  我想和你一起去，但是我没有时间。  -- rule: unless 没有/VE
+  她说她有点累了。  -- rule: no match: line matched
+  我家只有三口人。  -- rule: no match: line matched
+  我很高兴有这么多好朋友。  -- rule: no match: line matched
+  她有几百本书。  -- rule: no match: line matched
+  在日本，有站长是猫的车站。  -- rule: no match: line matched
+  我们班有二十多个学生。  -- rule: no match: line matched
+  我们班有十多个学生。  -- rule: no match: line matched
+  它没有教她说话。  -- rule: no match: line matched
+  他有一千多本书。  -- rule: no match: line matched
+  我有点累。  -- rule: no match: line matched
+  有人在门口。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  他有自己的房间。  -- rule: no match: line matched
+  没吃早饭，我有些不舒服。  -- rule: no match: line matched
+  你有去过巴黎吗？  -- rule: no match: line matched
+  有人跟我说这件事。  -- rule: no match: line matched
+  所以他没有去学校。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  你在班里有好朋友吗？  -- rule: no match: line matched
+  有人来过这里。  -- rule: no match: line matched
+  不知道为什么没有人告诉过我。  -- rule: unless 没有/VE
+  你有很多笔吗？  -- rule: no match: line matched
+  你有一只鸟吗？  -- rule: no match: line matched
+  现在有票。  -- rule: no match: line matched
+  我没想到这里有这么多人。  -- rule: no match: line matched
+  我现在有钱，能想买就买。  -- rule: no match: line matched
+  等我有钱了，我就买它。  -- rule: no match: line matched
+  真高兴有人告诉我。  -- rule: no match: line matched
+  他们可能有点什么。  -- rule: no match: line matched
+  我有时早上不想下床。  -- rule: no match: line matched
+  还有什么事就告诉我。  -- rule: unless 还/AD 有/VE
+  有后门。  -- rule: no match: line matched
+  是有人花钱让你做这事吗？  -- rule: no match: line matched
+  我没想到它有那么大。  -- rule: no match: line matched
+  他的这本书一点意思也没有。  -- rule: unless 没有/VE
+  得有人做点事。  -- rule: no match: line matched
+  有人请我帮你。  -- rule: no match: line matched
+  你有可能不知道这事。  -- rule: no match: line matched
+  你的学校有多远？  -- rule: no match: line matched
+  电话前面有四本中文书。  -- rule: no match: line matched
+  桌子下面有一只猫。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我没有真的准备好。  -- rule: no match: line matched
+  有你帮我真好。  -- rule: no match: line matched
+  有人告诉他吗？  -- rule: no match: line matched
+  你已经有孩子了吗？  -- rule: no match: line matched
+  我知道你比我有钱。  -- rule: no match: line matched
+  我知道有个人可能能帮忙。  -- rule: no match: line matched
+  我希望汤姆有一天会来这里。  -- rule: no match: line matched
+  明天很有可能下雨。  -- rule: no match: line matched
+  有点大。  -- rule: no match: line matched
+  有点小。  -- rule: no match: line matched
+  有学生票吗？  -- rule: no match: line matched
+  有今天有点头疼。  -- rule: no match: line matched
+  我们还有一点时间。  -- rule: unless 还/AD 有/VE
+  他们有时帮我们。  -- rule: no match: line matched
+  已经五点了，我还没有睡觉。  -- rule: no match: line matched
+  我们有多远了？  -- rule: no match: line matched
+  一周有几天？  -- rule: no match: line matched
+  这里面我有很多不懂的。  -- rule: no match: line matched
+  “上周你看电视了吗？”“没有，我没看。”  -- rule: no match: line matched
+  不知道为什么今天有点累。  -- rule: no match: line matched
+  她没有帮我。  -- rule: no match: line matched
+  但是您有孩子。  -- rule: no match: line matched
+  但是你有孩子。  -- rule: no match: line matched
+  我没有找Tom帮忙。  -- rule: no match: line matched
+  有不懂的东西就去问吧。  -- rule: no match: line matched
+  有一只小狗在商店门口等着。  -- rule: no match: line matched
+  有什么要开始了。  -- rule: no match: line matched
+  我有东西想给你看看。  -- rule: no match: line matched
+  你有喜欢的颜色吗？  -- rule: no match: line matched
+  那个东西有多热？  -- rule: no match: line matched
+  我有点喜欢他。  -- rule: no match: line matched
+  有人要咖啡吗？  -- rule: no match: line matched
+  他说他没有做过那件事。  -- rule: no match: line matched
+  所以，哪里有问题？  -- rule: no match: line matched
+  有什么你想让我买的吗？  -- rule: no match: line matched
+  这里有点冷。  -- rule: no match: line matched
+  告诉我你没有这么做。  -- rule: no match: line matched
+  我小时候的时候还没有电脑。  -- rule: unless 没有/VE
+  我看起来很有钱吗？  -- rule: no match: line matched
+  杯子里面有水。  -- rule: no match: line matched
+  她没有让我们帮忙。  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+  没有人问过我。  -- rule: unless 没有/VE
+  有谁想一起去吃饭吗？  -- rule: no match: line matched
+  你没有希望。  -- rule: unless 没有/VE
+  有人会这样想。  -- rule: no match: line matched
+  我们有帮忙。  -- rule: no match: line matched
+  他有帮忙。  -- rule: no match: line matched
+  汤姆猫有帮忙。  -- rule: no match: line matched
+  我有帮忙。  -- rule: no match: line matched
+  车站前有一家不错的商店。  -- rule: no match: line matched
+  什么事都有可能。  -- rule: no match: line matched
+  我的班上有三十名学生。  -- rule: no match: line matched
+  我们班有三十名学生。  -- rule: no match: line matched
+  我家九月有两人过生日。  -- rule: no match: line matched
+  让我看看你有多少钱。  -- rule: no match: line matched
+  有些人是这么想的。  -- rule: no match: line matched
+  我不记得有打电话给你。  -- rule: no match: line matched
+  我还是没有手机。  -- rule: unless 没有/VE
+  不好意思，请问你有笔吗？  -- rule: no match: line matched
+  有些事情不能忘。  -- rule: no match: line matched
+  我们看看有没有人在家。  -- rule: no match: line matched
+  玛莉问我们有没有准备好。  -- rule: unless 没有/VE
+  这些里面有你喜欢的吗？  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-55_level2_20261114_163211.csv
+
+########## ai  2026-11-14 16:35 ##########
+
+----- AI-written sentences for 2-55, round 1: 175 to check, 20 needed -----
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 175
+
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-55 at HSK 2: funnel ===
+      175  AI-written sentences
+      175  1. have an English translation
+      175  2. contain the point's word(s)
+      175  3. new (not in DB, not a duplicate)
+      173  4. at most 0 characters outside HSK 2 words
+      114  5. really HSK 2
+      114  5b. no harder grammar point (of the 43 with a rule)
+       40  6. the rule finds 2-55
+       40  6b. no hidden word a learner can't work out
+       32  7. both checks say 2-55, English chosen
+       11  8. both difficulty reviews pass it
+
+=== Survivors (11) ===
+  弟弟有我高吗？  (Is your younger brother as tall as me?)  [tatoeba ai-a46913fb6c]
+  你有你哥哥高吗？  (Are you as tall as your older brother?)  [tatoeba ai-94cf654fd6]
+  他有你那么忙吗？  (Is he as busy as you are?)  [tatoeba ai-33bcfa77a8]
+  他有你个子高吗？  (Is he as tall as you?)  [tatoeba ai-4c67c7e7bd]
+  你有我这么忙吗？  (Are you as busy as I am?)  [tatoeba ai-f159ebf70e]
+  他有你爸爸高吗？  (Is he as tall as your dad?)  [tatoeba ai-e9d8fcf1a5]
+  你妹妹有你高吗？  (Is your younger sister as tall as you?)  [tatoeba ai-f390fb9db8]
+  地铁有公交车快吗？  (Is the subway as fast as the bus?)  [tatoeba ai-608922b54d]
+  老师有你这么忙吗？  (Is the teacher as busy as you are?)  [tatoeba ai-9987bd0f03]
+  你有你姐姐漂亮吗？  (Are you as pretty as your older sister?)  [tatoeba ai-6a17eb9689]
+  你的朋友有我那么多吗？  (Do you have as many friends as I do?)  [tatoeba ai-52bb3b2e28]
+
+--- dropped at step 4 (2) ---
+  那儿的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+  中国的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+
+--- dropped at step 5 (59), first 12 ---
+  这家饭店有那家贵吗？  -- level 1: no list words
+  今天有昨天冷吗？  -- level 1: no list words
+  你妈妈做的菜有饭店的好吃吗？  -- level 1: no list words
+  她有你漂亮吗？  -- level 1: no list words
+  这个手机有那个新吗？  -- level 1: no list words
+  这本书有那本好看吗？  -- level 1: no list words
+  我们学校有你们学校大吗？  -- level 1: no list words
+  今天有昨天热吗？  -- level 1: no list words
+  这个孩子有两岁吗？  -- level 1: no list words
+  这件衣服有三百块吗？  -- level 1: no list words
+  你家的狗有我家的狗大吗？  -- level 1: no list words
+  这只猫有那只猫小吗？  -- level 1: no list words
+
+--- dropped at step 6 (74) ---
+  你做饭有妈妈做得好吗？  -- rule: no match: line matched
+  他说汉语有你说得好吗？  -- rule: no match: line matched
+  你的电脑有我的快吗？  -- rule: no match: line matched
+  你儿子有你高了吗？  -- rule: no match: line matched
+  你女儿有八岁了吗？  -- rule: no match: line matched
+  她有五十岁了吧？  -- rule: no match: line matched
+  从这儿走路到车站有二十分钟吗？  -- rule: no match: line matched
+  去机场有一个小时吗？  -- rule: no match: line matched
+  这个包子有你的手那么大！  -- rule: no match: line matched
+  今天有昨天这么冷吗？  -- rule: no match: line matched
+  坐火车有坐飞机快吗？  -- rule: no match: line matched
+  这家店有那家店这么便宜吗？  -- rule: no match: line matched
+  你的房间有我的那么好看吗？  -- rule: no match: line matched
+  这条路有那条路远吗？  -- rule: no match: line matched
+  你儿子有十岁了吗？  -- rule: no match: line matched
+  从你家到学校有一个小时吗？  -- rule: no match: line matched
+  今天有昨天那么好玩儿吗？  -- rule: no match: line matched
+  他的汉语有你的这么好吗？  -- rule: no match: line matched
+  坐地铁有打车快吗？  -- rule: no match: line matched
+  走路有开车这么慢吗？  -- rule: no match: line matched
+  这家的咖啡有那家的好吗？  -- rule: no match: line matched
+  这个孩子有他哥哥那么高了吗？  -- rule: no match: line matched
+  奶奶有七十岁了吗？  -- rule: no match: line matched
+  这条裤子有那条长吗？  -- rule: no match: line matched
+  你的手表有我的新吗？  -- rule: no match: line matched
+  红色的有白色的好看吗？  -- rule: no match: line matched
+  这个包有那个包大吗？  -- rule: no match: line matched
+  你的猫有我的猫那么大吗？  -- rule: no match: line matched
+  你奶奶有七十岁了吗？  -- rule: no match: line matched
+  这个手表有一千块吗？  -- rule: no match: line matched
+  他的孩子有五岁了吧？  -- rule: no match: line matched
+  你爸爸有五十岁了吗？  -- rule: no match: line matched
+  他有你那么喜欢看电影吗？  -- rule: no match: line matched
+  今天有昨天这么忙吗？  -- rule: no match: line matched
+  我写字有他写得快吗？  -- rule: no match: line matched
+  你说英语有他说得好吗？  -- rule: no match: line matched
+  咖啡有茶贵吗？  -- rule: no match: line matched
+  这只鸟有那只鸟漂亮吗？  -- rule: no match: line matched
+  他有你那么会做饭吗？  -- rule: no match: line matched
+  这家饭馆的菜有那家的好吃吗？  -- rule: no match: line matched
+  你的名字有他的长吗？  -- rule: no match: line matched
+  我的包有你的大吗？  -- rule: no match: line matched
+  你奶奶有八十岁了吗？  -- rule: no match: line matched
+  这条裤子有三百块吗？  -- rule: no match: line matched
+  那个电影有这个有意思吗？  -- rule: no match: line matched
+  他的个子有他爸爸高吗？  -- rule: no match: line matched
+  你有他那么喜欢游泳吗？  -- rule: no match: line matched
+  你家离公司有离学校那么远吗？  -- rule: no match: line matched
+  你的猫有我的猫那么小吗？  -- rule: no match: line matched
+  红茶有绿茶贵吗？  -- rule: no match: line matched
+  坐公交车有走路慢吗？  -- rule: no match: line matched
+  明天有今天这么热吗？  -- rule: no match: line matched
+  你妈妈做的饭有饭馆的好吃吗？  -- rule: no match: line matched
+  你们学校有我们学校这么大吗？  -- rule: no match: line matched
+  他儿子有他高了吗？  -- rule: no match: line matched
+  你写字有你同学写得好看吗？  -- rule: no match: line matched
+  今年有去年这么冷吗？  -- rule: no match: line matched
+  我奶奶有八十岁了。  -- rule: no match: line matched
+  他看着有四十岁了。  -- rule: no match: line matched
+  我在这儿等了有一个小时了。  -- rule: no match: line matched
+  这个包有一百多块。  -- rule: no match: line matched
+  你的小狗有我的猫这么小吗？  -- rule: no match: line matched
+  这家饭馆的菜有那家好吃吗？  -- rule: no match: line matched
+  坐地铁有开车快吗？  -- rule: no match: line matched
+  他写字有你写得好看吗？  -- rule: no match: line matched
+  你妹妹有你这么爱看书吗？  -- rule: no match: line matched
+  昨天有今天这么热吗？  -- rule: no match: line matched
+  这个电影有那个有意思吗？  -- rule: no match: line matched
+  他的女儿有六岁了吗？  -- rule: no match: line matched
+  这家店有一百多年了。  -- rule: no match: line matched
+  从家走到车站有二十分钟。  -- rule: no match: line matched
+  这个电影有两个多小时。  -- rule: no match: line matched
+  这个包子有你的手那么大。  -- rule: no match: line matched
+  你爷爷有七十岁了吧？  -- rule: no match: line matched
+
+--- dropped at step 7 (8) ---
+  他有三十多岁吧？  -- check said no (2/2): Expressing age; not a comparison structure
+  外面有这么热吗？  -- check said no (1/2): Unnatural structure; subject lacks comparison basis
+  爷爷有八十多岁了。  -- check said no (2/2): Expressing age; not a comparison structure
+  他有三十多岁了吧？  -- check said no (2/2): Expressing age/measurement, not comparison structure
+  外面的雨有这么大吗？  -- check said no (1/2): Uses 这么 but not comparing to person/entity
+  你的房间有这么大吗？  -- check said no (1/2): Uses 这么/那么 pattern but lacks comparison object B
+  学校有医院那么远吗？  -- check said no (1/2): Uses 这么/那么 pattern, not core A有B Adj. structure
+  你家离学校有那么近吗？  -- check said no (1/2): 有 used with 离 (distance), not pure comparison
+
+--- dropped at step 8 (21) ---
+  他有你跑得快吗？  -- difficulty review: (2/2); Uses 得 with complement (跑得快) in a comparison, too complex for this level
+  你有他跑得快吗？  -- difficulty review: (2/2); Uses 有 in a comparative construction (有...吗) that is beyond HSK 2 - this is not the '有'字句2 pattern being taught
+  她有你写得好看吗？  -- difficulty review: (2/2); Uses 得 with complement (写得好看) in a comparison, too complex for this level
+  妹妹有我睡得早吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你有弟弟睡得早吗？  -- difficulty review: (2/2); uses 得 as a complement marker (2-51 state complement), which is taught at HSK 2, but the structure 'verb+得+adjective' in a comparison context with 有 is complex for this level
+  你有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is taught at HSK 2, but the construction 'verb+得+adjective' (state complement, 2-51) requires understanding how 得 marks the result/state of an action. While 得 itself is in the HSK 2 list, this specific comparative construction with 得 is beyond typical HSK 2 mastery.
+  她有你那么漂亮吗？  -- difficulty review: (1/2); Uses 有 in a comparative construction (有...吗) that is beyond HSK 2 - this is not the '有'字句2 pattern being taught
+  你哥哥有你睡得晚吗？  -- difficulty review: (2/2); Uses 得 with complement (睡得晚) in a comparison, too complex for this level
+  你弟弟有你吃得多吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with result complement (得多), which is 2-31 (taught at HSK 2), but the overall construction '有+comparison' with 得+complement is complex for beginners
+  他开车有你开得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a result/manner complement (开得快), which is grammar point 2-31, taught at HSK 2. However, the construction 'V有+person+V得+adj' for comparison is a specialized use of 有-comparison that goes beyond typical 2-55 examples and relies on understanding complement structures that may not be solidly established at this level.
+  她跑步有你跑得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (跑得快), requiring grammar point 2-31. The construction combining 有-comparison with verb complements exceeds standard HSK 2 examples.
+  面条儿有米饭好吃吗？  -- difficulty review: (2/2); Uses 有 in a comparative construction (A有B好吃) which is comparison grammar (2-58 or similar), not the '有'字句2 pattern being taught; This compares two things using 有, but 2-55 teaches possession/existence with 有, not comparison
+  他踢球有你踢得好吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你游泳有他游得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with complement (得快), which is grammar point 2-31, taught at HSK 2, but the pattern 'A有B动词得+complement吗' (comparison using 有) is the advanced form of 'A有B形容词吗' - this extends beyond the basic 有字句2 pattern shown at this level
+  你唱歌有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 with complement (唱得好听), creating a complex comparative structure beyond basic 'have' sentences
+  他打篮球有你打得好吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (打得好), requiring understanding of grammar point 2-31. The full construction with 有-comparison and verb complements is complex for HSK 2 level.
+  你写汉字有他写得好看吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is HSK 2, but the construction 'A有B写得...吗' combining comparison with result complement exceeds typical HSK 2 grammar complexity; The comparison structure 'V有...V得...' is not a standard HSK 2 pattern and would confuse beginners
+  你妹妹游泳有你游得快吗？  -- difficulty review: (2/2); Uses 有 in comparative structure (有...吗) which is 2-55 'HSK 2-55: "有"字句2', but here 有 functions as a comparison marker meaning 'as...as', not the standard possession/existence 有 taught in that grammar point. This comparison usage goes beyond the basic 有字句2 which shows possession.
+  你写字有老师写得好看吗？  -- difficulty review: (2/2); Same issue as [1] and [2]: the pattern of comparing degree complements with 有 is beyond the scope of basic 有字句2
+  妈妈说话有爸爸说得快吗？  -- difficulty review: (2/2); Same issue as [1]: uses 得 complement structure in a 有 comparison pattern that goes beyond basic 有字句2
+  你们公司有我们公司忙吗？  -- difficulty review: (2/2); Uses comparative structure '有...吗' (是否as...as) which is a comparison construction beyond HSK 2. The pattern compares two entities with 有 in a way that requires understanding 有 as 'to have/possess' in a comparative sense, distinct from the '有'字句2 taught at this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-55_level2_20261114_163516.csv
+  Asking claude-sonnet-5-5 to write 23 sentence(s)...
+
+----- AI-written sentences for 2-55, round 2: 197 to check, 20 needed -----
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 197
+
+Tagging 21 AI-written sentence(s) (cached after this run)...
+  ...100/194
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_163531.txt
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-55 at HSK 2: funnel ===
+      197  AI-written sentences
+      197  1. have an English translation
+      197  2. contain the point's word(s)
+      197  3. new (not in DB, not a duplicate)
+      194  4. at most 0 characters outside HSK 2 words
+      127  5. really HSK 2
+      127  5b. no harder grammar point (of the 43 with a rule)
+       45  6. the rule finds 2-55
+       45  6b. no hidden word a learner can't work out
+       36  7. both checks say 2-55, English chosen
+       12  8. both difficulty reviews pass it
+
+=== Survivors (12) ===
+  弟弟有我高吗？  (Is your younger brother as tall as me?)  [tatoeba ai-a46913fb6c]
+  你有你哥哥高吗？  (Are you as tall as your older brother?)  [tatoeba ai-94cf654fd6]
+  他有你那么忙吗？  (Is he as busy as you are?)  [tatoeba ai-33bcfa77a8]
+  他有你个子高吗？  (Is he as tall as you?)  [tatoeba ai-4c67c7e7bd]
+  你有我这么忙吗？  (Are you as busy as I am?)  [tatoeba ai-f159ebf70e]
+  他有你爸爸高吗？  (Is he as tall as your dad?)  [tatoeba ai-e9d8fcf1a5]
+  你妹妹有你高吗？  (Is your younger sister as tall as you?)  [tatoeba ai-f390fb9db8]
+  地铁有公交车快吗？  (Is the subway as fast as the bus?)  [tatoeba ai-608922b54d]
+  老师有你这么忙吗？  (Is the teacher as busy as you are?)  [tatoeba ai-9987bd0f03]
+  你有你姐姐漂亮吗？  (Are you as pretty as your older sister?)  [tatoeba ai-6a17eb9689]
+  你的女朋友有你高吗？  (Is your girlfriend as tall as you?)  [tatoeba ai-78069b8230]
+  你的朋友有我那么多吗？  (Do you have as many friends as I do?)  [tatoeba ai-52bb3b2e28]
+
+--- dropped at step 4 (3) ---
+  那儿的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+  中国的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+  这张桌子有五百块吗？  -- 1 characters no HSK 2 word uses: 张
+
+--- dropped at step 5 (67), first 12 ---
+  这家饭店有那家贵吗？  -- level 1: no list words
+  今天有昨天冷吗？  -- level 1: no list words
+  你妈妈做的菜有饭店的好吃吗？  -- level 1: no list words
+  她有你漂亮吗？  -- level 1: no list words
+  这个手机有那个新吗？  -- level 1: no list words
+  这本书有那本好看吗？  -- level 1: no list words
+  我们学校有你们学校大吗？  -- level 1: no list words
+  今天有昨天热吗？  -- level 1: no list words
+  这个孩子有两岁吗？  -- level 1: no list words
+  这件衣服有三百块吗？  -- level 1: no list words
+  你家的狗有我家的狗大吗？  -- level 1: no list words
+  这只猫有那只猫小吗？  -- level 1: no list words
+
+--- dropped at step 6 (82) ---
+  你做饭有妈妈做得好吗？  -- rule: no match: line matched
+  他说汉语有你说得好吗？  -- rule: no match: line matched
+  你的电脑有我的快吗？  -- rule: no match: line matched
+  你儿子有你高了吗？  -- rule: no match: line matched
+  你女儿有八岁了吗？  -- rule: no match: line matched
+  她有五十岁了吧？  -- rule: no match: line matched
+  从这儿走路到车站有二十分钟吗？  -- rule: no match: line matched
+  去机场有一个小时吗？  -- rule: no match: line matched
+  这个包子有你的手那么大！  -- rule: no match: line matched
+  今天有昨天这么冷吗？  -- rule: no match: line matched
+  坐火车有坐飞机快吗？  -- rule: no match: line matched
+  这家店有那家店这么便宜吗？  -- rule: no match: line matched
+  你的房间有我的那么好看吗？  -- rule: no match: line matched
+  这条路有那条路远吗？  -- rule: no match: line matched
+  你儿子有十岁了吗？  -- rule: no match: line matched
+  从你家到学校有一个小时吗？  -- rule: no match: line matched
+  今天有昨天那么好玩儿吗？  -- rule: no match: line matched
+  他的汉语有你的这么好吗？  -- rule: no match: line matched
+  坐地铁有打车快吗？  -- rule: no match: line matched
+  走路有开车这么慢吗？  -- rule: no match: line matched
+  这家的咖啡有那家的好吗？  -- rule: no match: line matched
+  这个孩子有他哥哥那么高了吗？  -- rule: no match: line matched
+  奶奶有七十岁了吗？  -- rule: no match: line matched
+  这条裤子有那条长吗？  -- rule: no match: line matched
+  你的手表有我的新吗？  -- rule: no match: line matched
+  红色的有白色的好看吗？  -- rule: no match: line matched
+  这个包有那个包大吗？  -- rule: no match: line matched
+  你的猫有我的猫那么大吗？  -- rule: no match: line matched
+  你奶奶有七十岁了吗？  -- rule: no match: line matched
+  这个手表有一千块吗？  -- rule: no match: line matched
+  他的孩子有五岁了吧？  -- rule: no match: line matched
+  你爸爸有五十岁了吗？  -- rule: no match: line matched
+  他有你那么喜欢看电影吗？  -- rule: no match: line matched
+  今天有昨天这么忙吗？  -- rule: no match: line matched
+  我写字有他写得快吗？  -- rule: no match: line matched
+  你说英语有他说得好吗？  -- rule: no match: line matched
+  咖啡有茶贵吗？  -- rule: no match: line matched
+  这只鸟有那只鸟漂亮吗？  -- rule: no match: line matched
+  他有你那么会做饭吗？  -- rule: no match: line matched
+  这家饭馆的菜有那家的好吃吗？  -- rule: no match: line matched
+  你的名字有他的长吗？  -- rule: no match: line matched
+  我的包有你的大吗？  -- rule: no match: line matched
+  你奶奶有八十岁了吗？  -- rule: no match: line matched
+  这条裤子有三百块吗？  -- rule: no match: line matched
+  那个电影有这个有意思吗？  -- rule: no match: line matched
+  他的个子有他爸爸高吗？  -- rule: no match: line matched
+  你有他那么喜欢游泳吗？  -- rule: no match: line matched
+  你家离公司有离学校那么远吗？  -- rule: no match: line matched
+  你的猫有我的猫那么小吗？  -- rule: no match: line matched
+  红茶有绿茶贵吗？  -- rule: no match: line matched
+  坐公交车有走路慢吗？  -- rule: no match: line matched
+  明天有今天这么热吗？  -- rule: no match: line matched
+  你妈妈做的饭有饭馆的好吃吗？  -- rule: no match: line matched
+  你们学校有我们学校这么大吗？  -- rule: no match: line matched
+  他儿子有他高了吗？  -- rule: no match: line matched
+  你写字有你同学写得好看吗？  -- rule: no match: line matched
+  今年有去年这么冷吗？  -- rule: no match: line matched
+  我奶奶有八十岁了。  -- rule: no match: line matched
+  他看着有四十岁了。  -- rule: no match: line matched
+  我在这儿等了有一个小时了。  -- rule: no match: line matched
+  这个包有一百多块。  -- rule: no match: line matched
+  你的小狗有我的猫这么小吗？  -- rule: no match: line matched
+  这家饭馆的菜有那家好吃吗？  -- rule: no match: line matched
+  坐地铁有开车快吗？  -- rule: no match: line matched
+  他写字有你写得好看吗？  -- rule: no match: line matched
+  你妹妹有你这么爱看书吗？  -- rule: no match: line matched
+  昨天有今天这么热吗？  -- rule: no match: line matched
+  这个电影有那个有意思吗？  -- rule: no match: line matched
+  他的女儿有六岁了吗？  -- rule: no match: line matched
+  这家店有一百多年了。  -- rule: no match: line matched
+  从家走到车站有二十分钟。  -- rule: no match: line matched
+  这个电影有两个多小时。  -- rule: no match: line matched
+  这个包子有你的手那么大。  -- rule: no match: line matched
+  你爷爷有七十岁了吧？  -- rule: no match: line matched
+  这个教室有那个教室大吗？  -- rule: no match: line matched
+  坐出租车有坐地铁快吗？  -- rule: no match: line matched
+  你的鸟有我的鸟漂亮吗？  -- rule: no match: line matched
+  打车有开车那么快吗？  -- rule: no match: line matched
+  从家到公司有五十分钟。  -- rule: no match: line matched
+  那个小朋友有五岁了吧？  -- rule: no match: line matched
+  她的手表有一千块吗？  -- rule: no match: line matched
+  你的衣服有我的这么贵吗？  -- rule: no match: line matched
+
+--- dropped at step 7 (9) ---
+  他有三十多岁吧？  -- check said no (2/2): Expressing age; not a comparison structure
+  外面有这么热吗？  -- check said no (1/2): Unnatural structure; subject lacks comparison basis
+  爷爷有八十多岁了。  -- check said no (2/2): Expressing age; not a comparison structure
+  他有三十多岁了吧？  -- check said no (2/2): Expressing age/measurement, not comparison structure
+  外面的雨有这么大吗？  -- check said no (1/2): Uses 这么 but not comparing to person/entity
+  你的房间有这么大吗？  -- check said no (1/2): Uses 这么/那么 pattern but lacks comparison object B
+  学校有医院那么远吗？  -- check said no (1/2): Uses 这么/那么 pattern, not core A有B Adj. structure
+  我奶奶有七十多岁了。  -- check said no (2/2): Statement form; point requires question form
+  你家离学校有那么近吗？  -- check said no (1/2): 有 used with 离 (distance), not pure comparison
+
+--- dropped at step 8 (24) ---
+  他有你跑得快吗？  -- difficulty review: (2/2); Uses 得 with complement (跑得快) in a comparison, too complex for this level
+  你有他跑得快吗？  -- difficulty review: (2/2); Uses 有 in a comparative construction (有...吗) that is beyond HSK 2 - this is not the '有'字句2 pattern being taught
+  你有我走得快吗？  -- difficulty review: (2/2); Uses 有 in a comparative construction (你有我走得快吗？= Can you walk as fast as I do?). This is a comparative pattern 有 construction that goes beyond 2-55 '有'字句2, which covers basic existence/possession. The grammar point 2-58 '比较句2' or similar comparative structures are needed to explain this usage, and this specific comparative use of 有 is not covered in HSK 2.
+  她有你写得好看吗？  -- difficulty review: (2/2); Uses 得 with complement (写得好看) in a comparison, too complex for this level
+  妹妹有我睡得早吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你有弟弟睡得早吗？  -- difficulty review: (2/2); uses 得 as a complement marker (2-51 state complement), which is taught at HSK 2, but the structure 'verb+得+adjective' in a comparison context with 有 is complex for this level
+  你有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is taught at HSK 2, but the construction 'verb+得+adjective' (state complement, 2-51) requires understanding how 得 marks the result/state of an action. While 得 itself is in the HSK 2 list, this specific comparative construction with 得 is beyond typical HSK 2 mastery.
+  她有你那么漂亮吗？  -- difficulty review: (1/2); Uses 有 in a comparative construction (有...吗) that is beyond HSK 2 - this is not the '有'字句2 pattern being taught
+  你哥哥有你睡得晚吗？  -- difficulty review: (2/2); Uses 得 with complement (睡得晚) in a comparison, too complex for this level
+  你弟弟有你吃得多吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with result complement (得多), which is 2-31 (taught at HSK 2), but the overall construction '有+comparison' with 得+complement is complex for beginners
+  他开车有你开得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a result/manner complement (开得快), which is grammar point 2-31, taught at HSK 2. However, the construction 'V有+person+V得+adj' for comparison is a specialized use of 有-comparison that goes beyond typical 2-55 examples and relies on understanding complement structures that may not be solidly established at this level.
+  她跑步有你跑得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (跑得快), requiring grammar point 2-31. The construction combining 有-comparison with verb complements exceeds standard HSK 2 examples.
+  面条儿有米饭好吃吗？  -- difficulty review: (2/2); Uses 有 in a comparative construction (A有B好吃) which is comparison grammar (2-58 or similar), not the '有'字句2 pattern being taught; This compares two things using 有, but 2-55 teaches possession/existence with 有, not comparison
+  他踢球有你踢得好吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你游泳有他游得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with complement (得快), which is grammar point 2-31, taught at HSK 2, but the pattern 'A有B动词得+complement吗' (comparison using 有) is the advanced form of 'A有B形容词吗' - this extends beyond the basic 有字句2 pattern shown at this level
+  你游泳有他游得好吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a complement (你游得好), which is grammar point 2-31. The pattern 'A有B+得+adjective' for comparison requires understanding this structure.
+  你唱歌有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 with complement (唱得好听), creating a complex comparative structure beyond basic 'have' sentences
+  他打篮球有你打得好吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (打得好), requiring understanding of grammar point 2-31. The full construction with 有-comparison and verb complements is complex for HSK 2 level.
+  你妹妹有你唱得好听吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a complement (你唱得好听), which is grammar point 2-31. The pattern 'A有B+得+adjective' for comparison requires understanding this structure.
+  你写汉字有他写得好看吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is HSK 2, but the construction 'A有B写得...吗' combining comparison with result complement exceeds typical HSK 2 grammar complexity; The comparison structure 'V有...V得...' is not a standard HSK 2 pattern and would confuse beginners
+  你妹妹游泳有你游得快吗？  -- difficulty review: (2/2); Uses 有 in comparative structure (有...吗) which is 2-55 'HSK 2-55: "有"字句2', but here 有 functions as a comparison marker meaning 'as...as', not the standard possession/existence 有 taught in that grammar point. This comparison usage goes beyond the basic 有字句2 which shows possession.
+  你写字有老师写得好看吗？  -- difficulty review: (2/2); Same issue as [1] and [2]: the pattern of comparing degree complements with 有 is beyond the scope of basic 有字句2
+  妈妈说话有爸爸说得快吗？  -- difficulty review: (2/2); Same issue as [1]: uses 得 complement structure in a 有 comparison pattern that goes beyond basic 有字句2
+  你们公司有我们公司忙吗？  -- difficulty review: (2/2); Uses comparative structure '有...吗' (是否as...as) which is a comparison construction beyond HSK 2. The pattern compares two entities with 有 in a way that requires understanding 有 as 'to have/possess' in a comparative sense, distinct from the '有'字句2 taught at this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-55_level2_20261114_163542.csv
+  Asking claude-sonnet-5-5 to write 20 sentence(s)...
+
+----- AI-written sentences for 2-55, round 3: 212 to check, 20 needed -----
+Filling 2-55 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 212
+
+Tagging 15 AI-written sentence(s) (cached after this run)...
+  ...100/209
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_163600.txt
+  ...200/209
+
+Course sentences at HSK 2 the rule already finds 2-55 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-55 at HSK 2: funnel ===
+      212  AI-written sentences
+      212  1. have an English translation
+      212  2. contain the point's word(s)
+      212  3. new (not in DB, not a duplicate)
+      209  4. at most 0 characters outside HSK 2 words
+      137  5. really HSK 2
+      137  5b. no harder grammar point (of the 43 with a rule)
+       48  6. the rule finds 2-55
+       48  6b. no hidden word a learner can't work out
+       39  7. both checks say 2-55, English chosen
+       12  8. both difficulty reviews pass it
+
+=== Survivors (12) ===
+  弟弟有我高吗？  (Is your younger brother as tall as me?)  [tatoeba ai-a46913fb6c]
+  你有你哥哥高吗？  (Are you as tall as your older brother?)  [tatoeba ai-94cf654fd6]
+  他有你那么忙吗？  (Is he as busy as you are?)  [tatoeba ai-33bcfa77a8]
+  他有你个子高吗？  (Is he as tall as you?)  [tatoeba ai-4c67c7e7bd]
+  你有我这么忙吗？  (Are you as busy as I am?)  [tatoeba ai-f159ebf70e]
+  他有你爸爸高吗？  (Is he as tall as your dad?)  [tatoeba ai-e9d8fcf1a5]
+  你妹妹有你高吗？  (Is your younger sister as tall as you?)  [tatoeba ai-f390fb9db8]
+  地铁有公交车快吗？  (Is the subway as fast as the bus?)  [tatoeba ai-608922b54d]
+  老师有你这么忙吗？  (Is the teacher as busy as you are?)  [tatoeba ai-9987bd0f03]
+  你有你姐姐漂亮吗？  (Are you as pretty as your older sister?)  [tatoeba ai-6a17eb9689]
+  你的女朋友有你高吗？  (Is your girlfriend as tall as you?)  [tatoeba ai-78069b8230]
+  你的朋友有我那么多吗？  (Do you have as many friends as I do?)  [tatoeba ai-52bb3b2e28]
+
+--- dropped at step 4 (3) ---
+  那儿的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+  中国的冬天有这儿冷吗？  -- 1 characters no HSK 2 word uses: 冬
+  这张桌子有五百块吗？  -- 1 characters no HSK 2 word uses: 张
+
+--- dropped at step 5 (72), first 12 ---
+  这家饭店有那家贵吗？  -- level 1: no list words
+  今天有昨天冷吗？  -- level 1: no list words
+  你妈妈做的菜有饭店的好吃吗？  -- level 1: no list words
+  她有你漂亮吗？  -- level 1: no list words
+  这个手机有那个新吗？  -- level 1: no list words
+  这本书有那本好看吗？  -- level 1: no list words
+  我们学校有你们学校大吗？  -- level 1: no list words
+  今天有昨天热吗？  -- level 1: no list words
+  这个孩子有两岁吗？  -- level 1: no list words
+  这件衣服有三百块吗？  -- level 1: no list words
+  你家的狗有我家的狗大吗？  -- level 1: no list words
+  这只猫有那只猫小吗？  -- level 1: no list words
+
+--- dropped at step 6 (89) ---
+  你做饭有妈妈做得好吗？  -- rule: no match: line matched
+  他说汉语有你说得好吗？  -- rule: no match: line matched
+  你的电脑有我的快吗？  -- rule: no match: line matched
+  你儿子有你高了吗？  -- rule: no match: line matched
+  你女儿有八岁了吗？  -- rule: no match: line matched
+  她有五十岁了吧？  -- rule: no match: line matched
+  从这儿走路到车站有二十分钟吗？  -- rule: no match: line matched
+  去机场有一个小时吗？  -- rule: no match: line matched
+  这个包子有你的手那么大！  -- rule: no match: line matched
+  今天有昨天这么冷吗？  -- rule: no match: line matched
+  坐火车有坐飞机快吗？  -- rule: no match: line matched
+  这家店有那家店这么便宜吗？  -- rule: no match: line matched
+  你的房间有我的那么好看吗？  -- rule: no match: line matched
+  这条路有那条路远吗？  -- rule: no match: line matched
+  你儿子有十岁了吗？  -- rule: no match: line matched
+  从你家到学校有一个小时吗？  -- rule: no match: line matched
+  今天有昨天那么好玩儿吗？  -- rule: no match: line matched
+  他的汉语有你的这么好吗？  -- rule: no match: line matched
+  坐地铁有打车快吗？  -- rule: no match: line matched
+  走路有开车这么慢吗？  -- rule: no match: line matched
+  这家的咖啡有那家的好吗？  -- rule: no match: line matched
+  这个孩子有他哥哥那么高了吗？  -- rule: no match: line matched
+  奶奶有七十岁了吗？  -- rule: no match: line matched
+  这条裤子有那条长吗？  -- rule: no match: line matched
+  你的手表有我的新吗？  -- rule: no match: line matched
+  红色的有白色的好看吗？  -- rule: no match: line matched
+  这个包有那个包大吗？  -- rule: no match: line matched
+  你的猫有我的猫那么大吗？  -- rule: no match: line matched
+  你奶奶有七十岁了吗？  -- rule: no match: line matched
+  这个手表有一千块吗？  -- rule: no match: line matched
+  他的孩子有五岁了吧？  -- rule: no match: line matched
+  你爸爸有五十岁了吗？  -- rule: no match: line matched
+  他有你那么喜欢看电影吗？  -- rule: no match: line matched
+  今天有昨天这么忙吗？  -- rule: no match: line matched
+  我写字有他写得快吗？  -- rule: no match: line matched
+  你说英语有他说得好吗？  -- rule: no match: line matched
+  咖啡有茶贵吗？  -- rule: no match: line matched
+  这只鸟有那只鸟漂亮吗？  -- rule: no match: line matched
+  他有你那么会做饭吗？  -- rule: no match: line matched
+  这家饭馆的菜有那家的好吃吗？  -- rule: no match: line matched
+  你的名字有他的长吗？  -- rule: no match: line matched
+  我的包有你的大吗？  -- rule: no match: line matched
+  你奶奶有八十岁了吗？  -- rule: no match: line matched
+  这条裤子有三百块吗？  -- rule: no match: line matched
+  那个电影有这个有意思吗？  -- rule: no match: line matched
+  他的个子有他爸爸高吗？  -- rule: no match: line matched
+  你有他那么喜欢游泳吗？  -- rule: no match: line matched
+  你家离公司有离学校那么远吗？  -- rule: no match: line matched
+  你的猫有我的猫那么小吗？  -- rule: no match: line matched
+  红茶有绿茶贵吗？  -- rule: no match: line matched
+  坐公交车有走路慢吗？  -- rule: no match: line matched
+  明天有今天这么热吗？  -- rule: no match: line matched
+  你妈妈做的饭有饭馆的好吃吗？  -- rule: no match: line matched
+  你们学校有我们学校这么大吗？  -- rule: no match: line matched
+  他儿子有他高了吗？  -- rule: no match: line matched
+  你写字有你同学写得好看吗？  -- rule: no match: line matched
+  今年有去年这么冷吗？  -- rule: no match: line matched
+  我奶奶有八十岁了。  -- rule: no match: line matched
+  他看着有四十岁了。  -- rule: no match: line matched
+  我在这儿等了有一个小时了。  -- rule: no match: line matched
+  这个包有一百多块。  -- rule: no match: line matched
+  你的小狗有我的猫这么小吗？  -- rule: no match: line matched
+  这家饭馆的菜有那家好吃吗？  -- rule: no match: line matched
+  坐地铁有开车快吗？  -- rule: no match: line matched
+  他写字有你写得好看吗？  -- rule: no match: line matched
+  你妹妹有你这么爱看书吗？  -- rule: no match: line matched
+  昨天有今天这么热吗？  -- rule: no match: line matched
+  这个电影有那个有意思吗？  -- rule: no match: line matched
+  他的女儿有六岁了吗？  -- rule: no match: line matched
+  这家店有一百多年了。  -- rule: no match: line matched
+  从家走到车站有二十分钟。  -- rule: no match: line matched
+  这个电影有两个多小时。  -- rule: no match: line matched
+  这个包子有你的手那么大。  -- rule: no match: line matched
+  你爷爷有七十岁了吧？  -- rule: no match: line matched
+  这个教室有那个教室大吗？  -- rule: no match: line matched
+  坐出租车有坐地铁快吗？  -- rule: no match: line matched
+  你的鸟有我的鸟漂亮吗？  -- rule: no match: line matched
+  打车有开车那么快吗？  -- rule: no match: line matched
+  从家到公司有五十分钟。  -- rule: no match: line matched
+  那个小朋友有五岁了吧？  -- rule: no match: line matched
+  她的手表有一千块吗？  -- rule: no match: line matched
+  你的衣服有我的这么贵吗？  -- rule: no match: line matched
+  他的车有我的车快吗？  -- rule: no match: line matched
+  你们家有我们家这么大吗？  -- rule: no match: line matched
+  那个人有六十岁了吧？  -- rule: no match: line matched
+  从家到公司有三个小时吗？  -- rule: no match: line matched
+  今天的课有昨天的长吗？  -- rule: no match: line matched
+  你的鸟有我的鸟大吗？  -- rule: no match: line matched
+  你的狗有你那么爱睡觉吗？  -- rule: no match: line matched
+
+--- dropped at step 7 (9) ---
+  他有三十多岁吧？  -- check said no (2/2): Expressing age; not a comparison structure
+  外面有这么热吗？  -- check said no (1/2): Unnatural structure; subject lacks comparison basis
+  爷爷有八十多岁了。  -- check said no (2/2): Expressing age; not a comparison structure
+  他有三十多岁了吧？  -- check said no (2/2): Expressing age/measurement, not comparison structure
+  外面的雨有这么大吗？  -- check said no (1/2): Uses 这么 but not comparing to person/entity
+  你的房间有这么大吗？  -- check said no (1/2): Uses 这么/那么 pattern but lacks comparison object B
+  学校有医院那么远吗？  -- check said no (1/2): Uses 这么/那么 pattern, not core A有B Adj. structure
+  我奶奶有七十多岁了。  -- check said no (2/2): Statement form; point requires question form
+  你家离学校有那么近吗？  -- check said no (1/2): 有 used with 离 (distance), not pure comparison
+
+--- dropped at step 8 (27) ---
+  他有你跑得快吗？  -- difficulty review: (2/2); Uses 得 with complement (跑得快) in a comparison, too complex for this level
+  你有他跑得快吗？  -- difficulty review: (2/2); Uses 有 in a comparative construction (有...吗) that is beyond HSK 2 - this is not the '有'字句2 pattern being taught
+  你有我走得快吗？  -- difficulty review: (2/2); Uses 有 in a comparative construction (你有我走得快吗？= Can you walk as fast as I do?). This is a comparative pattern 有 construction that goes beyond 2-55 '有'字句2, which covers basic existence/possession. The grammar point 2-58 '比较句2' or similar comparative structures are needed to explain this usage, and this specific comparative use of 有 is not covered in HSK 2.
+  妹妹有姐姐高吗？  -- difficulty review: (2/2); Uses 有 + adjective comparison pattern (有...高) which is not in the 2-55 'HSK 2 有字句2' definition; This is a comparative construction beyond HSK 2 level - more aligned with HSK 3 比较句
+  她有你写得好看吗？  -- difficulty review: (2/2); Uses 得 with complement (写得好看) in a comparison, too complex for this level
+  妹妹有我睡得早吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你有弟弟睡得早吗？  -- difficulty review: (2/2); uses 得 as a complement marker (2-51 state complement), which is taught at HSK 2, but the structure 'verb+得+adjective' in a comparison context with 有 is complex for this level
+  你有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is taught at HSK 2, but the construction 'verb+得+adjective' (state complement, 2-51) requires understanding how 得 marks the result/state of an action. While 得 itself is in the HSK 2 list, this specific comparative construction with 得 is beyond typical HSK 2 mastery.
+  她有你那么漂亮吗？  -- difficulty review: (1/2); Uses 有 in a comparative construction (有...吗) that is beyond HSK 2 - this is not the '有'字句2 pattern being taught
+  你哥哥有你睡得晚吗？  -- difficulty review: (2/2); Uses 得 with complement (睡得晚) in a comparison, too complex for this level
+  你弟弟有你吃得多吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with result complement (得多), which is 2-31 (taught at HSK 2), but the overall construction '有+comparison' with 得+complement is complex for beginners
+  他开车有你开得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a result/manner complement (开得快), which is grammar point 2-31, taught at HSK 2. However, the construction 'V有+person+V得+adj' for comparison is a specialized use of 有-comparison that goes beyond typical 2-55 examples and relies on understanding complement structures that may not be solidly established at this level.
+  她跑步有你跑得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (跑得快), requiring grammar point 2-31. The construction combining 有-comparison with verb complements exceeds standard HSK 2 examples.
+  面条儿有米饭好吃吗？  -- difficulty review: (2/2); Uses 有 in a comparative construction (A有B好吃) which is comparison grammar (2-58 or similar), not the '有'字句2 pattern being taught; This compares two things using 有, but 2-55 teaches possession/existence with 有, not comparison
+  他踢球有你踢得好吗？  -- difficulty review: (2/2); Uses 得 (structural particle for complements) which is HSK 2-31, beyond the scope of this grammar point
+  你游泳有他游得快吗？  -- difficulty review: (2/2); Uses 得 as a structural particle with complement (得快), which is grammar point 2-31, taught at HSK 2, but the pattern 'A有B动词得+complement吗' (comparison using 有) is the advanced form of 'A有B形容词吗' - this extends beyond the basic 有字句2 pattern shown at this level
+  你游泳有他游得好吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a complement (你游得好), which is grammar point 2-31. The pattern 'A有B+得+adjective' for comparison requires understanding this structure.
+  你走路有他走得快吗？  -- difficulty review: (2/2); Uses 有 in a comparison construction (你走路有他走得快) which is beyond HSK 2. This pattern is not 有字句2 (2-55), which covers possession/existence. This is a comparative structure using 有 that requires understanding of HSK 3+ comparison grammar.
+  你唱歌有她唱得好听吗？  -- difficulty review: (2/2); Uses 得 with complement (唱得好听), creating a complex comparative structure beyond basic 'have' sentences
+  他打篮球有你打得好吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in result/manner complement (打得好), requiring understanding of grammar point 2-31. The full construction with 有-comparison and verb complements is complex for HSK 2 level.
+  你妹妹有你唱得好听吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in a complement (你唱得好听), which is grammar point 2-31. The pattern 'A有B+得+adjective' for comparison requires understanding this structure.
+  你哥哥有爸爸那么高吗？  -- difficulty review: (2/2); Uses comparative construction 'A有B那么+adjective' which is part of 2-58 比较句2, taught at HSK 2 but relies on 那么 as degree modifier in comparison context beyond basic level
+  你写汉字有他写得好看吗？  -- difficulty review: (2/2); Uses 得 as a structural particle in complement (2-31), which is HSK 2, but the construction 'A有B写得...吗' combining comparison with result complement exceeds typical HSK 2 grammar complexity; The comparison structure 'V有...V得...' is not a standard HSK 2 pattern and would confuse beginners
+  你妹妹游泳有你游得快吗？  -- difficulty review: (2/2); Uses 有 in comparative structure (有...吗) which is 2-55 'HSK 2-55: "有"字句2', but here 有 functions as a comparison marker meaning 'as...as', not the standard possession/existence 有 taught in that grammar point. This comparison usage goes beyond the basic 有字句2 which shows possession.
+  你写字有老师写得好看吗？  -- difficulty review: (2/2); Same issue as [1] and [2]: the pattern of comparing degree complements with 有 is beyond the scope of basic 有字句2
+  妈妈说话有爸爸说得快吗？  -- difficulty review: (2/2); Same issue as [1]: uses 得 complement structure in a 有 comparison pattern that goes beyond basic 有字句2
+  你们公司有我们公司忙吗？  -- difficulty review: (2/2); Uses comparative structure '有...吗' (是否as...as) which is a comparison construction beyond HSK 2. The pattern compares two entities with 有 in a way that requires understanding 有 as 'to have/possess' in a comparative sense, distinct from the '有'字句2 taught at this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-55_level2_20261114_163613.csv

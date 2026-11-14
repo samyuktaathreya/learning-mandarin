@@ -1,0 +1,23 @@
+2026-11-14 14:58:15,856  INFO     === tag_sentences.py run started ===
+2026-11-14 14:58:15,895  INFO     OK        hanlp-valid   '这只狗要两千块。' -> [('这', 'DT'), ('只', 'M'), ('狗', 'NN'), ('要', 'VV'), ('两千', 'NUM'), ('块', 'M')]
+2026-11-14 14:58:15,899  INFO     TAGGED    '这只狗要两千块。' (level 1, 5 tags)
+2026-11-14 14:58:15,920  INFO     OK        hanlp-valid   '我的新电脑五千八百块。' -> [('我', 'PN'), ('的', 'DEG'), ('新', 'JJ'), ('电脑', 'NN'), ('五千八百', 'NUM'), ('块', 'M')]
+2026-11-14 14:58:15,923  INFO     TAGGED    '我的新电脑五千八百块。' (level 1, 5 tags)
+2026-11-14 14:58:15,944  INFO     FALLBACK  '我哥哥一个月花三千块。' -- out-of-list word(s): ['一个月']
+2026-11-14 14:58:15,944  WARNING    HAIKU resegment call for '我哥哥一个月花三千块。' (cache miss on [('一个月', 'AD')])
+2026-11-14 14:58:15,972  INFO     TAGGED    '我哥哥一个月花三千块。' (level 2, 7 tags)
+2026-11-14 14:58:15,994  INFO     OK        hanlp-valid   '去中国的机票六千五百块。' -> [('去', 'VV'), ('中国', 'NR'), ('的', 'DEC'), ('机票', 'NN'), ('六千五百', 'NUM'), ('块', 'M')]
+2026-11-14 14:58:15,997  INFO     TAGGED    '去中国的机票六千五百块。' (level 2, 5 tags)
+2026-11-14 14:58:16,020  INFO     FALLBACK  '这个大学有两万个女学生。' -- out-of-list word(s): ['这个']
+2026-11-14 14:58:16,020  INFO       CACHE-ONLY resegmentation -> [('这个', 'DT'), ('大学', 'NN'), ('有', 'VE'), ('两万', 'NUM'), ('个', 'M'), ('女', 'JJ'), ('学生', 'NN')]
+2026-11-14 14:58:16,028  INFO     TAGGED    '这个大学有两万个女学生。' (level 1, 7 tags)
+2026-11-14 14:58:16,047  INFO     OK        hanlp-valid   '我朋友的车十五万块。' -> [('我', 'PN'), ('朋友', 'NN'), ('的', 'DEG'), ('车', 'NN'), ('十五万', 'NUM'), ('块', 'M')]
+2026-11-14 14:58:16,059  INFO     TAGGED    '我朋友的车十五万块。' (level 1, 5 tags)
+2026-11-14 14:58:16,078  INFO     FALLBACK  '一天有一千四百四十分钟。' -- out-of-list word(s): ['一天']
+2026-11-14 14:58:16,078  WARNING    HAIKU resegment call for '一天有一千四百四十分钟。' (cache miss on [('一天', 'AD')])
+2026-11-14 14:58:16,103  INFO     TAGGED    '一天有一千四百四十分钟。' (level 1, 4 tags)
+2026-11-14 14:58:16,123  INFO     FALLBACK  '这个水果店一天卖五千块钱的水果。' -- out-of-list word(s): ['这个', '水果店', '一天', '块钱']
+2026-11-14 14:58:16,123  WARNING    HAIKU resegment call for '这个水果店一天卖五千块钱的水果。' (cache miss on [('水果店', 'NN'), ('一天', 'AD'), ('块钱', 'NN')])
+2026-11-14 14:58:16,164  INFO     TAGGED    '这个水果店一天卖五千块钱的水果。' (level 1, 11 tags)
+2026-11-14 14:58:16,185  INFO     OK        hanlp-valid   '这件衣服两千零五十块,太贵了。' -> [('这', 'DT'), ('件', 'M'), ('衣服', 'NN'), ('两千零五十', 'NUM'), ('块', 'M'), ('太', 'AD'), ('贵', 'VA'), ('了', 'SP')]
+2026-11-14 14:58:16,189  INFO     TAGGED    '这件衣服两千零五十块,太贵了。' (level 1, 7 tags)

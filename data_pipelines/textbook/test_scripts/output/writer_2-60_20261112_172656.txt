@@ -1,0 +1,24 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 19337 characters -->
+## 2-60
+**Point:** The "是⋯⋯的" construction for emphasizing details of past events (time, location, manner, agent)
+**Covers:** Sentences with 是 + [emphasized information] + verb + 的/了, where 的 is a modal particle or aspect particle marking emphasis on details like when, where, how, or who did something
+**Does not cover:** Possession (的 as structural particle), adjective modification (的), "有的是" (meaning "plenty of"), "的话" (topic marker), reduplication patterns, concession patterns (Adj是Adj就是), purpose patterns (来/去/用来), or simple identity statements (是 without emphasis)
+
+```rule
+match: VC ... /VV ... /AS|SP
+unless: /VC (/AD|CS)* /VC (/AD)* (/NN|VA)
+unless: /VC (/AD)* /VC
+unless: /VC /NN
+unless: /VC /P .*
+unless: PN /PN 是/VC
+unless: 有的/PN 是/VC
+```
+
+**Notes:** 
+- The core pattern requires 是 (VC tag), followed by content, followed by a verb (VV), followed by 的/了 (AS or SP tag)
+- First unless blocks concession ("Adj是Adj") and rhetorical patterns ("不是不是")
+- Second unless blocks simple identity statements (是 + noun)
+- Third unless blocks purpose/ability patterns (是 + preposition)
+- Fourth unless blocks pronominal antecedents that aren't relevant
+- Fifth unless blocks "有的是" (abundance construction)
+- The rule prioritizes recall for the classic 是⋯⋯的 pattern while excluding common false positives from counter-examples

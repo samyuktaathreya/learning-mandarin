@@ -1,0 +1,16 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 5872 characters -->
+## 1-43
+**Point:** 钱数表示法 (Expressing quantities of money)
+**Covers:** Questions asking "how much money?" using 多少钱, and statements giving prices using the pattern: number + 块/元 + (optional: number + 毛/分)
+**Does not cover:** Other uses of 钱 (money as a noun in other contexts), other uses of 块 as a measure word (for physical objects), or ordinal numbers with 块
+
+```rule
+match: 多少/CD 钱/NN
+match: /CD 块/M
+unless: 多少/CD 钱/NN ... 的|很|好|贵|坏|不|有|没|挣|有点|问题
+unless: /CD 块/M ... 肉|骨头|布|玉|塑料|肉|号|楼|单元|年
+unless: ... /OD 号/M
+unless: 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+```
+
+**Notes:** The first match catches the interrogative form (多少钱?). The second match catches the declarative form with 块 as the currency unit. The unless clauses exclude: (1) 钱 used in non-money-quantity contexts (possessive, description, problem, etc.); (2) 块 used as a measure word for physical objects (肉, 骨头, 布, 玉, 塑料) or ordinals (号楼); (3) sentences where 钱 or 块 are objects of verbs unrelated to pricing (挣, 支配, 掏, 丢, etc.). The rule prioritizes precision by excluding borderline cases where 块 might be ambiguous.

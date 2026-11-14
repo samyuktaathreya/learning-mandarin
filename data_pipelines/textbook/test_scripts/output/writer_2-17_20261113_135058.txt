@@ -1,0 +1,22 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 23931 characters -->
+## 2-17
+**Point:** 就 as a linking adverb that introduces the result or consequence after a condition or situation. It appears in 如果/要是/假如/假使/只要/既然…（的话），（就）…, and also in bare "situation, 就 + verb" sentences.
+**Covers:** Sentences with a conditional or causal opener (如果, 要是, 假如, 假使, 若, 只要, 既然, 要不是) followed by a result clause, with or without 就. Also covered are 的话 conditionals, the 要我说 opener, and a clause followed by "(pronoun) 就 + verb/adverb", as in 你最有经验，就听你的吧. The last one is a clause-initial 就 + 在 (就在这家店吃饭吧).
+**Does not cover:** 就 meaning "only/just" before a noun or number, earliness (早就, 八点就), 就要…了, 就是 emphasis, 就算/就是 "even if", 想X就X and 要X就X, X着X着就, 不是…就是, and 就 as a preposition (就…来说). Each of these has its own grammar point.
+
+```rule
+match: 如果|要是|假如|假使|若|既然|只要|要不是 ... ‖ _
+match: 如果|要是|假如|假使|若|既然|只要 ... 就/AD
+match: 的话/SP ‖ _
+match: 的话/SP 就/AD
+match: 要 我 说 ‖ _
+match: ‖ /PN? 就/AD /VV|AD|P
+match: ^ 就/AD 在/P
+unless: 就/AD 算/VV
+unless: 就/AD 要/VV
+unless: 着/AS ... 着/AS
+unless: ^ /NT ‖ _
+unless: 一会儿/AD
+```
+
+**Notes:** The generic "‖ (PN) 就 + VV/AD/P" line is the riskiest. The unless lines remove 就算, 就要, the 着…着 pattern, and a clause that is only a time word (昨天晚上，他就睡了). Sentences like 有事给我打电话 and 你要再说，我真生气了 are not matched, because no safe general pattern exists for them. The opener word list is matched by word, not by tag, so tagger variation (CS vs AD) does not matter.

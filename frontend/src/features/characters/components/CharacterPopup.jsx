@@ -2,6 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import { API_BASE_URL } from '../../../shared/config';
 const hasChinese = (str) => /[\u4e00-\u9fff]/.test(str);
 import { apiFetch } from '../../../shared/api/client';
+import { playAudio } from '../../audio';
+
+// "to go forward; to advance; to enter" -> ['to go forward', 'to advance', 'to enter']
+const splitMeanings = (english) =>
+    (english || '').split(';').map(m => m.trim()).filter(Boolean);
 
 /**
  * Wraps a string so every Chinese word is clickable with a dotted underline.
@@ -10,6 +15,7 @@ import { apiFetch } from '../../../shared/api/client';
  */
 export function ClickableText({ text, tags = [], isUnitTest, unitId, hskLevel = 1 }) {
     const [popup, setPopup] = useState(null); // { word, pinyin, english, unit, other_definitions, x, y }
+    const [showAllMeanings, setShowAllMeanings] = useState(false);
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -35,6 +41,7 @@ export function ClickableText({ text, tags = [], isUnitTest, unitId, hskLevel = 
             return;
         }
 
+        setShowAllMeanings(false);
         setPopup({ word, pinyin: '...', english: null, unit: null, other_definitions: [], x, y });
 
         let url = `${API_BASE_URL}/api/lookup/${encodeURIComponent(word)}`;
@@ -120,43 +127,71 @@ export function ClickableText({ text, tags = [], isUnitTest, unitId, hskLevel = 
                     style={{ left: popup.x, top: popup.y }}
                     onClick={(e) => e.stopPropagation()}
                 >
+                    {/* Only inline elements in here: ClickableText is often inside a <p>,
+                        which can't contain <div>/<ul>. Layout comes from App.css. */}
                     {/* Header */}
-                    <div className="vocab-popup-header">
-                        <span className="vocab-popup-title">{popup.word}</span>
+                    <span className="vocab-popup-header">
+                        <span className="vocab-popup-title">
+                            {popup.word}
+                            <button
+                                type="button"
+                                className="vocab-popup-listen"
+                                onClick={() => playAudio(popup.word)}
+                                aria-label={`Listen to ${popup.word}`}
+                                title="Listen"
+                            >
+                                🔊
+                            </button>
+                        </span>
                         <span className="vocab-popup-close" onClick={() => setPopup(null)}>
                             ✕
                         </span>
-                    </div>
+                    </span>
 
-                    {/* Primary Sense */}
-                    <div className="vocab-primary-def">
-                        <span className="vocab-pinyin">{popup.pinyin}</span>
-                        {popup.english && <span> — {popup.english}</span>}
-                        {popup.unit != null && (
-                            <span className="vocab-unit-tag">[Unit {popup.unit}]</span>
-                        )}
-                    </div>
+                    {(() => {
+                        const meanings = splitMeanings(popup.english);
+                        const others = popup.other_definitions || [];
+                        const hasMore = meanings.length > 1 || others.length > 0;
+                        const shown = showAllMeanings ? meanings : meanings.slice(0, 1);
+                        return (
+                            <>
+                                {/* Primary Sense */}
+                                <span className="vocab-primary-def">
+                                    <span className="vocab-pinyin">{popup.pinyin}</span>
+                                    {shown.length > 0 && <span> — {shown.join('; ')}</span>}
+                                    {popup.unit != null && (
+                                        <span className="vocab-unit-tag">[Unit {popup.unit}]</span>
+                                    )}
+                                </span>
 
-                    {/* Collapsible Dropdown for Alternative Senses */}
-                    {popup.other_definitions && popup.other_definitions.length > 0 && (
-                        <details className="vocab-others-details">
-                            <summary className="vocab-others-summary">
-                                Other Meanings ({popup.other_definitions.length})
-                            </summary>
-                            <ul className="vocab-others-list">
-                                {popup.other_definitions.map((def, idx) => (
-                                    <li key={idx} className="vocab-others-item">
-                                        <span>
-                                            <strong className="vocab-pinyin">{def.pinyin}</strong> — {def.english}
-                                        </span>
-                                        <span className="vocab-unit-tag">
-                                            {def.unit ? `[Unit ${def.unit}]` : '[reference]'}
-                                        </span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </details>
-                    )}
+                                {/* Alternative readings, shown with the rest of the meanings */}
+                                {showAllMeanings && others.length > 0 && (
+                                    <span className="vocab-others-list">
+                                        {others.map((def, idx) => (
+                                            <span key={idx} className="vocab-others-item">
+                                                <span>
+                                                    <strong className="vocab-pinyin">{def.pinyin}</strong> — {def.english}
+                                                </span>
+                                                <span className="vocab-unit-tag">
+                                                    {def.unit ? `[Unit ${def.unit}]` : '[reference]'}
+                                                </span>
+                                            </span>
+                                        ))}
+                                    </span>
+                                )}
+
+                                {hasMore && (
+                                    <button
+                                        type="button"
+                                        className="vocab-others-toggle"
+                                        onClick={() => setShowAllMeanings(v => !v)}
+                                    >
+                                        {showAllMeanings ? 'Hide additional meanings' : 'View additional meanings'}
+                                    </button>
+                                )}
+                            </>
+                        );
+                    })()}
                 </span>
             )}
         </span>

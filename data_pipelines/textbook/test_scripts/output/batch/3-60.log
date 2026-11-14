@@ -97,3 +97,62 @@ Tagging 8 labeled example(s) (cached after this run)...
   就算你说的都是真的，我们也没办法证明。  -- ASGLI513 Expressing "even if…" with "jiusuan"  [matched: /PN|NN|NR|NT 也/AD ... /VV|VA|VC|VE]
   就算他说他请客，我也要买单。  -- ASGLI513 Expressing "even if…" with "jiusuan"  [matched: /PN|NN|NR|NT 也/AD ... /VV|VA|VC|VE]
   就算再穷，她也不去要饭。  -- ASGLI513 Expressing "even if…" with "jiusuan"  [matched: /PN|NN|NR|NT 也/AD ... /VV|VA|VC|VE]
+
+########## rules  2026-11-10 21:27 ##########
+  Checking 8 sentence(s) for 3-60 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-60: rule on labeled examples (no AI) ===
+  examples of 3-60 matched:    26/26
+  counter-examples wrongly matched: 0/93   <- should be 0
+
+########## guard check  2026-11-10 21:32 ##########
+  Checking 43 sentence(s) for 3-60 (3 call(s))...
+Flags examples of 2-17 that don't contain 3-60: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+########## guard check  2026-11-11 14:24 ##########
+Flags examples of 1-03, 1-13 that don't contain 3-60: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 3-60, rule line 1: 'PN': words must be Chinese -- for a tag, write /PN (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_3-60_20261111_142526.txt)
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+The revised rule fails 3-60's own test (0 wrong, 24 missed): keeping the old rule.
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 你也要茶吗？
+Not used as a guard for 1-13: it still flags 13 of its examples, e.g. 我也喜欢。
+
+########## rules  2026-11-12 17:32 ##########
+Tagging 1 labeled example(s) (cached after this run)...
+  ...100/119
+
+=== A. 3-60: rule on labeled examples (no AI) ===
+  examples of 3-60 matched:    26/26
+  counter-examples wrongly matched: 0/93   <- should be 0
+  easy examples (words all HSK 3 or below) matched: 20/20   <- needs 80%
+
+########## guard check  2026-11-12 17:35 ##########
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 你也要茶吗？
+Not used as a guard for 1-13: it still flags 13 of its examples, e.g. 我也喜欢。
+
+########## guard check  2026-11-12 21:14 ##########
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 你也要茶吗？
+Not used as a guard for 1-13: it still flags 13 of its examples, e.g. 我也喜欢。
+
+########## guard check  2026-11-13 13:53 ##########
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 你也要茶吗？
+Not used as a guard for 1-13: it still flags 13 of its examples, e.g. 我也喜欢。
+
+########## guard check  2026-11-13 14:39 ##########
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 你也要茶吗？
+Not used as a guard for 1-13: it still flags 13 of its examples, e.g. 我也喜欢。
+
+########## guard check  2026-11-14 14:14 ##########
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 你也要茶吗？
+Not used as a guard for 1-13: it still flags 13 of its examples, e.g. 我也喜欢。
+
+########## guard check  2026-11-14 16:05 ##########
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 你也要茶吗？
+Not used as a guard for 1-13: it still flags 13 of its examples, e.g. 我也喜欢。
+
+########## guard check  2026-11-14 16:29 ##########
+Not used as a guard for 1-03: it still flags 1 of its examples, e.g. 你也要茶吗？
+Not used as a guard for 1-13: it still flags 13 of its examples, e.g. 我也喜欢。

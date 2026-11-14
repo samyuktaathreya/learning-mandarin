@@ -93,3 +93,1409 @@ Tagging 90 labeled example(s) (cached after this run)...
   慢慢地走  -- ASG5MOMM Structural particle "de"
   伤心地哭  -- ASG5MOMM Structural particle "de"
   认真地听  -- ASG5MOMM Structural particle "de"
+
+########## rules  2026-11-10 21:25 ##########
+
+=== A. 2-31: rule on labeled examples (no AI) ===
+  examples of 2-31 matched:    29/42
+  counter-examples wrongly matched: 0/89   <- should be 0
+
+--- examples of 2-31 the rule misses (13) ---
+  你们谈得顺利吗？  -- ASG79STE Degree complement
+  小李的房子  -- ASG5MOMM Structural particle "de"
+  红色的自行车  -- ASG5MOMM Structural particle "de"
+  我的手机  -- ASG5MOMM Structural particle "de"
+  我们的老师  -- ASG5MOMM Structural particle "de"
+  漂亮的衣服  -- ASG5MOMM Structural particle "de"
+  热闹的酒吧  -- ASG5MOMM Structural particle "de"
+  我女朋友的公司  -- ASG5MOMM Structural particle "de"
+  生气地说  -- ASG5MOMM Structural particle "de"
+  开心地笑  -- ASG5MOMM Structural particle "de"
+  慢慢地走  -- ASG5MOMM Structural particle "de"
+  伤心地哭  -- ASG5MOMM Structural particle "de"
+  认真地听  -- ASG5MOMM Structural particle "de"
+
+########## guard check  2026-11-10 21:31 ##########
+  Checking 7 sentence(s) for 2-31 (1 call(s))...
+
+########## tatoeba  2026-11-10 21:36 ##########
+Filling 2-31 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 3 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  怎么说呢 = 怎么 + 说 + 呢  (Why is that?; How come?)
+     clear  飞快 = 飞 + 快  (very fast)
+    hidden  跟不上 = 跟 + 不 + 上  (not able to keep up with)
+
+Course sentences at HSK 2 the rule already finds 2-31 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+  2 check call(s) (20 sentences each)...
+
+=== 2-31 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1003  2. contain the point's word(s)
+     1003  3. new (not in DB, not a duplicate)
+      518  4. at most 2 characters outside HSK 2 words
+      111  5. really HSK 2
+       85  5b. no harder grammar point (of the 34 with a rule)
+       35  6. the rule finds 2-31
+       32  6b. no hidden word a learner can't work out
+       27  7. both checks say 2-31, English chosen
+       24  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (24) ===
+  做得好！  (Well done!)  [tatoeba 4261676]
+  做得很好。  (It's well done.)  [tatoeba 1776598]
+  你做得对。  (You're doing it right.)  [tatoeba 10040469]
+  她做得对。  (She's doing it right.)  [tatoeba 13563481]
+  雨下得很大。  (It is raining hard.)  [tatoeba 9992078]
+  雪下得很大。  (It's snowing heavily.)  [tatoeba 10648732]
+  你们说得对。  (You guys are right.)  [tatoeba 13149128]
+  我考得很好。  (I did well on the test.)  [tatoeba 13667864]
+  我的狗跑得快。  (My dog is fast.)  [tatoeba 1424275]
+  时间过得真快。  (Time flew.)  [tatoeba 5102222]
+  我住得太远了。  (I live too far away.)  [tatoeba 6149006]
+  别吃得这么快。  (Don't eat so fast.)  [tatoeba 6678404]
+  我工作得太多了。  (I'm working too much.)  [tatoeba 1783806]
+  他们玩得很高兴。  (They have a good time.)  [tatoeba 2357749]
+  那本书卖得很好。  (This book sells well.)  [tatoeba 5254679]
+  你知道得太多了。  (You know too much.)  [tatoeba 5663491]
+  学得快，忘得快。  (Soon learnt, soon forgotten.)  [tatoeba 7768304]
+  你会做得很好的。  (You're going to do just fine.)  [tatoeba 13109451]
+  我想我喝得太多了。  (I think I drank too much.)  [tatoeba 1490514]
+  他汉字写得非常好。  (He writes Chinese characters very well.)  [tatoeba 3378274]
+  请不要说得那么快。  (Please don't speak so fast.)  [tatoeba 5344349]
+  他晚上回来得很晚。  (He returned very late at night.)  [tatoeba 6468680]
+  今天时间过得好慢。  (Time's going by slowly today.)  [tatoeba 13736379]
+  我今天累，所以我睡得早。  (I was tired today so I went to bed early.)  [tatoeba 5655339]
+
+--- dropped at step 4 (485), first 12 ---
+  这个城市的交通方便得很。  -- 3 characters no HSK 2 word uses: 城方通
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  不入虎穴，焉得虎子。  -- 4 characters no HSK 2 word uses: 入焉穴虎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  世界上已经够热的地方会变得让人无法忍受。  -- 9 characters no HSK 2 word uses: 世受变够忍方无法界
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  你不可能『得到』一段美好的感情,你只能找到一个你心爱的人来共同经营、造就、完成一段美好的感情。  -- 8 characters no HSK 2 word uses: 共心感成段美营造
+  如果你没决心做好男人,那你就得不到好女人。  -- 3 characters no HSK 2 word uses: 决如心
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  在英国，以珍稀物种为主题的公园变得越来越受人们的欢迎。  -- 10 characters no HSK 2 word uses: 主受变园物珍种稀越迎
+
+--- dropped at step 5 (407), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  我最近忙得很。  -- level 3: 最近 L3
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 分数 L4
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你干得很好。  -- level 3: 干 L3
+  我觉得很热。  -- level 1: no list words
+  中国发展得太快了。  -- level 3: 发展 L3
+  他性感得很。  -- level 7: 性感 L7
+  可能你工作得太拼命？  -- level 7: 拼命 L7
+  六除以二得三。  -- level 6: 除 L6, 以 L5
+
+--- dropped at step 5b (26), first 12 ---
+  你得等一等看。  -- harder grammar: 4-01 (HSK 4)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  这些都是你不得不做的吗？  -- harder grammar: 4-01 (HSK 4)
+  你们得快点。  -- harder grammar: 4-01 (HSK 4)
+  我们得洗衣服。  -- harder grammar: 4-01 (HSK 4)
+  我得找到他。  -- harder grammar: 3-46 (HSK 3), 4-01 (HSK 4)
+  我得说这事。  -- harder grammar: 4-01 (HSK 4)
+  我们还得回去。  -- harder grammar: 4-01 (HSK 4)
+  我得去医院。  -- harder grammar: 4-01 (HSK 4)
+
+--- dropped at step 6 (50) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  我真的得走了。  -- rule: unless 得/VV
+  说得也是。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  我记得见过他。  -- rule: no match: line matched
+  你游泳游得比我好。  -- rule: no match: line matched
+  他看得懂中文。  -- rule: no match: line matched
+  你真的吃得下这东西?  -- rule: no match: line matched
+  哪里都看得到好人。  -- rule: no match: line matched
+  我觉得你在笑我们。  -- rule: no match: line matched
+  你觉得累吗？  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: unless /DER 多/VA
+  在德国过得怎么样？  -- rule: no match: line matched
+  他写得一手好字。  -- rule: no match: line matched
+  你可能得帮她。  -- rule: unless 得/VV
+  你比我记得好。  -- rule: no match: line matched
+  你觉得我能帮忙吗？  -- rule: no match: line matched
+  得有人做点事。  -- rule: unless 得/VV
+  雨大得让我不能走。  -- rule: no match: line matched
+  你来得很早。  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: unless /DER ... 吗/SP
+  我的意思不是她做得对。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  你来得很快。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: unless /DER 多/VA
+  我记得告诉过你了。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  要得。  -- rule: unless 得/VV
+  你觉得这个怎么样？  -- rule: no match: line matched
+  我听得到。  -- rule: no match: line matched
+  狗跑得比人快。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  他长得高吗？  -- rule: unless /DER ... 吗/SP
+  我们做得到吗？  -- rule: unless /DER ... 吗/SP
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  你看得懂这本书吗？  -- rule: unless /DER ... 吗/SP
+  她的新书卖得不错。  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  和他在一起我就没觉得舒服过。  -- rule: no match: line matched
+  你觉得周五怎么样？  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  汤姆做得有点过头了。  -- rule: no match: line matched
+  你不记得问题吗？  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+
+--- dropped at step 6b (3) ---
+  “你说得不对” “那怎么说呢？”  -- hidden word a learner can't work out: 怎么说呢 (Why is that?; How come?)
+  我很小的时候就游得很好了。  -- hidden word a learner can't work out: 小的 ((coll.) young child; the little one(s) of the family)
+  你走得太快我跟不上。  -- hidden word a learner can't work out: 跟不上 (not able to keep up with)
+
+--- dropped at step 7 (5) ---
+  我长得高。  -- no accurate English among: I'm big.
+  她吃得慢。  -- no accurate English among: She eats slowly.
+  坐得舒服。  -- no accurate English among: Sit comfortably.
+  车别开得那么近。  -- check said no (1/2): Potential complement (能否补语), not degree complement
+  你怎么回来得这么快？  -- check said no (2/2): Potential complement (能否补语), not degree complement
+
+--- dropped at step 8 (3) ---
+  跑得飞快  -- difficulty review: (2/2); '飞快' uses '飞' (fly) in a non-literal sense as an intensifier, which is beyond HSK 2 vocabulary/usage
+  我们对你知道得不多。  -- difficulty review: (1/2); Uses 对 (2-25) as a preposition indicating object of knowledge, which requires understanding beyond basic state complements
+  在做喜欢的事情的时候时间过去得很快。  -- difficulty review: (1/2); Complex nested structure with multiple clauses and 的 used twice in different functions; 在...的时候 construction is more advanced than HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-31_level2_20261110_213719.csv
+
+########## guard check  2026-11-11 14:23 ##########
+
+########## tatoeba  2026-11-11 14:29 ##########
+Filling 2-31 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-31 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-31 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1003  2. contain the point's word(s)
+     1003  3. new (not in DB, not a duplicate)
+      518  4. at most 2 characters outside HSK 2 words
+      111  5. really HSK 2
+       78  5b. no harder grammar point (of the 39 with a rule)
+       34  6. the rule finds 2-31
+       32  6b. no hidden word a learner can't work out
+       27  7. both checks say 2-31, English chosen
+       24  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (24) ===
+  做得好！  (Well done!)  [tatoeba 4261676]
+  做得很好。  (It's well done.)  [tatoeba 1776598]
+  你做得对。  (You're doing it right.)  [tatoeba 10040469]
+  她做得对。  (She's doing it right.)  [tatoeba 13563481]
+  雨下得很大。  (It is raining hard.)  [tatoeba 9992078]
+  雪下得很大。  (It's snowing heavily.)  [tatoeba 10648732]
+  你们说得对。  (You guys are right.)  [tatoeba 13149128]
+  我考得很好。  (I did well on the test.)  [tatoeba 13667864]
+  我的狗跑得快。  (My dog is fast.)  [tatoeba 1424275]
+  时间过得真快。  (Time flew.)  [tatoeba 5102222]
+  我住得太远了。  (I live too far away.)  [tatoeba 6149006]
+  别吃得这么快。  (Don't eat so fast.)  [tatoeba 6678404]
+  我工作得太多了。  (I'm working too much.)  [tatoeba 1783806]
+  他们玩得很高兴。  (They have a good time.)  [tatoeba 2357749]
+  那本书卖得很好。  (This book sells well.)  [tatoeba 5254679]
+  你知道得太多了。  (You know too much.)  [tatoeba 5663491]
+  学得快，忘得快。  (Soon learnt, soon forgotten.)  [tatoeba 7768304]
+  你会做得很好的。  (You're going to do just fine.)  [tatoeba 13109451]
+  我想我喝得太多了。  (I think I drank too much.)  [tatoeba 1490514]
+  他汉字写得非常好。  (He writes Chinese characters very well.)  [tatoeba 3378274]
+  请不要说得那么快。  (Please don't speak so fast.)  [tatoeba 5344349]
+  他晚上回来得很晚。  (He returned very late at night.)  [tatoeba 6468680]
+  今天时间过得好慢。  (Time's going by slowly today.)  [tatoeba 13736379]
+  我今天累，所以我睡得早。  (I was tired today so I went to bed early.)  [tatoeba 5655339]
+
+--- dropped at step 4 (485), first 12 ---
+  这个城市的交通方便得很。  -- 3 characters no HSK 2 word uses: 城方通
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  不入虎穴，焉得虎子。  -- 4 characters no HSK 2 word uses: 入焉穴虎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  世界上已经够热的地方会变得让人无法忍受。  -- 9 characters no HSK 2 word uses: 世受变够忍方无法界
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  你不可能『得到』一段美好的感情,你只能找到一个你心爱的人来共同经营、造就、完成一段美好的感情。  -- 8 characters no HSK 2 word uses: 共心感成段美营造
+  如果你没决心做好男人,那你就得不到好女人。  -- 3 characters no HSK 2 word uses: 决如心
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  在英国，以珍稀物种为主题的公园变得越来越受人们的欢迎。  -- 10 characters no HSK 2 word uses: 主受变园物珍种稀越迎
+
+--- dropped at step 5 (407), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  我最近忙得很。  -- level 3: 最近 L3
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 分数 L4
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你干得很好。  -- level 3: 干 L3
+  我觉得很热。  -- level 1: no list words
+  中国发展得太快了。  -- level 3: 发展 L3
+  他性感得很。  -- level 7: 性感 L7
+  可能你工作得太拼命？  -- level 7: 拼命 L7
+  六除以二得三。  -- level 6: 除 L6, 以 L5
+
+--- dropped at step 5b (33), first 12 ---
+  你得等一等看。  -- harder grammar: 4-01 (HSK 4)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  这些都是你不得不做的吗？  -- harder grammar: 4-01 (HSK 4)
+  你们得快点。  -- harder grammar: 4-01 (HSK 4)
+  我们得洗衣服。  -- harder grammar: 4-01 (HSK 4)
+  我得找到他。  -- harder grammar: 3-46 (HSK 3), 4-01 (HSK 4)
+
+--- dropped at step 6 (44) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  我真的得走了。  -- rule: unless 得/VV
+  说得也是。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  我记得见过他。  -- rule: no match: line matched
+  你游泳游得比我好。  -- rule: no match: line matched
+  我觉得你在笑我们。  -- rule: no match: line matched
+  你觉得累吗？  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: unless /DER 多/VA
+  在德国过得怎么样？  -- rule: no match: line matched
+  他写得一手好字。  -- rule: no match: line matched
+  你可能得帮她。  -- rule: unless 得/VV
+  你比我记得好。  -- rule: no match: line matched
+  你觉得我能帮忙吗？  -- rule: no match: line matched
+  得有人做点事。  -- rule: unless 得/VV
+  雨大得让我不能走。  -- rule: no match: line matched
+  你来得很早。  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: unless /DER ... 吗/SP
+  我的意思不是她做得对。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  你来得很快。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: unless /DER 多/VA
+  我记得告诉过你了。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  要得。  -- rule: unless 得/VV
+  你觉得这个怎么样？  -- rule: no match: line matched
+  狗跑得比人快。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  他长得高吗？  -- rule: unless /DER ... 吗/SP
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  她的新书卖得不错。  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  和他在一起我就没觉得舒服过。  -- rule: no match: line matched
+  你觉得周五怎么样？  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  汤姆做得有点过头了。  -- rule: no match: line matched
+  你不记得问题吗？  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  “你说得不对” “那怎么说呢？”  -- hidden word a learner can't work out: 怎么说呢 (Why is that?; How come?)
+  我很小的时候就游得很好了。  -- hidden word a learner can't work out: 小的 ((coll.) young child; the little one(s) of the family)
+
+--- dropped at step 7 (5) ---
+  我长得高。  -- no accurate English among: I'm big.
+  她吃得慢。  -- no accurate English among: She eats slowly.
+  坐得舒服。  -- no accurate English among: Sit comfortably.
+  车别开得那么近。  -- check said no (1/2): Potential complement (能否补语), not degree complement
+  你怎么回来得这么快？  -- check said no (2/2): Potential complement (能否补语), not degree complement
+
+--- dropped at step 8 (3) ---
+  跑得飞快  -- difficulty review: (2/2); '飞快' uses '飞' (fly) in a non-literal sense as an intensifier, which is beyond HSK 2 vocabulary/usage
+  我们对你知道得不多。  -- difficulty review: (1/2); Uses 对 (2-25) as a preposition indicating object of knowledge, which requires understanding beyond basic state complements
+  在做喜欢的事情的时候时间过去得很快。  -- difficulty review: (1/2); Complex nested structure with multiple clauses and 的 used twice in different functions; 在...的时候 construction is more advanced than HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-31_level2_20261111_142914.csv
+
+########## rules  2026-11-12 17:25 ##########
+Tagging 3 labeled example(s) (cached after this run)...
+  ...100/131
+
+=== A. 2-31: rule on labeled examples (no AI) ===
+  examples of 2-31 matched:    29/42
+  counter-examples wrongly matched: 0/89   <- should be 0
+
+--- examples of 2-31 the rule misses (13) ---
+  你们谈得顺利吗？  -- ASG79STE Degree complement
+  小李的房子  -- ASG5MOMM Structural particle "de"
+  红色的自行车  -- ASG5MOMM Structural particle "de"
+  我的手机  -- ASG5MOMM Structural particle "de"
+  我们的老师  -- ASG5MOMM Structural particle "de"
+  漂亮的衣服  -- ASG5MOMM Structural particle "de"
+  热闹的酒吧  -- ASG5MOMM Structural particle "de"
+  我女朋友的公司  -- ASG5MOMM Structural particle "de"
+  生气地说  -- ASG5MOMM Structural particle "de"
+  开心地笑  -- ASG5MOMM Structural particle "de"
+  慢慢地走  -- ASG5MOMM Structural particle "de"
+  伤心地哭  -- ASG5MOMM Structural particle "de"
+  认真地听  -- ASG5MOMM Structural particle "de"
+  easy examples (words all HSK 2 or below) matched: 17/22   <- needs 60%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## tatoeba  2026-11-12 17:40 ##########
+Filling 2-31 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 3 Tatoeba candidate(s) (cached after this run)...
+  ...100/518
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261112_174009.txt
+  ...200/518
+  ...300/518
+  ...400/518
+  ...500/518
+
+Course sentences at HSK 2 the rule already finds 2-31 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-31 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1003  2. contain the point's word(s)
+     1003  3. new (not in DB, not a duplicate)
+      518  4. at most 2 characters outside HSK 2 words
+      111  5. really HSK 2
+       78  5b. no harder grammar point (of the 40 with a rule)
+       35  6. the rule finds 2-31
+       33  6b. no hidden word a learner can't work out
+       28  7. both checks say 2-31, English chosen
+       25  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (25) ===
+  做得好！  (Well done!)  [tatoeba 4261676]
+  做得很好。  (It's well done.)  [tatoeba 1776598]
+  你做得对。  (You're doing it right.)  [tatoeba 10040469]
+  她做得对。  (She's doing it right.)  [tatoeba 13563481]
+  雨下得很大。  (It is raining hard.)  [tatoeba 9992078]
+  雪下得很大。  (It's snowing heavily.)  [tatoeba 10648732]
+  你们说得对。  (You guys are right.)  [tatoeba 13149128]
+  我考得很好。  (I did well on the test.)  [tatoeba 13667864]
+  我的狗跑得快。  (My dog is fast.)  [tatoeba 1424275]
+  时间过得真快。  (Time flew.)  [tatoeba 5102222]
+  我住得太远了。  (I live too far away.)  [tatoeba 6149006]
+  别吃得这么快。  (Don't eat so fast.)  [tatoeba 6678404]
+  我工作得太多了。  (I'm working too much.)  [tatoeba 1783806]
+  他们玩得很高兴。  (They have a good time.)  [tatoeba 2357749]
+  那本书卖得很好。  (This book sells well.)  [tatoeba 5254679]
+  你知道得太多了。  (You know too much.)  [tatoeba 5663491]
+  学得快，忘得快。  (Soon learnt, soon forgotten.)  [tatoeba 7768304]
+  你会做得很好的。  (You're going to do just fine.)  [tatoeba 13109451]
+  我想我喝得太多了。  (I think I drank too much.)  [tatoeba 1490514]
+  他汉字写得非常好。  (He writes Chinese characters very well.)  [tatoeba 3378274]
+  请不要说得那么快。  (Please don't speak so fast.)  [tatoeba 5344349]
+  他晚上回来得很晚。  (He returned very late at night.)  [tatoeba 6468680]
+  今天时间过得好慢。  (Time's going by slowly today.)  [tatoeba 13736379]
+  我今天累，所以我睡得早。  (I was tired today so I went to bed early.)  [tatoeba 5655339]
+  玛丽是班里面长得最漂亮的女孩。  (Mary is the prettiest girl in class.)  [tatoeba 4757669]
+
+--- dropped at step 4 (485), first 12 ---
+  这个城市的交通方便得很。  -- 3 characters no HSK 2 word uses: 城方通
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  不入虎穴，焉得虎子。  -- 4 characters no HSK 2 word uses: 入焉穴虎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  世界上已经够热的地方会变得让人无法忍受。  -- 9 characters no HSK 2 word uses: 世受变够忍方无法界
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  你不可能『得到』一段美好的感情,你只能找到一个你心爱的人来共同经营、造就、完成一段美好的感情。  -- 8 characters no HSK 2 word uses: 共心感成段美营造
+  如果你没决心做好男人,那你就得不到好女人。  -- 3 characters no HSK 2 word uses: 决如心
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  在英国，以珍稀物种为主题的公园变得越来越受人们的欢迎。  -- 10 characters no HSK 2 word uses: 主受变园物珍种稀越迎
+
+--- dropped at step 5 (407), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  我最近忙得很。  -- level 3: 最近 L3
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 分数 L4
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你干得很好。  -- level 3: 干 L3
+  我觉得很热。  -- level 1: no list words
+  中国发展得太快了。  -- level 3: 发展 L3
+  他性感得很。  -- level 7: 性感 L7
+  可能你工作得太拼命？  -- level 7: 拼命 L7
+  六除以二得三。  -- level 6: 除 L6, 以 L5
+
+--- dropped at step 5b (33), first 12 ---
+  你得等一等看。  -- harder grammar: 4-01 (HSK 4)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  这些都是你不得不做的吗？  -- harder grammar: 4-01 (HSK 4)
+  你们得快点。  -- harder grammar: 4-01 (HSK 4)
+  我们得洗衣服。  -- harder grammar: 4-01 (HSK 4)
+  我得找到他。  -- harder grammar: 3-46 (HSK 3), 4-01 (HSK 4)
+
+--- dropped at step 6 (43) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  我真的得走了。  -- rule: unless 得/VV
+  说得也是。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  我记得见过他。  -- rule: no match: line matched
+  你游泳游得比我好。  -- rule: no match: line matched
+  我觉得你在笑我们。  -- rule: no match: line matched
+  你觉得累吗？  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: unless /DER 多/VA
+  在德国过得怎么样？  -- rule: no match: line matched
+  他写得一手好字。  -- rule: no match: line matched
+  你可能得帮她。  -- rule: unless 得/VV
+  你比我记得好。  -- rule: no match: line matched
+  你觉得我能帮忙吗？  -- rule: no match: line matched
+  得有人做点事。  -- rule: unless 得/VV
+  雨大得让我不能走。  -- rule: no match: line matched
+  你来得很早。  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: unless /DER ... 吗/SP
+  我的意思不是她做得对。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  你来得很快。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: unless /DER 多/VA
+  我记得告诉过你了。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  要得。  -- rule: unless 得/VV
+  你觉得这个怎么样？  -- rule: no match: line matched
+  狗跑得比人快。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  他长得高吗？  -- rule: unless /DER ... 吗/SP
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  她的新书卖得不错。  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  和他在一起我就没觉得舒服过。  -- rule: no match: line matched
+  你觉得周五怎么样？  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  你不记得问题吗？  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  “你说得不对” “那怎么说呢？”  -- hidden word a learner can't work out: 怎么说呢 (Why is that?; How come?)
+  我很小的时候就游得很好了。  -- hidden word a learner can't work out: 小的 ((coll.) young child; the little one(s) of the family)
+
+--- dropped at step 7 (5) ---
+  我长得高。  -- no accurate English among: I'm big.
+  她吃得慢。  -- no accurate English among: She eats slowly.
+  坐得舒服。  -- no accurate English among: Sit comfortably.
+  车别开得那么近。  -- check said no (1/2): Potential complement (能否补语), not degree complement
+  你怎么回来得这么快？  -- check said no (2/2): Potential complement (能否补语), not degree complement
+
+--- dropped at step 8 (3) ---
+  跑得飞快  -- difficulty review: (2/2); '飞快' uses '飞' (fly) in a non-literal sense as an intensifier, which is beyond HSK 2 vocabulary/usage
+  我们对你知道得不多。  -- difficulty review: (1/2); Uses 对 (2-25) as a preposition indicating object of knowledge, which requires understanding beyond basic state complements
+  在做喜欢的事情的时候时间过去得很快。  -- difficulty review: (1/2); Complex nested structure with multiple clauses and 的 used twice in different functions; 在...的时候 construction is more advanced than HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-31_level2_20261112_174014.csv
+
+########## guard check  2026-11-12 21:13 ##########
+
+########## tatoeba  2026-11-12 21:15 ##########
+Filling 2-31 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-31 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-31 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1003  2. contain the point's word(s)
+     1003  3. new (not in DB, not a duplicate)
+      518  4. at most 2 characters outside HSK 2 words
+      111  5. really HSK 2
+       78  5b. no harder grammar point (of the 40 with a rule)
+       35  6. the rule finds 2-31
+       33  6b. no hidden word a learner can't work out
+       28  7. both checks say 2-31, English chosen
+       25  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (25) ===
+  做得好！  (Well done!)  [tatoeba 4261676]
+  做得很好。  (It's well done.)  [tatoeba 1776598]
+  你做得对。  (You're doing it right.)  [tatoeba 10040469]
+  她做得对。  (She's doing it right.)  [tatoeba 13563481]
+  雨下得很大。  (It is raining hard.)  [tatoeba 9992078]
+  雪下得很大。  (It's snowing heavily.)  [tatoeba 10648732]
+  你们说得对。  (You guys are right.)  [tatoeba 13149128]
+  我考得很好。  (I did well on the test.)  [tatoeba 13667864]
+  我的狗跑得快。  (My dog is fast.)  [tatoeba 1424275]
+  时间过得真快。  (Time flew.)  [tatoeba 5102222]
+  我住得太远了。  (I live too far away.)  [tatoeba 6149006]
+  别吃得这么快。  (Don't eat so fast.)  [tatoeba 6678404]
+  我工作得太多了。  (I'm working too much.)  [tatoeba 1783806]
+  他们玩得很高兴。  (They have a good time.)  [tatoeba 2357749]
+  那本书卖得很好。  (This book sells well.)  [tatoeba 5254679]
+  你知道得太多了。  (You know too much.)  [tatoeba 5663491]
+  学得快，忘得快。  (Soon learnt, soon forgotten.)  [tatoeba 7768304]
+  你会做得很好的。  (You're going to do just fine.)  [tatoeba 13109451]
+  我想我喝得太多了。  (I think I drank too much.)  [tatoeba 1490514]
+  他汉字写得非常好。  (He writes Chinese characters very well.)  [tatoeba 3378274]
+  请不要说得那么快。  (Please don't speak so fast.)  [tatoeba 5344349]
+  他晚上回来得很晚。  (He returned very late at night.)  [tatoeba 6468680]
+  今天时间过得好慢。  (Time's going by slowly today.)  [tatoeba 13736379]
+  我今天累，所以我睡得早。  (I was tired today so I went to bed early.)  [tatoeba 5655339]
+  玛丽是班里面长得最漂亮的女孩。  (Mary is the prettiest girl in class.)  [tatoeba 4757669]
+
+--- dropped at step 4 (485), first 12 ---
+  这个城市的交通方便得很。  -- 3 characters no HSK 2 word uses: 城方通
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  不入虎穴，焉得虎子。  -- 4 characters no HSK 2 word uses: 入焉穴虎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  世界上已经够热的地方会变得让人无法忍受。  -- 9 characters no HSK 2 word uses: 世受变够忍方无法界
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  你不可能『得到』一段美好的感情,你只能找到一个你心爱的人来共同经营、造就、完成一段美好的感情。  -- 8 characters no HSK 2 word uses: 共心感成段美营造
+  如果你没决心做好男人,那你就得不到好女人。  -- 3 characters no HSK 2 word uses: 决如心
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  在英国，以珍稀物种为主题的公园变得越来越受人们的欢迎。  -- 10 characters no HSK 2 word uses: 主受变园物珍种稀越迎
+
+--- dropped at step 5 (407), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  我最近忙得很。  -- level 3: 最近 L3
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 分数 L4
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你干得很好。  -- level 3: 干 L3
+  我觉得很热。  -- level 1: no list words
+  中国发展得太快了。  -- level 3: 发展 L3
+  他性感得很。  -- level 7: 性感 L7
+  可能你工作得太拼命？  -- level 7: 拼命 L7
+  六除以二得三。  -- level 6: 除 L6, 以 L5
+
+--- dropped at step 5b (33), first 12 ---
+  你得等一等看。  -- harder grammar: 4-01 (HSK 4)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  这些都是你不得不做的吗？  -- harder grammar: 4-01 (HSK 4)
+  你们得快点。  -- harder grammar: 4-01 (HSK 4)
+  我们得洗衣服。  -- harder grammar: 4-01 (HSK 4)
+  我得找到他。  -- harder grammar: 3-46 (HSK 3), 4-01 (HSK 4)
+
+--- dropped at step 6 (43) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  我真的得走了。  -- rule: unless 得/VV
+  说得也是。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  我记得见过他。  -- rule: no match: line matched
+  你游泳游得比我好。  -- rule: no match: line matched
+  我觉得你在笑我们。  -- rule: no match: line matched
+  你觉得累吗？  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: unless /DER 多/VA
+  在德国过得怎么样？  -- rule: no match: line matched
+  他写得一手好字。  -- rule: no match: line matched
+  你可能得帮她。  -- rule: unless 得/VV
+  你比我记得好。  -- rule: no match: line matched
+  你觉得我能帮忙吗？  -- rule: no match: line matched
+  得有人做点事。  -- rule: unless 得/VV
+  雨大得让我不能走。  -- rule: no match: line matched
+  你来得很早。  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: unless /DER ... 吗/SP
+  我的意思不是她做得对。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  你来得很快。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: unless /DER 多/VA
+  我记得告诉过你了。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  要得。  -- rule: unless 得/VV
+  你觉得这个怎么样？  -- rule: no match: line matched
+  狗跑得比人快。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  他长得高吗？  -- rule: unless /DER ... 吗/SP
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  她的新书卖得不错。  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  和他在一起我就没觉得舒服过。  -- rule: no match: line matched
+  你觉得周五怎么样？  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  你不记得问题吗？  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  “你说得不对” “那怎么说呢？”  -- hidden word a learner can't work out: 怎么说呢 (Why is that?; How come?)
+  我很小的时候就游得很好了。  -- hidden word a learner can't work out: 小的 ((coll.) young child; the little one(s) of the family)
+
+--- dropped at step 7 (5) ---
+  我长得高。  -- no accurate English among: I'm big.
+  她吃得慢。  -- no accurate English among: She eats slowly.
+  坐得舒服。  -- no accurate English among: Sit comfortably.
+  车别开得那么近。  -- check said no (1/2): Potential complement (能否补语), not degree complement
+  你怎么回来得这么快？  -- check said no (2/2): Potential complement (能否补语), not degree complement
+
+--- dropped at step 8 (3) ---
+  跑得飞快  -- difficulty review: (2/2); '飞快' uses '飞' (fly) in a non-literal sense as an intensifier, which is beyond HSK 2 vocabulary/usage
+  我们对你知道得不多。  -- difficulty review: (1/2); Uses 对 (2-25) as a preposition indicating object of knowledge, which requires understanding beyond basic state complements
+  在做喜欢的事情的时候时间过去得很快。  -- difficulty review: (1/2); Complex nested structure with multiple clauses and 的 used twice in different functions; 在...的时候 construction is more advanced than HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-31_level2_20261112_211510.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 2-31 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-31 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-31 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1003  2. contain the point's word(s)
+     1003  3. new (not in DB, not a duplicate)
+      518  4. at most 2 characters outside HSK 2 words
+      111  5. really HSK 2
+       77  5b. no harder grammar point (of the 44 with a rule)
+       35  6. the rule finds 2-31
+       33  6b. no hidden word a learner can't work out
+       28  7. both checks say 2-31, English chosen
+       25  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (25) ===
+  做得好！  (Well done!)  [tatoeba 4261676]
+  做得很好。  (It's well done.)  [tatoeba 1776598]
+  你做得对。  (You're doing it right.)  [tatoeba 10040469]
+  她做得对。  (She's doing it right.)  [tatoeba 13563481]
+  雨下得很大。  (It is raining hard.)  [tatoeba 9992078]
+  雪下得很大。  (It's snowing heavily.)  [tatoeba 10648732]
+  你们说得对。  (You guys are right.)  [tatoeba 13149128]
+  我考得很好。  (I did well on the test.)  [tatoeba 13667864]
+  我的狗跑得快。  (My dog is fast.)  [tatoeba 1424275]
+  时间过得真快。  (Time flew.)  [tatoeba 5102222]
+  我住得太远了。  (I live too far away.)  [tatoeba 6149006]
+  别吃得这么快。  (Don't eat so fast.)  [tatoeba 6678404]
+  我工作得太多了。  (I'm working too much.)  [tatoeba 1783806]
+  他们玩得很高兴。  (They have a good time.)  [tatoeba 2357749]
+  那本书卖得很好。  (This book sells well.)  [tatoeba 5254679]
+  你知道得太多了。  (You know too much.)  [tatoeba 5663491]
+  学得快，忘得快。  (Soon learnt, soon forgotten.)  [tatoeba 7768304]
+  你会做得很好的。  (You're going to do just fine.)  [tatoeba 13109451]
+  我想我喝得太多了。  (I think I drank too much.)  [tatoeba 1490514]
+  他汉字写得非常好。  (He writes Chinese characters very well.)  [tatoeba 3378274]
+  请不要说得那么快。  (Please don't speak so fast.)  [tatoeba 5344349]
+  他晚上回来得很晚。  (He returned very late at night.)  [tatoeba 6468680]
+  今天时间过得好慢。  (Time's going by slowly today.)  [tatoeba 13736379]
+  我今天累，所以我睡得早。  (I was tired today so I went to bed early.)  [tatoeba 5655339]
+  玛丽是班里面长得最漂亮的女孩。  (Mary is the prettiest girl in class.)  [tatoeba 4757669]
+
+--- dropped at step 4 (485), first 12 ---
+  这个城市的交通方便得很。  -- 3 characters no HSK 2 word uses: 城方通
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  不入虎穴，焉得虎子。  -- 4 characters no HSK 2 word uses: 入焉穴虎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  世界上已经够热的地方会变得让人无法忍受。  -- 9 characters no HSK 2 word uses: 世受变够忍方无法界
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  你不可能『得到』一段美好的感情,你只能找到一个你心爱的人来共同经营、造就、完成一段美好的感情。  -- 8 characters no HSK 2 word uses: 共心感成段美营造
+  如果你没决心做好男人,那你就得不到好女人。  -- 3 characters no HSK 2 word uses: 决如心
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  在英国，以珍稀物种为主题的公园变得越来越受人们的欢迎。  -- 10 characters no HSK 2 word uses: 主受变园物珍种稀越迎
+
+--- dropped at step 5 (407), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  我最近忙得很。  -- level 3: 最近 L3
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 分数 L4
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你干得很好。  -- level 3: 干 L3
+  我觉得很热。  -- level 1: no list words
+  中国发展得太快了。  -- level 3: 发展 L3
+  他性感得很。  -- level 7: 性感 L7
+  可能你工作得太拼命？  -- level 7: 拼命 L7
+  六除以二得三。  -- level 6: 除 L6, 以 L5
+
+--- dropped at step 5b (34), first 12 ---
+  你得等一等看。  -- harder grammar: 4-01 (HSK 4)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  这些都是你不得不做的吗？  -- harder grammar: 4-01 (HSK 4)
+  你们得快点。  -- harder grammar: 4-01 (HSK 4)
+  我们得洗衣服。  -- harder grammar: 4-01 (HSK 4)
+  我得找到他。  -- harder grammar: 3-46 (HSK 3), 4-01 (HSK 4)
+
+--- dropped at step 6 (42) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  我真的得走了。  -- rule: unless 得/VV
+  说得也是。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  我记得见过他。  -- rule: no match: line matched
+  你游泳游得比我好。  -- rule: no match: line matched
+  我觉得你在笑我们。  -- rule: no match: line matched
+  你觉得累吗？  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: unless /DER 多/VA
+  在德国过得怎么样？  -- rule: no match: line matched
+  他写得一手好字。  -- rule: no match: line matched
+  你可能得帮她。  -- rule: unless 得/VV
+  你比我记得好。  -- rule: no match: line matched
+  你觉得我能帮忙吗？  -- rule: no match: line matched
+  得有人做点事。  -- rule: unless 得/VV
+  雨大得让我不能走。  -- rule: no match: line matched
+  你来得很早。  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: unless /DER ... 吗/SP
+  我的意思不是她做得对。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  你来得很快。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: unless /DER 多/VA
+  我记得告诉过你了。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  要得。  -- rule: unless 得/VV
+  你觉得这个怎么样？  -- rule: no match: line matched
+  狗跑得比人快。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  他长得高吗？  -- rule: unless /DER ... 吗/SP
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  她的新书卖得不错。  -- rule: no match: line matched
+  和他在一起我就没觉得舒服过。  -- rule: no match: line matched
+  你觉得周五怎么样？  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  你不记得问题吗？  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+
+--- dropped at step 6b (2) ---
+  “你说得不对” “那怎么说呢？”  -- hidden word a learner can't work out: 怎么说呢 (Why is that?; How come?)
+  我很小的时候就游得很好了。  -- hidden word a learner can't work out: 小的 ((coll.) young child; the little one(s) of the family)
+
+--- dropped at step 7 (5) ---
+  我长得高。  -- no accurate English among: I'm big.
+  她吃得慢。  -- no accurate English among: She eats slowly.
+  坐得舒服。  -- no accurate English among: Sit comfortably.
+  车别开得那么近。  -- check said no (1/2): Potential complement (能否补语), not degree complement
+  你怎么回来得这么快？  -- check said no (2/2): Potential complement (能否补语), not degree complement
+
+--- dropped at step 8 (3) ---
+  跑得飞快  -- difficulty review: (2/2); '飞快' uses '飞' (fly) in a non-literal sense as an intensifier, which is beyond HSK 2 vocabulary/usage
+  我们对你知道得不多。  -- difficulty review: (1/2); Uses 对 (2-25) as a preposition indicating object of knowledge, which requires understanding beyond basic state complements
+  在做喜欢的事情的时候时间过去得很快。  -- difficulty review: (1/2); Complex nested structure with multiple clauses and 的 used twice in different functions; 在...的时候 construction is more advanced than HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-31_level2_20261113_135449.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:44 ##########
+Filling 2-31 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  怎么说呢 = 怎么 + 说 + 呢  (Why is that?; How come?)
+
+Course sentences at HSK 2 the rule already finds 2-31 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-31 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1003  2. contain the point's word(s)
+     1003  3. new (not in DB, not a duplicate)
+      518  4. at most 2 characters outside HSK 2 words
+      111  5. really HSK 2
+       78  5b. no harder grammar point (of the 43 with a rule)
+       35  6. the rule finds 2-31
+       34  6b. no hidden word a learner can't work out
+       29  7. both checks say 2-31, English chosen
+       26  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (26) ===
+  做得好！  (Well done!)  [tatoeba 4261676]
+  做得很好。  (It's well done.)  [tatoeba 1776598]
+  你做得对。  (You're doing it right.)  [tatoeba 10040469]
+  她做得对。  (She's doing it right.)  [tatoeba 13563481]
+  雨下得很大。  (It is raining hard.)  [tatoeba 9992078]
+  雪下得很大。  (It's snowing heavily.)  [tatoeba 10648732]
+  你们说得对。  (You guys are right.)  [tatoeba 13149128]
+  我考得很好。  (I did well on the test.)  [tatoeba 13667864]
+  我的狗跑得快。  (My dog is fast.)  [tatoeba 1424275]
+  时间过得真快。  (Time flew.)  [tatoeba 5102222]
+  我住得太远了。  (I live too far away.)  [tatoeba 6149006]
+  别吃得这么快。  (Don't eat so fast.)  [tatoeba 6678404]
+  我工作得太多了。  (I'm working too much.)  [tatoeba 1783806]
+  他们玩得很高兴。  (They have a good time.)  [tatoeba 2357749]
+  那本书卖得很好。  (This book sells well.)  [tatoeba 5254679]
+  你知道得太多了。  (You know too much.)  [tatoeba 5663491]
+  学得快，忘得快。  (Soon learnt, soon forgotten.)  [tatoeba 7768304]
+  你会做得很好的。  (You're going to do just fine.)  [tatoeba 13109451]
+  我想我喝得太多了。  (I think I drank too much.)  [tatoeba 1490514]
+  他汉字写得非常好。  (He writes Chinese characters very well.)  [tatoeba 3378274]
+  请不要说得那么快。  (Please don't speak so fast.)  [tatoeba 5344349]
+  他晚上回来得很晚。  (He returned very late at night.)  [tatoeba 6468680]
+  今天时间过得好慢。  (Time's going by slowly today.)  [tatoeba 13736379]
+  我今天累，所以我睡得早。  (I was tired today so I went to bed early.)  [tatoeba 5655339]
+  玛丽是班里面长得最漂亮的女孩。  (Mary is the prettiest girl in class.)  [tatoeba 4757669]
+  “你说得不对” “那怎么说呢？”  ("You said it wrong." "How do I say it then?")  [tatoeba 2300038]  hidden: 怎么说呢, 不对
+
+--- dropped at step 4 (485), first 12 ---
+  这个城市的交通方便得很。  -- 3 characters no HSK 2 word uses: 城方通
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  不入虎穴，焉得虎子。  -- 4 characters no HSK 2 word uses: 入焉穴虎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  世界上已经够热的地方会变得让人无法忍受。  -- 9 characters no HSK 2 word uses: 世受变够忍方无法界
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  你不可能『得到』一段美好的感情,你只能找到一个你心爱的人来共同经营、造就、完成一段美好的感情。  -- 8 characters no HSK 2 word uses: 共心感成段美营造
+  如果你没决心做好男人,那你就得不到好女人。  -- 3 characters no HSK 2 word uses: 决如心
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  在英国，以珍稀物种为主题的公园变得越来越受人们的欢迎。  -- 10 characters no HSK 2 word uses: 主受变园物珍种稀越迎
+
+--- dropped at step 5 (407), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  我最近忙得很。  -- level 3: 最近 L3
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 分数 L4
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你干得很好。  -- level 3: 干 L3
+  我觉得很热。  -- level 1: no list words
+  中国发展得太快了。  -- level 3: 发展 L3
+  他性感得很。  -- level 7: 性感 L7
+  可能你工作得太拼命？  -- level 7: 拼命 L7
+  六除以二得三。  -- level 6: 除 L6, 以 L5
+
+--- dropped at step 5b (33), first 12 ---
+  你得等一等看。  -- harder grammar: 4-01 (HSK 4)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  这些都是你不得不做的吗？  -- harder grammar: 4-01 (HSK 4)
+  你们得快点。  -- harder grammar: 4-01 (HSK 4)
+  我们得洗衣服。  -- harder grammar: 4-01 (HSK 4)
+  我得找到他。  -- harder grammar: 3-46 (HSK 3), 4-01 (HSK 4)
+
+--- dropped at step 6 (43) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  我真的得走了。  -- rule: unless 得/VV
+  说得也是。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  我记得见过他。  -- rule: no match: line matched
+  你游泳游得比我好。  -- rule: no match: line matched
+  我觉得你在笑我们。  -- rule: no match: line matched
+  你觉得累吗？  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: unless /DER 多/VA
+  在德国过得怎么样？  -- rule: no match: line matched
+  他写得一手好字。  -- rule: no match: line matched
+  你可能得帮她。  -- rule: unless 得/VV
+  你比我记得好。  -- rule: no match: line matched
+  你觉得我能帮忙吗？  -- rule: no match: line matched
+  得有人做点事。  -- rule: unless 得/VV
+  雨大得让我不能走。  -- rule: no match: line matched
+  你来得很早。  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: unless /DER ... 吗/SP
+  我的意思不是她做得对。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  你来得很快。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: unless /DER 多/VA
+  我记得告诉过你了。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  要得。  -- rule: unless 得/VV
+  你觉得这个怎么样？  -- rule: no match: line matched
+  狗跑得比人快。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  他长得高吗？  -- rule: unless /DER ... 吗/SP
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  她的新书卖得不错。  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  和他在一起我就没觉得舒服过。  -- rule: no match: line matched
+  你觉得周五怎么样？  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  你不记得问题吗？  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我很小的时候就游得很好了。  -- hidden word a learner can't work out: 小的 ((coll.) young child; the little one(s) of the family; (old) (humble) I; me; my (used by a commoner when speaking to an official))
+
+--- dropped at step 7 (5) ---
+  我长得高。  -- no accurate English among: I'm big.
+  她吃得慢。  -- no accurate English among: She eats slowly.
+  坐得舒服。  -- no accurate English among: Sit comfortably.
+  车别开得那么近。  -- check said no (1/2): Potential complement (能否补语), not degree complement
+  你怎么回来得这么快？  -- check said no (2/2): Potential complement (能否补语), not degree complement
+
+--- dropped at step 8 (3) ---
+  跑得飞快  -- difficulty review: (2/2); '飞快' uses '飞' (fly) in a non-literal sense as an intensifier, which is beyond HSK 2 vocabulary/usage
+  我们对你知道得不多。  -- difficulty review: (1/2); Uses 对 (2-25) as a preposition indicating object of knowledge, which requires understanding beyond basic state complements
+  在做喜欢的事情的时候时间过去得很快。  -- difficulty review: (1/2); Complex nested structure with multiple clauses and 的 used twice in different functions; 在...的时候 construction is more advanced than HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-31_level2_20261113_144444.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:10 ##########
+Filling 2-31 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 1 Tatoeba candidate(s) (cached after this run)...
+  ...100/478
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161044.txt
+  ...200/478
+  ...300/478
+  ...400/478
+
+Course sentences at HSK 2 the rule already finds 2-31 in: 32  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-31 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1003  2. contain the point's word(s)
+      963  3. new (not in DB, not a duplicate)
+      478  4. at most 2 characters outside HSK 2 words
+       72  5. really HSK 2
+       40  5b. no harder grammar point (of the 43 with a rule)
+        4  6. the rule finds 2-31
+        3  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (3 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (40), first 12 ---
+  我记得见过他。  -- already in the database
+  我的狗跑得快。  -- already in the database
+  我想我喝得太多了。  -- already in the database
+  你游泳游得比我好。  -- already in the database
+  做得很好。  -- already in the database
+  我工作得太多了。  -- already in the database
+  “你说得不对” “那怎么说呢？”  -- already in the database
+  他们玩得很高兴。  -- already in the database
+  他汉字写得非常好。  -- already in the database
+  做得好！  -- already in the database
+  玛丽是班里面长得最漂亮的女孩。  -- already in the database
+  我觉得他们不会来了。  -- already in the database
+
+--- dropped at step 4 (485), first 12 ---
+  这个城市的交通方便得很。  -- 3 characters no HSK 2 word uses: 城方通
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  不入虎穴，焉得虎子。  -- 4 characters no HSK 2 word uses: 入焉穴虎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  世界上已经够热的地方会变得让人无法忍受。  -- 9 characters no HSK 2 word uses: 世受变够忍方无法界
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  你不可能『得到』一段美好的感情,你只能找到一个你心爱的人来共同经营、造就、完成一段美好的感情。  -- 8 characters no HSK 2 word uses: 共心感成段美营造
+  如果你没决心做好男人,那你就得不到好女人。  -- 3 characters no HSK 2 word uses: 决如心
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  在英国，以珍稀物种为主题的公园变得越来越受人们的欢迎。  -- 10 characters no HSK 2 word uses: 主受变园物珍种稀越迎
+
+--- dropped at step 5 (406), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  我最近忙得很。  -- level 3: 最近 L3
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 分数 L4
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你干得很好。  -- level 3: 干 L3
+  我觉得很热。  -- level 1: no list words
+  中国发展得太快了。  -- level 3: 发展 L3
+  他性感得很。  -- level 7: 性感 L7
+  可能你工作得太拼命？  -- level 7: 拼命 L7
+  六除以二得三。  -- level 6: 除 L6, 以 L5
+
+--- dropped at step 5b (32), first 12 ---
+  你得等一等看。  -- harder grammar: 4-01 (HSK 4)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  这些都是你不得不做的吗？  -- harder grammar: 4-01 (HSK 4)
+  你们得快点。  -- harder grammar: 4-01 (HSK 4)
+  我们得洗衣服。  -- harder grammar: 4-01 (HSK 4)
+  我得找到他。  -- harder grammar: 3-46 (HSK 3), 4-01 (HSK 4)
+
+--- dropped at step 6 (36) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  我真的得走了。  -- rule: unless 得/VV
+  说得也是。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  我觉得你在笑我们。  -- rule: no match: line matched
+  你觉得累吗？  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: unless /DER 多/VA
+  在德国过得怎么样？  -- rule: no match: line matched
+  他写得一手好字。  -- rule: no match: line matched
+  你可能得帮她。  -- rule: unless 得/VV
+  你觉得我能帮忙吗？  -- rule: no match: line matched
+  得有人做点事。  -- rule: unless 得/VV
+  雨大得让我不能走。  -- rule: no match: line matched
+  你来得很早。  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: unless /DER ... 吗/SP
+  我的意思不是她做得对。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  你来得很快。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: unless /DER 多/VA
+  我记得告诉过你了。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  要得。  -- rule: unless 得/VV
+  你觉得好些了吗？  -- rule: no match: line matched
+  他长得高吗？  -- rule: unless /DER ... 吗/SP
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  她的新书卖得不错。  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  和他在一起我就没觉得舒服过。  -- rule: no match: line matched
+  你觉得周五怎么样？  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  你不记得问题吗？  -- rule: no match: line matched
+  我不记得有打电话给你。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我很小的时候就游得很好了。  -- hidden word a learner can't work out: 小的 ((coll.) young child; the little one(s) of the family; (old) (humble) I; me; my (used by a commoner when speaking to an official))
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-31_level2_20261114_161047.csv
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:31 ##########
+Filling 2-31 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-31 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-31 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     1003  2. contain the point's word(s)
+     1003  3. new (not in DB, not a duplicate)
+      518  4. at most 2 characters outside HSK 2 words
+      111  5. really HSK 2
+       79  5b. no harder grammar point (of the 43 with a rule)
+       35  6. the rule finds 2-31
+       34  6b. no hidden word a learner can't work out
+       29  7. both checks say 2-31, English chosen
+       26  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (26) ===
+  做得好！  (Well done!)  [tatoeba 4261676]
+  做得很好。  (It's well done.)  [tatoeba 1776598]
+  你做得对。  (You're doing it right.)  [tatoeba 10040469]
+  她做得对。  (She's doing it right.)  [tatoeba 13563481]
+  雨下得很大。  (It is raining hard.)  [tatoeba 9992078]
+  雪下得很大。  (It's snowing heavily.)  [tatoeba 10648732]
+  你们说得对。  (You guys are right.)  [tatoeba 13149128]
+  我考得很好。  (I did well on the test.)  [tatoeba 13667864]
+  我的狗跑得快。  (My dog is fast.)  [tatoeba 1424275]
+  时间过得真快。  (Time flew.)  [tatoeba 5102222]
+  我住得太远了。  (I live too far away.)  [tatoeba 6149006]
+  别吃得这么快。  (Don't eat so fast.)  [tatoeba 6678404]
+  我工作得太多了。  (I'm working too much.)  [tatoeba 1783806]
+  他们玩得很高兴。  (They have a good time.)  [tatoeba 2357749]
+  那本书卖得很好。  (This book sells well.)  [tatoeba 5254679]
+  你知道得太多了。  (You know too much.)  [tatoeba 5663491]
+  学得快，忘得快。  (Soon learnt, soon forgotten.)  [tatoeba 7768304]
+  你会做得很好的。  (You're going to do just fine.)  [tatoeba 13109451]
+  我想我喝得太多了。  (I think I drank too much.)  [tatoeba 1490514]
+  他汉字写得非常好。  (He writes Chinese characters very well.)  [tatoeba 3378274]
+  请不要说得那么快。  (Please don't speak so fast.)  [tatoeba 5344349]
+  他晚上回来得很晚。  (He returned very late at night.)  [tatoeba 6468680]
+  今天时间过得好慢。  (Time's going by slowly today.)  [tatoeba 13736379]
+  我今天累，所以我睡得早。  (I was tired today so I went to bed early.)  [tatoeba 5655339]
+  玛丽是班里面长得最漂亮的女孩。  (Mary is the prettiest girl in class.)  [tatoeba 4757669]
+  “你说得不对” “那怎么说呢？”  ("You said it wrong." "How do I say it then?")  [tatoeba 2300038]  hidden: 怎么说呢, 不对
+
+--- dropped at step 4 (485), first 12 ---
+  这个城市的交通方便得很。  -- 3 characters no HSK 2 word uses: 城方通
+  Windows是世界上使用得最多的操作系统。  -- 6 characters no HSK 2 word uses: 世使操用界统
+  不入虎穴，焉得虎子。  -- 4 characters no HSK 2 word uses: 入焉穴虎
+  他的话把大家惹得哈哈大笑。  -- 3 characters no HSK 2 word uses: 哈惹把
+  对我来说，努力学习就是最好取得成功的办法。  -- 7 characters no HSK 2 word uses: 力办功努取成法
+  一旦捡到一颗你喜欢的石头，尽快将它带回家并好好对待它，因为那是妳唯一得到的石头。  -- 11 characters no HSK 2 word uses: 唯妳将尽带并待捡旦石颗
+  世界上已经够热的地方会变得让人无法忍受。  -- 9 characters no HSK 2 word uses: 世受变够忍方无法界
+  它可以使一些人，尤其是老人和婴幼儿，病得很重。  -- 6 characters no HSK 2 word uses: 使其婴尤幼重
+  你不可能『得到』一段美好的感情,你只能找到一个你心爱的人来共同经营、造就、完成一段美好的感情。  -- 8 characters no HSK 2 word uses: 共心感成段美营造
+  如果你没决心做好男人,那你就得不到好女人。  -- 3 characters no HSK 2 word uses: 决如心
+  其实爱情是人生唯一的、真正珍贵的；也是唯一的、真正值得追求的东西。  -- 7 characters no HSK 2 word uses: 值其唯实求珍追
+  在英国，以珍稀物种为主题的公园变得越来越受人们的欢迎。  -- 10 characters no HSK 2 word uses: 主受变园物珍种稀越迎
+
+--- dropped at step 5 (407), first 12 ---
+  法语课上得怎样？  -- level 10: 法语 (not in list), 怎样 L3
+  你从哪得到它的？  -- level 3: 得到 L3
+  我最近忙得很。  -- level 3: 最近 L3
+  要是你来得了，那就太好了。  -- level 4: 要是 L4
+  他得到了比我们还高的分数。  -- level 4: 得到 L3, 分数 L4
+  您说得对。这里的面汤比较贵。  -- level 4: 汤 L4, 比较 L3
+  你干得很好。  -- level 3: 干 L3
+  我觉得很热。  -- level 1: no list words
+  中国发展得太快了。  -- level 3: 发展 L3
+  他性感得很。  -- level 7: 性感 L7
+  可能你工作得太拼命？  -- level 7: 拼命 L7
+  六除以二得三。  -- level 6: 除 L6, 以 L5
+
+--- dropped at step 5b (32), first 12 ---
+  你得等一等看。  -- harder grammar: 4-01 (HSK 4)
+  我得去工作了。  -- harder grammar: 4-01 (HSK 4)
+  你们得走了。  -- harder grammar: 4-01 (HSK 4)
+  你得走了。  -- harder grammar: 4-01 (HSK 4)
+  他看得懂中文。  -- harder grammar: 3-48 (HSK 3)
+  你真的吃得下这东西?  -- harder grammar: 3-48 (HSK 3)
+  哪里都看得到好人。  -- harder grammar: 3-48 (HSK 3)
+  你有听到他说得有多快吗？  -- harder grammar: 3-46 (HSK 3)
+  这些都是你不得不做的吗？  -- harder grammar: 4-01 (HSK 4)
+  你们得快点。  -- harder grammar: 4-01 (HSK 4)
+  我们得洗衣服。  -- harder grammar: 4-01 (HSK 4)
+  我得找到他。  -- harder grammar: 3-46 (HSK 3), 4-01 (HSK 4)
+
+--- dropped at step 6 (44) ---
+  中国比日本大得多。  -- rule: no match: line matched
+  我觉得他们很有意思。  -- rule: no match: line matched
+  我真的得走了。  -- rule: unless 得/VV
+  说得也是。  -- rule: no match: line matched
+  我的中文说得不好。  -- rule: no match: line matched
+  我记得见过他。  -- rule: no match: line matched
+  你游泳游得比我好。  -- rule: no match: line matched
+  我觉得你在笑我们。  -- rule: no match: line matched
+  你觉得累吗？  -- rule: no match: line matched
+  我看的比Tom知道得多。  -- rule: unless /DER 多/VA
+  在德国过得怎么样？  -- rule: no match: line matched
+  他写得一手好字。  -- rule: no match: line matched
+  你可能得帮她。  -- rule: unless 得/VV
+  你比我记得好。  -- rule: no match: line matched
+  你觉得我能帮忙吗？  -- rule: no match: line matched
+  得有人做点事。  -- rule: unless 得/VV
+  雨大得让我不能走。  -- rule: no match: line matched
+  你来得很早。  -- rule: no match: line matched
+  你昨天晚上过得好吗？  -- rule: unless /DER ... 吗/SP
+  我的意思不是她做得对。  -- rule: no match: line matched
+  走了四个小时，我觉得非常累了。  -- rule: no match: line matched
+  你可能不记得我了，但我记得你。  -- rule: no match: line matched
+  你来得很快。  -- rule: no match: line matched
+  我们能比他们做得多。  -- rule: unless /DER 多/VA
+  我记得告诉过你了。  -- rule: no match: line matched
+  我们今天下午两点见得面。  -- rule: no match: line matched
+  要得。  -- rule: unless 得/VV
+  你觉得这个怎么样？  -- rule: no match: line matched
+  狗跑得比人快。  -- rule: no match: line matched
+  我觉得你正在做的是错的。  -- rule: no match: line matched
+  你觉得好些了吗？  -- rule: no match: line matched
+  他长得高吗？  -- rule: unless /DER ... 吗/SP
+  人们可能不记得那件事了。  -- rule: no match: line matched
+  她的新书卖得不错。  -- rule: no match: line matched
+  我觉得它真的很不错。  -- rule: no match: line matched
+  和他在一起我就没觉得舒服过。  -- rule: no match: line matched
+  你觉得周五怎么样？  -- rule: no match: line matched
+  你真的觉得我会帮你吗？  -- rule: no match: line matched
+  我真的不记得了。  -- rule: no match: line matched
+  你觉得我跟他说了些什么呢？  -- rule: no match: line matched
+  你为什么觉得我们在这？  -- rule: no match: line matched
+  你不记得问题吗？  -- rule: no match: line matched
+  我觉得快要下雨了。  -- rule: no match: line matched
+  我不记得有打电话给你。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我很小的时候就游得很好了。  -- hidden word a learner can't work out: 小的 ((coll.) young child; the little one(s) of the family; (old) (humble) I; me; my (used by a commoner when speaking to an official))
+
+--- dropped at step 7 (5) ---
+  我长得高。  -- no accurate English among: I'm big.
+  她吃得慢。  -- no accurate English among: She eats slowly.
+  坐得舒服。  -- no accurate English among: Sit comfortably.
+  车别开得那么近。  -- check said no (1/2): Potential complement (能否补语), not degree complement
+  你怎么回来得这么快？  -- check said no (2/2): Potential complement (能否补语), not degree complement
+
+--- dropped at step 8 (3) ---
+  跑得飞快  -- difficulty review: (2/2); '飞快' uses '飞' (fly) in a non-literal sense as an intensifier, which is beyond HSK 2 vocabulary/usage
+  我们对你知道得不多。  -- difficulty review: (1/2); Uses 对 (2-25) as a preposition indicating object of knowledge, which requires understanding beyond basic state complements
+  在做喜欢的事情的时候时间过去得很快。  -- difficulty review: (1/2); Complex nested structure with multiple clauses and 的 used twice in different functions; 在...的时候 construction is more advanced than HSK 2
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-31_level2_20261114_163124.csv

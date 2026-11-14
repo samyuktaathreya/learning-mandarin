@@ -123,3 +123,2281 @@ Traceback (most recent call last):
 SystemExit: The writer's rule couldn't be read twice: answer has no '## 1-40' section
 Last answer:
 None
+
+########## rules  2026-11-10 21:23 ##########
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 1-40
+<!-- written by claude-haiku-4-5 on 2026-11-10; edit freely -->
+**Point:** Expressing change of state, "now," "anymore," or "already" with sentence-final 了
+
+**Covers:** Sentences where 了 at the end of a clause indicates a new situation or change (adjectives becoming true, verbs describing new states, negated verbs/nouns indicating something no longer exists or is no longer done), including: "I'm hungry" (state change), "It's raining" (new situation), "I don't want to eat anymore" (negation + change), "He's coming now" (new situation), "There's no paper anymore" (negated noun + change).
+
+**Does not cover:** 
+- 了 after a verb but before an object or complement (completion/perfective aspect): 做完了工作, 买到了票
+- 了 in questions with 吗: 你吃饭了吗？, 他来了吗？
+- Expressions with 太...了 (excessively): 太脏了, 太好了
+- Expressions with ...点儿: 短了点儿, 咸了点儿
+- Expressions with ...死了 (intensifiers): 饿死了, 累坏了
+- Expressions with 快...了 (about to happen): 快下雨了, 快到了
+- Duration expressions with double 了: 睡了一天了, 开了两个小时了
+- Result complements: 完了, 坏了 in 说完了, 高兴坏了
+- 过...了 (experiential aspect): 吃过了, 洗过澡了
+- Other advanced le constructions and complement forms
+
+```rule
+match: ... /VA 了/SP $
+match: ... /VA 了/AS $
+match: ... /VV 了/SP $
+match: ... /VV 了/AS $
+match: ... /VE 了/SP $
+match: ... /VE 了/AS $
+match: ^ /VV 了/SP $
+match: ^ /VA 了/SP $
+match: /AD 不/AD /VV 了/SP $
+match: /AD 不/AD /VV 了/AS $
+match: /VE ... 了/SP $
+match: /VE ... 了/AS $
+match: /AD 已经/AD /AD 不/AD /VV 了/SP $
+match: /AD 已经/AD /AD 不/AD /VV 了/AS $
+match: /AD 已经/AD /VE 了/SP $
+match: /AD 已经/AD /VE 了/AS $
+unless: ... /AS 吗/SP $
+unless: 太/AD ... 了/SP $
+unless: ... 点/CD 儿/CD $
+unless: ... 极/AD 了/SP $
+unless: ... 死/VV 了/SP $
+unless: ... 坏/VV 了/SP $
+unless: 快/AD ... 了/SP $
+unless: 快/VA ... 了/SP $
+unless: ... /AS 一/CD ... 了/SP $
+unless: 别/AD ... 了/AS $
+unless: ... /VV /VV 了/AS
+unless: ... /VV 到/VV 了/AS
+unless: ... /VV 完/VV 了/AS
+unless: ... /VV 完/VV 了/SP
+unless: ... /VV 赢/VV 了/AS
+unless: ... /VV 过/AS 了/SP
+```
+
+**Notes:** The core pattern is sentence-final 了 (tagged SP or AS) that indicates a change of state. This excludes 了 that comes before objects or complements (tagged AS mid-clause). The rule requires 了 at the end of a clause ($). Negation patterns with 不 or 没有/VE are included. Watch for false positives with 吗 (questions should be excluded), 太 (excessively), and result complements like 坏/死. Duration double-了 is excluded via the "one/CD in middle" pattern.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-40
+  Checking 33 sentence(s) for 1-40 (2 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  [retry] the answer was empty (stop reason: max_tokens); retrying with fewer example sentences
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  [retry] the answer was empty (stop reason: max_tokens); retrying with fewer example sentences
+Traceback (most recent call last):
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 491, in main
+    rule_for(db, c, st, tagger, client, args.first_writer)
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/run_all_grammar.py", line 183, in rule_for
+    new = tg.ask_writer(client, point, prompt, trial_args(), "revise", small_prompt=small)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/try_grammar_rule.py", line 799, in ask_writer
+    raise SystemExit(f"The writer's rule couldn't be read twice: {error}\nLast answer:\n{section}")
+SystemExit: The writer's rule couldn't be read twice: the answer was empty
+Last answer:
+None
+
+########## rules  2026-11-11 14:17 ##########
+  Checking 33 sentence(s) for 1-40 (2 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 1-40: no 'match:' line (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_1-40_20261111_141747.txt)
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  Checking 1 sentence(s) for 1-40 (1 call(s))...
+
+=== A. 1-40: rule on labeled examples (no AI) ===
+  examples of 1-40 matched:    15/36
+  counter-examples wrongly matched: 0/195   <- should be 0
+
+--- examples of 1-40 the rule misses (21) ---
+  知道了。  -- ASGE5Q4J Expressing "now" with "le"
+  懂了。  -- ASGE5Q4J Expressing "now" with "le"
+  我走了。  -- ASGE5Q4J Expressing "now" with "le"
+  他来了。  -- ASGE5Q4J Expressing "now" with "le"
+  我去睡觉了。  -- ASGE5Q4J Expressing "now" with "le"
+  快点儿，开会了！  -- ASGE5Q4J Expressing "now" with "le"
+  你不喜欢我了吗？  -- ASGFR96B Expressing "not anymore" with "le"
+  没有纸了。  -- ASGFR96B Expressing "not anymore" with "le"
+  手机没电了。  -- ASGFR96B Expressing "not anymore" with "le"
+  他没有家了。  -- ASGFR96B Expressing "not anymore" with "le"
+  他已经不在这儿工作了。  -- ASGFR96B Expressing "not anymore" with "le"
+  我们已经没有钱了。  -- ASGFR96B Expressing "not anymore" with "le"
+  我饿了。  -- ASGT185D Change of state with "le"
+  孩子们都累了。  -- ASGT185D Change of state with "le"
+  妈妈老了。  -- ASGT185D Change of state with "le"
+  你胖了。  -- ASGT185D Change of state with "le"
+  宝宝会说话了。  -- ASGT185D Change of state with "le"
+  你有女朋友了？  -- ASGT185D Change of state with "le"
+  我男朋友找到新工作了。  -- ASGT185D Change of state with "le"
+  她病了。/她没病。  -- HSK list example
+  雨小了。/雨没小。  -- HSK list example
+
+########## rules  2026-11-12 17:20 ##########
+Tagging 2 labeled example(s) (cached after this run)...
+  ...100/238
+  ...200/238
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-40: rule on labeled examples (no AI) ===
+  examples of 1-40 matched:    34/36
+  counter-examples wrongly matched: 0/198   <- should be 0
+
+--- examples of 1-40 the rule misses (2) ---
+  宝宝会说话了。  -- ASGT185D Change of state with "le"
+  我男朋友找到新工作了。  -- ASGT185D Change of state with "le"
+  easy examples (words all HSK 1 or below) matched: 16/17   <- needs 60%
+
+########## tatoeba  2026-11-12 17:38 ##########
+Filling 1-40 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-14, 2-15, 2-16, 2-19, 2-21, 2-22, 2-23, 2-24, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-40 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-40 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     5441  2. contain the point's word(s)
+     5430  3. new (not in DB, not a duplicate)
+     1936  4. at most 2 characters outside HSK 1 words
+      245  5. really HSK 1
+      163  5b. no harder grammar point (of the 83 with a rule)
+       13  6. the rule finds 1-40
+        8  6b. no hidden word a learner can't work out
+        5  7. both checks say 1-40, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  我病了。  (I'm sick.)  [tatoeba 2757252]
+  我没时间了。  (I'm out of time.)  [tatoeba 5555760]
+  我们没面包了。  (We don't have any more bread.)  [tatoeba 5706094]
+  你没有时间了。  (You don't have any more time.)  [tatoeba 6148211]
+  我们时间不多了。  (We don't have enough time.)  [tatoeba 426271]
+
+--- dropped at step 3 (11) ---
+  我的表慢了五分钟。  -- already in the database
+  太阳升起来了。  -- already in the database
+  我亲眼看见了。  -- already in the database
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+  你怎么了？  -- already in the database
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你们吃饭了吗？  -- same text as tatoeba 6057697 (translations pooled)
+  我昨天买了这头猪。  -- same text as tatoeba 2737460 (translations pooled)
+  当然了。  -- same text as tatoeba 4970077 (translations pooled)
+  你喝茶了吗？  -- same text as tatoeba 3378195 (translations pooled)
+
+--- dropped at step 4 (3494), first 12 ---
+  我跟父母联络了一下。  -- 5 characters no HSK 1 word uses: 母父络联跟
+  我把旅费耗光了。  -- 5 characters no HSK 1 word uses: 光把旅耗费
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  万一我来晚的话，就别等我了。  -- 4 characters no HSK 1 word uses: 万别就等
+  她的笔迹漂亮极了。  -- 3 characters no HSK 1 word uses: 极笔迹
+  你到了该去理发的时候了。  -- 3 characters no HSK 1 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 1 word uses: 极肚饿
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 7 characters no HSK 1 word uses: 且串但抓烤而肉
+  我昨天买了一支像你那样的笔。  -- 3 characters no HSK 1 word uses: 像支笔
+  她穿了一件红旗袍。  -- 3 characters no HSK 1 word uses: 旗红袍
+  公共汽车上发生什么了？  -- 3 characters no HSK 1 word uses: 共发汽
+  会议明天就结束了。  -- 4 characters no HSK 1 word uses: 就束结议
+
+--- dropped at step 5 (1691), first 12 ---
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  好，定了。  -- level 4: 定 L4
+  你快要走了。  -- level 2: 快要 L2, 走 L2
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 快 L2, 电 L3
+  您可以走了。  -- level 2: 走 L2
+  我马上就到了。  -- level 3: 马上 L3, 就 L2
+  我要回来了。  -- level 2: 回来 L2
+  我给他解释了这件事。  -- level 4: 解释 L4
+  我刚才起床了。  -- level 3: 刚才 L3
+
+--- dropped at step 5b (82), first 12 ---
+  我也去了。  -- harder grammar: 3-60 (HSK 3)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  你十岁了吗？  -- harder grammar: 2-09 (HSK 2)
+  那孩子要六岁了。  -- harder grammar: 2-09 (HSK 2)
+  两年前，我去了中国。  -- harder grammar: 2-09 (HSK 2)
+  你二了。  -- harder grammar: 2-09 (HSK 2)
+  他给了它一个新名字。  -- harder grammar: 2-09 (HSK 2), 2-06 (HSK 2)
+  饭做好了。  -- harder grammar: 2-49 (HSK 2)
+  下了雨。  -- harder grammar: 2-62 (HSK 2)
+  雨下了三天。  -- harder grammar: 2-09 (HSK 2), 2-12 (HSK 2)
+  现在几点了？  -- harder grammar: 2-09 (HSK 2)
+  昨天我卖了两本书。  -- harder grammar: 2-09 (HSK 2)
+
+--- dropped at step 6 (150) ---
+  麦克，你听到了没？  -- rule: unless ... /VV 到/VV 了/AS
+  这本书我昨天买了。  -- rule: no match: line matched
+  你不要学习了。  -- rule: no match: line matched
+  钱太多了吗？  -- rule: no match: line matched
+  我不是来了吗？  -- rule: no match: line matched
+  对了，我明天有事。  -- rule: no match: line matched
+  知道了没有？  -- rule: no match: line matched
+  我爱上了你。  -- rule: no match: line matched
+  我们到了。  -- rule: no match: line matched
+  昨天我去了那里。  -- rule: no match: line matched
+  她问了他问题。  -- rule: no match: line matched
+  她在店里买了什么？  -- rule: no match: line matched
+  我太高兴了！  -- rule: unless 太/AD ... 了/SP $
+  太早了。  -- rule: unless 太/AD ... 了/SP $
+  他去了伦敦。  -- rule: no match: line matched
+  我觉得他病了。  -- rule: no match: line matched
+  狗叫了吗？  -- rule: no match: line matched
+  那里太多人了。  -- rule: unless 太/AD ... 了/SP $
+  我去了医院。  -- rule: no match: line matched
+  爸爸去哪了?  -- rule: no match: line matched
+  我太高兴了。  -- rule: unless 太/AD ... 了/SP $
+  我吃苹果了。  -- rule: no match: line matched
+  我吃了那个苹果。  -- rule: no match: line matched
+  她生病了。  -- rule: no match: line matched
+  你喝茶了吗？  -- rule: no match: line matched
+  你喝茶了吗?  -- rule: no match: line matched
+  现在太晚了。  -- rule: unless 太/AD ... 了/SP $
+  他写了本新书。  -- rule: no match: line matched
+  我们喝了很多。  -- rule: no match: line matched
+  他还说了什么？  -- rule: no match: line matched
+  你喝多了。  -- rule: no match: line matched
+  他们说了些什么？  -- rule: no match: line matched
+  我们来了。  -- rule: no match: line matched
+  不要说话了。  -- rule: no match: line matched
+  有人来了。  -- rule: no match: line matched
+  时间到了。  -- rule: no match: line matched
+  昨天的事真的要谢谢您了。  -- rule: unless 要/VV ... 了/SP $
+  太热了。  -- rule: unless 太/AD ... 了/SP $
+  我写了那些东西。  -- rule: no match: line matched
+  我昨天喝多了  -- rule: no match: line matched
+  他们都做了。  -- rule: no match: line matched
+  我睡了个好觉。  -- rule: no match: line matched
+  她给了他车。  -- rule: no match: line matched
+  她昨天来见我了。  -- rule: no match: line matched
+  你能不说了吗？  -- rule: no match: line matched
+  我觉得你说了什么。  -- rule: no match: line matched
+  你爱上我了？  -- rule: no match: line matched
+  我昨天去见他了。  -- rule: no match: line matched
+  我知道你做了什么。  -- rule: no match: line matched
+  你吃晚饭了吗？  -- rule: no match: line matched
+  真是太好了。  -- rule: unless 太/AD ... 了/SP $
+  你昨天喝茶了吗？  -- rule: no match: line matched
+  你问题太多了  -- rule: unless 太/AD ... 了/SP $
+  谁给了你这些东西？  -- rule: no match: line matched
+  那真是太好了。  -- rule: unless 太/AD ... 了/AS $
+  你去学校了吗？  -- rule: no match: line matched
+  谁来了这里？  -- rule: no match: line matched
+  是晚上了。  -- rule: no match: line matched
+  你们吃饭了吗？  -- rule: no match: line matched
+  你现在可以住口了。  -- rule: no match: line matched
+  大卫吃了很多东西。  -- rule: no match: line matched
+  我买衣服了。  -- rule: no match: line matched
+  我买了衣服了。  -- rule: no match: line matched
+  他去他家了吗？  -- rule: no match: line matched
+  你买了太多面包。  -- rule: no match: line matched
+  到了做点事的时候了。  -- rule: no match: line matched
+  我们要做的工作太多了。  -- rule: unless 太/AD ... 了/SP $ ; 要/VV ... 了/SP $
+  太贵了！  -- rule: unless 太/AD ... 了/SP $
+  他今天见他们了吗？  -- rule: no match: line matched
+  你的电脑怎么了？  -- rule: no match: line matched
+  你做了很多。  -- rule: no match: line matched
+  在这时候，他到了。  -- rule: no match: line matched
+  这个房间太小了。  -- rule: unless 太/AD ... 了/SP $
+  你真是太对了。  -- rule: unless 太/AD ... 了/AS $
+  你们喝多了。  -- rule: no match: line matched
+  你给了他什么？  -- rule: no match: line matched
+  孩子们，起床了！  -- rule: no match: line matched
+  您听到什么了？  -- rule: no match: line matched
+  这太贵了。  -- rule: unless 太/AD ... 了/SP $
+  他说了些什么。  -- rule: no match: line matched
+  你们午饭吃了什么？  -- rule: no match: line matched
+  你在波士顿做了什么？  -- rule: no match: line matched
+  我很高兴你见了他。  -- rule: no match: line matched
+  他去哪买了这些东西？  -- rule: no match: line matched
+  她去哪买了这些东西？  -- rule: no match: line matched
+  他在哪买了那本书？  -- rule: no match: line matched
+  对了！  -- rule: no match: line matched
+  他们对我说话了。  -- rule: no match: line matched
+  他到了吗?  -- rule: no match: line matched
+  我昨天晚上买的书到了。  -- rule: no match: line matched
+  我吃了苹果。  -- rule: no match: line matched
+  明天我要买手机了。  -- rule: unless 要/VV ... 了/SP $
+  她给了他很多钱。  -- rule: no match: line matched
+  我去学校了。  -- rule: no match: line matched
+  她们上了火车。  -- rule: no match: line matched
+  今天来了很多人。  -- rule: no match: line matched
+  我现在要去面包店了。你想要什么吗？  -- rule: unless 要/VV ... 了/AS $
+  我不能买这本书，太贵了。  -- rule: unless 太/AD ... 了/SP $
+  我们的来了。  -- rule: no match: line matched
+  我很高兴你今天来了。  -- rule: no match: line matched
+  我昨天去了学校。  -- rule: no match: line matched
+  牛奶馊了。  -- rule: no match: line matched
+  钱都到哪里去了？  -- rule: no match: line matched
+  我今天没有时间去那里了。  -- rule: no match: line matched
+  昨天我吃了米饭。  -- rule: no match: line matched
+  谁喝了水？  -- rule: no match: line matched
+  你起床了吗？  -- rule: no match: line matched
+  你高兴了吗？  -- rule: no match: line matched
+  我们去了波士顿。  -- rule: no match: line matched
+  我的孩子病了。  -- rule: no match: line matched
+  爸爸，下雨了，我们怎么回家？坐出租车吗？  -- rule: no match: line matched
+  他的女儿怎么了？  -- rule: no match: line matched
+  对不起，今天天气太热了。  -- rule: unless 太/AD ... 了/SP $
+  今天妈妈做了很多菜。  -- rule: no match: line matched
+  今天我妈妈做了很多菜。  -- rule: no match: line matched
+  你女儿怎么了？  -- rule: no match: line matched
+  你朋友的女儿怎么了？  -- rule: no match: line matched
+  我去了长崎。  -- rule: no match: line matched
+  我不是说了没有问题吗？  -- rule: no match: line matched
+  她来了吗？  -- rule: no match: line matched
+  你要回房间了吗?  -- rule: no match: line matched
+  太好了。  -- rule: unless 太/AD ... 了/SP $
+  你问她什么了？  -- rule: no match: line matched
+  他们问了什么？  -- rule: no match: line matched
+  我吃了什么？  -- rule: no match: line matched
+  莎米来了。  -- rule: no match: line matched
+  妈妈买了苹果。  -- rule: no match: line matched
+  我的苹果没了。  -- rule: no match: line matched
+  齐莉给了她一些苹果。  -- rule: no match: line matched
+  我吃了你的苹果。  -- rule: no match: line matched
+  少来了！  -- rule: no match: line matched
+  吃了吗？  -- rule: no match: line matched
+  我吃了。  -- rule: no match: line matched
+  你去玛丽家了。  -- rule: no match: line matched
+  你叫医生了吗？  -- rule: no match: line matched
+  我们买了面包和牛奶。  -- rule: no match: line matched
+  你回家了。  -- rule: no match: line matched
+  太贵了。  -- rule: unless 太/AD ... 了/SP $
+  这太贵了！  -- rule: unless 太/AD ... 了/SP $
+  昨天我休息了。  -- rule: no match: line matched
+  我早上看了电视。  -- rule: no match: line matched
+  你听到什么了吗？  -- rule: no match: line matched
+  谁说话了？  -- rule: no match: line matched
+  “睡了吗？”“还没。”  -- rule: no match: line matched
+  蜀葵开了。  -- rule: no match: line matched
+  水开了。  -- rule: no match: line matched
+  坐飞机太贵了。  -- rule: unless 太/AD ... 了/SP $
+  对了吗？  -- rule: no match: line matched
+  她昨天来了。  -- rule: no match: line matched
+  我今天去了那里。  -- rule: no match: line matched
+
+--- dropped at step 6b (5) ---
+  我再也不喜欢你了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+  汤姆再也不会见你了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+  不下雪了。  -- hidden word a learner can't work out: 不下 (to be not less than (a certain quantity, amount etc)), 下雪 (to snow)
+  朋友们再也不和我说话了。  -- hidden word a learner can't work out: 再也 ((not) any more), 不和 (not to get along well)
+  我再也不能工作了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+
+--- dropped at step 7 (3) ---
+  不坐了。  -- no accurate English among: No more sitting.
+  我没钱了。  -- no accurate English among: I have no money.
+  我觉得他们不会来了。  -- check said no (2/2): 了 here indicates imminent action, not change of state
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-40_level1_20261112_173833.csv
+
+########## tatoeba  2026-11-12 21:14 ##########
+Filling 1-40 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-40 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 2) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-40 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     5441  2. contain the point's word(s)
+     5430  3. new (not in DB, not a duplicate)
+     1936  4. at most 2 characters outside HSK 1 words
+      245  5. really HSK 1
+      162  5b. no harder grammar point (of the 87 with a rule)
+       13  6. the rule finds 1-40
+        8  6b. no hidden word a learner can't work out
+        5  7. both checks say 1-40, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  我病了。  (I'm sick.)  [tatoeba 2757252]
+  我没时间了。  (I'm out of time.)  [tatoeba 5555760]
+  我们没面包了。  (We don't have any more bread.)  [tatoeba 5706094]
+  你没有时间了。  (You don't have any more time.)  [tatoeba 6148211]
+  我们时间不多了。  (We don't have enough time.)  [tatoeba 426271]
+
+--- dropped at step 3 (11) ---
+  我的表慢了五分钟。  -- already in the database
+  太阳升起来了。  -- already in the database
+  我亲眼看见了。  -- already in the database
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+  你怎么了？  -- already in the database
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你们吃饭了吗？  -- same text as tatoeba 6057697 (translations pooled)
+  我昨天买了这头猪。  -- same text as tatoeba 2737460 (translations pooled)
+  当然了。  -- same text as tatoeba 4970077 (translations pooled)
+  你喝茶了吗？  -- same text as tatoeba 3378195 (translations pooled)
+
+--- dropped at step 4 (3494), first 12 ---
+  我跟父母联络了一下。  -- 5 characters no HSK 1 word uses: 母父络联跟
+  我把旅费耗光了。  -- 5 characters no HSK 1 word uses: 光把旅耗费
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  万一我来晚的话，就别等我了。  -- 4 characters no HSK 1 word uses: 万别就等
+  她的笔迹漂亮极了。  -- 3 characters no HSK 1 word uses: 极笔迹
+  你到了该去理发的时候了。  -- 3 characters no HSK 1 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 1 word uses: 极肚饿
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 7 characters no HSK 1 word uses: 且串但抓烤而肉
+  我昨天买了一支像你那样的笔。  -- 3 characters no HSK 1 word uses: 像支笔
+  她穿了一件红旗袍。  -- 3 characters no HSK 1 word uses: 旗红袍
+  公共汽车上发生什么了？  -- 3 characters no HSK 1 word uses: 共发汽
+  会议明天就结束了。  -- 4 characters no HSK 1 word uses: 就束结议
+
+--- dropped at step 5 (1691), first 12 ---
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  好，定了。  -- level 4: 定 L4
+  你快要走了。  -- level 2: 快要 L2, 走 L2
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 快 L2, 电 L3
+  您可以走了。  -- level 2: 走 L2
+  我马上就到了。  -- level 3: 马上 L3, 就 L2
+  我要回来了。  -- level 2: 回来 L2
+  我给他解释了这件事。  -- level 4: 解释 L4
+  我刚才起床了。  -- level 3: 刚才 L3
+
+--- dropped at step 5b (83), first 12 ---
+  我也去了。  -- harder grammar: 3-60 (HSK 3)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  你十岁了吗？  -- harder grammar: 2-09 (HSK 2)
+  那孩子要六岁了。  -- harder grammar: 2-09 (HSK 2)
+  两年前，我去了中国。  -- harder grammar: 2-09 (HSK 2)
+  你二了。  -- harder grammar: 2-09 (HSK 2)
+  他给了它一个新名字。  -- harder grammar: 2-09 (HSK 2), 2-06 (HSK 2)
+  饭做好了。  -- harder grammar: 2-49 (HSK 2)
+  下了雨。  -- harder grammar: 2-62 (HSK 2)
+  雨下了三天。  -- harder grammar: 2-09 (HSK 2), 2-12 (HSK 2)
+  现在几点了？  -- harder grammar: 2-09 (HSK 2)
+  昨天我卖了两本书。  -- harder grammar: 2-09 (HSK 2)
+
+--- dropped at step 6 (149) ---
+  麦克，你听到了没？  -- rule: unless ... /VV 到/VV 了/AS
+  这本书我昨天买了。  -- rule: no match: line matched
+  你不要学习了。  -- rule: no match: line matched
+  钱太多了吗？  -- rule: no match: line matched
+  我不是来了吗？  -- rule: no match: line matched
+  对了，我明天有事。  -- rule: no match: line matched
+  知道了没有？  -- rule: no match: line matched
+  我爱上了你。  -- rule: no match: line matched
+  我们到了。  -- rule: no match: line matched
+  昨天我去了那里。  -- rule: no match: line matched
+  她问了他问题。  -- rule: no match: line matched
+  她在店里买了什么？  -- rule: no match: line matched
+  我太高兴了！  -- rule: unless 太/AD ... 了/SP $
+  太早了。  -- rule: unless 太/AD ... 了/SP $
+  他去了伦敦。  -- rule: no match: line matched
+  我觉得他病了。  -- rule: no match: line matched
+  狗叫了吗？  -- rule: no match: line matched
+  那里太多人了。  -- rule: unless 太/AD ... 了/SP $
+  我去了医院。  -- rule: no match: line matched
+  爸爸去哪了?  -- rule: no match: line matched
+  我太高兴了。  -- rule: unless 太/AD ... 了/SP $
+  我吃苹果了。  -- rule: no match: line matched
+  我吃了那个苹果。  -- rule: no match: line matched
+  她生病了。  -- rule: no match: line matched
+  你喝茶了吗？  -- rule: no match: line matched
+  你喝茶了吗?  -- rule: no match: line matched
+  现在太晚了。  -- rule: unless 太/AD ... 了/SP $
+  他写了本新书。  -- rule: no match: line matched
+  我们喝了很多。  -- rule: no match: line matched
+  他还说了什么？  -- rule: no match: line matched
+  你喝多了。  -- rule: no match: line matched
+  他们说了些什么？  -- rule: no match: line matched
+  我们来了。  -- rule: no match: line matched
+  不要说话了。  -- rule: no match: line matched
+  有人来了。  -- rule: no match: line matched
+  时间到了。  -- rule: no match: line matched
+  昨天的事真的要谢谢您了。  -- rule: unless 要/VV ... 了/SP $
+  太热了。  -- rule: unless 太/AD ... 了/SP $
+  我写了那些东西。  -- rule: no match: line matched
+  我昨天喝多了  -- rule: no match: line matched
+  他们都做了。  -- rule: no match: line matched
+  我睡了个好觉。  -- rule: no match: line matched
+  她给了他车。  -- rule: no match: line matched
+  她昨天来见我了。  -- rule: no match: line matched
+  你能不说了吗？  -- rule: no match: line matched
+  我觉得你说了什么。  -- rule: no match: line matched
+  你爱上我了？  -- rule: no match: line matched
+  我昨天去见他了。  -- rule: no match: line matched
+  我知道你做了什么。  -- rule: no match: line matched
+  你吃晚饭了吗？  -- rule: no match: line matched
+  真是太好了。  -- rule: unless 太/AD ... 了/SP $
+  你昨天喝茶了吗？  -- rule: no match: line matched
+  你问题太多了  -- rule: unless 太/AD ... 了/SP $
+  谁给了你这些东西？  -- rule: no match: line matched
+  那真是太好了。  -- rule: unless 太/AD ... 了/AS $
+  你去学校了吗？  -- rule: no match: line matched
+  谁来了这里？  -- rule: no match: line matched
+  是晚上了。  -- rule: no match: line matched
+  你们吃饭了吗？  -- rule: no match: line matched
+  你现在可以住口了。  -- rule: no match: line matched
+  大卫吃了很多东西。  -- rule: no match: line matched
+  我买衣服了。  -- rule: no match: line matched
+  我买了衣服了。  -- rule: no match: line matched
+  他去他家了吗？  -- rule: no match: line matched
+  你买了太多面包。  -- rule: no match: line matched
+  到了做点事的时候了。  -- rule: no match: line matched
+  我们要做的工作太多了。  -- rule: unless 太/AD ... 了/SP $ ; 要/VV ... 了/SP $
+  太贵了！  -- rule: unless 太/AD ... 了/SP $
+  他今天见他们了吗？  -- rule: no match: line matched
+  你的电脑怎么了？  -- rule: no match: line matched
+  你做了很多。  -- rule: no match: line matched
+  在这时候，他到了。  -- rule: no match: line matched
+  这个房间太小了。  -- rule: unless 太/AD ... 了/SP $
+  你真是太对了。  -- rule: unless 太/AD ... 了/AS $
+  你们喝多了。  -- rule: no match: line matched
+  你给了他什么？  -- rule: no match: line matched
+  孩子们，起床了！  -- rule: no match: line matched
+  您听到什么了？  -- rule: no match: line matched
+  这太贵了。  -- rule: unless 太/AD ... 了/SP $
+  他说了些什么。  -- rule: no match: line matched
+  你们午饭吃了什么？  -- rule: no match: line matched
+  你在波士顿做了什么？  -- rule: no match: line matched
+  我很高兴你见了他。  -- rule: no match: line matched
+  他去哪买了这些东西？  -- rule: no match: line matched
+  她去哪买了这些东西？  -- rule: no match: line matched
+  他在哪买了那本书？  -- rule: no match: line matched
+  对了！  -- rule: no match: line matched
+  他到了吗?  -- rule: no match: line matched
+  我昨天晚上买的书到了。  -- rule: no match: line matched
+  我吃了苹果。  -- rule: no match: line matched
+  明天我要买手机了。  -- rule: unless 要/VV ... 了/SP $
+  她给了他很多钱。  -- rule: no match: line matched
+  我去学校了。  -- rule: no match: line matched
+  她们上了火车。  -- rule: no match: line matched
+  今天来了很多人。  -- rule: no match: line matched
+  我现在要去面包店了。你想要什么吗？  -- rule: unless 要/VV ... 了/AS $
+  我不能买这本书，太贵了。  -- rule: unless 太/AD ... 了/SP $
+  我们的来了。  -- rule: no match: line matched
+  我很高兴你今天来了。  -- rule: no match: line matched
+  我昨天去了学校。  -- rule: no match: line matched
+  牛奶馊了。  -- rule: no match: line matched
+  钱都到哪里去了？  -- rule: no match: line matched
+  我今天没有时间去那里了。  -- rule: no match: line matched
+  昨天我吃了米饭。  -- rule: no match: line matched
+  谁喝了水？  -- rule: no match: line matched
+  你起床了吗？  -- rule: no match: line matched
+  你高兴了吗？  -- rule: no match: line matched
+  我们去了波士顿。  -- rule: no match: line matched
+  我的孩子病了。  -- rule: no match: line matched
+  爸爸，下雨了，我们怎么回家？坐出租车吗？  -- rule: no match: line matched
+  他的女儿怎么了？  -- rule: no match: line matched
+  对不起，今天天气太热了。  -- rule: unless 太/AD ... 了/SP $
+  今天妈妈做了很多菜。  -- rule: no match: line matched
+  今天我妈妈做了很多菜。  -- rule: no match: line matched
+  你女儿怎么了？  -- rule: no match: line matched
+  你朋友的女儿怎么了？  -- rule: no match: line matched
+  我去了长崎。  -- rule: no match: line matched
+  我不是说了没有问题吗？  -- rule: no match: line matched
+  她来了吗？  -- rule: no match: line matched
+  你要回房间了吗?  -- rule: no match: line matched
+  太好了。  -- rule: unless 太/AD ... 了/SP $
+  你问她什么了？  -- rule: no match: line matched
+  他们问了什么？  -- rule: no match: line matched
+  我吃了什么？  -- rule: no match: line matched
+  莎米来了。  -- rule: no match: line matched
+  妈妈买了苹果。  -- rule: no match: line matched
+  我的苹果没了。  -- rule: no match: line matched
+  齐莉给了她一些苹果。  -- rule: no match: line matched
+  我吃了你的苹果。  -- rule: no match: line matched
+  少来了！  -- rule: no match: line matched
+  吃了吗？  -- rule: no match: line matched
+  我吃了。  -- rule: no match: line matched
+  你去玛丽家了。  -- rule: no match: line matched
+  你叫医生了吗？  -- rule: no match: line matched
+  我们买了面包和牛奶。  -- rule: no match: line matched
+  你回家了。  -- rule: no match: line matched
+  太贵了。  -- rule: unless 太/AD ... 了/SP $
+  这太贵了！  -- rule: unless 太/AD ... 了/SP $
+  昨天我休息了。  -- rule: no match: line matched
+  我早上看了电视。  -- rule: no match: line matched
+  你听到什么了吗？  -- rule: no match: line matched
+  谁说话了？  -- rule: no match: line matched
+  “睡了吗？”“还没。”  -- rule: no match: line matched
+  蜀葵开了。  -- rule: no match: line matched
+  水开了。  -- rule: no match: line matched
+  坐飞机太贵了。  -- rule: unless 太/AD ... 了/SP $
+  对了吗？  -- rule: no match: line matched
+  她昨天来了。  -- rule: no match: line matched
+  我今天去了那里。  -- rule: no match: line matched
+
+--- dropped at step 6b (5) ---
+  我再也不喜欢你了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+  汤姆再也不会见你了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+  不下雪了。  -- hidden word a learner can't work out: 不下 (to be not less than (a certain quantity, amount etc)), 下雪 (to snow)
+  朋友们再也不和我说话了。  -- hidden word a learner can't work out: 再也 ((not) any more), 不和 (not to get along well)
+  我再也不能工作了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+
+--- dropped at step 7 (3) ---
+  不坐了。  -- no accurate English among: No more sitting.
+  我没钱了。  -- no accurate English among: I have no money.
+  我觉得他们不会来了。  -- check said no (2/2): 了 here indicates imminent action, not change of state
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-40_level1_20261112_211433.csv
+
+########## rules  2026-11-13 13:47 ##########
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 1-40
+<!-- written by claude-haiku-4-5 on 2026-11-13; edit freely -->
+**Point:** Expressing change of state or a new situation with sentence-final 了
+
+**Covers:** 
+- Adjectives indicating a change of state (我饿了、你胖了)
+- Verbs indicating a new situation or change (他来了、下雨了、我走了)
+- Negative constructions indicating "not anymore" (我不想吃了、没有纸了、他没有家了)
+- Idiomatic expressions of "now" (知道了、懂了、吃饭了、上课了)
+
+**Does not cover:**
+- Completion aspect with 了 after the verb before an object (我做完了工作、他找到新工作)
+- Potential complements (动词+得了/不了)
+- Duration with double 了 (你睡了一天了)
+- Completion markers with objects (我买到了票)
+- Adjective modifiers with 了点儿 (好像短了点儿)
+- Degree complements (极了、死了、坏了 as morphological compounds)
+- Questions with 了吗 when they ask about past completion (吃了吗、看过了吗)
+- Sentences where 快/要/就 precede the verb (天快黑了、我要生气了)
+- Duration with 了...了 pattern (这个会开了两个小时了)
+- Expressive 太...了 (太好了、太脏了)
+
+```rule
+match: ... /VA|VV 了/SP $
+match: ... /VE|AD 不/AD /VV|VE ... 了/SP $
+match: ... /VE 没有/VE ... 了/SP $
+
+unless: _ 了/AS _
+unless: 太/AD _ 了/SP $
+unless: _ 了/AS 点/CD
+unless: _ 快/AD
+unless: _ 快要/AD
+unless: _ 要/VV
+unless: _ 就要/AD
+unless: _ 了/SP 一/CD _|NT 了/SP
+unless: /AD 极/AD 了/SP $
+unless: /VA 死/VV 了/SP $
+unless: /VA|VV 坏/VV 了/SP $
+unless: 了/AS 吗/SP $
+unless: 过/AS 了/SP $
+```
+
+**Notes:** The rule uses sentence-final position (ending with 了/SP) to distinguish change-of-state 了 from completion aspect 了/AS before objects. Negation patterns require either 不 or 没有 before the verb/noun. The unless clauses filter out common competing patterns: completion before objects (了/AS _), degree expressions (极了、死了、坏了、太...了), duration double-了, past tense questions (了吗), perfective aspect (了点儿), and imminent future (快/要/就). Note that some counter-examples show tagging inconsistency (了 tagged as AS vs SP); the rule prioritizes sentence-final SP marking as the signal for change-of-state.
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 1-40
+  Checking 8 sentence(s) for 1-40 (1 call(s))...
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 1-40: rule on labeled examples (no AI) ===
+  examples of 1-40 matched:    30/36
+  counter-examples wrongly matched: 0/195   <- should be 0
+
+--- examples of 1-40 the rule misses (6) ---
+  上课了！  -- ASGE5Q4J Expressing "now" with "le"
+  我去睡觉了。  -- ASGE5Q4J Expressing "now" with "le"
+  快点儿，开会了！  -- ASGE5Q4J Expressing "now" with "le"
+  孩子们都累了。  -- ASGT185D Change of state with "le"
+  你是不是生气了？  -- ASGT185D Change of state with "le"
+  宝宝会说话了。  -- ASGT185D Change of state with "le"
+  easy examples (words all HSK 1 or below) matched: 15/17   <- needs 60%
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 1-40 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-40 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) (20 sentences each)...
+
+=== 1-40 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     5441  2. contain the point's word(s)
+     5430  3. new (not in DB, not a duplicate)
+     1936  4. at most 2 characters outside HSK 1 words
+      245  5. really HSK 1
+      162  5b. no harder grammar point (of the 87 with a rule)
+       13  6. the rule finds 1-40
+        9  6b. no hidden word a learner can't work out
+        5  7. both checks say 1-40, English chosen
+        5  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (5) ===
+  我病了。  (I'm sick.)  [tatoeba 2757252]
+  我没时间了。  (I'm out of time.)  [tatoeba 5555760]
+  我们没面包了。  (We don't have any more bread.)  [tatoeba 5706094]
+  你没有时间了。  (You don't have any more time.)  [tatoeba 6148211]
+  我们时间不多了。  (We don't have enough time.)  [tatoeba 426271]
+
+--- dropped at step 3 (11) ---
+  我的表慢了五分钟。  -- already in the database
+  太阳升起来了。  -- already in the database
+  我亲眼看见了。  -- already in the database
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+  你怎么了？  -- already in the database
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你们吃饭了吗？  -- same text as tatoeba 6057697 (translations pooled)
+  我昨天买了这头猪。  -- same text as tatoeba 2737460 (translations pooled)
+  当然了。  -- same text as tatoeba 4970077 (translations pooled)
+  你喝茶了吗？  -- same text as tatoeba 3378195 (translations pooled)
+
+--- dropped at step 4 (3494), first 12 ---
+  我跟父母联络了一下。  -- 5 characters no HSK 1 word uses: 母父络联跟
+  我把旅费耗光了。  -- 5 characters no HSK 1 word uses: 光把旅耗费
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  万一我来晚的话，就别等我了。  -- 4 characters no HSK 1 word uses: 万别就等
+  她的笔迹漂亮极了。  -- 3 characters no HSK 1 word uses: 极笔迹
+  你到了该去理发的时候了。  -- 3 characters no HSK 1 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 1 word uses: 极肚饿
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 7 characters no HSK 1 word uses: 且串但抓烤而肉
+  我昨天买了一支像你那样的笔。  -- 3 characters no HSK 1 word uses: 像支笔
+  她穿了一件红旗袍。  -- 3 characters no HSK 1 word uses: 旗红袍
+  公共汽车上发生什么了？  -- 3 characters no HSK 1 word uses: 共发汽
+  会议明天就结束了。  -- 4 characters no HSK 1 word uses: 就束结议
+
+--- dropped at step 5 (1691), first 12 ---
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  好，定了。  -- level 4: 定 L4
+  你快要走了。  -- level 2: 快要 L2, 走 L2
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 快 L2, 电 L3
+  您可以走了。  -- level 2: 走 L2
+  我马上就到了。  -- level 3: 马上 L3, 就 L2
+  我要回来了。  -- level 2: 回来 L2
+  我给他解释了这件事。  -- level 4: 解释 L4
+  我刚才起床了。  -- level 3: 刚才 L3
+
+--- dropped at step 5b (83), first 12 ---
+  我也去了。  -- harder grammar: 3-60 (HSK 3)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  你十岁了吗？  -- harder grammar: 2-09 (HSK 2)
+  那孩子要六岁了。  -- harder grammar: 2-09 (HSK 2)
+  两年前，我去了中国。  -- harder grammar: 2-09 (HSK 2)
+  你二了。  -- harder grammar: 2-09 (HSK 2)
+  他给了它一个新名字。  -- harder grammar: 2-09 (HSK 2), 2-06 (HSK 3)
+  饭做好了。  -- harder grammar: 2-49 (HSK 2)
+  下了雨。  -- harder grammar: 2-62 (HSK 3)
+  雨下了三天。  -- harder grammar: 2-09 (HSK 2), 2-12 (HSK 2)
+  现在几点了？  -- harder grammar: 2-09 (HSK 2)
+  昨天我卖了两本书。  -- harder grammar: 2-09 (HSK 2)
+
+--- dropped at step 6 (149) ---
+  麦克，你听到了没？  -- rule: unless 了/AS _
+  这本书我昨天买了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  你不要学习了。  -- rule: no match: line matched
+  钱太多了吗？  -- rule: unless 了/AS _ ; 太/AD ; 了/AS 吗/SP
+  我不是来了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  对了，我明天有事。  -- rule: no match: line matched
+  知道了没有？  -- rule: unless 了/AS _
+  我爱上了你。  -- rule: unless 了/AS _
+  我们到了。  -- rule: no match: line matched
+  昨天我去了那里。  -- rule: unless 了/AS _ ; 昨天|上周|去年|刚才|昨晚/NT
+  她问了他问题。  -- rule: unless 了/AS _
+  她在店里买了什么？  -- rule: unless 了/AS _
+  我太高兴了！  -- rule: unless 太/AD
+  太早了。  -- rule: unless 太/AD
+  他去了伦敦。  -- rule: unless 了/AS _
+  我觉得他病了。  -- rule: no match: line matched
+  狗叫了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  那里太多人了。  -- rule: unless 太/AD
+  我去了医院。  -- rule: unless 了/AS _
+  爸爸去哪了?  -- rule: no match: line matched
+  我太高兴了。  -- rule: unless 太/AD
+  我吃苹果了。  -- rule: no match: line matched
+  我吃了那个苹果。  -- rule: unless 了/AS _
+  她生病了。  -- rule: no match: line matched
+  你喝茶了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你喝茶了吗?  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  现在太晚了。  -- rule: unless 太/AD
+  他写了本新书。  -- rule: unless 了/AS _
+  我们喝了很多。  -- rule: unless 了/AS _
+  他还说了什么？  -- rule: unless 了/AS _
+  你喝多了。  -- rule: no match: line matched
+  他们说了些什么？  -- rule: unless 了/AS _
+  我们来了。  -- rule: no match: line matched
+  不要说话了。  -- rule: no match: line matched
+  有人来了。  -- rule: no match: line matched
+  时间到了。  -- rule: no match: line matched
+  昨天的事真的要谢谢您了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  太热了。  -- rule: unless 太/AD
+  我写了那些东西。  -- rule: unless 了/AS _
+  我昨天喝多了  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  他们都做了。  -- rule: no match: line matched
+  我睡了个好觉。  -- rule: unless 了/AS _
+  她给了他车。  -- rule: unless 了/AS _
+  她昨天来见我了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  你能不说了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  我觉得你说了什么。  -- rule: unless 了/AS _
+  你爱上我了？  -- rule: no match: line matched
+  我昨天去见他了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  我知道你做了什么。  -- rule: unless 了/AS _
+  你吃晚饭了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  真是太好了。  -- rule: unless 太/AD
+  你昨天喝茶了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP ; 昨天|上周|去年|刚才|昨晚/NT
+  你问题太多了  -- rule: unless 太/AD
+  谁给了你这些东西？  -- rule: unless 了/AS _
+  那真是太好了。  -- rule: unless 太/AD
+  你去学校了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  谁来了这里？  -- rule: unless 了/AS _
+  是晚上了。  -- rule: no match: line matched
+  你们吃饭了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你现在可以住口了。  -- rule: no match: line matched
+  大卫吃了很多东西。  -- rule: unless 了/AS _
+  我买衣服了。  -- rule: no match: line matched
+  我买了衣服了。  -- rule: unless 了/AS _
+  他去他家了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你买了太多面包。  -- rule: unless 了/AS _ ; 太/AD
+  到了做点事的时候了。  -- rule: unless 了/AS _
+  我们要做的工作太多了。  -- rule: unless 太/AD
+  太贵了！  -- rule: unless 太/AD
+  他今天见他们了吗？  -- rule: no match: line matched
+  你的电脑怎么了？  -- rule: no match: line matched
+  你做了很多。  -- rule: unless 了/AS _
+  在这时候，他到了。  -- rule: no match: line matched
+  这个房间太小了。  -- rule: unless 太/AD
+  你真是太对了。  -- rule: unless 太/AD
+  你们喝多了。  -- rule: no match: line matched
+  你给了他什么？  -- rule: unless 了/AS _
+  孩子们，起床了！  -- rule: no match: line matched
+  您听到什么了？  -- rule: no match: line matched
+  这太贵了。  -- rule: unless 太/AD
+  他说了些什么。  -- rule: unless 了/AS _
+  你们午饭吃了什么？  -- rule: unless 了/AS _
+  你在波士顿做了什么？  -- rule: unless 了/AS _
+  我很高兴你见了他。  -- rule: unless 了/AS _
+  他去哪买了这些东西？  -- rule: unless 了/AS _
+  她去哪买了这些东西？  -- rule: unless 了/AS _
+  他在哪买了那本书？  -- rule: unless 了/AS _
+  对了！  -- rule: no match: line matched
+  他到了吗?  -- rule: no match: line matched
+  我昨天晚上买的书到了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  我吃了苹果。  -- rule: unless 了/AS _
+  明天我要买手机了。  -- rule: no match: line matched
+  她给了他很多钱。  -- rule: unless 了/AS _
+  我去学校了。  -- rule: no match: line matched
+  她们上了火车。  -- rule: unless 了/AS _
+  今天来了很多人。  -- rule: unless 了/AS _
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  我不能买这本书，太贵了。  -- rule: unless 太/AD
+  我们的来了。  -- rule: no match: line matched
+  我很高兴你今天来了。  -- rule: no match: line matched
+  我昨天去了学校。  -- rule: unless 了/AS _ ; 昨天|上周|去年|刚才|昨晚/NT
+  牛奶馊了。  -- rule: no match: line matched
+  钱都到哪里去了？  -- rule: no match: line matched
+  我今天没有时间去那里了。  -- rule: no match: line matched
+  昨天我吃了米饭。  -- rule: unless 了/AS _ ; 昨天|上周|去年|刚才|昨晚/NT
+  谁喝了水？  -- rule: unless 了/AS _
+  你起床了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你高兴了吗？  -- rule: no match: line matched
+  我们去了波士顿。  -- rule: unless 了/AS _
+  我的孩子病了。  -- rule: no match: line matched
+  他的女儿怎么了？  -- rule: no match: line matched
+  对不起，今天天气太热了。  -- rule: unless 太/AD
+  今天妈妈做了很多菜。  -- rule: unless 了/AS _
+  今天我妈妈做了很多菜。  -- rule: unless 了/AS _
+  你女儿怎么了？  -- rule: no match: line matched
+  你朋友的女儿怎么了？  -- rule: no match: line matched
+  我去了长崎。  -- rule: unless 了/AS _
+  我不是说了没有问题吗？  -- rule: unless 了/AS _
+  她来了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你要回房间了吗?  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: no match: line matched
+  太好了。  -- rule: unless 太/AD
+  你问她什么了？  -- rule: no match: line matched
+  他们问了什么？  -- rule: unless 了/AS _
+  我吃了什么？  -- rule: unless 了/AS _
+  莎米来了。  -- rule: no match: line matched
+  妈妈买了苹果。  -- rule: unless 了/AS _
+  我的苹果没了。  -- rule: no match: line matched
+  齐莉给了她一些苹果。  -- rule: unless 了/AS _
+  我吃了你的苹果。  -- rule: unless 了/AS _
+  少来了！  -- rule: no match: line matched
+  吃了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  我吃了。  -- rule: no match: line matched
+  你去玛丽家了。  -- rule: no match: line matched
+  你叫医生了吗？  -- rule: no match: line matched
+  我们买了面包和牛奶。  -- rule: unless 了/AS _
+  你回家了。  -- rule: no match: line matched
+  太贵了。  -- rule: unless 太/AD
+  这太贵了！  -- rule: unless 太/AD
+  昨天我休息了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  我早上看了电视。  -- rule: unless 了/AS _
+  你听到什么了吗？  -- rule: no match: line matched
+  谁说话了？  -- rule: no match: line matched
+  “睡了吗？”“还没。”  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  蜀葵开了。  -- rule: no match: line matched
+  水开了。  -- rule: no match: line matched
+  坐飞机太贵了。  -- rule: unless 太/AD
+  对了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  她昨天来了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  我今天去了那里。  -- rule: unless 了/AS _
+
+--- dropped at step 6b (4) ---
+  我再也不喜欢你了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+  汤姆再也不会见你了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+  不下雪了。  -- hidden word a learner can't work out: 不下 (to be not less than (a certain quantity, amount etc)), 下雪 (to snow)
+  我再也不能工作了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+
+--- dropped at step 7 (4) ---
+  不坐了。  -- no accurate English among: No more sitting.
+  我没钱了。  -- no accurate English among: I have no money.
+  我觉得他们不会来了。  -- check said no (2/2): 了 here indicates imminent action, not change of state
+  爸爸，下雨了，我们怎么回家？坐出租车吗？  -- check said no (1/2): 了 expresses completion, not change of state
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-40_level1_20261113_135410.csv
+
+########## tatoeba  2026-11-13 14:42 ##########
+Filling 1-40 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+    hidden  不下 = 不 + 下  (to be not less than (a certain quantity,)
+
+Course sentences at HSK 1 the rule already finds 1-40 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 4 check and 0 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 1-40 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     5441  2. contain the point's word(s)
+     5430  3. new (not in DB, not a duplicate)
+     1936  4. at most 2 characters outside HSK 1 words
+      245  5. really HSK 1
+      162  5b. no harder grammar point (of the 87 with a rule)
+       13  6. the rule finds 1-40
+        9  6b. no hidden word a learner can't work out
+        5  7. both checks say 1-40, English chosen
+        2  7b. second opinion: it is the point (check)
+        5  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  我病了。  (I'm sick.)  [tatoeba 2757252]
+  我没时间了。  (I'm out of time.)  [tatoeba 5555760]
+  我们没面包了。  (We don't have any more bread.)  [tatoeba 5706094]
+  你没有时间了。  (You don't have any more time.)  [tatoeba 6148211]
+  我们时间不多了。  (We don't have enough time.)  [tatoeba 426271]
+  我觉得他们不会来了。  (I don't think they're coming.)  [tatoeba 4764587]  hidden: 不会
+  爸爸，下雨了，我们怎么回家？坐出租车吗？  (Dad, it's raining, how're we gonna get home? Take a taxi?)  [tatoeba 10961058]  hidden: 回家
+
+--- dropped at step 3 (11) ---
+  我的表慢了五分钟。  -- already in the database
+  太阳升起来了。  -- already in the database
+  我亲眼看见了。  -- already in the database
+  我认为我们准备好了。  -- same text as tatoeba 5500612 (translations pooled)
+  我只睡了两小时。  -- same text as tatoeba 6047457 (translations pooled)
+  你怎么了？  -- already in the database
+  汤姆错了。  -- same text as tatoeba 6293100 (translations pooled)
+  你们吃饭了吗？  -- same text as tatoeba 6057697 (translations pooled)
+  我昨天买了这头猪。  -- same text as tatoeba 2737460 (translations pooled)
+  当然了。  -- same text as tatoeba 4970077 (translations pooled)
+  你喝茶了吗？  -- same text as tatoeba 3378195 (translations pooled)
+
+--- dropped at step 4 (3494), first 12 ---
+  我跟父母联络了一下。  -- 5 characters no HSK 1 word uses: 母父络联跟
+  我把旅费耗光了。  -- 5 characters no HSK 1 word uses: 光把旅耗费
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  万一我来晚的话，就别等我了。  -- 4 characters no HSK 1 word uses: 万别就等
+  她的笔迹漂亮极了。  -- 3 characters no HSK 1 word uses: 极笔迹
+  你到了该去理发的时候了。  -- 3 characters no HSK 1 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 1 word uses: 极肚饿
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 7 characters no HSK 1 word uses: 且串但抓烤而肉
+  我昨天买了一支像你那样的笔。  -- 3 characters no HSK 1 word uses: 像支笔
+  她穿了一件红旗袍。  -- 3 characters no HSK 1 word uses: 旗红袍
+  公共汽车上发生什么了？  -- 3 characters no HSK 1 word uses: 共发汽
+  会议明天就结束了。  -- 4 characters no HSK 1 word uses: 就束结议
+
+--- dropped at step 5 (1691), first 12 ---
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  好，定了。  -- level 4: 定 L4
+  你快要走了。  -- level 2: 快要 L2, 走 L2
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 快 L2, 电 L3
+  您可以走了。  -- level 2: 走 L2
+  我马上就到了。  -- level 3: 马上 L3, 就 L2
+  我要回来了。  -- level 2: 回来 L2
+  我给他解释了这件事。  -- level 4: 解释 L4
+  我刚才起床了。  -- level 3: 刚才 L3
+
+--- dropped at step 5b (83), first 12 ---
+  我也去了。  -- harder grammar: 3-60 (HSK 3)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  你十岁了吗？  -- harder grammar: 2-09 (HSK 2)
+  那孩子要六岁了。  -- harder grammar: 2-09 (HSK 2)
+  两年前，我去了中国。  -- harder grammar: 2-09 (HSK 2)
+  你二了。  -- harder grammar: 2-09 (HSK 2)
+  他给了它一个新名字。  -- harder grammar: 2-09 (HSK 2), 2-06 (HSK 2)
+  饭做好了。  -- harder grammar: 2-49 (HSK 2)
+  下了雨。  -- harder grammar: 2-62 (HSK 3)
+  雨下了三天。  -- harder grammar: 2-09 (HSK 2), 2-12 (HSK 2)
+  现在几点了？  -- harder grammar: 2-09 (HSK 2)
+  昨天我卖了两本书。  -- harder grammar: 2-09 (HSK 2)
+
+--- dropped at step 6 (149) ---
+  麦克，你听到了没？  -- rule: unless 了/AS _
+  这本书我昨天买了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  你不要学习了。  -- rule: no match: line matched
+  钱太多了吗？  -- rule: unless 了/AS _ ; 太/AD ; 了/AS 吗/SP
+  我不是来了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  对了，我明天有事。  -- rule: no match: line matched
+  知道了没有？  -- rule: unless 了/AS _
+  我爱上了你。  -- rule: unless 了/AS _
+  我们到了。  -- rule: no match: line matched
+  昨天我去了那里。  -- rule: unless 了/AS _ ; 昨天|上周|去年|刚才|昨晚/NT
+  她问了他问题。  -- rule: unless 了/AS _
+  她在店里买了什么？  -- rule: unless 了/AS _
+  我太高兴了！  -- rule: unless 太/AD
+  太早了。  -- rule: unless 太/AD
+  他去了伦敦。  -- rule: unless 了/AS _
+  我觉得他病了。  -- rule: no match: line matched
+  狗叫了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  那里太多人了。  -- rule: unless 太/AD
+  我去了医院。  -- rule: unless 了/AS _
+  爸爸去哪了?  -- rule: no match: line matched
+  我太高兴了。  -- rule: unless 太/AD
+  我吃苹果了。  -- rule: no match: line matched
+  我吃了那个苹果。  -- rule: unless 了/AS _
+  她生病了。  -- rule: no match: line matched
+  你喝茶了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你喝茶了吗?  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  现在太晚了。  -- rule: unless 太/AD
+  他写了本新书。  -- rule: unless 了/AS _
+  我们喝了很多。  -- rule: unless 了/AS _
+  他还说了什么？  -- rule: unless 了/AS _
+  你喝多了。  -- rule: no match: line matched
+  他们说了些什么？  -- rule: unless 了/AS _
+  我们来了。  -- rule: no match: line matched
+  不要说话了。  -- rule: no match: line matched
+  有人来了。  -- rule: no match: line matched
+  时间到了。  -- rule: no match: line matched
+  昨天的事真的要谢谢您了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  太热了。  -- rule: unless 太/AD
+  我写了那些东西。  -- rule: unless 了/AS _
+  我昨天喝多了  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  他们都做了。  -- rule: no match: line matched
+  我睡了个好觉。  -- rule: unless 了/AS _
+  她给了他车。  -- rule: unless 了/AS _
+  她昨天来见我了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  你能不说了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  我觉得你说了什么。  -- rule: unless 了/AS _
+  你爱上我了？  -- rule: no match: line matched
+  我昨天去见他了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  我知道你做了什么。  -- rule: unless 了/AS _
+  你吃晚饭了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  真是太好了。  -- rule: unless 太/AD
+  你昨天喝茶了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP ; 昨天|上周|去年|刚才|昨晚/NT
+  你问题太多了  -- rule: unless 太/AD
+  谁给了你这些东西？  -- rule: unless 了/AS _
+  那真是太好了。  -- rule: unless 太/AD
+  你去学校了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  谁来了这里？  -- rule: unless 了/AS _
+  是晚上了。  -- rule: no match: line matched
+  你们吃饭了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你现在可以住口了。  -- rule: no match: line matched
+  大卫吃了很多东西。  -- rule: unless 了/AS _
+  我买衣服了。  -- rule: no match: line matched
+  我买了衣服了。  -- rule: unless 了/AS _
+  他去他家了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你买了太多面包。  -- rule: unless 了/AS _ ; 太/AD
+  到了做点事的时候了。  -- rule: unless 了/AS _
+  我们要做的工作太多了。  -- rule: unless 太/AD
+  太贵了！  -- rule: unless 太/AD
+  他今天见他们了吗？  -- rule: no match: line matched
+  你的电脑怎么了？  -- rule: no match: line matched
+  你做了很多。  -- rule: unless 了/AS _
+  在这时候，他到了。  -- rule: no match: line matched
+  这个房间太小了。  -- rule: unless 太/AD
+  你真是太对了。  -- rule: unless 太/AD
+  你们喝多了。  -- rule: no match: line matched
+  你给了他什么？  -- rule: unless 了/AS _
+  孩子们，起床了！  -- rule: no match: line matched
+  您听到什么了？  -- rule: no match: line matched
+  这太贵了。  -- rule: unless 太/AD
+  他说了些什么。  -- rule: unless 了/AS _
+  你们午饭吃了什么？  -- rule: unless 了/AS _
+  你在波士顿做了什么？  -- rule: unless 了/AS _
+  我很高兴你见了他。  -- rule: unless 了/AS _
+  他去哪买了这些东西？  -- rule: unless 了/AS _
+  她去哪买了这些东西？  -- rule: unless 了/AS _
+  他在哪买了那本书？  -- rule: unless 了/AS _
+  对了！  -- rule: no match: line matched
+  他到了吗?  -- rule: no match: line matched
+  我昨天晚上买的书到了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  我吃了苹果。  -- rule: unless 了/AS _
+  明天我要买手机了。  -- rule: no match: line matched
+  她给了他很多钱。  -- rule: unless 了/AS _
+  我去学校了。  -- rule: no match: line matched
+  她们上了火车。  -- rule: unless 了/AS _
+  今天来了很多人。  -- rule: unless 了/AS _
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  我不能买这本书，太贵了。  -- rule: unless 太/AD
+  我们的来了。  -- rule: no match: line matched
+  我很高兴你今天来了。  -- rule: no match: line matched
+  我昨天去了学校。  -- rule: unless 了/AS _ ; 昨天|上周|去年|刚才|昨晚/NT
+  牛奶馊了。  -- rule: no match: line matched
+  钱都到哪里去了？  -- rule: no match: line matched
+  我今天没有时间去那里了。  -- rule: no match: line matched
+  昨天我吃了米饭。  -- rule: unless 了/AS _ ; 昨天|上周|去年|刚才|昨晚/NT
+  谁喝了水？  -- rule: unless 了/AS _
+  你起床了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你高兴了吗？  -- rule: no match: line matched
+  我们去了波士顿。  -- rule: unless 了/AS _
+  我的孩子病了。  -- rule: no match: line matched
+  他的女儿怎么了？  -- rule: no match: line matched
+  对不起，今天天气太热了。  -- rule: unless 太/AD
+  今天妈妈做了很多菜。  -- rule: unless 了/AS _
+  今天我妈妈做了很多菜。  -- rule: unless 了/AS _
+  你女儿怎么了？  -- rule: no match: line matched
+  你朋友的女儿怎么了？  -- rule: no match: line matched
+  我去了长崎。  -- rule: unless 了/AS _
+  我不是说了没有问题吗？  -- rule: unless 了/AS _
+  她来了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你要回房间了吗?  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: no match: line matched
+  太好了。  -- rule: unless 太/AD
+  你问她什么了？  -- rule: no match: line matched
+  他们问了什么？  -- rule: unless 了/AS _
+  我吃了什么？  -- rule: unless 了/AS _
+  莎米来了。  -- rule: no match: line matched
+  妈妈买了苹果。  -- rule: unless 了/AS _
+  我的苹果没了。  -- rule: no match: line matched
+  齐莉给了她一些苹果。  -- rule: unless 了/AS _
+  我吃了你的苹果。  -- rule: unless 了/AS _
+  少来了！  -- rule: no match: line matched
+  吃了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  我吃了。  -- rule: no match: line matched
+  你去玛丽家了。  -- rule: no match: line matched
+  你叫医生了吗？  -- rule: no match: line matched
+  我们买了面包和牛奶。  -- rule: unless 了/AS _
+  你回家了。  -- rule: no match: line matched
+  太贵了。  -- rule: unless 太/AD
+  这太贵了！  -- rule: unless 太/AD
+  昨天我休息了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  我早上看了电视。  -- rule: unless 了/AS _
+  你听到什么了吗？  -- rule: no match: line matched
+  谁说话了？  -- rule: no match: line matched
+  “睡了吗？”“还没。”  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  蜀葵开了。  -- rule: no match: line matched
+  水开了。  -- rule: no match: line matched
+  坐飞机太贵了。  -- rule: unless 太/AD
+  对了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  她昨天来了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  我今天去了那里。  -- rule: unless 了/AS _
+
+--- dropped at step 6b (4) ---
+  我再也不喜欢你了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+  汤姆再也不会见你了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+  不下雪了。  -- hidden word a learner can't work out: 不下 (to be not less than (a certain quantity, amount etc))
+  我再也不能工作了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+
+--- dropped at step 7 (2) ---
+  不坐了。  -- no accurate English among: No more sitting.
+  我没钱了。  -- no accurate English among: I have no money.
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-40_level1_20261113_144208.csv
+
+########## ai  2026-11-14 14:26 ##########
+
+----- AI-written sentences for 1-40, round 1: 0 to check, 12 needed -----
+  Asking claude-sonnet-5-5 to write 30 sentence(s)...
+
+----- AI-written sentences for 1-40, round 2: 30 to check, 12 needed -----
+Filling 1-40 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 30
+
+Tagging 29 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_142644.txt
+
+Course sentences at HSK 1 the rule already finds 1-40 in: 1  -> Tatoeba needs to add 12 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-40 at HSK 1: funnel ===
+       30  AI-written sentences
+       30  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       30  4. at most 0 characters outside HSK 1 words
+       30  5. really HSK 1
+       27  5b. no harder grammar point (of the 87 with a rule)
+       13  6. the rule finds 1-40
+       12  6b. no hidden word a learner can't work out
+       11  7. both checks say 1-40, English chosen
+       10  8. both difficulty reviews pass it
+
+=== Survivors (10) ===
+  天气冷了。  (The weather has gotten cold.)  [tatoeba ai-e4372931ee]
+  孩子大了。  (The child has grown up.)  [tatoeba ai-25d5a50406]
+  他不喝茶了。  (He doesn't drink tea anymore.)  [tatoeba ai-0c447d042f]  hidden: 喝茶
+  他不在学校了。  (He's no longer at school.)  [tatoeba ai-004ef5f269]  hidden: 不在
+  他有女朋友了。  (He has a girlfriend now.)  [tatoeba ai-96a1dba58d]
+  爸爸不工作了。  (Dad doesn't work anymore.)  [tatoeba ai-9d812ae4cd]
+  我不想看电视了。  (I don't want to watch TV anymore.)  [tatoeba ai-6721714930]  hidden: 不想
+  家里没有米饭了。  (There's no rice at home anymore.)  [tatoeba ai-5eda45b8f8]  hidden: 家里
+  商店不卖苹果了。  (The shop doesn't sell apples anymore.)  [tatoeba ai-cf64f110ad]
+  天气热了，我想喝水。  (The weather has gotten hot, and I want to drink some water.)  [tatoeba ai-f6cc5f3ddd]
+
+--- dropped at step 5b (3) ---
+  我儿子八岁了。  -- harder grammar: 2-09 (HSK 2), 2-58 (HSK 2)
+  现在十点了。  -- harder grammar: 2-09 (HSK 2)
+  饭好了，来吃吧。  -- harder grammar: 2-34 (HSK 2)
+
+--- dropped at step 6 (14) ---
+  很晚了，我想睡觉了。  -- rule: no match: line matched
+  我想回家了。  -- rule: no match: line matched
+  我会说汉语了。  -- rule: no match: line matched
+  我知道他的名字了。  -- rule: no match: line matched
+  下雪了。  -- rule: no match: line matched
+  你的朋友来了。  -- rule: no match: line matched
+  我下班了。  -- rule: no match: line matched
+  上课了，请坐。  -- rule: no match: line matched
+  这件衣服小了。  -- rule: no match: line matched
+  他的病好了。  -- rule: no match: line matched
+  猫睡觉了。  -- rule: no match: line matched
+  妹妹会开车了。  -- rule: no match: line matched
+  他起床了。  -- rule: no match: line matched
+  水开了。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我不住在这里了。  -- hidden word a learner can't work out: 不住 ((verb complement) unable to firmly or securely (grasp, recall etc); repeatedly; continuously; constantly)
+
+--- dropped at step 7 (1) ---
+  我今天不忙了。  -- check said no (1/2): 不 + adjective + 了; unclear if negating adjective or showing state change
+
+--- dropped at step 8 (1) ---
+  我不爱喝牛奶了。  -- difficulty review: (2/2); 爱 used as 'to like/love' is beyond HSK 1; learners know it only as a noun meaning 'love'
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-40_level1_20261114_142653.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+  The answer couldn't be read (Extra data: line 14 column 1 (char 629)); trying once more next round.
+
+----- AI-written sentences for 1-40, round 3: 30 to check, 12 needed -----
+Filling 1-40 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 30
+
+
+Course sentences at HSK 1 the rule already finds 1-40 in: 1  -> Tatoeba needs to add 12 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-40 at HSK 1: funnel ===
+       30  AI-written sentences
+       30  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       30  4. at most 0 characters outside HSK 1 words
+       30  5. really HSK 1
+       27  5b. no harder grammar point (of the 87 with a rule)
+       13  6. the rule finds 1-40
+       12  6b. no hidden word a learner can't work out
+       11  7. both checks say 1-40, English chosen
+       10  8. both difficulty reviews pass it
+
+=== Survivors (10) ===
+  天气冷了。  (The weather has gotten cold.)  [tatoeba ai-e4372931ee]
+  孩子大了。  (The child has grown up.)  [tatoeba ai-25d5a50406]
+  他不喝茶了。  (He doesn't drink tea anymore.)  [tatoeba ai-0c447d042f]  hidden: 喝茶
+  他不在学校了。  (He's no longer at school.)  [tatoeba ai-004ef5f269]  hidden: 不在
+  他有女朋友了。  (He has a girlfriend now.)  [tatoeba ai-96a1dba58d]
+  爸爸不工作了。  (Dad doesn't work anymore.)  [tatoeba ai-9d812ae4cd]
+  我不想看电视了。  (I don't want to watch TV anymore.)  [tatoeba ai-6721714930]  hidden: 不想
+  家里没有米饭了。  (There's no rice at home anymore.)  [tatoeba ai-5eda45b8f8]  hidden: 家里
+  商店不卖苹果了。  (The shop doesn't sell apples anymore.)  [tatoeba ai-cf64f110ad]
+  天气热了，我想喝水。  (The weather has gotten hot, and I want to drink some water.)  [tatoeba ai-f6cc5f3ddd]
+
+--- dropped at step 5b (3) ---
+  我儿子八岁了。  -- harder grammar: 2-09 (HSK 2), 2-58 (HSK 2)
+  现在十点了。  -- harder grammar: 2-09 (HSK 2)
+  饭好了，来吃吧。  -- harder grammar: 2-34 (HSK 2)
+
+--- dropped at step 6 (14) ---
+  很晚了，我想睡觉了。  -- rule: no match: line matched
+  我想回家了。  -- rule: no match: line matched
+  我会说汉语了。  -- rule: no match: line matched
+  我知道他的名字了。  -- rule: no match: line matched
+  下雪了。  -- rule: no match: line matched
+  你的朋友来了。  -- rule: no match: line matched
+  我下班了。  -- rule: no match: line matched
+  上课了，请坐。  -- rule: no match: line matched
+  这件衣服小了。  -- rule: no match: line matched
+  他的病好了。  -- rule: no match: line matched
+  猫睡觉了。  -- rule: no match: line matched
+  妹妹会开车了。  -- rule: no match: line matched
+  他起床了。  -- rule: no match: line matched
+  水开了。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我不住在这里了。  -- hidden word a learner can't work out: 不住 ((verb complement) unable to firmly or securely (grasp, recall etc); repeatedly; continuously; constantly)
+
+--- dropped at step 7 (1) ---
+  我今天不忙了。  -- check said no (1/2): 不 + adjective + 了; unclear if negating adjective or showing state change
+
+--- dropped at step 8 (1) ---
+  我不爱喝牛奶了。  -- difficulty review: (2/2); 爱 used as 'to like/love' is beyond HSK 1; learners know it only as a noun meaning 'love'
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-40_level1_20261114_142704.csv
+
+########## ai  2026-11-14 14:57 ##########
+
+----- AI-written sentences for 1-40, round 1: 30 to check, 12 needed -----
+Filling 1-40 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 30
+
+
+Course sentences at HSK 1 the rule already finds 1-40 in: 1  -> Tatoeba needs to add 12 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-40 at HSK 1: funnel ===
+       30  AI-written sentences
+       30  1. have an English translation
+       30  2. contain the point's word(s)
+       30  3. new (not in DB, not a duplicate)
+       30  4. at most 0 characters outside HSK 1 words
+       30  5. really HSK 1
+       27  5b. no harder grammar point (of the 87 with a rule)
+       13  6. the rule finds 1-40
+       12  6b. no hidden word a learner can't work out
+       11  7. both checks say 1-40, English chosen
+       10  8. both difficulty reviews pass it
+
+=== Survivors (10) ===
+  天气冷了。  (The weather has gotten cold.)  [tatoeba ai-e4372931ee]
+  孩子大了。  (The child has grown up.)  [tatoeba ai-25d5a50406]
+  他不喝茶了。  (He doesn't drink tea anymore.)  [tatoeba ai-0c447d042f]  hidden: 喝茶
+  他不在学校了。  (He's no longer at school.)  [tatoeba ai-004ef5f269]  hidden: 不在
+  他有女朋友了。  (He has a girlfriend now.)  [tatoeba ai-96a1dba58d]
+  爸爸不工作了。  (Dad doesn't work anymore.)  [tatoeba ai-9d812ae4cd]
+  我不想看电视了。  (I don't want to watch TV anymore.)  [tatoeba ai-6721714930]  hidden: 不想
+  家里没有米饭了。  (There's no rice at home anymore.)  [tatoeba ai-5eda45b8f8]  hidden: 家里
+  商店不卖苹果了。  (The shop doesn't sell apples anymore.)  [tatoeba ai-cf64f110ad]
+  天气热了，我想喝水。  (The weather has gotten hot, and I want to drink some water.)  [tatoeba ai-f6cc5f3ddd]
+
+--- dropped at step 5b (3) ---
+  我儿子八岁了。  -- harder grammar: 2-09 (HSK 2), 2-58 (HSK 2)
+  现在十点了。  -- harder grammar: 2-09 (HSK 2)
+  饭好了，来吃吧。  -- harder grammar: 2-34 (HSK 2)
+
+--- dropped at step 6 (14) ---
+  很晚了，我想睡觉了。  -- rule: no match: line matched
+  我想回家了。  -- rule: no match: line matched
+  我会说汉语了。  -- rule: no match: line matched
+  我知道他的名字了。  -- rule: no match: line matched
+  下雪了。  -- rule: no match: line matched
+  你的朋友来了。  -- rule: no match: line matched
+  我下班了。  -- rule: no match: line matched
+  上课了，请坐。  -- rule: no match: line matched
+  这件衣服小了。  -- rule: no match: line matched
+  他的病好了。  -- rule: no match: line matched
+  猫睡觉了。  -- rule: no match: line matched
+  妹妹会开车了。  -- rule: no match: line matched
+  他起床了。  -- rule: no match: line matched
+  水开了。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我不住在这里了。  -- hidden word a learner can't work out: 不住 ((verb complement) unable to firmly or securely (grasp, recall etc); repeatedly; continuously; constantly)
+
+--- dropped at step 7 (1) ---
+  我今天不忙了。  -- check said no (1/2): 不 + adjective + 了; unclear if negating adjective or showing state change
+
+--- dropped at step 8 (1) ---
+  我不爱喝牛奶了。  -- difficulty review: (2/2); 爱 used as 'to like/love' is beyond HSK 1; learners know it only as a noun meaning 'love'
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-40_level1_20261114_145709.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+
+----- AI-written sentences for 1-40, round 2: 40 to check, 12 needed -----
+Filling 1-40 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 40
+
+Tagging 9 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_145718.txt
+
+Course sentences at HSK 1 the rule already finds 1-40 in: 1  -> Tatoeba needs to add 12 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 1-40 at HSK 1: funnel ===
+       40  AI-written sentences
+       40  1. have an English translation
+       40  2. contain the point's word(s)
+       40  3. new (not in DB, not a duplicate)
+       40  4. at most 0 characters outside HSK 1 words
+       40  5. really HSK 1
+       37  5b. no harder grammar point (of the 87 with a rule)
+       19  6. the rule finds 1-40
+       18  6b. no hidden word a learner can't work out
+       17  7. both checks say 1-40, English chosen
+       16  8. both difficulty reviews pass it
+
+=== Survivors (16) ===
+  雨大了。  (The rain has gotten heavier.)  [tatoeba ai-1e4734b6ca]
+  天气冷了。  (The weather has gotten cold.)  [tatoeba ai-e4372931ee]
+  孩子大了。  (The child has grown up.)  [tatoeba ai-25d5a50406]
+  我没钱了。  (I have no money left.)  [tatoeba ai-4a0084369a]
+  他不喝茶了。  (He doesn't drink tea anymore.)  [tatoeba ai-0c447d042f]  hidden: 喝茶
+  我不想去了。  (I don't want to go anymore.)  [tatoeba ai-21ca14d0e3]  hidden: 不想
+  他不在学校了。  (He's no longer at school.)  [tatoeba ai-004ef5f269]  hidden: 不在
+  他有女朋友了。  (He has a girlfriend now.)  [tatoeba ai-96a1dba58d]
+  爸爸不工作了。  (Dad doesn't work anymore.)  [tatoeba ai-9d812ae4cd]
+  我们家有狗了。  (We have a dog now.)  [tatoeba ai-21fb8df2d4]
+  我不想看电视了。  (I don't want to watch TV anymore.)  [tatoeba ai-6721714930]  hidden: 不想
+  家里没有米饭了。  (There's no rice at home anymore.)  [tatoeba ai-5eda45b8f8]  hidden: 家里
+  商店不卖苹果了。  (The shop doesn't sell apples anymore.)  [tatoeba ai-cf64f110ad]
+  弟弟不吃包子了。  (My younger brother doesn't eat baby buns anymore.)  [tatoeba ai-9a2327a577]
+  天气热了，我想喝水。  (The weather has gotten hot, and I want to drink some water.)  [tatoeba ai-f6cc5f3ddd]
+  姐姐不在公司工作了。  (My older sister doesn't work at the company anymore.)  [tatoeba ai-7a69309322]  hidden: 不在
+
+--- dropped at step 5b (3) ---
+  我儿子八岁了。  -- harder grammar: 2-09 (HSK 2), 2-58 (HSK 2)
+  现在十点了。  -- harder grammar: 2-09 (HSK 2)
+  饭好了，来吃吧。  -- harder grammar: 2-34 (HSK 2)
+
+--- dropped at step 6 (18) ---
+  很晚了，我想睡觉了。  -- rule: no match: line matched
+  我想回家了。  -- rule: no match: line matched
+  我会说汉语了。  -- rule: no match: line matched
+  我知道他的名字了。  -- rule: no match: line matched
+  下雪了。  -- rule: no match: line matched
+  你的朋友来了。  -- rule: no match: line matched
+  我下班了。  -- rule: no match: line matched
+  上课了，请坐。  -- rule: no match: line matched
+  这件衣服小了。  -- rule: no match: line matched
+  他的病好了。  -- rule: no match: line matched
+  猫睡觉了。  -- rule: no match: line matched
+  妹妹会开车了。  -- rule: no match: line matched
+  他起床了。  -- rule: no match: line matched
+  水开了。  -- rule: no match: line matched
+  哥哥是大学生了。  -- rule: no match: line matched
+  苹果贵了。  -- rule: no match: line matched
+  她会唱这个歌了。  -- rule: no match: line matched
+  我认识他了。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我不住在这里了。  -- hidden word a learner can't work out: 不住 ((verb complement) unable to firmly or securely (grasp, recall etc); repeatedly; continuously; constantly)
+
+--- dropped at step 7 (1) ---
+  我今天不忙了。  -- check said no (1/2): 不 + adjective + 了; unclear if negating adjective or showing state change
+
+--- dropped at step 8 (1) ---
+  我不爱喝牛奶了。  -- difficulty review: (2/2); 爱 used as 'to like/love' is beyond HSK 1; learners know it only as a noun meaning 'love'
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-40_level1_20261114_145724.csv
+
+########## tatoeba  2026-11-14 16:09 ##########
+Filling 1-40 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-40 in: 26  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-40 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     5441  2. contain the point's word(s)
+     5304  3. new (not in DB, not a duplicate)
+     1825  4. at most 2 characters outside HSK 1 words
+      208  5. really HSK 1
+      180  5b. no harder grammar point (of the 87 with a rule)
+        5  6. the rule finds 1-40
+        1  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+  (1 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (137), first 12 ---
+  你快要走了。  -- already in the database
+  我也去了。  -- already in the database
+  我们时间不多了。  -- already in the database
+  你不能再住在这边了。  -- already in the database
+  我的表慢了五分钟。  -- already in the database
+  我已经会写中文了。  -- already in the database
+  我写错了一个字。  -- already in the database
+  我在这里已经工作十年了。  -- already in the database
+  他不在这儿，因为他病了。  -- already in the database
+  已经过了很长时间了。  -- already in the database
+  他已经去了英国。  -- already in the database
+  你已经在京都了吗？  -- already in the database
+
+--- dropped at step 4 (3479), first 12 ---
+  我跟父母联络了一下。  -- 5 characters no HSK 1 word uses: 母父络联跟
+  我把旅费耗光了。  -- 5 characters no HSK 1 word uses: 光把旅耗费
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  万一我来晚的话，就别等我了。  -- 4 characters no HSK 1 word uses: 万别就等
+  她的笔迹漂亮极了。  -- 3 characters no HSK 1 word uses: 极笔迹
+  你到了该去理发的时候了。  -- 3 characters no HSK 1 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 1 word uses: 极肚饿
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 7 characters no HSK 1 word uses: 且串但抓烤而肉
+  我昨天买了一支像你那样的笔。  -- 3 characters no HSK 1 word uses: 像支笔
+  她穿了一件红旗袍。  -- 3 characters no HSK 1 word uses: 旗红袍
+  公共汽车上发生什么了？  -- 3 characters no HSK 1 word uses: 共发汽
+  会议明天就结束了。  -- 4 characters no HSK 1 word uses: 就束结议
+
+--- dropped at step 5 (1617), first 12 ---
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  好，定了。  -- level 4: 定 L4
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 快 L2, 电 L3
+  您可以走了。  -- level 2: 走 L2
+  我马上就到了。  -- level 3: 马上 L3, 就 L2
+  我要回来了。  -- level 2: 回来 L2
+  我给他解释了这件事。  -- level 4: 解释 L4
+  我刚才起床了。  -- level 3: 刚才 L3
+  你在日本住多久了？  -- level 3: 久 L3
+
+--- dropped at step 5b (28), first 12 ---
+  他给了它一个新名字。  -- harder grammar: 2-06 (HSK 2)
+  饭做好了。  -- harder grammar: 2-49 (HSK 2)
+  爸爸给我买了书。  -- harder grammar: 2-26 (HSK 2)
+  太贵了吧！  -- harder grammar: 2-34 (HSK 2)
+  要下雨了。  -- harder grammar: 2-81 (HSK 2)
+  我们找到她了。  -- harder grammar: 3-46 (HSK 3)
+  你在哪儿看到了她？  -- harder grammar: 3-46 (HSK 3)
+  我做不了这个。  -- harder grammar: 3-48 (HSK 3)
+  我听到了什么？  -- harder grammar: 3-46 (HSK 3)
+  找到好东西了？  -- harder grammar: 3-46 (HSK 3)
+  你什么也做不了。  -- harder grammar: 3-48 (HSK 3)
+  我看我们找到要找的东西了。  -- harder grammar: 3-46 (HSK 3)
+
+--- dropped at step 6 (175) ---
+  麦克，你听到了没？  -- rule: unless 了/AS _
+  这本书我昨天买了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  你不要学习了。  -- rule: no match: line matched
+  钱太多了吗？  -- rule: unless 了/AS _ ; 太/AD ; 了/AS 吗/SP
+  我不是来了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  对了，我明天有事。  -- rule: no match: line matched
+  知道了没有？  -- rule: unless 了/AS _
+  你十岁了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  那孩子要六岁了。  -- rule: no match: line matched
+  我爱上了你。  -- rule: unless 了/AS _
+  我们到了。  -- rule: no match: line matched
+  昨天我去了那里。  -- rule: unless 了/AS _ ; 昨天|上周|去年|刚才|昨晚/NT
+  两年前，我去了中国。  -- rule: unless 了/AS _
+  我太高兴了！  -- rule: unless 太/AD
+  你二了。  -- rule: no match: line matched
+  太早了。  -- rule: unless 太/AD
+  我觉得他病了。  -- rule: no match: line matched
+  下了雨。  -- rule: unless 了/AS _
+  那里太多人了。  -- rule: unless 太/AD
+  我去了医院。  -- rule: unless 了/AS _
+  爸爸去哪了?  -- rule: no match: line matched
+  昨天我卖了两本书。  -- rule: unless 了/AS _
+  我太高兴了。  -- rule: unless 太/AD
+  我吃苹果了。  -- rule: no match: line matched
+  我吃了那个苹果。  -- rule: unless 了/AS _
+  对不起，我来晚了。  -- rule: no match: line matched
+  她生病了。  -- rule: no match: line matched
+  她十七岁了。  -- rule: no match: line matched
+  现在太晚了。  -- rule: unless 太/AD
+  他写了本新书。  -- rule: unless 了/AS _
+  去了超市。  -- rule: unless 了/AS _
+  你在哪里看见他了？  -- rule: no match: line matched
+  我们喝了很多。  -- rule: unless 了/AS _
+  你喝多了。  -- rule: no match: line matched
+  他们说了些什么？  -- rule: unless 了/AS _
+  我们来了。  -- rule: no match: line matched
+  有人来了。  -- rule: no match: line matched
+  时间到了。  -- rule: no match: line matched
+  昨天的事真的要谢谢您了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  太热了。  -- rule: unless 太/AD
+  我写了那些东西。  -- rule: unless 了/AS _
+  我昨天喝多了  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  我读了一个小时的书。  -- rule: unless 了/AS _
+  他们都做了。  -- rule: no match: line matched
+  那太多了吗？  -- rule: unless 了/AS _ ; 太/AD ; 了/AS 吗/SP
+  我睡了个好觉。  -- rule: unless 了/AS _
+  她给了他车。  -- rule: unless 了/AS _
+  她昨天来见我了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  你能不说了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  我觉得你说了什么。  -- rule: unless 了/AS _
+  你爱上我了？  -- rule: no match: line matched
+  你想知道我看见什么了吗？  -- rule: no match: line matched
+  汤姆写了两本书。  -- rule: unless 了/AS _
+  汤姆在这里工作了几年？  -- rule: no match: line matched
+  我昨天去见他了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  他十年前去了那里。  -- rule: unless 了/AS _
+  我知道你做了什么。  -- rule: unless 了/AS _
+  你吃晚饭了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  真是太好了。  -- rule: unless 太/AD
+  你昨天喝茶了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP ; 昨天|上周|去年|刚才|昨晚/NT
+  你问题太多了  -- rule: unless 太/AD
+  谁给了你这些东西？  -- rule: unless 了/AS _
+  那真是太好了。  -- rule: unless 太/AD
+  你去学校了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  谁来了这里？  -- rule: unless 了/AS _
+  是晚上了。  -- rule: no match: line matched
+  我吃了一个苹果。  -- rule: unless 了/AS _
+  我喝了一杯水。  -- rule: unless 了/AS _
+  你们吃饭了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你现在可以住口了。  -- rule: no match: line matched
+  你买了多少东西？  -- rule: unless 了/AS _
+  两点了。  -- rule: no match: line matched
+  我们买了两本书。  -- rule: unless 了/AS _
+  大卫吃了很多东西。  -- rule: unless 了/AS _
+  我买衣服了。  -- rule: no match: line matched
+  我买了衣服了。  -- rule: unless 了/AS _
+  他去他家了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你买了太多面包。  -- rule: unless 了/AS _ ; 太/AD
+  到了做点事的时候了。  -- rule: unless 了/AS _
+  那是一个月前了。  -- rule: no match: line matched
+  我们要做的工作太多了。  -- rule: unless 太/AD
+  太贵了！  -- rule: unless 太/AD
+  他今天见他们了吗？  -- rule: no match: line matched
+  你的电脑怎么了？  -- rule: no match: line matched
+  你做了很多。  -- rule: unless 了/AS _
+  在这时候，他到了。  -- rule: no match: line matched
+  这个房间太小了。  -- rule: unless 太/AD
+  你真是太对了。  -- rule: unless 太/AD
+  下了三小时大雨。  -- rule: unless 了/AS _
+  你们喝多了。  -- rule: no match: line matched
+  你听见我说的了吗？  -- rule: no match: line matched
+  你给了他什么？  -- rule: unless 了/AS _
+  孩子们，起床了！  -- rule: no match: line matched
+  我十一点起床了。  -- rule: no match: line matched
+  您听到什么了？  -- rule: no match: line matched
+  这太贵了。  -- rule: unless 太/AD
+  他说了些什么。  -- rule: unless 了/AS _
+  你们午饭吃了什么？  -- rule: unless 了/AS _
+  你在波士顿做了什么？  -- rule: unless 了/AS _
+  他四月十八日来了。  -- rule: no match: line matched
+  我很高兴你见了他。  -- rule: unless 了/AS _
+  他去哪买了这些东西？  -- rule: unless 了/AS _
+  她去哪买了这些东西？  -- rule: unless 了/AS _
+  他在哪买了那本书？  -- rule: unless 了/AS _
+  对了！  -- rule: no match: line matched
+  他说，“九点了”。  -- rule: no match: line matched
+  萨米的妈妈给了他一些钱。  -- rule: unless 了/AS _
+  我昨天晚上买的书到了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  明天我要买手机了。  -- rule: no match: line matched
+  她给了他很多钱。  -- rule: unless 了/AS _
+  我去学校了。  -- rule: no match: line matched
+  她们上了火车。  -- rule: unless 了/AS _
+  今天来了很多人。  -- rule: unless 了/AS _
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  我十二岁了。  -- rule: no match: line matched
+  我不能买这本书，太贵了。  -- rule: unless 太/AD
+  我们的来了。  -- rule: no match: line matched
+  我很高兴你今天来了。  -- rule: no match: line matched
+  我昨天去了学校。  -- rule: unless 了/AS _ ; 昨天|上周|去年|刚才|昨晚/NT
+  牛奶馊了。  -- rule: no match: line matched
+  我儿子十岁了。  -- rule: no match: line matched
+  钱都到哪里去了？  -- rule: no match: line matched
+  我今天看见他们了。  -- rule: no match: line matched
+  我今天看见她了。  -- rule: no match: line matched
+  我今天没有时间去那里了。  -- rule: no match: line matched
+  昨天我吃了米饭。  -- rule: unless 了/AS _ ; 昨天|上周|去年|刚才|昨晚/NT
+  你高兴了吗？  -- rule: no match: line matched
+  我们去了波士顿。  -- rule: unless 了/AS _
+  我的孩子病了。  -- rule: no match: line matched
+  他三岁了。  -- rule: no match: line matched
+  他的女儿怎么了？  -- rule: no match: line matched
+  对不起，今天天气太热了。  -- rule: unless 太/AD
+  今天妈妈做了很多菜。  -- rule: unless 了/AS _
+  今天我妈妈做了很多菜。  -- rule: unless 了/AS _
+  六点四十五了。  -- rule: no match: line matched
+  你女儿怎么了？  -- rule: no match: line matched
+  你朋友的女儿怎么了？  -- rule: no match: line matched
+  我去了长崎。  -- rule: unless 了/AS _
+  Oleg 去了 Rima 家。  -- rule: unless 了/AS _
+  我不是说了没有问题吗？  -- rule: unless 了/AS _
+  我问了他忙不忙。  -- rule: unless 了/AS _
+  你要回房间了吗?  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: no match: line matched
+  太好了。  -- rule: unless 太/AD
+  你问她什么了？  -- rule: no match: line matched
+  他们问了什么？  -- rule: unless 了/AS _
+  我吃了什么？  -- rule: unless 了/AS _
+  莎米来了。  -- rule: no match: line matched
+  妈妈买了苹果。  -- rule: unless 了/AS _
+  我的苹果没了。  -- rule: no match: line matched
+  我们吃了一些苹果。  -- rule: unless 了/AS _
+  他们给了她一些苹果。  -- rule: unless 了/AS _
+  齐莉给了她一些苹果。  -- rule: unless 了/AS _
+  四月到了。  -- rule: no match: line matched
+  我吃了你的苹果。  -- rule: unless 了/AS _
+  少来了！  -- rule: no match: line matched
+  我吃了。  -- rule: no match: line matched
+  你去玛丽家了。  -- rule: no match: line matched
+  你叫医生了吗？  -- rule: no match: line matched
+  你吃了多少水果？  -- rule: unless 了/AS _
+  你回家了。  -- rule: no match: line matched
+  太贵了。  -- rule: unless 太/AD
+  这太贵了！  -- rule: unless 太/AD
+  昨天我休息了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  他找了她五个小时。  -- rule: unless 了/AS _
+  我早上看了电视。  -- rule: unless 了/AS _
+  你听到什么了吗？  -- rule: no match: line matched
+  谁说话了？  -- rule: no match: line matched
+  “睡了吗？”“还没。”  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  蜀葵开了。  -- rule: no match: line matched
+  水开了。  -- rule: no match: line matched
+  坐飞机太贵了。  -- rule: unless 太/AD
+  对了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  她昨天来了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  我今天去了那里。  -- rule: unless 了/AS _
+
+--- dropped at step 6b (4) ---
+  我再也不喜欢你了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+  汤姆再也不会见你了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+  不下雪了。  -- hidden word a learner can't work out: 不下 (to be not less than (a certain quantity, amount etc))
+  我再也不能工作了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-40_level1_20261114_160915.csv
+
+########## ai  2026-11-14 16:12 ##########
+
+########## tatoeba  2026-11-14 16:30 ##########
+Filling 1-40 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 1 the rule already finds 1-40 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 4 check and 0 review rejection(s)...
+
+=== 1-40 at HSK 1: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+     5441  2. contain the point's word(s)
+     5430  3. new (not in DB, not a duplicate)
+     1936  4. at most 2 characters outside HSK 1 words
+      243  5. really HSK 1
+      207  5b. no harder grammar point (of the 87 with a rule)
+       13  6. the rule finds 1-40
+        9  6b. no hidden word a learner can't work out
+        5  7. both checks say 1-40, English chosen
+        2  7b. second opinion: it is the point (check)
+        5  8. both difficulty reviews pass it
+        1  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (7) ===
+  我病了。  (I'm sick.)  [tatoeba 2757252]
+  我没时间了。  (I'm out of time.)  [tatoeba 5555760]
+  我们没面包了。  (We don't have any more bread.)  [tatoeba 5706094]
+  你没有时间了。  (You don't have any more time.)  [tatoeba 6148211]
+  我们时间不多了。  (We don't have enough time.)  [tatoeba 426271]
+  我觉得他们不会来了。  (I don't think they're coming.)  [tatoeba 4764587]  hidden: 不会
+  爸爸，下雨了，我们怎么回家？坐出租车吗？  (Dad, it's raining, how're we gonna get home? Take a taxi?)  [tatoeba 10961058]  hidden: 回家
+
+--- dropped at step 3 (11) ---
+  我的表慢了五分钟。  -- already in the database
+  太阳升起来了。  -- already in the database
+  我亲眼看见了。  -- already in the database
+  我认为我们准备好了。  -- same text as 5500612 (translations pooled)
+  我只睡了两小时。  -- same text as 6047457 (translations pooled)
+  你怎么了？  -- already in the database
+  汤姆错了。  -- same text as 6293100 (translations pooled)
+  你们吃饭了吗？  -- same text as 6057697 (translations pooled)
+  我昨天买了这头猪。  -- same text as 2737460 (translations pooled)
+  当然了。  -- same text as 4970077 (translations pooled)
+  你喝茶了吗？  -- same text as 3378195 (translations pooled)
+
+--- dropped at step 4 (3494), first 12 ---
+  我跟父母联络了一下。  -- 5 characters no HSK 1 word uses: 母父络联跟
+  我把旅费耗光了。  -- 5 characters no HSK 1 word uses: 光把旅耗费
+  没有你的话，我的生命就毁灭了。  -- 4 characters no HSK 1 word uses: 命就毁灭
+  万一我来晚的话，就别等我了。  -- 4 characters no HSK 1 word uses: 万别就等
+  她的笔迹漂亮极了。  -- 3 characters no HSK 1 word uses: 极笔迹
+  你到了该去理发的时候了。  -- 3 characters no HSK 1 word uses: 发理该
+  我肚子饿极了。  -- 3 characters no HSK 1 word uses: 极肚饿
+  我不但吃了抓饭，而且还吃了烤肉串。  -- 7 characters no HSK 1 word uses: 且串但抓烤而肉
+  我昨天买了一支像你那样的笔。  -- 3 characters no HSK 1 word uses: 像支笔
+  她穿了一件红旗袍。  -- 3 characters no HSK 1 word uses: 旗红袍
+  公共汽车上发生什么了？  -- 3 characters no HSK 1 word uses: 共发汽
+  会议明天就结束了。  -- 4 characters no HSK 1 word uses: 就束结议
+
+--- dropped at step 5 (1693), first 12 ---
+  他被你迷住了。  -- level 5: 被 L3, 迷 L5
+  好，定了。  -- level 4: 定 L4
+  你快要走了。  -- level 2: 快要 L2, 走 L2
+  灯已关了。  -- level 4: 灯 L3, 已 L4, 关 L3
+  她脸红了。  -- level 5: 脸 L3, 红 L5
+  她突然出名了。  -- level 6: 突然 L3, 出名 L6
+  电池快没电了。  -- level 5: 电池 L5, 快 L2, 电 L3
+  您可以走了。  -- level 2: 走 L2
+  我马上就到了。  -- level 3: 马上 L3, 就 L2
+  我要回来了。  -- level 2: 回来 L2
+  我给他解释了这件事。  -- level 4: 解释 L4
+  我刚才起床了。  -- level 3: 刚才 L3
+
+--- dropped at step 5b (36), first 12 ---
+  我也去了。  -- harder grammar: 3-60 (HSK 3)
+  你不能再住在这边了。  -- harder grammar: 3-16 (HSK 3)
+  他给了它一个新名字。  -- harder grammar: 2-06 (HSK 2)
+  饭做好了。  -- harder grammar: 2-49 (HSK 2)
+  雨下了三天。  -- harder grammar: 2-12 (HSK 2)
+  爸爸给我买了书。  -- harder grammar: 2-26 (HSK 2)
+  我不想再玩了。  -- harder grammar: 3-16 (HSK 3)
+  太贵了吧！  -- harder grammar: 2-34 (HSK 2)
+  要下雨了。  -- harder grammar: 2-81 (HSK 2)
+  我们找到她了。  -- harder grammar: 3-46 (HSK 3)
+  你在哪儿看到了她？  -- harder grammar: 3-46 (HSK 3)
+  我做不了这个。  -- harder grammar: 3-48 (HSK 3)
+
+--- dropped at step 6 (194) ---
+  麦克，你听到了没？  -- rule: unless 了/AS _
+  这本书我昨天买了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  你不要学习了。  -- rule: no match: line matched
+  钱太多了吗？  -- rule: unless 了/AS _ ; 太/AD ; 了/AS 吗/SP
+  我不是来了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  对了，我明天有事。  -- rule: no match: line matched
+  知道了没有？  -- rule: unless 了/AS _
+  你十岁了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  那孩子要六岁了。  -- rule: no match: line matched
+  我爱上了你。  -- rule: unless 了/AS _
+  我们到了。  -- rule: no match: line matched
+  昨天我去了那里。  -- rule: unless 了/AS _ ; 昨天|上周|去年|刚才|昨晚/NT
+  两年前，我去了中国。  -- rule: unless 了/AS _
+  她问了他问题。  -- rule: unless 了/AS _
+  她在店里买了什么？  -- rule: unless 了/AS _
+  我太高兴了！  -- rule: unless 太/AD
+  你二了。  -- rule: no match: line matched
+  太早了。  -- rule: unless 太/AD
+  他去了伦敦。  -- rule: unless 了/AS _
+  我觉得他病了。  -- rule: no match: line matched
+  下了雨。  -- rule: unless 了/AS _
+  狗叫了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  那里太多人了。  -- rule: unless 太/AD
+  我去了医院。  -- rule: unless 了/AS _
+  爸爸去哪了?  -- rule: no match: line matched
+  现在几点了？  -- rule: no match: line matched
+  昨天我卖了两本书。  -- rule: unless 了/AS _
+  我太高兴了。  -- rule: unless 太/AD
+  我喝了两杯茶。  -- rule: unless 了/AS _
+  我吃苹果了。  -- rule: no match: line matched
+  我吃了那个苹果。  -- rule: unless 了/AS _
+  对不起，我来晚了。  -- rule: no match: line matched
+  她生病了。  -- rule: no match: line matched
+  你喝茶了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你喝茶了吗?  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  她十七岁了。  -- rule: no match: line matched
+  现在太晚了。  -- rule: unless 太/AD
+  他写了本新书。  -- rule: unless 了/AS _
+  去了超市。  -- rule: unless 了/AS _
+  你在哪里看见他了？  -- rule: no match: line matched
+  我们喝了很多。  -- rule: unless 了/AS _
+  他还说了什么？  -- rule: unless 了/AS _
+  你喝多了。  -- rule: no match: line matched
+  他们说了些什么？  -- rule: unless 了/AS _
+  我们来了。  -- rule: no match: line matched
+  不要说话了。  -- rule: no match: line matched
+  有人来了。  -- rule: no match: line matched
+  时间到了。  -- rule: no match: line matched
+  昨天的事真的要谢谢您了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  太热了。  -- rule: unless 太/AD
+  我写了那些东西。  -- rule: unless 了/AS _
+  我昨天喝多了  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  我读了一个小时的书。  -- rule: unless 了/AS _
+  他们都做了。  -- rule: no match: line matched
+  那太多了吗？  -- rule: unless 了/AS _ ; 太/AD ; 了/AS 吗/SP
+  我睡了个好觉。  -- rule: unless 了/AS _
+  她给了他车。  -- rule: unless 了/AS _
+  她昨天来见我了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  你能不说了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  我觉得你说了什么。  -- rule: unless 了/AS _
+  你爱上我了？  -- rule: no match: line matched
+  你想知道我看见什么了吗？  -- rule: no match: line matched
+  汤姆写了两本书。  -- rule: unless 了/AS _
+  汤姆在这里工作了几年？  -- rule: no match: line matched
+  我昨天去见他了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  他十年前去了那里。  -- rule: unless 了/AS _
+  我知道你做了什么。  -- rule: unless 了/AS _
+  你吃晚饭了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  真是太好了。  -- rule: unless 太/AD
+  你昨天喝茶了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP ; 昨天|上周|去年|刚才|昨晚/NT
+  你问题太多了  -- rule: unless 太/AD
+  谁给了你这些东西？  -- rule: unless 了/AS _
+  那真是太好了。  -- rule: unless 太/AD
+  你去学校了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  谁来了这里？  -- rule: unless 了/AS _
+  是晚上了。  -- rule: no match: line matched
+  我吃了一个苹果。  -- rule: unless 了/AS _
+  我喝了一杯水。  -- rule: unless 了/AS _
+  你们吃饭了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你现在可以住口了。  -- rule: no match: line matched
+  你买了多少东西？  -- rule: unless 了/AS _
+  两点了。  -- rule: no match: line matched
+  我们买了两本书。  -- rule: unless 了/AS _
+  大卫吃了很多东西。  -- rule: unless 了/AS _
+  我买衣服了。  -- rule: no match: line matched
+  我买了衣服了。  -- rule: unless 了/AS _
+  他去他家了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你买了太多面包。  -- rule: unless 了/AS _ ; 太/AD
+  到了做点事的时候了。  -- rule: unless 了/AS _
+  那是一个月前了。  -- rule: no match: line matched
+  我们要做的工作太多了。  -- rule: unless 太/AD
+  太贵了！  -- rule: unless 太/AD
+  他今天见他们了吗？  -- rule: no match: line matched
+  你的电脑怎么了？  -- rule: no match: line matched
+  你做了很多。  -- rule: unless 了/AS _
+  在这时候，他到了。  -- rule: no match: line matched
+  这个房间太小了。  -- rule: unless 太/AD
+  你真是太对了。  -- rule: unless 太/AD
+  下了三小时大雨。  -- rule: unless 了/AS _
+  几点了？  -- rule: no match: line matched
+  你们喝多了。  -- rule: no match: line matched
+  你听见我说的了吗？  -- rule: no match: line matched
+  你给了他什么？  -- rule: unless 了/AS _
+  孩子们，起床了！  -- rule: no match: line matched
+  我十一点起床了。  -- rule: no match: line matched
+  您听到什么了？  -- rule: no match: line matched
+  这太贵了。  -- rule: unless 太/AD
+  他说了些什么。  -- rule: unless 了/AS _
+  你们午饭吃了什么？  -- rule: unless 了/AS _
+  你在波士顿做了什么？  -- rule: unless 了/AS _
+  他四月十八日来了。  -- rule: no match: line matched
+  我很高兴你见了他。  -- rule: unless 了/AS _
+  他去哪买了这些东西？  -- rule: unless 了/AS _
+  她去哪买了这些东西？  -- rule: unless 了/AS _
+  他在哪买了那本书？  -- rule: unless 了/AS _
+  对了！  -- rule: no match: line matched
+  他说，“九点了”。  -- rule: no match: line matched
+  萨米的妈妈给了他一些钱。  -- rule: unless 了/AS _
+  他到了吗?  -- rule: no match: line matched
+  我昨天晚上买的书到了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  我吃了苹果。  -- rule: unless 了/AS _
+  明天我要买手机了。  -- rule: no match: line matched
+  她给了他很多钱。  -- rule: unless 了/AS _
+  我去学校了。  -- rule: no match: line matched
+  她们上了火车。  -- rule: unless 了/AS _
+  今天来了很多人。  -- rule: unless 了/AS _
+  我现在要去面包店了。你想要什么吗？  -- rule: no match: line matched
+  我十二岁了。  -- rule: no match: line matched
+  我不能买这本书，太贵了。  -- rule: unless 太/AD
+  我们的来了。  -- rule: no match: line matched
+  我很高兴你今天来了。  -- rule: no match: line matched
+  我昨天去了学校。  -- rule: unless 了/AS _ ; 昨天|上周|去年|刚才|昨晚/NT
+  牛奶馊了。  -- rule: no match: line matched
+  我儿子十岁了。  -- rule: no match: line matched
+  钱都到哪里去了？  -- rule: no match: line matched
+  我今天看见他们了。  -- rule: no match: line matched
+  我今天看见她了。  -- rule: no match: line matched
+  我今天没有时间去那里了。  -- rule: no match: line matched
+  昨天我吃了米饭。  -- rule: unless 了/AS _ ; 昨天|上周|去年|刚才|昨晚/NT
+  谁喝了水？  -- rule: unless 了/AS _
+  你起床了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  你高兴了吗？  -- rule: no match: line matched
+  我们去了波士顿。  -- rule: unless 了/AS _
+  我的孩子病了。  -- rule: no match: line matched
+  他三岁了。  -- rule: no match: line matched
+  他的女儿怎么了？  -- rule: no match: line matched
+  对不起，今天天气太热了。  -- rule: unless 太/AD
+  多少个了？  -- rule: no match: line matched
+  今天妈妈做了很多菜。  -- rule: unless 了/AS _
+  今天我妈妈做了很多菜。  -- rule: unless 了/AS _
+  六点四十五了。  -- rule: no match: line matched
+  你女儿怎么了？  -- rule: no match: line matched
+  你朋友的女儿怎么了？  -- rule: no match: line matched
+  我去了长崎。  -- rule: unless 了/AS _
+  Oleg 去了 Rima 家。  -- rule: unless 了/AS _
+  我不是说了没有问题吗？  -- rule: unless 了/AS _
+  她来了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  我问了他忙不忙。  -- rule: unless 了/AS _
+  你要回房间了吗?  -- rule: no match: line matched
+  朋友们再也不和我说话了。  -- rule: no match: line matched
+  太好了。  -- rule: unless 太/AD
+  你问她什么了？  -- rule: no match: line matched
+  他们问了什么？  -- rule: unless 了/AS _
+  我吃了什么？  -- rule: unless 了/AS _
+  莎米来了。  -- rule: no match: line matched
+  妈妈买了苹果。  -- rule: unless 了/AS _
+  我的苹果没了。  -- rule: no match: line matched
+  我们吃了一些苹果。  -- rule: unless 了/AS _
+  他们给了她一些苹果。  -- rule: unless 了/AS _
+  齐莉给了她一些苹果。  -- rule: unless 了/AS _
+  四月到了。  -- rule: no match: line matched
+  我吃了你的苹果。  -- rule: unless 了/AS _
+  少来了！  -- rule: no match: line matched
+  吃了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  我吃了。  -- rule: no match: line matched
+  你去玛丽家了。  -- rule: no match: line matched
+  你叫医生了吗？  -- rule: no match: line matched
+  你吃了多少水果？  -- rule: unless 了/AS _
+  我们买了面包和牛奶。  -- rule: unless 了/AS _
+  你回家了。  -- rule: no match: line matched
+  太贵了。  -- rule: unless 太/AD
+  这太贵了！  -- rule: unless 太/AD
+  昨天我休息了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  他找了她五个小时。  -- rule: unless 了/AS _
+  我早上看了电视。  -- rule: unless 了/AS _
+  你听到什么了吗？  -- rule: no match: line matched
+  谁说话了？  -- rule: no match: line matched
+  “睡了吗？”“还没。”  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  蜀葵开了。  -- rule: no match: line matched
+  水开了。  -- rule: no match: line matched
+  坐飞机太贵了。  -- rule: unless 太/AD
+  对了吗？  -- rule: unless 了/AS _ ; 了/AS 吗/SP
+  她昨天来了。  -- rule: unless 昨天|上周|去年|刚才|昨晚/NT
+  我今天去了那里。  -- rule: unless 了/AS _
+
+--- dropped at step 6b (4) ---
+  我再也不喜欢你了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+  汤姆再也不会见你了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+  不下雪了。  -- hidden word a learner can't work out: 不下 (to be not less than (a certain quantity, amount etc))
+  我再也不能工作了。  -- hidden word a learner can't work out: 再也 ((not) any more)
+
+--- dropped at step 7 (2) ---
+  不坐了。  -- no accurate English among: No more sitting.
+  我没钱了。  -- no accurate English among: I have no money.
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_1-40_level1_20261114_163007.csv
+
+########## ai  2026-11-14 16:33 ##########
+
+----- AI-written sentences for 1-40, round 1: 40 to check, 13 needed -----
+Filling 1-40 at HSK 1.
+Harder-grammar rules checked (points above HSK 1 with a rule): 1-11, 1-15, 1-18, 1-47, 2-02, 2-04, 2-05, 2-06, 2-07, 2-09, 2-11, 2-12, 2-13, 2-14, 2-15, 2-16, 2-17, 2-19, 2-21, 2-22, 2-23, 2-24, 2-25, 2-26, 2-27, 2-28, 2-29, 2-30, 2-31, 2-32, 2-33, 2-34, 2-35, 2-43, 2-44, 2-45, 2-46, 2-47, 2-49, 2-51, 2-53, 2-55, 2-56, 2-58, 2-59, 2-62, 2-67, 2-68, 2-69, 2-72, 2-73, 2-74, 2-75, 2-76, 2-77, 2-78, 2-81, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 40
+
+
+Course sentences at HSK 1 the rule already finds 1-40 in: 0  -> Tatoeba needs to add 13 (target 20)
+Harder grammar points made only of HSK 1 words (the review is warned about them): 62
+    2-04 (HSK 2) 动词重叠：AA、A一A、A了A、ABAB
+    2-07 (HSK 2) 指示代词：那么、那样、这么、这样
+    2-25 (HSK 2) 对
+    2-26 (HSK 2) 给
+    2-31 (HSK 2) 结构助词：得
+    2-35 (HSK 3) 其他助词：的话、等
+    2-36 (HSK 2) 喂
+    2-45 (HSK 2) 还是⋯⋯吧
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    3-01 (HSK 3) 第-、老-、小-
+    3-16 (HSK 3) 关联副词：再
+    3-34 (HSK 3) 不A不B
+    ... and 50 more
+
+=== 1-40 at HSK 1: funnel ===
+       40  AI-written sentences
+       40  1. have an English translation
+       40  2. contain the point's word(s)
+       40  3. new (not in DB, not a duplicate)
+       40  4. at most 0 characters outside HSK 1 words
+       40  5. really HSK 1
+       39  5b. no harder grammar point (of the 87 with a rule)
+       19  6. the rule finds 1-40
+       18  6b. no hidden word a learner can't work out
+       17  7. both checks say 1-40, English chosen
+       16  8. both difficulty reviews pass it
+
+=== Survivors (16) ===
+  雨大了。  (The rain has gotten heavier.)  [tatoeba ai-1e4734b6ca]
+  天气冷了。  (The weather has gotten cold.)  [tatoeba ai-e4372931ee]
+  孩子大了。  (The child has grown up.)  [tatoeba ai-25d5a50406]
+  我没钱了。  (I have no money left.)  [tatoeba ai-4a0084369a]
+  他不喝茶了。  (He doesn't drink tea anymore.)  [tatoeba ai-0c447d042f]  hidden: 喝茶
+  我不想去了。  (I don't want to go anymore.)  [tatoeba ai-21ca14d0e3]  hidden: 不想
+  他不在学校了。  (He's no longer at school.)  [tatoeba ai-004ef5f269]  hidden: 不在
+  他有女朋友了。  (He has a girlfriend now.)  [tatoeba ai-96a1dba58d]
+  爸爸不工作了。  (Dad doesn't work anymore.)  [tatoeba ai-9d812ae4cd]
+  我们家有狗了。  (We have a dog now.)  [tatoeba ai-21fb8df2d4]
+  我不想看电视了。  (I don't want to watch TV anymore.)  [tatoeba ai-6721714930]  hidden: 不想
+  家里没有米饭了。  (There's no rice at home anymore.)  [tatoeba ai-5eda45b8f8]  hidden: 家里
+  商店不卖苹果了。  (The shop doesn't sell apples anymore.)  [tatoeba ai-cf64f110ad]
+  弟弟不吃包子了。  (My younger brother doesn't eat baby buns anymore.)  [tatoeba ai-9a2327a577]
+  天气热了，我想喝水。  (The weather has gotten hot, and I want to drink some water.)  [tatoeba ai-f6cc5f3ddd]
+  姐姐不在公司工作了。  (My older sister doesn't work at the company anymore.)  [tatoeba ai-7a69309322]  hidden: 不在
+
+--- dropped at step 5b (1) ---
+  饭好了，来吃吧。  -- harder grammar: 2-34 (HSK 2)
+
+--- dropped at step 6 (20) ---
+  很晚了，我想睡觉了。  -- rule: no match: line matched
+  我想回家了。  -- rule: no match: line matched
+  我儿子八岁了。  -- rule: no match: line matched
+  我会说汉语了。  -- rule: no match: line matched
+  我知道他的名字了。  -- rule: no match: line matched
+  下雪了。  -- rule: no match: line matched
+  现在十点了。  -- rule: no match: line matched
+  你的朋友来了。  -- rule: no match: line matched
+  我下班了。  -- rule: no match: line matched
+  上课了，请坐。  -- rule: no match: line matched
+  这件衣服小了。  -- rule: no match: line matched
+  他的病好了。  -- rule: no match: line matched
+  猫睡觉了。  -- rule: no match: line matched
+  妹妹会开车了。  -- rule: no match: line matched
+  他起床了。  -- rule: no match: line matched
+  水开了。  -- rule: no match: line matched
+  哥哥是大学生了。  -- rule: no match: line matched
+  苹果贵了。  -- rule: no match: line matched
+  她会唱这个歌了。  -- rule: no match: line matched
+  我认识他了。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  我不住在这里了。  -- hidden word a learner can't work out: 不住 ((verb complement) unable to firmly or securely (grasp, recall etc); repeatedly; continuously; constantly)
+
+--- dropped at step 7 (1) ---
+  我今天不忙了。  -- check said no (1/2): 不 + adjective + 了; unclear if negating adjective or showing state change
+
+--- dropped at step 8 (1) ---
+  我不爱喝牛奶了。  -- difficulty review: (2/2); 爱 used as 'to like/love' is beyond HSK 1; learners know it only as a noun meaning 'love'
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_1-40_level1_20261114_163353.csv

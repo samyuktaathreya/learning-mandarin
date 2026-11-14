@@ -155,3 +155,1404 @@ Harder grammar points made only of HSK 1-2 words (the review is warned about the
   汤姆做得有点过头了。  -- hidden word a learner can't work out: 有点 (a little)
 
 Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-13_level2_20261109_220811.csv
+
+########## guard check  2026-11-10 21:30 ##########
+
+########## tatoeba  2026-11-10 21:35 ##########
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-13 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      463  2. contain the point's word(s)
+      462  3. new (not in DB, not a duplicate)
+      176  4. at most 2 characters outside HSK 2 words
+       14  5. really HSK 2
+       12  5b. no harder grammar point (of the 34 with a rule)
+        1  6. the rule finds 2-13
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (1) ---
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (286), first 12 ---
+  吉尔吉斯斯坦的情况十分混乱。  -- 7 characters no HSK 2 word uses: 乱况吉坦尔斯混
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  我更愿意走路，而不是骑自行车。  -- 5 characters no HSK 2 word uses: 愿更而行骑
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  我新年的新希望是更努力地学习。  -- 3 characters no HSK 2 word uses: 力努更
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  融化中的极地冰盖也可以使海平面上涨的势态更加严重。  -- 15 characters no HSK 2 word uses: 严使冰加势化平态更极海涨盖融重
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  如果我们不做更多的努力去保护雨林，很多其中的稀有物种将会灭绝。  -- 14 characters no HSK 2 word uses: 保其力努如将护更林灭物种稀绝
+  我对美国的印象挺好的。  -- 4 characters no HSK 2 word uses: 印挺美象
+  也就是说，我更加地了解了中国。  -- 3 characters no HSK 2 word uses: 加更解
+
+--- dropped at step 5 (162), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  我挺喜欢那个歌手的。  -- level 4: 挺 L3, 歌手 L4
+  他们四十分钟之后下课。  -- level 4: 之后 L4
+  充足的休息十分重要。  -- level 5: 充足 L5, 十分 L4, 重要 L3
+  不管你有多好，都还有人比你更好。  -- level 4: 不管 L4, 更 L3
+  热天气不仅仅意味着人们觉得有点不高兴。  -- level 5: 仅仅 L4, 意味着 L5
+  这个比那个更小。  -- level 3: 更 L3
+  空气有点冷。  -- level 4: 空气 L4
+  服务器有点儿慢。  -- level 7: 服务器 L7
+  我母亲十分生气。  -- level 4: 母亲 L4, 十分 L4, 生气 L3
+  他特别爱讲笑话。  -- level 4: 特别 L3, 讲 L3, 笑话 L4
+  我是一个特别的人吗？谢谢。;)  -- level 3: 特别 L3
+
+--- dropped at step 5b (2) ---
+  再等十分钟！  -- harder grammar: 3-16 (HSK 3)
+  让我再睡十分钟！  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (11) ---
+  因为我有点头疼，所以我早早上床睡觉。  -- rule: no match: line matched
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  她说她有点累了。  -- rule: no match: line matched
+  我有点累。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  他们可能有点什么。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  有今天有点头疼。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  汤姆做得有点过头了。  -- hidden word a learner can't work out: 有点 (a little)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-13_level2_20261110_213555.csv
+
+########## guard check  2026-11-11 14:22 ##########
+
+########## tatoeba  2026-11-11 14:28 ##########
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-13 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      463  2. contain the point's word(s)
+      462  3. new (not in DB, not a duplicate)
+      176  4. at most 2 characters outside HSK 2 words
+       14  5. really HSK 2
+       12  5b. no harder grammar point (of the 39 with a rule)
+        1  6. the rule finds 2-13
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (1) ---
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (286), first 12 ---
+  吉尔吉斯斯坦的情况十分混乱。  -- 7 characters no HSK 2 word uses: 乱况吉坦尔斯混
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  我更愿意走路，而不是骑自行车。  -- 5 characters no HSK 2 word uses: 愿更而行骑
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  我新年的新希望是更努力地学习。  -- 3 characters no HSK 2 word uses: 力努更
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  融化中的极地冰盖也可以使海平面上涨的势态更加严重。  -- 15 characters no HSK 2 word uses: 严使冰加势化平态更极海涨盖融重
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  如果我们不做更多的努力去保护雨林，很多其中的稀有物种将会灭绝。  -- 14 characters no HSK 2 word uses: 保其力努如将护更林灭物种稀绝
+  我对美国的印象挺好的。  -- 4 characters no HSK 2 word uses: 印挺美象
+  也就是说，我更加地了解了中国。  -- 3 characters no HSK 2 word uses: 加更解
+
+--- dropped at step 5 (162), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  我挺喜欢那个歌手的。  -- level 4: 挺 L3, 歌手 L4
+  他们四十分钟之后下课。  -- level 4: 之后 L4
+  充足的休息十分重要。  -- level 5: 充足 L5, 十分 L4, 重要 L3
+  不管你有多好，都还有人比你更好。  -- level 4: 不管 L4, 更 L3
+  热天气不仅仅意味着人们觉得有点不高兴。  -- level 5: 仅仅 L4, 意味着 L5
+  这个比那个更小。  -- level 3: 更 L3
+  空气有点冷。  -- level 4: 空气 L4
+  服务器有点儿慢。  -- level 7: 服务器 L7
+  我母亲十分生气。  -- level 4: 母亲 L4, 十分 L4, 生气 L3
+  他特别爱讲笑话。  -- level 4: 特别 L3, 讲 L3, 笑话 L4
+  我是一个特别的人吗？谢谢。;)  -- level 3: 特别 L3
+
+--- dropped at step 5b (2) ---
+  再等十分钟！  -- harder grammar: 3-16 (HSK 3)
+  让我再睡十分钟！  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (11) ---
+  因为我有点头疼，所以我早早上床睡觉。  -- rule: no match: line matched
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  她说她有点累了。  -- rule: no match: line matched
+  我有点累。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  不好意思，我有点儿不舒服。  -- rule: no match: line matched
+  他们可能有点什么。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  有今天有点头疼。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+  我有点累了。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  汤姆做得有点过头了。  -- hidden word a learner can't work out: 有点 (a little)
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-13_level2_20261111_142854.csv
+
+########## rules  2026-11-12 17:23 ##########
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+  Checking 7 sentence(s) for 2-13 (1 call(s))...
+
+=== A. 2-13: rule on labeled examples (no AI) ===
+  examples of 2-13 matched:    43/54
+  counter-examples wrongly matched: 5/18   <- should be 0
+
+--- counter-examples the rule WRONGLY matches (5) ---
+  我不但喜欢你的性格，更喜欢你笑的样子。  -- ASG87B11 Using "budan... geng" to express "not only... but also"  [matched: 更|挺|多么|特别|十分/AD /VA|VV]
+  现在撤资不但会对贸易造成危害，更会对股市造成影响。  -- ASG87B11 Using "budan... geng" to express "not only... but also"  [matched: 更|挺|多么|特别|十分/AD /VA|VV]
+  我不但想换电脑，更想换手机。  -- ASG87B11 Using "budan... geng" to express "not only... but also"  [matched: 更|挺|多么|特别|十分/AD /VA|VV]
+  养宠物不但要有爱心，更要有耐心。  -- ASG87B11 Using "budan... geng" to express "not only... but also"  [matched: 更|挺|多么|特别|十分/AD /VA|VV]
+  查字典的好处很多，不但可以清楚地知道读音，更可以查到字词的解释。  -- ASG87B11 Using "budan... geng" to express "not only... but also"  [matched: 更|挺|多么|特别|十分/AD /VA|VV]
+
+--- examples of 2-13 the rule misses (11) ---
+  昨天有一点热。  -- ASGPM3MY Expressing "a little too" with "you dian"
+  上海的冬天有一点冷。  -- ASGPM3MY Expressing "a little too" with "you dian"
+  请说慢一点。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  快点，要迟到了。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  老板，便宜点吧。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  这个比那个重一点。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  你脸上有一点番茄酱。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  你碗里还有点饭，吃完吧。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  这个菜一点也不辣。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  作业你一点也没做？  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  这孩子多可爱啊！  -- HSK list example
+  easy examples (words all HSK 2 or below) matched: 8/10   <- needs 60%
+
+########## rules  2026-11-12 21:10 ##########
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 2-13: rule on labeled examples (no AI) ===
+  examples of 2-13 matched:    52/54
+  counter-examples wrongly matched: 0/18   <- should be 0
+
+--- examples of 2-13 the rule misses (2) ---
+  你脸上有一点番茄酱。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  你碗里还有点饭，吃完吧。  -- ASGV55Y4 Comparing "youdian" and "yidian"
+  easy examples (words all HSK 2 or below) matched: 10/10   <- needs 60%
+
+########## guard check  2026-11-12 21:13 ##########
+Flags examples of 1-02, 1-03 that don't contain 2-13: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+########## tatoeba  2026-11-12 21:14 ##########
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+  2 check call(s) (20 sentences each)...
+
+=== 2-13 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      463  2. contain the point's word(s)
+      462  3. new (not in DB, not a duplicate)
+      176  4. at most 2 characters outside HSK 2 words
+       18  5. really HSK 2
+       16  5b. no harder grammar point (of the 40 with a rule)
+       12  6. the rule finds 2-13
+       11  6b. no hidden word a learner can't work out
+        9  7. both checks say 2-13, English chosen
+        8  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (8) ===
+  有点大。  (It's a little big.)  [tatoeba 6158468]
+  有点小。  (It's a little small.)  [tatoeba 6158469]
+  我有点累。  (I'm a little tired.)  [tatoeba 3472407]
+  这里有点冷。  (It's a little chilly in here.)  [tatoeba 10021247]
+  我有点累了。  (I'm a little tired.)  [tatoeba 12422343]
+  我有点喜欢他。  (I kind of like him.)  [tatoeba 9955918]
+  她说她有点累了。  (She said she was a bit tired.)  [tatoeba 2032147]
+  不好意思，我有点儿不舒服。  (Excuse me, I'm not feeling very well.)  [tatoeba 4878943]  hidden: 不舒服
+
+--- dropped at step 3 (1) ---
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (286), first 12 ---
+  吉尔吉斯斯坦的情况十分混乱。  -- 7 characters no HSK 2 word uses: 乱况吉坦尔斯混
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  我更愿意走路，而不是骑自行车。  -- 5 characters no HSK 2 word uses: 愿更而行骑
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  我新年的新希望是更努力地学习。  -- 3 characters no HSK 2 word uses: 力努更
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  融化中的极地冰盖也可以使海平面上涨的势态更加严重。  -- 15 characters no HSK 2 word uses: 严使冰加势化平态更极海涨盖融重
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  如果我们不做更多的努力去保护雨林，很多其中的稀有物种将会灭绝。  -- 14 characters no HSK 2 word uses: 保其力努如将护更林灭物种稀绝
+  我对美国的印象挺好的。  -- 4 characters no HSK 2 word uses: 印挺美象
+  也就是说，我更加地了解了中国。  -- 3 characters no HSK 2 word uses: 加更解
+
+--- dropped at step 5 (158), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  我挺喜欢那个歌手的。  -- level 4: 挺 L3, 歌手 L4
+  他们四十分钟之后下课。  -- level 4: 之后 L4
+  充足的休息十分重要。  -- level 5: 充足 L5, 十分 L4, 重要 L3
+  不管你有多好，都还有人比你更好。  -- level 4: 不管 L4, 更 L3
+  热天气不仅仅意味着人们觉得有点不高兴。  -- level 5: 仅仅 L4, 意味着 L5
+  这个比那个更小。  -- level 3: 更 L3
+  空气有点冷。  -- level 4: 空气 L4
+  服务器有点儿慢。  -- level 7: 服务器 L7
+  我母亲十分生气。  -- level 4: 母亲 L4, 十分 L4, 生气 L3
+  他特别爱讲笑话。  -- level 4: 特别 L3, 讲 L3, 笑话 L4
+  我是一个特别的人吗？谢谢。;)  -- level 3: 特别 L3
+
+--- dropped at step 5b (2) ---
+  再等十分钟！  -- harder grammar: 3-16 (HSK 3)
+  让我再睡十分钟！  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (4) ---
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  因为我有点头疼，所以我早早上床睡觉。  -- hidden word a learner can't work out: 上床 (to go to bed)
+
+--- dropped at step 7 (2) ---
+  有今天有点头疼。  -- check said no (1/2): Unnatural sentence; grammar error (有 + today)
+  他们可能有点什么。  -- check said no (2/2): 有点 used as noun (something), not degree adverb
+
+--- dropped at step 8 (1) ---
+  不知道为什么今天有点累。  -- difficulty review: (1/2); 为什么 (why) is HSK 2-05, but using it here requires understanding causality with 不知道, which goes beyond simple question formation
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-13_level2_20261112_211457.csv
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-13 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      463  2. contain the point's word(s)
+      462  3. new (not in DB, not a duplicate)
+      176  4. at most 2 characters outside HSK 2 words
+       18  5. really HSK 2
+       16  5b. no harder grammar point (of the 44 with a rule)
+       12  6. the rule finds 2-13
+       11  6b. no hidden word a learner can't work out
+        9  7. both checks say 2-13, English chosen
+        8  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (8) ===
+  有点大。  (It's a little big.)  [tatoeba 6158468]
+  有点小。  (It's a little small.)  [tatoeba 6158469]
+  我有点累。  (I'm a little tired.)  [tatoeba 3472407]
+  这里有点冷。  (It's a little chilly in here.)  [tatoeba 10021247]
+  我有点累了。  (I'm a little tired.)  [tatoeba 12422343]
+  我有点喜欢他。  (I kind of like him.)  [tatoeba 9955918]
+  她说她有点累了。  (She said she was a bit tired.)  [tatoeba 2032147]
+  不好意思，我有点儿不舒服。  (Excuse me, I'm not feeling very well.)  [tatoeba 4878943]  hidden: 不舒服
+
+--- dropped at step 3 (1) ---
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (286), first 12 ---
+  吉尔吉斯斯坦的情况十分混乱。  -- 7 characters no HSK 2 word uses: 乱况吉坦尔斯混
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  我更愿意走路，而不是骑自行车。  -- 5 characters no HSK 2 word uses: 愿更而行骑
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  我新年的新希望是更努力地学习。  -- 3 characters no HSK 2 word uses: 力努更
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  融化中的极地冰盖也可以使海平面上涨的势态更加严重。  -- 15 characters no HSK 2 word uses: 严使冰加势化平态更极海涨盖融重
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  如果我们不做更多的努力去保护雨林，很多其中的稀有物种将会灭绝。  -- 14 characters no HSK 2 word uses: 保其力努如将护更林灭物种稀绝
+  我对美国的印象挺好的。  -- 4 characters no HSK 2 word uses: 印挺美象
+  也就是说，我更加地了解了中国。  -- 3 characters no HSK 2 word uses: 加更解
+
+--- dropped at step 5 (158), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  我挺喜欢那个歌手的。  -- level 4: 挺 L3, 歌手 L4
+  他们四十分钟之后下课。  -- level 4: 之后 L4
+  充足的休息十分重要。  -- level 5: 充足 L5, 十分 L4, 重要 L3
+  不管你有多好，都还有人比你更好。  -- level 4: 不管 L4, 更 L3
+  热天气不仅仅意味着人们觉得有点不高兴。  -- level 5: 仅仅 L4, 意味着 L5
+  这个比那个更小。  -- level 3: 更 L3
+  空气有点冷。  -- level 4: 空气 L4
+  服务器有点儿慢。  -- level 7: 服务器 L7
+  我母亲十分生气。  -- level 4: 母亲 L4, 十分 L4, 生气 L3
+  他特别爱讲笑话。  -- level 4: 特别 L3, 讲 L3, 笑话 L4
+  我是一个特别的人吗？谢谢。;)  -- level 3: 特别 L3
+
+--- dropped at step 5b (2) ---
+  再等十分钟！  -- harder grammar: 3-16 (HSK 3)
+  让我再睡十分钟！  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (4) ---
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+
+--- dropped at step 6b (1) ---
+  因为我有点头疼，所以我早早上床睡觉。  -- hidden word a learner can't work out: 上床 (to go to bed)
+
+--- dropped at step 7 (2) ---
+  有今天有点头疼。  -- check said no (1/2): Unnatural sentence; grammar error (有 + today)
+  他们可能有点什么。  -- check said no (2/2): 有点 used as noun (something), not degree adverb
+
+--- dropped at step 8 (1) ---
+  不知道为什么今天有点累。  -- difficulty review: (1/2); 为什么 (why) is HSK 2-05, but using it here requires understanding causality with 不知道, which goes beyond simple question formation
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-13_level2_20261113_135429.csv
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## tatoeba  2026-11-13 14:43 ##########
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  上床 = 上 + 床  (to go to bed; (coll.) to have sex)
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 2 check and 2 review rejection(s)...
+  1 check call(s) with claude-sonnet-5-5 (20 sentences each)...
+
+=== 2-13 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      463  2. contain the point's word(s)
+      462  3. new (not in DB, not a duplicate)
+      176  4. at most 2 characters outside HSK 2 words
+       18  5. really HSK 2
+       16  5b. no harder grammar point (of the 43 with a rule)
+       12  6. the rule finds 2-13
+       12  6b. no hidden word a learner can't work out
+       10  7. both checks say 2-13, English chosen
+        8  8. both difficulty reviews pass it
+        2  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (10) ===
+  有点大。  (It's a little big.)  [tatoeba 6158468]
+  有点小。  (It's a little small.)  [tatoeba 6158469]
+  我有点累。  (I'm a little tired.)  [tatoeba 3472407]
+  这里有点冷。  (It's a little chilly in here.)  [tatoeba 10021247]
+  我有点累了。  (I'm a little tired.)  [tatoeba 12422343]
+  我有点喜欢他。  (I kind of like him.)  [tatoeba 9955918]
+  她说她有点累了。  (She said she was a bit tired.)  [tatoeba 2032147]
+  不好意思，我有点儿不舒服。  (Excuse me, I'm not feeling very well.)  [tatoeba 4878943]  hidden: 不舒服
+  不知道为什么今天有点累。  (I don't know why I'm a little tired today.)  [tatoeba 7976854]
+  因为我有点头疼，所以我早早上床睡觉。  (I had a slight headache, so I went to bed early.)  [tatoeba 1227107]  hidden: 头疼, 上床
+
+--- dropped at step 3 (1) ---
+  这个水果比那个更好！  -- same text as tatoeba 5378529 (translations pooled)
+
+--- dropped at step 4 (286), first 12 ---
+  吉尔吉斯斯坦的情况十分混乱。  -- 7 characters no HSK 2 word uses: 乱况吉坦尔斯混
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  我更愿意走路，而不是骑自行车。  -- 5 characters no HSK 2 word uses: 愿更而行骑
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  我新年的新希望是更努力地学习。  -- 3 characters no HSK 2 word uses: 力努更
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  融化中的极地冰盖也可以使海平面上涨的势态更加严重。  -- 15 characters no HSK 2 word uses: 严使冰加势化平态更极海涨盖融重
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  如果我们不做更多的努力去保护雨林，很多其中的稀有物种将会灭绝。  -- 14 characters no HSK 2 word uses: 保其力努如将护更林灭物种稀绝
+  我对美国的印象挺好的。  -- 4 characters no HSK 2 word uses: 印挺美象
+  也就是说，我更加地了解了中国。  -- 3 characters no HSK 2 word uses: 加更解
+
+--- dropped at step 5 (158), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  我挺喜欢那个歌手的。  -- level 4: 挺 L3, 歌手 L4
+  他们四十分钟之后下课。  -- level 4: 之后 L4
+  充足的休息十分重要。  -- level 5: 充足 L5, 十分 L4, 重要 L3
+  不管你有多好，都还有人比你更好。  -- level 4: 不管 L4, 更 L3
+  热天气不仅仅意味着人们觉得有点不高兴。  -- level 5: 仅仅 L4, 意味着 L5
+  这个比那个更小。  -- level 3: 更 L3
+  空气有点冷。  -- level 4: 空气 L4
+  服务器有点儿慢。  -- level 7: 服务器 L7
+  我母亲十分生气。  -- level 4: 母亲 L4, 十分 L4, 生气 L3
+  他特别爱讲笑话。  -- level 4: 特别 L3, 讲 L3, 笑话 L4
+  我是一个特别的人吗？谢谢。;)  -- level 3: 特别 L3
+
+--- dropped at step 5b (2) ---
+  再等十分钟！  -- harder grammar: 3-16 (HSK 3)
+  让我再睡十分钟！  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (4) ---
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+
+--- dropped at step 7 (2) ---
+  有今天有点头疼。  -- check said no (1/2): Unnatural sentence; grammar error (有 + today)
+  他们可能有点什么。  -- check said no (2/2): 有点 used as noun (something), not degree adverb
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-13_level2_20261113_144314.csv
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## ai  2026-11-14 14:31 ##########
+
+----- AI-written sentences for 2-13, round 1: 0 to check, 10 needed -----
+  Asking claude-sonnet-5-5 to write 25 sentence(s)...
+
+----- AI-written sentences for 2-13, round 2: 25 to check, 10 needed -----
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 25
+
+Tagging 10 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_143137.txt
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 0  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-13 at HSK 2: funnel ===
+       25  AI-written sentences
+       25  1. have an English translation
+       23  2. contain the point's word(s)
+       23  3. new (not in DB, not a duplicate)
+       10  4. at most 0 characters outside HSK 2 words
+        5  5. really HSK 2
+        5  5b. no harder grammar point (of the 43 with a rule)
+        4  6. the rule finds 2-13
+        4  6b. no hidden word a learner can't work out
+        4  7. both checks say 2-13, English chosen
+        4  8. both difficulty reviews pass it
+
+=== Survivors (4) ===
+  这个包子有点儿贵。  (This steamed bun is a bit too expensive.)  [tatoeba ai-a24ff8cb1e]  hidden: 这个
+  商店里的人有点儿多。  (There are a few too many people in the store.)  [tatoeba ai-c00d99d4dd]
+  这个电影有点儿没意思。  (This movie is a bit boring.)  [tatoeba ai-a6c4f764b7]  hidden: 这个
+  外面有点儿冷，我不想出去。  (It's a bit cold outside, so I don't want to go out.)  [tatoeba ai-2e60891985]  hidden: 不想
+
+--- dropped at step 4 (13), first 12 ---
+  这个杯子挺好看的。  -- 1 characters no HSK 2 word uses: 挺
+  今天的天气特别好。  -- 1 characters no HSK 2 word uses: 特
+  我哥哥比我更高。  -- 1 characters no HSK 2 word uses: 更
+  那家饭馆的菜挺好吃的。  -- 1 characters no HSK 2 word uses: 挺
+  这里的水果便宜，那边的更便宜。  -- 1 characters no HSK 2 word uses: 更
+  妈妈做的饭特别好吃。  -- 1 characters no HSK 2 word uses: 特
+  他挺喜欢这个电影的。  -- 1 characters no HSK 2 word uses: 挺
+  明天会更忙。  -- 1 characters no HSK 2 word uses: 更
+  这个房间有点儿小，那个更小。  -- 1 characters no HSK 2 word uses: 更
+  他住得很远，我住得更远。  -- 1 characters no HSK 2 word uses: 更
+  老师今天挺高兴的。  -- 1 characters no HSK 2 word uses: 挺
+  我女儿特别喜欢猫。  -- 1 characters no HSK 2 word uses: 特
+
+--- dropped at step 5 (5) ---
+  这件衣服十分漂亮。  -- level 4: 十分 L4
+  那个小朋友多么高兴！  -- level 4: 多么 L4
+  这儿的雪十分好看。  -- level 4: 十分 L4
+  中国的火车多么快！  -- level 4: 多么 L4
+  他的英语十分好。  -- level 4: 十分 L4
+
+--- dropped at step 6 (1) ---
+  我的手机有一点儿慢。  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-13_level2_20261114_143143.csv
+  Asking claude-sonnet-5-5 to write 15 sentence(s)...
+
+----- AI-written sentences for 2-13, round 3: 40 to check, 10 needed -----
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 40
+
+Tagging 8 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_143156.txt
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 0  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-13 at HSK 2: funnel ===
+       40  AI-written sentences
+       40  1. have an English translation
+       38  2. contain the point's word(s)
+       38  3. new (not in DB, not a duplicate)
+       18  4. at most 0 characters outside HSK 2 words
+        9  5. really HSK 2
+        9  5b. no harder grammar point (of the 43 with a rule)
+        7  6. the rule finds 2-13
+        7  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-13, English chosen
+        7  8. both difficulty reviews pass it
+
+=== Survivors (7) ===
+  这个包子有点儿贵。  (This steamed bun is a bit too expensive.)  [tatoeba ai-a24ff8cb1e]  hidden: 这个
+  商店里的人有点儿多。  (There are a few too many people in the store.)  [tatoeba ai-c00d99d4dd]
+  这个电影有点儿没意思。  (This movie is a bit boring.)  [tatoeba ai-a6c4f764b7]  hidden: 这个
+  今天有点儿热,我想喝水。  (It's a bit too hot today. I want to drink some water.)  [tatoeba ai-19b2ad05ca]
+  外面有点儿冷，我不想出去。  (It's a bit cold outside, so I don't want to go out.)  [tatoeba ai-2e60891985]  hidden: 不想
+  这个椅子坐着有点儿不舒服。  (This chair is a little uncomfortable to sit on.)  [tatoeba ai-e4e3b0448f]  hidden: 这个, 不舒服
+  这条路有点儿长,我们坐车去吧。  (This road is a bit too long. Let's go by car.)  [tatoeba ai-b4de03aa11]  hidden: 坐车
+
+--- dropped at step 4 (20), first 12 ---
+  这个杯子挺好看的。  -- 1 characters no HSK 2 word uses: 挺
+  今天的天气特别好。  -- 1 characters no HSK 2 word uses: 特
+  我哥哥比我更高。  -- 1 characters no HSK 2 word uses: 更
+  那家饭馆的菜挺好吃的。  -- 1 characters no HSK 2 word uses: 挺
+  这里的水果便宜，那边的更便宜。  -- 1 characters no HSK 2 word uses: 更
+  妈妈做的饭特别好吃。  -- 1 characters no HSK 2 word uses: 特
+  他挺喜欢这个电影的。  -- 1 characters no HSK 2 word uses: 挺
+  明天会更忙。  -- 1 characters no HSK 2 word uses: 更
+  这个房间有点儿小，那个更小。  -- 1 characters no HSK 2 word uses: 更
+  他住得很远，我住得更远。  -- 1 characters no HSK 2 word uses: 更
+  老师今天挺高兴的。  -- 1 characters no HSK 2 word uses: 挺
+  我女儿特别喜欢猫。  -- 1 characters no HSK 2 word uses: 特
+
+--- dropped at step 5 (9) ---
+  这件衣服十分漂亮。  -- level 4: 十分 L4
+  那个小朋友多么高兴！  -- level 4: 多么 L4
+  这儿的雪十分好看。  -- level 4: 十分 L4
+  中国的火车多么快！  -- level 4: 多么 L4
+  他的英语十分好。  -- level 4: 十分 L4
+  这个电影多么有意思!  -- level 4: 多么 L4
+  我妹妹十分喜欢这只猫。  -- level 4: 十分 L4
+  他唱的歌十分好听。  -- level 4: 十分 L4
+  这里的雪多么大!  -- level 4: 多么 L4
+
+--- dropped at step 6 (2) ---
+  我的手机有一点儿慢。  -- rule: no match: line matched
+  我家离学校有一点儿远。  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-13_level2_20261114_143202.csv
+
+########## ai  2026-11-14 14:58 ##########
+
+----- AI-written sentences for 2-13, round 1: 40 to check, 10 needed -----
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 40
+
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 0  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-13 at HSK 2: funnel ===
+       40  AI-written sentences
+       40  1. have an English translation
+       38  2. contain the point's word(s)
+       38  3. new (not in DB, not a duplicate)
+       18  4. at most 0 characters outside HSK 2 words
+        9  5. really HSK 2
+        9  5b. no harder grammar point (of the 43 with a rule)
+        7  6. the rule finds 2-13
+        7  6b. no hidden word a learner can't work out
+        7  7. both checks say 2-13, English chosen
+        7  8. both difficulty reviews pass it
+
+=== Survivors (7) ===
+  这个包子有点儿贵。  (This steamed bun is a bit too expensive.)  [tatoeba ai-a24ff8cb1e]  hidden: 这个
+  商店里的人有点儿多。  (There are a few too many people in the store.)  [tatoeba ai-c00d99d4dd]
+  这个电影有点儿没意思。  (This movie is a bit boring.)  [tatoeba ai-a6c4f764b7]  hidden: 这个
+  今天有点儿热,我想喝水。  (It's a bit too hot today. I want to drink some water.)  [tatoeba ai-19b2ad05ca]
+  外面有点儿冷，我不想出去。  (It's a bit cold outside, so I don't want to go out.)  [tatoeba ai-2e60891985]  hidden: 不想
+  这个椅子坐着有点儿不舒服。  (This chair is a little uncomfortable to sit on.)  [tatoeba ai-e4e3b0448f]  hidden: 这个, 不舒服
+  这条路有点儿长,我们坐车去吧。  (This road is a bit too long. Let's go by car.)  [tatoeba ai-b4de03aa11]  hidden: 坐车
+
+--- dropped at step 4 (20), first 12 ---
+  这个杯子挺好看的。  -- 1 characters no HSK 2 word uses: 挺
+  今天的天气特别好。  -- 1 characters no HSK 2 word uses: 特
+  我哥哥比我更高。  -- 1 characters no HSK 2 word uses: 更
+  那家饭馆的菜挺好吃的。  -- 1 characters no HSK 2 word uses: 挺
+  这里的水果便宜，那边的更便宜。  -- 1 characters no HSK 2 word uses: 更
+  妈妈做的饭特别好吃。  -- 1 characters no HSK 2 word uses: 特
+  他挺喜欢这个电影的。  -- 1 characters no HSK 2 word uses: 挺
+  明天会更忙。  -- 1 characters no HSK 2 word uses: 更
+  这个房间有点儿小，那个更小。  -- 1 characters no HSK 2 word uses: 更
+  他住得很远，我住得更远。  -- 1 characters no HSK 2 word uses: 更
+  老师今天挺高兴的。  -- 1 characters no HSK 2 word uses: 挺
+  我女儿特别喜欢猫。  -- 1 characters no HSK 2 word uses: 特
+
+--- dropped at step 5 (9) ---
+  这件衣服十分漂亮。  -- level 4: 十分 L4
+  那个小朋友多么高兴！  -- level 4: 多么 L4
+  这儿的雪十分好看。  -- level 4: 十分 L4
+  中国的火车多么快！  -- level 4: 多么 L4
+  他的英语十分好。  -- level 4: 十分 L4
+  这个电影多么有意思!  -- level 4: 多么 L4
+  我妹妹十分喜欢这只猫。  -- level 4: 十分 L4
+  他唱的歌十分好听。  -- level 4: 十分 L4
+  这里的雪多么大!  -- level 4: 多么 L4
+
+--- dropped at step 6 (2) ---
+  我的手机有一点儿慢。  -- rule: no match: line matched
+  我家离学校有一点儿远。  -- rule: no match: line matched
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-13_level2_20261114_145849.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+
+----- AI-written sentences for 2-13, round 2: 50 to check, 10 needed -----
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 50
+
+Tagging 5 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_145900.txt
+  Deciding 2 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  你等 = 你 + 等  ((archaic) you all)
+     clear  等一会儿 = 等 + 一会儿  (erhua variant of 等一會|等一会[deng3 yi1 hui4])
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 0  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-13 at HSK 2: funnel ===
+       50  AI-written sentences
+       50  1. have an English translation
+       48  2. contain the point's word(s)
+       48  3. new (not in DB, not a duplicate)
+       23  4. at most 0 characters outside HSK 2 words
+       11  5. really HSK 2
+       11  5b. no harder grammar point (of the 43 with a rule)
+        9  6. the rule finds 2-13
+        9  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-13, English chosen
+        8  8. both difficulty reviews pass it
+
+=== Survivors (8) ===
+  这个包子有点儿贵。  (This steamed bun is a bit too expensive.)  [tatoeba ai-a24ff8cb1e]  hidden: 这个
+  商店里的人有点儿多。  (There are a few too many people in the store.)  [tatoeba ai-c00d99d4dd]
+  这个电影有点儿没意思。  (This movie is a bit boring.)  [tatoeba ai-a6c4f764b7]  hidden: 这个
+  今天有点儿热,我想喝水。  (It's a bit too hot today. I want to drink some water.)  [tatoeba ai-19b2ad05ca]
+  外面有点儿冷，我不想出去。  (It's a bit cold outside, so I don't want to go out.)  [tatoeba ai-2e60891985]  hidden: 不想
+  这个椅子坐着有点儿不舒服。  (This chair is a little uncomfortable to sit on.)  [tatoeba ai-e4e3b0448f]  hidden: 这个, 不舒服
+  这杯茶有点儿热,你等一会儿。  (This tea is a bit too hot, so wait a little while.)  [tatoeba ai-0a994712d8]  hidden: 你等, 等一会儿
+  这条路有点儿长,我们坐车去吧。  (This road is a bit too long. Let's go by car.)  [tatoeba ai-b4de03aa11]  hidden: 坐车
+
+--- dropped at step 4 (25), first 12 ---
+  这个杯子挺好看的。  -- 1 characters no HSK 2 word uses: 挺
+  今天的天气特别好。  -- 1 characters no HSK 2 word uses: 特
+  我哥哥比我更高。  -- 1 characters no HSK 2 word uses: 更
+  那家饭馆的菜挺好吃的。  -- 1 characters no HSK 2 word uses: 挺
+  这里的水果便宜，那边的更便宜。  -- 1 characters no HSK 2 word uses: 更
+  妈妈做的饭特别好吃。  -- 1 characters no HSK 2 word uses: 特
+  他挺喜欢这个电影的。  -- 1 characters no HSK 2 word uses: 挺
+  明天会更忙。  -- 1 characters no HSK 2 word uses: 更
+  这个房间有点儿小，那个更小。  -- 1 characters no HSK 2 word uses: 更
+  他住得很远，我住得更远。  -- 1 characters no HSK 2 word uses: 更
+  老师今天挺高兴的。  -- 1 characters no HSK 2 word uses: 挺
+  我女儿特别喜欢猫。  -- 1 characters no HSK 2 word uses: 特
+
+--- dropped at step 5 (12) ---
+  这件衣服十分漂亮。  -- level 4: 十分 L4
+  那个小朋友多么高兴！  -- level 4: 多么 L4
+  这儿的雪十分好看。  -- level 4: 十分 L4
+  中国的火车多么快！  -- level 4: 多么 L4
+  他的英语十分好。  -- level 4: 十分 L4
+  这个电影多么有意思!  -- level 4: 多么 L4
+  我妹妹十分喜欢这只猫。  -- level 4: 十分 L4
+  他唱的歌十分好听。  -- level 4: 十分 L4
+  这里的雪多么大!  -- level 4: 多么 L4
+  这本书有一点儿贵。  -- level 1: no list words
+  奶奶做的鱼十分好吃。  -- level 4: 十分 L4
+  多么漂亮的衣服!  -- level 4: 多么 L4
+
+--- dropped at step 6 (2) ---
+  我的手机有一点儿慢。  -- rule: no match: line matched
+  我家离学校有一点儿远。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  我有点想家人。  -- check said no (1/2): 有点 before verb 想, not before adjective
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-13_level2_20261114_145908.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+  The answer couldn't be read (no JSON array in the answer); trying once more next round.
+
+----- AI-written sentences for 2-13, round 3: 50 to check, 10 needed -----
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 50
+
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 0  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-13 at HSK 2: funnel ===
+       50  AI-written sentences
+       50  1. have an English translation
+       48  2. contain the point's word(s)
+       48  3. new (not in DB, not a duplicate)
+       23  4. at most 0 characters outside HSK 2 words
+       11  5. really HSK 2
+       11  5b. no harder grammar point (of the 43 with a rule)
+        9  6. the rule finds 2-13
+        9  6b. no hidden word a learner can't work out
+        8  7. both checks say 2-13, English chosen
+        8  8. both difficulty reviews pass it
+
+=== Survivors (8) ===
+  这个包子有点儿贵。  (This steamed bun is a bit too expensive.)  [tatoeba ai-a24ff8cb1e]  hidden: 这个
+  商店里的人有点儿多。  (There are a few too many people in the store.)  [tatoeba ai-c00d99d4dd]
+  这个电影有点儿没意思。  (This movie is a bit boring.)  [tatoeba ai-a6c4f764b7]  hidden: 这个
+  今天有点儿热,我想喝水。  (It's a bit too hot today. I want to drink some water.)  [tatoeba ai-19b2ad05ca]
+  外面有点儿冷，我不想出去。  (It's a bit cold outside, so I don't want to go out.)  [tatoeba ai-2e60891985]  hidden: 不想
+  这个椅子坐着有点儿不舒服。  (This chair is a little uncomfortable to sit on.)  [tatoeba ai-e4e3b0448f]  hidden: 这个, 不舒服
+  这杯茶有点儿热,你等一会儿。  (This tea is a bit too hot, so wait a little while.)  [tatoeba ai-0a994712d8]  hidden: 你等, 等一会儿
+  这条路有点儿长,我们坐车去吧。  (This road is a bit too long. Let's go by car.)  [tatoeba ai-b4de03aa11]  hidden: 坐车
+
+--- dropped at step 4 (25), first 12 ---
+  这个杯子挺好看的。  -- 1 characters no HSK 2 word uses: 挺
+  今天的天气特别好。  -- 1 characters no HSK 2 word uses: 特
+  我哥哥比我更高。  -- 1 characters no HSK 2 word uses: 更
+  那家饭馆的菜挺好吃的。  -- 1 characters no HSK 2 word uses: 挺
+  这里的水果便宜，那边的更便宜。  -- 1 characters no HSK 2 word uses: 更
+  妈妈做的饭特别好吃。  -- 1 characters no HSK 2 word uses: 特
+  他挺喜欢这个电影的。  -- 1 characters no HSK 2 word uses: 挺
+  明天会更忙。  -- 1 characters no HSK 2 word uses: 更
+  这个房间有点儿小，那个更小。  -- 1 characters no HSK 2 word uses: 更
+  他住得很远，我住得更远。  -- 1 characters no HSK 2 word uses: 更
+  老师今天挺高兴的。  -- 1 characters no HSK 2 word uses: 挺
+  我女儿特别喜欢猫。  -- 1 characters no HSK 2 word uses: 特
+
+--- dropped at step 5 (12) ---
+  这件衣服十分漂亮。  -- level 4: 十分 L4
+  那个小朋友多么高兴！  -- level 4: 多么 L4
+  这儿的雪十分好看。  -- level 4: 十分 L4
+  中国的火车多么快！  -- level 4: 多么 L4
+  他的英语十分好。  -- level 4: 十分 L4
+  这个电影多么有意思!  -- level 4: 多么 L4
+  我妹妹十分喜欢这只猫。  -- level 4: 十分 L4
+  他唱的歌十分好听。  -- level 4: 十分 L4
+  这里的雪多么大!  -- level 4: 多么 L4
+  这本书有一点儿贵。  -- level 1: no list words
+  奶奶做的鱼十分好吃。  -- level 4: 十分 L4
+  多么漂亮的衣服!  -- level 4: 多么 L4
+
+--- dropped at step 6 (2) ---
+  我的手机有一点儿慢。  -- rule: no match: line matched
+  我家离学校有一点儿远。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  我有点想家人。  -- check said no (1/2): 有点 before verb 想, not before adjective
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-13_level2_20261114_145923.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:10 ##########
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+Tagging 7 Tatoeba candidate(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161022.txt
+  ...100/166
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 19  -> Tatoeba needs to add 1 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 2 check and 0 review rejection(s)...
+
+=== 2-13 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      463  2. contain the point's word(s)
+      452  3. new (not in DB, not a duplicate)
+      166  4. at most 2 characters outside HSK 2 words
+        8  5. really HSK 2
+        6  5b. no harder grammar point (of the 43 with a rule)
+        2  6. the rule finds 2-13
+        2  6b. no hidden word a learner can't work out
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (11) ---
+  因为我有点头疼，所以我早早上床睡觉。  -- already in the database
+  她说她有点累了。  -- already in the database
+  我有点累。  -- already in the database
+  不好意思，我有点儿不舒服。  -- already in the database
+  有点大。  -- already in the database
+  有点小。  -- already in the database
+  不知道为什么今天有点累。  -- already in the database
+  我有点喜欢他。  -- already in the database
+  这里有点冷。  -- already in the database
+  我有点累了。  -- already in the database
+  这个水果比那个更好！  -- same text as 5378529 (translations pooled)
+
+--- dropped at step 4 (286), first 12 ---
+  吉尔吉斯斯坦的情况十分混乱。  -- 7 characters no HSK 2 word uses: 乱况吉坦尔斯混
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  我更愿意走路，而不是骑自行车。  -- 5 characters no HSK 2 word uses: 愿更而行骑
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  我新年的新希望是更努力地学习。  -- 3 characters no HSK 2 word uses: 力努更
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  融化中的极地冰盖也可以使海平面上涨的势态更加严重。  -- 15 characters no HSK 2 word uses: 严使冰加势化平态更极海涨盖融重
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  如果我们不做更多的努力去保护雨林，很多其中的稀有物种将会灭绝。  -- 14 characters no HSK 2 word uses: 保其力努如将护更林灭物种稀绝
+  我对美国的印象挺好的。  -- 4 characters no HSK 2 word uses: 印挺美象
+  也就是说，我更加地了解了中国。  -- 3 characters no HSK 2 word uses: 加更解
+
+--- dropped at step 5 (158), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  我挺喜欢那个歌手的。  -- level 4: 挺 L3, 歌手 L4
+  他们四十分钟之后下课。  -- level 4: 之后 L4
+  充足的休息十分重要。  -- level 5: 充足 L5, 十分 L4, 重要 L3
+  不管你有多好，都还有人比你更好。  -- level 4: 不管 L4, 更 L3
+  热天气不仅仅意味着人们觉得有点不高兴。  -- level 5: 仅仅 L4, 意味着 L5
+  这个比那个更小。  -- level 3: 更 L3
+  空气有点冷。  -- level 4: 空气 L4
+  服务器有点儿慢。  -- level 7: 服务器 L7
+  我母亲十分生气。  -- level 4: 母亲 L4, 十分 L4, 生气 L3
+  他特别爱讲笑话。  -- level 4: 特别 L3, 讲 L3, 笑话 L4
+  我是一个特别的人吗？谢谢。;)  -- level 3: 特别 L3
+
+--- dropped at step 5b (2) ---
+  再等十分钟！  -- harder grammar: 3-16 (HSK 3)
+  让我再睡十分钟！  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (4) ---
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+
+--- dropped at step 7 (2) ---
+  有今天有点头疼。  -- check said no (1/2): Unnatural sentence; grammar error (有 + today)
+  他们可能有点什么。  -- check said no (2/2): 有点 used as noun (something), not degree adverb
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-13_level2_20261114_161024.csv
+
+########## ai  2026-11-14 16:12 ##########
+
+----- AI-written sentences for 2-13, round 1: 50 to check, 1 needed -----
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 50
+
+Tagging 4 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161259.txt
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 19  -> Tatoeba needs to add 1 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-13 at HSK 2: funnel ===
+       50  AI-written sentences
+       50  1. have an English translation
+       48  2. contain the point's word(s)
+       40  3. new (not in DB, not a duplicate)
+       15  4. at most 0 characters outside HSK 2 words
+        3  5. really HSK 2
+        3  5b. no harder grammar point (of the 43 with a rule)
+        1  6. the rule finds 2-13
+        1  6b. no hidden word a learner can't work out
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (8) ---
+  这个包子有点儿贵。  -- already in the course or chosen from Tatoeba
+  这个电影有点儿没意思。  -- already in the course or chosen from Tatoeba
+  外面有点儿冷，我不想出去。  -- already in the course or chosen from Tatoeba
+  商店里的人有点儿多。  -- already in the course or chosen from Tatoeba
+  今天有点儿热,我想喝水。  -- already in the course or chosen from Tatoeba
+  这条路有点儿长,我们坐车去吧。  -- already in the course or chosen from Tatoeba
+  这个椅子坐着有点儿不舒服。  -- already in the course or chosen from Tatoeba
+  这杯茶有点儿热,你等一会儿。  -- already in the course or chosen from Tatoeba
+
+--- dropped at step 4 (25), first 12 ---
+  这个杯子挺好看的。  -- 1 characters no HSK 2 word uses: 挺
+  今天的天气特别好。  -- 1 characters no HSK 2 word uses: 特
+  我哥哥比我更高。  -- 1 characters no HSK 2 word uses: 更
+  那家饭馆的菜挺好吃的。  -- 1 characters no HSK 2 word uses: 挺
+  这里的水果便宜，那边的更便宜。  -- 1 characters no HSK 2 word uses: 更
+  妈妈做的饭特别好吃。  -- 1 characters no HSK 2 word uses: 特
+  他挺喜欢这个电影的。  -- 1 characters no HSK 2 word uses: 挺
+  明天会更忙。  -- 1 characters no HSK 2 word uses: 更
+  这个房间有点儿小，那个更小。  -- 1 characters no HSK 2 word uses: 更
+  他住得很远，我住得更远。  -- 1 characters no HSK 2 word uses: 更
+  老师今天挺高兴的。  -- 1 characters no HSK 2 word uses: 挺
+  我女儿特别喜欢猫。  -- 1 characters no HSK 2 word uses: 特
+
+--- dropped at step 5 (12) ---
+  这件衣服十分漂亮。  -- level 4: 十分 L4
+  那个小朋友多么高兴！  -- level 4: 多么 L4
+  这儿的雪十分好看。  -- level 4: 十分 L4
+  中国的火车多么快！  -- level 4: 多么 L4
+  他的英语十分好。  -- level 4: 十分 L4
+  这个电影多么有意思!  -- level 4: 多么 L4
+  我妹妹十分喜欢这只猫。  -- level 4: 十分 L4
+  他唱的歌十分好听。  -- level 4: 十分 L4
+  这里的雪多么大!  -- level 4: 多么 L4
+  这本书有一点儿贵。  -- level 1: no list words
+  奶奶做的鱼十分好吃。  -- level 4: 十分 L4
+  多么漂亮的衣服!  -- level 4: 多么 L4
+
+--- dropped at step 6 (2) ---
+  我的手机有一点儿慢。  -- rule: no match: line matched
+  我家离学校有一点儿远。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  我有点想家人。  -- check said no (1/2): 有点 before verb 想, not before adjective
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-13_level2_20261114_161300.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+
+----- AI-written sentences for 2-13, round 2: 60 to check, 1 needed -----
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 60
+
+Tagging 5 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_161309.txt
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 19  -> Tatoeba needs to add 1 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-13 at HSK 2: funnel ===
+       60  AI-written sentences
+       60  1. have an English translation
+       58  2. contain the point's word(s)
+       50  3. new (not in DB, not a duplicate)
+       20  4. at most 0 characters outside HSK 2 words
+        6  5. really HSK 2
+        6  5b. no harder grammar point (of the 43 with a rule)
+        3  6. the rule finds 2-13
+        3  6b. no hidden word a learner can't work out
+        2  7. both checks say 2-13, English chosen
+        2  8. both difficulty reviews pass it
+
+=== Survivors (2) ===
+  我的电脑有点慢。  (My computer is a bit slow.)  [tatoeba ai-274493524c]
+  他今天起床有点儿晚。  (He got up a bit too late today.)  [tatoeba ai-c383b2053e]
+
+--- dropped at step 3 (8) ---
+  这个包子有点儿贵。  -- already in the course or chosen from Tatoeba
+  这个电影有点儿没意思。  -- already in the course or chosen from Tatoeba
+  外面有点儿冷，我不想出去。  -- already in the course or chosen from Tatoeba
+  商店里的人有点儿多。  -- already in the course or chosen from Tatoeba
+  今天有点儿热,我想喝水。  -- already in the course or chosen from Tatoeba
+  这条路有点儿长,我们坐车去吧。  -- already in the course or chosen from Tatoeba
+  这个椅子坐着有点儿不舒服。  -- already in the course or chosen from Tatoeba
+  这杯茶有点儿热,你等一会儿。  -- already in the course or chosen from Tatoeba
+
+--- dropped at step 4 (30), first 12 ---
+  这个杯子挺好看的。  -- 1 characters no HSK 2 word uses: 挺
+  今天的天气特别好。  -- 1 characters no HSK 2 word uses: 特
+  我哥哥比我更高。  -- 1 characters no HSK 2 word uses: 更
+  那家饭馆的菜挺好吃的。  -- 1 characters no HSK 2 word uses: 挺
+  这里的水果便宜，那边的更便宜。  -- 1 characters no HSK 2 word uses: 更
+  妈妈做的饭特别好吃。  -- 1 characters no HSK 2 word uses: 特
+  他挺喜欢这个电影的。  -- 1 characters no HSK 2 word uses: 挺
+  明天会更忙。  -- 1 characters no HSK 2 word uses: 更
+  这个房间有点儿小，那个更小。  -- 1 characters no HSK 2 word uses: 更
+  他住得很远，我住得更远。  -- 1 characters no HSK 2 word uses: 更
+  老师今天挺高兴的。  -- 1 characters no HSK 2 word uses: 挺
+  我女儿特别喜欢猫。  -- 1 characters no HSK 2 word uses: 特
+
+--- dropped at step 5 (14), first 12 ---
+  这件衣服十分漂亮。  -- level 4: 十分 L4
+  那个小朋友多么高兴！  -- level 4: 多么 L4
+  这儿的雪十分好看。  -- level 4: 十分 L4
+  中国的火车多么快！  -- level 4: 多么 L4
+  他的英语十分好。  -- level 4: 十分 L4
+  这个电影多么有意思!  -- level 4: 多么 L4
+  我妹妹十分喜欢这只猫。  -- level 4: 十分 L4
+  他唱的歌十分好听。  -- level 4: 十分 L4
+  这里的雪多么大!  -- level 4: 多么 L4
+  这本书有一点儿贵。  -- level 1: no list words
+  奶奶做的鱼十分好吃。  -- level 4: 十分 L4
+  多么漂亮的衣服!  -- level 4: 多么 L4
+
+--- dropped at step 6 (3) ---
+  我的手机有一点儿慢。  -- rule: no match: line matched
+  我家离学校有一点儿远。  -- rule: no match: line matched
+  他说话有一点儿快。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  我有点想家人。  -- check said no (1/2): 有点 before verb 想, not before adjective
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-13_level2_20261114_161313.csv
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:30 ##########
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 0  -> Tatoeba needs to add 20 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  Short of the target: claude-sonnet-5-5 gives a second opinion on 2 check and 2 review rejection(s)...
+
+=== 2-13 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      463  2. contain the point's word(s)
+      462  3. new (not in DB, not a duplicate)
+      176  4. at most 2 characters outside HSK 2 words
+       18  5. really HSK 2
+       16  5b. no harder grammar point (of the 43 with a rule)
+       12  6. the rule finds 2-13
+       12  6b. no hidden word a learner can't work out
+       10  7. both checks say 2-13, English chosen
+        8  8. both difficulty reviews pass it
+        2  8b. second opinion: not too hard (review)
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (10) ===
+  有点大。  (It's a little big.)  [tatoeba 6158468]
+  有点小。  (It's a little small.)  [tatoeba 6158469]
+  我有点累。  (I'm a little tired.)  [tatoeba 3472407]
+  这里有点冷。  (It's a little chilly in here.)  [tatoeba 10021247]
+  我有点累了。  (I'm a little tired.)  [tatoeba 12422343]
+  我有点喜欢他。  (I kind of like him.)  [tatoeba 9955918]
+  她说她有点累了。  (She said she was a bit tired.)  [tatoeba 2032147]
+  不好意思，我有点儿不舒服。  (Excuse me, I'm not feeling very well.)  [tatoeba 4878943]  hidden: 不舒服
+  不知道为什么今天有点累。  (I don't know why I'm a little tired today.)  [tatoeba 7976854]
+  因为我有点头疼，所以我早早上床睡觉。  (I had a slight headache, so I went to bed early.)  [tatoeba 1227107]  hidden: 头疼, 上床
+
+--- dropped at step 3 (1) ---
+  这个水果比那个更好！  -- same text as 5378529 (translations pooled)
+
+--- dropped at step 4 (286), first 12 ---
+  吉尔吉斯斯坦的情况十分混乱。  -- 7 characters no HSK 2 word uses: 乱况吉坦尔斯混
+  艾马提，我们需要更多肉！  -- 5 characters no HSK 2 word uses: 提更艾需马
+  真正的友谊比金钱更有价值。  -- 5 characters no HSK 2 word uses: 价值更谊金
+  我更愿意走路，而不是骑自行车。  -- 5 characters no HSK 2 word uses: 愿更而行骑
+  老王身体检查的结果别的方面都挺正常，就是血压有点高。  -- 8 characters no HSK 2 word uses: 压挺方查检王结血
+  我新年的新希望是更努力地学习。  -- 3 characters no HSK 2 word uses: 力努更
+  一个人如果条件很好，有一百分，可是这一百分之中，他只给你三四十分，或一二十分；相反地，另一个人也许只有七八十分，可是他却是全心全意的对待你，那你应该选择那一个？  -- 15 characters no HSK 2 word uses: 之全却反另如应待心或择相许该选
+  融化中的极地冰盖也可以使海平面上涨的势态更加严重。  -- 15 characters no HSK 2 word uses: 严使冰加势化平态更极海涨盖融重
+  人们热切地寻求更有现代风格的衣服，所以把以前的旗袍改成了适合他们品位的东西。  -- 15 characters no HSK 2 word uses: 代切合品寻成把改旗更格求袍适风
+  如果我们不做更多的努力去保护雨林，很多其中的稀有物种将会灭绝。  -- 14 characters no HSK 2 word uses: 保其力努如将护更林灭物种稀绝
+  我对美国的印象挺好的。  -- 4 characters no HSK 2 word uses: 印挺美象
+  也就是说，我更加地了解了中国。  -- 3 characters no HSK 2 word uses: 加更解
+
+--- dropped at step 5 (158), first 12 ---
+  这家饭馆的咖哩挺好。  -- level 10: 咖哩 (not in list), 挺 L3
+  我挺喜欢那个歌手的。  -- level 4: 挺 L3, 歌手 L4
+  他们四十分钟之后下课。  -- level 4: 之后 L4
+  充足的休息十分重要。  -- level 5: 充足 L5, 十分 L4, 重要 L3
+  不管你有多好，都还有人比你更好。  -- level 4: 不管 L4, 更 L3
+  热天气不仅仅意味着人们觉得有点不高兴。  -- level 5: 仅仅 L4, 意味着 L5
+  这个比那个更小。  -- level 3: 更 L3
+  空气有点冷。  -- level 4: 空气 L4
+  服务器有点儿慢。  -- level 7: 服务器 L7
+  我母亲十分生气。  -- level 4: 母亲 L4, 十分 L4, 生气 L3
+  他特别爱讲笑话。  -- level 4: 特别 L3, 讲 L3, 笑话 L4
+  我是一个特别的人吗？谢谢。;)  -- level 3: 特别 L3
+
+--- dropped at step 5b (2) ---
+  再等十分钟！  -- harder grammar: 3-16 (HSK 3)
+  让我再睡十分钟！  -- harder grammar: 3-16 (HSK 3)
+
+--- dropped at step 6 (4) ---
+  他的手表慢了十分钟。  -- rule: no match: line matched
+  离下课还有十分钟。  -- rule: no match: line matched
+  这有点意思。  -- rule: no match: line matched
+  我在这里等了三十分钟。  -- rule: no match: line matched
+
+--- dropped at step 7 (2) ---
+  有今天有点头疼。  -- check said no (1/2): Unnatural sentence; grammar error (有 + today)
+  他们可能有点什么。  -- check said no (2/2): 有点 used as noun (something), not degree adverb
+
+--- dropped at step 8 (0) ---
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-13_level2_20261114_163049.csv
+
+########## ai  2026-11-14 16:34 ##########
+
+----- AI-written sentences for 2-13, round 1: 60 to check, 10 needed -----
+Filling 2-13 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 60
+
+
+Course sentences at HSK 2 the rule already finds 2-13 in: 0  -> Tatoeba needs to add 10 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-13 at HSK 2: funnel ===
+       60  AI-written sentences
+       60  1. have an English translation
+       58  2. contain the point's word(s)
+       58  3. new (not in DB, not a duplicate)
+       28  4. at most 0 characters outside HSK 2 words
+       14  5. really HSK 2
+       14  5b. no harder grammar point (of the 43 with a rule)
+       11  6. the rule finds 2-13
+       11  6b. no hidden word a learner can't work out
+       10  7. both checks say 2-13, English chosen
+       10  8. both difficulty reviews pass it
+
+=== Survivors (10) ===
+  我的电脑有点慢。  (My computer is a bit slow.)  [tatoeba ai-274493524c]
+  这个包子有点儿贵。  (This steamed bun is a bit too expensive.)  [tatoeba ai-a24ff8cb1e]  hidden: 这个
+  商店里的人有点儿多。  (There are a few too many people in the store.)  [tatoeba ai-c00d99d4dd]
+  他今天起床有点儿晚。  (He got up a bit too late today.)  [tatoeba ai-c383b2053e]
+  这个电影有点儿没意思。  (This movie is a bit boring.)  [tatoeba ai-a6c4f764b7]  hidden: 这个
+  今天有点儿热,我想喝水。  (It's a bit too hot today. I want to drink some water.)  [tatoeba ai-19b2ad05ca]
+  外面有点儿冷，我不想出去。  (It's a bit cold outside, so I don't want to go out.)  [tatoeba ai-2e60891985]  hidden: 不想
+  这个椅子坐着有点儿不舒服。  (This chair is a little uncomfortable to sit on.)  [tatoeba ai-e4e3b0448f]  hidden: 这个, 不舒服
+  这杯茶有点儿热,你等一会儿。  (This tea is a bit too hot, so wait a little while.)  [tatoeba ai-0a994712d8]  hidden: 你等, 等一会儿
+  这条路有点儿长,我们坐车去吧。  (This road is a bit too long. Let's go by car.)  [tatoeba ai-b4de03aa11]  hidden: 坐车
+
+--- dropped at step 4 (30), first 12 ---
+  这个杯子挺好看的。  -- 1 characters no HSK 2 word uses: 挺
+  今天的天气特别好。  -- 1 characters no HSK 2 word uses: 特
+  我哥哥比我更高。  -- 1 characters no HSK 2 word uses: 更
+  那家饭馆的菜挺好吃的。  -- 1 characters no HSK 2 word uses: 挺
+  这里的水果便宜，那边的更便宜。  -- 1 characters no HSK 2 word uses: 更
+  妈妈做的饭特别好吃。  -- 1 characters no HSK 2 word uses: 特
+  他挺喜欢这个电影的。  -- 1 characters no HSK 2 word uses: 挺
+  明天会更忙。  -- 1 characters no HSK 2 word uses: 更
+  这个房间有点儿小，那个更小。  -- 1 characters no HSK 2 word uses: 更
+  他住得很远，我住得更远。  -- 1 characters no HSK 2 word uses: 更
+  老师今天挺高兴的。  -- 1 characters no HSK 2 word uses: 挺
+  我女儿特别喜欢猫。  -- 1 characters no HSK 2 word uses: 特
+
+--- dropped at step 5 (14), first 12 ---
+  这件衣服十分漂亮。  -- level 4: 十分 L4
+  那个小朋友多么高兴！  -- level 4: 多么 L4
+  这儿的雪十分好看。  -- level 4: 十分 L4
+  中国的火车多么快！  -- level 4: 多么 L4
+  他的英语十分好。  -- level 4: 十分 L4
+  这个电影多么有意思!  -- level 4: 多么 L4
+  我妹妹十分喜欢这只猫。  -- level 4: 十分 L4
+  他唱的歌十分好听。  -- level 4: 十分 L4
+  这里的雪多么大!  -- level 4: 多么 L4
+  这本书有一点儿贵。  -- level 1: no list words
+  奶奶做的鱼十分好吃。  -- level 4: 十分 L4
+  多么漂亮的衣服!  -- level 4: 多么 L4
+
+--- dropped at step 6 (3) ---
+  我的手机有一点儿慢。  -- rule: no match: line matched
+  我家离学校有一点儿远。  -- rule: no match: line matched
+  他说话有一点儿快。  -- rule: no match: line matched
+
+--- dropped at step 7 (1) ---
+  我有点想家人。  -- check said no (1/2): 有点 before verb 想, not before adjective
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-13_level2_20261114_163410.csv

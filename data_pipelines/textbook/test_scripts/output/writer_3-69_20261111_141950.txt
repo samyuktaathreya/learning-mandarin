@@ -1,0 +1,14 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 10583 characters -->
+## 3-69
+**Point:** Expressing "if… then…" with 要是/要/要不是 in the first clause and 就 in the second clause
+**Covers:** The conditional structure 要是⋯⋯，就⋯⋯ (and variations with 要 alone, or 要不是) where the first clause presents a condition and the second clause presents the consequence, typically across two clauses separated by punctuation.
+**Does not cover:** Uses of 就 that are not part of this conditional structure, such as: 就 as a temporal adverb (early/soon), 就 in "就是" for emphasis or identification, 就 as a discourse connector without a conditional antecedent, or conditional structures using other particles like 只要, 假如, 万一, 既然, 一旦, etc.
+
+```rule
+match: (要是|要不是|要)/CS ... (‖|，) ... 就/AD
+unless: /VC ‖
+unless: 就/AD 是/VC
+unless: ^ ... ‖ .* 就/AD
+```
+
+**Notes:** The rule looks for 要是, 要不是, or 要 tagged as CS (subordinating conjunction) in the first clause, followed by punctuation (‖ or ，), then 就 tagged as AD in the second clause. The first unless excludes 就是 constructions (where 就 is followed by 是). The second unless excludes cases where 就 appears in the first clause or where there's a long first clause — these tend to be other uses of 就. Some example sentences show 要 tagged as VV rather than CS; these won't match, which is conservative but acceptable given the precision-first instruction. The "要我说" idiom is included (tagged 要/CS 我/PN 说/VV) as it follows the conditional structure pattern.

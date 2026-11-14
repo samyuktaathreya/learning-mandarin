@@ -518,6 +518,26 @@ def words_from_dataset(sentence: Sentence, run: "Run", allow_ai: bool = True) ->
     return out
 
 
+def words_from_split(sentence: Sentence, run: "Run") -> list[dict] | None:
+    """Imported sentences (import_extra_sentences.py) carry the word split
+    the grammar trial checked them with (Sentence.word_split, JSON
+    [[surface, list word or null], ...]). It is used AS IS -- no rule or AI
+    splitting, no merging -- so the pipeline tags the sentence exactly as it
+    was checked. "list word" differs from the surface only for words written
+    without 儿 (有点 is the list's 有点儿). None if there is no usable split."""
+    if not sentence.word_split:
+        return None
+    try:
+        split = json.loads(sentence.word_split)
+    except json.JSONDecodeError:
+        return None
+    if "".join(p[0] for p in split) != "".join(re.findall(r"[㐀-鿿]", sentence.hanzi)):
+        run.stats["imported split doesn't match the text: HanLP path"] += 1
+        return None
+    run.stats["sentences: imported word split"] += 1
+    return [{"word": surface, "vocab": word or surface, "reading": None, "gloss": ""} for surface, word in split]
+
+
 def needs_ai_split(word: str, valid_vocab: set) -> bool:
     """An out-of-list token worth asking about: 2+ characters, not a number,
     with at least one list word inside it. Haiku may still keep it whole
@@ -721,8 +741,13 @@ def resolve_non_list_word(db, run: Run, word: str, pos_tag: str, reading: str,
 
 def tag_sentence(db, run: Run, sentence: Sentence) -> int:
     """Tags one sentence and sets its level. Returns the number of tags."""
-    words = words_from_dataset(sentence, run)
-    if words is not None:
+    imported = words_from_split(sentence, run)
+    words = None if imported is not None else words_from_dataset(sentence, run)
+    if imported is not None:                    # used as is: no merging
+        words = imported
+        for w, t in zip(words, tag_pos([w["word"] for w in words])):
+            w["pos"] = t
+    elif words is not None:
         words = merge_lower_level_words(words, run.levels, run.stats, run.merges, sentence.hanzi)
         tags = tag_pos([w["word"] for w in words])
         for w, t in zip(words, tags):
@@ -754,13 +779,14 @@ def tag_sentence(db, run: Run, sentence: Sentence) -> int:
         if not _has_content(word):
             continue
         reading = w["reading"] or citation_reading(word)
-        is_listed = word in run.valid_vocab
+        listed_as = w.get("vocab") or word        # 有点 (as written) is the list word 有点儿
+        is_listed = listed_as in run.valid_vocab
         if pos_tag == "NUM" or (not is_listed and _NUMERAL_ONLY_RE.match(word)
                                 and word not in _NUMERAL_LOOKING_FIXED_WORDS):
             readings.append(compact(reading))   # numbers: read aloud, never vocabulary
             continue
         if is_listed:
-            vocab = db.query(Vocab).filter(Vocab.hanzi == word).one()
+            vocab = db.query(Vocab).filter(Vocab.hanzi == listed_as).one()
             sense = resolve_listed_word(db, run, vocab, reading, pos_tag)
         else:
             vocab, sense = resolve_non_list_word(db, run, word, pos_tag, reading, w["gloss"], sentence)

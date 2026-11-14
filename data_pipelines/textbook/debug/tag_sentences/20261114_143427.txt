@@ -1,0 +1,99 @@
+2026-11-14 14:34:27,135  INFO     === tag_sentences.py run started ===
+2026-11-14 14:34:27,164  INFO     OK        hanlp-valid   '往右走，就是洗手间。' -> [('往', 'P'), ('右', 'NN'), ('走', 'VV'), ('就', 'AD'), ('是', 'VC'), ('洗手间', 'NN')]
+2026-11-14 14:34:27,167  INFO     TAGGED    '往右走，就是洗手间。' (level 2, 6 tags)
+2026-11-14 14:34:27,179  INFO     OK        hanlp-valid   '你往左看，那是我家。' -> [('你', 'PN'), ('往', 'P'), ('左', 'NN'), ('看', 'VV'), ('那', 'PN'), ('是', 'VC'), ('我', 'PN'), ('家', 'NN')]
+2026-11-14 14:34:27,182  INFO     TAGGED    '你往左看，那是我家。' (level 2, 8 tags)
+2026-11-14 14:34:27,194  INFO     FALLBACK  '往前走五分钟就到了。' -- out-of-list word(s): ['往前', '五分钟']
+2026-11-14 14:34:27,194  WARNING    HAIKU resegment call for '往前走五分钟就到了。' (cache miss on [('往前', 'AD'), ('五分钟', 'CD')])
+2026-11-14 14:34:27,215  INFO     TAGGED    '往前走五分钟就到了。' (level 2, 8 tags)
+2026-11-14 14:34:27,227  INFO     FALLBACK  '他往学校跑去了。' -- out-of-list word(s): ['跑去']
+2026-11-14 14:34:27,227  WARNING    HAIKU resegment call for '他往学校跑去了。' (cache miss on [('跑去', 'VV')])
+2026-11-14 14:34:27,244  INFO     TAGGED    '他往学校跑去了。' (level 2, 6 tags)
+2026-11-14 14:34:27,255  INFO     OK        hanlp-valid   '孩子往外面跑了。' -> [('孩子', 'NN'), ('往', 'P'), ('外面', 'NN'), ('跑', 'VV'), ('了', 'SP')]
+2026-11-14 14:34:27,267  INFO     TAGGED    '孩子往外面跑了。' (level 2, 5 tags)
+2026-11-14 14:34:27,278  INFO     OK        hanlp-valid   '请往里面坐。' -> [('请', 'VV'), ('往', 'P'), ('里面', 'NN'), ('坐', 'VV')]
+2026-11-14 14:34:27,280  INFO     TAGGED    '请往里面坐。' (level 2, 4 tags)
+2026-11-14 14:34:27,293  INFO     OK        hanlp-valid   '往后看，谁在那儿？' -> [('往后', 'AD'), ('看', 'VV'), ('谁', 'PN'), ('在', 'P'), ('那儿', 'PN')]
+2026-11-14 14:34:27,294  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-14 14:34:27,298  INFO     TAGGED    '往后看，谁在那儿？' (level 6, 5 tags)
+2026-11-14 14:34:27,310  INFO     FALLBACK  '这是开往机场的车吗？' -- out-of-list word(s): ['这是', '开往']
+2026-11-14 14:34:27,310  WARNING    HAIKU resegment call for '这是开往机场的车吗？' (cache miss on [('开往', 'VV')])
+2026-11-14 14:34:27,331  INFO     TAGGED    '这是开往机场的车吗？' (level 2, 8 tags)
+2026-11-14 14:34:27,345  INFO     FALLBACK  '这是飞往中国的飞机。' -- out-of-list word(s): ['这是']
+2026-11-14 14:34:27,345  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('是', 'VC'), ('飞往', 'VV'), ('中国', 'NR'), ('的', 'DEC'), ('飞机', 'NN')]
+2026-11-14 14:34:27,353  INFO     TAGGED    '这是飞往中国的飞机。' (level 2, 7 tags)
+2026-11-14 14:34:27,365  INFO     FALLBACK  '往前走，就能看见书店。' -- out-of-list word(s): ['往前']
+2026-11-14 14:34:27,365  WARNING    HAIKU resegment call for '往前走，就能看见书店。' (cache miss on [('往前', 'AD')])
+2026-11-14 14:34:27,384  INFO     TAGGED    '往前走，就能看见书店。' (level 2, 7 tags)
+2026-11-14 14:34:27,396  INFO     FALLBACK  '别往下看。' -- out-of-list word(s): ['往下']
+2026-11-14 14:34:27,396  WARNING    HAIKU resegment call for '别往下看。' (cache miss on [('往下', 'AD')])
+2026-11-14 14:34:27,413  INFO     TAGGED    '别往下看。' (level 2, 4 tags)
+2026-11-14 14:34:27,426  INFO     FALLBACK  '他往我这边走来了。' -- out-of-list word(s): ['走来']
+2026-11-14 14:34:27,426  WARNING    HAIKU resegment call for '他往我这边走来了。' (cache miss on [('走来', 'VV')])
+2026-11-14 14:34:27,445  INFO     TAGGED    '他往我这边走来了。' (level 2, 7 tags)
+2026-11-14 14:34:27,458  INFO     OK        hanlp-valid   '往上看，有一只鸟。' -> [('往', 'P'), ('上', 'NN'), ('看', 'VV'), ('有', 'VE'), ('一', 'CD'), ('只', 'M'), ('鸟', 'NN')]
+2026-11-14 14:34:27,461  INFO     TAGGED    '往上看，有一只鸟。' (level 2, 7 tags)
+2026-11-14 14:34:27,473  INFO     OK        hanlp-valid   '你往哪儿走？' -> [('你', 'PN'), ('往', 'P'), ('哪儿', 'PN'), ('走', 'VV')]
+2026-11-14 14:34:27,475  INFO     TAGGED    '你往哪儿走？' (level 2, 4 tags)
+2026-11-14 14:34:27,486  INFO     OK        hanlp-valid   '请往这边来。' -> [('请', 'VV'), ('往', 'VV'), ('这边', 'PN'), ('来', 'VV')]
+2026-11-14 14:34:27,488  INFO     TAGGED    '请往这边来。' (level 2, 4 tags)
+2026-11-14 14:34:27,499  INFO     OK        hanlp-valid   '那只猫往桌子下面跑了。' -> [('那', 'DT'), ('只', 'M'), ('猫', 'NN'), ('往', 'P'), ('桌子', 'NN'), ('下面', 'NN'), ('跑', 'VV'), ('了', 'AS')]
+2026-11-14 14:34:27,502  INFO     TAGGED    '那只猫往桌子下面跑了。' (level 2, 8 tags)
+2026-11-14 14:34:27,514  INFO     OK        hanlp-valid   '外面很冷，别往外面看了。' -> [('外面', 'NN'), ('很', 'AD'), ('冷', 'VA'), ('别', 'AD'), ('往', 'P'), ('外面', 'NN'), ('看', 'VV'), ('了', 'SP')]
+2026-11-14 14:34:27,517  INFO     TAGGED    '外面很冷，别往外面看了。' (level 2, 8 tags)
+2026-11-14 14:34:27,528  INFO     FALLBACK  '你往下说吧。' -- out-of-list word(s): ['往下']
+2026-11-14 14:34:27,528  WARNING    HAIKU resegment call for '你往下说吧。' (cache miss on [('往下', 'AD')])
+2026-11-14 14:34:27,544  INFO     TAGGED    '你往下说吧。' (level 2, 5 tags)
+2026-11-14 14:34:27,555  INFO     FALLBACK  '请往下读。' -- out-of-list word(s): ['往下']
+2026-11-14 14:34:27,555  WARNING    HAIKU resegment call for '请往下读。' (cache miss on [('往下', 'AD')])
+2026-11-14 14:34:27,572  INFO     TAGGED    '请往下读。' (level 2, 4 tags)
+2026-11-14 14:34:27,583  INFO     FALLBACK  '我想往前坐。' -- out-of-list word(s): ['往前']
+2026-11-14 14:34:27,583  WARNING    HAIKU resegment call for '我想往前坐。' (cache miss on [('往前', 'AD')])
+2026-11-14 14:34:27,599  INFO     TAGGED    '我想往前坐。' (level 2, 5 tags)
+2026-11-14 14:34:27,610  INFO     OK        hanlp-valid   '车往后开了一点儿。' -> [('车', 'NN'), ('往后', 'AD'), ('开', 'VV'), ('了', 'AS'), ('一点儿', 'CD')]
+2026-11-14 14:34:27,613  INFO     TAGGED    '车往后开了一点儿。' (level 6, 5 tags)
+2026-11-14 14:34:27,624  INFO     OK        hanlp-valid   '他往医院去了。' -> [('他', 'PN'), ('往', 'P'), ('医院', 'NN'), ('去', 'VV'), ('了', 'SP')]
+2026-11-14 14:34:27,627  INFO     TAGGED    '他往医院去了。' (level 2, 5 tags)
+2026-11-14 14:34:27,638  INFO     FALLBACK  '往那边走，有一个超市。' -- out-of-list word(s): ['一个']
+2026-11-14 14:34:27,638  INFO       CACHE-ONLY resegmentation -> [('往', 'P'), ('那边', 'PN'), ('走', 'VV'), ('有', 'VE'), ('一', 'CD'), ('个', 'M'), ('超市', 'NN')]
+2026-11-14 14:34:27,641  INFO     TAGGED    '往那边走，有一个超市。' (level 2, 7 tags)
+2026-11-14 14:34:27,652  INFO     OK        hanlp-valid   '孩子们往教室里跑。' -> [('孩子', 'NN'), ('们', 'NN'), ('往', 'P'), ('教室', 'NN'), ('里', 'LC'), ('跑', 'VV')]
+2026-11-14 14:34:27,655  INFO     TAGGED    '孩子们往教室里跑。' (level 2, 6 tags)
+2026-11-14 14:34:27,666  INFO     OK        hanlp-valid   '往左走，就是车站。' -> [('往', 'P'), ('左', 'NN'), ('走', 'VV'), ('就', 'AD'), ('是', 'VC'), ('车站', 'NN')]
+2026-11-14 14:34:27,670  INFO     TAGGED    '往左走，就是车站。' (level 2, 6 tags)
+2026-11-14 14:34:27,681  INFO     FALLBACK  '这是开往学校的公交车。' -- out-of-list word(s): ['这是', '开往']
+2026-11-14 14:34:27,681  WARNING    HAIKU resegment call for '这是开往学校的公交车。' (cache miss on [('开往', 'VV')])
+2026-11-14 14:34:27,703  INFO     TAGGED    '这是开往学校的公交车。' (level 2, 7 tags)
+2026-11-14 14:34:27,714  INFO     OK        hanlp-valid   '我想往家里打电话。' -> [('我', 'PN'), ('想', 'VV'), ('往', 'P'), ('家里', 'NN'), ('打电话', 'VV')]
+2026-11-14 14:34:27,721  INFO     TAGGED    '我想往家里打电话。' (level 2, 6 tags)
+2026-11-14 14:34:27,733  INFO     OK        hanlp-valid   '他往我这儿看了看。' -> [('他', 'PN'), ('往', 'P'), ('我', 'PN'), ('这儿', 'PN'), ('看', 'VV'), ('了', 'AS'), ('看', 'VV')]
+2026-11-14 14:34:27,737  INFO     TAGGED    '他往我这儿看了看。' (level 2, 7 tags)
+2026-11-14 14:34:27,749  INFO     FALLBACK  '请往前坐一点儿，好吗？' -- out-of-list word(s): ['往前']
+2026-11-14 14:34:27,749  WARNING    HAIKU resegment call for '请往前坐一点儿，好吗？' (cache miss on [('往前', 'AD')])
+2026-11-14 14:34:27,769  INFO     TAGGED    '请往前坐一点儿，好吗？' (level 2, 7 tags)
+2026-11-14 14:34:27,781  INFO     OK        hanlp-valid   '小狗往我这边跑过来了。' -> [('小', 'JJ'), ('狗', 'NN'), ('往', 'P'), ('我', 'PN'), ('这边', 'PN'), ('跑', 'VV'), ('过来', 'VV'), ('了', 'SP')]
+2026-11-14 14:34:27,785  INFO     TAGGED    '小狗往我这边跑过来了。' (level 2, 8 tags)
+2026-11-14 14:34:27,798  INFO     OK        hanlp-valid   '你往后坐吧，前面太热。' -> [('你', 'PN'), ('往后', 'AD'), ('坐', 'VV'), ('吧', 'SP'), ('前面', 'NN'), ('太', 'AD'), ('热', 'VA')]
+2026-11-14 14:34:27,800  INFO     TAGGED    '你往后坐吧，前面太热。' (level 6, 7 tags)
+2026-11-14 14:34:27,812  INFO     FALLBACK  '我们往上走，到三楼。' -- out-of-list word(s): ['三楼']
+2026-11-14 14:34:27,812  WARNING    HAIKU resegment call for '我们往上走，到三楼。' (cache miss on [('三楼', 'NN')])
+2026-11-14 14:34:27,830  INFO     TAGGED    '我们往上走，到三楼。' (level 2, 7 tags)
+2026-11-14 14:34:27,842  INFO     FALLBACK  '他往门口走去。' -- out-of-list word(s): ['走去']
+2026-11-14 14:34:27,842  WARNING    HAIKU resegment call for '他往门口走去。' (cache miss on [('走去', 'VV')])
+2026-11-14 14:34:27,858  INFO     TAGGED    '他往门口走去。' (level 2, 5 tags)
+2026-11-14 14:34:27,871  INFO     OK        hanlp-valid   '往右看，你能看见那家店。' -> [('往', 'P'), ('右', 'NN'), ('看', 'VV'), ('你', 'PN'), ('能', 'VV'), ('看见', 'VV'), ('那', 'DT'), ('家', 'M'), ('店', 'NN')]
+2026-11-14 14:34:27,874  INFO     TAGGED    '往右看，你能看见那家店。' (level 2, 9 tags)
+2026-11-14 14:34:27,888  INFO     FALLBACK  '那个人往车站跑了。' -- out-of-list word(s): ['那个']
+2026-11-14 14:34:27,888  INFO       CACHE-ONLY resegmentation -> [('那', 'DT'), ('个', 'M'), ('人', 'NN'), ('往', 'P'), ('车站', 'NN'), ('跑', 'VV'), ('了', 'AS')]
+2026-11-14 14:34:27,891  INFO     TAGGED    '那个人往车站跑了。' (level 2, 7 tags)
+2026-11-14 14:34:27,904  INFO     FALLBACK  '往下走，就是教室。' -- out-of-list word(s): ['往下']
+2026-11-14 14:34:27,904  WARNING    HAIKU resegment call for '往下走，就是教室。' (cache miss on [('往下', 'AD')])
+2026-11-14 14:34:27,922  INFO     TAGGED    '往下走，就是教室。' (level 2, 6 tags)
+2026-11-14 14:34:27,934  INFO     FALLBACK  '往里走，里面有很多人。' -- out-of-list word(s): ['很多']
+2026-11-14 14:34:27,934  INFO       CACHE-ONLY resegmentation -> [('往', 'P'), ('里', 'NN'), ('走', 'VV'), ('里面', 'NN'), ('有', 'VE'), ('很', 'AD'), ('多', 'A'), ('人', 'NN')]
+2026-11-14 14:34:27,938  INFO     TAGGED    '往里走，里面有很多人。' (level 2, 8 tags)
+2026-11-14 14:34:27,949  INFO     OK        hanlp-valid   '请往后面坐。' -> [('请', 'VV'), ('往', 'P'), ('后面', 'NN'), ('坐', 'VV')]
+2026-11-14 14:34:27,951  INFO     TAGGED    '请往后面坐。' (level 2, 4 tags)
+2026-11-14 14:34:27,962  INFO     FALLBACK  '这个人在往我们这边看。' -- out-of-list word(s): ['这个']
+2026-11-14 14:34:27,962  INFO       CACHE-ONLY resegmentation -> [('这', 'DT'), ('个', 'M'), ('人', 'NN'), ('在', 'AD'), ('往', 'P'), ('我们', 'PN'), ('这边', 'PN'), ('看', 'VV')]
+2026-11-14 14:34:27,966  INFO     TAGGED    '这个人在往我们这边看。' (level 2, 8 tags)

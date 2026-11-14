@@ -1,0 +1,21 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 13712 characters -->
+## 2-73
+**Point:** Approximate quantities using 几 (several/a few) or numbers with 多 (more than)
+**Covers:** 几 + measure + noun; 好几 + measure + noun; 几 + (十/百/千/万) + measure + noun; number + 多 + measure + noun
+**Does not cover:** 差不多 (about the same); 多亏 (thanks to); 多 in questions (多大); 多 for intensification (多好); 几乎 (almost); 多少 in questions; doing more with 多; 多 for degree of difference
+
+```rule
+match: 几/CD ... /M
+match: 好/AD 几/CD ... /M
+match: /CD 多/CD ... /M
+unless: 差不多
+unless: 多亏
+unless: 几乎
+unless: /CD 多/AD /M
+unless: ^ ... 多/AD /VA
+unless: ^ ... 多/AD /JJ
+unless: 多/AD 长/JJ 时间
+unless: 多/AD 少/CD
+```
+
+**Notes:** The rule matches 几 or 好几 followed eventually by a measure word (capturing patterns like 几十本 or 好几个). It also matches number + 多 + measure (like 二十多天). Key exclusions: 差不多 (approximation comparison), 多亏 (thanks to), 几乎 (almost), and constructions where 多 is an adverb modifying an adjective/noun rather than indicating quantity (多美, 多大 as questions, etc.). The pattern `/CD 多/AD /M` excludes cases like 两个多小时 where 多 is tagged as adverb between measure words.

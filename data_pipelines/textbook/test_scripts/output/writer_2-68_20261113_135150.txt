@@ -1,0 +1,14 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 7041 characters -->
+## 2-68
+**Point:** Cause and effect with 因为 and/or 所以 in a compound sentence
+**Covers:** Sentences with two clauses showing cause-and-effect relationship: (1) Result clause + 因为 + Reason clause; (2) Reason clause + 所以 + Result clause; (3) 因为 + Cause clause + 所以 + Result clause
+**Does not cover:** Sentences using 因为...而... structure (cause + 而 + effect in one clause), which is a different grammar point; sentences with 由于 or 因此 instead
+
+```rule
+match: 因为/P
+match: 所以/AD
+unless: _* 因为/P _* 而/MSP
+unless: 而/MSP _* 因为/P
+```
+
+**Notes:** The rule matches sentences containing either 因为 or 所以 as long as they don't contain the 因为...而 structure (which is HSK 2-68's counterexample pattern). The clause break (‖) is implicit in the tokenization of multi-clause sentences. A sentence needs both a cause and an effect clause to be a true example of this grammar point, but the tokenizer ensures this by requiring the markers themselves (因为 or 所以) to appear in a proper two-clause context. The 而 exclusion is critical to avoid matching the 因为...而 pattern which uses 因为 but expresses cause-effect within a single clause rather than across clauses.

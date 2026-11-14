@@ -1,0 +1,31 @@
+2026-11-14 16:13:33,242  INFO     === tag_sentences.py run started ===
+2026-11-14 16:13:33,280  INFO     OK        hanlp-valid   '我对电脑不太懂。' -> [('我', 'PN'), ('对', 'P'), ('电脑', 'NN'), ('不', 'AD'), ('太', 'AD'), ('懂', 'VV')]
+2026-11-14 16:13:33,283  INFO     TAGGED    '我对电脑不太懂。' (level 2, 6 tags)
+2026-11-14 16:13:33,299  INFO     OK        hanlp-valid   '孩子对我说：“我想喝牛奶。”' -> [('孩子', 'NN'), ('对', 'P'), ('我', 'PN'), ('说', 'VV'), ('我', 'PN'), ('想', 'VV'), ('喝', 'VV'), ('牛奶', 'NN')]
+2026-11-14 16:13:33,302  INFO     TAGGED    '孩子对我说：“我想喝牛奶。”' (level 1, 8 tags)
+2026-11-14 16:13:33,319  INFO     FALLBACK  '医生对我说，你要多喝水。' -- out-of-list word(s): ['喝水']
+2026-11-14 16:13:33,319  WARNING    HAIKU resegment call for '医生对我说，你要多喝水。' (cache miss on [('喝水', 'VV')])
+2026-11-14 16:13:33,337  INFO     TAGGED    '医生对我说，你要多喝水。' (level 1, 9 tags)
+2026-11-14 16:13:33,354  INFO     OK        hanlp-valid   '你在对谁笑呢？' -> [('你', 'PN'), ('在', 'AD'), ('对', 'P'), ('谁', 'PN'), ('笑', 'VV'), ('呢', 'SP')]
+2026-11-14 16:13:33,356  INFO       READING  谁 'shui2' matches no form -- offering every form
+2026-11-14 16:13:33,357  INFO     TAGGED    '你在对谁笑呢？' (level 2, 6 tags)
+2026-11-14 16:13:33,372  INFO     FALLBACK  '那个老师对学生很好。' -- out-of-list word(s): ['那个']
+2026-11-14 16:13:33,373  INFO       CACHE-ONLY resegmentation -> [('那', 'DT'), ('个', 'M'), ('老师', 'NN'), ('对', 'P'), ('学生', 'NN'), ('很', 'AD'), ('好', 'VA')]
+2026-11-14 16:13:33,376  INFO     TAGGED    '那个老师对学生很好。' (level 1, 7 tags)
+2026-11-14 16:13:33,393  INFO     OK        hanlp-valid   '她对我说：“你今天真漂亮！”' -> [('她', 'PN'), ('对', 'P'), ('我', 'PN'), ('说', 'VV'), ('你', 'PN'), ('今天', 'NT'), ('真', 'AD'), ('漂亮', 'VA')]
+2026-11-14 16:13:33,405  INFO     TAGGED    '她对我说：“你今天真漂亮！”' (level 1, 8 tags)
+2026-11-14 16:13:33,422  INFO     OK        hanlp-valid   '小孩儿对我说再见。' -> [('小孩儿', 'NN'), ('对', 'P'), ('我', 'PN'), ('说', 'VV'), ('再见', 'VV')]
+2026-11-14 16:13:33,425  INFO     TAGGED    '小孩儿对我说再见。' (level 2, 5 tags)
+2026-11-14 16:13:33,440  INFO     OK        hanlp-valid   '别对孩子说这些。' -> [('别', 'AD'), ('对', 'P'), ('孩子', 'NN'), ('说', 'VV'), ('这些', 'PN')]
+2026-11-14 16:13:33,443  INFO     TAGGED    '别对孩子说这些。' (level 2, 5 tags)
+2026-11-14 16:13:33,458  INFO     FALLBACK  '孩子对着电脑说英语。' -- out-of-list word(s): ['对着']
+2026-11-14 16:13:33,458  WARNING    HAIKU resegment call for '孩子对着电脑说英语。' (cache miss on [('对着', 'P')])
+2026-11-14 16:13:33,476  INFO     TAGGED    '孩子对着电脑说英语。' (level 2, 6 tags)
+2026-11-14 16:13:33,492  INFO     FALLBACK  '请你对着我看。' -- out-of-list word(s): ['对着']
+2026-11-14 16:13:33,492  WARNING    HAIKU resegment call for '请你对着我看。' (cache miss on [('对着', 'P')])
+2026-11-14 16:13:33,508  INFO     TAGGED    '请你对着我看。' (level 2, 6 tags)
+2026-11-14 16:13:33,524  INFO     OK        hanlp-valid   '我对足球不太懂。' -> [('我', 'PN'), ('对', 'P'), ('足球', 'NN'), ('不', 'AD'), ('太', 'AD'), ('懂', 'VV')]
+2026-11-14 16:13:33,527  INFO     TAGGED    '我对足球不太懂。' (level 2, 6 tags)
+2026-11-14 16:13:33,542  INFO     FALLBACK  '你写的字跟书上的对上了。' -- out-of-list word(s): ['对上']
+2026-11-14 16:13:33,542  WARNING    HAIKU resegment call for '你写的字跟书上的对上了。' (cache miss on [('对上', 'VV')])
+2026-11-14 16:13:33,560  INFO     TAGGED    '你写的字跟书上的对上了。' (level 2, 11 tags)

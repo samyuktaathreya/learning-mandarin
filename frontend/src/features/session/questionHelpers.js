@@ -35,6 +35,7 @@ export const GRADE_ENGLISH_TO_CHINESE_TYPES = new Set([
     "listening sentence",
     "translate english sentence to chinese",
     "translate english word to chinese",
+    "fill in the blank",
 ]);
 
 export const CHARACTER_QUIZ_TYPES = new Set([

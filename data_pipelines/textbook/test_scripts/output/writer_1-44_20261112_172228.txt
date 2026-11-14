@@ -1,0 +1,38 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 15785 characters -->
+## 1-44
+**Point:** 时间表示法 (Structure of times, dates, and days of the week)
+**Covers:** Expressions of clock time (with 点, 分, 半, 刻, 零, 差), dates (年月日/号), and days of the week (星期...), whether standalone or as part of longer phrases
+**Does not cover:** The word 点 or 分 when used in other senses (adding a little of something, "a bit too" adjective modifier, fractions with 分之, ordinal numbers, measure words, verb 点头); 有点/一点 as adverbs meaning "somewhat/a little"; 一年一度 as "annual"; 一度 as "at one point in time"
+
+```rule
+match: /CD 点/M
+match: /CD 分/VV
+match: /CD 分/M
+match: /CD 刻/M
+match: /CD 刻/VV
+match: 点/M 半/NT
+match: 点/M 半/CD
+match: 点/M /CD 分
+match: 点/M /CD 刻
+match: 点/M 零/CD
+match: 点/CD 半
+match: 差/VV /CD 分/M
+match: 差/VV /CD 分/VV
+match: /CD 点/CD
+match: /NT (年|月|日|号|星期|早上|上午|下午|中午|晚上)
+match: (年|月|日|号|星期|早上|上午|下午|中午|晚上)/NT
+match: 星期/NT
+unless: /AD 点 儿
+unless: 有点儿? /AD
+unless: 一点儿? /AD
+unless: 一点 (也|都)
+unless: 分之
+unless: 了 点 儿
+unless: 一度/VA
+unless: 试点
+unless: 观点
+unless: 快 点
+unless: 点头
+```
+
+**Notes:** The rule prioritizes precision by excluding common non-temporal uses of 点/分/刻 (adding quantity, adjective modification, fractions, separable verbs, ordinal constructions). Time expressions can appear in various positions in a sentence; the rule captures the core structures. The distinction between CD (cardinal number) and NT (time noun) tags for the same words reflects how the tagger handles multi-syllable expressions and compound time phrases—both patterns are valid for this point. Counter-examples with 有点/一点 as adverbs and 一度 as temporal adverb are excluded via unless patterns that look for the adverbial context (adjacent AD tags or negation markers).

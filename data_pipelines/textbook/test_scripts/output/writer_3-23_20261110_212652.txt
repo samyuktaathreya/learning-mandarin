@@ -1,0 +1,23 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 9576 characters -->
+## 3-23
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- revised by claude on 2026-11-09; edit freely -->
+**Point:** Using 为 (and the related benefactive 给) as a preposition to express "for" (beneficiary or purpose)
+**Covers:** (1) 为 + beneficiary/goal + verb/adjective showing an action or emotion done for them (including 是…为…的 and 不为…); (2) the 为(了)…而… structure expressing purpose with effort or action; (3) the 给 + person + verb "for" contrast, as taught in the 给/为 comparison
+**Does not cover:** bare 为了 clauses without 而 (3-26); 因为 (because); 以为 (mistakenly think); 为 as main verb or copula (是/变为/成为); fixed expressions such as 以…为, 作为, 为期, 为此, 为什么, 为难, 为的是, 为…所…
+
+```rule
+match: 为/P _ ... /VV|VA
+match: 为了/P ... 而 ... /VV|VA
+match: 给/P _ ... /VV
+unless: 以 ... 为
+unless: 为/VC
+unless: 为 什么
+unless: 为 的 是
+unless: 为 ... 所
+unless: 作为
+unless: 因为
+unless: 以为
+```
+
+**Notes:** 为 is matched only when tagged as a preposition (P) and followed by a word and then a verb or adjective in the same clause. This covers 为我们高兴, 为孩子而活, 是为你准备的 and 为公司的发展贡献. Plain 为了 is still excluded, but 为了…而… with a verb after 而 is now matched, as in 他为了能去日本而苦学日语. Prepositional 给 followed by a person and a verb is matched, as in 给我拿筷子, 给你打电话 and 给他道歉. The unless lines block 以…为, 为什么, 为的是, 为…所 passives, 作为, 因为 and 以为.

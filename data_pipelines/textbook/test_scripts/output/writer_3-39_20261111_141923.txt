@@ -1,0 +1,29 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 7120 characters -->
+## 3-39
+<!-- written by claude-haiku-4-5 on 2026-11-11; edit freely -->
+**Point:** 从⋯⋯起 / 从⋯⋯开始 and related 从 and 离 patterns: "from [time/event/place]" and distance or duration with 离
+**Covers:** 从 + time/event + 起 / 开始 / 以后, 从今以后, 从 + person/place + 里 / 身上 (source or starting point), 从 + event + 看出, 离 + time/event + 还有 / 还远, and 离 + time + 快 + duration
+**Does not cover:** 从 as an adverb (从不, 从小, 从事, 从来); 起来 as direction complement or aspect marker; 看起来 appearance; 一起 meaning "together"; 比起 comparisons
+
+```rule
+match: 从/P _ ... 起/LC
+match: 从/P _ ... 以后/LC
+match: 从/P ... 开始/VV
+match: 从今以后/NT
+match: 从/P ... 里/LC
+match: 从/P _ 身上/NN
+match: 从/P ... 看/VV 出/VV
+match: 离/P _ ... 还/AD 有/VE
+match: 离/P _ ... 还/AD 远/VA
+match: 离/P 今天|现在/NT 快/AD
+unless: 看/VV 起来/VV
+unless: _ 起来/VV
+unless: 一起/AD
+unless: 比/VV 起/VV
+unless: 从不/AD
+unless: 从小/AD
+unless: 从事/VV
+unless: 从来/AD
+```
+
+**Notes:** The rule covers the 从 patterns of this point: a starting point in time or event (起, 开始, 以后, 从今以后), a source or place (里, 身上), and an inference source (看出). It also covers 离 + time with 还有 / 还远 or 快 + duration. Each pattern stays inside one clause and uses specific words, so only the intended structures match. The unless clauses exclude confusable patterns: 看起来, other 起来 uses, 一起, 比起, and adverbial 从 (从不, 从小, 从事, 从来).

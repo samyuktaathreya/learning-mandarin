@@ -96,3 +96,34 @@ Tagging 4 labeled example(s) (cached after this run)...
 === A. 4-73: rule on labeled examples (no AI) ===
   examples of 4-73 matched:    13/13
   counter-examples wrongly matched: 0/114   <- should be 0
+
+########## guard check  2026-11-10 21:32 ##########
+  Checking 2 sentence(s) for 4-73 (1 call(s))...
+Flags examples of 2-07, 2-17 that don't contain 4-73: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+The revised rule fails 4-73's own test (0 wrong, 4 missed): keeping the old rule.
+Not used as a guard for 2-07: it still flags 1 of its examples, e.g. 这样的话，你还想去吗？
+Not used as a guard for 2-17: it still flags 1 of its examples, e.g. 假如我们又见面了，你还会记得我吗？
+
+########## guard check  2026-11-11 14:25 ##########
+
+########## rules  2026-11-12 17:33 ##########
+
+=== A. 4-73: rule on labeled examples (no AI) ===
+  examples of 4-73 matched:    13/13
+  counter-examples wrongly matched: 0/114   <- should be 0
+  easy examples (words all HSK 4 or below) matched: 4/4   <- needs 80%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## guard check  2026-11-12 21:14 ##########
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## guard check  2026-11-14 16:29 ##########

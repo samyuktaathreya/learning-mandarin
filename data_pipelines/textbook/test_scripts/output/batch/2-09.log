@@ -116,3 +116,1199 @@ Harder grammar points made only of HSK 1-2 words (the review is warned about the
   我的城市离首都五十千米。  -- level 4: 城市 L3, 首都 L4, 米 L3
 
 Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-09_level2_20261109_220757.csv
+
+########## guard check  2026-11-10 21:29 ##########
+  Checking 113 sentence(s) for 2-09 (6 call(s))...
+Flags examples of 1-02, 1-04, 1-05, 1-08, 1-09, 1-10, 1-12, 1-13, 1-17, 1-19, 1-20, 1-36, 1-37, 1-42, x-erhua that don't contain 2-09: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+The revised rule fails 2-09's own test (0 wrong, 10 missed): keeping the old rule.
+Not used as a guard for 1-02: it still flags 9 of its examples, e.g. 我能吃四十个饺子。
+Not used as a guard for 1-04: it still flags 38 of its examples, e.g. 每天工作十二个小时，你怎么不累？
+Not used as a guard for 1-05: it still flags 1 of its examples, e.g. 你好，我要两个本子。
+Not used as a guard for 1-08: it still flags 37 of its examples, e.g. 一个人
+Not used as a guard for 1-09: it still flags 3 of its examples, e.g. 我很怕晚上一个人在家。
+Not used as a guard for 1-10: it still flags 2 of its examples, e.g. 你们两个都喜欢中国菜吗？
+Not used as a guard for 1-12: it still flags 9 of its examples, e.g. 再试一下。
+Not used as a guard for 1-13: it still flags 4 of its examples, e.g. 她也有一个儿子。
+Not used as a guard for 1-17: it still flags 2 of its examples, e.g. 这两本账对不上。
+Not used as a guard for 1-19: it still flags 1 of its examples, e.g. 一个还是两个？
+Not used as a guard for 1-20: it still flags 4 of its examples, e.g. 我们清清楚楚地看到他跟一个胖胖的男人上车了。
+Not used as a guard for 1-36: it still flags 2 of its examples, e.g. 你有两个孩子，是吗？
+Not used as a guard for 1-37: it still flags 3 of its examples, e.g. 这里有一个问题。
+Not used as a guard for 1-42: it still flags 1 of its examples, e.g. 昨天晚上七点，我们在吃饭。
+Not used as a guard for x-erhua: it still flags 1 of its examples, e.g. 多少
+
+########## tatoeba  2026-11-10 21:35 ##########
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-40, 3-41, 3-46, 3-60, 3-67, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-09 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      109  2. contain the point's word(s)
+      109  3. new (not in DB, not a duplicate)
+       26  4. at most 2 characters outside HSK 2 words
+        1  5. really HSK 2
+        1  5b. no harder grammar point (of the 34 with a rule)
+        1  6. the rule finds 2-09
+        1  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-09, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  他有一千多本书。  (He has more than a thousand books.)  [tatoeba 3378253]
+
+--- dropped at step 4 (83), first 12 ---
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  乌鲁木齐有四万个摄像机。  -- 6 characters no HSK 2 word uses: 乌像摄木鲁齐
+  每位会员每月需支付一万日元。  -- 4 characters no HSK 2 word uses: 付员支需
+  我朋友新工作的试用期每月工资三千人民币，试用期满后每月的工资三千五百人民币。  -- 5 characters no HSK 2 word uses: 币民满用资
+  中国与蒙古隔着万里长城。  -- 5 characters no HSK 2 word uses: 与古城蒙隔
+  你所要做的便是好好把握这千载难逢的机会。  -- 5 characters no HSK 2 word uses: 把握载逢难
+  成千上万的人死于瘟疫。  -- 5 characters no HSK 2 word uses: 于成死疫瘟
+  语言有时会变得很复杂，有时也会让人焦急万分，想说的总是说不出口，不过总有一天会传达给对方。  -- 10 characters no HSK 2 word uses: 传变复急总方杂焦言达
+  被突袭后宣告战争是可以预想的，但用炸弹屠杀万人以上的平民却是前所未闻的。  -- 17 characters no HSK 2 word uses: 争却宣屠平弹战未杀民炸用突被袭闻预
+  公元前七千年那段时间发生了很多重要的历史事件。  -- 5 characters no HSK 2 word uses: 历发史段重
+  他不久前是百万富翁。  -- 3 characters no HSK 2 word uses: 久富翁
+  台湾岛的面积是三万六千平方公里。  -- 6 characters no HSK 2 word uses: 台岛平方湾积
+
+--- dropped at step 5 (25), first 12 ---
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  钱是万能的。  -- level 7: 万能 L7
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  她有一千零一个愿望。  -- level 5: 愿望 L5
+  那台电脑是花三千块买的。  -- level 4: 台 L4
+  千万别误会我的意思。  -- level 4: 误会 L4
+  金钱万能。  -- level 7: 金钱 L6, 万能 L7
+  我希望万事如意。  -- level 7: 如意 L7
+  有两千小学生到校。  -- level 10: 到校 (not in list)
+  我的城市离首都五十千米。  -- level 4: 城市 L3, 首都 L4, 米 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-09_level2_20261110_213526.csv
+
+########## guard check  2026-11-11 14:21 ##########
+Flags examples of 1-03, 1-04, 1-10, 1-12, 1-13, 1-21, 1-36, 1-37, 1-42, x-erhua that don't contain 2-09: revising.
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+The revised rule fails 2-09's own test (0 wrong, 8 missed): keeping the old rule.
+Not used as a guard for 1-03: it still flags 4 of its examples, e.g. 我要一杯水。
+Not used as a guard for 1-04: it still flags 11 of its examples, e.g. 多少
+Not used as a guard for 1-10: it still flags 1 of its examples, e.g. 你们两个都喜欢中国菜吗？
+Not used as a guard for 1-12: it still flags 1 of its examples, e.g. 再吃一点。
+Not used as a guard for 1-13: it still flags 2 of its examples, e.g. 她也有一个儿子。
+Not used as a guard for 1-21: it still flags 7 of its examples, e.g. 你吃了五个包子了。
+Not used as a guard for 1-36: it still flags 1 of its examples, e.g. 你有两个孩子，是吗？
+Not used as a guard for 1-37: it still flags 4 of its examples, e.g. 这里有一个问题。
+Not used as a guard for 1-42: it still flags 1 of its examples, e.g. 昨天晚上七点，我们在吃饭。
+Not used as a guard for x-erhua: it still flags 1 of its examples, e.g. 多少
+
+########## tatoeba  2026-11-11 14:28 ##########
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-09 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      109  2. contain the point's word(s)
+      109  3. new (not in DB, not a duplicate)
+       26  4. at most 2 characters outside HSK 2 words
+        1  5. really HSK 2
+        1  5b. no harder grammar point (of the 39 with a rule)
+        1  6. the rule finds 2-09
+        1  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-09, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  他有一千多本书。  (He has more than a thousand books.)  [tatoeba 3378253]
+
+--- dropped at step 4 (83), first 12 ---
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  乌鲁木齐有四万个摄像机。  -- 6 characters no HSK 2 word uses: 乌像摄木鲁齐
+  每位会员每月需支付一万日元。  -- 4 characters no HSK 2 word uses: 付员支需
+  我朋友新工作的试用期每月工资三千人民币，试用期满后每月的工资三千五百人民币。  -- 5 characters no HSK 2 word uses: 币民满用资
+  中国与蒙古隔着万里长城。  -- 5 characters no HSK 2 word uses: 与古城蒙隔
+  你所要做的便是好好把握这千载难逢的机会。  -- 5 characters no HSK 2 word uses: 把握载逢难
+  成千上万的人死于瘟疫。  -- 5 characters no HSK 2 word uses: 于成死疫瘟
+  语言有时会变得很复杂，有时也会让人焦急万分，想说的总是说不出口，不过总有一天会传达给对方。  -- 10 characters no HSK 2 word uses: 传变复急总方杂焦言达
+  被突袭后宣告战争是可以预想的，但用炸弹屠杀万人以上的平民却是前所未闻的。  -- 17 characters no HSK 2 word uses: 争却宣屠平弹战未杀民炸用突被袭闻预
+  公元前七千年那段时间发生了很多重要的历史事件。  -- 5 characters no HSK 2 word uses: 历发史段重
+  他不久前是百万富翁。  -- 3 characters no HSK 2 word uses: 久富翁
+  台湾岛的面积是三万六千平方公里。  -- 6 characters no HSK 2 word uses: 台岛平方湾积
+
+--- dropped at step 5 (25), first 12 ---
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  钱是万能的。  -- level 7: 万能 L7
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  她有一千零一个愿望。  -- level 5: 愿望 L5
+  那台电脑是花三千块买的。  -- level 4: 台 L4
+  千万别误会我的意思。  -- level 4: 误会 L4
+  金钱万能。  -- level 7: 金钱 L6, 万能 L7
+  我希望万事如意。  -- level 7: 如意 L7
+  有两千小学生到校。  -- level 10: 到校 (not in list)
+  我的城市离首都五十千米。  -- level 4: 城市 L3, 首都 L4, 米 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-09_level2_20261111_142850.csv
+
+########## rules  2026-11-12 17:23 ##########
+
+=== A. 2-09: rule on labeled examples (no AI) ===
+  examples of 2-09 matched:    10/10
+  counter-examples wrongly matched: 0/22   <- should be 0
+  easy examples (words all HSK 2 or below) matched: 0/0   (too few to test)
+
+########## guard check  2026-11-12 17:34 ##########
+Not used as a guard for 1-03: it still flags 4 of its examples, e.g. 我要一杯水。
+Not used as a guard for 1-04: it still flags 11 of its examples, e.g. 多少
+Not used as a guard for 1-08: it still flags 12 of its examples, e.g. 一个人
+Not used as a guard for 1-10: it still flags 1 of its examples, e.g. 你们两个都喜欢中国菜吗？
+Not used as a guard for 1-12: it still flags 1 of its examples, e.g. 再吃一点。
+Not used as a guard for 1-13: it still flags 2 of its examples, e.g. 她也有一个儿子。
+Not used as a guard for 1-21: it still flags 7 of its examples, e.g. 你吃了五个包子了。
+Not used as a guard for 1-36: it still flags 1 of its examples, e.g. 你有两个孩子，是吗？
+Not used as a guard for 1-37: it still flags 4 of its examples, e.g. 这里有一个问题。
+Not used as a guard for 1-42: it still flags 1 of its examples, e.g. 昨天晚上七点，我们在吃饭。
+Not used as a guard for 1-43: it still flags 5 of its examples, e.g. 多少钱？
+Not used as a guard for 1-44: it still flags 20 of its examples, e.g. 九点
+Not used as a guard for x-erhua: it still flags 1 of its examples, e.g. 多少
+
+########## tatoeba  2026-11-12 17:39 ##########
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-09 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      109  2. contain the point's word(s)
+      109  3. new (not in DB, not a duplicate)
+       26  4. at most 2 characters outside HSK 2 words
+        1  5. really HSK 2
+        1  5b. no harder grammar point (of the 40 with a rule)
+        1  6. the rule finds 2-09
+        1  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-09, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  他有一千多本书。  (He has more than a thousand books.)  [tatoeba 3378253]
+
+--- dropped at step 4 (83), first 12 ---
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  乌鲁木齐有四万个摄像机。  -- 6 characters no HSK 2 word uses: 乌像摄木鲁齐
+  每位会员每月需支付一万日元。  -- 4 characters no HSK 2 word uses: 付员支需
+  我朋友新工作的试用期每月工资三千人民币，试用期满后每月的工资三千五百人民币。  -- 5 characters no HSK 2 word uses: 币民满用资
+  中国与蒙古隔着万里长城。  -- 5 characters no HSK 2 word uses: 与古城蒙隔
+  你所要做的便是好好把握这千载难逢的机会。  -- 5 characters no HSK 2 word uses: 把握载逢难
+  成千上万的人死于瘟疫。  -- 5 characters no HSK 2 word uses: 于成死疫瘟
+  语言有时会变得很复杂，有时也会让人焦急万分，想说的总是说不出口，不过总有一天会传达给对方。  -- 10 characters no HSK 2 word uses: 传变复急总方杂焦言达
+  被突袭后宣告战争是可以预想的，但用炸弹屠杀万人以上的平民却是前所未闻的。  -- 17 characters no HSK 2 word uses: 争却宣屠平弹战未杀民炸用突被袭闻预
+  公元前七千年那段时间发生了很多重要的历史事件。  -- 5 characters no HSK 2 word uses: 历发史段重
+  他不久前是百万富翁。  -- 3 characters no HSK 2 word uses: 久富翁
+  台湾岛的面积是三万六千平方公里。  -- 6 characters no HSK 2 word uses: 台岛平方湾积
+
+--- dropped at step 5 (25), first 12 ---
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  钱是万能的。  -- level 7: 万能 L7
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  她有一千零一个愿望。  -- level 5: 愿望 L5
+  那台电脑是花三千块买的。  -- level 4: 台 L4
+  千万别误会我的意思。  -- level 4: 误会 L4
+  金钱万能。  -- level 7: 金钱 L6, 万能 L7
+  我希望万事如意。  -- level 7: 如意 L7
+  有两千小学生到校。  -- level 10: 到校 (not in list)
+  我的城市离首都五十千米。  -- level 4: 城市 L3, 首都 L4, 米 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-09_level2_20261112_173952.csv
+
+########## guard check  2026-11-12 21:13 ##########
+Not used as a guard for 1-02: it still flags 2 of its examples, e.g. 我能吃四十个饺子。
+Not used as a guard for 1-03: it still flags 4 of its examples, e.g. 我要一杯水。
+Not used as a guard for 1-04: it still flags 11 of its examples, e.g. 多少
+Not used as a guard for 1-08: it still flags 12 of its examples, e.g. 一个人
+Not used as a guard for 1-10: it still flags 1 of its examples, e.g. 你们两个都喜欢中国菜吗？
+Not used as a guard for 1-12: it still flags 1 of its examples, e.g. 再吃一点。
+Not used as a guard for 1-13: it still flags 2 of its examples, e.g. 她也有一个儿子。
+Not used as a guard for 1-21: it still flags 7 of its examples, e.g. 你吃了五个包子了。
+Not used as a guard for 1-36: it still flags 1 of its examples, e.g. 你有两个孩子，是吗？
+Not used as a guard for 1-37: it still flags 4 of its examples, e.g. 这里有一个问题。
+Not used as a guard for 1-42: it still flags 1 of its examples, e.g. 昨天晚上七点，我们在吃饭。
+Not used as a guard for 1-43: it still flags 5 of its examples, e.g. 多少钱？
+Not used as a guard for 1-44: it still flags 20 of its examples, e.g. 九点
+Not used as a guard for x-erhua: it still flags 1 of its examples, e.g. 多少
+
+########## tatoeba  2026-11-12 21:14 ##########
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-59, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 83
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    3-40 (HSK 3) 对⋯⋯来说
+    3-41 (HSK 3) 一……也/都+不/没⋯⋯
+    ... and 71 more
+
+=== 2-09 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      109  2. contain the point's word(s)
+      109  3. new (not in DB, not a duplicate)
+       26  4. at most 2 characters outside HSK 2 words
+        1  5. really HSK 2
+        1  5b. no harder grammar point (of the 40 with a rule)
+        1  6. the rule finds 2-09
+        1  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-09, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  他有一千多本书。  (He has more than a thousand books.)  [tatoeba 3378253]
+
+--- dropped at step 4 (83), first 12 ---
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  乌鲁木齐有四万个摄像机。  -- 6 characters no HSK 2 word uses: 乌像摄木鲁齐
+  每位会员每月需支付一万日元。  -- 4 characters no HSK 2 word uses: 付员支需
+  我朋友新工作的试用期每月工资三千人民币，试用期满后每月的工资三千五百人民币。  -- 5 characters no HSK 2 word uses: 币民满用资
+  中国与蒙古隔着万里长城。  -- 5 characters no HSK 2 word uses: 与古城蒙隔
+  你所要做的便是好好把握这千载难逢的机会。  -- 5 characters no HSK 2 word uses: 把握载逢难
+  成千上万的人死于瘟疫。  -- 5 characters no HSK 2 word uses: 于成死疫瘟
+  语言有时会变得很复杂，有时也会让人焦急万分，想说的总是说不出口，不过总有一天会传达给对方。  -- 10 characters no HSK 2 word uses: 传变复急总方杂焦言达
+  被突袭后宣告战争是可以预想的，但用炸弹屠杀万人以上的平民却是前所未闻的。  -- 17 characters no HSK 2 word uses: 争却宣屠平弹战未杀民炸用突被袭闻预
+  公元前七千年那段时间发生了很多重要的历史事件。  -- 5 characters no HSK 2 word uses: 历发史段重
+  他不久前是百万富翁。  -- 3 characters no HSK 2 word uses: 久富翁
+  台湾岛的面积是三万六千平方公里。  -- 6 characters no HSK 2 word uses: 台岛平方湾积
+
+--- dropped at step 5 (25), first 12 ---
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  钱是万能的。  -- level 7: 万能 L7
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  她有一千零一个愿望。  -- level 5: 愿望 L5
+  那台电脑是花三千块买的。  -- level 4: 台 L4
+  千万别误会我的意思。  -- level 4: 误会 L4
+  金钱万能。  -- level 7: 金钱 L6, 万能 L7
+  我希望万事如意。  -- level 7: 如意 L7
+  有两千小学生到校。  -- level 10: 到校 (not in list)
+  我的城市离首都五十千米。  -- level 4: 城市 L3, 首都 L4, 米 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-09_level2_20261112_211444.csv
+
+########## guard check  2026-11-13 13:53 ##########
+Not used as a guard for 1-02: it still flags 2 of its examples, e.g. 我能吃四十个饺子。
+Not used as a guard for 1-03: it still flags 4 of its examples, e.g. 我要一杯水。
+Not used as a guard for 1-04: it still flags 11 of its examples, e.g. 多少
+Not used as a guard for 1-08: it still flags 12 of its examples, e.g. 一个人
+Not used as a guard for 1-10: it still flags 1 of its examples, e.g. 你们两个都喜欢中国菜吗？
+Not used as a guard for 1-12: it still flags 1 of its examples, e.g. 再吃一点。
+Not used as a guard for 1-13: it still flags 2 of its examples, e.g. 她也有一个儿子。
+Not used as a guard for 1-21: it still flags 7 of its examples, e.g. 你吃了五个包子了。
+Not used as a guard for 1-36: it still flags 1 of its examples, e.g. 你有两个孩子，是吗？
+Not used as a guard for 1-37: it still flags 4 of its examples, e.g. 这里有一个问题。
+Not used as a guard for 1-42: it still flags 1 of its examples, e.g. 昨天晚上七点，我们在吃饭。
+Not used as a guard for 1-43: it still flags 5 of its examples, e.g. 多少钱？
+Not used as a guard for 1-44: it still flags 20 of its examples, e.g. 九点
+Not used as a guard for x-erhua: it still flags 1 of its examples, e.g. 多少
+
+########## tatoeba  2026-11-13 13:54 ##########
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-06, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-09 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      109  2. contain the point's word(s)
+      109  3. new (not in DB, not a duplicate)
+       26  4. at most 2 characters outside HSK 2 words
+        1  5. really HSK 2
+        1  5b. no harder grammar point (of the 44 with a rule)
+        1  6. the rule finds 2-09
+        1  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-09, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  他有一千多本书。  (He has more than a thousand books.)  [tatoeba 3378253]
+
+--- dropped at step 4 (83), first 12 ---
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  乌鲁木齐有四万个摄像机。  -- 6 characters no HSK 2 word uses: 乌像摄木鲁齐
+  每位会员每月需支付一万日元。  -- 4 characters no HSK 2 word uses: 付员支需
+  我朋友新工作的试用期每月工资三千人民币，试用期满后每月的工资三千五百人民币。  -- 5 characters no HSK 2 word uses: 币民满用资
+  中国与蒙古隔着万里长城。  -- 5 characters no HSK 2 word uses: 与古城蒙隔
+  你所要做的便是好好把握这千载难逢的机会。  -- 5 characters no HSK 2 word uses: 把握载逢难
+  成千上万的人死于瘟疫。  -- 5 characters no HSK 2 word uses: 于成死疫瘟
+  语言有时会变得很复杂，有时也会让人焦急万分，想说的总是说不出口，不过总有一天会传达给对方。  -- 10 characters no HSK 2 word uses: 传变复急总方杂焦言达
+  被突袭后宣告战争是可以预想的，但用炸弹屠杀万人以上的平民却是前所未闻的。  -- 17 characters no HSK 2 word uses: 争却宣屠平弹战未杀民炸用突被袭闻预
+  公元前七千年那段时间发生了很多重要的历史事件。  -- 5 characters no HSK 2 word uses: 历发史段重
+  他不久前是百万富翁。  -- 3 characters no HSK 2 word uses: 久富翁
+  台湾岛的面积是三万六千平方公里。  -- 6 characters no HSK 2 word uses: 台岛平方湾积
+
+--- dropped at step 5 (25), first 12 ---
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  钱是万能的。  -- level 7: 万能 L7
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  她有一千零一个愿望。  -- level 5: 愿望 L5
+  那台电脑是花三千块买的。  -- level 4: 台 L4
+  千万别误会我的意思。  -- level 4: 误会 L4
+  金钱万能。  -- level 7: 金钱 L6, 万能 L7
+  我希望万事如意。  -- level 7: 如意 L7
+  有两千小学生到校。  -- level 10: 到校 (not in list)
+  我的城市离首都五十千米。  -- level 4: 城市 L3, 首都 L4, 米 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-09_level2_20261113_135425.csv
+
+########## guard check  2026-11-13 14:39 ##########
+Not used as a guard for 1-02: it still flags 2 of its examples, e.g. 我能吃四十个饺子。
+Not used as a guard for 1-03: it still flags 4 of its examples, e.g. 我要一杯水。
+Not used as a guard for 1-04: it still flags 11 of its examples, e.g. 多少
+Not used as a guard for 1-08: it still flags 12 of its examples, e.g. 一个人
+Not used as a guard for 1-10: it still flags 1 of its examples, e.g. 你们两个都喜欢中国菜吗？
+Not used as a guard for 1-12: it still flags 1 of its examples, e.g. 再吃一点。
+Not used as a guard for 1-13: it still flags 2 of its examples, e.g. 她也有一个儿子。
+Not used as a guard for 1-21: it still flags 7 of its examples, e.g. 你吃了五个包子了。
+Not used as a guard for 1-36: it still flags 1 of its examples, e.g. 你有两个孩子，是吗？
+Not used as a guard for 1-37: it still flags 4 of its examples, e.g. 这里有一个问题。
+Not used as a guard for 1-42: it still flags 1 of its examples, e.g. 昨天晚上七点，我们在吃饭。
+Not used as a guard for 1-43: it still flags 5 of its examples, e.g. 多少钱？
+Not used as a guard for 1-44: it still flags 20 of its examples, e.g. 九点
+Not used as a guard for x-erhua: it still flags 1 of its examples, e.g. 多少
+
+########## tatoeba  2026-11-13 14:42 ##########
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 1  -> Tatoeba needs to add 19 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-09 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      109  2. contain the point's word(s)
+      109  3. new (not in DB, not a duplicate)
+       26  4. at most 2 characters outside HSK 2 words
+        1  5. really HSK 2
+        1  5b. no harder grammar point (of the 43 with a rule)
+        1  6. the rule finds 2-09
+        1  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-09, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  他有一千多本书。  (He has more than a thousand books.)  [tatoeba 3378253]
+
+--- dropped at step 4 (83), first 12 ---
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  乌鲁木齐有四万个摄像机。  -- 6 characters no HSK 2 word uses: 乌像摄木鲁齐
+  每位会员每月需支付一万日元。  -- 4 characters no HSK 2 word uses: 付员支需
+  我朋友新工作的试用期每月工资三千人民币，试用期满后每月的工资三千五百人民币。  -- 5 characters no HSK 2 word uses: 币民满用资
+  中国与蒙古隔着万里长城。  -- 5 characters no HSK 2 word uses: 与古城蒙隔
+  你所要做的便是好好把握这千载难逢的机会。  -- 5 characters no HSK 2 word uses: 把握载逢难
+  成千上万的人死于瘟疫。  -- 5 characters no HSK 2 word uses: 于成死疫瘟
+  语言有时会变得很复杂，有时也会让人焦急万分，想说的总是说不出口，不过总有一天会传达给对方。  -- 10 characters no HSK 2 word uses: 传变复急总方杂焦言达
+  被突袭后宣告战争是可以预想的，但用炸弹屠杀万人以上的平民却是前所未闻的。  -- 17 characters no HSK 2 word uses: 争却宣屠平弹战未杀民炸用突被袭闻预
+  公元前七千年那段时间发生了很多重要的历史事件。  -- 5 characters no HSK 2 word uses: 历发史段重
+  他不久前是百万富翁。  -- 3 characters no HSK 2 word uses: 久富翁
+  台湾岛的面积是三万六千平方公里。  -- 6 characters no HSK 2 word uses: 台岛平方湾积
+
+--- dropped at step 5 (25), first 12 ---
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  钱是万能的。  -- level 7: 万能 L7
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  她有一千零一个愿望。  -- level 5: 愿望 L5
+  那台电脑是花三千块买的。  -- level 4: 台 L4
+  千万别误会我的意思。  -- level 4: 误会 L4
+  金钱万能。  -- level 7: 金钱 L6, 万能 L7
+  我希望万事如意。  -- level 7: 如意 L7
+  有两千小学生到校。  -- level 10: 到校 (not in list)
+  我的城市离首都五十千米。  -- level 4: 城市 L3, 首都 L4, 米 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-09_level2_20261113_144258.csv
+
+########## guard check  2026-11-14 14:14 ##########
+Not used as a guard for 1-02: it still flags 2 of its examples, e.g. 我能吃四十个饺子。
+Not used as a guard for 1-03: it still flags 4 of its examples, e.g. 我要一杯水。
+Not used as a guard for 1-04: it still flags 11 of its examples, e.g. 多少
+Not used as a guard for 1-08: it still flags 12 of its examples, e.g. 一个人
+Not used as a guard for 1-10: it still flags 1 of its examples, e.g. 你们两个都喜欢中国菜吗？
+Not used as a guard for 1-12: it still flags 1 of its examples, e.g. 再吃一点。
+Not used as a guard for 1-13: it still flags 2 of its examples, e.g. 她也有一个儿子。
+Not used as a guard for 1-21: it still flags 7 of its examples, e.g. 你吃了五个包子了。
+Not used as a guard for 1-36: it still flags 1 of its examples, e.g. 你有两个孩子，是吗？
+Not used as a guard for 1-37: it still flags 4 of its examples, e.g. 这里有一个问题。
+Not used as a guard for 1-42: it still flags 1 of its examples, e.g. 昨天晚上七点，我们在吃饭。
+Not used as a guard for 1-43: it still flags 5 of its examples, e.g. 多少钱？
+Not used as a guard for 1-44: it still flags 20 of its examples, e.g. 九点
+Not used as a guard for x-erhua: it still flags 1 of its examples, e.g. 多少
+
+########## ai  2026-11-14 14:29 ##########
+
+----- AI-written sentences for 2-09, round 1: 0 to check, 18 needed -----
+  Asking claude-sonnet-5-5 to write 45 sentence(s)...
+
+----- AI-written sentences for 2-09, round 2: 46 to check, 18 needed -----
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 46
+
+Tagging 40 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_142949.txt
+  Deciding 1 new hidden word(s) with claude-sonnet-5-5 (saved to hidden_words.json)...
+     clear  看球 = 看 + 球  (to watch a football game (or other ball )
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 1  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-09 at HSK 2: funnel ===
+       46  AI-written sentences
+       46  1. have an English translation
+       44  2. contain the point's word(s)
+       44  3. new (not in DB, not a duplicate)
+       40  4. at most 0 characters outside HSK 2 words
+       17  5. really HSK 2
+       16  5b. no harder grammar point (of the 43 with a rule)
+       16  6. the rule finds 2-09
+       16  6b. no hidden word a learner can't work out
+       16  7. both checks say 2-09, English chosen
+       15  8. both difficulty reviews pass it
+
+=== Survivors (15) ===
+  他的手表要十万块。  (His watch costs 100,000 yuan.)  [tatoeba ai-65d32348f0]
+  汉语有几万个汉字。  (Chinese has tens of thousands of characters.)  [tatoeba ai-074c10bcc1]
+  今年有八万人来看球。  (This year 80,000 people came to watch the match.)  [tatoeba ai-908629d287]  hidden: 有人, 看球
+  这个歌我听了一万次。  (I've listened to this song 10,000 times.)  [tatoeba ai-fe29df1d01]  hidden: 这个
+  这个机票要两千五百块。  (This plane ticket costs 2,500 yuan.)  [tatoeba ai-4a4ff032a2]  hidden: 这个
+  妈妈说这个包要一万二。  (Mom says this bag costs 12,000.)  [tatoeba ai-4d59d97436]  hidden: 这个
+  他一年花十万块学英语。  (He spends 100,000 yuan a year learning English.)  [tatoeba ai-2f6ca97744]
+  这个手表五万块,我不买。  (This watch is 50,000 yuan. I'm not buying it.)  [tatoeba ai-55bcfbd67d]  hidden: 这个
+  这个商场一天有三万人来。  (This mall gets 30,000 people a day.)  [tatoeba ai-3efea35efd]  hidden: 这个, 有人
+  他买了一个四万块的手表。  (He bought a 40,000-yuan watch.)  [tatoeba ai-16bf6a9bc5]  hidden: 一个
+  这个酒店一个晚上一千块。  (This hotel costs 1,000 yuan a night.)  [tatoeba ai-cb88f59850]  hidden: 这个, 一个
+  昨天他花了一万二千块买电脑。  (Yesterday he spent 12,000 yuan on a computer.)  [tatoeba ai-032a61b61d]
+  这个门票一千五百块,太贵了。  (This entrance ticket is 1,500 yuan. That's too expensive.)  [tatoeba ai-32bddd0be6]  hidden: 这个
+  我的猫两岁了,买它花了三千块。  (My cat is two years old; it cost 3,000 yuan to buy.)  [tatoeba ai-b639284ae3]
+  这个超市每天有两万人来买东西。  (This supermarket has 20,000 people shopping every day.)  [tatoeba ai-97c89a1a7f]  hidden: 这个, 每天, 有人, 买东西
+
+--- dropped at step 4 (4) ---
+  中国有十四亿人。  -- 1 characters no HSK 2 word uses: 亿
+  一亿人看了这个电影。  -- 1 characters no HSK 2 word uses: 亿
+  那个电影很好看,有两亿人看过。  -- 1 characters no HSK 2 word uses: 亿
+  他们的新电影卖了三亿块的票。  -- 1 characters no HSK 2 word uses: 亿
+
+--- dropped at step 5 (23), first 12 ---
+  这个手机三千块。  -- level 1: no list words
+  我们学校有两千个学生。  -- level 1: no list words
+  爸爸一个月有两万块钱。  -- level 1: no list words
+  这个车八万块。  -- level 1: no list words
+  我想买一个三千块的手机。  -- level 1: no list words
+  他有三万块钱。  -- level 1: no list words
+  这个店一天卖两千个包子。  -- level 1: no list words
+  我们公司有三千个人。  -- level 5: 个人 L5
+  这个大学有四万个学生。  -- level 1: no list words
+  六千八百块。  -- level 1: no list words
+  我有两千块钱,可以买这个吗?  -- level 1: no list words
+  你有一万块钱吗?  -- level 1: no list words
+
+--- dropped at step 5b (1) ---
+  他想给妈妈买一个六千块的包。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 8 (1) ---
+  这个歌有五百万人听过。  -- difficulty review: (1/2); Uses 过 (HSK 2-32) in experiential sense with 听过, but the construction with 有+number+人+verb+过 is complex for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-09_level2_20261114_143003.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+  The answer couldn't be read (no JSON array in the answer); trying once more next round.
+
+----- AI-written sentences for 2-09, round 3: 46 to check, 18 needed -----
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 46
+
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 1  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-09 at HSK 2: funnel ===
+       46  AI-written sentences
+       46  1. have an English translation
+       44  2. contain the point's word(s)
+       44  3. new (not in DB, not a duplicate)
+       40  4. at most 0 characters outside HSK 2 words
+       17  5. really HSK 2
+       16  5b. no harder grammar point (of the 43 with a rule)
+       16  6. the rule finds 2-09
+       16  6b. no hidden word a learner can't work out
+       16  7. both checks say 2-09, English chosen
+       15  8. both difficulty reviews pass it
+
+=== Survivors (15) ===
+  他的手表要十万块。  (His watch costs 100,000 yuan.)  [tatoeba ai-65d32348f0]
+  汉语有几万个汉字。  (Chinese has tens of thousands of characters.)  [tatoeba ai-074c10bcc1]
+  今年有八万人来看球。  (This year 80,000 people came to watch the match.)  [tatoeba ai-908629d287]  hidden: 有人, 看球
+  这个歌我听了一万次。  (I've listened to this song 10,000 times.)  [tatoeba ai-fe29df1d01]  hidden: 这个
+  这个机票要两千五百块。  (This plane ticket costs 2,500 yuan.)  [tatoeba ai-4a4ff032a2]  hidden: 这个
+  妈妈说这个包要一万二。  (Mom says this bag costs 12,000.)  [tatoeba ai-4d59d97436]  hidden: 这个
+  他一年花十万块学英语。  (He spends 100,000 yuan a year learning English.)  [tatoeba ai-2f6ca97744]
+  这个手表五万块,我不买。  (This watch is 50,000 yuan. I'm not buying it.)  [tatoeba ai-55bcfbd67d]  hidden: 这个
+  这个商场一天有三万人来。  (This mall gets 30,000 people a day.)  [tatoeba ai-3efea35efd]  hidden: 这个, 有人
+  他买了一个四万块的手表。  (He bought a 40,000-yuan watch.)  [tatoeba ai-16bf6a9bc5]  hidden: 一个
+  这个酒店一个晚上一千块。  (This hotel costs 1,000 yuan a night.)  [tatoeba ai-cb88f59850]  hidden: 这个, 一个
+  昨天他花了一万二千块买电脑。  (Yesterday he spent 12,000 yuan on a computer.)  [tatoeba ai-032a61b61d]
+  这个门票一千五百块,太贵了。  (This entrance ticket is 1,500 yuan. That's too expensive.)  [tatoeba ai-32bddd0be6]  hidden: 这个
+  我的猫两岁了,买它花了三千块。  (My cat is two years old; it cost 3,000 yuan to buy.)  [tatoeba ai-b639284ae3]
+  这个超市每天有两万人来买东西。  (This supermarket has 20,000 people shopping every day.)  [tatoeba ai-97c89a1a7f]  hidden: 这个, 每天, 有人, 买东西
+
+--- dropped at step 4 (4) ---
+  中国有十四亿人。  -- 1 characters no HSK 2 word uses: 亿
+  一亿人看了这个电影。  -- 1 characters no HSK 2 word uses: 亿
+  那个电影很好看,有两亿人看过。  -- 1 characters no HSK 2 word uses: 亿
+  他们的新电影卖了三亿块的票。  -- 1 characters no HSK 2 word uses: 亿
+
+--- dropped at step 5 (23), first 12 ---
+  这个手机三千块。  -- level 1: no list words
+  我们学校有两千个学生。  -- level 1: no list words
+  爸爸一个月有两万块钱。  -- level 1: no list words
+  这个车八万块。  -- level 1: no list words
+  我想买一个三千块的手机。  -- level 1: no list words
+  他有三万块钱。  -- level 1: no list words
+  这个店一天卖两千个包子。  -- level 1: no list words
+  我们公司有三千个人。  -- level 5: 个人 L5
+  这个大学有四万个学生。  -- level 1: no list words
+  六千八百块。  -- level 1: no list words
+  我有两千块钱,可以买这个吗?  -- level 1: no list words
+  你有一万块钱吗?  -- level 1: no list words
+
+--- dropped at step 5b (1) ---
+  他想给妈妈买一个六千块的包。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 8 (1) ---
+  这个歌有五百万人听过。  -- difficulty review: (1/2); Uses 过 (HSK 2-32) in experiential sense with 听过, but the construction with 有+number+人+verb+过 is complex for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-09_level2_20261114_143018.csv
+
+########## ai  2026-11-14 14:57 ##########
+
+----- AI-written sentences for 2-09, round 1: 46 to check, 18 needed -----
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 46
+
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 1  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-09 at HSK 2: funnel ===
+       46  AI-written sentences
+       46  1. have an English translation
+       44  2. contain the point's word(s)
+       44  3. new (not in DB, not a duplicate)
+       40  4. at most 0 characters outside HSK 2 words
+       17  5. really HSK 2
+       16  5b. no harder grammar point (of the 43 with a rule)
+       16  6. the rule finds 2-09
+       16  6b. no hidden word a learner can't work out
+       16  7. both checks say 2-09, English chosen
+       15  8. both difficulty reviews pass it
+
+=== Survivors (15) ===
+  他的手表要十万块。  (His watch costs 100,000 yuan.)  [tatoeba ai-65d32348f0]
+  汉语有几万个汉字。  (Chinese has tens of thousands of characters.)  [tatoeba ai-074c10bcc1]
+  今年有八万人来看球。  (This year 80,000 people came to watch the match.)  [tatoeba ai-908629d287]  hidden: 有人, 看球
+  这个歌我听了一万次。  (I've listened to this song 10,000 times.)  [tatoeba ai-fe29df1d01]  hidden: 这个
+  这个机票要两千五百块。  (This plane ticket costs 2,500 yuan.)  [tatoeba ai-4a4ff032a2]  hidden: 这个
+  妈妈说这个包要一万二。  (Mom says this bag costs 12,000.)  [tatoeba ai-4d59d97436]  hidden: 这个
+  他一年花十万块学英语。  (He spends 100,000 yuan a year learning English.)  [tatoeba ai-2f6ca97744]
+  这个手表五万块,我不买。  (This watch is 50,000 yuan. I'm not buying it.)  [tatoeba ai-55bcfbd67d]  hidden: 这个
+  这个商场一天有三万人来。  (This mall gets 30,000 people a day.)  [tatoeba ai-3efea35efd]  hidden: 这个, 有人
+  他买了一个四万块的手表。  (He bought a 40,000-yuan watch.)  [tatoeba ai-16bf6a9bc5]  hidden: 一个
+  这个酒店一个晚上一千块。  (This hotel costs 1,000 yuan a night.)  [tatoeba ai-cb88f59850]  hidden: 这个, 一个
+  昨天他花了一万二千块买电脑。  (Yesterday he spent 12,000 yuan on a computer.)  [tatoeba ai-032a61b61d]
+  这个门票一千五百块,太贵了。  (This entrance ticket is 1,500 yuan. That's too expensive.)  [tatoeba ai-32bddd0be6]  hidden: 这个
+  我的猫两岁了,买它花了三千块。  (My cat is two years old; it cost 3,000 yuan to buy.)  [tatoeba ai-b639284ae3]
+  这个超市每天有两万人来买东西。  (This supermarket has 20,000 people shopping every day.)  [tatoeba ai-97c89a1a7f]  hidden: 这个, 每天, 有人, 买东西
+
+--- dropped at step 4 (4) ---
+  中国有十四亿人。  -- 1 characters no HSK 2 word uses: 亿
+  一亿人看了这个电影。  -- 1 characters no HSK 2 word uses: 亿
+  那个电影很好看,有两亿人看过。  -- 1 characters no HSK 2 word uses: 亿
+  他们的新电影卖了三亿块的票。  -- 1 characters no HSK 2 word uses: 亿
+
+--- dropped at step 5 (23), first 12 ---
+  这个手机三千块。  -- level 1: no list words
+  我们学校有两千个学生。  -- level 1: no list words
+  爸爸一个月有两万块钱。  -- level 1: no list words
+  这个车八万块。  -- level 1: no list words
+  我想买一个三千块的手机。  -- level 1: no list words
+  他有三万块钱。  -- level 1: no list words
+  这个店一天卖两千个包子。  -- level 1: no list words
+  我们公司有三千个人。  -- level 5: 个人 L5
+  这个大学有四万个学生。  -- level 1: no list words
+  六千八百块。  -- level 1: no list words
+  我有两千块钱,可以买这个吗?  -- level 1: no list words
+  你有一万块钱吗?  -- level 1: no list words
+
+--- dropped at step 5b (1) ---
+  他想给妈妈买一个六千块的包。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 8 (1) ---
+  这个歌有五百万人听过。  -- difficulty review: (1/2); Uses 过 (HSK 2-32) in experiential sense with 听过, but the construction with 有+number+人+verb+过 is complex for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-09_level2_20261114_145730.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+
+----- AI-written sentences for 2-09, round 2: 56 to check, 18 needed -----
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 56
+
+Tagging 9 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_145759.txt
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 1  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-09 at HSK 2: funnel ===
+       56  AI-written sentences
+       56  1. have an English translation
+       54  2. contain the point's word(s)
+       54  3. new (not in DB, not a duplicate)
+       49  4. at most 0 characters outside HSK 2 words
+       19  5. really HSK 2
+       18  5b. no harder grammar point (of the 43 with a rule)
+       18  6. the rule finds 2-09
+       18  6b. no hidden word a learner can't work out
+       18  7. both checks say 2-09, English chosen
+       17  8. both difficulty reviews pass it
+
+=== Survivors (17) ===
+  他的手表要十万块。  (His watch costs 100,000 yuan.)  [tatoeba ai-65d32348f0]
+  汉语有几万个汉字。  (Chinese has tens of thousands of characters.)  [tatoeba ai-074c10bcc1]
+  今年有八万人来看球。  (This year 80,000 people came to watch the match.)  [tatoeba ai-908629d287]  hidden: 有人, 看球
+  这个歌我听了一万次。  (I've listened to this song 10,000 times.)  [tatoeba ai-fe29df1d01]  hidden: 这个
+  这个机票要两千五百块。  (This plane ticket costs 2,500 yuan.)  [tatoeba ai-4a4ff032a2]  hidden: 这个
+  妈妈说这个包要一万二。  (Mom says this bag costs 12,000.)  [tatoeba ai-4d59d97436]  hidden: 这个
+  他一年花十万块学英语。  (He spends 100,000 yuan a year learning English.)  [tatoeba ai-2f6ca97744]
+  这个手表五万块,我不买。  (This watch is 50,000 yuan. I'm not buying it.)  [tatoeba ai-55bcfbd67d]  hidden: 这个
+  这个商场一天有三万人来。  (This mall gets 30,000 people a day.)  [tatoeba ai-3efea35efd]  hidden: 这个, 有人
+  他买了一个四万块的手表。  (He bought a 40,000-yuan watch.)  [tatoeba ai-16bf6a9bc5]  hidden: 一个
+  这个酒店一个晚上一千块。  (This hotel costs 1,000 yuan a night.)  [tatoeba ai-cb88f59850]  hidden: 这个, 一个
+  昨天他花了一万二千块买电脑。  (Yesterday he spent 12,000 yuan on a computer.)  [tatoeba ai-032a61b61d]
+  这个门票一千五百块,太贵了。  (This entrance ticket is 1,500 yuan. That's too expensive.)  [tatoeba ai-32bddd0be6]  hidden: 这个
+  我的狗很贵,买它花了八千块。  (My dog is very expensive. Buying it cost 8,000 yuan.)  [tatoeba ai-07c06cf8db]
+  我的猫两岁了,买它花了三千块。  (My cat is two years old; it cost 3,000 yuan to buy.)  [tatoeba ai-b639284ae3]
+  这个超市每天有两万人来买东西。  (This supermarket has 20,000 people shopping every day.)  [tatoeba ai-97c89a1a7f]  hidden: 这个, 每天, 有人, 买东西
+  去那儿的机票要七千块,我不去了。  (The plane ticket there costs 7,000 yuan, so I'm not going.)  [tatoeba ai-e738a39943]
+
+--- dropped at step 4 (5) ---
+  中国有十四亿人。  -- 1 characters no HSK 2 word uses: 亿
+  一亿人看了这个电影。  -- 1 characters no HSK 2 word uses: 亿
+  那个电影很好看,有两亿人看过。  -- 1 characters no HSK 2 word uses: 亿
+  他们的新电影卖了三亿块的票。  -- 1 characters no HSK 2 word uses: 亿
+  我想有一亿块钱,但是我没有。  -- 1 characters no HSK 2 word uses: 亿
+
+--- dropped at step 5 (30), first 12 ---
+  这个手机三千块。  -- level 1: no list words
+  我们学校有两千个学生。  -- level 1: no list words
+  爸爸一个月有两万块钱。  -- level 1: no list words
+  这个车八万块。  -- level 1: no list words
+  我想买一个三千块的手机。  -- level 1: no list words
+  他有三万块钱。  -- level 1: no list words
+  这个店一天卖两千个包子。  -- level 1: no list words
+  我们公司有三千个人。  -- level 5: 个人 L5
+  这个大学有四万个学生。  -- level 1: no list words
+  六千八百块。  -- level 1: no list words
+  我有两千块钱,可以买这个吗?  -- level 1: no list words
+  你有一万块钱吗?  -- level 1: no list words
+
+--- dropped at step 5b (1) ---
+  他想给妈妈买一个六千块的包。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 8 (1) ---
+  这个歌有五百万人听过。  -- difficulty review: (1/2); Uses 过 (HSK 2-32) in experiential sense with 听过, but the construction with 有+number+人+verb+过 is complex for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-09_level2_20261114_145802.csv
+  Asking claude-sonnet-5-5 to write 10 sentence(s)...
+
+----- AI-written sentences for 2-09, round 3: 66 to check, 18 needed -----
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 66
+
+Tagging 9 AI-written sentence(s) (cached after this run)...
+Logging full trace to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/debug/tag_sentences/20261114_145815.txt
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 1  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-09 at HSK 2: funnel ===
+       66  AI-written sentences
+       66  1. have an English translation
+       64  2. contain the point's word(s)
+       64  3. new (not in DB, not a duplicate)
+       58  4. at most 0 characters outside HSK 2 words
+       21  5. really HSK 2
+       20  5b. no harder grammar point (of the 43 with a rule)
+       20  6. the rule finds 2-09
+       20  6b. no hidden word a learner can't work out
+       20  7. both checks say 2-09, English chosen
+       19  8. both difficulty reviews pass it
+
+=== Survivors (19) ===
+  他的手表要十万块。  (His watch costs 100,000 yuan.)  [tatoeba ai-65d32348f0]
+  汉语有几万个汉字。  (Chinese has tens of thousands of characters.)  [tatoeba ai-074c10bcc1]
+  今年有八万人来看球。  (This year 80,000 people came to watch the match.)  [tatoeba ai-908629d287]  hidden: 有人, 看球
+  这个歌我听了一万次。  (I've listened to this song 10,000 times.)  [tatoeba ai-fe29df1d01]  hidden: 这个
+  这个机票要两千五百块。  (This plane ticket costs 2,500 yuan.)  [tatoeba ai-4a4ff032a2]  hidden: 这个
+  妈妈说这个包要一万二。  (Mom says this bag costs 12,000.)  [tatoeba ai-4d59d97436]  hidden: 这个
+  他一年花十万块学英语。  (He spends 100,000 yuan a year learning English.)  [tatoeba ai-2f6ca97744]
+  我哥哥一个月花三千块。  (My older brother spends three thousand yuan a month.)  [tatoeba ai-27647818d6]  hidden: 一个
+  这个手表五万块,我不买。  (This watch is 50,000 yuan. I'm not buying it.)  [tatoeba ai-55bcfbd67d]  hidden: 这个
+  这个商场一天有三万人来。  (This mall gets 30,000 people a day.)  [tatoeba ai-3efea35efd]  hidden: 这个, 有人
+  他买了一个四万块的手表。  (He bought a 40,000-yuan watch.)  [tatoeba ai-16bf6a9bc5]  hidden: 一个
+  这个酒店一个晚上一千块。  (This hotel costs 1,000 yuan a night.)  [tatoeba ai-cb88f59850]  hidden: 这个, 一个
+  去中国的机票六千五百块。  (A ticket to China costs 6,500 yuan.)  [tatoeba ai-d1e90b66e2]
+  昨天他花了一万二千块买电脑。  (Yesterday he spent 12,000 yuan on a computer.)  [tatoeba ai-032a61b61d]
+  这个门票一千五百块,太贵了。  (This entrance ticket is 1,500 yuan. That's too expensive.)  [tatoeba ai-32bddd0be6]  hidden: 这个
+  我的狗很贵,买它花了八千块。  (My dog is very expensive. Buying it cost 8,000 yuan.)  [tatoeba ai-07c06cf8db]
+  我的猫两岁了,买它花了三千块。  (My cat is two years old; it cost 3,000 yuan to buy.)  [tatoeba ai-b639284ae3]
+  这个超市每天有两万人来买东西。  (This supermarket has 20,000 people shopping every day.)  [tatoeba ai-97c89a1a7f]  hidden: 这个, 每天, 有人, 买东西
+  去那儿的机票要七千块,我不去了。  (The plane ticket there costs 7,000 yuan, so I'm not going.)  [tatoeba ai-e738a39943]
+
+--- dropped at step 4 (6) ---
+  中国有十四亿人。  -- 1 characters no HSK 2 word uses: 亿
+  一亿人看了这个电影。  -- 1 characters no HSK 2 word uses: 亿
+  那个电影很好看,有两亿人看过。  -- 1 characters no HSK 2 word uses: 亿
+  他们的新电影卖了三亿块的票。  -- 1 characters no HSK 2 word uses: 亿
+  我想有一亿块钱,但是我没有。  -- 1 characters no HSK 2 word uses: 亿
+  他们公司去年卖了两亿块钱的东西。  -- 1 characters no HSK 2 word uses: 亿
+
+--- dropped at step 5 (37), first 12 ---
+  这个手机三千块。  -- level 1: no list words
+  我们学校有两千个学生。  -- level 1: no list words
+  爸爸一个月有两万块钱。  -- level 1: no list words
+  这个车八万块。  -- level 1: no list words
+  我想买一个三千块的手机。  -- level 1: no list words
+  他有三万块钱。  -- level 1: no list words
+  这个店一天卖两千个包子。  -- level 1: no list words
+  我们公司有三千个人。  -- level 5: 个人 L5
+  这个大学有四万个学生。  -- level 1: no list words
+  六千八百块。  -- level 1: no list words
+  我有两千块钱,可以买这个吗?  -- level 1: no list words
+  你有一万块钱吗?  -- level 1: no list words
+
+--- dropped at step 5b (1) ---
+  他想给妈妈买一个六千块的包。  -- harder grammar: 2-28 (HSK 3)
+
+--- dropped at step 8 (1) ---
+  这个歌有五百万人听过。  -- difficulty review: (1/2); Uses 过 (HSK 2-32) in experiential sense with 听过, but the construction with 有+number+人+verb+过 is complex for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-09_level2_20261114_145819.csv
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## tatoeba  2026-11-14 16:10 ##########
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 22  -> Tatoeba needs to add 0 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-09 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      109  2. contain the point's word(s)
+      108  3. new (not in DB, not a duplicate)
+       25  4. at most 2 characters outside HSK 2 words
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (0) ===
+
+--- dropped at step 3 (1) ---
+  他有一千多本书。  -- already in the database
+
+--- dropped at step 4 (83), first 12 ---
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  乌鲁木齐有四万个摄像机。  -- 6 characters no HSK 2 word uses: 乌像摄木鲁齐
+  每位会员每月需支付一万日元。  -- 4 characters no HSK 2 word uses: 付员支需
+  我朋友新工作的试用期每月工资三千人民币，试用期满后每月的工资三千五百人民币。  -- 5 characters no HSK 2 word uses: 币民满用资
+  中国与蒙古隔着万里长城。  -- 5 characters no HSK 2 word uses: 与古城蒙隔
+  你所要做的便是好好把握这千载难逢的机会。  -- 5 characters no HSK 2 word uses: 把握载逢难
+  成千上万的人死于瘟疫。  -- 5 characters no HSK 2 word uses: 于成死疫瘟
+  语言有时会变得很复杂，有时也会让人焦急万分，想说的总是说不出口，不过总有一天会传达给对方。  -- 10 characters no HSK 2 word uses: 传变复急总方杂焦言达
+  被突袭后宣告战争是可以预想的，但用炸弹屠杀万人以上的平民却是前所未闻的。  -- 17 characters no HSK 2 word uses: 争却宣屠平弹战未杀民炸用突被袭闻预
+  公元前七千年那段时间发生了很多重要的历史事件。  -- 5 characters no HSK 2 word uses: 历发史段重
+  他不久前是百万富翁。  -- 3 characters no HSK 2 word uses: 久富翁
+  台湾岛的面积是三万六千平方公里。  -- 6 characters no HSK 2 word uses: 台岛平方湾积
+
+--- dropped at step 5 (25), first 12 ---
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  钱是万能的。  -- level 7: 万能 L7
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  她有一千零一个愿望。  -- level 5: 愿望 L5
+  那台电脑是花三千块买的。  -- level 4: 台 L4
+  千万别误会我的意思。  -- level 4: 误会 L4
+  金钱万能。  -- level 7: 金钱 L6, 万能 L7
+  我希望万事如意。  -- level 7: 如意 L7
+  有两千小学生到校。  -- level 10: 到校 (not in list)
+  我的城市离首都五十千米。  -- level 4: 城市 L3, 首都 L4, 米 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-09_level2_20261114_161008.csv
+
+########## ai  2026-11-14 16:12 ##########
+
+########## guard check  2026-11-14 16:29 ##########
+
+########## tatoeba  2026-11-14 16:30 ##########
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+Tatoeba file: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/data/intermediate/tatoeba/cmn_filtered.tsv
+
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 2  -> Tatoeba needs to add 18 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+
+=== 2-09 at HSK 2: funnel ===
+    40562  Tatoeba sentences in the file
+    27623  1. have an English translation
+      109  2. contain the point's word(s)
+      109  3. new (not in DB, not a duplicate)
+       26  4. at most 2 characters outside HSK 2 words
+        1  5. really HSK 2
+        1  5b. no harder grammar point (of the 43 with a rule)
+        1  6. the rule finds 2-09
+        1  6b. no hidden word a learner can't work out
+        1  7. both checks say 2-09, English chosen
+        1  8. both difficulty reviews pass it
+  (19121 were in Traditional characters and converted)
+
+=== Survivors (1) ===
+  他有一千多本书。  (He has more than a thousand books.)  [tatoeba 3378253]
+
+--- dropped at step 4 (83), first 12 ---
+  有缘千里来相会，无缘对面不相逢。  -- 4 characters no HSK 2 word uses: 无相缘逢
+  乌鲁木齐有四万个摄像机。  -- 6 characters no HSK 2 word uses: 乌像摄木鲁齐
+  每位会员每月需支付一万日元。  -- 4 characters no HSK 2 word uses: 付员支需
+  我朋友新工作的试用期每月工资三千人民币，试用期满后每月的工资三千五百人民币。  -- 5 characters no HSK 2 word uses: 币民满用资
+  中国与蒙古隔着万里长城。  -- 5 characters no HSK 2 word uses: 与古城蒙隔
+  你所要做的便是好好把握这千载难逢的机会。  -- 5 characters no HSK 2 word uses: 把握载逢难
+  成千上万的人死于瘟疫。  -- 5 characters no HSK 2 word uses: 于成死疫瘟
+  语言有时会变得很复杂，有时也会让人焦急万分，想说的总是说不出口，不过总有一天会传达给对方。  -- 10 characters no HSK 2 word uses: 传变复急总方杂焦言达
+  被突袭后宣告战争是可以预想的，但用炸弹屠杀万人以上的平民却是前所未闻的。  -- 17 characters no HSK 2 word uses: 争却宣屠平弹战未杀民炸用突被袭闻预
+  公元前七千年那段时间发生了很多重要的历史事件。  -- 5 characters no HSK 2 word uses: 历发史段重
+  他不久前是百万富翁。  -- 3 characters no HSK 2 word uses: 久富翁
+  台湾岛的面积是三万六千平方公里。  -- 6 characters no HSK 2 word uses: 台岛平方湾积
+
+--- dropped at step 5 (25), first 12 ---
+  万一我来晚的话，就别等我了。  -- level 5: 万一 L5, 的话 L3
+  万一来不了，我会先给你打电话。  -- level 5: 万一 L5, 先 L3
+  我知道金钱不是万能的。  -- level 7: 金钱 L6, 万能 L7
+  钱是万能的。  -- level 7: 万能 L7
+  如果你有一万美元，你想做什么呢？  -- level 4: 如果 L3, 美 L4
+  她有一千零一个愿望。  -- level 5: 愿望 L5
+  那台电脑是花三千块买的。  -- level 4: 台 L4
+  千万别误会我的意思。  -- level 4: 误会 L4
+  金钱万能。  -- level 7: 金钱 L6, 万能 L7
+  我希望万事如意。  -- level 7: 如意 L7
+  有两千小学生到校。  -- level 10: 到校 (not in list)
+  我的城市离首都五十千米。  -- level 4: 城市 L3, 首都 L4, 米 L3
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/tatoeba_2-09_level2_20261114_163045.csv
+
+########## ai  2026-11-14 16:34 ##########
+
+----- AI-written sentences for 2-09, round 1: 66 to check, 17 needed -----
+Filling 2-09 at HSK 2.
+Harder-grammar rules checked (points above HSK 2 with a rule): 2-02, 2-19, 2-21, 2-23, 2-28, 2-29, 2-35, 2-44, 2-46, 2-47, 2-59, 2-62, 2-67, 3-01, 3-16, 3-21, 3-23, 3-26, 3-39, 3-40, 3-41, 3-46, 3-48, 3-60, 3-67, 3-69, 3-77, 3-79, 3-80, 3-81, 4-01, 4-02, 4-08, 4-13, 4-22, 4-24, 4-25, 4-30, 4-33, 4-52, 4-58, 4-73, x-yibian
+AI-written sentences to check: 66
+
+
+Course sentences at HSK 2 the rule already finds 2-09 in: 2  -> Tatoeba needs to add 17 (target 20)
+Harder grammar points made only of HSK 1-2 words (the review is warned about them): 85
+    2-28 (HSK 3) 为
+    2-35 (HSK 3) 其他助词：的话、等
+    2-47 (HSK 3) （在）⋯⋯以前/以后/前/后
+    2-67 (HSK 3) 条件复句：只要⋯⋯，就⋯⋯
+    3-01 (HSK 3) 第-、老-、小-
+    3-02 (HSK 3) -儿、一家、-们、-头、-子
+    3-16 (HSK 3) 关联副词：再
+    3-21 (HSK 5) 自从
+    3-23 (HSK 3) 为
+    3-26 (HSK 3) 为了
+    3-34 (HSK 3) 不A不B
+    3-39 (HSK 3) 从⋯⋯起
+    ... and 73 more
+  2 check call(s) with claude-haiku-4-5 (20 sentences each)...
+
+=== 2-09 at HSK 2: funnel ===
+       66  AI-written sentences
+       66  1. have an English translation
+       64  2. contain the point's word(s)
+       64  3. new (not in DB, not a duplicate)
+       58  4. at most 0 characters outside HSK 2 words
+       21  5. really HSK 2
+       21  5b. no harder grammar point (of the 43 with a rule)
+       21  6. the rule finds 2-09
+       21  6b. no hidden word a learner can't work out
+       19  7. both checks say 2-09, English chosen
+       18  8. both difficulty reviews pass it
+  (1 sentence(s) passed the rule but weren't checked: target reached)
+
+=== Survivors (18) ===
+  他的手表要十万块。  (His watch costs 100,000 yuan.)  [tatoeba ai-65d32348f0]
+  汉语有几万个汉字。  (Chinese has tens of thousands of characters.)  [tatoeba ai-074c10bcc1]
+  今年有八万人来看球。  (This year 80,000 people came to watch the match.)  [tatoeba ai-908629d287]  hidden: 有人, 看球
+  这个歌我听了一万次。  (I've listened to this song 10,000 times.)  [tatoeba ai-fe29df1d01]  hidden: 这个
+  这个机票要两千五百块。  (This plane ticket costs 2,500 yuan.)  [tatoeba ai-4a4ff032a2]  hidden: 这个
+  妈妈说这个包要一万二。  (Mom says this bag costs 12,000.)  [tatoeba ai-4d59d97436]  hidden: 这个
+  他一年花十万块学英语。  (He spends 100,000 yuan a year learning English.)  [tatoeba ai-2f6ca97744]
+  我哥哥一个月花三千块。  (My older brother spends three thousand yuan a month.)  [tatoeba ai-27647818d6]  hidden: 一个
+  这个手表五万块,我不买。  (This watch is 50,000 yuan. I'm not buying it.)  [tatoeba ai-55bcfbd67d]  hidden: 这个
+  这个商场一天有三万人来。  (This mall gets 30,000 people a day.)  [tatoeba ai-3efea35efd]  hidden: 这个, 有人
+  他买了一个四万块的手表。  (He bought a 40,000-yuan watch.)  [tatoeba ai-16bf6a9bc5]  hidden: 一个
+  这个酒店一个晚上一千块。  (This hotel costs 1,000 yuan a night.)  [tatoeba ai-cb88f59850]  hidden: 这个, 一个
+  去中国的机票六千五百块。  (A ticket to China costs 6,500 yuan.)  [tatoeba ai-d1e90b66e2]
+  昨天他花了一万二千块买电脑。  (Yesterday he spent 12,000 yuan on a computer.)  [tatoeba ai-032a61b61d]
+  这个门票一千五百块,太贵了。  (This entrance ticket is 1,500 yuan. That's too expensive.)  [tatoeba ai-32bddd0be6]  hidden: 这个
+  我的狗很贵,买它花了八千块。  (My dog is very expensive. Buying it cost 8,000 yuan.)  [tatoeba ai-07c06cf8db]
+  我的猫两岁了,买它花了三千块。  (My cat is two years old; it cost 3,000 yuan to buy.)  [tatoeba ai-b639284ae3]
+  这个超市每天有两万人来买东西。  (This supermarket has 20,000 people shopping every day.)  [tatoeba ai-97c89a1a7f]  hidden: 这个, 每天, 有人, 买东西
+
+--- dropped at step 4 (6) ---
+  中国有十四亿人。  -- 1 characters no HSK 2 word uses: 亿
+  一亿人看了这个电影。  -- 1 characters no HSK 2 word uses: 亿
+  那个电影很好看,有两亿人看过。  -- 1 characters no HSK 2 word uses: 亿
+  他们的新电影卖了三亿块的票。  -- 1 characters no HSK 2 word uses: 亿
+  我想有一亿块钱,但是我没有。  -- 1 characters no HSK 2 word uses: 亿
+  他们公司去年卖了两亿块钱的东西。  -- 1 characters no HSK 2 word uses: 亿
+
+--- dropped at step 5 (37), first 12 ---
+  这个手机三千块。  -- level 1: no list words
+  我们学校有两千个学生。  -- level 1: no list words
+  爸爸一个月有两万块钱。  -- level 1: no list words
+  这个车八万块。  -- level 1: no list words
+  我想买一个三千块的手机。  -- level 1: no list words
+  他有三万块钱。  -- level 1: no list words
+  这个店一天卖两千个包子。  -- level 1: no list words
+  我们公司有三千个人。  -- level 5: 个人 L5
+  这个大学有四万个学生。  -- level 1: no list words
+  六千八百块。  -- level 1: no list words
+  我有两千块钱,可以买这个吗?  -- level 1: no list words
+  你有一万块钱吗?  -- level 1: no list words
+
+--- dropped at step 7 (1) ---
+  他想给妈妈买一个六千块的包。  -- check said no (2/2): 六千 is a simple number, not demonstrating big number structure
+
+--- dropped at step 8 (1) ---
+  这个歌有五百万人听过。  -- difficulty review: (1/2); Uses 过 (HSK 2-32) in experiential sense with 听过, but the construction with 有+number+人+verb+过 is complex for this level
+
+Every sentence and why: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/ai_2-09_level2_20261114_163407.csv

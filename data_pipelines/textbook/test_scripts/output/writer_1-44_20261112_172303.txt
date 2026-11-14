@@ -1,0 +1,37 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 12467 characters -->
+## 1-44
+**Point:** Expressing times of day, dates, days of the week, and minutes using Chinese time structures
+
+**Covers:** Times with 点 (o'clock), including 十二点 after a time-of-day word. Also dates with 年月日/号, days of the week with 星期, and half hours (半), minutes (分), quarter hours (刻) and 差 after 点.
+
+**Does not cover:** Uses of 点/分/一点/半 in other contexts: fractions with 分之, degree modifiers such as 有点 or 一点儿 meaning "a bit/somewhat", 慢一点/重一点, 差一点, the separable verb 点头, and quantity phrases.
+
+```rule
+match: /CD 点/CD
+match: /CD 点/M
+match: /CD 点/NN
+match: /CD 点/VV /CD 刻|分
+match: 点/M 半/NT
+match: 点/M _ /CD 分
+match: 点/M /CD 刻
+match: 差 /CD 分 /CD 点
+match: /CD 年 /CD 月 /CD
+match: /CD 月/M /CD 号|日
+match: 星期 /NT|CD
+match: 星期 天|日
+match: 星期一|星期二|星期三|星期四|星期五|星期六|星期天|星期日
+unless: 有点/NN
+unless: 有 一/CD 点
+unless: 差 一/CD 点
+unless: /VA 一/CD 点
+unless: /VV 一/CD 点
+unless: 一点/NN 也|都/AD
+unless: 一 点/M 也|都/AD
+unless: 分之
+unless: 点/CD 儿/CD
+unless: 点头/VV
+unless: 快/VA 点/AD
+unless: 一度/VA
+```
+
+**Notes:** 点 is tagged inconsistently (CD, M, NN, VV), so each tag is listed explicitly after a number, which covers 中午十二点. Days of the week are matched both as one token (星期天/NT) and as 星期 plus a number or 天/日. Degree uses are excluded by the unless lines: 慢一点 and 重一点 (adjective or verb + 一点), 有一点, 差一点, 一点也不, and 快点. Whole-token dates such as 1868年1月18号/NT cannot be matched without substring patterns, so they remain misses to keep precision.

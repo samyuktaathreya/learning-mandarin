@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from app.characters.services import generate_character_questions
+from app.characters.services.shared import generate_character_questions
 from app.characters.database import get_characters_db
 from app.textbook.database import get_textbook_db
 from app.core.database import SessionLocal

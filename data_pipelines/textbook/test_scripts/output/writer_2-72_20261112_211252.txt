@@ -1,0 +1,17 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 6661 characters -->
+## 2-72
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** Ordinal numbers formed with the prefix 第 (dì) + a number, optionally followed by a measure word and noun (第一个人, 第二天, 我们班第一).
+
+**Covers:** 第 + number used as an ordinal. The tagger usually produces one fused token such as 第一/CD, 第三/CD or 第二/CD. Sometimes it splits them into 第 followed by a separate number tagged CD or OD. Both forms are matched, whether or not a measure word or noun follows. A bare ordinal used as a predicate or rank (我们班第一) also counts.
+
+**Does not cover:** Ordinals without 第, such as 七楼 and 一层. It also does not cover the other HSK 3-01 prefixes 老- and 小-, or 第 in non-ordinal uses.
+
+```rule
+match: 第一|第二|第三|第四|第五|第六|第七|第八|第九|第十|第十一|第十二|第二十|第三十/CD|OD
+match: 第 /CD|OD
+match: 第/CD /CD|OD
+match: 第/OD /CD|OD
+```
+
+**Notes:** The earlier version put a space before the tag (`第三十 /CD|OD`). That made the tag a separate item, so the rule required an extra CD/OD word after the fused ordinal and missed sentences like 我是第一个…. Now the tag is attached directly to the word list, so the fused tokens 第一/CD, 第二/CD and so on match on their own. This covers 第一个, 第一班, 第一次, a bare 班第一, and 第二年. The split form (第 + number) is still matched. No unless clauses are used, so cases like 第一/CD 周/NR are not blocked.

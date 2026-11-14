@@ -1,0 +1,17 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 6332 characters -->
+## 2-75
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- revised: the 好吗 / 是吗 / 对吗 tag-question patterns were removed because human-labeled sentences such as 我们去你家，好吗？ and 他们昨天都没去，是吗？ belong to other points -->
+**Point:** Asking for an opinion with "怎么样", and asking for permission or agreement with the tag questions "可以吗 / 行吗"
+
+**Covers:** Open-ended questions that end in 怎么样 ("How is…?" / "What do you think of…?"). Tag questions in which a short final clause is only 可以 or 行 plus 吗, added after a statement or suggestion.
+
+**Does not cover:** 不怎么样 ("not so good", HSK 6-30). Plain 吗 questions such as 你好吗 or 好吃吗 (HSK 1-45). Tag questions with 好吗 / 是吗 / 对吗, which the human labels assign to other points. Other question words (HSK 1-46, 2-76). 怎么样 that is not at the end of its clause.
+
+```rule
+match: 怎么样 $
+match: ^ 可以|行 吗/SP $
+unless: 不|很 怎么样
+```
+
+**Notes:** Clause boundaries come from the punctuation, so the tag question must be its own clause made up only of the confirmation word and 吗. This keeps out 你可以吗 inside a longer clause and plain yes/no questions such as 你好吗. The 好吗 / 是吗 / 对吗 tags were dropped for precision, because human-labeled counter-examples with those tags are not 2-75 and cannot be told apart from true cases by form. This means some real 好吗 tag questions will be missed. 不怎么样 is excluded as HSK 6-30.

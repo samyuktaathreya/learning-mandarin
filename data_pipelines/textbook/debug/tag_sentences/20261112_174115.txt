@@ -1,0 +1,25 @@
+2026-11-12 17:41:15,509  INFO     === tag_sentences.py run started ===
+2026-11-12 17:41:15,529  INFO     OK        hanlp-valid   '我们因为那件事嘲笑他。' -> [('我们', 'PN'), ('因为', 'P'), ('那', 'DT'), ('件', 'M'), ('事', 'NN'), ('嘲笑', 'VV'), ('他', 'PN')]
+2026-11-12 17:41:15,532  INFO     TAGGED    '我们因为那件事嘲笑他。' (level 6, 7 tags)
+2026-11-12 17:41:15,540  INFO     FALLBACK  '可能是因为网速太慢。' -- out-of-list word(s): ['网速']
+2026-11-12 17:41:15,541  WARNING    HAIKU resegment call for '可能是因为网速太慢。' (cache miss on [('网速', 'NN')])
+2026-11-12 17:41:15,550  INFO       NON-LIST 网速 (NN) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-12 17:41:15,551  INFO     TAGGED    '可能是因为网速太慢。' (level 10, 6 tags)
+2026-11-12 17:41:15,559  INFO     OK        hanlp-valid   '因为他的话，她非常伤心。' -> [('因为', 'P'), ('他', 'PN'), ('的', 'DEG'), ('话', 'NN'), ('她', 'PN'), ('非常', 'AD'), ('伤心', 'VV')]
+2026-11-12 17:41:15,562  INFO     TAGGED    '因为他的话，她非常伤心。' (level 10, 7 tags)
+2026-11-12 17:41:15,571  INFO     OK        hanlp-valid   '人们喜欢他，因为他很友善。' -> [('人们', 'NN'), ('喜欢', 'VV'), ('他', 'PN'), ('因为', 'P'), ('他', 'PN'), ('很', 'AD'), ('友善', 'VA')]
+2026-11-12 17:41:15,577  INFO     TAGGED    '人们喜欢他，因为他很友善。' (level 7, 8 tags)
+2026-11-12 17:41:15,586  INFO     FALLBACK  '我因为门关著进不去。' -- out-of-list word(s): ['著']
+2026-11-12 17:41:15,586  WARNING    HAIKU resegment call for '我因为门关著进不去。' (cache miss on [('著', 'AS')])
+2026-11-12 17:41:15,595  INFO       NON-LIST 著 (AS) -> 'UNKNOWN_ENGLISH' [unlisted]
+2026-11-12 17:41:15,605  INFO     TAGGED    '我因为门关著进不去。' (level 10, 8 tags)
+2026-11-12 17:41:15,614  INFO     FALLBACK  '他因为生重病不能来。' -- out-of-list word(s): ['重病', '不能']
+2026-11-12 17:41:15,614  WARNING    HAIKU resegment call for '他因为生重病不能来。' (cache miss on [('重病', 'NN')])
+2026-11-12 17:41:15,638  INFO     TAGGED    '他因为生重病不能来。' (level 4, 8 tags)
+2026-11-12 17:41:15,648  INFO     FALLBACK  '因为大雾所以看不清道路。' -- out-of-list word(s): ['大雾']
+2026-11-12 17:41:15,648  WARNING    HAIKU resegment call for '因为大雾所以看不清道路。' (cache miss on [('大雾', 'NN')])
+2026-11-12 17:41:15,660  INFO     TAGGED    '因为大雾所以看不清道路。' (level 6, 8 tags)
+2026-11-12 17:41:15,668  INFO     OK        hanlp-valid   '所以？' -> [('所以', 'AD')]
+2026-11-12 17:41:15,669  INFO     TAGGED    '所以？' (level 2, 1 tags)
+2026-11-12 17:41:15,677  INFO     OK        hanlp-valid   '你是因为我说的话而生气的吗？' -> [('你', 'PN'), ('是', 'VC'), ('因为', 'P'), ('我', 'PN'), ('说', 'VV'), ('的', 'DEC'), ('话', 'NN'), ('而', 'MSP'), ('生气', 'VV'), ('的', 'SP'), ('吗', 'SP')]
+2026-11-12 17:41:15,680  INFO     TAGGED    '你是因为我说的话而生气的吗？' (level 10, 11 tags)

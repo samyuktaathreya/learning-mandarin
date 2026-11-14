@@ -3,13 +3,13 @@
 Written by AI (try_grammar_rule.py write), checked against the pipeline's sentences (try_grammar_rule.py validate), and safe to edit by hand. Only the ```rule block of each section is read by the code. Syntax: see test_scripts/grammar_rules.py.
 
 ## 1-10
-<!-- written by claude-sonnet-5-5 on 2026-11-06; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
 **Point:** The scope adverb 都 ("all / both") and the togetherness adverbs 一起 / 一块儿 ("together"), placed after the subject and before the verb.
 
 **Covers:** A plural, coordinated or collective subject followed by 都 and a predicate (他们都在上海, 我和我太太都不吃肉, 同学们都很认真). Also 一起 or 一块儿 directly before a verb (我们一起吃晚饭吧, 他想和他太太一起学中文).
 
 **Does not cover:** Every other use of 都, because each is a different grammar point.
-- 连…都 ("even"), 一+量词+都+不/没 ("not even one"), and question words with 都 (什么/谁/哪儿/怎么/多少…都).
+- 连…都 ("even"), 一+量词+都+不/没 ("not even one"), 一点(儿)…都不/没 ("not a bit"), and question words with 都 (什么/谁/哪儿/怎么/多少…都).
 - 除了…都, 不管/无论…都, 别说, and 何况/更 ("let alone").
 - 都…了 ("already") and the "even" use 都能….
 - Sentence-initial 都 (都怪你).
@@ -34,6 +34,9 @@ unless: 别说
 unless: 何况
 unless: 更
 unless: 一/CD ... 都
+unless: 一点 ... 都
+unless: 一点儿 ... 都
+unless: 任何 ... 都
 unless: 都 ... 了
 unless: 都 能
 ```
@@ -41,6 +44,7 @@ unless: 都 能
 **Notes:**
 - The first `match:` line requires a nominal or measure word right before 都. This rejects sentence-initial 都, 去都去了 and 遍地都是.
 - The `unless:` lines are checked against the whole sentence, not one clause. A bare word such as 除了 or 连 therefore excludes the sentence even when it sits in a different clause from 都.
+- 一点 and 一点儿 are tokenized as a single word (often tagged NN or CD), so the `一/CD ... 都` line does not catch them. They have their own `unless:` lines, which block "not a bit" sentences like 我一点消息都不知道.
 - `都 ... 了` also removes some valid sentences, such as 笔试和口试都通过了. This is deliberate: it keeps out the "already" use at the cost of some recall.
 - 一起 and 一块儿 sentences are also rejected by any of the `unless:` words. That is acceptable under the precision-first policy.
 
@@ -287,7 +291,7 @@ unless: 学|学习|听|看|懂|教 会
 - A few real 会-as-"meet" or resultative uses may slip through when the tokenizer splits them.
 
 ## 1-03
-<!-- written by claude-sonnet-5-5 on 2026-11-07; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-11; edit freely -->
 **Point:** The modal verbs 想 and 要 used for "want (to)". This includes 想要, 要 + noun ("I want a cup of water"), and 想 + noun meaning "miss".
 
 **Covers:**
@@ -299,14 +303,15 @@ unless: 学|学习|听|看|懂|教 会
 - The 要不要 question form.
 - 想 + noun meaning "miss", as in 我想你.
 - Negatives such as 不想, and 什么都不要.
-- 要 with a time word as a plan, as in 星期五我们要开会.
+- 要 with a time word as a plan, as in 星期五我们要开会 and 他们明年要结婚了. A time word directly before 要 marks a plan, even if the clause ends in 了.
 
 **Does not cover:**
 - 要 in other patterns: 要是, 要不是, 要不, 要么, 要……就……, 非要……不可, 就要/快要/将要……了, and 要看 ("it depends"). Each of these is a different grammar point.
 - 不要 as a prohibition, since it is tagged AD.
 - Sentence-initial 要我说.
-- "About to happen" 要……了, with or without a noun subject, as in 圣诞节要到了 and 我要生气了. It is a separate point.
+- "About to happen" 要……了, as in 圣诞节要到了, 超市要关门了 and 我要生气了. It is a separate point.
 - Conditional 要再说 ("if you say more"), as in 你要再说，我真生气了.
+- Clause-initial 要不 ("how about"), as in 要不休息一会儿吧.
 
 ```rule
 match: 想/VV _
@@ -319,19 +324,24 @@ unless: 要是|如果/CS
 unless: 要是
 unless: 要/VV 不/AD 是/VC
 unless: 要不是|要不|要么
+unless: ^ 要/VV 不/AD
 unless: 非 ... 要
 unless: 就|快|将 要/VV
 unless: 要/VV ... 就/AD
 unless: 要/VV 看|得看
-unless: 要/VV ... 了/SP
+unless: ^ /NT 要/VV ... 了/SP|AS
+unless: /PN|NN|NR|M 要/VV ... 了/SP|AS
+unless: ^ 要/VV ... 了/SP|AS
 unless: 要/VV 再说
 unless: 要/VV 我/PN 说
 ```
 
 **Notes:**
-- The old `unless: /NN 要/VV ...` blocked every noun subject, such as 爸爸要买 and 宝宝要睡觉. I removed it. Time-word subjects with "about to" 要……了 (圣诞节要到了) are now blocked by `要/VV ... 了/SP` instead.
-- The same `要 ... 了` exclusion removes 我要生气了.
-- 要不是 is tokenized as 要/VV 不/AD 是/VC, so the old single-word unless never fired. It is now written as a sequence, and 要不要 is not affected.
+- The old `unless: /NN 要/VV ...` blocked every noun subject, such as 爸爸要买 and 宝宝要睡觉. It was removed.
+- "About to" 要……了 is blocked when 要 directly follows a pronoun, noun, proper noun or measure word (超市要关门了, 我要生气了). It is also blocked when a time word starts the clause (圣诞节要到了), and when 要 starts the clause. The 了 may be tagged SP or AS, because the tagger is inconsistent.
+- 他们明年要结婚了 is kept as a plan. The time word 明年 follows the subject and directly precedes 要, so none of the 要……了 blocks apply.
+- 要不 is tokenized as 要/VV 不/AD, so the single-word unless never fires. A clause-initial `^ 要/VV 不/AD` block now removes "how about" 要不 sentences. This also drops a subjectless clause-initial 要不要 question, which is rare and an acceptable miss. 要不要 with an explicit subject is unaffected.
+- 要不是 is tokenized as 要/VV 不/AD 是/VC and is blocked as a sequence.
 - 你要再说，我真生气了 is a conditional, so it is blocked by `要/VV 再说`. This is narrow on purpose, to avoid blocking ordinary 要再 + verb sentences.
 
 ## 1-04
@@ -572,21 +582,38 @@ unless: 再三
 **Notes:** The earlier rule used patterns like `/AD 常 /VV`, which required an arbitrary adverb before 常 and a verb right after it, so it matched almost nothing. The rule now matches the adverb itself (常, 常常, 经常, 往往, 再, tagged AD), so negated forms, modal verbs and 比较 between the adverb and the verb no longer matter. The tagger sometimes merges 再说 + 一遍 into one verb (你可以再说一遍), so that case has its own line. 又 is limited to 又是 / 又要. The unless lines remove 再也不/没, 再不…就/也…, 再…也… and 再说 (in addition). 一再 and 再三 are single tokens and never match 再 on its own, but they are listed for safety.
 
 ## 1-14
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-11; edit freely -->
 **Point:** Negation with 不, 没/没有, 别, and 不要
+
 **Covers:** Negating verbs and adjectives with 不, including A-not-A questions such as 想不想 and 是不是. Negating past actions with 没/没有. Negating the verb 有 with 没/没有. Negative commands with 别 or 不要.
-**Does not cover:** Compounds and other constructions that use the same words: 不得不, 不怎么/没怎么, 不管, 不比, 不但, 岂不, 只好不, 少不了, 差不多, 不过, 不如, 不愧, 不屑, 要不是, 要不, 不到, 别说 (let alone), 不是…而是, comparisons with 没有 (没有 + noun + adjective), and potential complements (V+不+V).
+
+**Does not cover:** Compounds and other constructions that use the same words: 不得不, 不怎么/没怎么, 不管, 不比, 不但, 不仅/不只, 岂不, 只好不, 少不了, 差不多, 不过, 不如, 不愧, 不屑, 要不是, 要不, 不到 (less than), 不停/不断, 别说 (let alone), 不是…而是, comparisons with 没有 (没有 + noun + adjective), and potential complements (V+不+V).
 
 ```rule
-match: /PN|NN|NT|M|LC|AD 不/AD /VV|VA|VC|AD
+match: /PN|NN|NT|M|LC|NR|AD 不/AD /VV|VA|VC|AD
 match: ^ 不/AD /VV|VA|VC
-match: /PN|NN|NT|M|LC|AD 没有|没/VV /VV
-match: /PN|NN|NT|M|LC|AD 没/AD /VV
-match: ^ 没/AD /VV
-match: /PN|NN|NT|M|LC|AD 没有|没/VE /NN
+match: /PN|NN|NT|M|LC|NR|AD 不/AD 跟/P
+match: /PN 不用/VV /NN /VV
+match: 想 不/AD 想
+match: 是 不/AD 是
+match: 爱 不/AD 爱
+match: 喜 不/AD 喜欢
+match: 喜欢 不/AD 喜欢
+match: 上 不/AD 上班
+match: 去 不/AD 去
+match: 来 不/AD 来
+match: 吃 不/AD 吃
+match: 喝 不/AD 喝
+match: 买 不/AD 买
+match: 看 不/AD 看
+match: /PN|NN|NT|M|LC|NR|AD 没有|没/VV /VV
+match: /PN|NN|NT|M|LC|NR|AD 没有|没/AD /VV
+match: ^ 没有|没/AD /VV
+match: /PN|NN|NT|M|LC|NR|AD 没有|没/VE /NN
 match: ^ 没有|没/VE /NN
 match: 别/AD /VV
 match: 不要/AD ... /VV
+match: 时候 别说/VV /NN
 unless: 不得不/AD
 unless: 不怎么/AD
 unless: 不/AD 怎么/AD
@@ -605,11 +632,18 @@ unless: 不/AD 比/VV
 unless: 不但/AD
 unless: 不但/CC
 unless: 岂不/AD
-unless: 只好/AD
+unless: 不/AD 到/VV /CD|NT
+unless: 要/AD 不/AD
+unless: 要不/AD
+unless: 不/AD 停/VV
+unless: 不/AD 断/VV
+unless: 不/AD 只/VV
+unless: 不只/AD
+unless: 别/AD 说/VV
 unless: 别说/VV
-unless: 别说/AD
 ```
-un
+
+**Notes:** Added exclusions for 不到 + number/time (less than), 要不 (how about), 不停/不断, 不只, and 别说 (let alone). Because 别说 is excluded as a whole, a command like 别说英文 is now missed, which is accepted to protect precision. 别说话 should still match when 说话 is tokenized as one verb.
 
 ## 1-15
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -643,25 +677,28 @@ unless: 从/P ... 来说
 - Adverbial and other-point words (从来, 从而, 自从, 从小, 从中, 从此, 从前, 从事) are excluded by the unless lines. So are the 从...以来 and 从...来看/来说 frames, which belong to other points.
 
 ## 1-16
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
 **Point:** Using 在 (zài) to indicate location of actions, existence, or position
 
 **Covers:**
-- Location before verb: 在 + place + verb (哥哥在北京学中文)
+- Location before verb: 在 + place + verb (哥哥在北京学中文, 你一直在这家公司工作吗)
 - Existence at location: subject + 在 + place (我在上海, 他不在学校)
 - Location after special verbs (住/坐/站/放): verb + 在 + place (你住在上海吗, 衣服放在这里)
-- Location with localizers (上/下/里/旁边): 在 + place + localizer (在桌子上)
+- Location with localizers (上/下/里/旁边): 在 + place + localizer (在桌子上, 在派对上)
 
 **Does not cover:**
 - Progressive aspect (在 as adverb, 正在): 她在看书
 - 在于 (zàiyú, "lies in"): 成功在于坚持
 - 早在 (zǎozài, "as early as"): 早在1942年就...
 - 在...内 (time period): 在三年内
-- 在...看来 (perspective): 在他看来
+- 在...看来 (perspective): 在他看来, 在我看来
 - 包括...在内 (including): 包括我在内
 
 ```rule
 match: 在/P /NN|NR|PN
+match: 在/P /DT /M /NN
+match: ^ 在/P 派/VV 对/NN 上/LC $
+match: ^ 在/P /NN|NR /LC $
 match: 放|住|坐|站/VV 在/P|VV /NN|NR|PN
 match: ^ 在/VV /NN|NR /LC $
 match: /PN|NN|NR 在/VV /NN|NR|LC
@@ -671,6 +708,8 @@ match: 想|要|会|能|可以|应该|喜欢/VV 在/VV /NN|NR
 match: 在/VV /PN|NN|NR /NN 旁边/NN
 unless: 早/AD 在/P
 unless: 在/P ... 看来/VV
+unless: 在/P ... 看/VV 来/VV
+unless: 在/P ... 看来
 unless: 包括/VV ... 在/P
 unless: 包括/VV ... 在内/VV
 unless: 在内/VV
@@ -682,7 +721,7 @@ unless: 在/P 上/VV
 unless: 在/P 里面/NN
 ```
 
-**Notes:** 在 is accepted as a preposition (P) before a place noun or pronoun, as a verb (VV) for existence, and after 住/坐/站/放 in either tag. Several extra patterns cover the tagger's habit of labelling 在 as VV, such as 不在学校, 现在在家 and 想在家睡觉. The unless lines remove 包括…在内, 在…内, 在…看来, 早在, 在于 and the progressive 在 (AD). Earlier unless lines used `.*`, which is not valid syntax, so they are now written with `...`. The 在/P 里面 and 在/P 上/VV exclusions are there because the labelled counter-examples 谁在里面洗澡 and 他在上厕所 must not match.
+**Notes:** 在 is accepted as a preposition (P) before a place noun or pronoun, as a verb (VV) for existence, and after 住/坐/站/放 in either tag. Several extra patterns cover the tagger's habit of labelling 在 as VV, such as 不在学校, 现在在家 and 想在家睡觉. New patterns cover 在 + determiner + measure word + noun (在这家公司工作) and the mis-tagged 在派对上 (限 a bare clause). The unless lines remove 包括…在内, 在…内, 在…看来 (including the split 看/VV 来/VV tagging in 在我看来), 早在, 在于 and the progressive 在 (AD). The 在/P 里面 and 在/P 上/VV exclusions are there because the labelled counter-examples 谁在里面洗澡 and 他在上厕所 must not match. 现在我们在KTV唱歌 is still missed: the tagger drops KTV, which leaves a bare 在 唱 歌 that looks like the progressive, so matching it would be unsafe.
 
 ## 1-17
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -818,54 +857,104 @@ unless: 是/VC ... 的/DEG|DEC $
 - The 的/AS line is there because the tagger sometimes tags 的 after a verb as AS (你教的学生).
 
 ## 1-21
-<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
-**Point:** Aspect particle 了 (le) expressing completion of an action
-**Covers:** Verb + 了 + Object constructions where 了 marks the completion of an action. Includes: (1) Verb + 了 + [Number + Measure Word] + Object; (2) Verb + 了 + Duration + Object; (3) Verb + 了 + Object (simple objects); (4) Verb + 了 + Object + 了 (le at end); (5) questions with 了吗; (6) sentences with time expressions, modifiers, or complements between verb and object.
-**Does not cover:** (1) Change of state (adjective + 了, intransitive verbs + 了 with no object); (2) Expressing "now" or realization (知道了, 懂了); (3) Expressing "not anymore" (不/没 + verb + 了); (4) Potential complements (得了, 不了, 得起, 不起); (5) Degree complements (极了, 死了, 坏了); (6) Duration expressions of ongoing actions; (7) About-to-happen (快了, 快要了); (8) Other uses of 了 that are not aspect particles (e.g., 为了, 除了, 极了, 太...了)
+<!-- written by claude-sonnet-5-5 on 2026-11-11; edit freely -->
+**Point:** Aspect particle 了 marking completion of an action (dynamic aspect)
+**Covers:** Verb + 了 + Obj, including objects with a degree word, a number and measure word, or a duration. Also covers sentence-final 了 after an object with a 的-modifier, short completed clauses (我买了, 他们到了, 我找到了), past-time or 去/来 + place + verb clauses ending in 了, and 了吗 questions about a completed action.
+**Does not cover:** Change of state (adjective + 了), expressing "now" (知道了), expressing "not anymore" (不/没 + Verb + 了), potential complements (得了/不了), "about to" (快…了), imperatives (别…了), and other uses of 了 that do not mark completion.
 
 ```rule
-match: /VV .* /AS .* /NN
-match: /VV .* /AS .* /SP
-unless: /VA .* /AS .* /SP
-unless: /VA .* /VV .* /AS .* /SP
-unless: /AD 快 .* /VV .* /AS .* /SP
-unless: /AD 不 .* /VV .* /AS .* /SP
-unless: /AD 没 .* /VV .* /AS .* /SP
-unless: /VV .* 得 /VV
-unless: /VV .* 不 /AD .* /VV
-unless: P 除了
-unless: P 为了
+match: /VV /AS /NN
+match: /VV /AS /NR
+match: /VV /AS /PN
+match: /VV /AS /CD /M|NN|NT
+match: /VV /AS /AD ... /NN
+match: /VV /AS /DT ... /NN
+match: /VV /AS /NT ... /NN
+match: 光|完|掉|够/NR 了/AS /NN
+match: /VV ... /DEC /JJ? /NN 了/SP $
+match: /VV /JJ? /NN|NR? 了/AS|SP 吗/SP
+match: /VV 好/VA 了/AS 吗/SP
+match: /PN 买|去|到|吃/VV 了/AS|SP $
+match: 都|也|全/AD 买|去|到|吃/VV 了/AS|SP $
+match: 找/VV 到/VV 了/AS|SP
+match: 去|来/VV /NR|NN|PN /NN? /VV /NN? 了/SP $
+match: 昨天|前天|昨晚|去年|刚才|上午/NT ... /VV /NR|NN? 了/SP $
+match: 上/DT /M ... /VV /NR|NN? 了/SP $
+unless: 得了|不了
+unless: /VA /AS $
+unless: /VA _ /AS $
+unless: /VA /VV /AS $
+unless: 不 /VV /AS
+unless: 没 /VV /AS
+unless: /VV 得/VV /AS
+unless: /VV 不/AD /AS
+unless: 快 /VV /AS
+unless: 别 /VV /AS $
+unless: 想|要|想要|会|能|可以|应该|必须|快要|就要|不|别|快|该|得 ... 了/AS|SP $
+unless: 想|要|想要|会|能|可以|应该|必须|快要|就要|不|别|快|该|得 ... 了/AS|SP 吗/SP $
+unless: 知道|懂|明白|觉得|喜欢|爱|怕|像|希望|需要 ... 了/AS|SP $
+unless: 知道|懂|明白|觉得|喜欢|爱|怕|像|希望|需要 ... 了/AS|SP 吗/SP $
+unless: 除了 ...
 ```
 
-**Notes:** The rule matches verbs (VV) followed by 了 as aspect particle (AS) and then either a noun (NN) or sentence-final particle (SP like 吗). It excludes constructions where 了 indicates change of state (adjective predicates), potential complements (得/不 patterns), imperative/prohibition patterns (不/没 before verb), about-to-happen expressions (快), and prepositions like 除了 or 为了. The pattern allows any intervening material (numbers, measures, duration, modifiers, complements) between verb and object since all of these are attested in labeled examples.
+**Notes:** Fixes from the labeled examples:
+- **Dropped the 为了 exclusion.** It wrongly blocked 他女朋友为了他辞了工作. Purpose 为了 sentences never match the 了-after-verb patterns anyway.
+- **Narrowed the modal exclusion.** It now only fires when 了 closes the clause, so a modal in a different clause (你要检查吗) no longer cancels a match.
+- **Added short completed clauses.** These need a pronoun subject (or 都/也/全) plus a plain action verb (买/去/到/吃), or 找到了. This keeps 知道了, 懂了, 快到了 and similar change-of-state phrases out.
+- **Added sentence-final 了 patterns.** 去/来 + place + verb + 了 is covered, as is a past-time word followed by a verb, an optional noun and 了.
+- **Widened 了吗 questions.** They now accept 了 tagged either AS or SP, an optional modifier and object, and a bare verb. Verbs of knowing, understanding and liking are excluded.
+- **Widened the 的-modifier pattern.** An optional adjective may sit before the noun, and the final particle must be 了.
+- **Added a tagging workaround.** The mis-tagged 花光了钱 gets its own pattern.
+- **Blocked the false match.** 得了 is excluded, so 帮得了我 no longer matches.
 
 ## 1-36
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** 是-sentences for connecting nouns, and "是……的" sentences of purpose (来/去 + Verb + 的, 用来 + Verb + 的, 给 + Person + Verb + 的)
-**Covers:** Subject + 是 + Noun/Pronoun (他是老师, 这是他的书); Person + 是 + 来/去 + Verb + 的 (我是来实习的); Thing + 是 + 用来 + Verb + 的 (钱是用来花的); Thing + 是 + 给 + Person + Verb + 的 (房间是给客人住的)
-**Does not cover:** 于是, 凡是, 要不是, 要是, 还是, 不是…就是, 老是/总是, 很是, 有的是, 就是, 岂不是, 是否, 不愧是, 不是…而是, and other 是 patterns in the exclusion list. It also misses 是…吗 and 是不是 questions, adjective + 的 sentences, and location + 是 sentences, to keep precision high.
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
+**Point:** 是-sentences that connect nouns, plus the "是……的" patterns: purpose (来/去 + Verb + 的, 用来 + Verb + 的, 给 + Person + Verb + 的), distinguishing words (是 + adjective + 的), and 会/能/可以 + Verb + 的.
+**Covers:** Subject + 是 + Noun/Pronoun (他是老师, 这是他的书, 他们是有钱人); 是…吗 and 是不是 questions; Location + 是 + Noun (袋子里是我的午饭); Person + 是 + 来/去 + Verb + 的 (我是来实习的); Thing + 是 + 用来/给 … + 的; 是 + distinguishing word/adjective + 的 (那个人是女的); 会/能/可以 + Verb + 的 (我会去的).
+**Does not cover:** 于是, 凡是, 要不是, 要是, 还是, 不是…就是, 老是/总是, 很是, 有的是, 就是, 岂不是, 是否, 不愧是, 不是…而是, and the other 是 patterns on the exclusion list.
 
 ```rule
-match: /PN|NN|NR 是/VC /NN|NR|PN|DT|CD
+match: /PN|NN|NR|DT 都|也/AD? 是/VC /NN|NR|PN|DT|CD|VE
+match: /LC 都|也/AD? 是/VC /NN|NR|PN|DT|CD|NT
+match: /PN 是/VC 吗/SP
+match: /PN 是/VC 不/AD 是/VC
+match: ^ 是/VC 不/AD 是/VC $
+match: ^ 是/VC 吗/SP $
 match: 是/VC 来|去/VV ... 的/SP|DEC|DEG
 match: 是/VC 用来/VV ... 的/SP|DEC|DEG
-match: 是/VC 给/P ... 的/SP|DEC|DEG
-unless: 于是 凡是 要是 老是 总是 很是 有的是 就是 是否 不愧 还是 或是 为的是 岂不 那倒
-unless: 就/AD 是/VC
-unless: 很/AD 是/VC
-unless: 要 不 是
-unless: 不 是 ... 就
-unless: 不 是 ... 而是
+match: 是/VC 给/P|VV ... 的/SP|DEC|DEG
+match: 是/VC /JJ 的/DEG $
+match: 是/VC /JJ /NN 的/DEG $
+match: 是/VC /VA 的/DEC $
+match: 是/VC 可以/VV /VV 的/SP $
+match: ^ /PN 会|能/VV /VV /VV? 的/SP $
+unless: 于是
+unless: 凡是
+unless: 要是
+unless: 老是
+unless: 总是
+unless: 很是
+unless: 就是
+unless: 是否
+unless: 不愧
+unless: 还是
+unless: 或是
+unless: 为的是
+unless: 岂不
+unless: 那倒
+unless: 有的是
+unless: 有的/PN 是/VC
+unless: 就/AD
 ```
 
-**Notes:** The match patterns are deliberately narrow. 是 must directly follow a pronoun or noun and be followed by a noun-like word, or it must appear in a purpose pattern ending in 的. Because 是 right after 不, 很, 就, 岂不 or 要不 is not preceded by a PN/NN/NR, most compound-adverb uses are not matched in the first place. The unless lines use tokenized forms (e.g. 就/AD 是/VC, 要 不 是) because the segmenter splits words like 要不是, 岂不是 and 很是. They remove sentences where another construction co-occurs with a plain 是 clause.
-
 ## 1-37
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
 **Point:** The 有字句 as the basic verb 有: possession (Subj. + 有 + Obj.), existence (Place + 有 + Obj.), and negation with 没(有).
+
 **Covers:** 有, 没有 or 没 tagged as a verb (VE or VV) directly followed by a noun, proper noun, time noun, number, noun modifier, or 很 plus a degree word. Also 有 + pronoun + 的 (e.g. 有你的号码). Also 有/没有 directly followed by the question particle 吗 when the object is missing from the tagging (e.g. 你的老师有iPad吗, where the foreign word is dropped). Examples: 我有钱, 他没有哥哥, 房间里有人吗, 我们有三个女儿, 日本有很多中国人.
+
 **Does not cover:**
-- 有点(儿) and 有一点 + adjective, and 有一点 + noun (excluded to be safe).
+- 有点(儿), 有一点(儿) and 有一点点 + adjective, and 有一点 + noun (excluded to be safe). This holds whether the tokenizer splits them (有 一 点) or keeps them as one word (有 一点儿, 有 一点).
 - 有 + verb phrase (Taiwanese 有 + V, e.g. 有见过).
 - Comparisons: 有 or 没有 + NP + adjective (他有我帅, 你有老板忙吗, 纽约人口有上海人口多吗); 有 + NP + 这么/那么 + adjective; 有 + proper name + 吗 (他有姚明高吗).
 - 没有 + verb (past negation) and 没有 tagged P or AD.
@@ -881,6 +970,11 @@ match: 有|没有|没/VE 吗/SP
 unless: 有 点
 unless: 有 点儿
 unless: 有 一 点
+unless: 有 一点
+unless: 有 一点儿
+unless: 有 一点点
+unless: 有点
+unless: 有点儿
 unless: 没有 有
 unless: 有|没有|没 /PN|NN|NR /NN? /VA
 unless: 有|没有|没 /PN|NN|NR /NR|NN /NN? /VA
@@ -899,6 +993,7 @@ unless: 有 激动
 - 还有 + noun can still match, which is fine for existence. A bare 还有 at the end of a clause (the "in addition" use) blocks the whole sentence.
 - 有 + 吗 is accepted without an object because the tagger can drop foreign words such as iPad.
 - 有激动 is blocked explicitly because 激动 is mis-tagged as a noun.
+- 有一点儿 / 有一点 are blocked as whole tokens, because the tagger often keeps 一点(儿) as a single word (tagged CD or NN) rather than splitting it. Otherwise 上海的冬天有一点冷 matched through 有 + CD. 有一些 and other quantity phrases are still allowed.
 - Because a pattern only matches inside one clause, the unless lines other than 有的 and 还有 do not look across commas.
 
 ## 1-45
@@ -955,52 +1050,123 @@ match: 该/VV ... /VV
 **Notes:** The old rule required exactly one word between the modal and the verb, so it missed almost every sentence. Examples such as 应该喝白酒 and 不应该迟到 have the verb directly after the modal. The new rule allows any number of words in between, which also covers 应该八点半来公司. The old `unless` clause is removed because it excluded the official example 你该吃药了. 该⋯⋯了 (2-80) cannot be reliably separated from this point on structure alone, so a sentence like 该走了 can still match.
 
 ## 2-04
-<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
-**Point:** Reduplication of verbs to express brief action or "a little bit"
-**Covers:** AA pattern (verb repeated twice with neutral tone on second), A一A pattern (verb + 一 + same verb), A了A pattern (verb + 了 + same verb), and ABAB pattern (two-syllable verb repeated entirely)
-**Does not cover:** Sentences where 一 appears as a number/quantifier separate from verb reduplication, or where 了 is only a perfective aspect marker without verb reduplication, or other grammar patterns that happen to use repeated words
+<!-- written by claude-sonnet-5-5 on 2026-11-11; edit freely -->
+**Point:** Verb reduplication (AA, A一A, A了A, ABAB) to express "a little bit" or a brief action
+**Covers:** Sentences where the same verb is repeated: AA (看看), A一A (想一想), A了A (看了看), or a two-syllable verb repeated whole (ABAB, 休息休息). The rule lists specific common verbs because it cannot check that two tokens are identical.
+**Does not cover:** Two different consecutive verbs (e.g. 会说, 想吃, 能坐). Verb + 一 + measure word or noun. 了 used as a completion aspect particle. Any other use of 一 or 了 without verb reduplication.
 
 ```rule
-match: /VV /VV
-match: /VV CD|AD /VV
-match: /VV AS /VV
-unless: ... CD M ...
-unless: ... CD 个|部|场|次|遍|回|下|堆|番|篇 ...
-unless: /VV AS ... /VV
+match: 看看|试试|说说|玩玩|走走|听听|尝尝|找找|查查|读读|写写|想想|问问|学学|聊聊|逛逛|练练|洗洗|坐坐|讲讲|唱唱|跳跳|跑跑|歇歇
+match: 看 看
+match: 试 试
+match: 说 说
+match: 玩 玩
+match: 走 走
+match: 听 听
+match: 尝 尝
+match: 找 找
+match: 查 查
+match: 读 读
+match: 写 写
+match: 想 想
+match: 问 问
+match: 学 学
+match: 聊 聊
+match: 逛 逛
+match: 练 练
+match: 洗 洗
+match: 坐 坐
+match: 讲 讲
+match: 唱 唱
+match: 跳 跳
+match: 跑 跑
+match: 歇 歇
+match: 看 一 看
+match: 试 一 试
+match: 说 一 说
+match: 玩 一 玩
+match: 走 一 走
+match: 听 一 听
+match: 尝 一 尝
+match: 找 一 找
+match: 查 一 查
+match: 读 一 读
+match: 写 一 写
+match: 想 一 想
+match: 问 一 问
+match: 学 一 学
+match: 聊 一 聊
+match: 逛 一 逛
+match: 练 一 练
+match: 洗 一 洗
+match: 坐 一 坐
+match: 讲 一 讲
+match: 唱 一 唱
+match: 跳 一 跳
+match: 笑 一 笑
+match: 用 一 用
+match: 笑 笑
+match: 用 用
+match: 看 了 看
+match: 试 了 试
+match: 说 了 说
+match: 玩 了 玩
+match: 走 了 走
+match: 听 了 听
+match: 尝 了 尝
+match: 找 了 找
+match: 查 了 查
+match: 读 了 读
+match: 写 了 写
+match: 想 了 想
+match: 问 了 问
+match: 学 了 学
+match: 聊 了 聊
+match: 逛 了 逛
+match: 笑 了 笑
+match: 用 了 用
+match: 休息休息|考虑考虑|商量商量|介绍介绍|研究研究|锻炼锻炼|收拾收拾|了解了解|打扫打扫|放松放松|整理整理|准备准备|讨论讨论|复习复习|学习学习|参观参观|检查检查
+match: 休息 休息
+match: 考虑 考虑
+match: 商量 商量
+match: 介绍 介绍
+match: 研究 研究
+match: 锻炼 锻炼
+match: 收拾 收拾
+match: 了解 了解
+match: 打扫 打扫
+match: 放松 放松
+match: 整理 整理
+match: 准备 准备
+match: 讨论 讨论
+match: 复习 复习
+match: 学习 学习
+match: 参观 参观
+match: 检查 检查
 ```
 
-**Notes:** 
-- The first match pattern catches AA reduplication (two consecutive verbs, same or closely related)
-- The second match catches A一A and similar patterns where 一/CD or 一/AD appears between two verbs
-- The third match catches A了A patterns where 了/AS appears between verbs
-- The first unless excludes cases like "一个" or "一场" which are measure word constructions, not verb reduplication
-- The second unless specifically excludes measure word phrases that might falsely trigger the pattern
-- The third unless excludes sentences where 了 indicates perfective aspect on a single verb (not verb reduplication) followed by other content
-- Tagger sometimes marks 一 as AD or CD depending on context; both should match
-- Two-syllable verbs should still match as /VV /VV when both parts are tagged separately
-- Cases where the repeated verb is part of a larger compound (like 出去 走 走) still match because each word is tagged /VV separately
+**Notes:**
+- The old rule matched any two adjacent verbs (/VV /VV), which wrongly caught modal + verb sequences such as 会说, 想吃 and 能坐. The syntax has no way to require identical tokens.
+- The fix is to list the specific verbs that are commonly reduplicated, so only a true repetition can match.
+- Both tokenizations are covered: a reduplicated verb as one token (看看) and as two tokens (看 看).
+- Tags are left out of the patterns because the tagger's output for these tokens is unreliable. The repeated word itself is the evidence.
+- No unless lines are needed. The listed verbs can only match when repeated, and A一A and A了A require the exact 一 or 了 between the two identical verbs.
+- The list can be extended with more verbs, but it should stay limited to verbs that are really reduplicated.
 
 ## 2-05
-<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
-**Point:** Questioning words 怎么样/怎样, 为什么, 多久 used to ask open-ended questions about how something is, why something happened, or how long something took.
-
-**Covers:** 
-- 怎么样/怎样 asking "how is X?" or "what is X like?" (with or without 觉得)
-- 为什么 asking "why?"
-- 多久 asking "how long?"
-
-**Does not cover:** 
-- 怎么样/怎样 used as an adverbial modifier meaning "in some way" or in the phrase 不怎么样 (meaning "not very good")
-- These words in statements rather than questions (e.g., "这个电影不怎么样" is an opinion statement, not asking a question)
+<!-- written by claude-haiku-4-5 on 2026-11-11; edit freely -->
+**Point:** Using interrogative pronouns to ask questions: 怎么样/怎样 (how is), 多久 (how long), 为什么 (why)
+**Covers:** Questions with 怎么样/怎样 asking "how is/what is it like"; questions with 多久 asking "how long"; questions with 为什么 asking "why"
+**Does not cover:** 怎么样/怎样 used in non-question contexts (e.g., "不怎么样" meaning "not so great" as a statement); other question words not in this list
 
 ```rule
-match: 怎么样|怎样/VV ... \?
-match: 多/AD 久/VA ... \?
-match: 为什么/AD ... \?
+match: 怎么样|怎样
 unless: 不/AD 怎么样|怎样
+match: 多久
+match: 为什么
 ```
 
-**Notes:** The rule matches these question words when they appear tagged as VV (for 怎么样/怎样) or AD + VA (for 多久) or AD (for 为什么) in sentences ending with question marks. The unless clause excludes 不怎么样 constructions, which express opinions rather than asking genuine questions about how something is. The tagger occasionally tags 怎样 as VA rather than VV, but the question mark ending helps distinguish genuine questions from statements like "这个电影不怎么样" where the question mark would not appear.
+**Notes:** The rule has three separate match conditions (OR logic). The first match catches 怎么样/怎样 but excludes the statement "不怎么样" (HSK 6-30). The unless clause checks the whole sentence to avoid matching that counter-pattern. The second and third match conditions catch 多久 and 为什么 in their interrogative uses. All three are question words from the HSK 2-05 list.
 
 ## 2-07
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -1086,63 +1252,73 @@ unless: /SP $
 **Notes:** The old rule required an extra word between the number and the measure word, so it never matched any of the labeled examples. The new rule puts the number directly after the verb and 了, with an optional 个, then a specific list of duration words. That list covers measure words (年/天), nouns tagged NN (小时), and time nouns tagged NT (晚上/上午). Because the pattern is not anchored to the end of the clause, it matches both the version with an object and the version with 的 plus an object. The old VA exclusion is dropped: the pattern already fails on 一年一度, and the exclusion would wrongly reject sentences that merely contain an adjective elsewhere. The exclusion for a clause-final sentence particle 了 is kept.
 
 ## 2-13
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
 **Point:** Degree adverbs (多、多么、好、更、十分、特别、挺、有（一）点儿) to express intensity, comparison, or mild complaint
-**Covers:** Using 更 (and 比…还) before adjectives to mean "even more"; using 挺 before adjectives/psych verbs to mean "quite"; using 有点/有一点 before adjectives to mean "a little too"; using 多么 before adjectives; using 特别/十分 before adjectives
-**Does not cover:** 更不用说 (let alone) pattern; 不但...更 (not only...but also) pattern; 更 as part of 更新/更改 (verb meanings change/update); 一点 after adjectives meaning "a little bit" in comparisons; 一点 before nouns meaning quantity; 点 as a measure word or time unit
+
+**Covers:** 更 (and 比…还) before adjectives to mean "even more"; 挺 before adjectives or psych verbs to mean "quite"; 有点/有一点(儿) before adjectives to mean "a little too"; 多/多么 before adjectives in exclamations; 特别/十分 before adjectives; 一点/点 after an adjective at the end of a clause in comparisons or requests (慢一点, 快点, 便宜点吧); 一点也不/一点也没 meaning "not at all"
+
+**Does not cover:** the 更不用说 (let alone) pattern; the 不但...更 (not only...but also) pattern, including 更 before a verb there; 更 in 更新/更改 (verb meanings change/update); 一点 before nouns meaning a small quantity (有一点番茄酱); 有点 as "there is a little" of a noun (还有点饭); adjective + 点 directly before a verb (早点来, 早点睡觉), which is a different, easier pattern
 
 ```rule
-match: 更|挺|多么|特别|十分/AD /VA|VV
+match: 更|多么/AD /VA
+match: 特别|十分/AD /VA|VV
+match: 挺/AD /VA|VV
 match: 挺/AD 有/VE
 match: 比 ... 还/AD /VA
-match: 有/VE 点|点儿 不? /VA|VV
-match: 有/VE 一 点|点儿 不? /VA|VV
-unless: 更 不用 说
-unless: 不但
-unless: 连 ... 都|也 ... 更 不用 说
+match: 有点|有点儿/AD
+match: 多/AD /VA 啊|呀/SP
+match: /VA 一/CD 点/M $
+match: /VA 一/CD 点/M /SP
+match: /VA 点/AD $
+match: /VA 点/AD /SP
+match: ^ 一点/NN /VA
+match: ^ 一点/NN 也/AD 不|没/AD
+unless: 不但 ... 更
+unless: 更 不用说
 ```
 
-**Notes:** The original rule did not match because it used parentheses (not supported) and put a wildcard between the adverb and the predicate, though the adverb sits directly before it. The first line now matches 更/挺/多么/特别/十分 directly before an adjective or verb (including psych verbs like 喜欢, 怕, 后悔). Line 2 covers 挺有钱, where 有 is tagged VE. Line 3 covers 比…还 + adjective ("even more"). The bare 还 + verb "still" reading is not matched. Lines 4 and 5 cover 有点/有一点(儿), with optional 不 before the predicate. The match requires a predicate right after 点, so 有点饭 and 有一点番茄酱 (quantity) are not matched, and neither is 一点 after an adjective (慢一点, 重一点). The unless lines exclude 更不用说 and 不但…更.
+**Notes:** The tokenizer splits 有一点儿 + adjective and 一点也不/没 across a clause break, with 一点 tagged NN at the start of the second clause. The rule therefore matches that clause-initial 一点/NN only when an adjective, or 也不/也没, follows. When a noun follows (番茄酱, 饭), it does not match. 更 is restricted to a following adjective, and an explicit unless line blocks 不但…更 sentences. Adjective + 点/一点 now only matches when it ends the clause or is followed by a sentence-final particle (快点, 便宜点吧). Before it also matched 早点来 / 早点睡觉, which belong to easier grammar points and are now excluded.
 
 ## 2-14
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** Scope/coordination adverbs 全, 一共, 只 for indicating "all/whole," "altogether," or "only"
-
-**Covers:**
-- 全 / 全都 / 全+noun (全家, 全校, 全身, 全年, 全公司的人) followed by 都, meaning "all / whole"
-- 只 / 只能 / 只要 meaning "only", placed after a subject and before a verb or auxiliary (我只能说两句中文; 我老婆只要一个孩子)
-- 一共 meaning "altogether / in total"
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
+**Point:** Scope adverbs 全 ("all, whole"), 一共 ("altogether") and 只 ("only"), placed before the predicate.
+**Covers:** 
+- 全都 or 全 as an adverb before the verb or adjective (大家全都到了, 同学们全来了, 全都不怕, 没全都来).
+- 全 as a determiner on a noun, followed by 都 in the same clause (全家都, 全公司的人都不…, 这个地方全年都很热).
+- 全身 followed by 都.
+- 一共 + number or verb.
+- 只 or 只能 before a verb (我只想…, 他们只会说英文).
+- 只有 meaning "only have" after a subject (我们只有十块钱), 只要 meaning "only want" (你们只要咖啡吗).
 
 **Does not cover:**
-- 只好 (had no choice but)
-- 只要 meaning "as long as" (只要……就……)
-- 只有……才 (only if), including when 只有 and 才 fall in different clauses (this is why bare 只有/AD is not matched)
-- 只 as a measure word (一只猫)
-- 不只 / 不但 (not only…but also)
-- 完全, 全力 and other words that merely contain 全
+- 只好 (no other choice), 只要…就 (as long as), 只有…才 (only if) and 不只/不但 (not only). These are separate points.
+- 只 as a measure word (一只虫子).
+- 只是, 只不过 and 只见.
+- 全 inside other words (全部的, 全力, 完全, 齐全, 全国纪录 with no 都).
+- Subject-less clause-initial 只有 + quantity (只有几个人去过…), and 只要 + 几 + measure word meaning "it only takes a few…" (坐飞机只要几个小时). These are treated as ordinary 有/要 sentences of an easier point.
 
 ```rule
-match: (全|全都|一共)/AD
-match: 全/DT _ ... 都/AD
-match: (全校|全身|全家|全班|全国|全年|全世界|全公司) ... 都/AD
-match: (只|只能)/AD
-match: _ 只要/AD
-match: PN 只要/VV NN
-unless: 只要 ... 就
-unless: 只有 ... 才
-unless: 不只
-unless: 不/AD 只/AD
-unless: 只/M
-unless: 只好
-unless: 只是/VC
+match: 全都|全|一共/AD
+match: 全身/AD 都/AD
+match: 全/DT ... 都/AD
+match: 只|只能/AD /VV|VE
+match: _ 只有/AD
+match: _ 只要/AD|VV
+unless: 才/AD
+unless: 就/AD
+unless: 不/AD 只|只有/AD|VV
+unless: 只/AD 见
+unless: 只/AD 不过
+unless: ^ 只/AD 有
+unless: 只/AD 要 几/CD
 ```
 
-**Notes:**
-- The 全 patterns cover the tagging variants: 全/DT + noun/measure + 都, 全校/NN, 全身/AD, 全/AD and 全都/AD.
-- 只有 is deliberately not matched on its own. The 只有……才 sentences in the data split 只有 and 才 across clauses, so an unless: line cannot catch them, and bare 只有 is too risky.
-- 只要 is matched only when it follows a subject. Clause-initial 只要 is almost always the "as long as" condition, so it is skipped.
-- Within a clause, a 就 after 只要 rules out the "as long as" reading.
-- 只好, 不只 and 只 tagged as a measure word are excluded.
+**Notes:** 
+- The tagger gives 只有 and 只要 the tag AD or CS/VV inconsistently. So the standalone 只有 and 只要 patterns require a word before them in the clause, which rules out the clause-initial conditional use. The global `unless` lines on 才 and 就 catch the "only if" and "as long as" sentences whose 才 or 就 is in a later clause.
+- Those two `unless` lines also drop some genuine sentences that happen to contain 就 or 才. That is intentional (precision first).
+- The tagger sometimes splits 只有 into 只/AD 有/VV, so `只 + VV|VE` could match clause-initial "只有几个人…". The `^ 只 有` unless line blocks that case, and `只 要 几/CD` blocks "只要几个小时".
+- 全/DT … 都 can occasionally match a clause where 全 is unrelated to 都. This is rare.
+- 只好 is a separate word and is never matched, because no pattern lists it.
 
 ## 2-15
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -1172,33 +1348,34 @@ unless: 刚才
 - 突然 used as an adjective or complement is not tagged AD and is not matched.
 
 ## 2-16
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
 **Point:** Frequency and repetition adverbs: 重新, 经常, 老, 老是, 又
 
 **Covers:** 
 - 老是/老 expressing habitual or repeated action with a frustrated tone
 - 经常/常常 expressing frequent action, including 经常 的 as a property ("是经常的事情")
-- 又 expressing an action happening again (past or imminent)
+- 又 + ordinary verb expressing an action that happened again (又下雨了, 你又迟到了)
 - 重新 expressing doing something again from the start
 
 **Does not cover:**
 - 又 used for emphasis of negation (又不/又没 meaning "definitely not")
+- 又 before a modal verb (又要/又能/又可以/又会), which belongs to the modal verb points
 - 又 in repeated action patterns with 了...又... structure
 - 又 expressing both A and B qualities (又...又... with adjectives)
 - 既...又... patterns
 - 老 as an adjective meaning "old" (老师, 老人, 老家)
-- 常 as an adjective meaning "frequent/regular"
+- Single 常 before a verb (他常去饭店吃饭), a simpler colloquial use
 
 ```rule
 match: 老是/AD ... /VV|VA
 match: 老/AD ... /VV|VA
 match: 经常/AD ... /VV
 match: 常常/AD ... /VV
-match: 常/AD /VV
 match: 经常/VA 的/DEC
 match: 又/AD /VV
 match: 又/AD /VA 了/SP
 match: 重新/AD ... /VV
+unless: 又/AD 要|能|可以|会|想|得|应该|可能|必须/VV
 unless: 既/AD ... 又/AD
 unless: 又/AD ... 又/AD
 unless: 又/CC
@@ -1207,37 +1384,13 @@ unless: /VV 了/AS 又/CC
 ```
 
 **Notes:** 
-- The pattern for 老/老是 requires a verb or adjective after to distinguish from the noun adjective uses (老师, 老人). Often there are adverbs between (不, 很, 这么) but these aren't required.
-- 又 is matched only when directly followed by a verb (又下雨了, 又迟到了, 又要/能/可以...) or by an adjective plus sentence-final 了. 又不/又没 are deliberately not matched. They are mostly the emphatic-negation use ("又不知道", "又没下雨"), which belongs to a different point, so this rule misses some genuine "again + negative" sentences.
+- The pattern for 老/老是 requires a verb or adjective after it, to distinguish it from the "old" uses (老师, 老人). Adverbs such as 不, 很, 这么 often come between, but they are not required.
+- 又 is matched only when directly followed by an ordinary verb (又下雨了, 又迟到了, 又忘了) or by an adjective plus sentence-final 了. 又不/又没 are deliberately not matched, because they are mostly the emphatic-negation use ("又不知道"), which belongs to a different point. So the rule misses some genuine "again + negative" sentences.
+- 又 before a modal verb (又要, 又能, 又可以, 又会) is excluded. These sentences are taught under the modal verb points, and including them let in wrong matches. The rule therefore also misses the "about to happen again" use.
 - Any clause with two 又, or with 既 and 又, is excluded (又A又B, 既A又B).
-- Exclude 了…又… repeated-action patterns (看了又看).
+- 了…又… repeated-action patterns (看了又看) are excluded.
 - 经常/VA 的 (frequency as a property, e.g. 是经常的事情) counts as the grammar point.
-- 常 by itself (single character) counts when followed by a verb, used in colloquial speech.
-
-## 2-17
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** Expressing "then" with the adverb 就 (jiù) in conditional and causal structures
-
-**Covers:** Sentences whose first clause sets up a condition or cause (如果, 要是, 假如, 既然, 只要, or a plain fact or situation), and whose second clause, usually led by 就, gives the consequence, result or suggestion. This includes "if...then", "since...then", "as long as...then" and simple cause-then-result sequences.
-
-**Does not cover:** 就 for earliness or timing (他早就知道了), scope (就这个问题), small quantity (就他知道), near-future 就要...了, "even if" patterns (就算/就是...也), emphasis with 就是, "as you like" and verb-repetition patterns (想吃就吃, 要买就买), 不是...就是, 一...就, and verbs repeated with 着 (说着说着就...).
-
-```rule
-match: 如果|既然|只要|假如|要是/CS
-match: ^ 就/AD /VV|P|AD
-match: ^ /PN 就/AD /VV|P|AD
-unless: 就是
-unless: 就算
-unless: 就/AD 是/VC
-unless: 不是 ... 就是
-unless: 就/AD 要/VV ... 了/SP|AS $
-unless: 一/AD ... 就/AD
-unless: 着/AS 就/AD
-unless: 才/AD
-unless: 就/AD 在/VV
-```
-
-**Notes:** Patterns match within a single clause, so they cannot link a first clause to a second. The first line therefore marks a conditional or causal conjunction clause (如果, 既然, 只要, 假如, 要是). The second and third lines catch 就 as the lead item of a result clause, either alone or right after a pronoun subject, followed by a verb, preposition or adverb. The unless lines exclude the nearby non-target uses of 就: emphasis 就是, 就算, 就要...了, 不是...就是, 一...就, 着 repetition, 才 contrasts and verbal 在. The main trade-off is that a sentence with an explicit conjunction but no 就 still matches, which is correct for the 只要, 既然 and 如果 examples that carry their 就 in the other clause.
+- Single 常 before a verb is deliberately not matched. It is mostly a simpler use, and matching it produced wrong matches.
 
 ## 2-19
 <!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
@@ -1331,27 +1484,27 @@ unless: /NN 往/NN
 **Notes:** The tagger is inconsistent: 往 is tagged P, VV or occasionally NN, depending on context. The rule therefore accepts 往 as P or VV followed by a direction/place word and then a verb, which covers 一直往前走, 往下说 and 你往前走一百米. For verb-往 compounds (开往北京的, 飞往纽约的, 运往国外的), it accepts a verb followed by 往 (tagged VV or NN) and then a place noun. 往往 is a separate token tagged AD, so the `unless: 往往/AD` line removes the frequency-adverb sentences. Words like 来往 and 交往 are single tokens, so they never match 往 as a standalone word.
 
 ## 2-23
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** Using 向/朝/往 as a preposition meaning "towards" to indicate the direction or target of an action
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
+**Point:** Using 向 as a preposition meaning "towards" to indicate the direction or target of an action.
 
-**Covers:** 向/朝/往 + direction/person/place + verb (walk towards, look at, apologize to, learn from, report to). Also verb + 向/往 + destination after motion verbs (开往, 飞往, 飞向, 驶向), and 向前 + verb.
+**Covers:** 向 + direction/person/place + verb (walk towards, look towards, apologize to, learn from, report to). Also verb + 向 after motion verbs (飞向, 驶向, 奔向), and 向前 + verb.
 
-**Does not cover:** Adverbial 一向 and 向来 (always); 转向 as a verb compound; 向 as a noun meaning direction or tendency.
+**Does not cover:** Adverbial 一向 and 向来 (always); 转向 as a verb compound; 向 as a noun meaning direction or tendency. Sentences with only 往 (e.g. 一直往前走, 开往, 飞往) are not counted here, because 往 belongs to a different, easier point. The same goes for 朝 alone.
 
 ```rule
-match: 向|朝|往/P|VV _ _? _? /VV
+match: 向/P|VV _ _? _? /VV
 match: 向前/AD /VV
-match: 开|飞|发|运|送|寄|带|驶|奔|冲|流|跑|游|走 向|往/P|VV /NN|NR|PN|JJ
-match: 驶向|飞向|奔向|冲向|流向|跑向|开往|飞往|驶往|发往|运往|送往|寄往 /VV
+match: 开|飞|发|运|送|寄|带|驶|奔|冲|流|跑|游|走 向/P|VV /NN|NR|PN|JJ
+match: 驶向|飞向|奔向|冲向|流向|跑向 _
 unless: 一向/AD
 unless: 向来/AD
 unless: 转/VV 向/VV
 ```
 
-**Notes:** The old rule used invalid grouping syntax and required a single word between the preposition and the verb. That failed on 向雷锋同志学习 and 向环保部门要求, and the rule also missed 向 tagged VV. The first line now allows 向/朝/往 tagged P or VV, followed by up to three words and then a verb. Separate lines cover 向前 tagged as an adverb, and the post-verbal 开往/飞往/飞向/驶向 type, which has no following verb. 一向 and 向来 are single tokens and are still excluded explicitly. 转向 is excluded.
+**Notes:** The counter-example 一直往前走 was matched only because the first line accepted 往 (tagged VV) as a preposition. The rule is now restricted to 向, which is the official point; 往-only and 朝-only sentences no longer match. The post-verbal patterns were limited to 向 compounds for the same reason. 一向 and 向来 are single tokens and are still excluded, as is 转向.
 
 ## 2-24
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
 **Point:** Using 从 (cóng) and 离 (lí) as prepositions meaning "from" in spatial, temporal, or source contexts
 
 **Covers:** 
@@ -1359,7 +1512,7 @@ unless: 转/VV 向/VV
 - 从 + Place + 到 + Place (from place to place)
 - 从 + Time + 到 + Time (from time to time)
 - 从 + Time/Event + 开始/起 (starting from)
-- 从 + 那/今 + 以后 (ever since then / from now on)
+- 从 + 那/今 + 以后 (ever since then / from now on), including the single token 从今以后
 - 从 + Source (noun/person/abstract) + verb (taking/learning from, seeing from)
 - 离 + Time/Event + duration, 离 + Event + 还有 + duration (time distance)
 - 离 + Place + 远/近 (distance)
@@ -1368,40 +1521,46 @@ unless: 转/VV 向/VV
 - 从来 meaning "always" or "never" (time adverb)
 - 从而 meaning "thereby/thus" (conjunctive adverb)
 - 自从 (a separate HSK 3 grammar point)
+- 从 + Event + 以来 (the "ever since" pattern, which belongs with 自从)
 - 从...来看 (HSK 5-26)
 - Adverbial or fixed uses such as 从小, 从中, 从此, 从前, 从不, and the verb 从事, none of which are tagged as the preposition 从/P
 
 ```rule
 match: 从/P
 match: 离/P
+match: 从今以后
 unless: 从来
 unless: 从而
 unless: 自从
 unless: 从事
+unless: 以来
 unless: 从/P ... 来看
 unless: 从/P ... 来 看
 ```
 
 **Notes:** 
-- Matching on the preposition tag 从/P or 离/P is enough. The fixed adverbial forms are tokenized as separate words (从来, 从小, 从今以后 and so on) or tagged AD, so they never match.
-- The earlier rule demanded a particular following word (到, 起, 上 and so on). That missed many valid uses: 从 + noun + verb, 从那以后, and 从 + 到 where 到 is tagged as a verb or preposition.
-- The `unless` lines still remove sentences containing 从来, 从而, 自从, 从事 or 从...来看, so they cannot slip in on a stray 从/P.
-- The standalone token 从今以后 (tagged NT) is not covered by this rule, because it is not tagged 从/P.
+- Matching on the preposition tag 从/P or 离/P is enough. The fixed adverbial forms are tokenized as separate words (从来, 从小 and so on) or tagged AD, so they never match.
+- 从今以后 is tokenized as a single word (tagged NT), so it gets its own match line.
+- 从 + Event + 以来 is the "ever since" pattern, which is a different point from 从 meaning "from". The `unless: 以来` line removes those sentences, for example 从毕业以来 and 从他爸爸去世以来.
+- 从那以后 and 从今以后 still match, because 以后 is not excluded.
+- The `unless` lines also remove sentences containing 从来, 从而, 自从, 从事 or 从...来看, so they cannot slip in on a stray 从/P.
 
 ## 2-25
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** Using 对 as a preposition meaning "to/towards/regarding" (the target of an action or emotion), or as a verb meaning "to face/point at/match" (对着, 对上, 对不上).
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** Using 对 as a preposition meaning "to/towards/regarding" (the target of an action or emotion), or as a verb meaning "to face/point at/match" (对着, 对上, 对不上). Also the contrasting 跟 uses taught alongside it: 跟 as a preposition or conjunction ("with/and/same as"), and as a verb (跟着, 跟不上).
 
-**Covers:** 对 + Object + Verb/Adjective (preposition directing an action or attitude to a target, e.g. 对我笑, 对她说, 对工作很认真, 对你不满意); 对着/对上/对不上 (verb phrases); 对(于) written with the 于 split off; 对 and 跟 as prepositions with 说.
+**Covers:** 对 + Object + Verb/Adjective (对我笑, 对她说, 对工作很认真, 对你不满意); the bracketed form 对(于)…; 对着/对上/对不上; 跟 + person + 说; 跟…一起; 跟…一样; 跟着; 跟不上.
 
-**Does not cover:** 对于 as a single word (HSK 4-14); 对...来说 (HSK 3-40); 对...而言; 对方 (the pronoun "other party"); tag questions 对不对/对吗; 对 as adjective meaning "correct".
+**Does not cover:** the standalone word 对于 (the "duiyu vs zhiyu", "guanyu vs duiyu" and HSK 4-14 points); 对...来说 (HSK 3-40); 对...而言; 对方 (the pronoun "other party"); tag questions 对不对/对吗; 对 as adjective meaning "correct".
 
 ```rule
 match: 对/P
-match: 对/VA 于/P
+match: ^ 于/P
 match: 对/VA|VV 着/AS
 match: 对/VA|VV 上/VV
 match: 对/VV 不/AD 上/VV
+match: 跟/P|CC|VV
+unless: 对于
 unless: 而言
 unless: 来说
 unless: 来 说
@@ -1410,7 +1569,7 @@ unless: 对 不 对
 unless: 对 吗
 ```
 
-**Notes:** The old first line used a literal "P" instead of the tag, so it never matched. Prepositional 对 is always tagged 对/P, and the object may be followed by a verb or an adjective, so the rule now matches 对/P on its own. The 对于 single-word token is a different word and is not matched. The 对/VA 于/P line covers the 对(于) examples where the tokenizer splits the word. The verbal uses (对着, 对上, 对不上) are matched explicitly, since the tagger gives 对 either VA or VV there. The unless lines exclude 来说, 而言, 对方 and the tag questions 对不对 and 对吗.
+**Notes:** Prepositional 对 is tagged 对/P and matches on its own. The whole word 对于/P belongs to other points (对于 vs 至于, 关于 vs 对于, HSK 4-14), so it is no longer matched, and any sentence containing 对于 is excluded by `unless: 对于`. This also stops 跟 in such sentences from triggering a match. The bracketed form 对(于)… is tokenized as 对/VA, then a clause break, then 于/P. A single pattern cannot span the break, so `^ 于/P` (a clause starting with 于 tagged P) catches it. Bare "对，" as an answer is far too common to match safely, so it is not matched. The verbal 对着, 对上 and 对不上 are matched explicitly because the tagger gives 对 either VA or VV. 跟 is matched whether tagged P, CC or VV. The unless lines still exclude 来说, 而言, 对方 and the tag questions 对不对 and 对吗.
 
 ## 2-26
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -1437,19 +1596,26 @@ unless: 给/P _ _ /VV /AS $
 **Notes:** The rule now matches 给/P at the start of a clause as well as after a subject, and allows 1–3 words between 给 and the verb. Two new unless clauses block the passive "这么好的机会给你浪费了" type. The first blocks a relative-clause 的 (DEC) + noun directly before 给. The second blocks 给 + target + verb + 了 with nothing after the verb, which is the typical passive shape. This also drops rare active sentences such as 我给你做了。, which is an acceptable loss for precision. The 为 examples in the labeled data are deliberately not matched, since loosening to 为 would let in many unrelated sentences.
 
 ## 2-27
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** Expressing distance (in space or time) between two places or points using 离 (lí)
-**Covers:** 离 tagged as P, followed by a second place or time point, then 近/远 (including 多远, 有点儿远, and a trailing 吗). It also covers 离 + point + 有 + number, as in 现在离放假有一个星期的时间.
-**Does not cover:** Other uses of 离 as a verb meaning "leave" or "depart" (离开, 撤离, 远离, 脱离), compound verbs (离婚), and separable verb phrases (离不开). These are not tagged 离/P.
+<!-- written by claude-haiku-4-5 on 2026-11-11; edit freely -->
+**Point:** Expressing distance between two places using 离 (lí)
+**Covers:** Sentences with the structure: [Place/Person] + 离 + [Place/Person] + (有/很/太/多 etc.) + (近/远/多远) to express how far or close one place is from another
+**Does not cover:** Other uses of 离 such as: 离开 (to leave), 撤离 (to evacuate), 远离 (to distance oneself from), 离婚 (to divorce), 脱离 (to break free from), or 离 as a main verb in separative constructions
 
 ```rule
-match: 离/P ... 近|远/VA
-match: 离/P _ 有/VE CD
-match: 离/P _ _ 有/VE CD
-unless: 离/VV
+match: _ 离/P _ ... 近/VA
+match: _ 离/P _ ... 远/VA
+match: _ 离/P _ 有/VE ...
+match: _ 离/P _ 多/AD 远/VA
+unless: 离开/VV
+unless: 撤离/VV
+unless: 远离/VV
+unless: 离婚/VV
+unless: 脱离/VV
+unless: 离/VV _ 开/VV
+unless: 分离/VV
 ```
 
-**Notes:** The original rule did not match any of the labelled examples. The parenthesised alternations such as (近|远) are not valid in this syntax, and the leading `_` forced an extra word before 离. The fix drops the parentheses and writes the alternation as 近|远/VA. Requiring 离 to be tagged P keeps out the verb uses (离开, 远离, 离婚 and so on), so most of the old 离开/撤离/远离 exclusions are no longer needed. 多远 is split into 多/AD and 远/VA, so 远/VA covers it. The pattern for 有 plus a number covers the time-distance example (离放假有一个星期).
+**Notes:** The rule requires 离 to be tagged as P (preposition), which distinguishes it from 离 as a main verb in other constructions. The patterns capture the common distance expressions: with 近 (close), with 远 (far), with 有 (indicating existence of distance), and with 多远 (how far). Multiple unless clauses exclude verbs that contain 离 as a component but represent different grammar points.
 
 ## 2-28
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -1589,17 +1755,18 @@ unless: /DER ... 吗/SP
 - The 的 / 地 examples carry no 得, so they are left unmatched. Matching them would let in far too many unrelated sentences.
 
 ## 2-33
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** Aspect particle 着 (zhe) indicating continuous action/state, and alternative existential sentences with 着 or 是
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
+**Point:** Aspect particle 着 (zhe) indicating a continuous action or state. The Place + 是 + NP existential pattern is not matched.
 
-**Covers:** 
+**Covers:**
 - Verb + 着 to show an action/state that continues or persists (e.g., 坐着 "sitting", 开着 "is on")
 - Verb1 + 着 + Verb2 where the first verb describes a state accompanying an action (e.g., 站着吃饭 "eat standing up")
 - Subj. + Verb + 着 + Object in commands/descriptions (e.g., 看着行李 "watch the luggage")
 - Place + Verb + 着 + NP for existential meaning (e.g., 桌子上放着书 "there is a book on the table")
-- Place + 是 + NP for existential meaning, including with 都 (e.g., 袋子里是我的午饭 "my lunch is in the bag", 墙上都是照片)
 
 **Does not cover:**
+- Place + 是 + NP existential sentences (洗衣机里是一些脏衣服, 袋子里是我的午饭, 墙上都是照片). They are labeled as easier points (plain 是 sentences) and are too easily confused with them, so the rule no longer matches them.
+- 跟着 "follow" - counter-example: 这只小猫总是跟着我
 - 来着 (laizhe) meaning "was [formerly]" - counter-example: 我说什么来着
 - Resultative complement 着 meaning "succeed in" (睡着 "fell asleep", 找着 "found", 买着, 见着) - counter-examples: 宝宝刚睡着, 你的手机找着了吗, 我终于见着你了
 - 得着/不着 resultative complement - counter-example: 买不着, 找得着
@@ -1609,7 +1776,6 @@ unless: /DER ... 吗/SP
 
 ```rule
 match: /VV 着/AS
-match: /LC 都/AD? 是/VC
 unless: 随着/P
 unless: 沿/P
 unless: /P 着/AS
@@ -1617,14 +1783,16 @@ unless: 来/VV 着/AS
 unless: /VV 不/AD 着/VV
 unless: /VV 得/DER 着/VV
 unless: 睡|找|买|见|猜|碰|遇|摸|够|赶|撞|抓/VV 着/AS
+unless: 跟|接|顺|朝|向|趁|为|照/VV 着/AS
 ```
 
-**Notes:** 
-- The rule prioritizes precision by excluding prepositions (随着, 沿着, and general /P 着/AS patterns) which would catch "along with" uses.
-- It excludes 来着 by matching the specific pattern "来/VV 着/AS".
-- It excludes resultative complements by matching /VV 不/AD 着/VV and /VV 得/DER 着/VV patterns, and by listing verbs that almost always take 着 as a resultative complement (睡着, 找着, 买着, 见着, 猜着, 碰着, 遇着, 摸着, 够着, 赶着, 撞着, 抓着). The tagger labels these 着 as AS, the same as the continuous 着, so the verb list is the only way to tell them apart.
-- The two match patterns cover: (1) the aspect particle case (VV 着), and (2) existential 是 sentences (LC 是, with optional 都 between, as in 墙上都是…).
-- Many unlabeled sentences show 着 used with transitive verbs describing states (摇着, 穿着, 抱着) which should match /VV 着/AS and are part of this grammar point.
+**Notes:**
+- The 是 existential match line was removed. Labeled sentences such as 洗衣机里是一些脏衣服 and 墙上都是他家人的照片 belong to easier points, and the LC + 是 pattern cannot tell them apart from ordinary 是 sentences.
+- 跟着 (as in 跟着我) is excluded because it is lexicalized as "follow" and is not the continuous aspect.
+- The same applies to 接着, 顺着, 朝着, 向着, 趁着, 为着 and 照着, which are excluded for precision.
+- 随着 and 沿着 are excluded through the P-tag rules. 来着 is excluded by the specific pattern.
+- Resultative 着 is excluded by the 不着/得着 patterns and by a verb list (睡着, 找着, 买着, 见着, etc.), because the tagger labels these 着 as AS, the same as the continuous 着.
+- The remaining match is /VV 着/AS, which covers 坐着, 开着, 穿着, 抱着 and the existential Place + V + 着 + NP.
 
 ## 2-34
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -1662,27 +1830,35 @@ unless: 你 /VV 你 的 吧/SP
 - The 就 exclusion could occasionally drop a legitimate sentence like 你去就去吧. That is acceptable, since the rule favours precision.
 
 ## 2-35
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** Using 的话 to express a conditional "if" (usually with 如果/要是/假如 before it, or a negative condition like 不…的话), and using 等 as "etc." after a list of items.
+<!-- written by claude-sonnet-5-5 on 2026-11-11; edit freely -->
+**Point:** Using 的话 to express a conditional "if" (usually with 如果/要是/假如 before it, with a negative condition like 不…的话, or with a modal verb + verb or an adjective directly before 的话). Also covers a few fixed implied conditionals with no 的话 (clause-initial 有空/有事 + verb, or 喜欢 + 就 + verb), and 等 as "etc." after a list of items.
 
 **Covers:**
 - Conditional clauses framed as 如果/要是/假如/假设/若是 … 的话, with or without 就 in the next clause
 - Negative conditions of the form 不 … 的话, e.g. 不想去的话就别去了
+- Modal + verb + 的话, e.g. 你要来的话，就给我打个电话
+- Adjective + 的话, e.g. 好吃的话，就多吃点
+- Clause-initial 有空/有事 followed by a verb as an implied "if", e.g. 有空来我家玩, 有事给我打电话
+- Clause-initial 喜欢/愿意/需要 + 就 + verb as an implied "if", e.g. 喜欢就拿走吧
 - 等 as an "et cetera" marker after a list of items
 
 **Does not cover:**
 - Topic marking with 的话, such as 北京的话，秋天去最好 or 买衣服的话，还是要去实体店试试的, where 的话 introduces a topic and no "if" is meant
 - 的话 as a noun meaning "words/speech" (tagged DEG, not SP)
-- Implied conditionals with no 的话, such as 喜欢就拿走吧 (too hard to separate from ordinary 就 sentences, so they are missed on purpose)
-- Bare verb-phrase + 的话 with no 如果-type word and no negation, which is too easily a topic
+- Other implied conditionals with no 的话 beyond the narrow fixed forms above (too hard to separate from ordinary 就 sentences)
+- Bare noun or other verb-phrase + 的话 with no conditional word, negation, modal verb or adjective, which is too easily a topic
 
 ```rule
 match: 如果|要是|假如|假设|假使|若是|如若 ... 的话/SP
 match: 不|没|没有 ... 的话/SP
+match: 要|想|能|会|可以|应该|愿意|打算 /VV 的话/SP
+match: /VA 的话/SP
 match: 等/ETC
+match: ^ 有/VE 空|事/NN ... /VV
+match: ^ 喜欢|愿意|需要|不喜欢|不想 就/AD /VV
 ```
 
-**Notes:** The rule now requires explicit evidence of a condition before 的话: a conditional conjunction in the same clause, or a negation such as 不/没. Topic-marking 的话 almost never has either, so the topic counter-examples are no longer matched. Unmarked cases like 你要来的话 are given up for the sake of precision, because they look the same as topic uses. 等 as an etc. marker is kept as before.
+**Notes:** The 的话 patterns still require explicit evidence of a condition in the clause: a conditional conjunction, a negation, a modal verb followed directly by a verb, or an adjective directly before 的话. Topic-marking 的话 normally follows a noun or a verb-object phrase, so it is still not matched. Three labeled implied conditionals are now covered by narrow patterns anchored at the start of a clause: 有空/有事 + a later verb, and 喜欢/愿意/需要 + 就 + verb. Anchoring them to the clause start and to these specific words keeps ordinary 就 sentences out. 等 as an etc. marker is kept as before.
 
 ## 2-43
 <!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
@@ -1792,7 +1968,7 @@ unless: 后来
 - Modifier uses like 以前的同学 would also match. They are rare and still teach the meaning of 以前. Add `unless: 以前 的` or `unless: 以后 的` if they should be excluded.
 
 ## 2-49
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
 **Point:** Result complements (结果补语): a verb followed directly by 错/懂/干净/好/清楚/完 (also 饱/坏/晚/破), showing the result of the action.
 
 **Covers:**
@@ -1803,6 +1979,7 @@ unless: 后来
 **Does not cover:**
 - 会/能 as modals, or 会 in any other use (你会来吗？, 他会说中文)
 - 好 as an adjective, or in 好像, 好吃, 好看, 好玩, 好写, 好懂
+- 好 as an adverb meaning "quite a few" (好几个, 好些, 好多, 好久), including after 有 (我有好几个室友)
 - 好 meaning "in order to"
 - 最好, 只好, 正好, 还好, 好(不)容易
 - 好 in tag questions (好吗？)
@@ -1811,9 +1988,13 @@ unless: 后来
 - 到/见/走/掉 complements, which this rule leaves out for precision
 
 ```rule
-match: /VV 错|懂|干净|清楚|饱|坏|晚|破|完|好
+match: /VV 错|懂|干净|清楚|饱|坏|晚|破|完
+match: /VV 好/VA
 unless: 会/VV
 unless: 能/VV
+unless: 有 好
+unless: 好 几|些|多|久
+unless: 好/AD
 unless: 还/AD 好/VA
 unless: 好/VA 容易/VA
 unless: 好容易/AD
@@ -1829,10 +2010,9 @@ unless: 不/AD 知道/VV ... 好
 unless: 觉得|认为|希望|祝|感觉 好
 unless: 好/AD 懂|写|找|用|学|做|看|吃
 unless: 难/AD /VV
-unless: 好/AD /VV
 ```
 
-**Notes:** The rule matches only a verb immediately followed by one of the listed complement words. The old rule matched any two adjacent verbs, which let in every 会 + verb sentence. Any sentence containing 会 or 能 as a verb is now excluded, and so are the 好 constructions (还好, 好容易, 不知道…好, 觉得好). The rule favors precision over recall, so it misses complements that the tagger fuses into a single word, such as 看懂 if tokenized as one word.
+**Notes:** The rule matches only a verb immediately followed by one of the listed complement words. The 好 branch requires 好 to be tagged as an adjective (VA), and sentences where 好 is tagged as an adverb (好几个) or follows 有 are excluded; this removes sentences like 我有好几个室友. Any sentence containing 会 or 能 as a verb is excluded, and so are the 好 constructions (还好, 好容易, 不知道…好, 觉得好). The rule favors precision over recall, so it misses complements that the tagger fuses into a single word, such as 看懂 if tokenized as one word.
 
 ## 2-51
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -2022,32 +2202,6 @@ unless: 只有
 
 **Notes:** All 12 labeled positives have 只要 in one clause and 就 in the next. Patterns cannot span clauses, and the earlier lines (including the "‖" one) never matched them, so I dropped them. The rule now matches any sentence containing 只要 tagged CS. The CS tag keeps out the verb use ("only want/need"). A sentence with 只要 and no 就 (for example one using 都 or 也 as the result marker) would still match, because the syntax cannot require 就 in a later clause. This is a known, rare precision risk. The unless lines drop sentences containing the 就 uses of other points: 就 as a preposition, 就是/就算/就要, 一……就, 再不, and 只有. They also drop a few valid sentences, such as 只要……就要……, which is acceptable under the precision-first goal.
 
-## 2-69
-<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
-**Point:** Events in quick succession with "yi... jiu..." — as soon as one thing happens, another happens immediately
-**Covers:** Sentences with 一 + Event1, then 就 + Event2 in the same or different clauses, showing rapid succession or cause-result
-**Does not cover:** 一 used as number/measure word (一个, 一些, 一下 as measure); 一直/一时/一再/一旦/一起/一方面 and other fixed adverbial expressions; verb reduplication or other patterns
-
-```rule
-match: 一/AD ... 就/AD
-unless: 一/CD
-unless: 一再/AD
-unless: 一直/AD
-unless: 一时/AD
-unless: 一旦/CS
-unless: 一起/AD
-unless: 一/CD _/M
-unless: 一/CD 点/M
-unless: 一/CD 些/CD
-unless: 一/CD 方面/NN
-unless: 一天/M 一天/M
-unless: 一 _/M 一 _/M
-unless: 一/CD _/M 也/AD
-unless: 一/CD _/M 都/AD
-```
-
-**Notes:** The core pattern is 一/AD (adverbial) followed eventually by 就/AD. We exclude 一/CD (numeral) to avoid "一个, 一些" and similar measure constructions. We exclude fixed adverbials like 一再, 一直, 一时, 一旦, 一起. We also exclude patterns like "一点...也/都不", "一...一..." reduplication, and "一方面" which are separate grammar points. The pattern matches across multiple words between 一 and 就 (within a clause).
-
 ## 2-74
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
 **Point:** Emphasis with 就 (jiù) placed before the predicate to add emphatic, intense feeling
@@ -2113,16 +2267,15 @@ unless: 不|很/AD 怎么样
 **Notes:** The patterns now use the supported syntax: `...`, `^` and `$`. Clause boundaries come from the punctuation, so the tag question has to be its own clause, made up only of the confirmation word and 吗. This keeps out 你好吗 and 好吃吗, where the word before 吗 sits inside a longer clause. 怎么样 is accepted when tagged VV or VA, because the tagger varies. 不怎么样 is excluded as HSK 6-30. Known risk: a bare 是吗？ used alone as a reply could still match.
 
 ## 2-76
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** Asking questions with 什么时候, 什么样 and 怎么样 to ask "when?", "what kind of?" and "how is...?" / "what is...like?"
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
+**Point:** Asking questions with 怎么样 and 什么样 to ask "how is...?" / "what is...like?" and "what kind of?"
 
-**Covers:** 怎么样 at the end of a clause, asking how something is (X + 怎么样 / 你觉得 X 怎么样). 什么时候 asking "when?". 什么样 asking "what kind of?" (什么样的 + noun).
+**Covers:** 怎么样 at the end of a clause, asking how something is (X + 怎么样 / 你觉得 X 怎么样). 什么样 asking "what kind of?" (什么样的 + noun).
 
-**Does not cover:** These words in statements, such as "我不知道你什么时候来". 为什么 questions (HSK 1-46). 不怎么样 (HSK 6-30). 不管怎样 (HSK 5-65). A bare "怎么样？" tacked on to a suggestion, which is 2-75. Questions that use only 吗 (HSK 1-45).
+**Does not cover:** These words in statements, such as "我不知道你喜欢什么样的". 什么时候 questions: plain "when?" questions like "你什么时候结婚？" are taught earlier as basic 什么 questions (HSK 1-46), so they are no longer matched. 为什么 questions (HSK 1-46). 不怎么样 (HSK 6-30). 不管怎样 (HSK 5-65). A bare "怎么样？" tacked on to a suggestion, which is 2-75. Questions that use only 吗 (HSK 1-45).
 
 ```rule
 match: 怎么样 $
-match: 什么 时候
 match: 什么 样
 unless: 不 怎么样
 unless: ^ 怎么样 $
@@ -2130,48 +2283,51 @@ unless: 不管|无论
 unless: 知道
 ```
 
-**Notes:** The tokenizer keeps 怎么样 as one word, usually tagged VV or VA. It splits 什么时候 into 什么 + 时候 and 什么样 into 什么 + 样, so the rule matches those pairs as separate tokens. 怎么样 only counts at the end of a clause, which covers "X 怎么样？" and "你觉得 X 怎么样？". The unless lines remove "不怎么样", a clause that is just "怎么样" (the 2-75 tag question), 不管/无论 concessives, and embedded questions after 知道. 怎样 is left out on purpose, because at the end of a clause it often appears in statements such as "想怎样就怎样". This favours precision over recall.
+**Notes:** The tokenizer keeps 怎么样 as one word, usually tagged VV or VA. It splits 什么样 into 什么 + 样, so the rule matches that pair as separate tokens. 怎么样 only counts at the end of a clause, which covers "X 怎么样？" and "你觉得 X 怎么样？". The unless lines remove "不怎么样", a clause that is just "怎么样" (the 2-75 tag question), 不管/无论 concessives, and embedded questions after 知道. The 什么 时候 match was removed. Simple 什么时候 questions were being flagged as easier grammar (1-46 and others), and the rule cannot tell them apart from the official example. 怎样 is left out on purpose, because at the end of a clause it often appears in statements such as "想怎样就怎样". This favours precision over recall.
 
 ## 2-77
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
 **Point:** Questions with "ne" (呢) — asking "what about...?" by stating a topic/noun/pronoun followed by 呢
-**Covers:** Elliptical "bounce back" questions where a short verbless clause consisting only of a noun, pronoun or noun phrase (a demonstrative plus measure word, a time word, a place name, or a possessive) is followed by 呢, e.g. 那个呢？ / 你呢？ / 明天晚上呢？ / 上海呢？
+**Covers:** Elliptical "bounce back" questions where a short verbless clause consisting only of a noun, pronoun or noun phrase (a demonstrative plus measure word, a time word, a place name, or a possessive) is followed by 呢, e.g. 那个呢？ / 你呢？ / 明天晚上呢？ / 上海呢？ The preceding clause or sentence may contain anything, including verbs.
 **Does not cover:** Modal particle "ne" in statements (还早呢, 我吃饭呢); softening "ne" in 还是 or interrogative-word questions; 万一…呢; progressive 在/正/着…呢; A-not-A questions with 呢; any clause that contains a verb or adverb before 呢.
 
 ```rule
-match: ^ /PN|NN|NR|NT|DT|M|JJ|DEG|DEC|OD _? _? 呢/SP $
-unless: /AD
-unless: /VV|VA|VE|VC|P|AS|CC|CS|BA|LB|SB|DER|DEV
-unless: 万一
+match: ^ /PN|NN|NR|NT|DT|OD 呢/SP $
+match: ^ /PN|NN|NR|NT|DT|OD /PN|NN|NR|NT|M 呢/SP $
+match: ^ /PN|NN|NR|NT|DT|OD /PN|NN|NR|NT|M /NN|NR|NT|M 呢/SP $
+match: ^ /PN|NN|NR|NT /DEG 呢/SP $
+match: ^ /PN|NN|NR|NT /DEG /NN|NR|NT 呢/SP $
 ```
 
-**Notes:** The rule only fires when the clause containing 呢 is made up purely of nominal material (pronoun, noun, proper noun, time noun, demonstrative, measure word, modifier, 的) and then ends with 呢. This captures the elliptical "what about X?" question. Any verb, adjective predicate, adverb, preposition, aspect marker or conjunction in that clause blocks the match, which excludes modal-particle statements, progressive 呢, A-not-A and 还是 questions, and 谁的…呢 questions. 万一 is excluded explicitly. The optional wildcard slots `_?` allow up to three words, but the unless lines ensure none of them is a verb or other predicate material. Because the clause must start at the beginning, the question can follow a previous clause or sentence.
+**Notes:** The earlier version failed because `unless:` lines are checked against the whole sentence, so a verb or adverb in the preceding clause (这个很好，那个呢？) blocked the match. The rule now has no `unless:` lines. Instead, the match patterns allow only nominal tags (pronoun, noun, proper noun, time noun, demonstrative, ordinal, measure word, possessive 的) in every slot between the start of the clause and 呢. A verb, adverb, preposition or conjunction inside the 呢 clause therefore makes the pattern fail, which still excludes 还早呢, progressive 呢, A-not-A questions, 还是 questions and 万一…呢 (the latter contains a verb or conjunction in its own clause). Because the match is anchored to a single clause, the question can follow any earlier clause or sentence.
 
 ## 2-78
-<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
-**Point:** Affirmative-negative questions using verb/adjective repetition with 不
-**Covers:** Questions formed by stating a verb or adjective, then 不, then repeating the verb/adjective (or its first character for two-character words); also 有没有 pattern for yes/no questions
-**Does not cover:** Questions using 吗, 呢, 吧, 还是, or question words (什么、谁、怎么、etc.); tag questions with 是不是 at the end are only counted if the main clause itself shows the V/不V or A/不A pattern
+<!-- written by claude-haiku-4-5 on 2026-11-11; edit freely -->
+**Point:** Affirmative-negative questions formed by placing 不 between a verb or adjective and its repetition, or using 有没有.
+**Covers:** Questions with structure Verb+不+Verb, Adj+不+Adj, or 有没有, where both positive and negative forms are presented as answer options.
+**Does not cover:** Questions using other question particles (吗, 呢, 吧), question words (什么, 谁, 怎么, etc.), 还是, or other interrogative structures that don't follow the affirmative-negative pattern.
 
 ```rule
 match: /VV 不/AD /VV
 match: /VA 不/AD /VA
 match: /VA 不/AD /AD /VV
-match: /VV 不/AD /VV /AD /VV
-match: /VV 不/AD /VA
+match: /VV 不/AD /VV /VA
+match: /VC 不/AD /VC
 match: /VE 没有/VE
-unless: SP
+unless: /SP
+unless: 还是
+unless: 什么|谁|怎么|怎样|怎么样|什么时候|什么样|为什么|哪|哪儿|哪里|哪些|多|多少|几
 ```
 
-**Notes:** The rule prioritizes matching the core V/不V and A/不A patterns. Two-character verbs and adjectives are handled by allowing the first character to be followed by 不 and then either another single character or the full repeated form (captured by patterns like `/VV 不/AD /VV`). The 有没有 pattern is included as an alternative yes/no question form listed in the grammar point. The `unless: SP` line filters out sentences where these patterns appear with sentence-final particles like 吗, 呢, or 吧, since those represent different grammar points. Clauses are checked independently (separated by punctuation), so tag questions at the end of statements are excluded unless the statement itself demonstrates the affirmative-negative structure.
+**Notes:** The rule matches the core affirmative-negative question patterns: verb+不+verb, adjective+不+adjective (including split two-character adjectives like 好+不+好玩), 是不是, and 有没有. The unless clauses exclude other question types that might coincidentally contain these words. Tag errors in real sentences are accepted (e.g., 没有/VE for what might be tagged differently). The rule must not match when sentence-final particles or other question structures are present, as those indicate different grammar points.
 
 ## 2-81
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
 **Point:** Expressing "about to" with 要/快要/就要⋯⋯了
 
-**Covers:** Sentences with 就要 or 快要 followed by a verb phrase and 了, and clause-initial 要 + verb + 了 (e.g. 要下雨了). Also covers 还有 + number + duration + 就 (要) + verb + 了, which marks an event that is a set time away.
+**Covers:** Sentences with 就要 or 快要 followed by a verb phrase and 了, and clause-initial 要 + verb or adjective + 了 (e.g. 要下雨了). Also covers 还有 + number + duration + 就 (要) + verb + 了, which marks an event that is a set time away.
 
-**Does not cover:** 要 meaning "want" or "need"; 要不是 "if it weren't for"; 要是 "if"; 不要 negative commands; 要 + verb as future intention with a specific future time; other uses of 要 with different meanings.
+**Does not cover:** 要 meaning "want" or "need"; 要不是 "if it weren't for"; 要不然/不然 "otherwise"; 要不 "how about"; 要是 "if"; 不要 negative commands; 要 + verb as future intention with a specific future time; other uses of 要 with different meanings.
 
 ```rule
 match: 就/AD 要/VV ... 了/SP
@@ -2180,11 +2336,14 @@ match: 快要/AD ... 了/SP
 match: 快要/AD ... 了/AS
 match: 快/AD 要/VV ... 了/SP
 match: 快/AD 要/VV ... 了/AS
-match: ^ 要/VV ... 了/SP
+match: ^ 要/VV /VV|VA ... 了/SP
 match: 还/AD 有 /CD ... 就/AD ... 了/SP
 match: 还/AD 有 /CD ... 就/AD ... 了/AS
 unless: 不/AD 要/VV
 unless: 要/VV 不/AD
+unless: 要 不然
+unless: 要不然
+unless: 不然
 unless: 想/VV 要/VV
 unless: 非/AD 要/VV
 unless: 总/AD 要/VV
@@ -2193,7 +2352,7 @@ unless: 要是
 unless: 要不是
 ```
 
-**Notes:** The earlier rule used `.*`, which is not valid syntax, so nothing matched. The new rule uses only `...` for gaps and allows the final 了 to be tagged either SP or AS. Bare 要 is accepted only at the start of a clause and must end in sentence-final 了, which keeps out 要 meaning "want". The 还有 patterns require a number right after 有 and a 就 before the final 了, so 还有别的问题吗 does not match. The unless lines exclude negative commands, 要不, 想要, 非要, 总要, 要看, and 要是/要不是 conditionals.
+**Notes:** The counter-example 要不然饭就凉了 matched because 不然 is one token, so the old 要 不 exclusion missed it. I added exclusions for 要不然 and 不然. Bare clause-initial 要 now needs a verb or adjective right after it, so 要 followed by a conjunction or adverb (such as 不然) no longer matches. The other exclusions (不要, 要不, 想要, 非要, 总要, 要看, 要是/要不是) are unchanged.
 
 ## x-erhua
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -2257,29 +2416,26 @@ match: 第一|第二|第三|第四|第五|第六|第七|第八|第九|第十|第
 **Notes:** The tagger fuses 第 with the number into a single CD token (第一/CD, 第二/CD), so the earlier patterns on a standalone 第/CD never matched. The rule now matches the fused tokens directly. A fused 第N token is itself the ordinal structure, so the optional measure word, noun, or bare predicate use (班第一) does not need to be checked. The old unless clauses on 老 and 小 are removed. They could not help precision, because those words do not appear inside a 第N token, and they only risked blocking valid sentences that also contain 老 or 小. 老是 and 比…大/小 sentences contain no 第N token, so they are not matched.
 
 ## 3-16
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** Using 再 (zài) to express "again" for future actions, "and then" for sequencing events (including 先…再说), and the contrasting 又 for an expected repetition ("again" in the near future, as in 又要/又可以/又能/又是).
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
+**Point:** Using 再 (zài) to express "again" for future actions, "another/more" with quantity phrases, and "and then" for sequencing events (including 先…再说). 又 is a different point and is not covered here.
 
-**Covers:** Future repetition ("again", including 再说一遍), sequencing with 先…再… and 先…再说, "another" with quantity phrases, and 又 + 是/要/可以/能 for something expected to happen again.
+**Covers:** Future repetition ("again", including 再说一遍), sequencing with 先…再… and 先…再说, and "another/more" with quantity phrases.
 
-**Does not cover:** 一再/再三 (repeatedly), 再不…就… (last chance warning), 再也不/没 (never again), 再也…也… (even so), 再说 as "in addition" (clause-initial or standalone), and 又…又… (both…and).
+**Does not cover:** 又 in any use (又是/又要/又可以/又能, which belong to easier points), 一再/再三 (repeatedly), 再不…就… (last chance warning), 再也不/没 (never again), 再也…也… (even so), and 再说 as "in addition" (clause-initial or standalone).
 
 ```rule
 match: 再/AD ... /VV
 match: 再说/VV /CD
 match: 先/AD ... 再/AD
 match: 先/AD ... 再说/VV $
-match: 又/AD 要|可以|能/VV
-match: 又/AD 是/VC
 unless: 再/AD 也/AD
 unless: 再/AD 不/AD
 unless: 一再/AD
 unless: 再三/AD
 unless: 再/AD 说/VV $
-unless: 又/AD ... 又/AD
 ```
 
-**Notes:** The tagger often treats 再说 as a single verb token, so 你可以再说一遍吗 and 先…再说 need their own patterns. 再说 + number covers "say it again". 再说 at the end of a clause counts only after 先 (先吃饭再说). A clause-initial 再说 ("in addition") is not matched, because it is followed by a comma and not by a number. The 又 patterns cover the labeled examples where 又 marks an expected repetition (又是星期一, 又要开会, 又可以…, 就又能…). They are limited to 是/要/可以/能 to stay precise, and are blocked when a second 又 appears (又…又…). The earlier exclusions for 再也, 再不, 一再 and 再三 are unchanged.
+**Notes:** The tagger often treats 再说 as a single verb token, so 你可以再说一遍吗 and 先…再说 need their own patterns. 再说 + number covers "say it again". 再说 at the end of a clause counts only after 先 (先吃饭再说). A clause-initial 再说 ("in addition") is not matched, because it is followed by a comma and not by a number. The earlier 又 patterns were removed. Sentences with 又要/又可以/又能/又是 are labeled as other, easier grammar points, so matching them was wrong. The exclusions for 再也, 再不, 一再 and 再三 are unchanged.
 
 ## 3-21
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -2308,14 +2464,15 @@ match: 自|从/P ... 以来
 - 从…后 and 从…以后 are deliberately left out for precision. Add them only with extra checks.
 
 ## 3-23
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
 <!-- revised by claude on 2026-11-09; edit freely -->
 **Point:** Using 为 as a preposition to express "for" (beneficiary or purpose)
-**Covers:** (1) 为 + beneficiary/goal + verb/adjective showing an action or emotion done for them (including 是…为…的 and 不为…); (2) the 为…而… structure expressing purpose with effort or action
-**Does not cover:** 为了 (3-26, 6-37); 因为 (because); 以为 (mistakenly think); 为 as main verb or copula (是/变为/成为); fixed expressions such as 以…为, 作为, 为期, 为此, 为什么, 为难, 为的是, 为…所…
+**Covers:** (1) 为 + beneficiary/goal + verb/adjective showing an action or emotion done for them (including 是…为…的 and 不为…); (2) the 为(了)…而… structure expressing purpose with effort or action
+**Does not cover:** bare 为了 clauses without 而 (3-26); 因为 (because); 以为 (mistakenly think); 为 as main verb or copula (是/变为/成为); fixed expressions such as 以…为, 作为, 为期, 为此, 为什么, 为难, 为的是, 为…所…; 给 as a preposition ("for/to someone", e.g. 给他打电话, 给我买咖啡), which belongs to easier points; 给 as a main verb (给我一杯水)
 
 ```rule
 match: 为/P _ ... /VV|VA
+match: 为了/P ... 而 ... /VV|VA
 unless: 以 ... 为
 unless: 为/VC
 unless: 为 什么
@@ -2326,93 +2483,95 @@ unless: 因为
 unless: 以为
 ```
 
-**Notes:** The earlier patterns required a stray extra word before 为 and a bare 为-plus-noun adjacency, so they missed nearly every example. The revised rule matches 为 only when the tagger marks it as a preposition (P), and requires a following word and then a verb or adjective later in the same clause. This covers 为我们高兴, 为孩子而活, 是为你准备的 and 为公司的发展贡献. 为了 is a separate token and so is never matched. The unless lines block 以…为, 为什么, 为的是, 为…所 passives, 作为, 因为 and 以为.
+**Notes:** 为 is matched only when tagged as a preposition (P) and followed by a word and then a verb or adjective in the same clause. This covers 为我们高兴, 为孩子而活, 是为你准备的 and 为公司的发展贡献. Plain 为了 is still excluded, but 为了…而… with a verb after 而 is matched, as in 他为了能去日本而苦学日语. The earlier 给 line has been removed. Ordinary 给 + person + verb sentences (我一周给妈妈打两次电话, 有事给我打电话, 可以给我买一杯咖啡吗) are labeled as easier points (2-11, 2-26, 2-30), so matching them here was wrong. The unless lines block 以…为, 为什么, 为的是, 为…所 passives, 作为, 因为 and 以为.
 
 ## 3-26
-<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
-**Point:** Using 为了 or 为...而 to express the purpose or beneficiary of an action
-**Covers:** Sentences where 为了 or 为...而 introduces the purpose/beneficiary of an action, appearing before the main verb (or after 是 in copular sentences)
-**Does not cover:** Cases where 为 is part of other verbs like 成为 or 变为; sentences using only 因为 (which expresses reason/cause, not purpose)
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** Using 为了 or 为...而 to express the purpose or beneficiary of an action, and the related 是 + 为了 / 因为 pattern for explaining why something is done
+**Covers:** Sentences where 为了 or 为...而 introduces the purpose or beneficiary of an action, before the main verb or after 是 in copular sentences. Also covers the "……是因为……" pattern, where 因为 follows 是 and gives the reason, as the grammar wiki teaches it alongside 是为了.
+**Does not cover:** Cases where 为 is part of other verbs like 成为 or 变为. Also excludes sentences with 因为 only as a clause-initial conjunction, with no preceding 是 (e.g. 因为下雨，所以……), which gives plain cause and not the 是 + 因为 pattern.
 
 ```rule
 match: 为了/P
 match: 为/P ... 而/MSP
+match: 是/VC 因为/P
 unless: 成为|变为
 ```
 
-**Notes:** The rule matches two structures: (1) 为了 as a preposition introducing purpose, which can appear clause-initially or after 是; (2) the pattern 为...而 where 为 is tagged as P and 而 as MSP, with any number of words between them. The unless clause excludes verbs 成为 and 变为 where 为 is part of the verb root, not a preposition. The tagger sometimes marks 为了 as VV when it's part of a verb compound (e.g., 变为了), which the unless clause filters out. Sentences with 因为 alone are excluded because they express cause/reason rather than purpose.
+**Notes:** The rule matches three structures. (1) 为了 as a preposition introducing purpose, either clause-initially or after 是. (2) 为...而, where 为 is tagged P and 而 is tagged MSP, with any number of words between them. (3) 是 immediately followed by 因为 tagged P, as in "你学中文是因为你的中国女朋友吗？" and "我们之所以反对是因为风险太大。" The wiki teaches this as the counterpart of 是为了. The unless clause excludes 成为 and 变为, where 为 is part of the verb and not a preposition. A bare clause-initial 因为 does not match, because it lacks the preceding 是.
 
 ## 3-39
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** 从……起 marks the starting point of a time or event ("from now on"). This rule also accepts the closely related uses of 从 (starting point, source) and 离 (distance in time or space) that the course labels as this point.
-
-**Covers:**
-- 从 + time or event + 起 or 开始, e.g. 从今天起, 从现在起, 从我上小学开始.
-- 从那以后 and 从今以后 ("ever since then", "from now on").
-- 从 + person or place + 里 or 上 as a source, e.g. 从我包里拿, 从口袋里掏出.
-- 从这件事 + inference, e.g. 从这件事可以看出….
-- 离 as a preposition for distance or time gap, e.g. 离毕业还有几个月, 离结婚还远呢.
-
-**Does not cover:**
-- 看起来, 起来 as a direction complement, 比起, and 一起, because none of them has 从 or 离 as a preposition.
-- 从 used as an adverb, as in 从不, 从没, 从小.
-- 从事.
-- 从……来看 or 从这个角度看, which is the separate HSK 5 point.
-- Bare motion-from-place sentences such as 从入口进去 or 太阳从东方出来. These are left out for precision.
+<!-- written by claude-sonnet-5-5 on 2026-11-11; edit freely -->
+**Point:** 从⋯⋯起 / 从⋯⋯开始 and related 从 and 离 patterns: "from [time/event/place]" and distance or duration with 离
+**Covers:** 从 + time/event + 起 / 开始 / 以后, 从今以后, 从 + person/place + 里 / 身上 (source or starting point), 从 + event + 看出, 离 + time/event + 还有 / 还远, and 离 + time + 快 + duration
+**Does not cover:** 从 as an adverb (从不, 从小, 从事, 从来); 起来 as direction complement or aspect marker; 看起来 appearance; 一起 meaning "together"; 比起 comparisons
 
 ```rule
-match: 从/P ... 起/LC
-match: 从/P ... 以后|以前/LC
-match: 从/P ... 开始
+match: 从/P _ ... 起/LC
+match: 从/P _ ... 以后/LC
+match: 从/P ... 开始/VV
 match: 从今以后/NT
-match: 从/P ... 里|上/LC
-match: 从/P /PN 身上
-match: 从/P 这/DT M 事|事情/NN
-match: 离/P
-unless: 从/P ... 来/MSP 看
-unless: 从/P ... 看 $
-unless: 从/P ... 来看|来说|看来
+match: 从/P ... 里/LC
+match: 从/P _ 身上/NN
+match: 从/P ... 看/VV 出/VV
+match: 离/P _ ... 还/AD 有/VE
+match: 离/P _ ... 还/AD 远/VA
+match: 离/P 今天|现在/NT 快/AD
+unless: 看/VV 起来/VV
+unless: _ 起来/VV
+unless: 一起/AD
+unless: 比/VV 起/VV
+unless: 从不/AD
+unless: 从小/AD
+unless: 从事/VV
+unless: 从来/AD
 ```
 
-**Notes:** 离/P is accepted on its own because it is almost always the distance or time-gap use. The 从/P patterns need a following cue (起, 以后, 开始, 里, 身上, or 这件事), so plain motion sentences are skipped; add cues carefully, since each one widens the rule. The `unless` lines remove 从……看 / 来看 sentences that belong to HSK 5-26. A sentence like 从那以后，我看… is only excluded if 看 ends the same clause as 从. 从今以后 is tagged as a single NT token, so it has its own pattern.
+**Notes:** The rule covers the 从 patterns of this point: a starting point in time or event (起, 开始, 以后, 从今以后), a source or place (里, 身上), and an inference source (看出). It also covers 离 + time with 还有 / 还远 or 快 + duration. Each pattern stays inside one clause and uses specific words, so only the intended structures match. The unless clauses exclude confusable patterns: 看起来, other 起来 uses, 一起, 比起, and adverbial 从 (从不, 从小, 从事, 从来).
 
 ## 3-40
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** 对...来说 (and the fixed perspective phrases 相对/严格/具体来说) to express "for/to someone" or to set a viewpoint
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
+**Point:** 对...来说 and the fixed perspective phrases 一般/总的/相对/严格/具体来说, used to express "for/to someone" or to set a viewpoint before the comment
 
-**Covers:** Sentences with 对 + [person/group/topic] + 来说 introducing a viewpoint before the comment. Also clause-initial 相对来说, 严格来说 and 具体来说.
+**Covers:** Sentences with 对 + [person/group/topic] + 来说 introducing a viewpoint before the comment. Also the fixed phrases 一般来说, 总的来说, 相对来说, 严格来说 and 具体来说, wherever they appear in the clause (clause-initial or after a subject or topic, e.g. 今天的考试相对来说有点难).
 
-**Does not cover:** Sentences with 而言 instead of 来说. Sentences with 就...来说 (scope limiting, where 就 is the preposition). Sentences with 拿...来说 (HSK 5-29). Other uses of 对 as "towards/against" without 来说. Bare 一般来说, which is a separate point (4-28).
+**Does not cover:** Sentences with 而言 instead of 来说. Sentences with 就...来说 (scope limiting, where 就 is the preposition). Sentences with 拿...来说 (HSK 5-29). Other uses of 对 as "towards/against" without 来说. Bare 来说 with no 对 and no fixed phrase before it.
 
 ```rule
 match: 对/P ... 来/MSP 说/VV
-match: ^ 相对|严格|具体 来/MSP 说/VV
+match: 一般|相对|严格|具体 来/MSP 说/VV
+match: 总 的 来/MSP 说/VV
 unless: 而言/LC
 unless: 而言
 unless: 就/P
 unless: 拿
 ```
 
-**Notes:** The tagger splits 来说 into 来/MSP 说/VV. The main match now requires the preposition 对/P earlier in the same clause, so bare 来说 uses are no longer matched. The unless lines remove the 而言 variant, 就...来说 (the counter-examples 就这些事情来说 and 就我们家来说), and 拿...来说. 对于 is a different token and is not matched, because it belongs to 4-14. 总的来说 and 一般来说 are left out because their tokenization is uncertain and 一般来说 is a separate point.
+**Notes:** The tagger splits 来说 into 来/MSP 说/VV. The 对 pattern requires the preposition 对/P earlier in the same clause, so bare 来说 uses are not matched. The fixed-phrase patterns no longer require clause-start (^), because 相对来说 can follow a subject, as in 今天的考试相对来说有点难. 一般来说 and 总的来说 are now included, since the course labels them as 3-40. 总的 is tokenized as 总/AD 的/DEV, so it is matched as two words. The unless lines remove the 而言 variant, 就...来说, and 拿...来说. 对于 is a different token and is not matched, because it belongs to 4-14.
 
 ## 3-46
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
 **Point:** Result complements 到, 住, 开 and 出(来) after a verb, showing that the action reached its result (including 看见/听见 and 打开)
 
-**Covers:** Verb + 到/住/开/出/出来 where the complement marks the result of the action, e.g. 看到, 买到, 接住, 抓住, 张开, 想开, 想出, 做出来, 听出来. Also the fused sense-verb compounds 看见/听见/遇见 and 打开.
+**Covers:** Verb + 到/住/开/出/出来 where the complement marks the result of the action, e.g. 看到, 买到, 接住, 抓住, 张开, 想开, 想出, 做出来, 听出来. It also covers the potential forms with 不/得 (写不出来, 看不到). The fused compounds 看见/听见/遇见 and 打开 are covered too.
 
-**Does not cover:** 到 meaning "arrive at a place", "until (time)", "less than", or "from...to". Also excluded: 住 as a main verb "to live" (想住, 住在), 开 as "to drive/hold" (想开车), 出 in 出门/出国, and modal + 开/出/住 where the second verb is the main verb.
+**Does not cover:** 到 meaning "arrive at a place", "until (time)", "less than", or "from...to". Also excluded: 直到, 住 as a main verb "to live" (想住, 住在, 住到…), 开 as "to drive/hold" (想开车), 出 in 出门/出国, and modal + 到/开/出/住 where the second verb is the main verb (可以到我家, 要到女朋友家). Also excluded: "verb + 到 + clause" meaning "until a state is reached" (打电话打到手机没电).
 
 ```rule
 match: /VV 到|住|开|出|出来/VV
-match: 看见|听见|遇见|碰见|梦见|打开 /VV
+match: /VV 不|得 到|住|开|出|出来/VV
+match: 看见|听见|遇见|碰见|梦见|打开/VV
+unless: 直到
 unless: 一直/AD ... 到/VV
 unless: 从/P ... 到
-unless: 来|去|回|走|跑|飞|坐|搬|送|带|赶|等|玩|睡|忙|工作|聊|坚持|待|站 到/VV
-unless: 到 /NR
-unless: 到 /NT
-unless: 到 /CD
-unless: 到 /VV 家|机场|现场|了解|达|时候|底
+unless: 来|去|回|走|跑|飞|坐|搬|送|带|赶|等|玩|睡|忙|工作|聊|坚持|待|站|住 到/VV
+unless: 想|要|会|能|可以|愿意|应该|该|敢|准备|打算|喜欢|希望|决定|得 到/VV
+unless: 到/VV /NR
+unless: 到/VV /NT
+unless: 到/VV /CD
+unless: 到/VV 家|机场|现场|了解|达|时候|底|什么
+unless: 到/VV ... 没
+unless: 到/VV ... 不
 unless: 想|要|会|能|可以|愿意|应该|敢|准备|打算|喜欢|希望|决定|得 住/VV
 unless: 要|会|能|可以|愿意|应该|敢|准备|打算|喜欢|希望|决定|得 开|出|出来/VV
 unless: 住/VV 在|着|进
@@ -2420,41 +2579,70 @@ unless: 开/VV 车|门|会|店|灯|窗|玩笑|始|学|工|机|火|花|药|刀
 unless: 出/VV 门|国|差|发|席|版|名|现|院|事
 ```
 
-**Notes:** The complements are tagged VV, so the match looks for a verb followed directly by 到/住/开/出/出来. Fused compounds (看见, 听见, 打开) are separate tokens and have their own match line. The unless lines remove 到 uses that mean arrival, "until" or "from…to" (a place or time word after 到, motion or duration verbs before it). They also remove cases where 开/出/住 are really main verbs after a modal (想开车,
+**Notes:** The complements are tagged VV, so the first match looks for a verb followed directly by 到/住/开/出/出来. The second match allows 不/得 in between for potential forms such as 写不出来. Fused compounds (看见, 听见, 打开) are single tokens, so the third match tags them as a single item. The unless lines remove 到 uses that mean arrival, "until", "from…to" or 直到. They also remove 到 directly after a modal (可以到我家, 要到…家), which is the main verb "go to". Motion and duration verbs before 到 (including 住到) are removed, as are a place, time or number after 到. Cases where 开/出/住 are main verbs after a modal (要开会, 想住) are removed as well. New: if 没 or 不 follows 到 in the same clause, the sentence is dropped. This catches the "until" pattern with a result clause, such as 打电话打到手机没电. It costs a few rare true cases like 看到他不在, which is accepted to keep precision high.
 
 ## 3-48
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** Potential complements showing whether an action is possible: Verb + 得/不 + result, direction or ability complement (懂, 见, 完, 到, 着, 了, 下, 起, 动 ...).
+<!-- written by claude-sonnet-5-5 on 2026-11-11; edit freely -->
+**Point:** Potential complements showing whether an action is possible: Verb + 得/不 + result, direction or ability complement (懂, 见, 完, 到, 着, 了, 下, 起, 动, 起来, 上去, 清楚, 好 ...).
 
 **Covers:**
-- Verb + 不 + complement, meaning "cannot" (看不懂, 去不了, 找不到, 吃不下, 听不见, 买不起, 走不动).
-- Verb + 得 + complement, meaning "can" (听得懂, 看得见, 吃得完, 放得下, 帮得了).
-- 得了 here is tagged as the particle AS, as in 帮得了 or 走得了.
+- Verb + 不 + complement, meaning "cannot" (看不懂, 去不了, 找不到, 吃不下, 听不见, 买不起, 走不动, 站不起来, 放不进去, 看不清楚, 修不好, 洗不干净).
+- Verb + 得 + complement, meaning "can" (听得懂, 看得见, 吃得完, 放得下, 帮得了, 学得会, 起得来, 爬得上去, 看得清楚).
+- 得了 after a verb, as in 帮得了 or 走得了. The tagger may label it VV or AS.
 
 **Does not cover:**
 - 不得不 "have to".
 - 差不多 "approximately".
 - 少不了 "unavoidable".
-- Degree or state complements with 得 (说得清楚, 做得好, 画得怎么样, 堵得要命, 得很, 不得了).
-- 害得 "causing an undesirable result".
+- Degree or state complements with 得 (说得清楚, 画得怎么样, 堵得要命, 得很, 不得了).
+- Verb + 得好 + 吗 questions (他有我做得好吗？). These are usually state complements, often in comparisons, so they are not matched.
+- 害得 "causing an undesirable result". The whole sentence is excluded, even if it also contains a potential complement.
+- 急坏 and similar degree complements. The whole sentence is excluded.
 - Repeated verb questions of the form A不A (去不去, 来不来).
 
 ```rule
 match: /VV 不/AD 了|到|着|见|懂|完|下|起|动|上|来|去|出|进|过|开|住|通|会
+match: /VV 不/AD 起来|上去|下去|进去|出来|回来|过来|过去|上来|下来|出去|回去|进来
+match: 做|修|洗|看|听|学|写|吃|睡|记|擦|弄|画|说|讲|拿|找/VV 不/AD 好|清楚|干净|明白|整齐
 match: /VV 得/DER 了|到|着|见|懂|完|下|起|动|上
-match: /VV 得了/AS
-unless: 不得不|差不多|少不了|害得|不得了|得不得了|得很|得死了|得要命|去不去|来不来|上不上|下不下|对不对|急坏
+match: /VV 得/DER 起来|上去|下去|进去|出来|回来|过来|过去|上来|下来|出去|回去|进来
+match: 起|醒|回|过|出|进|上|下/VV 得/DER 来|去
+match: 学|听|看|做|记|用/VV 得/DER 会
+match: 看|听/VV 得/DER 清楚|清
+match: /VV 得了/AS|VV
+unless: 不得不
+unless: 不 得 不
+unless: 差不多
+unless: 少不了
+unless: 不得了
+unless: 得 不得了
+unless: 害得
+unless: 害 得
+unless: 得 很
+unless: 得 死了
+unless: 得 要命
+unless: 去 不 去
+unless: 来 不 来
+unless: 上 不 上
+unless: 下 不 下
+unless: 对 不 对
+unless: 急 坏
+unless: 气 坏
+unless: 累 坏
+unless: 急坏
 ```
 
 **Notes:**
-- The 不 pattern needs a verb, then 不 tagged AD, then one of a closed list of complement words. This keeps out 不 + adjective or verb forms such as 想不想 and 好不好.
-- The 得/DER patterns accept only a closed list of result and direction complements. Adjective complements (好, 清楚, 干净) are left out because they are mostly degree or state complements, so a few true potential uses will be missed to keep precision high.
-- The "unless" list removes sentences with 害得, which are labelled as a different point even when they contain 睡不着 or 打不通.
-- It also removes 不得不, 差不多, 少不了, 得很 and the other degree-complement look-alikes.
+- The 不 patterns need a verb, then 不 tagged AD, then a closed list of complement words. This keeps out 不 + adjective or verb forms such as 想不想 and 好不好.
+- Compound direction complements (起来, 上去, 进去) are single tokens, so they are listed separately.
+- Adjective complements are accepted only in narrow cases: 不 + 好/清楚/干净 after a fixed list of action verbs, and 看/听得清楚. Other 得 + adjective forms are mostly degree or state complements and stay excluded for precision.
+- The earlier 做得好吗 pattern was removed. It matched state-complement sentences such as 他有我做得好吗？, which belong to an easier point.
+- 得了 is tagged VV or AS depending on the sentence, so both are accepted after a verb. 不得了 is removed by the unless list.
+- Each unless line is a single token sequence, so each exclusion has its own line. Split forms such as 害/VV 得/DER and 急/VV 坏/VV are written as token sequences. This removes sentences such as 找不到孩子，妈妈急坏了 and 害得我睡不着, which belong to other points.
 - Each pattern matches within a single clause.
 
 ## 3-60
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
 **Point:** The adverb 也 (yě) meaning "also" or "too", placed right after the subject and before the verb/adjective to express that someone/something shares the same quality or action as another.
 
 **Covers:**
@@ -2467,7 +2655,9 @@ unless: 不得不|差不多|少不了|害得|不得了|得不得了|得很|得�
 - Simple parallel structures showing an "also" relationship between two similar clauses
 
 **Does not cover:**
-- Conditional/concessive structures (即使...也, 就算...也, 哪怕...也, etc.) where 也 means "still/even so"
+- Conditional/concessive structures (即使...也, 就算...也, 就是...也, 哪怕...也, etc.) where 也 means "still/even so"
+- Conditional sentences with 如果, 假如, 假使, 要是, 要不, 要不是 and similar, where 也 means "still/even so"
+- Any sentence containing a subordinating conjunction (CS) such as 因为 or 虽然
 - "Never again" with 再也不/没
 - 甚至连...也 (even/let alone structure)
 - 宁可...也 (rather...than structure)
@@ -2475,12 +2665,12 @@ unless: 不得不|差不多|少不了|害得|不得了|得不得了|得很|得�
 - 什么/谁 + Noun + 也 (everything / nothing)
 - 连...也 (even...as well)
 - 倒也 (contrariness)
-- Structures with preceding markers like 别说, 就是, 不但, 无论, 不管, etc.
+- Structures with preceding markers like 别说, 就是, 就算, 不但, 无论, 不管, etc.
 
 ```rule
 match: /PN|NN|NR|NT 也/AD ... /VV|VA|VC|VE
 match: /PN|NN|NR|NT 也/AD 没有/AD
-unless: 再/AD 也/AD
+unless: 再/AD ... 也/AD
 unless: 甚至
 unless: 宁可
 unless: 连
@@ -2490,6 +2680,8 @@ unless: 什么 ... 也/AD
 unless: 谁 ... 也/AD
 unless: 就算
 unless: 就是
+unless: 就/AD 算/VV
+unless: 就/AD 是/VC
 unless: 即使
 unless: 哪怕
 unless: 别说
@@ -2497,9 +2689,19 @@ unless: 倒
 unless: 不但
 unless: 无论
 unless: 不管
+unless: /CS
+unless: 要不
+unless: 要不是
+unless: 要是
+unless: 如果
+unless: 假如
+unless: 假使
+unless: 假设
+unless: 万一
+unless: 否则
 ```
 
-**Notes:** The subject (pronoun, noun, proper noun or time noun) must sit directly before 也/AD, and a predicate (verb, adjective, 是, 有, or 没有) must follow. The earlier version had a stray `_` between the subject and 也, which demanded a second 也 and made it miss every true example. Requiring the subject to be adjacent to 也 also keeps out 一点儿也不, 一…也没, and 什么…也, which have other words in that slot. Explicit `unless:` lines remove the concessive, emphatic, and "never again" structures, including 别说, 就是, 再也, 连, and 甚至.
+**Notes:** The subject (pronoun, noun, proper noun or time noun) must sit directly before 也/AD, and a predicate (verb, adjective, 是, 有, or 没有) must follow. The tagger splits 就是 and 就算 into two words (就/AD + 是/VC, 就/AD + 算/VV), so both split forms are listed explicitly. Conditional sentences such as 假如…，我们也要…, 他要不听，我也没办法, 要不是…，我也不相信 and 假使…，情况也不… use 也 to mean "still/even so", so they are now excluded. Any sentence with a subordinating conjunction (/CS) or with 要不, 要不是, 要是, 如果, 假如, 假使, 假设, 万一 or 否则 is excluded. The other `unless:` lines remove the concessive, emphatic, and "never again" structures, including 别说, 再也, 连, and 甚至.
 
 ## 3-67
 <!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
@@ -2522,27 +2724,24 @@ unless: /VA 是/VC /VA ‖ 就是/AD
 **Notes:** The pattern looks for 不是 followed by content and then 就是 (tagged as AD or CC depending on position). The unless clauses exclude: (1) 而是 structures (different grammar), (2) 要不是 (counterfactual), (3) X也不是⋯ (different pattern from HSK 5-60), (4) 别说 (let alone structure), (5) 岂不是 (rhetorical), (6) concessive structures where an adjective + 是 + adjective precedes 就是. The core pattern requires both parts present in the sentence to confirm the two-alternatives meaning.
 
 ## 3-69
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** Expressing "if… then…" with 要是/要/要不是 and 就
+<!-- written by claude-sonnet-5-5 on 2026-11-11; edit freely -->
+**Point:** Expressing "if… then…" with 要是 / 要不是 / 要
 
-**Covers:** Conditional sentences where 要是 (or 要 / 要不 after a subject) introduces the condition clause, with the result in the following clause (usually with 就). Also 要不是 ("if it weren't for") constructions and the fixed expression 要我说 ("if you ask me").
+**Covers:** Conditional sentences whose condition clause is introduced by 要是, 要不是, or the shortened 要 (including 你要再说, 他要不听, 要我说). The consequence clause usually has 就, but not always.
 
-**Does not cover:** 就 as a simple adverb with no conditional; 就是 used for emphasis or identification; 要 as a standalone modal verb; other conditionals such as 只要, 假如, 万一, 一旦.
+**Does not cover:** Other uses of 就 (emphasis, sequence, "then" without a condition); 就是 constructions; other conditional structures (如果, 只要, 假如, 万一, 一旦); 要是……否则 (5-47); 要不 as a suggestion ("要不我们去吧").
 
 ```rule
-match: 要是/CS|AD
-match: 要不是/CS|AD
+match: 要是/CS
+match: 要不是/CS
+match: 要不是/AD
 match: ^ 要/CS|VV 我/PN 说/VV $
-match: ^ PN 要/VV 再说/VV $
-match: ^ PN 要不/AD VV $
+match: ^ /PN 要/VV 再说/VV $
+match: ^ /PN 要不/AD /VV $
+unless: 否则
 ```
 
-**Notes:**
-- A pattern can only match inside one clause, so the rule cannot require 就 in the second clause. The condition marker itself is the trigger: 要是, 要不是, or the narrow fixed forms above.
-- 要是 and 要不是 are accepted as CS or AD, because the tagger varies between them.
-- 要我说 is matched only when it is a whole clause, so 要我说话 and similar do not match.
-- Bare 要 is not matched, because it is usually a modal verb ("want to"). Only 你要再说 and 他要不听 are matched, and only as a complete clause.
-- Sentences with 就是 are not excluded. Labeled positives such as 要我说，他就是太懒 contain it, and the condition marker is what decides the match.
+**Notes:** The earlier rule never matched because patterns only work inside one clause, while the condition and the 就 consequence sit in different clauses. The rule now keys on the condition marker alone. 要是/CS and 要不是 are specific enough to do this safely. The shortened 要 forms are matched only in narrow patterns: 要我说 as a whole clause, 你要再说, and a pronoun + 要不 + one verb ending the clause. This keeps out suggestions like 要不我们…, as well as 要 meaning "want". Sentences with 否则 are excluded because they belong to 5-47.
 
 ## 3-77
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -2574,22 +2773,42 @@ unless: 是 很 ... 的
 **Notes:** The first two lines cover the 很是 + Adj./Verb pattern. This includes 很是喜欢 followed by an object containing 的, which the old `是 ... 的` exclusion wrongly blocked. The tagger labels 精神 as NN, so that word has its own line. The third line covers the official 是很 + Adj./Verb examples. It requires a noun or pronoun subject before 是 and the predicate to end the clause, which keeps out 就是很, 还是很, 总是很, and 是很…的 noun-modifier uses. Negated 不是很… and 是不是很… are excluded. The 是…的 exclusion is kept only in the narrow form `是 很 ... 的`.
 
 ## 3-79
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
-**Point:** Expressing "already" with 都⋯⋯了, used emphatically to indicate that something has already happened or reached a point, often implying the speaker's attitude (impatience, surprise, a push to act).
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** Expressing "already" with 都⋯⋯了, emphasizing that something has already happened, with a tone implying the speaker's attitude
 
-**Covers:** Clause-initial 都 followed directly by a time or duration expression (number + measure word, optionally with a noun, or a time noun) and then sentence-final 了. Examples: 都十一点了, 都三天了, 都一个小时了, 都二十一世纪了.
+**Covers:** (1) Clause-initial 都 + time/quantity expression + 了, e.g. 都九点了, 都十二点了, 都三天了. (2) A singular subject + 都 + verb/adjective + 了, e.g. 饭都凉了, 他都道歉了, 我都说了三遍了, 你都看过了.
 
-**Does not cover:** Other uses of 都: universal "all/every" with a subject before 都 (全校都放假了, 他们都在上海), 也都, 除了⋯⋯都, question-word 都, 不管/无论⋯⋯都, 连⋯⋯都, 何况, 从来都, 什么都, 全都. It also does not cover the subject + 都 + predicate + 了 form (饭都凉了), because it cannot be told apart from the "all" reading without more context.
+**Does not cover:** 都 meaning "all/everyone" (plural or quantified subjects, question words), 也都, 从来都, 都 inside 不管/无论/何况/连 constructions, 全都, 除了⋯⋯都, and "no matter what/when" uses of 都.
 
 ```rule
-match: ^ 都/AD CD M 了/SP
-match: ^ 都/AD CD M NN 了/SP
-match: ^ 都/AD CD NT 了/SP
-match: ^ 都/AD NT 了/SP
-unless: 不管|无论|何况|连|除了
+match: ^ 都/AD /CD /M|NT|NN /NN? 了/AS|SP $
+match: ^ 都/AD /CD 点 /CD? 了/AS|SP $
+match: ^ ... /NN 都/AD /VA 了/AS|SP
+match: ^ ... 我|你|他|她|它 都/AD /VV 了/AS|SP
+match: ^ ... 我|你|他|她|它 都/AD /VV 过/AS 了/SP
+match: ^ ... 我|你|他|她|它 都/AD /VV 了/AS ... 了/SP
+unless: 我们|你们|他们|她们|它们|咱们|大家 ... 都/AD
+unless: 每|各|所有|很多|许多|全部 ... 都/AD
+unless: ^ 都/AD ... /CS
+unless: 从来 ... 都/AD
+unless: 不管 ... 都/AD
+unless: 无论 ... 都/AD
+unless: 连 ... 都/AD
+unless: 全 ... 都/AD
+unless: 全都
+unless: 除了 ... 都/AD
+unless: 什么 ... 都/AD
+unless: 谁 ... 都/AD
+unless: 哪|哪儿|哪里 ... 都/AD
+unless: 什么时候 ... 都/AD
+unless: 怎么 ... 都/AD
+unless: 多少 ... 都/AD
+unless: 也/AD 都/AD
+unless: 何况
+unless: 更不用说
 ```
 
-**Notes:** The rule only matches 都 at the start of a clause, directly followed by a time or duration phrase and then 了. This is the clearest form of "already" 都⋯⋯了. It no longer requires 了 to end the clause, and it no longer excludes 怎么 or other question words, because the labeled example 都三天了，他怎么还没回来 uses 怎么 in a following clause. Subject + 都 + verb + 了 sentences like 全校都放假了 are not matched, since they are usually the "all" use of 都. The cost is that sentences like 饭都凉了 are missed, in return for precision.
+**Notes:** The first two lines handle the time/quantity type (都 + number + measure/noun + 了 at the end of the clause). The second line covers clock times such as 都十二点了, where the tagger often labels 点 as a verb rather than a measure word. The other lines handle the "subject + 都 + predicate + 了" type, deliberately limited to a noun subject with an adjective predicate or a singular pronoun (我/你/他/她/它) with a verb. This avoids the "all" reading of 都 in sentences like 他们都去了. The unless lines exclude plural or quantified subjects, question words, 也都, and the 连/不管/无论/除了/何况/从来/全 constructions.
 
 ## 3-80
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -2619,20 +2838,24 @@ unless: 就/AD 懂|会|知道|行|好|对|能|有|成|算|够|清楚|明白|完|
 **Notes:** The rule cannot check that the two copies are identical, so it relies on structure instead. The clause must be just two verbs or adjectives around 就/AD, with an optional 了, 点儿 or 吧. Negated versions may also have a subject. This excludes "那就买吧" and "你们就分手吧", because their first word is not a VV or VA. The final `unless` blocks resultative or conditional readings such as 看就懂 and 吃了就好, where the second word differs from the first.
 
 ## 3-81
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
 **Point:** Rhetorical challenge with 什么 after a verb or adjective (X什么（啊）)
 
-**Covers:** Verb/adjective + 什么 + repeated verb/adjective (你买什么买, 胖什么胖啊); separable verb split by 什么 at the start of a clause (离什么婚, 道什么歉啊, 开什么玩笑); clause-initial psychological verb or adjective + 什么 (+啊/呀) (担心什么啊, 难过什么啊, 高什么啊); 玩儿什么.
+**Covers:** Verb/adjective + 什么 + repeated verb/adjective (你买什么买, 胖什么胖啊). Separable verb split by 什么 at the start of a clause (离什么婚, 道什么歉啊, 开什么玩笑啊). Clause-initial psychological verb or adjective + 什么 (+啊/呀) (担心什么啊, 郁闷什么呀, 高什么啊). 玩儿什么. Rhetorical 还 + verb + 什么 + noun + 啊 (还吃什么早饭啊). 没有钱 + verb + 什么 + noun (没有钱看什么电影).
 
 **Does not cover:** 什么 as a genuine question word (你吃什么？); 什么都/也 meaning "everything"; 什么的 ending a list; 什么 in compounds like 什么时候.
 
 ```rule
-match: /VV 什么/PN /VV
-match: /VA 什么/PN /VA
+match: /VV 什么 /VV
+match: /VA 什么 /VA
 match: ^ /VV 什么/PN /NN 啊|呀|吧? $
-match: ^ 开 什么 玩笑 啊|呀|吧?
-match: ^ 担心|难过|紧张|着急|害怕|生气|舒服|高兴|伤心|激动|累|急|怕|哭|笑|胖|大|高|聪明|忙|烦|愁|慌 什么/PN 啊|呀|吧? $
-match: ^ 玩 儿 什么/PN 啊|呀|吧? $
+match: ^ 开 什么 玩笑 啊|呀|吧? $
+match: ^ 开 什么 玩 笑 啊|呀|吧? $
+match: ^ 担心|难过|紧张|着急|害怕|生气|舒服|高兴|伤心|激动|累|急|怕|哭|笑|胖|大|高|聪明|忙|烦|愁|慌|郁闷 什么 啊|呀|吧? $
+match: ^ /VA 什么 啊|呀|吧? $
+match: ^ 玩 儿 什么 啊|呀|吧? $
+match: ^ 还 /VV 什么 /NN 啊|呀 $
+match: ^ 没有 钱 /VV 什么 /NN $
 unless: 什么 都
 unless: 什么 也
 unless: 什么 的
@@ -2642,9 +2865,11 @@ unless: 什么/DT 的/DEG
 ```
 
 **Notes:**
-- The old rule's whole-sentence `unless: 都/AD` and `unless: 也/AD` wrongly blocked sentences like 你买什么买，钱都花光了, so they are removed. The "everything" exclusion now only applies when 什么 is directly followed by 都/也.
-- In the data 什么 is tagged PN even in 离什么婚 and 道什么歉, so the rule uses 什么/PN. The broad "/VV 什么/DT" pattern is dropped because it matched genuine questions like 你喜欢什么颜色.
-- Non-repeated forms (X什么 with no repeat) are anchored to the start of a clause and end the clause. The bare-adjective/psych-verb form uses a word list, to avoid genuine questions like 吃什么？.
+- The "everything" exclusion only applies when 什么 is directly followed by 都/也. A 都 elsewhere in the sentence (你买什么买，钱都花光了) does not block the match.
+- 什么 is tagged inconsistently (PN or DT) in the data. The repeat patterns (买什么买, 胖什么胖) therefore no longer depend on the tag, since repetition already marks the rhetorical use.
+- Patterns that do not repeat the verb (X什么 + noun) still require 什么/PN where possible. Otherwise they are anchored to a clause start and clause end, with a fixed frame (开什么玩笑, 还…啊, 没有钱…) to avoid genuine questions like 你喜欢什么颜色.
+- 玩笑 may be tokenized as 玩 笑, so both forms are covered.
+- A clause that is only an adjective plus 什么 (郁闷什么呀) is accepted for any VA. The psychological-verb word list covers verbs tagged VV.
 
 ## 4-01
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -2687,17 +2912,21 @@ match: 一再|再三/AD 地/DEV? /VV
 **Notes:** The old rule had a stray `unless: ...` line. `...` matches any run of words, so that line matched every sentence and blocked all matches. I removed it. I also tightened the pattern so that 一再 or 再三 tagged AD must come immediately before a verb (VV), with only an optional 地 in between. This covers "Subj + 一再/再三 + Verb", the 地 variant, bare fragments like "一再强调", and the "经过再三考虑" form. It does not allow arbitrary words between the adverb and the verb, which keeps precision high.
 
 ## 4-22
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-10; edit freely -->
 **Point:** Sentence-final interjection 啊 (a) that adds a tone of urgency, exclamation, excitement, certainty, or concern. This also covers 啊 as a standalone interjection opening a sentence ("啊，我明白了。").
 
-**Covers:** 
+**Covers:**
 - 啊 tagged IJ at the start of a clause, as in "啊，你怎么在这里？".
 - Exclamatory 啊/SP closing a clause after a degree adverb plus adjective ("这里好漂亮啊！", "你家真大啊！", "学中文真难啊！", "好香啊！").
-- 啊/SP closing a short reply such as 对啊, 是啊, 行啊 or 可以啊.
+- 啊/SP closing a short reply or exclamation such as 对啊, 是啊, 行啊, 可以啊, or a one-word urging such as 小心啊 or 吃啊.
+- 啊/SP closing an A-not-A question showing impatience or concern ("你走不走啊？", "你吃不吃啊？").
+- 啊/SP after a sentence-final 的 ("谁说的啊？").
+- 你 + adjective + 啊 ("你傻啊？").
+- 没 + verb + 过 ... 啊 ("没见过漂亮姑娘啊？").
 
-**Does not cover:** 
+**Does not cover:**
 - 啊 in enumeration/listing patterns (A啊，B啊，C啊), where 啊 follows a noun, name or verb phrase.
-- 啊 in "X什么啊" patterns.
+- 啊 in "X什么啊" patterns. The clause "看什么啊" is not matched by itself.
 - 啊 in the middle of a clause.
 
 ```rule
@@ -2706,13 +2935,25 @@ match: 真|太|好|多|这么|那么/AD /VA 啊/SP $
 match: ^ 对|行|好|不错/VA 啊/SP $
 match: ^ 是/VC 啊/SP $
 match: ^ 可以/VV 啊/SP $
+match: ^ 行|小心|吃/VV 啊/SP $
+match: /VV 不/AD /VV 啊/SP $
+match: /VA 不/AD /VA 啊/SP $
+match: 的/SP 啊/SP $
+match: ^ 你/PN /VA 啊/SP $
+match: ^ 没/AD /VV 过/AS ... 啊/SP $
 ```
 
-**Notes:** 
-- Rules match within a single clause, so the earlier `unless` lines that tried to span clauses with ‖ could never work, and I removed them. The earlier pattern `^啊/IJ` was written without a space after `^`, so it most likely failed to parse. It is now `^ 啊/IJ`.
-- The bare "啊/SP $" pattern is gone. It matched every listing example, because each list item ends its clause with 啊/SP and the rule cannot see neighbouring clauses.
-- Instead, the sentence-final matches require an exclamatory context: degree adverb + adjective, or a short affirmative reply at the start of the clause. Listing 啊 follows nouns, names or verb phrases (花生啊, 小王啊, 看视频啊), so it is not matched.
-- Some real sentence-final 啊 after other words will be missed. That is accepted in favour of precision.
+**Notes:**
+- Rules match within a single clause, so nothing can look at neighbouring clauses. Precision therefore comes from requiring a specific context before 啊, not from checking for a list.
+- The new patterns are limited to cases that listing 啊 does not produce:
+  - A-not-A questions, which are never list items.
+  - 的 + 啊.
+  - 你 + adjective + 啊.
+  - 没 + verb + 过 ... 啊.
+  - A short closed set of verbs (行, 小心, 吃) as a whole clause.
+- A bare "verb + 啊" or "noun + 啊" is deliberately not matched, because it is how list items look (花生啊，瓜子啊).
+- "看什么啊" is left unmatched because it is the 3-81 "X什么（啊）" pattern. The sentence "看什么啊？没见过漂亮姑娘啊？" is still caught through its second clause.
+- Some real sentence-final 啊 will still be missed. That is accepted in favour of precision.
 
 ## 4-24
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -2772,13 +3013,14 @@ unless: 来自/VV
 **Notes:** The key distinguishing feature is the LC (localizer) tag for 以来 or 来. The verb 来自 (meaning "to come from") will be tagged VV, so the unless clause filters it out. Sentences with 以来/LC or 来/LC should match whether or not they have optional preceding elements like 自/P or 从/P. The grammar point typically appears at or near the start of a clause followed by a predicate describing what has happened since that time.
 
 ## 4-33
-<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
 **Point:** Idiomatic phrases with 在 (zài) marking topic/aspect (在...上/下/中)
-**Covers:** Sentences with a clause-initial 在 + Topic/Condition + 上/下/中, where the 在...上/下/中 phrase forms its own clause and expresses "in regards to," "on the topic of," "under [conditions]," or "in [circumstances]"
+**Covers:** Sentences with a clause-initial 在 + Topic/Condition + 上/下/中, where the 在...上/下/中 phrase expresses "in regards to," "on the topic of," "under [conditions]," or "in [circumstances]". It either forms its own clause (在这种情况下，…) or runs straight on into a verb (在这样的环境下长大，…) when the noun before 下 is a condition-type noun.
 **Does not cover:** Location expressions (在 as simple preposition for place); temporal expressions (在...以前/以后, 在...内); action-in-progress (正在...); existence (在 marking location of subject); verbs followed by 在; 在于 "lies in"; 从...中 "from within"; phrases with 在...方面 (covered separately in 4-32); continuation 还在; assessment 在...看来; spatial relations 中间/当中; result complements with 下去; early expressions with 早在; inclusive 在内
 
 ```rule
 match: ^ 在/P ... 上|下|中/LC $
+match: ^ 在/P ... 情况|条件|环境|影响|帮助|指导|支持|照顾|领导|作用|压力|背景|基础|气氛|氛围/NN|VV 下/LC
 unless: 早/AD 在/P
 unless: 从/P
 unless: /VV 在/P
@@ -2794,20 +3036,26 @@ unless: 中间/NN
 unless: 正在/AD
 ```
 
-**Notes:** The earlier rule used `‖` in the pattern, which is not valid syntax, so it never matched. The pattern now anchors with `^` and `$`. It requires a clause that begins with 在 and ends with the localizer 上/下/中, with any noun phrase in between. That is the shape of the topic or condition clause in "在这种情况下，…", "在他的影响下，…" and "在这篇课文中，…". Because the clause must end on the localizer, ordinary spatial uses such as "在桌子上放着…" (where a verb follows in the same clause) are not matched. The "unless" lines exclude the look-alike points: 早在, 从, verbs taking 在, 在…看来, 在于, 在…内, 包括…在内, 其中, 当中, 中间, 正在, and 以上/以下.
+**Notes:** The first match line is unchanged. It covers clauses that begin with 在 and end on the localizer 上/下/中, such as "在这种情况下，…" and "在这篇课文中，…". The new second line catches cases where the 在…下 phrase continues into a verb in the same clause, like "在这样的环境下长大，…". It is limited to condition-type nouns (情况, 条件, 环境, 影响, 帮助 etc.) directly before 下. This keeps ordinary spatial uses such as "在桌子下找到…" out. The "unless" lines exclude the look-alike points: 早在, 从, verbs taking 在, 在…看来, 在于, 在…内, 包括…在内, 其中, 当中, 中间, 正在, and 以上/以下.
 
 ## 4-52
-<!-- written by claude-haiku-4-5 on 2026-11-09; edit freely -->
+<!-- written by claude-haiku-4-5 on 2026-11-11; edit freely -->
 **Point:** Using 万一 to express "what if" or "in case" for unlikely/undesirable possibilities
-**Covers:** 万一 introducing a hypothetical scenario (as adverb AD), followed by a consequence or question; includes 以防万一 idiom
-**Does not cover:** Sentences where 就 appears without 万一; sentences using other conditional markers (要是, 假如, 一旦, etc.); other uses of 就 as aspect, time marker, or copula
+
+**Covers:** Sentences with 万一 introducing a hypothetical condition (often undesirable), either as a statement offering a solution or as a rhetorical question. Includes the phrase 以防万一 (to be on the safe side).
+
+**Does not cover:** Sentences with 就 that don't involve 万一; conditional structures using 要是/假如/一旦 without 万一; other uses of 万一 in non-hypothetical contexts (if any exist).
 
 ```rule
 match: 万一/AD
-unless: ^ ... 万一/AD ... $ (this catches single-clause patterns that aren't proper conditionals)
+match: 以/P 防/VV 万一/AD
+unless: ^ ... 万一/AD ... $ 就/AD
+unless: 要是/CS
+unless: 假如/CS
+unless: 一旦/CS
 ```
 
-**Notes:** The core pattern is simply detecting 万一 tagged as AD (adverb). The 万一 construction naturally expresses the target grammar point—it introduces an unlikely/undesirable scenario. The conditional response (with optional 就) follows in the same or next clause. The pattern is minimal because 万一 itself is the distinctive marker of this point. The 以防万一 idiom also counts as an exemplar of the point (expressing "in case" precaution). Single-clause sentences with only 万一 (no consequence) are excluded to avoid borderline cases, though question forms like "万一...呢?" will still match as they appear in multi-clause tokenization.
+**Notes:** The rule matches any clause containing 万一 tagged as AD (adverb), or the phrase 以防万一. The first `unless` line prevents matching cases where 万一 appears with 就 in the same clause—those would be caught as 万一...就... conditional statements (4-52), not other grammar points. The other `unless` lines exclude confusing conditional structures that use different conjunctions (which are separate HSK points). The phrase 以防万一 is idiomatic and should always match. Tag variation (万一 as AD, sometimes possibly as other tags) should be minimal based on examples.
 
 ## 4-58
 <!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
@@ -2881,3 +3129,402 @@ unless: 还/AD 有/VE
 - "还 + 真" can occasionally appear in neutral statements; this is accepted.
 - Tagger quirks: 还 can be tagged CC, and 在 as AD or VV. The 在/AD exclusion relies on the tag. 还在乎 (在 tagged VV) is allowed through.
 - 呢 as a continuing-state particle ("他还没起来呢") is excluded by the 还 没|不 exclusion.
+
+## 1-43
+<!-- written by claude-haiku-4-5 on 2026-11-12; edit freely -->
+**Point:** 钱数表示法 (Expressing quantities of money)
+**Covers:** Questions asking "how much money?" using 多少钱, and statements giving prices using the pattern: number + 块/元 + (optional: number + 毛/分)
+**Does not cover:** Other uses of 钱 (money as a noun in other contexts), other uses of 块 as a measure word (for physical objects), or ordinal numbers with 块
+
+```rule
+match: 多少/CD 钱/NN
+match: /CD 块/M
+unless: 多少/CD 钱/NN ... 的|很|好|贵|坏|不|有|没|挣|有点|问题
+unless: /CD 块/M ... 肉|骨头|布|玉|塑料|肉|号|楼|单元|年
+unless: ... /OD 号/M
+unless: 从|在|身上|里|包|挣|支配|掏|有|没|拿|放|丢
+```
+
+**Notes:** The first match catches the interrogative form (多少钱?). The second match catches the declarative form with 块 as the currency unit. The unless clauses exclude: (1) 钱 used in non-money-quantity contexts (possessive, description, problem, etc.); (2) 块 used as a measure word for physical objects (肉, 骨头, 布, 玉, 塑料) or ordinals (号楼); (3) sentences where 钱 or 块 are objects of verbs unrelated to pricing (挣, 支配, 掏, 丢, etc.). The rule prioritizes precision by excluding borderline cases where 块 might be ambiguous.
+
+## 1-44
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** Expressing times of day, dates, days of the week, and minutes using Chinese time structures
+
+**Covers:** Times with 点 (o'clock), including 十二点 after a time-of-day word. Also dates with 年月日/号, days of the week with 星期, and half hours (半), minutes (分), quarter hours (刻) and 差 after 点.
+
+**Does not cover:** Uses of 点/分/一点/半 in other contexts: fractions with 分之, degree modifiers such as 有点 or 一点儿 meaning "a bit/somewhat", 慢一点/重一点, 差一点, the separable verb 点头, and quantity phrases.
+
+```rule
+match: /CD 点/CD
+match: /CD 点/M
+match: /CD 点/NN
+match: /CD 点/VV /CD 刻|分
+match: 点/M 半/NT
+match: 点/M _ /CD 分
+match: 点/M /CD 刻
+match: 差 /CD 分 /CD 点
+match: /CD 年 /CD 月 /CD
+match: /CD 月/M /CD 号|日
+match: 星期 /NT|CD
+match: 星期 天|日
+match: 星期一|星期二|星期三|星期四|星期五|星期六|星期天|星期日
+unless: 有点/NN
+unless: 有 一/CD 点
+unless: 差 一/CD 点
+unless: /VA 一/CD 点
+unless: /VV 一/CD 点
+unless: 一点/NN 也|都/AD
+unless: 一 点/M 也|都/AD
+unless: 分之
+unless: 点/CD 儿/CD
+unless: 点头/VV
+unless: 快/VA 点/AD
+unless: 一度/VA
+```
+
+**Notes:** 点 is tagged inconsistently (CD, M, NN, VV), so each tag is listed explicitly after a number, which covers 中午十二点. Days of the week are matched both as one token (星期天/NT) and as 星期 plus a number or 天/日. Degree uses are excluded by the unless lines: 慢一点 and 重一点 (adjective or verb + 一点), 有一点, 差一点, 一点也不, and 快点. Whole-token dates such as 1868年1月18号/NT cannot be matched without substring patterns, so they remain misses to keep precision.
+
+## 2-06
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** Personal pronouns referring to others, groups, or things (别人、人家、大家、它、它们、咱、咱们、自己)
+
+**Covers:** Use of 别人, 人家, 它, 它们, 咱, 咱们, or 自己 as pronouns in a sentence. This includes 人家 meaning "other people," "he/she/they," or "I" (said in a coy way), and 人家 meaning "households" (as in 户人家). 大家 is covered only in the "大家 一起…" pattern, as in 大家一起唱歌吧.
+
+**Does not cover:** Plain 大家 used as an ordinary subject, as in 大家要不要米饭？. These sentences belong to easier points such as the V不V question. Also excluded are the "X是它，Y也是它" pattern (HSK 5-62) and sentences where the pronoun function is not shown.
+
+```rule
+match: 别人/PN
+match: 人家/PN
+match: 大家/PN 一起/AD
+match: 它/PN
+match: 它们/PN
+match: 咱/PN
+match: 咱们/PN
+match: 自己/PN
+match: 户/M 人家/NN
+unless: 也 是 它
+unless: 是 它 ... 也 是 它
+```
+
+**Notes:** The bare 大家/PN match was removed because it fired on sentences from easier grammar points, such as 大家要不要米饭？. 大家 now matches only when followed by 一起, which fits the official example. The 人家/NN match is narrowed to 户人家 ("households"), so a stray noun tag no longer causes a match. The unless lines exclude the 5-62 pattern "X是它，Y也是它".
+
+## 2-53
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** Adjective + quantifier/degree complement to express comparison or change, plus the age-comparison and age-question uses of 大/小/岁
+**Covers:** Comparisons using 比/和/跟 with adjective + 多了/得多/很多, age expressions with 大/小 + number + 岁, questions about who is older or younger (谁大, 谁最小), asking age (几岁了, 多大年纪/岁数), and adjective + 多了/一点儿 to express change or degree
+**Does not cover:** 一点儿/一些 meaning "some" or "a little bit" (not as a complement); 一点儿 with negation (一点也/都不); adjective + 了 meaning "too" without a quantifier complement
+
+```rule
+match: /VA ... /CD /M $
+match: /VA ... /CD 岁
+match: /VA 多/AD 了/SP $
+match: 比/P ... 多/AD 了/SP
+match: /VA 得/DER 多/VA
+match: /VA 很/AD 多
+match: /VA 一点儿/AD $
+match: 差不多/AD /VA $
+match: 一样/AD /VA $
+match: 谁/PN 最/AD? 大|小/VA
+match: 几/CD 岁/M 了/SP
+match: 多/AD 大/JJ 年纪|岁数/NN
+
+unless: 一点/NN 也/AD
+unless: 一点/NN 都/AD
+unless: 一些/CD
+unless: 有/VE 一点儿
+unless: 有/VE 一点
+```
+
+**Notes:** The rule targets adjectives followed by quantifier complements (numbers + 岁, 多了, 得多, 很多, 一点儿) or special comparative forms (差不多大, 一样大). It also covers the age-related question patterns 谁大 / 谁最小, 几岁了 and 多大年纪/岁数. The "多了" pattern is allowed either after an adjective at the end of a clause, or inside a 比 comparison (你比我有经验多了). The end-of-clause requirement avoids false matches with verbs like 喝多了 (drank too much). It excludes negation patterns (一点也/都不), the "some/a bit" uses of 一些 and 有一点儿, and distinguishes from HSK 2-13 (degree adverbs like 多 alone).
+
+## 2-56
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** Existential sentences that say what is located at a place. The two forms are Place + Verb + 着 + NP (桌子上放着一本词典) and Place + 是 + NP (盒子里是你的礼物).
+
+**Covers:**
+- A clause that starts with a place phrase (noun + 里/上, or a noun + noun with a 前边-type localizer), followed directly by a verb + 着 (AS) and the thing that exists there. Examples: 墙壁上挂着一幅漫画, 教室前边站着一位老师, 地里种着瓜.
+- A clause that starts with a place phrase (noun + localizer), then 是, with an optional 都 before it. Examples: 袋子里是我的午饭, 墙上都是他家人的照片.
+
+**Does not cover:**
+- 着 as a resultative complement (睡着, 找着, 买不着).
+- A着A着 patterns.
+- Progressive 正…着…呢.
+- Ordinary 着 after a person subject (他穿着拖鞋, 狗摇着尾巴), because the clause must begin with a noun place phrase.
+- Sentences that begin with 在 or a pronoun subject. These are skipped to stay precise.
+
+```rule
+match: ^ /NN|NR /LC /VV 着/AS
+match: ^ /NN|NR /NN|NR /LC /VV 着/AS
+match: ^ /NN /NN /NN /VV 着/AS /CD|DT
+match: ^ /NN|NR /LC /AD? 是/VC
+match: ^ /NN|NR /NN|NR /LC /AD? 是/VC
+unless: 着/AS /VV 着/AS
+unless: 着/AS 呢/SP
+unless: 正|在/AD
+unless: 着/AS 了/SP
+```
+
+**Notes:**
+- The 是 patterns require the clause to start with NN/NR + LC. Sentences such as 这里是… and 他的桌子上是… are therefore missed on purpose.
+- The 前边 pattern (three consecutive nouns before 着) requires a following CD or DT, to avoid matching ordinary subject + noun sequences.
+- Loosen the following-element requirement only if more recall is needed. Loosening it risks matching sentences with an ordinary subject, such as 孩子手里拿着…, in which the 着 verb describes a person rather than existence at a place.
+- The A着A着 `unless:` line, the 呢 `unless:` line and the 在/正 `unless:` line are safeguards against the other 着 points.
+
+## 2-60
+<!-- written by claude-sonnet-5-5 on 2026-11-13; edit freely -->
+<!-- revised: narrowed back to the classic 是⋯⋯的 pattern. Purpose 是来/去/用来/给…的, 是 + adjective + 的, and modal 会/能…的 belong to other points. -->
+**Point:** The classic 是⋯⋯的 construction. It emphasizes the time, place, manner or agent of an action, usually one that has already happened, e.g. 我是昨天到北京的 and 他是在网上买的手机.
+
+**Covers:**
+- 是 + a time word or preposition phrase (在/从/跟/用…) + verb (+ object) + 的, e.g. 我是昨天到北京的, 他是在网上买的手机.
+- Questions without 是 that ask for these details: 怎么/什么时候/哪儿/几点/多少钱 + verb + 的, and preposition phrase + verb + 的吗, e.g. 这个东西多少钱买的, 她用邮件回复的吗.
+
+**Does not cover:**
+- 是 + 来/去/用来/给 + verb + 的 for purpose, e.g. 我是来玩的, 这个房间是给客人住的.
+- 是 + adjective or distinguishing word + 的, e.g. 这个苹果是坏的.
+- 是 + modal + verb + 的, and 会/能 + verb + 的 as a modal particle, e.g. 她一定会来的, 我们能搞定的.
+- Possessive 的 and 的 modifying nouns.
+- 有的是, 不是…就是…, 的话, 岂不是, 要不是, 就是, 不愧是 and reduplication.
+- Simple equative 是 sentences.
+
+```rule
+match: 是/VC /NT|P ... /VV ... 的/SP|AS|DEC
+match: 怎么|什么时候|哪儿|哪里|几点|多少 ... /VV 的/SP $
+match: /P ... /VV _? 的/SP 吗/SP
+unless: 是/VC 给/P
+unless: 是/VC 来|去|用来/VV
+unless: 有的/PN /VC
+unless: 不/AD /VC ... 就是/AD
+unless: 就/AD 是/VC
+unless: 岂不/AD /VC
+unless: 不愧/AD /VC
+unless: 要不是/AD
+unless: 的话/SP
+unless: ^ /VC /AD /VC
+unless: 这|那/DT 是/VC
+unless: 是/VC ... 的/DEC /M|DT|CD
+unless: ... /VA /VA ... /VC /VA
+```
+
+**Notes:** Only the classic pattern is kept. 是 must be followed directly by a time word or a preposition, with an object allowed between the verb and 的. The 是-less question lines need a question word or a preposition phrase before the verb. The purpose uses (是来/去/用来…的, 是给…的), 是 + adjective + 的 and the modal 会/能…的 were removed. Sentences of those types had been matching wrongly, and 是给 and 是来/去 are now explicitly excluded.
+
+## 2-62
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** Sequencing consecutive events or actions (承接复句)
+
+**Covers:** Sentences that sequence two or more events or actions. This includes 先…再… (also 先…再说), 然后, 接着, and 以后 after an event. It also covers a clause-initial "verb + 了 + object" followed by the next action, and "先 + verb" after a modal such as 要/想/喜欢, where 再 begins the next clause.
+
+**Does not cover:** Single actions with 再 meaning "again" or "once more"; 再说 meaning "in addition"; 一再/再三 meaning "repeatedly"; 再也不/没 meaning "never again"; 再不…就/也 as a conditional threat; 首先…然后 (a separate point); other uses of 再 as a future-tense marker.
+
+```rule
+match: 先/AD ... 再/AD
+match: 先/AD ... 再说/VV
+match: 然后/AD
+match: 接着/AD
+match: 以后
+match: 要|想|喜欢|得|需要|应该/VV 先/AD /VV /NN? $
+match: ^ /VV 了/AS /NN $
+match: ^ /PN /VV /NN /VV 了/AS /NN? $
+unless: 首先
+unless: 再/AD 也/AD
+unless: 再/AD 不/AD
+unless: 一再/AD
+unless: 再三/AD
+```
+
+**Notes:** The old loose patterns are removed: a bare "再 + verb" (which also matched 你应该再复习一遍), "verb 了 … verb", and the long list of 再 + verb exclusions. That list was also blocking true 先…再 sentences such as 先洗手再吃. Matching now needs an explicit sequencing word (先…再, 先…再说, 然后, 接着, 以后). Two clause-limited fallbacks cover the juxtaposed cases: a clause-initial "verb + 了 + object", and "subject + verb + noun + verb + 了 + object". The rule also matches "modal + 先 + verb" at the end of a clause, because the 再 then starts the next clause and cannot be seen. Each pattern only looks inside one clause. A bare 再 is never matched on its own, to protect the "again" and other 再 points.
+
+## 2-72
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** Ordinal numbers formed with the prefix 第 (dì) + a number, optionally followed by a measure word and noun (第一个人, 第二天, 我们班第一).
+
+**Covers:** 第 + number used as an ordinal. The tagger usually produces one fused token such as 第一/CD, 第三/CD or 第二/CD. Sometimes it splits them into 第 followed by a separate number tagged CD or OD. Both forms are matched, whether or not a measure word or noun follows. A bare ordinal used as a predicate or rank (我们班第一) also counts.
+
+**Does not cover:** Ordinals without 第, such as 七楼 and 一层. It also does not cover the other HSK 3-01 prefixes 老- and 小-, or 第 in non-ordinal uses.
+
+```rule
+match: 第一|第二|第三|第四|第五|第六|第七|第八|第九|第十|第十一|第十二|第二十|第三十/CD|OD
+match: 第 /CD|OD
+match: 第/CD /CD|OD
+match: 第/OD /CD|OD
+```
+
+**Notes:** The earlier version put a space before the tag (`第三十 /CD|OD`). That made the tag a separate item, so the rule required an extra CD/OD word after the fused ordinal and missed sentences like 我是第一个…. Now the tag is attached directly to the word list, so the fused tokens 第一/CD, 第二/CD and so on match on their own. This covers 第一个, 第一班, 第一次, a bare 班第一, and 第二年. The split form (第 + number) is still matched. No unless clauses are used, so cases like 第一/CD 周/NR are not blocked.
+
+## 2-73
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** Approximate quantities using 几 (several/a few) in the forms 几十/几百/好几, or a number + 多 (more than)
+
+**Covers:** 几十/几百/几千/几万 + measure + noun; 好几 + measure + noun; number + 多 + measure + noun; number + measure + 多 + noun (两个多小时)
+
+**Does not cover:** bare 几 + measure in "how many" questions (他有几个孩子, 你几岁了); 差不多 (about the same); 多亏 (thanks to); 多 in questions (多大); 多 for intensification (多好); 几乎 (almost); 多少 in questions; doing more with 多; 多 for degree of difference
+
+```rule
+match: 几 十|百|千|万
+match: 几十|几百|几千|几万
+match: 好/AD 几/CD ... /M
+match: 好几 ... /M
+match: /CD 多/CD ... /M
+match: /CD /M 多/AD /NN
+unless: 差不多
+unless: 多亏
+unless: 几乎
+unless: ^ ... 多/AD /VA
+unless: ^ ... 多/AD /JJ
+unless: 多/AD 长/JJ 时间
+unless: 多/AD 少/CD
+```
+
+**Notes:** Bare 几 + measure + noun looks identical in statements ("桌子上有几本书") and in quantity questions ("他有几个孩子？"). The rule cannot tell them apart, so it no longer matches bare 几 + measure, which costs some recall but keeps precision. It matches only the unambiguous 几十/几百/几千/几万 and 好几 forms. These patterns allow for 几 being tagged M or CD. For 多, it matches number + 多 + measure (二十多天), and also number + measure + 多 + noun (两个多小时), where 多 is tagged AD. I removed the old `unless: /CD 多/AD /M`, because it blocked valid cases like 三十多个. The exclusions for 差不多, 多亏, 几乎, and 多 as a degree adverb (多好, 多大, 多长时间, 多少) are kept.
+
+## 4-13
+<!-- written by claude-sonnet-5-5 on 2026-11-12; edit freely -->
+**Point:** 自 / 自从 (and 从 … 以来) mark the starting point of an action or state, in time ("ever since") or, for 自, in place ("from").
+
+**Covers:** 
+- 自从 + event or time, with or without a closing 以来 or 后: 自从来到湖南，我越来越能吃辣了。
+- 自 + time/event + 以来: 自1978年以来，…
+- 自 + place as a preposition: 自北京出发。
+- 从 + time/event + 以来: 从毕业以来，她一直在教汉语。
+
+**Does not cover:**
+- 来自 ("come from"), which is a different point. It is one token, so it never matches.
+- 自己 and compounds such as 自学, 自动, 自愿, 自豪, 自来水 and 自言自语. These are whole words, not 自 as a preposition.
+- 从 + time + 后 / 以后 without 以来, and plain 从 meaning "from" a place. These are too ambiguous, so they are left out.
+
+```rule
+match: 自从
+match: 自/P
+match: 从/P ... 以来/LC
+```
+
+**Notes:** 
+- Matching is on whole tokens, so 自己, 各自 and 来自 can never trigger the rule.
+- 自/P is restricted to the P tag so that stray 自 tagged as another part of speech is ignored.
+- No unless: lines are needed on the given data. If 自/P ever shows up inside an unwanted fixed phrase, add an unless: for it.
+- The 从 line requires 以来 in the same clause, so ordinary 从 + place uses do not match.
+
+## 1-40
+<!-- written by claude-sonnet-5-5 on 2026-11-13; edit freely -->
+**Point:** Expressing a change of state or a new situation with sentence-final 了
+
+**Covers:**
+- Adjectives or state verbs showing a change (我饿了、你胖了、雨小了、她病了、孩子们都累了)
+- Verbs showing a new situation (他来了、我走了、下雨了、他当经理了、你有女朋友了、到你了)
+- Idiomatic "now" with 了 (知道了、懂了、吃饭了、上课了、我20岁了)
+- "Not anymore" with 不 or 没(有) (我不想吃了、我不去看电影了、没有纸了、手机没电了、他已经不在这儿工作了、你不喜欢我了吗)
+
+**Does not cover:**
+- Completion 了 after a plain verb or verb complement (我买了、买到了、吃完了、我们都去了)
+- Potential complements (去不了)
+- Double 了 for duration (你睡了一天了)
+- 了点儿 and degree complements (极了、死了、坏了)
+- 快/快要/就要 ... 了, and 别 ... 了
+- 太 ... 了
+- 过了
+- 了吗 questions asking about past completion (吃饭了吗)
+
+```rule
+match: ^ /NN|PN /AD? /VA 了/SP|AS $
+match: ^ /NN|PN? 饿|病|累|渴|困|懂|醉|知道|明白|结婚|胖|瘦|生气|高兴/VV 了/SP|AS $
+match: ^ /NN|PN 来|走/VV 了/SP $
+match: ^ 下雨|下雪|刮风|起风/VV 了/SP|AS $
+match: ^ 吃|上|下|开|放/VV 饭|课|学|车|门/NN 了/SP $
+match: ^ 到|轮/VV /PN 了/SP $
+match: 当/VV /NN 了/SP|AS $
+match: 新/JJ /NN 了/SP $
+match: 有/VE /NN 了/SP $
+match: ^ /PN|NN? /NT 了/SP $
+match: 不/AD /VV|VE|VA ... 了/SP|AS 吗/SP? $
+match: 没有|没/VE /NN 了/SP|AS $
+
+unless: 了/AS _
+unless: 太/AD
+unless: 快/AD
+unless: 快要/AD
+unless: 就要/AD
+unless: 别/AD
+unless: 过/AS 了/SP
+unless: 了/SP 一/CD
+unless: 极/AD 了/SP
+unless: 死/VV 了/SP
+unless: 坏/VV|VA 了/SP
+unless: 了/AS 吗/SP
+unless: 昨天|上周|去年|刚才|昨晚/NT
+unless: 不/AD 知道|觉得|记得|看见|听说|相信/VV _ ... 了/SP|AS
+```
+
+**Notes:** The rule is split into narrow sentence-final 了 patterns: subject + adjective, a short list of state verbs, 来/走, weather verbs, 吃饭/上课-type phrases, 当 + noun, 新 + noun, 有 + noun, time/age + 了, 不 ... 了, and 没(有) + noun + 了. A bare "verb + 了" is deliberately not matched, because that is mostly completion 了 (我买了、买到了、吃完了). 了 is sometimes tagged AS at the end of a sentence, so the patterns accept both AS and SP there. The unless lines remove 太 ... 了, 快 ... 了, 别 ... 了, double 了, 极/死/坏了, 过了, past-time sentences, and "不知道他去了"-type embedded clauses.
+
+## 2-17
+<!-- written by claude-sonnet-5-5 on 2026-11-13; edit freely -->
+**Point:** 就 as a linking adverb that introduces the result or consequence after a condition or situation. It appears in 如果/要是/假如/假使/只要/既然…（的话），（就）…, and also in bare "situation, 就 + verb" sentences. Short conditional commands with no opener, such as 有事给我打电话 and 喜欢就拿走吧, are also covered.
+**Covers:** Sentences with a conditional or causal opener (如果, 要是, 假如, 假使, 若, 只要, 既然, 要不是) followed by a result clause, with or without 就. Also covered are 的话 conditionals, the 要我说 opener, and a clause followed by "(pronoun) 就 + verb/adverb", as in 你最有经验，就听你的吧. Clause-initial 就 + verb ending in 吧 (就去看电影吧) and 就 + 在 (就在这家店吃饭吧) count too. So do "verb + 就 + verb … 吧" suggestions (喜欢就拿走吧) and sentence-initial 有事/有空/有问题 + verb (有事给我打电话).
+**Does not cover:** 就 meaning "only/just" before a noun or number, earliness (早就, 八点就), 就要…了, 就是 emphasis, 就算/就是 "even if", 想X就X and 要X就X, X着X着就, 不是…就是, and 就 as a preposition (就…来说). Each of these has its own grammar point.
+
+```rule
+match: 如果|要是|假如|假使|若|既然|只要|要不是 ... ‖ _
+match: 如果|要是|假如|假使|若|既然|只要 ... 就/AD
+match: 的话/SP ‖ _
+match: 的话/SP 就/AD
+match: 要 我 说 ‖ _
+match: ‖ /PN? 就/AD /VV|AD|P
+match: ^ 就/AD 在/P
+match: ^ 就/AD /VV ... 吧/SP
+match: ^ /VV 就/AD /VV ... 吧/SP
+match: ^ 有/VE 事|空|问题/NN /P|VV
+unless: 就/AD 算/VV
+unless: 就/AD 要/VV ... 了/SP
+unless: 着/AS ... 着/AS
+unless: ^ /NT ‖ _
+unless: 一会儿/AD
+unless: 就/AD /VV 了/AS? /CD
+unless: 想|要/VV ... 就/AD
+unless: 有/VE 事/NN 做/VV
+```
+
+**Notes:** The generic "‖ (PN) 就 + VV/AD/P" line is the riskiest. The unless lines remove 就算, 就要…了, the 着…着 pattern, a clause that is only a time word (昨天晚上，他就睡了), "就 + verb + (了) + number" (the "only" use, as in 你就买了一瓶可乐), and 想X就X / 要X就X. 就要 without 了 is allowed, so 如果你想申请，那么现在就要开始准备 now matches. The new bare-clause lines (就去看电影吧, 喜欢就拿走吧, 有事给我打电话) are limited to the start of a clause and need 吧 or a specific 有 + 事/空/问题 opener. Sentences like 你要再说，我真生气了 are still not matched, because no safe general pattern exists for them. The opener word list is matched by word, not by tag, so tagger variation (CS vs AD) does not matter.
+
+## 2-68
+<!-- written by claude-sonnet-5-5 on 2026-11-13; edit freely -->
+**Point:** Cause and effect compound sentences (因果复句) using 因为, 所以, or both
+**Covers:** Sentences with two clauses showing an explicit cause-effect relationship: (1) Result + 因为 + Reason; (2) Reason + 所以 + Result; (3) 因为 + Cause + 所以 + Effect.
+**Does not cover:** Sentences using 因为...而... (HSK 3-25 / the 而 construction); sentences using 由于 or 因此 (HSK 3-71); implicit cause-effect between clauses with no conjunction (too ambiguous to detect reliably).
+
+```rule
+match: ... ‖ 因为 ...
+match: ... ‖ 所以 ...
+match: 因为 ... ‖ ... 所以 ...
+match: ^ 因为 ... 所以 ...
+unless: 而
+unless: 由于
+unless: 因此
+```
+
+**Notes:** The old fourth pattern, which matched any two clauses with predicates, was removed. It matched many unrelated sentences, such as parallel clauses and condition clauses. Only sentences with an explicit 因为 or 所以 marking a clause now match. Sentences with 而, 由于 or 因此 are excluded. The pattern 因为 inside a single clause with 所以 is also covered by the last match line.
+
+## 2-69
+<!-- written by claude-sonnet-5-5 on 2026-11-13; edit freely -->
+**Point:** Events in quick succession with "yi... jiu..." (一⋯⋯就⋯⋯)
+**Covers:** Sentences where 一 marks the onset of the first event and 就 marks the immediate consequence, showing that as soon as Event 1 happens, Event 2 follows in quick succession. The two events can share one subject or have different subjects (老师一来大家就不说话了). The two parts can sit in a single clause or in two neighbouring clauses (我一进门，小狗就跑了过来).
+**Does not cover:** Other uses of 一 and 就 including: quantification (一些, 一点), adverbial uses of 一 (一直, 一向, 一时, 一再), measure words (一个, 一张), emphasis with 就, conditional structures with different markers (一旦, 要是), concurrent actions (一边⋯⋯一边), or repetition patterns (一次⋯⋯一次).
+
+```rule
+match: 一/AD /VV ... 就/AD
+match: 一/AD /VV ... ‖ ... 就/AD
+unless: 一再/AD
+unless: 一直/AD
+unless: 一时/AD
+unless: 一向/AD
+unless: 一点儿/AD
+unless: /CD 点/M 一点儿/AD
+unless: 一旦/CS
+unless: 一起/AD
+unless: 一些/CD
+unless: 一/CD /M
+unless: 一方面/NN
+unless: 进一步/AD
+```
+
+**Notes:** The core pattern is 一 (tagged AD, not CD) directly followed by a verb, then 就 (tagged AD) later in the same clause or in the next clause. The old rule required a verb right after 就, so it missed sentences like 她一生气就脸红 (a noun follows 就), 大家就不说话 (a negation follows 就) and 小狗就跑 (a two-word subject sits between the clauses). The new rule only requires 就/AD after the 一+verb part. It stays within one clause or crosses a single ‖ to the neighbouring clause. The unless lines still exclude 一再, 一直, 一向, 一时, 一旦, 一起, 一些, measure-word uses of 一 and the other look-alike forms.

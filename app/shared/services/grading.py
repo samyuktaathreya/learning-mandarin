@@ -14,6 +14,9 @@ from app.core.logger import logger
 anthropic_client = anthropic_sdk.Anthropic(api_key=settings.CLAUDE_API_KEY)
 
 LISTENING_TYPES = {"listening sentence", "listening vocab"}
+FILL_IN_BLANK_TYPE = "fill in the blank"
+_HANZI_RE = re.compile(r"[\u4e00-\u9fff]")
+_LATIN_RE = re.compile(r"[A-Za-zÀ-ɏ]")
 
 # ----------------------------- ANSWER NORMALIZATION -----------------------------
 
@@ -146,6 +149,32 @@ def _ai_grade_english_to_chinese(question: str, user_answer: str) -> bool:
     )
     return response.content[0].text.strip().upper().startswith("YES")
 
+def _ai_grade_fill_in_blank(question: str, expected: str, user_answer: str) -> bool:
+    response = anthropic_client.messages.create(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=5,
+        messages=[{
+            "role": "user",
+            "content": (
+                "You are grading a Chinese fill-in-the-blank exercise. The learner sees a "
+                "Chinese sentence with a blank (___), usually followed by its English meaning "
+                "in brackets, and types Chinese characters for what goes in the blank.\n\n"
+                "Be strict. Mark the answer correct ONLY if it is completely correct:\n"
+                "- the reference answer exactly, or the same word in traditional characters; OR\n"
+                "- a different word or phrase, written with the correct characters, that makes "
+                "the filled-in sentence fully correct, natural Mandarin with the same meaning.\n"
+                "Mark it incorrect if any character is wrong (including typos and homophones), "
+                "if it uses any pinyin, or if the filled-in sentence would be ungrammatical, "
+                "unnatural, or change the meaning.\n\n"
+                f"Sentence: {question}\n"
+                f"Reference answer: {expected}\n"
+                f"Learner's answer: {user_answer}\n\n"
+                "Reply with only YES or NO."
+            )
+        }]
+    )
+    return response.content[0].text.strip().upper().startswith("YES")
+
 # ----------------------------- SERVICE WRAPPERS -----------------------------
 
 def evaluate_chinese_to_english(db: Session, user_answer: str, question: str) -> dict:
@@ -163,7 +192,28 @@ def evaluate_chinese_to_english(db: Session, user_answer: str, question: str) ->
         logger.debug(f"Grading error: {e}")
         return {"is_correct": False}
 
+def evaluate_fill_in_blank(db: Session, user_answer: str, expected: str, question: str) -> dict:
+    # Must be written in characters: any pinyin/latin letters is wrong.
+    if not _HANZI_RE.search(user_answer) or _LATIN_RE.search(user_answer):
+        return {"is_correct": False}
+
+    cleaned = clean(user_answer)
+    if cache_lookup_by_question(db, question, cleaned):
+        return {"is_correct": True, "cached": True}
+
+    try:
+        is_correct = _ai_grade_fill_in_blank(question, expected, user_answer)
+        if is_correct:
+            cache_store_by_question(db, question, cleaned)
+        return {"is_correct": is_correct}
+    except Exception as e:
+        logger.debug(f"Fill-in-the-blank grading error: {e}")
+        return {"is_correct": False}
+
 def evaluate_english_to_chinese(db: Session, user_answer: str, expected: str, question: str, question_type: str) -> dict:
+    if question_type == FILL_IN_BLANK_TYPE:
+        return evaluate_fill_in_blank(db, user_answer, expected, question)
+
     if question_type in LISTENING_TYPES:
         user_pinyin = to_numbered_pinyin(strip_punct(user_answer))
         expected_pinyin = to_numbered_pinyin(strip_punct(expected))

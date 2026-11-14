@@ -96,3 +96,76 @@ Tagging 2 labeled example(s) (cached after this run)...
   他都道歉了，你别生气了。  -- ASGT1CIR Expressing "already" with "dou"
   都十一点了，你别看电视了。  -- HSK list example
   都三天了，他怎么还没回来？  -- HSK list example
+
+########## rules  2026-11-10 21:28 ##########
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+  [retry] the rule couldn't be read: 3-79, rule line 13: '[^了]*$' looks like a regular expression -- this is not regex syntax: use ... for 'any words' and _ for 'one word' (the AI's full answer: /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/output/writer_3-79_20261110_212818.txt)
+  Asking claude-haiku-4-5 to write the rule (usually under a minute)...
+
+## 3-79
+<!-- written by claude-haiku-4-5 on 2026-11-10; edit freely -->
+**Point:** Expressing "already" with 都⋯⋯了, emphasizing that something has already happened with a tone implying the speaker's attitude
+**Covers:** Sentences with 都 followed by a predicate (verb or adjective) and 了, where 都 appears at or near the start of a clause and emphasizes completion/state change
+**Does not cover:** Uses of 都 meaning "all/everyone" (with quantified subjects or question words), 都 with 已经, 都 with 从来, 都 in 不管/无论/何况/连 constructions, 都 with 全, 都 with 除了, or 都 meaning "no matter what/when"
+
+```rule
+match: ^ 都/AD ... /AS|SP|VA|VV ... 了/AS|SP
+unless: ^ 都/AD ... /DT ... 都/AD
+unless: ^ 都/AD ... /CS
+unless: ^ 都/AD ... 从来/AD
+unless: ^ 都/AD ... 不管/CS
+unless: ^ 都/AD ... 无论/CS
+unless: ^ 都/AD ... 连/AD
+unless: ^ 都/AD ... 全|全都
+unless: ^ 除了/P
+unless: _ 什么 ... 都/AD
+unless: _ 谁 ... 都/AD
+unless: _ 哪|哪儿|哪里 ... 都/AD
+unless: _ 什么时候 ... 都/AD
+unless: _ 怎么 ... 都/AD
+unless: _ 多少 ... 都/AD
+unless: ^ ... 也/AD 都/AD
+unless: 何况/AD
+unless: 更不用说
+```
+
+**Notes:** The pattern requires 都 at or near the clause start (^ 都) followed eventually by a completed action or state (marked by 了), with a verb or adjective in between. The unless clauses exclude all the confounding uses from the HSK grammar list: quantifier+都, question words+都, 从来都, and all the special constructions (不管, 无论, 连, etc.). The rule looks for AS (aspect particle like 过), SP (sentence-final 了), or VA/VV tags as predicates to catch both verb and adjective forms. The pattern avoids matching when a determiner precedes 都 (ruling out "每天都" type patterns) or when there's an intervening CS (subordinating conjunction).
+
+Written to /Users/spanishatlas/Documents/GitHub/learning-mandarin/data_pipelines/textbook/test_scripts/grammar_rules.md. Next: validate --code 3-79
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-79: rule on labeled examples (no AI) ===
+  examples of 3-79 matched:    10/12
+  counter-examples wrongly matched: 0/157   <- should be 0
+
+--- examples of 3-79 the rule misses (2) ---
+  都十二点了，你还不睡？  -- ASGT1CIR Expressing "already" with "dou"
+  都十一点了，你别看电视了。  -- HSK list example
+
+########## guard check  2026-11-10 21:32 ##########
+
+########## guard check  2026-11-11 14:25 ##########
+
+########## rules  2026-11-12 17:32 ##########
+Tagging 1 labeled example(s) (cached after this run)...
+  ...100/169
+  Asking claude-sonnet-5-5 to revise the rule (usually under a minute)...
+
+=== A. 3-79: rule on labeled examples (no AI) ===
+  examples of 3-79 matched:    12/12
+  counter-examples wrongly matched: 0/157   <- should be 0
+  easy examples (words all HSK 3 or below) matched: 6/6   <- needs 80%
+
+########## guard check  2026-11-12 17:35 ##########
+
+########## guard check  2026-11-12 21:14 ##########
+
+########## guard check  2026-11-13 13:53 ##########
+
+########## guard check  2026-11-13 14:39 ##########
+
+########## guard check  2026-11-14 14:14 ##########
+
+########## guard check  2026-11-14 16:05 ##########
+
+########## guard check  2026-11-14 16:29 ##########

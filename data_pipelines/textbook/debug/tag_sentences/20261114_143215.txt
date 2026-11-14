@@ -1,0 +1,18 @@
+2026-11-14 14:32:15,902  INFO     === tag_sentences.py run started ===
+2026-11-14 14:32:15,929  INFO     OK        hanlp-valid   '他只会说汉语。' -> [('他', 'PN'), ('只', 'AD'), ('会', 'VV'), ('说', 'VV'), ('汉语', 'NN')]
+2026-11-14 14:32:15,932  INFO     TAGGED    '他只会说汉语。' (level 1, 5 tags)
+2026-11-14 14:32:15,944  INFO     FALLBACK  '我只买了一件衣服。' -- out-of-list word(s): ['一件']
+2026-11-14 14:32:15,944  WARNING    HAIKU resegment call for '我只买了一件衣服。' (cache miss on [('一件', 'CD')])
+2026-11-14 14:32:15,961  INFO     TAGGED    '我只买了一件衣服。' (level 1, 7 tags)
+2026-11-14 14:32:15,973  INFO     FALLBACK  '你只喝水吗？' -- out-of-list word(s): ['喝水']
+2026-11-14 14:32:15,973  WARNING    HAIKU resegment call for '你只喝水吗？' (cache miss on [('喝水', 'VV')])
+2026-11-14 14:32:15,989  INFO     TAGGED    '你只喝水吗？' (level 1, 5 tags)
+2026-11-14 14:32:16,000  INFO     FALLBACK  '他只说了一个字。' -- out-of-list word(s): ['一个']
+2026-11-14 14:32:16,000  INFO       CACHE-ONLY resegmentation -> [('他', 'PN'), ('只', 'AD'), ('说', 'VV'), ('了', 'AS'), ('一', 'CD'), ('个', 'M'), ('字', 'NN')]
+2026-11-14 14:32:16,003  INFO     TAGGED    '他只说了一个字。' (level 1, 7 tags)
+2026-11-14 14:32:16,015  INFO     OK        hanlp-valid   '我今天只上了半天班。' -> [('我', 'PN'), ('今天', 'NT'), ('只', 'AD'), ('上', 'VV'), ('了', 'AS'), ('半天', 'NT'), ('班', 'NN')]
+2026-11-14 14:32:16,018  INFO     TAGGED    '我今天只上了半天班。' (level 3, 7 tags)
+2026-11-14 14:32:16,038  INFO     OK        hanlp-valid   '我们只能坐火车去。' -> [('我们', 'PN'), ('只能', 'AD'), ('坐', 'VV'), ('火车', 'NN'), ('去', 'VV')]
+2026-11-14 14:32:16,041  INFO     TAGGED    '我们只能坐火车去。' (level 3, 5 tags)
+2026-11-14 14:32:16,052  INFO     OK        hanlp-valid   '这家店只卖牛奶和面包。' -> [('这', 'DT'), ('家', 'M'), ('店', 'NN'), ('只', 'AD'), ('卖', 'VV'), ('牛奶', 'NN'), ('和', 'CC'), ('面包', 'NN')]
+2026-11-14 14:32:16,055  INFO     TAGGED    '这家店只卖牛奶和面包。' (level 1, 8 tags)

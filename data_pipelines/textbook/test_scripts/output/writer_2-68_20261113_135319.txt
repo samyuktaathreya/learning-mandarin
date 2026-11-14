@@ -1,0 +1,18 @@
+<!-- model: claude-sonnet-5-5; stop_reason: end_turn; prompt: 6570 characters -->
+## 2-68
+<!-- written by claude-haiku-4-5 on 2026-11-13; edit freely -->
+**Point:** Cause and effect compound sentences (因果复句) using 因为, 所以, or both
+**Covers:** Sentences with two clauses showing an explicit cause-effect relationship: (1) Result + 因为 + Reason; (2) Reason + 所以 + Result; (3) 因为 + Cause + 所以 + Effect.
+**Does not cover:** Sentences using 因为...而... (HSK 3-25 / the 而 construction); sentences using 由于 or 因此 (HSK 3-71); implicit cause-effect between clauses with no conjunction (too ambiguous to detect reliably).
+
+```rule
+match: ... ‖ 因为 ...
+match: ... ‖ 所以 ...
+match: 因为 ... ‖ ... 所以 ...
+match: ^ 因为 ... 所以 ...
+unless: 而
+unless: 由于
+unless: 因此
+```
+
+**Notes:** The old fourth pattern, which matched any two clauses with predicates, was removed. It matched many unrelated sentences, such as parallel clauses and condition clauses. Only sentences with an explicit 因为 or 所以 marking a clause now match. Sentences with 而, 由于 or 因此 are excluded. The pattern 因为 inside a single clause with 所以 is also covered by the last match line.

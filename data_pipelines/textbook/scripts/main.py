@@ -4,14 +4,18 @@ SQL-based textbook data pipeline runner (hsk-sentences-audio version).
 STAGES, in order:
   once, over everything:
     1. load_hsk_lists     vocab list (2025 syllabus + overrides, radicals) + grammar points list
+                          (levels moved per data/grammar/) + grammar explanations
     1b. group_meanings    (levels you build) one AI call per word, once: synonym meanings
                           ("to look for" / "to find") become one meaning; saved to
                           data/raw/meaning_groups.json, editable, kept across --reset-db
     2. import_hsa         hsk-sentences-audio sentences, bare (no unit, no tags)
+    2b. import_extra_sentences  the grammar trial's Tatoeba + AI-written sentences
+                          (data/grammar/selected_sentences.csv), bare, labelled by source
     3. tag_sentences      words, POS tags, readings, senses for the main reading,
                           sentence levels from words
-    4. detect_grammar     rule-based grammar links; recomputes levels and moves
-                          HSK 1 sentences with higher grammar up
+    4. detect_grammar     grammar links with the tested rules (data/grammar/) where a point
+                          has one, the old detectors otherwise; recomputes levels and moves
+                          sentences with higher grammar up
   for the levels you build:
     4a. review_sentences  one AI call per sentence: grammar or word meanings beyond
                           its level? too hard -> moves up a level (verdicts kept)
@@ -68,6 +72,7 @@ STAGES = [
     ("lists",     "load_hsk_lists",   False),
     ("meanings",  "group_meanings",   "levels"),   # once per word, kept across --reset-db
     ("import",    "import_hsa",       False),
+    ("extra",     "import_extra_sentences", False),
     ("tag",       "tag_sentences",    False),
     ("grammar",   "detect_grammar",   False),
     ("review",    "review_sentences", "levels"),   # one call with every level

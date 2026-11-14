@@ -1,0 +1,21 @@
+<!-- model: claude-haiku-4-5; stop_reason: end_turn; prompt: 6077 characters -->
+## 2-27
+**Point:** Expressing distance between two places using 离 (lí)
+**Covers:** Sentences with the structure: [Place/Person] + 离 + [Place/Person] + (有/很/太/多 etc.) + (近/远/多远) to express how far or close one place is from another
+**Does not cover:** Other uses of 离 such as: 离开 (to leave), 撤离 (to evacuate), 远离 (to distance oneself from), 离婚 (to divorce), 脱离 (to break free from), or 离 as a main verb in separative constructions
+
+```rule
+match: _ 离/P _ ... 近/VA
+match: _ 离/P _ ... 远/VA
+match: _ 离/P _ 有/VE ...
+match: _ 离/P _ 多/AD 远/VA
+unless: 离开/VV
+unless: 撤离/VV
+unless: 远离/VV
+unless: 离婚/VV
+unless: 脱离/VV
+unless: 离/VV _ 开/VV
+unless: 分离/VV
+```
+
+**Notes:** The rule requires 离 to be tagged as P (preposition), which distinguishes it from 离 as a main verb in other constructions. The patterns capture the common distance expressions: with 近 (close), with 远 (far), with 有 (indicating existence of distance), and with 多远 (how far). Multiple unless clauses exclude verbs that contain 离 as a component but represent different grammar points.

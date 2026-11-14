@@ -1,0 +1,32 @@
+2026-11-14 16:12:51,371  INFO     === tag_sentences.py run started ===
+2026-11-14 16:12:51,409  INFO     FALLBACK  '昨天下了一场大雨。' -- out-of-list word(s): ['大雨']
+2026-11-14 16:12:51,409  WARNING    HAIKU resegment call for '昨天下了一场大雨。' (cache miss on [('大雨', 'NN')])
+2026-11-14 16:12:51,430  INFO     TAGGED    '昨天下了一场大雨。' (level 4, 7 tags)
+2026-11-14 16:12:51,448  INFO     OK        hanlp-valid   '我昨天看了一场电影。' -> [('我', 'PN'), ('昨天', 'NT'), ('看', 'VV'), ('了', 'AS'), ('一', 'CD'), ('场', 'M'), ('电影', 'NN')]
+2026-11-14 16:12:51,451  INFO     TAGGED    '我昨天看了一场电影。' (level 4, 7 tags)
+2026-11-14 16:12:51,468  INFO     OK        hanlp-valid   '今天下午我们踢了一场足球。' -> [('今天', 'NT'), ('下午', 'NT'), ('我们', 'PN'), ('踢', 'VV'), ('了', 'AS'), ('一', 'CD'), ('场', 'M'), ('足球', 'NN')]
+2026-11-14 16:12:51,471  INFO     TAGGED    '今天下午我们踢了一场足球。' (level 4, 8 tags)
+2026-11-14 16:12:51,487  INFO     FALLBACK  '他一个星期去两次超市。' -- out-of-list word(s): ['一个星期', '两次']
+2026-11-14 16:12:51,487  WARNING    HAIKU resegment call for '他一个星期去两次超市。' (cache miss on [('两次', 'CD')])
+2026-11-14 16:12:51,509  INFO     TAGGED    '他一个星期去两次超市。' (level 2, 8 tags)
+2026-11-14 16:12:51,526  INFO     FALLBACK  '你多长时间给妈妈打一次电话？' -- out-of-list word(s): ['一次']
+2026-11-14 16:12:51,526  WARNING    HAIKU resegment call for '你多长时间给妈妈打一次电话？' (cache miss on [('一次', 'CD')])
+2026-11-14 16:12:51,544  INFO     TAGGED    '你多长时间给妈妈打一次电话？' (level 2, 10 tags)
+2026-11-14 16:12:51,570  INFO     FALLBACK  '请问一下，洗手间在哪儿？' -- out-of-list word(s): ['一下']
+2026-11-14 16:12:51,570  INFO       CACHE-ONLY resegmentation -> [('请问', 'VV'), ('一', 'CD'), ('下', 'M'), ('洗手间', 'NN'), ('在', 'VV'), ('哪儿', 'PN')]
+2026-11-14 16:12:51,573  INFO     TAGGED    '请问一下，洗手间在哪儿？' (level 2, 6 tags)
+2026-11-14 16:12:51,589  INFO     FALLBACK  '他去过两回中国。' -- out-of-list word(s): ['两回']
+2026-11-14 16:12:51,589  WARNING    HAIKU resegment call for '他去过两回中国。' (cache miss on [('两回', 'AD')])
+2026-11-14 16:12:51,607  INFO     TAGGED    '他去过两回中国。' (level 2, 6 tags)
+2026-11-14 16:12:51,625  INFO     FALLBACK  '我一个星期洗两次衣服。' -- out-of-list word(s): ['一个', '两次']
+2026-11-14 16:12:51,625  WARNING    HAIKU resegment call for '我一个星期洗两次衣服。' (cache miss on [('两次', 'CD')])
+2026-11-14 16:12:51,648  INFO     TAGGED    '我一个星期洗两次衣服。' (level 2, 8 tags)
+2026-11-14 16:12:51,665  INFO     FALLBACK  '你穿一下这件衣服吧。' -- out-of-list word(s): ['一下']
+2026-11-14 16:12:51,665  INFO       CACHE-ONLY resegmentation -> [('你', 'PN'), ('穿', 'VV'), ('一', 'CD'), ('下', 'M'), ('这', 'DT'), ('件', 'M'), ('衣服', 'NN'), ('吧', 'SP')]
+2026-11-14 16:12:51,668  INFO     TAGGED    '你穿一下这件衣服吧。' (level 1, 8 tags)
+2026-11-14 16:12:51,687  INFO     FALLBACK  '妈妈给我打了三次电话。' -- out-of-list word(s): ['三次']
+2026-11-14 16:12:51,687  WARNING    HAIKU resegment call for '妈妈给我打了三次电话。' (cache miss on [('三次', 'JJ')])
+2026-11-14 16:12:51,705  INFO     TAGGED    '妈妈给我打了三次电话。' (level 2, 8 tags)
+2026-11-14 16:12:51,721  INFO     FALLBACK  '你帮我看一下电脑吧。' -- out-of-list word(s): ['一下']
+2026-11-14 16:12:51,721  INFO       CACHE-ONLY resegmentation -> [('你', 'PN'), ('帮', 'VV'), ('我', 'PN'), ('看', 'VV'), ('一', 'CD'), ('下', 'M'), ('电脑', 'NN'), ('吧', 'SP')]
+2026-11-14 16:12:51,724  INFO     TAGGED    '你帮我看一下电脑吧。' (level 2, 8 tags)

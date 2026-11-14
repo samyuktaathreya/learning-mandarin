@@ -1,0 +1,39 @@
+<!-- model: claude-sonnet-5-5; stop_reason: max_tokens; prompt: 16676 characters -->
+## 1-36
+<!-- written by claude-sonnet-5-5 on 2026-11-09; edit freely -->
+**Point:** 是-sentences that connect nouns, plus the "是……的" patterns: purpose (来/去 + Verb + 的, 用来 + Verb + 的, 给 + Person + Verb + 的), distinguishing words (是 + adjective + 的), and 会/能/可以 + Verb + 的.
+**Covers:** Subject + 是 + Noun/Pronoun (他是老师, 这是他的书, 他们是有钱人); 是…吗 and 是不是 questions; Location + 是 + Noun (袋子里是我的午饭); Person + 是 + 来/去 + Verb + 的 (我是来实习的); Thing + 是 + 用来/给 … + 的; 是 + distinguishing word/adjective + 的 (那个人是女的); 会/能/可以 + Verb + 的 (我会去的).
+**Does not cover:** 于是, 凡是, 要不是, 要是, 还是, 不是…就是, 老是/总是, 很是, 有的是, 就是, 岂不是, 是否, 不愧是, 不是…而是, and the other 是 patterns on the exclusion list.
+
+```rule
+match: /PN|NN|NR|DT 都|也/AD? 是/VC /NN|NR|PN|DT|CD|VE
+match: /LC 都|也/AD? 是/VC /NN|NR|PN|DT|CD|NT
+match: /PN 是/VC 吗/SP
+match: /PN 是/VC 不/AD 是/VC
+match: ^ 是/VC 不/AD 是/VC $
+match: ^ 是/VC 吗/SP $
+match: 是/VC 来|去/VV ... 的/SP|DEC|DEG
+match: 是/VC 用来/VV ... 的/SP|DEC|DEG
+match: 是/VC 给/P|VV ... 的/SP|DEC|DEG
+match: 是/VC /JJ 的/DEG $
+match: 是/VC /JJ /NN 的/DEG $
+match: 是/VC /VA 的/DEC $
+match: 是/VC 可以/VV /VV 的/SP $
+match: ^ /PN 会|能/VV /VV /VV? 的/SP $
+unless: 于是
+unless: 凡是
+unless: 要是
+unless: 老是
+unless: 总是
+unless: 很是
+unless: 就是
+unless: 是否
+unless: 不愧
+unless: 还是
+unless: 或是
+unless: 为的是
+unless: 岂不
+unless: 那倒
+unless: 有的是
+unless: 有的/PN 是/VC
+unless: 就/AD 

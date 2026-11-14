@@ -11,12 +11,16 @@
  *   begin()   starts a take -> { write(int16Chunk), end(), cancel() }
  *     write   send ~100 ms of 16 kHz audio as it's recorded
  *     end     no more audio; resolves to the raw result:
- *               { kind: 'ok', text, lexical?, accuracy?, phonemes? }
+ *               { kind: 'ok', text, lexical?, accuracy?, phonemes?, words? }
  *               { kind: 'no_speech' } | { kind: 'timeout' } | { kind: 'error', message }
  *     cancel  drop the take (e.g. the mic closed mid-take)
  *
  * mode 'assessment':    pronunciation assessment against referenceText (words)
  * mode 'transcription': plain transcription, any length (sentences)
+ *
+ * words (assessment only): what Azure scored, in reference order:
+ *   [{ word, accuracy, errorType, syllables: [{ syllable, grapheme, accuracy }] }]
+ *   errorType: 'None' | 'Mispronunciation' | 'Omission' | 'Insertion' | ...
  *
  * A prepared recognition is good for one take; prepare another for a retry.
  */
@@ -213,7 +217,25 @@ function parseAssessment(sdk, result) {
             phoneme: p.Phoneme,
             accuracy: p.PronunciationAssessment?.AccuracyScore,
         }))),
+        words: scoredWords(sdk, result),
     };
+}
+
+// Word and syllable scores, or [] if the result wasn't scored.
+function scoredWords(sdk, result) {
+    const words = rawJson(sdk, result)?.NBest?.[0]?.Words ?? [];
+    return words
+        .filter((w) => w.PronunciationAssessment)
+        .map((w) => ({
+            word: w.Word ?? '',
+            accuracy: w.PronunciationAssessment.AccuracyScore,
+            errorType: w.PronunciationAssessment.ErrorType ?? 'None',
+            syllables: (w.Syllables ?? []).map((syl) => ({
+                syllable: syl.Syllable,
+                grapheme: syl.Grapheme,
+                accuracy: syl.PronunciationAssessment?.AccuracyScore,
+            })),
+        }));
 }
 
 function rawJson(sdk, result) {

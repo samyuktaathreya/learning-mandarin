@@ -89,6 +89,7 @@ RULES_PATH = TEST_DIR / "grammar_rules.md"
 SOURCES_PATH = TEST_DIR / "grammar_sources.json"
 HIDDEN_PATH = TEST_DIR / "hidden_words.json"
 MANUAL_PATH = TEST_DIR / "manual_points.json"
+EXAMPLE_LEVELS_PATH = TEST_DIR / "grammar_level_by_examples.json"   # written by run_all_grammar.py
 LEVELS_PATH = TEST_DIR / "grammar_level_overrides.json"   # 2025-syllabus levels (match_grammar_levels.py)     # hand-written words/pages for points the AI can't match
 BATCH_STATE_PATH = TEST_DIR / "output" / "batch" / "state.json"
 ASG_PATH = DATA_DIR / "intermediate" / "allsetlearning" / "asg_points.json"
@@ -98,6 +99,10 @@ DEFAULT_TSV = DATA_DIR / "intermediate" / "tatoeba" / "cmn_filtered.tsv"
 
 WRITER_MODEL = "claude-sonnet-5-5"
 CHECK_MODEL = "claude-haiku-4-5"
+# Judges the labeled test itself (does a counter-example contain the point? does a guard's flag go
+# beyond the easier point?) -- few sentences, and they decide which rules are trusted, so the
+# stronger model. Haiku got 只好不买了 ("had to not buy") wrong for 不 negation.
+JUDGE_MODEL = "claude-sonnet-5-5"
 WORKERS = 8
 CHECK_BATCH = 20              # sentences per check call
 DEFAULT_TARGET = 20           # tatoeba: good sentences wanted per point at the level
@@ -177,13 +182,42 @@ def apply_level_overrides():
     from app.textbook.models import GrammarTip
     if Path(engine.url.database).resolve() != SCRATCH_DB.resolve():
         raise SystemExit("Safety stop: level overrides are only applied to the scratch copy.")
-    moves = {c: v for c, v in load_json(LEVELS_PATH, {}).items() if not c.startswith("_") and isinstance(v, dict)}
-    if not moves:
-        return
-    with get_session() as db:
-        for tip in db.query(GrammarTip).filter(GrammarTip.grammar_code.in_(list(moves))).all():
-            tip.hsk_level = int(moves[tip.grammar_code]["level"])
-    print(f"2025-syllabus levels applied to {len(moves)} grammar point(s) ({LEVELS_PATH.name})")
+    for path, what in ((LEVELS_PATH, "2025-syllabus levels"),
+                       (EXAMPLE_LEVELS_PATH, "Levels from the points' own examples")):
+        moves = {c: v for c, v in load_json(path, {}).items() if not c.startswith("_") and isinstance(v, dict)}
+        if not moves:
+            continue
+        with get_session() as db:
+            for tip in db.query(GrammarTip).filter(GrammarTip.grammar_code.in_(list(moves))).all():
+                tip.hsk_level = int(moves[tip.grammar_code]["level"])
+        print(f"{what} applied to {len(moves)} grammar point(s) ({path.name})")
+    drop_imported_sentences()
+
+
+def drop_imported_sentences():
+    """The trial picks Tatoeba / AI sentences for what the COURSE lacks. Once
+    the pipeline has imported earlier picks (source tatoeba / ai_generated),
+    they would count as course sentences and the trial would pick nothing --
+    so they are removed from the scratch copy (with their tags, grammar links
+    and questions). The real database is never touched."""
+    from app.textbook.db_utils import engine
+    if Path(engine.url.database).resolve() != SCRATCH_DB.resolve():
+        raise SystemExit("Safety stop: imported sentences are only removed from the scratch copy.")
+    imported = "(SELECT id FROM sentences WHERE source IN ('tatoeba', 'ai_generated'))"
+    with engine.begin() as conn:
+        n = conn.exec_driver_sql(f"SELECT COUNT(*) FROM sentences WHERE id IN {imported}").scalar()
+        if not n:
+            return
+        for sql in (f"DELETE FROM question_grammar WHERE question_id IN "
+                    f"(SELECT id FROM questions WHERE sentence_id IN {imported})",
+                    f"DELETE FROM questions WHERE sentence_id IN {imported}",
+                    f"DELETE FROM fitb_questions WHERE sentence_id IN {imported}",
+                    f"DELETE FROM sentence_grammar WHERE sentence_id IN {imported}",
+                    f"DELETE FROM sentence_vocab WHERE sentence_id IN {imported}",
+                    f"DELETE FROM sentences WHERE id IN {imported}"):
+            conn.exec_driver_sql(sql)
+    print(f"Left out of the trial: {n} sentence(s) the pipeline imported from earlier picks "
+          "(Tatoeba / AI-written) -- the trial picks against the real course only")
 
 
 def get_client():
@@ -194,10 +228,21 @@ def get_client():
     return anthropic.Anthropic(api_key=settings.CLAUDE_API_KEY, max_retries=6)
 
 
+def create(client, model: str, prompt: str, max_tokens: int):
+    """One API call. If the model used up max_tokens before writing any
+    text (it can spend them thinking first -- the empty 1-40 answers), ask
+    again with 4x the room, up to 32000 tokens."""
+    while True:
+        response = client.messages.create(model=model, max_tokens=max_tokens,
+                                          messages=[{"role": "user", "content": prompt}])
+        text = "".join(b.text for b in response.content if hasattr(b, "text"))
+        if text.strip() or getattr(response, "stop_reason", "") != "max_tokens" or max_tokens >= 32000:
+            return response, text
+        max_tokens = min(32000, max_tokens * 4)
+
+
 def call(client, model: str, prompt: str, max_tokens: int) -> str:
-    response = client.messages.create(model=model, max_tokens=max_tokens,
-                                      messages=[{"role": "user", "content": prompt}])
-    return "".join(b.text for b in response.content if hasattr(b, "text"))
+    return create(client, model, prompt, max_tokens)[1]
 
 
 def load_json(path: Path, default):
@@ -318,6 +363,15 @@ class Point:
         self.positives = {h: src for h, src in pos.items() if h not in neg}
         self.negatives = {h: src for h, src in neg.items() if h not in pos}
 
+    def short_def(self) -> str:
+        """A few lines: label, structures and examples of its "is" pages."""
+        out = [f"{self.code} (HSK {self.level}): {self.label}"]
+        for p in self.is_pages[:3]:
+            st = " | ".join(dict.fromkeys(p["structures"][:3]))
+            ex = "; ".join(e["hanzi"] for e in p["examples"][:3])
+            out.append(f"  - {p['title']}: {st}" + (f"  e.g. {ex}" if ex else ""))
+        return "\n".join(out)
+
     def context(self, full=True) -> str:
         """The definition every AI call gets. full=False: shorter, for the
         per-sentence checks."""
@@ -426,6 +480,12 @@ class Tagger:
         self.cache = {} if retag else load_json(TAG_CACHE_PATH, {})
         if self.cache.get("_v") != TAG_CACHE_VERSION:
             self.cache = {"_v": TAG_CACHE_VERSION}
+        self.aliases = erhua_aliases(db)
+        # sentences tagged before the aliases existed are tagged again (no AI, just HanLP)
+        stale = [h for h, r in self.cache.items() if h != "_v" and isinstance(r, dict)
+                 and r.get("erhua") != 2 and any(a in h for a in self.aliases)]
+        for h in stale:
+            self.cache.pop(h, None)
         self.n = 0
 
     def _setup(self):
@@ -437,6 +497,27 @@ class Tagger:
         self.ts, self.dg = ts, dg
         if not RESEGMENT:
             ts.haiku_resegment_sentence = lambda hanzi, logger: ts.segment_sentence(hanzi)
+        if self.aliases and not getattr(ts.segment_sentence, "_erhua", False):
+            plain, aliases = ts.segment_sentence, self.aliases
+
+            def segment_with_erhua(hanzi):
+                """HanLP's 有点 is the list's 有点儿: same word, written without 儿."""
+                words = plain(hanzi)
+                out, skip = [], False
+                for i, (w, p) in enumerate(words):
+                    if skip:                     # the 儿 just joined to the word before it
+                        skip = False
+                        continue
+                    nxt = words[i + 1][0] if i + 1 < len(words) else ""
+                    if (w in aliases and p not in ("NT", "NUM")
+                            and not (w == "一点" and nxt[:1] in "半钟刻零多一二三四五六七八九十")):
+                        w, skip = aliases[w], nxt == "儿"     # 面条 + 儿 -> 面条儿, not 面条儿 + 儿
+                    out.append((w, p))
+                return out
+            segment_with_erhua._erhua = True
+            ts.segment_sentence = segment_with_erhua
+            print(f"  Written without 儿, counted as the list word: "
+                  f"{' '.join(f'{k}={v}' for k, v in sorted(aliases.items()))}", flush=True)
         logger, _ = ts.setup_logging()
         self.run = ts.Run(logger, hvs.load_entries(str(ts.VOCAB_PATH)),
                           get_vocab_hanzi_through_level(self.db, hvs.MAX_LEVEL),
@@ -474,6 +555,7 @@ class Tagger:
             else:
                 bump = None                      # already a pipeline sentence: its stored tags
             res = self._result(s, bump)
+            res["erhua"] = 2                     # tagged with the current 儿 handling
             self.cache[hanzi] = res
         except Exception as e:
             res = {"error": f"{e!r}"[:200]}
@@ -499,6 +581,20 @@ class Tagger:
         save_json(TAG_CACHE_PATH, self.cache)
         if self.ready:
             self.ts.save_segmentation_cache(self.run.seg_cache)
+
+
+ERHUA_NOT_SAME = {"一块儿", "早点儿"}   # 一块 = "one piece/yuan", 早点 = "breakfast": not the 儿 word
+
+
+def erhua_aliases(db) -> dict:
+    """{有点: 有点儿, 一点: 一点儿, 一会: 一会儿, ...}: list words ending in 儿
+    whose form without 儿 (2+ characters) isn't on the list itself. Tatoeba
+    mostly writes them without 儿, which tagging used to split (有 + 点) or
+    leave off the list."""
+    from app.textbook.models import Vocab
+    listed = {h for (h,) in db.query(Vocab.hanzi).filter(Vocab.hsk_level.isnot(None)).all()}
+    return {h[:-1]: h for h in listed
+            if h.endswith("儿") and len(h) >= 3 and h[:-1] not in listed and h not in ERHUA_NOT_SAME}
 
 
 def harder_points_with_easy_words(db, level: int) -> list[tuple]:
@@ -541,7 +637,8 @@ def judge_hidden_words(db, model: str, todo: dict, verdicts: dict):
         for w in chunk:
             v = str(answer.get(w, "")).lower()
             if v in ("clear", "hidden"):
-                verdicts[w] = {"verdict": v, "parts": " + ".join(todo[w][0]), "gloss": todo[w][1], "by": model}
+                verdicts[w] = {"verdict": v, "parts": " + ".join(todo[w][0]), "gloss": todo[w][1], "by": model,
+                               "v": HIDDEN_VERSION}
             else:                                   # not decided: hidden this run, asked again next run
                 verdicts.setdefault("_undecided_this_run", {})[w] = True
     undecided = verdicts.pop("_undecided_this_run", {})
@@ -556,9 +653,11 @@ def judge_hidden_words(db, model: str, todo: dict, verdicts: dict):
             print(f"    {verdicts[w]['verdict']:>6}  {w} = {verdicts[w]['parts']}  ({verdicts[w]['gloss'][:40]})")
 
 
+HIDDEN_VERSION = 2
 HIDDEN_README = ("Dictionary words the course splits into listed parts (从没 = 从 + 没), and whether a learner "
                  "who knows the parts understands the word untaught. hidden = no: a sentence with the word is "
-                 "dropped. clear = fine. Written by try_grammar_rule.py; edit freely (change hidden <-> clear).")
+                 "dropped. clear = fine. Written by try_grammar_rule.py; edit freely (change hidden <-> clear, and "
+                 "set \"by\": \"hand\" so a later version never asks the AI again).")
 
 
 def full_dictionary(hsk_words: dict) -> dict:
@@ -573,7 +672,7 @@ def full_dictionary(hsk_words: dict) -> dict:
     for entry in cepy_dict.entries():
         simplified, definitions = (entry[2] or "").strip(), entry[4]
         if simplified and simplified not in out:
-            out[simplified] = definitions[0] if definitions else ""
+            out[simplified] = "; ".join(definitions[:4]) if definitions else ""   # all its common meanings
     return out
 
 
@@ -588,8 +687,9 @@ def hidden_words(words: list[str], dictionary: dict, listed: set, skip=()) -> li
         for i in range(len(words) - n + 1):
             w = "".join(words[i:i + n])
             if (w in dictionary and w not in listed and not any(w in o[0] for o in out)
+                    and w not in skip and w + "儿" not in listed
                     and not any(part in skip for part in words[i:i + n])):
-                out.append((w, words[i:i + n], str(dictionary[w])[:60]))
+                out.append((w, words[i:i + n], str(dictionary[w])[:150]))
     return out
 
 
@@ -612,11 +712,11 @@ def as_clauses(res: dict):
 _cache_lock = threading.Lock()
 
 
-def check_key(point: Point, hanzi: str, english) -> str:
-    return json.dumps([gr.CHECK_VERSION, CHECK_MODEL, point.code, hanzi, english or []], ensure_ascii=False)
+def check_key(point: Point, hanzi: str, english, model: str | None = None) -> str:
+    return json.dumps([gr.CHECK_VERSION, model or CHECK_MODEL, point.code, hanzi, english or []], ensure_ascii=False)
 
 
-def run_checks(client, point: Point, jobs: list[dict], n: int, cache: dict) -> dict:
+def run_checks(client, point: Point, jobs: list[dict], n: int, cache: dict, model: str | None = None) -> dict:
     """jobs: [{"hanzi", "tagged", "english"}]. Makes sure every job has n
     independent answers in the cache; returns {hanzi: [answers]}. Each pass
     sends CHECK_BATCH sentences per call (the definition once per call), in
@@ -625,12 +725,13 @@ def run_checks(client, point: Point, jobs: list[dict], n: int, cache: dict) -> d
     failed = defaultdict(list)
     context = point.context(full=False)
     calls = 0
+    model = model or CHECK_MODEL
 
     def one(chunk):
         items = [{"n": k + 1, "hanzi": j["hanzi"], "tagged": j["tagged"], "english": j["english"]}
                  for k, j in enumerate(chunk)]
         try:
-            answers = gr.extract_json_array(call(client, CHECK_MODEL, gr.check_batch_prompt(point.code, context, items),
+            answers = gr.extract_json_array(call(client, model, gr.check_batch_prompt(point.code, context, items),
                                                  150 + 90 * len(items)))
             by_n = {int(a["n"]): a for a in answers if isinstance(a, dict) and "n" in a}
         except Exception as e:
@@ -646,10 +747,10 @@ def run_checks(client, point: Point, jobs: list[dict], n: int, cache: dict) -> d
                  **({"english": a.get("english") if isinstance(a.get("english"), int)
                      and 0 <= a["english"] < len(j["english"]) else None} if j["english"] is not None else {})}
             with _cache_lock:
-                cache.setdefault(check_key(point, j["hanzi"], j["english"]), []).append(a)
+                cache.setdefault(check_key(point, j["hanzi"], j["english"], model), []).append(a)
 
     for pass_no in range(n):
-        todo = [j for j in jobs if len(cache.get(check_key(point, j["hanzi"], j["english"]), [])) <= pass_no
+        todo = [j for j in jobs if len(cache.get(check_key(point, j["hanzi"], j["english"], model), [])) <= pass_no
                 and not failed[j["hanzi"]]]
         if not todo:
             continue
@@ -659,9 +760,9 @@ def run_checks(client, point: Point, jobs: list[dict], n: int, cache: dict) -> d
         with ThreadPoolExecutor(max_workers=WORKERS) as pool:
             list(pool.map(one, chunks))
     if calls:
-        print(f"  {calls} check call(s) ({CHECK_BATCH} sentences each)...", flush=True)
+        print(f"  {calls} check call(s) with {model} ({CHECK_BATCH} sentences each)...", flush=True)
         save_json(CACHE_PATH, cache)
-    return {j["hanzi"]: (cache.get(check_key(point, j["hanzi"], j["english"]), []) + failed[j["hanzi"]])[:n]
+    return {j["hanzi"]: (cache.get(check_key(point, j["hanzi"], j["english"], model), []) + failed[j["hanzi"]])[:n]
             for j in jobs}
 
 
@@ -743,8 +844,8 @@ def contains_point(client, point: Point, items: list[tuple[str, str]], cache: di
     def one(chunk):
         listing = [{"n": k, "hanzi": h, "tagged": t} for k, (h, t) in enumerate(chunk, 1)]
         try:
-            answers = gr.extract_json_array(call(client, CHECK_MODEL, gr.contains_prompt(point.code, context, listing),
-                                                 100 + 40 * len(chunk)))
+            answers = gr.extract_json_array(call(client, JUDGE_MODEL, gr.contains_prompt(point.code, context, listing),
+                                                 2000 + 40 * len(chunk)))
             by_n = {int(a["n"]): a for a in answers if isinstance(a, dict) and "n" in a}
         except Exception:
             return
@@ -763,6 +864,38 @@ def contains_point(client, point: Point, items: list[tuple[str, str]], cache: di
     return {h: bool(cache.get(key(h), False)) for h, _ in items}
 
 
+def uses_beyond(client, lower: Point, higher: Point, items: list[tuple[str, str]], cache: dict) -> dict:
+    """{hanzi: True/False} for example sentences of the LOWER point that the
+    HIGHER point's rule flags: does the sentence use the higher point beyond
+    what the lower point already teaches? (The grammar lists overlap: 1-11
+    lists 在 too, but 他在看书 is just 1-42.) Unsure, a failed call or a
+    missing answer -> True: the guard stays (the safe side)."""
+    key = lambda h: json.dumps(["beyond", gr.CONTAINS_VERSION, lower.code, higher.code, h], ensure_ascii=False)
+    todo = [(h, t) for h, t in dict(items).items() if key(h) not in cache]
+
+    def one(chunk):
+        listing = [{"n": k, "hanzi": h, "tagged": t} for k, (h, t) in enumerate(chunk, 1)]
+        try:
+            answers = gr.extract_json_array(call(client, JUDGE_MODEL,
+                                                 gr.beyond_prompt(lower.short_def(), higher.short_def(), listing),
+                                                 2000 + 40 * len(chunk)))
+            by_n = {int(a["n"]): a for a in answers if isinstance(a, dict) and "n" in a}
+        except Exception:
+            return
+        for k, (h, _) in enumerate(chunk, 1):
+            a = by_n.get(k)
+            if a and isinstance(a.get("beyond"), bool):
+                with _cache_lock:
+                    cache[key(h)] = a["beyond"]
+
+    if todo:
+        chunks = [todo[i:i + CHECK_BATCH] for i in range(0, len(todo), CHECK_BATCH)]
+        with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+            list(pool.map(one, chunks))
+        save_json(CACHE_PATH, cache)
+    return {h: cache.get(key(h), True) for h, _ in items}
+
+
 # --------------------------------- WRITE ---------------------------------
 
 def ask_writer(client, point: Point, prompt: str, args, what: str, small_prompt: str | None = None) -> str:
@@ -775,9 +908,7 @@ def ask_writer(client, point: Point, prompt: str, args, what: str, small_prompt:
         p = base if error is None or error == "the answer was empty" else (
             base + f"\n\nYour previous answer could not be used: {error}\nReply again with the corrected section only.")
         print(f"  Asking {args.writer_model} to {what} the rule (usually under a minute)...", flush=True)
-        response = client.messages.create(model=args.writer_model, max_tokens=4000,
-                                          messages=[{"role": "user", "content": p}])
-        answer = "".join(b.text for b in response.content if hasattr(b, "text"))
+        response, answer = create(client, args.writer_model, p, 4000)
         raw = OUT_DIR / f"writer_{point.code}_{datetime.now():%Y%m%d_%H%M%S}.txt"
         raw.write_text(f"<!-- model: {args.writer_model}; stop_reason: {getattr(response, 'stop_reason', '?')}; "
                        f"prompt: {len(p)} characters -->\n{answer}", encoding="utf-8")
@@ -953,10 +1084,16 @@ _TATOEBA = {}
 
 
 def cmd_tatoeba(db, point: Point, args):
+    """Fills a point from Tatoeba -- or, with args.ai_pairs, puts AI-written
+    sentences through exactly the same steps (stricter on vocabulary: no
+    character outside the list, and no second opinion on rejections)."""
+    ai_pairs = getattr(args, "ai_pairs", None)
+    max_unknown = 0 if ai_pairs is not None else MAX_UNKNOWN_CHARS
     try:
         from opencc import OpenCC
     except ImportError:
-        raise SystemExit("pip install opencc-python-reimplemented  (Traditional -> Simplified)")
+        if ai_pairs is None:
+            raise SystemExit("pip install opencc-python-reimplemented  (Traditional -> Simplified)")
     from app.textbook.models import Sentence, Vocab
     from data_pipelines.textbook.scripts import detect_grammar as dg
     from data_pipelines.textbook.scripts import review_sentences as rs
@@ -980,24 +1117,32 @@ def cmd_tatoeba(db, point: Point, args):
                 if isinstance(st, dict) and point.code in (st.get("not_for") or [])}
     harder = {c: r for c, r in rules.items()
               if c != point.code and (level_of.get(c) or 0) > level and c not in failed | not_here}
+    # a rule is only meant for sentences with its point's words (2-09's rule is "a number",
+    # for sentences with 千/万/亿) -- without them it says nothing
+    harder_words = {c: ((batch_state.get(c) if isinstance(batch_state.get(c), dict) else {}).get("words") or "").split()
+                    for c in harder}
     print(f"Harder-grammar rules checked (points above HSK {level} with a rule): "
           f"{', '.join(sorted(harder)) or 'none yet'}")
-    tsv = Path(args.tsv) if args.tsv else DEFAULT_TSV
-    print(f"Tatoeba file: {tsv}\n")
-    if str(tsv) not in _TATOEBA:
-        cc = OpenCC("t2s")
-        loaded = read_tatoeba(tsv)
-        for p in loaded.values():
-            p["hanzi"] = cc.convert(p["original"])
-        _TATOEBA[str(tsv)] = loaded
-    pairs = {tid: dict(p, english=list(p["english"])) for tid, p in _TATOEBA[str(tsv)].items()}
+    if ai_pairs is not None:
+        print(f"AI-written sentences to check: {len(ai_pairs)}\n")
+        pairs = {tid: dict(p, english=list(p["english"])) for tid, p in ai_pairs.items()}
+    else:
+        tsv = Path(args.tsv) if args.tsv else DEFAULT_TSV
+        print(f"Tatoeba file: {tsv}\n")
+        if str(tsv) not in _TATOEBA:
+            cc = OpenCC("t2s")
+            loaded = read_tatoeba(tsv)
+            for p in loaded.values():
+                p["hanzi"] = cc.convert(p["original"])
+            _TATOEBA[str(tsv)] = loaded
+        pairs = {tid: dict(p, english=list(p["english"])) for tid, p in _TATOEBA[str(tsv)].items()}
     funnel, outcome, dropped = Counter(), {}, defaultdict(list)
 
     def drop(tid, step, reason):
         outcome[tid] = (step, reason)
         dropped[step].append((pairs[tid]["hanzi"], reason))
 
-    in_db = {h for (h,) in db.query(Sentence.hanzi).all()}
+    in_db = {h for (h,) in db.query(Sentence.hanzi).all()} | set(getattr(args, "exclude", None) or ())
     from data_pipelines.textbook.scripts import hsk_vocab_source as hvs
     from data_pipelines.textbook.scripts import tag_sentences as ts
     dictionary = full_dictionary(hvs.load_known_words(str(ts.VOCAB_PATH)))
@@ -1017,27 +1162,29 @@ def cmd_tatoeba(db, point: Point, args):
             continue
         funnel["2. contain the point's word(s)"] += 1
         if p["hanzi"] in in_db:
-            drop(tid, "3", "already in the database")
+            drop(tid, "3", "already in the database" if ai_pairs is None else
+                 "already in the course or chosen from Tatoeba")
             continue
         if p["hanzi"] in first_of:
             keep = pairs[first_of[p["hanzi"]]]
             keep["english"] += [e for e in p["english"] if e not in keep["english"]]
-            drop(tid, "3", f"same text as tatoeba {first_of[p['hanzi']]} (translations pooled)")
+            drop(tid, "3", f"same text as {first_of[p['hanzi']]} (translations pooled)")
             continue
         first_of[p["hanzi"]] = tid
         funnel["3. new (not in DB, not a duplicate)"] += 1
         unknown = {ch for ch in _CJK_RE.findall(p["hanzi"]) if ch not in known_chars}
-        if len(unknown) > MAX_UNKNOWN_CHARS:
+        if len(unknown) > max_unknown:
             drop(tid, "4", f"{len(unknown)} characters no HSK {level} word uses: {''.join(sorted(unknown))}")
             continue
-        funnel[f"4. at most {MAX_UNKNOWN_CHARS} characters outside HSK {level} words"] += 1
+        funnel[f"4. at most {max_unknown} characters outside HSK {level} words"] += 1
         candidates.append(tid)
     if args.limit:
         candidates = candidates[:args.limit]
 
     # ---- 5-6: tag, level, rule ----
     tagger = Tagger(db, args.retag)
-    tags = tagger.tag_all([pairs[t]["hanzi"] for t in candidates], "Tatoeba candidate(s)")
+    tags = tagger.tag_all([pairs[t]["hanzi"] for t in candidates],
+                          "Tatoeba candidate(s)" if ai_pairs is None else "AI-written sentence(s)")
     passed_rule = []
     for tid in candidates:
         p = pairs[tid]
@@ -1051,7 +1198,8 @@ def cmd_tatoeba(db, point: Point, args):
             continue
         funnel[f"5. really HSK {level}"] += 1
         clauses = as_clauses(res)
-        too_hard = [c for c, r in harder.items() if r.found(clauses)]
+        too_hard = [c for c, r in harder.items()
+                    if (not harder_words[c] or any(w in p["hanzi"] for w in harder_words[c])) and r.found(clauses)]
         if too_hard:
             drop(tid, "5b", "harder grammar: " + ", ".join(f"{c} (HSK {level_of[c]})" for c in too_hard))
             continue
@@ -1068,7 +1216,14 @@ def cmd_tatoeba(db, point: Point, args):
 
     # ---- 6b: hidden words, decided once per word (hidden_words.json) ----
     verdicts_hw = load_json(HIDDEN_PATH, {})
-    todo = {w: (parts, g) for j in passed_rule for w, parts, g in j["hidden"] if w not in verdicts_hw}
+
+    def needs_verdict(w):
+        v = verdicts_hw.get(w)
+        # "hidden" verdicts from before HIDDEN_VERSION 2 were judged on one dictionary meaning
+        # (不想 "unexpectedly"): asked again with all of them. Hand-set ones ("by": "hand") are kept.
+        return v is None or (isinstance(v, dict) and v.get("verdict") == "hidden"
+                             and v.get("v", 1) < HIDDEN_VERSION and v.get("by") != "hand")
+    todo = {w: (parts, g) for j in passed_rule for w, parts, g in j["hidden"] if needs_verdict(w)}
     if todo:
         judge_hidden_words(db, args.writer_model, todo, verdicts_hw)
     kept = []
@@ -1086,6 +1241,8 @@ def cmd_tatoeba(db, point: Point, args):
     have = [s.hanzi for s in pipeline_sentences(db, point)
             if s.hsk_level == level and rule.found(clauses_of(s))]
     need = max(0, args.target - len(have)) if args.target else len(passed_rule)
+    if getattr(args, "need", None) is not None:          # the AI fill: what Tatoeba left short
+        need = args.need
     print(f"\nCourse sentences at HSK {level} the rule already finds {point.code} in: {len(have)}"
           + (f"  -> Tatoeba needs to add {need} (target {args.target})" if args.target else ""))
 
@@ -1105,7 +1262,8 @@ def cmd_tatoeba(db, point: Point, args):
     review_head = (
         "You are checking example sentences for a Mandarin course for beginners. Every sentence below is "
         f"taught at HSK {level} (2025 syllabus) as an example of grammar point {point.code}: {point.label}. That "
-        "point is taught at this level, so never count it -- or the words it uses -- as too hard.\n\n"
+        f"point is taught at this level, so never count it -- or its words ({'、'.join(point.markers)}) or its "
+        "pattern -- as too hard.\n\n"
         "VOCABULARY IS ALREADY CHECKED: every word of each sentence is in the course's word list for this level, "
         "or is a name. Never reject a sentence because of vocabulary -- you do not have the list.\n\n"
         f"Grammar points learners know ({known}):\n{scope}\n\n"
@@ -1121,18 +1279,22 @@ def cmd_tatoeba(db, point: Point, args):
         "If you are unsure, it is FINE. Judge each sentence on its own.\n\nSENTENCES:\n")
 
     def review_key(j, n):
+        if n == "appeal":                       # the second opinion (JUDGE_MODEL) on a rejected sentence
+            return json.dumps(["review-appeal1", JUDGE_MODEL, point.code, level, j["hanzi"], j["chosen"]],
+                              ensure_ascii=False)
         return json.dumps(["review6", dg.REVIEW_PROMPT_VERSION, point.code, level, j["hanzi"], j["chosen"], n],
                           ensure_ascii=False)
 
     def review_chunk(args_):
         """One call reviews a whole round of sentences (the long grammar list is sent once)."""
         n, chunk = args_
+        model = JUDGE_MODEL if n == "appeal" else rs.HAIKU_MODEL
         listing = "\n".join(f"[{k}] {j['hanzi']}\n    English: {j['chosen']}\n    words: {' / '.join(j['words'])}"
                             for k, j in enumerate(chunk, 1))
         prompt = (review_head + listing + '\n\nRespond with ONLY a JSON array, one object per sentence: '
                   '[{"n": <sentence number>, "ok": true or false, "problems": ["<short reason>", ...]}, ...]')
         try:
-            answers = gr.extract_json_array(call(client, rs.HAIKU_MODEL, prompt, 200 + 120 * len(chunk)))
+            answers = gr.extract_json_array(call(client, model, prompt, 200 + 120 * len(chunk)))
             by_n = {int(a["n"]): a for a in answers if isinstance(a, dict) and "n" in a}
         except Exception:
             return                                   # not cached: counts as too hard this run
@@ -1164,6 +1326,7 @@ def cmd_tatoeba(db, point: Point, args):
         return out
 
     queue = sorted(passed_rule, key=lambda j: len(j["hanzi"]))
+    rejected7, rejected8 = [], []               # Haiku's rejections: a second opinion if the point is short
     for start in range(0, len(queue), CHECK_BATCH):
         if len(survivors) >= need:
             not_checked = len(queue) - start
@@ -1178,8 +1341,10 @@ def cmd_tatoeba(db, point: Point, args):
             nos = [x.get("reason", "") for x in a if not x["uses_point"]]
             if nos:
                 drop(j["tid"], "7", f"check said no ({len(nos)}/2): {nos[0]}")
+                rejected7.append(j)
             elif a[0].get("english") is None:
                 drop(j["tid"], "7", f"no accurate English among: {' | '.join(j['english'])}")
+                rejected7.append(j)
             else:
                 j["chosen"] = j["english"][a[0]["english"]]
                 passed_check.append(j)
@@ -1192,11 +1357,62 @@ def cmd_tatoeba(db, point: Point, args):
                 outcome[j["tid"]] = ("8", "passed")
             else:
                 drop(j["tid"], "8", f"difficulty review: {'; '.join(v.get('problems') or [])}")
+                rejected8.append(j)
+
+    # ---- 7-8 second opinion: only for a point still short of its target ----
+    # Haiku makes clear mistakes (所以 called "HSK 3+" in the point that teaches 所以). JUDGE_MODEL
+    # looks again at what Haiku rejected, and its answer is final. Sentences Haiku passed don't change.
+    if len(survivors) < need and (rejected7 or rejected8) and ai_pairs is None:
+        def undrop(j, step, note):
+            dropped[step] = [x for x in dropped[step] if x[0] != j["hanzi"]]
+            outcome[j["tid"]] = (step, note)
+
+        print(f"  Short of the target: {JUDGE_MODEL} gives a second opinion on {len(rejected7)} check and "
+              f"{len(rejected8)} review rejection(s)...", flush=True)
+        rescued = []
+        if rejected7:
+            answers = run_checks(client, point, rejected7, 1, cache, model=JUDGE_MODEL)
+            to_review = []
+            for j in rejected7:
+                a = answers[j["hanzi"]][0]
+                if a["uses_point"] and a.get("english") is not None:
+                    j["chosen"] = j["english"][a["english"]]
+                    undrop(j, "7", "check: passed on second opinion")
+                    funnel["7b. second opinion: it is the point (check)"] += 1
+                    to_review.append(j)
+            for j, v in zip(to_review, review_all(to_review)):
+                if v.get("ok"):
+                    rescued.append(j)
+                else:
+                    drop(j["tid"], "8", f"difficulty review: {'; '.join(v.get('problems') or [])}")
+                    rejected8.append(j)
+        todo = [j for j in rejected8 if review_key(j, "appeal") not in cache]
+        if todo:
+            with ThreadPoolExecutor(max_workers=WORKERS) as pool:
+                list(pool.map(review_chunk, [("appeal", todo[i:i + CHECK_BATCH])
+                                             for i in range(0, len(todo), CHECK_BATCH)]))
+        for j in rejected8:
+            v = cache.get(review_key(j, "appeal"))
+            if v and v.get("ok"):
+                undrop(j, "8", "review: passed on second opinion")
+                funnel["8b. second opinion: not too hard (review)"] += 1
+                rescued.append(j)
+            elif v:
+                dropped["8"] = [(h, r + "  [second opinion agrees]" if h == j["hanzi"] else r)
+                                for h, r in dropped["8"]]
+        rescued.sort(key=lambda j: len(j["hanzi"]))
+        for j in rescued:
+            if len(survivors) >= need:
+                outcome[j["tid"]] = ("-", "rescued, but the target was already reached")
+                continue
+            survivors.append(j)
+            outcome[j["tid"]] = ("8", "passed (second opinion)")
     save_json(CACHE_PATH, cache)
 
     # ---- report ----
     chosen = {j["tid"]: j for j in passed_rule}
-    report = OUT_DIR / f"tatoeba_{point.code}_level{level}_{datetime.now():%Y%m%d_%H%M%S}.csv"
+    report = OUT_DIR / (f"{'tatoeba' if ai_pairs is None else 'ai'}_{point.code}_level{level}_"
+                        f"{datetime.now():%Y%m%d_%H%M%S}.csv")
     with open(report, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
         w.writerow(["tatoeba_id", "hanzi", "original", "english_chosen", "english_options",
@@ -1210,10 +1426,11 @@ def cmd_tatoeba(db, point: Point, args):
                         " ; ".join(f"{w} ({g})" for w, _, g in j.get("hidden", []))])
 
     print(f"\n=== {point.code} at HSK {level}: funnel ===")
-    print(f"  {len(pairs):>7}  Tatoeba sentences in the file")
+    print(f"  {len(pairs):>7}  {'Tatoeba sentences in the file' if ai_pairs is None else 'AI-written sentences'}")
     for k in sorted(funnel):
         print(f"  {funnel[k]:>7}  {k}")
-    print(f"  ({traditional} were in Traditional characters and converted)")
+    if traditional:
+        print(f"  ({traditional} were in Traditional characters and converted)")
     if not_checked:
         print(f"  ({not_checked} sentence(s) passed the rule but weren't checked: target reached)")
     print(f"\n=== Survivors ({len(survivors)}) ===")
@@ -1229,7 +1446,8 @@ def cmd_tatoeba(db, point: Point, args):
     print(f"\nEvery sentence and why: {report}")
     return {"level": level, "have": len(have), "need": need, "added": len(survivors),
             "survivors": [{"tatoeba_id": j["tid"], "hanzi": j["hanzi"], "english": j["chosen"]} for j in survivors],
-            "candidates_after_rule": len(passed_rule), "funnel": dict(funnel)}
+            "candidates_after_rule": len(passed_rule), "funnel": dict(funnel),
+            "outcome": {tid: list(v) for tid, v in outcome.items()}}
 
 
 # --------------------------------- MAIN ---------------------------------
