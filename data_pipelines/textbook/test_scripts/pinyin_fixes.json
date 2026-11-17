@@ -1,0 +1,11 @@
+{
+  "_readme": "Example pinyin fixed by hand after reviewing output/example_pinyin_disagreements.csv. Key: the sentence (punctuation doesn't matter). pinyin: every syllable, CITATION tones (不 bu4, 一 yi1, no third-tone change -- the export adds sandhi), neutral tone 5, erhua 儿 as r5. Checked like an AI answer (one syllable per character, real readings); a fix that fails is reported and not used. Used by run_all_grammar.py --export; wins over any AI answer.",
+  "刚上班，分配给我的尽是些基础工作。": {
+    "pinyin": "gang1 shang4 ban1 fen1 pei4 gei3 wo3 de5 jin4 shi4 xie1 ji1 chu3 gong1 zuo4",
+    "note": "尽是 is jin4shi4 (nothing but); AI took jin3 (尽管/尽量)"
+  },
+  "这种药吃得还是吃不得，得听医生的。": {
+    "pinyin": "zhe4 zhong3 yao4 chi1 de5 hai2 shi5 chi1 bu4 de5 dei3 ting1 yi1 sheng1 de5",
+    "note": "吃得 / 吃不得 (may / may not be eaten) are chi1 de5 / chi1 bu4 de5; AI had de2"
+  }
+}

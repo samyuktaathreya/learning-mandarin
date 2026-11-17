@@ -21,6 +21,7 @@ from app.session.services.review_engine import (
     is_facet_review_eligible,
 )
 from app.session.services.tips import attach_tips
+from app.session.services.sources import attach_question_sources
 from app.session.services.sound import _tag_sounds
 from app.session_log import log_session
 from app.textbook import services as textbook_services
@@ -138,17 +139,22 @@ def generate_full_session(db: Session, characters_db: Session, textbook_db: Sess
     unit_records = [r for r in all_records if r.tag in unit_tags]
 
     # 1. Check for graduation (returns early if true)
+    def finish(s: SessionResponse) -> SessionResponse:
+        # Per-question tips, sentence credit (Tatoeba / AI) and grammar points
+        # (is_new = first taught in the learner's current unit).
+        return attach_question_sources(textbook_db, attach_tips(db, s), user_unit, hsk_level)
+
     if is_unit_graduated(db, user_id, unit_records, unit_tags):
-        return attach_tips(db, generate_unit_test(textbook_db, user_id, user_unit, hsk_level))
+        return finish(generate_unit_test(textbook_db, user_id, user_unit, hsk_level))
 
     # 2. Check for reviews (returns early if true)
     if not skip_review and review_due_word_count(db, textbook_db, user_id) > 0:
         review_session = generate_review_session(db, textbook_db, user_id, user_unit)
         if review_session.question_set:
-            return attach_tips(db, review_session)
+            return finish(review_session)
 
     # 3. Standard practice session: generate, attach tips, add character questions, shuffle
-    session = attach_tips(db, generate_practice_session(db, textbook_db, user_id, user_unit))
+    session = finish(generate_practice_session(db, textbook_db, user_id, user_unit))
 
     character_qs = generate_character_questions(db, characters_db, textbook_db, user_id, num_questions=2)
     session.question_set.extend(character_qs)

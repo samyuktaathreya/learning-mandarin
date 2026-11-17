@@ -1,27 +1,31 @@
-// Renders one structured grammar tip: { sections: [{ title, body, table }] }
-// Logs to console if the shape looks wrong so it's obvious in devtools
-// why a tip isn't showing content.
+// Renders one grammar tip in the session's grammar sidebar.
+//
+//   tip:   an entry of question.grammar_tips --
+//          { grammar_code, label, is_new, unit_number, sections: [{ title, body, table }] }
+//   point: session.grammar_points[tip.grammar_code] (optional) --
+//          { explanations: [{ source, title, body: [blocks], credit, generated_by, ... }] }
+//   renderText: renders a string that may contain Chinese (clickable words);
+//          defaults to plain text.
+//
+// A point new in this unit is shown from its real explanation pages
+// (`point.explanations`, in order). Any other point -- or when the session
+// has no grammar_points -- falls back to the server's `sections`, which for
+// already-taught points is a one-line reminder.
 
-const cellStyle = { border: '1px solid #ccc', padding: '8px' };
-const headerCellStyle = { ...cellStyle, backgroundColor: '#f0f0f0', textAlign: 'left' };
-const errorStyle = { color: '#c0392b' };
+const plain = (text) => text;
 
-function GrammarTable({ table }) {
+function GrammarTable({ table, renderText }) {
     return (
-        <table style={{ borderCollapse: 'collapse', width: '100%', margin: '8px 0' }}>
+        <table className="grammar-tip-table">
             <thead>
                 <tr>
-                    {table.headers.map((h, hIdx) => (
-                        <th key={hIdx} style={headerCellStyle}>{h}</th>
-                    ))}
+                    {table.headers.map((h, hIdx) => <th key={hIdx}>{renderText(h)}</th>)}
                 </tr>
             </thead>
             <tbody>
                 {table.rows.map((row, rIdx) => (
                     <tr key={rIdx}>
-                        {row.map((cell, cIdx) => (
-                            <td key={cIdx} style={cellStyle}>{cell}</td>
-                        ))}
+                        {row.map((cell, cIdx) => <td key={cIdx}>{renderText(cell)}</td>)}
                     </tr>
                 ))}
             </tbody>
@@ -29,38 +33,112 @@ function GrammarTable({ table }) {
     );
 }
 
-export default function GrammarTip({ tip, tipIndex }) {
-    if (!tip) {
-        console.warn(`[GrammarTip debug] tip at index ${tipIndex} is null/undefined`);
-        return null;
-    }
-    if (typeof tip === 'string') {
-        console.warn(
-            `[GrammarTip debug] tip at index ${tipIndex} is a raw string, not the expected ` +
-            `{ sections: [...] } object -- this data is stale (old markdown format). ` +
-            `Re-run the pipeline or check the API response shape.`,
-            tip
-        );
-        return <p style={errorStyle}>⚠ Malformed grammar tip data (raw string, see console)</p>;
-    }
-    if (!Array.isArray(tip.sections)) {
-        console.warn(`[GrammarTip debug] tip at index ${tipIndex} has no "sections" array:`, tip);
-        return <p style={errorStyle}>⚠ Malformed grammar tip data (see console)</p>;
-    }
-    if (tip.sections.length === 0) {
-        console.warn(`[GrammarTip debug] tip at index ${tipIndex} has an empty "sections" array`);
-    }
+function Lines({ lines, renderText }) {
+    return (
+        <p>
+            {lines.map((line, i) => <span key={i} style={{ display: 'block' }}>{renderText(line)}</span>)}
+        </p>
+    );
+}
 
-    return tip.sections.map((section, sIdx) => {
-        if (!section || (!section.title && !section.body && !section.table)) {
-            console.warn(`[GrammarTip debug] tip ${tipIndex}, section ${sIdx} is empty:`, section);
-        }
-        return (
-            <div key={sIdx} style={{ marginBottom: '16px' }}>
-                <h4 style={{ margin: '0 0 6px 0' }}>{section.title}</h4>
-                <p style={{ whiteSpace: 'pre-wrap', margin: '0 0 10px 0' }}>{section.body}</p>
-                {section.table && <GrammarTable table={section.table} />}
-            </div>
-        );
-    });
+// Examples a learner who just met the point can read; if none are marked
+// readable, the first three.
+const pickExamples = (items = []) => {
+    const readable = items.filter(x => x.readable);
+    return readable.length > 0 ? readable : items.slice(0, 3);
+};
+
+function Examples({ items, renderText }) {
+    return (
+        <p>
+            {pickExamples(items).map((x, i) => (
+                <span key={i} style={{ display: 'block' }}>
+                    {renderText(x.hanzi)}
+                    {x.pinyin_display && <> - {x.pinyin_display}</>}
+                    {x.english && <> - {x.english}</>}
+                </span>
+            ))}
+        </p>
+    );
+}
+
+function Credit({ explanation }) {
+    const { credit, source, generated_by } = explanation;
+    if (!credit?.label) return null;
+    return (
+        <p style={{ fontSize: '0.8rem', opacity: 0.7 }}>
+            Source:{' '}
+            {credit.url
+                ? <a href={credit.url} target="_blank" rel="noopener noreferrer">{credit.label}</a>
+                : credit.label}
+            {credit.license && (
+                <> ({credit.license_url
+                    ? <a href={credit.license_url} target="_blank" rel="noopener noreferrer">{credit.license}</a>
+                    : credit.license})</>
+            )}
+            {source === 'ai_generated' && generated_by && <> ({generated_by})</>}
+        </p>
+    );
+}
+
+function Block({ block, renderText }) {
+    switch (block.type) {
+        case 'heading':
+            return <h4>{renderText(block.text)}</h4>;
+        case 'paragraph':
+            return <p>{renderText(block.text)}</p>;
+        case 'structure':
+            return <Lines lines={block.lines || []} renderText={renderText} />;
+        case 'examples':
+            return <Examples items={block.items} renderText={renderText} />;
+        case 'forms':
+            return (
+                <Lines
+                    lines={(block.items || []).map(x => `${x.ok ? '✓' : '✗'} ${x.hanzi ?? x.text ?? ''}`)}
+                    renderText={renderText}
+                />
+            );
+        default:
+            return null;
+    }
+}
+
+function Explanation({ explanation, renderText }) {
+    const title = explanation.source === 'ai_generated'
+        ? `${explanation.title || ''} (written by AI)`.trim()
+        : explanation.title;
+    return (
+        <div className="grammar-tip-section">
+            {title && <h4>{renderText(title)}</h4>}
+            {(explanation.body || []).map((block, i) => (
+                <Block key={i} block={block} renderText={renderText} />
+            ))}
+            <Credit explanation={explanation} />
+        </div>
+    );
+}
+
+function Sections({ sections, renderText }) {
+    return sections.map((section, sIdx) => (
+        <div key={sIdx} className="grammar-tip-section">
+            <h4>{renderText(section.title)}</h4>
+            <p style={{ whiteSpace: 'pre-wrap' }}>{renderText(section.body)}</p>
+            {section.table && <GrammarTable table={section.table} renderText={renderText} />}
+        </div>
+    ));
+}
+
+export default function GrammarTip({ tip, point, renderText = plain }) {
+    if (!tip || typeof tip !== 'object') return null;
+
+    const explanations = point?.explanations?.filter(e => Array.isArray(e.body)) ?? [];
+    if (tip.is_new && explanations.length > 0) {
+        return explanations.map((e, i) => (
+            <Explanation key={`${e.source}-${e.position ?? i}`} explanation={e} renderText={renderText} />
+        ));
+    }
+    if (Array.isArray(tip.sections)) {
+        return <Sections sections={tip.sections} renderText={renderText} />;
+    }
+    return null;
 }

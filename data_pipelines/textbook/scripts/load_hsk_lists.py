@@ -19,9 +19,15 @@ No OCR, no AI calls.
                                             than their level (2-47: 以前/以后
                                             are HSK 3 words) -- applied last
   data/grammar/grammar_explanations.json
-      -> GrammarExplanation rows: what each point is, copied from the
-         official list and the AllSet Learning wiki (no AI-written text).
-         A point's rows are replaced on every run.
+      -> GrammarExplanation rows: the full explanations -- the AllSet
+         Learning wiki (prose edited by AI where it made no sense in the
+         app: edited_by), tips written by AI where no page exists
+         (generated_by), and the official list. Replaced on every run.
+  data/grammar/grammar_tip_parts.json
+      -> GrammarTipPart rows: the SHORT tips learners see, one per word or
+         pattern, WRITTEN BY AI (grammar_tips.py). If sentences are already
+         in the DB, each sentence's tip and the tips' examples are rebuilt
+         too (finalize does the same on a full run).
 
 Both loads are idempotent: re-running updates rows in place, keeps every
 unit assignment, and never creates duplicates. A word or grammar point
@@ -56,6 +62,8 @@ from app.textbook.db_utils import (
 from app.textbook.models import Vocab, GrammarTip, GrammarExplanation, WordType
 
 from data_pipelines.textbook.scripts import grammar_dsl
+from data_pipelines.textbook.scripts.grammar_explanations import fill_course_pinyin
+from data_pipelines.textbook.scripts import grammar_tips
 from data_pipelines.textbook.scripts import hsk_vocab_source as hvs
 
 VOCAB_PATH = TEXTBOOK_RAW_DIR / hvs.VOCAB_FILE
@@ -181,7 +189,7 @@ def load_grammar(db) -> dict:
 
 
 EXPLANATION_FIELDS = ("source", "source_ref", "title", "structure", "explanation", "level_hint",
-                      "url", "attribution", "license")
+                      "url", "attribution", "license", "generated_by", "edited_by")
 
 
 def load_explanations(db) -> dict:
@@ -205,17 +213,22 @@ def load_explanations(db) -> dict:
         for pos, it in enumerate(items):
             db.add(GrammarExplanation(grammar_tip_id=tip.id, position=pos,
                                       examples=json.dumps(it.get("examples") or [], ensure_ascii=False),
+                                      body=json.dumps(it["body"], ensure_ascii=False) if it.get("body") else None,
                                       **{k: it.get(k) for k in EXPLANATION_FIELDS}))
             by_source[it.get("source")] += 1
             rows += 1
         with_wiki += any(it.get("source") == "allset_learning" for it in items)
     db.flush()
-    print(f"  explanations: {rows} row(s) for {len(data) - len(unknown) - ('_readme' in data)} point(s) "
+    filled = fill_course_pinyin(db)     # course sentences' pinyin (none yet on a fresh build: finalize does it)
+    edited = sum(1 for k, v in data.items() if not k.startswith("_") for it in v if it.get("edited_by"))
+    print(f"  explanations: {rows} row(s) for {sum(1 for k in data if not k.startswith('_')) - len(unknown)} point(s) "
           f"({', '.join(f'{k}: {v}' for k, v in sorted(by_source.items()))}); "
-          f"{with_wiki} point(s) have a wiki explanation, the rest only the official list's")
+          f"{with_wiki} point(s) have a wiki explanation ({edited} page(s) with prose edited by AI); "
+          f"tips written by AI: {by_source.get('ai_generated', 0)}; "
+          f"{filled} example(s) given their course sentence's pinyin")
     if unknown:
         print(f"    [warning] {len(unknown)} code(s) not in the grammar list (skipped): {unknown[:10]}")
-    return {"points": len(data), "rows": rows}
+    return {"points": sum(1 for k in data if not k.startswith("_")) - len(unknown), "rows": rows}
 
 
 def main():
@@ -234,6 +247,8 @@ def main():
         if not args.vocab_only:
             load_grammar(db)
             load_explanations(db)
+            if grammar_tips.load_tip_parts(db)["points"]:
+                grammar_tips.refresh(db, " (sentences already in the DB)")
     print(f"Done in {time.time() - t0:.1f}s.")
 
 

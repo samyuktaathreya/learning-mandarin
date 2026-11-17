@@ -280,6 +280,7 @@ LEVELS_2025_FILE = GRAMMAR_DATA_DIR / "grammar_level_overrides.json"
 LEVELS_EXAMPLES_FILE = GRAMMAR_DATA_DIR / "grammar_level_by_examples.json"
 SENTENCES_FILE = GRAMMAR_DATA_DIR / "selected_sentences.csv"
 EXPLANATIONS_FILE = GRAMMAR_DATA_DIR / "grammar_explanations.json"
+TIP_PARTS_FILE = GRAMMAR_DATA_DIR / "grammar_tip_parts.json"          # short tips (written by AI)
 
 
 def read_json(path: Path, default):

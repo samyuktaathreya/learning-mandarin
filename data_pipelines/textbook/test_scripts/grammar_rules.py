@@ -277,7 +277,11 @@ def extract_json(text: str) -> dict:
     m = re.search(r"\{.*\}", text, re.S)
     if not m:
         raise ValueError("no JSON object in the answer")
-    return json.loads(m.group(0))
+    try:
+        return json.loads(m.group(0))
+    except json.JSONDecodeError:
+        # the answer had text after the JSON (or a second object): take the first whole object
+        return json.JSONDecoder().raw_decode(text[m.start():])[0]
 
 
 def extract_section(code: str, text: str) -> str:
@@ -325,3 +329,188 @@ STRICT RULES -- a sentence that breaks one is thrown away:
 5. Give an accurate, natural English translation for each.
 
 Respond with ONLY a JSON array: [{{"zh": "<sentence>", "en": "<translation>"}}, ...]"""
+
+
+EXPLANATION_AI_VERSION = 1
+
+
+def edit_page_prompt(title: str, level: int, numbered: str) -> str:
+    """A wiki page's text blocks, numbered: the AI may only edit or remove
+    prose (headings and paragraphs), never examples or structures."""
+    return f"""This is a page of the AllSet Learning Chinese Grammar Wiki, shown inside a Mandarin learning app to
+beginners (HSK {level}) as the explanation of a grammar point: "{title}". It was taken from the wiki
+automatically, so some prose may not make sense in the app. Below are its blocks in order; the
+example sentences and structure boxes are shown for context and CANNOT be changed.
+
+{numbered}
+
+Only fix prose that does not make sense here, e.g.:
+- it points to something the app does not have: a link ("learn about ..."), another article,
+  a video, a quiz, "this page";
+- it refers to examples or a section that is not there, or is a broken fragment.
+Keep everything else word for word: do not rewrite good prose, do not add new explanations,
+do not change any Chinese. Remove a block if it has no use without the missing thing.
+
+Respond with ONLY a JSON object: {{"edits": [{{"n": <block number>, "text": "<new text>"}} or
+{{"n": <block number>, "remove": true}}, ...]}} -- an empty list if the page reads fine."""
+
+
+def tip_prompt(code: str, level: int, label: str, official: list[str], definition: str,
+               sentences: list[tuple[str, str]]) -> str:
+    """For a grammar point no wiki page teaches: the AI writes a short
+    explanation. It picks its examples from REAL course sentences."""
+    listing = "\n".join(f"  [{i}] {h}  ({e})" for i, (h, e) in enumerate(sentences)) or "  (none)"
+    return f"""Write a short grammar explanation for beginners learning Mandarin, shown in a learning app the first
+time they meet this grammar point in a sentence. It will be labelled as written by AI.
+
+GRAMMAR POINT {code} (HSK {level}) from the official HSK grammar list: {label}
+Official examples: {' / '.join(official) or '(none)'}
+{('What the course takes it to mean: ' + definition) if definition else ''}
+
+Sentences from the course that use it (pick the examples from these, by number):
+{listing}
+
+Write for an HSK {level} learner, in plain English: what the point is, when to use it, and how the
+sentence is built. Short: 2-4 short paragraphs, under 120 words in all. Accurate -- no claims you
+are unsure of. Use Chinese only for the point's own words and short patterns.
+
+Respond with ONLY a JSON object:
+{{"title": "<a short English title, e.g. Expressing location with 在>",
+  "structure": ["<pattern line, e.g. Subj. + 在 + Place + Verb>", ...],
+  "paragraphs": ["...", ...],
+  "examples": [<up to 5 sentence numbers>]}}"""
+
+
+# --------------------------------- EXAMPLE PINYIN ---------------------------------
+
+PINYIN_VERSION = 2        # 2: tones as spoken (v1's "citation tones" made 了 liao3); Sonnet settles disagreements
+
+_PINYIN_RULES = """- Tone numbers after each syllable: 1-4, and 5 for the neutral tone.
+- Write each syllable's tone AS SPOKEN in this sentence, with ONE exception: do not apply the
+  tone-change rules (they are added afterwards in code). So:
+    不 is always bu4 and 一 is always yi1 (even in 不是, 一个, 一五一十);
+    third tones stay 3 even before another third tone (你好 ni3hao3, 我有 wo3 you3);
+    but neutral tones ARE written as neutral: 了 le5 (only liao3 in words like 了解, 不得了),
+    的 de5, 吗 ma5, 们 men5, 子 zi5 in 桌子, 地 de5 after an adverb (大声地), 得 de5 after a verb.
+- One syllable per character. A 儿 read as erhua is "r5" (哪儿 -> na3r5). Use v for ü (lv4).
+- Pick the reading THIS sentence uses for characters with several: 长 chang2/zhang3,
+  得 de5/de2/dei3, 行 xing2/hang2, 还 hai2/huan2, 都 dou1/du1, 地 de5/di4, 着 zhe5/zhao2,
+  觉 jue2/jiao4, 重 zhong4/chong2, 好 hao3/hao4, 为 wei4/wei2, 便 bian4/pian2, 教 jiao1/jiao4,
+  调 diao4/tiao2 (强调 qiang2diao4).
+- Names: the tones the name really has (丽丽 li4li4).
+- Lower case, no spaces inside a word, no punctuation."""
+
+
+def _pinyin_lines(entries: list[dict]) -> str:
+    lines = []
+    for e in entries:
+        line = f'{e["i"]}. {e["hanzi"]}'
+        if e.get("english"):
+            line += f'  ({e["english"]})'
+        line += "\n   words: " + " | ".join(e["words"])
+        for name, draft in (e.get("drafts") or {}).items():
+            if draft:
+                line += f"\n   draft {name}: " + " | ".join(draft)
+        if e.get("problem"):
+            line += f"\n   (your last answer was wrong: {e['problem']})"
+        lines.append(line)
+    return "\n".join(lines)
+
+
+_PINYIN_ANSWER = """Respond with ONLY a JSON object, one pinyin string for EACH word listed, in the same order:
+{"answers": [{"i": <number>, "pinyin": ["<word 1 pinyin>", "<word 2 pinyin>", ...]}, ...]}"""
+
+
+def pinyin_prompt(entries: list[dict]) -> str:
+    """entries: [{"i", "hanzi", "english", "words": [...], "problem"?}].
+    Answer: {"answers": [{"i", "pinyin": [one string per word]}]}."""
+    return f"""Write the Mandarin pinyin of these example sentences, for a Chinese course.
+
+{_PINYIN_RULES}
+
+{_pinyin_lines(entries)}
+
+{_PINYIN_ANSWER}"""
+
+
+def pinyin_judge_prompt(entries: list[dict]) -> str:
+    """Like pinyin_prompt, but each entry has two drafts that disagree
+    ("drafts": {"A": [...], "B": [...]}) -- write the correct one."""
+    return f"""These are example sentences for a Chinese course. For each, two drafts of its pinyin
+disagree (draft A from one AI, draft B from a dictionary program -- either can be wrong, and a draft
+may be missing). Write the CORRECT pinyin, following these rules exactly:
+
+{_PINYIN_RULES}
+
+{_pinyin_lines(entries)}
+
+{_PINYIN_ANSWER}"""
+
+
+# --------------------------------- SHORT TIPS ---------------------------------
+
+TIP_PARTS_VERSION = 2        # 2: tips for the uses the course sentences have; meaning starts "X means"
+
+TIP_TERMS_BANNED = ("complement", "particle", "adverb", "aspect", "predicate", "preposition", "conjunction",
+                    "clause", "auxiliary", "modal", "classifier", "connotation", "morpheme", "reduplicat",
+                    "interrogative", "copula", "perfective", "resultative", "nominal", "pronoun", "syntax",
+                    "grammatical", "construction")
+
+
+def tip_parts_prompt(code: str, level: int, label: str, official: list[str], words: list[str],
+                     pages: list[str], sentences: list[tuple[str, str]], needed: list[str] | None = None,
+                     problems: list[str] | None = None) -> str:
+    """The SHORT tips learners see. The rules here are checked again in code
+    (run_all_grammar.check_tip_parts); `problems` = what the last answer broke."""
+    page_text = "\n\n".join(f"--- wiki page {i + 1} ---\n{p}" for i, p in enumerate(pages)) or "(no wiki page)"
+    sent = "\n".join(f"  {h}  ({e})" for h, e in sentences) or "  (none yet)"
+    redo = ("\n\nYOUR LAST ANSWER BROKE THESE RULES -- fix them:\n" + "\n".join(f"- {p}" for p in problems)
+            if problems else "")
+    return f"""You write the grammar tips for a Mandarin learning app. A learner sees a tip when they meet a
+sentence that uses the grammar. Grammar should feel easy -- children pick it up without explanations --
+so a tip is tiny: it tells them what the thing means and roughly where it goes, nothing more.
+
+GRAMMAR POINT {code}, for HSK {level} learners. Official HSK list: {label}
+Official examples: {' / '.join(official) or '(none)'}
+Words the course uses to find this point in sentences: {' '.join(words) or '(none: a sentence pattern)'}
+Words of this point the course sentences ACTUALLY use -- EVERY one needs a tip (or must be in a tip's
+"words"): {' '.join(needed) if needed else '(none: a sentence pattern)'}
+
+Make ONE tip per word or pattern this point teaches (a point listing 有点、挺、更 gets three tips; a point
+with one word gets one). Write tips ONLY for the uses the course sentences below actually have -- those
+are what learners will see. If the official list or the wiki has a use that no course sentence has, leave
+it out. (If there are no course sentences, follow the official list.) Only what an HSK {level} learner
+needs: the most common use. Leave other uses for later levels.
+
+Each tip has:
+- "words": the Chinese words that show a sentence uses THIS tip, in every spelling (有点, 有一点, 有点儿,
+  有一点儿). Use [] only for a sentence pattern with no special word -- at most one such tip per point.
+- "title": the word or pattern itself, short, e.g. "有(一)点(儿)" or "Verb + 完".
+- "meaning": ONE short sentence saying what it means or does, in very simple English. It STARTS with the
+  word itself: "已经 means ...", "有点 means ...". A pattern with no special word starts with the pattern:
+  "Verb + 来 means ...". This comes first.
+- "placement": ONE short sentence suggesting where it goes in a sentence -- a suggestion, not a rule with
+  exceptions. null if the structure line already says it.
+- "english_note": at most ONE short sentence on how this differs from English (word order, a word English
+  doesn't need). null when a learner wouldn't trip over anything.
+- "structure": 1 or 2 pattern lines, e.g. "Subj. + 有点 + Adj." (slots: Subj., Verb, Adj., Noun, Obj.,
+  Place, Time, Number, Measure word).
+
+Rules for all of it:
+- meaning + placement + english_note together: at most 45 words. One short paragraph.
+- No grammar terms except verb, noun, adjective, question, subject, object, measure word. Never words like
+  complement, particle, adverb, aspect, predicate, preposition, conjunction, clause.
+- No exceptions, no "note that", no regional differences, no comparing with other grammar points.
+- No example sentences (they are shown separately) and no pinyin.
+- Chinese only for the tip's own words and words an HSK {level} learner knows.
+- Accurate: say only what the sources below support.
+
+SOURCES
+{page_text}
+
+Course sentences that use this point:
+{sent}{redo}
+
+Respond with ONLY a JSON object:
+{{"tips": [{{"words": [...], "title": "...", "meaning": "...", "placement": "..." or null,
+            "english_note": "..." or null, "structure": ["..."]}}, ...]}}"""

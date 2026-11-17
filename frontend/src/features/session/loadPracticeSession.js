@@ -9,5 +9,8 @@ export const loadPracticeSession = async (skipReview, settings) => {
     return {
         questions: data.question_set.filter(q => isQuestionEnabled(q.question_type, settings)),
         sessionType: data.session_type,
+        // grammar_code -> full grammar point (explanation pages, credit, is_new),
+        // sent once per session; questions point at them via grammar_tips[].grammar_code.
+        grammarPoints: data.grammar_points ?? {},
     };
 };

@@ -50,13 +50,13 @@ from app.shared.crud import get_dictionary_entries
 from app.characters.models import Character, RadicalMeta
 import characters.crud
 from app.textbook.services import get_pinyin, META_TAGS
-from app.characters.curriculum import (
+from app.characters.services.curriculum import (
     REVIEW_STRENGTH_THRESHOLD,
     compute_strength,
     get_allowed_curriculum,
     get_character_facet_rows as _get_character_facet_rows,
 )
-from app.characters.char_to_word import generate_character_to_word_questions
+from app.characters.services.char_to_word import generate_character_to_word_questions
 
 NUM_OPTIONS = 4                   # multiple-choice option count for all quiz types
 CHAR_TO_WORD_SHARE = 0.30         # share of non-radical questions that are character -> word

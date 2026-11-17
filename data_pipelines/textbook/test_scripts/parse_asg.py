@@ -22,7 +22,17 @@ OUTPUT: data/intermediate/allsetlearning/asg_points.json, one entry per page:
                 point itself in that sentence
   forms         [{text, ok}] the correct (o) / incorrect (x) form lists
   similar       {{Similar|...}} + "See also" pages, as ids where they resolve
-  text          the explanation, markup removed
+  text          the explanation, markup removed (prose only -- see blocks)
+  blocks        the page IN ITS OWN ORDER, for showing learners:
+                  {"type": "heading", "text"}      a section heading
+                  {"type": "paragraph", "text"}    explanation prose
+                  {"type": "structure", "lines"}   the pattern box (jiegou)
+                  {"type": "examples", "items"}    example sentences (liju):
+                       {hanzi, pinyin, english, marked: [words], speaker?}
+                  {"type": "forms", "items"}       correct / incorrect forms:
+                       {hanzi, ok: true/false}
+                stops at "See also" / "Sources and further reading"; videos
+                and quizzes are left out
 plus a report on what couldn't be parsed (output/asg_report.txt).
 
 USAGE (from the repo root)
@@ -89,6 +99,10 @@ def parse_example(line: str):
     else:
         return None, "not a list line"
     s = re.sub(r"</li>\s*$", "", s).strip()
+    lead = re.match(r'<span\s+class="speaker"\s*>\s*([A-Z])\s*[:：]?\s*</span>\s*', s)
+    lead_speaker = None
+    if lead:                                      # dialogue: <span class="speaker">A:</span> 我 ...
+        lead_speaker, s = lead.group(1), s[lead.end():]
     spans = {cls: strip_markup(v) for cls, v in _SPAN_RE.findall(s)}
     first_span = s.find("<span")
     chinese = s if first_span == -1 else s[:first_span]
@@ -115,12 +129,136 @@ def parse_example(line: str):
                 cur += ch
     ex = {"hanzi": hanzi, "words": words, "marked": marked,
           "english": spans.get("trans", ""), "pinyin": spans.get("pinyin", "")}
-    if speaker:
-        ex["speaker"] = speaker.group(1)
+    if speaker or lead_speaker:
+        ex["speaker"] = lead_speaker or speaker.group(1)
     extra = {k: v for k, v in spans.items() if k not in ("trans", "pinyin")}
     if extra:
         ex["other"] = extra
     return ex, ok
+
+
+_END_RE = re.compile(r"\n==\s*(?:See\s+also|Sources and further reading)\s*==", re.I)
+_DROP_DIVS = {"YT-container", "quiz"}
+
+
+def liju_items(content: str) -> list[str]:
+    """The list items of a liju div, an item's continuation lines joined on."""
+    items = []
+    for line in content.splitlines():
+        t = line.strip()
+        if not t or re.fullmatch(r"</?(ul|ol)[^>]*>|</li>", t, re.I):
+            continue
+        if t[:1] in "*#" or t.lower().startswith("<li"):
+            items.append(t)
+        elif items and not t.startswith(("|", "{|", "!")) and "trans" not in items[-1]:
+            items[-1] += " " + t
+        else:
+            items.append(t)
+    return items
+
+
+def table_line(t: str) -> str | None:
+    """A wiki table row ("| Subj. || 在 || Place") as text; None for table markup."""
+    if t.startswith(("{|", "|}", "|-", "|+")):
+        return None
+    cells = [strip_markup(c) for c in re.split(r"\|\||!!", t.lstrip("|!"))]
+    cells = [c for c in cells if c]
+    return "  ".join(cells) or None
+
+
+def page_blocks(body: str) -> list[dict]:
+    """The page as ordered blocks (see the module docstring)."""
+    body = _END_RE.split(body)[0]
+    blocks, para = [], []
+
+    def flush():
+        if para:
+            blocks.append({"type": "paragraph", "text": " ".join(para)})
+            para.clear()
+
+    def add_text(chunk: str):
+        chunk = _TEMPLATE_RE.sub("", chunk)
+        for line in chunk.splitlines():
+            t = line.strip()
+            h = _HEADING_RE.match(t)
+            if h:
+                flush()
+                blocks.append({"type": "heading", "text": strip_markup(h.group(2))})
+                continue
+            if not t:
+                flush()
+                continue
+            if t.startswith(("{|", "|", "!")):
+                row = table_line(t)
+                if row:
+                    flush()
+                    blocks.append({"type": "paragraph", "text": row})
+                continue
+            if t[:1] in "*#":                      # a bullet: its own paragraph
+                flush()
+                txt = strip_markup(t.lstrip("*#: "))
+                if txt:
+                    blocks.append({"type": "paragraph", "text": "• " + txt})
+                continue
+            txt = strip_markup(t)
+            if txt:
+                para.append(txt)
+
+    def add_items(kind: str, item: dict):
+        if blocks and blocks[-1]["type"] == kind:
+            blocks[-1]["items"].append(item)
+        else:
+            blocks.append({"type": kind, "items": [item]})
+
+    pos = 0
+    for dm in _DIV_RE.finditer(body):
+        add_text(body[pos:dm.start()])
+        pos = dm.end()
+        cls, content = set(dm.group(1).split()), dm.group(2)
+        if cls & _DROP_DIVS:
+            continue
+        flush()
+        if "jiegou" in cls:
+            lines = []
+            for line in content.splitlines():
+                t = line.strip()
+                t = table_line(t) if t.startswith(("{|", "|", "!")) else strip_markup(t)
+                if t:
+                    lines.append(t)
+            if lines:
+                blocks.append({"type": "structure", "lines": lines})
+        elif "liju" in cls:
+            for t in liju_items(content):
+                if t.startswith(("|", "{|", "!")):
+                    row = table_line(t)
+                    if row:
+                        blocks.append({"type": "paragraph", "text": row})
+                    continue
+                ex, ok = parse_example(t)
+                if ex is None:
+                    txt = strip_markup(t.lstrip("*#: "))
+                    if txt:                       # an English note inside the examples box
+                        blocks.append({"type": "paragraph", "text": txt})
+                    continue
+                if ok is None:
+                    item = {"hanzi": ex["hanzi"], "pinyin": ex["pinyin"], "english": ex["english"],
+                            "marked": [m["text"] for m in ex["marked"]]}
+                    if ex.get("speaker"):
+                        item["speaker"] = ex["speaker"]
+                    add_items("examples", item)
+                else:
+                    add_items("forms", {"hanzi": ex["hanzi"], "ok": ok})
+        else:
+            add_text(content)
+    add_text(body[pos:])
+    flush()
+    # drop headings with nothing under them (a section that only had a video)
+    out = []
+    for i, b in enumerate(blocks):
+        if b["type"] == "heading" and (i + 1 == len(blocks) or blocks[i + 1]["type"] == "heading"):
+            continue
+        out.append(b)
+    return out
 
 
 def parse_page(path: Path, stats: Counter, unparsed: list):
@@ -222,6 +360,8 @@ def parse_page(path: Path, stats: Counter, unparsed: list):
         if t:
             lines.append(t)
     page["text"] = "\n".join(lines)
+    page["blocks"] = page_blocks(body)
+    stats["pages with blocks"] += bool(page["blocks"])
     return page
 
 

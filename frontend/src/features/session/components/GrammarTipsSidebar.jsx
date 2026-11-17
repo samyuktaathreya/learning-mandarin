@@ -1,56 +1,40 @@
-import { useEffect } from 'react';
 import GrammarTip from './GrammarTips';
+import { ClickableText } from '../../characters';
 
-// ── VISIBLE DEBUG PANEL ── remove once working ──
-function GrammarTipDebugPanel({ questionObj }) {
-    const labelStyle = { marginTop: 8, display: 'block' };
-    const valueStyle = { color: '#2ecc71', whiteSpace: 'pre-wrap', wordBreak: 'break-all' };
-    return (
-        <div style={{ background: '#1a1a2e', border: '1px solid #e74c3c', borderRadius: 6, padding: 12, marginBottom: 16, fontSize: 12, fontFamily: 'monospace', color: '#e74c3c' }}>
-            <strong>DEBUG — raw question keys:</strong>
-            <div style={{ color: '#f39c12', marginTop: 4 }}>
-                {Object.keys(questionObj).join(', ')}
-            </div>
-            <strong style={labelStyle}>grammar_tip (singular):</strong>
-            <div style={valueStyle}>{JSON.stringify(questionObj.grammar_tip, null, 2)}</div>
-            <strong style={labelStyle}>grammar_tips (plural):</strong>
-            <div style={valueStyle}>{JSON.stringify(questionObj.grammar_tips, null, 2)}</div>
-        </div>
-    );
-}
+const hasChinese = (str) => /[一-鿿]/.test(str);
 
-function GrammarTipList({ questionObj }) {
-    // Support both field names until we confirm which the API uses
-    const tips = questionObj.grammar_tips ?? questionObj.grammar_tip;
-    if (!tips || (Array.isArray(tips) && tips.length === 0)) {
-        return <p style={{ opacity: 0.6 }}>No grammar tips for this question.</p>;
-    }
-    // Normalise: could be a single object, array of objects, or legacy string
-    const tipArray = Array.isArray(tips) ? tips : [tips];
-    return tipArray.map((tip, i) => (
-        <div key={i} className="grammar-tip-entry">
-            <GrammarTip tip={tip} tipIndex={i} />
-            {i < tipArray.length - 1 && <hr />}
-        </div>
-    ));
-}
+// The session's one grammar panel, shown beside the question (below it on
+// narrow screens). Opened by the "Show grammar tip" button in Question /
+// SpeakingQuestion via PracticeSession's onToggleGrammar.
+export default function GrammarTipSidebar({ questionObj, grammarPoints, isUnitTest, onClose }) {
+    const tips = Array.isArray(questionObj.grammar_tips) ? questionObj.grammar_tips : [];
 
-export default function GrammarTipSidebar({ questionObj, onClose }) {
-    // Debug: log grammar_tips shape whenever the sidebar is showing a question
-    useEffect(() => {
-        console.log('[GrammarTip debug] grammar_tips for current question:', questionObj.grammar_tips);
-    }, [questionObj]);
+    // Chinese in explanations is clickable for definitions, like the question text.
+    const renderText = (text) => {
+        if (!text || typeof text !== 'string' || !hasChinese(text)) return text;
+        return <ClickableText text={text} tags={questionObj.tags || []} isUnitTest={isUnitTest} />;
+    };
 
     return (
-        <div className="grammar-tip-sidebar">
+        <aside className="grammar-tip-sidebar">
             <div className="grammar-tip-header">
-                <h3>Grammar Tips</h3>
-                <button type="button" onClick={onClose}>✕</button>
+                <h3>Grammar Tip{tips.length > 1 ? 's' : ''}</h3>
+                <button type="button" onClick={onClose} aria-label="Close grammar tips">✕</button>
             </div>
             <div className="grammar-tip-content">
-                <GrammarTipDebugPanel questionObj={questionObj} />
-                <GrammarTipList questionObj={questionObj} />
+                {tips.length === 0
+                    ? <p style={{ opacity: 0.6 }}>No grammar tips for this question.</p>
+                    : tips.map((tip, i) => (
+                        <div key={tip.grammar_code ?? i} className="grammar-tip-entry">
+                            <GrammarTip
+                                tip={tip}
+                                point={grammarPoints?.[tip.grammar_code]}
+                                renderText={renderText}
+                            />
+                            {i < tips.length - 1 && <hr />}
+                        </div>
+                    ))}
             </div>
-        </div>
+        </aside>
     );
 }

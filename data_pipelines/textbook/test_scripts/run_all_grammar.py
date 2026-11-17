@@ -54,6 +54,7 @@ import contextlib
 import csv
 import io
 import json
+import re
 import sys
 import time
 import traceback
@@ -65,6 +66,8 @@ TEST_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(TEST_DIR))
 
 import grammar_rules as gr          # noqa: E402
+from data_pipelines.textbook.scripts import grammar_explanations as gx     # noqa: E402
+from data_pipelines.textbook.scripts.grammar_explanations import blocks_markdown     # noqa: E402
 import try_grammar_rule as tg       # noqa: E402
 
 BATCH_DIR = tg.OUT_DIR / "batch"
@@ -555,20 +558,349 @@ HSK_LIST_ATTRIBUTION = ("Official HSK grammar list (Chinese Proficiency Grading 
                         "Chinese Language Education)")
 
 
-def build_explanations(db, tagger) -> dict:
-    """{code: [rows]} for EVERY grammar point: the official list's row
-    (Chinese label + its examples), then the AllSet Learning pages that teach
-    it. All text copied from the source files -- nothing written by AI.
-    `readable`: every word of the example is at or below the point's level
-    (tagger, no AI)."""
-    from app.textbook.models import GrammarTip
+EXPLANATION_AI_PATH = tg.TEST_DIR / "explanation_ai.json"   # every AI answer, so each is paid for once
+EXPLAIN_MODEL = "claude-sonnet-5-5"
+PINYIN_MODEL = tg.CHECK_MODEL            # a cheap model: it only writes readings, and code checks every one
+PINYIN_BATCH = 10                        # sentences per call
+PINYIN_FIXES_PATH = tg.TEST_DIR / "pinyin_fixes.json"   # readings fixed by hand after review; win over any AI
+
+
+# ---- pinyin for examples that are not course sentences ----
+
+_READINGS = {}
+
+
+class CacheSaver:
+    """Puts AI answers into the cache from worker threads and writes the
+    file every `every` answers, so a run that is cut off (a dead battery)
+    loses at most a few paid answers. The write itself is atomic."""
+    def __init__(self, cache: dict, every: int = 10):
+        import threading
+        self.cache, self.every, self.n, self.lock = cache, every, 0, threading.Lock()
+
+    def put(self, key, value):
+        with self.lock:
+            self.cache[key] = value
+            self.n += 1
+            if self.n % self.every == 0:
+                tg.save_json(EXPLANATION_AI_PATH, self.cache, merge=False)
+
+
+def readings_of(ch: str) -> set:
+    """Every reading pypinyin lists for the character ("xing2", "hang2", ...)."""
+    if ch not in _READINGS:
+        from pypinyin import pinyin, Style
+        _READINGS[ch] = {r.lower() for r in pinyin(ch, style=Style.TONE3, heteronym=True,
+                                                   neutral_tone_with_five=True)[0]}
+    return _READINGS[ch]
+
+
+def check_pinyin(words: list[str], answer) -> tuple[list | None, str]:
+    """(pieces [(word, citation syllables)], "") if the answer has one
+    syllable per character and each syllable is a reading of that character
+    (any reading in the neutral tone is allowed too); else (None, what was
+    wrong). An answer that groups the words differently (早点儿 as one string
+    where the split has 早点 | 儿) is regrouped when its syllables still line
+    up one per character. 不 / 一 are put back in citation tones (code does
+    sandhi)."""
+    from data_pipelines.textbook.scripts import finalize as fz
+    if not isinstance(answer, list) or not answer:
+        return None, f"expected {len(words)} pinyin strings, one per word"
+    strings = [str(p).lower().replace("ü", "v").replace("u:", "v").replace(" ", "").replace("'", "")
+               for p in answer]
+    for p in strings:
+        if not re.fullmatch(r"(?:[a-z]+[1-5])+", p):
+            return None, f"'{p}' is not pinyin with tone numbers"
+    if len(strings) == len(words) and all(len(fz.syllables(p)) == len(w) for w, p in zip(words, strings)):
+        grouped = [fz.syllables(p) for p in strings]
+    else:
+        flat = [x for p in strings for x in fz.syllables(p)]
+        if len(flat) != sum(len(w) for w in words):
+            return None, (f"{len(flat)} syllables for {sum(len(w) for w in words)} characters "
+                          f"(one pinyin string per word: {' | '.join(words)})")
+        grouped, i = [], 0
+        for w in words:
+            grouped.append(flat[i:i + len(w)])
+            i += len(w)
+    pieces = []
+    for w, sylls in zip(words, grouped):
+        out = []
+        for ch, syl in zip(w, sylls):
+            base, tone = syl[:-1], syl[-1]
+            allowed = readings_of(ch)
+            bases = {r[:-1] for r in allowed}
+            if ch == "儿" and syl == "r5":
+                pass
+            elif ch in "不一" and base in bases:
+                syl = "bu4" if ch == "不" else "yi1"
+            elif allowed and syl not in allowed and not (tone == "5" and base in bases):
+                return None, f"{w}: {ch} can't be read '{syl}' (readings: {', '.join(sorted(allowed))})"
+            out.append(syl)
+        pieces.append((w, out))
+    return pieces, ""
+
+
+def pypinyin_words(words: list[str]) -> list[str]:
+    from pypinyin import lazy_pinyin, Style
+    return ["".join(x.lower() for x in lazy_pinyin(w, style=Style.TONE3, neutral_tone_with_five=True))
+            for w in words]
+
+
+def pypinyin_disagrees(pieces) -> list[str]:
+    """A second, free opinion: pypinyin reads each word with its phrase
+    dictionary (长大 zhang3da4). The words where it reads a character
+    differently -- not just neutral vs full tone, and not 不/一 -- or []."""
+    from data_pipelines.textbook.scripts import finalize as fz
+    where = []
+    for (w, sylls), theirs in zip(pieces, pypinyin_words([w for w, _ in pieces])):
+        theirs = fz.syllables(theirs)
+        if len(theirs) != len(sylls):
+            continue
+        for ch, mine, other in zip(w, sylls, theirs):
+            if ch in "不一" or (ch == "儿" and mine == "r5"):
+                continue
+            if mine[:-1] != other[:-1] or (mine[-1] != other[-1] and "5" not in (mine[-1], other[-1])):
+                where.append(w)
+                break
+    return where
+
+
+def ask_pinyin(client, model: str, prompt_fn, keys: list, entry_of, key_of, saver: CacheSaver, today: str):
+    """Asks `model` for the pinyin of `keys` (batches, in parallel), checks
+    every answer, asks once more for the ones that failed (saying why).
+    Saves {"pieces"} or, after two failed checks, {"failed"}; a sentence with
+    no readable answer is not saved, so the next export asks again."""
+    from concurrent.futures import ThreadPoolExecutor
+    problems = {}
+    for round_ in (1, 2):
+        entries = [dict(entry_of(k), i=n, problem=problems.get(k)) for n, k in enumerate(keys)]
+        batches = [entries[i:i + PINYIN_BATCH] for i in range(0, len(entries), PINYIN_BATCH)]
+
+        def run(batch):
+            words = sum(len(e["words"]) for e in batch)
+            try:
+                ans = gr.extract_json(tg.call(client, model, prompt_fn(batch), 400 + 40 * words))
+            except (ValueError, json.JSONDecodeError) as e:
+                print(f"    [warning] a pinyin answer couldn't be read ({e}); asked again next export")
+                return
+            got = {a.get("i"): a.get("pinyin") for a in ans.get("answers") or [] if isinstance(a, dict)}
+            for e in batch:
+                k = keys[e["i"]]
+                if e["i"] not in got:
+                    problems[k] = "no answer for this sentence"
+                    continue
+                pieces, problem = check_pinyin(e["words"], got[e["i"]])
+                if pieces:
+                    saver.put(key_of(k), {"pieces": pieces, "_by": f"{model} {today}"})
+                    problems.pop(k, None)
+                elif round_ == 2:
+                    saver.put(key_of(k), {"failed": problem, "_by": f"{model} {today}"})
+                else:
+                    problems[k] = problem
+        try:
+            with ThreadPoolExecutor(max_workers=tg.WORKERS) as pool:
+                list(pool.map(run, batches))
+        finally:
+            tg.save_json(EXPLANATION_AI_PATH, saver.cache, merge=False)
+        keys = [k for k in keys if key_of(k) not in saver.cache and k in problems]
+        if not keys:
+            break
+
+
+def ai_pinyin(items: list[dict], tags: dict, client, ai_cache: dict, stats: Counter) -> None:
+    """Example items with no pinyin (not course sentences, not the wiki's):
+      1. PINYIN_MODEL (cheap) writes the readings; check_pinyin checks each
+         is a real reading of its character (a failed answer is asked again
+         once, saying what was wrong);
+      2. pypinyin reads it too (free). Where they disagree on a character,
+         or step 1 failed twice, JUDGE_MODEL sees both drafts and writes the
+         correct one -- checked the same way;
+      3. sandhi in code, exactly like course sentences; labelled
+         pinyin_by "AI (model date)" with the model that wrote the final answer.
+    No checked answer: left without pinyin and listed. Never guessed."""
+    from data_pipelines.textbook.scripts import finalize as fz
+    from data_pipelines.textbook.scripts import grammar_explanations as gx
+    today = time.strftime("%Y-%m-%d")
+    fixes = {gx.cjk_key(k): v for k, v in tg.load_json(PINYIN_FIXES_PATH, {}).items() if not k.startswith("_")}
+    todo, fixed, bad_fixes = {}, set(), set()     # todo: cjk text -> (hanzi, english, words)
+    for it in items:
+        if it.get("pinyin") or not gx.cjk_key(it.get("hanzi")):
+            continue
+        key = gx.cjk_key(it["hanzi"])
+        split = surface_split(it["hanzi"], (tags.get(it["hanzi"]) or {}).get("clauses") or [])
+        words = [w for w, _ in split] if split else list(key)
+        if key in fixes:                          # fixed by hand: checked like an AI answer, no AI asked
+            pieces, problem = check_pinyin(words, str(fixes[key].get("pinyin") or "").split())
+            if pieces:
+                text, _ = fz.sandhi_pieces(key, pieces, Counter())
+                it.update(pinyin=text, pinyin_format=gx.NUMERIC, pinyin_by="hand (fixed after review)")
+                fixed.add(key)
+                continue
+            if key not in bad_fixes:
+                print(f"    [warning] {PINYIN_FIXES_PATH.name}: the fix for {it['hanzi']} fails the checks "
+                      f"({problem}) -- not used")
+                bad_fixes.add(key)
+        if key not in todo:
+            todo[key] = (it["hanzi"], it.get("english") or "", words)
+    if fixed:
+        stats[f"example pinyin fixed by hand ({PINYIN_FIXES_PATH.name})"] = len(fixed)
+
+    def first_key(k):
+        return json.dumps(["pinyin", gr.PINYIN_VERSION, PINYIN_MODEL, k, todo[k][2]], ensure_ascii=False)
+
+    def judge_key(k):
+        return json.dumps(["pinyin_judge", gr.PINYIN_VERSION, tg.JUDGE_MODEL, k, todo[k][2]], ensure_ascii=False)
+
+    def entry(k):
+        return {"hanzi": todo[k][0], "english": todo[k][1], "words": todo[k][2]}
+
+    saver = CacheSaver(ai_cache)
+    asked = [k for k in todo if first_key(k) not in ai_cache]
+    if asked and client is None:
+        raise SystemExit("The example pinyin needs AI calls but no client was given.")
+    if asked:
+        print(f"  {PINYIN_MODEL}: pinyin for {len(asked)} example(s) that are not course sentences...", flush=True)
+        ask_pinyin(client, PINYIN_MODEL, gr.pinyin_prompt, asked, entry, first_key, saver, today)
+
+    # step 2: disagreements and failures go to the judge
+    first, doubt = {}, {}
+    for k in todo:
+        a = ai_cache.get(first_key(k))
+        if not isinstance(a, dict):
+            continue                              # no readable answer yet: asked again next export
+        first[k] = a
+        if a.get("pieces"):
+            where = pypinyin_disagrees(a["pieces"])
+            if where:
+                doubt[k] = where
+        elif a.get("failed"):
+            doubt[k] = ["(first answer failed: " + a["failed"] + ")"]
+
+    def judge_entry(k):
+        a = first[k]
+        return dict(entry(k), drafts={"A": ["".join(sy) for _, sy in a["pieces"]] if a.get("pieces") else None,
+                                      "B": pypinyin_words(todo[k][2])})
+    to_judge = [k for k in doubt if judge_key(k) not in ai_cache]
+    if to_judge:
+        if client is None:
+            raise SystemExit("The example pinyin needs AI calls but no client was given.")
+        print(f"  {tg.JUDGE_MODEL}: settling {len(to_judge)} example(s) where {PINYIN_MODEL} and pypinyin "
+              f"disagree...", flush=True)
+        ask_pinyin(client, tg.JUDGE_MODEL, gr.pinyin_judge_prompt, to_judge, judge_entry, judge_key, saver, today)
+
+    # step 3: the final answer into the items
+    final, failed, report = {}, {}, []
+    for k in todo:
+        a = ai_cache.get(judge_key(k)) if k in doubt else first.get(k)
+        if isinstance(a, dict) and a.get("pieces"):
+            final[k] = a
+        elif isinstance(a, dict) and a.get("failed"):
+            failed[k] = a["failed"]
+        if k in doubt:
+            f = first.get(k) or {}
+            report.append([todo[k][0], " ".join("".join(sy) for _, sy in f["pieces"]) if f.get("pieces") else "",
+                           " ".join(pypinyin_words(todo[k][2])),
+                           " ".join("".join(sy) for _, sy in final[k]["pieces"]) if k in final else
+                           ("(not answered yet)" if k not in failed else "(no pinyin: " + failed[k] + ")"),
+                           " ".join(doubt[k])])
+    for it in items:
+        k = gx.cjk_key(it.get("hanzi"))
+        if it.get("pinyin") or k not in todo:
+            continue
+        if k in final:
+            text, _ = fz.sandhi_pieces(k, [(w, list(sy)) for w, sy in final[k]["pieces"]], Counter())
+            it.update(pinyin=text, pinyin_format=gx.NUMERIC, pinyin_by=f"AI ({final[k]['_by']})")
+        else:
+            it.update(pinyin="", pinyin_format=None, pinyin_by=None)
+    stats["example pinyin written by AI (checked)"] = len(final)
+    stats[f"  of which settled by {tg.JUDGE_MODEL} (it and pypinyin disagreed, or the first answer failed)"] = \
+        sum(1 for k in final if k in doubt)
+    if report:
+        path = tg.OUT_DIR / "example_pinyin_disagreements.csv"
+        with open(path, "w", encoding="utf-8-sig", newline="") as f:
+            w = csv.writer(f)
+            w.writerow(["hanzi", PINYIN_MODEL, "pypinyin", f"final ({tg.JUDGE_MODEL})", "words that differ"])
+            w.writerows(sorted(report))
+        print(f"  disagreements and what was chosen: {path}")
+    unanswered = [k for k in todo if k not in final and k not in failed]
+    if unanswered:
+        stats["examples with no readable AI answer yet (asked again next export)"] = len(unanswered)
+    if failed:
+        stats["examples left without pinyin (no answer passed the checks)"] = len(failed)
+        for k, why in sorted(failed.items())[:15]:
+            print(f"    no pinyin: {todo[k][0]}  ({why})")
+
+
+def numbered_blocks(blocks: list[dict]) -> str:
+    lines = []
+    for n, b in enumerate(blocks):
+        if b["type"] in ("heading", "paragraph"):
+            lines.append(f"[{n}] {b['type'].upper()}: {b['text']}")
+        elif b["type"] == "structure":
+            lines.append(f"[{n}] STRUCTURE (fixed): " + " | ".join(b["lines"]))
+        else:
+            lines.append(f"[{n}] {b['type'].upper()} (fixed): "
+                         + " / ".join(it["hanzi"] for it in b["items"][:4]) + (" ..." if len(b["items"]) > 4 else ""))
+    return "\n".join(lines)
+
+
+def apply_edits(blocks: list[dict], edits: list) -> tuple[list[dict], bool]:
+    """Only headings and paragraphs can change; anything else in the answer is ignored."""
+    blocks = [dict(b) for b in blocks]
+    remove, changed = set(), False
+    for e in edits if isinstance(edits, list) else []:
+        try:
+            n = int(e.get("n"))
+        except (TypeError, ValueError, AttributeError):
+            continue
+        if not (0 <= n < len(blocks)) or blocks[n]["type"] not in ("heading", "paragraph"):
+            continue
+        if e.get("remove"):
+            remove.add(n)
+            changed = True
+        elif isinstance(e.get("text"), str) and e["text"].strip() and e["text"].strip() != blocks[n]["text"]:
+            blocks[n]["text"] = e["text"].strip()
+            changed = True
+    blocks = [b for i, b in enumerate(blocks) if i not in remove]
+    # a heading left with nothing under it goes too
+    blocks = [b for i, b in enumerate(blocks)
+              if not (b["type"] == "heading" and (i + 1 == len(blocks) or blocks[i + 1]["type"] == "heading"))]
+    return blocks, changed
+
+
+def ask_json(client, prompt: str, max_tokens: int):
+    return gr.extract_json(tg.call(client, EXPLAIN_MODEL, prompt, max_tokens))
+
+
+def build_explanations(db, tagger, client=None) -> dict:
+    """{code: [rows]} for EVERY grammar point, in display order:
+      1. the AllSet Learning pages that teach it, each in the wiki's own order
+         (blocks); for a point learners meet (it has a unit), an AI read-through
+         first fixes prose that makes no sense in the app (edited_by is set);
+      2. for a point learners meet that NO page teaches: a short tip WRITTEN BY
+         AI (source ai_generated, generated_by), with real course sentences as
+         its examples;
+      3. the official HSK list's entry (Chinese label + its examples), last.
+    `readable` on every example: all its words at or below the point's level.
+    AI answers are saved in explanation_ai.json, so each is paid for once."""
+    import hashlib
+    from concurrent.futures import ThreadPoolExecutor
+    from app.textbook.models import GrammarTip, Sentence, SentenceGrammar, SentenceSource
     asg = {p["id"]: p for p in tg.load_json(tg.ASG_PATH, {}).get("points", [])}
+    if asg and not any("blocks" in p for p in asg.values()):
+        raise SystemExit(f"{tg.ASG_PATH.name} has no page blocks yet: run parse_asg.py first.")
     sources = tg.load_json(tg.SOURCES_PATH, {})
     manual = tg.load_json(tg.MANUAL_PATH, {})
-    tips = db.query(GrammarTip).order_by(GrammarTip.id).all()
-    texts = set()
-    plan_ = {}
-    for tip in tips:
+    rules_text = {}
+    _, sections, _ = gr.load_rules(tg.RULES_PATH)
+    for c, sec in sections.items():
+        m = re.search(r"\*\*Covers:\*\*\s*(.+)", sec)
+        rules_text[c] = m.group(1).strip()[:400] if m else ""
+    ai_cache = tg.load_json(EXPLANATION_AI_PATH, {})
+    today = time.strftime("%Y-%m-%d")
+
+    plan_, texts = {}, set()
+    for tip in db.query(GrammarTip).order_by(GrammarTip.id).all():
         c = tip.grammar_code
         content = tg.load_json_str(tip.content_json)
         official = list(dict.fromkeys(s for k, v in content.items() if "example" in k.lower()
@@ -576,41 +908,423 @@ def build_explanations(db, tagger) -> dict:
         m = manual.get(c, {}) if isinstance(manual.get(c), dict) else {}
         ids = list(dict.fromkeys(list((sources.get(c) or {}).get("is", {})) + list(m.get("is", {}))))
         pages = [asg[i] for i in ids if i in asg and i not in m.get("not", {})]
-        plan_[c] = (tip, official, pages)
+        course = []
+        if tip.unit_id is not None and not pages:      # an AI tip: real course sentences as its examples
+            course = [(s.hanzi, s.english) for s in
+                      db.query(Sentence).join(SentenceGrammar, SentenceGrammar.sentence_id == Sentence.id)
+                      .filter(SentenceGrammar.grammar_tip_id == tip.id, Sentence.unit_id.isnot(None),
+                              Sentence.hsk_level <= tip.hsk_level, Sentence.english != "",
+                              Sentence.source.in_([SentenceSource.hsa, SentenceSource.external]))
+                      .all()]
+            course = sorted(dict.fromkeys(course), key=lambda x: len(x[0]))[:20]
+        plan_[c] = (tip, official, pages, course)
         texts.update(official)
-        texts.update(e["hanzi"] for p in pages for e in p["examples"])
+        texts.update(it["hanzi"] for p in pages for b in p.get("blocks", []) if b["type"] == "examples"
+                     for it in b["items"])
     tags = tagger.tag_all(sorted(texts), "explanation example(s)")
 
     def readable(h, level):
         r = tags.get(h) or {}
         return r.get("level") is not None and r["level"] <= level
 
-    out = {"_readme": "Grammar explanations for the pipeline (load_hsk_lists.py -> grammar_explanations). "
-                      "Copied from the official HSK grammar list and the AllSet Learning Chinese Grammar Wiki "
-                      f"({ASG_LICENSE}: credit + link, non-commercial only). No AI-written text. "
-                      "Written by run_all_grammar.py --export."}
-    for c, (tip, official, pages) in plan_.items():
-        rows = [{"source": "hsk_list", "source_ref": c, "title": tip.raw_text, "structure": None,
-                 "explanation": None, "level_hint": tip.hsk_level, "url": None,
-                 "attribution": HSK_LIST_ATTRIBUTION, "license": None,
-                 "examples": [{"hanzi": h, "pinyin": "", "english": "", "marked": [],
-                               "readable": readable(h, tip.hsk_level)} for h in official]}]
+    # ---- AI work, in parallel, cached ----
+    jobs = {}
+    for c, (tip, official, pages, course) in plan_.items():
+        if tip.unit_id is None:
+            continue
+        for p in pages:
+            key = json.dumps(["edit", gr.EXPLANATION_AI_VERSION, EXPLAIN_MODEL, p["id"], tip.hsk_level,
+                              hashlib.md5(json.dumps(p["blocks"], ensure_ascii=False).encode()).hexdigest()])
+            if key not in ai_cache:
+                jobs[key] = (gr.edit_page_prompt(p["title"], tip.hsk_level, numbered_blocks(p["blocks"])), 1500)
+        if not pages:
+            key = json.dumps(["tip", gr.EXPLANATION_AI_VERSION, EXPLAIN_MODEL, c, tip.hsk_level],
+                             ensure_ascii=False)
+            if key not in ai_cache:
+                jobs[key] = (gr.tip_prompt(c, tip.hsk_level, tip.raw_text, official, rules_text.get(c, ""), course),
+                             1500)
+    if jobs:
+        if client is None:
+            raise SystemExit("The explanations need AI calls but no client was given.")
+        n_edit = sum(1 for k in jobs if k.startswith('["edit"'))
+        print(f"  {EXPLAIN_MODEL}: reading {n_edit} wiki page(s) and writing {len(jobs) - n_edit} tip(s) "
+              f"(saved to {EXPLANATION_AI_PATH.name})...", flush=True)
+
+        def run(item):
+            key, (prompt, max_tokens) = item
+            try:
+                ans = ask_json(client, prompt, max_tokens)
+                if isinstance(ans, dict):
+                    ans["_by"] = f"{EXPLAIN_MODEL} {today}"     # who wrote / edited it, and when
+                saver.put(key, ans)
+            except (ValueError, json.JSONDecodeError) as e:
+                print(f"    [warning] an answer couldn't be read ({e}); asked again next export")
+        saver = CacheSaver(ai_cache)
+        try:
+            with ThreadPoolExecutor(max_workers=tg.WORKERS) as pool:
+                list(pool.map(run, jobs.items()))
+        finally:
+            tg.save_json(EXPLANATION_AI_PATH, ai_cache, merge=False)
+
+    out = {"_readme": "Grammar explanations for the pipeline (load_hsk_lists.py -> grammar_explanations), in display "
+                      "order. AllSet Learning Chinese Grammar Wiki pages (" + ASG_LICENSE + ": credit + link, "
+                      "non-commercial only; edited_by = an AI fixed prose that made no sense in the app), then for "
+                      "points no page teaches a tip WRITTEN BY AI (source ai_generated, generated_by), then the "
+                      "official HSK list. Written by run_all_grammar.py --export."}
+    stats = Counter()
+    for c, (tip, official, pages, course) in plan_.items():
+        lvl = tip.hsk_level
         wiki = []
         for p in pages:
-            ex = [{"hanzi": e["hanzi"], "pinyin": e.get("pinyin") or "", "english": e.get("english") or "",
-                   "marked": [mk["text"] for mk in e.get("marked", []) if mk.get("text")],
-                   "readable": readable(e["hanzi"], tip.hsk_level)} for e in p["examples"]]
+            blocks, edited = p["blocks"], False
+            key = json.dumps(["edit", gr.EXPLANATION_AI_VERSION, EXPLAIN_MODEL, p["id"], lvl,
+                              hashlib.md5(json.dumps(p["blocks"], ensure_ascii=False).encode()).hexdigest()])
+            if tip.unit_id is not None and isinstance(ai_cache.get(key), dict):
+                blocks, edited = apply_edits(blocks, ai_cache[key].get("edits") or [])
+                stats["wiki pages edited by AI" if edited else "wiki pages read by AI, left as is"] += 1
+            for b in blocks:
+                if b["type"] == "examples":
+                    for it in b["items"]:
+                        it["readable"] = readable(it["hanzi"], lvl)
+            ex = [it for b in blocks if b["type"] == "examples" for it in b["items"]]
             hint = min(p["hsk_2021"]) if p.get("hsk_2021") else None
+            credit = f'"{p["title"]}", AllSet Learning Chinese Grammar Wiki'
             wiki.append({"source": "allset_learning", "source_ref": p["id"], "title": p["title"],
-                         "structure": "\n".join(dict.fromkeys(p.get("structures") or [])) or None,
-                         "explanation": p.get("text") or None, "level_hint": hint,
+                         "structure": "\n".join(l for b in blocks if b["type"] == "structure" for l in b["lines"])
+                                      or None,
+                         "explanation": blocks_markdown(blocks) or None, "body": blocks, "level_hint": hint,
                          "url": ASG_URL.format(p["id"]),
-                         "attribution": f'"{p["title"]}", AllSet Learning Chinese Grammar Wiki',
-                         "license": ASG_LICENSE, "examples": ex})
-        # pages at or below the point's level first, then the ones with the most readable examples
-        wiki.sort(key=lambda r: (r["level_hint"] is None or r["level_hint"] > tip.hsk_level,
+                         "attribution": (f"Adapted from {credit} (prose edited by AI for this app)" if edited
+                                         else credit),
+                         "license": ASG_LICENSE, "examples": ex,
+                         "edited_by": ai_cache[key].get("_by") if edited else None, "generated_by": None})
+        wiki.sort(key=lambda r: (r["level_hint"] is None or r["level_hint"] > lvl,
                                  -sum(e["readable"] for e in r["examples"])))
-        out[c] = rows + wiki
+        rows = wiki
+        if not pages and tip.unit_id is not None:
+            key = json.dumps(["tip", gr.EXPLANATION_AI_VERSION, EXPLAIN_MODEL, c, lvl], ensure_ascii=False)
+            a = ai_cache.get(key)
+            if isinstance(a, dict) and a.get("paragraphs"):
+                picks = [course[i] for i in a.get("examples") or [] if isinstance(i, int) and 0 <= i < len(course)]
+                ex = [{"hanzi": h, "pinyin": "", "english": e, "marked": [], "readable": readable(h, lvl)}
+                      for h, e in picks[:5]]
+                blocks = [{"type": "paragraph", "text": str(t)} for t in a["paragraphs"] if str(t).strip()]
+                lines = [str(x) for x in a.get("structure") or [] if str(x).strip()]
+                if lines:
+                    blocks.insert(1 if blocks else 0, {"type": "structure", "lines": lines})
+                if ex:
+                    blocks.append({"type": "examples", "items": ex})
+                gen = a.get("_by") or f"{EXPLAIN_MODEL} {today}"
+                rows.append({"source": "ai_generated", "source_ref": c, "title": str(a.get("title") or tip.raw_text),
+                             "structure": "\n".join(lines) or None, "explanation": blocks_markdown(blocks),
+                             "body": blocks, "level_hint": lvl, "url": None,
+                             "attribution": f"Written by AI ({EXPLAIN_MODEL}) for this app", "license": None,
+                             "examples": ex, "edited_by": None, "generated_by": gen})
+                stats["tips written by AI"] += 1
+        hsk_ex = [{"hanzi": h, "pinyin": "", "english": "", "marked": [], "readable": readable(h, lvl)}
+                  for h in official]
+        hsk_blocks = [{"type": "paragraph", "text": tip.raw_text}] + (
+            [{"type": "examples", "items": hsk_ex}] if hsk_ex else [])
+        rows.append({"source": "hsk_list", "source_ref": c, "title": tip.raw_text, "structure": None,
+                     "explanation": blocks_markdown(hsk_blocks), "body": hsk_blocks, "level_hint": lvl, "url": None,
+                     "attribution": HSK_LIST_ATTRIBUTION, "license": None, "examples": hsk_ex,
+                     "edited_by": None, "generated_by": None})
+        out[c] = rows
+
+    # ---- pinyin of the examples: the wiki's as written; course sentences'; else AI (checked) ----
+    items = [it for c, rows in out.items() if not c.startswith("_") for r in rows
+             for it in gx.example_items(r["examples"], r["body"])]
+    gx.mark_as_written(items)
+    gx.fill_from_course(items, gx.course_pinyin_map(db))
+    stats["examples with a course sentence's pinyin"] = len(
+        {gx.cjk_key(it["hanzi"]) for it in items if it.get("pinyin_by") == gx.BY_COURSE})
+    ai_pinyin(items, tags, client, ai_cache, stats)
+    for c, rows in out.items():
+        for r in rows if not c.startswith("_") else []:
+            if r.get("body"):
+                r["explanation"] = blocks_markdown(r["body"]) or None
+    for k, v in sorted(stats.items()):
+        print(f"  {k}: {v}")
+    return out
+
+
+# ---- the SHORT tips learners see (grammar_tip_parts.json) ----
+
+TIP_ATTEMPTS = 3          # answers per point before it gets no tips (each retry says what broke)
+TIP_MAX_WORDS = 50        # the prompt asks for 45; one or two words over isn't worth losing a tip
+
+_TONE_MARKED = re.compile(r"[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]")
+_CJK_RUN = re.compile(r"[㐀-鿿]+")
+
+
+_ABBREVIATIONS = re.compile(r"\b(Subj|Obj|Adj|Adv|Num|Prep|Pron|etc|e\.g|i\.e|vs)\.", re.I)
+
+
+def _sentences(text: str) -> int:
+    """Sentences in the text; "Subj. + Verb + Obj." and "e.g." don't end one."""
+    text = _ABBREVIATIONS.sub(lambda m: m.group(1).replace(".", ""), (text or "").strip())
+    return len([x for x in re.split(r"(?<=[.!?])\s+", text) if x.strip()])
+
+
+def _word_count(text: str) -> int:
+    return len(re.findall(r"[A-Za-z0-9'’]+", text or "")) + len(_CJK_RUN.findall(text or ""))
+
+
+def check_tip_parts(ans, point_words: list[str], level: int, tags: dict,
+                    needed: list[str] | None = None) -> tuple[list, list[str]]:
+    """The rules of gr.tip_parts_prompt, checked: (tips, []) or (None, problems).
+    `tags`: tagger results for every Chinese run in the answer (tip_chinese).
+    `needed`: the point's words its course sentences really use (tip_sample)
+    -- each must be in some tip's "words" (有点 / 有点儿 count as one)."""
+    tips = ans.get("tips") if isinstance(ans, dict) else None
+    if not isinstance(tips, list) or not 1 <= len(tips) <= 16:
+        return None, ["give 1 to 16 tips in a \"tips\" list"]
+    problems, out, general = [], [], 0
+    banned = re.compile(r"\b(" + "|".join(gr.TIP_TERMS_BANNED) + r")", re.I)
+    for n, t in enumerate(tips, 1):
+        if not isinstance(t, dict):
+            problems.append(f"tip {n} is not an object")
+            continue
+        name = str(t.get("title") or f"tip {n}")
+        words = [str(w).strip() for w in t.get("words") or [] if str(w).strip()]
+        if any(not _CJK_RUN.fullmatch(w) for w in words):
+            problems.append(f"{name}: \"words\" must be Chinese words only")
+        general += not words
+        meaning = str(t.get("meaning") or "").strip()
+        placement = str(t.get("placement") or "").strip() or None
+        note = str(t.get("english_note") or "").strip() or None
+        structure = [str(x).strip() for x in t.get("structure") or [] if str(x).strip()]
+        text = " ".join(x for x in (meaning, placement, note) if x)
+        if not str(t.get("title") or "").strip() or len(name) > 30:
+            problems.append(f"{name}: give a short title (at most 30 characters)")
+        if not meaning:
+            problems.append(f"{name}: \"meaning\" is missing")
+        elif words and not any(meaning.startswith(w) for w in words + [str(t.get("title") or "")] if w):
+            problems.append(f"{name}: \"meaning\" must start with the word itself, e.g. \"{words[0]} means ...\"")
+        if _sentences(meaning) > 2:
+            problems.append(f"{name}: \"meaning\" must be one short sentence")
+        if placement and _sentences(placement) > 1:
+            problems.append(f"{name}: \"placement\" must be one sentence")
+        if note and _sentences(note) > 1:
+            problems.append(f"{name}: \"english_note\" must be at most one sentence")
+        if _word_count(text) > TIP_MAX_WORDS:
+            problems.append(f"{name}: {_word_count(text)} words -- meaning + placement + english_note must be "
+                            "at most 45")
+        if len(structure) > 2 or any(len(x) > 60 for x in structure):
+            problems.append(f"{name}: at most 2 short structure lines")
+        everything = " ".join([name, text] + structure)
+        hit = banned.search(" ".join([name, text]))
+        if hit:
+            problems.append(f"{name}: no grammar terms like \"{hit.group(1)}\"")
+        if _TONE_MARKED.search(everything):
+            problems.append(f"{name}: no pinyin")
+        own = set(words) | set(point_words)
+        for run in _CJK_RUN.findall(everything):
+            for hanzi, lvl, proper in (tags.get(run) or {}).get("vocab") or []:
+                if proper or any(hanzi in w or w in hanzi for w in own):
+                    continue
+                if lvl is None or lvl > level:
+                    problems.append(f"{name}: {hanzi} is not an HSK {level} word -- use easier Chinese or none")
+        out.append({"words": words, "title": name, "structure": structure, "meaning": meaning,
+                    "placement": placement, "english_note": note, "text": text})
+    if general > 1:
+        problems.append("at most one tip may have no words")
+    covered = [w for t in out for w in t["words"]]
+    if needed is not None:
+        for w in needed:
+            if not any(w == c or w + "儿" == c or c + "儿" == w for c in covered):
+                problems.append(f"the course sentences use {w}: give it a tip, or add \"{w}\" to a tip's \"words\"")
+    else:
+        for w in point_words:
+            if _CJK_RUN.fullmatch(w) and not general and not any(w in c or c in w for c in covered):
+                problems.append(f"the point's word {w} has no tip -- add it to a tip's \"words\" or give it a tip")
+    return (out, []) if not problems else (None, list(dict.fromkeys(problems)))
+
+
+def tip_chinese(ans) -> list[str]:
+    tips = ans.get("tips") if isinstance(ans, dict) else None
+    runs = set()
+    for t in tips if isinstance(tips, list) else []:
+        if isinstance(t, dict):
+            for k in ("title", "meaning", "placement", "english_note"):
+                runs.update(_CJK_RUN.findall(str(t.get(k) or "")))
+            for x in t.get("structure") or []:
+                runs.update(_CJK_RUN.findall(str(x)))
+    return sorted(runs)
+
+
+def tip_sample(linked, words: list[str], size: int = 20) -> tuple[list[str], list[tuple[str, str]]]:
+    """(needed, sentences) for a point's tips, from ALL its course sentences:
+    needed = the point's words they really use, on word boundaries (a word
+    of 2+ characters inside a longer word counts as that word: 怎么 in
+    怎么样 -> 怎么样; a 1-character one doesn't: 常 in 经常 isn't 常);
+    sentences = the 2 shortest for each needed word, then the shortest of
+    the rest, up to `size`. Fixed order, so the prompt is the same each run."""
+    from data_pipelines.textbook.scripts.grammar_tips import word_spans
+    uses = {}
+    for x in linked:
+        try:
+            gl = json.loads(x.glosses) if x.glosses else None
+        except json.JSONDecodeError:
+            gl = None
+        spans = word_spans(x.hanzi, gl) if isinstance(gl, list) else None
+        tokens = [t for t, _ in gl] if isinstance(gl, list) else []
+        for w in words:
+            if spans is None:
+                hits = [w] if w in x.hanzi else []
+            elif w in spans:
+                hits = [w]
+            elif len(w) >= 2:
+                hits = [t for t in tokens if w in t and t != w]
+            else:
+                hits = []
+            for h in hits:
+                uses.setdefault(h, set()).add((len(x.hanzi), x.hanzi, x.english))
+    picked = []
+    for w in sorted(uses):
+        picked += sorted(uses[w])[:2]
+    for r in sorted({(len(x.hanzi), x.hanzi, x.english) for x in linked}):
+        if len(dict.fromkeys(picked)) >= max(size, len(picked)):
+            break
+        picked.append(r)
+    return sorted(uses), [(h, e) for _, h, e in dict.fromkeys(picked)]
+
+
+def build_tip_parts(db, tagger, client, words_of: dict) -> dict:
+    """{code: [tip, ...]} for every point learners meet (it has a unit):
+    WRITTEN BY AI (EXPLAIN_MODEL) from the official entry, the AllSet
+    Learning pages and the point's course sentences, following
+    gr.tip_parts_prompt; checked by check_tip_parts, asked again once with
+    the broken rules listed. A point whose tips fail twice gets none (listed)."""
+    import hashlib
+    from app.textbook.models import GrammarTip, Sentence, SentenceGrammar
+    asg = {p["id"]: p for p in tg.load_json(tg.ASG_PATH, {}).get("points", [])}
+    sources = tg.load_json(tg.SOURCES_PATH, {})
+    manual = tg.load_json(tg.MANUAL_PATH, {})
+    ai_cache = tg.load_json(EXPLANATION_AI_PATH, {})
+    saver = CacheSaver(ai_cache)
+    today = time.strftime("%Y-%m-%d")
+    jobs = {}
+    for tip in db.query(GrammarTip).filter(GrammarTip.unit_id.isnot(None)).order_by(GrammarTip.id).all():
+        c = tip.grammar_code
+        content = tg.load_json_str(tip.content_json)
+        official = list(dict.fromkeys(x for k, v in content.items() if "example" in k.lower()
+                                      for x in tg._cjk_strings(v)))[:6]
+        m = manual.get(c, {}) if isinstance(manual.get(c), dict) else {}
+        ids = list(dict.fromkeys(list((sources.get(c) or {}).get("is", {})) + list(m.get("is", {}))))
+        pages = [asg[i] for i in ids if i in asg and i not in m.get("not", {})][:3]
+        words = [w for w in words_of.get(c) or [] if _CJK_RUN.fullmatch(w)]
+        linked = (db.query(Sentence).join(SentenceGrammar, SentenceGrammar.sentence_id == Sentence.id)
+                  .filter(SentenceGrammar.grammar_tip_id == tip.id, Sentence.unit_id.isnot(None),
+                          Sentence.english != "").all())
+        needed, course = tip_sample(linked, words)
+        args = (c, tip.hsk_level, tip.raw_text, official, words,
+                [blocks_markdown(p.get("blocks") or [])[:2500] for p in pages], course, needed)
+        prompt = gr.tip_parts_prompt(*args)
+        key = json.dumps(["tip_parts", gr.TIP_PARTS_VERSION, EXPLAIN_MODEL, c, tip.hsk_level,
+                          hashlib.md5(prompt.encode()).hexdigest()], ensure_ascii=False)
+        jobs[c] = {"args": args, "key": key, "prompt": prompt, "level": tip.hsk_level, "words": words,
+                   "needed": needed,
+                   "sources": [f"AllSet Learning: {p['title']} ({ASG_URL.format(p['id'])})" for p in pages]
+                              + ["Official HSK grammar list"]}
+
+    def ask_all(todo: dict):
+        def run(item):
+            c, (key, prompt) = item
+            try:
+                ans = ask_json(client, prompt, 6000)
+                if isinstance(ans, dict):
+                    ans["_by"] = f"{EXPLAIN_MODEL} {today}"
+                    saver.put(key, ans)
+            except (ValueError, json.JSONDecodeError) as e:
+                print(f"    [warning] {c}: the tips couldn't be read ({e}); asked again next export")
+        if not todo:
+            return
+        if client is None:
+            raise SystemExit("The short tips need AI calls but no client was given.")
+        try:
+            with ThreadPoolExecutor(max_workers=tg.WORKERS) as pool:
+                list(pool.map(run, todo.items()))
+        finally:
+            tg.save_json(EXPLANATION_AI_PATH, ai_cache, merge=False)
+
+    from concurrent.futures import ThreadPoolExecutor
+
+    def checked(c, key):
+        ans = ai_cache.get(key)
+        if not isinstance(ans, dict):
+            return None, None
+        tags = tagger.tag_all(tip_chinese(ans), "tip Chinese") if tip_chinese(ans) else {}
+        return check_tip_parts(ans, jobs[c]["words"], jobs[c]["level"], tags, jobs[c]["needed"])
+
+    # A point keeps a saved answer that passes the checks (any saved for this version, model and level),
+    # so answers already paid for are never paid for again; bump gr.TIP_PARTS_VERSION to rewrite them.
+    results, last = {}, {c: None for c in jobs}
+    saved = {}
+    for k in sorted(ai_cache):
+        try:
+            kk = json.loads(k)
+        except (TypeError, json.JSONDecodeError):
+            continue
+        if isinstance(kk, list) and len(kk) >= 5 and kk[:3] == ["tip_parts", gr.TIP_PARTS_VERSION, EXPLAIN_MODEL]:
+            saved.setdefault((kk[3], kk[4]), []).append(k)
+    for c, j in jobs.items():
+        for k in saved.get((c, j["level"]), []):
+            parts, _ = checked(c, k)
+            if parts:
+                results[c] = (parts, ai_cache[k]["_by"])
+                break
+    reused = len(results)
+    # up to TIP_ATTEMPTS answers per point: each retry lists the rules the last answer broke
+    for attempt in range(TIP_ATTEMPTS):
+        suffix = ["", ', "retry"]', ', "retry2"]'][attempt]
+        todo = {}
+        for c, j in jobs.items():
+            if c in results:
+                continue
+            key = j["key"] if not suffix else j["key"][:-1] + suffix
+            if key not in ai_cache:
+                if attempt == 0:
+                    todo[c] = (key, j["prompt"])
+                elif last[c]:                     # the previous answer broke rules: ask again, saying which
+                    todo[c] = (key, gr.tip_parts_prompt(*j["args"], problems=last[c]))
+        if todo:
+            print(f"  {EXPLAIN_MODEL}: " + (f"writing the short tips for {len(todo)} grammar point(s)..."
+                                            if attempt == 0 else f"asking again for {len(todo)} grammar point(s) "
+                                            f"whose tips broke a rule (attempt {attempt + 1})..."), flush=True)
+        ask_all(todo)
+        for c, j in jobs.items():
+            if c in results:
+                continue
+            key = j["key"] if not suffix else j["key"][:-1] + suffix
+            parts, problems = checked(c, key)
+            if parts:
+                results[c] = (parts, ai_cache[key]["_by"])
+            elif problems:
+                last[c] = problems
+    out = {"_readme": "The SHORT grammar tips learners see: one per word or pattern of each point learners meet, "
+                      "WRITTEN BY AI (generated_by) from the official list and AllSet Learning pages (sources), "
+                      "following fixed rules checked in code (meaning first, where it goes, at most one sentence "
+                      "on English, <= 45 words, no grammar terms, no pinyin, Chinese at the level). "
+                      "Loaded by load_hsk_lists.py into grammar_tip_parts. Written by run_all_grammar.py --export."}
+    failed = []
+    for c, j in jobs.items():
+        if c not in results:
+            failed.append((c, last[c] or ["no readable answer yet (asked again next export)"]))
+        parts, by = results.get(c, ([], None))
+        out[c] = [dict(t, generated_by=by, sources=j["sources"]) for t in parts]
+    tagger.save()
+    n = sum(len(v) for k, v in out.items() if not k.startswith("_"))
+    print(f"  short tips: {n} tip(s) for {len(results)} of {len(jobs)} grammar point(s) learners meet "
+          f"({reused} from answers saved before)")
+    report = tg.OUT_DIR / "short_tips_problems.txt"
+    report.parent.mkdir(parents=True, exist_ok=True)
+    with open(report, "w", encoding="utf-8") as f:
+        for c, problems in failed:
+            f.write(f"{c}\n" + "".join(f"  - {p}\n" for p in problems))
+            print(f"    no tips for {c}: {'; '.join(problems)[:200]}")
+    if failed:
+        print(f"  why (full list): {report}")
     return out
 
 
@@ -665,9 +1379,12 @@ def export_for_pipeline(db, state, teach, tagger) -> Path:
                                           "generated_by", "source_author", "source_url", "word_split"])
         w.writeheader()
         w.writerows(rows)
-    expl = build_explanations(db, tagger)
+    expl = build_explanations(db, tagger, tg.get_client())
     tagger.save()
     grammar_dsl.EXPLANATIONS_FILE.write_text(json.dumps(expl, ensure_ascii=False, indent=1), encoding="utf-8")
+    words_of = {c: (st.get("words") or "").split() for c, st in state.items() if isinstance(st, dict)}
+    tips = build_tip_parts(db, tagger, tg.get_client(), words_of)
+    grammar_dsl.TIP_PARTS_FILE.write_text(json.dumps(tips, ensure_ascii=False, indent=1), encoding="utf-8")
     n_src = Counter(r["source"] for r in rows)
     print(f"\nExported to {out_dir}:")
     print(f"  grammar_rules.md + rule_status.json: {sum(1 for v in status.values() if v['rule'] == 'ok')} "
@@ -677,8 +1394,11 @@ def export_for_pipeline(db, state, teach, tagger) -> Path:
     if no_split:
         print(f"  [note] {len(no_split)} sentence(s) have no word split (tagging falls back to HanLP), "
               f"e.g. {no_split[:3]}")
-    with_wiki = sum(1 for c, v in expl.items() if not c.startswith("_") and len(v) > 1)
-    print(f"  grammar_explanations.json: {len(expl) - 1} point(s), {with_wiki} with an AllSet Learning page")
+    has = lambda src: sum(1 for c, v in expl.items() if not c.startswith("_") and any(r["source"] == src for r in v))
+    print(f"  grammar_explanations.json: {len(expl) - 1} point(s): {has('allset_learning')} with an AllSet Learning "
+          f"page, {has('ai_generated')} with a tip written by AI, the rest only the official list")
+    print(f"  {grammar_dsl.TIP_PARTS_FILE.name}: {sum(len(v) for k, v in tips.items() if not k.startswith('_'))} "
+          f"short tip(s) for {sum(1 for k, v in tips.items() if not k.startswith('_') and v)} point(s)")
     print(f"  grammar levels: {grammar_dsl.LEVELS_2025_FILE.name}, {grammar_dsl.LEVELS_EXAMPLES_FILE.name}")
     return out_dir
 
@@ -774,7 +1494,8 @@ def main():
     parser.add_argument("--dry-run", action="store_true", help="List the points and the work left; spend nothing.")
     parser.add_argument("--export", action="store_true",
                         help="Write what the pipeline reads (rules, levels, chosen sentences with their word split "
-                             "and credit, grammar explanations) to data_pipelines/textbook/data/grammar/. No AI.")
+                             "and credit, grammar explanations) to data_pipelines/textbook/data/grammar/. AI only "
+                             "for grammar explanations not made before (saved in explanation_ai.json).")
     parser.add_argument("--rewrite", nargs="+", default=[], metavar="CODE",
                         help="Throw away these points' rules and write them again from scratch (e.g. rules "
                              "written before patterns could link two clauses with ‖).")

@@ -21,3 +21,7 @@ class SessionResponse(BaseModel):
     user_id: int
     session_type: str
     question_set: List[Dict]
+    # grammar_code -> full grammar point (explanations, credit, is_new), sent
+    # once per session; questions refer to them via grammar_tips[].grammar_code.
+    # See session/services/sources.py.
+    grammar_points: Dict[str, Dict] = {}

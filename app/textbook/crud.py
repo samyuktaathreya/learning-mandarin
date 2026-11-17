@@ -39,14 +39,20 @@ to the schema). A new "definition" key carries the specific taught meaning
 a word-level question tests (via Question.vocab_sense_id), for callers that
 want to show it.
 """
+import json
+import re
 import time
 from threading import Lock
 from typing import Optional
 
+from pypinyin.contrib.tone_convert import to_tone as _to_tone
 from sqlalchemy.orm import Session
 from sqlalchemy import func, or_, and_
 from app.core.logger import logger
-from app.textbook.models import Unit, Vocab, VocabSense, Sentence, SentenceVocab, Question, WordType
+from app.textbook.models import (
+    Unit, Vocab, VocabSense, Sentence, SentenceVocab, Question, WordType,
+    SentenceSource, GrammarTip, GrammarExplanation, QuestionGrammar,
+)
 from app.session.constants import QUESTION_TYPE_FACETS  # single source of truth -- see note below
 
 DEFAULT_CACHE_TTL_SECONDS = 3600  # 1 hour; curriculum data changes rarely
@@ -444,6 +450,257 @@ def get_question_by_id(db: Session, question_db_id: int, unit_number: Optional[i
         unit = db.query(Unit).filter(Unit.id == q.unit_id).first()
         unit_number = unit.unit_number if unit else None
     return _question_to_dict(db, q, unit_number)
+
+
+# --------------------------------- SENTENCE SOURCE + GRAMMAR PER QUESTION ---------------------------------
+# Kept OUT of _question_to_dict on purpose: a sentence question can link up to
+# ~12 grammar points, each with several long explanation pages, and
+# _question_to_dict's output is cached for every question in the
+# inverted index. Instead the session layer calls get_question_extras once for
+# the ~20 questions it actually serves (see session/services/sources.py).
+
+TATOEBA_LICENSE = "CC BY 2.0 FR"
+TATOEBA_LICENSE_URL = "https://creativecommons.org/licenses/by/2.0/fr/"
+ALLSET_LICENSE_URL = "https://creativecommons.org/licenses/by-nc-sa/3.0/"
+
+_NUMERIC_SYLLABLE = re.compile(r"[a-zü]+[0-5]", re.IGNORECASE)
+
+
+def _numeric_to_marks(pinyin: str) -> str:
+    """'wo3 zai4 jia1 chi1fan4' -> 'wǒ zài jiā chīfàn'."""
+    return _NUMERIC_SYLLABLE.sub(lambda m: _to_tone(m.group(0).replace("v", "ü")), pinyin)
+
+
+def _example_to_dict(x: dict) -> dict:
+    """One example item, plus `pinyin_display`: pinyin ready to show.
+    as_written -> the pinyin exactly as the source has it; numeric -> tone
+    numbers turned into tone marks (Sentence.pinyin's format); no checked
+    pinyin ("" / null format) -> None, show none."""
+    pinyin = x.get("pinyin") or ""
+    fmt = x.get("pinyin_format")
+    if not pinyin or not fmt:
+        display = None
+    elif fmt == "numeric":
+        display = _numeric_to_marks(pinyin)
+    else:  # "as_written"
+        display = pinyin
+    return {**x, "pinyin_display": display}
+
+
+def _body_to_blocks(body_json: Optional[str]) -> Optional[list]:
+    """GrammarExplanation.body (JSON blocks, in order) with every examples
+    block's items given pinyin_display. None if missing / unparseable."""
+    if not body_json:
+        return None
+    try:
+        blocks = json.loads(body_json)
+    except (TypeError, ValueError):
+        return None
+    out = []
+    for b in blocks:
+        if b.get("type") == "examples":
+            b = {**b, "items": [_example_to_dict(x) for x in b.get("items", [])]}
+        out.append(b)
+    return out
+
+
+def _sentence_source_to_dict(sentence: Sentence) -> Optional[dict]:
+    """Where a sentence came from, plus what the UI must show for it:
+    - ai_generated: label it as written by AI (generated_by = model + date).
+    - tatoeba: CC BY credit = author + link to the sentence page + license.
+    Other sources (hsa, external, textbook...) need no credit line -> None."""
+    source = sentence.source.value if isinstance(sentence.source, SentenceSource) else sentence.source
+    if source == SentenceSource.ai_generated.value:
+        return {
+            "source": source,
+            "label": "Sentence written by AI",
+            "generated_by": sentence.generated_by,
+        }
+    if source == SentenceSource.tatoeba.value:
+        author = sentence.source_author
+        return {
+            "source": source,
+            "label": f"Sentence by {author} on Tatoeba" if author else "Sentence from Tatoeba",
+            "author": author,
+            "url": sentence.source_url,
+            "license": TATOEBA_LICENSE,
+            "license_url": TATOEBA_LICENSE_URL,
+        }
+    return None
+
+
+def _explanation_credit(e: GrammarExplanation) -> dict:
+    """The line the UI shows under an explanation page, by source:
+      allset_learning: attribution (already says "Adapted from ..." when
+        edited_by is set) + link to url + license; non-commercial only.
+      ai_generated:    "Written by AI" -- learners must be told.
+      hsk_list:        the official list, no link."""
+    if e.source == "allset_learning":
+        return {
+            "label": e.attribution or "AllSet Learning Chinese Grammar Wiki",
+            "url": e.url,
+            "license": e.license,
+            "license_url": ALLSET_LICENSE_URL,
+            "non_commercial": True,
+            "ai_edited": bool(e.edited_by),
+        }
+    if e.source == "ai_generated":
+        return {"label": "Written by AI", "url": None, "license": None,
+                "license_url": None, "non_commercial": False, "ai_edited": False}
+    return {"label": e.attribution or "Official HSK grammar list", "url": e.url,
+            "license": e.license, "license_url": None, "non_commercial": False,
+            "ai_edited": False}
+
+
+def _explanation_to_dict(e: GrammarExplanation) -> dict:
+    try:
+        examples = json.loads(e.examples or "[]")
+    except (TypeError, ValueError):
+        examples = []
+    return {
+        "position": e.position,
+        "source": e.source,                # "allset_learning" | "ai_generated" | "hsk_list"
+        "source_ref": e.source_ref,
+        "title": e.title,
+        "structure": e.structure,
+        "body": _body_to_blocks(e.body),   # render these, in order (see GrammarExplanation)
+        "explanation": e.explanation,      # the same as Markdown
+        "examples": [_example_to_dict(x) for x in examples],
+        "level_hint": e.level_hint,
+        "generated_by": e.generated_by,    # ai_generated: model + date
+        "edited_by": e.edited_by,          # allset_learning: AI edited the prose
+        "attribution": e.attribution,
+        "url": e.url,
+        "license": e.license,
+        "credit": _explanation_credit(e),
+    }
+
+
+def _example_line(x: dict) -> str:
+    return " - ".join(p for p in (x.get("hanzi"), x.get("pinyin_display"), x.get("english")) if p)
+
+
+def _explanation_to_sections(e: dict) -> list:
+    """The explanation flattened to the {title, body, table} section shape
+    the existing grammar-tip renderer understands: one section per heading
+    in `body`, credit line last, so attribution / the AI label is shown even
+    by a renderer that ignores `explanations`."""
+    title = e["title"] or ""
+    if e["source"] == "ai_generated":
+        title = f"{title} (written by AI)" if title else "Written by AI"
+
+    sections = [{"title": title, "parts": []}]
+    blocks = e["body"]
+    if blocks is None:  # no body: fall back to the flat columns
+        blocks = []
+        if e["structure"]:
+            blocks.append({"type": "structure", "lines": e["structure"].splitlines()})
+        if e["explanation"]:
+            blocks.append({"type": "paragraph", "text": e["explanation"]})
+        if e["examples"]:
+            blocks.append({"type": "examples", "items": e["examples"]})
+
+    for b in blocks:
+        kind = b.get("type")
+        parts = sections[-1]["parts"]
+        if kind == "heading":
+            sections.append({"title": b.get("text", ""), "parts": []})
+        elif kind == "paragraph":
+            parts.append(b.get("text", ""))
+        elif kind == "structure":
+            parts.append("\n".join(b.get("lines", [])))
+        elif kind == "examples":
+            items = b.get("items", [])
+            readable = [x for x in items if x.get("readable")] or items[:3]
+            if readable:
+                parts.append("\n".join(_example_line(x) for x in readable))
+        elif kind == "forms":
+            parts.append("\n".join(
+                f"{'✓' if x.get('ok') else '✗'} {x.get('hanzi', '')}" for x in b.get("items", [])
+            ))
+
+    c = e["credit"]
+    credit = c["label"] or ""
+    if c["license"]:
+        credit = f"{credit} ({c['license']})" if credit else c["license"]
+    if c["url"]:
+        credit = f"{credit} {c['url']}".strip()
+    if e["source"] == "ai_generated" and e["generated_by"]:
+        credit = f"{credit} ({e['generated_by']})"
+    if credit:
+        sections[-1]["parts"].append(f"Source: {credit}")
+
+    return [
+        {"title": s["title"], "body": "\n\n".join(p for p in s["parts"] if p), "table": None}
+        for s in sections
+        if s["title"] or any(s["parts"])
+    ]
+
+
+def _grammar_tip_to_dict(db: Session, tip: GrammarTip) -> dict:
+    """Everything about one grammar point, cached per point. `unit_number` /
+    `unit_hsk_level` = the unit where it is first taught (None if no unit);
+    the session layer compares them to the learner's unit for is_new."""
+    cache_key = ("grammar_tip_dict", tip.id)
+    cached, hit = _cache.get(cache_key)
+    if hit:
+        return cached
+    try:
+        content = json.loads(tip.content_json or "{}")
+    except (TypeError, ValueError):
+        content = {}
+    explanations = [_explanation_to_dict(e) for e in tip.explanations]  # position order
+    unit = tip.unit
+    result = {
+        "grammar_code": tip.grammar_code,
+        "hsk_level": tip.hsk_level,
+        "unit_number": unit.unit_number if unit else None,
+        "unit_hsk_level": unit.hsk_level if unit else None,
+        "label": content.get("label") or tip.raw_text,
+        "label_full": tip.raw_text,
+        "explanations": explanations,
+        "sections": [s for e in explanations for s in _explanation_to_sections(e)],
+    }
+    _cache.set(cache_key, result)
+    return result
+
+
+def get_question_extras(db: Session, question_db_ids: list) -> tuple:
+    """(per_question, grammar_points) for the questions given:
+      per_question:   {question db id: {"sentence_source": dict | None,
+                       "grammar_codes": [codes it practises]}}
+      grammar_points: {grammar_code: _grammar_tip_to_dict(...)}, each point
+                      once however many questions link it.
+    Two queries for the whole batch; point dicts are cached per point."""
+    ids = list({i for i in question_db_ids if i is not None})
+    if not ids:
+        return {}, {}
+
+    per_question = {i: {"sentence_source": None, "grammar_codes": []} for i in ids}
+    points = {}
+
+    rows = (
+        db.query(Question.id, Sentence)
+        .join(Sentence, Question.sentence_id == Sentence.id)
+        .filter(Question.id.in_(ids))
+        .all()
+    )
+    for qid, sentence in rows:
+        per_question[qid]["sentence_source"] = _sentence_source_to_dict(sentence)
+
+    links = (
+        db.query(QuestionGrammar.question_id, GrammarTip)
+        .join(GrammarTip, QuestionGrammar.grammar_tip_id == GrammarTip.id)
+        .filter(QuestionGrammar.question_id.in_(ids))
+        .order_by(GrammarTip.hsk_level, GrammarTip.grammar_code)
+        .all()
+    )
+    for qid, tip in links:
+        if tip.grammar_code not in points:
+            points[tip.grammar_code] = _grammar_tip_to_dict(db, tip)
+        per_question[qid]["grammar_codes"].append(tip.grammar_code)
+
+    return per_question, points
 
 
 # --------------------------------- DICTIONARY / PINYIN ---------------------------------

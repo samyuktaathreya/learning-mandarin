@@ -48,6 +48,8 @@ export default function SpeakingQuestion({
     onMarkCorrect,
     onTryAgain,
     onPlayAudio,
+    isGrammarTipOpen,
+    onToggleGrammar,
     debug,
 }) {
     const isUnitTest = sessionType === "unit_test";
@@ -201,6 +203,11 @@ export default function SpeakingQuestion({
             {currentQuestionObj.unit != null && <p>Unit {currentQuestionObj.unit}</p>}
             {isUnitTest && <p className="unit-test-label">Unit Test</p>}
             <h2>{questionTypeToInstruction(currentQuestionObj.question_type)}</h2>
+            {currentQuestionObj.grammar_tips?.length > 0 && (
+                <button type="button" className="grammar-tip-toggle" onClick={onToggleGrammar}>
+                    {isGrammarTipOpen ? "Hide" : "Show"} grammar tip{currentQuestionObj.grammar_tips.length > 1 ? "s" : ""}
+                </button>
+            )}
             <h1>
                 {currentQuestionObj.question_type === "speaking_pinyin" || isPinyinPair ? (
                     <ClickablePinyin text={currentQuestionObj.question} isUnitTest={isUnitTest} />

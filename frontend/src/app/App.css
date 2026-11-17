@@ -348,15 +348,66 @@
 
 .grammar-tip-sidebar {
     width: 400px;
+    flex-shrink: 0;
+    box-sizing: border-box;
     background-color: #f8f9fa;
     border: 1px solid #e0e0e0;
     border-radius: 12px;
     padding: 1.5rem;
-    
-    /* This makes it float nicely down the page if they scroll! */
+    text-align: left;
+
+    /* Stays in view while the page scrolls; scrolls itself, since an
+       explanation page can be much taller than the screen. */
     position: sticky;
-    top: 2rem; 
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Narrow screens: the panel goes under the question, full width. */
+@media (max-width: 900px) {
+    .session-layout-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+        padding: 1rem 16px;
+    }
+    .grammar-tip-sidebar {
+        width: 100%;
+        position: static;
+        max-height: none;
+        padding: 1rem;
+    }
+}
+
+.grammar-tip-toggle {
+    margin: 0 0 1rem;
+    padding: 6px 14px;
+    border: 1px solid #c7d2fe;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #3730a3;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.grammar-tip-toggle:hover {
+    background: #e0e7ff;
+}
+
+.grammar-tip-section {
+    margin-bottom: 1rem;
+}
+.grammar-tip-section h4 {
+    margin: 0.75rem 0 0.4rem;
+    font-size: 1rem;
+    color: #2c3e50;
+}
+.grammar-tip-section p {
+    margin: 0 0 0.6rem;
+}
+.grammar-tip-section a {
+    color: inherit;
 }
 
 .grammar-tip-header {

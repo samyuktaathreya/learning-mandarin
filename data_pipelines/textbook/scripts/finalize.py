@@ -18,13 +18,30 @@ accumulates).
                             ("ni2hao3 hen3 gao1xing4"), the old format
    Each word's reading is its sense's citation pinyin; characters with no
    word row (numbers -- tagging doesn't store them as vocabulary) are read
-   with pypinyin. If the syllables can't be lined up one-per-character the
-   sentence keeps citation tones and is counted in the summary.
+   with pypinyin. A list word the text writes without 儿 (有点 for the list's
+   有点儿 -- imported sentences carry these) is read as written, without the
+   final r. If the syllables can't be lined up one-per-character the
+   sentence keeps citation tones and is counted (and the first few listed)
+   in the summary.
 
 3. PRIMARY SENSE -- each word's primary sense = its earliest-taught sense
    (by unit; JSON meaning order breaks ties), which also refreshes Vocab's
    cached pinyin / english / unit from it. Run after assign_units.py: senses
    without a unit sort last.
+
+4. GRAMMAR EXPLANATION EXAMPLES -- an example that is also a course
+   sentence gets that sentence's pinyin (just written in step 2), so it reads
+   the same everywhere. AllSet Learning's own pinyin is kept as written.
+   See grammar_explanations.fill_course_pinyin.
+
+5. SHORT GRAMMAR TIPS -- each sentence's grammar links get the short tip
+   they use (sentence_grammar.part_id), then each tip gets up to 3 example
+   course sentences (grammar_tip_examples). See grammar_tips.py.
+
+Step 2 also writes Sentence.glosses, the word-by-word English line: each
+word's VocabSense.gloss for the meaning used there, numbers glossed in code
+(二十 "twenty"). Words whose meaning has no gloss yet are null -- run
+gloss_senses.py first.
 
 Tone sandhi itself is vocab_pinyin_utils.apply_tone_sandhi: 不/一 by rule,
 third-tone chains by borrowing only pypinyin's POSITIONS, never its
@@ -37,6 +54,7 @@ USAGE (from the repo root)
 import argparse
 import contextlib
 import io
+import json
 import re
 import time
 from collections import Counter
@@ -47,6 +65,9 @@ from app.textbook.db_utils import get_session, init_db, set_primary_senses_by_ea
 from app.textbook.models import Sentence, SentenceVocab, Vocab, VocabSense
 
 from data_pipelines.textbook.scripts.vocab_pinyin_utils import apply_tone_sandhi
+from data_pipelines.textbook.scripts.grammar_explanations import fill_course_pinyin
+from data_pipelines.textbook.scripts import grammar_tips
+from data_pipelines.textbook.scripts.grammar_tips import sentence_glosses
 
 _SYLLABLE_RE = re.compile(r"([A-Za-züÜvV]+)([1-5])")
 _CJK_RE = re.compile(r"[一-鿿]")
@@ -100,6 +121,18 @@ def reading_of(sv: SentenceVocab, word: str) -> list[str]:
     return pypinyin_syllables(word)
 
 
+def reading_as_written(sv: SentenceVocab, word: str, surface: str) -> list[str]:
+    """The list word 有点儿 written 有点 in the text: its reading without the
+    final erhua syllable (you3 dian3, not you3 dian3 r5); else this
+    occurrence's stored reading, which tagging took from the text as written;
+    else pypinyin of the text."""
+    full = reading_of(sv, word)
+    if len(full) == len(word):
+        return full[:-1]
+    stored = syllables(sv.reading or "")
+    return stored if len(stored) == len(surface) else pypinyin_syllables(surface)
+
+
 def finalize_senses(db, stats: Counter) -> list[tuple]:
     examples = []
     for sense, hanzi in db.query(VocabSense, Vocab.hanzi).join(Vocab, Vocab.id == VocabSense.vocab_id).all():
@@ -114,6 +147,9 @@ def finalize_senses(db, stats: Counter) -> list[tuple]:
     return examples
 
 
+UNALIGNED = []          # sentences whose words don't line up with the text (for the summary)
+
+
 def finalize_sentence(db, sentence: Sentence, stats: Counter):
     """See module docstring, step 2."""
     rows = sorted(sentence.vocab_links, key=lambda r: r.position)
@@ -126,14 +162,37 @@ def finalize_sentence(db, sentence: Sentence, stats: Counter):
             pieces.append((word, reading_of(row, word), row))
             pos += len(word)
             k += 1
+        elif word and word.endswith("儿") and len(word) > 1 and chars.startswith(word[:-1], pos):
+            surface = word[:-1]          # 有点 in the text is the list word 有点儿
+            pieces.append((surface, reading_as_written(row, word, surface), row))
+            pos += len(surface)
+            k += 1
         else:                       # a character with no word row (a number)
             pieces.append((chars[pos], pypinyin_syllables(chars[pos]), None))
             pos += 1
     if k != len(rows):
         stats["sentences whose words don't line up with the text (left as is)"] += 1
+        UNALIGNED.append((sentence.hanzi, [r.vocab.hanzi for r in rows]))
         return
 
-    flat = [s for _, sylls, _ in pieces for s in sylls]
+    text, readings = sandhi_pieces(chars, [(w, s) for w, s, _ in pieces], stats)
+    for (_, _, row), reading in zip(pieces, readings):
+        if row is not None:
+            row.pinyin = reading
+    sentence.pinyin = text
+    glosses = sentence_glosses(pieces)
+    if any(g is None for _, g in glosses):
+        stats["sentences whose word-by-word gloss has gaps"] += 1
+    sentence.glosses = json.dumps(glosses, ensure_ascii=False)
+
+
+def sandhi_pieces(chars: str, pieces: list[tuple[str, list[str]]], stats: Counter) -> tuple[str, list[str]]:
+    """[(word, citation syllables), ...] covering `chars` -> (the sentence's
+    pinyin in Sentence.pinyin's format, each word's reading). Sandhi runs on
+    the whole sentence at once. Also used for grammar-explanation examples
+    that are not course sentences (grammar_explanations.py), so both look
+    the same."""
+    flat = [s for _, sylls in pieces for s in sylls]
     sandhied = quiet_sandhi(chars, "".join(flat), stats)
     out = syllables(sandhied)
     if len(out) != len(flat):
@@ -142,18 +201,17 @@ def finalize_sentence(db, sentence: Sentence, stats: Counter):
     elif out != flat:
         stats["sentences changed by tone sandhi"] += 1
 
-    i, words = 0, []
-    for word, sylls, row in pieces:
+    i, words, readings = 0, [], []
+    for word, sylls in pieces:
         reading = "".join(out[i:i + len(sylls)])
         i += len(sylls)
-        if row is not None:
-            row.pinyin = reading
+        readings.append(reading)
         if is_erhua(word, reading) and words and words[-1][-1:].isdigit():
             # erhua joins the word before it, the dataset's style: 玩儿 -> "wanr2"
             words[-1] = words[-1][:-1] + "r" + words[-1][-1]
             continue
         words.append(reading)
-    sentence.pinyin = " ".join(words)
+    return " ".join(words), readings
 
 
 def main():
@@ -188,10 +246,19 @@ def main():
         no_unit = db.query(VocabSense).filter(VocabSense.unit_id.is_(None)).count()
         stats["senses with no unit (levels not built yet)"] = no_unit
 
+        print("4. Grammar explanation examples: pinyin from course sentences...")
+        filled = fill_course_pinyin(db)
+        stats["grammar explanation examples given their course sentence's pinyin"] = filled
+
+        print("5. Short grammar tips: which tip each sentence uses, and examples...")
+        grammar_tips.refresh(db)
+
         print(f"\n{len(sentences)} sentence(s), "
               f"{db.query(VocabSense).count()} sense(s):")
         for k, v in sorted(stats.items()):
             print(f"  {k}: {v}")
+        for hanzi, words in UNALIGNED[:20]:
+            print(f"    not lined up: {hanzi}  words: {' / '.join(words)}")
         if args.dry_run:
             db.rollback()
             print("Dry run: nothing written.")

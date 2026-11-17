@@ -21,8 +21,17 @@ DATA SOURCES (see ATTRIBUTION.md):
   passed the same vocabulary, grammar-level and AI checks.
 - Grammar explanations (GrammarExplanation) come from the official HSK
   grammar list and the AllSet Learning Chinese Grammar Wiki (CC BY-NC-SA
-  3.0: credit + link on every row, non-commercial use only). None of their
-  text is written by AI.
+  3.0: credit + link on every row, non-commercial use only). Some of that
+  prose was edited by AI (edited_by); points no page teaches have a tip
+  written by AI (generated_by).
+- SHORT GRAMMAR TIPS (GrammarTipPart): what learners see -- one short tip
+  per word or pattern a point teaches, WRITTEN BY AI from the wiki and the
+  official list (generated_by), with examples chosen from course sentences
+  (GrammarTipExample). sentence_grammar.part_id says which tip a sentence
+  uses, so the app shows only that one.
+- WORD-BY-WORD GLOSSES: VocabSense.gloss (1-3 English words, written by AI
+  per meaning, gloss_senses.py) and Sentence.glosses (the sentence's words
+  with the gloss of the meaning used there, written by finalize).
 
 SENTENCE LEVELS: the highest level among the sentence's list words. Names
 don't count. A word in NO list level (word_type auto) puts the sentence at
@@ -201,7 +210,12 @@ class VocabSense(Base):
     Uniqueness is on (vocab_id, pinyin, english): one row per distinct
     meaning. The old (vocab_id, unit_id, english) key stopped working once
     senses are created with no unit -- SQLite treats NULLs as distinct, so it
-    would no longer block duplicates."""
+    would no longer block duplicates.
+
+    gloss: this meaning in 1-3 English words for word-by-word lines ("eat",
+    "food", "more"; function words get a hint in brackets: 吗 "(question)").
+    Written by AI (gloss_senses.py, Haiku), checked for length; NULL until
+    then."""
     __tablename__ = "vocab_senses"
 
     id = Column(Integer, primary_key=True)
@@ -216,6 +230,7 @@ class VocabSense(Base):
     origin = Column(Enum(VocabOrigin), nullable=False)
     form_index = Column(Integer, nullable=True)                   # index into the JSON `forms`
     meaning_index = Column(Integer, nullable=True)                # index into that form's `meanings`
+    gloss = Column(Text, nullable=True)                           # 1-3 English words, written by AI
 
     vocab = relationship("Vocab", back_populates="senses")
     unit = relationship("Unit")
@@ -272,7 +287,12 @@ class Sentence(Base):
     for the CC BY credit line. NULL for other sources.
     word_split: for imported sentences, the word split the grammar trial
     checked them with (JSON [[surface, list word or null], ...]); tagging
-    uses it so the pipeline sees the sentence exactly as it was checked."""
+    uses it so the pipeline sees the sentence exactly as it was checked.
+    glosses: word-by-word English, written by finalize: JSON
+    [[surface, gloss or null], ...] covering every Chinese character in
+    order ([["多", "more"], ["吃", "eat"], ["饭", "food"]]). The gloss is
+    VocabSense.gloss of the meaning used HERE; numbers are glossed in code
+    (二十 "twenty"); null = no gloss yet."""
     __tablename__ = "sentences"
 
     id = Column(Integer, primary_key=True)
@@ -293,6 +313,7 @@ class Sentence(Base):
     source_author = Column(Text, nullable=True)           # tatoeba: the sentence's author (CC BY credit)
     source_url = Column(Text, nullable=True)              # tatoeba: https://tatoeba.org/en/sentences/show/<id>
     word_split = Column(Text, nullable=True)              # imported: JSON [[surface, list word or null], ...]
+    glosses = Column(Text, nullable=True)                 # JSON [[surface, gloss or null], ...] (finalize)
 
     unit = relationship("Unit", back_populates="sentences")
     vocab_links = relationship("SentenceVocab", back_populates="sentence",
@@ -378,15 +399,46 @@ class GrammarTip(Base):
     sentence_links = relationship("SentenceGrammar", back_populates="grammar_tip", cascade="all, delete-orphan")
     explanations = relationship("GrammarExplanation", back_populates="grammar_tip",
                                 cascade="all, delete-orphan", order_by="GrammarExplanation.position")
+    parts = relationship("GrammarTipPart", back_populates="grammar_tip",
+                         cascade="all, delete-orphan", order_by="GrammarTipPart.position")
 
 
 class GrammarExplanation(Base):
     """What a grammar point IS, for a learner meeting it for the first time.
-    Several rows per point, shown in `position` order. Written by
-    load_hsk_lists.py from data/grammar/grammar_explanations.json (exported
-    by the grammar trial). NOTHING here is written by AI: every text is
-    copied from its source. (Which wiki pages belong to which point was
-    sorted by AI and checked by hand; their text is untouched.)
+    Several rows per point, shown in `position` order: the wiki pages that
+    teach it (or, where none does, a tip written by AI), then the official
+    list's entry. Written by load_hsk_lists.py from
+    data/grammar/grammar_explanations.json (exported by the grammar trial).
+
+    WHO WROTE WHAT -- always recorded, so the app can say so:
+      allset_learning rows: the wiki's text. edited_by is set when an AI fixed
+        prose that made no sense in the app (a pointer to a link or video);
+        attribution then says "Adapted from ...", as the license requires.
+      ai_generated rows: WRITTEN BY AI (generated_by = model + date), for
+        points no wiki page teaches. Its examples are real course sentences.
+      hsk_list rows: the official list, copied.
+
+    body: the explanation in the page's own order, JSON blocks -- render these:
+      {"type": "heading", "text"}  {"type": "paragraph", "text"}
+      {"type": "structure", "lines": [...]}   the pattern box
+      {"type": "examples", "items": [{hanzi, pinyin, pinyin_format, pinyin_by, english, marked,
+                                     readable, speaker?}]}
+      {"type": "forms", "items": [{hanzi, ok}]}   correct / incorrect
+    explanation: the same as Markdown (numeric pinyin shown with tone marks).
+
+    EXAMPLE PINYIN -- each example item says where its pinyin came from:
+      pinyin_format "as_written": AllSet Learning's pinyin, written by people,
+        exactly as the wiki has it (tone marks, capitals, punctuation).
+        pinyin_by "AllSet Learning".
+      pinyin_format "numeric": Sentence.pinyin's format (tone numbers, tone
+        sandhi applied, words split by spaces: "wo3 zai4 jia1 chi1fan4").
+        pinyin_by "course sentence": it is a course sentence and has that
+          sentence's pinyin (finalize keeps it in step).
+        pinyin_by "AI (<model> <date>)": not a course sentence; an AI wrote
+          the readings, code checked each is a real reading of its
+          character and applied the sandhi.
+      pinyin "" and pinyin_format null: no checked reading could be written.
+    (See data_pipelines/textbook/scripts/grammar_explanations.py.)
 
     source:
       "hsk_list"         the official HSK grammar list: title = its Chinese
@@ -394,18 +446,19 @@ class GrammarExplanation(Base):
                          sentences (Chinese only, english empty). Always
                          position 0. The only row for points no wiki page
                          teaches.
+      "ai_generated"     a tip WRITTEN BY AI for a point no wiki page teaches
+                         (generated_by). title, structure, body, examples.
       "allset_learning"  one AllSet Learning Chinese Grammar Wiki page that
                          teaches the point (source_ref = page id, e.g.
                          "ASGEB54D"): English title, structure, explanation
                          and examples with pinyin + English. License CC BY-NC-SA
                          3.0: show `attribution` with a link to `url`, and
                          non-commercial use only.
-    structure: the page's pattern lines, one per line
-               ("Condition ，就 + Result"). NULL for hsk_list rows.
-    explanation: the page's explanation text (markup removed; "## " lines
-                 are its section headings). NULL for hsk_list rows.
-    examples: JSON [{"hanzi", "pinyin", "english", "marked": [words of the
-              point in it], "readable": bool}]. readable = every word is at
+    structure: the pattern lines, one per line ("Condition ，就 + Result").
+               NULL for hsk_list rows.
+    examples: JSON [{"hanzi", "pinyin", "pinyin_format", "pinyin_by",
+              "english", "marked": [words of the point in it],
+              "readable": bool}]. readable = every word is at
               or below the point's level, so a learner who just met the point
               can read it (decided by the tagger, no AI).
     level_hint: the HSK level the wiki tags the page with (2021 standard),
@@ -419,8 +472,11 @@ class GrammarExplanation(Base):
     source_ref = Column(Text, nullable=True)              # wiki page id, e.g. "ASGEB54D"
     title = Column(Text, nullable=False, default="")
     structure = Column(Text, nullable=True)
-    explanation = Column(Text, nullable=True)
+    explanation = Column(Text, nullable=True)             # Markdown of body
+    body = Column(Text, nullable=True)                    # JSON blocks, in order (see docstring)
     examples = Column(Text, nullable=False, default="[]")
+    generated_by = Column(Text, nullable=True)            # ai_generated rows: "claude-sonnet-5-5 2026-11-16"
+    edited_by = Column(Text, nullable=True)               # allset_learning rows whose prose an AI edited
     level_hint = Column(Integer, nullable=True)
     url = Column(Text, nullable=True)
     attribution = Column(Text, nullable=True)
@@ -433,16 +489,82 @@ class GrammarExplanation(Base):
     )
 
 
+class GrammarTipPart(Base):
+    """A SHORT grammar tip -- what a learner sees for a grammar point in a
+    sentence. One per word or pattern the point teaches (the point 程度副词
+    has one for 有点, one for 挺, ...; a point with one word has one).
+    WRITTEN BY AI (generated_by) from the AllSet Learning pages and the
+    official list (sources), following fixed rules checked in code:
+      meaning      one short sentence: what it means / does, plain English
+      placement    where it goes in a sentence (a suggestion, no exceptions); may be NULL
+      english_note at most one sentence on how it differs from English; NULL if nothing to say
+      structure    JSON list of pattern lines ("有(一)点(儿) + Adj.")
+      text         meaning + placement + english_note as one paragraph (<= ~45 words)
+    No grammar terms beyond verb / noun / adjective / question / measure
+    word; any Chinese in it is at or below the point's level.
+    words: JSON list of the words that pick this tip for a sentence
+    (["有点", "有一点", "有点儿", "有一点儿"]); [] = the point's general tip,
+    used when no other tip's words are in the sentence.
+    Examples: GrammarTipExample rows (course sentences, chosen in code)."""
+    __tablename__ = "grammar_tip_parts"
+
+    id = Column(Integer, primary_key=True)
+    grammar_tip_id = Column(Integer, ForeignKey("grammar_tips.id"), nullable=False, index=True)
+    position = Column(Integer, nullable=False, default=0)
+    words = Column(Text, nullable=False, default="[]")        # JSON list
+    title = Column(Text, nullable=False, default="")          # short heading, e.g. "有(一)点(儿)"
+    structure = Column(Text, nullable=False, default="[]")    # JSON list of pattern lines
+    meaning = Column(Text, nullable=False, default="")
+    placement = Column(Text, nullable=True)
+    english_note = Column(Text, nullable=True)
+    text = Column(Text, nullable=False, default="")           # the paragraph shown
+    generated_by = Column(Text, nullable=True)                # "claude-sonnet-5-5 2026-11-17"
+    sources = Column(Text, nullable=True)                     # JSON: what it was written from
+
+    grammar_tip = relationship("GrammarTip", back_populates="parts")
+    examples = relationship("GrammarTipExample", back_populates="part", cascade="all, delete-orphan",
+                            order_by="GrammarTipExample.position")
+
+    __table_args__ = (
+        UniqueConstraint("grammar_tip_id", "position", name="_grammar_tip_part_position_uc"),
+    )
+
+
+class GrammarTipExample(Base):
+    """An example sentence for a short tip: a COURSE sentence that uses that
+    tip (sentence_grammar.part_id), chosen in code by the finalize stage --
+    earliest unit first (the learner knows its words), then with audio,
+    then shortest; it has English and a full word-by-word gloss
+    (Sentence.glosses). Rebuilt on every finalize."""
+    __tablename__ = "grammar_tip_examples"
+
+    id = Column(Integer, primary_key=True)
+    part_id = Column(Integer, ForeignKey("grammar_tip_parts.id"), nullable=False, index=True)
+    sentence_id = Column(Integer, ForeignKey("sentences.id"), nullable=False)
+    position = Column(Integer, nullable=False, default=0)
+
+    part = relationship("GrammarTipPart", back_populates="examples")
+    sentence = relationship("Sentence")
+
+    __table_args__ = (
+        UniqueConstraint("part_id", "position", name="_grammar_tip_example_position_uc"),
+    )
+
+
 class SentenceGrammar(Base):
     """Sentence <-> grammar point join table, written by the grammar
-    detection stage."""
+    detection stage. part_id: the short tip (GrammarTipPart) of that point
+    this sentence uses -- the one whose words are in it (longest match), or
+    the point's general tip -- set by finalize; NULL if none fits."""
     __tablename__ = "sentence_grammar"
 
     sentence_id = Column(Integer, ForeignKey("sentences.id"), primary_key=True)
     grammar_tip_id = Column(Integer, ForeignKey("grammar_tips.id"), primary_key=True)
+    part_id = Column(Integer, ForeignKey("grammar_tip_parts.id"), nullable=True)
 
     sentence = relationship("Sentence", backref="grammar_links")
     grammar_tip = relationship("GrammarTip", back_populates="sentence_links")
+    part = relationship("GrammarTipPart")
 
 
 class Question(Base):

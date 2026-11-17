@@ -28,9 +28,10 @@ A sentence listed under several grammar points is written once. One whose
 text is already in the DB (an hsk-sentences-audio sentence) is skipped.
 A previously imported sentence that is no longer in the file is deleted,
 with its tags, grammar links and questions (questions are rebuilt anyway).
-SAFETY: if the file would remove more than a quarter of the imported
-sentences (an export that failed half-way, an empty file), nothing is
-deleted and the stage stops -- pass --allow-removals if that is intended.
+SAFETY: if the file is much SMALLER than what is imported (under three
+quarters of it -- an export that failed half-way, an empty file) and would
+remove more than a quarter of the imported sentences, nothing is deleted and
+the stage stops -- pass --allow-removals if that is intended.
 
 USAGE (from the repo root)
     python -m data_pipelines.textbook.scripts.import_extra_sentences
@@ -83,7 +84,8 @@ def main():
         imported = {e for (e,) in db.query(Sentence.external_id)
                     .filter(Sentence.source.in_(list(SOURCES.values()))).all()}
         missing = imported - set(by_ext)
-        if imported and len(missing) > len(imported) / 4 and not args.allow_removals:
+        shrank = len(by_ext) < 0.75 * len(imported)
+        if imported and shrank and len(missing) > len(imported) / 4 and not args.allow_removals:
             raise SystemExit(
                 f"STOPPED: {grammar_dsl.SENTENCES_FILE.name} has {len(by_ext)} sentence(s), and {len(missing)} of the "
                 f"{len(imported)} sentence(s) imported before are not in it. That looks like an export that went "

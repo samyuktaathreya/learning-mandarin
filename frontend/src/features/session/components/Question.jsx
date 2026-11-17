@@ -61,6 +61,8 @@ export default function Question({
     currentIndex,
     totalQuestions,
     sessionType,
+    isGrammarTipOpen,
+    onToggleGrammar,
     debugMode,
     userAnswer,
     setUserAnswer,
@@ -113,9 +115,6 @@ export default function Question({
         ? tagsToSoundItems(currentQuestionObj.tags)
         : [];
 
-    // ── Grammar Tip UI state ──────────────────────────────────────
-    const [isGrammarTipOpen, setIsGrammarTipOpen] = useState(false);
-
     // ── User Tip UI state ─────────────────────────────────────────
     const [showTipForm, setShowTipForm] = useState(false);
     const [tipKeyType, setTipKeyType] = useState("answer");
@@ -128,7 +127,6 @@ export default function Question({
         setTipKeyType("answer");
         setTipDraft("");
         setTipSaveState(null);
-        setIsGrammarTipOpen(false);
         setDecompositionData(null);
         setSelectedSound(null);
     }, [currentQuestionObj]);
@@ -224,58 +222,8 @@ export default function Question({
         );
     };
 
-    const renderGrammarTip = (tip) => {
-        if (!tip || !Array.isArray(tip.sections)) return null;
-
-        return tip.sections.map((section, sIdx) => (
-            <div key={sIdx} className="grammar-tip-section">
-                <h4>{renderChineseText(section.title)}</h4>
-                <p>{renderChineseText(section.body)}</p>
-
-                {section.table && (
-                    <table className="grammar-tip-table">
-                        <thead>
-                            <tr>
-                                {section.table.headers.map((h, hIdx) => (
-                                    <th key={hIdx}>{renderChineseText(h)}</th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {section.table.rows.map((row, rIdx) => (
-                                <tr key={rIdx}>
-                                    {row.map((cell, cIdx) => (
-                                        <td key={cIdx}>{renderChineseText(cell)}</td>
-                                    ))}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
-            </div>
-        ));
-    };
-
     return (
         <div className="session-view">
-            {/* ── GRAMMAR TIP SIDEBAR ── */}
-            {isGrammarTipOpen && currentQuestionObj.grammar_tips?.length > 0 && (
-                <div className="grammar-tip-sidebar">
-                    <div className="grammar-tip-header">
-                        <h3>Grammar Tip{currentQuestionObj.grammar_tips.length > 1 ? "s" : ""}</h3>
-                        <button type="button" onClick={() => setIsGrammarTipOpen(false)}>Close</button>
-                    </div>
-                    <div className="grammar-tip-content">
-                        {currentQuestionObj.grammar_tips.map((tip, i) => (
-                            <div key={i} className="grammar-tip-entry">
-                                {renderGrammarTip(tip)}
-                                {i < currentQuestionObj.grammar_tips.length - 1 && <hr />}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
-            
             <p>Question {currentIndex + 1} of {totalQuestions}</p>
             {currentQuestionObj.unit != null && <p>Unit {currentQuestionObj.unit}</p>}
             {sessionType === "unit_test" && <p>Unit Test</p>}
@@ -292,9 +240,9 @@ export default function Question({
                 <button 
                     type="button" 
                     className="grammar-tip-toggle"
-                    onClick={() => setIsGrammarTipOpen(true)}
+                    onClick={onToggleGrammar}
                 >
-                    Show grammar tip{currentQuestionObj.grammar_tips.length > 1 ? "s" : ""}
+                    {isGrammarTipOpen ? "Hide" : "Show"} grammar tip{currentQuestionObj.grammar_tips.length > 1 ? "s" : ""}
                 </button>
             )}
 
@@ -311,6 +259,23 @@ export default function Question({
                         />
                     )}
                 </h1>
+            )}
+
+            {/* Tatoeba sentences must credit their author (CC BY 2.0 FR);
+                AI-written sentences must say so. */}
+            {currentQuestionObj.sentence_source && (
+                <p className="sentence-credit" style={{ fontSize: '0.8rem', opacity: 0.6, marginTop: 0 }}>
+                    {currentQuestionObj.sentence_source.url
+                        ? <a href={currentQuestionObj.sentence_source.url} target="_blank" rel="noopener noreferrer">
+                              {currentQuestionObj.sentence_source.label}
+                          </a>
+                        : currentQuestionObj.sentence_source.label}
+                    {currentQuestionObj.sentence_source.license && <> ({currentQuestionObj.sentence_source.license_url
+                        ? <a href={currentQuestionObj.sentence_source.license_url} target="_blank" rel="noopener noreferrer">
+                              {currentQuestionObj.sentence_source.license}
+                          </a>
+                        : currentQuestionObj.sentence_source.license})</>}
+                </p>
             )}
 
             {showReplayButton && (
