@@ -51,7 +51,8 @@ from sqlalchemy import func, or_, and_
 from app.core.logger import logger
 from app.textbook.models import (
     Unit, Vocab, VocabSense, Sentence, SentenceVocab, Question, WordType,
-    SentenceSource, GrammarTip, GrammarExplanation, QuestionGrammar,
+    SentenceSource, GrammarTip, GrammarTipPart, GrammarTipExample, SentenceGrammar,
+    QuestionGrammar,
 )
 from app.session.constants import QUESTION_TYPE_FACETS  # single source of truth -- see note below
 
@@ -454,7 +455,7 @@ def get_question_by_id(db: Session, question_db_id: int, unit_number: Optional[i
 
 # --------------------------------- SENTENCE SOURCE + GRAMMAR PER QUESTION ---------------------------------
 # Kept OUT of _question_to_dict on purpose: a sentence question can link up to
-# ~12 grammar points, each with several long explanation pages, and
+# ~12 grammar points, each with its short tips and example sentences, and
 # _question_to_dict's output is cached for every question in the
 # inverted index. Instead the session layer calls get_question_extras once for
 # the ~20 questions it actually serves (see session/services/sources.py).
@@ -469,39 +470,6 @@ _NUMERIC_SYLLABLE = re.compile(r"[a-zü]+[0-5]", re.IGNORECASE)
 def _numeric_to_marks(pinyin: str) -> str:
     """'wo3 zai4 jia1 chi1fan4' -> 'wǒ zài jiā chīfàn'."""
     return _NUMERIC_SYLLABLE.sub(lambda m: _to_tone(m.group(0).replace("v", "ü")), pinyin)
-
-
-def _example_to_dict(x: dict) -> dict:
-    """One example item, plus `pinyin_display`: pinyin ready to show.
-    as_written -> the pinyin exactly as the source has it; numeric -> tone
-    numbers turned into tone marks (Sentence.pinyin's format); no checked
-    pinyin ("" / null format) -> None, show none."""
-    pinyin = x.get("pinyin") or ""
-    fmt = x.get("pinyin_format")
-    if not pinyin or not fmt:
-        display = None
-    elif fmt == "numeric":
-        display = _numeric_to_marks(pinyin)
-    else:  # "as_written"
-        display = pinyin
-    return {**x, "pinyin_display": display}
-
-
-def _body_to_blocks(body_json: Optional[str]) -> Optional[list]:
-    """GrammarExplanation.body (JSON blocks, in order) with every examples
-    block's items given pinyin_display. None if missing / unparseable."""
-    if not body_json:
-        return None
-    try:
-        blocks = json.loads(body_json)
-    except (TypeError, ValueError):
-        return None
-    out = []
-    for b in blocks:
-        if b.get("type") == "examples":
-            b = {**b, "items": [_example_to_dict(x) for x in b.get("items", [])]}
-        out.append(b)
-    return out
 
 
 def _sentence_source_to_dict(sentence: Sentence) -> Optional[dict]:
@@ -529,119 +497,83 @@ def _sentence_source_to_dict(sentence: Sentence) -> Optional[dict]:
     return None
 
 
-def _explanation_credit(e: GrammarExplanation) -> dict:
-    """The line the UI shows under an explanation page, by source:
-      allset_learning: attribution (already says "Adapted from ..." when
-        edited_by is set) + link to url + license; non-commercial only.
-      ai_generated:    "Written by AI" -- learners must be told.
-      hsk_list:        the official list, no link."""
-    if e.source == "allset_learning":
-        return {
-            "label": e.attribution or "AllSet Learning Chinese Grammar Wiki",
-            "url": e.url,
-            "license": e.license,
-            "license_url": ALLSET_LICENSE_URL,
-            "non_commercial": True,
-            "ai_edited": bool(e.edited_by),
-        }
-    if e.source == "ai_generated":
-        return {"label": "Written by AI", "url": None, "license": None,
-                "license_url": None, "non_commercial": False, "ai_edited": False}
-    return {"label": e.attribution or "Official HSK grammar list", "url": e.url,
-            "license": e.license, "license_url": None, "non_commercial": False,
-            "ai_edited": False}
-
-
-def _explanation_to_dict(e: GrammarExplanation) -> dict:
+def _json_list(text: Optional[str]) -> list:
     try:
-        examples = json.loads(e.examples or "[]")
+        value = json.loads(text or "[]")
     except (TypeError, ValueError):
-        examples = []
+        return []
+    return value if isinstance(value, list) else []
+
+
+def _tip_example_to_dict(x: GrammarTipExample) -> dict:
+    """One course sentence that uses a short tip. pinyin is Sentence.pinyin's
+    format (tone numbers, sandhi applied); pinyin_display has tone marks.
+    literal: the word-by-word (literal) translation -- each word with its
+    tone-marked pinyin and short gloss, a slim view of `dictionary`."""
+    dictionary = _json_list(x.dictionary)
     return {
-        "position": e.position,
-        "source": e.source,                # "allset_learning" | "ai_generated" | "hsk_list"
-        "source_ref": e.source_ref,
-        "title": e.title,
-        "structure": e.structure,
-        "body": _body_to_blocks(e.body),   # render these, in order (see GrammarExplanation)
-        "explanation": e.explanation,      # the same as Markdown
-        "examples": [_example_to_dict(x) for x in examples],
-        "level_hint": e.level_hint,
-        "generated_by": e.generated_by,    # ai_generated: model + date
-        "edited_by": e.edited_by,          # allset_learning: AI edited the prose
-        "attribution": e.attribution,
-        "url": e.url,
-        "license": e.license,
-        "credit": _explanation_credit(e),
+        "sentence_id": x.sentence_id,
+        "hanzi": x.hanzi,
+        "pinyin": x.pinyin,
+        "pinyin_display": _numeric_to_marks(x.pinyin) if x.pinyin else None,
+        "english": x.english,
+        "dictionary": dictionary,  # [{word, list_word, pinyin, gloss, definition}]
+        "literal": [
+            {
+                "word": d.get("word"),
+                "pinyin": _numeric_to_marks(d["pinyin"]) if d.get("pinyin") else None,
+                "gloss": d.get("gloss"),
+            }
+            for d in dictionary if isinstance(d, dict)
+        ],
     }
 
 
-def _example_line(x: dict) -> str:
-    return " - ".join(p for p in (x.get("hanzi"), x.get("pinyin_display"), x.get("english")) if p)
+def _tip_part_credit(part: GrammarTipPart, sources: list) -> dict:
+    """Short tips are WRITTEN BY AI from AllSet Learning pages and/or the
+    official list (`sources`). When AllSet pages were used the tip is an
+    adaptation, so it carries their CC BY-NC-SA license."""
+    from_allset = any(s.startswith("AllSet Learning") for s in sources)
+    return {
+        "label": "Written by AI",
+        "generated_by": part.generated_by,
+        "sources": sources,
+        "license": "CC BY-NC-SA 3.0" if from_allset else None,
+        "license_url": ALLSET_LICENSE_URL if from_allset else None,
+        "non_commercial": from_allset,
+    }
 
 
-def _explanation_to_sections(e: dict) -> list:
-    """The explanation flattened to the {title, body, table} section shape
-    the existing grammar-tip renderer understands: one section per heading
-    in `body`, credit line last, so attribution / the AI label is shown even
-    by a renderer that ignores `explanations`."""
-    title = e["title"] or ""
-    if e["source"] == "ai_generated":
-        title = f"{title} (written by AI)" if title else "Written by AI"
-
-    sections = [{"title": title, "parts": []}]
-    blocks = e["body"]
-    if blocks is None:  # no body: fall back to the flat columns
-        blocks = []
-        if e["structure"]:
-            blocks.append({"type": "structure", "lines": e["structure"].splitlines()})
-        if e["explanation"]:
-            blocks.append({"type": "paragraph", "text": e["explanation"]})
-        if e["examples"]:
-            blocks.append({"type": "examples", "items": e["examples"]})
-
-    for b in blocks:
-        kind = b.get("type")
-        parts = sections[-1]["parts"]
-        if kind == "heading":
-            sections.append({"title": b.get("text", ""), "parts": []})
-        elif kind == "paragraph":
-            parts.append(b.get("text", ""))
-        elif kind == "structure":
-            parts.append("\n".join(b.get("lines", [])))
-        elif kind == "examples":
-            items = b.get("items", [])
-            readable = [x for x in items if x.get("readable")] or items[:3]
-            if readable:
-                parts.append("\n".join(_example_line(x) for x in readable))
-        elif kind == "forms":
-            parts.append("\n".join(
-                f"{'✓' if x.get('ok') else '✗'} {x.get('hanzi', '')}" for x in b.get("items", [])
-            ))
-
-    c = e["credit"]
-    credit = c["label"] or ""
-    if c["license"]:
-        credit = f"{credit} ({c['license']})" if credit else c["license"]
-    if c["url"]:
-        credit = f"{credit} {c['url']}".strip()
-    if e["source"] == "ai_generated" and e["generated_by"]:
-        credit = f"{credit} ({e['generated_by']})"
-    if credit:
-        sections[-1]["parts"].append(f"Source: {credit}")
-
-    return [
-        {"title": s["title"], "body": "\n\n".join(p for p in s["parts"] if p), "table": None}
-        for s in sections
-        if s["title"] or any(s["parts"])
-    ]
+def _tip_part_to_dict(part: GrammarTipPart) -> dict:
+    """A short grammar tip (GrammarTipPart), cached per part."""
+    cache_key = ("grammar_tip_part", part.id)
+    cached, hit = _cache.get(cache_key)
+    if hit:
+        return cached
+    sources = _json_list(part.sources)
+    result = {
+        "part_id": part.id,
+        "position": part.position,
+        "words": _json_list(part.words),
+        "title": part.title,
+        "structure": _json_list(part.structure),
+        "meaning": part.meaning,
+        "placement": part.placement,
+        "english_note": part.english_note,
+        "text": part.text,
+        "examples": [_tip_example_to_dict(x) for x in part.examples],  # position order
+        "credit": _tip_part_credit(part, sources),
+    }
+    _cache.set(cache_key, result)
+    return result
 
 
-def _grammar_tip_to_dict(db: Session, tip: GrammarTip) -> dict:
-    """Everything about one grammar point, cached per point. `unit_number` /
-    `unit_hsk_level` = the unit where it is first taught (None if no unit);
-    the session layer compares them to the learner's unit for is_new."""
-    cache_key = ("grammar_tip_dict", tip.id)
+def _grammar_point_to_dict(tip: GrammarTip) -> dict:
+    """A grammar point's identity + its short tips (`parts`, position order),
+    cached per point. `unit_number` / `unit_hsk_level` = the unit where it is
+    first taught (None if no unit); the session layer compares them to the
+    learner's unit for is_new."""
+    cache_key = ("grammar_point", tip.id)
     cached, hit = _cache.get(cache_key)
     if hit:
         return cached
@@ -649,7 +581,6 @@ def _grammar_tip_to_dict(db: Session, tip: GrammarTip) -> dict:
         content = json.loads(tip.content_json or "{}")
     except (TypeError, ValueError):
         content = {}
-    explanations = [_explanation_to_dict(e) for e in tip.explanations]  # position order
     unit = tip.unit
     result = {
         "grammar_code": tip.grammar_code,
@@ -658,25 +589,39 @@ def _grammar_tip_to_dict(db: Session, tip: GrammarTip) -> dict:
         "unit_hsk_level": unit.hsk_level if unit else None,
         "label": content.get("label") or tip.raw_text,
         "label_full": tip.raw_text,
-        "explanations": explanations,
-        "sections": [s for e in explanations for s in _explanation_to_sections(e)],
+        "parts": [_tip_part_to_dict(p) for p in tip.parts],
     }
     _cache.set(cache_key, result)
     return result
 
 
+def _parts_for_link(point: dict, part_id: Optional[int]) -> list:
+    """The short tip(s) to show for one point in one sentence: the part the
+    sentence uses (SentenceGrammar.part_id); if none was matched, the point's
+    general tip (words == []); failing that, all of its tips."""
+    parts = point["parts"]
+    if part_id is not None:
+        match = [p for p in parts if p["part_id"] == part_id]
+        if match:
+            return match
+    general = [p for p in parts if not p["words"]]
+    return general or parts
+
+
 def get_question_extras(db: Session, question_db_ids: list) -> tuple:
     """(per_question, grammar_points) for the questions given:
-      per_question:   {question db id: {"sentence_source": dict | None,
-                       "grammar_codes": [codes it practises]}}
-      grammar_points: {grammar_code: _grammar_tip_to_dict(...)}, each point
-                      once however many questions link it.
-    Two queries for the whole batch; point dicts are cached per point."""
+      per_question:   {question db id: {"sentence_id": int | None,
+                       "sentence_source": dict | None,
+                       "grammar": [{"grammar_code", "parts": [short tip dicts]}]}}
+                      -- the points the question practises (QuestionGrammar),
+                      each with the short tip(s) its sentence uses.
+      grammar_points: {grammar_code: _grammar_point_to_dict(...)}.
+    Three queries for the whole batch; point dicts are cached per point."""
     ids = list({i for i in question_db_ids if i is not None})
     if not ids:
         return {}, {}
 
-    per_question = {i: {"sentence_source": None, "grammar_codes": []} for i in ids}
+    per_question = {i: {"sentence_id": None, "sentence_source": None, "grammar": []} for i in ids}
     points = {}
 
     rows = (
@@ -686,7 +631,20 @@ def get_question_extras(db: Session, question_db_ids: list) -> tuple:
         .all()
     )
     for qid, sentence in rows:
+        per_question[qid]["sentence_id"] = sentence.id
         per_question[qid]["sentence_source"] = _sentence_source_to_dict(sentence)
+
+    # Which short tip each (sentence, point) uses.
+    sentence_ids = {pq["sentence_id"] for pq in per_question.values() if pq["sentence_id"] is not None}
+    part_for = {}
+    if sentence_ids:
+        part_for = {
+            (sid, gid): pid
+            for sid, gid, pid in db.query(SentenceGrammar.sentence_id, SentenceGrammar.grammar_tip_id,
+                                          SentenceGrammar.part_id)
+            .filter(SentenceGrammar.sentence_id.in_(sentence_ids))
+            .all()
+        }
 
     links = (
         db.query(QuestionGrammar.question_id, GrammarTip)
@@ -697,8 +655,11 @@ def get_question_extras(db: Session, question_db_ids: list) -> tuple:
     )
     for qid, tip in links:
         if tip.grammar_code not in points:
-            points[tip.grammar_code] = _grammar_tip_to_dict(db, tip)
-        per_question[qid]["grammar_codes"].append(tip.grammar_code)
+            points[tip.grammar_code] = _grammar_point_to_dict(tip)
+        parts = _parts_for_link(points[tip.grammar_code],
+                                part_for.get((per_question[qid]["sentence_id"], tip.id)))
+        if parts:  # a point with no short tips yet has nothing to show
+            per_question[qid]["grammar"].append({"grammar_code": tip.grammar_code, "parts": parts})
 
     return per_question, points
 

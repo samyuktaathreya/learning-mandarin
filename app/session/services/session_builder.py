@@ -140,8 +140,8 @@ def generate_full_session(db: Session, characters_db: Session, textbook_db: Sess
 
     # 1. Check for graduation (returns early if true)
     def finish(s: SessionResponse) -> SessionResponse:
-        # Per-question tips, sentence credit (Tatoeba / AI) and grammar points
-        # (is_new = first taught in the learner's current unit).
+        # Per-question user tips, sentence credit (Tatoeba / AI) and short
+        # grammar tips (is_new = first taught in the learner's current unit).
         return attach_question_sources(textbook_db, attach_tips(db, s), user_unit, hsk_level)
 
     if is_unit_graduated(db, user_id, unit_records, unit_tags):

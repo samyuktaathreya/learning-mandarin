@@ -127,6 +127,37 @@ def sentence_glosses(pieces: list[tuple]) -> list[list]:
     return out
 
 
+def sentence_dictionary(pieces: list[tuple], readings: list[str]) -> list[dict]:
+    """Each word of the sentence with its reading here, gloss and the
+    definition of the meaning used here (Sentence.dictionary). Same grouping
+    as sentence_glosses: a number written in several characters is one entry."""
+    out, i = [], 0
+    while i < len(pieces):
+        surface, _, row = pieces[i]
+        if row is not None:
+            sense = row.sense
+            if sense is None or not sense.english:
+                sense = next((s for s in row.vocab.senses if s.is_primary), sense)
+            out.append({"word": surface, "list_word": row.vocab.hanzi if row.vocab.hanzi != surface else None,
+                        "pinyin": readings[i], "gloss": sense_gloss(row),
+                        "definition": sense.english if sense is not None else None})
+            i += 1
+            continue
+        j = i + (surface == "第")
+        while j < len(pieces) and pieces[j][2] is None and len(pieces[j][0]) == 1 and is_numeral(pieces[j][0]):
+            j += 1
+        if j > i + (surface == "第"):
+            text = "".join(p[0] for p in pieces[i:j])
+            g = number_gloss(text)
+            out.append({"word": text, "list_word": None, "pinyin": "".join(readings[i:j]), "gloss": g,
+                        "definition": g})
+            i = j
+        else:
+            out.append({"word": surface, "list_word": None, "pinyin": readings[i], "gloss": None, "definition": None})
+            i += 1
+    return out
+
+
 # --------------------------------- tips ---------------------------------
 
 def _loads(text, default):
@@ -193,6 +224,8 @@ def word_spans(hanzi: str, glosses) -> set | None:
         for j in range(i + 1, min(i + 4, len(words)) + 1):
             run = "".join(words[i:j])
             out.update((run, run + "儿"))
+        if len(words[i]) > 1 and all(is_numeral(ch) for ch in words[i]):
+            out.update(words[i])          # 一千 is one number token: the 千 tip still matches it
     return out
 
 
@@ -244,7 +277,7 @@ def pick_examples(db) -> Counter:
             .join(Unit, Unit.id == Sentence.unit_id)
             .filter(SentenceGrammar.part_id.isnot(None), Sentence.english != "")
             .all())
-    candidates = {}
+    candidates, sentence_of = {}, {}
     for part_id, s, unit_level, unit_number in rows:
         glosses = _loads(s.glosses, None)
         if not glosses or any(g is None for _, g in glosses):
@@ -255,6 +288,7 @@ def pick_examples(db) -> Counter:
         key = (not has_key, unit_level > level_of.get(part_id, 0), unit_level, unit_number, s.audio_normal is None, s.source == SentenceSource.ai_generated,
                len(s.hanzi), s.id)
         candidates.setdefault(part_id, []).append((key, s.id, "".join(_CJK_RUN.findall(s.hanzi))))
+        sentence_of[s.id] = s
     for part_id in level_of:
         chosen, seen = [], set()
         for _, sid, text in sorted(candidates.get(part_id, [])):
@@ -264,7 +298,9 @@ def pick_examples(db) -> Counter:
             if len(chosen) == EXAMPLES_PER_TIP:
                 break
         for pos, sid in enumerate(chosen):
-            db.add(GrammarTipExample(part_id=part_id, sentence_id=sid, position=pos))
+            s = sentence_of[sid]
+            db.add(GrammarTipExample(part_id=part_id, sentence_id=sid, position=pos, hanzi=s.hanzi,
+                                     pinyin=s.pinyin, english=s.english, dictionary=s.dictionary))
         stats[f"tips with {len(chosen)} example(s)"] += 1
     db.flush()
     return stats

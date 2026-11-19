@@ -78,7 +78,9 @@ _ADDED_COLUMNS = [("vocab", "radical", "TEXT"), ("vocab", "pattern", "TEXT"), ("
                   ("grammar_explanations", "body", "TEXT"), ("grammar_explanations", "generated_by", "TEXT"),
                   ("grammar_explanations", "edited_by", "TEXT"),
                   ("vocab_senses", "gloss", "TEXT"), ("sentences", "glosses", "TEXT"),
-                  ("sentence_grammar", "part_id", "INTEGER")]
+                  ("sentence_grammar", "part_id", "INTEGER"), ("sentences", "dictionary", "TEXT"),
+                  ("grammar_tip_examples", "hanzi", "TEXT"), ("grammar_tip_examples", "pinyin", "TEXT"),
+                  ("grammar_tip_examples", "english", "TEXT"), ("grammar_tip_examples", "dictionary", "TEXT")]
 
 
 def delete_questions(db: Session, query) -> int:

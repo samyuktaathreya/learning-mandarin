@@ -23,11 +23,11 @@ import { useSettings, isQuestionEnabled } from '../../settings';
 
 // One practice session, from the first question to the results screen.
 // Mount it with a fresh `key` per session so all per-session state starts clean.
-//   session:    { questions, sessionType, grammarPoints, debug } (from loadPracticeSession)
+//   session:    { questions, sessionType, debug } (from loadPracticeSession)
 //   onExit:     called when the user leaves the session
 //   onFinished: called after the answers have been submitted to the server
 export default function PracticeSession({ session, onExit, onFinished }) {
-    const { sessionType, debug: debugMode, grammarPoints = {} } = session;
+    const { sessionType, debug: debugMode } = session;
     const [questions, setQuestions] = useState(session.questions);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [userAnswer, setUserAnswer] = useState("");
@@ -328,7 +328,6 @@ export default function PracticeSession({ session, onExit, onFinished }) {
                 {isGrammarTipOpen && currentQuestionObj.grammar_tips?.length > 0 && (
                     <GrammarTipsSidebar
                         questionObj={currentQuestionObj}
-                        grammarPoints={grammarPoints}
                         isUnitTest={sessionType === "unit_test"}
                         onClose={() => setIsGrammarTipOpen(false)}
                     />

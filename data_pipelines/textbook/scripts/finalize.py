@@ -40,7 +40,8 @@ accumulates).
 
 Step 2 also writes Sentence.glosses, the word-by-word English line: each
 word's VocabSense.gloss for the meaning used there, numbers glossed in code
-(二十 "twenty"). Words whose meaning has no gloss yet are null -- run
+(二十 "twenty"); and Sentence.dictionary, each word with its reading there,
+its gloss and the definition of the meaning used there. Words whose meaning has no gloss yet are null -- run
 gloss_senses.py first.
 
 Tone sandhi itself is vocab_pinyin_utils.apply_tone_sandhi: 不/一 by rule,
@@ -67,7 +68,7 @@ from app.textbook.models import Sentence, SentenceVocab, Vocab, VocabSense
 from data_pipelines.textbook.scripts.vocab_pinyin_utils import apply_tone_sandhi
 from data_pipelines.textbook.scripts.grammar_explanations import fill_course_pinyin
 from data_pipelines.textbook.scripts import grammar_tips
-from data_pipelines.textbook.scripts.grammar_tips import sentence_glosses
+from data_pipelines.textbook.scripts.grammar_tips import sentence_dictionary, sentence_glosses
 
 _SYLLABLE_RE = re.compile(r"([A-Za-züÜvV]+)([1-5])")
 _CJK_RE = re.compile(r"[一-鿿]")
@@ -184,6 +185,7 @@ def finalize_sentence(db, sentence: Sentence, stats: Counter):
     if any(g is None for _, g in glosses):
         stats["sentences whose word-by-word gloss has gaps"] += 1
     sentence.glosses = json.dumps(glosses, ensure_ascii=False)
+    sentence.dictionary = json.dumps(sentence_dictionary(pieces, readings), ensure_ascii=False)
 
 
 def sandhi_pieces(chars: str, pieces: list[tuple[str, list[str]]], stats: Counter) -> tuple[str, list[str]]:

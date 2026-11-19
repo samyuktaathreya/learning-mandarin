@@ -292,7 +292,15 @@ class Sentence(Base):
     [[surface, gloss or null], ...] covering every Chinese character in
     order ([["多", "more"], ["吃", "eat"], ["饭", "food"]]). The gloss is
     VocabSense.gloss of the meaning used HERE; numbers are glossed in code
-    (二十 "twenty"); null = no gloss yet."""
+    (二十 "twenty"); null = no gloss yet.
+    dictionary: the same words with what a learner needs to look them up,
+    written by finalize: JSON [{"word": as written here, "list_word": the
+    list entry when it differs (有点 -> 有点儿) else null, "pinyin": its
+    reading HERE (tone numbers, sandhi applied, like Sentence.pinyin),
+    "gloss": 1-3 words, "definition": the dictionary meaning used in THIS
+    sentence (VocabSense.english, picked by resolve_senses)}, ...]. Numbers
+    have the number as gloss and definition; a word with no meaning yet has
+    null gloss/definition."""
     __tablename__ = "sentences"
 
     id = Column(Integer, primary_key=True)
@@ -314,6 +322,7 @@ class Sentence(Base):
     source_url = Column(Text, nullable=True)              # tatoeba: https://tatoeba.org/en/sentences/show/<id>
     word_split = Column(Text, nullable=True)              # imported: JSON [[surface, list word or null], ...]
     glosses = Column(Text, nullable=True)                 # JSON [[surface, gloss or null], ...] (finalize)
+    dictionary = Column(Text, nullable=True)              # JSON [{word, ...}, ...] (finalize; see docstring)
 
     unit = relationship("Unit", back_populates="sentences")
     vocab_links = relationship("SentenceVocab", back_populates="sentence",
@@ -535,13 +544,21 @@ class GrammarTipExample(Base):
     tip (sentence_grammar.part_id), chosen in code by the finalize stage --
     earliest unit first (the learner knows its words), then with audio,
     then shortest; it has English and a full word-by-word gloss
-    (Sentence.glosses). Rebuilt on every finalize."""
+    (Sentence.glosses). Rebuilt on every finalize.
+    hanzi / pinyin / english / dictionary: copied from the sentence, so an
+    example is complete on its own; dictionary lists each word with its
+    pinyin here, short gloss and the definition used in this sentence (see
+    Sentence.dictionary)."""
     __tablename__ = "grammar_tip_examples"
 
     id = Column(Integer, primary_key=True)
     part_id = Column(Integer, ForeignKey("grammar_tip_parts.id"), nullable=False, index=True)
     sentence_id = Column(Integer, ForeignKey("sentences.id"), nullable=False)
     position = Column(Integer, nullable=False, default=0)
+    hanzi = Column(Text, nullable=True)
+    pinyin = Column(Text, nullable=True)                  # Sentence.pinyin: tone numbers, sandhi applied
+    english = Column(Text, nullable=True)
+    dictionary = Column(Text, nullable=True)              # Sentence.dictionary: each word + its meaning HERE
 
     part = relationship("GrammarTipPart", back_populates="examples")
     sentence = relationship("Sentence")

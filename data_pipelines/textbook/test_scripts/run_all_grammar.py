@@ -1071,7 +1071,7 @@ def _word_count(text: str) -> int:
 
 
 def check_tip_parts(ans, point_words: list[str], level: int, tags: dict,
-                    needed: list[str] | None = None) -> tuple[list, list[str]]:
+                    needed: list[str] | None = None, need_general: bool = False) -> tuple[list, list[str]]:
     """The rules of gr.tip_parts_prompt, checked: (tips, []) or (None, problems).
     `tags`: tagger results for every Chinese run in the answer (tip_chinese).
     `needed`: the point's words its course sentences really use (tip_sample)
@@ -1095,8 +1095,8 @@ def check_tip_parts(ans, point_words: list[str], level: int, tags: dict,
         note = str(t.get("english_note") or "").strip() or None
         structure = [str(x).strip() for x in t.get("structure") or [] if str(x).strip()]
         text = " ".join(x for x in (meaning, placement, note) if x)
-        if not str(t.get("title") or "").strip() or len(name) > 30:
-            problems.append(f"{name}: give a short title (at most 30 characters)")
+        if not str(t.get("title") or "").strip() or len(name) > 40:
+            problems.append(f"{name}: give a short title (at most 40 characters)")
         if not meaning:
             problems.append(f"{name}: \"meaning\" is missing")
         elif words and not any(meaning.startswith(w) for w in words + [str(t.get("title") or "")] if w):
@@ -1130,6 +1130,9 @@ def check_tip_parts(ans, point_words: list[str], level: int, tags: dict,
     if general > 1:
         problems.append("at most one tip may have no words")
     covered = [w for t in out for w in t["words"]]
+    if need_general and not general:
+        problems.append("many course sentences use none of the point's words: add ONE general tip with "
+                        "\"words\": [] that explains the point for them")
     if needed is not None:
         for w in needed:
             if not any(w == c or w + "儿" == c or c + "儿" == w for c in covered):
@@ -1153,15 +1156,21 @@ def tip_chinese(ans) -> list[str]:
     return sorted(runs)
 
 
-def tip_sample(linked, words: list[str], size: int = 20) -> tuple[list[str], list[tuple[str, str]]]:
+GENERAL_TIP_SHARE = 0.2   # this share of a point's sentences using none of its words -> it needs a general tip
+
+
+def tip_sample(linked, words: list[str], size: int = 20) -> tuple[list[str], list[tuple[str, str]], list[str]]:
     """(needed, sentences) for a point's tips, from ALL its course sentences:
     needed = the point's words they really use, on word boundaries (a word
     of 2+ characters inside a longer word counts as that word: 怎么 in
     怎么样 -> 怎么样; a 1-character one doesn't: 常 in 经常 isn't 常);
-    sentences = the 2 shortest for each needed word, then the shortest of
-    the rest, up to `size`. Fixed order, so the prompt is the same each run."""
+    sentences = the 2 shortest for each needed word, the 2 shortest using
+    none of them, then the shortest of the rest, up to `size`;
+    plain = sentences using none of the words, when they are at least
+    GENERAL_TIP_SHARE of all (1-33 "any question": 你呢？) -- the point then
+    needs a general tip. Fixed order, so the prompt is the same each run."""
     from data_pipelines.textbook.scripts.grammar_tips import word_spans
-    uses = {}
+    uses, none = {}, set()
     for x in linked:
         try:
             gl = json.loads(x.glosses) if x.glosses else None
@@ -1169,6 +1178,7 @@ def tip_sample(linked, words: list[str], size: int = 20) -> tuple[list[str], lis
             gl = None
         spans = word_spans(x.hanzi, gl) if isinstance(gl, list) else None
         tokens = [t for t, _ in gl] if isinstance(gl, list) else []
+        found = False
         for w in words:
             if spans is None:
                 hits = [w] if w in x.hanzi else []
@@ -1180,14 +1190,68 @@ def tip_sample(linked, words: list[str], size: int = 20) -> tuple[list[str], lis
                 hits = []
             for h in hits:
                 uses.setdefault(h, set()).add((len(x.hanzi), x.hanzi, x.english))
+                found = True
+        if not found:
+            none.add((len(x.hanzi), x.hanzi, x.english))
+    plain = sorted(none) if linked and len(none) >= GENERAL_TIP_SHARE * len(linked) else []
     picked = []
     for w in sorted(uses):
         picked += sorted(uses[w])[:2]
+    picked += plain[:2]
     for r in sorted({(len(x.hanzi), x.hanzi, x.english) for x in linked}):
         if len(dict.fromkeys(picked)) >= max(size, len(picked)):
             break
         picked.append(r)
-    return sorted(uses), [(h, e) for _, h, e in dict.fromkeys(picked)]
+    return sorted(uses), [(h, e) for _, h, e in dict.fromkeys(picked)], [h for _, h, _ in plain[:2]]
+
+
+_VOCAB_SETS = {}
+
+
+def point_words(code: str, label: str, rule_words) -> list[str]:
+    """Every word that marks the point, from all the places the course knows
+    them: the tested rule's words, hand-matched words (manual_points.json),
+    the old detectors' markers (points found without a tested rule, like
+    1-33 吗/呢) and the real words of its label (1-04 什么、谁、多少、怎么样 ...)."""
+    from data_pipelines.textbook.scripts import detect_grammar as dg
+    if not _VOCAB_SETS:
+        from app.textbook.db_utils import get_session
+        from app.textbook.models import Vocab
+        with get_session() as db:
+            vocab = {h for (h,) in db.query(Vocab.hanzi).filter(Vocab.hsk_level.isnot(None))}
+        _VOCAB_SETS["vocab"], _VOCAB_SETS["chars"] = vocab, {ch for h in vocab for ch in h}
+    manual = tg.load_json(tg.MANUAL_PATH, {}).get(code, {})
+    found = (list(rule_words or []) + list((manual or {}).get("words") or [])
+             + list(dg.GRAMMAR_MARKERS.get(code) or []) + list(tg.EXTRA_MARKERS.get(code) or [])
+             + tg.real_label_words(label or "", _VOCAB_SETS["vocab"], _VOCAB_SETS["chars"]))
+    return [w for w in dict.fromkeys(found) if _CJK_RUN.fullmatch(w)]
+
+
+def real_course_sentences(db) -> dict:
+    """{grammar code: [course sentences linked to it]} from the REAL
+    database, read-only -- the trial's copy leaves out the Tatoeba and
+    AI-written sentences, but they are in the course and learners see the
+    tips on them. Falls back to `db` when there is no real database."""
+    from types import SimpleNamespace
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import Session
+    from app.textbook.models import GrammarTip, Sentence, SentenceGrammar
+    real = getattr(tg, "REAL_DB", None)
+    engine = create_engine(f"sqlite:///file:{real}?mode=ro&uri=true") if real else None
+    src = Session(engine) if engine else db
+    try:
+        rows = (src.query(GrammarTip.grammar_code, Sentence.hanzi, Sentence.english, Sentence.glosses)
+                .join(SentenceGrammar, SentenceGrammar.grammar_tip_id == GrammarTip.id)
+                .join(Sentence, Sentence.id == SentenceGrammar.sentence_id)
+                .filter(Sentence.unit_id.isnot(None), Sentence.english != "").all())
+    finally:
+        if engine:
+            src.close()
+            engine.dispose()
+    out = {}
+    for code, hanzi, english, glosses in rows:
+        out.setdefault(code, []).append(SimpleNamespace(hanzi=hanzi, english=english, glosses=glosses))
+    return out
 
 
 def build_tip_parts(db, tagger, client, words_of: dict) -> dict:
@@ -1197,14 +1261,15 @@ def build_tip_parts(db, tagger, client, words_of: dict) -> dict:
     gr.tip_parts_prompt; checked by check_tip_parts, asked again once with
     the broken rules listed. A point whose tips fail twice gets none (listed)."""
     import hashlib
-    from app.textbook.models import GrammarTip, Sentence, SentenceGrammar
+    from app.textbook.models import GrammarTip
     asg = {p["id"]: p for p in tg.load_json(tg.ASG_PATH, {}).get("points", [])}
     sources = tg.load_json(tg.SOURCES_PATH, {})
     manual = tg.load_json(tg.MANUAL_PATH, {})
     ai_cache = tg.load_json(EXPLANATION_AI_PATH, {})
     saver = CacheSaver(ai_cache)
     today = time.strftime("%Y-%m-%d")
-    jobs = {}
+    jobs, seen_by_tips = {}, {}
+    course_of = real_course_sentences(db)
     for tip in db.query(GrammarTip).filter(GrammarTip.unit_id.isnot(None)).order_by(GrammarTip.id).all():
         c = tip.grammar_code
         content = tg.load_json_str(tip.content_json)
@@ -1213,18 +1278,20 @@ def build_tip_parts(db, tagger, client, words_of: dict) -> dict:
         m = manual.get(c, {}) if isinstance(manual.get(c), dict) else {}
         ids = list(dict.fromkeys(list((sources.get(c) or {}).get("is", {})) + list(m.get("is", {}))))
         pages = [asg[i] for i in ids if i in asg and i not in m.get("not", {})][:3]
-        words = [w for w in words_of.get(c) or [] if _CJK_RUN.fullmatch(w)]
-        linked = (db.query(Sentence).join(SentenceGrammar, SentenceGrammar.sentence_id == Sentence.id)
-                  .filter(SentenceGrammar.grammar_tip_id == tip.id, Sentence.unit_id.isnot(None),
-                          Sentence.english != "").all())
-        needed, course = tip_sample(linked, words)
+        words = point_words(c, tip.raw_text, words_of.get(c))
+        linked = course_of.get(c, [])
+        needed, course, plain = tip_sample(linked, words)
+        seen_by_tips[c] = {"words": words, "needed": needed, "general_needed_for": plain,
+                           "course_sentences": len(linked),
+                           "with_word_split": sum(1 for x in linked if x.glosses),
+                           "sample": [h for h, _ in course]}
         args = (c, tip.hsk_level, tip.raw_text, official, words,
-                [blocks_markdown(p.get("blocks") or [])[:2500] for p in pages], course, needed)
+                [blocks_markdown(p.get("blocks") or [])[:2500] for p in pages], course, needed, plain)
         prompt = gr.tip_parts_prompt(*args)
         key = json.dumps(["tip_parts", gr.TIP_PARTS_VERSION, EXPLAIN_MODEL, c, tip.hsk_level,
                           hashlib.md5(prompt.encode()).hexdigest()], ensure_ascii=False)
         jobs[c] = {"args": args, "key": key, "prompt": prompt, "level": tip.hsk_level, "words": words,
-                   "needed": needed,
+                   "needed": needed, "plain": bool(plain),
                    "sources": [f"AllSet Learning: {p['title']} ({ASG_URL.format(p['id'])})" for p in pages]
                               + ["Official HSK grammar list"]}
 
@@ -1255,7 +1322,7 @@ def build_tip_parts(db, tagger, client, words_of: dict) -> dict:
         if not isinstance(ans, dict):
             return None, None
         tags = tagger.tag_all(tip_chinese(ans), "tip Chinese") if tip_chinese(ans) else {}
-        return check_tip_parts(ans, jobs[c]["words"], jobs[c]["level"], tags, jobs[c]["needed"])
+        return check_tip_parts(ans, jobs[c]["words"], jobs[c]["level"], tags, jobs[c]["needed"], jobs[c]["plain"])
 
     # A point keeps a saved answer that passes the checks (any saved for this version, model and level),
     # so answers already paid for are never paid for again; bump gr.TIP_PARTS_VERSION to rewrite them.
@@ -1319,6 +1386,10 @@ def build_tip_parts(db, tagger, client, words_of: dict) -> dict:
           f"({reused} from answers saved before)")
     report = tg.OUT_DIR / "short_tips_problems.txt"
     report.parent.mkdir(parents=True, exist_ok=True)
+    for c in seen_by_tips:
+        seen_by_tips[c]["tip_words"] = [t["words"] for t in out.get(c) or []]
+    (tg.OUT_DIR / "short_tips_inputs.json").write_text(json.dumps(seen_by_tips, ensure_ascii=False, indent=1),
+                                                       encoding="utf-8")
     with open(report, "w", encoding="utf-8") as f:
         for c, problems in failed:
             f.write(f"{c}\n" + "".join(f"  - {p}\n" for p in problems))

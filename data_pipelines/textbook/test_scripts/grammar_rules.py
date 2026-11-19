@@ -459,7 +459,7 @@ TIP_TERMS_BANNED = ("complement", "particle", "adverb", "aspect", "predicate", "
 
 def tip_parts_prompt(code: str, level: int, label: str, official: list[str], words: list[str],
                      pages: list[str], sentences: list[tuple[str, str]], needed: list[str] | None = None,
-                     problems: list[str] | None = None) -> str:
+                     plain: list[str] | None = None, problems: list[str] | None = None) -> str:
     """The SHORT tips learners see. The rules here are checked again in code
     (run_all_grammar.check_tip_parts); `problems` = what the last answer broke."""
     page_text = "\n\n".join(f"--- wiki page {i + 1} ---\n{p}" for i, p in enumerate(pages)) or "(no wiki page)"
@@ -475,6 +475,8 @@ Official examples: {' / '.join(official) or '(none)'}
 Words the course uses to find this point in sentences: {' '.join(words) or '(none: a sentence pattern)'}
 Words of this point the course sentences ACTUALLY use -- EVERY one needs a tip (or must be in a tip's
 "words"): {' '.join(needed) if needed else '(none: a sentence pattern)'}
+{('Many course sentences use none of these words (e.g. ' + ' / '.join(plain) + '): give ONE general tip with '
+  '"words": [] that explains the point for them.') if plain else ''}
 
 Make ONE tip per word or pattern this point teaches (a point listing 有点、挺、更 gets three tips; a point
 with one word gets one). Write tips ONLY for the uses the course sentences below actually have -- those

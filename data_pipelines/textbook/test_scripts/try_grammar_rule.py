@@ -116,13 +116,18 @@ _CJK_RE = re.compile(r"[㐀-鿿]")
 
 # --------------------------------- SETUP ---------------------------------
 
+REAL_DB = None
+
+
 def point_db_at_scratch_copy():
     """Copies the real textbook.db and makes the app use the copy. Runs
     before anything imports app.textbook.db_utils (it opens the DB at import)."""
     import app.core.config.data as data_cfg
+    global REAL_DB
     real = Path(data_cfg.TEXTBOOK_DB)
     if not real.exists():
         raise SystemExit(f"No database at {real} -- run main.py first.")
+    REAL_DB = real                       # read-only lookups of the real course (run_all_grammar's short tips)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     for old in OUT_DIR.glob("scratch_textbook*.db"):          # left over from runs that crashed
         if old != SCRATCH_DB and time.time() - old.stat().st_mtime > 6 * 3600:

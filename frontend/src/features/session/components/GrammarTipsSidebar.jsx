@@ -6,7 +6,7 @@ const hasChinese = (str) => /[一-鿿]/.test(str);
 // The session's one grammar panel, shown beside the question (below it on
 // narrow screens). Opened by the "Show grammar tip" button in Question /
 // SpeakingQuestion via PracticeSession's onToggleGrammar.
-export default function GrammarTipSidebar({ questionObj, grammarPoints, isUnitTest, onClose }) {
+export default function GrammarTipSidebar({ questionObj, isUnitTest, onClose }) {
     const tips = Array.isArray(questionObj.grammar_tips) ? questionObj.grammar_tips : [];
 
     // Chinese in explanations is clickable for definitions, like the question text.
@@ -25,14 +25,14 @@ export default function GrammarTipSidebar({ questionObj, grammarPoints, isUnitTe
                 {tips.length === 0
                     ? <p style={{ opacity: 0.6 }}>No grammar tips for this question.</p>
                     : tips.map((tip, i) => (
-                        <div key={tip.grammar_code ?? i} className="grammar-tip-entry">
-                            <GrammarTip
-                                tip={tip}
-                                point={grammarPoints?.[tip.grammar_code]}
-                                renderText={renderText}
-                            />
-                            {i < tips.length - 1 && <hr />}
-                        </div>
+                        // One dropdown per grammar point in the sentence; the
+                        // first (new points sort first) starts open.
+                        <GrammarTip
+                            key={tip.grammar_code ?? i}
+                            tip={tip}
+                            renderText={renderText}
+                            defaultOpen={i === 0}
+                        />
                     ))}
             </div>
         </aside>
